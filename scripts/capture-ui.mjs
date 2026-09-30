@@ -64,6 +64,7 @@ try {
     await expect(dialog.locator('[role="option"]').first()).toBeVisible();
     assert.equal(await dialog.evaluate((el) => el.matches(':modal')), true);
     await shot('02-command-palette');
+    const close = dialog.getByRole('button', {name: '検索を閉じる'}), last = dialog.getByLabel('タグ', {exact: true});
     const before = page.url();
     await close.focus(); await close.press('Shift+Tab'); await expect(last).toBeFocused();
     await last.press('Tab'); await expect(close).toBeFocused();
