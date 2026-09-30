@@ -49,11 +49,16 @@ export default function GlobalSearch() {
     } else if (event.key === 'Enter' && results.length) {event.preventDefault(); activate(results[selected]);}
   };
   const onDialogKey = (event) => {
-    if (event.key === 'Escape' && !event.isComposing) {event.preventDefault(); setSearchOpen(false);}
-    // showModal() provides native modal focus containment. Avoid competing
-    // manual Tab wrapping, which can race the browser's dialog focus algorithm.
+    if (event.key === 'Escape' && !event.isComposing) {event.preventDefault(); setSearchOpen(false); return;}
+    if (event.key !== 'Tab') return;
+    const focusable = Array.from(dialog.current.querySelectorAll('button:not([disabled]):not([tabindex="-1"]), input, select, a[href]'))
+      .filter((el) => typeof el.getClientRects === 'function' && el.getClientRects().length);
+    if (!focusable.length) return;
+    const activeIndex = focusable.indexOf(document.activeElement);
+    if (event.shiftKey && activeIndex <= 0) {event.preventDefault(); focusable.at(-1).focus();}
+    else if (!event.shiftKey && (activeIndex < 0 || activeIndex === focusable.length - 1)) {event.preventDefault(); focusable[0].focus();}
   };
-  return <dialog ref={dialog} className="cc-palette" aria-labelledby="cc-search-title" onCancel={(e) => {e.preventDefault(); setSearchOpen(false);}} onKeyDown={onDialogKey} onClick={(e) => {if (e.target === dialog.current) setSearchOpen(false);}}>
+  return <dialog ref={dialog} className="cc-palette" aria-labelledby="cc-search-title" onCancel={(e) => {e.preventDefault(); setSearchOpen(false);}} onKeyDownCapture={onDialogKey} onClick={(e) => {if (e.target === dialog.current) setSearchOpen(false);}}>
     <div className="cc-palette-inner">
       <div className="cc-palette-top"><label id="cc-search-title" htmlFor="cc-search-input">サイト内検索</label><button type="button" className="cc-icon-button" aria-label="検索を閉じる" onClick={() => setSearchOpen(false)}>×</button></div>
       <input id="cc-search-input" ref={input} type="search" value={query} onChange={(e) => setQuery(e.target.value)} onCompositionStart={() => {composing.current = true;}} onCompositionEnd={() => {composing.current = false;}} onKeyDown={onInputKey} role="combobox" aria-autocomplete="list" aria-expanded={searchOpen} aria-controls="cc-search-results" aria-activedescendant={results.length ? `cc-result-${Math.min(selected, results.length - 1)}` : undefined} placeholder="資料・記事・見出しを検索" autoComplete="off" />
