@@ -27,7 +27,7 @@ function sidebarLabels(sidebars) {
   return result;
 }
 module.exports = function collectaneaCatalog(context, options = {}) {
-  let searchModule, catalog;
+  let searchModule, catalogModule, catalog;
   async function record(meta, kind, pluginId, navLabels = new Map()) {
     const fm = meta.frontMatter || {};
     const source = String(meta.source || '').replace(/^@site\//, '');
@@ -87,11 +87,11 @@ module.exports = function collectaneaCatalog(context, options = {}) {
       catalog = makeCatalog(records);
       const {search, ...compact} = catalog;
       searchModule = await actions.createData('search-index.json', JSON.stringify(search));
-      actions.setGlobalData(compact);
+      catalogModule = await actions.createData('catalog-data.json', JSON.stringify(compact));
     },
     configureWebpack() {
-      if (!searchModule) throw new Error('Catalog lifecycle did not run before webpack. Check the pinned Docusaurus contract.');
-      return {resolve: {alias: {'@collectanea/search-index': searchModule}}};
+      if (!searchModule || !catalogModule) throw new Error('Catalog lifecycle did not run before webpack. Check the pinned Docusaurus contract.');
+      return {resolve: {alias: {'@collectanea/search-index': searchModule, '@collectanea/catalog-data': catalogModule}}};
     },
     async postBuild({outDir}) {
       const {search, ...compact} = catalog;
