@@ -1,0 +1,241 @@
+# COLLECTANEA — 要件
+
+Status: Hearing
+Updated: 2026-09-30
+
+## 1. 目的
+
+COLLECTANEAは、技術マニュアル、技術記事、リファレンス、調査記録を公開・検索・閲覧するための技術資料サイトとする。
+
+実装基盤はDocusaurus / Markdown・MDX / GitHub / GitHub Pagesを維持する。
+
+## 2. 情報構造
+
+主要コンテンツは「資料単位」で扱う。
+
+例:
+- DaVinci Resolve / Fusion
+- Blender
+- After Effects
+- Git
+- Cavalry
+
+資料とは別に、多軸タグを持つ。
+
+例:
+- software
+- DaVinci
+- Blender
+- manual
+- article
+- reference
+- research
+
+同一資料・ページは複数タグへ所属できる。
+
+## 3. Home
+
+### 3.1 検索
+
+ホーム上部に大きな検索欄を置く。
+
+検索はCommand Palette型とし、入力中に候補を表示する。
+
+検索対象:
+- 資料
+- Manual page
+- Article
+- Reference
+- Research
+- Node / topic
+- Tag
+
+検索結果には種類と所属を表示する。
+
+例:
+- NODE — Merge — Fusion > Nodes > Compositing
+- ARTICLE — Expressionで位置を同期する — DaVinci / Fusion
+
+フィルタ:
+- All
+- Manual
+- Article
+- Reference
+- Research
+- software
+- DaVinci
+- Blender
+- その他タグ
+
+GUIから常に利用可能にする。Ctrl/Cmd + Kは補助ショートカットとして許可するが、必須操作にしない。
+
+### 3.2 資料パネル
+
+検索の下に、資料単位のPanel Viewを表示する。
+
+デフォルト並び順は「最近更新」。
+
+ユーザーが並び順を変更できる。
+
+候補:
+- 最近更新
+- 新規追加
+- 名前順
+- 資料量
+
+表示方式は切替可能にする。
+
+- Panel
+- List
+
+パネルは画像前提にしない。NotionのBoard / Galleryの情報整理感を参照し、文字情報だけでも成立させる。
+
+各パネルに最低限表示する情報:
+- 資料名
+- 概要
+- タグ
+- 更新日
+- 必要に応じてページ数 / Node数 / Article数など
+
+## 4. Manualトップ
+
+各Manualには専用トップを持つ。
+
+目的:
+- Manual全体の構造を一画面で把握できる
+- 目的の章・ページへ短距離で移動できる
+
+最低要件:
+- Manual名
+- Manual内検索
+- 主要カテゴリ
+- 全階層Tree
+- 各章 / ページへのリンク
+- 必要に応じて最近更新
+
+カードだけで階層を隠さず、全階層を一覧できるUIを優先する。
+
+## 5. 本文ページ
+
+デスクトップの基本構造:
+
+1. 左: Hierarchy
+2. 中央: Article
+3. 右: Heading Rail
+
+### 5.1 左Hierarchy
+
+- Manual / 資料内の階層Tree
+- 開閉可能
+- 現在ページを明示
+- Tree内検索またはフィルタを持てる
+- 開閉状態はページ遷移で保持する
+
+### 5.2 左Hierarchyを閉じた場合
+
+単にsidebar幅を0にするだけではなく、本文レイアウトを再計算する。
+
+Hierarchy CLOSED時:
+- 本文はviewport基準で中央へ再センタリングする
+- 左側だけ空いた非対称レイアウトにしない
+- Article + Heading Railを1つの読書レイアウトとして扱う
+
+### 5.3 本文
+
+- Markdown / MDX前提
+- 読みやすい最大幅を持つ
+- 長文でも中央の読書位置を維持する
+
+## 6. Heading Rail / 右目次
+
+Notionの見出しナビゲーション表現を参考に、通常時は文字ではなく横線だけを表示する。
+
+Markdown見出しレベルに応じて線長を変える。
+
+- H1: 最長
+- H2: 中
+- H3: 短
+
+例:
+
+```
+━━━━━━━  H1
+━━━━━    H2
+━━━      H3
+━━━      H3
+━━━━━    H2
+```
+
+挙動:
+- Markdown見出しから自動生成
+- hoverで見出し名を表示
+- clickで該当anchorへ移動
+- scrollに追従して現在見ている見出しをactive表示
+- active状態は輝度差を明確に使う
+- hover時も輝度変化を使う
+- 必要に応じて太さ・長さ・opacityも併用
+- 通常時は本文を邪魔しない細いrail
+- touchではtap等で利用可能にする
+- reduced-motionを尊重する
+
+「輝度」は主要な状態表現として扱い、inactive / hover / activeの差が明確に知覚できること。
+
+## 7. Articles
+
+時系列ブログを主UIにしない。
+
+技術記事DBとして扱う。
+
+最低要件:
+- 検索
+- タグフィルタ
+- Panel / List切替
+- 最近更新を基本並び順とする
+- 並び替え可能
+- 記事ごとに所属資料 / タグ / 更新日を表示
+
+## 8. モバイル
+
+- 左Hierarchyはoverlay / drawerとして表示
+- 本文幅をHierarchyの開閉で圧迫しない
+- Heading Railはdesktopと同じ常時占有を強制しない
+- hover依存にしない
+
+## 9. Interaction / Visual
+
+- 高密度
+- Cosense寄りの一覧性
+- NotionのBoard / Gallery / heading navigationを参考にする
+- 大きな空白中心のHeroは避ける
+- 装飾より情報構造を優先
+- ポエム的・抽象的なコピーを置かない
+- 細線・neutral・高密度を基本とする
+- pointer-capable要素はfluid / proximity hoverを基本とする
+- hoverでhit targetやlayoutを動かさない
+- focus-visibleを必ず持つ
+- reduced-motion対応
+
+## 10. Contribution
+
+- GitHub Issueで誤り・古い情報・不足を報告できる
+- Pull Requestで修正できる
+- 各ページから編集導線を持つ
+- 公式資料を大量転載せず、独自説明と出典を分離する
+
+## 11. Acceptance
+
+最低限、以下が実際に操作できればUI要件の第一段階Doneとする。
+
+1. Homeに横断検索と資料Panel Viewがある
+2. 検索結果を種類 / タグで絞れる
+3. 資料一覧を最近更新基準で表示し、並び順を変更できる
+4. Panel / Listを切り替えられる
+5. Manualトップで全階層を一覧できる
+6. 本文ページでHierarchy / Article / Heading Railが成立する
+7. Hierarchyを閉じると本文がviewport中央へ再センタリングされる
+8. Heading RailがH1/H2/H3を線長で表現する
+9. Heading Rail hoverで見出し名が表示される
+10. Heading Rail clickで該当見出しへ移動できる
+11. scroll位置に応じてactive見出しの輝度が変化する
+12. MobileでHierarchyがoverlayとして使える
+13. Markdown / MDXから階層・見出しナビゲーションを生成できる
