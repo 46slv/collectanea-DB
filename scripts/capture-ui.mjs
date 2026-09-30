@@ -81,7 +81,7 @@ try {
   await check('manual-tree-and-scoped-recent', async () => {
     await go('/manuals/fusion');
     const tree = page.locator('.cc-manual .cc-tree').first();
-    await expect(tree.getByRole('link', {name: 'Merge', exact: true})).toBeVisible();
+    await expect(tree.getByRole('link', {name: 'Merge', exact: true}).first()).toBeVisible();
     const recents = await page.locator('.cc-recent a').evaluateAll((links) => links.map((a) => a.getAttribute('href')));
     assert.ok(recents.length && recents.every((href) => href.includes('/manuals/fusion/')));
     await expect(page.locator('.cc-content-status')).toHaveCount(1);
@@ -136,11 +136,12 @@ try {
     report.measured.contrast = {};
     for (const theme of ['light', 'dark']) {
       await page.evaluate((value) => document.documentElement.setAttribute('data-theme', value), theme);
+      await page.waitForFunction(() => getComputedStyle(document.documentElement).getPropertyValue('--cc-canvas').trim().startsWith('#'));
       const tokens = await page.evaluate(() => {
         const style = getComputedStyle(document.documentElement), names = ['canvas','surface','raised','text','secondary','muted','rail-idle','rail-current','focus'];
         return Object.fromEntries(names.map((name) => {const hex = style.getPropertyValue(`--cc-${name}`).trim(); return [name, [1,3,5].map((i) => parseInt(hex.slice(i, i + 2), 16))];}));
       });
-      for (const values of Object.values(tokens)) assert.ok(values[0] === values[1] && values[1] === values[2], 'Tinted UI token');
+      for (const [name, values] of Object.entries(tokens)) assert.ok(values.every(Number.isFinite) && values[0] === values[1] && values[1] === values[2], `Tinted or invalid UI token ${name}: ${values.join(',')}`);
       const measurements = {};
       for (const text of ['text','secondary','muted']) for (const surface of ['canvas','surface','raised']) {const ratio = contrast(tokens[text], tokens[surface]); measurements[`${text}/${surface}`] = ratio; assert.ok(ratio >= 4.5, `${theme} ${text}/${surface}: ${ratio}`);}
       assert.ok(contrast(tokens['rail-idle'], tokens.canvas) >= 3);
@@ -163,7 +164,8 @@ try {
     await expect(page).toHaveURL(/#inputs$/); await expect(page.locator('.cc-mobile-outline')).not.toHaveAttribute('open');
     await page.locator('.navbar__toggle').click();
     const drawer = page.locator('.navbar-sidebar'); await expect(drawer).toBeVisible();
-    const bounds = await drawer.boundingBox(); assert.ok(bounds.x >= -1 && bounds.x < 20);
+    await expect.poll(async () => (await drawer.boundingBox())?.x ?? -999).toBeGreaterThanOrEqual(-1);
+    const bounds = await drawer.boundingBox(); assert.ok(bounds.x < 20);
     await shot('13-mobile-hierarchy');
   });
   await check('short-viewport-palette', async () => {
