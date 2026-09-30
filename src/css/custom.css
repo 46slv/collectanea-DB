@@ -70,7 +70,7 @@ html[data-theme='dark'] {
   --ifm-color-primary-lighter: #e5e5e5;
   --ifm-color-primary-lightest: #eeeeee;
 }
-html {scroll-behavior: smooth; scrollbar-gutter: stable;}
+html {scroll-behavior: smooth; scrollbar-gutter: stable both-edges;}
 body {background: var(--cc-canvas); color: var(--cc-text);}
 :where(a, button, input, select, summary):focus-visible {outline: 2px solid var(--cc-focus); outline-offset: 3px;}
 button, input, select {font: inherit;}
