@@ -2,9 +2,7 @@
 title: COLLECTANEAを始める
 description: 公開技術資料庫COLLECTANEAの目的と運用方針。
 slug: collectanea-start
-authors:
-  - name: 46slv
-    url: https://github.com/46slv
+authors: [46slv]
 tags: [collectanea, documentation]
 ---
 
