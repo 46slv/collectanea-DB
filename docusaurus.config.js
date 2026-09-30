@@ -18,6 +18,17 @@ const config = {
     locales: ['ja'],
   },
 
+  // Webfonts load here with display=swap so text never blocks on fonts.
+  // The single site search is the owned GlobalSearch palette (Root.js);
+  // the duplicate navbar search-local theme was removed in R2.
+  stylesheets: [
+    {
+      href: 'https://fonts.googleapis.com/css2?family=Lexend:wght@400;500;600&family=Noto+Sans+JP:wght@400;500;600&display=swap',
+      type: 'text/css',
+      rel: 'stylesheet',
+    },
+  ],
+
   presets: [
     [
       'classic',
@@ -79,26 +90,6 @@ const config = {
     ],
   ],
 
-  themes: [
-    [
-      require.resolve('@easyops-cn/docusaurus-search-local'),
-      {
-        hashed: 'filename',
-        indexDocs: true,
-        indexBlog: true,
-        indexPages: true,
-        docsRouteBasePath: ['manuals', 'reference', 'research'],
-        docsDir: ['manuals', 'reference', 'research'],
-        blogRouteBasePath: 'articles',
-        blogDir: 'articles',
-        language: ['en', 'ja'],
-        highlightSearchTermsOnTargetPage: true,
-        explicitSearchResultPath: true,
-        searchBarPosition: 'right',
-      },
-    ],
-  ],
-
   themeConfig: {
     metadata: [
       {
@@ -148,7 +139,8 @@ const config = {
     },
     docs: {
       sidebar: {
-        hideable: true,
+        // Owned explicitly by Root.js + DocItem/Layout (persisted, discoverable).
+        hideable: false,
         autoCollapseCategories: false,
       },
     },

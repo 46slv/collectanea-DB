@@ -1,163 +1,140 @@
-export const CONTENT_TYPES = ['All', 'Manual', 'Article', 'Reference', 'Research'];
-export const DOMAINS = ['All', 'Software', 'DaVinci', 'Blender', 'Adobe', 'Development'];
+import generated from './generated-catalog.json';
 
+export const GENERATED_CANDIDATE = generated.candidate ?? 'unknown';
+export const CATALOG_PAGES = generated.pages ?? [];
+
+export const CONTENT_TYPES = ['All', 'Manual', 'Article', 'Reference', 'Research'];
+export const DOMAINS = ['All', 'DaVinci', 'Fusion', 'Development', 'collectanea', 'documentation'];
+
+function pagesForMaterial(materialId) {
+  return CATALOG_PAGES.filter((page) => page.material === materialId);
+}
+
+function latestUpdate(pages) {
+  const dates = pages.map((page) => page.updated).filter(Boolean).sort();
+  return dates.length ? dates[dates.length - 1] : null;
+}
+
+// Materials are derived from the generated page catalog. Page counts are
+// counts of real Markdown/MDX pages (heading anchors are never counted).
+// Subjects without authored content are explicitly planned and carry no
+// fabricated dates, counts, or destination links.
 export const MATERIALS = [
   {
-    id: 'davinci-resolve',
-    title: 'DaVinci Resolve',
-    summary: '映像編集・カラー・VFXを横断する制作資料。Fusion日本語リファレンスを含みます。',
+    id: 'fusion-manual',
+    title: 'Fusion 日本語リファレンス',
+    summary: 'DaVinci Resolve Fusionの概念・ノード・Expression・レシピを日本語で整理する非公式ドラフト。',
     kind: 'Manual',
     domain: 'DaVinci',
-    tags: ['Software', 'DaVinci', 'Fusion'],
-    updated: '2026-09-30',
+    tags: ['DaVinci', 'Fusion', 'Manual'],
+    updated: latestUpdate(pagesForMaterial('fusion-manual')),
     href: '/manuals/fusion',
-    counts: [
-      ['Nodes', 128],
-      ['Recipes', 42],
-      ['Concepts', 18],
-    ],
+    status: 'draft',
+    pageCount: pagesForMaterial('fusion-manual').length,
+  },
+  {
+    id: 'articles',
+    title: 'Articles',
+    summary: '制作・CG・開発の技術記事。時系列ではなく検索・タグ・更新順のDBとして読む。',
+    kind: 'Article',
+    domain: 'Development',
+    tags: ['Article'],
+    updated: latestUpdate(pagesForMaterial('articles')),
+    href: '/articles',
+    status: 'active',
+    pageCount: pagesForMaterial('articles').length,
+  },
+  {
+    id: 'reference',
+    title: 'Reference',
+    summary: '用語・仕様・式を素早く引くための資料。',
+    kind: 'Reference',
+    domain: 'Development',
+    tags: ['Reference'],
+    updated: latestUpdate(pagesForMaterial('reference')),
+    href: '/reference',
+    status: 'active',
+    pageCount: pagesForMaterial('reference').length,
+  },
+  {
+    id: 'research',
+    title: 'Research',
+    summary: '調査・比較・検証の記録。結論だけでなく根拠へ戻れる形で残す。',
+    kind: 'Research',
+    domain: 'Development',
+    tags: ['Research'],
+    updated: latestUpdate(pagesForMaterial('research')),
+    href: '/research',
+    status: 'active',
+    pageCount: pagesForMaterial('research').length,
   },
   {
     id: 'blender',
     title: 'Blender',
-    summary: 'Geometry Nodes、モデリング、procedural assemblyの実践資料。',
+    summary: '計画中 — 著者コンテンツが追加されるまで空のまま保持する。',
     kind: 'Manual',
     domain: 'Blender',
-    tags: ['Software', 'Blender', '3D'],
-    updated: '2026-09-29',
-    href: '/research',
-    counts: [
-      ['Geometry Nodes', 62],
-      ['Modeling', 48],
-      ['Research', 18],
-    ],
+    tags: ['Blender'],
+    updated: null,
+    href: null,
+    status: 'planned',
+    pageCount: 0,
   },
   {
     id: 'after-effects',
     title: 'After Effects',
-    summary: 'Expression、scripting、motion graphicsの参照資料。',
+    summary: '計画中 — 著者コンテンツが追加されるまで空のまま保持する。',
     kind: 'Reference',
     domain: 'Adobe',
-    tags: ['Software', 'Adobe', 'Motion'],
-    updated: '2026-09-27',
-    href: '/reference',
-    counts: [
-      ['Expressions', 56],
-      ['Scripting', 24],
-      ['Workflow', 20],
-    ],
+    tags: ['Adobe'],
+    updated: null,
+    href: null,
+    status: 'planned',
+    pageCount: 0,
   },
   {
     id: 'cavalry',
     title: 'Cavalry',
-    summary: 'リアルタイムモーショングラフィックスをAE基準で読み替える資料。',
+    summary: '計画中 — 著者コンテンツが追加されるまで空のまま保持する。',
     kind: 'Manual',
-    domain: 'Software',
-    tags: ['Software', 'Motion', 'Procedural'],
-    updated: '2026-09-25',
-    href: '/manuals',
-    counts: [
-      ['Basics', 18],
-      ['Advanced', 12],
-      ['Recipes', 10],
-    ],
+    domain: 'Motion',
+    tags: ['Motion'],
+    updated: null,
+    href: null,
+    status: 'planned',
+    pageCount: 0,
   },
   {
     id: 'git-github',
     title: 'Git / GitHub',
-    summary: '履歴管理、collaboration、CI、運用判断のリファレンス。',
+    summary: '計画中 — 著者コンテンツが追加されるまで空のまま保持する。',
     kind: 'Reference',
     domain: 'Development',
-    tags: ['Software', 'Git', 'Development'],
-    updated: '2026-09-28',
-    href: '/reference',
-    counts: [
-      ['Git', 42],
-      ['GitHub', 28],
-      ['CI', 16],
-    ],
-  },
-  {
-    id: 'development',
-    title: 'Development',
-    summary: '開発環境、tooling、UI、automationに関する技術記事と調査。',
-    kind: 'Research',
-    domain: 'Development',
-    tags: ['Development', 'Tooling', 'UI'],
-    updated: '2026-09-24',
-    href: '/research',
-    counts: [
-      ['Tooling', 32],
-      ['Workflow', 20],
-      ['UI', 14],
-    ],
+    tags: ['Git'],
+    updated: null,
+    href: null,
+    status: 'planned',
+    pageCount: 0,
   },
 ];
 
+// Manual tree contains only routes present in the generated catalog.
+// No heading-fragment links: every href is a real page route.
 export const FUSION_TREE = [
   {id: 'getting-started', title: 'はじめに', href: '/manuals/fusion/getting-started'},
-  {
-    id: 'concepts',
-    title: 'Concepts',
-    href: '/manuals/fusion/concepts',
-    children: [
-      {id: 'concepts-data', title: 'Image / Mask / Data', href: '/manuals/fusion/concepts#image--mask--data'},
-      {id: 'concepts-alpha', title: 'Alphaと合成', href: '/manuals/fusion/concepts#alphaと合成'},
-      {id: 'concepts-coordinates', title: '座標とCenter', href: '/manuals/fusion/concepts#座標とcenter'},
-    ],
-  },
+  {id: 'concepts', title: 'Concepts', href: '/manuals/fusion/concepts'},
   {
     id: 'nodes',
     title: 'Nodes',
     href: '/manuals/fusion/nodes',
     children: [
-      {
-        id: 'nodes-compositing',
-        title: 'Compositing',
-        href: '/manuals/fusion/nodes#compositing',
-        children: [
-          {id: 'merge', title: 'Merge', href: '/manuals/fusion/nodes/merge'},
-          {id: 'channel-booleans', title: 'Channel Booleans', href: '/manuals/fusion/nodes#channel-booleans'},
-        ],
-      },
-      {
-        id: 'nodes-generator',
-        title: 'Generator',
-        href: '/manuals/fusion/nodes#generator',
-        children: [
-          {id: 'background', title: 'Background', href: '/manuals/fusion/nodes/background'},
-          {id: 'text-plus', title: 'Text+', href: '/manuals/fusion/nodes#text'},
-        ],
-      },
-      {
-        id: 'nodes-transform',
-        title: 'Transform',
-        href: '/manuals/fusion/nodes#transform',
-        children: [
-          {id: 'transform', title: 'Transform', href: '/manuals/fusion/nodes/transform'},
-          {id: 'resize', title: 'Resize', href: '/manuals/fusion/nodes#resize'},
-        ],
-      },
+      {id: 'nodes-merge', title: 'Merge', href: '/manuals/fusion/nodes/merge'},
+      {id: 'nodes-background', title: 'Background', href: '/manuals/fusion/nodes/background'},
+      {id: 'nodes-transform', title: 'Transform', href: '/manuals/fusion/nodes/transform'},
     ],
   },
-  {
-    id: 'expressions',
-    title: 'Expressions',
-    href: '/manuals/fusion/expressions',
-    children: [
-      {id: 'expression-reference', title: '他ノードを参照する', href: '/manuals/fusion/expressions#他ノードを参照する'},
-      {id: 'expression-layout', title: '値を連動する', href: '/manuals/fusion/expressions#値を連動する'},
-    ],
-  },
-  {
-    id: 'recipes',
-    title: 'Recipes',
-    href: '/manuals/fusion/recipes',
-    children: [
-      {id: 'recipe-circle', title: '線だけの円', href: '/manuals/fusion/recipes#線だけの円'},
-      {id: 'recipe-sync', title: '位置を同期する', href: '/manuals/fusion/recipes#位置を同期する'},
-    ],
-  },
+  {id: 'expressions', title: 'Expressions', href: '/manuals/fusion/expressions'},
+  {id: 'recipes', title: 'Recipes', href: '/manuals/fusion/recipes'},
   {id: 'troubleshooting', title: 'Troubleshooting', href: '/manuals/fusion/troubleshooting'},
 ];
 
@@ -169,49 +146,41 @@ export function flattenTree(nodes, parent = []) {
   });
 }
 
-const MATERIAL_SEARCH = MATERIALS.map((material) => ({
-  id: `material-${material.id}`,
-  title: material.title,
-  summary: material.summary,
-  type: material.kind,
-  domain: material.domain,
-  tags: material.tags,
-  hierarchy: material.title,
-  href: material.href,
+function hierarchyFor(page) {
+  if (page.route.startsWith('/manuals/fusion')) {
+    const rest = page.route.replace('/manuals/fusion', '').replace(/^\//, '').replace(/\//g, ' › ');
+    return rest ? `Fusion › ${rest}` : 'Fusion';
+  }
+  if (page.route.startsWith('/manuals')) return 'Manuals';
+  if (page.route.startsWith('/articles')) return 'Articles';
+  if (page.route.startsWith('/reference')) return 'Reference';
+  if (page.route.startsWith('/research')) return 'Research';
+  return 'Site';
+}
+
+function domainFor(page) {
+  if (page.material === 'fusion-manual') return 'DaVinci';
+  if (page.type === 'Article') return 'Development';
+  return 'Development';
+}
+
+// The single authoritative search model: real pages only. New Markdown files
+// appear here after `npm run catalog` without touching component data.
+export const SEARCH_ENTRIES = CATALOG_PAGES.filter((page) => page.route !== '/manuals/fusion').map((page) => ({
+  id: `page-${page.route}`,
+  title: page.title,
+  summary: page.description ?? '',
+  type: page.type,
+  domain: domainFor(page),
+  tags: page.tags ?? [],
+  hierarchy: hierarchyFor(page),
+  href: page.route,
+  updated: page.updated ?? null,
 }));
 
-const FUSION_SEARCH = flattenTree(FUSION_TREE).map((item) => ({
-  id: `fusion-${item.id}`,
-  title: item.title,
-  summary: item.children?.length ? `${item.children.length}件の下位項目` : 'Fusion日本語リファレンス',
-  type: item.children?.length ? 'Page' : 'Reference',
-  domain: 'DaVinci',
-  tags: ['Software', 'DaVinci', 'Fusion'],
-  hierarchy: ['Fusion', ...item.hierarchy].join(' › '),
-  href: item.href,
-}));
-
-export const SEARCH_ENTRIES = [
-  ...MATERIAL_SEARCH,
-  ...FUSION_SEARCH,
-  {
-    id: 'article-circle',
-    title: 'Fusionで線だけの円を作る',
-    summary: 'EllipseとBackgroundを使った基本構成。',
-    type: 'Article',
-    domain: 'DaVinci',
-    tags: ['Fusion', 'Recipe'],
-    hierarchy: 'Articles › DaVinci › Fusion',
-    href: '/articles/collectanea-start',
-  },
-  {
-    id: 'reference-glossary',
-    title: 'Technical Glossary',
-    summary: '制作・CG・開発の用語を横断するリファレンス。',
-    type: 'Reference',
-    domain: 'Development',
-    tags: ['Reference', 'Glossary'],
-    hierarchy: 'Reference',
-    href: '/reference',
-  },
-];
+export function recentPages(limit = 4) {
+  return [...CATALOG_PAGES]
+    .filter((page) => page.route !== '/manuals' && page.route !== '/manuals/fusion')
+    .sort((a, b) => (b.updated ?? '').localeCompare(a.updated ?? ''))
+    .slice(0, limit);
+}

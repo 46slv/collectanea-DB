@@ -1,26 +1,30 @@
 import React, {useEffect, useMemo, useState} from 'react';
 import Link from '@docusaurus/Link';
-import CommandPalette from '../CommandPalette';
-import {CONTENT_TYPES, DOMAINS, MATERIALS, SEARCH_ENTRIES} from '../../data/catalog';
+import {CONTENT_TYPES, DOMAINS, MATERIALS, CATALOG_PAGES} from '../../data/catalog';
+import {openSiteSearch} from '@site/src/theme/Root';
 import styles from './styles.module.css';
 
 const STORAGE_KEY = 'collectanea.explorer.v1';
+const SORTS = ['updated-desc', 'updated-asc', 'name', 'volume'];
+const VIEWS = ['panel', 'list'];
+const TYPES = CONTENT_TYPES;
+const DOMAINS_FILTER = ['All', 'DaVinci', 'Fusion', 'Blender', 'Adobe', 'Development', 'Motion', 'Git'];
 
-function loadPreferences() {
-  if (typeof window === 'undefined') return {};
-  try {
-    return JSON.parse(window.localStorage.getItem(STORAGE_KEY) ?? '{}');
-  } catch {
-    return {};
-  }
+function isValid(value, allowed) {
+  return allowed.includes(value) ? value : null;
 }
 
 function formatDate(value) {
-  return new Intl.DateTimeFormat('ja-JP', {
-    year: 'numeric',
-    month: '2-digit',
-    day: '2-digit',
-  }).format(new Date(`${value}T00:00:00`));
+  if (!value) return '—';
+  try {
+    return new Intl.DateTimeFormat('ja-JP', {
+      year: 'numeric',
+      month: '2-digit',
+      day: '2-digit',
+    }).format(new Date(`${value}T00:00:00`));
+  } catch {
+    return value;
+  }
 }
 
 function MaterialCard({material, view}) {
@@ -30,106 +34,164 @@ function MaterialCard({material, view}) {
     event.currentTarget.style.setProperty('--pointer-y', `${event.clientY - rect.top}px`);
   };
 
+  const body = (
+    <>
+      <span className={styles.proximity} aria-hidden="true" />
+      <span className={styles.materialHeader}>
+        <span>
+          <span className={styles.kind}>
+            {material.kind}
+            {material.status === 'planned' ? ' · Planned' : ''}
+            {material.status === 'draft' ? ' · Draft' : ''}
+          </span>
+          <strong>{material.title}</strong>
+        </span>
+        {material.href ? (
+          <span className={styles.arrow} aria-hidden="true">
+            ↗
+          </span>
+        ) : null}
+      </span>
+      <span className={styles.summary}>{material.summary}</span>
+      <span className={styles.tags} aria-label="タグ">
+        {material.tags.map((tag) => (
+          <span key={tag}>{tag}</span>
+        ))}
+      </span>
+      {material.status === 'planned' ? (
+        <span className={styles.updated}>コンテンツ待ち — 空のまま保持</span>
+      ) : (
+        <>
+          <span className={styles.counts}>
+            <span>
+              <span>Pages</span>
+              <strong>{material.pageCount}</strong>
+            </span>
+          </span>
+          <span className={styles.updated}>
+            Updated {material.updated ? formatDate(material.updated) : '—'}
+          </span>
+        </>
+      )}
+    </>
+  );
+
+  if (!material.href) {
+    return (
+      <div
+        className={view === 'list' ? styles.materialList : styles.materialCard}
+        aria-label={`${material.title}（計画中）`}>
+        {body}
+      </div>
+    );
+  }
+
   return (
     <Link
       to={material.href}
       className={view === 'list' ? styles.materialList : styles.materialCard}
       onPointerMove={onPointerMove}>
-      <span className={styles.proximity} aria-hidden="true" />
-      <span className={styles.materialHeader}>
-        <span>
-          <span className={styles.kind}>{material.kind}</span>
-          <strong>{material.title}</strong>
-        </span>
-        <span className={styles.arrow} aria-hidden="true">↗</span>
-      </span>
-      <span className={styles.summary}>{material.summary}</span>
-      <span className={styles.tags} aria-label="タグ">
-        {material.tags.map((tag) => <span key={tag}>{tag}</span>)}
-      </span>
-      <span className={styles.counts}>
-        {material.counts.map(([label, value]) => (
-          <span key={label}><span>{label}</span><strong>{value}</strong></span>
-        ))}
-      </span>
-      <span className={styles.updated}>Updated {formatDate(material.updated)}</span>
+      {body}
     </Link>
   );
 }
 
 export default function KnowledgeExplorer() {
-  const preferences = loadPreferences();
-  const [type, setType] = useState(preferences.type ?? 'All');
-  const [domain, setDomain] = useState(preferences.domain ?? 'All');
-  const [sort, setSort] = useState(preferences.sort ?? 'updated-desc');
-  const [view, setView] = useState(preferences.view ?? 'panel');
-  const [paletteOpen, setPaletteOpen] = useState(false);
+  // SSR-safe defaults first; localStorage is applied after mount (see R5).
+  const [type, setType] = useState('All');
+  const [domain, setDomain] = useState('All');
+  const [sort, setSort] = useState('updated-desc');
+  const [view, setView] = useState('panel');
+  const [hydrated, setHydrated] = useState(false);
 
   useEffect(() => {
-    if (typeof window === 'undefined') return undefined;
-    const params = new URLSearchParams(window.location.search);
-    if (params.get('palette') === 'open') setPaletteOpen(true);
-    const onKeyDown = (event) => {
-      if ((event.metaKey || event.ctrlKey) && event.key.toLocaleLowerCase() === 'k') {
-        event.preventDefault();
-        setPaletteOpen(true);
+    try {
+      const raw = window.localStorage.getItem(STORAGE_KEY);
+      if (raw) {
+        const saved = JSON.parse(raw);
+        const nextType = isValid(saved.type, TYPES);
+        const nextDomain = isValid(saved.domain, DOMAINS_FILTER);
+        const nextSort = isValid(saved.sort, SORTS);
+        const nextView = isValid(saved.view, VIEWS);
+        if (nextType) setType(nextType);
+        if (nextDomain) setDomain(nextDomain);
+        if (nextSort) setSort(nextSort);
+        if (nextView) setView(nextView);
       }
-    };
-    window.addEventListener('keydown', onKeyDown);
-    return () => window.removeEventListener('keydown', onKeyDown);
+    } catch {
+      // corrupt or unavailable storage: keep defaults
+    }
+    setHydrated(true);
   }, []);
 
   useEffect(() => {
-    if (typeof window === 'undefined') return;
-    window.localStorage.setItem(STORAGE_KEY, JSON.stringify({type, domain, sort, view}));
-  }, [type, domain, sort, view]);
+    if (!hydrated) return;
+    try {
+      window.localStorage.setItem(STORAGE_KEY, JSON.stringify({type, domain, sort, view}));
+    } catch {
+      // storage disabled: preferences simply do not persist
+    }
+  }, [type, domain, sort, view, hydrated]);
 
   const visible = useMemo(() => {
-    const filtered = MATERIALS
-      .filter((material) => type === 'All' || material.kind === type)
-      .filter((material) => domain === 'All' || material.domain === domain || material.tags.includes(domain));
+    const filtered = MATERIALS.filter(
+      (material) =>
+        (type === 'All' || material.kind === type) &&
+        (domain === 'All' || material.domain === domain || material.tags.includes(domain)),
+    );
     return [...filtered].sort((a, b) => {
-      if (sort === 'updated-asc') return a.updated.localeCompare(b.updated);
+      if (sort === 'updated-asc') return (a.updated ?? '').localeCompare(b.updated ?? '');
       if (sort === 'name') return a.title.localeCompare(b.title, 'ja');
-      if (sort === 'volume') {
-        const total = (item) => item.counts.reduce((sum, [, value]) => sum + value, 0);
-        return total(b) - total(a);
-      }
-      return b.updated.localeCompare(a.updated);
+      if (sort === 'volume') return (b.pageCount ?? 0) - (a.pageCount ?? 0);
+      // Planned items (no date) sort last under recently-updated.
+      if (!a.updated && b.updated) return 1;
+      if (a.updated && !b.updated) return -1;
+      return (b.updated ?? '').localeCompare(a.updated ?? '');
     });
   }, [type, domain, sort]);
+
+  const activeMaterials = MATERIALS.filter((material) => material.status !== 'planned').length;
 
   return (
     <div className={styles.explorer}>
       <header className={styles.header}>
         <div>
           <span className={styles.eyebrow}>Technical documentation index</span>
-          <h1>COLLECTANEA</h1>
+          <h1>COLLECTANEA 資料索引</h1>
+          <p className={styles.lede}>
+            マニュアル・記事・リファレンス・調査記録を横断して探す索引。長文を読む前の現在地確認用。
+          </p>
         </div>
-        <div className={styles.stats} aria-label="サイト統計">
-          <span><strong>{MATERIALS.length}</strong> Materials</span>
-          <span><strong>{SEARCH_ENTRIES.length}</strong> Indexed entries</span>
+        <div className={styles.stats} aria-label="収録状況">
+          <span>
+            <strong>{activeMaterials}</strong> Active materials
+          </span>
+          <span>
+            <strong>{CATALOG_PAGES.length}</strong> Pages indexed
+          </span>
         </div>
       </header>
 
-      <button
-        type="button"
-        className={styles.searchEntry}
-        onClick={() => setPaletteOpen(true)}>
-        <span className={styles.searchGlyph} aria-hidden="true">⌕</span>
+      <button type="button" className={styles.searchEntry} onClick={openSiteSearch}>
+        <span className={styles.searchGlyph} aria-hidden="true">
+          ⌕
+        </span>
         <span>資料・記事・ノードを検索</span>
         <kbd>⌘ K</kbd>
       </button>
 
       <section className={styles.controls} aria-label="資料一覧の表示設定">
         <div className={styles.filterRow}>
-          <span className={styles.controlLabel}>Type</span>
-          <div className={styles.chipRow}>
-            {CONTENT_TYPES.map((item) => (
+          <span className={styles.controlLabel} id="explorer-type-label">
+            Type
+          </span>
+          <div className={styles.chipRow} role="group" aria-labelledby="explorer-type-label">
+            {TYPES.map((item) => (
               <button
                 type="button"
                 key={item}
                 className={item === type ? styles.chipActive : styles.chip}
+                aria-pressed={item === type}
                 onClick={() => setType(item)}>
                 {item}
               </button>
@@ -137,13 +199,16 @@ export default function KnowledgeExplorer() {
           </div>
         </div>
         <div className={styles.filterRow}>
-          <span className={styles.controlLabel}>Domain</span>
-          <div className={styles.chipRow}>
-            {DOMAINS.map((item) => (
+          <span className={styles.controlLabel} id="explorer-domain-label">
+            Domain
+          </span>
+          <div className={styles.chipRow} role="group" aria-labelledby="explorer-domain-label">
+            {DOMAINS_FILTER.map((item) => (
               <button
                 type="button"
                 key={item}
                 className={item === domain ? styles.chipActive : styles.chip}
+                aria-pressed={item === domain}
                 onClick={() => setDomain(item)}>
                 {item}
               </button>
@@ -153,20 +218,20 @@ export default function KnowledgeExplorer() {
         <div className={styles.viewControls}>
           <label>
             <span>Sort</span>
-            <select value={sort} onChange={(event) => setSort(event.target.value)}>
+            <select value={sort} onChange={(event) => setSort(event.target.value)} aria-label="並び順">
               <option value="updated-desc">Recently updated</option>
               <option value="updated-asc">Oldest update</option>
               <option value="name">Name</option>
               <option value="volume">Volume</option>
             </select>
           </label>
-          <div className={styles.segmented} aria-label="表示形式">
+          <div className={styles.segmented} role="group" aria-label="表示形式">
             <button
               type="button"
               aria-pressed={view === 'panel'}
               className={view === 'panel' ? styles.segmentActive : styles.segment}
               onClick={() => setView('panel')}>
-              Grid
+              Panel
             </button>
             <button
               type="button"
@@ -186,12 +251,6 @@ export default function KnowledgeExplorer() {
           <div className={styles.noResults}>この条件に一致する資料はありません。</div>
         )}
       </section>
-
-      <CommandPalette
-        open={paletteOpen}
-        entries={SEARCH_ENTRIES}
-        onClose={() => setPaletteOpen(false)}
-      />
     </div>
   );
 }

@@ -233,6 +233,94 @@ Source:
 
 Checked: 2026-09-30
 
+## Implementation References (repair candidate)
+
+Checked 2026-09-30. Used to close the completion repair packet R1–R9.
+
+### WAI-ARIA APG — Combobox
+
+Borrow:
+- Input uses `combobox` with `aria-expanded` / `aria-controls` / `aria-activedescendant`
+- Arrow-key selection, Enter to open, Escape to dismiss
+- IME composition guard before Enter activation
+
+Avoid:
+- Custom key handling that fires during IME composition
+- Hiding result type/status on small viewports
+
+Scope: GlobalSearch palette (all pages)
+
+Source:
+- https://www.w3.org/WAI/ARIA/apg/patterns/combobox/
+
+Checked: 2026-09-30
+
+### WAI-ARIA APG — Dialog (Modal)
+
+Borrow:
+- `dialog` + `aria-modal`, focus moved into the dialog on open
+- Focus containment on Tab, focus restoration to the opener on close
+- Escape handled anywhere inside the dialog
+
+Avoid:
+- Body MutationObserver hacks for modal state
+- Screenshot-only open states with no real control path
+
+Scope: GlobalSearch palette
+
+Source:
+- https://www.w3.org/WAI/ARIA/apg/patterns/dialog-modal/
+
+Checked: 2026-09-30
+
+### React hydrateRoot (SSR/hydration)
+
+Borrow:
+- Render SSR-safe defaults first; apply localStorage only in effects
+- Validate stored values; tolerate disabled/corrupt storage
+
+Avoid:
+- Reading storage during the first render (hydration mismatch)
+
+Scope: KnowledgeExplorer preferences, sidebar state
+
+Source:
+- https://react.dev/reference/react-dom/client/hydrateRoot
+
+Checked: 2026-09-30
+
+### Docusaurus — Sidebar
+
+Borrow:
+- Explicit persisted sidebar state owned in one place (`Root.js`)
+- Discoverable reopen control in the reading shell
+
+Avoid:
+- Width heuristics and body-wide MutationObserver sync
+
+Scope: Reading shell open/closed centering
+
+Source:
+- https://docusaurus.io/docs/sidebar
+
+Checked: 2026-09-30
+
+### Docusaurus — Lifecycle APIs (build-derived catalog)
+
+Borrow:
+- Build script scans real Markdown/MDX/docs/blog metadata into `generated-catalog.json`
+- Components consume the generated model; new pages appear without component edits
+
+Avoid:
+- Hand-maintained UI-only copies of content data and fabricated counts/dates
+
+Scope: Home, Manual tree, Articles DB, search
+
+Source:
+- https://docusaurus.io/docs/api/plugin-methods/lifecycle-apis
+
+Checked: 2026-09-30
+
 ## Reference Selection Rule
 
 新しい参照は、有名・受賞済みという理由だけで追加しない。

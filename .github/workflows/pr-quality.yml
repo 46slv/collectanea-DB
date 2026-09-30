@@ -32,8 +32,18 @@ jobs:
       - name: Install dependencies
         run: npm ci --no-audit --no-fund
 
+      - name: Static honesty regressions
+        run: node scripts/regression-check.mjs
+
       - name: Production build
         run: npm run build
+
+      - name: Write candidate metadata into built site
+        run: |
+          SHA="$(git rev-parse HEAD)"
+          DATE="$(date -u +%Y-%m-%dT%H:%M:%SZ)"
+          printf '{\n  "candidate": "%s",\n  "builtAt": "%s",\n  "node": "24",\n  "basePath": "/collectanea-DB/"\n}\n' "$SHA" "$DATE" > build/candidate.json
+          cat build/candidate.json
 
       - name: Install capture runtime
         run: |
@@ -74,4 +84,13 @@ jobs:
           name: collectanea-visual-evidence
           path: artifacts/visual
           if-no-files-found: warn
+          retention-days: 14
+
+      - name: Upload built site for independent browser review
+        if: always()
+        uses: actions/upload-artifact@v4
+        with:
+          name: collectanea-built-site
+          path: build
+          if-no-files-found: error
           retention-days: 14

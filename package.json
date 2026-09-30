@@ -5,21 +5,26 @@
   "description": "COLLECTANEA public technical knowledge base",
   "scripts": {
     "start": "docusaurus start",
-    "build": "docusaurus build",
+    "build": "npm run catalog && docusaurus build",
     "serve": "docusaurus serve",
     "clear": "docusaurus clear",
-    "deploy": "docusaurus deploy"
+    "deploy": "docusaurus deploy",
+    "catalog": "node scripts/generate-catalog.mjs",
+    "capture": "node scripts/capture-ui.mjs",
+    "test:regressions": "node scripts/regression-check.mjs"
   },
   "dependencies": {
     "@docusaurus/core": "3.10.2",
     "@docusaurus/plugin-content-docs": "3.10.2",
     "@docusaurus/preset-classic": "3.10.2",
-    "@easyops-cn/docusaurus-search-local": "0.55.3",
     "@mdx-js/react": "^3.1.1",
     "clsx": "^2.1.1",
     "prism-react-renderer": "^2.4.1",
     "react": "19.2.3",
     "react-dom": "19.2.3"
+  },
+  "devDependencies": {
+    "@playwright/test": "1.56.0"
   },
   "engines": {
     "node": ">=20.0"

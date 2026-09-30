@@ -524,6 +524,10 @@ status候補:
 
 検索indexとPanel表示は同じmetadataを正本として利用し、UI専用の重複データを別管理しない。
 
+metadata正本はビルド生成カタログ (`scripts/generate-catalog.mjs` → `src/data/generated-catalog.json`) とする。ページ件数は実Markdown/MDXページ数のみを数え、見出しanchorは数えない。著者コンテンツのない資料 (Blender / After Effects / Cavalry / Git 等) は `planned` として明示し、偽の日付・件数・リンクを付与しない。新規Markdownはcomponent dataの変更なしに検索・Panel・Manual tree・Articlesへ反映されること。見出し断片 (`#...`) への手書きリンクは収録しない。
+
+Fusionの技術解説は、一次資料で検証できるまで Draft / unverified の作業草稿として明示する。UI検証用のfixture項目を公開カタログに混ぜない。
+
 ## 14. Design Acceptance Additions
 
 既存Acceptanceに加え、以下を満たす。

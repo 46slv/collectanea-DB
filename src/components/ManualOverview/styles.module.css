@@ -27,6 +27,17 @@
   line-height: 1.75;
 }
 
+.draftNote {
+  margin-top: 12px;
+  padding: 10px 12px;
+  border: 1px solid var(--collectanea-line-strong);
+  border-radius: var(--collectanea-radius-panel);
+  color: var(--collectanea-text-secondary);
+  background: var(--collectanea-surface);
+  font-size: .76rem;
+  line-height: 1.7;
+}
+
 .eyebrow,
 .metrics dt,
 .childCount {
@@ -203,6 +214,14 @@
 
 .treeRoot {
   padding-top: 7px;
+}
+
+.treeEmpty {
+  margin: 0;
+  padding: 28px 12px;
+  border-bottom: 1px solid var(--collectanea-line);
+  color: var(--collectanea-text-muted);
+  font-size: .8rem;
 }
 
 .treeRow {

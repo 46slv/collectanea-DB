@@ -16,8 +16,16 @@
 .header h1 {
   margin: 8px 0 0;
   color: var(--collectanea-text-primary);
-  font: 600 clamp(2.35rem, 5vw, 4.6rem)/.95 var(--collectanea-font-ui);
-  letter-spacing: -.055em;
+  font: 600 1.55rem/1.15 var(--collectanea-font-ui);
+  letter-spacing: -.02em;
+}
+
+.lede {
+  max-width: 72ch;
+  margin: 10px 0 0;
+  color: var(--collectanea-text-secondary);
+  font-size: .82rem;
+  line-height: 1.7;
 }
 
 .eyebrow,

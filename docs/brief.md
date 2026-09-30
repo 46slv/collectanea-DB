@@ -1,8 +1,16 @@
 # COLLECTANEA — Working Brief
 
-Status: Visual Exploration
+Status: Visual Exploration → Implementation Repair (completion packet R1–R9 applied)
 Brief Gate: Visual Exploration
 Updated: 2026-09-30
+
+## Repair Amendments (2026-09-30)
+
+- Catalog is build-derived (`scripts/generate-catalog.mjs` → `src/data/generated-catalog.json`); page counts count real pages only. Subjects without authored content (Blender, After Effects, Cavalry, Git/GitHub) are explicitly `planned` with no dates, counts, or links.
+- Search is one site-wide GlobalSearch palette (navbar entry + Ctrl/Cmd+K on every page). The duplicate navbar search-local theme and the Home-only palette were removed.
+- Sidebar open/closed is explicit persisted state (`collectanea.sidebar.v1`) with a discoverable Hierarchy toggle. Closed state recenters the article text column against the viewport with the Heading Rail parked in a gutter.
+- Fusion content ships as explicitly marked Draft/unverified working notes, not verified documentation. UI-only fixtures are excluded from the catalog.
+- Articles index is a DB view (search, tag filter, Panel/List, recently-updated default) layered over the unchanged blog plugin (URLs/RSS preserved).
 
 ## Goal
 

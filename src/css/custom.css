@@ -1,10 +1,12 @@
-@import url('https://fonts.googleapis.com/css2?family=Lexend:wght@400;500;600&family=Noto+Sans+JP:wght@400;500;600&display=swap');
+/* COLLECTANEA design tokens. Fonts load via <link> in docusaurus.config.js
+   (display=swap) so reading never blocks on webfonts; stacks below are the
+   robust fallbacks. */
 
 :root {
   color-scheme: dark;
-  --collectanea-font-ui: 'Lexend', 'Noto Sans JP', 'Segoe UI', sans-serif;
-  --collectanea-font-body: 'Noto Sans JP', 'Yu Gothic UI', 'Hiragino Sans', sans-serif;
-  --collectanea-font-mono: ui-monospace, SFMono-Regular, Consolas, 'Liberation Mono', monospace;
+  --collectanea-font-ui: 'Lexend', 'Noto Sans JP', 'Segoe UI', Meiryo, sans-serif;
+  --collectanea-font-body: 'Noto Sans JP', 'Yu Gothic UI', 'Hiragino Sans', Meiryo, sans-serif;
+  --collectanea-font-mono: ui-monospace, SFMono-Regular, Menlo, Consolas, 'Liberation Mono', monospace;
 
   --collectanea-canvas: #090a0c;
   --collectanea-surface: #0f1114;
@@ -14,10 +16,10 @@
   --collectanea-text-primary: #f0f1ef;
   --collectanea-text-secondary: #a9afb2;
   --collectanea-text-muted: #747c81;
-  --collectanea-line: rgba(235, 239, 240, .115);
-  --collectanea-line-strong: rgba(235, 239, 240, .29);
-  --collectanea-proximity: rgba(236, 242, 245, .075);
-  --collectanea-focus-ring: rgba(236, 242, 245, .42);
+  --collectanea-line: rgba(235, 239, 240, 0.115);
+  --collectanea-line-strong: rgba(235, 239, 240, 0.29);
+  --collectanea-proximity: rgba(236, 242, 245, 0.075);
+  --collectanea-focus-ring: rgba(236, 242, 245, 0.42);
 
   --collectanea-radius-panel: 2px;
   --collectanea-radius-control: 4px;
@@ -47,7 +49,7 @@
   --ifm-color-primary-lighter: #e0e2e1;
   --ifm-color-primary-lightest: #f4f5f3;
   --ifm-navbar-height: 54px;
-  --ifm-navbar-background-color: rgba(9, 10, 12, .9);
+  --ifm-navbar-background-color: rgba(9, 10, 12, 0.9);
   --ifm-footer-background-color: var(--collectanea-canvas);
   --ifm-code-font-size: 91%;
   --ifm-global-radius: 2px;
@@ -68,11 +70,11 @@ html[data-theme='light'] {
   --collectanea-text-primary: #17191b;
   --collectanea-text-secondary: #555c60;
   --collectanea-text-muted: #7b8387;
-  --collectanea-line: rgba(20, 24, 28, .14);
-  --collectanea-line-strong: rgba(20, 24, 28, .34);
-  --collectanea-proximity: rgba(20, 24, 28, .055);
-  --collectanea-focus-ring: rgba(20, 24, 28, .38);
-  --ifm-navbar-background-color: rgba(243, 243, 240, .9);
+  --collectanea-line: rgba(20, 24, 28, 0.14);
+  --collectanea-line-strong: rgba(20, 24, 28, 0.34);
+  --collectanea-proximity: rgba(20, 24, 28, 0.055);
+  --collectanea-focus-ring: rgba(20, 24, 28, 0.38);
+  --ifm-navbar-background-color: rgba(243, 243, 240, 0.9);
   --ifm-color-primary: #4f5d64;
   --ifm-color-primary-dark: #3f4c52;
   --ifm-color-primary-darker: #374349;
@@ -83,8 +85,13 @@ html[data-theme='light'] {
 }
 
 html {
-  scroll-behavior: smooth;
   background: var(--collectanea-canvas);
+}
+
+@media (prefers-reduced-motion: no-preference) {
+  html {
+    scroll-behavior: smooth;
+  }
 }
 
 body {
@@ -92,7 +99,7 @@ body {
   color: var(--collectanea-text-primary);
   background: var(--collectanea-canvas);
   font-family: var(--collectanea-font-body);
-  letter-spacing: .003em;
+  letter-spacing: 0.003em;
 }
 
 ::selection {
@@ -106,14 +113,14 @@ body {
 }
 
 a {
-  text-underline-offset: .2em;
+  text-underline-offset: 0.2em;
   text-decoration-thickness: 1px;
 }
 
+/* Navbar: stable Docusaurus classes only. */
 .navbar {
   border-bottom: 1px solid var(--collectanea-line);
   box-shadow: none;
-  backdrop-filter: blur(16px) saturate(.75);
 }
 
 .navbar__inner {
@@ -132,15 +139,15 @@ a {
 
 .navbar__title {
   color: var(--collectanea-text-primary);
-  font: 600 .78rem/1 var(--collectanea-font-ui);
-  letter-spacing: .13em;
+  font: 600 0.78rem/1 var(--collectanea-font-ui);
+  letter-spacing: 0.13em;
 }
 
 .navbar__link {
   position: relative;
   color: var(--collectanea-text-secondary);
-  font: 500 .72rem/1 var(--collectanea-font-ui);
-  letter-spacing: .025em;
+  font: 500 0.72rem/1 var(--collectanea-font-ui);
+  letter-spacing: 0.025em;
 }
 
 .navbar__link:hover,
@@ -148,31 +155,41 @@ a {
   color: var(--collectanea-text-primary);
 }
 
-.navbar__link::after {
-  content: '';
-  position: absolute;
-  left: 12px;
-  right: 12px;
-  bottom: 4px;
-  height: 1px;
-  background: currentColor;
-  opacity: .75;
-  transform: scaleX(0);
-  transition: transform 160ms cubic-bezier(.2,.8,.2,1);
+/* Site-wide search entry owned by Root.js (one global palette). */
+.collectanea-navbar-search {
+  display: inline-flex;
+  align-items: center;
+  gap: 8px;
+  min-height: 34px;
+  margin-left: auto;
+  padding: 0 10px;
+  border: 1px solid var(--collectanea-line);
+  border-radius: 3px;
+  color: var(--collectanea-text-secondary);
+  background: var(--collectanea-surface);
+  font: 500 0.72rem/1 var(--collectanea-font-ui);
+  cursor: pointer;
 }
 
-.navbar__link:hover::after,
-.navbar__link--active::after {
-  transform: scaleX(1);
+.collectanea-navbar-search:hover,
+.collectanea-navbar-search:focus-visible {
+  border-color: var(--collectanea-line-strong);
+  color: var(--collectanea-text-primary);
+  background: var(--collectanea-surface-hover);
+}
+
+.collectanea-navbar-search kbd {
+  padding: 3px 6px;
+  border: 1px solid var(--collectanea-line);
+  border-radius: 3px;
+  color: var(--collectanea-text-muted);
+  background: transparent;
+  box-shadow: none;
+  font: 500 0.64rem/1 var(--collectanea-font-mono);
 }
 
 .navbar-sidebar {
   background: var(--collectanea-surface-raised);
-}
-
-[class*='searchBarContainer'] input,
-[class*='searchBarContainer'] button {
-  border-radius: 3px !important;
 }
 
 .button {
@@ -180,8 +197,8 @@ a {
   border: 1px solid var(--collectanea-line-strong);
   border-radius: 3px;
   box-shadow: none;
-  font: 500 .74rem/1 var(--collectanea-font-ui);
-  letter-spacing: .025em;
+  font: 500 0.74rem/1 var(--collectanea-font-ui);
+  letter-spacing: 0.025em;
 }
 
 .button--primary {
@@ -195,6 +212,8 @@ a {
   background: transparent;
 }
 
+/* Reading shell: only stable theme classes (.theme-doc-*) plus our own
+   wrapper. No selectors against CSS-module hashes. */
 .theme-doc-sidebar-container {
   width: var(--collectanea-sidebar-width) !important;
   border-right: 1px solid var(--collectanea-line) !important;
@@ -214,8 +233,7 @@ a {
   min-height: 31px;
   padding: 6px 9px;
   color: var(--collectanea-text-secondary);
-  font: 500 .72rem/1.35 var(--collectanea-font-ui);
-  transition: color 130ms ease, background-color 130ms ease;
+  font: 500 0.72rem/1.35 var(--collectanea-font-ui);
 }
 
 .menu__link:hover,
@@ -231,25 +249,22 @@ a {
 .menu__caret::before,
 .menu__link--sublist-caret::after {
   filter: grayscale(1);
-  opacity: .65;
+  opacity: 0.65;
 }
 
-.collectanea-doc-shell [class*='docMainContainer'] {
-  max-width: none;
-}
-
-.collectanea-doc-shell .container {
-  max-width: 1240px;
-}
-
-.collectanea-doc-shell [class*='docItemCol'] {
-  min-width: 0;
-  max-width: calc(var(--collectanea-article-width) + var(--collectanea-rail-width) + 116px);
+/* Article column: readable max-width, centered in available space.
+   NOTE: <main> sits ABOVE .collectanea-doc-shell (DocItem/Layout renders
+   inside it), so selectors must not route through `main`. The grid uses
+   stable Infima classes (.row / .col / .col--3); hashed module classes are
+   never targeted. */
+.collectanea-doc-shell > .row {
+  width: 100%;
   margin-inline: auto;
 }
 
 .collectanea-doc-shell .theme-doc-markdown {
   width: min(100%, var(--collectanea-article-width));
+  margin-inline: auto;
   color: var(--collectanea-text-primary);
   font-size: 1rem;
   line-height: 1.86;
@@ -262,34 +277,57 @@ a {
   max-width: 74ch;
 }
 
+.collectanea-doc-shell .theme-doc-markdown pre {
+  max-width: 100%;
+  overflow-x: auto;
+}
+
+.collectanea-doc-shell .theme-doc-markdown table {
+  display: block;
+  width: max-content;
+  max-width: 100%;
+  overflow-x: auto;
+  font-size: 0.82rem;
+}
+
+.collectanea-doc-shell .theme-doc-markdown thead {
+  background: var(--collectanea-surface-raised);
+}
+
+.collectanea-doc-shell .theme-doc-markdown tr,
+.collectanea-doc-shell .theme-doc-markdown th,
+.collectanea-doc-shell .theme-doc-markdown td {
+  border-color: var(--collectanea-line);
+}
+
 .theme-doc-markdown h1 {
-  margin-bottom: .58em;
+  margin-bottom: 0.58em;
   color: var(--collectanea-text-primary);
   font-size: clamp(2.1rem, 5vw, 3.45rem);
   font-weight: 600;
-  letter-spacing: -.048em;
+  letter-spacing: -0.048em;
   line-height: 1.03;
 }
 
 .theme-doc-markdown h2 {
   margin-top: 2.3em;
-  padding-top: .35em;
+  padding-top: 0.35em;
   border-top: 1px solid var(--collectanea-line);
   font-size: clamp(1.45rem, 2.5vw, 2rem);
   font-weight: 600;
-  letter-spacing: -.032em;
+  letter-spacing: -0.032em;
 }
 
 .theme-doc-markdown h3 {
   margin-top: 1.8em;
   font-size: 1.16rem;
   font-weight: 600;
-  letter-spacing: -.018em;
+  letter-spacing: -0.018em;
 }
 
 .theme-doc-markdown h4 {
   margin-top: 1.5em;
-  font-size: .96rem;
+  font-size: 0.96rem;
   font-weight: 600;
 }
 
@@ -298,22 +336,7 @@ a {
   font-family: var(--collectanea-font-mono);
 }
 
-.theme-doc-markdown table {
-  display: table;
-  width: 100%;
-  font-size: .82rem;
-}
-
-.theme-doc-markdown thead {
-  background: var(--collectanea-surface-raised);
-}
-
-.theme-doc-markdown tr,
-.theme-doc-markdown th,
-.theme-doc-markdown td {
-  border-color: var(--collectanea-line);
-}
-
+/* Heading rail occupies a fixed gutter; the article column stays centered. */
 .theme-doc-toc-desktop {
   flex: 0 0 var(--collectanea-rail-width);
   width: var(--collectanea-rail-width);
@@ -325,23 +348,63 @@ a {
   border: 0;
 }
 
+/* Sidebar closed: hide hierarchy, recenter the article text column against
+   the viewport, and park the rail in a fixed gutter so it cannot shift the
+   article center. The article column is the row's first Infima .col. */
 html[data-collectanea-sidebar='collapsed'] .theme-doc-sidebar-container {
   display: none !important;
 }
 
-html[data-collectanea-sidebar='collapsed'] .collectanea-doc-shell .container {
+/* The <main> landmark and its Infima .container cap the reading area well
+   below the viewport; both are stable element/class selectors (no hashes).
+   Collapsed state is only ever applied on doc routes (see Root.js), so blog
+   and Home layouts cannot be affected. */
+html[data-collectanea-sidebar='collapsed'] main {
   max-width: none;
 }
 
-html[data-collectanea-sidebar='collapsed'] .collectanea-doc-shell [class*='docItemCol'] {
-  width: min(calc(var(--collectanea-article-width) + var(--collectanea-rail-width) + 116px), calc(100vw - 48px));
+html[data-collectanea-sidebar='collapsed'] main > .container {
   max-width: none;
+}
+
+html[data-collectanea-sidebar='collapsed'] .collectanea-doc-shell > .row {
+  justify-content: center;
+}
+
+html[data-collectanea-sidebar='collapsed'] .collectanea-doc-shell > .row > .col:first-child {
+  flex: 0 1 auto;
+  width: min(var(--collectanea-article-width), calc(100% - 48px));
+  max-width: 100%;
+  margin-inline: auto;
+  padding-inline: 0;
+}
+
+html[data-collectanea-sidebar='collapsed'] .collectanea-doc-shell .theme-doc-markdown {
+  width: 100%;
   margin-inline: auto;
 }
 
-html[data-collectanea-sidebar='expanded'] .collectanea-doc-shell [class*='docItemCol'] {
-  margin-left: clamp(24px, 5vw, 88px);
-  margin-right: auto;
+@media (min-width: 997px) {
+  html[data-collectanea-sidebar='collapsed'] .collectanea-doc-shell > .row > .col.col--3 {
+    flex: none;
+    width: 0;
+    max-width: none;
+    padding: 0;
+    overflow: visible;
+  }
+
+  html[data-collectanea-sidebar='collapsed'] .collectanea-doc-shell .theme-doc-toc-desktop {
+    position: fixed;
+    top: calc(var(--ifm-navbar-height) + 26px);
+    left: calc(50% + (var(--collectanea-article-width) / 2) + 24px);
+    width: var(--collectanea-rail-width);
+    max-height: calc(100vh - var(--ifm-navbar-height) - 52px);
+  }
+
+  html[data-collectanea-sidebar='expanded'] .collectanea-doc-shell .theme-doc-markdown {
+    margin-left: clamp(24px, 5vw, 88px);
+    margin-right: auto;
+  }
 }
 
 .pagination-nav {
@@ -352,7 +415,6 @@ html[data-collectanea-sidebar='expanded'] .collectanea-doc-shell [class*='docIte
   border: 1px solid var(--collectanea-line);
   border-radius: 2px;
   background: var(--collectanea-surface);
-  transition: border-color 150ms ease, background-color 150ms ease;
 }
 
 .pagination-nav__link:hover {
@@ -363,7 +425,7 @@ html[data-collectanea-sidebar='expanded'] .collectanea-doc-shell [class*='docIte
 .theme-edit-this-page,
 .theme-last-updated {
   color: var(--collectanea-text-muted);
-  font-size: .7rem;
+  font-size: 0.7rem;
 }
 
 .blog-wrapper article {
@@ -373,7 +435,7 @@ html[data-collectanea-sidebar='expanded'] .collectanea-doc-shell [class*='docIte
 
 .blog-wrapper article h2 {
   font-size: 1.45rem;
-  letter-spacing: -.025em;
+  letter-spacing: -0.025em;
 }
 
 .footer {
@@ -385,34 +447,39 @@ html[data-collectanea-sidebar='expanded'] .collectanea-doc-shell [class*='docIte
 
 .footer__title {
   color: var(--collectanea-text-primary);
-  font: 500 .68rem/1.2 var(--collectanea-font-mono);
-  letter-spacing: .08em;
+  font: 500 0.68rem/1.2 var(--collectanea-font-mono);
+  letter-spacing: 0.08em;
   text-transform: uppercase;
 }
 
 .footer__link-item,
 .footer__copyright {
   color: var(--collectanea-text-muted);
-  font-size: .7rem;
+  font-size: 0.7rem;
 }
 
 @media (max-width: 1200px) {
-  html[data-collectanea-sidebar='expanded'] .collectanea-doc-shell [class*='docItemCol'] {
+  html[data-collectanea-sidebar='expanded'] .collectanea-doc-shell .theme-doc-markdown {
     margin-left: 24px;
   }
 }
 
 @media (max-width: 996px) {
-  .collectanea-doc-shell [class*='docItemCol'],
-  html[data-collectanea-sidebar='collapsed'] .collectanea-doc-shell [class*='docItemCol'],
-  html[data-collectanea-sidebar='expanded'] .collectanea-doc-shell [class*='docItemCol'] {
-    width: auto;
-    max-width: none;
+  .collectanea-doc-shell > .row > .col:first-child {
+    flex: 1 1 auto;
+    width: 100%;
+    max-width: 100%;
     margin-inline: auto;
+    padding-inline: var(--ifm-spacing-horizontal);
   }
 
   .collectanea-doc-shell .theme-doc-markdown {
     width: 100%;
+    margin-inline: auto;
+  }
+
+  .collectanea-navbar-search kbd {
+    display: none;
   }
 }
 
@@ -442,9 +509,9 @@ html[data-collectanea-sidebar='expanded'] .collectanea-doc-shell [class*='docIte
   *,
   *::before,
   *::after {
-    animation-duration: .01ms !important;
+    animation-duration: 0.01ms !important;
     animation-iteration-count: 1 !important;
     scroll-behavior: auto !important;
-    transition-duration: .01ms !important;
+    transition-duration: 0.01ms !important;
   }
 }

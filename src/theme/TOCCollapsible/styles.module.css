@@ -1,0 +1,65 @@
+.mobileToc {
+  margin: 12px 0 4px;
+  border: 1px solid var(--collectanea-line);
+  border-radius: 3px;
+  background: var(--collectanea-surface);
+}
+
+.mobileToc summary {
+  min-height: 44px;
+  padding: 12px 14px;
+  color: var(--collectanea-text-secondary);
+  cursor: pointer;
+  font: 500 0.76rem/1.4 var(--collectanea-font-ui);
+}
+
+.mobileToc summary:hover,
+.mobileToc summary:focus-visible {
+  color: var(--collectanea-text-primary);
+}
+
+.mobileToc ol {
+  margin: 0;
+  padding: 4px 0 8px;
+  list-style: none;
+  border-top: 1px solid var(--collectanea-line);
+  max-height: 50vh;
+  overflow-y: auto;
+}
+
+.mobileToc li a {
+  display: block;
+  min-height: 44px;
+  padding: 10px 14px 10px 16px;
+  border-left: 2px solid transparent;
+  color: var(--collectanea-text-secondary);
+  font: 500 0.78rem/1.4 var(--collectanea-font-ui);
+  text-decoration: none;
+}
+
+.mobileToc li a[data-level='3'] {
+  padding-left: 28px;
+}
+
+.mobileToc li a[data-level='4'] {
+  padding-left: 40px;
+}
+
+.mobileToc li a:hover,
+.mobileToc li a:focus-visible {
+  color: var(--collectanea-text-primary);
+  background: var(--collectanea-surface-hover);
+}
+
+.mobileToc li a[aria-current='location'] {
+  border-left-color: var(--collectanea-text-primary);
+  color: var(--collectanea-text-primary);
+  background: var(--collectanea-surface-hover);
+}
+
+@media (prefers-reduced-motion: reduce) {
+  .mobileToc summary,
+  .mobileToc li a {
+    transition: none;
+  }
+}
