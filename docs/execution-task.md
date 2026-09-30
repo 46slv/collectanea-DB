@@ -1,6 +1,6 @@
 # COLLECTANEA — UI Foundation Execution Task
 
-Status: Active
+Status: Complete
 Branch: `feat/award-grade-ui-foundation`
 
 ## Authorities
@@ -148,3 +148,22 @@ Not allowed:
 - two bounded review/repair passes are recorded;
 - requirements, brief, references, and implementation agree;
 - final worker report names commit SHA, changed paths, commands/results, review findings fixed, and residual gaps.
+
+
+## Completion record — 2026-10-01
+
+Final implementation candidate:
+
+- Head SHA: `be30350cbf81cfae91b324e05bd8db56acdb12d6`
+- GitHub Actions: run `36750386329` — **success**
+- Synthetic merge tested: `8f263672f6cfe1a4cfd3e2e5762c0babd6d5a979`
+- Production build: PASS
+- Real-browser UI checks: 12 / 12 PASS
+- Content integration: PASS with 50 temporary fixtures removed
+- Console/page errors: 0
+- Closed hierarchy article center drift: 0px
+- Post-test tracked source changes: 0
+
+Evidence and final finding dispositions are recorded in `docs/review-receipt.md`.
+
+The implementation scope in this task is complete. Merge to `main`, deployment/publication, and technical verification of the Fusion manual remain separate authority/scope.
