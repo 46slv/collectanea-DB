@@ -75,7 +75,10 @@ try {
   await expect(page.locator('.cc-manual').getByRole('link', {name: 'CI Ordinary Markdown', exact: true})).toBeVisible();
   report.checks.push('new material and nested ordinary page visible/navigable without component changes');
   await go('/articles');
-  await page.locator('[data-cc-articles]').locator('..').getByLabel('タグ', {exact: true}).selectOption('ci-fixture');
+  const articleTag = page.locator('[data-cc-articles]').locator('..').getByLabel('タグ', {exact: true});
+  const articleTagValues = await articleTag.locator('option').evaluateAll((options) => options.map((option) => option.value));
+  assert.ok(articleTagValues.includes('ci-fixture'), `Fixture article tag missing from UI: ${articleTagValues.join(',')}`);
+  await articleTag.selectOption('ci-fixture');
   await expect(page.locator('[data-cc-articles] .cc-card')).toHaveCount(45);
   await expect(page.locator('[data-cc-articles] .cc-card h2').first()).toHaveText('CI Entry 45');
   await page.getByLabel('記事を検索', {exact: true}).fill('CI Entry 39');
