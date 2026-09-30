@@ -239,3 +239,301 @@ Markdown見出しレベルに応じて線長を変える。
 11. scroll位置に応じてactive見出しの輝度が変化する
 12. MobileでHierarchyがoverlayとして使える
 13. Markdown / MDXから階層・見出しナビゲーションを生成できる
+
+## 12. Design System — Provisional Defaults
+
+この節の数値・書体・色はVisual Exploration前の仮採用値とする。
+画面比較で変更してよいが、実装開始時にはこの節を確定値へ更新する。
+
+### 12.1 Typography
+
+役割を3系統に分ける。
+
+#### UI / Navigation / Meta / Latin
+
+第一候補: **Lexend Variable**
+
+用途:
+- Navigation
+- Command Palette
+- Tag
+- Button
+- Panel metadata
+- 数字
+- 短い英字見出し
+
+仮採用weight:
+- 400 Regular
+- 500 Medium
+- 600 SemiBold
+
+極端なLight / Blackは基本使用しない。
+
+#### Japanese body / long-form text
+
+第一候補: **Noto Sans JP**
+
+用途:
+- Manual本文
+- Article本文
+- 日本語見出し
+- 長文説明
+
+仮採用weight:
+- 本文 400
+- 小見出し 500
+- 大見出し 600
+
+UIでLexendを指定し、日本語glyphはNoto Sans JPへfallbackする構成を許可する。
+
+#### Code / Expression / technical value
+
+初期実装ではOS標準monospace stackを使う。
+
+`ui-monospace, SFMono-Regular, Consolas, "Liberation Mono", monospace`
+
+専用Mono fontの導入はVisual Exploration後に判断する。
+
+#### Typography sizing — provisional
+
+- Body: 15–16px
+- Small / Meta: 11–13px
+- Navigation / controls: 13–14px
+- H1: 34–44px
+- H2: 24–30px
+- H3: 18–22px
+- Code: 13–14px
+
+本文行間:
+- Japanese body: 1.75–1.9
+- compact UI: 1.3–1.5
+
+本文は長時間読む用途を優先し、小サイズへ詰めすぎない。
+
+### 12.2 Color System
+
+基本方針:
+- neutral / silver / cool gray
+- 彩度を抑える
+- Hueより輝度差で階層を作る
+- Accentは少面積
+- 状態表現は色だけに依存しない
+- Dark / Light両方を持つ
+
+Visual ExplorationはDark-firstで行い、実装はLightも破綻しないこと。
+
+#### Dark provisional palette
+
+- Background: `#0B0D10`
+- Surface: `#101318`
+- Surface Raised: `#15191E`
+- Text Primary: `#F1F3F2`
+- Text Secondary: `#A9B0B4`
+- Text Muted: `#768086`
+- Accent / Active: `#A6BBC6`
+- Focus: `#B5CBD7`
+- Line: `rgba(229,236,240,.12)`
+- Line Strong: `rgba(229,236,240,.28)`
+
+#### Light provisional palette
+
+- Background: `#F2F2EE`
+- Surface: `#E8E9E5`
+- Surface Raised: `#DFE1DC`
+- Text Primary: `#17191C`
+- Text Secondary: `#555D62`
+- Text Muted: `#7A8287`
+- Accent / Active: `#5F7481`
+- Focus: `#526B7B`
+- Line: `rgba(20,24,28,.14)`
+- Line Strong: `rgba(20,24,28,.32)`
+
+Semantic error / warning / success色は別tokenとし、neutral accentと混同しない。
+
+### 12.3 Luminance / State Hierarchy
+
+輝度差はCOLLECTANEAの主要interaction languageとする。
+
+最低でも以下を視覚的に区別する。
+
+- inactive
+- hover / proximity
+- selected
+- active / current location
+- keyboard focus
+- disabled
+
+特にHeading Railは輝度差を最優先する。
+
+Heading Rail provisional:
+- inactive: primary text luminanceの約20–30%
+- hover: 約55–70%
+- active: 約90–100%
+
+activeは輝度だけでなく、必要に応じて1px → 2px程度の線幅差を併用する。
+
+### 12.4 Heading Rail Geometry
+
+仮採用:
+- H1: 30–34px
+- H2: 20–24px
+- H3: 12–16px
+- inactive line: 1px
+- active line: 最大2px
+- rail width: 44–56px
+
+hover時の見出し名はrailの左側へ展開し、本文を押し動かさない。
+ラベルはoverlayとして出し、hit target自体は安定させる。
+
+### 12.5 Spacing
+
+基本spacing scale:
+
+- 4
+- 8
+- 12
+- 16
+- 24
+- 32
+- 48
+- 64px
+
+用途:
+- control内部: 4–8
+- 同一group: 8–12
+- section間: 16–24
+- major section: 32–48
+
+高密度を優先するが、本文の段落間隔までUI密度へ合わせて詰めない。
+
+### 12.6 Lines / Radius / Surface
+
+- 基本stroke: 1px
+- Active / focus: 1–2px
+- Panel radius: 0–4px
+- Control radius: 2–6px
+- PillはTag等、意味のある場合だけ
+- heavy rounded cardsは使わない
+- box-shadowは常用しない
+- elevationは主に背景輝度差と線で表現する
+
+### 12.7 Layout Dimensions — provisional
+
+Desktop:
+
+- Left Hierarchy: 280px基準
+- 初期許容範囲: 240–320px
+- resize対応はVisual Explorationで判断
+- Article max-width: 約780–840px
+- provisional target: 800px
+- Heading Rail: 44–56px
+- Article + Heading Railを1つのcentered reading unitとして扱う
+
+Hierarchy CLOSED:
+- reading unit全体をviewport中央へ移動
+- article left edgeを単に広げるだけにはしない
+
+Home:
+- content max-width: 1280–1480px
+- panel gap: 8–12px
+- desktop panel columns: 3–4を基本にresponsive調整
+- Search height: 44–52px
+
+### 12.8 Panel View
+
+Notion Gallery / Boardの整理感を参照するが、画像slotは必須にしない。
+
+Panelは以下を優先順で表示する。
+
+1. 資料名
+2. 1–2行の説明
+3. Tag
+4. 更新日
+5. 件数情報
+
+Panel全体をclick targetにしてよいが、内部のTag等に独立actionを持たせる場合はevent競合を避ける。
+
+hover:
+- background luminanceを少し上げる
+- line contrastを上げる
+- pointer近傍のproximity responseを許可
+- card自体を大きく移動させない
+
+### 12.9 Search / Command Palette
+
+- Desktop max-width: 約720–840px
+- Home searchとCommand Paletteは同じ検索indexを使う
+- input中に結果を即時更新
+- keyboard上下選択 + Enter
+- Escで閉じる
+- mouse / touchでも完全操作可能
+
+結果表示:
+- type
+- title
+- hierarchy / material
+- tags
+- 必要に応じてmatching excerpt
+
+### 12.10 Theme Default
+
+仮方針:
+- Dark-firstでvisual directionを設計
+- Light themeも同じ情報階層を維持
+- 初期modeはOS preferenceを尊重する案を第一候補とする
+- ユーザーの明示選択は保存する
+
+最終決定はVisual Exploration後に行う。
+
+## 13. Content Metadata Requirements
+
+検索・Panel・List・並び替えを成立させるため、各資料に最低限以下のmetadataを持つ。
+
+### Material
+
+- id
+- title
+- summary
+- kind
+- product / domain
+- tags[]
+- updated
+- status
+- order optional
+
+kind例:
+- manual
+- reference
+- research collection
+
+### Page / Article
+
+- title
+- material
+- type
+- tags[]
+- updated
+- description / excerpt
+- section / hierarchy
+- status
+
+status候補:
+- active
+- draft
+- deprecated
+
+検索indexとPanel表示は同じmetadataを正本として利用し、UI専用の重複データを別管理しない。
+
+## 14. Design Acceptance Additions
+
+既存Acceptanceに加え、以下を満たす。
+
+1. UI / body / codeのfont roleが一貫している
+2. Dark / Light双方でprimary / secondary / muted / line階層が維持される
+3. 通常本文はAA相当の可読性を目標にする
+4. inactive / hover / activeが色相だけでなく輝度差で判別できる
+5. Heading Railのactive位置が一目で分かる
+6. thin-line表現が実寸で消えない
+7. Panel / List / Command Paletteで同じtag・metadataが利用される
+8. Hierarchy CLOSED時のArticle centerがviewport基準で崩れない
+
