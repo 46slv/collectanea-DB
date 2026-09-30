@@ -3,7 +3,7 @@ const {themes: prismThemes} = require('prism-react-renderer');
 /** @type {import('@docusaurus/types').Config} */
 const config = {
   title: 'COLLECTANEA',
-  tagline: '技術を、探せる形で残す。',
+  tagline: 'Technical manuals, articles, references, and research.',
   favicon: 'img/favicon.svg',
 
   url: 'https://46slv.github.io',
@@ -37,7 +37,7 @@ const config = {
           blogDescription: '制作・CG・開発に関する技術記事',
           blogSidebarTitle: 'Articles',
           blogSidebarCount: 'ALL',
-          postsPerPage: 10,
+          postsPerPage: 12,
           showReadingTime: true,
           feedOptions: {
             type: ['rss', 'atom'],
@@ -103,9 +103,9 @@ const config = {
     metadata: [
       {
         name: 'description',
-        content:
-          'COLLECTANEA — マニュアル、技術記事、リファレンス、研究記録を公開する技術知識アーカイブ。',
+        content: 'COLLECTANEA — 技術マニュアル、記事、リファレンス、調査記録を横断する公開資料サイト。',
       },
+      {name: 'theme-color', content: '#090a0c'},
     ],
     colorMode: {
       defaultMode: 'dark',
@@ -124,11 +124,7 @@ const config = {
           position: 'left',
           label: 'Manuals',
         },
-        {
-          to: '/articles',
-          label: 'Articles',
-          position: 'left',
-        },
+        {to: '/articles', label: 'Articles', position: 'left'},
         {
           type: 'docSidebar',
           sidebarId: 'referenceSidebar',
@@ -174,18 +170,12 @@ const config = {
         {
           title: 'Contribute',
           items: [
-            {
-              label: 'Report an issue',
-              href: 'https://github.com/46slv/collectanea-DB/issues/new/choose',
-            },
-            {
-              label: 'GitHub repository',
-              href: 'https://github.com/46slv/collectanea-DB',
-            },
+            {label: 'Report an issue', href: 'https://github.com/46slv/collectanea-DB/issues/new/choose'},
+            {label: 'GitHub repository', href: 'https://github.com/46slv/collectanea-DB'},
           ],
         },
       ],
-      copyright: 'COLLECTANEA · 46slv · Built with Docusaurus',
+      copyright: 'COLLECTANEA · 46slv',
     },
     prism: {
       theme: prismThemes.github,
