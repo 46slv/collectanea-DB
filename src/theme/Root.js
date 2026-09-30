@@ -1,4 +1,5 @@
 import React, {useEffect} from 'react';
+import BrowserOnly from '@docusaurus/BrowserOnly';
 import {SiteUIProvider} from '@site/src/components/SiteUI';
 import GlobalSearch from '@site/src/components/GlobalSearch';
 
@@ -14,5 +15,5 @@ function OptionalFonts() {
   return null;
 }
 export default function Root({children}) {
-  return <SiteUIProvider><OptionalFonts />{children}<GlobalSearch /></SiteUIProvider>;
+  return <SiteUIProvider><OptionalFonts />{children}<BrowserOnly fallback={null}>{() => <GlobalSearch />}</BrowserOnly></SiteUIProvider>;
 }
