@@ -1,137 +1,14 @@
 import React, {useMemo, useState} from 'react';
 import Link from '@docusaurus/Link';
-import {matchesEntry} from '../search';
-import styles from './styles.module.css';
-
-const SORTS = ['updated-desc', 'updated-asc', 'title'];
-
-function toEntry(item) {
-  const frontMatter = item?.content?.frontMatter ?? {};
-  const metadata = item?.content?.metadata ?? {};
-  const permalink = metadata.permalink ?? frontMatter.slug ?? '#';
-  const tags = metadata.tags ?? frontMatter.tags ?? [];
-  const tagNames = (Array.isArray(tags) ? tags : []).map((tag) => (typeof tag === 'string' ? tag : tag.label ?? tag.name ?? '')).filter(Boolean);
-  const date = metadata.date ?? frontMatter.date ?? null;
-  return {
-    id: permalink,
-    title: metadata.title ?? frontMatter.title ?? permalink,
-    summary: metadata.description ?? frontMatter.description ?? '',
-    type: 'Article',
-    domain: 'Development',
-    tags: tagNames,
-    hierarchy: 'Articles',
-    href: permalink,
-    updated: typeof date === 'string' ? date.slice(0, 10) : null,
-  };
-}
-
-export default function ArticlesExplorer({items = []}) {
-  const [query, setQuery] = useState('');
-  const [tag, setTag] = useState('All');
-  const [sort, setSort] = useState('updated-desc');
-  const [view, setView] = useState('panel');
-
-  const entries = useMemo(() => items.map(toEntry), [items]);
-  const allTags = useMemo(() => {
-    const tagSet = new Set();
-    for (const entry of entries) for (const t of entry.tags) tagSet.add(t);
-    // NOTE: Array.from, never `[...tagSet]`: the production Babel spread
-    // transform compiles Set spreads to a broken concat.
-    return ['All', ...Array.from(tagSet).sort()];
-  }, [entries]);
-
-  const visible = useMemo(() => {
-    const filtered = entries
-      .filter((entry) => tag === 'All' || entry.tags.includes(tag))
-      .filter((entry) => matchesEntry(entry, query));
-    return [...filtered].sort((a, b) => {
-      if (sort === 'updated-asc') return (a.updated ?? '').localeCompare(b.updated ?? '');
-      if (sort === 'title') return a.title.localeCompare(b.title, 'ja');
-      return (b.updated ?? '').localeCompare(a.updated ?? '');
-    });
-  }, [entries, tag, query, sort]);
-
-  return (
-    <div className={styles.articlesDb}>
-      <header className={styles.header}>
-        <div>
-          <span className={styles.eyebrow}>Articles database</span>
-          <h1>Articles</h1>
-          <p>時系列ではなく、検索・タグ・更新順で引く技術記事DB。個別記事のURLとRSSはそのまま維持する。</p>
-        </div>
-        <div className={styles.count} aria-live="polite">
-          {visible.length} / {entries.length} articles
-        </div>
-      </header>
-
-      <div className={styles.controls}>
-        <label className={styles.search}>
-          <span aria-hidden="true">⌕</span>
-          <input
-            type="search"
-            value={query}
-            onChange={(event) => setQuery(event.target.value)}
-            placeholder="記事を検索"
-            aria-label="記事検索"
-          />
-        </label>
-        <label>
-          <span>Tag</span>
-          <select value={tag} onChange={(event) => setTag(event.target.value)} aria-label="タグフィルタ">
-            {allTags.map((t) => (
-              <option key={t} value={t}>
-                {t}
-              </option>
-            ))}
-          </select>
-        </label>
-        <label>
-          <span>Sort</span>
-          <select value={sort} onChange={(event) => setSort(event.target.value)} aria-label="並び順">
-            <option value="updated-desc">Recently updated</option>
-            <option value="updated-asc">Oldest update</option>
-            <option value="title">Title</option>
-          </select>
-        </label>
-        <div className={styles.segmented} role="group" aria-label="表示形式">
-          <button
-            type="button"
-            aria-pressed={view === 'panel'}
-            className={view === 'panel' ? styles.segmentActive : styles.segment}
-            onClick={() => setView('panel')}>
-            Panel
-          </button>
-          <button
-            type="button"
-            aria-pressed={view === 'list'}
-            className={view === 'list' ? styles.segmentActive : styles.segment}
-            onClick={() => setView('list')}>
-            List
-          </button>
-        </div>
-      </div>
-
-      {visible.length === 0 ? (
-        <p className={styles.empty} role="status">
-          一致する記事はありません。語句やタグを変えて再検索してください。
-        </p>
-      ) : (
-        <div className={view === 'list' ? styles.list : styles.grid}>
-          {visible.map((entry) => (
-            <Link key={entry.id} to={entry.href} className={view === 'list' ? styles.row : styles.card}>
-              <span className={styles.cardType}>Article</span>
-              <strong>{entry.title}</strong>
-              {entry.summary ? <span className={styles.cardSummary}>{entry.summary}</span> : null}
-              <span className={styles.cardMeta}>
-                {entry.tags.map((t) => (
-                  <span key={t}>{t}</span>
-                ))}
-                <time dateTime={entry.updated ?? ''}>{entry.updated ?? '—'}</time>
-              </span>
-            </Link>
-          ))}
-        </div>
-      )}
-    </div>
-  );
+import {usePreference} from '../SiteUI';
+import {matches, sorted, statusLabel, useCatalog} from '@site/src/data/catalog';
+export default function ArticlesExplorer() {
+  const {pages} = useCatalog();
+  const articles = useMemo(() => pages.filter((p) => p.kind === 'article'), [pages]);
+  const tags = useMemo(() => [...new Set(articles.flatMap((p) => p.tags))].sort(), [articles]);
+  const [query, setQuery] = useState(''), [tag, setTag] = useState('all');
+  const [view, setView] = usePreference('collectanea.articles.view', 'panel', ['panel', 'list']);
+  const [order, setOrder] = usePreference('collectanea.articles.sort', 'recent', ['recent', 'name']);
+  const visible = useMemo(() => sorted(articles.filter((p) => (tag === 'all' || p.tags.includes(tag)) && matches(p, query)), order), [articles, query, tag, order]);
+  return <main className="cc-index" id="main-content"><header className="cc-index-heading"><div><p className="cc-eyebrow">記事一覧</p><h1>Articles</h1></div></header><div className="cc-index-toolbar"><label className="cc-flex-search">記事を検索<input type="search" placeholder="記事名・説明を検索" value={query} onChange={(e) => setQuery(e.target.value)} /></label><label>タグ<select value={tag} onChange={(e) => setTag(e.target.value)}><option value="all">すべて</option>{tags.map((t) => <option value={t} key={t}>{t}</option>)}</select></label><label>並び順<select value={order} onChange={(e) => setOrder(e.target.value)}><option value="recent">最近更新</option><option value="name">名前順</option></select></label><div className="cc-view-switch" role="group" aria-label="記事の表示形式"><button type="button" aria-pressed={view === 'panel'} onClick={() => setView('panel')}>パネル</button><button type="button" aria-pressed={view === 'list'} onClick={() => setView('list')}>リスト</button></div></div><p className="cc-results-count" role="status">{visible.length} / {articles.length} 件</p><div className={`cc-materials cc-materials--${view}`} data-cc-articles>{visible.map((p) => <article className="cc-card" key={p.id}><div className="cc-card-main"><span className="cc-eyebrow">Article {statusLabel(p.status)}</span><h2><Link to={p.href}>{p.title}</Link></h2><p className="cc-card-summary">{p.summary}</p></div><div className="cc-tags">{p.tags.map((t) => <span key={t}>{t}</span>)}</div><footer className="cc-card-meta"><span>{p.materialTitle}</span><time dateTime={p.updated || undefined}>{p.updated || '更新日なし'}</time></footer></article>)}</div>{visible.length === 0 && <p className="cc-empty">該当する記事がありません。検索語やタグを変更してください。</p>}</main>;
 }

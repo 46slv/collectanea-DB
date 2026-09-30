@@ -1,96 +1,77 @@
-name: PR quality
-
+name: Collectanea PR Quality
 on:
   pull_request:
     branches: [main]
   workflow_dispatch:
-
 permissions:
   contents: read
-
 concurrency:
-  group: pr-quality-${{ github.ref }}
+  group: collectanea-quality-${{ github.event.pull_request.number || github.ref }}
   cancel-in-progress: true
-
 jobs:
-  build-and-capture:
-    name: Build and capture UI
+  quality:
     runs-on: ubuntu-latest
-
+    timeout-minutes: 20
+    env:
+      CC_HEAD_SHA: ${{ github.event.pull_request.head.sha || github.sha }}
     steps:
-      - name: Checkout
-        uses: actions/checkout@v4
+      - uses: actions/checkout@v4
         with:
           fetch-depth: 0
-
-      - name: Setup Node
-        uses: actions/setup-node@v4
+      - uses: actions/setup-node@v4
         with:
           node-version: 24
           cache: npm
-
-      - name: Install dependencies
-        run: npm ci --no-audit --no-fund
-
-      - name: Static honesty regressions
-        run: node scripts/regression-check.mjs
-
+      - run: npm ci --no-audit --no-fund
+      - name: Catalog model regressions
+        run: npm run test:regressions
       - name: Production build
+        id: build
         run: npm run build
-
-      - name: Write candidate metadata into built site
-        run: |
-          SHA="$(git rev-parse HEAD)"
-          DATE="$(date -u +%Y-%m-%dT%H:%M:%SZ)"
-          printf '{\n  "candidate": "%s",\n  "builtAt": "%s",\n  "node": "24",\n  "basePath": "/collectanea-DB/"\n}\n' "$SHA" "$DATE" > build/candidate.json
-          cat build/candidate.json
-
-      - name: Install capture runtime
-        run: |
-          npm install --no-save --package-lock=false @playwright/test@1.56.0
-          npx playwright install --with-deps chromium
-
-      - name: Start built site
-        run: |
-          npm run serve -- --host 127.0.0.1 --port 3000 > /tmp/collectanea-server.log 2>&1 &
-          for attempt in $(seq 1 45); do
-            if curl --fail --silent http://127.0.0.1:3000/collectanea-DB/ > /dev/null; then
-              exit 0
-            fi
-            sleep 1
-          done
-          cat /tmp/collectanea-server.log
-          exit 1
-
-      - name: Capture required states
-        env:
-          CAPTURE_BASE_URL: http://127.0.0.1:3000/collectanea-DB
-          CAPTURE_OUTPUT: artifacts/visual
-        run: |
-          node scripts/capture-ui.mjs
-          cp /tmp/collectanea-server.log artifacts/visual/server.log || true
-
-      - name: Preserve server log on failure
-        if: failure()
+      - name: Install locked browser
+        run: npx playwright install --with-deps chromium
+      - name: Record exact candidate
         run: |
           mkdir -p artifacts/visual
-          cp /tmp/collectanea-server.log artifacts/visual/server.log || true
-          cat /tmp/collectanea-server.log || true
-
-      - name: Upload visual evidence
+          node -e 'const fs=require("fs"),cp=require("child_process");fs.writeFileSync("artifacts/visual/candidate.json",JSON.stringify({head:process.env.CC_HEAD_SHA,tested:cp.execFileSync("git",["rev-parse","HEAD"],{encoding:"utf8"}).trim(),dirty:cp.execFileSync("git",["status","--porcelain"],{encoding:"utf8"}),node:process.version},null,2))'
+          git archive --format=tar.gz HEAD > artifacts/source-snapshot.tar.gz
+      - name: Serve production and verify real UI states
+        run: |
+          npm run serve -- --host 127.0.0.1 --port 3000 --no-open > artifacts/visual/server.log 2>&1 &
+          SERVER_PID=$!
+          trap 'kill "$SERVER_PID" 2>/dev/null || true' EXIT
+          for n in $(seq 1 60); do
+            curl --fail --silent http://127.0.0.1:3000/collectanea-DB/ > /dev/null && break
+            sleep 1
+          done
+          curl --fail --silent http://127.0.0.1:3000/collectanea-DB/ > /dev/null
+          npm run capture
+      - name: Ordinary Markdown integration and cleanup
+        if: ${{ !cancelled() && steps.build.outcome == 'success' }}
+        run: npm run test:content
+      - name: Record post-test source cleanliness
         if: always()
-        uses: actions/upload-artifact@v4
+        run: |
+          mkdir -p artifacts/visual
+          git status --porcelain > artifacts/visual/source-status-after.txt
+      - uses: actions/upload-artifact@v4
+        if: always()
         with:
           name: collectanea-visual-evidence
           path: artifacts/visual
-          if-no-files-found: warn
           retention-days: 14
-
-      - name: Upload built site for independent browser review
+          if-no-files-found: warn
+      - uses: actions/upload-artifact@v4
         if: always()
-        uses: actions/upload-artifact@v4
         with:
           name: collectanea-built-site
           path: build
-          if-no-files-found: error
           retention-days: 14
+          if-no-files-found: warn
+      - uses: actions/upload-artifact@v4
+        if: always()
+        with:
+          name: collectanea-source-snapshot
+          path: artifacts/source-snapshot.tar.gz
+          retention-days: 14
+          if-no-files-found: warn

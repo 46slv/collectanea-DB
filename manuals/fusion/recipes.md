@@ -1,49 +1,34 @@
 ---
 sidebar_position: 5
 title: Recipes
+verification: unverified
+description: 制作目的別のレシピ。手順は検証中です。
 ---
 
 # Recipes
 
-実現したい見た目や処理から、必要なノード構成を探します。
+この章には、実機確認後に掲載する制作手順を整理しています。以下は検証する項目であり、確認済みの操作手順ではありません。
 
 ## 線だけの円
 
-1. Backgroundを追加します。
-2. EllipseをBackgroundのMask入力へ接続します。
-3. EllipseのSolidを無効にします。
-4. Border Widthで線幅を調整します。
+Ellipseを使う構成について、塗り・反転・線幅の設定と日本語UI上の名称を確認します。
 
 ### 外周を維持する
 
-外周サイズを固定して内径だけを変える場合は、EllipseのWidth / Heightを固定し、Border Widthを変更します。
+幅・高さを固定してBorder Widthだけを変更した場合に、外周が保たれるかは未確認です。単純な線幅変更で外径固定を保証する説明は採用していません。外側・内側のマスクを分ける構成との比較が必要です。
 
 ## 位置を同期する
 
-同期先のCenterへExpressionを設定し、基準ノードを参照します。
-
-```lua
-SourceTransform.Center
-```
-
-### Offsetを加える
-
-```lua
-Point(SourceTransform.Center.X + 0.1, SourceTransform.Center.Y)
-```
+別ノードのCenter参照とOffsetの追加について、式を入力する場所・参照名・対象バージョンを確認します。
 
 ## ベジェ線を描く
 
-BackgroundへPolygon Maskを接続し、Solidを無効にしてBorder Widthを設定します。
+線を描く方法と、マスクを画像として表示する構成を分けて説明する予定です。
 
 ## 複数の円を等間隔にする
 
-基準となる最小・最大サイズをUser Controlsへ置き、indexから各円のサイズを計算します。
-
-```lua
-minSize + (maxSize - minSize) * index / (count - 1)
-```
+最小・最大サイズ・個数・indexの対応を確認します。個数が1の場合を含め、計算条件を明記してから手順を公開します。
 
 ## PNGの内径を広げる
 
-合成済みPNGの場合は、Erode/DilateやMask生成を使います。外周を厳密に固定する必要がある場合は、元shapeから再構成した方が管理しやすくなります。
+合成済み画像の加工と、形状から再構成する方法を比較します。外周・線幅・アルファのどの条件を維持できるかを確認します。

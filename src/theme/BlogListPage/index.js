@@ -1,16 +1,8 @@
 import React from 'react';
-import BlogListPage from '@theme-original/BlogListPage';
+import Layout from '@theme/Layout';
 import ArticlesExplorer from '@site/src/components/ArticlesExplorer';
-
-// DB-first Articles index. Post URLs, feeds, and the underlying blog plugin
-// are untouched; only the list presentation becomes a searchable DB.
-export default function BlogListPageWrapper(props) {
-  const {metadata, items} = props;
-  const isFirstPage = !metadata?.page || metadata.page === 1;
-  return (
-    <>
-      {isFirstPage ? <ArticlesExplorer items={items ?? []} /> : null}
-      <BlogListPage {...props} />
-    </>
-  );
+// Keep the blog plugin's post/tag/feed routes. The index itself is one full-catalog DB,
+// not a second block outside the theme Layout or the current pagination slice.
+export default function BlogListPage() {
+  return <Layout title="Articles" description="技術記事の検索・一覧"><ArticlesExplorer /></Layout>;
 }

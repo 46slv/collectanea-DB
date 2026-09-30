@@ -1,244 +1,70 @@
 import React, {useEffect, useMemo, useRef, useState} from 'react';
-import useDocusaurusContext from '@docusaurus/useDocusaurusContext';
-import {SEARCH_ENTRIES} from '../../data/catalog';
-import {matchesEntry} from '../search';
-import styles from './styles.module.css';
+import {useSiteUI} from '../SiteUI';
+import {CONTENT_TYPES, matches, normalize, useCatalog} from '@site/src/data/catalog';
 
-const TYPES = ['All', 'Manual', 'Article', 'Reference', 'Research'];
-const DOMAINS = ['All', 'DaVinci', 'Development'];
-const PAGE_SIZE = 20;
-
-export default function GlobalSearch({open, initialQuery = '', onClose}) {
-  const {siteConfig} = useDocusaurusContext();
-  const dialogRef = useRef(null);
-  const inputRef = useRef(null);
-  const openerRef = useRef(null);
-  const [query, setQuery] = useState(initialQuery);
-  const [type, setType] = useState('All');
-  const [domain, setDomain] = useState('All');
-  const [activeIndex, setActiveIndex] = useState(0);
-
+export default function GlobalSearch() {
+  const {searchOpen, setSearchOpen} = useSiteUI();
+  const {facets} = useCatalog();
+  const dialog = useRef(null), input = useRef(null), composing = useRef(false);
+  const [entries, setEntries] = useState(null), [failed, setFailed] = useState(false);
+  const [query, setQuery] = useState(''), [type, setType] = useState('all'), [tag, setTag] = useState('all');
+  const [selected, setSelected] = useState(0), [limit, setLimit] = useState(40);
   useEffect(() => {
-    if (!open) return undefined;
-    openerRef.current = document.activeElement;
-    setQuery(initialQuery);
-    setType('All');
-    setDomain('All');
-    setActiveIndex(0);
-    const previousOverflow = document.body.style.overflow;
+    if (!searchOpen) return;
+    let alive = true;
+    if (!entries) import('@collectanea/search-index').then((m) => {if (alive) setEntries(m.default);}).catch(() => {if (alive) setFailed(true);});
+    const opener = document.activeElement, el = dialog.current;
+    const overflow = document.body.style.overflow;
     document.body.style.overflow = 'hidden';
-    const frame = requestAnimationFrame(() => inputRef.current?.focus());
-    const onGlobalKey = (event) => {
-      if (event.key === 'Escape') {
-        event.preventDefault();
-        onClose();
-      }
-    };
-    document.addEventListener('keydown', onGlobalKey, true);
+    setQuery(''); setType('all'); setTag('all'); setSelected(0); setLimit(40);
+    el.showModal(); input.current.focus();
     return () => {
-      cancelAnimationFrame(frame);
-      document.body.style.overflow = previousOverflow;
-      document.removeEventListener('keydown', onGlobalKey, true);
-      if (openerRef.current && typeof openerRef.current.focus === 'function') {
-        openerRef.current.focus();
-      }
+      alive = false; el.close(); document.body.style.overflow = overflow;
+      if (opener?.isConnected && typeof opener.focus === 'function') opener.focus();
     };
-  }, [open, initialQuery, onClose]);
-
-  const filtered = useMemo(() => {
-    const matches = SEARCH_ENTRIES.filter(
-      (entry) =>
-        (type === 'All' || entry.type === type) &&
-        (domain === 'All' || entry.domain === domain || entry.tags?.includes(domain)),
-    ).filter((entry) => matchesEntry(entry, query));
-    return {total: matches.length, shown: matches.slice(0, PAGE_SIZE)};
-  }, [type, domain, query]);
-
-  useEffect(() => {
-    setActiveIndex((current) => Math.min(current, Math.max(filtered.shown.length - 1, 0)));
-  }, [filtered.shown.length]);
-
-  if (!open) return null;
-
-  const navigate = (entry) => {
+  }, [searchOpen]);
+  const results = useMemo(() => (entries || []).filter((e) =>
+    (type === 'all' || e.kind === type) && (tag === 'all' || e.tags?.includes(tag) || e.domain === tag) && matches(e, query)
+  ).sort((a, b) => {
+    const score = (entry) => normalize(entry.title) === normalize(query) ? 0 : normalize(query) && normalize(entry.title).startsWith(normalize(query)) ? 1 : entry.kind === 'tag' ? 3 : 2;
+    return score(a) - score(b) || a.title.localeCompare(b.title, 'ja');
+  }), [entries, query, type, tag]);
+  useEffect(() => {setSelected(0); setLimit(40);}, [query, type, tag]);
+  useEffect(() => {document.getElementById(`cc-result-${selected}`)?.scrollIntoView({block: 'nearest'});}, [selected, limit]);
+  const activate = (entry) => {
     if (!entry) return;
-    const base = siteConfig.baseUrl.replace(/\/$/, '');
-    const target = entry.href.startsWith('/') ? `${base}${entry.href}` : entry.href;
-    window.location.assign(target);
+    if (entry.kind === 'tag') {setTag(entry.tag); setQuery(''); input.current.focus(); return;}
+    setSearchOpen(false);
+    // A real processed permalink, including baseUrl. Native navigation preserves normal URL behavior.
+    window.location.assign(entry.href);
   };
-
-  const isComposing = (event) => event.nativeEvent?.isComposing || event.keyCode === 229;
-
-  const onInputKeyDown = (event) => {
-    if (event.key === 'Enter' && isComposing(event)) return;
-    if (event.key === 'Escape') {
+  const onInputKey = (event) => {
+    if (event.isComposing || composing.current || event.keyCode === 229) return;
+    if (event.key === 'ArrowDown' || event.key === 'ArrowUp') {
       event.preventDefault();
-      onClose();
-      return;
-    }
-    if (event.key === 'ArrowDown') {
-      event.preventDefault();
-      setActiveIndex((index) => Math.min(index + 1, filtered.shown.length - 1));
-      return;
-    }
-    if (event.key === 'ArrowUp') {
-      event.preventDefault();
-      setActiveIndex((index) => Math.max(index - 1, 0));
-      return;
-    }
-    if (event.key === 'Enter') {
-      event.preventDefault();
-      navigate(filtered.shown[activeIndex]);
-    }
-    if (event.key === 'Tab') {
-      const dialog = dialogRef.current;
-      if (!dialog) return;
-      const focusable = dialog.querySelectorAll(
-        'input, button:not([disabled]), select, [tabindex]:not([tabindex="-1"])',
-      );
-      if (!focusable.length) return;
-      const first = focusable[0];
-      const last = focusable[focusable.length - 1];
-      if (event.shiftKey && document.activeElement === first) {
-        event.preventDefault();
-        last.focus();
-      } else if (!event.shiftKey && document.activeElement === last) {
-        event.preventDefault();
-        first.focus();
-      }
-    }
+      if (!results.length) return;
+      const next = Math.max(0, Math.min(results.length - 1, selected + (event.key === 'ArrowDown' ? 1 : -1)));
+      if (next >= limit) setLimit(next + 40);
+      setSelected(next);
+    } else if (event.key === 'Enter' && results.length) {event.preventDefault(); activate(results[selected]);}
   };
-
-  const listboxId = 'collectanea-search-listbox';
-
-  return (
-    <div className={styles.backdrop} role="presentation" onMouseDown={onClose}>
-      <section
-        ref={dialogRef}
-        className={styles.dialog}
-        role="dialog"
-        aria-modal="true"
-        aria-label="サイト内検索"
-        onMouseDown={(event) => event.stopPropagation()}
-        onKeyDown={(event) => {
-          if (event.key === 'Escape') {
-            event.preventDefault();
-            onClose();
-          }
-        }}>
-        <div className={styles.searchRow}>
-          <span className={styles.searchIcon} aria-hidden="true">
-            ⌕
-          </span>
-          <input
-            ref={inputRef}
-            value={query}
-            role="combobox"
-            aria-expanded="true"
-            aria-controls={listboxId}
-            aria-activedescendant={
-              filtered.shown[activeIndex] ? `collectanea-search-option-${filtered.shown[activeIndex].id}` : undefined
-            }
-            aria-label="検索語"
-            onChange={(event) => {
-              setQuery(event.target.value);
-              setActiveIndex(0);
-            }}
-            onKeyDown={onInputKeyDown}
-            placeholder="資料・記事・ノードを検索"
-            autoComplete="off"
-            spellCheck={false}
-          />
-          <button type="button" className={styles.escape} onClick={onClose}>
-            Esc
-          </button>
-        </div>
-
-        <div className={styles.filters} aria-label="検索フィルタ">
-          <div className={styles.filterGroup}>
-            <span className={styles.filterLabel} id="collectanea-search-type-label">
-              Type
-            </span>
-            <div className={styles.chips} role="group" aria-labelledby="collectanea-search-type-label">
-              {TYPES.map((item) => (
-                <button
-                  type="button"
-                  key={item}
-                  className={item === type ? styles.chipActive : styles.chip}
-                  aria-pressed={item === type}
-                  onClick={() => {
-                    setType(item);
-                    setActiveIndex(0);
-                    inputRef.current?.focus();
-                  }}>
-                  {item}
-                </button>
-              ))}
-            </div>
-          </div>
-          <div className={styles.filterGroup}>
-            <span className={styles.filterLabel} id="collectanea-search-domain-label">
-              Domain
-            </span>
-            <div className={styles.chips} role="group" aria-labelledby="collectanea-search-domain-label">
-              {DOMAINS.map((item) => (
-                <button
-                  type="button"
-                  key={item}
-                  className={item === domain ? styles.chipActive : styles.chip}
-                  aria-pressed={item === domain}
-                  onClick={() => {
-                    setDomain(item);
-                    setActiveIndex(0);
-                    inputRef.current?.focus();
-                  }}>
-                  {item}
-                </button>
-              ))}
-            </div>
-          </div>
-        </div>
-
-        <div className={styles.resultMeta} aria-live="polite">
-          <span>
-            {filtered.total === 0
-              ? '0件 — 条件を変えて再検索してください'
-              : `${filtered.total}件中 ${filtered.shown.length}件を表示`}
-          </span>
-          <span>↑↓ 選択 · Enterで開く</span>
-        </div>
-
-        <div className={styles.results} role="listbox" id={listboxId} aria-label="検索結果">
-          {filtered.shown.length === 0 ? (
-            <div className={styles.empty}>
-              一致する項目はありません。別の語句やフィルタで試してください。
-            </div>
-          ) : (
-            filtered.shown.map((entry, index) => (
-              <button
-                type="button"
-                key={entry.id}
-                id={`collectanea-search-option-${entry.id}`}
-                role="option"
-                aria-selected={index === activeIndex}
-                className={index === activeIndex ? styles.resultActive : styles.result}
-                onMouseEnter={() => setActiveIndex(index)}
-                onFocus={() => setActiveIndex(index)}
-                onClick={() => navigate(entry)}>
-                <span className={styles.resultMarker} aria-hidden="true" />
-                <span className={styles.resultMain}>
-                  <strong>{entry.title}</strong>
-                  <span>{entry.hierarchy}</span>
-                </span>
-                <span className={styles.resultSide}>
-                  <span className={styles.resultType}>{entry.type}</span>
-                  <span>{entry.domain}</span>
-                </span>
-              </button>
-            ))
-          )}
-        </div>
-      </section>
+  const onDialogKey = (event) => {
+    if (event.key === 'Escape' && !event.isComposing) {event.preventDefault(); setSearchOpen(false);}
+    if (event.key !== 'Tab') return;
+    const focusable = [...dialog.current.querySelectorAll('button:not([disabled]):not([tabindex="-1"]), input, select, a[href]')].filter((el) => el.getClientRects().length);
+    const first = focusable[0], last = focusable.at(-1);
+    if (event.shiftKey && document.activeElement === first) {event.preventDefault(); last?.focus();}
+    else if (!event.shiftKey && document.activeElement === last) {event.preventDefault(); first?.focus();}
+  };
+  return <dialog ref={dialog} className="cc-palette" aria-labelledby="cc-search-title" onCancel={(e) => {e.preventDefault(); setSearchOpen(false);}} onKeyDown={onDialogKey} onClick={(e) => {if (e.target === dialog.current) setSearchOpen(false);}}>
+    <div className="cc-palette-inner">
+      <div className="cc-palette-top"><label id="cc-search-title" htmlFor="cc-search-input">サイト内検索</label><button type="button" className="cc-icon-button" aria-label="検索を閉じる" onClick={() => setSearchOpen(false)}>×</button></div>
+      <input id="cc-search-input" ref={input} type="search" value={query} onChange={(e) => setQuery(e.target.value)} onCompositionStart={() => {composing.current = true;}} onCompositionEnd={() => {composing.current = false;}} onKeyDown={onInputKey} role="combobox" aria-autocomplete="list" aria-expanded={searchOpen} aria-controls="cc-search-results" aria-activedescendant={results.length ? `cc-result-${Math.min(selected, results.length - 1)}` : undefined} placeholder="資料・記事・見出しを検索" autoComplete="off" />
+      <div className="cc-palette-filters"><label>種類<select value={type} onChange={(e) => setType(e.target.value)}>{CONTENT_TYPES.map((t) => <option key={t.value} value={t.value}>{t.label}</option>)}<option value="tag">Tag</option></select></label><label>タグ<select value={tag} onChange={(e) => setTag(e.target.value)}><option value="all">すべて</option>{facets.map((f) => <option key={f} value={f}>{f}</option>)}</select></label><span role="status">{entries ? `${results.length} 件` : failed ? '検索を読み込めませんでした' : '検索を準備中…'}</span></div>
+      <ul id="cc-search-results" role="listbox" aria-label="検索結果" className="cc-results">{results.slice(0, limit).map((e, i) => <li role="presentation" key={e.id}><button type="button" role="option" id={`cc-result-${i}`} tabIndex={-1} aria-selected={i === selected} onMouseMove={() => setSelected(i)} onClick={() => activate(e)}><span className="cc-result-content"><strong>{e.title}</strong><small>{e.materialTitle || e.summary}</small></span><span className="cc-result-type">{e.label}</span></button></li>)}</ul>
+      {entries && results.length === 0 && <p className="cc-empty">該当する資料がありません。検索語やタグを変更してください。</p>}
+      {results.length > limit && <button type="button" className="cc-button" onClick={() => setLimit(limit + 40)}>さらに表示（残り {results.length - limit} 件）</button>}
+      <div className="cc-palette-bottom"><span>↑ ↓ 選択　Enter 開く　Esc 閉じる</span><span>Ctrl / ⌘ K</span></div>
     </div>
-  );
+  </dialog>;
 }

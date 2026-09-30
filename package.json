@@ -5,13 +5,13 @@
   "description": "COLLECTANEA public technical knowledge base",
   "scripts": {
     "start": "docusaurus start",
-    "build": "npm run catalog && docusaurus build",
+    "build": "docusaurus build",
     "serve": "docusaurus serve",
     "clear": "docusaurus clear",
     "deploy": "docusaurus deploy",
-    "catalog": "node scripts/generate-catalog.mjs",
     "capture": "node scripts/capture-ui.mjs",
-    "test:regressions": "node scripts/regression-check.mjs"
+    "test:regressions": "node --test tests/catalog.test.cjs",
+    "test:content": "node scripts/content-integration.mjs"
   },
   "dependencies": {
     "@docusaurus/core": "3.10.2",
@@ -23,10 +23,6 @@
     "react": "19.2.3",
     "react-dom": "19.2.3"
   },
-  "devDependencies": {
-    "@playwright/test": "1.56.0"
-  },
-  "engines": {
-    "node": ">=20.0"
-  }
+  "devDependencies": {"@playwright/test": "1.56.0"},
+  "engines": {"node": ">=20.0"}
 }
