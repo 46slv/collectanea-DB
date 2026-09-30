@@ -1,7 +1,7 @@
 # COLLECTANEA — 要件
 
-Status: Hearing
-Updated: 2026-09-30
+Status: Foundation implemented and verified
+Updated: 2026-10-01
 
 ## 1. 目的
 
@@ -240,10 +240,10 @@ Markdown見出しレベルに応じて線長を変える。
 12. MobileでHierarchyがoverlayとして使える
 13. Markdown / MDXから階層・見出しナビゲーションを生成できる
 
-## 12. Design System — Provisional Defaults
+## 12. Design System — Current Baseline
 
-この節の数値・書体・色はVisual Exploration前の仮採用値とする。
-画面比較で変更してよいが、実装開始時にはこの節を確定値へ更新する。
+この節は現在実装・検証済みのUI foundation baselineを示す。
+将来のdesign iterationで変更できるが、materialな変更は同じAcceptanceを再検証する。
 
 ### 12.1 Typography
 
@@ -251,7 +251,7 @@ Markdown見出しレベルに応じて線長を変える。
 
 #### UI / Navigation / Meta / Latin
 
-第一候補: **Lexend Variable**
+UI / Latin baseline: **Lexend Variable**（利用可能な場合）
 
 用途:
 - Navigation
@@ -271,7 +271,7 @@ Markdown見出しレベルに応じて線長を変える。
 
 #### Japanese body / long-form text
 
-第一候補: **Noto Sans JP**
+Japanese body baseline: **Noto Sans JP**（利用可能な場合）
 
 用途:
 - Manual本文
@@ -292,9 +292,9 @@ UIでLexendを指定し、日本語glyphはNoto Sans JPへfallbackする構成�
 
 `ui-monospace, SFMono-Regular, Consolas, "Liberation Mono", monospace`
 
-専用Mono fontの導入はVisual Exploration後に判断する。
+専用Mono fontの追加は将来の任意改善とする。
 
-#### Typography sizing — provisional
+#### Typography sizing
 
 - Body: 15–16px
 - Small / Meta: 11–13px
@@ -313,42 +313,39 @@ UIでLexendを指定し、日本語glyphはNoto Sans JPへfallbackする構成�
 ### 12.2 Color System
 
 基本方針:
-- neutral / silver / cool gray
-- 彩度を抑える
+- site chromeはmonochrome
 - Hueより輝度差で階層を作る
-- Accentは少面積
-- 状態表現は色だけに依存しない
-- Dark / Light両方を持つ
+- semantic colorは必要なcontent/statusだけに限定する
+- Dark / Light双方で情報階層を維持する
+- 状態表現を色だけに依存させない
 
-Visual ExplorationはDark-firstで行い、実装はLightも破綻しないこと。
+#### Light baseline
 
-#### Dark provisional palette
+- Canvas: `#fafafa`
+- Surface: `#ffffff`
+- Raised: `#f0f0f0`
+- Hover: `#e8e8e8`
+- Text Primary: `#171717`
+- Text Secondary: `#505050`
+- Text Muted: `#626262`
+- Line: `#d8d8d8`
+- Control Line: `#858585`
+- Focus: `#171717`
 
-- Background: `#0B0D10`
-- Surface: `#101318`
-- Surface Raised: `#15191E`
-- Text Primary: `#F1F3F2`
-- Text Secondary: `#A9B0B4`
-- Text Muted: `#768086`
-- Accent / Active: `#A6BBC6`
-- Focus: `#B5CBD7`
-- Line: `rgba(229,236,240,.12)`
-- Line Strong: `rgba(229,236,240,.28)`
+#### Dark baseline
 
-#### Light provisional palette
+- Canvas: `#0f0f0f`
+- Surface: `#151515`
+- Raised: `#202020`
+- Hover: `#303030`
+- Text Primary: `#efefef`
+- Text Secondary: `#bcbcbc`
+- Text Muted: `#aaaaaa`
+- Line: `#363636`
+- Control Line: `#888888`
+- Focus: `#eeeeee`
 
-- Background: `#F2F2EE`
-- Surface: `#E8E9E5`
-- Surface Raised: `#DFE1DC`
-- Text Primary: `#17191C`
-- Text Secondary: `#555D62`
-- Text Muted: `#7A8287`
-- Accent / Active: `#5F7481`
-- Focus: `#526B7B`
-- Line: `rgba(20,24,28,.14)`
-- Line Strong: `rgba(20,24,28,.32)`
-
-Semantic error / warning / success色は別tokenとし、neutral accentと混同しない。
+Final CI measured primary / secondary / muted readable-text pairs above 4.5:1 against tested canvas / surface / raised combinations in both themes.
 
 ### 12.3 Luminance / State Hierarchy
 
@@ -365,22 +362,24 @@ Semantic error / warning / success色は別tokenとし、neutral accentと混同
 
 特にHeading Railは輝度差を最優先する。
 
-Heading Rail provisional:
-- inactive: primary text luminanceの約20–30%
-- hover: 約55–70%
-- active: 約90–100%
+Heading Rail current states:
+- inactive: grayscale rail-idle token
+- hover: brighter grayscale rail-hover token
+- active: text-level grayscale rail-current token
+- activeは2px thicknessを併用する
 
 activeは輝度だけでなく、必要に応じて1px → 2px程度の線幅差を併用する。
 
 ### 12.4 Heading Rail Geometry
 
-仮採用:
-- H1: 30–34px
-- H2: 20–24px
-- H3: 12–16px
+Current baseline:
+- H1: 32px
+- H2: 22px
+- H3: 14px
+- H4: 9px
 - inactive line: 1px
-- active line: 最大2px
-- rail width: 44–56px
+- active line: 2px
+- rail width: 44px
 
 hover時の見出し名はrailの左側へ展開し、本文を押し動かさない。
 ラベルはoverlayとして出し、hit target自体は安定させる。
@@ -417,16 +416,14 @@ hover時の見出し名はrailの左側へ展開し、本文を押し動かさ�
 - box-shadowは常用しない
 - elevationは主に背景輝度差と線で表現する
 
-### 12.7 Layout Dimensions — provisional
+### 12.7 Layout Dimensions
 
 Desktop:
 
-- Left Hierarchy: 280px基準
-- 初期許容範囲: 240–320px
-- resize対応はVisual Explorationで判断
-- Article max-width: 約780–840px
-- provisional target: 800px
-- Heading Rail: 44–56px
+- Left Hierarchy baseline: 280px
+- Article max-width: 800px
+- Heading Rail: 44px
+- hierarchy resizeは将来の任意改善
 - Article + Heading Railを1つのcentered reading unitとして扱う
 
 Hierarchy CLOSED:
@@ -477,13 +474,10 @@ hover:
 
 ### 12.10 Theme Default
 
-仮方針:
-- Dark-firstでvisual directionを設計
-- Light themeも同じ情報階層を維持
-- 初期modeはOS preferenceを尊重する案を第一候補とする
-- ユーザーの明示選択は保存する
-
-最終決定はVisual Exploration後に行う。
+- Dark / Light双方をサポートする
+- Docusaurus color modeでOS preferenceを尊重する
+- user selectionはDocusaurus側のtheme stateに従う
+- 両themeの主要text contrastはCIで検証する
 
 ## 13. Content Metadata Requirements
 
@@ -524,7 +518,7 @@ status候補:
 
 検索indexとPanel表示は同じmetadataを正本として利用し、UI専用の重複データを別管理しない。
 
-metadata正本はビルド生成カタログ (`scripts/generate-catalog.mjs` → `src/data/generated-catalog.json`) とする。ページ件数は実Markdown/MDXページ数のみを数え、見出しanchorは数えない。著者コンテンツのない資料 (Blender / After Effects / Cavalry / Git 等) は `planned` として明示し、偽の日付・件数・リンクを付与しない。新規Markdownはcomponent dataの変更なしに検索・Panel・Manual tree・Articlesへ反映されること。見出し断片 (`#...`) への手書きリンクは収録しない。
+metadata projectionはDocusaurus lifecycleを使う `plugins/catalog/index.cjs` を正本経路とし、処理済みcontent/permalinkから `@collectanea/catalog-data` と `@collectanea/search-index` を生成する。ページ件数は実Markdown/MDXページ数のみを数え、見出しanchorは数えない。著者コンテンツのない資料 (Blender / After Effects / Cavalry / Git 等) は `planned` として明示し、偽の日付・件数・リンクを付与しない。新規Markdownはcomponent dataの変更なしに検索・Panel・Manual tree・Articlesへ反映されること。見出し断片 (`#...`) への手書きリンクは収録しない。
 
 Fusionの技術解説は、一次資料で検証できるまで Draft / unverified の作業草稿として明示する。UI検証用のfixture項目を公開カタログに混ぜない。
 
@@ -541,3 +535,20 @@ Fusionの技術解説は、一次資料で検証できるまで Draft / unverifi
 7. Panel / List / Command Paletteで同じtag・metadataが利用される
 8. Hierarchy CLOSED時のArticle centerがviewport基準で崩れない
 
+
+
+## 15. Foundation Verification Record
+
+Current accepted implementation baseline:
+
+- implementation head: `be30350cbf81cfae91b324e05bd8db56acdb12d6`
+- GitHub Actions run: `36750386329`
+- build: PASS
+- browser UI checks: 12 / 12 PASS
+- content integration: PASS
+- console/page errors: 0
+- hierarchy-closed article center drift: 0px at 1440px viewport
+- temporary integration fixtures: removed
+- post-test tracked source changes: 0
+
+Detailed evidence and non-blocking notes are in `docs/review-receipt.md`.
