@@ -14,12 +14,12 @@ DaVinci Resolve Fusionを、日本語で体系的に参照できる非公式マ�
 
 ## 構成
 
-- [はじめに](./getting-started)
-- [Concepts](./concepts)
-- [Nodes](./nodes)
-- [Expressions](./expressions)
-- [Recipes](./recipes)
-- [Troubleshooting](./troubleshooting)
+- [はじめに](/manuals/fusion/getting-started)
+- [Concepts](/manuals/fusion/concepts)
+- [Nodes](/manuals/fusion/nodes)
+- [Expressions](/manuals/fusion/expressions)
+- [Recipes](/manuals/fusion/recipes)
+- [Troubleshooting](/manuals/fusion/troubleshooting)
 
 ## 情報の扱い
 
