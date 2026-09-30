@@ -65,13 +65,13 @@ try {
     assert.equal(await dialog.evaluate((el) => el.matches(':modal')), true);
     await shot('02-command-palette');
     const before = page.url();
+    await close.focus(); await close.press('Shift+Tab'); await expect(last).toBeFocused();
+    await last.press('Tab'); await expect(close).toBeFocused();
+    await input.focus();
     await input.dispatchEvent('compositionstart');
     await input.press('Enter'); await input.press('ArrowDown');
     assert.equal(page.url(), before); await expect(dialog).toBeVisible();
     await input.dispatchEvent('compositionend');
-    const close = dialog.getByRole('button', {name: '検索を閉じる'}), last = dialog.getByLabel('タグ', {exact: true});
-    await close.focus(); await close.press('Shift+Tab'); await expect(last).toBeFocused();
-    await last.press('Tab'); await expect(close).toBeFocused();
     await input.fill('zz-no-matches-908172635');
     await expect(dialog.locator('[role="option"]')).toHaveCount(0);
     await expect(input).not.toHaveAttribute('aria-activedescendant');
@@ -88,7 +88,7 @@ try {
     await shot('03-manual-top');
     await page.getByRole('button', {name: '閉じる', exact: true}).click();
     await page.getByLabel('この資料を検索', {exact: true}).fill('Merge');
-    await expect(page.locator('.cc-manual').getByRole('link', {name: 'Merge', exact: true})).toBeVisible();
+    await expect(page.locator('.cc-manual').getByRole('link', {name: 'Merge', exact: true}).first()).toBeVisible();
   });
   await check('sidebar-real-close-persistence-center', async () => {
     await go('/manuals/fusion/nodes/merge');
@@ -139,7 +139,12 @@ try {
       await page.waitForFunction(() => getComputedStyle(document.documentElement).getPropertyValue('--cc-canvas').trim().startsWith('#'));
       const tokens = await page.evaluate(() => {
         const style = getComputedStyle(document.documentElement), names = ['canvas','surface','raised','text','secondary','muted','rail-idle','rail-current','focus'];
-        return Object.fromEntries(names.map((name) => {const hex = style.getPropertyValue(`--cc-${name}`).trim(); return [name, [1,3,5].map((i) => parseInt(hex.slice(i, i + 2), 16))];}));
+        const parseHex = (raw) => {
+          const hex = raw.trim().replace(/^#/, '');
+          const full = hex.length === 3 ? [...hex].map((c) => c + c).join('') : hex;
+          return [0, 2, 4].map((i) => parseInt(full.slice(i, i + 2), 16));
+        };
+        return Object.fromEntries(names.map((name) => [name, parseHex(style.getPropertyValue(`--cc-${name}`))]));
       });
       for (const [name, values] of Object.entries(tokens)) assert.ok(values.every(Number.isFinite) && values[0] === values[1] && values[1] === values[2], `Tinted or invalid UI token ${name}: ${values.join(',')}`);
       const measurements = {};
