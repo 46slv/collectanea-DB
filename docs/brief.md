@@ -1,7 +1,7 @@
 # COLLECTANEA — Working Brief
 
-Status: Hearing
-Brief Gate: Hearing
+Status: Visual Exploration
+Brief Gate: Visual Exploration
 Updated: 2026-09-30
 
 ## Goal
@@ -92,17 +92,15 @@ Visual Explorationで決める。
 
 ## Phases
 
-1. Hearing — ACTIVE
-2. Visual Exploration — NEXT
+1. Hearing — COMPLETE
+2. Visual Exploration — ACTIVE
 3. Implementation Design — PENDING
 4. Implementation — PENDING
 5. Verification — PENDING
 
 ## Next Action
 
-Hearingをもう少し続ける。
-
-その後、以下を同じ要件・token候補でvisual explorationする。
+以下を同じ要件・token候補でvisual explorationする。
 
 1. Home
 2. Manual Top
