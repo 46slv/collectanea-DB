@@ -50,17 +50,14 @@ export default function GlobalSearch() {
   };
   const onDialogKey = (event) => {
     if (event.key === 'Escape' && !event.isComposing) {event.preventDefault(); setSearchOpen(false);}
-    if (event.key !== 'Tab') return;
-    const focusable = [...dialog.current.querySelectorAll('button:not([disabled]):not([tabindex="-1"]), input, select, a[href]')].filter((el) => typeof el.getClientRects === 'function' && el.getClientRects().length);
-    const first = focusable[0], last = focusable.at(-1);
-    if (event.shiftKey && document.activeElement === first) {event.preventDefault(); last?.focus();}
-    else if (!event.shiftKey && document.activeElement === last) {event.preventDefault(); first?.focus();}
+    // showModal() provides native modal focus containment. Avoid competing
+    // manual Tab wrapping, which can race the browser's dialog focus algorithm.
   };
   return <dialog ref={dialog} className="cc-palette" aria-labelledby="cc-search-title" onCancel={(e) => {e.preventDefault(); setSearchOpen(false);}} onKeyDown={onDialogKey} onClick={(e) => {if (e.target === dialog.current) setSearchOpen(false);}}>
     <div className="cc-palette-inner">
       <div className="cc-palette-top"><label id="cc-search-title" htmlFor="cc-search-input">サイト内検索</label><button type="button" className="cc-icon-button" aria-label="検索を閉じる" onClick={() => setSearchOpen(false)}>×</button></div>
       <input id="cc-search-input" ref={input} type="search" value={query} onChange={(e) => setQuery(e.target.value)} onCompositionStart={() => {composing.current = true;}} onCompositionEnd={() => {composing.current = false;}} onKeyDown={onInputKey} role="combobox" aria-autocomplete="list" aria-expanded={searchOpen} aria-controls="cc-search-results" aria-activedescendant={results.length ? `cc-result-${Math.min(selected, results.length - 1)}` : undefined} placeholder="資料・記事・見出しを検索" autoComplete="off" />
-      <div className="cc-palette-filters"><label>種類<select aria-label="種類" value={type} onChange={(e) => setType(e.target.value)}>{CONTENT_TYPES.map((t) => <option key={t.value} value={t.value}>{t.label}</option>)}<option value="tag">Tag</option></select></label><label>タグ<select aria-label="タグ" value={tag} onChange={(e) => setTag(e.target.value)}><option value="all">すべて</option>{facets.map((f) => <option key={f} value={f}>{f}</option>)}</select></label><span role="status">{entries ? `${results.length} 件` : failed ? '検索を読み込めませんでした' : '検索を準備中…'}</span></div>
+      <div className="cc-palette-filters"><label>種類<select autoComplete="off" aria-label="種類" value={type} onChange={(e) => setType(e.target.value)}>{CONTENT_TYPES.map((t) => <option key={t.value} value={t.value}>{t.label}</option>)}<option value="tag">Tag</option></select></label><label>タグ<select autoComplete="off" aria-label="タグ" value={tag} onChange={(e) => setTag(e.target.value)}><option value="all">すべて</option>{facets.map((f) => <option key={f} value={f}>{f}</option>)}</select></label><span role="status">{entries ? `${results.length} 件` : failed ? '検索を読み込めませんでした' : '検索を準備中…'}</span></div>
       <ul id="cc-search-results" role="listbox" aria-label="検索結果" className="cc-results">{results.slice(0, limit).map((e, i) => <li role="presentation" key={e.id}><button type="button" role="option" id={`cc-result-${i}`} tabIndex={-1} aria-selected={i === selected} onMouseMove={() => setSelected(i)} onClick={() => activate(e)}><span className="cc-result-content"><strong>{e.title}</strong><small>{e.materialTitle || e.summary}</small></span><span className="cc-result-type">{e.label}</span></button></li>)}</ul>
       {entries && results.length === 0 && <p className="cc-empty">該当する資料がありません。検索語やタグを変更してください。</p>}
       {results.length > limit && <button type="button" className="cc-button" onClick={() => setLimit(limit + 40)}>さらに表示（残り {results.length - limit} 件）</button>}
