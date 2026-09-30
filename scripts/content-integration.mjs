@@ -29,7 +29,11 @@ try {
     const publication = i === 46 ? 'draft: true\n' : i === 47 ? 'unlisted: true\n' : '';
     await write(articleFiles[i - 1], `---\ntitle: CI Entry ${id}\nslug: ci-entry-${id}\ndate: 2000-01-01\nupdated: ${i === 45 ? '2026-09-29' : '2020-01-01'}\ntags: [ci-fixture${i === 1 ? ', ci-one-only' : ''}]\nauthors: [46slv]\n${publication}---\n\nAn isolated integration fixture.\n\n<!-- truncate -->\n\n## Example\n\nEntry ${id} body.\n`);
   }
-  execFileSync(process.execPath, [cli, 'clear'], {stdio: 'inherit', timeout: 60000});
+  // Force fresh lifecycle/global-data projection without deleting the already
+  // verified production build artifact used by the parent review.
+  await fs.rm('.docusaurus', {recursive: true, force: true});
+  await fs.rm(path.join('node_modules', '.cache'), {recursive: true, force: true});
+  await fs.rm('build-fixtures', {recursive: true, force: true});
   execFileSync(process.execPath, [cli, 'build', '--out-dir', 'build-fixtures'], {stdio: 'inherit', timeout: 300000});
   const catalog = JSON.parse(await fs.readFile('build-fixtures/catalog.json', 'utf8'));
   const search = JSON.parse(await fs.readFile('build-fixtures/catalog-search.json', 'utf8'));
