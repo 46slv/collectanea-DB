@@ -70,7 +70,7 @@ try {
   await expect(page.locator('.cc-manual').getByRole('link', {name: 'CI Ordinary Markdown', exact: true})).toBeVisible();
   report.checks.push('new material and nested ordinary page visible/navigable without component changes');
   await go('/articles');
-  await page.getByLabel('タグ', {exact: true}).selectOption('ci-fixture');
+  await page.locator('[data-cc-articles]').locator('..').getByLabel('タグ', {exact: true}).selectOption('ci-fixture');
   await expect(page.locator('[data-cc-articles] .cc-card')).toHaveCount(45);
   await expect(page.locator('[data-cc-articles] .cc-card h2').first()).toHaveText('CI Entry 45');
   await page.getByLabel('記事を検索', {exact: true}).fill('CI Entry 39');
