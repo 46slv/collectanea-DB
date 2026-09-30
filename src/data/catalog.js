@@ -1,6 +1,6 @@
-import {usePluginData} from '@docusaurus/useGlobalData';
+import catalogData from '@collectanea/catalog-data';
 export const CONTENT_TYPES = [{value: 'all', label: 'すべて'}, {value: 'manual', label: 'Manual'}, {value: 'article', label: 'Article'}, {value: 'reference', label: 'Reference'}, {value: 'research', label: 'Research'}];
-export function useCatalog() { return usePluginData('collectanea-catalog'); }
+export function useCatalog() { return catalogData; }
 export const normalize = (text = '') => String(text).normalize('NFKC').toLocaleLowerCase('ja').trim();
 export function matches(entry, query) {
   const haystack = normalize(entry.text || [entry.title, entry.summary, entry.materialTitle, ...(entry.tags || [])].join(' '));
