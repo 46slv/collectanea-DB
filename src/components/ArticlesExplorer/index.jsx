@@ -5,7 +5,7 @@ import {matches, sorted, statusLabel, useCatalog} from '@site/src/data/catalog';
 export default function ArticlesExplorer() {
   const {pages} = useCatalog();
   const articles = useMemo(() => pages.filter((p) => p.kind === 'article'), [pages]);
-  const tags = useMemo(() => [...new Set(articles.flatMap((p) => p.tags))].sort(), [articles]);
+  const tags = useMemo(() => Array.from(new Set(articles.flatMap((p) => p.tags))).sort(), [articles]);
   const [query, setQuery] = useState(''), [tag, setTag] = useState('all');
   const [view, setView] = usePreference('collectanea.articles.view', 'panel', ['panel', 'list']);
   const [order, setOrder] = usePreference('collectanea.articles.sort', 'recent', ['recent', 'name']);
