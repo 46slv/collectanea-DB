@@ -16,7 +16,6 @@ Node固有の入出力・control・例外を引くためのReferenceです。
 ## Compositing
 
 - [Merge](./compositing/merge)
-- Channel Boolean — 未作成
 
 ## Generators
 
@@ -42,29 +41,43 @@ Node固有の入出力・control・例外を引くためのReferenceです。
 
 - [Blur](./blur-filter/blur)
 
+## Matte / Keying
+
+- [Delta Keyer](./matte-keying/delta-keyer)
+
+## Tracking
+
+- [Planar Tracker](./tracking/planar-tracker)
+
+## Classic 3D
+
+- [Merge 3D](./3d/merge-3d)
+- [Renderer 3D](./3d/renderer-3d)
+
+## Particles
+
+- [pEmitter](./particles/p-emitter)
+- [pRender](./particles/p-render)
+
 ## Current sample coverage
 
-現在の代表Referenceは10件です。
+現在の代表Referenceは **16 Node** です。
 
 ```text
-Compositing  1
-Generators   2
-Transform    2
-Masks        2
-Color        2
-Blur/Filter  1
-             ──
-Total       10
+Compositing   1
+Generators    2
+Transform     2
+Masks         2
+Color         2
+Blur/Filter   1
+Matte/Keying  1
+Tracking      1
+3D            2
+Particles     2
+              ──
+Total        16
 ```
 
-この10件で、次のmetadata vocabularyを実地に試しています。
+このsampleで、2D ImageだけでなくMask / tracking data / Classic 3D scene / Particle set / domain conversionまでmetadataとcross-linkを試しています。
 
-- node family
-- data domain / input / output
-- concepts
-- tasks
-- controls
-- verification state
-- adjacent node links
-
-まだtaxonomyを固定しません。設計上は10〜20 Node程度を使って検索・Indexのfacetが実際に役立つことを確認してから、生成Indexへ移行します。
+まだ全Node catalogではありません。taxonomyはこのrepresentative setを元に育てます。
