@@ -94,7 +94,7 @@ Graphでは、画面上のNode配置ではなく、どのinputへ接続されて
 
 ## Node Reference
 
-- [Merge](../../nodes/merge)
+- [Merge](../../nodes/compositing/merge)
 
 ## Next
 
