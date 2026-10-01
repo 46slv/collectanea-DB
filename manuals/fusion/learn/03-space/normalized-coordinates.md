@@ -103,8 +103,8 @@ Normalized Coordinateという考え方と、各Nodeが実際にどのspaceを�
 
 ## Node Reference
 
-- [Transform](../../nodes/transform)
-- [Merge](../../nodes/merge)
+- [Transform](../../nodes/transform/transform)
+- [Merge](../../nodes/compositing/merge)
 
 ## Next
 
