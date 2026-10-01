@@ -615,3 +615,39 @@ Navigation / knowledge linking:
 4. Hierarchy CLOSED時のreopen controlは左端に残り、Article centerを変えない
 5. Desktop Article本文にHierarchy操作toolbarを置かない
 6. Document本文はnavigation UIより視覚的に静かな状態を維持する
+
+
+## 17. Fusion Content Architecture
+
+Fusion Manualの大量執筆では、学習導線とlookup導線を分離する。
+
+Canonical owners:
+
+- overall hierarchy / learning flow: `docs/fusion-content-architecture.md`
+- index / taxonomy / metadata: `docs/fusion-index-architecture.md`
+- page-type templates / cross-link contract: `docs/fusion-authoring-contract.md`
+
+Required top-level roles:
+
+- Start Here — orientation
+- Learn — concept / mental model
+- Patterns — conceptを複数Nodeへ転用するbridge
+- Node Reference — Node固有の事実
+- Recipes — concrete result
+- Troubleshooting — symptom-first diagnosis
+- Index — browse/routing only
+
+Core learning requirement:
+
+```
+concept
+→ minimum observation
+→ invariant
+→ transfer to other nodes/families
+→ reusable pattern
+→ node/reference lookup
+```
+
+Node Referenceだけを増やしてManual全体を構成しない。
+一般概念をNodeごとに重複記述しない。
+Indexはmetadataから生成可能な構造を優先し、説明本文の第二正本にしない。
