@@ -20,3 +20,5 @@ tasks: [debug, lookup-symptom]
 | Resolutionが合わない | [Resolutionが合わない](../troubleshooting/position-size-resolution/resolution-does-not-match) | [Resolution / Aspect](../learn/03-space/resolution-aspect) |
 | Expressionが更新されない | [Expressionが期待どおり更新されない](../troubleshooting/animation-automation/expression-does-not-update) | [Modifier / Parameter Sources](../learn/05-time/modifier-parameter-sources) |
 | Keyframeを置いたのに動かない | [Keyframeを置いたのにAnimationしない](../troubleshooting/animation-automation/animation-does-not-move) | [Frame Evaluation](../learn/05-time/frame-evaluation) |
+| Trackingがずれる / driftする | [Tracking結果がずれる / driftする](../troubleshooting/tracking/track-drifts) | [Trackを解いてから適用先を分ける](../patterns/tracking/solve-then-apply-track) |
+| Flowが重い / 遅い | [Flowが重い / 遅い](../troubleshooting/performance/graph-is-slow) | [Domain of Definition](../learn/03-space/domain-of-definition) |
