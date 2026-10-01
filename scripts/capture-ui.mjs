@@ -55,6 +55,12 @@ try {
     await noOverflow();
     await page.getByRole('button', {name: 'パネル', exact: true}).click();
     await shot('01-home-desktop');
+    const firstCard = page.locator('.cc-card').first();
+    const cardHref = await firstCard.locator('.cc-card-hit').getAttribute('href');
+    assert.ok(cardHref, 'Card must expose one full-surface destination');
+    await firstCard.click({position: {x: 12, y: 12}});
+    assert.equal(new URL(page.url()).pathname, cardHref, 'Clicking card surface must navigate');
+    await go('/');
   });
   await check('palette-focus-ime-and-empty', async () => {
     await page.locator('.cc-navbar-search').click();
@@ -93,9 +99,11 @@ try {
   });
   await check('sidebar-real-close-persistence-center', async () => {
     await go('/manuals/fusion/nodes/merge');
-    await expect(page.getByRole('button', {name: '階層を閉じる', exact: true})).toHaveAttribute('aria-expanded', 'true');
+    const closeHierarchy = page.getByRole('button', {name: '階層を閉じる', exact: true});
+    await expect(closeHierarchy).toHaveAttribute('aria-expanded', 'true');
+    assert.equal(await closeHierarchy.evaluate((el) => Boolean(el.closest('.theme-doc-sidebar-container'))), true, 'Close hierarchy control must live inside the hierarchy');
     await shot('04-article-sidebar-open');
-    await page.getByRole('button', {name: '階層を閉じる', exact: true}).click();
+    await closeHierarchy.click();
     await expect(page.getByRole('button', {name: '階層を開く', exact: true})).toHaveAttribute('aria-expanded', 'false');
     await expect(page.locator('.theme-doc-sidebar-container')).toBeHidden();
     report.measured.center = await center();
