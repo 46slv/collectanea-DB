@@ -16,26 +16,55 @@ Node固有の入出力・control・例外を引くためのReferenceです。
 ## Compositing
 
 - [Merge](./compositing/merge)
-- Channel Booleans — 未作成
+- Channel Boolean — 未作成
 
 ## Generators
 
 - [Background](./generators/background)
-- Text+ — 未作成
+- [Text+](./generators/text-plus)
 
-## Transform
+## Transform / Format
 
 - [Transform](./transform/transform)
-- Resize — 未作成
+- [Resize](./transform/resize)
 
 ## Masks
 
-- Ellipse — 未作成
-- Polygon — 未作成
+- [Ellipse Mask](./masks/ellipse-mask)
+- [Polygon Mask](./masks/polygon-mask)
 
 ## Color
 
-- Color Corrector — 未作成
-- Brightness / Contrast — 未作成
+- [Brightness Contrast](./color/brightness-contrast)
+- [Color Corrector](./color/color-corrector)
 
-現在は代表Nodeでmetadata・Reference構造を検証中です。Node数を増やす前に、family・control・task facetが実際のページ群で機能することを確認します。
+## Blur / Filter
+
+- [Blur](./blur-filter/blur)
+
+## Current sample coverage
+
+現在の代表Referenceは10件です。
+
+```text
+Compositing  1
+Generators   2
+Transform    2
+Masks        2
+Color        2
+Blur/Filter  1
+             ──
+Total       10
+```
+
+この10件で、次のmetadata vocabularyを実地に試しています。
+
+- node family
+- data domain / input / output
+- concepts
+- tasks
+- controls
+- verification state
+- adjacent node links
+
+まだtaxonomyを固定しません。設計上は10〜20 Node程度を使って検索・Indexのfacetが実際に役立つことを確認してから、生成Indexへ移行します。
