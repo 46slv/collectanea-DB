@@ -40,7 +40,7 @@ desired pixel offset
 
 - pixel値とnormalized値を同じparameterとして扱わない。
 - reference resolutionのownerを1箇所に置く。
--複数Nodeで個別にpixel→normalized換算しない。
+- 複数Nodeで個別にpixel→normalized換算しない。
 - Resize後のImage extentを明示する。
 
 ## Variants
