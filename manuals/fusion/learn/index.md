@@ -37,6 +37,12 @@ tasks: [learn, understand]
 
 ## 章別の深掘り
 
+### 02 Image / Mask / Data
+
+- [Image](./02-data/image)
+- [Mask](./02-data/mask)
+- [Parameter / Data](./02-data/parameter-data)
+
 ### 03 Coordinates & Space
 
 - [Center / Pivot / Size / Angle](./03-space/center-pivot-size-angle)
