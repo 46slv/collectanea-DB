@@ -25,6 +25,8 @@ Learning path と lookup path は分離する。
 - **Recipes**: 具体的な完成目的から引く。
 - **Troubleshooting**: 症状から原因を切り分ける。
 - **Index**: 名前・概念・parameter・目的・症状から横断的に入口を作る。
+- **Resolve Integration**: FusionがResolve全体のどこを担当するか、Page間の境界を説明する。
+- **Cross-App Bridges**: AE / Photoshop / Premiere / Nuke等の既知mental modelからcanonical Concept / Patternへ翻訳する。
 
 同じ説明を複数領域へ複製しない。各ページ種別は1つの仕事だけを持つ。
 
@@ -94,6 +96,22 @@ Fusion 日本語リファレンス
 │     ├─ Resolution / DoDを確認する
 │     └─ Transfer: 症状ではなくGraphを診断する
 │
+├─ Resolve Integration
+│  ├─ FusionはResolveのどこにいるか
+│  ├─ When to use Fusion
+│  ├─ When not to use Fusion
+│  ├─ Timeline / Clip / Fusion boundary
+│  ├─ Edit ↔ Fusion
+│  ├─ Color ↔ Fusion
+│  └─ Reusable Fusion assets
+│
+├─ Bridges / 他アプリから来た人へ
+│  ├─ After Effects
+│  ├─ Photoshop
+│  ├─ Premiere Pro
+│  ├─ Nuke
+│  └─ App-neutral comparisons
+│
 ├─ Patterns
 │  ├─ Compositing
 │  ├─ Masking & Shapes
@@ -150,6 +168,56 @@ Fusion 日本語リファレンス
 ```
 
 Advanced areas such as 3D, Particles, Tracking and specialized tools should be added as real content grows. Do not publish empty category forests solely to match this target tree.
+
+## Integrated-tool separation
+
+FusionはDaVinci Resolve内の1つのworking surfaceとして扱い、Manual内にResolve全体の説明を混ぜない。
+
+Use this split:
+
+```
+Resolve-wide responsibility / page selection
+  → Resolve Integration / future Resolve-level docs
+
+Fusion mental model
+  → Learn
+
+cross-node reuse
+  → Patterns
+
+exact Fusion tool facts
+  → Node Reference
+
+concrete result
+  → Recipes
+
+symptom diagnosis
+  → Troubleshooting
+
+AE / Photoshop / Premiere / Nukeからの読み替え
+  → Bridges
+```
+
+Cross-App Bridgeはcanonical contentの入口であり、technical proseの第二正本にしない。
+
+Long-term hierarchy and comparison rules are owned by:
+- `docs/resolve-integration-cross-app-architecture.md`
+
+### Comparison principle
+
+比較単位は機能名ではなく **Task / Intent**。
+
+```
+familiar task
+  → Resolveでの担当領域
+  → Fusionを使うならmental model
+  → Concept
+  → Pattern
+  → Node / Recipe
+```
+
+`AE Precomp = Fusion X` のような単純等価表を正本にしない。
+同じgoalでもdata model / evaluation / scopeが違う場合は必ず非等価点を明示する。
 
 ## Learning transfer model
 
