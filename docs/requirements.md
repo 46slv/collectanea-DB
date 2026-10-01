@@ -626,6 +626,7 @@ Canonical owners:
 - overall hierarchy / learning flow: `docs/fusion-content-architecture.md`
 - index / taxonomy / metadata: `docs/fusion-index-architecture.md`
 - page-type templates / cross-link contract: `docs/fusion-authoring-contract.md`
+- Resolve suite boundary / cross-app translation: `docs/resolve-integration-cross-app-architecture.md`
 
 Required top-level roles:
 
@@ -636,6 +637,8 @@ Required top-level roles:
 - Recipes — concrete result
 - Troubleshooting — symptom-first diagnosis
 - Index — browse/routing only
+- Resolve Integration — FusionとResolve各surfaceの責任境界
+- Cross-App Bridges — AE / Photoshop / Premiere / Nuke等からのmental-model translation
 
 Core learning requirement:
 
@@ -651,3 +654,95 @@ concept
 Node Referenceだけを増やしてManual全体を構成しない。
 一般概念をNodeごとに重複記述しない。
 Indexはmetadataから生成可能な構造を優先し、説明本文の第二正本にしない。
+
+
+## 18. Resolve Integration & Cross-App Requirements
+
+DaVinci Resolveは統合型ツールとして扱い、Fusion Manualへ他Pageの責任を無制限に取り込まない。
+
+### 18.1 Four entry modes
+
+Fusion / Resolve documentation should eventually expose four clear entry intents:
+
+```
+学ぶ
+  → Learn / Patterns
+
+どこでやる？
+  → Resolve Suite Map / Resolve Integration
+
+他アプリから置き換える
+  → Cross-App Bridges
+
+引く
+  → Node Reference / Index / Troubleshooting
+```
+
+These are navigation views over canonical content, not four independent copies of the documentation.
+
+### 18.2 Cross-app comparison
+
+Comparison unit:
+- Task / Intent
+- Mental model
+- Product/surface responsibility
+- Canonical Concept / Pattern
+
+Do not use feature-name equality as the primary model.
+
+Every material comparison must separate:
+- what transfers cleanly;
+- what is only superficially similar;
+- what does not map 1:1;
+- where in Resolve the task belongs;
+- where the canonical Fusion explanation lives.
+
+### 18.3 Integrated-suite separation
+
+Use distinct owners:
+
+- Resolve-wide scope / Page selection → Resolve Integration
+- Fusion mental model → Learn
+- cross-node reusable method → Patterns
+- tool-specific fact → Node Reference
+- concrete outcome → Recipes
+- symptom diagnosis → Troubleshooting
+- familiar-app translation → Bridges
+- browsing facets → Index
+
+A Fusion page should not become a general Edit / Color / Fairlight manual.
+
+### 18.4 Metadata dimensions
+
+Do not encode every taxonomy dimension into folders.
+
+Filesystem primarily owns:
+- product scope;
+- knowledge type.
+
+Metadata owns:
+- tasks;
+- concepts;
+- node family;
+- familiar apps;
+- familiar terms;
+- comparison topics;
+- Resolve surfaces.
+
+This must support the same canonical page appearing in:
+- By Task;
+- By Concept;
+- By Familiar App;
+- By Resolve Surface;
+without prose duplication.
+
+### 18.5 Manual landing
+
+Future Manual landing should surface four compact routes:
+
+1. **Fusionを学ぶ**
+2. **Resolveのどこでやる？**
+3. **AE / Photoshop等から探す**
+4. **Reference / Indexで引く**
+
+Do not turn these into large promotional cards; preserve the dense documentation-first UI.
