@@ -5,7 +5,7 @@ description: Fusion日本語リファレンスの読み方と、最初に選ぶ�
 doc_type: start
 verification: partial
 aliases: [はじめに, Getting Started]
-tasks: [learn, lookup]
+tasks: [learn, lookup, choose-surface]
 level: foundation
 product_scope: fusion
 ---
@@ -18,44 +18,78 @@ product_scope: fusion
 
 ## Do this
 
-FusionをまだGraphとして読めない場合は、まず [Learn](./learn/) を順番に進めます。
-
-すでに作業中で、Node固有のcontrolを知りたい場合は [Node Reference](./nodes/) を使います。
-
-複数Nodeへ転用できる構成を探す場合は [Patterns](./patterns/) を使います。
+最初に目的を選びます。
 
 ```text
-理解したい
+Resolveのどこで作業するか迷う
+  → Resolve Integration
+
+After Effects等の考え方から読み替えたい
+  → Bridges
+
+Fusionを基礎から理解したい
   → Learn
 
-再利用できる構成を知りたい
+再利用できるGraph構造を知りたい
   → Patterns
 
 Node固有の事実を引きたい
   → Node Reference
 
 具体的な完成手順
-  → Recipes（拡張中）
+  → Recipes
 
-症状から直したい
-  → Troubleshooting（拡張中）
+症状から原因を切り分けたい
+  → Troubleshooting
+
+名前・目的・症状・data typeから探したい
+  → Index
 ```
+
+### Resolveの中での役割から始める
+
+- [Resolve Integration](./resolve-integration/)
+- [どのworking surfaceを使うか](./resolve-integration/choose-working-surface)
+
+### 他アプリから来た人
+
+- [Bridges / 他アプリから来た人へ](./bridges/)
+- [After Effectsから来た人へ](./bridges/after-effects/)
+
+### 順番に学ぶ
+
+- [Learn](./learn/)
+- 最初のConcept: [Graphとして考える](./learn/01-flow/graph-as-flow)
+
+### 作業中に引く
+
+- [Node Reference](./nodes/)
+- [Index / By Task](./index/by-task)
+- [Index / By Symptom](./index/by-symptom)
 
 ## What to notice
 
 このマニュアルでは、同じ説明を複数ページへ複製しません。
 
-たとえばNormalized Coordinatesの一般則はLearn、Transform固有のcontrolはNode Reference、複数要素を同期する構成はPatternsに置きます。
+たとえば:
 
-そのため、1ページだけで全てを説明するのではなく、必要に応じて相互リンクを辿る設計です。
+- Normalized Coordinatesの一般則 → Learn
+- Transform固有control → Node Reference
+- 複数要素を同期する構成 → Patterns
+- 「Transform後に端が消える」 → Troubleshooting
+- AEのPosition経験からの入口 → Bridge
+
+というように、1つのclaimに1つのcanonical ownerを持たせます。
 
 ## Where to go next
 
-最初の学習ページ:
+Fusionを初めてNode Graphとして読む場合:
 
 → [Graphとして考える](./learn/01-flow/graph-as-flow)
 
-FusionはDaVinci Resolveに統合されたworking surfaceです。Edit / Colorなどとの責任境界は今後のResolve Integration章で拡張します。
+Resolve全体の中でFusionを使う判断から始める場合:
+
+→ [FusionはResolveのどこにいるか](./resolve-integration/where-fusion-fits)
 
 ---
 
