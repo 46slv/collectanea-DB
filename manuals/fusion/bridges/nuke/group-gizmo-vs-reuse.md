@@ -26,7 +26,7 @@ NukeでGroup / Gizmoを使っていた理由を分類します。
 - graphを整理したい
 - 内部Nodeを1単位へまとめたい
 - 利用者へ少数controlだけ公開したい
--複数project / artistで再利用したい
+- 複数project / artistで再利用したい
 
 ## Fusion mental model
 
