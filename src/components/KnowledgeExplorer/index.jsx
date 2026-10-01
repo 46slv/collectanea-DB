@@ -20,7 +20,7 @@ export default function KnowledgeExplorer() {
     </div>
     <p className="cc-results-count" role="status">{visible.length} 件</p>
     <div className={`cc-materials cc-materials--${view}`} data-cc-view={view}>{visible.map((m) => <article className="cc-card" key={m.id} onPointerMove={move}>
-      <Link className="cc-card-hit" to={m.href} aria-label={`${m.title}を開く`} />
+      <Link className="cc-card-hit" to={m.href} aria-label={m.title} />
       <div className="cc-card-main"><span className="cc-eyebrow">{m.kind}{statusLabel(m.status) ? ` / ${statusLabel(m.status)}` : ''}</span><h2>{m.title}</h2><p className="cc-card-summary">{m.summary}</p></div>
       <div className="cc-tags">{m.tags.slice(0, 4).map((t) => <span key={t}>{t}</span>)}</div>
       <footer className="cc-card-meta"><span>{m.pageCount} ページ</span><time dateTime={m.updated || undefined}>{m.updated || '更新日なし'}</time></footer>
