@@ -35,6 +35,8 @@ slug: /fusion/troubleshooting
 
 - [Expressionが期待どおり更新されない](./animation-automation/expression-does-not-update)
 - [Keyframeを置いたのにAnimationしない](./animation-automation/animation-does-not-move)
+- [KeyframeとExpressionが競合している](./animation-automation/keyframe-expression-conflict)
+- [等間隔配置が崩れる](./animation-automation/equal-spacing-breaks)
 
 ## Tracking
 
@@ -52,4 +54,4 @@ slug: /fusion/troubleshooting
 4. 最後に正常だった地点と、最初に壊れた地点を特定する。
 5. 一般Conceptで説明できなければNode固有Referenceへ進む。
 
-現在 **11 Diagnostic** です。
+現在 **13 Diagnostic** です。
