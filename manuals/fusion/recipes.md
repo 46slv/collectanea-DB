@@ -21,6 +21,14 @@ product_scope: fusion
 
 - [Mergeの適用範囲をMaskで限定する](./recipes/masking/limit-merge-with-mask)
 
+### Text / Graphics
+
+- [Text+をImageへ重ねる](./recipes/text-graphics/text-over-image)
+
+### Layout
+
+- [TransformでImageを移動する](./recipes/layout/move-image-with-transform)
+
 ## 検証待ち
 
 次の候補は、Fusion 21.1 Reference Manual / hostで操作名と挙動を確認してから個別Recipeへ昇格します。
