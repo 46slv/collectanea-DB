@@ -39,29 +39,25 @@ Nodeを見たら、次の順番で確認します。
 - Deep image
 - scalar / Point / text parameter
 
-### 2. Inputs
+→ [接続できるdata / 接続できないdata](../learn/02-data/connection-compatibility)
 
-「何本あるか」だけでなく、各Inputのroleを読みます。
+### 2. Inputs / Outputs
 
-Mergeなら:
+「何本あるか」だけでなく、各InputのroleとOutput domainを読みます。
 
-- Background
-- Foreground
-- Effect Mask
+MergeならBackground / Foreground / Effect Maskのように役割が分かれます。
 
-のように役割が分かれます。
+→ [Input / Output / Connection](../learn/01-flow/inputs-outputs-connections)
 
-### 3. Output
+### 3. Viewerで前後を見る
 
-Imageを返すNodeなのか、特殊domainを返すNodeなのか確認します。
+Nodeの前後をViewerへ出し、何が変わったか確認します。
 
-特殊domainなら、どのrenderer / converterで2Dへ戻るかも見ます。
+→ [中間結果をViewerで見る](../learn/01-flow/intermediate-results-viewer)
 
 ### 4. Controls
 
 Inspectorを上から暗記せず、意味でgroup化します。
-
-例:
 
 - position
 - transform origin
@@ -87,8 +83,6 @@ Inspectorを上から暗記せず、意味でgroup化します。
 
 同じ名前に近いNodeでもdomainが違う場合があります。
 
-例:
-
 ```text
 Merge
 Merge 3D
@@ -110,9 +104,9 @@ data domain:
 
 → [Connection / Data Types](../index/connection-data-types)
 
-初見NodeをGraph上で読む:
+Graph evaluation:
 
-→ [Graphとして考える](../learn/01-flow/graph-as-flow)
+→ [Graphが評価される依存関係](../learn/01-flow/evaluation-dependency)
 
 ---
 
