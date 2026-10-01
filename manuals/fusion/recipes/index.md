@@ -27,9 +27,17 @@ slug: /fusion/recipes
 
 - [TransformでImageを移動する](./layout/move-image-with-transform)
 
+## Matte / Keying
+
+- [KeyしてBackgroundを置き換える](./matte-keying/key-and-replace-background)
+
+## Particles
+
+- [最小Particle chainを作る](./particles/basic-particle-chain)
+
 ## 検証待ち
 
-次の候補は、Fusion 21.1 Reference Manual / hostで操作名と挙動を確認してから個別Recipeへ昇格します。
+Fusion 21.1 Reference Manual / hostで操作名と挙動を確認してから個別Recipeへ昇格する候補:
 
 - 線だけの円
 - 外周を維持したまま内側を調整する構成
