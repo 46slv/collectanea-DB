@@ -36,6 +36,14 @@ slug: /fusion/troubleshooting
 - [Expressionが期待どおり更新されない](./animation-automation/expression-does-not-update)
 - [Keyframeを置いたのにAnimationしない](./animation-automation/animation-does-not-move)
 
+## Tracking
+
+- [Tracking結果がずれる / driftする](./tracking/track-drifts)
+
+## Performance
+
+- [Flowが重い / 遅い](./performance/graph-is-slow)
+
 ## 診断の共通方針
 
 1. 症状を具体化する。
@@ -44,4 +52,4 @@ slug: /fusion/troubleshooting
 4. 最後に正常だった地点と、最初に壊れた地点を特定する。
 5. 一般Conceptで説明できなければNode固有Referenceへ進む。
 
-現在 **9 Diagnostic** です。
+現在 **11 Diagnostic** です。
