@@ -1,7 +1,8 @@
 name: Collectanea PR Quality
+# Heavy browser/content validation is intentionally manual.
+# Routine direct-main iteration is validated locally; run this once when a
+# large change or PR needs the full evidence packet.
 on:
-  pull_request:
-    branches: [main]
   workflow_dispatch:
 permissions:
   contents: read
