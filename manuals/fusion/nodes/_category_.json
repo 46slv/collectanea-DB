@@ -1,6 +1,6 @@
 {
-  "label": "Nodes",
-  "position": 3,
+  "label": "Node Reference",
+  "position": 4,
   "link": {
     "type": "doc",
     "id": "fusion/nodes/index"
