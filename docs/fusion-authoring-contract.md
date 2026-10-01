@@ -288,6 +288,11 @@ tasks: []
 symptoms: []
 prerequisites: []
 level:
+product_scope:
+familiar_apps: []
+familiar_terms: []
+compare_topics: []
+suite_surfaces: []
 ```
 
 Not every field is required on every page.
@@ -302,6 +307,77 @@ Use:
 - `unverified`: draft structure or claims still need verification.
 
 Do not let polished prose hide unverified technical claims.
+
+## Cross-App Bridge template
+
+Path (long-term):
+
+`manuals/resolve/bridges/<app>/<topic>.md`
+
+Temporary Fusion-owned placement is allowed only until Resolve-wide documentation exists.
+
+Purpose:
+慣れたアプリの思考モデルからcanonical Resolve/Fusion contentへ翻訳する。
+
+Required structure:
+
+```
+# Familiar task / concept
+
+## If you know <App>
+starting mental model
+
+## First decision in Resolve
+which surface owns this task
+
+## Fusion mental model
+only when Fusion is relevant
+
+## What maps cleanly
+
+## What does not map 1:1
+
+## Learn this next
+
+## Reusable Patterns
+
+## Relevant Nodes
+
+## Example Tasks
+```
+
+Rules:
+- comparison prose is not the canonical explanation of Fusion behavior;
+- never force a one-to-one feature mapping;
+- non-equivalence is part of the page, not a footnote;
+- link to canonical Concept / Pattern / Node pages.
+
+## Resolve Integration page template
+
+Purpose:
+Resolve全体とFusionの境界を説明する。
+
+Required structure:
+
+```
+# Boundary / workflow
+
+## User intent
+
+## Which Resolve surface owns what
+
+## When Fusion is appropriate
+
+## When Fusion is not the primary surface
+
+## Handoff / boundary
+
+## Related Fusion Concepts
+
+## Related cross-page workflow
+```
+
+Do not expand this into complete Edit / Color / Fairlight manuals.
 
 ## Cross-link contract
 
