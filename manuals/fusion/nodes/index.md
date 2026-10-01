@@ -81,10 +81,15 @@ Node固有の入出力・control・例外を引くためのReferenceです。
 - [dMerge](./deep/d-merge)
 - [Deep to Image](./deep/deep-to-image)
 
+## Utility / I/O
+
+- [MediaIn](./utility-io/media-in)
+- [MediaOut](./utility-io/media-out)
+
 ## Current sample coverage
 
-現在の代表Referenceは **29 Node** です。
+現在の代表Referenceは **31 Node** です。
 
-2D Image / Mask / tracking / Shape / Particle / Classic 3D / USD / Deepに加え、channel / matte / premultiplication / multi-layer compositingまでmetadataとcross-linkを試しています。
+2D Image / Mask / tracking / Shape / Particle / Classic 3D / USD / Deep / channel / matte / premultiplication / multi-layer compositingに加え、Resolve timelineとのI/O boundaryまでcross-linkを試しています。
 
 まだ全Node catalogではありません。taxonomyはこのrepresentative setを元に育てます。
