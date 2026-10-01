@@ -23,3 +23,17 @@ npm run build
 ```
 
 Pull Requestでは、少なくともproduction buildが成功する状態を維持してください。
+
+## Development workflow
+
+COLLECTANEAでは、実装が最低限buildでき、実際に触って検証できる状態になった時点でmainへ統合し、その後のVisual Acceptanceや細かな調整はmain上で行うのを基本とします。
+
+- 実装途中の大きな変更: task branch / PR
+- 検証可能になった変更: mainへ統合
+- 日常のUI調整・記事追加・軽微な修正: main上で作業してよい
+- 大規模refactor・routing/content model変更・dependency大更新: branch / PRへ戻す
+- Heavy Quality workflow: manual-only
+- 公開サイトへ影響するmain pushのみPages deploy
+
+mainへpushする前に、対象変更に必要な最小限のbuild / preview確認を行ってください。
+

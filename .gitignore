@@ -1,7 +1,9 @@
 /node_modules
 /build
-.docusaurus
-.cache-loader
+/build-fixtures
+/artifacts
+/.docusaurus
+/.cache-loader
 .DS_Store
 .env
 .env.local
