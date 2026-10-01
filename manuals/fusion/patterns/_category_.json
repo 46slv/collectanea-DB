@@ -1,5 +1,8 @@
 {
   "label": "Patterns",
-  "position": 3,
-  "link": {"type": "doc", "id": "fusion/patterns/index"}
+  "position": 5,
+  "link": {
+    "type": "doc",
+    "id": "fusion/patterns/index"
+  }
 }
