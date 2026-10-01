@@ -39,6 +39,10 @@ slug: /fusion/recipes
 
 - [Shapeを2D Imageへrenderする](./shapes/basic-shape-render)
 
+## Classic 3D
+
+- [Classic 3D sceneを2Dへrenderする](./3d/basic-classic-3d-render)
+
 ## USD
 
 - [USD sceneを2Dへrenderする](./usd/basic-usd-render)
@@ -47,7 +51,7 @@ slug: /fusion/recipes
 
 - [Deep compositeを2Dへ戻す](./deep/deep-merge-to-image)
 
-現在 **9 Recipe** です。
+現在 **10 Recipe** です。
 
 ## 検証待ち
 
