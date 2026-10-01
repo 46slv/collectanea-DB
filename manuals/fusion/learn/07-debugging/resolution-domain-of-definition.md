@@ -82,6 +82,13 @@ resolutionを変える操作と、単にImageをscaleする操作を同一視し
 
 後段は存在するdataしか再配置できません。
 
+## Canonical Concepts
+
+- [Resolution / Aspect](../03-space/resolution-aspect)
+- [Domain of Definition](../03-space/domain-of-definition)
+
+このページでは、それらを「切れ・消失・位置ずれ」の診断へ使うことだけを扱います。
+
 ## Related Patterns
 
 - [複数要素の位置関係を共有する](../../patterns/transform/share-position-across-elements)
