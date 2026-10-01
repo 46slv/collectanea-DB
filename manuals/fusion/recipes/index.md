@@ -28,6 +28,15 @@ slug: /fusion/recipes
 
 - [TransformでImageを移動する](./layout/move-image-with-transform)
 
+## Animation
+
+- [TransformをKeyframeで動かす](./animation/animate-transform-center)
+
+## Automation
+
+- [2つのTransform位置を連動する](./automation/link-transform-centers)
+- [複数要素を等間隔に配置する考え方](./automation/equal-spacing-by-index)
+
 ## Matte / Keying
 
 - [KeyしてBackgroundを置き換える](./matte-keying/key-and-replace-background)
@@ -56,7 +65,7 @@ slug: /fusion/recipes
 
 - [Deep compositeを2Dへ戻す](./deep/deep-merge-to-image)
 
-現在 **12 Recipe** です。
+現在 **15 Recipe** です。
 
 ## 検証待ち
 
@@ -64,9 +73,7 @@ Fusion 21.1 Reference Manual / hostで操作名と挙動を確認してから個
 
 - 線だけの円
 - 外周を維持したまま内側を調整する構成
-- 別NodeのCenter参照とOffset
 - ベジェ線
-- 複数の円を等間隔にする
 - PNGの内径を広げる
 
 未検証候補を完成手順として本文へ混ぜません。
