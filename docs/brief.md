@@ -269,6 +269,48 @@ Canonical architecture documents:
 
 The existing published files are seed content and will be migrated incrementally. Do not create a large empty public tree before real pages exist.
 
+## Resolve Integration / Cross-App Phase
+
+The Fusion documentation architecture now separates four independent questions:
+
+```
+What do I need to understand?
+  → Learn / Patterns
+
+Where in Resolve should I do this?
+  → Resolve Integration
+
+How do I translate what I know from another app?
+  → Cross-App Bridges
+
+What exact tool/control do I need?
+  → Reference / Index
+```
+
+Primary comparison lenses:
+- After Effects
+- Photoshop
+- Premiere Pro
+- Nuke
+
+These are navigation lenses, not separate duplicated manuals.
+
+The same canonical Concept / Pattern / Node content is surfaced through metadata:
+- `product_scope`
+- `tasks`
+- `familiar_apps`
+- `familiar_terms`
+- `compare_topics`
+- `suite_surfaces`
+
+Architecture owner:
+- `docs/resolve-integration-cross-app-architecture.md`
+
+Key rule:
+**Compare intent and mental model, not feature names.**
+
+A bridge must include a clear non-equivalence section whenever the source-app model and Resolve/Fusion model differ materially.
+
 ## Non-blocking follow-up directions
 
 These are future refinement candidates, not blockers for the current foundation.
@@ -285,8 +327,14 @@ Any follow-up that materially changes navigation, content model, centering, sear
 
 ## Next Action
 
-1. Review the proposed Fusion hierarchy and index model.
-2. Select the first core Learn units to instantiate.
-3. Migrate existing `concepts.md`, `expressions.md`, Node pages, Recipes and Troubleshooting into their canonical owners without duplicating prose.
-4. Exercise the metadata vocabulary on a representative sample before automating index generation.
-5. Once the structure is accepted, scale authoring aggressively using `docs/fusion-authoring-contract.md`.
+1. Review the Fusion hierarchy, Resolve Integration layer, and Cross-App Bridge model.
+2. Instantiate a small sample containing:
+   - 2–3 Learn concepts;
+   - 1–2 Patterns;
+   - 5–10 Node pages;
+   - one After Effects bridge;
+   - one Photoshop bridge;
+   - one Resolve surface-routing page.
+3. Test whether the same canonical pages can power By Task / By Familiar App / By Resolve Surface without duplicated prose.
+4. Migrate existing seed files into canonical owners.
+5. Only after the vocabulary survives that sample, automate index generation and scale authoring aggressively.
