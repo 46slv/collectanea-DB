@@ -31,6 +31,10 @@ slug: /fusion/recipes
 
 - [KeyしてBackgroundを置き換える](./matte-keying/key-and-replace-background)
 
+## Tracking
+
+- [平面をtrackしてgraphicへ適用する](./tracking/planar-track-graphic)
+
 ## Particles
 
 - [最小Particle chainを作る](./particles/basic-particle-chain)
@@ -51,7 +55,7 @@ slug: /fusion/recipes
 
 - [Deep compositeを2Dへ戻す](./deep/deep-merge-to-image)
 
-現在 **10 Recipe** です。
+現在 **11 Recipe** です。
 
 ## 検証待ち
 
