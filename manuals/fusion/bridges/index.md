@@ -24,5 +24,6 @@ Learn / Pattern / Node / Recipe
 現在公開するBridge:
 
 - [After Effectsから来た人へ](./after-effects/)
+- [Photoshopから来た人へ](./photoshop/)
 
-Photoshop / Premiere Pro / Nukeは、mappingを一次資料で十分に確認した段階で追加します。
+Premiere Pro / Nukeは、mappingを一次資料で十分に確認した段階で追加します。
