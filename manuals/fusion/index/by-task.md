@@ -16,10 +16,12 @@ tasks: [lookup-task]
 | Maskで範囲を限定する | [Maskで処理範囲を限定する](../patterns/masking/limit-effect-with-mask) | [Ellipse](../nodes/masks/ellipse-mask) / [Polygon](../nodes/masks/polygon-mask) |
 | Textを画像へ重ねる | [Text+をImageへ重ねる](../recipes/text-graphics/text-over-image) | [Text+](../nodes/generators/text-plus) / [Merge](../nodes/compositing/merge) |
 | 再利用可能なTitle構造を作る | [再利用可能なTitle構造を作る](../recipes/text-graphics/reusable-title-structure) | [Text+](../nodes/generators/text-plus) / [Transform](../nodes/transform/transform) |
+| TransformをKeyframeで動かす | [TransformをKeyframeで動かす](../recipes/animation/animate-transform-center) | [Transform](../nodes/transform/transform) |
+| 2つの位置を連動する | [2つのTransform位置を連動する](../recipes/automation/link-transform-centers) | [Transform](../nodes/transform/transform) |
+| 複数要素を等間隔にする | [複数要素を等間隔に配置する考え方](../recipes/automation/equal-spacing-by-index) | [Transform](../nodes/transform/transform) |
 | Imageを移動する | [TransformでImageを移動する](../recipes/layout/move-image-with-transform) | [Transform](../nodes/transform/transform) |
 | Imageのresolutionを変える | [Resolution / Aspect](../learn/03-space/resolution-aspect) | [Resize](../nodes/transform/resize) |
 | resolutionを跨いでlayoutを保つ | [Resolutionを跨いでも位置関係を保つ](../patterns/transform/resolution-aware-positioning) | [Transform](../nodes/transform/transform) / [Resize](../nodes/transform/resize) |
-| 値を連動・自動化する | [Expressionで値の関係を保つ](../patterns/automation/link-values-with-expression) | [Expressions](../learn/05-time/expressions) |
 | Graphを再利用する | [再利用の境界を選ぶ](../patterns/reuse/choose-reuse-boundary) | [Reuse & Structure](../learn/06-reuse/instances) |
 | channelを組み替える | [Alpha](../learn/04-compositing/alpha) | [Channel Boolean](../nodes/color/channel-boolean) |
 | matteを後処理する | [Alpha](../learn/04-compositing/alpha) | [Matte Control](../nodes/matte-keying/matte-control) |
