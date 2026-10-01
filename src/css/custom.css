@@ -168,7 +168,7 @@ main:has(.cc-doc) > .container {width: 100%; max-width: none; padding: 24px 0 48
 .cc-doc > .row > .col:first-child {width: min(var(--cc-reading-width), calc(100% - 2 * var(--cc-reading-gutter))); max-width: none; margin-inline: auto; padding: 0; flex: none;}
 .cc-doc > .row > .col:last-child:not(:first-child) {position: absolute; top: 0; bottom: 0; width: var(--cc-rail-width); max-width: none; padding: 0; right: max(4px, calc((100% - var(--cc-reading-width)) / 2 - var(--cc-reading-gutter)));}
 .cc-content-status {width: min(var(--cc-reading-width), calc(100% - 2 * var(--cc-reading-gutter))); margin-inline: auto;}
-.cc-sidebar-inset-toggle {position: absolute; top: 8px; right: 8px; z-index: 20; background: var(--cc-surface); border-color: var(--cc-control-line);}
+.cc-sidebar-inset-toggle {position: absolute; top: calc(var(--ifm-navbar-height) + 8px); right: 8px; z-index: 20; background: var(--cc-surface); border-color: var(--cc-control-line);}
 .cc-sidebar-inset-toggle:hover {background: var(--cc-raised);}
 .cc-sidebar-reopen {position: fixed; top: calc(var(--ifm-navbar-height) + 12px); left: 0; z-index: 40; min-width: 30px; border-left: 0; border-radius: 0 var(--cc-radius) var(--cc-radius) 0; background: var(--cc-surface); border-color: var(--cc-control-line);}
 .cc-sidebar-reopen:hover {background: var(--cc-raised);}
