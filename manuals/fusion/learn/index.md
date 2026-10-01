@@ -31,4 +31,25 @@ tasks: [learn, understand]
 
 各Conceptページは、最小例を試したあとに「別Nodeでも何が同じか」を確認する構成です。
 
+## 章別の深掘り
+
+### 03 Coordinates & Space
+
+- [Center / Pivot / Size / Angle](./03-space/center-pivot-size-angle)
+- [Resolution / Aspect](./03-space/resolution-aspect)
+- [Domain of Definition](./03-space/domain-of-definition)
+
+### 04 Compositing & Alpha
+
+- [Alpha](./04-compositing/alpha)
+- [Premultiplication](./04-compositing/premultiplication)
+- [Blend / Operator](./04-compositing/blend-operator)
+
+### 05 Time & Automation
+
+- [Frame Evaluation](./05-time/frame-evaluation)
+- [Modifier / Parameter Sources](./05-time/modifier-parameter-sources)
+
+順番に読む主経路と、必要な概念を掘る補助経路を分けています。
+
 Node固有の操作を引きたい場合は [Node Reference](../nodes/) へ、再利用できる構成を探す場合は [Patterns](../patterns/) へ進みます。
