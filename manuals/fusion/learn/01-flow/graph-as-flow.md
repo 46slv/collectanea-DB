@@ -88,9 +88,9 @@ BackgroundのようなGeneratorは、必ずしも上流画像を必要とせず�
 
 ## Node Reference
 
-- [Merge](../../nodes/merge)
-- [Transform](../../nodes/transform)
-- [Background](../../nodes/background)
+- [Merge](../../nodes/compositing/merge)
+- [Transform](../../nodes/transform/transform)
+- [Background](../../nodes/generators/background)
 
 ## Next
 
