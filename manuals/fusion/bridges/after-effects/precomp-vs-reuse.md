@@ -27,7 +27,7 @@ AEでPrecompを使っていた理由を先に分類します。
 - Fusion Graphを読みやすくまとめたい
 - 同じNode settingsを共有したい
 - internal Graphを再利用したい
--利用者へ少数controlだけ公開したい
+- 利用者へ少数controlだけ公開したい
 
 理由によってResolve / Fusion側の候補は変わります。
 
