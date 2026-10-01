@@ -15,6 +15,7 @@ tasks: [lookup-task]
 | 3枚以上を段階的に重ねる | [画像を段階的に重ねる](../patterns/compositing/stack-images-with-merge) | [Merge](../nodes/compositing/merge) |
 | Maskで範囲を限定する | [Maskで処理範囲を限定する](../patterns/masking/limit-effect-with-mask) | [Ellipse](../nodes/masks/ellipse-mask) / [Polygon](../nodes/masks/polygon-mask) |
 | Textを画像へ重ねる | [Text+をImageへ重ねる](../recipes/text-graphics/text-over-image) | [Text+](../nodes/generators/text-plus) / [Merge](../nodes/compositing/merge) |
+| 再利用可能なTitle構造を作る | [再利用可能なTitle構造を作る](../recipes/text-graphics/reusable-title-structure) | [Text+](../nodes/generators/text-plus) / [Transform](../nodes/transform/transform) |
 | Imageを移動する | [TransformでImageを移動する](../recipes/layout/move-image-with-transform) | [Transform](../nodes/transform/transform) |
 | Imageのresolutionを変える | [Resolution / Aspect](../learn/03-space/resolution-aspect) | [Resize](../nodes/transform/resize) |
 | resolutionを跨いでlayoutを保つ | [Resolutionを跨いでも位置関係を保つ](../patterns/transform/resolution-aware-positioning) | [Transform](../nodes/transform/transform) / [Resize](../nodes/transform/resize) |
