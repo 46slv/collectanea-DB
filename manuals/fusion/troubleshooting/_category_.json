@@ -1,5 +1,8 @@
 {
   "label": "Troubleshooting",
-  "position": 6,
-  "link": {"type": "doc", "id": "fusion/troubleshooting/index"}
+  "position": 8,
+  "link": {
+    "type": "doc",
+    "id": "fusion/troubleshooting/index"
+  }
 }
