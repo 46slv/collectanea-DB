@@ -42,7 +42,7 @@ PhotoshopのLayer panel上の上下位置に相当する意味を、Fusionでは
 goalとしては共通します。
 
 - multiple elementsを重ねる
--個別要素へeffectを加える
+- 個別要素へeffectを加える
 - Maskで見える範囲を制限する
 - transformする
 - sourceを再利用する
