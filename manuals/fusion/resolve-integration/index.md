@@ -18,7 +18,9 @@ Fusionは独立した考え方を持つNode-based compositorですが、DaVinci 
 
 - [FusionはResolveのどこにいるか](./where-fusion-fits)
 - [どのworking surfaceを使うか](./choose-working-surface)
+- [MediaIn / MediaOutの境界](./media-in-out-boundary)
 - [Edit ↔ Fusionの境界](./edit-fusion-boundary)
+- [Color ↔ Fusionの境界](./color-fusion-boundary)
 - [Fusion assetをResolveで再利用する](./reusable-fusion-assets)
 
 一般的なFusion概念は [Learn](../learn/) へ戻ります。
