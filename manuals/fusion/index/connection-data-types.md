@@ -11,10 +11,11 @@ tasks: [connect-nodes, debug]
 
 | Data | Mental model | Current Reference |
 |---|---|---|
+| Resolve source / output boundary | [MediaIn / MediaOutの境界](../resolve-integration/media-in-out-boundary) | [MediaIn](../nodes/utility-io/media-in) → Fusion Flow → [MediaOut](../nodes/utility-io/media-out) |
 | 2D Image | [Image / Mask / Data](../learn/02-data/image-mask-data) | [Background](../nodes/generators/background), [Merge](../nodes/compositing/merge), [Transform](../nodes/transform/transform) |
 | Mask | [Image / Mask / Data](../learn/02-data/image-mask-data) | [Ellipse Mask](../nodes/masks/ellipse-mask), [Polygon Mask](../nodes/masks/polygon-mask) |
 | Parameter / scalar / Point | [Expressions](../learn/05-time/expressions) | Node-specific controlsへ |
-| Tracking data / transform | [Data domainを辿る](../learn/07-debugging/trace-data-domain) | [Planar Tracker](../nodes/tracking/planar-tracker) |
+| Tracking data / transform | [Data domainを辿る](../learn/07-debugging/trace-data-domain) | [Tracker](../nodes/tracking/tracker), [Planar Tracker](../nodes/tracking/planar-tracker) → [Planar Transform](../nodes/tracking/planar-transform) |
 | Shape | [Data domainを辿る](../learn/07-debugging/trace-data-domain) | [sEllipse](../nodes/shapes/s-ellipse) → [sRender](../nodes/shapes/s-render) |
 | Particle set | [Data domainを辿る](../learn/07-debugging/trace-data-domain) | [pEmitter](../nodes/particles/p-emitter) → [pRender](../nodes/particles/p-render) |
 | Classic 3D scene | [Data domainを辿る](../learn/07-debugging/trace-data-domain) | [Merge 3D](../nodes/3d/merge-3d) → [Renderer 3D](../nodes/3d/renderer-3d) |
