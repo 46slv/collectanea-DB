@@ -109,8 +109,8 @@ Expressionを使う前に、次を予測できる状態を目指します。
 
 ## Node Reference
 
-- [Transform](../../nodes/transform)
-- [Merge](../../nodes/merge)
+- [Transform](../../nodes/transform/transform)
+- [Merge](../../nodes/compositing/merge)
 
 ## Next
 
