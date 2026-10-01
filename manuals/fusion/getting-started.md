@@ -1,18 +1,62 @@
 ---
 sidebar_position: 1
-title: はじめに
+title: Start Here
+description: Fusion日本語リファレンスの読み方と、最初に選ぶ入口。
+doc_type: start
+verification: partial
+aliases: [はじめに, Getting Started]
+tasks: [learn, lookup]
+level: foundation
+product_scope: fusion
 ---
 
-# Fusionを使い始める
+# Start Here
 
-この章では、DaVinci Resolve内のFusionページを使うための最小限の前提を整理します。
+## What you will be able to do
 
-## このマニュアルの読み方
+このマニュアルのどこを順番に読み、どこを作業中のlookupに使うかを選べるようになります。
 
-- **Concepts**: Fusion特有の考え方を理解する
-- **Nodes**: ノードごとの役割と主要パラメータを引く
-- **Expressions**: 値の参照・計算・自動化を扱う
-- **Recipes**: 目的から具体的な構成を探す
-- **Troubleshooting**: つまずきやすい症状から調べる
+## Do this
 
-Fusionの公式仕様を置き換えるものではなく、日本語で理解・検索しやすくするための非公式資料です。
+FusionをまだGraphとして読めない場合は、まず [Learn](./learn/) を順番に進めます。
+
+すでに作業中で、Node固有のcontrolを知りたい場合は [Node Reference](./nodes/) を使います。
+
+複数Nodeへ転用できる構成を探す場合は [Patterns](./patterns/) を使います。
+
+```text
+理解したい
+  → Learn
+
+再利用できる構成を知りたい
+  → Patterns
+
+Node固有の事実を引きたい
+  → Node Reference
+
+具体的な完成手順
+  → Recipes（拡張中）
+
+症状から直したい
+  → Troubleshooting（拡張中）
+```
+
+## What to notice
+
+このマニュアルでは、同じ説明を複数ページへ複製しません。
+
+たとえばNormalized Coordinatesの一般則はLearn、Transform固有のcontrolはNode Reference、複数要素を同期する構成はPatternsに置きます。
+
+そのため、1ページだけで全てを説明するのではなく、必要に応じて相互リンクを辿る設計です。
+
+## Where to go next
+
+最初の学習ページ:
+
+→ [Graphとして考える](./learn/01-flow/graph-as-flow)
+
+FusionはDaVinci Resolveに統合されたworking surfaceです。Edit / Colorなどとの責任境界は今後のResolve Integration章で拡張します。
+
+---
+
+この資料はBlackmagic Design公式マニュアルを置き換えるものではありません。技術claimはページごとに `verified / partial / unverified` を明示し、未検証の内容を確定仕様として扱いません。
