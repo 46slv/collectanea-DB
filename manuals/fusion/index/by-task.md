@@ -22,4 +22,4 @@ tasks: [lookup-task]
 | Imageのresolutionを変える | [Resolution / DoD](../learn/07-debugging/resolution-domain-of-definition) | [Resize](../nodes/transform/resize) |
 | colorを調整する | [AlphaとMaskを分けて診断する](../learn/07-debugging/alpha-vs-mask) | [Brightness Contrast](../nodes/color/brightness-contrast) / [Color Corrector](../nodes/color/color-corrector) |
 | blurする | [DoDを確認する](../learn/07-debugging/resolution-domain-of-definition) | [Blur](../nodes/blur-filter/blur) |
-| 問題箇所を切り分ける | [Last Good / First Bad](../patterns/debugging/last-good-first-bad) | [Troubleshooting](../troubleshooting) |
+| 問題箇所を切り分ける | [Last Good / First Bad](../patterns/debugging/last-good-first-bad) | [Troubleshooting](../troubleshooting/index) |
