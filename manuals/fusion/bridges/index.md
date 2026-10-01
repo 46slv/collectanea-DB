@@ -25,5 +25,7 @@ Learn / Pattern / Node / Recipe
 
 - [After Effectsから来た人へ](./after-effects/)
 - [Photoshopから来た人へ](./photoshop/)
+- [Premiere Proから来た人へ](./premiere-pro/)
+- [Nukeから来た人へ](./nuke/)
 
-Premiere Pro / Nukeは、mappingを一次資料で十分に確認した段階で追加します。
+比較は同じgoal・似たmental model・異なるdata model / scopeを分離して記述します。
