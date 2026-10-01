@@ -21,12 +21,18 @@ tasks: [lookup-task]
 | 複数要素の位置を連動する | [複数要素の位置関係を共有する](../patterns/transform/share-position-across-elements) | [Transform](../nodes/transform/transform) |
 | 値を連動・自動化する | [Expressionで値の関係を保つ](../patterns/automation/link-values-with-expression) | [Expressions](../learn/05-time/expressions) |
 | Graphを再利用する | [再利用の境界を選ぶ](../patterns/reuse/choose-reuse-boundary) | [Reuse & Structure](../learn/06-reuse/instances) |
-| colorを調整する | [Alpha / Premultiplication](../learn/04-compositing/premultiplication) | [Brightness Contrast](../nodes/color/brightness-contrast) / [Color Corrector](../nodes/color/color-corrector) |
+| colorを調整する | [Premultiplication](../learn/04-compositing/premultiplication) | [Brightness Contrast](../nodes/color/brightness-contrast) / [Color Corrector](../nodes/color/color-corrector) |
 | blurする | [Domain of Definition](../learn/03-space/domain-of-definition) | [Blur](../nodes/blur-filter/blur) |
 | green / blue screenをkeyする | [KeyしてBackgroundを置き換える](../recipes/matte-keying/key-and-replace-background) | [Delta Keyer](../nodes/matte-keying/delta-keyer) / [Merge](../nodes/compositing/merge) |
 | 平面をtrackする | [Data domainを辿る](../learn/07-debugging/trace-data-domain) | [Planar Tracker](../nodes/tracking/planar-tracker) |
-| Classic 3D sceneをまとめる | [Data domainを辿る](../learn/07-debugging/trace-data-domain) | [Merge 3D](../nodes/3d/merge-3d) |
-| 3D sceneを2Dへ戻す | [Data domainを辿る](../learn/07-debugging/trace-data-domain) | [Renderer 3D](../nodes/3d/renderer-3d) |
+| Shapeを作って2Dへrenderする | [Shapeを2D Imageへrenderする](../recipes/shapes/basic-shape-render) | [sEllipse](../nodes/shapes/s-ellipse) / [sRender](../nodes/shapes/s-render) |
 | particleを作る | [最小Particle chainを作る](../recipes/particles/basic-particle-chain) | [pEmitter](../nodes/particles/p-emitter) |
 | particleを2Dへ戻す | [最小Particle chainを作る](../recipes/particles/basic-particle-chain) | [pRender](../nodes/particles/p-render) |
+| Classic 3D sceneをまとめる | [Classic 3D sceneを2Dへrenderする](../recipes/3d/basic-classic-3d-render) | [Merge 3D](../nodes/3d/merge-3d) |
+| Classic 3Dを2Dへ戻す | [Classic 3D sceneを2Dへrenderする](../recipes/3d/basic-classic-3d-render) | [Renderer 3D](../nodes/3d/renderer-3d) |
+| USD sceneをまとめる | [USD sceneを2Dへrenderする](../recipes/usd/basic-usd-render) | [uMerge](../nodes/usd/u-merge) |
+| USDを2Dへrenderする | [USD sceneを2Dへrenderする](../recipes/usd/basic-usd-render) | [uRenderer](../nodes/usd/u-renderer) |
+| Deep imageをcompositeする | [Deep compositeを2Dへ戻す](../recipes/deep/deep-merge-to-image) | [dMerge](../nodes/deep/d-merge) |
+| Deepを2Dへflattenする | [Deep compositeを2Dへ戻す](../recipes/deep/deep-merge-to-image) | [Deep to Image](../nodes/deep/deep-to-image) |
+| 特殊domainを2Dへ戻す | [特殊domainのまま処理し、必要な境界で2Dへ戻す](../patterns/data-domain/defer-domain-conversion) | [Connection / Data Types](./connection-data-types) |
 | 問題箇所を切り分ける | [Last Good / First Bad](../patterns/debugging/last-good-first-bad) | [Troubleshooting](../troubleshooting/index) |
