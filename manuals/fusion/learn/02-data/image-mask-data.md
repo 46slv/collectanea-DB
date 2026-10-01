@@ -99,9 +99,9 @@ TransformはImageを受け取って変形します。CenterやSizeはImageとは
 
 ## Node Reference
 
-- [Merge](../../nodes/merge)
-- [Background](../../nodes/background)
-- [Transform](../../nodes/transform)
+- [Merge](../../nodes/compositing/merge)
+- [Background](../../nodes/generators/background)
+- [Transform](../../nodes/transform/transform)
 
 ## Next
 
