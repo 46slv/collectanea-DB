@@ -19,6 +19,7 @@ slug: /fusion/troubleshooting
 ## Alpha / Mask
 
 - [Maskを接続しても結果が変わらない](./masking/mask-does-not-change-result)
+- [透明Edgeの色や縁がおかしい](./masking/alpha-edge-looks-wrong)
 
 ## Connections
 
@@ -27,6 +28,12 @@ slug: /fusion/troubleshooting
 ## Position / Size / Resolution
 
 - [Transform後にImageの端が消える](./position-size-resolution/image-cut-off-after-transform)
+- [Resolutionが合わない](./position-size-resolution/resolution-does-not-match)
+
+## Animation / Expression
+
+- [Expressionが期待どおり更新されない](./animation-automation/expression-does-not-update)
+- [Keyframeを置いたのにAnimationしない](./animation-automation/animation-does-not-move)
 
 ## 診断の共通方針
 
@@ -36,4 +43,4 @@ slug: /fusion/troubleshooting
 4. 最後に正常だった地点と、最初に壊れた地点を特定する。
 5. 一般Conceptで説明できなければNode固有Referenceへ進む。
 
-単なるFAQではなく、再現可能な診断資料として増やします。
+現在 **8 Diagnostic** です。
