@@ -28,7 +28,7 @@ Particle setを生成し、2D ImageとしてViewer / Mergeへ渡せる最小構�
 1. pEmitterを作ります。
 2. pEmitterのParticle setをpRenderへ接続します。
 3. pRender outputをViewerで確認します。
-4.必要ならpEmitterとpRenderの間へparticle modifier / forceを追加します。
+4. 必要ならpEmitterとpRenderの間へparticle modifier / forceを追加します。
 
 ```text
 pEmitter → pRender → 2D Image
