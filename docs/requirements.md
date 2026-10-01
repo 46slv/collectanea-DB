@@ -1,6 +1,6 @@
 # COLLECTANEA — 要件
 
-Status: Foundation implemented and verified
+Status: Visual Acceptance repair in progress
 Updated: 2026-10-01
 
 ## 1. 目的
@@ -552,3 +552,66 @@ Current accepted implementation baseline:
 - post-test tracked source changes: 0
 
 Detailed evidence and non-blocking notes are in `docs/review-receipt.md`.
+
+
+## 16. Visual Acceptance Additions — 2026-10-01
+
+### 16.1 Single-destination cards
+
+資料カード・記事カードなど、カード全体が1つの遷移先を表す場合:
+
+- カード面全体をclick / tap targetにする
+- タイトル文字だけを唯一の遷移hit targetにしない
+- keyboard focusでもカード単位の遷移先が明確であること
+- hover / focusはカード境界・背景輝度で返し、target自体を移動させない
+- 内部に別actionが必要になった場合のみ、nested interactive領域を明示的に再設計する
+
+### 16.2 Hierarchy ownership
+
+左Hierarchyの表示・非表示controlは、対象との空間的所有関係を明確にする。
+
+Hierarchy OPEN時:
+
+- 「閉じる」controlは左Hierarchy領域の内部に置く
+- Article側toolbarへHierarchy controlを置かない
+- icon自体を押せるtoggleとして扱う
+- sidebar境界付近で、何を閉じるcontrolか即座に分かる位置を優先する
+
+Hierarchy CLOSED時:
+
+- 再度開くcontrolは左端 / 元Hierarchy境界に隣接して置く
+- Articleの読書中心をずらさない
+- Mobileはnative drawer/navigationを優先し、desktop用controlを重複表示しない
+
+### 16.3 Document Quietness
+
+Article / Manual本文では **Navigationは高機能、Documentは静か** を基本原則とする。
+
+本文領域:
+
+- 読書に不要なcard / badge / toolbar / controlを常時侵入させない
+- 見出しを過度に巨大化せず、sizeだけでなくweight・輝度・前後余白で階層化する
+- sectionを認知しやすい小さな単位へ分ける
+- paragraph / list / figure / codeのvertical rhythmを少数のspacing ruleへ集約する
+- 本文はnavigation UIより視覚的に静かなsurfaceとする
+- 状態表示が必要な場合も、読書開始位置を過剰に押し下げない
+
+Navigation / knowledge linking:
+
+- 本文中の重要用語は、適切なReference / Node / Conceptへinline linkできる構造を優先する
+- 記事末尾には必要に応じて See Also / Previous / Next を置く
+- 関連情報を大量の本文内cardへ置き換えず、inline linkと末尾navigationを優先する
+- colorを将来導入する場合、装飾色ではなくlink等の意味を持つ役割から検討する
+
+この原則はCycling '74 Max documentationの読書構造をreferenceとして採用するが、同サイトの見た目やtokenをそのまま複製する要求ではない。
+
+### 16.4 Additional acceptance
+
+既存Acceptanceに加え:
+
+1. Panel viewのsingle-destination cardは余白部分をclickしても遷移する
+2. Article cardもカード全体で遷移できる
+3. Hierarchy OPEN時のclose controlは `.theme-doc-sidebar-container` 内に存在する
+4. Hierarchy CLOSED時のreopen controlは左端に残り、Article centerを変えない
+5. Desktop Article本文にHierarchy操作toolbarを置かない
+6. Document本文はnavigation UIより視覚的に静かな状態を維持する
