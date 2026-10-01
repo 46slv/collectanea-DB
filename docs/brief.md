@@ -1,7 +1,7 @@
 # COLLECTANEA — Working Brief
 
-Status: Visual Acceptance Repair — user review feedback applied
-Brief Gate: Visual Acceptance
+Status: Content Architecture — structure before mass authoring
+Brief Gate: Content Architecture
 Updated: 2026-10-01
 
 ## Goal
@@ -238,6 +238,37 @@ COLLECTANEAでは、実装と検証の境界を次のように扱う。
 
 このrepoでは「main = 完成済みだけを置く場所」ではなく、**検証可能な統合状態の正本**として扱う。検証開始後のsource of truthをmainへ集約し、branchとpreviewの二重状態を長引かせない。
 
+## Fusion Mass-Authoring Architecture
+
+Before writing large volumes of prose, the manual structure is fixed around two separate user modes:
+
+```
+Learn / understand
+  → Start Here
+  → Learn
+  → Patterns
+
+Work / look up
+  → Node Reference
+  → Recipes
+  → Troubleshooting
+  → Index
+```
+
+The key transfer path is:
+
+```
+Concept → Invariant → Transfer → Pattern → Node
+```
+
+Canonical architecture documents:
+
+- `docs/fusion-content-architecture.md`
+- `docs/fusion-index-architecture.md`
+- `docs/fusion-authoring-contract.md`
+
+The existing published files are seed content and will be migrated incrementally. Do not create a large empty public tree before real pages exist.
+
 ## Non-blocking follow-up directions
 
 These are future refinement candidates, not blockers for the current foundation.
@@ -254,11 +285,8 @@ Any follow-up that materially changes navigation, content model, centering, sear
 
 ## Next Action
 
-Current interaction repair must pass CI and be reloaded into the local production preview.
-
-After user visual acceptance:
-1. close the repair receipt,
-2. return PR to merge-decision state,
-3. then separately iterate document typography / inline linking / end navigation if desired.
-
-Do not merge or publish without explicit merge/deploy authority.
+1. Review the proposed Fusion hierarchy and index model.
+2. Select the first core Learn units to instantiate.
+3. Migrate existing `concepts.md`, `expressions.md`, Node pages, Recipes and Troubleshooting into their canonical owners without duplicating prose.
+4. Exercise the metadata vocabulary on a representative sample before automating index generation.
+5. Once the structure is accepted, scale authoring aggressively using `docs/fusion-authoring-contract.md`.
