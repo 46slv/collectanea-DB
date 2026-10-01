@@ -9,7 +9,7 @@ tasks: [learn, understand]
 
 # Learn
 
-ここは順番に読むための学習経路です。Node名を覚えることより、**Graphの読み方 → Dataの種類 → Space → Compositing → Time / Automation** の順に、別のNodeへ持ち運べる考え方を作ります。
+ここは順番に読むための学習経路です。Node名を覚えることより、**Graph → Data → Space → Compositing → Time → Reuse → Debugging** の順に、別のNodeへ持ち運べる考え方を作ります。
 
 ## まず読む
 
@@ -19,6 +19,15 @@ tasks: [learn, understand]
 4. [Foreground / Background / Mask](./04-compositing/foreground-background-mask)
 5. [Keyframe / Spline / Time](./05-time/keyframes-spline-time)
 6. [Expressions](./05-time/expressions)
+7. [Instanceで設定を共有する](./06-reuse/instances)
+8. [User Controlsで公開interfaceを作る](./06-reuse/user-controls)
+9. [GroupでGraphをまとめる](./06-reuse/groups)
+10. [Macro / Templateで再利用単位を作る](./06-reuse/macros-templates)
+11. [Data domainを辿って診断する](./07-debugging/trace-data-domain)
+12. [Branchを分離して原因範囲を狭める](./07-debugging/isolate-branches)
+13. [AlphaとMaskを分けて診断する](./07-debugging/alpha-vs-mask)
+14. [Resolution / Domain of Definitionを確認する](./07-debugging/resolution-domain-of-definition)
+15. [症状ではなくGraphを診断する](./07-debugging/diagnose-graph-not-symptom)
 
 各Conceptページは、最小例を試したあとに「別Nodeでも何が同じか」を確認する構成です。
 
