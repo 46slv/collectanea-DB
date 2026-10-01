@@ -348,3 +348,44 @@ Checked: 2026-09-30
 7. 採用結果と不採用理由を本台帳へ戻す
 
 一度の流行や一作例を恒久ルールへ昇格しない。複数回有効だった原理だけをdesign systemへ昇格する。
+
+## Documentation Reading Reference — 2026-10-01
+
+### Cycling '74 Max 8 Legacy Documentation — Basic Tutorial 1
+
+Source:
+- https://docs.cycling74.com/legacy/max8/tutorials/basicchapter01
+
+Observed implementation:
+- body uses Lato at 16px / 1.5 line-height
+- body text is a softened dark gray rather than absolute black
+- headings are compact: roughly H1 2em / H2 1.75em / H3 1.5em
+- heading hierarchy combines size, weight, luminance and spacing instead of extreme scale jumps
+- paragraph/list/block rhythm is mostly built from 1em / 1.5rem steps
+- links carry a distinct semantic color in the legacy site
+- tutorial content is divided into repeated small sections and closes with related/next navigation
+
+Borrow:
+- **Document quietness**: keep product/navigation chrome outside the reading flow as much as possible
+- **Navigation high-functionality / Document low-chrome**
+- compact heading scale that marks sections without repeatedly resetting the reader's gaze
+- stable vertical rhythm and short cognitive sections
+- inline links as part of the knowledge graph rather than replacing them with many related-content cards
+- end-of-document See Also / Previous / Next navigation
+- use luminance / weight / spacing together before making headings dramatically larger
+
+Avoid:
+- copying the legacy visual styling or framework literally
+- adopting its exact font sizes/spacing as universal tokens
+- adding blue purely because the reference uses blue; COLLECTANEA remains monochrome-first until a semantic accent is intentionally chosen
+- weakening current keyboard, responsive, search, Heading Rail or content-model behavior to imitate the older site
+
+Scope:
+- Manual / Article reading pages
+- typography hierarchy
+- inline technical cross-linking
+- end-of-document navigation
+- future semantic link-color exploration
+
+Checked: 2026-10-01
+
