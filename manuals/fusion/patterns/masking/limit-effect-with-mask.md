@@ -70,5 +70,5 @@ Recipesは次バッチで追加予定です。
 
 ## Related Node Reference
 
-- [Merge](../../nodes/merge)
-- [Background](../../nodes/background)
+- [Merge](../../nodes/compositing/merge)
+- [Background](../../nodes/generators/background)
