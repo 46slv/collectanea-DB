@@ -35,6 +35,20 @@ slug: /fusion/recipes
 
 - [最小Particle chainを作る](./particles/basic-particle-chain)
 
+## Shapes
+
+- [Shapeを2D Imageへrenderする](./shapes/basic-shape-render)
+
+## USD
+
+- [USD sceneを2Dへrenderする](./usd/basic-usd-render)
+
+## Deep
+
+- [Deep compositeを2Dへ戻す](./deep/deep-merge-to-image)
+
+現在 **9 Recipe** です。
+
 ## 検証待ち
 
 Fusion 21.1 Reference Manual / hostで操作名と挙動を確認してから個別Recipeへ昇格する候補:
