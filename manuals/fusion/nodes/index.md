@@ -59,9 +59,24 @@ Node固有の入出力・control・例外を引くためのReferenceです。
 - [pEmitter](./particles/p-emitter)
 - [pRender](./particles/p-render)
 
+## Shapes
+
+- [sEllipse](./shapes/s-ellipse)
+- [sRender](./shapes/s-render)
+
+## USD
+
+- [uMerge](./usd/u-merge)
+- [uRenderer](./usd/u-renderer)
+
+## Deep
+
+- [dMerge](./deep/d-merge)
+- [Deep to Image](./deep/deep-to-image)
+
 ## Current sample coverage
 
-現在の代表Referenceは **16 Node** です。
+現在の代表Referenceは **22 Node** です。
 
 ```text
 Compositing   1
@@ -74,10 +89,13 @@ Matte/Keying  1
 Tracking      1
 3D            2
 Particles     2
+Shapes        2
+USD           2
+Deep          2
               ──
-Total        16
+Total        22
 ```
 
-このsampleで、2D ImageだけでなくMask / tracking data / Classic 3D scene / Particle set / domain conversionまでmetadataとcross-linkを試しています。
+このsampleで、2D Image / Mask / tracking / Shape / Particle / Classic 3D / USD / Deepと、それぞれの2D conversion boundaryまでmetadataとcross-linkを試しています。
 
 まだ全Node catalogではありません。taxonomyはこのrepresentative setを元に育てます。
