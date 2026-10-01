@@ -1,18 +1,31 @@
 ---
 sidebar_position: 6
 title: Troubleshooting
+description: 症状から原因を切り分けるFusion診断入口。
+doc_type: index
+verification: partial
+product_scope: fusion
+tasks: [debug]
 ---
 
 # Troubleshooting
 
 症状から原因候補と確認手順を探します。
 
-## 方針
+## Viewer / Output
 
-- 症状
-- まず確認すること
-- 原因候補
-- 修正方法
-- バージョン差や例外
+- [Viewerに何も表示されない](./troubleshooting/viewer/nothing-visible)
 
-を分け、単なるFAQではなく再現可能な診断資料として育てます。
+## Alpha / Mask
+
+- [Maskを接続しても結果が変わらない](./troubleshooting/masking/mask-does-not-change-result)
+
+## 診断の共通方針
+
+1. 症状を具体化する。
+2. Graphをbranch / stageへ分離する。
+3. 1回に1つだけ条件を変える。
+4. 最後に正常だった地点と、最初に壊れた地点を特定する。
+5. 一般Conceptで説明できなければNode固有Referenceへ進む。
+
+単なるFAQではなく、再現可能な診断資料として増やします。
