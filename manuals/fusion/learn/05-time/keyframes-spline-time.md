@@ -88,8 +88,8 @@ Inspectorでkeyframe可能なcontrolを見つけたら、Node名が違っても�
 
 ## Node Reference
 
-- [Transform](../../nodes/transform)
-- [Merge](../../nodes/merge)
+- [Transform](../../nodes/transform/transform)
+- [Merge](../../nodes/compositing/merge)
 
 ## Next
 
