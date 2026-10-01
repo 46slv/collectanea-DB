@@ -25,9 +25,17 @@ tasks: [translate-mental-model]
 - Layer Mask → [Layer MaskとFusion Mask / Alpha](../bridges/photoshop/layer-mask-vs-mask-alpha)
 - Smart Object → [Smart ObjectとFusionの再利用構造](../bridges/photoshop/smart-object-vs-reuse)
 
-## Not published yet
+## Premiere Pro
 
-- Premiere Pro
-- Nuke
+- [Premiere Proから来た人へ](../bridges/premiere-pro/)
+- Sequence / Timeline → [TimelineとFusion Flow](../bridges/premiere-pro/timeline-vs-fusion-flow)
+- Nested Sequence → [Nested SequenceとResolve/Fusionの再利用境界](../bridges/premiere-pro/nested-sequence-vs-reuse)
 
-空の比較ページは作らず、一次資料とnon-equivalenceを十分に確認したlensだけ追加します。
+## Nuke
+
+- [Nukeから来た人へ](../bridges/nuke/)
+- Node Graph / Viewer → [Node GraphとViewer](../bridges/nuke/node-graph-viewer)
+- Merge / premult → [Merge / Mask / Alphaの読み替え](../bridges/nuke/merge-mask-alpha)
+- Group / Gizmo → [Group / GizmoとFusion再利用構造](../bridges/nuke/group-gizmo-vs-reuse)
+
+4つのApp lensはいずれもcanonical Fusion proseを複製せず、入口だけを提供します。
