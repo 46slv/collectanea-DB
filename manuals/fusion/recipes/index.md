@@ -22,6 +22,7 @@ slug: /fusion/recipes
 ## Text / Graphics
 
 - [Text+をImageへ重ねる](./text-graphics/text-over-image)
+- [再利用可能なTitle構造を作る](./text-graphics/reusable-title-structure)
 
 ## Layout
 
@@ -55,7 +56,7 @@ slug: /fusion/recipes
 
 - [Deep compositeを2Dへ戻す](./deep/deep-merge-to-image)
 
-現在 **11 Recipe** です。
+現在 **12 Recipe** です。
 
 ## 検証待ち
 
