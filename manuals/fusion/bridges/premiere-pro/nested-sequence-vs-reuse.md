@@ -24,8 +24,8 @@ source Sequenceを変更するとnested instanceへ反映されます。
 PremiereでNestしていた理由を分類します。
 
 - timelineを整理したい
--複数clipを1単位でtrim / moveしたい
--同じtimeline structureを再利用したい
+- 複数clipを1単位でtrim / moveしたい
+- 同じtimeline structureを再利用したい
 - shot内部のVFX Graphをまとめたい
 - reusable effect/titleとして配布したい
 
