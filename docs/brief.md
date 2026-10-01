@@ -1,7 +1,7 @@
 # COLLECTANEA — Working Brief
 
-Status: Foundation Verified — awaiting merge decision
-Brief Gate: Verified
+Status: Visual Acceptance Repair — user review feedback applied
+Brief Gate: Visual Acceptance
 Updated: 2026-10-01
 
 ## Goal
@@ -189,6 +189,41 @@ Detailed evidence is in `docs/review-receipt.md`.
 4. Implementation — COMPLETE
 5. Verification — COMPLETE
 
+## Visual Acceptance Feedback — 2026-10-01
+
+User-observed issues on the local production preview:
+
+1. **Single-destination cards were not fully clickable**
+   - Symptom: clicking the card background did nothing; only the title link navigated.
+   - Required behavior: the entire material/article card is one hit target when it represents one destination.
+   - Implementation direction: stable full-surface link overlay, visible card-level focus, no moving hit target.
+
+2. **Hierarchy close control had weak spatial ownership**
+   - Symptom: the close control appeared on the Article side and was difficult to associate with the left Hierarchy.
+   - Required behavior: close control lives inside the Hierarchy itself.
+   - Reopen behavior: when collapsed, a compact control remains at the former left boundary without changing article centering.
+   - Mobile keeps native drawer behavior rather than duplicating desktop controls.
+
+3. **Reading-page visual principle**
+   - Adopt the Cycling '74 Max documentation reference as a structural reading reference.
+   - Principle: **Navigation high-functionality / Document low-chrome**.
+   - Article content should be visually quieter than navigation/search surfaces.
+   - Prefer compact heading hierarchy, stable vertical rhythm, inline knowledge links and end-of-document related/next navigation over repeated in-body UI cards.
+
+Canonical details are in `docs/requirements.md §16` and `docs/design-references.md`.
+
+## Current repair scope
+
+Active bounded repair:
+
+- full-card hit targets on Home and Articles
+- close Hierarchy control inside the sidebar
+- reopen control at the left boundary
+- regression assertions for both behaviors
+- specification/reference update for document quietness
+
+The wider typography/inline-link/See Also refinements are now design requirements but are not all forced into this bounded interaction repair. They should be evaluated visually after the current preview update, to avoid changing reading typography before user acceptance.
+
 ## Non-blocking follow-up directions
 
 These are future refinement candidates, not blockers for the current foundation.
@@ -205,6 +240,11 @@ Any follow-up that materially changes navigation, content model, centering, sear
 
 ## Next Action
 
-Current foundation is ready for PR review/merge decision.
+Current interaction repair must pass CI and be reloaded into the local production preview.
 
-Do not merge or publish from this Brief without explicit merge/deploy authority.
+After user visual acceptance:
+1. close the repair receipt,
+2. return PR to merge-decision state,
+3. then separately iterate document typography / inline linking / end navigation if desired.
+
+Do not merge or publish without explicit merge/deploy authority.
