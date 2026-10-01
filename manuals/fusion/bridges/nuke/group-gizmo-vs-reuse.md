@@ -24,8 +24,8 @@ GizmoはGroupを別の`.gizmo` fileとして保存し、artistへ公開するcon
 NukeでGroup / Gizmoを使っていた理由を分類します。
 
 - graphを整理したい
--内部Nodeを1単位へまとめたい
--利用者へ少数controlだけ公開したい
+- 内部Nodeを1単位へまとめたい
+- 利用者へ少数controlだけ公開したい
 -複数project / artistで再利用したい
 
 ## Fusion mental model
@@ -43,10 +43,10 @@ reusable packaged graph
 
 ## What maps cleanly
 
--内部Nodeをまとめる
--public controlsを選ぶ
--repeated constructionを再利用する
--complexityを外部から隠す
+- 内部Nodeをまとめる
+- public controlsを選ぶ
+- repeated constructionを再利用する
+- complexityを外部から隠す
 
 ## What does not map 1:1
 
