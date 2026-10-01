@@ -28,7 +28,9 @@ Patternは、1つのNodeの説明でも、完成物の手順でもありませ�
 
 ## Animation & Automation
 
+- [Base値とAnimation Offsetを分ける](./animation/base-and-animation-offset)
 - [Expressionで値の関係を保つ](./automation/link-values-with-expression)
+- [Master / Follower parameterを作る](./automation/master-follower-parameters)
 
 ## Linking & Reuse
 
@@ -54,6 +56,6 @@ Patternは、1つのNodeの説明でも、完成物の手順でもありませ�
 
 - [Last Good / First BadでGraphを切る](./debugging/last-good-first-bad)
 
-現在 **11 Pattern** です。Concept → Pattern → Node Referenceの中間層として使います。
+現在 **13 Pattern** です。Concept → Pattern → Node Referenceの中間層として使います。
 
 具体的な完成手順が必要な場合は [Recipes](../recipes/index) へ、Node固有のcontrolは [Node Reference](../nodes/) を参照します。
