@@ -82,6 +82,11 @@ Inspectorでkeyframe可能なcontrolを見つけたら、Node名が違っても�
 
 まずは、Keyframeで指定した時間変化を見て調整するためのsurfaceとして捉えると整理しやすくなります。
 
+## Deepen
+
+- [Frame Evaluation](./frame-evaluation)
+- [Modifier / Parameter Sources](./modifier-parameter-sources)
+
 ## Related Patterns
 
 - [Expressionで値の関係を保つ](../../patterns/automation/link-values-with-expression)
