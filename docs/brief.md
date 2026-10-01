@@ -224,6 +224,20 @@ Active bounded repair:
 
 The wider typography/inline-link/See Also refinements are now design requirements but are not all forced into this bounded interaction repair. They should be evaluated visually after the current preview update, to avoid changing reading typography before user acceptance.
 
+## Development / Verification Workflow
+
+COLLECTANEAでは、実装と検証の境界を次のように扱う。
+
+- 実装途中で、build不能・主要導線未成立・明確な破損がある間はtask branchを使ってよい。
+- **最低限buildでき、ユーザーが実際に触って検証できる段階に入ったらmainへ統合する。**
+- Visual Acceptance、実ブラウザ確認、細かなUI調整、記事追加、軽い修正は原則main上で継続する。
+- mainへ入れた後に問題が見つかった場合は、main上で小さく修正し、ローカルpreviewで確認してからpushする。
+- 大規模refactor、routing/content modelの大変更、dependencyの大更新、破壊的変更だけはtask branch / PRへ戻す。
+- Heavy Quality workflowはmanual-onlyとし、日常の検証で自動実行しない。
+- mainへのsite-impacting pushはPages deployを起動する。短時間の連続pushでは古いdeployをcancel-in-progressで収束させる。
+
+このrepoでは「main = 完成済みだけを置く場所」ではなく、**検証可能な統合状態の正本**として扱う。検証開始後のsource of truthをmainへ集約し、branchとpreviewの二重状態を長引かせない。
+
 ## Non-blocking follow-up directions
 
 These are future refinement candidates, not blockers for the current foundation.
