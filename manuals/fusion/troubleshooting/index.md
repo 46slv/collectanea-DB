@@ -21,9 +21,10 @@ slug: /fusion/troubleshooting
 - [Maskを接続しても結果が変わらない](./masking/mask-does-not-change-result)
 - [透明Edgeの色や縁がおかしい](./masking/alpha-edge-looks-wrong)
 
-## Connections
+## Connections / Data Domain
 
 - [Node同士を接続できない](./connections/nodes-do-not-connect)
+- [Shape / Particle / 3D / USD / DeepがImageとして見えない](./connections/non-image-domain-not-visible)
 
 ## Position / Size / Resolution
 
@@ -43,4 +44,4 @@ slug: /fusion/troubleshooting
 4. 最後に正常だった地点と、最初に壊れた地点を特定する。
 5. 一般Conceptで説明できなければNode固有Referenceへ進む。
 
-現在 **8 Diagnostic** です。
+現在 **9 Diagnostic** です。
