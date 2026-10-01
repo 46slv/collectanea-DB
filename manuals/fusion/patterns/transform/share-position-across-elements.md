@@ -74,5 +74,5 @@ Recipesは次バッチで追加予定です。
 
 ## Related Node Reference
 
-- [Transform](../../nodes/transform)
-- [Merge](../../nodes/merge)
+- [Transform](../../nodes/transform/transform)
+- [Merge](../../nodes/compositing/merge)
