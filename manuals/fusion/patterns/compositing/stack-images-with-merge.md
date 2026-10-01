@@ -71,4 +71,4 @@ Recipesは次バッチで追加予定です。
 
 ## Related Node Reference
 
-- [Merge](../../nodes/merge)
+- [Merge](../../nodes/compositing/merge)
