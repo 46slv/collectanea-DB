@@ -44,7 +44,13 @@ Index
 ├─ By Task
 ├─ By Symptom
 ├─ Connection / Data Types
-└─ Glossary
+├─ Glossary
+├─ By Resolve Surface
+└─ By Familiar App
+   ├─ After Effects
+   ├─ Photoshop
+   ├─ Premiere Pro
+   └─ Nuke
 ```
 
 ## 1. Node A–Z
@@ -236,6 +242,11 @@ tasks: []
 symptoms: []
 prerequisites: []
 level: foundation | intermediate | advanced
+product_scope: fusion | resolve | edit | color | fairlight | media | deliver
+familiar_apps: []
+familiar_terms: []
+compare_topics: []
+suite_surfaces: []
 verification: verified | unverified | partial
 ```
 
@@ -290,6 +301,53 @@ concepts:
 tasks:
   - debug
 ```
+
+## 8. By Resolve Surface
+
+統合型ツールとして、同じtaskがResolveのどこに属するかを引ける入口。
+
+Initial facets:
+
+- Edit / Timeline
+- Fusion
+- Color
+- Fairlight
+- Media
+- Deliver
+- Cross-page workflow
+
+This index should answer **where should I do this?** before sending users into a Fusion Node list.
+
+Exact surface behavior is version-sensitive and must be verified before publication.
+
+## 9. By Familiar App
+
+既存アプリ経験を入口にする。
+
+Initial lenses:
+
+- After Effects
+- Photoshop
+- Premiere Pro
+- Nuke
+
+Each app lens is generated from canonical metadata such as:
+
+```yaml
+familiar_apps: [after-effects]
+familiar_terms: [Composition, Layer, Precomp]
+compare_topics: [layer-stack, nesting]
+```
+
+Rules:
+
+- app-specific terminology is routing metadata;
+- canonical Fusion terminology stays in Learn / Patterns / Reference;
+- one page may appear under several familiar-app views without duplicating prose;
+- mapping is task/intent-based, not feature-equality-based.
+
+The architecture owner is:
+- `docs/resolve-integration-cross-app-architecture.md`
 
 ## Canonical ownership
 
