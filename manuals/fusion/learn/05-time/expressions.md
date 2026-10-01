@@ -102,6 +102,11 @@ Expressionを使う前に、次を予測できる状態を目指します。
 
 必要なのは値の関係です。Instance、Modifier、User Controlsなど別の再利用手段が適切な場合もあるため、責任の置き場所で選びます。
 
+## Deepen
+
+- [Frame Evaluation](./frame-evaluation)
+- [Modifier / Parameter Sources](./modifier-parameter-sources)
+
 ## Related Patterns
 
 - [Expressionで値の関係を保つ](../../patterns/automation/link-values-with-expression)
