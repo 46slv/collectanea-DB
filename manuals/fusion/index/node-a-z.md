@@ -23,6 +23,8 @@ tasks: [lookup-node]
 | [dMerge](../nodes/deep/d-merge) | Deep | Deep sample-aware compositing |
 | [Ellipse Mask](../nodes/masks/ellipse-mask) | Masks | 円・楕円形状のMask |
 | [Matte Control](../nodes/matte-keying/matte-control) | Matte / Keying | Alpha/matteのcombine・invert・post process |
+| [MediaIn](../nodes/utility-io/media-in) | Utility / I/O | Resolve timeline/mediaからFusionへ入るsource boundary |
+| [MediaOut](../nodes/utility-io/media-out) | Utility / I/O | Fusion resultをResolveへ返すoutput boundary |
 | [Merge](../nodes/compositing/merge) | Compositing | ForegroundとBackgroundを合成 |
 | [Merge 3D](../nodes/3d/merge-3d) | 3D | Classic 3D sceneを統合 |
 | [MultiMerge](../nodes/compositing/multi-merge) | Compositing | 多数のForeground Layerを1 Nodeで合成 |
@@ -41,4 +43,4 @@ tasks: [lookup-node]
 | [uMerge](../nodes/usd/u-merge) | USD | USD sceneを統合 |
 | [uRenderer](../nodes/usd/u-renderer) | USD | USD sceneを2D Image / AOVへrender |
 
-現在のReference sample: **29 Node**。
+現在のReference sample: **31 Node**。
