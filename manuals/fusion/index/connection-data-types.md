@@ -15,10 +15,13 @@ tasks: [connect-nodes, debug]
 | Mask | [Image / Mask / Data](../learn/02-data/image-mask-data) | [Ellipse Mask](../nodes/masks/ellipse-mask), [Polygon Mask](../nodes/masks/polygon-mask) |
 | Parameter / scalar / Point | [Expressions](../learn/05-time/expressions) | Node-specific controlsへ |
 | Tracking data / transform | [Data domainを辿る](../learn/07-debugging/trace-data-domain) | [Planar Tracker](../nodes/tracking/planar-tracker) |
+| Shape | [Data domainを辿る](../learn/07-debugging/trace-data-domain) | [sEllipse](../nodes/shapes/s-ellipse) → [sRender](../nodes/shapes/s-render) |
 | Particle set | [Data domainを辿る](../learn/07-debugging/trace-data-domain) | [pEmitter](../nodes/particles/p-emitter) → [pRender](../nodes/particles/p-render) |
 | Classic 3D scene | [Data domainを辿る](../learn/07-debugging/trace-data-domain) | [Merge 3D](../nodes/3d/merge-3d) → [Renderer 3D](../nodes/3d/renderer-3d) |
-| Shape | [Data domainを辿る](../learn/07-debugging/trace-data-domain) | Reference coverage pending |
-| USD scene | [Data domainを辿る](../learn/07-debugging/trace-data-domain) | Reference coverage pending |
-| Deep image | [Data domainを辿る](../learn/07-debugging/trace-data-domain) | Reference coverage pending |
+| USD scene | [Data domainを辿る](../learn/07-debugging/trace-data-domain) | [uMerge](../nodes/usd/u-merge) → [uRenderer](../nodes/usd/u-renderer) |
+| Deep image | [Data domainを辿る](../learn/07-debugging/trace-data-domain) | [dMerge](../nodes/deep/d-merge) → [Deep to Image](../nodes/deep/deep-to-image) |
 
-Renderer 3D / pRenderのようなNodeは、別domainを通常の2D Imageへ戻す**変換境界**として引けます。
+共通Pattern:
+[特殊domainのまま処理し、必要な境界で2Dへ戻す](../patterns/data-domain/defer-domain-conversion)
+
+Shape / Particle / 3D / USD / Deepでは、変換Nodeが通常2D Image Flowへ戻る明示的な境界になります。
