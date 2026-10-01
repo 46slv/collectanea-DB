@@ -16,6 +16,7 @@ Node固有の入出力・control・例外を引くためのReferenceです。
 ## Compositing
 
 - [Merge](./compositing/merge)
+- [MultiMerge](./compositing/multi-merge)
 
 ## Generators
 
@@ -32,10 +33,11 @@ Node固有の入出力・control・例外を引くためのReferenceです。
 - [Ellipse Mask](./masks/ellipse-mask)
 - [Polygon Mask](./masks/polygon-mask)
 
-## Color
+## Color / Channel
 
 - [Brightness Contrast](./color/brightness-contrast)
 - [Color Corrector](./color/color-corrector)
+- [Channel Boolean](./color/channel-boolean)
 
 ## Blur / Filter
 
@@ -44,10 +46,15 @@ Node固有の入出力・control・例外を引くためのReferenceです。
 ## Matte / Keying
 
 - [Delta Keyer](./matte-keying/delta-keyer)
+- [Matte Control](./matte-keying/matte-control)
+- [Alpha Divide](./matte-keying/alpha-divide)
+- [Alpha Multiply](./matte-keying/alpha-multiply)
 
 ## Tracking
 
+- [Tracker](./tracking/tracker)
 - [Planar Tracker](./tracking/planar-tracker)
+- [Planar Transform](./tracking/planar-transform)
 
 ## Classic 3D
 
@@ -76,26 +83,8 @@ Node固有の入出力・control・例外を引くためのReferenceです。
 
 ## Current sample coverage
 
-現在の代表Referenceは **22 Node** です。
+現在の代表Referenceは **29 Node** です。
 
-```text
-Compositing   1
-Generators    2
-Transform     2
-Masks         2
-Color         2
-Blur/Filter   1
-Matte/Keying  1
-Tracking      1
-3D            2
-Particles     2
-Shapes        2
-USD           2
-Deep          2
-              ──
-Total        22
-```
-
-このsampleで、2D Image / Mask / tracking / Shape / Particle / Classic 3D / USD / Deepと、それぞれの2D conversion boundaryまでmetadataとcross-linkを試しています。
+2D Image / Mask / tracking / Shape / Particle / Classic 3D / USD / Deepに加え、channel / matte / premultiplication / multi-layer compositingまでmetadataとcross-linkを試しています。
 
 まだ全Node catalogではありません。taxonomyはこのrepresentative setを元に育てます。
