@@ -14,6 +14,7 @@ slug: /fusion/recipes
 ## Compositing
 
 - [2つのImageを重ねる](./compositing/two-image-merge)
+- [複数ImageをMultiMergeでまとめる](./compositing/multi-merge-layers)
 
 ## Masking
 
@@ -36,6 +37,10 @@ slug: /fusion/recipes
 
 - [2つのTransform位置を連動する](./automation/link-transform-centers)
 - [複数要素を等間隔に配置する考え方](./automation/equal-spacing-by-index)
+
+## Color
+
+- [透明Edgeを保ってColor Correctする](./color/transparent-edge-color-correction)
 
 ## Matte / Keying
 
@@ -65,7 +70,7 @@ slug: /fusion/recipes
 
 - [Deep compositeを2Dへ戻す](./deep/deep-merge-to-image)
 
-現在 **15 Recipe** です。
+現在 **17 Recipe** です。
 
 ## 検証待ち
 
