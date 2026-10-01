@@ -89,6 +89,13 @@ matteを作る処理と、effect範囲を制限するMaskを同一視しませ�
 
 Maskはeffect amountを空間的に制限する入力であり、alpha channelそのものの編集とは分けて考えます。
 
+## Canonical Concepts
+
+- [Alpha](../04-compositing/alpha)
+- [Premultiplication](../04-compositing/premultiplication)
+
+このページではAlpha / Mask / premultiplicationを症状診断へ適用することだけを扱います。
+
 ## Related Patterns
 
 - [Maskで処理範囲を限定する](../../patterns/masking/limit-effect-with-mask)
