@@ -20,6 +20,14 @@ tasks: [debug]
 
 - [Maskを接続しても結果が変わらない](./troubleshooting/masking/mask-does-not-change-result)
 
+## Connections
+
+- [Node同士を接続できない](./troubleshooting/connections/nodes-do-not-connect)
+
+## Position / Size / Resolution
+
+- [Transform後にImageの端が消える](./troubleshooting/position-size-resolution/image-cut-off-after-transform)
+
 ## 診断の共通方針
 
 1. 症状を具体化する。
