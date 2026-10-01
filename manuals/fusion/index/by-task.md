@@ -12,7 +12,8 @@ tasks: [lookup-task]
 | Task | First destination | Reference |
 |---|---|---|
 | 画像を2枚重ねる | [2つのImageを重ねる](../recipes/compositing/two-image-merge) | [Merge](../nodes/compositing/merge) |
-| 多数のImageを1 Nodeで管理する | [画像を段階的に重ねる](../patterns/compositing/stack-images-with-merge) | [MultiMerge](../nodes/compositing/multi-merge) |
+| 多数のImageを1 Nodeで管理する | [複数ImageをMultiMergeでまとめる](../recipes/compositing/multi-merge-layers) | [MultiMerge](../nodes/compositing/multi-merge) |
+| Merge chainとMultiMergeを選ぶ | [Merge chainとMultiMergeを選ぶ](../patterns/compositing/choose-merge-vs-multimerge) | [Merge](../nodes/compositing/merge) / [MultiMerge](../nodes/compositing/multi-merge) |
 | Maskで範囲を限定する | [Maskで処理範囲を限定する](../patterns/masking/limit-effect-with-mask) | [Ellipse](../nodes/masks/ellipse-mask) / [Polygon](../nodes/masks/polygon-mask) |
 | Textを画像へ重ねる | [Text+をImageへ重ねる](../recipes/text-graphics/text-over-image) | [Text+](../nodes/generators/text-plus) / [Merge](../nodes/compositing/merge) |
 | 再利用可能なTitle構造を作る | [再利用可能なTitle構造を作る](../recipes/text-graphics/reusable-title-structure) | [Text+](../nodes/generators/text-plus) / [Transform](../nodes/transform/transform) |
@@ -25,7 +26,7 @@ tasks: [lookup-task]
 | Graphを再利用する | [再利用の境界を選ぶ](../patterns/reuse/choose-reuse-boundary) | [Reuse & Structure](../learn/06-reuse/instances) |
 | channelを組み替える | [Alpha](../learn/04-compositing/alpha) | [Channel Boolean](../nodes/color/channel-boolean) |
 | matteを後処理する | [Alpha](../learn/04-compositing/alpha) | [Matte Control](../nodes/matte-keying/matte-control) |
-| premultを解除して色処理する | [Premultiplication](../learn/04-compositing/premultiplication) | [Alpha Divide](../nodes/matte-keying/alpha-divide) / [Alpha Multiply](../nodes/matte-keying/alpha-multiply) |
+| 透明Edgeを保ってColor Correctする | [透明Edgeを保ってColor Correctする](../recipes/color/transparent-edge-color-correction) | [Alpha Divide](../nodes/matte-keying/alpha-divide) / [Color Corrector](../nodes/color/color-corrector) / [Alpha Multiply](../nodes/matte-keying/alpha-multiply) |
 | green / blue screenをkeyする | [KeyしてBackgroundを置き換える](../recipes/matte-keying/key-and-replace-background) | [Delta Keyer](../nodes/matte-keying/delta-keyer) |
 | pointをtrackする | [Trackを解いてから適用先を分ける](../patterns/tracking/solve-then-apply-track) | [Tracker](../nodes/tracking/tracker) |
 | 平面をtrackする | [平面をtrackしてgraphicへ適用する](../recipes/tracking/planar-track-graphic) | [Planar Tracker](../nodes/tracking/planar-tracker) / [Planar Transform](../nodes/tracking/planar-transform) |
