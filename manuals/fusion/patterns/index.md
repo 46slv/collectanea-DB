@@ -16,6 +16,7 @@ Patternは、1つのNodeの説明でも、完成物の手順でもありませ�
 ## Compositing
 
 - [画像を段階的に重ねる](./compositing/stack-images-with-merge)
+- [Merge chainとMultiMergeを選ぶ](./compositing/choose-merge-vs-multimerge)
 
 ## Masking
 
@@ -35,6 +36,10 @@ Patternは、1つのNodeの説明でも、完成物の手順でもありませ�
 ## Linking & Reuse
 
 - [再利用の境界を選ぶ](./reuse/choose-reuse-boundary)
+
+## Color / Alpha
+
+- [Alphaを保ったままColor operationする](./color-alpha/premult-aware-color-operation)
 
 ## Color / Matte / Key
 
@@ -56,6 +61,6 @@ Patternは、1つのNodeの説明でも、完成物の手順でもありませ�
 
 - [Last Good / First BadでGraphを切る](./debugging/last-good-first-bad)
 
-現在 **13 Pattern** です。Concept → Pattern → Node Referenceの中間層として使います。
+現在 **15 Pattern** です。Concept → Pattern → Node Referenceの中間層として使います。
 
 具体的な完成手順が必要な場合は [Recipes](../recipes/index) へ、Node固有のcontrolは [Node Reference](../nodes/) を参照します。
