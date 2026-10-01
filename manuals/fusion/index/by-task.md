@@ -24,7 +24,7 @@ tasks: [lookup-task]
 | colorを調整する | [Premultiplication](../learn/04-compositing/premultiplication) | [Brightness Contrast](../nodes/color/brightness-contrast) / [Color Corrector](../nodes/color/color-corrector) |
 | blurする | [Domain of Definition](../learn/03-space/domain-of-definition) | [Blur](../nodes/blur-filter/blur) |
 | green / blue screenをkeyする | [KeyしてBackgroundを置き換える](../recipes/matte-keying/key-and-replace-background) | [Delta Keyer](../nodes/matte-keying/delta-keyer) / [Merge](../nodes/compositing/merge) |
-| 平面をtrackする | [Data domainを辿る](../learn/07-debugging/trace-data-domain) | [Planar Tracker](../nodes/tracking/planar-tracker) |
+| 平面をtrackする | [平面をtrackしてgraphicへ適用する](../recipes/tracking/planar-track-graphic) | [Planar Tracker](../nodes/tracking/planar-tracker) |
 | Shapeを作って2Dへrenderする | [Shapeを2D Imageへrenderする](../recipes/shapes/basic-shape-render) | [sEllipse](../nodes/shapes/s-ellipse) / [sRender](../nodes/shapes/s-render) |
 | particleを作る | [最小Particle chainを作る](../recipes/particles/basic-particle-chain) | [pEmitter](../nodes/particles/p-emitter) |
 | particleを2Dへ戻す | [最小Particle chainを作る](../recipes/particles/basic-particle-chain) | [pRender](../nodes/particles/p-render) |
@@ -36,3 +36,4 @@ tasks: [lookup-task]
 | Deepを2Dへflattenする | [Deep compositeを2Dへ戻す](../recipes/deep/deep-merge-to-image) | [Deep to Image](../nodes/deep/deep-to-image) |
 | 特殊domainを2Dへ戻す | [特殊domainのまま処理し、必要な境界で2Dへ戻す](../patterns/data-domain/defer-domain-conversion) | [Connection / Data Types](./connection-data-types) |
 | 問題箇所を切り分ける | [Last Good / First Bad](../patterns/debugging/last-good-first-bad) | [Troubleshooting](../troubleshooting/index) |
+| Flowが重い / 遅い | [Flowが重い / 遅い](../troubleshooting/performance/graph-is-slow) | [Domain of Definition](../learn/03-space/domain-of-definition) |
