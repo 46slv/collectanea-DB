@@ -47,7 +47,7 @@ Keyerがforeground extractionを、Mergeがbackgroundとのcompositingを所有�
 
 ## Variants / Alternatives
 
--別Keyerを使う。
+- 別Keyerを使う。
 - KeyerとMergeの間にmatte / edge cleanupを入れる。
 - trackingが必要なら、tracking責任を別stageに置く。
 
