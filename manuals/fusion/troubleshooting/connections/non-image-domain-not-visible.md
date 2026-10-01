@@ -66,7 +66,7 @@ rendererを追加する前に、upstream specialized domainが成立している
 
 1. current Output domainを特定する。
 2. domain内で必要な処理を完了する。
-3.適切なrenderer / converterを追加する。
+3. 適切なrenderer / converterを追加する。
 4. conversion outputをViewerで確認する。
 5. その後2D processingへ進む。
 
