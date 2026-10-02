@@ -15,70 +15,70 @@ suite_surfaces: [fusion]
 
 # Alpha
 
-## Question
+## このページで分かること（Question）
 
 「透明度」として見えるAlphaは、合成の中で何を持っているのでしょうか。
 
-## Mental Model
+## 基本の考え方（Mental Model）
 
 2D Imageを単なるRGBではなく、**RGB + Alpha** として読みます。
 
-AlphaはImageが合成へどの程度寄与するかを表すchannelで、Merge等のcompositing結果へ影響します。
+AlphaはImageが合成へどの程度寄与するかを表すchannelで、Merge等の合成結果へ影響します。
 
 ただしEffect MaskはAlpha channelそのものではありません。
 
-## Minimum Example
+## 最小例（Minimum Example）
 
-Foreground ImageをMergeへ入れ、alphaを持つ素材と持たない素材でedgeやBackgroundの見え方を比較します。
+前景画像（Foreground Image）をMergeへ入れ、Alphaを持つ素材と持たない素材で、エッジ（Edge）や背景（Background）の見え方を比較します。
 
-## Invariants
+## 共通ルール（Invariants）
 
 - RGBとAlphaを別channelとして考える。
 - Effect MaskとImage Alphaを同一視しない。
-- Mergeの見た目だけでsource alphaを推測しない。
-- transparent edge問題ではpremultiplicationも確認する。
+- Mergeの見た目だけで参照元 alphaを推測しない。
+- 透明エッジ（transparent edge）の問題ではpremultiplicationも確認する。
 
-## Change One Thing
+## 1つだけ変えて確認する（Change One Thing）
 
-Maskは外したまま、Foreground sourceのalphaだけが違う2素材を比較します。
+Maskは外したまま、前景（Foreground）の参照元でAlphaだけが違う2素材を比較します。
 
-## Transfer
+## 他のNodeへ応用する（Transfer）
 
 ### Merge
 
-Foreground / Background roleとalpha relationshipを別々に読みます。
+前景（Foreground）/ 背景（Background）の役割とAlphaの関係を別々に読みます。
 
 ### Background
 
-ColorのAlphaを含むImage sourceとして考えます。
+ColorのAlphaを含むImage 参照元として考えます。
 
 ### Key / Matte
 
 matte生成とeffect maskを別責任にします。
 
-## Predict
+## 初見Nodeで予測する（Predict）
 
-透明問題で「素材alpha」「compositing」「Mask」のどこを先に見るか決められます。
+透明問題で「素材alpha」「合成」「Mask」のどこを先に見るか決められます。
 
-## Common Misread
+## よくある誤解（Common Misread）
 
 **Alpha = Effect Mask** と考えること。
 
 MaskはNodeのeffect適用範囲、AlphaはImage channelです。
 
-## Related Patterns
+## 関連する再利用構成（Patterns）
 
 - [Maskで処理範囲を限定する](../../patterns/masking/limit-effect-with-mask)
 
-## Node Reference
+## 関連Node
 
 - [Merge](../../nodes/compositing/merge)
 - [Background](../../nodes/generators/background)
 
-## Next
+## 次に読む
 
-→ [Premultiplication](./premultiplication)
+→ [プリマルチプライ（Premultiplication）](./premultiplication)
 
 ---
 
-Verification note: Image AlphaとEffect Maskの役割分離はFusion 21系semantic baselineで確認。
+検証メモ: Image AlphaとEffect Maskの役割分離はFusion 21系semantic baselineで確認。

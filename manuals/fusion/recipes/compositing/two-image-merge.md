@@ -15,17 +15,17 @@ product_scope: fusion
 
 # 2つのImageを重ねる
 
-## Result
+## できあがるもの（Result）
 
 2つのImageを1つのMergeへ接続し、ForegroundをBackgroundへ重ねたOutputを作ります。
 
-## Requirements
+## 必要なもの（Requirements）
 
 - BackgroundにするImage
 - ForegroundにするImage
 - Merge Node
 
-## Steps
+## 手順（Steps）
 
 1. BackgroundにしたいImageをMergeのBackground inputへ接続します。
 2. ForegroundにしたいImageをMergeのForeground inputへ接続します。
@@ -34,29 +34,29 @@ product_scope: fusion
 
 Blackmagic Designの現行Fusion紹介では、Mergeの黄色inputがBackground、緑inputがForegroundとして案内されています。
 
-## Why This Works
+## なぜこの構成にするか（Why This Works）
 
 Mergeは2つのImageに異なる役割を与えて合成します。
 
-役割の一般則は [Foreground / Background / Mask](../../learn/04-compositing/foreground-background-mask) を参照してください。
+役割の一般則は [前景（Foreground）/ 背景（Background）/ マスク（Mask）](../../learn/04-compositing/foreground-background-mask) を参照してください。
 
-## Variants / Alternatives
+## 別のやり方（Variants / Alternatives）
 
 - 3枚以上を重ねる場合は、1段ずつMergeを追加します。
-- 特定範囲だけ合成する場合はMask branchを追加します。
+- 特定範囲だけ合成する場合はMask 分岐を追加します。
 - Apply Mode等の演算合成は、21.1でcontrol-level検証後に別Recipe / Referenceへ分離します。
 
-## Failure Checks
+## うまくいかないときの確認（Failure Checks）
 
 - Background / Foregroundが逆ではないか。
 - MergeのOutputを見ているか。
 - upstreamの各Imageは単体でViewerへ出るか。
 - Maskが意図せず接続されていないか。
 
-## Related Pattern
+## 関連する再利用構成（Pattern）
 
 - [画像を段階的に重ねる](../../patterns/compositing/stack-images-with-merge)
 
-## Related Nodes
+## 関連Node
 
 - [Merge](../../nodes/compositing/merge)

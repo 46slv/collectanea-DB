@@ -22,17 +22,17 @@ slug: /fusion/nodes/transform/transform
 
 2D Imageの位置・大きさ・角度・変形中心を調整するNodeです。
 
-> Center / Pivot / Size / Angleのexact range・space・defaultはFusion 21.1 Reference Manual / hostで再確認前です。
+> Center / Pivot / Size / Angleの正確な 範囲・space・初期値はFusion 21.1 Reference Manual / 実機で再確認前です。
 
-## At a Glance
+## 概要（At a Glance）
 
-- **Family**: Transform
-- **Inputs**: Image / Effect Mask
-- **Output**: Image
-- **Core concepts**: Coordinates、Point parameter、transform ownership
-- **Common tasks**: 移動、拡大縮小、回転、複数要素のlayout
+- **分類（Family）**: Transform
+- **入力（Inputs）**: Image / Effect Mask
+- **出力（Output）**: Image
+- **関連概念（Core concepts）**: Coordinates、Point パラメータ、transform 管理関係
+- **よく使う作業（Common tasks）**: 移動、拡大縮小、回転、複数要素の配置
 
-## Inputs
+## 入力（Inputs）
 
 ### Image
 
@@ -40,13 +40,13 @@ slug: /fusion/nodes/transform/transform
 
 ### Effect Mask
 
-Transformの適用範囲を制限できる入力として既存seedに記録されています。exact behaviorは再検証します。
+Transformの適用範囲を制限できる入力として既存seedに記録されています。正確な 挙動は再検証します。
 
-## Output
+## 出力（Output）
 
 変形後のImageを出力します。
 
-## Controls
+## 主な設定項目（Controls）
 
 ### Center
 
@@ -64,13 +64,13 @@ uniform scaleに関わるcontrolとして既存seedに記録されています�
 
 回転量に関わるcontrolとして既存seedに記録されています。
 
-## Behavior / Notes
+## 挙動と注意点（Behavior / Notes）
 
-Flow全体で「位置責任をどのNodeに持たせるか」を決めると、後からExpressionやlayoutを組みやすくなります。
+Flow全体で「位置責任をどのNodeに持たせるか」を決めると、後からExpressionや配置を組みやすくなります。
 
-Merge側にも配置controlがある場合、同じ見た目を作れることと同じ責任を持つことを混同せず、どこをcanonical ownerにするか選びます。
+Merge側にも配置controlがある場合、同じ見た目を作れることと同じ責任を持つことを混同せず、どこを説明の正本にするか選びます。
 
-## Minimal Examples
+## 最小例（Minimal Examples）
 
 ### Basic placement
 
@@ -82,23 +82,23 @@ Centerだけを変更し、他controlを固定して位置挙動を観察しま�
 
 ### Shared position
 
-複数Transformのposition関係をmaster parameterから派生させる場合は、Pattern側へ責任を移します。
+複数Transformのposition関係をmaster パラメータから派生させる場合は、Pattern側へ責任を移します。
 
-## Related Concepts
+## 関連する考え方（Concepts）
 
-- [Normalized Coordinates](../../learn/03-space/normalized-coordinates)
-- [Expressions](../../learn/05-time/expressions)
-- [Keyframe / Spline / Time](../../learn/05-time/keyframes-spline-time)
+- [正規化座標（Normalized Coordinates）](../../learn/03-space/normalized-coordinates)
+- [式（Expressions）](../../learn/05-time/expressions)
+- [キーフレーム / スプライン / 時間（Keyframe / Spline / Time）](../../learn/05-time/keyframes-spline-time)
 
-## Related Patterns
+## 関連する再利用構成（Patterns）
 
 - [複数要素の位置関係を共有する](../../patterns/transform/share-position-across-elements)
 - [Expressionで値の関係を保つ](../../patterns/automation/link-values-with-expression)
 
-## Similar / Adjacent Nodes
+## 似たNode・関連Node
 
 ResizeやMerge内のtransform controlsは同じ結果を作る場面があっても、同一Node・同一spaceとは扱いません。比較は個別Referenceで行います。
 
-## Version / Verification Notes
+## バージョンと検証状況
 
-このページは `unverified`。既存seedをReference構造へ移行した段階で、Center / Pivot / Size / Angleのexact behaviorをFusion 21.1 Reference Manual / hostで検証する必要があります。
+このページは `unverified`。既存seedをReference構造へ移行した段階で、Center / Pivot / Size / Angleの正確な 挙動をFusion 21.1 Reference Manual / 実機で検証する必要があります。

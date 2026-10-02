@@ -13,13 +13,13 @@ tasks: [reuse, group, template]
 
 # Group / GizmoとFusion再利用構造
 
-## If you know Nuke
+## Nukeで知っている考え方
 
-Nuke Groupは複数Nodeを1 Nodeへnestでき、current NukeではGroup Viewから内部Nodeをmain graph contextで編集できます。
+Nuke Groupは複数Nodeを1 Nodeへnestでき、現在の NukeではGroup Viewから内部Nodeをmain graph contextで編集できます。
 
 GizmoはGroupを別の`.gizmo` fileとして保存し、artistへ公開するcontrolを選んで再利用できる仕組みです。
 
-## First decision in Resolve
+## Resolveで最初に決めること
 
 NukeでGroup / Gizmoを使っていた理由を分類します。
 
@@ -28,56 +28,56 @@ NukeでGroup / Gizmoを使っていた理由を分類します。
 - 利用者へ少数controlだけ公開したい
 - 複数project / artistで再利用したい
 
-## Fusion mental model
+## Fusionでの考え方
 
 ```text
 editable graph boundary
   → Group
 
-semantic public controls
+意味のある公開Control
   → User Controls
 
 reusable packaged graph
   → Macro / Template
 ```
 
-## What maps cleanly
+## そのまま活かしやすい考え方
 
 - 内部Nodeをまとめる
-- public controlsを選ぶ
-- repeated constructionを再利用する
+- 利用者へ見せるControlを選ぶ
+- 繰り返し使う構成を再利用する
 - complexityを外部から隠す
 
-## What does not map 1:1
+## そのまま一対一対応しない部分
 
 - Nuke Gizmo file = Fusion Macro / Template file、ではない。
 - Group internal graphのUI / lifecycleは別。
-- User KnobとFusion User Controlsはexact schema / scripting APIが異なる。
-- distribution path / versioning / loading behaviorを同じと仮定しない。
+- User KnobとFusion User Controlsはスキーマ（schema）やScripting APIの正確な仕様が異なる。
+- distribution path / versioning / loading 挙動を同じと仮定しない。
 
-## Learn this next
+## 次に読む
 
 - [GroupでGraphをまとめる](../../learn/06-reuse/groups)
-- [User Controlsで公開interfaceを作る](../../learn/06-reuse/user-controls)
+- [User Controlsで公開インターフェースを作る](../../learn/06-reuse/user-controls)
 - [Macro / Templateで再利用単位を作る](../../learn/06-reuse/macros-templates)
 
-## Reusable Patterns
+## 関連する再利用構成（Patterns）
 
 - [再利用の境界を選ぶ](../../patterns/reuse/choose-reuse-boundary)
 
-## Relevant Nodes
+## 関連Node
 
 これは単一Node比較ではありません。
 
-## Example tasks
+## 具体例
 
 - [Fusion assetをResolveで再利用する](../../resolve-integration/reusable-fusion-assets)
 
-## Related index entries
+## 関連する索引
 
 - [Concept A–Z](../../index/concept-a-z)
 - [By Familiar App](../../index/by-familiar-app)
 
 ---
 
-Verification scope: Foundry current Group and Gizmo documentation confirms node nesting, Group View and exported reusable gizmos with exposed controls. Fusion packaging semantics remain separate.
+検証範囲: Foundryの現行Group / Gizmo資料で、Nodeの入れ子化、Group View、公開Controlを持つGizmoの再利用を確認しています。FusionのGroup / Macro / Templateは別の仕組みとして扱います。

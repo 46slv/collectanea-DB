@@ -1,6 +1,6 @@
 ---
 title: Tracker
-description: point trackingを行い、Match Move / Stabilize等へ利用する基本Tracking Node。
+description: 点トラッキング（point tracking）を行い、Match Move / Stabilize等へ利用する基本トラッキング Node。
 doc_type: node
 verification: unverified
 aliases: [Tracker, TRA, Point Tracker]
@@ -17,53 +17,53 @@ suite_surfaces: [fusion]
 
 # Tracker
 
-point trackingを行い、Match Move / Stabilize等へ利用する基本Tracking Nodeです。
+点トラッキング（point tracking）を行い、Match Move / Stabilize等へ利用する基本トラッキング Nodeです。
 
-## At a Glance
+## 概要（At a Glance）
 
-- **Family**: Tracking
-- **Primary input**: 2D Image
-- **Core concepts**: point motion、tracking data
-- **Common tasks**: point tracking、match move、stabilize
+- **分類（Family）**: トラッキング
+- **主入力（Primary input）**: 2D Image
+- **関連概念（Core concepts）**: point 動き、トラッキング data
+- **よく使う作業（Common tasks）**: 点トラッキング（point tracking）、match move、stabilize
 
-## Inputs
+## 入力（Inputs）
 
 ### Image
 
-tracking対象の2D Imageを受け取ります。
+トラッキング対象の2D Imageを受け取ります。
 
-## Output
+## 出力（Output）
 
-tracking resultを持つToolですが、exact 21.1 Image output / data export mechanismはcurrent verification待ちです。
+トラッキング 結果を持つToolですが、正確な 21.1 Image output / data export 仕組みは現在の資料または実機での確認待ちです。
 
-## Controls
+## 主な設定項目（Controls）
 
-tracker points、search / pattern region、match move / stabilize等に関わるcontrolを持つ系統ですが、exact 21.1 UI / defaultsは未検証です。
+tracker points、search / pattern region、match move / stabilize等に関わるcontrolを持つ系統ですが、正確な 21.1 UI / defaultsは未検証です。
 
-## Behavior / Notes
+## 挙動と注意点（Behavior / Notes）
 
-Planar Trackerが平面motionを解くのに対し、Trackerはpoint trackingを中心に扱います。
+Planar Trackerが平面動きを解くのに対し、Trackerは点トラッキング（point tracking）を中心に扱います。
 
 どちらを使うかは「何を追うか」と「結果をどのspaceへ適用するか」で選びます。
 
-## Minimal Examples
+## 最小例（Minimal Examples）
 
-footage上の特徴点をtrackし、そのmotionを別elementへ適用する構成を検討します。
+footage上の特徴点をtrackし、その動きを別elementへ適用する構成を検討します。
 
-## Related Concepts
+## 関連する考え方（Concepts）
 
-- [Data domainを辿って診断する](../../learn/07-debugging/trace-data-domain)
+- [データ領域（data domain）を辿って診断する](../../learn/07-debugging/trace-data-domain)
 
-## Related Patterns
+## 関連する再利用構成（Patterns）
 
 - [Trackを解いてから適用先を分ける](../../patterns/tracking/solve-then-apply-track)
 
-## Similar / Adjacent Nodes
+## 似たNode・関連Node
 
 - Planar Tracker
 - Planar Transform
 - Camera Tracker
 
-## Version / Verification Notes
+## バージョンと検証状況
 
-Trackerのidentityとpoint tracking / Match Move / Stabilize roleはlegacy-primary Fusion referenceで確認。21.1 exact controls / operation modesは未検証です。
+Trackerの存在と点トラッキング（point tracking） / Match Move / Stabilize 役割は旧版のBlackmagic Design公式Fusion資料で確認。Fusion 21.1での正確な設定項目 / operation modesは未検証です。

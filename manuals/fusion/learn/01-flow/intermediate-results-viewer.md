@@ -13,11 +13,11 @@ product_scope: fusion
 
 # 中間結果をViewerで見る
 
-## Question
+## このページで分かること（Question）
 
 最終結果がおかしいとき、どのNodeが原因かをどう確かめればよいでしょうか。
 
-## Mental Model
+## 基本の考え方（Mental Model）
 
 Viewerは最終Output専用ではなく、**Graphの任意地点を観察するprobe**として使います。
 
@@ -29,7 +29,7 @@ source → A → B → C → output
 
 「最後に正常だった地点」と「最初に期待から外れた地点」を作ります。
 
-## Minimum Example
+## 最小例（Minimum Example）
 
 ```text
 MediaIn → Transform → Blur → MediaOut
@@ -40,51 +40,51 @@ MediaIn → Transform → Blur → MediaOut
 3. BlurをViewerへ出す。
 4. どこで期待と差が生まれるか確認する。
 
-## Invariants
+## 共通ルール（Invariants）
 
 - どのNodeをViewerで見ているか明示する。
-- 1回に1 stageずつ進む。
+- 1回に1 段階ずつ進む。
 - upstreamが壊れているならdownstreamを調整しない。
 - Viewerに見えないこととdataが存在しないことを分ける。
 - specialized domainは通常2D Imageと同じViewer結果を期待しない。
 
-## Change One Thing
+## 1つだけ変えて確認する（Change One Thing）
 
-問題Nodeの前後だけをViewerへ切り替え、parameterは変えずに差を観察します。
+問題Nodeの前後だけをViewerへ切り替え、パラメータは変えずに差を観察します。
 
-## Transfer
+## 他のNodeへ応用する（Transfer）
 
 ### Merge chain
 
-各Merge stageを順に確認できます。
+各Merge 段階を順に確認できます。
 
-### Mask branch
+### Mask 分岐
 
-Image branchとMask branchを独立して確認できます。
+Image 分岐とMask 分岐を独立して確認できます。
 
 ### Group / Macro
 
-外部input → internal stage → outputの順に観察します。
+外部input → internal 段階 → outputの順に観察します。
 
-## Predict
+## 初見Nodeで予測する（Predict）
 
 最終症状を見ても、次に「どの地点をViewerで観察すべきか」を決められます。
 
-## Common Misread
+## よくある誤解（Common Misread）
 
 **Viewerに出したNode = 最終Outputへ使われているNode**と考えること。
 
 Viewerで観察していることと、Graph上でMediaOutへ接続されていることは別です。
 
-## Related Patterns
+## 関連する再利用構成（Patterns）
 
 - [Last Good / First BadでGraphを切る](../../patterns/debugging/last-good-first-bad)
 
-## Node Reference
+## 関連Node
 
 - [MediaIn](../../nodes/utility-io/media-in)
 - [MediaOut](../../nodes/utility-io/media-out)
 
-## Next
+## 次に読む
 
 → [Graphが評価される依存関係](./evaluation-dependency)

@@ -1,6 +1,6 @@
 ---
 title: FusionはResolveのどこにいるか
-description: DaVinci Resolve内でFusionが担うVFX・motion graphics・compositingの責任範囲を理解する。
+description: DaVinci Resolve内でFusionが担うVFX・モーショングラフィックス・合成（Compositing）の役割を理解する。
 doc_type: concept
 verification: partial
 product_scope: resolve
@@ -11,27 +11,27 @@ level: foundation
 
 # FusionはResolveのどこにいるか
 
-## User intent
+## 目的
 
 「Resolveで作業しているが、どこからFusionの仕事になるのか」を判断します。
 
-## Which Resolve surface owns what
+## どのページで何を担当するか
 
-Blackmagic Designの現行Fusionページでは、FusionはDaVinci Resolveへ統合されたNode-based VFX / motion-graphics Pageとして説明され、Edit・Fusion・Colorを切り替えながら同じproject内で作業できることが案内されています。
+Blackmagic Designの現行Fusionページでは、FusionはDaVinci Resolveへ統合されたノードベース（Node-based）のVFX / モーショングラフィックス用Pageとして説明され、Edit・Fusion・Colorを切り替えながら同じProject内で作業できることが案内されています。
 
 Fusionの主な責任としては:
 
-- shot-level compositing
-- motion graphics
-- masking / trackingを伴うVFX
-- cleanup / replacement
-- keying
-- 2D / 3D composition
-- reusable Fusion templates
+- ショット単位の合成（shot-level compositing）
+- モーショングラフィックス
+- マスク（Mask）/ トラッキング（Tracking）を伴うVFX
+- 不要物除去・置き換え（cleanup / replacement）
+- キーイング（Keying）
+- 2D / 3D合成（composition）
+- 再利用できるFusion Template
 
 が挙げられます。
 
-## When Fusion is appropriate
+## Fusionが向いている場合
 
 次のように、**Imageの処理関係そのものをGraphとして設計したい**場合にFusionが強い候補です。
 
@@ -43,31 +43,31 @@ source
   → output
 ```
 
-## When Fusion is not the primary surface
+## Fusionを主に使わない場合
 
 同じ見た目を複数Pageで作れる場合でも、仕事の主責任から選びます。
 
-- story / clip order / trim / timeline construction → Editが第一候補
-- shot matching / creative color grading / color management → Colorが第一候補
-- audio edit / mix / mastering → Fairlightが第一候補
-- detailed node-based VFX / graphics → Fusionが第一候補
+- 物語の組み立て、Clipの順序、Trim、Timeline編集 → Editが第一候補
+- Shot間の色合わせ、ルック作成、Color Management → Colorが第一候補
+- 音声編集、Mix、Mastering → Fairlightが第一候補
+- 詳細なノードベースVFXやグラフィック → Fusionが第一候補
 
-これは「他Pageではできない」という禁止表ではありません。**どこをcanonical ownerにするとworkflowが読みやすいか**という判断です。
+これは「他Pageではできない」という禁止表ではありません。**どのPageを説明や修正の基準にすると、作業の流れが分かりやすいか**という判断です。
 
-## Handoff / boundary
+## ページ間の受け渡し
 
-Fusionへ入った後も、source clipやtimelineとの関係を失わず、完成結果はResolveの他surfaceで引き続き使われます。
+Fusionへ入った後も、元クリップ（参照元 clip）やTimelineとの関係を失わず、完成結果はResolveの他のPageで引き続き使われます。
 
-## Related Fusion Concepts
+## 関連するFusionの考え方
 
 - [Graphとして考える](../learn/01-flow/graph-as-flow)
-- [Data domainを辿って診断する](../learn/07-debugging/trace-data-domain)
+- [データ領域（data domain）を辿って診断する](../learn/07-debugging/trace-data-domain)
 
-## Related cross-page workflow
+## 関連するページ間の流れ
 
 - [Edit ↔ Fusionの境界](./edit-fusion-boundary)
 - [Fusion assetをResolveで再利用する](./reusable-fusion-assets)
 
 ---
 
-Verification note: FusionのResolve統合、Node-based VFX/motion graphics、Edit/Fusion/Color間の切替は2026-10-02時点のBlackmagic Design現行製品ページで確認。
+検証メモ: FusionのResolve統合、Node-based VFX/モーショングラフィックス、Edit/Fusion/Color間の切替は2026-10-02時点のBlackmagic Design現行製品ページで確認。

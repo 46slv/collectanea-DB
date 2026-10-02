@@ -1,31 +1,31 @@
 ---
-title: Bridges / 他アプリから来た人へ
-description: 慣れたアプリのmental modelからResolve / Fusionのcanonical Conceptへ進む翻訳入口。
+title: 他アプリから読み替える（Bridges）
+description: 慣れたアプリの考え方からResolve / Fusionの正本となる概念ページへ進む翻訳入口。
 doc_type: index
 verification: partial
 product_scope: resolve
 tasks: [translate-mental-model, choose-surface]
 ---
 
-# Bridges / 他アプリから来た人へ
+# 他アプリから読み替える（Bridges）
 
-この章はfeature parity表ではありません。
+この章は、他のアプリとFusionの機能を一対一に対応づける表ではありません。
 
 ```text
-familiar task
+使い慣れたアプリでの作業
   ↓
-Resolveで最初に選ぶsurface
+Resolveで最初に使うPage
   ↓
-Fusionを使うならmental model
+Fusionでの考え方
   ↓
-Learn / Pattern / Node / Recipe
+基礎 / 再利用構成 / Node / 作例・手順
 ```
 
-現在公開するBridge:
+現在公開する読み替えページ:
 
 - [After Effectsから来た人へ](./after-effects/)
 - [Photoshopから来た人へ](./photoshop/)
 - [Premiere Proから来た人へ](./premiere-pro/)
 - [Nukeから来た人へ](./nuke/)
 
-比較は同じgoal・似たmental model・異なるdata model / scopeを分離して記述します。
+比較では、「目的が同じ」「考え方が似ている」「データ構造や適用範囲は異なる」を分けて説明します。

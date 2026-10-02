@@ -18,30 +18,30 @@ suite_surfaces: [fusion]
 
 Particle setを生成する基本Emitter Nodeです。
 
-## At a Glance
+## 概要（At a Glance）
 
-- **Family**: Particles
-- **Output domain**: Particle set
-- **Core concepts**: particle state、time、typed data
-- **Common tasks**: particle生成、particle chainの開始
+- **分類（Family）**: Particles
+- **出力データ（Output domain）**: Particle set
+- **関連概念（Core concepts）**: particle state、time、typed data
+- **よく使う作業（Common tasks）**: particle生成、particle chainの開始
 
-## Inputs
+## 入力（Inputs）
 
-region / style / source等の補助入力を持つ場合がありますが、exact 21.1 port構成は未検証です。
+region / 見た目 / 参照元等の補助入力を持つ場合がありますが、正確な 21.1 port構成は未検証です。
 
-## Output
+## 出力（Output）
 
 Particle setを出力します。
 
 これは通常の2D Imageではありません。
 
-## Controls
+## 主な設定項目（Controls）
 
-emission rate、region、velocity、lifespan、style等に関わるcontrolを持つ系統ですが、exact 21.1 label / default / rangeはcurrent verification待ちです。
+emission rate、region、velocity、lifespan、見た目等に関わるcontrolを持つ系統ですが、正確な 21.1 label / 初期値 / 範囲は現在の資料または実機での確認待ちです。
 
-## Behavior / Notes
+## 挙動と注意点（Behavior / Notes）
 
-Particle stateは位置だけでなくvelocity、age、size、style等を持つdataとして扱います。
+Particle stateは位置だけでなくvelocity、age、size、見た目等を持つdataとして扱います。
 
 ```text
 pEmitter
@@ -52,28 +52,28 @@ pEmitter
 
 Imageを直接「点の配列」にしたものとして扱わないことが重要です。
 
-## Minimal Examples
+## 最小例（Minimal Examples）
 
 ```text
 pEmitter → pRender → 2D Merge
 ```
 
-## Related Concepts
+## 関連する考え方（Concepts）
 
-- [Data domainを辿って診断する](../../learn/07-debugging/trace-data-domain)
-- [Frame Evaluation](../../learn/05-time/frame-evaluation)
+- [データ領域（data domain）を辿って診断する](../../learn/07-debugging/trace-data-domain)
+- [フレーム 評価](../../learn/05-time/frame-evaluation)
 
-## Related Patterns
+## 関連する再利用構成（Patterns）
 
 Particle Patternは今後追加します。
 
-## Similar / Adjacent Nodes
+## 似たNode・関連Node
 
 - pImageEmitter
 - pSpawn
 - pMerge
 - pTurbulence
 
-## Version / Verification Notes
+## バージョンと検証状況
 
-pEmitterのidentityとParticle set generatorという役割はlegacy-primary Fusion referenceで確認。21.1 exact controls / portsは未検証です。
+pEmitterの存在とParticle set generatorという役割は旧版のBlackmagic Design公式Fusion資料で確認。Fusion 21.1での正確な設定項目 / portsは未検証です。

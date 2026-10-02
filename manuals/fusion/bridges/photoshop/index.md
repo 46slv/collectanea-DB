@@ -1,6 +1,6 @@
 ---
 title: Photoshopから来た人へ
-description: PhotoshopのLayer・Layer Mask・Smart Object経験をResolve / Fusionのcanonical Conceptへ翻訳する入口。
+description: PhotoshopのLayer・Layer Mask・Smart Object経験をResolve / Fusionの正本となる概念ページへ翻訳する入口。
 doc_type: index
 verification: partial
 product_scope: resolve
@@ -13,29 +13,29 @@ tasks: [translate-mental-model]
 
 # Photoshopから来た人へ
 
-Photoshopでは、Layer panelを中心に複数Layerを並べ、順序・表示・Mask・Smart Object等を使ってdocumentを構成します。
+Photoshopでは、レイヤーパネル（Layers panel）を中心に複数のLayerを並べ、順序・表示・Layer Mask・Smart Objectなどを使ってDocumentを構成します。
 
-Fusionでは、同じ「複数素材を非破壊に組み合わせる」goalでも、Image / Mask / parameterをNode connectionとして明示するFlowが中心です。
+Fusionでは、同じ「複数素材を非破壊に組み合わせる」目的でも、画像（Image）/ マスク（Mask）/ パラメータをNodeの接続（connection）として明示するFlowが中心です。
 
-このBridgeはPhotoshop操作をFusionへ置き換える表ではなく、知っているmental modelからcanonical Fusionページへ移る地図です。
+このページはPhotoshop操作をFusionへ置き換える表ではなく、知っている考え方からFusionの正本ページへ移る地図です。
 
-## Map
+## 対応の見方（Map）
 
-| Photoshop starting point | Resolve / Fusionへ進む |
+| Photoshopでの考え方 | Resolve / Fusionで読むページ |
 |---|---|
-| Layers / layer order | [Layer StackとFlow](./layers-vs-flow) |
+| Layer / Layerの順序 | [Layer StackとFlow](./layers-vs-flow) |
 | Layer Mask | [Layer MaskとFusion Mask / Alpha](./layer-mask-vs-mask-alpha) |
 | Smart Object | [Smart ObjectとFusionの再利用構造](./smart-object-vs-reuse) |
 | Transform | [Center / Pivot / Size / Angle](../../learn/03-space/center-pivot-size-angle) |
-| Filters / Adjustment-like intent | [Graphとして考える](../../learn/01-flow/graph-as-flow) |
-| non-destructive workflow | [再利用の境界を選ぶ](../../patterns/reuse/choose-reuse-boundary) |
+| Filter / 調整系の処理 | [Graphとして考える](../../learn/01-flow/graph-as-flow) |
+| 非破壊編集（non-destructive editing） | [再利用の境界を選ぶ](../../patterns/reuse/choose-reuse-boundary) |
 
-## Important
+## 大事な点
 
 PhotoshopのLayer、Layer Mask、Smart Objectは、それぞれFusion Node、Effect Mask、Group / Macroの別名ではありません。
 
-同じgoalを持つ場面はあっても、document model・evaluation・sharing boundaryが異なります。
+同じ目的を持つ場面はあっても、Documentの構造・評価方法・共有の境界が異なります。
 
 ---
 
-Verification scope: Adobe current Layers / Layer Mask / Smart Object documentation and the canonical Fusion content in this repository.
+確認範囲（Verification scope）: Adobeの現行Layers / Layer Mask / Smart Object資料と、このリポジトリのFusion正本ページを確認しています。

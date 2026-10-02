@@ -13,25 +13,25 @@ tasks: [reuse, nest, template]
 
 # Nested SequenceとResolve/Fusionの再利用境界
 
-## If you know Premiere Pro
+## Premiere Proで知っている考え方
 
-Nested Sequenceは、別Sequenceをanother Sequence内へ置き、複数trackを含むsourceを1つのlinked clipとして扱う仕組みです。
+Nested Sequenceは、別のSequenceをSequence内へ配置し、複数trackを含む参照元を1つのリンクされたClipとして扱う仕組みです。
 
-source Sequenceを変更するとnested instanceへ反映されます。
+参照元 Sequenceを変更するとnested instanceへ反映されます。
 
-## First decision in Resolve
+## Resolveで最初に決めること
 
 PremiereでNestしていた理由を分類します。
 
 - timelineを整理したい
 - 複数clipを1単位でtrim / moveしたい
-- 同じtimeline structureを再利用したい
+- 同じtimeline 構造を再利用したい
 - shot内部のVFX Graphをまとめたい
 - reusable effect/titleとして配布したい
 
 前半はEdit側、後半はFusion側の候補です。
 
-## Fusion mental model
+## Fusionでの考え方
 
 Fusion内では:
 
@@ -48,43 +48,43 @@ reusable packaged graph
 
 という別の責任があります。
 
-## What maps cleanly
+## そのまま活かしやすい考え方
 
 - complexityを局所化する
-- repeated structureを再利用する
+- repeated 構造を再利用する
 - 外側から扱いやすい単位を作る
 
-## What does not map 1:1
+## そのまま一対一対応しない部分
 
 - Nested Sequence = Fusion Group、ではない。
-- Premiere Nestはtimeline/source Sequence relationship。
-- Fusion GroupはNode Graph内部structure。
-- Macro / Templateはpublic controlsとpackagingが中心。
-- Instanceはparameter sharingであり、timeline nestingではない。
+- Premiere Nestはtimeline/参照元 Sequence relationship。
+- Fusion GroupはNode Graph内部構造。
+- Macro / Templateでは、利用者へ見せるControlとパッケージ化が中心です。
+- Instanceはパラメータ sharingであり、timeline nestingではない。
 
-## Learn this next
+## 次に読む
 
 - [GroupでGraphをまとめる](../../learn/06-reuse/groups)
 - [Macro / Templateで再利用単位を作る](../../learn/06-reuse/macros-templates)
 - [Fusion assetをResolveで再利用する](../../resolve-integration/reusable-fusion-assets)
 
-## Reusable Patterns
+## 関連する再利用構成（Patterns）
 
 - [再利用の境界を選ぶ](../../patterns/reuse/choose-reuse-boundary)
 
-## Relevant Nodes
+## 関連Node
 
 単一Nodeの比較ではありません。
 
-## Example tasks
+## 具体例
 
 - [Text+をImageへ重ねる](../../recipes/text-graphics/text-over-image)
 
-## Related index entries
+## 関連する索引
 
 - [By Familiar App](../../index/by-familiar-app)
 - [By Resolve Surface](../../index/by-resolve-surface)
 
 ---
 
-Verification scope: Adobe current nested-sequence documentation confirms nested Sequences act as linked clips and source changes propagate to nested instances.
+検証範囲: Adobeの現行Nested Sequence資料で、Nested SequenceがリンクされたClipとして扱われ、元Sequenceの変更が反映されることを確認しています。

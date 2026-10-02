@@ -19,29 +19,29 @@ suite_surfaces: [fusion]
 
 Particle setを2D Imageへ変換するRenderer Nodeです。
 
-## At a Glance
+## 概要（At a Glance）
 
-- **Family**: Particles / Render
-- **Input domain**: Particle set
-- **Output domain**: 2D Image
-- **Core concepts**: domain conversion、particle rendering
-- **Common tasks**: particle chainを通常の2D compositingへ戻す
+- **分類（Family）**: Particles / Render
+- **入力データ（Input domain）**: Particle set
+- **出力データ（Output domain）**: 2D Image
+- **関連概念（Core concepts）**: domain conversion、particle rendering
+- **よく使う作業（Common tasks）**: particle chainを通常の2D 合成へ戻す
 
-## Inputs
+## 入力（Inputs）
 
 ### Particle set
 
 pEmitterやparticle modifiersを通ったParticle setを受け取ります。
 
-## Output
+## 出力（Output）
 
 rasterized 2D Imageを出力します。
 
-## Controls
+## 主な設定項目（Controls）
 
-render style、motion blur、camera / depth等に関わるcontrolがある系統ですが、exact 21.1 UIは未検証です。
+render 見た目、動き blur、camera / depth等に関わるcontrolがある系統ですが、正確な 21.1 UIは未検証です。
 
-## Behavior / Notes
+## 挙動と注意点（Behavior / Notes）
 
 pRenderはParticle setを通常のImage Nodeへ直接渡すための**domain boundary**として読みます。
 
@@ -49,23 +49,23 @@ pRenderはParticle setを通常のImage Nodeへ直接渡すための**domain bou
 pEmitter → pTurbulence → pRender → Merge
 ```
 
-## Minimal Examples
+## 最小例（Minimal Examples）
 
 Particle chainをpRenderでImageへ変換し、その後2D Mergeへ接続します。
 
-## Related Concepts
+## 関連する考え方（Concepts）
 
-- [Data domainを辿って診断する](../../learn/07-debugging/trace-data-domain)
+- [データ領域（data domain）を辿って診断する](../../learn/07-debugging/trace-data-domain)
 
-## Related Patterns
+## 関連する再利用構成（Patterns）
 
 Particle Patternは今後追加します。
 
-## Similar / Adjacent Nodes
+## 似たNode・関連Node
 
 - Renderer 3D — Classic 3D scene → 2D Image
 - uRenderer — USD scene → 2D Image
 
-## Version / Verification Notes
+## バージョンと検証状況
 
-pRenderのidentityとParticle set → 2D Image roleはlegacy-primary Fusion referenceで確認。21.1 exact controlsは未検証です。
+pRenderの存在とParticle set → 2D Image 役割は旧版のBlackmagic Design公式Fusion資料で確認。Fusion 21.1での正確な設定項目は未検証です。

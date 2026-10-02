@@ -17,27 +17,27 @@ After Effectsでは、Compositionがtimelineを持ち、通常は複数Layerを�
 
 Fusionでは、同じ「画面を作る」仕事でも、ImageやMaskをNode間で明示的に接続するFlowが中心です。
 
-このBridgeはAE用の別Manualではなく、知っている考え方からcanonical Fusionページへ移る地図です。
+このページはAE用の別Manualではなく、知っている考え方からFusionの正本ページへ移る地図です。
 
-## Map
+## 対応の見方（Map）
 
-| After Effects starting point | Resolve / Fusionへ進む |
+| After Effectsで知っているもの | Resolve / Fusionで読む先 |
 |---|---|
 | Composition / Layers | [Layer StackとNode Graph](./layers-vs-node-graph) |
 | Effects / Layer properties | [Graphとして考える](../../learn/01-flow/graph-as-flow) |
 | Masks / Mattes | [Image / Mask / Data](../../learn/02-data/image-mask-data) / [Alpha](../../learn/04-compositing/alpha) |
 | Layer Transform | [Center / Pivot / Size / Angle](../../learn/03-space/center-pivot-size-angle) |
 | Precomp / Nesting | [PrecompとFusionの再利用構造](./precomp-vs-reuse) |
-| Keyframes / Graph Editor | [Keyframe / Spline / Time](../../learn/05-time/keyframes-spline-time) |
+| Keyframes / Graph Editor | [キーフレーム / スプライン / 時間（Keyframe / Spline / Time）](../../learn/05-time/keyframes-spline-time) |
 | Expressions | [Keyframe / Expressionの読み替え](./keyframes-expressions) |
 | reusable MOGRT-like intent | [Macro / Template](../../learn/06-reuse/macros-templates) |
 
-## Important
+## 大事な点
 
 AEで複数LayerをPrecomposeすることと、FusionでGroup / Macro / Fusion Clip等を使うことは**同一操作ではありません**。
 
-同じgoalを持つ候補はあっても、data model・evaluation・scopeが違います。
+同じ目的を持つ候補はあっても、データ構造・評価・対象範囲が違います。
 
 ---
 
-Verification scope: Adobeの現行Composition basics / Precomposing documentationと、Blackmagic Designの現行Fusion documentationを2026-10-02に照合。
+検証範囲: Adobeの現行Composition basics / Precomposing 資料と、Blackmagic Designの現行Fusion 資料を2026-10-02に照合。

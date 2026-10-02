@@ -9,34 +9,34 @@ tasks: [choose-surface, route-task]
 level: foundation
 ---
 
-# どのworking surfaceを使うか
+# どの作業ページを使うか
 
-## User intent
+## 目的
 
 同じ結果を複数の方法で作れそうなとき、最初にどのPageへ仕事を置くか決めます。
 
-## Which Resolve surface owns what
+## どのページで何を担当するか
 
 | Intent | First surface to consider | Why |
 |---|---|---|
 | clipを切る・並べる・trimする | Edit | timeline編集が主責任 |
-| shot内で複数Imageを合成する | Fusion | Node graphによるcompositingが主責任 |
-| title / motion graphicをNodeで設計する | Fusion | VFX / motion graphicsと再利用Graphが主責任 |
+| shot内で複数Imageを合成する | Fusion | Node graphによる合成が主責任 |
+| title / 動き graphicをNodeで設計する | Fusion | VFX / モーショングラフィックスと再利用Graphが主責任 |
 | shot間のbalance・look・grade | Color | color correction / gradingが主責任 |
 | dialogue / SFX / mix / mastering | Fairlight | audio post-productionが主責任 |
 | Fusion effect/titleをtimelineで再利用する | Fusion → Edit/Cut | Fusionでassetを作り、editorial surfaceから利用 |
 
-## When Fusion is appropriate
+## Fusionが向いている場合
 
 「clipそのものを編集する」より、**clipの中で何をどう処理するか**が主題になったときにFusionへ進みます。
 
-## When Fusion is not the primary surface
+## Fusionを主に使わない場合
 
 - timeline構成の問題を、Fusion Graphだけで解決しようとしない。
 - shot matchingの問題を、個別Fusion compへ分散しない。
-- audio postの問題をFusion parameter automationだけへ押し込めない。
+- audio postの問題をFusion パラメータ 自動化だけへ押し込めない。
 
-## Handoff / boundary
+## ページ間の受け渡し
 
 Pageを跨ぐときは、同じ処理を二重に持たないことを優先します。
 
@@ -50,18 +50,18 @@ Fusion: internal VFX / graphics
 Color: shot balance / grading
 ```
 
-実際の順序・render pipeline・effect orderはversion / context依存なので、具体案件ではcurrent Resolve behaviorを確認します。
+実際の順序・render pipeline・effect orderはversion / context依存なので、具体案件では現在の Resolve 挙動を確認します。
 
-## Related Fusion Concepts
+## 関連するFusionの考え方
 
 - [Graphとして考える](../learn/01-flow/graph-as-flow)
 - [再利用の境界を選ぶ](../patterns/reuse/choose-reuse-boundary)
 
-## Related cross-page workflow
+## 関連するページ間の流れ
 
 - [FusionはResolveのどこにいるか](./where-fusion-fits)
 - [Edit ↔ Fusionの境界](./edit-fusion-boundary)
 
 ---
 
-Verification note: Editはtimeline editing、FusionはVFX/motion graphics、Colorはgrading、Fairlightはaudio post-productionを主用途としてBlackmagic Design現行製品ページで確認。具体的なcross-page processing orderはこのページでは断定しません。
+検証メモ: Editはtimeline editing、FusionはVFX/モーショングラフィックス、Colorはgrading、Fairlightはaudio post-productionを主用途としてBlackmagic Design現行製品ページで確認。具体的なcross-page 処理順はこのページでは断定しません。

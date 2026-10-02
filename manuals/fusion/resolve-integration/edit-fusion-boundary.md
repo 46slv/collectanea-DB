@@ -11,15 +11,15 @@ level: foundation
 
 # Edit ↔ Fusionの境界
 
-## User intent
+## 目的
 
 「この変更はTimeline側で行うのか、Fusion comp内で行うのか」を決めます。
 
-## Which Resolve surface owns what
+## どのページで何を担当するか
 
 Blackmagic Designの現行Fusion説明では、MediaIn NodeはEdit Page timeline上のclipを表すものとして案内されています。
 
-このmental modelを使うと:
+この考え方を使うと:
 
 ```text
 Edit timeline clip
@@ -33,14 +33,14 @@ Edit timeline clip
 
 と読みやすくなります。
 
-## When Fusion is appropriate
+## Fusionが向いている場合
 
-- clip内部のcompositing
+- clip内部の合成
 - tracked graphics
 - cleanup / replacement
 - custom title / VFX construction
 
-## When Fusion is not the primary surface
+## Fusionを主に使わない場合
 
 - clip順序
 - edit point
@@ -49,22 +49,22 @@ Edit timeline clip
 
 は、まずEdit側の責任として考えます。
 
-## Handoff / boundary
+## ページ間の受け渡し
 
-同じtransform / effectをEditとFusionの両方へ重ねる場合は、どちらが意図のownerか明示します。
+同じtransform / effectをEditとFusionの両方へ重ねる場合は、どちらが意図の管理元か明示します。
 
 「見た目が合う」だけではなく、後からどこを直せばよいかが一意になる構成を優先します。
 
-## Related Fusion Concepts
+## 関連するFusionの考え方
 
 - [Graphとして考える](../learn/01-flow/graph-as-flow)
 - [Center / Pivot / Size / Angle](../learn/03-space/center-pivot-size-angle)
 
-## Related cross-page workflow
+## 関連するページ間の流れ
 
-- [どのworking surfaceを使うか](./choose-working-surface)
+- [どの作業ページを使うか](./choose-working-surface)
 - [Fusion assetをResolveで再利用する](./reusable-fusion-assets)
 
 ---
 
-Verification note: MediaInとEdit timeline clipの関係はBlackmagic Design現行Fusionページで確認。Timeline/Fusion間のexact processing orderはcurrent project / manualで確認します。
+検証メモ: MediaInとEdit timeline clipの関係はBlackmagic Design現行Fusionページで確認。Timeline/Fusion間の正確な 処理順は現在の project / manualで確認します。

@@ -1,5 +1,5 @@
 ---
-title: Mask
+title: マスク（Mask）
 description: FusionのMaskを、Imageとは別の処理範囲dataとして理解する。
 doc_type: concept
 verification: partial
@@ -11,13 +11,13 @@ level: foundation
 product_scope: fusion
 ---
 
-# Mask
+# マスク（Mask）
 
-## Question
+## このページで分かること（Question）
 
 Maskは白黒画像と同じものとして考えてよいでしょうか。
 
-## Mental Model
+## 基本の考え方（Mental Model）
 
 FusionのMaskは、主に**どこへ処理を適用するか**を表すdataとして読みます。
 
@@ -27,59 +27,59 @@ Image → Effect → Output
         Mask
 ```
 
-MaskをViewerで白黒に見られる場面があっても、そのGraph responsibilityは通常Imageとは異なります。
+MaskをViewerで白黒に見られる場面があっても、そのGraph 役割は通常Imageとは異なります。
 
-## Minimum Example
+## 最小例（Minimum Example）
 
 Ellipse MaskをMergeのEffect Maskへ接続します。
 
-Image branchを変えず、Maskの有無だけを切り替え、合成範囲が変わることを観察します。
+Image 分岐を変えず、Maskの有無だけを切り替え、合成範囲が変わることを観察します。
 
-## Invariants
+## 共通ルール（Invariants）
 
 - Maskと2D Imageを分ける。
 - Effect MaskとImage Alphaを分ける。
-- Mask sourceとtarget effectを別branchとして読めるようにする。
-- Maskのshape問題とtarget Nodeのeffect問題を同時に直さない。
-- exact combine / invert semanticsはNode-specific Referenceで確認する。
+- Mask 参照元と対象のEffectを別分岐として読めるようにする。
+- Maskのshape問題と対象Nodeのeffect問題を同時に直さない。
+- combine / invertの正確な挙動はNode-specific Referenceで確認する。
 
-## Change One Thing
+## 1つだけ変えて確認する（Change One Thing）
 
-Mask connectionだけを外し、target effect自体は正常か比較します。
+Mask connectionだけを外し、対象のEffect自体は正常か比較します。
 
-## Transfer
+## 他のNodeへ応用する（Transfer）
 
 ### Merge
 
-Effect Maskでcompositing範囲を限定できます。
+Effect Maskで合成範囲を限定できます。
 
 ### Blur / Color
 
-NodeがMask inputを持つ場合、同じ「effect範囲を限定する」mental modelを転用できます。
+NodeがMask inputを持つ場合、同じ「effect範囲を限定する」考え方を転用できます。
 
-### Tracking
+### トラッキング
 
-Maskをtracking dataへ追従させる場合も、Mask dataとtracking dataを別責任にします。
+Maskをトラッキング dataへ追従させる場合も、Mask dataとトラッキング dataを別責任にします。
 
-## Predict
+## 初見Nodeで予測する（Predict）
 
-「Maskが効かない」症状で、Image branch・Mask branch・target Nodeを分けて確認できます。
+「Maskが効かない」症状で、Image 分岐・Mask 分岐・対象Nodeを分けて確認できます。
 
-## Common Misread
+## よくある誤解（Common Misread）
 
 **Maskを繋げたのでImage Alphaも書き換わっているはず**と考えること。
 
 Effect MaskとImage Alphaは別責任です。
 
-## Related Patterns
+## 関連する再利用構成（Patterns）
 
 - [Maskで処理範囲を限定する](../../patterns/masking/limit-effect-with-mask)
 
-## Node Reference
+## 関連Node
 
 - [Ellipse Mask](../../nodes/masks/ellipse-mask)
 - [Polygon Mask](../../nodes/masks/polygon-mask)
 
-## Next
+## 次に読む
 
-→ [Parameter / Data](./parameter-data)
+→ [パラメータ / Data](./parameter-data)

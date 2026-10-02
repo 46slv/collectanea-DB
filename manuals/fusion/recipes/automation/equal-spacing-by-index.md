@@ -15,20 +15,20 @@ product_scope: fusion
 
 # 複数要素を等間隔に配置する考え方
 
-> exact Fusion Expression syntaxは21.1 current Manual / host verification待ちです。このRecipeは数式構造とparameter ownershipを正本とします。
+> 正確な Fusion Expression syntaxは21.1 現在の Manual / ホスト上での確認待ちです。このRecipeは数式構造とパラメータの管理関係を正本とします。
 
-## Result
+## できあがるもの（Result）
 
 複数要素を、手入力ではなくindexと個数から等間隔へ配置できる構造にします。
 
-## Requirements
+## 必要なもの（Requirements）
 
 - start position
 - end position
 - element count
 - element index
 
-## Steps
+## 手順（Steps）
 
 0-based indexを使う場合、概念式は次です。
 
@@ -47,7 +47,7 @@ index = 0,1,2,3,4
 
 なら、startからendまでを4区間へ分けます。
 
-## Why This Works
+## なぜこの構成にするか（Why This Works）
 
 各要素へpositionを手入力せず、
 
@@ -56,9 +56,9 @@ index = 0,1,2,3,4
 - count
 - index
 
-という少数の意味parameterから最終positionを導きます。
+という少数の意味パラメータから最終positionを導きます。
 
-## Variants / Alternatives
+## 別のやり方（Variants / Alternatives）
 
 ### Center + spacing
 
@@ -66,7 +66,7 @@ index = 0,1,2,3,4
 position = center + (index - centerIndex) * spacing
 ```
 
-### Fixed pixel spacing
+### Fixed ピクセル spacing
 
 resolution-aware conversionを1箇所で行います。
 
@@ -74,18 +74,18 @@ resolution-aware conversionを1箇所で行います。
 
 row / column indexへ分解し、X / Yを別々に導きます。
 
-## Failure Checks
+## うまくいかないときの確認（Failure Checks）
 
 - count = 1で `count - 1` が0になる。
 - 0-based / 1-based indexを混同する。
-- normalized valueとpixel spacingを混同する。
-- 各要素へlocal補正を入れすぎて等間隔のsource of truthを失う。
+- normalized 値とピクセル spacingを混同する。
+- 各要素へlocal補正を入れすぎて等間隔の基準となる値を失う。
 
-## Related Pattern
+## 関連する再利用構成（Pattern）
 
-- [Master / Follower parameterを作る](../../patterns/automation/master-follower-parameters)
+- [親・追従パラメータ（Master / Follower）を作る](../../patterns/automation/master-follower-parameters)
 - [Resolutionを跨いでも位置関係を保つ](../../patterns/transform/resolution-aware-positioning)
 
-## Related Nodes
+## 関連Node
 
 - [Transform](../../nodes/transform/transform)

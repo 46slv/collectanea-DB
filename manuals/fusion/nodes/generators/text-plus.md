@@ -1,6 +1,6 @@
 ---
 title: Text+
-description: Styled Text・Layout・Shading等を持つFusionの2D text generator。
+description: Styled Text・配置・Shading等を持つFusionの2D text generator。
 doc_type: node
 verification: partial
 aliases: [Text+, Text Plus, TXT+]
@@ -19,51 +19,51 @@ suite_surfaces: [fusion, edit]
 
 2D text Imageを生成するFusion Nodeです。
 
-## At a Glance
+## 概要（At a Glance）
 
-- **Family**: Generators / Text
-- **Primary output**: 2D Image
-- **Core concepts**: Text generation、Layout、Shading、Animation
-- **Common tasks**: title、lower third、motion graphics、template source
+- **分類（Family）**: Generators / Text
+- **主出力（Primary output）**: 2D Image
+- **関連概念（Core concepts）**: Text generation、配置、Shading、アニメーション
+- **よく使う作業（Common tasks）**: title、lower third、モーショングラフィックス、template 参照元
 
-## Inputs
+## 入力（Inputs）
 
-Text+はGeneratorとして扱います。primary Image inputを前提にしない構成が基本ですが、Effect Mask等を含むexact auxiliary inputsはFusion 21.1 runtime / manualで確認します。
+Text+はGeneratorとして扱います。primary Image inputを前提にしない構成が基本ですが、Effect Mask等を含む補助入力（auxiliary inputs）の正確な仕様はFusion 21.1 実機 / マニュアルで確認します。
 
-## Output
+## 出力（Output）
 
 textを描画した2D Imageを出力します。
 
-## Controls
+## 主な設定項目（Controls）
 
 ### Styled Text
 
 表示する文字列を持つ主要controlです。
 
-### Layout
+### 配置
 
-textの配置・layoutに関わる領域です。exact mode / control名は21.1確認後に細分化します。
+textの配置・配置に関わる領域です。正確な mode / control名は21.1確認後に細分化します。
 
 ### Shading
 
-文字の見た目を複数layerで構成する機能群です。layer数・option・defaultはcurrent manualで確認します。
+文字の見た目を複数layerで構成する機能群です。layer数・設定・初期値は現在の manualで確認します。
 
 ### Follower
 
-文字単位のanimationへ関係する機構としてlegacy Fusion referenceで確認されています。21.1のexact behaviorは今後の専用Reference対象です。
+文字単位のアニメーションへ関係する機構としてlegacy Fusion referenceで確認されています。21.1の正確な 挙動は今後の専用Reference対象です。
 
-## Behavior / Notes
+## 挙動と注意点（Behavior / Notes）
 
 Text+を単なる「文字を出すNode」としてだけ扱わず、
 
-- content
-- layout
+- 内容
+- 配置
 - visual styling
-- animation
+- アニメーション
 
 を分けて読むと、Template化したときに公開controlを選びやすくなります。
 
-## Minimal Examples
+## 最小例（Minimal Examples）
 
 ### Text over image
 
@@ -73,23 +73,23 @@ Text+ ──────┐
 Image ──────┘
 ```
 
-## Related Concepts
+## 関連する考え方（Concepts）
 
 - [Macro / Templateで再利用単位を作る](../../learn/06-reuse/macros-templates)
-- [Keyframe / Spline / Time](../../learn/05-time/keyframes-spline-time)
+- [キーフレーム / スプライン / 時間（Keyframe / Spline / Time）](../../learn/05-time/keyframes-spline-time)
 
-## Related Patterns
+## 関連する再利用構成（Patterns）
 
 - [画像を段階的に重ねる](../../patterns/compositing/stack-images-with-merge)
 
-## Similar / Adjacent Nodes
+## 似たNode・関連Node
 
 - MultiText
 - Text3D
 - sText
 
-これらはdata domainや用途が異なるため、Text+の単純な上位互換として扱いません。
+これらはデータ領域（data domain）や用途が異なるため、Text+の単純な上位互換として扱いません。
 
-## Version / Verification Notes
+## バージョンと検証状況
 
-Text+の存在とStyled Text / Layout / Shading / Follower系の位置づけはBlackmagic Design公式Fusion系資料で確認済み。Fusion 21.1のexact ports、control defaults、rangeは未検証です。
+Text+の存在とStyled Text / 配置 / Shading / Follower系の位置づけはBlackmagic Design公式Fusion系資料で確認済み。Fusion 21.1の正確な ports、control defaults、範囲は未検証です。

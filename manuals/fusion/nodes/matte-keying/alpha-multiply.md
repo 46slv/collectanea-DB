@@ -1,6 +1,6 @@
 ---
 title: Alpha Multiply
-description: RGBへAlphaを乗算し、straight RGBをpremultiplied状態へ戻すためのNode。
+description: RGBへAlphaを乗算し、ストレートRGB（straight RGB）をpremultiplied状態へ戻すためのNode。
 doc_type: node
 verification: unverified
 aliases: [Alpha Multiply, AML, premultiply]
@@ -19,31 +19,31 @@ suite_surfaces: [fusion]
 
 RGBへAlphaを乗算し、premultiplied colorの関係へ戻すNodeです。
 
-## At a Glance
+## 概要（At a Glance）
 
-- **Family**: Matte / Keying
-- **Input domain**: 2D Image
-- **Output domain**: 2D Image
-- **Core concepts**: Alpha、premultiplication
-- **Common tasks**: Alpha Divide後のcolor operationを再premultiplyしてcompositeへ戻す
+- **分類（Family）**: Matte / キーイング
+- **入力データ（Input domain）**: 2D Image
+- **出力データ（Output domain）**: 2D Image
+- **関連概念（Core concepts）**: Alpha、premultiplication
+- **よく使う作業（Common tasks）**: Alpha Divide後のcolor operationを再premultiplyして合成へ戻す
 
-## Inputs
+## 入力（Inputs）
 
 ### Image
 
 Alphaを持つ2D Imageを受け取る系統です。
 
-## Output
+## 出力（Output）
 
 RGBへAlpha Multiplyを適用した2D Imageを出力します。
 
-## Controls
+## 主な設定項目（Controls）
 
-exact 21.1 controls / optionsはcurrent manual / host verification待ちです。
+正確な 21.1 controls / optionsは現在の manual / ホスト上での確認待ちです。
 
-## Behavior / Notes
+## 挙動と注意点（Behavior / Notes）
 
-Alpha Divideと対になるmental model:
+Alpha Divideと対になる考え方:
 
 ```text
 Alpha Divide
@@ -52,26 +52,26 @@ Alpha Divide
   → Merge
 ```
 
-常にこのpairが必要なわけではありません。Node側にpremultiplication-aware optionがある場合は、その責任と二重にしません。
+常にこのpairが必要なわけではありません。Node側にpremultiplication-aware 設定がある場合は、その責任と二重にしません。
 
-## Minimal Examples
+## 最小例（Minimal Examples）
 
-straight / unpremultiplied状態でcolor operationを行った後、通常compositingへ戻す前段として使う構成を検討します。
+straight / unpremultiplied状態でcolor operationを行った後、通常合成へ戻す前段として使う構成を検討します。
 
-## Related Concepts
+## 関連する考え方（Concepts）
 
-- [Premultiplication](../../learn/04-compositing/premultiplication)
+- [プリマルチプライ（Premultiplication）](../../learn/04-compositing/premultiplication)
 
-## Related Patterns
+## 関連する再利用構成（Patterns）
 
-- [KeyとCompositeを分ける](../../patterns/matte-keying/key-then-composite)
+- [Keyと合成を分ける](../../patterns/matte-keying/key-then-composite)
 
-## Similar / Adjacent Nodes
+## 似たNode・関連Node
 
 - Alpha Divide
 - Matte Control
 - Merge
 
-## Version / Verification Notes
+## バージョンと検証状況
 
-Alpha MultiplyのidentityとRGBへAlphaを乗算してpremult状態へ戻す役割はlegacy-primary Fusion referenceで確認。21.1 exact numerical behavior / optionsは未検証です。
+Alpha Multiplyの存在とRGBへAlphaを乗算してpremult状態へ戻す役割は旧版のBlackmagic Design公式Fusion資料で確認。21.1 数値処理の正確な挙動・設定は未検証です。

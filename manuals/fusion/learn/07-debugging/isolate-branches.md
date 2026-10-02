@@ -1,6 +1,6 @@
 ---
-title: Branchを分離して原因範囲を狭める
-description: Graph全体を一度に触らず、Image・Mask・effect branchを独立して確認する診断方法。
+title: 分岐を分離して原因範囲を狭める
+description: Graph全体を一度に触らず、Image・Mask・effect 分岐を独立して確認する診断方法。
 doc_type: concept
 verification: partial
 aliases: [branch isolation, binary search, 切り分け]
@@ -12,15 +12,15 @@ product_scope: fusion
 suite_surfaces: [fusion]
 ---
 
-# Branchを分離して原因範囲を狭める
+# 分岐を分離して原因範囲を狭める
 
-## Question
+## このページで分かること（Question）
 
 複雑なFlowで結果がおかしいとき、どこから直せばよいでしょうか。
 
-## Mental Model
+## 基本の考え方（Mental Model）
 
-Graph全体を同時に調整せず、**独立して確認できるbranchへ分け、最後に正常だった地点と最初に壊れた地点を探す**と考えます。
+Graph全体を同時に調整せず、**独立して確認できる分岐へ分け、最後に正常だった地点と最初に壊れた地点を探す**と考えます。
 
 ```text
 source
@@ -36,7 +36,7 @@ problem scope = A → B
 
 Viewerは、Graphの各地点を観察するprobeとして使います。
 
-## Minimum Example
+## 最小例（Minimum Example）
 
 Masked Mergeなら次の3つを別々に確認します。
 
@@ -54,64 +54,64 @@ Mask branch ─────────
 4. Mask単体。
 5. MaskありMerge。
 
-順番に足すことで、どのbranchで問題が入ったかを絞れます。
+順番に足すことで、どの分岐で問題が入ったかを絞れます。
 
-## Invariants
+## 共通ルール（Invariants）
 
 - 一度に1つだけ条件を増減する。
 - upstreamが壊れているならdownstreamを調整しない。
-- effect branchとMask branchを混ぜて診断しない。
+- effect 分岐とMask 分岐を混ぜて診断しない。
 - Viewerに出しているNodeを毎回確認する。
 - temporary bypass / disconnectをしたら元構造へ戻す。
 
-## Change One Thing
+## 1つだけ変えて確認する（Change One Thing）
 
 問題NodeをPass Through / bypassできる場合、1 Nodeだけ無効化して結果を比較します。
 
-改善した場合でも「そのNode自体が壊れている」と即断せず、input dataやparameterも確認します。
+改善した場合でも「そのNode自体が壊れている」と即断せず、input dataやパラメータも確認します。
 
-## Transfer
+## 他のNodeへ応用する（Transfer）
 
-### Long compositing chains
+### Long 合成 chains
 
 Mergeを1段ずつ確認します。
 
 ### Mask-heavy graphs
 
-Mask branchをImage branchから独立させます。
+Mask 分岐をImage 分岐から独立させます。
 
 ### Reusable groups
 
 Groupの外→内→外という境界で同じ方法を使います。
 
-## Predict
+## 初見Nodeで予測する（Predict）
 
 複雑なGraphでも、次に見るべき地点を決められます。
 
 - last known good
 - first known bad
-- branch boundary
-- data-domain conversion boundary
+- 分岐の境界
+- データ領域を変換する境界
 
-## Common Misread
+## よくある誤解（Common Misread）
 
-**症状に関係ありそうなparameterを片端から触ること。**
+**症状に関係ありそうなパラメータを片端から触ること。**
 
 値を変える前に、問題の存在するGraph範囲を小さくした方が、修正理由を説明できます。
 
-## Related Patterns
+## 関連する再利用構成（Patterns）
 
 - [画像を段階的に重ねる](../../patterns/compositing/stack-images-with-merge)
 - [Maskで処理範囲を限定する](../../patterns/masking/limit-effect-with-mask)
 
-## Node Reference
+## 関連Node
 
 - [Merge](../../nodes/compositing/merge)
 
-## Next
+## 次に読む
 
 → [AlphaとMaskを分けて診断する](./alpha-vs-mask)
 
 ---
 
-Verification note: Viewerで各Nodeの中間結果を確認する基本操作はBlackmagic Design現行Fusionページで確認済み。診断手順自体はこのManualの再利用可能なmethodです。
+検証メモ: Viewerで各Nodeの中間結果を確認する基本操作はBlackmagic Design現行Fusionページで確認済み。診断手順自体はこのManualの再利用可能なmethodです。

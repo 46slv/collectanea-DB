@@ -11,34 +11,34 @@ level: foundation
 
 # Color ↔ Fusionの境界
 
-## User intent
+## 目的
 
 「この見た目の変更はFusionで作るのか、Colorでgradeするのか」を決めます。
 
-## Which Resolve surface owns what
+## どのページで何を担当するか
 
 Blackmagic Designは現行製品ページで、
 
-- Fusion: VFX / motion graphics / compositing
+- Fusion: VFX / モーショングラフィックス / 合成
 - Color: color correction / creative grading
 
 をそれぞれ主要用途として説明しています。
 
 両方ともNode UIを持ちますが、Nodeがあること自体は同じ責任を意味しません。
 
-## When Fusion is appropriate
+## Fusionが向いている場合
 
 - shot内のimage replacement
-- keying
+- キーイング
 - tracked graphic
 - cleanup
-- multi-source compositing
-- motion graphics
+- multi-参照元 合成
+- モーショングラフィックス
 - 2D / 3D scene construction
 
 など、**Image構造を作り変える**処理です。
 
-## When Fusion is not the primary surface
+## Fusionを主に使わない場合
 
 - shot balance
 - exposure / contrast / color relationship
@@ -48,9 +48,9 @@ Blackmagic Designは現行製品ページで、
 
 など、**color gradingを主責任にする**仕事はColor側を第一候補にします。
 
-## Handoff / boundary
+## ページ間の受け渡し
 
-同じ見た目をFusion / Colorの両方で作れる場合でも、修正ownerを一方へ寄せます。
+同じ見た目をFusion / Colorの両方で作れる場合でも、修正管理元を一方へ寄せます。
 
 例:
 
@@ -66,18 +66,18 @@ Color
   creative grade
 ```
 
-Blackmagicの現行Fusionページでは、Fusionで作成したmaskをColorで利用できるworkflowも案内されています。これはsurface間の連携であり、FusionとColorを同じNode systemとして扱う根拠ではありません。
+Blackmagicの現行Fusionページでは、Fusionで作成したmaskをColorで利用できる作業の流れも案内されています。これはsurface間の連携であり、FusionとColorを同じNode systemとして扱う根拠ではありません。
 
-## Related Fusion Concepts
+## 関連するFusionの考え方
 
 - [Graphとして考える](../learn/01-flow/graph-as-flow)
 - [Alpha](../learn/04-compositing/alpha)
 
-## Related cross-page workflow
+## 関連するページ間の流れ
 
 - [FusionはResolveのどこにいるか](./where-fusion-fits)
-- [どのworking surfaceを使うか](./choose-working-surface)
+- [どの作業ページを使うか](./choose-working-surface)
 
 ---
 
-Verification note: FusionとColorの主要用途、およびFusion maskをColor側で利用するworkflowは2026-10-02時点のBlackmagic Design現行製品ページで確認。
+検証メモ: FusionとColorの主要用途、およびFusion maskをColor側で利用する作業の流れは2026-10-02時点のBlackmagic Design現行製品ページで確認。

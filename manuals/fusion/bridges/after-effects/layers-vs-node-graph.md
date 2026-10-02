@@ -13,22 +13,22 @@ tasks: [composite, translate-mental-model]
 
 # Layer StackとNode Graph
 
-## If you know After Effects
+## After Effectsで知っている考え方
 
 After EffectsのCompositionは固有のTimelineを持ち、通常は複数Layerを含みます。
 
 2D LayerはTimeline上のstack順とLayer内の処理順を持ち、空間・時間・opacity等を使って最終imageを組み立てます。
 
-## First decision in Resolve
+## Resolveで最初に決めること
 
-まず「timeline上のclip構成」が問題なのか、「shot内部のimage processing / compositing」が問題なのかを分けます。
+まず「timeline上のclip構成」が問題なのか、「shot内部のimage 処理 / 合成」が問題なのかを分けます。
 
-- timeline construction → Edit
-- detailed shot composite → Fusion
+- Timelineの構成・Clipの順序・Trim → Edit
+- Shot内部の細かな合成・VFX → Fusion
 
-## Fusion mental model
+## Fusionでの考え方
 
-Fusionでは処理順・branch・合流をNode connectionとして明示します。
+Fusionでは処理順・分岐・合流をNode connectionとして明示します。
 
 ```text
 Image A ───────┐
@@ -38,46 +38,46 @@ Image B → XF ──┘
 
 Layerの上下だけではなく、どのOutputがどのInputへ入っているかを読みます。
 
-## What maps cleanly
+## そのまま活かしやすい考え方
 
-goalとしては共通します。
+目的としては共通します。
 
-- multiple sourcesを1画面へまとめる
+- 複数の素材を1画面へまとめる
 - effectを適用する
 - transformする
 - maskで処理範囲を決める
-- timeでparameterを変える
+- timeでパラメータを変える
 
-## What does not map 1:1
+## そのまま一対一対応しない部分
 
 - AEのLayer stack order = Fusion Nodeの左右位置、ではない。
 - AEの1 Layer内のeffect/property処理 = Fusionの1 Node、とは限らない。
-- Fusionではbranch / mergeを明示的connectionで作る。
-- Timeline editing responsibilityはFusion Flowへそのまま持ち込まない。
+- Fusionでは分岐 / mergeを明示的connectionで作る。
+- Timeline editing 役割はFusion Flowへそのまま持ち込まない。
 
-## Learn this next
+## 次に読む
 
 - [Graphとして考える](../../learn/01-flow/graph-as-flow)
-- [Foreground / Background / Mask](../../learn/04-compositing/foreground-background-mask)
+- [前景（Foreground）/ 背景（Background）/ マスク（Mask）](../../learn/04-compositing/foreground-background-mask)
 
-## Reusable Patterns
+## 関連する再利用構成（Patterns）
 
 - [画像を段階的に重ねる](../../patterns/compositing/stack-images-with-merge)
 
-## Relevant Nodes
+## 関連Node
 
 - [Merge](../../nodes/compositing/merge)
 - [Transform](../../nodes/transform/transform)
 
-## Example tasks
+## 具体例
 
 - [2つのImageを重ねる](../../recipes/compositing/two-image-merge)
 
-## Related index entries
+## 関連する索引
 
 - [By Task](../../index/by-task)
 - [Glossary](../../index/glossary)
 
 ---
 
-Verification scope: Adobe current Composition basics confirms compositions/timelines/layers and layer stack rendering; Blackmagic current Fusion page confirms explicit node-tree connections.
+検証範囲: Adobeの現行Composition資料でComposition / Timeline / Layerの構造を、Blackmagic Designの現行Fusion資料でNode接続によるFlowを確認しています。

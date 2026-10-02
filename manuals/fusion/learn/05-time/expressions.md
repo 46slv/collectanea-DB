@@ -1,6 +1,6 @@
 ---
-title: Expressions
-description: parameterを別の値から計算し、値同士の関係を保つための考え方。
+title: 式（Expressions）
+description: パラメータを別の値から計算し、値同士の関係を保つための考え方。
 doc_type: concept
 verification: unverified
 aliases: [Expression, 式, parameter link]
@@ -13,17 +13,17 @@ product_scope: fusion
 suite_surfaces: [fusion]
 ---
 
-# Expressions
+# 式（Expressions）
 
-> Expressionの具体的な構文例はFusion 21.1 Reference Manual / hostで再確認前です。ここでは既存seedをConcept構造へ移したDraftとして扱います。
+> Expressionの具体的な構文例はFusion 21.1 Reference Manual / 実機で再確認前です。ここでは既存seedをConcept構造へ移したDraftとして扱います。
 
-## Question
+## このページで分かること（Question）
 
 複数の値を「毎回手で合わせる」のではなく、関係そのものをどう記述すればよいでしょうか。
 
-## Mental Model
+## 基本の考え方（Mental Model）
 
-Expressionは、parameterへ最終値を直接固定する代わりに、**別の値や計算から結果を導く**ための仕組みとして考えます。
+Expressionは、パラメータへ最終値を直接固定する代わりに、**別の値や計算から結果を導く**ための仕組みとして考えます。
 
 ```text
 source value
@@ -33,11 +33,11 @@ expression / relation
 derived parameter
 ```
 
-目的は「自動化すること」より、**どの値をsource of truthにして、どの値を従属させるか**を明確にすることです。
+目的は「自動化すること」より、**どの値を基準となる値にして、どの値を従属させるか**を明確にすることです。
 
-## Minimum Example
+## 最小例（Minimum Example）
 
-既存seedでは、別NodeのPoint parameterを参照する例を次のように記述しています。
+既存seedでは、別NodeのPoint パラメータを参照する例を次のように記述しています。
 
 ```lua
 OtherTransform.Center
@@ -55,29 +55,29 @@ OtherTransform.Center.X
 Width * 0.5
 ```
 
-これらのexact syntaxは21.1で再検証するまで `unverified` とします。
+これらの正確な構文（syntax）は21.1で再検証するまで `unverified` とします。
 
-## Invariants
+## 共通ルール（Invariants）
 
 Expressionを使うとき、Node名や式より先に次を決めます。
 
-- どのparameterが基準値か。
-- どのparameterが派生値か。
+- どのパラメータが基準値か。
+- どのパラメータが派生値か。
 - 派生先が期待する型は何か。
-- Node renameや構造変更で参照が壊れないか。
+- Node名の変更や構造変更で参照が壊れないか。
 - 同じ関係をInstance / Modifier / User Controlで持つ方が適切ではないか。
 
-## Change One Thing
+## 1つだけ変えて確認する（Change One Thing）
 
 基準値を1つだけ変更し、派生値が期待した関係を保つか確認します。
 
-式自体と複数のsourceを同時に変えないことで、「参照が正しいか」「計算が正しいか」を分離できます。
+式自体と複数の参照元を同時に変えないことで、「参照が正しいか」「計算が正しいか」を分離できます。
 
-## Transfer
+## 他のNodeへ応用する（Transfer）
 
-### Position relation
+### Position 関係
 
-複数要素のCenterを同じsourceから導き、位置関係を保つ設計へ転用できます。
+複数要素のCenterを同じ参照元から導き、位置関係を保つ設計へ転用できます。
 
 ### Proportional size
 
@@ -87,16 +87,16 @@ Expressionを使うとき、Node名や式より先に次を決めます。
 
 最小値・最大値・index・個数を分け、等間隔配置のような関係を式で表す設計へ発展させられます。
 
-## Predict
+## 初見Nodeで予測する（Predict）
 
 Expressionを使う前に、次を予測できる状態を目指します。
 
-1. sourceを変えたとき何が連動するか。
+1. 参照元を変えたとき何が連動するか。
 2. 参照先が消えた／名前が変わったとき何が壊れるか。
 3. 値の型が合わない場合にどこを見るか。
 4. 式を増やすほど保守責任がどこへ集まるか。
 
-## Common Misread
+## よくある誤解（Common Misread）
 
 **「同じ値にしたい = すべてExpression」と決めること。**
 
@@ -104,20 +104,20 @@ Expressionを使う前に、次を予測できる状態を目指します。
 
 ## Deepen
 
-- [Frame Evaluation](./frame-evaluation)
-- [Modifier / Parameter Sources](./modifier-parameter-sources)
+- [フレーム 評価](./frame-evaluation)
+- [Modifier / パラメータ Sources](./modifier-parameter-sources)
 
-## Related Patterns
+## 関連する再利用構成（Patterns）
 
 - [Expressionで値の関係を保つ](../../patterns/automation/link-values-with-expression)
 - [複数要素の位置関係を共有する](../../patterns/transform/share-position-across-elements)
 
-## Node Reference
+## 関連Node
 
 - [Transform](../../nodes/transform/transform)
 - [Merge](../../nodes/compositing/merge)
 
-## Next
+## 次に読む
 
 次はConceptを具体的な再利用構造へ落とします。
 

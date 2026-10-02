@@ -14,16 +14,16 @@ product_scope: fusion
 
 # 特殊domainのまま処理し、必要な境界で2Dへ戻す
 
-## Problem Family
+## 使う場面（Problem Family）
 
 Shape・Particle・3D・USD・Deepを、途中ですぐ2D Imageへ変換してしまい、そのdomainでしか使えない編集・複製・depth関係を失う問題です。
 
-## Concepts
+## 前提となる考え方（Concepts）
 
-- [Data domainを辿って診断する](../../learn/07-debugging/trace-data-domain)
+- [データ領域（data domain）を辿って診断する](../../learn/07-debugging/trace-data-domain)
 - [Graphとして考える](../../learn/01-flow/graph-as-flow)
 
-## Generic Graph
+## 基本構成（Generic Graph）
 
 ```text
 specialized source
@@ -47,14 +47,14 @@ USD scene    → uRenderer     → 2D Image / AOV
 Deep image   → Deep to Image → 2D Image
 ```
 
-## Invariant
+## 保つべき条件（Invariant）
 
 - domain固有処理は可能な限りdomain内で完了する。
 - conversion boundaryをGraph上で明示する。
 - conversion後に失われる情報を意識する。
 - 2D Nodeへ接続できないからといって、特殊domain側を壊して無理にImage化しない。
 
-## Variants
+## バリエーション（Variants）
 
 ### Vector-first
 
@@ -66,13 +66,13 @@ Classic 3D / USDはrendererまでscene domainを維持します。
 
 ### Sample-aware first
 
-Deep imageはDeep compositingを終えてから2Dへflattenします。
+Deep imageはDeep 合成を終えてから2Dへflattenします。
 
 ### Particle-first
 
-Particle setをpRenderまで維持し、force / behavior等をImage化前に適用します。
+Particle setをpRenderまで維持し、force / 挙動等をImage化前に適用します。
 
-## Node Choices
+## Nodeの選び方（Node Choices）
 
 domainごとの変換Nodeを使います。
 
@@ -82,7 +82,7 @@ domainごとの変換Nodeを使います。
 - uRenderer
 - Deep to Image
 
-## Failure Modes
+## 失敗しやすい点（Failure Modes）
 
 - Shapeを通常Mergeへ直接つなぐ。
 - Particle setをBlur等のImage filterへ入れようとする。
@@ -90,14 +90,14 @@ domainごとの変換Nodeを使います。
 - dMergeを通常Mergeの上位版として使う。
 - renderer / flatten後にdomain固有情報が残っている前提で後段処理する。
 
-## Recipes Using This Pattern
+## この構成を使う手順（Recipes）
 
 - [Shapeを2D Imageへrenderする](../../recipes/shapes/basic-shape-render)
 - [USD sceneを2Dへrenderする](../../recipes/usd/basic-usd-render)
-- [Deep compositeを2Dへ戻す](../../recipes/deep/deep-merge-to-image)
+- [Deep 合成を2Dへ戻す](../../recipes/deep/deep-merge-to-image)
 - [最小Particle chainを作る](../../recipes/particles/basic-particle-chain)
 
-## Related Node Reference
+## 関連Node
 
 - [sRender](../../nodes/shapes/s-render)
 - [pRender](../../nodes/particles/p-render)

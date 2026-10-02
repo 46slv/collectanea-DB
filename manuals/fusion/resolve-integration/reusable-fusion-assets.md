@@ -11,35 +11,35 @@ level: intermediate
 
 # Fusion assetをResolveで再利用する
 
-## User intent
+## 目的
 
 Fusionで作ったGraphを、毎回Nodeから組み直さずResolve内で再利用します。
 
-## Which Resolve surface owns what
+## どのページで何を担当するか
 
-- **Fusion** — internal Graph、公開control、asset behaviorを設計する。
-- **Edit / Cut** — 作成済みeffect / title等をtimeline workflowから利用する。
+- **Fusion** — internal Graph、公開control、asset 挙動を設計する。
+- **Edit / Cut** — 作成済みeffect / title等をtimeline 作業の流れから利用する。
 
-Blackmagic Designは、Fusionで作成したcompositionをtemplateとして保存し、Edit/Cutで使えるworkflowを現行製品ページで案内しています。
+Blackmagic Designは、Fusionで作成したcompositionをtemplateとして保存し、Edit/Cutで使える作業の流れを現行製品ページで案内しています。
 
-## When Fusion is appropriate
+## Fusionが向いている場合
 
 asset内部に
 
 - multiple Nodes
-- animation
-- expression / parameter linking
+- アニメーション
+- expression / パラメータ linking
 - custom controls
 
 があり、再利用単位としてまとめたい場合です。
 
-## When Fusion is not the primary surface
+## Fusionを主に使わない場合
 
 既存templateをtimelineへ配置して値を変えるだけなら、利用側はEdit/Cutで完結する場合があります。
 
-## Handoff / boundary
+## ページ間の受け渡し
 
-再利用assetでは、内部実装より**公開interface**が重要です。
+再利用assetでは、内部実装より**公開インターフェース**が重要です。
 
 ```text
 Fusion internal graph
@@ -51,15 +51,15 @@ Resolve reusable asset
 Edit / Cut user
 ```
 
-## Related Fusion Concepts
+## 関連するFusionの考え方
 
-- [User Controlsで公開interfaceを作る](../learn/06-reuse/user-controls)
+- [User Controlsで公開インターフェースを作る](../learn/06-reuse/user-controls)
 - [Macro / Templateで再利用単位を作る](../learn/06-reuse/macros-templates)
 
-## Related cross-page workflow
+## 関連するページ間の流れ
 
 - [再利用の境界を選ぶ](../patterns/reuse/choose-reuse-boundary)
 
 ---
 
-Verification note: Fusion compositionのtemplate保存とEdit/Cut利用はBlackmagic Design現行Fusion / Fusion 21ページで確認。exact category / storage path / packagingは21.1 manualで確認します。
+検証メモ: Fusion compositionのtemplate保存とEdit/Cut利用はBlackmagic Design現行Fusion / Fusion 21ページで確認。正確な category / storage path / パッケージ化は21.1 manualで確認します。

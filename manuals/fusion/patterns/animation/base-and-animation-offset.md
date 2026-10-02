@@ -1,6 +1,6 @@
 ---
-title: Base値とAnimation Offsetを分ける
-description: layoutの基準値とanimationによる時間変化を別責任にし、修正しやすいmotion structureを作るPattern。
+title: Base値とアニメーション Offsetを分ける
+description: 配置の基準値とアニメーションによる時間変化を別責任にし、修正しやすい動き 構造を作るPattern。
 doc_type: pattern
 verification: partial
 aliases: [base value, animation offset, motion offset]
@@ -12,19 +12,19 @@ level: intermediate
 product_scope: fusion
 ---
 
-# Base値とAnimation Offsetを分ける
+# Base値とアニメーション Offsetを分ける
 
-## Problem Family
+## 使う場面（Problem Family）
 
-最終positionを直接Keyframeし続けた結果、layout変更とmotion調整が同じparameterへ混ざり、後から修正しにくくなる問題です。
+最終positionを直接Keyframeし続けた結果、配置変更と動き調整が同じパラメータへ混ざり、後から修正しにくくなる問題です。
 
-## Concepts
+## 前提となる考え方（Concepts）
 
-- [Keyframe / Spline / Time](../../learn/05-time/keyframes-spline-time)
-- [Modifier / Parameter Sources](../../learn/05-time/modifier-parameter-sources)
+- [キーフレーム / スプライン / 時間（Keyframe / Spline / Time）](../../learn/05-time/keyframes-spline-time)
+- [Modifier / パラメータ Sources](../../learn/05-time/modifier-parameter-sources)
 - [Center / Pivot / Size / Angle](../../learn/03-space/center-pivot-size-angle)
 
-## Generic Graph
+## 基本構成（Generic Graph）
 
 ```text
 base layout
@@ -36,42 +36,42 @@ final parameter
 
 実装方法はNode構造やExpression等で変わっても、**静的な基準値と時間変化を別責任にする**ことが中心です。
 
-## Invariant
+## 保つべき条件（Invariant）
 
-- base layoutはanimationの開始frameに依存しない。
-- animationはbaseからの差分として理解できる。
-- layout修正だけでmotion curveを書き直さない。
-- motion調整だけでstatic alignmentを壊さない。
-- source of truthを二重化しない。
+- base 配置はアニメーションの開始フレームに依存しない。
+- アニメーションはbaseからの差分として理解できる。
+- 配置修正だけで動き curveを書き直さない。
+- 動き調整だけでstatic alignmentを壊さない。
+- 基準となる値を二重化しない。
 
-## Variants
+## バリエーション（Variants）
 
 ### Separate Transform
 
-upstream Transformでbase layout、downstream Transformでanimationを持ちます。
+upstream Transformでbase 配置、downstream Transformでアニメーションを持ちます。
 
-### Expression relation
+### Expression 関係
 
-base parameterとanimated offsetを計算で合成します。
+base パラメータとanimated offsetを計算で合成します。
 
 ### User Control
 
-templateではbase / motion amountを意味controlとして分けます。
+templateではbase / 動き amountを意味controlとして分けます。
 
-## Node Choices
+## Nodeの選び方（Node Choices）
 
 Transformを2段に分ける構成は責任を視覚化しやすい候補です。
 
-## Failure Modes
+## 失敗しやすい点（Failure Modes）
 
-- final Centerを直接すべてKeyframeしてlayout修正と競合する。
+- final Centerを直接すべてKeyframeして配置修正と競合する。
 - offset値とabsolute positionを混同する。
-- base / animationを複数Nodeへ重複して持つ。
+- base / アニメーションを複数Nodeへ重複して持つ。
 
-## Recipes Using This Pattern
+## この構成を使う手順（Recipes）
 
 - [TransformをKeyframeで動かす](../../recipes/animation/animate-transform-center)
 
-## Related Node Reference
+## 関連Node
 
 - [Transform](../../nodes/transform/transform)

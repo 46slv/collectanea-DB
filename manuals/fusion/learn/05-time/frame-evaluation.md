@@ -1,6 +1,6 @@
 ---
-title: Frame Evaluation
-description: parameter value・composition time・source time・render requestを分け、Fusionがframeを評価する仕組みを理解する。
+title: フレーム評価（Frame Evaluation）
+description: パラメータ 値・composition time・参照元の時間（参照元 time）・render requestを分け、Fusionがフレームを評価する仕組みを理解する。
 doc_type: concept
 verification: partial
 aliases: [frame evaluation, composition time, render request]
@@ -12,76 +12,76 @@ product_scope: fusion
 suite_surfaces: [fusion]
 ---
 
-# Frame Evaluation
+# フレーム 評価
 
-## Question
+## このページで分かること（Question）
 
-「Nodeに値を設定した」ことと、「そのframeでその値が使われた」ことは同じでしょうか。
+「Nodeに値を設定した」ことと、「そのフレームでその値が使われた」ことは同じでしょうか。
 
-## Mental Model
+## 基本の考え方（Mental Model）
 
 Fusionでは次を分けます。
 
-- **parameter value** — その時点でNode input/controlが返す値。
-- **composition time** — composition上のcurrent frame / time。
-- **source time** — Loader / MediaIn / retime等が参照するsource側時間。
-- **render request** — hostが実際に評価を要求するframe / region / channel。
+- **パラメータ 値** — その時点でNode input/controlが返す値。
+- **composition time** — composition上の現在の フレーム / time。
+- **参照元の時間（参照元 time）** — Loader / MediaIn / retime等が参照する参照元側時間。
+- **render request** — hostが実際に評価を要求するフレーム / region / channel。
 
-Graphはcurrent requestに応じて評価されます。
+Graphは現在の requestに応じて評価されます。
 
-## Minimum Example
+## 最小例（Minimum Example）
 
-1つのanimated parameterを持つNodeを選び、frameを移動します。
+1つのanimated パラメータを持つNodeを選び、フレームを移動します。
 
-同じNodeでもframeごとにparameter valueが変わり、Viewer outputが変化することを確認します。
+同じNodeでもフレームごとにパラメータ 値が変わり、Viewer outputが変化することを確認します。
 
-## Invariants
+## 共通ルール（Invariants）
 
-- stored control値とevaluated valueを分ける。
-- composition timeとsource timeを分ける。
-- rendererが必ずframe 0 → 1 → 2の順で評価すると仮定しない。
-- temporal effectやcustom automationではprevious-frame mutable stateを暗黙に持たせない。
+- stored control値とevaluated 値を分ける。
+- composition timeと参照元の時間（参照元 time）を分ける。
+- rendererが必ずフレーム 0 → 1 → 2の順で評価すると仮定しない。
+- temporal effectやcustom 自動化ではprevious-フレーム mutable stateを暗黙に持たせない。
 
-## Change One Thing
+## 1つだけ変えて確認する（Change One Thing）
 
-current frameだけを変え、Graph接続・parameter sourceは固定します。
+現在の フレームだけを変え、Graph接続・パラメータの供給元は固定します。
 
-## Transfer
+## 他のNodeへ応用する（Transfer）
 
 ### Keyframes
 
-Splineがcurrent timeに対してvalueを供給する層として読めます。
+Splineが現在の timeに対して値を供給する層として読めます。
 
 ### Expressions / Modifiers
 
-static valueではなく別のsourceからparameterが評価されると理解できます。
+固定値ではなく別の参照元からパラメータが評価されると理解できます。
 
 ### Temporal tools
 
-前後frameを必要とする処理では、明示的なtime reference / cache designを確認します。
+前後フレームを必要とする処理では、明示的なtime reference / cache designを確認します。
 
-## Predict
+## 初見Nodeで予測する（Predict）
 
-animation不具合で「値が入っているか」だけでなく、「どのtimeで何がevaluationされたか」を確認できます。
+アニメーション不具合で「値が入っているか」だけでなく、「どのtimeで何が評価されたか」を確認できます。
 
-## Common Misread
+## よくある誤解（Common Misread）
 
 **timelineを順再生したときだけ正しければ、renderでも同じ評価順になる**と考えること。
 
 cache、parallel render、scrub、out-of-order requestがあり得るため、順序依存の暗黙stateは危険です。
 
-## Related Patterns
+## 関連する再利用構成（Patterns）
 
 - [Last Good / First BadでGraphを切る](../../patterns/debugging/last-good-first-bad)
 
-## Node Reference
+## 関連Node
 
 時間依存NodeのReferenceは今後拡張します。
 
-## Next
+## 次に読む
 
-→ [Modifier / Parameter Sources](./modifier-parameter-sources)
+→ [Modifier / パラメータ Sources](./modifier-parameter-sources)
 
 ---
 
-Verification note: parameter value / composition time / source time / render requestの分離とout-of-order evaluation注意はFusion 21系semantic baselineで確認。
+検証メモ: パラメータ 値 / composition time / 参照元の時間（参照元 time） / render requestの分離とout-of-order 評価注意はFusion 21系semantic baselineで確認。

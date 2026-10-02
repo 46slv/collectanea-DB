@@ -1,5 +1,8 @@
 {
-  "label": "Bridges / 他アプリから来た人へ",
+  "label": "他アプリから読み替える（Bridges）",
   "position": 3,
-  "link": {"type": "doc", "id": "fusion/bridges/index"}
+  "link": {
+    "type": "doc",
+    "id": "fusion/bridges/index"
+  }
 }

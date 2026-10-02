@@ -1,6 +1,6 @@
 ---
 title: PrecompとFusionの再利用構造
-description: AE Precompose/Nestingのgoalを、FusionのGroup・Instance・Macro/Template等へ単純等価せず翻訳する。
+description: AE Precompose/Nestingの目的を、FusionのGroup・Instance・Macro/Template等へ単純等価せず翻訳する。
 doc_type: bridge
 verification: partial
 product_scope: resolve
@@ -13,13 +13,13 @@ tasks: [reuse, group, nest, template]
 
 # PrecompとFusionの再利用構造
 
-## If you know After Effects
+## After Effectsで知っている考え方
 
-After EffectsのPrecomposeは、選択Layerを新しいCompositionへまとめ、元CompositionではそのPrecompを1 Layerとして扱うworkflowです。
+After EffectsのPrecomposeは、選択Layerを新しいCompositionへまとめ、元CompositionではそのPrecompを1 Layerとして扱う作業の流れです。
 
-Nested Compositionは別CompositionをLayer sourceとして使います。
+Nested Compositionは別CompositionをLayer 参照元として使います。
 
-## First decision in Resolve
+## Resolveで最初に決めること
 
 AEでPrecompを使っていた理由を先に分類します。
 
@@ -31,7 +31,7 @@ AEでPrecompを使っていた理由を先に分類します。
 
 理由によってResolve / Fusion側の候補は変わります。
 
-## Fusion mental model
+## Fusionでの考え方
 
 Fusion側には目的別の構造があります。
 
@@ -48,19 +48,19 @@ public interface + reusable graph
 
 これらをAE Precompの別名とは扱いません。
 
-## What maps cleanly
+## そのまま活かしやすい考え方
 
-共通するgoal:
+共通する目的:
 
 - complexityを局所化する
-- repeated structureを再利用する
+- repeated 構造を再利用する
 - parent側から扱いやすい単位を作る
 
-## What does not map 1:1
+## そのまま一対一対応しない部分
 
-AE Precompは**新しいCompositionを作り、元Compositionでは1 Layer sourceになる**仕組みです。
+AE Precompは**新しいCompositionを作り、元Compositionでは1 Layer 参照元になる**仕組みです。
 
-Fusion Group / Instance / Macroは、それぞれGraph organization、parameter sharing、packaging/interfaceという別責任を持ちます。
+Fusion Group / Instance / Macroは、それぞれGraph organization、パラメータ sharing、パッケージ化/インターフェースという別責任を持ちます。
 
 したがって:
 
@@ -70,29 +70,29 @@ AE Precomp = Fusion Group
 
 という固定対応は使いません。
 
-## Learn this next
+## 次に読む
 
 - [Instanceで設定を共有する](../../learn/06-reuse/instances)
 - [GroupでGraphをまとめる](../../learn/06-reuse/groups)
 - [Macro / Templateで再利用単位を作る](../../learn/06-reuse/macros-templates)
 
-## Reusable Patterns
+## 関連する再利用構成（Patterns）
 
 - [再利用の境界を選ぶ](../../patterns/reuse/choose-reuse-boundary)
 
-## Relevant Nodes
+## 関連Node
 
 これは単一Nodeの比較ではありません。
 
-## Example tasks
+## 具体例
 
 - [Fusion assetをResolveで再利用する](../../resolve-integration/reusable-fusion-assets)
 
-## Related index entries
+## 関連する索引
 
 - [Concept A–Z](../../index/concept-a-z)
 - [By Task](../../index/by-task)
 
 ---
 
-Verification scope: Adobe current Precomposing documentation confirms selected layers move into a new composition and are replaced by a precomp layer; Fusion reuse structures are described separately by their own canonical pages.
+検証範囲: Adobeの現行Precomposing資料で、選択したLayerが新しいCompositionへ移され、元のCompositionではPrecomp Layerとして扱われることを確認しています。Fusionの再利用構造は別ページで説明します。

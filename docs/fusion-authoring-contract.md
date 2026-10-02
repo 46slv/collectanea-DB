@@ -10,9 +10,35 @@ Updated: 2026-10-02
 各ページ種別は固定した役割と構造を持つ。
 文章そのものは後で増やしてよいが、情報の置き場所は先に揃える。
 
-## Core rule
 
-**1 page = 1 primary job.**
+## Reader-facing language policy
+
+読者向け本文は、英語に慣れていなくても**日本語だけで一読して意味が分かる**ことを基準にする。
+
+- 一般的な説明は日本語を主にする。 `feature parity`、`mental model`、`canonical`、`owner`、`scope`、`workflow` のような執筆側の英語を、そのまま読者へ押し付けない。
+- DaVinci Resolve / Fusion の正式名称、Node名、UI名は英語を維持してよい。例: `Merge`、`Transform`、`MediaIn`、`Viewer`、`Inspector`。
+- 技術用語として英語も覚えてほしいものは、初出で **日本語（English）** と書く。例: `前景（Foreground）`、`背景（Background）`、`入力（Input）`、`出力（Output）`、`データ領域（Data Domain）`。
+- 一度対応関係を示した後は、毎回括弧書きを繰り返さない。読みやすさを優先する。
+- セクション見出しも日本語を先にする。英語を残す場合は補助表記として括弧に入れる。
+- frontmatterのmachine-facing key / facet値は英語のままでよい。読者向けの `title` / `description` / 本文はこの規則に従う。
+
+悪い例:
+
+```text
+この章はfeature parity表ではありません。
+どこをcanonical ownerにするとworkflowが読みやすいか判断します。
+```
+
+良い例:
+
+```text
+この章は、他のアプリとFusionの機能を一対一で対応させる表ではありません。
+どのページを説明の正本にすると、作業の流れが分かりやすいかを判断します。
+```
+
+## 基本原則（Core Rule）
+
+**1ページ = 1つの主な役割。**
 
 混ぜないもの:
 
@@ -37,35 +63,35 @@ Required structure:
 ```
 # Concept name
 
-## Question
+## このページで分かること（Question）
 このページで何を理解するか。
 
-## Mental Model
+## 基本の考え方（Mental Model）
 一番重要なモデル。
 
-## Minimum Example
+## 最小例（Minimum Example）
 最小Graph / 最小観察。
 
-## Invariants
+## 共通ルール（Invariants）
 Nodeが変わっても残るルール。
 
-## Change One Thing
+## 1つだけ変えて確認する（Change One Thing）
 1つだけparameter / connectionを変え、結果を観察。
 
-## Transfer
+## 他のNodeへ応用する（Transfer）
 ### Node / Family A
 ### Node / Family B
 ### Node / Family C
 
-## Predict
+## 初見Nodeで予測する（Predict）
 初見Nodeで何を予測できるか。
 
-## Common Misread
+## よくある誤解（Common Misread）
 誤解しやすいポイント。
 
-## Related Patterns
-## Node Reference
-## Next
+## 関連する再利用構成（Patterns）
+## 関連Node
+## 次に読む
 ```
 
 Transferは任意の「関連Node一覧」ではない。
@@ -90,35 +116,35 @@ Required structure:
 ```
 # Pattern name
 
-## Problem Family
+## 使う場面（Problem Family）
 どの種類の問題に使うか。
 
-## Concepts
+## 前提となる概念（Concepts）
 前提となるConcept。
 
-## Generic Graph
+## 基本構造（Generic Graph）
 Node名へ依存しすぎない構造。
 
-## Invariant
+## 守る原則（Invariant）
 構成を変えても残す条件。
 
-## Variants
+## バリエーション（Variants）
 ### Variant A
 ### Variant B
 ### Variant C
 
-## Node Choices
+## ノードの選び方（Node Choices）
 Node familyごとの差。
 
-## Failure Modes
+## よくある失敗（Failure Modes）
 
-## Recipes Using This Pattern
-## Related Node Reference
+## このパターンを使うレシピ（Recipes）
+## 関連ノード（Node Reference）
 ```
 
 Patternは「最終成果物の作り方」ではなく「再利用できる構造」を所有する。
 
-## Node Reference template
+## 関連Node template
 
 Path:
 `manuals/fusion/nodes/<family>/<node>.md`
@@ -154,7 +180,7 @@ One-sentence description.
 ## Minimal Examples
 
 ## Related Concepts
-## Related Patterns
+## 関連する再利用構成（Patterns）
 ## Similar / Adjacent Nodes
 ## Version / Verification Notes
 ```
@@ -178,21 +204,21 @@ Required structure:
 ```
 # Goal
 
-## Result
+## 作るもの（Result）
 
-## Requirements
+## 必要なもの（Requirements）
 
-## Steps
+## 手順（Steps）
 
-## Why This Works
+## なぜこの構成で動くか（Why This Works）
 短く説明し、Conceptへlink。
 
-## Variants / Alternatives
+## バリエーション（Variants） / Alternatives
 
-## Failure Checks
+## うまくいかないときの確認（Failure Checks）
 
-## Related Pattern
-## Related Nodes
+## 関連パターン（Related Pattern）
+## 関連ノード（Related Nodes）
 ```
 
 Recipeに長い概念講義を書かない。
@@ -210,25 +236,25 @@ Required structure:
 ```
 # Symptom
 
-## Fast Checks
+## まず確認すること（Fast Checks）
 最初の数十秒で確認するもの。
 
-## Isolate
+## 原因を切り分ける（Isolate）
 問題範囲を小さくする手順。
 
-## Likely Causes
+## 主な原因（Likely Causes）
 ### Cause A
 ### Cause B
 ...
 
-## Fix
+## 修正方法（Fix）
 
-## Why
+## なぜ起きるか（Why）
 Conceptへlink。
 
-## Version / Exception Notes
+## バージョン・例外（Version / Exception Notes）
 
-## Related Symptoms
+## 関連する症状（Related Symptoms）
 ```
 
 ## Start Here page template

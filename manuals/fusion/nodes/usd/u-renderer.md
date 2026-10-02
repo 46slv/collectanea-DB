@@ -19,37 +19,37 @@ suite_surfaces: [fusion]
 
 USD sceneをrenderし、2D ImageやAOVへ変換するUSD pipelineのRenderer Nodeです。
 
-## At a Glance
+## 概要（At a Glance）
 
-- **Family**: USD / Render
-- **Input domain**: USD scene
-- **Output domain**: 2D Image / AOV
-- **Core concepts**: USD、Hydra、domain conversion
-- **Common tasks**: USD sceneを通常の2D compositingへ戻す
+- **分類（Family）**: USD / Render
+- **入力データ（Input domain）**: USD scene
+- **出力データ（Output domain）**: 2D Image / AOV
+- **関連概念（Core concepts）**: USD、Hydra、domain conversion
+- **よく使う作業（Common tasks）**: USD sceneを通常の2D 合成へ戻す
 
-## Inputs
+## 入力（Inputs）
 
 ### USD scene
 
 uMerge、uLoader、uShape等で構成したUSD sceneを受け取ります。
 
-## Output
+## 出力（Output）
 
 2D Imageおよびrendererが提供するAOVを扱う系統です。
 
 Resolve 21系ではUSD SDK 25.11 / Hydra 2.0 Storm対応と、camera-relative normalのNeye AOV追加が公式version資料に記録されています。
 
-## Controls
+## 主な設定項目（Controls）
 
-renderer / camera / AOV / render quality等のcontrolがありますが、21.1 exact control surfaceは未検証です。
+renderer / camera / AOV / render quality等のcontrolがありますが、21.1 正確な設定項目は未検証です。
 
-## Behavior / Notes
+## 挙動と注意点（Behavior / Notes）
 
 uRendererは**USD scene → 2D Image / AOV**のdomain boundaryです。
 
 Classic Fusion 3D用Renderer 3Dとは別Nodeです。
 
-## Minimal Examples
+## 最小例（Minimal Examples）
 
 ```text
 uShape / uLoader
@@ -61,20 +61,20 @@ uShape / uLoader
 2D Image / AOV
 ```
 
-## Related Concepts
+## 関連する考え方（Concepts）
 
-- [Data domainを辿って診断する](../../learn/07-debugging/trace-data-domain)
+- [データ領域（data domain）を辿って診断する](../../learn/07-debugging/trace-data-domain)
 
-## Related Patterns
+## 関連する再利用構成（Patterns）
 
 USD Patternは今後追加します。
 
-## Similar / Adjacent Nodes
+## 似たNode・関連Node
 
 - Renderer 3D — Classic Fusion 3D
 - pRender — Particle set
 - sRender — Shape domain
 
-## Version / Verification Notes
+## バージョンと検証状況
 
-uRendererはResolve 18.5以降のUSD toolsetとして確認され、Resolve 21でUSD SDK 25.11 / Hydra 2.0 Storm・Neye AOVの更新が公式version資料系で確認されています。21.1 exact controlsは未検証です。
+uRendererはResolve 18.5以降のUSD toolsetとして確認され、Resolve 21でUSD SDK 25.11 / Hydra 2.0 Storm・Neye AOVの更新が公式バージョン資料で確認されています。Fusion 21.1での正確な設定項目は未検証です。

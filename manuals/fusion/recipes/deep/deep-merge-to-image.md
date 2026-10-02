@@ -1,6 +1,6 @@
 ---
-title: Deep compositeを2Dへ戻す
-description: dMergeでDeep compositingを行い、Deep to Imageで通常の2D Imageへflattenする最小Recipe。
+title: Deep 合成を2Dへ戻す
+description: dMergeでDeep 合成を行い、Deep to Imageで通常の2D Imageへflattenする最小Recipe。
 doc_type: recipe
 verification: partial
 aliases: [deep merge, deep flatten]
@@ -13,20 +13,20 @@ level: advanced
 product_scope: fusion
 ---
 
-# Deep compositeを2Dへ戻す
+# Deep 合成を2Dへ戻す
 
-## Result
+## 作るもの（Result）
 
-Deep image同士のcompositingをDeep domainで行い、必要な段階で通常の2D Imageへ戻します。
+Deep image同士の合成をDeep domainで行い、必要な段階で通常の2D Imageへ戻します。
 
-## Requirements
+## 必要なもの（Requirements）
 
 - Deep image A
 - Deep image B
 - dMerge
 - Deep to Image
 
-## Steps
+## 手順（Steps）
 
 1. Deep image A / BをdMergeへ接続します。
 2. dMerge outputがDeep imageであることを前提に、Deep処理を完了します。
@@ -39,26 +39,26 @@ Deep A ─┐
 Deep B ─┘
 ```
 
-## Why This Works
+## なぜこの構成で動くか（Why This Works）
 
-dMergeはDeep samplesを保つcompositingを行い、Deep to Imageがflatten boundaryを担当します。
+dMergeはDeep samplesを保つ合成を行い、Deep to Imageがflatten boundaryを担当します。
 
-## Variants / Alternatives
+## 別の方法（Variants / Alternatives）
 
 Deep domain内ではdTransform / dResize / dRecolor等の専用Nodeを使う構成があります。
 
-## Failure Checks
+## うまくいかないときの確認（Failure Checks）
 
 - dMergeへ通常2D Imageを直接渡す前提にしていないか。
 - Deep to Imageより前にDeep固有処理を終えているか。
 - flatten後もDeep sample情報が残ると考えていないか。
 - 通常MergeとdMergeの用途を混同していないか。
 
-## Related Pattern
+## 関連パターン（Related Pattern）
 
 - [特殊domainのまま処理し、必要な境界で2Dへ戻す](../../patterns/data-domain/defer-domain-conversion)
 
-## Related Nodes
+## 関連ノード（Related Nodes）
 
 - [dMerge](../../nodes/deep/d-merge)
 - [Deep to Image](../../nodes/deep/deep-to-image)

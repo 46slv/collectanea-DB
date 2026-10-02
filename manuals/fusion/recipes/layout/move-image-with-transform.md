@@ -1,6 +1,6 @@
 ---
 title: TransformでImageを移動する
-description: Transformを独立したlayout責任として挿入し、Imageのpositionを調整する最小Recipe。
+description: Transformを独立した配置責任として挿入し、Imageのpositionを調整する最小Recipe。
 doc_type: recipe
 verification: unverified
 aliases: [move image, position image]
@@ -15,18 +15,18 @@ product_scope: fusion
 
 # TransformでImageを移動する
 
-> Centerのexact 21.1 numeric space / defaultはcurrent manual / host verification待ちです。
+> Centerの正確な 21.1 numeric space / 初期値は現在の manual / ホスト上での確認待ちです。
 
-## Result
+## できあがるもの（Result）
 
-Imageの処理branchへTransformを追加し、position責任を独立させます。
+Imageの処理分岐へTransformを追加し、position責任を独立させます。
 
-## Requirements
+## 必要なもの（Requirements）
 
 - 2D Image
 - Transform
 
-## Steps
+## 手順（Steps）
 
 1. 移動したいImageのdownstreamへTransformを追加します。
 2. Transform outputをViewerへ表示します。
@@ -37,32 +37,32 @@ Imageの処理branchへTransformを追加し、position責任を独立させま�
 Image → Transform → downstream
 ```
 
-## Why This Works
+## なぜこの構成にするか（Why This Works）
 
-Imageの生成／合成と位置調整を別Nodeへ分離すると、layout責任を読みやすくできます。
+Imageの生成／合成と位置調整を別Nodeへ分離すると、配置責任を読みやすくできます。
 
-→ [Normalized Coordinates](../../learn/03-space/normalized-coordinates)
+→ [正規化座標（Normalized Coordinates）](../../learn/03-space/normalized-coordinates)
 
-## Variants / Alternatives
+## 別のやり方（Variants / Alternatives）
 
 - Merge側のtransform controlsを使う構成。
 - 複数要素のpositionを共有する構成。
 - Resizeでresolution自体を変更する構成。
 
-見た目が似てもresponsibilityは同じではありません。
+見た目が似ても役割は同じではありません。
 
-## Failure Checks
+## うまくいかないときの確認（Failure Checks）
 
 - ViewerはTransform outputを見ているか。
-- Imageがframe外へ出ただけか、pixelがclipされたか。
+- Imageがフレーム外へ出ただけか、ピクセルがclipされたか。
 - positionとPivotを混同していないか。
 - ResizeとTransform Sizeを同じ操作だと思っていないか。
 
-## Related Pattern
+## 関連する再利用構成（Pattern）
 
 - [複数要素の位置関係を共有する](../../patterns/transform/share-position-across-elements)
 
-## Related Nodes
+## 関連Node
 
 - [Transform](../../nodes/transform/transform)
 - [Resize](../../nodes/transform/resize)

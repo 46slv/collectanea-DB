@@ -15,25 +15,25 @@ product_scope: fusion
 
 # 2つのTransform位置を連動する
 
-> exact Expression syntaxはFusion 21.1 current Manual / host verification待ちです。このRecipeはmaster/follower structureを正本とします。
+> 正確な Expression syntaxはFusion 21.1 現在の Manual / ホスト上での確認待ちです。このRecipeはmaster/follower 構造を正本とします。
 
-## Result
+## できあがるもの（Result）
 
 Transform Aのpositionを変更すると、Transform Bも同じposition関係を保つ構造を作ります。
 
-## Requirements
+## 必要なもの（Requirements）
 
 - Transform A
 - Transform B
-- parameter linking method
+- パラメータ linking method
 
-## Steps
+## 手順（Steps）
 
 1. Transform Aをmasterと決めます。
 2. Transform Bをfollowerと決めます。
-3. followerのposition sourceをmasterへ向けます。
+3. followerのposition 参照元をmasterへ向けます。
 4. masterだけを変更し、followerが追従することを確認します。
-5. local offsetが必要なら、master relationとは別にoffsetを持たせます。
+5. 個別オフセットが必要なら、master 関係とは別にoffsetを持たせます。
 
 ```text
 Transform A.Center = master
@@ -43,29 +43,29 @@ Transform B.Center
   + optional offset
 ```
 
-## Why This Works
+## なぜこの構成にするか（Why This Works）
 
-値そのものを複製するのではなく、parameter ownershipとrelationを1箇所へ集約します。
+値そのものを複製するのではなく、パラメータの管理関係と関係を1箇所へ集約します。
 
-## Variants / Alternatives
+## 別のやり方（Variants / Alternatives）
 
-- exact follow
+- 正確な follow
 - Xだけ共有
 - Yだけ共有
-- local offset付き
+- 個別オフセット付き
 - User Controlをmasterにする
 
-## Failure Checks
+## うまくいかないときの確認（Failure Checks）
 
-- master / followerが逆転していないか。
+- 親（Master）/ 追従（Follower）が逆転していないか。
 - circular referenceになっていないか。
 - Point / scalar typeを混同していないか。
-- Node rename後にreferenceが切れていないか。
+- Node名の変更後にreferenceが切れていないか。
 
-## Related Pattern
+## 関連する再利用構成（Pattern）
 
-- [Master / Follower parameterを作る](../../patterns/automation/master-follower-parameters)
+- [親・追従パラメータ（Master / Follower）を作る](../../patterns/automation/master-follower-parameters)
 
-## Related Nodes
+## 関連Node
 
 - [Transform](../../nodes/transform/transform)

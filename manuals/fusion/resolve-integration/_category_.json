@@ -1,5 +1,8 @@
 {
-  "label": "Resolve Integration",
+  "label": "Resolveとの連携（Resolve Integration）",
   "position": 2,
-  "link": {"type": "doc", "id": "fusion/resolve-integration/index"}
+  "link": {
+    "type": "doc",
+    "id": "fusion/resolve-integration/index"
+  }
 }

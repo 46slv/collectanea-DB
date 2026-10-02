@@ -1,6 +1,6 @@
 ---
-title: Master / Follower parameterを作る
-description: 1つのmaster valueから複数parameterを派生させ、同期と個別offsetを両立するPattern。
+title: 親・追従パラメータ（Master / Follower）を作る
+description: 1つの親の値（master）から複数の追従パラメータ（follower）を派生させ、同期と個別オフセットを両立するパターン。
 doc_type: pattern
 verification: partial
 aliases: [master follower, linked parameters, derived values]
@@ -12,19 +12,19 @@ level: intermediate
 product_scope: fusion
 ---
 
-# Master / Follower parameterを作る
+# 親・追従パラメータ（Master / Follower）を作る
 
-## Problem Family
+## 使う場面（Problem Family）
 
 複数Nodeへ同じ値や比率を手入力し、片方を修正するたびに他がずれる問題です。
 
-## Concepts
+## 前提となる考え方（Concepts）
 
 - [Expressions](../../learn/05-time/expressions)
 - [Modifier / Parameter Sources](../../learn/05-time/modifier-parameter-sources)
 - [User Controlsで公開interfaceを作る](../../learn/06-reuse/user-controls)
 
-## Generic Graph
+## 基本構成（Generic Graph）
 
 ```text
 master value
@@ -33,51 +33,51 @@ master value
   └─ follower C = master * ratio
 ```
 
-## Invariant
+## 保つべき条件（Invariant）
 
-- masterは1つ。
-- followerは関係だけを持つ。
-- offset / ratioを意味のあるparameterとして分離する。
-- type compatibilityを確認する。
-- circular dependencyを作らない。
+- 親（Master）は1つ。
+- 追従側（Follower）は親との関係だけを持つ。
+- オフセット（Offset）/ 比率（Ratio）は意味のあるパラメータとして分離する。
+- 型の互換性を確認する。
+- 循環参照を作らない。
 
-## Variants
+## バリエーション（Variants）
 
-### Exact follow
+### 完全追従
 
-masterと同じ値を使います。
+親（Master）と同じ値を使います。
 
-### Offset follow
+### オフセット追従
 
-master + local offset。
+親（Master）+ 個別オフセット。
 
-### Ratio follow
+### 比率追従
 
-master × ratio。
+親（Master）× 比率（Ratio）。
 
-### Indexed follow
+### インデックス追従
 
 index / countから規則的な値を派生させます。
 
-## Node Choices
+## Nodeの選び方（Node Choices）
 
 Expressionを使えるcontrol全般へ適用できます。
 
 複雑な再利用GraphではUser Controlsをmasterとして使う構成もあります。
 
-## Failure Modes
+## 失敗しやすい点（Failure Modes）
 
-- follower同士が相互参照する。
-- masterが複数存在する。
+- 追従側（Follower）同士が相互参照する。
+- 親（Master）が複数存在する。
 - Pointとscalarを混同する。
-- Node renameでreference pathが壊れる。
-- local offsetをmasterへ戻して責任が混ざる。
+- Node名の変更で参照パスが壊れる。
+- 個別オフセットを親（Master）側へ戻して役割が混ざる。
 
-## Recipes Using This Pattern
+## この構成を使う手順（Recipes）
 
 - [2つのTransform位置を連動する](../../recipes/automation/link-transform-centers)
 - [複数要素を等間隔に配置する考え方](../../recipes/automation/equal-spacing-by-index)
 
-## Related Node Reference
+## 関連Node
 
 - [Transform](../../nodes/transform/transform)

@@ -1,6 +1,6 @@
 ---
 title: 接続できるdata / 接続できないdata
-description: Image・Mask・Shape・Particle・3D・USD・Deep・parameterのdomain compatibilityから接続可否を読む。
+description: Image・Mask・Shape・Particle・3D・USD・Deep・パラメータのdomain compatibilityから接続可否を読む。
 doc_type: concept
 verification: partial
 aliases: [connection compatibility, port type, data type]
@@ -13,13 +13,13 @@ product_scope: fusion
 
 # 接続できるdata / 接続できないdata
 
-## Question
+## このページで分かること（Question）
 
 なぜ一部のNode同士は直接接続できず、rendererやconverterが必要なのでしょうか。
 
-## Mental Model
+## 基本の考え方（Mental Model）
 
-FusionではOutputとInputが受け渡す**data domain**がcompatibleである必要があります。
+FusionではOutputとInputが受け渡す**データ領域（data domain）**がcompatibleである必要があります。
 
 ```text
 Output domain
@@ -39,9 +39,9 @@ Input domain
 - Classic 3D scene
 - USD scene
 - Deep image
-- scalar / Point / text parameter
+- scalar / Point / text パラメータ
 
-## Minimum Example
+## 最小例（Minimum Example）
 
 Shape:
 
@@ -51,23 +51,23 @@ sEllipse → sRender → Merge
 
 sEllipseのShape streamを通常Mergeへ直接Imageとして渡すのではなく、sRenderで2D Imageへ変換します。
 
-## Invariants
+## 共通ルール（Invariants）
 
 - Node名だけで接続可否を推測しない。
 - port colorだけを型の唯一根拠にしない。
-- specialized domainにはdomain-specific processingがある。
-- renderer / converterは明示的なdomain boundary。
+- specialized domainにはdomain-specific 処理がある。
+- Renderer / Converterは、データ領域を切り替える明示的な境界です。
 - conversion後に失われる情報を意識する。
 
-## Change One Thing
+## 1つだけ変えて確認する（Change One Thing）
 
 接続できない2 Nodeについて、upstream Output domainとdownstream Input domainだけを書き出します。
 
-## Transfer
+## 他のNodeへ応用する（Transfer）
 
 ### Particle
 
-pEmitter → particle processing → pRender → 2D。
+pEmitter → particle 処理 → pRender → 2D。
 
 ### Classic 3D
 
@@ -81,24 +81,24 @@ uMerge → uRenderer → 2D / AOV。
 
 dMerge → Deep to Image → 2D。
 
-## Predict
+## 初見Nodeで予測する（Predict）
 
 初見Node同士を接続する前に「converterが必要か」を予測できます。
 
-## Common Misread
+## よくある誤解（Common Misread）
 
 **名前が似たMergeなら同じdomainを扱う**と考えること。
 
 Merge / Merge 3D / uMerge / dMerge / sMergeは別domainです。
 
-## Related Patterns
+## 関連する再利用構成（Patterns）
 
 - [特殊domainのまま処理し、必要な境界で2Dへ戻す](../../patterns/data-domain/defer-domain-conversion)
 
-## Node Reference
+## 関連Node
 
 - [Connection / Data Types](../../index/connection-data-types)
 
-## Next
+## 次に読む
 
-→ [Normalized Coordinates](../03-space/normalized-coordinates)
+→ [正規化座標（Normalized Coordinates）](../03-space/normalized-coordinates)

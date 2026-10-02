@@ -13,17 +13,17 @@ tasks: [debug, inspect-output, translate-mental-model]
 
 # Node GraphとViewer
 
-## If you know Nuke
+## Nukeで知っている考え方
 
 NukeではNode Graphの任意Node outputをViewerへ接続し、tree途中の結果を確認できます。
 
 Group内のNodeもGroup View等から編集・Viewer接続できます。
 
-## First decision in Resolve
+## Resolveで最初に決めること
 
 Fusionへ入ったら、Timeline layer stackへ戻して考えるより、Nukeと同じくGraphのdata flowを先に読みます。
 
-## Fusion mental model
+## Fusionでの考え方
 
 ```text
 source
@@ -33,44 +33,44 @@ source
   → output
 ```
 
-選択NodeをViewerへ送り、中間結果を観察するdebugging habitはFusionでもそのまま役立ちます。
+選択NodeをViewerへ送り、中間結果を観察する診断 habitはFusionでもそのまま役立ちます。
 
-## What maps cleanly
+## そのまま活かしやすい考え方
 
-- explicit node connections
-- branch-based compositing
+- 明示的なNode接続
+- 分岐-based 合成
 - intermediate Viewer inspection
 - Groupで複雑さを局所化する
-- Mergeで複数Imageをcompositeする
+- Mergeで複数Imageを合成する
 
-## What does not map 1:1
+## そのまま一対一対応しない部分
 
 - node class / input namingは同一ではない。
 - shortcut / scripting identityを移植しない。
 - Nuke Viewer controlsとFusion Viewer UIを同一操作として扱わない。
 - Group implementation / saved-tool formatは別。
 
-## Learn this next
+## 次に読む
 
 - [Graphとして考える](../../learn/01-flow/graph-as-flow)
-- [Branchを分離して原因範囲を狭める](../../learn/07-debugging/isolate-branches)
+- [分岐を分離して原因範囲を狭める](../../learn/07-debugging/isolate-branches)
 
-## Reusable Patterns
+## 関連する再利用構成（Patterns）
 
 - [Last Good / First BadでGraphを切る](../../patterns/debugging/last-good-first-bad)
 
-## Relevant Nodes
+## 関連Node
 
 - [Merge](../../nodes/compositing/merge)
 
-## Example tasks
+## 具体例
 
 - [Viewerに何も表示されない](../../troubleshooting/viewer/nothing-visible)
 
-## Related index entries
+## 関連する索引
 
 - [By Symptom](../../index/by-symptom)
 
 ---
 
-Verification scope: Foundry current Viewer documentation confirms node-output-to-Viewer inspection; Fusion Viewer behavior is owned by canonical Fusion pages.
+検証範囲: Foundryの現行Viewer資料でNode出力をViewerで確認する考え方を確認しています。Fusion Viewerの具体的な挙動はFusionの正本ページを基準にします。

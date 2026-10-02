@@ -19,29 +19,29 @@ suite_surfaces: [fusion]
 
 複数のClassic Fusion 3D scene / object streamを統合するNodeです。
 
-## At a Glance
+## 概要（At a Glance）
 
-- **Family**: 3D
-- **Input domain**: Classic 3D scene
-- **Output domain**: Classic 3D scene
-- **Core concepts**: scene graph、typed data
-- **Common tasks**: geometry / camera / light等を1 sceneへまとめる
+- **分類（Family）**: 3D
+- **入力データ（Input domain）**: Classic 3D scene
+- **出力データ（Output domain）**: Classic 3D scene
+- **関連概念（Core concepts）**: scene graph、typed data
+- **よく使う作業（Common tasks）**: geometry / camera / light等を1 sceneへまとめる
 
-## Inputs
+## 入力（Inputs）
 
-複数のClassic 3D scene / object inputを受ける系統です。exact dynamic input behaviorは21.1で確認します。
+複数のClassic 3D scene / object inputを受ける系統です。動的入力（dynamic input）の正確な挙動は21.1で確認します。
 
-## Output
+## 出力（Output）
 
 統合したClassic 3D sceneを返します。
 
 2D Imageではありません。
 
-## Controls
+## 主な設定項目（Controls）
 
-3D sceneのmerge / ordering / lighting関連controlがある場合も、exact 21.1 UIを確認してから固定します。
+3D sceneのmerge / ordering / lighting関連controlがある場合も、正確な 21.1 UIを確認してから固定します。
 
-## Behavior / Notes
+## 挙動と注意点（Behavior / Notes）
 
 ```text
 3D object ─┐
@@ -49,27 +49,27 @@ Camera ────┼─ Merge 3D → Renderer 3D → 2D Image
 Light ─────┘
 ```
 
-Merge 3Dと2D Mergeは名前が似てもdata domainが異なります。
+Merge 3Dと2D Mergeは名前が似てもデータ領域（data domain）が異なります。
 
-## Minimal Examples
+## 最小例（Minimal Examples）
 
 Classic 3D objectsをMerge 3Dへまとめ、Renderer 3Dで2D Imageへ変換します。
 
-## Related Concepts
+## 関連する考え方（Concepts）
 
-- [Data domainを辿って診断する](../../learn/07-debugging/trace-data-domain)
+- [データ領域（data domain）を辿って診断する](../../learn/07-debugging/trace-data-domain)
 
-## Related Patterns
+## 関連する再利用構成（Patterns）
 
 3D Patternは今後追加します。
 
-## Similar / Adjacent Nodes
+## 似たNode・関連Node
 
-- Merge — 2D Image compositing
+- Merge — 2D Image 合成
 - uMerge — USD scene
 - dMerge — Deep image
 - sMerge — Shape stream
 
-## Version / Verification Notes
+## バージョンと検証状況
 
-Merge 3Dのidentityと複数3D scene/object統合という役割はlegacy-primary Fusion referenceで確認。
+Merge 3Dの存在と複数3D scene/object統合という役割は旧版のBlackmagic Design公式Fusion資料で確認。

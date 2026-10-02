@@ -1,5 +1,5 @@
 ---
-title: Start Here
+title: はじめに（Start Here）
 description: Fusion日本語リファレンスの読み方と、最初に選ぶ入口。
 doc_type: start
 verification: partial
@@ -10,13 +10,13 @@ product_scope: fusion
 slug: /fusion/getting-started
 ---
 
-# Start Here
+# はじめに（Start Here）
 
-## What you will be able to do
+## このページでできるようになること
 
-このマニュアルのどこを順番に読み、どこを作業中のlookupに使うかを選べるようになります。
+このマニュアルのどこを順番に読み、どこを作業中の参照に使うかを選べるようになります。
 
-## Do this
+## まずやること
 
 最初に目的を選びます。
 
@@ -54,21 +54,21 @@ Nodeを見たときの読み方を先に知りたい場合:
 
 → [Nodeを読む](./start/read-a-node)
 
-## What to notice
+## 見るポイント
 
 このマニュアルでは、同じ説明を複数ページへ複製しません。
 
 たとえば:
 
-- Normalized Coordinatesの一般則 → Learn
-- Transform固有control → Node Reference
-- 複数要素を同期する構成 → Patterns
-- 「Transform後に端が消える」 → Troubleshooting
+- Normalized Coordinatesの一般則 → 学ぶ（Learn）
+- Transform固有control → ノードリファレンス（Node Reference）
+- 複数要素を同期する構成 → パターン（Patterns）
+- 「Transform後に端が消える」 → トラブルシューティング（Troubleshooting）
 - AEのPosition経験からの入口 → Bridge
 
-というように、1つのclaimに1つのcanonical ownerを持たせます。
+というように、1つの説明内容に1つの正本を持たせます。
 
-## Where to go next
+## 次に読む
 
 Fusionを初めてNode Graphとして読む場合:
 
@@ -80,4 +80,4 @@ Resolve全体の中でFusionを使う判断から始める場合:
 
 ---
 
-この資料はBlackmagic Design公式マニュアルを置き換えるものではありません。技術claimはページごとに `verified / partial / unverified` を明示し、未検証の内容を確定仕様として扱いません。
+この資料はBlackmagic Design公式マニュアルを置き換えるものではありません。技術的な記述はページごとに `verified / partial / unverified` を明示し、未検証の内容を確定仕様として扱いません。

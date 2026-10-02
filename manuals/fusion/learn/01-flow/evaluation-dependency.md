@@ -13,13 +13,13 @@ product_scope: fusion
 
 # Graphが評価される依存関係
 
-## Question
+## このページで分かること（Question）
 
 FlowにNodeが並んでいるとき、常に左から右へ全Nodeが同じように実行されるのでしょうか。
 
-## Mental Model
+## 基本の考え方（Mental Model）
 
-Fusionを、**downstream resultに必要なupstream dataを依存関係に従って評価するGraph**として考えます。
+Fusionを、**downstream 結果に必要なupstream dataを依存関係に従って評価するGraph**として考えます。
 
 ```text
 requested output
@@ -33,57 +33,57 @@ Node A
 
 Nodeの画面位置や作成順より、connectionとrender requestが重要です。
 
-## Minimum Example
+## 最小例（Minimum Example）
 
-branchが2本あるFlowで、一方だけがMediaOutへ繋がっている状態を考えます。
+分岐が2本あるFlowで、一方だけがMediaOutへ繋がっている状態を考えます。
 
 「Flowに存在する」ことと「現在のOutput計算に必要」ということを分けます。
 
-## Invariants
+## 共通ルール（Invariants）
 
 - connectionがdependencyを作る。
-- current Viewer / MediaOut / render requestによって必要stageが決まる。
-- frame/timeもevaluation条件の一部。
-- rendererが常にframe順に評価するとは仮定しない。
-- performanceを見るときも「Node数」より実際に要求されるdata / region / frameを考える。
+- 現在の Viewer / MediaOut / render requestによって必要段階が決まる。
+- フレーム/timeも評価条件の一部。
+- rendererが常にフレーム順に評価するとは仮定しない。
+- 性能を見るときも「Node数」より実際に要求されるdata / region / フレームを考える。
 
-## Change One Thing
+## 1つだけ変えて確認する（Change One Thing）
 
-unused branchをMediaOut側へ接続／切断し、どのresultが依存するかを比較します。
+unused 分岐をMediaOut側へ接続／切断し、どの結果が依存するかを比較します。
 
-## Transfer
+## 他のNodeへ応用する（Transfer）
 
-### Animation
+### アニメーション
 
-current frameによってparameter evaluationが変わります。
+現在の フレームによってパラメータ 評価が変わります。
 
 ### DoD / RoI
 
-必要なImage regionがevaluation範囲に影響します。
+必要なImage regionが評価範囲に影響します。
 
 ### Specialized domain
 
 renderer / converterまでdomain dependencyを維持します。
 
-## Predict
+## 初見Nodeで予測する（Predict）
 
-「Flowにあるのに効かない」「一部branchだけ重い」等の症状で、connection / request / current timeを確認できます。
+「Flowにあるのに効かない」「一部分岐だけ重い」等の症状で、connection / request / 現在の timeを確認できます。
 
-## Common Misread
+## よくある誤解（Common Misread）
 
 **NodeがFlowに置かれていれば必ず最終Outputへ影響する**と考えること。
 
 Outputへのdependency chainに入っているかを確認します。
 
-## Related Patterns
+## 関連する再利用構成（Patterns）
 
 - [Last Good / First BadでGraphを切る](../../patterns/debugging/last-good-first-bad)
 
-## Node Reference
+## 関連Node
 
 - [MediaOut](../../nodes/utility-io/media-out)
 
-## Next
+## 次に読む
 
 時間方向の評価:
-→ [Frame Evaluation](../05-time/frame-evaluation)
+→ [フレーム 評価](../05-time/frame-evaluation)

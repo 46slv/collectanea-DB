@@ -14,11 +14,11 @@ suite_surfaces: [fusion, edit]
 
 # Macro / Templateで再利用単位を作る
 
-## Question
+## このページで分かること（Question）
 
 複数Nodeで作った処理を、別のcompositionやEdit Pageから使える「操作単位」にするには、何を固定し何を公開すればよいでしょうか。
 
-## Mental Model
+## 基本の考え方（Mental Model）
 
 Macro / Templateは、**Graph内部の実装をbundle化し、利用者へ必要なinput / output / controlだけを公開する**再利用境界です。
 
@@ -36,7 +36,7 @@ Template when exposed to Resolve workflows
 
 Blackmagic Designの現行DaVinci Resolve Fusionページでは、複数Nodeを選択してMacroを作成し、Edit Pageへ表示するcontrolを指定して独自templateとして再利用できることが案内されています。Resolve 21の新機能ページでもMacro EditorのInspector view更新が案内されています。
 
-## Minimum Example
+## 最小例（Minimum Example）
 
 ```text
 Text+ → Transform → Merge
@@ -50,37 +50,37 @@ Text+ → Transform → Merge
 - color
 - position
 
-だけなら、内部の全parameterを公開せず、この3つをpublic interfaceとして選びます。
+だけなら、内部の全パラメータを公開せず、この3つをpublic インターフェースとして選びます。
 
-## Invariants
+## 共通ルール（Invariants）
 
-- 再利用単位のGoalを1文で説明できる。
+- 再利用単位の目的を1文で説明できる。
 - 公開controlは利用者の意思を表す。
-- 内部Nodeの変更が外部interfaceを不用意に壊さない。
+- 内部Nodeの変更が外部インターフェースを不用意に壊さない。
 - MacroにすることとEdit Page用Templateとして配布することを分けて考える。
-- 保存場所・template種別・host境界はversion依存なのでcurrent manualを確認する。
+- 保存場所・template種別・host境界はversion依存なので現在の manualを確認する。
 
-## Change One Thing
+## 1つだけ変えて確認する（Change One Thing）
 
-内部Nodeを1つ変更し、public interfaceを変えずに結果だけ改善できるか考えます。
+内部Nodeを1つ変更し、public インターフェースを変えずに結果だけ改善できるか考えます。
 
-それが可能なら、Macro境界が内部実装と利用interfaceを分離できています。
+それが可能なら、Macro境界が内部実装と利用インターフェースを分離できています。
 
-## Transfer
+## 他のNodeへ応用する（Transfer）
 
 ### Titles
 
-Styled Textや色、layoutだけを公開し、内部animation graphを隠せます。
+Styled Textや色、配置だけを公開し、内部アニメーション graphを隠せます。
 
 ### Generators
 
-背景やgraphic systemの意味parameterだけを公開できます。
+背景やgraphic systemの意味パラメータだけを公開できます。
 
 ### Transitions
 
 transitionの内部処理をbundle化し、Edit Pageへ必要なcontrolだけを露出できます。
 
-## Predict
+## 初見Nodeで予測する（Predict）
 
 Macro化する前に次を決められます。
 
@@ -90,24 +90,24 @@ Macro化する前に次を決められます。
 4. Groupで十分か、保存Macroが必要か。
 5. Resolveのどのsurfaceから使うか。
 
-## Common Misread
+## よくある誤解（Common Misread）
 
 **Macro = 複数Nodeを閉じただけのGroup**と考えること。
 
-Macroでは、どのinput / output / controlを公開するかというinterface設計が重要です。公開面が不要で、内部を頻繁に開きたいだけならGroupの方が適切な場合があります。
+Macroでは、どのinput / output / controlを公開するかというインターフェース設計が重要です。公開面が不要で、内部を頻繁に開きたいだけならGroupの方が適切な場合があります。
 
-## Related Patterns
+## 関連する再利用構成（Patterns）
 
 - [Expressionで値の関係を保つ](../../patterns/automation/link-values-with-expression)
 
-## Node Reference
+## 関連Node
 
 Macro / Templateは複数Nodeをbundle化するauthoring / distribution機構です。
 
-## Next
+## 次に読む
 
-→ [Data domainを辿って診断する](../07-debugging/trace-data-domain)
+→ [データ領域（data domain）を辿って診断する](../07-debugging/trace-data-domain)
 
 ---
 
-Verification note: Macro作成、公開control選択、Edit Page用templateへの利用は2026-10-02時点のBlackmagic Design現行Fusionページで確認。詳細な保存path・template種別は21.1 Manualで個別確認します。
+検証メモ: Macro作成、公開control選択、Edit Page用templateへの利用は2026-10-02時点のBlackmagic Design現行Fusionページで確認。詳細な保存path・template種別は21.1 Manualで個別確認します。

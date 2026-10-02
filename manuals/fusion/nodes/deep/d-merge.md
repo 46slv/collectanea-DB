@@ -1,6 +1,6 @@
 ---
 title: dMerge
-description: Deep sample-aware compositingを行うDeep image domainのMerge Node。
+description: Deep sample-aware 合成を行うDeep image domainのMerge Node。
 doc_type: node
 verification: partial
 aliases: [dMerge, Deep Merge]
@@ -17,35 +17,35 @@ suite_surfaces: [fusion]
 
 # dMerge
 
-Deep image domainでsample-aware compositingを行うMerge Nodeです。
+Deep image domainでsample-aware 合成を行うMerge Nodeです。
 
-## At a Glance
+## 概要（At a Glance）
 
-- **Family**: Deep
-- **Input domain**: Deep image
-- **Output domain**: Deep image
-- **Core concepts**: per-pixel depth samples、front/back relation
-- **Common tasks**: Deep compositing、depth-aware merge
+- **分類（Family）**: Deep
+- **入力データ（Input domain）**: Deep image
+- **出力データ（Output domain）**: Deep image
+- **関連概念（Core concepts）**: per-ピクセル depth samples、front/back 関係
+- **よく使う作業（Common tasks）**: Deep 合成、depth-aware merge
 
-## Inputs
+## 入力（Inputs）
 
-Deep imageを受け取るNodeとしてResolve 20以降のofficial version資料系で確認されています。
+Deep imageを受け取るNodeとしてResolve 20以降のBlackmagic Design公式のバージョン資料系で確認されています。
 
-exact input count / auxiliary portsはFusion 21.1 current verification待ちです。
+正確な入力数・補助PortはFusion 21.1 現在の資料または実機での確認待ちです。
 
-## Output
+## 出力（Output）
 
 Deep imageを出力します。
 
 通常の2D Imageではありません。
 
-## Controls
+## 主な設定項目（Controls）
 
-Deep compositing operatorやsample handlingに関するcontrolを持つ系統ですが、exact 21.1 UI / defaultは未検証です。
+Deep 合成 operatorやsample 扱いに関するcontrolを持つ系統ですが、正確な 21.1 UI / 初期値は未検証です。
 
-## Behavior / Notes
+## 挙動と注意点（Behavior / Notes）
 
-Deep imageは1 pixelに複数depth sampleを保持できるため、通常2D Mergeのalpha compositingとは同じ問題ではありません。
+Deep imageは1 ピクセルに複数depth sampleを保持できるため、通常2D Mergeのalpha 合成とは同じ問題ではありません。
 
 ```text
 Deep A ─┐
@@ -55,25 +55,25 @@ Deep B ─┘
 
 dMergeを「通常Mergeの高品質版」として扱わないことが重要です。
 
-## Minimal Examples
+## 最小例（Minimal Examples）
 
-2つのDeep imageをdMergeでcompositeし、必要ならDeep to Imageで2Dへflattenします。
+2つのDeep imageをdMergeで合成し、必要ならDeep to Imageで2Dへflattenします。
 
-## Related Concepts
+## 関連する考え方（Concepts）
 
-- [Data domainを辿って診断する](../../learn/07-debugging/trace-data-domain)
+- [データ領域（data domain）を辿って診断する](../../learn/07-debugging/trace-data-domain)
 - [Alpha](../../learn/04-compositing/alpha)
 
-## Related Patterns
+## 関連する再利用構成（Patterns）
 
 Deep-specific Patternは今後追加します。
 
-## Similar / Adjacent Nodes
+## 似たNode・関連Node
 
 - Merge — 2D Image
 - Merge 3D — Classic 3D scene
 - uMerge — USD scene
 
-## Version / Verification Notes
+## バージョンと検証状況
 
-dMergeはResolve/Fusion 20以降のDeep toolsetとしてBlackmagic Design公式version資料系で確認。21.1 exact controls / sample rulesは未検証です。
+dMergeはResolve/Fusion 20以降のDeep toolsetとしてBlackmagic Design公式バージョン資料で確認。Fusion 21.1での正確な設定項目 / sample rulesは未検証です。

@@ -19,35 +19,35 @@ suite_surfaces: [fusion]
 
 Deep imageを通常の2D ImageへflattenするNodeです。
 
-## At a Glance
+## 概要（At a Glance）
 
-- **Family**: Deep / Conversion
-- **Input domain**: Deep image
-- **Output domain**: 2D Image
-- **Core concepts**: domain conversion、flattening
-- **Common tasks**: Deep compositing結果を通常2D Flowへ戻す
+- **分類（Family）**: Deep / Conversion
+- **入力データ（Input domain）**: Deep image
+- **出力データ（Output domain）**: 2D Image
+- **関連概念（Core concepts）**: domain conversion、flattening
+- **よく使う作業（Common tasks）**: Deep 合成結果を通常2D Flowへ戻す
 
-## Inputs
+## 入力（Inputs）
 
 ### Deep image
 
 dMergeやDeep toolsetから来るDeep imageを受け取ります。
 
-## Output
+## 出力（Output）
 
 通常の2D Imageを出力します。
 
-## Controls
+## 主な設定項目（Controls）
 
-flatten / sample resolutionに関するexact control surfaceはFusion 21.1 current manual / runtime verification待ちです。
+flatten / sample resolutionに関する正確な設定項目はFusion 21.1 現在の manual / 実機確認待ちです。
 
-## Behavior / Notes
+## 挙動と注意点（Behavior / Notes）
 
 Deep to Imageは**Deep image → 2D Image**のdomain boundaryです。
 
 一度2Dへflattenした後は、Deep samplesを前提とするdMerge等へ戻す場合に同じ情報が保持されるとは考えません。
 
-## Minimal Examples
+## 最小例（Minimal Examples）
 
 ```text
 Deep A ─┐
@@ -55,21 +55,21 @@ Deep A ─┐
 Deep B ─┘
 ```
 
-## Related Concepts
+## 関連する考え方（Concepts）
 
-- [Data domainを辿って診断する](../../learn/07-debugging/trace-data-domain)
+- [データ領域（data domain）を辿って診断する](../../learn/07-debugging/trace-data-domain)
 
-## Related Patterns
+## 関連する再利用構成（Patterns）
 
 Deep-specific Patternは今後追加します。
 
-## Similar / Adjacent Nodes
+## 似たNode・関連Node
 
 - Image to Deep — 2D Image → Deep image
 - Renderer 3D — Classic 3D scene → 2D Image
 - uRenderer — USD scene → 2D Image / AOV
 - pRender — Particle set → 2D Image
 
-## Version / Verification Notes
+## バージョンと検証状況
 
-Deep to ImageはResolve/Fusion 20以降のDeep toolsetとしてBlackmagic Design公式version資料系で確認。21.1 exact controlsは未検証です。
+Deep to ImageはResolve/Fusion 20以降のDeep toolsetとしてBlackmagic Design公式バージョン資料で確認。Fusion 21.1での正確な設定項目は未検証です。

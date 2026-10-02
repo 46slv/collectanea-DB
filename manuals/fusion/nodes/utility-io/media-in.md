@@ -1,6 +1,6 @@
 ---
 title: MediaIn
-description: Resolve timeline / Media Pool側のsourceをFusion Flowへ渡すResolve-integrated input Node。
+description: Resolve timeline / Media Pool側の参照元をFusion Flowへ渡すResolve-integrated input Node。
 doc_type: node
 verification: partial
 aliases: [MediaIn, Media In]
@@ -18,30 +18,30 @@ suite_surfaces: [edit, fusion]
 
 Resolve側のmedia / timeline clipをFusion Flowへ渡すinput Nodeです。
 
-## At a Glance
+## 概要（At a Glance）
 
-- **Family**: Utility / I/O
-- **Output domain**: 2D Image / source media result
-- **Core concepts**: Resolve integration、source boundary
-- **Common tasks**: timeline clipをFusionで処理する入口
+- **分類（Family）**: Utility / I/O
+- **出力データ（Output domain）**: 2D Image / 参照元 media 結果
+- **関連概念（Core concepts）**: Resolve integration、参照元 boundary
+- **よく使う作業（Common tasks）**: timeline clipをFusionで処理する入口
 
-## Inputs
+## 入力（Inputs）
 
-通常はResolve側のclip / media contextから供給されるため、Fusion Flow上で別Imageをprimary inputへ接続するsource Nodeとしては扱いません。
+通常はResolve側のclip / media contextから供給されるため、Fusion Flow上で別Imageをprimary inputへ接続する参照元 Nodeとしては扱いません。
 
-exact host-generated controlsはcurrent Resolve / Fusion contextを確認します。
+Resolve側から生成される正確な設定項目は現在の Resolve / Fusion contextを確認します。
 
-## Output
+## 出力（Output）
 
-Fusion Flowで処理するImage sourceを出力します。
+Fusion Flowで処理するImage 参照元を出力します。
 
-## Controls
+## 主な設定項目（Controls）
 
-clip / media / trim / global in-out等に関するhost-linked surfaceがありますが、exact 21.1 Inspector / control availabilityはcontext依存として扱います。
+clip / media / trim / global in-out等に関するhost-linked surfaceがありますが、正確な 21.1 Inspector / control availabilityはcontext依存として扱います。
 
-## Behavior / Notes
+## 挙動と注意点（Behavior / Notes）
 
-Blackmagic Designの現行Fusion documentationでは、MediaInはEdit Page timeline上のclipを表す入口として説明されています。
+Blackmagic Designの現行Fusion 資料では、MediaInはEdit Page timeline上のclipを表す入口として説明されています。
 
 ```text
 Edit Timeline Clip
@@ -53,26 +53,26 @@ Edit Timeline Clip
 
 Fusion StudioのLoaderと、Resolve-integrated MediaInを同一Nodeとして扱いません。
 
-## Minimal Examples
+## 最小例（Minimal Examples）
 
 ```text
 MediaIn → Transform → MediaOut
 ```
 
-## Related Concepts
+## 関連する考え方（Concepts）
 
 - [Graphとして考える](../../learn/01-flow/graph-as-flow)
 - [Image / Mask / Dataを分ける](../../learn/02-data/image-mask-data)
 
-## Related Patterns
+## 関連する再利用構成（Patterns）
 
 - [Last Good / First BadでGraphを切る](../../patterns/debugging/last-good-first-bad)
 
-## Similar / Adjacent Nodes
+## 似たNode・関連Node
 
-- Loader — Fusion Studio / file source系
+- Loader — Fusion Studio / file 参照元系
 - MediaOut — Resolveへのoutput boundary
 
-## Version / Verification Notes
+## バージョンと検証状況
 
-MediaInがEdit timeline clipをFusionへ渡すboundaryであることはBlackmagic Design現行Fusion documentationで確認。exact 21.1 host controlsはproject/context依存として未固定です。
+MediaInがEdit timeline clipをFusionへ渡すboundaryであることはBlackmagic Design現行Fusion 資料で確認。正確な 21.1 host controlsはproject/context依存として未固定です。

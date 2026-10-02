@@ -13,21 +13,21 @@ tasks: [composite, translate-mental-model]
 
 # Layer StackとFlow
 
-## If you know Photoshop
+## Photoshopで知っている考え方
 
 PhotoshopのLayers panelでは、Layerを選択・非表示・並べ替え・編集しながらdocumentを構成します。
 
 Layer orderは、複数素材をどう重ねるかを理解する重要な入口です。
 
-## First decision in Resolve
+## Resolveで最初に決めること
 
 Resolve内でshot内部の合成関係を設計するならFusionへ進みます。
 
 timeline上のclip順序そのものを扱うならEdit側が第一候補です。
 
-## Fusion mental model
+## Fusionでの考え方
 
-Fusionでは、処理順・branch・合流をconnectionとして明示します。
+Fusionでは、処理順・分岐・合流をconnectionとして明示します。
 
 ```text
 Image A ───────────┐
@@ -37,46 +37,46 @@ Image B → Effect ──┘
 
 PhotoshopのLayer panel上の上下位置に相当する意味を、FusionではMergeのForeground / BackgroundやGraph connectionとして読みます。
 
-## What maps cleanly
+## そのまま活かしやすい考え方
 
-goalとしては共通します。
+目的としては共通します。
 
-- multiple elementsを重ねる
+- 複数の要素を重ねる
 - 個別要素へeffectを加える
 - Maskで見える範囲を制限する
 - transformする
-- sourceを再利用する
+- 参照元を再利用する
 
-## What does not map 1:1
+## そのまま一対一対応しない部分
 
 - Photoshop Layer = Fusion Node、ではない。
 - Layer order = Nodeの左右位置、ではない。
 - 1 Layerに複数filter / mask / transformが属する構造を、1 Nodeへ無理に対応させない。
-- Fusionではbranchが複数方向へ分かれ、後でMergeへ合流できます。
+- Fusionでは分岐が複数方向へ分かれ、後でMergeへ合流できます。
 
-## Learn this next
+## 次に読む
 
 - [Graphとして考える](../../learn/01-flow/graph-as-flow)
-- [Foreground / Background / Mask](../../learn/04-compositing/foreground-background-mask)
+- [前景（Foreground）/ 背景（Background）/ マスク（Mask）](../../learn/04-compositing/foreground-background-mask)
 
-## Reusable Patterns
+## 関連する再利用構成（Patterns）
 
 - [画像を段階的に重ねる](../../patterns/compositing/stack-images-with-merge)
 
-## Relevant Nodes
+## 関連Node
 
 - [Merge](../../nodes/compositing/merge)
 - [Transform](../../nodes/transform/transform)
 
-## Example tasks
+## 具体例
 
 - [2つのImageを重ねる](../../recipes/compositing/two-image-merge)
 
-## Related index entries
+## 関連する索引
 
 - [By Task](../../index/by-task)
 - [Glossary](../../index/glossary)
 
 ---
 
-Verification scope: Adobe current Layers documentation describes Layers panel operations including visibility and reordering; Fusion canonical pages own Fusion-specific graph semantics.
+検証範囲: Adobeの現行Layers資料で、Layerの表示・非表示や並べ替えを確認しています。Fusion固有のGraphの意味はFusionの正本ページを基準にします。

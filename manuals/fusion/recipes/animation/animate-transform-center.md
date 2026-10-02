@@ -1,6 +1,6 @@
 ---
 title: TransformをKeyframeで動かす
-description: Transformの1つのposition parameterだけをKeyframeし、Splineでmotionを調整する最小Recipe。
+description: Transformの1つのposition パラメータだけをKeyframeし、Splineで動きを調整する最小Recipe。
 doc_type: recipe
 verification: partial
 aliases: [animate transform, keyframe center]
@@ -15,22 +15,22 @@ product_scope: fusion
 
 # TransformをKeyframeで動かす
 
-## Result
+## できあがるもの（Result）
 
-Imageを2つの時点のposition間でanimationさせます。
+Imageを2つの時点のposition間でアニメーションさせます。
 
-## Requirements
+## 必要なもの（Requirements）
 
 - Image
 - Transform
 
-## Steps
+## 手順（Steps）
 
 1. ImageへTransformを追加します。
-2. 最初のframeでposition parameterへKeyframeを作ります。
-3. 後のframeへ移動します。
+2. 最初のフレームでposition パラメータへKeyframeを作ります。
+3. 後のフレームへ移動します。
 4. positionを変更し、2つ目のKeyframeを作ります。
-5. 再生してmotionを確認します。
+5. 再生して動きを確認します。
 6. Spline Editorでcurveを確認し、必要なら補間を調整します。
 
 ```text
@@ -40,27 +40,27 @@ time A: position A
 time B: position B
 ```
 
-## Why This Works
+## なぜこの構成にするか（Why This Works）
 
-Keyframeはtimeごとのparameter valueを持ち、Splineはその間の変化を調整します。
+Keyframeはtimeごとのパラメータ 値を持ち、Splineはその間の変化を調整します。
 
-## Variants / Alternatives
+## 別のやり方（Variants / Alternatives）
 
-- base layout用Transformとanimation用Transformを分ける。
-- Size / Angle等を別parameterとしてanimationする。
-- procedural relationが必要ならExpression / Modifierを使う。
+- base 配置用Transformとアニメーション用Transformを分ける。
+- Size / Angle等を別パラメータとしてアニメーションする。
+- procedural 関係が必要ならExpression / Modifierを使う。
 
-## Failure Checks
+## うまくいかないときの確認（Failure Checks）
 
 - ViewerはTransform outputを見ているか。
-- 2つのKeyframeでvalueが本当に違うか。
-- current frameはKeyframe range内か。
-- Expression / Modifierが同じparameterを駆動していないか。
+- 2つのKeyframeで値が本当に違うか。
+- 現在の フレームはKeyframe 範囲内か。
+- Expression / Modifierが同じパラメータを駆動していないか。
 
-## Related Pattern
+## 関連する再利用構成（Pattern）
 
-- [Base値とAnimation Offsetを分ける](../../patterns/animation/base-and-animation-offset)
+- [基準値とアニメーションのオフセット（Offset）を分ける](../../patterns/animation/base-and-animation-offset)
 
-## Related Nodes
+## 関連Node
 
 - [Transform](../../nodes/transform/transform)

@@ -1,6 +1,6 @@
 ---
 title: Maskで処理範囲を限定する
-description: effect内容と適用範囲を別branchとして設計し、Mask inputで合流させるPattern。
+description: effect内容と適用範囲を別分岐として設計し、Mask inputで合流させるPattern。
 doc_type: pattern
 verification: partial
 aliases: [Effect Mask, mask branch]
@@ -14,61 +14,61 @@ product_scope: fusion
 
 # Maskで処理範囲を限定する
 
-## Problem Family
+## 使う場面（Problem Family）
 
 effectや合成を、画像全体ではなく特定範囲にだけ適用したい場合に使います。
 
-## Concepts
+## 前提となる考え方（Concepts）
 
 - [Image / Mask / Dataを分ける](../../learn/02-data/image-mask-data)
-- [Foreground / Background / Mask](../../learn/04-compositing/foreground-background-mask)
+- [前景（Foreground）/ 背景（Background）/ マスク（Mask）](../../learn/04-compositing/foreground-background-mask)
 
-## Generic Graph
+## 基本構成（Generic Graph）
 
 ```text
-Image / effect branch ── Target Node → Output
+Image / effect branch ── 対象Node → Output
                             ↑
 Mask branch ────────────────┘
 ```
 
-Image branchとMask branchを別の責任として組み立てます。
+Image 分岐とMask 分岐を別の責任として組み立てます。
 
-## Invariant
+## 保つべき条件（Invariant）
 
 - Image側は「何を処理するか」を持つ。
 - Mask側は「どこへ処理するか」を持つ。
-- 問題が出たときは2 branchを別々に確認できる。
+- 問題が出たときは2 分岐を別々に確認できる。
 
-## Variants
+## バリエーション（Variants）
 
 ### Simple shape mask
 
-Ellipse / Polygonなど1つのMask sourceで範囲を作ります。
+Ellipse / Polygonなど1つのMask 参照元で範囲を作ります。
 
 ### Animated mask
 
-Mask側のshape / positionを時間変化させます。effect側のanimationとは分離して考えます。
+Mask側のshape / positionを時間変化させます。effect側のアニメーションとは分離して考えます。
 
 ### Combined mask
 
-複数Maskを組み合わせる場合でも、最終的にTarget Nodeへ渡るMaskの意味を説明できるようにします。
+複数Maskを組み合わせる場合でも、最終的に対象Nodeへ渡るMaskの意味を説明できるようにします。
 
-## Node Choices
+## Nodeの選び方（Node Choices）
 
 MergeなどEffect Maskを持つNodeで適用できます。Node固有のMask挙動はReference側で確認します。
 
-## Failure Modes
+## 失敗しやすい点（Failure Modes）
 
 - MaskをImage inputへ入れようとして役割を混同する。
 - Imageの問題をMask調整だけで直そうとする。
 - Maskを外した状態の結果を確認せず、原因を絞れない。
 - invert / combine等のNode固有設定を概念説明へ混ぜる。
 
-## Recipes Using This Pattern
+## この構成を使う手順（Recipes）
 
 Recipesは次バッチで追加予定です。
 
-## Related Node Reference
+## 関連Node
 
 - [Merge](../../nodes/compositing/merge)
 - [Background](../../nodes/generators/background)

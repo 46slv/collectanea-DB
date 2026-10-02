@@ -1,6 +1,6 @@
 ---
 title: Smart ObjectとFusionの再利用構造
-description: Photoshop Smart Objectのsource preservation・linked update経験を、FusionのInstance・Group・Macro/Templateへ単純等価せず翻訳する。
+description: Photoshop Smart Objectの参照元 preservation・linked update経験を、FusionのInstance・Group・Macro/Templateへ単純等価せず翻訳する。
 doc_type: bridge
 verification: partial
 product_scope: resolve
@@ -13,25 +13,25 @@ tasks: [reuse, template, organize-graph]
 
 # Smart ObjectとFusionの再利用構造
 
-## If you know Photoshop
+## Photoshopで知っている考え方
 
-Smart Objectはsource contentを保持しながらtransformやfilterを非破壊に適用でき、Linked Smart Objectでは外部source更新を複数documentへ反映できます。
+Smart Objectは参照元 内容を保持しながらtransformやfilterを非破壊に適用でき、Linked Smart Objectでは外部参照元更新を複数documentへ反映できます。
 
-複数Layerを1つのSmart Objectへまとめるworkflowもあります。
+複数Layerを1つのSmart Objectへまとめる作業の流れもあります。
 
-## First decision in Resolve
+## Resolveで最初に決めること
 
 PhotoshopでSmart Objectを使っていた理由を先に分類します。
 
-- source qualityを保ったままtransformしたい
-- 1つのsource更新を複数箇所へ反映したい
+- 参照元 qualityを保ったままtransformしたい
+- 1つの参照元更新を複数箇所へ反映したい
 - 複数要素を1単位へまとめたい
 - effectを後から編集したい
 - reusable assetとして利用者へ公開したい
 
-Fusion側の候補は、このgoalによって変わります。
+Fusion側の候補は、この目的によって変わります。
 
-## Fusion mental model
+## Fusionでの考え方
 
 ```text
 shared parameter settings
@@ -40,7 +40,7 @@ shared parameter settings
 editable graph boundary
   → Group
 
-semantic public controls
+意味のある公開Control
   → User Controls
 
 reusable packaged graph
@@ -49,46 +49,46 @@ reusable packaged graph
 
 これらはSmart Objectの別名ではありません。
 
-## What maps cleanly
+## そのまま活かしやすい考え方
 
-共通するgoal:
+共通する目的:
 
 - 元構造を残す
 - repeated useをしやすくする
-- 一括変更のownerを作る
+- 一括変更の管理元を作る
 - 内部実装と外部操作を分ける
 
-## What does not map 1:1
+## そのまま一対一対応しない部分
 
-- Smart Objectのsource preservation / external file linkと、Fusion Instanceのparameter sharingは別mechanism。
-- Groupはgraph organizationであり、linked external sourceではない。
-- Macro / TemplateはGraph packagingとpublic interfaceが主責任。
+- Smart Objectの参照元 preservation / external file linkと、Fusion Instanceのパラメータ sharingは別仕組み。
+- Groupはgraph organizationであり、linked external 参照元ではない。
+- Macro / TemplateはGraph パッケージ化とpublic インターフェースが主責任。
 - Smart Filterのeditable filter stackを、そのままFusion Node chainへ同一視しない。
 
-## Learn this next
+## 次に読む
 
 - [Instanceで設定を共有する](../../learn/06-reuse/instances)
 - [GroupでGraphをまとめる](../../learn/06-reuse/groups)
-- [User Controlsで公開interfaceを作る](../../learn/06-reuse/user-controls)
+- [User Controlsで公開インターフェースを作る](../../learn/06-reuse/user-controls)
 - [Macro / Templateで再利用単位を作る](../../learn/06-reuse/macros-templates)
 
-## Reusable Patterns
+## 関連する再利用構成（Patterns）
 
 - [再利用の境界を選ぶ](../../patterns/reuse/choose-reuse-boundary)
 
-## Relevant Nodes
+## 関連Node
 
 これは単一Nodeの比較ではありません。
 
-## Example tasks
+## 具体例
 
 - [Fusion assetをResolveで再利用する](../../resolve-integration/reusable-fusion-assets)
 
-## Related index entries
+## 関連する索引
 
 - [Concept A–Z](../../index/concept-a-z)
 - [By Task](../../index/by-task)
 
 ---
 
-Verification scope: Adobe current Smart Object documentation confirms source preservation, editable transforms/filters, embedded/linked forms, and linked update behavior. Fusion reuse structures are described separately by their canonical owners.
+検証範囲: Adobeの現行Smart Object資料で、元内容の保持、編集可能なTransform / Filter、埋め込み・リンク形式、リンク更新を確認しています。Fusionの再利用構造は別ページで説明します。
