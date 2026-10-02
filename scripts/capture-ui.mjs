@@ -118,18 +118,21 @@ try {
   });
   await check('heading-rail-visible-outline-native-anchor', async () => {
     await go('/manuals/fusion/nodes/compositing/merge');
-    const rail = page.locator('[data-cc-rail]'), target = rail.locator('.cc-rail-lines a[href="#inputs"]');
+    const inputId = await page.locator('.theme-doc-markdown h2').filter({hasText: '入力'}).first().getAttribute('id');
+    assert.ok(inputId, 'Input heading must expose a native anchor id');
+    const inputHref = `#${inputId}`;
+    const rail = page.locator('[data-cc-rail]'), target = rail.locator(`.cc-rail-lines a[href="${inputHref}"]`);
     await expect(target).toBeVisible();
     const widths = await rail.locator('.cc-rail-line').evaluateAll((els) => Object.fromEntries(els.map((el) => [el.parentElement.dataset.headingLevel, parseFloat(getComputedStyle(el).width)])));
     assert.ok(widths[1] > widths[2] && widths[2] > widths[3]); report.measured.railWidths = widths;
     await target.hover();
-    const label = page.locator('[data-cc-outline] a[href="#inputs"]');
+    const label = page.locator(`[data-cc-outline] a[href="${inputHref}"]`);
     await expect(label).toBeVisible();
     assert.ok(await label.evaluate((el) => {const r = el.getBoundingClientRect(); const hit = document.elementFromPoint(r.x + r.width / 2, r.y + r.height / 2); return !!hit && (hit === el || el.contains(hit));}), 'Outline label is clipped or covered');
     await shot('06-heading-rail-expanded');
     await label.click();
-    await expect(page).toHaveURL(/#inputs$/);
-    await expect(rail.locator('.cc-rail-lines a[href="#inputs"]')).toHaveAttribute('aria-current', 'location');
+    await expect.poll(() => page.evaluate(() => decodeURIComponent(location.hash))).toBe(inputHref);
+    await expect(rail.locator(`.cc-rail-lines a[href="${inputHref}"]`)).toHaveAttribute('aria-current', 'location');
     await expect.poll(() => page.evaluate(() => window.scrollY)).toBeGreaterThan(0);
     await page.mouse.move(10, 10); await shot('07-heading-rail-current');
   });
@@ -186,8 +189,12 @@ try {
     await page.locator('.cc-mobile-outline summary').click();
     await expect(page.locator('.cc-mobile-outline')).toHaveAttribute('open', '');
     await shot('12-mobile-outline');
-    await page.locator('.cc-mobile-outline a[href="#inputs"]').click();
-    await expect(page).toHaveURL(/#inputs$/); await expect(page.locator('.cc-mobile-outline')).not.toHaveAttribute('open');
+    const mobileInputId = await page.locator('.theme-doc-markdown h2').filter({hasText: '入力'}).first().getAttribute('id');
+    assert.ok(mobileInputId, 'Mobile outline input heading must have an id');
+    const mobileInputHref = `#${mobileInputId}`;
+    await page.locator(`.cc-mobile-outline a[href="${mobileInputHref}"]`).click();
+    await expect.poll(() => page.evaluate(() => decodeURIComponent(location.hash))).toBe(mobileInputHref);
+    await expect(page.locator('.cc-mobile-outline')).not.toHaveAttribute('open');
     await page.locator('.navbar__toggle').click();
     const drawer = page.locator('.navbar-sidebar'); await expect(drawer).toBeVisible();
     await expect.poll(async () => (await drawer.boundingBox())?.x ?? -999).toBeGreaterThanOrEqual(-1);
@@ -205,8 +212,11 @@ try {
   await check('reduced-motion-keyboard-anchor', async () => {
     await page.setViewportSize({width: 1440, height: 1000}); await page.emulateMedia({reducedMotion: 'reduce'});
     await go('/manuals/fusion/nodes/compositing/merge');
-    const target = page.locator('.cc-rail-lines a[href="#controls"]'); await target.focus(); await target.press('Enter');
-    await expect(page).toHaveURL(/#controls$/);
+    const controlsId = await page.locator('.theme-doc-markdown h2').filter({hasText: '主な設定'}).first().getAttribute('id');
+    assert.ok(controlsId, 'Controls heading must expose a native anchor id');
+    const controlsHref = `#${controlsId}`;
+    const target = page.locator(`.cc-rail-lines a[href="${controlsHref}"]`); await target.focus(); await target.press('Enter');
+    await expect.poll(() => page.evaluate(() => decodeURIComponent(location.hash))).toBe(controlsHref);
     await expect.poll(() => page.evaluate(() => window.scrollY)).toBeGreaterThan(0);
     await expect(target).toHaveAttribute('aria-current', 'location');
     assert.equal(await page.evaluate(() => getComputedStyle(document.documentElement).scrollBehavior), 'auto');
