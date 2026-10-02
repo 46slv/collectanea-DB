@@ -1,7 +1,7 @@
 const blogRoute = 'articles';
 const repository = 'https://github.com/46slv/collectanea-DB';
 const editUrl = `${repository}/edit/main/`;
-const docs = (path, sidebarPath) => ({path, routeBasePath: path, sidebarPath: require.resolve(sidebarPath), editUrl, showLastUpdateAuthor: true, showLastUpdateTime: true});
+const docs = (path, sidebarPath) => ({path, routeBasePath: path, sidebarPath: require.resolve(sidebarPath), editUrl, showLastUpdateAuthor: true, showLastUpdateTime: true, numberPrefixParser: (filename) => ({filename})});
 const codeTheme = (foreground, background) => ({plain: {color: foreground, backgroundColor: background}, styles: [{types: ['comment', 'prolog', 'doctype', 'cdata'], style: {fontStyle: 'italic', opacity: 0.8}}, {types: ['keyword', 'important'], style: {fontWeight: 'bold'}}, {types: ['string'], style: {textDecoration: 'none'}}]});
 
 /** @type {import('@docusaurus/types').Config} */

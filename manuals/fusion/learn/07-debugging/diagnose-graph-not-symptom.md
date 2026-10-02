@@ -116,7 +116,7 @@ Node固有の検証へ進む場合は [Node Reference](../../nodes/) を使い�
 次は:
 - [Patterns](../../patterns/) で再利用構造を見る
 - [Node Reference](../../nodes/) で個別Nodeを引く
-- [Troubleshooting](../../troubleshooting/index) で具体的な症状から診断する
+- [Troubleshooting](../../troubleshooting) で具体的な症状から診断する
 
 ---
 

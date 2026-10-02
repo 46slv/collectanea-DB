@@ -63,4 +63,4 @@ Patternは、1つのNodeの説明でも、完成物の手順でもありませ�
 
 現在 **15 Pattern** です。Concept → Pattern → Node Referenceの中間層として使います。
 
-具体的な完成手順が必要な場合は [Recipes](../recipes/index) へ、Node固有のcontrolは [Node Reference](../nodes/) を参照します。
+具体的な完成手順が必要な場合は [Recipes](../recipes) へ、Node固有のcontrolは [Node Reference](../nodes/) を参照します。

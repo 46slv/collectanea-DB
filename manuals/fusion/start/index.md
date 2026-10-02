@@ -48,11 +48,11 @@ Node固有の事実を引きたい
 
 まず実際のFlowを触りながら読みたい場合:
 
-→ [最初のFlow](./first-flow)
+→ [最初のFlow](./start/first-flow)
 
 Nodeを見たときの読み方を先に知りたい場合:
 
-→ [Nodeを読む](./read-a-node)
+→ [Nodeを読む](./start/read-a-node)
 
 ## What to notice
 
@@ -72,11 +72,11 @@ Nodeを見たときの読み方を先に知りたい場合:
 
 Fusionを初めてNode Graphとして読む場合:
 
-→ [最初のFlow](./first-flow)
+→ [最初のFlow](./start/first-flow)
 
 Resolve全体の中でFusionを使う判断から始める場合:
 
-→ [FusionはResolveのどこにいるか](../resolve-integration/where-fusion-fits)
+→ [FusionはResolveのどこにいるか](./resolve-integration/where-fusion-fits)
 
 ---
 

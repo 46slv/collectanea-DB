@@ -14,37 +14,37 @@ slug: /fusion/troubleshooting
 
 ## Viewer / Output
 
-- [Viewerに何も表示されない](./viewer/nothing-visible)
+- [Viewerに何も表示されない](./troubleshooting/viewer/nothing-visible)
 
 ## Alpha / Mask
 
-- [Maskを接続しても結果が変わらない](./masking/mask-does-not-change-result)
-- [透明Edgeの色や縁がおかしい](./masking/alpha-edge-looks-wrong)
+- [Maskを接続しても結果が変わらない](./troubleshooting/masking/mask-does-not-change-result)
+- [透明Edgeの色や縁がおかしい](./troubleshooting/masking/alpha-edge-looks-wrong)
 
 ## Connections / Data Domain
 
-- [Node同士を接続できない](./connections/nodes-do-not-connect)
-- [Shape / Particle / 3D / USD / DeepがImageとして見えない](./connections/non-image-domain-not-visible)
+- [Node同士を接続できない](./troubleshooting/connections/nodes-do-not-connect)
+- [Shape / Particle / 3D / USD / DeepがImageとして見えない](./troubleshooting/connections/non-image-domain-not-visible)
 
 ## Position / Size / Resolution
 
-- [Transform後にImageの端が消える](./position-size-resolution/image-cut-off-after-transform)
-- [Resolutionが合わない](./position-size-resolution/resolution-does-not-match)
+- [Transform後にImageの端が消える](./troubleshooting/position-size-resolution/image-cut-off-after-transform)
+- [Resolutionが合わない](./troubleshooting/position-size-resolution/resolution-does-not-match)
 
 ## Animation / Expression
 
-- [Expressionが期待どおり更新されない](./animation-automation/expression-does-not-update)
-- [Keyframeを置いたのにAnimationしない](./animation-automation/animation-does-not-move)
-- [KeyframeとExpressionが競合している](./animation-automation/keyframe-expression-conflict)
-- [等間隔配置が崩れる](./animation-automation/equal-spacing-breaks)
+- [Expressionが期待どおり更新されない](./troubleshooting/animation-automation/expression-does-not-update)
+- [Keyframeを置いたのにAnimationしない](./troubleshooting/animation-automation/animation-does-not-move)
+- [KeyframeとExpressionが競合している](./troubleshooting/animation-automation/keyframe-expression-conflict)
+- [等間隔配置が崩れる](./troubleshooting/animation-automation/equal-spacing-breaks)
 
 ## Tracking
 
-- [Tracking結果がずれる / driftする](./tracking/track-drifts)
+- [Tracking結果がずれる / driftする](./troubleshooting/tracking/track-drifts)
 
 ## Performance
 
-- [Flowが重い / 遅い](./performance/graph-is-slow)
+- [Flowが重い / 遅い](./troubleshooting/performance/graph-is-slow)
 
 ## 診断の共通方針
 

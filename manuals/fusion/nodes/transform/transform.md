@@ -15,6 +15,7 @@ tasks: [position, scale, rotate, layout, animate]
 level: foundation
 product_scope: fusion
 suite_surfaces: [fusion]
+slug: /fusion/nodes/transform/transform
 ---
 
 # Transform
