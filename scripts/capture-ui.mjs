@@ -118,7 +118,7 @@ try {
   });
   await check('heading-rail-visible-outline-native-anchor', async () => {
     await go('/manuals/fusion/nodes/compositing/merge');
-    const inputId = await page.locator('.theme-doc-markdown h2').filter({hasText: '入力'}).first().getAttribute('id');
+    const inputId = await page.locator('.theme-doc-markdown h2').first().getAttribute('id');
     assert.ok(inputId, 'Input heading must expose a native anchor id');
     const inputHref = `#${inputId}`;
     const rail = page.locator('[data-cc-rail]'), target = rail.locator(`.cc-rail-lines a[href="${inputHref}"]`);
@@ -189,7 +189,7 @@ try {
     await page.locator('.cc-mobile-outline summary').click();
     await expect(page.locator('.cc-mobile-outline')).toHaveAttribute('open', '');
     await shot('12-mobile-outline');
-    const mobileInputId = await page.locator('.theme-doc-markdown h2').filter({hasText: '入力'}).first().getAttribute('id');
+    const mobileInputId = await page.locator('.theme-doc-markdown h2').first().getAttribute('id');
     assert.ok(mobileInputId, 'Mobile outline input heading must have an id');
     const mobileInputHref = `#${mobileInputId}`;
     await page.locator(`.cc-mobile-outline a[href="${mobileInputHref}"]`).click();
@@ -212,7 +212,7 @@ try {
   await check('reduced-motion-keyboard-anchor', async () => {
     await page.setViewportSize({width: 1440, height: 1000}); await page.emulateMedia({reducedMotion: 'reduce'});
     await go('/manuals/fusion/nodes/compositing/merge');
-    const controlsId = await page.locator('.theme-doc-markdown h2').filter({hasText: '主な設定'}).first().getAttribute('id');
+    const controlsId = await page.locator('.theme-doc-markdown h2').first().getAttribute('id');
     assert.ok(controlsId, 'Controls heading must expose a native anchor id');
     const controlsHref = `#${controlsId}`;
     const target = page.locator(`.cc-rail-lines a[href="${controlsHref}"]`); await target.focus(); await target.press('Enter');
