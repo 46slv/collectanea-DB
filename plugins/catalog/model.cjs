@@ -1,7 +1,13 @@
 // Pure projection; Docusaurus owns parsing, permalinks and publication rules.
 const collator = new Intl.Collator('ja', {numeric: true});
-const unique = (values) => [...new Set(values.filter(Boolean))];
+const unique = (values) => [...new Set((values || []).filter(Boolean))];
+const asList = (value) => value == null ? [] : Array.isArray(value) ? value : [value];
 const compare = (a, b) => (a.position ?? 9999) - (b.position ?? 9999) || collator.compare(a.title, b.title);
+const semanticListFields = [
+  'aliases', 'concepts', 'patterns', 'nodes', 'controls', 'inputs', 'outputs',
+  'tasks', 'symptoms', 'prerequisites', 'familiarApps', 'familiarTerms',
+  'compareTopics', 'suiteSurfaces',
+];
 
 function makeTree(pages) {
   const root = {children: new Map()};
@@ -19,12 +25,63 @@ function makeTree(pages) {
   return serialize(root);
 }
 
+function normalizedPage(record) {
+  const page = {...record, tags: unique(asList(record.tags).map(String)), segments: record.segments || []};
+  for (const field of semanticListFields) page[field] = unique(asList(record[field]).map(String));
+  return page;
+}
+
+const typeRank = {recipe: 0, pattern: 1, diagnostic: 2, concept: 3, node: 4, bridge: 5, start: 6, index: 7};
+const semanticRow = (page) => ({
+  id: page.id, title: page.title, href: page.href, summary: page.summary,
+  docType: page.docType || '', nodeFamily: page.nodeFamily || '', status: page.status || '',
+  level: page.level || '', productScope: page.productScope || '',
+  aliases: page.aliases, concepts: page.concepts, patterns: page.patterns, nodes: page.nodes,
+  controls: page.controls, inputs: page.inputs, outputs: page.outputs, tasks: page.tasks,
+  symptoms: page.symptoms, prerequisites: page.prerequisites, familiarApps: page.familiarApps,
+  familiarTerms: page.familiarTerms, compareTopics: page.compareTopics, suiteSurfaces: page.suiteSurfaces,
+});
+const semanticCompare = (a, b) => (typeRank[a.docType] ?? 99) - (typeRank[b.docType] ?? 99) || collator.compare(a.title, b.title);
+function groupedRows(pages, field) {
+  const groups = new Map();
+  for (const page of pages) for (const key of page[field] || []) {
+    if (!groups.has(key)) groups.set(key, []);
+    groups.get(key).push(semanticRow(page));
+  }
+  return [...groups].map(([key, items]) => ({key, count: items.length, items: items.sort(semanticCompare)})).sort((a, b) => collator.compare(a.key, b.key));
+}
+function dataTypeRows(nodes) {
+  const keys = unique(nodes.flatMap((page) => [...page.inputs, ...page.outputs])).sort(collator.compare);
+  return keys.map((key) => ({
+    key,
+    count: nodes.filter((page) => page.inputs.includes(key) || page.outputs.includes(key)).length,
+    producers: nodes.filter((page) => page.outputs.includes(key)).map(semanticRow).sort(semanticCompare),
+    consumers: nodes.filter((page) => page.inputs.includes(key)).map(semanticRow).sort(semanticCompare),
+  }));
+}
+function makeIndexes(pages) {
+  const fusion = pages.filter((page) => page.material === 'fusion');
+  const nodes = fusion.filter((page) => page.docType === 'node');
+  const concepts = fusion.filter((page) => page.docType === 'concept');
+  return {
+    nodes: nodes.map(semanticRow).sort((a, b) => collator.compare(a.title, b.title)),
+    concepts: concepts.map(semanticRow).sort((a, b) => collator.compare(a.title, b.title)),
+    controls: groupedRows(nodes, 'controls'),
+    tasks: groupedRows(fusion.filter((page) => page.docType !== 'index'), 'tasks'),
+    symptoms: groupedRows(fusion.filter((page) => page.docType === 'diagnostic'), 'symptoms'),
+    dataTypes: dataTypeRows(nodes),
+    glossary: concepts.map(semanticRow).sort((a, b) => collator.compare(a.title, b.title)),
+    resolveSurfaces: groupedRows(fusion, 'suiteSurfaces'),
+    familiarApps: groupedRows(fusion, 'familiarApps'),
+  };
+}
+
 function makeCatalog(records) {
   const seen = new Set();
   const pages = records.filter((r) => !r.draft && !r.unlisted).map((record) => {
     if (!record.href || !record.title || seen.has(record.href)) throw new Error(`Invalid/duplicate catalog route: ${record.href}`);
     seen.add(record.href);
-    return {...record, tags: unique(record.tags || []), segments: record.segments || []};
+    return normalizedPage(record);
   });
   const groups = new Map();
   for (const page of pages) {
@@ -36,8 +93,6 @@ function makeCatalog(records) {
   for (const [id, members] of groups) {
     const explicitRoot = members.find((p) => p.isMaterialRoot);
     const root = explicitRoot || [...members].sort(compare)[0];
-    // Only a real material root establishes inherited metadata. An arbitrary
-    // first article must not donate its tags/status to all other articles.
     for (const page of members) {
       page.tags = unique([...(explicitRoot?.tags || []), ...page.tags]);
       page.domain = page.domain || explicitRoot?.domain || '';
@@ -53,9 +108,16 @@ function makeCatalog(records) {
     });
   }
   const facets = unique(pages.flatMap((p) => [...p.tags, p.domain])).sort(collator.compare);
-  const search = pages.map((p) => ({...p, text: [p.title, p.materialTitle, p.summary, p.body, ...p.tags].filter(Boolean).join(' ')}));
+  const semanticFacets = Object.fromEntries(semanticListFields.map((field) => [field, unique(pages.flatMap((p) => p[field] || [])).sort(collator.compare)]));
+  const search = pages.map((p) => ({
+    ...p,
+    text: [
+      p.title, p.materialTitle, p.summary, p.body, p.docType, p.nodeFamily, p.level, p.productScope,
+      ...p.tags, ...semanticListFields.flatMap((field) => p[field] || []),
+    ].filter(Boolean).join(' '),
+  }));
   for (const tag of facets) search.push({id: `tag:${tag}`, title: tag, kind: 'tag', label: 'Tag', tag, tags: [tag], summary: 'このタグで絞り込む', text: tag});
   const compact = pages.map(({body, draft, unlisted, ...page}) => page);
-  return {pages: compact, materials, facets, search};
+  return {pages: compact, materials, facets, semanticFacets, indexes: makeIndexes(pages), search};
 }
-module.exports = {makeCatalog, makeTree};
+module.exports = {makeCatalog, makeTree, makeIndexes};

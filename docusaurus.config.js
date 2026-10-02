@@ -1,7 +1,7 @@
 const blogRoute = 'articles';
 const repository = 'https://github.com/46slv/collectanea-DB';
 const editUrl = `${repository}/edit/main/`;
-const docs = (path, sidebarPath) => ({path, routeBasePath: path, sidebarPath: require.resolve(sidebarPath), editUrl, showLastUpdateAuthor: true, showLastUpdateTime: true});
+const docs = (path, sidebarPath, options = {}) => ({path, routeBasePath: path, sidebarPath: require.resolve(sidebarPath), editUrl, showLastUpdateAuthor: true, showLastUpdateTime: true, ...options});
 const codeTheme = (foreground, background) => ({plain: {color: foreground, backgroundColor: background}, styles: [{types: ['comment', 'prolog', 'doctype', 'cdata'], style: {fontStyle: 'italic', opacity: 0.8}}, {types: ['keyword', 'important'], style: {fontWeight: 'bold'}}, {types: ['string'], style: {textDecoration: 'none'}}]});
 
 /** @type {import('@docusaurus/types').Config} */
@@ -10,7 +10,7 @@ module.exports = {
   url: 'https://46slv.github.io', baseUrl: '/collectanea-DB/', organizationName: '46slv', projectName: 'collectanea-DB',
   onBrokenLinks: 'throw', i18n: {defaultLocale: 'ja', locales: ['ja']},
   presets: [['classic', {
-    docs: docs('manuals', './sidebars.js'),
+    docs: docs('manuals', './sidebars.js', {numberPrefixParser: (filename) => ({filename})}),
     blog: {path: 'articles', routeBasePath: blogRoute, blogTitle: 'Articles', blogDescription: '制作・CG・開発の技術記事', postsPerPage: 12, blogSidebarCount: 'ALL', showReadingTime: true, showLastUpdateTime: true, showLastUpdateAuthor: true, feedOptions: {type: ['rss', 'atom'], xslt: true}, editUrl},
     theme: {customCss: require.resolve('./src/css/custom.css')},
   }]],

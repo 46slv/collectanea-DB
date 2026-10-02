@@ -70,7 +70,9 @@ try {
     await expect(dialog.locator('[role="option"]').first()).toBeVisible();
     assert.equal(await dialog.evaluate((el) => el.matches(':modal')), true);
     await shot('02-command-palette');
-    const close = dialog.getByRole('button', {name: '検索を閉じる'}), last = dialog.getByLabel('タグ', {exact: true});
+    const close = dialog.getByRole('button', {name: '検索を閉じる'});
+    const focusable = dialog.locator('button:not([disabled]):not([tabindex="-1"]), input, select, a[href]');
+    const last = focusable.last();
     const before = page.url();
     await close.focus(); await close.press('Shift+Tab'); await expect(last).toBeFocused();
     await last.press('Tab'); await expect(close).toBeFocused();
@@ -98,7 +100,7 @@ try {
     await expect(page.locator('.cc-manual').getByRole('link', {name: 'Merge', exact: true}).first()).toBeVisible();
   });
   await check('sidebar-real-close-persistence-center', async () => {
-    await go('/manuals/fusion/nodes/merge');
+    await go('/manuals/fusion/nodes/compositing/merge');
     const closeHierarchy = page.getByRole('button', {name: '階層を閉じる', exact: true});
     await expect(closeHierarchy).toHaveAttribute('aria-expanded', 'true');
     assert.equal(await closeHierarchy.evaluate((el) => Boolean(el.closest('.theme-doc-sidebar-container'))), true, 'Close hierarchy control must live inside the hierarchy');
@@ -115,7 +117,7 @@ try {
     await center();
   });
   await check('heading-rail-visible-outline-native-anchor', async () => {
-    await go('/manuals/fusion/nodes/merge');
+    await go('/manuals/fusion/nodes/compositing/merge');
     const rail = page.locator('[data-cc-rail]'), target = rail.locator('.cc-rail-lines a[href="#inputs"]');
     await expect(target).toBeVisible();
     const widths = await rail.locator('.cc-rail-line').evaluateAll((els) => Object.fromEntries(els.map((el) => [el.parentElement.dataset.headingLevel, parseFloat(getComputedStyle(el).width)])));
@@ -130,6 +132,16 @@ try {
     await expect(rail.locator('.cc-rail-lines a[href="#inputs"]')).toHaveAttribute('aria-current', 'location');
     await expect.poll(() => page.evaluate(() => window.scrollY)).toBeGreaterThan(0);
     await page.mouse.move(10, 10); await shot('07-heading-rail-current');
+  });
+  await check('fusion-generated-indexes', async () => {
+    await go('/manuals/fusion/index/node-a-z');
+    const generated = page.locator('[data-cc-fusion-index="nodes"]');
+    await expect(generated).toBeVisible();
+    await expect(generated.getByRole('link', {name: 'Merge', exact: true})).toBeVisible();
+    await generated.getByLabel('この索引を絞り込む', {exact: true}).fill('MultiMerge');
+    await expect(generated.getByRole('link', {name: 'MultiMerge', exact: true})).toBeVisible();
+    await go('/manuals/fusion/index/by-task');
+    await expect(page.locator('[data-cc-fusion-index="tasks"]')).toBeVisible();
   });
   await check('articles-single-layout-full-db', async () => {
     await go('/articles');
@@ -170,7 +182,7 @@ try {
       await page.getByRole('button', {name: 'パネル', exact: true}).click(); await noOverflow();
     }
     await shot('10-mobile-home');
-    await go('/manuals/fusion/nodes/merge'); await noOverflow(); await shot('11-mobile-article');
+    await go('/manuals/fusion/nodes/compositing/merge'); await noOverflow(); await shot('11-mobile-article');
     await page.locator('.cc-mobile-outline summary').click();
     await expect(page.locator('.cc-mobile-outline')).toHaveAttribute('open', '');
     await shot('12-mobile-outline');
@@ -192,7 +204,7 @@ try {
   });
   await check('reduced-motion-keyboard-anchor', async () => {
     await page.setViewportSize({width: 1440, height: 1000}); await page.emulateMedia({reducedMotion: 'reduce'});
-    await go('/manuals/fusion/nodes/merge');
+    await go('/manuals/fusion/nodes/compositing/merge');
     const target = page.locator('.cc-rail-lines a[href="#controls"]'); await target.focus(); await target.press('Enter');
     await expect(page).toHaveURL(/#controls$/);
     await expect.poll(() => page.evaluate(() => window.scrollY)).toBeGreaterThan(0);
@@ -209,7 +221,7 @@ try {
         else for (const method of ['getItem', 'setItem']) {const original = Storage.prototype[method]; Storage.prototype[method] = function(key, ...args) {if (String(key).startsWith('collectanea.')) throw new DOMException('Storage disabled', 'SecurityError'); return original.call(this, key, ...args);};}
       }, mode);
       const other = await isolated.newPage();
-      await other.goto(url('/manuals/fusion/nodes/merge'), {waitUntil: 'networkidle'});
+      await other.goto(url('/manuals/fusion/nodes/compositing/merge'), {waitUntil: 'networkidle'});
       await expect(other.locator('html')).toHaveAttribute('data-cc-sidebar', 'expanded');
       await other.getByRole('button', {name: '階層を閉じる', exact: true}).click();
       await other.locator('.theme-doc-markdown h1').click();
