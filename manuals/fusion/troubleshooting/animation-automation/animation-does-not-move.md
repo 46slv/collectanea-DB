@@ -14,7 +14,7 @@ product_scope: fusion
 
 # Keyframeを置いたのにアニメーションしない
 
-## まず確認すること（Fast Checks）
+## まず確認すること
 
 1. 動かしたいパラメータにkeyframeがあるか。
 2. 2つ以上の異なるtimeで異なる値を持っているか。
@@ -22,7 +22,7 @@ product_scope: fusion
 4. Viewerは対象Nodeの結果を見ているか。
 5. Expression / Modifier等がパラメータの供給元を置き換えていないか。
 
-## 原因を切り分ける（Isolate）
+## 原因の切り分け
 
 1つのパラメータだけを対象にします。
 
@@ -33,7 +33,7 @@ frame B: value B
 
 まずこの2点だけで変化が見えることを確認します。
 
-## 主な原因（Likely Causes）
+## 主な原因
 
 ### Keyframe間で値が同じ
 
@@ -51,7 +51,7 @@ CenterとPivot等、似たcontrolを混同している可能性があります�
 
 Expression / Modifier等が最終値を決めている場合があります。
 
-## 修正方法（Fix）
+## 修正方法
 
 1. 1 パラメータ / 2 keyframeへ縮める。
 2. Viewer 対象を確認。
@@ -59,17 +59,17 @@ Expression / Modifier等が最終値を決めている場合があります。
 4. Spline Editorでcurveを確認。
 5. 徐々に他アニメーションを戻す。
 
-## なぜ起きるか（Why）
+## なぜ起きるか
 
 アニメーションはNode全体ではなく、現在の timeに対してパラメータ 値がどう供給されるかの問題です。
 
 → [フレーム 評価](../../learn/05-time/frame-evaluation)
 
-## バージョン・例外（Version / Exception Notes）
+## バージョン・例外
 
 Spline / Keyframe Editorの正確なUI表記は現在の Resolve / Fusion versionを確認します。
 
-## 関連する症状（Related Symptoms）
+## 関連する症状
 
 - Expressionでは動くがkeyframeでは動かない
 - Splineが見つからない

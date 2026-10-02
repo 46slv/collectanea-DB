@@ -1,6 +1,6 @@
 ---
 title: After Effectsから来た人へ
-description: AEのComposition・Layer・Precomp・Keyframe・Expression経験をResolve / Fusionへ翻訳する入口。
+description: After EffectsのComposition・Layer・Precomp・Keyframe・Expressionの知識を使って、Resolve / Fusionを読み解くための入口。
 doc_type: index
 verification: partial
 product_scope: resolve
@@ -17,9 +17,9 @@ After Effectsでは、Compositionがtimelineを持ち、通常は複数Layerを�
 
 Fusionでは、同じ「画面を作る」仕事でも、ImageやMaskをNode間で明示的に接続するFlowが中心です。
 
-このページはAE用の別Manualではなく、知っている考え方からFusionの正本ページへ移る地図です。
+After Effectsで知っている考え方を起点に、対応するResolve / Fusionのページを案内します。
 
-## 対応の見方（Map）
+## 対応表
 
 | After Effectsで知っているもの | Resolve / Fusionで読む先 |
 |---|---|
@@ -32,7 +32,7 @@ Fusionでは、同じ「画面を作る」仕事でも、ImageやMaskをNode間�
 | Expressions | [Keyframe / Expressionの読み替え](./keyframes-expressions) |
 | reusable MOGRT-like intent | [Macro / Template](../../learn/06-reuse/macros-templates) |
 
-## 大事な点
+## 注意点
 
 AEで複数LayerをPrecomposeすることと、FusionでGroup / Macro / Fusion Clip等を使うことは**同一操作ではありません**。
 

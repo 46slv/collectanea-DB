@@ -14,17 +14,17 @@ product_scope: fusion
 
 # Base値とアニメーション Offsetを分ける
 
-## 使う場面（Problem Family）
+## 使う場面
 
 最終positionを直接Keyframeし続けた結果、配置変更と動き調整が同じパラメータへ混ざり、後から修正しにくくなる問題です。
 
-## 前提となる考え方（Concepts）
+## 前提となる考え方
 
 - [キーフレーム / スプライン / 時間（Keyframe / Spline / Time）](../../learn/05-time/keyframes-spline-time)
 - [Modifier / パラメータ Sources](../../learn/05-time/modifier-parameter-sources)
 - [Center / Pivot / Size / Angle](../../learn/03-space/center-pivot-size-angle)
 
-## 基本構成（Generic Graph）
+## 基本構成
 
 ```text
 base layout
@@ -36,7 +36,7 @@ final parameter
 
 実装方法はNode構造やExpression等で変わっても、**静的な基準値と時間変化を別責任にする**ことが中心です。
 
-## 保つべき条件（Invariant）
+## 保つべき条件
 
 - base 配置はアニメーションの開始フレームに依存しない。
 - アニメーションはbaseからの差分として理解できる。
@@ -44,7 +44,7 @@ final parameter
 - 動き調整だけでstatic alignmentを壊さない。
 - 基準となる値を二重化しない。
 
-## バリエーション（Variants）
+## バリエーション
 
 ### Separate Transform
 
@@ -58,17 +58,17 @@ base パラメータとanimated offsetを計算で合成します。
 
 templateではbase / 動き amountを意味controlとして分けます。
 
-## Nodeの選び方（Node Choices）
+## Nodeの選び方
 
 Transformを2段に分ける構成は責任を視覚化しやすい候補です。
 
-## 失敗しやすい点（Failure Modes）
+## 失敗しやすい点
 
 - final Centerを直接すべてKeyframeして配置修正と競合する。
 - offset値とabsolute positionを混同する。
 - base / アニメーションを複数Nodeへ重複して持つ。
 
-## この構成を使う手順（Recipes）
+## この構成を使う手順
 
 - [TransformをKeyframeで動かす](../../recipes/animation/animate-transform-center)
 

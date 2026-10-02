@@ -18,28 +18,28 @@ suite_surfaces: [fusion]
 
 Shape domainで円・楕円shapeを生成するNodeです。
 
-## 概要（At a Glance）
+## 概要
 
 - **分類（Family）**: Shapes
 - **出力データ（Output domain）**: Shape
 - **関連概念（Core concepts）**: vector/path domain、deferred rasterization
 - **よく使う作業（Common tasks）**: procedural graphics、shape composition、repeated vector forms
 
-## 入力（Inputs）
+## 入力
 
 shape生成用のパラメータ / modifier入力を持つ系統ですが、Fusion 21.1の正確な入力仕様はこのReferenceでは固定しません。
 
-## 出力（Output）
+## 出力
 
 Shape streamを出力します。
 
 これは2D ImageでもMaskでもありません。
 
-## 主な設定項目（Controls）
+## 主な設定項目
 
 position・size・shape styling等に関わるcontrolを持つ系統ですが、正確な 21.1 label / 初期値 / 範囲は現在の manual / 実機確認待ちです。
 
-## 挙動と注意点（Behavior / Notes）
+## 挙動と注意点
 
 Shape systemでは、可能な限りShape domainのまま変形・複製・結合し、必要な段階でsRenderを使って2D Imageへ変換します。
 
@@ -52,17 +52,17 @@ sEllipse
 
 通常のEllipse Maskとはデータ領域（data domain）も用途も異なります。
 
-## 最小例（Minimal Examples）
+## 最小例
 
 ```text
 sEllipse → sRender → Merge
 ```
 
-## 関連する考え方（Concepts）
+## 関連する考え方
 
 - [データ領域（data domain）を辿って診断する](../../learn/07-debugging/trace-data-domain)
 
-## 関連する再利用構成（Patterns）
+## 関連パターン
 
 Shape-specific Patternは今後追加します。
 

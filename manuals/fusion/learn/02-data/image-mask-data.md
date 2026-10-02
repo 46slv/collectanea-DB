@@ -15,11 +15,11 @@ suite_surfaces: [fusion]
 
 # Image / Mask / Dataを分ける
 
-## このページで分かること（Question）
+## このページで分かること
 
-「線をつなげば動く」だけではなく、**何を何へつないでいるのか**をどう区別すればよいでしょうか。
+線がつながっているかだけでなく、**何のデータを何へ渡しているか**を区別して読みます。
 
-## 基本の考え方（Mental Model）
+## 基本の考え方
 
 まず3つの責任へ分けます。
 
@@ -31,7 +31,7 @@ suite_surfaces: [fusion]
 
 この3つを同じ「線」や「値」として扱わないことが重要です。
 
-## 最小例（Minimum Example）
+## 最小例
 
 ```text
 Image A ──────────────────┐
@@ -45,7 +45,7 @@ Merge.Blend / Transform.Center / ...
 
 Image connection、Mask connection、Inspector パラメータは別の責任です。
 
-## 共通ルール（Invariants）
+## 共通ルール
 
 - ImageはImageとして追う。
 - Maskはeffect範囲として追う。
@@ -53,11 +53,11 @@ Image connection、Mask connection、Inspector パラメータは別の責任で
 - 同じViewer表示ができてもデータ領域（data domain）を同一視しない。
 - 接続できない場合は、まずOutput / Input domainを確認する。
 
-## 1つだけ変えて確認する（Change One Thing）
+## 1つずつ変えて確認する
 
 Mask connectionだけを外し、Image 分岐とパラメータは固定したまま結果を比較します。
 
-## 他のNodeへ応用する（Transfer）
+## 他のNodeにも応用する
 
 ### Merge
 
@@ -71,17 +71,17 @@ Imageを受け取り、Center / Size等のパラメータで挙動を決めま�
 
 Shape / Particle / 3D / USD / Deepは、Image / Mask / パラメータ以外にも別domainがあることを示します。
 
-## 初見Nodeで予測する（Predict）
+## 初見のNodeを読む
 
 初見Nodeで、まず「これはImage / Mask / パラメータ / その他domainのどれか」を分類できます。
 
-## よくある誤解（Common Misread）
+## よくある誤解
 
 **Viewerに見えるものは全部Image、Inspectorにあるものは全部同じ型の数値**と考えること。
 
 データ領域（data domain）とパラメータ typeを分けて読みます。
 
-## 関連する再利用構成（Patterns）
+## 関連パターン
 
 - [Maskで処理範囲を限定する](../../patterns/masking/limit-effect-with-mask)
 - [Expressionで値の関係を保つ](../../patterns/automation/link-values-with-expression)

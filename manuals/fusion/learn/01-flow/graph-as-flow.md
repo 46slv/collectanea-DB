@@ -14,17 +14,17 @@ suite_surfaces: [fusion]
 
 # Graphとして考える
 
-## このページで分かること（Question）
+## このページで分かること
 
-FusionのFlowを見たとき、Node名を全部知らなくても「何が、どこから来て、どこへ渡るか」をどう読めばよいでしょうか。
+FusionのFlowで「何がどこから来て、どこへ渡るか」を読む方法を説明します。
 
-## 基本の考え方（Mental Model）
+## 基本の考え方
 
 Flowは、**Node同士の接続でデータの流れを記述するGraph**です。
 
 画面上で左にあるか右にあるかより、どの出力がどの入力へ接続されているかを先に見ます。Blackmagic Designの現行Fusion紹介でも、Node treeはフローチャートとして説明され、各Nodeはeffect・generator・transform・maskなどの役割を持ち、出力と入力を接続して処理を組み立てます。
 
-## 最小例（Minimum Example）
+## 最小例
 
 ```text
 MediaIn1 → Transform1 → MediaOut1
@@ -36,7 +36,7 @@ MediaIn1 → Transform1 → MediaOut1
 
 選択したNodeをViewerで確認しながら、中間結果を1段ずつ見ると、Graphのどこで結果が変わったかを切り分けやすくなります。
 
-## 共通ルール（Invariants）
+## 共通ルール
 
 Nodeが変わっても、まず次を確認します。
 
@@ -47,13 +47,13 @@ Nodeが変わっても、まず次を確認します。
 
 **接続が処理関係を表し、配置位置は説明のためのレイアウトにすぎない**という読み方は、複雑なFlowでも変わりません。
 
-## 1つだけ変えて確認する（Change One Thing）
+## 1つずつ変えて確認する
 
 `Transform1` の後に別のNodeを1つ追加し、そのNodeの前後をViewerで見比べます。
 
 変えるのは1箇所だけにします。結果が変わる境界を特定できれば、「このNodeが何をしたか」をNode名だけに頼らず観察できます。
 
-## 他のNodeへ応用する（Transfer）
+## 他のNodeにも応用する
 
 ### Transform family
 
@@ -67,7 +67,7 @@ Nodeが変わっても、まず次を確認します。
 
 BackgroundのようなGeneratorは、必ずしも上流画像を必要とせず、Graphの途中から新しい画像を供給できます。
 
-## 初見Nodeで予測する（Predict）
+## 初見のNodeを読む
 
 初見Nodeでも、次を予測してからInspectorを開けます。
 
@@ -76,13 +76,13 @@ BackgroundのようなGeneratorは、必ずしも上流画像を必要とせず�
 3. 画像を作る／変える／組み合わせる／制限する、のどれに近いか。
 4. 前後をViewerで比べれば、どこまで挙動を特定できるか。
 
-## よくある誤解（Common Misread）
+## よくある誤解
 
 **Nodeを左から右へ並べた見た目そのものが処理順だと思うこと。**
 
 読み取るべきなのは線で結ばれた接続です。整理されたFlowでは左右方向に並ぶことが多くても、Graphの意味は接続が持ちます。
 
-## 関連する再利用構成（Patterns）
+## 関連パターン
 
 - [画像を段階的に重ねる](../../patterns/compositing/stack-images-with-merge)
 

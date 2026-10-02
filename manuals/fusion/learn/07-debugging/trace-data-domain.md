@@ -14,11 +14,11 @@ suite_surfaces: [fusion]
 
 # データ領域（data domain）を辿って診断する
 
-## このページで分かること（Question）
+## このページで分かること
 
-Node名だけを見ると接続できそうなのに、なぜ繋がらない／期待した結果にならないのでしょうか。
+Node名だけでは判断できない接続可否や結果の違いを、data domainを追って診断する方法を説明します。
 
-## 基本の考え方（Mental Model）
+## 基本の考え方
 
 FusionのFlowには、同じ「Node」に見えても異なるデータ領域（data domain）が共存します。
 
@@ -44,13 +44,13 @@ yes → behaviorへ進む
 no  → converter / renderer /別構成を探す
 ```
 
-## 最小例（Minimum Example）
+## 最小例
 
 Shape系Nodeの出力を普通の2D Imageと同じだと仮定せず、最終的にどのNodeでImageへ変換されるかを確認します。
 
 同様にParticle setや3D sceneも、Image filterへ直接入れる前にdomainを確認します。
 
-## 共通ルール（Invariants）
+## 共通ルール
 
 - 同じ名前のconceptでもデータ領域（data domain）が違えば別Node familyとして扱う。
 - port colorだけで型を断定しない。
@@ -58,13 +58,13 @@ Shape系Nodeの出力を普通の2D Imageと同じだと仮定せず、最終的
 - renderer / converterが必要なdomainでは、その変換境界をGraph上で明示する。
 - 接続問題をパラメータ調整で直そうとしない。
 
-## 1つだけ変えて確認する（Change One Thing）
+## 1つずつ変えて確認する
 
 問題の接続1本だけを外し、upstream Outputとdownstream Inputのdomainを別々に確認します。
 
 見た目やNode名を一旦無視し、data typeの関係だけを見ます。
 
-## 他のNodeへ応用する（Transfer）
+## 他のNodeにも応用する
 
 ### Shape
 
@@ -78,7 +78,7 @@ Classic 3D sceneと2D Imageの境界をRendererで意識します。
 
 Expression / Modifierが供給するscalarやPointはImageとは別のdataとして読みます。
 
-## 初見Nodeで予測する（Predict）
+## 初見のNodeを読む
 
 初見Nodeでも、接続前に次を予測できます。
 
@@ -87,13 +87,13 @@ Expression / Modifierが供給するscalarやPointはImageとは別のdataとし
 3. 変換Nodeが必要か。
 4. 問題は接続型か、パラメータ値か。
 
-## よくある誤解（Common Misread）
+## よくある誤解
 
 **Node名が似ていれば接続可能だと思うこと。**
 
 Merge、Merge3D、sMerge、dMergeのように、名前が似てもdomainが違うNodeがあります。
 
-## 関連する再利用構成（Patterns）
+## 関連パターン
 
 - [Maskで処理範囲を限定する](../../patterns/masking/limit-effect-with-mask)
 

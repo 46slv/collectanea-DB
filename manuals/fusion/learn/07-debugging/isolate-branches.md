@@ -14,11 +14,11 @@ suite_surfaces: [fusion]
 
 # 分岐を分離して原因範囲を狭める
 
-## このページで分かること（Question）
+## このページで分かること
 
-複雑なFlowで結果がおかしいとき、どこから直せばよいでしょうか。
+複雑なFlowで結果がおかしいときに、問題のある範囲を切り分ける方法を説明します。
 
-## 基本の考え方（Mental Model）
+## 基本の考え方
 
 Graph全体を同時に調整せず、**独立して確認できる分岐へ分け、最後に正常だった地点と最初に壊れた地点を探す**と考えます。
 
@@ -36,7 +36,7 @@ problem scope = A → B
 
 Viewerは、Graphの各地点を観察するprobeとして使います。
 
-## 最小例（Minimum Example）
+## 最小例
 
 Masked Mergeなら次の3つを別々に確認します。
 
@@ -56,7 +56,7 @@ Mask branch ─────────
 
 順番に足すことで、どの分岐で問題が入ったかを絞れます。
 
-## 共通ルール（Invariants）
+## 共通ルール
 
 - 一度に1つだけ条件を増減する。
 - upstreamが壊れているならdownstreamを調整しない。
@@ -64,13 +64,13 @@ Mask branch ─────────
 - Viewerに出しているNodeを毎回確認する。
 - temporary bypass / disconnectをしたら元構造へ戻す。
 
-## 1つだけ変えて確認する（Change One Thing）
+## 1つずつ変えて確認する
 
 問題NodeをPass Through / bypassできる場合、1 Nodeだけ無効化して結果を比較します。
 
 改善した場合でも「そのNode自体が壊れている」と即断せず、input dataやパラメータも確認します。
 
-## 他のNodeへ応用する（Transfer）
+## 他のNodeにも応用する
 
 ### Long 合成 chains
 
@@ -84,7 +84,7 @@ Mask 分岐をImage 分岐から独立させます。
 
 Groupの外→内→外という境界で同じ方法を使います。
 
-## 初見Nodeで予測する（Predict）
+## 初見のNodeを読む
 
 複雑なGraphでも、次に見るべき地点を決められます。
 
@@ -93,13 +93,13 @@ Groupの外→内→外という境界で同じ方法を使います。
 - 分岐の境界
 - データ領域を変換する境界
 
-## よくある誤解（Common Misread）
+## よくある誤解
 
 **症状に関係ありそうなパラメータを片端から触ること。**
 
 値を変える前に、問題の存在するGraph範囲を小さくした方が、修正理由を説明できます。
 
-## 関連する再利用構成（Patterns）
+## 関連パターン
 
 - [画像を段階的に重ねる](../../patterns/compositing/stack-images-with-merge)
 - [Maskで処理範囲を限定する](../../patterns/masking/limit-effect-with-mask)

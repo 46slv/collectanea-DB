@@ -13,11 +13,11 @@ product_scope: fusion
 
 # 画像（Image）
 
-## このページで分かること（Question）
+## このページで分かること
 
-Fusionで「画像」と呼んでいるものは、単なるViewerの見た目でしょうか。
+FusionでいうImageが何を含むデータなのかを整理します。
 
-## 基本の考え方（Mental Model）
+## 基本の考え方
 
 2D Imageを、少なくとも次を持つdataとして考えます。
 
@@ -30,7 +30,7 @@ Fusionで「画像」と呼んでいるものは、単なるViewerの見た目�
 
 Viewerに見える結果は、このImage dataの1つの観察方法です。
 
-## 最小例（Minimum Example）
+## 最小例
 
 ```text
 Background → Transform → Merge
@@ -38,7 +38,7 @@ Background → Transform → Merge
 
 BackgroundはImageを生成し、TransformはImageを受け取ってImageを返し、Mergeは複数Imageを合成します。
 
-## 共通ルール（Invariants）
+## 共通ルール
 
 - ImageとMaskを同じdataとして扱わない。
 - Image AlphaとEffect Maskを同一視しない。
@@ -46,11 +46,11 @@ BackgroundはImageを生成し、TransformはImageを受け取ってImageを返�
 - フレーム全体とDoDを分ける。
 - Viewerに見えないこととImage dataが存在しないことを分ける。
 
-## 1つだけ変えて確認する（Change One Thing）
+## 1つずつ変えて確認する
 
 同じImageをTransform前後でViewerへ出し、データ領域（data domain）はImageのまま、positionだけ変わることを観察します。
 
-## 他のNodeへ応用する（Transfer）
+## 他のNodeにも応用する
 
 ### Generator
 
@@ -64,17 +64,17 @@ Transform / Blur / Color Corrector等はImageを受け取ってImageを返しま
 
 Merge / MultiMergeは複数Imageを1 Imageへまとめます。
 
-## 初見Nodeで予測する（Predict）
+## 初見のNodeを読む
 
 初見NodeがImageを生成・加工・合成するどれかを、Input / Outputから予測できます。
 
-## よくある誤解（Common Misread）
+## よくある誤解
 
 **Viewerに見えるものはすべてImage domain**と考えること。
 
 Maskやspecialized domainも可視化できる場合がありますが、Graph上のtypeは別です。
 
-## 関連する再利用構成（Patterns）
+## 関連パターン
 
 - [画像を段階的に重ねる](../../patterns/compositing/stack-images-with-merge)
 

@@ -15,11 +15,11 @@ suite_surfaces: [fusion]
 
 # プリマルチプライ（Premultiplication）
 
-## このページで分かること（Question）
+## このページで分かること
 
-透明edgeへcolor correctionをかけたとき、なぜ黒縁や色汚れが出ることがあるのでしょうか。
+透明edgeへのcolor correctionで黒縁や色汚れが出る理由を説明します。
 
-## 基本の考え方（Mental Model）
+## 基本の考え方
 
 RGBとAlphaの保存関係には、少なくとも次の考え方があります。
 
@@ -35,24 +35,24 @@ Aout = Af + Ab * (1 - Af)
 
 同じ式をストレートRGB（straight RGB）へ無条件に適用しません。
 
-## 最小例（Minimum Example）
+## 最小例
 
 透明edgeを持つForegroundへ強いcolor operationを加えます。
 
 結果にエッジの乱れ（artifact）が出た場合、RGBだけでなく参照元がどのalpha relationshipを前提にしているか確認します。
 
-## 共通ルール（Invariants）
+## 共通ルール
 
 - RGBとAlphaの関係を明示する。
 - straight / premultipliedを混同しない。
 - Alpha Divide → 色処理 → Alpha Multiplyのような構成は必要な場合だけ使う。
 - Node自身に同等のpre/post処理がある場合、二重に適用しない。
 
-## 1つだけ変えて確認する（Change One Thing）
+## 1つずつ変えて確認する
 
 color operationだけを外し、エッジの乱れ（artifact）が参照元から存在するか比較します。
 
-## 他のNodeへ応用する（Transfer）
+## 他のNodeにも応用する
 
 ### Color correction
 
@@ -66,17 +66,17 @@ Foregroundのalpha-aware 合成を読む基礎になります。
 
 key / matteで作ったedgeでもRGB/alpha 関係を確認します。
 
-## 初見Nodeで予測する（Predict）
+## 初見のNodeを読む
 
 透明edge問題で、Maskではなくpremultiplicationを疑うべき場面を切り分けられます。
 
-## よくある誤解（Common Misread）
+## よくある誤解
 
 **Alphaが正しければRGB edgeも必ず正しい**と考えること。
 
 透明ピクセル周辺のRGB値とAlphaの関係が重要です。
 
-## 関連する再利用構成（Patterns）
+## 関連パターン
 
 - [Last Good / First BadでGraphを切る](../../patterns/debugging/last-good-first-bad)
 

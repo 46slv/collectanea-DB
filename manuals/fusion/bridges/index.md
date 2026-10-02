@@ -1,6 +1,6 @@
 ---
 title: 他アプリから読み替える（Bridges）
-description: 慣れたアプリの考え方からResolve / Fusionの正本となる概念ページへ進む翻訳入口。
+description: 使い慣れたアプリの考え方を起点に、Resolve / Fusionの対応するページへ進むための入口。
 doc_type: index
 verification: partial
 product_scope: resolve

@@ -1,6 +1,6 @@
 ---
 title: Group / GizmoとFusion再利用構造
-description: Nuke Group/Gizmoのnesting・公開control・再利用経験をFusion Group / Macro / Templateへ単純等価せず翻訳する。
+description: Nuke Group / Gizmoのnesting・公開control・再利用の考え方を、Fusion Group / Macro / Templateと単純に対応づけず読み替える。
 doc_type: bridge
 verification: partial
 product_scope: fusion
@@ -19,7 +19,7 @@ Nuke Groupは複数Nodeを1 Nodeへnestでき、現在の NukeではGroup View�
 
 GizmoはGroupを別の`.gizmo` fileとして保存し、artistへ公開するcontrolを選んで再利用できる仕組みです。
 
-## Resolveで最初に決めること
+## Resolveではどこで扱うか
 
 NukeでGroup / Gizmoを使っていた理由を分類します。
 
@@ -41,14 +41,14 @@ reusable packaged graph
   → Macro / Template
 ```
 
-## そのまま活かしやすい考え方
+## 共通する考え方
 
 - 内部Nodeをまとめる
 - 利用者へ見せるControlを選ぶ
 - 繰り返し使う構成を再利用する
 - complexityを外部から隠す
 
-## そのまま一対一対応しない部分
+## そのまま対応しない点
 
 - Nuke Gizmo file = Fusion Macro / Template file、ではない。
 - Group internal graphのUI / lifecycleは別。
@@ -61,7 +61,7 @@ reusable packaged graph
 - [User Controlsで公開インターフェースを作る](../../learn/06-reuse/user-controls)
 - [Macro / Templateで再利用単位を作る](../../learn/06-reuse/macros-templates)
 
-## 関連する再利用構成（Patterns）
+## 関連パターン
 
 - [再利用の境界を選ぶ](../../patterns/reuse/choose-reuse-boundary)
 

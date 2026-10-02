@@ -14,11 +14,11 @@ suite_surfaces: [fusion]
 
 # Instanceで設定を共有する
 
-## このページで分かること（Question）
+## このページで分かること
 
-同じ種類のNodeを複数分岐で使い、設定変更だけはまとめて同期したいとき、単純なcopyと何を分けて考えればよいでしょうか。
+同じ種類のNodeを複数箇所で使いながら、設定変更を同期する方法と単純なcopyの違いを整理します。
 
-## 基本の考え方（Mental Model）
+## 基本の考え方
 
 Instanceは、**Graph上では別の場所に置けるNode同士が、パラメータ設定を共有する関係**です。
 
@@ -32,7 +32,7 @@ original node
 
 Fusion 18.6の公式Manualでは、Paste Instanceで作成したNodeは元Nodeとsettingsを共有し、変更がoriginalと他instanceへ反映されると説明されています。また、Node全体ではなく個別パラメータだけをDeinstance / Reinstanceできる操作も記載されています。21.1での正確なUI表記は再確認対象です。
 
-## 最小例（Minimum Example）
+## 最小例
 
 同じBlur設定を2つの分岐で使う状況を考えます。
 
@@ -44,20 +44,20 @@ Image B → Blur instance ─┘
 
 Blur量を1箇所で変えたとき、両方へ同じ調整を保ちたいならInstanceが候補になります。
 
-## 共通ルール（Invariants）
+## 共通ルール
 
 - Graph上の配置とパラメータの管理関係は別の問題。
 - Instanceは「同じNodeが1個しかない」のではなく、複数Nodeが共有設定を持つ関係として読む。
 - 独立させたいパラメータだけを切り離せる場合がある。
 - 接続関係まで同一になるとは考えず、各分岐の入出力はGraphとして個別に読む。
 
-## 1つだけ変えて確認する（Change One Thing）
+## 1つずつ変えて確認する
 
 1つのパラメータだけをDeinstanceし、他のパラメータは共有したままにします。
 
 「何を共有し、何を個別にするか」が明示できれば、Instanceを単なる便利copyではなく管理関係の仕組みとして扱えます。
 
-## 他のNodeへ応用する（Transfer）
+## 他のNodeにも応用する
 
 ### Repeated effects
 
@@ -71,7 +71,7 @@ Blur量を1箇所で変えたとき、両方へ同じ調整を保ちたいなら
 
 意図せず複数Nodeが同時に変わる場合は、ExpressionだけでなくInstance関係も確認します。
 
-## 初見Nodeで予測する（Predict）
+## 初見のNodeを読む
 
 複数Nodeに似た値があるとき、次を判断できます。
 
@@ -80,13 +80,13 @@ Blur量を1箇所で変えたとき、両方へ同じ調整を保ちたいなら
 3. 一部パラメータだけ独立させる必要があるか。
 4. InstanceよりMacro / Group / User Controlの方が責任に合うか。
 
-## よくある誤解（Common Misread）
+## よくある誤解
 
 **Instance = copyを少し便利にしたもの**とだけ考えること。
 
 本質は、複数のGraph位置にあるNodeへ共有パラメータの管理関係を作ることです。再利用単位が複数Nodeの構造そのものなら、Group / Macro側を検討します。
 
-## 関連する再利用構成（Patterns）
+## 関連パターン
 
 - [Expressionで値の関係を保つ](../../patterns/automation/link-values-with-expression)
 

@@ -16,7 +16,7 @@ product_scope: fusion
 
 # トラッキング結果がずれる / driftする
 
-## まず確認すること（Fast Checks）
+## まず確認すること
 
 1. トラッキング solve単体でdriftしているか。
 2. graphicを付けた後だけずれるか。
@@ -24,7 +24,7 @@ product_scope: fusion
 4. トラッキングとgraphicでresolution / spaceが違わないか。
 5. graphic側へ追加した手動オフセット / アニメーションが競合していないか。
 
-## 原因を切り分ける（Isolate）
+## 原因の切り分け
 
 ```text
 footage
@@ -38,7 +38,7 @@ graphic
 
 solve outputとapplication後の2段階を別々に確認します。
 
-## 主な原因（Likely Causes）
+## 主な原因
 
 ### solve自体がdrift
 
@@ -56,7 +56,7 @@ reference フレームとgraphic初期位置の関係がずれている可能性
 
 トラッキング dataとmanual keyframeが同じパラメータを動かしている可能性があります。
 
-## 修正方法（Fix）
+## 修正方法
 
 1. graphicを外してsolveを評価する。
 2. reference / 範囲を確認する。
@@ -64,17 +64,17 @@ reference フレームとgraphic初期位置の関係がずれている可能性
 4. 手動オフセットを一旦外す。
 5. solve → apply → 個別調整の順に戻す。
 
-## なぜ起きるか（Why）
+## なぜ起きるか
 
 トラッキングは「動きを解く」と「別要素へ動きを適用する」の2責任に分けるとdiagnoseしやすくなります。
 
 → [Trackを解いてから適用先を分ける](../../patterns/tracking/solve-then-apply-track)
 
-## バージョン・例外（Version / Exception Notes）
+## バージョン・例外
 
 Planar Trackerの正確な solve mode / export / transform 作業の流れはFusion 21.1 現在の 資料を優先します。
 
-## 関連する症状（Related Symptoms）
+## 関連する症状
 
 - graphicが一定量だけoffsetする
 -途中からdriftする

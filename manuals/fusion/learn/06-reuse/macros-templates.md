@@ -14,11 +14,11 @@ suite_surfaces: [fusion, edit]
 
 # Macro / Templateで再利用単位を作る
 
-## このページで分かること（Question）
+## このページで分かること
 
-複数Nodeで作った処理を、別のcompositionやEdit Pageから使える「操作単位」にするには、何を固定し何を公開すればよいでしょうか。
+複数Nodeの処理を別compositionやEdit Pageから使える単位にするとき、何を固定し、どのcontrolを公開するかを整理します。
 
-## 基本の考え方（Mental Model）
+## 基本の考え方
 
 Macro / Templateは、**Graph内部の実装をbundle化し、利用者へ必要なinput / output / controlだけを公開する**再利用境界です。
 
@@ -36,7 +36,7 @@ Template when exposed to Resolve workflows
 
 Blackmagic Designの現行DaVinci Resolve Fusionページでは、複数Nodeを選択してMacroを作成し、Edit Pageへ表示するcontrolを指定して独自templateとして再利用できることが案内されています。Resolve 21の新機能ページでもMacro EditorのInspector view更新が案内されています。
 
-## 最小例（Minimum Example）
+## 最小例
 
 ```text
 Text+ → Transform → Merge
@@ -52,7 +52,7 @@ Text+ → Transform → Merge
 
 だけなら、内部の全パラメータを公開せず、この3つをpublic インターフェースとして選びます。
 
-## 共通ルール（Invariants）
+## 共通ルール
 
 - 再利用単位の目的を1文で説明できる。
 - 公開controlは利用者の意思を表す。
@@ -60,13 +60,13 @@ Text+ → Transform → Merge
 - MacroにすることとEdit Page用Templateとして配布することを分けて考える。
 - 保存場所・template種別・host境界はversion依存なので現在の manualを確認する。
 
-## 1つだけ変えて確認する（Change One Thing）
+## 1つずつ変えて確認する
 
 内部Nodeを1つ変更し、public インターフェースを変えずに結果だけ改善できるか考えます。
 
 それが可能なら、Macro境界が内部実装と利用インターフェースを分離できています。
 
-## 他のNodeへ応用する（Transfer）
+## 他のNodeにも応用する
 
 ### Titles
 
@@ -80,7 +80,7 @@ Styled Textや色、配置だけを公開し、内部アニメーション graph
 
 transitionの内部処理をbundle化し、Edit Pageへ必要なcontrolだけを露出できます。
 
-## 初見Nodeで予測する（Predict）
+## 初見のNodeを読む
 
 Macro化する前に次を決められます。
 
@@ -90,13 +90,13 @@ Macro化する前に次を決められます。
 4. Groupで十分か、保存Macroが必要か。
 5. Resolveのどのsurfaceから使うか。
 
-## よくある誤解（Common Misread）
+## よくある誤解
 
 **Macro = 複数Nodeを閉じただけのGroup**と考えること。
 
 Macroでは、どのinput / output / controlを公開するかというインターフェース設計が重要です。公開面が不要で、内部を頻繁に開きたいだけならGroupの方が適切な場合があります。
 
-## 関連する再利用構成（Patterns）
+## 関連パターン
 
 - [Expressionで値の関係を保つ](../../patterns/automation/link-values-with-expression)
 

@@ -18,28 +18,28 @@ suite_surfaces: [fusion, edit]
 
 Fusion Flowの最終ImageをResolve側へ返すoutput Nodeです。
 
-## 概要（At a Glance）
+## 概要
 
 - **分類（Family）**: Utility / I/O
 - **入力データ（Input domain）**: 2D Image
 - **関連概念（Core concepts）**: Resolve integration、output boundary
 - **よく使う作業（Common tasks）**: Fusion 結果をtimelineへ返す
 
-## 入力（Inputs）
+## 入力
 
 ### Image
 
 Fusion compositionの最終結果としてResolve側へ返す2D Imageを受け取ります。
 
-## 出力（Output）
+## 出力
 
 Flow上の通常Image outputを下流Nodeへ渡すためのNodeというより、Resolve hostへ結果を返すboundaryとして扱います。
 
-## 主な設定項目（Controls）
+## 主な設定項目
 
 Resolve側と連携する正確な設定項目は現在の Resolve / Fusion contextで確認します。
 
-## 挙動と注意点（Behavior / Notes）
+## 挙動と注意点
 
 Resolve 20 VFX Guideでは、MediaOutはfinal Fusion 結果をEdit timelineへ送るoutputとして説明されています。
 
@@ -55,17 +55,17 @@ Resolve Timeline
 
 MediaOutを外した状態でViewerにImageが見えていても、それだけでtimelineへ正しく結果が返っているとは限りません。
 
-## 最小例（Minimal Examples）
+## 最小例
 
 ```text
 MediaIn → Transform → MediaOut
 ```
 
-## 関連する考え方（Concepts）
+## 関連する考え方
 
 - [Graphとして考える](../../learn/01-flow/graph-as-flow)
 
-## 関連する再利用構成（Patterns）
+## 関連パターン
 
 - [Last Good / First BadでGraphを切る](../../patterns/debugging/last-good-first-bad)
 

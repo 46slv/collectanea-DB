@@ -13,11 +13,11 @@ product_scope: fusion
 
 # Input / Output / Connection
 
-## このページで分かること（Question）
+## このページで分かること
 
-Node同士を線で繋ぐとき、その線は何を意味しているのでしょうか。
+Node間の接続が何を表しているかを説明します。
 
-## 基本の考え方（Mental Model）
+## 基本の考え方
 
 Fusionのconnectionは、**upstream NodeのOutputをdownstream NodeのInputへ渡す依存関係**です。
 
@@ -31,7 +31,7 @@ Node B Input
 
 「Node Aの次にNode Bが置いてある」ことより、どのOutputがどのInputへ入っているかを読みます。
 
-## 最小例（Minimum Example）
+## 最小例
 
 ```text
 MediaIn → Transform → MediaOut
@@ -41,7 +41,7 @@ MediaIn → Transform → MediaOut
 - TransformがそのImageをInputとして受け取る。
 - Transform OutputをMediaOutが受け取る。
 
-## 共通ルール（Invariants）
+## 共通ルール
 
 - connectionはdata dependencyを表す。
 - Nodeの画面上の位置は処理意味そのものではない。
@@ -49,11 +49,11 @@ MediaIn → Transform → MediaOut
 - OutputとInputのdomainがcompatibleかを確認する。
 - optional inputとrequired inputをNodeごとに分ける。
 
-## 1つだけ変えて確認する（Change One Thing）
+## 1つずつ変えて確認する
 
 1本のconnectionだけを外し、どのdownstream 結果が変わるか確認します。
 
-## 他のNodeへ応用する（Transfer）
+## 他のNodeにも応用する
 
 ### Single-input effect
 
@@ -67,17 +67,17 @@ Image → Effect → Imageという直列依存として読めます。
 
 Shape / Particle / 3D / USD / Deepでは、Output domainが通常Imageと異なることを確認します。
 
-## 初見Nodeで予測する（Predict）
+## 初見のNodeを読む
 
 初見Nodeでも「何を受け取る／何を返す」を見れば、Graph内での役割を予測できます。
 
-## よくある誤解（Common Misread）
+## よくある誤解
 
 **接続線は単に実行順を表す**と考えること。
 
 重要なのは、何のdataがどのInputへ依存しているかです。
 
-## 関連する再利用構成（Patterns）
+## 関連パターン
 
 - [Last Good / First BadでGraphを切る](../../patterns/debugging/last-good-first-bad)
 

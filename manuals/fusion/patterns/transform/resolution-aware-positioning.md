@@ -14,16 +14,16 @@ product_scope: fusion
 
 # Resolutionを跨いでも位置関係を保つ
 
-## 使う場面（Problem Family）
+## 使う場面
 
 同じGraphを別の解像度（Resolution）で使うと、余白（Margin）・オフセット（Offset）・配置が意図せず変わる問題です。
 
-## 前提となる考え方（Concepts）
+## 前提となる考え方
 
 - [正規化座標（Normalized Coordinates）](../../learn/03-space/normalized-coordinates)
 - [解像度 / アスペクト比（Resolution / Aspect）](../../learn/03-space/resolution-aspect)
 
-## 基本構成（Generic Graph）
+## 基本構成
 
 ピクセル基準のdesign intentを1箇所でnormalized 値へ変換します。
 
@@ -36,14 +36,14 @@ desired pixel offset
       Transform / layout
 ```
 
-## 保つべき条件（Invariant）
+## 保つべき条件
 
 - ピクセル値とnormalized値を同じパラメータとして扱わない。
 - reference resolutionの管理元を1箇所に置く。
 - 複数Nodeで個別にピクセル→normalized換算しない。
 - Resize後のImage extentを明示する。
 
-## バリエーション（Variants）
+## バリエーション
 
 ### Relative 配置
 
@@ -57,18 +57,18 @@ desired pixel offset
 
 major positionはrelative、stroke/marginはピクセル intentとして分離します。
 
-## Nodeの選び方（Node Choices）
+## Nodeの選び方
 
 Transformはposition/配置、Resizeはresolution contractを所有する候補です。
 
-## 失敗しやすい点（Failure Modes）
+## 失敗しやすい点
 
 - 1920×1080前提の数値を4Kでもそのまま使う。
 - ResizeとTransform Sizeを混同する。
 - X/Yのreference dimensionsを逆にする。
 - ピクセル Aspect / non-square ピクセルを無視する。
 
-## この構成を使う手順（Recipes）
+## この構成を使う手順
 
 - [TransformでImageを移動する](../../recipes/layout/move-image-with-transform)
 

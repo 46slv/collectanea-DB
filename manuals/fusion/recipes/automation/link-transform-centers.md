@@ -15,19 +15,19 @@ product_scope: fusion
 
 # 2つのTransform位置を連動する
 
-> 正確な Expression syntaxはFusion 21.1 現在の Manual / ホスト上での確認待ちです。このRecipeはmaster/follower 構造を正本とします。
+> 正確な Expression syntaxはFusion 21.1 現在の Manual / ホスト上での確認待ちです。このページでは、master / follower構造を扱います。
 
-## できあがるもの（Result）
+## できあがるもの
 
 Transform Aのpositionを変更すると、Transform Bも同じposition関係を保つ構造を作ります。
 
-## 必要なもの（Requirements）
+## 必要なもの
 
 - Transform A
 - Transform B
 - パラメータ linking method
 
-## 手順（Steps）
+## 手順
 
 1. Transform Aをmasterと決めます。
 2. Transform Bをfollowerと決めます。
@@ -43,11 +43,11 @@ Transform B.Center
   + optional offset
 ```
 
-## なぜこの構成にするか（Why This Works）
+## この構成にする理由
 
 値そのものを複製するのではなく、パラメータの管理関係と関係を1箇所へ集約します。
 
-## 別のやり方（Variants / Alternatives）
+## 別の方法
 
 - 正確な follow
 - Xだけ共有
@@ -55,14 +55,14 @@ Transform B.Center
 - 個別オフセット付き
 - User Controlをmasterにする
 
-## うまくいかないときの確認（Failure Checks）
+## うまくいかないとき
 
 - 親（Master）/ 追従（Follower）が逆転していないか。
 - circular referenceになっていないか。
 - Point / scalar typeを混同していないか。
 - Node名の変更後にreferenceが切れていないか。
 
-## 関連する再利用構成（Pattern）
+## 関連パターン
 
 - [親・追従パラメータ（Master / Follower）を作る](../../patterns/automation/master-follower-parameters)
 

@@ -17,16 +17,16 @@ product_scope: fusion
 
 > Centerの正確な 21.1 numeric space / 初期値は現在の manual / ホスト上での確認待ちです。
 
-## できあがるもの（Result）
+## できあがるもの
 
 Imageの処理分岐へTransformを追加し、position責任を独立させます。
 
-## 必要なもの（Requirements）
+## 必要なもの
 
 - 2D Image
 - Transform
 
-## 手順（Steps）
+## 手順
 
 1. 移動したいImageのdownstreamへTransformを追加します。
 2. Transform outputをViewerへ表示します。
@@ -37,13 +37,13 @@ Imageの処理分岐へTransformを追加し、position責任を独立させま�
 Image → Transform → downstream
 ```
 
-## なぜこの構成にするか（Why This Works）
+## この構成にする理由
 
 Imageの生成／合成と位置調整を別Nodeへ分離すると、配置責任を読みやすくできます。
 
 → [正規化座標（Normalized Coordinates）](../../learn/03-space/normalized-coordinates)
 
-## 別のやり方（Variants / Alternatives）
+## 別の方法
 
 - Merge側のtransform controlsを使う構成。
 - 複数要素のpositionを共有する構成。
@@ -51,14 +51,14 @@ Imageの生成／合成と位置調整を別Nodeへ分離すると、配置責�
 
 見た目が似ても役割は同じではありません。
 
-## うまくいかないときの確認（Failure Checks）
+## うまくいかないとき
 
 - ViewerはTransform outputを見ているか。
 - Imageがフレーム外へ出ただけか、ピクセルがclipされたか。
 - positionとPivotを混同していないか。
 - ResizeとTransform Sizeを同じ操作だと思っていないか。
 
-## 関連する再利用構成（Pattern）
+## 関連パターン
 
 - [複数要素の位置関係を共有する](../../patterns/transform/share-position-across-elements)
 

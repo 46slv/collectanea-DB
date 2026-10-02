@@ -19,7 +19,7 @@ PhotoshopのLayers panelでは、Layerを選択・非表示・並べ替え・編
 
 Layer orderは、複数素材をどう重ねるかを理解する重要な入口です。
 
-## Resolveで最初に決めること
+## Resolveではどこで扱うか
 
 Resolve内でshot内部の合成関係を設計するならFusionへ進みます。
 
@@ -37,7 +37,7 @@ Image B → Effect ──┘
 
 PhotoshopのLayer panel上の上下位置に相当する意味を、FusionではMergeのForeground / BackgroundやGraph connectionとして読みます。
 
-## そのまま活かしやすい考え方
+## 共通する考え方
 
 目的としては共通します。
 
@@ -47,7 +47,7 @@ PhotoshopのLayer panel上の上下位置に相当する意味を、Fusionでは
 - transformする
 - 参照元を再利用する
 
-## そのまま一対一対応しない部分
+## そのまま対応しない点
 
 - Photoshop Layer = Fusion Node、ではない。
 - Layer order = Nodeの左右位置、ではない。
@@ -59,7 +59,7 @@ PhotoshopのLayer panel上の上下位置に相当する意味を、Fusionでは
 - [Graphとして考える](../../learn/01-flow/graph-as-flow)
 - [前景（Foreground）/ 背景（Background）/ マスク（Mask）](../../learn/04-compositing/foreground-background-mask)
 
-## 関連する再利用構成（Patterns）
+## 関連パターン
 
 - [画像を段階的に重ねる](../../patterns/compositing/stack-images-with-merge)
 
@@ -79,4 +79,4 @@ PhotoshopのLayer panel上の上下位置に相当する意味を、Fusionでは
 
 ---
 
-検証範囲: Adobeの現行Layers資料で、Layerの表示・非表示や並べ替えを確認しています。Fusion固有のGraphの意味はFusionの正本ページを基準にします。
+検証範囲: Adobeの現行Layers資料で、Layerの表示・非表示や並べ替えを確認しています。Fusion固有のGraphの意味は、このマニュアル内のFusionページを基準にします。

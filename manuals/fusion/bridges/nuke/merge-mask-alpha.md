@@ -19,7 +19,7 @@ Nuke MergeはA / B inputとmaskを持ち、合成 algorithmを選んで複数Ima
 
 Foundryの現在の Merge 資料では、多くのmerge operationでpremultiplied inputを想定すると説明されています。
 
-## Resolveで最初に決めること
+## Resolveではどこで扱うか
 
 Fusion Mergeでは、まずNukeのA/B namingを忘れ、Fusionの役割を読みます。
 
@@ -37,14 +37,14 @@ Background ─┘
           Effect Mask
 ```
 
-## そのまま活かしやすい考え方
+## 共通する考え方
 
 - MergeがImage 合成の中心になる
 - operator / modeによって合成意味が変わる
 - Maskで処理範囲を制限できる
 - premultiplicationを無視できない
 
-## そのまま一対一対応しない部分
+## そのまま対応しない点
 
 - Nuke A / B = Fusion Foreground / Background、という名前対応を暗記しない。
 - available operator inventory / defaultsは別。
@@ -57,7 +57,7 @@ Background ─┘
 - [プリマルチプライ（Premultiplication）](../../learn/04-compositing/premultiplication)
 - [合成量と演算（Blend / Operator）](../../learn/04-compositing/blend-operator)
 
-## 関連する再利用構成（Patterns）
+## 関連パターン
 
 - [画像を段階的に重ねる](../../patterns/compositing/stack-images-with-merge)
 
@@ -75,4 +75,4 @@ Background ─┘
 
 ---
 
-検証範囲: Foundryの現行Merge資料でA / B / Mask入力とPremultの前提を確認しています。Fusion側の入力の役割やOperatorはFusionの正本ページを基準にします。
+検証範囲: Foundryの現行Merge資料でA / B / Mask入力とPremultの前提を確認しています。Fusion側の入力の役割やOperatorは、このマニュアル内のFusionページを基準にします。

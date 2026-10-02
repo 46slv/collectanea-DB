@@ -14,7 +14,7 @@ product_scope: fusion
 
 # Flowが重い / 遅い
 
-## まず確認すること（Fast Checks）
+## まず確認すること
 
 1. どのNodeを追加した時点から遅くなるか。
 2. Viewer previewだけ遅いのか、renderも遅いのか。
@@ -23,7 +23,7 @@ product_scope: fusion
 5. temporal / AI / トラッキング / blur等、計算量が大きい段階はどこか。
 6. 同じ処理を複数分岐で重複していないか。
 
-## 原因を切り分ける（Isolate）
+## 原因の切り分け
 
 最終Outputから推測せず、Last Good / First Slowを探します。
 
@@ -39,7 +39,7 @@ downstream
 
 分岐をbypass / isolateして、負荷の入る境界を絞ります。
 
-## 主な原因（Likely Causes）
+## 主な原因
 
 ### 不要なdomain conversion
 
@@ -57,7 +57,7 @@ Shape / Particle / 3D / USDを早い段階で2D Imageへ変換し、大きなras
 
 同じ参照元 処理を分岐ごとに繰り返している可能性があります。
 
-## 修正方法（Fix）
+## 修正方法
 
 1. first slow 段階を特定する。
 2. specialized domainを可能な限り維持する。
@@ -65,17 +65,17 @@ Shape / Particle / 3D / USDを早い段階で2D Imageへ変換し、大きなras
 4. DoD / resolutionを必要範囲へ戻す。
 5. heavy Node固有のquality / cache / proxy 設定は現在の 資料で確認する。
 
-## なぜ起きるか（Why）
+## なぜ起きるか
 
 「Node数が多い」だけでは性能原因を説明できません。
 
 データ領域（data domain）、計算領域、フレーム依存、render boundaryを分けて観察します。
 
-## バージョン・例外（Version / Exception Notes）
+## バージョン・例外
 
 具体的なGPU/CPU implementation、cache、Node quality 設定はversion / hardware依存です。このページではgeneric graph diagnosisだけを所有します。
 
-## 関連する症状（Related Symptoms）
+## 関連する症状
 
 - Viewerだけ極端に遅い
 - 特定Node以降だけ遅い

@@ -19,7 +19,7 @@ suite_surfaces: [fusion]
 
 RGBをAlphaで除算し、premultiplied colorをstraight / unpremultiplied方向へ変換するNodeです。
 
-## 概要（At a Glance）
+## 概要
 
 - **分類（Family）**: Matte / キーイング
 - **入力データ（Input domain）**: 2D Image
@@ -27,21 +27,21 @@ RGBをAlphaで除算し、premultiplied colorをstraight / unpremultiplied方向
 - **関連概念（Core concepts）**: Alpha、premultiplication
 - **よく使う作業（Common tasks）**: transparent edgeを持つImageのcolor 処理前処理
 
-## 入力（Inputs）
+## 入力
 
 ### Image
 
 Alphaを持つ2D Imageを受け取る系統です。
 
-## 出力（Output）
+## 出力
 
 RGB / Alpha 関係をAlpha Divide処理した2D Imageを出力します。
 
-## 主な設定項目（Controls）
+## 主な設定項目
 
 正確な 現在の controls / zero-alpha 挙動 / optionsはFusion 21.1 現在の資料または実機での確認待ちです。
 
-## 挙動と注意点（Behavior / Notes）
+## 挙動と注意点
 
 典型考え方:
 
@@ -55,15 +55,15 @@ premultiplied Image
 
 ただしColor Node自身に同等のpre-divide/post-multiply機能がある場合は二重処理しません。
 
-## 最小例（Minimal Examples）
+## 最小例
 
 透明edgeを持つforegroundへ強い色処理（Color operation）を行う前段に置く構成を検討します。
 
-## 関連する考え方（Concepts）
+## 関連する考え方
 
 - [プリマルチプライ（Premultiplication）](../../learn/04-compositing/premultiplication)
 
-## 関連する再利用構成（Patterns）
+## 関連パターン
 
 - [Keyと合成を分ける](../../patterns/matte-keying/key-then-composite)
 

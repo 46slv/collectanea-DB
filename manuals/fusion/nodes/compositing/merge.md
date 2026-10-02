@@ -21,7 +21,7 @@ suite_surfaces: [fusion]
 
 ForegroundとBackgroundを1つのImageへ合成するNodeです。
 
-## 概要（At a Glance）
+## 概要
 
 - **分類（Family）**: 合成
 - **入力（Inputs）**: Background Image / Foreground Image / Effect Mask
@@ -29,7 +29,7 @@ ForegroundとBackgroundを1つのImageへ合成するNodeです。
 - **関連概念（Core concepts）**: Foreground / Background、Mask、合成
 - **よく使う作業（Common tasks）**: 画像を重ねる、Textやgraphicsを合成する、Maskで合成範囲を限定する
 
-## 入力（Inputs）
+## 入力
 
 ### Background
 
@@ -43,11 +43,11 @@ Backgroundへ重ねるImageです。現行Fusion紹介では緑inputとして案
 
 Mergeの処理を適用する範囲を制限します。Maskの一般的な役割は [Image / Mask / Dataを分ける](../../learn/02-data/image-mask-data) を参照してください。
 
-## 出力（Output）
+## 出力
 
 ForegroundとBackgroundを合成したImageを出力します。
 
-## 主な設定項目（Controls）
+## 主な設定項目
 
 ### Blend
 
@@ -61,13 +61,13 @@ Foregroundの寄与を調整するcontrolとして既存seedに記録されて�
 
 Foreground / Backgroundのalpha関係に関わるcontrolとして既存seedに記録されています。premultiplicationを含む厳密な挙動は別検証対象です。
 
-## 挙動と注意点（Behavior / Notes）
+## 挙動と注意点
 
 Foreground / Backgroundの役割はNode配置ではなく接続先で決まります。
 
 複雑な合成では1段ずつMergeを分け、中間結果をViewerで確認できる構造にすると診断しやすくなります。
 
-## 最小例（Minimal Examples）
+## 最小例
 
 ### Two-image 合成
 
@@ -85,12 +85,12 @@ Background ─┼─ Merge → Output
 Mask ───────↑
 ```
 
-## 関連する考え方（Concepts）
+## 関連する考え方
 
 - [前景（Foreground）/ 背景（Background）/ マスク（Mask）](../../learn/04-compositing/foreground-background-mask)
 - [Image / Mask / Dataを分ける](../../learn/02-data/image-mask-data)
 
-## 関連する再利用構成（Patterns）
+## 関連パターン
 
 - [画像を段階的に重ねる](../../patterns/compositing/stack-images-with-merge)
 - [Maskで処理範囲を限定する](../../patterns/masking/limit-effect-with-mask)

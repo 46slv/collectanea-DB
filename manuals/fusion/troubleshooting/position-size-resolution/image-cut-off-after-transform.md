@@ -15,7 +15,7 @@ product_scope: fusion
 
 # Transform後にImageの端が消える
 
-## まず確認すること（Fast Checks）
+## まず確認すること
 
 1. Imageは単にフレーム外へ移動しているだけか。
 2. Transform前のImage extent / resolutionは何か。
@@ -23,7 +23,7 @@ product_scope: fusion
 4. Transform後に戻してもピクセルが復活しないか。
 5. 問題が起きる最初のNodeはどこか。
 
-## 原因を切り分ける（Isolate）
+## 原因の切り分け
 
 ```text
 source
@@ -39,7 +39,7 @@ output
 
 Transform Aの直後、次のNodeの直後、Transform Bの直後をそれぞれViewerで確認します。
 
-## 主な原因（Likely Causes）
+## 主な原因
 
 ### 画面外へ移動しただけ
 
@@ -57,24 +57,24 @@ Resizeやformat changeが入っている場合、positionだけでなくimage ex
 
 同じTransform系でもclipping / domain 設定が異なる場合があります。
 
-## 修正方法（Fix）
+## 修正方法
 
 1. Last Good / First Badを特定する。
 2. position変更とresolution変更を分離する。
 3. ピクセルが失われるNodeを特定する。
 4. 必要ならそのNodeのdomain / clipping設定を現在の Referenceで確認する。
 
-## なぜ起きるか（Why）
+## なぜ起きるか
 
 「見えない」「切れた」は同じ見た目でも、position・DoD・resolutionのどこでdataを失ったかが異なります。
 
 → [Resolution / Domain of Definitionを確認する](../../learn/07-debugging/resolution-domain-of-definition)
 
-## バージョン・例外（Version / Exception Notes）
+## バージョン・例外
 
 正確な clipping / DoD controlはNode・version依存です。Fusion 21.1 実機 / マニュアル evidenceを優先します。
 
-## 関連する症状（Related Symptoms）
+## 関連する症状
 
 - Viewerに何も表示されない
 - Resize後に位置関係が変わる

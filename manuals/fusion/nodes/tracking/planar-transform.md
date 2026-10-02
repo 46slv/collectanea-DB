@@ -19,7 +19,7 @@ suite_surfaces: [fusion]
 
 Planar Trackerで得たトラッキング dataを、任意のImage / Maskへ適用するためのNodeです。
 
-## 概要（At a Glance）
+## 概要
 
 - **分類（Family）**: トラッキング
 - **主入力（Primary input）**: Image / applicable data
@@ -27,21 +27,21 @@ Planar Trackerで得たトラッキング dataを、任意のImage / Maskへ適�
 - **関連概念（Core concepts）**: トラッキング data、coordinate application
 - **よく使う作業（Common tasks）**: replacement graphic追従、tracked transformの再利用
 
-## 入力（Inputs）
+## 入力
 
 トラッキング transformを適用する対象を受け取る系統です。
 
 Image / Maskの正確な互換性、トラッキング data binding 仕組みはFusion 21.1 現在の資料または実機での確認待ちです。
 
-## 出力（Output）
+## 出力
 
 Planar トラッキング transformを反映した結果を出力します。
 
-## 主な設定項目（Controls）
+## 主な設定項目
 
 トラッキング 結果 / reference / transform-related controlsを持つ系統ですが、正確な 現在の UIは未検証です。
 
-## 挙動と注意点（Behavior / Notes）
+## 挙動と注意点
 
 Planar Trackerが「solve」、Planar Transformが「apply」と責任分離できる構成として読むとdebugしやすくなります。
 
@@ -51,16 +51,16 @@ Footage → Planar Tracker
 Graphic → Planar Transform → Merge
 ```
 
-## 最小例（Minimal Examples）
+## 最小例
 
 replacement graphicへPlanar Transformを適用し、トラッキング solveとgraphic 個別オフセットを分けます。
 
-## 関連する考え方（Concepts）
+## 関連する考え方
 
 - [データ領域（data domain）を辿って診断する](../../learn/07-debugging/trace-data-domain)
 - [Center / Pivot / Size / Angle](../../learn/03-space/center-pivot-size-angle)
 
-## 関連する再利用構成（Patterns）
+## 関連パターン
 
 - [Trackを解いてから適用先を分ける](../../patterns/tracking/solve-then-apply-track)
 

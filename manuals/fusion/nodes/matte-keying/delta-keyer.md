@@ -19,7 +19,7 @@ suite_surfaces: [fusion]
 
 Fusionの主要なhigh-quality キーイング Toolとして使われるNodeです。
 
-## 概要（At a Glance）
+## 概要
 
 - **分類（Family）**: Matte / キーイング
 - **主入力（Primary input）**: 2D Image
@@ -27,7 +27,7 @@ Fusionの主要なhigh-quality キーイング Toolとして使われるNodeで�
 - **関連概念（Core concepts）**: matte、alpha、前景抽出（foreground extraction）
 - **よく使う作業（Common tasks）**: green screen / blue screen キーイング、matte作成
 
-## 入力（Inputs）
+## 入力
 
 ### Image
 
@@ -35,21 +35,21 @@ Fusionの主要なhigh-quality キーイング Toolとして使われるNodeで�
 
 Clean Plate等の補助入力、正確なPort構成は21.1 現在の資料または実機での確認待ちです。
 
-## 出力（Output）
+## 出力
 
 キーイング結果を含む2D Imageを返す用途です。正確な出力・補助出力は現在の 21.1で確認します。
 
-## 主な設定項目（Controls）
+## 主な設定項目
 
 background color selection、matte refinement、fringe / spill 扱い等に関わるcontrolを持つ系統ですが、正確な tab / label / 初期値はここでは固定しません。
 
-## 挙動と注意点（Behavior / Notes）
+## 挙動と注意点
 
 Keyerは「Mask Node」そのものではありません。
 
 元画像（Source Image）から前景（Foreground）/ Matte情報を作り、後段合成で使う処理として読みます。
 
-## 最小例（Minimal Examples）
+## 最小例
 
 ```text
 Green-screen Image
@@ -57,12 +57,12 @@ Green-screen Image
   → Merge as Foreground
 ```
 
-## 関連する考え方（Concepts）
+## 関連する考え方
 
 - [Alpha](../../learn/04-compositing/alpha)
 - [プリマルチプライ（Premultiplication）](../../learn/04-compositing/premultiplication)
 
-## 関連する再利用構成（Patterns）
+## 関連パターン
 
 - [画像を段階的に重ねる](../../patterns/compositing/stack-images-with-merge)
 

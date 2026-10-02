@@ -18,28 +18,28 @@ suite_surfaces: [fusion]
 
 Particle setを生成する基本Emitter Nodeです。
 
-## 概要（At a Glance）
+## 概要
 
 - **分類（Family）**: Particles
 - **出力データ（Output domain）**: Particle set
 - **関連概念（Core concepts）**: particle state、time、typed data
 - **よく使う作業（Common tasks）**: particle生成、particle chainの開始
 
-## 入力（Inputs）
+## 入力
 
 region / 見た目 / 参照元等の補助入力を持つ場合がありますが、正確な 21.1 port構成は未検証です。
 
-## 出力（Output）
+## 出力
 
 Particle setを出力します。
 
 これは通常の2D Imageではありません。
 
-## 主な設定項目（Controls）
+## 主な設定項目
 
 emission rate、region、velocity、lifespan、見た目等に関わるcontrolを持つ系統ですが、正確な 21.1 label / 初期値 / 範囲は現在の資料または実機での確認待ちです。
 
-## 挙動と注意点（Behavior / Notes）
+## 挙動と注意点
 
 Particle stateは位置だけでなくvelocity、age、size、見た目等を持つdataとして扱います。
 
@@ -52,18 +52,18 @@ pEmitter
 
 Imageを直接「点の配列」にしたものとして扱わないことが重要です。
 
-## 最小例（Minimal Examples）
+## 最小例
 
 ```text
 pEmitter → pRender → 2D Merge
 ```
 
-## 関連する考え方（Concepts）
+## 関連する考え方
 
 - [データ領域（data domain）を辿って診断する](../../learn/07-debugging/trace-data-domain)
 - [フレーム 評価](../../learn/05-time/frame-evaluation)
 
-## 関連する再利用構成（Patterns）
+## 関連パターン
 
 Particle Patternは今後追加します。
 

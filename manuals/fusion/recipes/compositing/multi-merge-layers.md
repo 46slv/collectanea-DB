@@ -15,17 +15,17 @@ product_scope: fusion
 
 # 複数ImageをMultiMergeでまとめる
 
-## できあがるもの（Result）
+## できあがるもの
 
 Background上へ複数Foreground Layerを1つのMultiMergeで管理します。
 
-## 必要なもの（Requirements）
+## 必要なもの
 
 - Background Image
 - 複数Foreground Image
 - MultiMerge
 
-## 手順（Steps）
+## 手順
 
 1. BackgroundをMultiMergeのBackgroundへ接続します。
 2. Foreground要素をLayerとして追加します。
@@ -41,24 +41,24 @@ Graphic ─────────┤
                  ┘
 ```
 
-## なぜこの構成にするか（Why This Works）
+## この構成にする理由
 
 MultiMergeは多数のForeground Layerを1 Nodeで管理し、Backgroundを出力解像度（Output Resolution）の基準として扱う構造を持ちます。
 
-## 別のやり方（Variants / Alternatives）
+## 別の方法
 
 - 段階ごとの診断を重視するならMerge chain。
 - Layer単位でeffect 分岐を作り、その結果をMultiMergeへ集約する。
 - repeated title systemではText+ / Transform 分岐をLayerとして入れる。
 
-## うまくいかないときの確認（Failure Checks）
+## うまくいかないとき
 
 - Backgroundが意図したImageか。
 - Layer orderが意図した合成 orderか。
 - per-layer transform責任を別Transformと二重管理していないか。
 - individual effect 分岐をMultiMerge内部だけで解決しようとしていないか。
 
-## 関連する再利用構成（Pattern）
+## 関連パターン
 
 - [Merge chainとMultiMergeを選ぶ](../../patterns/compositing/choose-merge-vs-multimerge)
 

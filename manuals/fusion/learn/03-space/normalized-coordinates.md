@@ -17,11 +17,11 @@ suite_surfaces: [fusion]
 
 > このページの数値仕様は、Fusion 21.1 Reference Manual / 実機での再確認前です。現時点では既存seedを整理したDraftとして扱ってください。
 
-## このページで分かること（Question）
+## このページで分かること
 
-Centerなどの位置controlを見たとき、ピクセル座標とは違う数値をどう理解すればよいでしょうか。
+Centerなどの位置controlで使われる、ピクセル座標とは異なる数値の読み方を説明します。
 
-## 基本の考え方（Mental Model）
+## 基本の考え方
 
 Fusionの多くの2D位置controlでは、フレームに対する位置を**正規化された値**として扱う考え方が使われます。
 
@@ -36,7 +36,7 @@ Y: 0.0 ───────── 0.5 ───────── 1.0
 
 重要なのは数値の暗記より、**ピクセル数とrelative positionを混同しない**ことです。
 
-## 最小例（Minimum Example）
+## 最小例
 
 TransformのCenterを基準に考えます。
 
@@ -46,7 +46,7 @@ Center = (0.5, 0.5)
 
 これを画面中央の基準として扱い、Xだけを変えて左右の移動を観察します。
 
-## 共通ルール（Invariants）
+## 共通ルール
 
 概念として残したいのは次です。
 
@@ -55,7 +55,7 @@ Center = (0.5, 0.5)
 - 同じ座標系を共有できるcontrol同士は、LinkやExpressionで関係を保ちやすい。
 - resolution / aspect / Node固有のspaceが関わる場合は、単純な0–1だけで判断しない。
 
-## 1つだけ変えて確認する（Change One Thing）
+## 1つずつ変えて確認する
 
 CenterのYを固定し、Xだけを変えます。
 
@@ -67,7 +67,7 @@ CenterのYを固定し、Xだけを変えます。
 
 1軸だけ変えることで、値と画面上の移動の関係を観察します。
 
-## 他のNodeへ応用する（Transfer）
+## 他のNodeにも応用する
 
 ### Transform
 
@@ -81,7 +81,7 @@ Foreground配置用controlがどのspaceで働いているかを、Transformと�
 
 EllipseやPolygonなどでposition / size controlを見たとき、ピクセル値かrelative 値かを先に確認する習慣を転用します。
 
-## 初見Nodeで予測する（Predict）
+## 初見のNodeを読む
 
 初見のposition controlを見たら、次を予測して確認します。
 
@@ -90,13 +90,13 @@ EllipseやPolygonなどでposition / size controlを見たとき、ピクセル�
 3. フレーム（Frame）/ Image / ローカルオブジェクト（local object）のどの座標空間（Space）か。
 4. resolutionやaspectが変わると同じ見た目を保つか。
 
-## よくある誤解（Common Misread）
+## よくある誤解
 
 **「0.5だから50%」だけで、すべてのNode・すべてのcontrolが同じspaceだと決めること。**
 
 Normalized Coordinateという考え方と、各Nodeが実際にどのspaceを使うかは分けて確認します。
 
-## 関連する再利用構成（Patterns）
+## 関連パターン
 
 - [複数要素の位置関係を共有する](../../patterns/transform/share-position-across-elements)
 - [Expressionで値の関係を保つ](../../patterns/automation/link-values-with-expression)

@@ -19,7 +19,7 @@ After EffectsのCompositionは固有のTimelineを持ち、通常は複数Layer�
 
 2D LayerはTimeline上のstack順とLayer内の処理順を持ち、空間・時間・opacity等を使って最終imageを組み立てます。
 
-## Resolveで最初に決めること
+## Resolveではどこで扱うか
 
 まず「timeline上のclip構成」が問題なのか、「shot内部のimage 処理 / 合成」が問題なのかを分けます。
 
@@ -38,7 +38,7 @@ Image B → XF ──┘
 
 Layerの上下だけではなく、どのOutputがどのInputへ入っているかを読みます。
 
-## そのまま活かしやすい考え方
+## 共通する考え方
 
 目的としては共通します。
 
@@ -48,7 +48,7 @@ Layerの上下だけではなく、どのOutputがどのInputへ入っている�
 - maskで処理範囲を決める
 - timeでパラメータを変える
 
-## そのまま一対一対応しない部分
+## そのまま対応しない点
 
 - AEのLayer stack order = Fusion Nodeの左右位置、ではない。
 - AEの1 Layer内のeffect/property処理 = Fusionの1 Node、とは限らない。
@@ -60,7 +60,7 @@ Layerの上下だけではなく、どのOutputがどのInputへ入っている�
 - [Graphとして考える](../../learn/01-flow/graph-as-flow)
 - [前景（Foreground）/ 背景（Background）/ マスク（Mask）](../../learn/04-compositing/foreground-background-mask)
 
-## 関連する再利用構成（Patterns）
+## 関連パターン
 
 - [画像を段階的に重ねる](../../patterns/compositing/stack-images-with-merge)
 

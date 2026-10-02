@@ -23,7 +23,7 @@ suite_surfaces: [fusion]
 
 > control名・初期値・gradient 挙動はFusion 21.1 Reference Manual / 実機で再確認前です。現時点では既存seedの構造化Referenceです。
 
-## 概要（At a Glance）
+## 概要
 
 - **分類（Family）**: Generators
 - **入力（Inputs）**: Effect Mask
@@ -31,17 +31,17 @@ suite_surfaces: [fusion]
 - **関連概念（Core concepts）**: Image generation、Mask、resolution
 - **よく使う作業（Common tasks）**: 背景色を作る、shapeの塗りを作る、alpha付きImageを作る
 
-## 入力（Inputs）
+## 入力
 
 ### Effect Mask
 
 生成／処理範囲をMaskで制限する用途として既存seedに記録されています。
 
-## 出力（Output）
+## 出力
 
 生成したImageを出力します。
 
-## 主な設定項目（Controls）
+## 主な設定項目
 
 ### Color
 
@@ -55,13 +55,13 @@ RGBとAlphaを指定するcontrolとして既存seedに記録されています�
 
 Solid / Linear / Radial等の塗りを選ぶcontrolとして既存seedに記録されています。利用可能modeは21.1で再確認します。
 
-## 挙動と注意点（Behavior / Notes）
+## 挙動と注意点
 
 Backgroundはupstream Imageを加工するのではなく、新しいImage 参照元としてGraphへ入れられるため、Generatorとして読むとFlowを理解しやすくなります。
 
 Maskと組み合わせる場合は、「色やImageを作る責任」と「範囲を作る責任」を分けて考えます。
 
-## 最小例（Minimal Examples）
+## 最小例
 
 ### Solid 参照元
 
@@ -76,12 +76,12 @@ Mask ──────↑
        Background → downstream
 ```
 
-## 関連する考え方（Concepts）
+## 関連する考え方
 
 - [Graphとして考える](../../learn/01-flow/graph-as-flow)
 - [Image / Mask / Dataを分ける](../../learn/02-data/image-mask-data)
 
-## 関連する再利用構成（Patterns）
+## 関連パターン
 
 - [Maskで処理範囲を限定する](../../patterns/masking/limit-effect-with-mask)
 

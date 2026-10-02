@@ -9,4 +9,4 @@ tasks: [choose-surface, route-task]
 
 # ResolveのPageから探す（By Resolve Surface）
 
-各ページの `suite_surfaces` metadataから自動生成します。Page間の責任分担は [Resolve Integration](../resolve-integration/) が正本です。
+各ページの `suite_surfaces` metadataから自動生成します。Page間の役割分担は [Resolve Integration](../resolve-integration/) で説明します。

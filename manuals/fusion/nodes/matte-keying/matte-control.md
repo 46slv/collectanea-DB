@@ -19,7 +19,7 @@ suite_surfaces: [fusion]
 
 Alpha / matteの結合・反転・post 処理を行うutility Nodeです。
 
-## 概要（At a Glance）
+## 概要
 
 - **分類（Family）**: Matte / キーイング
 - **入力データ（Input domain）**: 2D Image
@@ -27,27 +27,27 @@ Alpha / matteの結合・反転・post 処理を行うutility Nodeです。
 - **関連概念（Core concepts）**: Alpha、matte、post 処理
 - **よく使う作業（Common tasks）**: matte combine、invert、refine
 
-## 入力（Inputs）
+## 入力
 
 foreground Imageやmatte情報を扱う系統ですが、正確な 21.1 port 配置は未検証です。
 
-## 出力（Output）
+## 出力
 
 matte / alpha処理を反映した2D Imageを出力します。
 
-## 主な設定項目（Controls）
+## 主な設定項目
 
 matte combine、invert、post-処理に関わるcontrolがあることはlegacy referenceから確認できます。
 
 利用できる演算の種類・初期値は現在の 21.1 verification待ちです。
 
-## 挙動と注意点（Behavior / Notes）
+## 挙動と注意点
 
 Matte ControlはEffect Maskそのものではありません。
 
 Image Alpha / matteを加工する責任を持つため、Node effectの適用範囲を制限するEffect Maskとは分けます。
 
-## 最小例（Minimal Examples）
+## 最小例
 
 Keyer後のforegroundへMatte Controlを挟み、matte処理を合成前の独立段階として持たせます。
 
@@ -55,12 +55,12 @@ Keyer後のforegroundへMatte Controlを挟み、matte処理を合成前の独�
 Source → Keyer → Matte Control → Merge
 ```
 
-## 関連する考え方（Concepts）
+## 関連する考え方
 
 - [Alpha](../../learn/04-compositing/alpha)
 - [AlphaとMaskを分けて診断する](../../learn/07-debugging/alpha-vs-mask)
 
-## 関連する再利用構成（Patterns）
+## 関連パターン
 
 - [Keyと合成を分ける](../../patterns/matte-keying/key-then-composite)
 

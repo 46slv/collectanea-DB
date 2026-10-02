@@ -14,7 +14,7 @@ product_scope: fusion
 
 # Expressionが期待どおり更新されない
 
-## まず確認すること（Fast Checks）
+## まず確認すること
 
 1. Expressionが参照するNode / パラメータは現在も存在するか。
 2. 参照先をrenameしていないか。
@@ -22,7 +22,7 @@ product_scope: fusion
 4. 参照元 パラメータを直接変更すると値は変わるか。
 5. 現在の フレームを変えたとき参照元側はどう評価されるか。
 
-## 原因を切り分ける（Isolate）
+## 原因の切り分け
 
 複雑な式を一度に直さず、最小の参照関係へ戻します。
 
@@ -36,7 +36,7 @@ simple relation
 
 参照元 → 対象の1段だけで期待値が出ることを確認してから計算を増やします。
 
-## 主な原因（Likely Causes）
+## 主な原因
 
 ### Reference pathが変わった
 
@@ -54,7 +54,7 @@ Modifier / keyframe / instance等との関係を確認します。
 
 参照先自体が現在の フレームによって変わる場合、固定値のつもりで診断しないようにします。
 
-## 修正方法（Fix）
+## 修正方法
 
 1. 参照元 パラメータを単独確認。
 2. expressionを最小参照へ縮める。
@@ -62,17 +62,17 @@ Modifier / keyframe / instance等との関係を確認します。
 4. 1つずつ演算を戻す。
 5. original use caseで再確認。
 
-## なぜ起きるか（Why）
+## なぜ起きるか
 
 Expressionは「式」だけでなくパラメータ 値の供給元の1つです。
 
 → [Modifier / パラメータ Sources](../../learn/05-time/modifier-parameter-sources)
 
-## バージョン・例外（Version / Exception Notes）
+## バージョン・例外
 
 正確な Expression syntax / function availabilityはFusion 21.1 現在の Manual / 実機を優先します。
 
-## 関連する症状（Related Symptoms）
+## 関連する症状
 
 - 値を入力しても戻る
 - Node名の変更後に連動しない

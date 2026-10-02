@@ -19,7 +19,7 @@ suite_surfaces: [fusion]
 
 RGBA / Auxiliary channel間を演算・組み替えするNodeです。
 
-## 概要（At a Glance）
+## 概要
 
 - **分類（Family）**: Color / Channel
 - **入力データ（Input domain）**: 2D Image
@@ -27,34 +27,34 @@ RGBA / Auxiliary channel間を演算・組み替えするNodeです。
 - **関連概念（Core concepts）**: channels、alpha、channel routing
 - **よく使う作業（Common tasks）**: channel copy / combine / matte construction
 
-## 入力（Inputs）
+## 入力
 
 1つ以上のImageを使ってchannel関係を組み替える系統ですが、正確な 21.1 input 配置は未検証です。
 
-## 出力（Output）
+## 出力
 
 指定したchannel operationを反映した2D Imageを出力します。
 
-## 主な設定項目（Controls）
+## 主な設定項目
 
 RGBA / Aux channelの参照元 selection、operator等を持つ系統ですが、正確な 21.1 labels / available operators / defaultsは現在の manual / 実機で確認します。
 
-## 挙動と注意点（Behavior / Notes）
+## 挙動と注意点
 
 Channel Booleanは「見た目を明るくするColor Node」ではなく、**どのchannelからどのchannelへ何を入れるか**を扱うutilityとして読む方が適切です。
 
 Alphaを触る場合もEffect Maskとは責任が異なります。
 
-## 最小例（Minimal Examples）
+## 最小例
 
 元画像（Source Image）の特定channelを別channelへ移す／組み合わせる用途を想定します。
 
-## 関連する考え方（Concepts）
+## 関連する考え方
 
 - [Alpha](../../learn/04-compositing/alpha)
 - [Image / Mask / Dataを分ける](../../learn/02-data/image-mask-data)
 
-## 関連する再利用構成（Patterns）
+## 関連パターン
 
 Channel / Matte Patternは今後追加します。
 

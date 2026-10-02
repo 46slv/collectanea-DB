@@ -19,7 +19,7 @@ suite_surfaces: [fusion]
 
 RGBへAlphaを乗算し、premultiplied colorの関係へ戻すNodeです。
 
-## 概要（At a Glance）
+## 概要
 
 - **分類（Family）**: Matte / キーイング
 - **入力データ（Input domain）**: 2D Image
@@ -27,21 +27,21 @@ RGBへAlphaを乗算し、premultiplied colorの関係へ戻すNodeです。
 - **関連概念（Core concepts）**: Alpha、premultiplication
 - **よく使う作業（Common tasks）**: Alpha Divide後のcolor operationを再premultiplyして合成へ戻す
 
-## 入力（Inputs）
+## 入力
 
 ### Image
 
 Alphaを持つ2D Imageを受け取る系統です。
 
-## 出力（Output）
+## 出力
 
 RGBへAlpha Multiplyを適用した2D Imageを出力します。
 
-## 主な設定項目（Controls）
+## 主な設定項目
 
 正確な 21.1 controls / optionsは現在の manual / ホスト上での確認待ちです。
 
-## 挙動と注意点（Behavior / Notes）
+## 挙動と注意点
 
 Alpha Divideと対になる考え方:
 
@@ -54,15 +54,15 @@ Alpha Divide
 
 常にこのpairが必要なわけではありません。Node側にpremultiplication-aware 設定がある場合は、その責任と二重にしません。
 
-## 最小例（Minimal Examples）
+## 最小例
 
 straight / unpremultiplied状態でcolor operationを行った後、通常合成へ戻す前段として使う構成を検討します。
 
-## 関連する考え方（Concepts）
+## 関連する考え方
 
 - [プリマルチプライ（Premultiplication）](../../learn/04-compositing/premultiplication)
 
-## 関連する再利用構成（Patterns）
+## 関連パターン
 
 - [Keyと合成を分ける](../../patterns/matte-keying/key-then-composite)
 

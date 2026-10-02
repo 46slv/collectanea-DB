@@ -24,7 +24,7 @@ slug: /fusion/nodes/transform/transform
 
 > Center / Pivot / Size / Angleの正確な 範囲・space・初期値はFusion 21.1 Reference Manual / 実機で再確認前です。
 
-## 概要（At a Glance）
+## 概要
 
 - **分類（Family）**: Transform
 - **入力（Inputs）**: Image / Effect Mask
@@ -32,7 +32,7 @@ slug: /fusion/nodes/transform/transform
 - **関連概念（Core concepts）**: Coordinates、Point パラメータ、transform 管理関係
 - **よく使う作業（Common tasks）**: 移動、拡大縮小、回転、複数要素の配置
 
-## 入力（Inputs）
+## 入力
 
 ### Image
 
@@ -42,11 +42,11 @@ slug: /fusion/nodes/transform/transform
 
 Transformの適用範囲を制限できる入力として既存seedに記録されています。正確な 挙動は再検証します。
 
-## 出力（Output）
+## 出力
 
 変形後のImageを出力します。
 
-## 主な設定項目（Controls）
+## 主な設定項目
 
 ### Center
 
@@ -64,13 +64,13 @@ uniform scaleに関わるcontrolとして既存seedに記録されています�
 
 回転量に関わるcontrolとして既存seedに記録されています。
 
-## 挙動と注意点（Behavior / Notes）
+## 挙動と注意点
 
 Flow全体で「位置責任をどのNodeに持たせるか」を決めると、後からExpressionや配置を組みやすくなります。
 
-Merge側にも配置controlがある場合、同じ見た目を作れることと同じ責任を持つことを混同せず、どこを説明の正本にするか選びます。
+Merge側にも配置controlがある場合、同じ見た目を作れることと同じ責任を持つことを混同せず、どのNodeで扱うかを決めます。
 
-## 最小例（Minimal Examples）
+## 最小例
 
 ### Basic placement
 
@@ -84,13 +84,13 @@ Centerだけを変更し、他controlを固定して位置挙動を観察しま�
 
 複数Transformのposition関係をmaster パラメータから派生させる場合は、Pattern側へ責任を移します。
 
-## 関連する考え方（Concepts）
+## 関連する考え方
 
 - [正規化座標（Normalized Coordinates）](../../learn/03-space/normalized-coordinates)
 - [式（Expressions）](../../learn/05-time/expressions)
 - [キーフレーム / スプライン / 時間（Keyframe / Spline / Time）](../../learn/05-time/keyframes-spline-time)
 
-## 関連する再利用構成（Patterns）
+## 関連パターン
 
 - [複数要素の位置関係を共有する](../../patterns/transform/share-position-across-elements)
 - [Expressionで値の関係を保つ](../../patterns/automation/link-values-with-expression)

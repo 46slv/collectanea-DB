@@ -14,11 +14,11 @@ suite_surfaces: [fusion]
 
 # Modifier / パラメータ Sources
 
-## このページで分かること（Question）
+## このページで分かること
 
-Inspectorに見える1つのパラメータは、常に手入力した固定値だけから決まるのでしょうか。
+Inspectorに見えるパラメータが、どの値の供給元から決まるかを整理します。
 
-## 基本の考え方（Mental Model）
+## 基本の考え方
 
 パラメータ 値の参照元は複数あります。
 
@@ -42,7 +42,7 @@ Node behavior
 
 問題を診断するときは、最終値だけでなく「誰がその値を供給しているか」を確認します。
 
-## 最小例（Minimum Example）
+## 最小例
 
 同じCenter controlについて、
 
@@ -54,7 +54,7 @@ Node behavior
 
 見た目が同じ位置でも、値の管理関係は異なります。
 
-## 共通ルール（Invariants）
+## 共通ルール
 
 - パラメータには基準となる値がある。
 - static値とdriven値を二重管理しない。
@@ -62,11 +62,11 @@ Node behavior
 - トラッキング / audio等のexternal dataは、どのspace / timeで適用されるか確認する。
 - 値が期待と違う場合、controlを上書きする前に参照元を確認する。
 
-## 1つだけ変えて確認する（Change One Thing）
+## 1つずつ変えて確認する
 
 パラメータの供給元を1つだけ外し、固定値へ戻して結果を比較します。
 
-## 他のNodeへ応用する（Transfer）
+## 他のNodeにも応用する
 
 ### Expressions
 
@@ -80,17 +80,17 @@ timeから値を供給する参照元として読めます。
 
 パラメータへprocedural / external dataを供給する層として読めます。
 
-## 初見Nodeで予測する（Predict）
+## 初見のNodeを読む
 
 「数値を入力しても戻る」「勝手に動く」「他Nodeと同期する」症状で、値の供給元を調べるべきだと判断できます。
 
-## よくある誤解（Common Misread）
+## よくある誤解
 
 **Inspectorに表示された最終数値だけ見れば、なぜその値になったか分かる**と考えること。
 
 値の参照元を辿らないと、ExpressionやModifierを上から手修正して一時的に壊す可能性があります。
 
-## 関連する再利用構成（Patterns）
+## 関連パターン
 
 - [Expressionで値の関係を保つ](../../patterns/automation/link-values-with-expression)
 - [再利用の境界を選ぶ](../../patterns/reuse/choose-reuse-boundary)

@@ -15,17 +15,17 @@ product_scope: fusion
 
 # USD sceneを2Dへrenderする
 
-## 作るもの（Result）
+## 作るもの
 
 USD sceneを構成し、通常の2D 合成へ渡せるrender 結果を作ります。
 
-## 必要なもの（Requirements）
+## 必要なもの
 
 - USD scene 参照元（uLoader / uShape等）
 - uMerge
 - uRenderer
 
-## 手順（Steps）
+## 手順
 
 1. USD 参照元を用意します。
 2. 複数参照元がある場合はuMergeへまとめます。
@@ -43,28 +43,28 @@ uLoader / uShape
 2D Image / AOV
 ```
 
-## なぜこの構成で動くか（Why This Works）
+## この構成で動く理由
 
 uMergeはUSD scene domainを維持し、uRendererがUSD sceneをrender結果へ変換します。
 
-## 別の方法（Variants / Alternatives）
+## 別の方法
 
 - uCamera / uLightsをsceneへ追加する。
 - material / textureはUSD toolset内で組む。
 - camera-relative normal等のAOVを使う場合は、現在の 21.x renderer仕様を確認する。
 
-## うまくいかないときの確認（Failure Checks）
+## うまくいかないとき
 
 - Classic Merge 3DをUSD sceneへ混ぜていないか。
 - uRendererへ渡しているのがUSD sceneか。
 - renderer output / AOVを通常Imageと同一視していないか。
 - 21固有のUSD featureを旧version前提で使っていないか。
 
-## 関連パターン（Related Pattern）
+## 関連パターン
 
 - [特殊domainのまま処理し、必要な境界で2Dへ戻す](../../patterns/data-domain/defer-domain-conversion)
 
-## 関連ノード（Related Nodes）
+## 関連Node
 
 - [uMerge](../../nodes/usd/u-merge)
 - [uRenderer](../../nodes/usd/u-renderer)

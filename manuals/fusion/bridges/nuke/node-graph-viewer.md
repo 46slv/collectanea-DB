@@ -19,7 +19,7 @@ NukeではNode Graphの任意Node outputをViewerへ接続し、tree途中の結
 
 Group内のNodeもGroup View等から編集・Viewer接続できます。
 
-## Resolveで最初に決めること
+## Resolveではどこで扱うか
 
 Fusionへ入ったら、Timeline layer stackへ戻して考えるより、Nukeと同じくGraphのdata flowを先に読みます。
 
@@ -35,7 +35,7 @@ source
 
 選択NodeをViewerへ送り、中間結果を観察する診断 habitはFusionでもそのまま役立ちます。
 
-## そのまま活かしやすい考え方
+## 共通する考え方
 
 - 明示的なNode接続
 - 分岐-based 合成
@@ -43,7 +43,7 @@ source
 - Groupで複雑さを局所化する
 - Mergeで複数Imageを合成する
 
-## そのまま一対一対応しない部分
+## そのまま対応しない点
 
 - node class / input namingは同一ではない。
 - shortcut / scripting identityを移植しない。
@@ -55,7 +55,7 @@ source
 - [Graphとして考える](../../learn/01-flow/graph-as-flow)
 - [分岐を分離して原因範囲を狭める](../../learn/07-debugging/isolate-branches)
 
-## 関連する再利用構成（Patterns）
+## 関連パターン
 
 - [Last Good / First BadでGraphを切る](../../patterns/debugging/last-good-first-bad)
 
@@ -73,4 +73,4 @@ source
 
 ---
 
-検証範囲: Foundryの現行Viewer資料でNode出力をViewerで確認する考え方を確認しています。Fusion Viewerの具体的な挙動はFusionの正本ページを基準にします。
+検証範囲: Foundryの現行Viewer資料でNode出力をViewerで確認する考え方を確認しています。Fusion Viewerの具体的な挙動は、このマニュアル内のFusionページを基準にします。

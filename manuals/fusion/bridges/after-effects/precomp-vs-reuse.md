@@ -1,6 +1,6 @@
 ---
 title: PrecompとFusionの再利用構造
-description: AE Precompose/Nestingの目的を、FusionのGroup・Instance・Macro/Template等へ単純等価せず翻訳する。
+description: After EffectsのPrecompose / Nestingを、FusionのGroup・Instance・Macro / Templateと単純に対応づけず読み替える。
 doc_type: bridge
 verification: partial
 product_scope: resolve
@@ -19,7 +19,7 @@ After EffectsのPrecomposeは、選択Layerを新しいCompositionへまとめ�
 
 Nested Compositionは別CompositionをLayer 参照元として使います。
 
-## Resolveで最初に決めること
+## Resolveではどこで扱うか
 
 AEでPrecompを使っていた理由を先に分類します。
 
@@ -48,7 +48,7 @@ public interface + reusable graph
 
 これらをAE Precompの別名とは扱いません。
 
-## そのまま活かしやすい考え方
+## 共通する考え方
 
 共通する目的:
 
@@ -56,7 +56,7 @@ public interface + reusable graph
 - repeated 構造を再利用する
 - parent側から扱いやすい単位を作る
 
-## そのまま一対一対応しない部分
+## そのまま対応しない点
 
 AE Precompは**新しいCompositionを作り、元Compositionでは1 Layer 参照元になる**仕組みです。
 
@@ -76,7 +76,7 @@ AE Precomp = Fusion Group
 - [GroupでGraphをまとめる](../../learn/06-reuse/groups)
 - [Macro / Templateで再利用単位を作る](../../learn/06-reuse/macros-templates)
 
-## 関連する再利用構成（Patterns）
+## 関連パターン
 
 - [再利用の境界を選ぶ](../../patterns/reuse/choose-reuse-boundary)
 

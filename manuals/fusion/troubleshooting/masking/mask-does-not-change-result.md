@@ -16,14 +16,14 @@ product_scope: fusion
 
 # Maskを接続しても結果が変わらない
 
-## まず確認すること（Fast Checks）
+## まず確認すること
 
 1. Maskは意図した対象NodeのMask inputへ接続されているか。
 2. 対象NodeはMaskなしでは期待した処理をしているか。
 3. Mask 参照元単体を確認すると、意図した範囲を持っているか。
 4. Maskを接続／切断したとき、対象Nodeの結果に差があるか。
 
-## 原因を切り分ける（Isolate）
+## 原因の切り分け
 
 Image 分岐とMask 分岐を別々に確認します。
 
@@ -35,7 +35,7 @@ Mask branch ───────┘
 
 まずImage 分岐だけで結果を確定し、次にMask 分岐だけを追加します。
 
-## 主な原因（Likely Causes）
+## 主な原因
 
 ### 接続先が違う
 
@@ -53,7 +53,7 @@ Maskで限定しても、対象Nodeが実質的に見た目を変えていない
 
 invert / combine / channel等、Node固有の設定が関係する場合があります。ここでは一般診断と分離し、個別Referenceで確認します。
 
-## 修正方法（Fix）
+## 修正方法
 
 1. 対象Nodeを単体で正常化する。
 2. Mask 参照元を単体で確認する。
@@ -61,17 +61,17 @@ invert / combine / channel等、Node固有の設定が関係する場合があ�
 4. 接続前後だけを比較する。
 5. それでも差がなければNode固有のMask 挙動へ進む。
 
-## なぜ起きるか（Why）
+## なぜ起きるか
 
 MaskはImageそのものではなく「どこへ処理を適用するか」を持つため、Image 分岐と同時に調整すると原因が混ざります。
 
 → [Image / Mask / Dataを分ける](../../learn/02-data/image-mask-data)
 
-## バージョン・例外（Version / Exception Notes）
+## バージョン・例外
 
 Maskの基本的な役割とMask inputは2026-10-02時点のBlackmagic Design公式Fusion紹介と照合済みです。各Node固有のMask optionsは個別検証が必要です。
 
-## 関連する症状（Related Symptoms）
+## 関連する症状
 
 - [Viewerに何も表示されない](../viewer/nothing-visible)
 - Maskをつなぐと全体が消える

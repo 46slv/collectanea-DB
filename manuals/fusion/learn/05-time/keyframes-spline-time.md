@@ -15,11 +15,11 @@ suite_surfaces: [fusion]
 
 # キーフレーム / スプライン / 時間（Keyframe / Spline / Time）
 
-## このページで分かること（Question）
+## このページで分かること
 
-「値を動かす」と「動き方を調整する」は、どこで分けて考えればよいでしょうか。
+値そのものの変化と、その変化の仕方を分けて扱う方法を説明します。
 
-## 基本の考え方（Mental Model）
+## 基本の考え方
 
 まず2つに分けます。
 
@@ -28,7 +28,7 @@ suite_surfaces: [fusion]
 
 Blackmagic Designの現行Fusion紹介でも、Inspectorのcontrolからkeyframeを追加し、Spline Editor / Keyframe Editorでアニメーションを調整する流れが案内されています。
 
-## 最小例（Minimum Example）
+## 最小例
 
 TransformのCenterを使います。
 
@@ -40,20 +40,20 @@ TransformのCenterを使います。
 
 最初は1つのパラメータだけを動かし、別のeffectやModifierを同時に足さないようにします。
 
-## 共通ルール（Invariants）
+## 共通ルール
 
 - アニメーション対象はNode全体ではなく、具体的なパラメータとして読む。
 - 「開始値と終了値」と「途中の変化」は別の問題。
 - 複数パラメータを同時に動かす前に、1つのパラメータで時間変化を観察する。
 - Graphの接続関係とパラメータの時間変化は別の軸として診断する。
 
-## 1つだけ変えて確認する（Change One Thing）
+## 1つずつ変えて確認する
 
 keyframeの値は変えず、Spline側のcurveだけを調整して比較します。
 
 これにより「どこからどこへ移動するか」と「どう移動するか」を分けて観察できます。
 
-## 他のNodeへ応用する（Transfer）
+## 他のNodeにも応用する
 
 ### Transform
 
@@ -67,7 +67,7 @@ Blendなどのcontrolを時間変化させる場合も、値と補間を分け�
 
 Inspectorでkeyframe可能なcontrolを見つけたら、Node名が違っても同じ手順で「値 over time」を切り出して確認します。
 
-## 初見Nodeで予測する（Predict）
+## 初見のNodeを読む
 
 初見Nodeでアニメーションを作る前に、次を判断できます。
 
@@ -76,7 +76,7 @@ Inspectorでkeyframe可能なcontrolを見つけたら、Node名が違っても�
 3. curve shapingが必要か。
 4. 他パラメータとの関係をExpression / Modifierへ分離した方がよいか。
 
-## よくある誤解（Common Misread）
+## よくある誤解
 
 **Spline Editorを「別のアニメーション方式」だと思うこと。**
 
@@ -87,7 +87,7 @@ Inspectorでkeyframe可能なcontrolを見つけたら、Node名が違っても�
 - [フレーム 評価](./frame-evaluation)
 - [Modifier / パラメータ Sources](./modifier-parameter-sources)
 
-## 関連する再利用構成（Patterns）
+## 関連パターン
 
 - [Expressionで値の関係を保つ](../../patterns/automation/link-values-with-expression)
 

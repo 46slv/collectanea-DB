@@ -15,11 +15,11 @@ suite_surfaces: [fusion]
 
 # 合成量と演算（Blend / Operator）
 
-## このページで分かること（Question）
+## このページで分かること
 
-Mergeで「どれだけ混ぜるか」と「どう合成するか」は同じcontrolでしょうか。
+Mergeの「どれだけ混ぜるか」と「どう合成するか」の違いを整理します。
 
-## 基本の考え方（Mental Model）
+## 基本の考え方
 
 少なくとも次を分けます。
 
@@ -28,7 +28,7 @@ Mergeで「どれだけ混ぜるか」と「どう合成するか」は同じcon
 
 Over、In、Atop、Xor、Screen等は同じ種類の「濃さ違い」ではなく、channel / alpha semanticsが異なる合成 operationです。
 
-## 最小例（Minimum Example）
+## 最小例
 
 まず通常の合成でForeground / Backgroundを確認します。
 
@@ -36,18 +36,18 @@ Over、In、Atop、Xor、Screen等は同じ種類の「濃さ違い」ではな�
 
 その後、Blendを戻してOperator / Apply Modeだけを変更します。
 
-## 共通ルール（Invariants）
+## 共通ルール
 
 - amountとoperationを分ける。
 - mode名だけでalpha 挙動を推測しない。
 - Screen等を通常のalpha-aware Overと同一視しない。
 - input 役割が正しいことを確認してからmodeを比較する。
 
-## 1つだけ変えて確認する（Change One Thing）
+## 1つずつ変えて確認する
 
 BlendかOperatorのどちらか片方だけを変更します。
 
-## 他のNodeへ応用する（Transfer）
+## 他のNodeにも応用する
 
 ### Merge
 
@@ -61,17 +61,17 @@ Blend相当のeffect mixがあっても、合成 operatorと同じ意味だと�
 
 「modeを変えたら直った」を原因説明にせず、alpha / channel semanticsへ戻れます。
 
-## 初見Nodeで予測する（Predict）
+## 初見のNodeを読む
 
 初見の合成 controlで、値のmixか演算選択かを先に分類できます。
 
-## よくある誤解（Common Misread）
+## よくある誤解
 
 **Screen / Multiply等をBlend値のpresetのように考えること。**
 
 演算自体が変わるため、RGB / alphaの意味も確認します。
 
-## 関連する再利用構成（Patterns）
+## 関連パターン
 
 - [画像を段階的に重ねる](../../patterns/compositing/stack-images-with-merge)
 

@@ -13,11 +13,11 @@ product_scope: fusion
 
 # Graphが評価される依存関係
 
-## このページで分かること（Question）
+## このページで分かること
 
-FlowにNodeが並んでいるとき、常に左から右へ全Nodeが同じように実行されるのでしょうか。
+Flow内のNodeが、どの順序・依存関係で評価されるかを整理します。
 
-## 基本の考え方（Mental Model）
+## 基本の考え方
 
 Fusionを、**downstream 結果に必要なupstream dataを依存関係に従って評価するGraph**として考えます。
 
@@ -33,13 +33,13 @@ Node A
 
 Nodeの画面位置や作成順より、connectionとrender requestが重要です。
 
-## 最小例（Minimum Example）
+## 最小例
 
 分岐が2本あるFlowで、一方だけがMediaOutへ繋がっている状態を考えます。
 
 「Flowに存在する」ことと「現在のOutput計算に必要」ということを分けます。
 
-## 共通ルール（Invariants）
+## 共通ルール
 
 - connectionがdependencyを作る。
 - 現在の Viewer / MediaOut / render requestによって必要段階が決まる。
@@ -47,11 +47,11 @@ Nodeの画面位置や作成順より、connectionとrender requestが重要で�
 - rendererが常にフレーム順に評価するとは仮定しない。
 - 性能を見るときも「Node数」より実際に要求されるdata / region / フレームを考える。
 
-## 1つだけ変えて確認する（Change One Thing）
+## 1つずつ変えて確認する
 
 unused 分岐をMediaOut側へ接続／切断し、どの結果が依存するかを比較します。
 
-## 他のNodeへ応用する（Transfer）
+## 他のNodeにも応用する
 
 ### アニメーション
 
@@ -65,17 +65,17 @@ unused 分岐をMediaOut側へ接続／切断し、どの結果が依存する�
 
 renderer / converterまでdomain dependencyを維持します。
 
-## 初見Nodeで予測する（Predict）
+## 初見のNodeを読む
 
 「Flowにあるのに効かない」「一部分岐だけ重い」等の症状で、connection / request / 現在の timeを確認できます。
 
-## よくある誤解（Common Misread）
+## よくある誤解
 
 **NodeがFlowに置かれていれば必ず最終Outputへ影響する**と考えること。
 
 Outputへのdependency chainに入っているかを確認します。
 
-## 関連する再利用構成（Patterns）
+## 関連パターン
 
 - [Last Good / First BadでGraphを切る](../../patterns/debugging/last-good-first-bad)
 
