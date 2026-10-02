@@ -15,11 +15,11 @@ suite_surfaces: [fusion]
 
 # Foreground / Background / Mask
 
-## Question
+## このページで分かること（Question）
 
 2枚の画像を合成するとき、接続を「上／下」だけで覚えずにどう読めばよいでしょうか。
 
-## Mental Model
+## 基本の考え方（Mental Model）
 
 Mergeでは、合成を3つの質問へ分けます。
 
@@ -29,7 +29,7 @@ Mergeでは、合成を3つの質問へ分けます。
 
 Blackmagic Designの現行Fusion紹介では、Mergeの黄色inputがBackground、緑inputがForegroundとして示されています。Maskは青いMask inputへ接続してeffectの対象領域を制限します。
 
-## Minimum Example
+## 最小例（Minimum Example）
 
 ```text
 Foreground image ──┐
@@ -41,14 +41,14 @@ Background image ──┘
 
 最初はApply Modeや複雑なalpha操作を増やさず、2画像の役割とMaskの有無だけを観察します。
 
-## Invariants
+## 共通ルール（Invariants）
 
 - BackgroundとForegroundは、同じ「画像入力」でも責任が異なる。
 - Maskは3枚目の見た目を足すのではなく、処理範囲を制御する。
 - 画像を入れ替えると、同じ2枚でも合成の意味が変わる。
 - 複雑な合成でも、1つのMergeごとにこの3つへ分解できる。
 
-## Change One Thing
+## 1つだけ変えて確認する（Change One Thing）
 
 ForegroundとBackgroundを入れ替えて比較します。
 
@@ -56,7 +56,7 @@ ForegroundとBackgroundを入れ替えて比較します。
 
 次にMaskだけを追加し、「合成内容」と「合成範囲」を別々に観察します。
 
-## Transfer
+## 他のNodeへ応用する（Transfer）
 
 ### Image stacking
 
@@ -66,11 +66,11 @@ ForegroundとBackgroundを入れ替えて比較します。
 
 別のeffect NodeでMask inputを見る場合も、「処理内容」と「適用範囲」を分離する考え方を転用できます。
 
-### Debugging
+### 診断
 
 結果が想定と違う場合、まず入力役割を確認してからApply Modeやalphaへ進むと、原因候補を減らせます。
 
-## Predict
+## 初見Nodeで予測する（Predict）
 
 初見の合成Graphでは、まず各Mergeについて次を読めます。
 
@@ -79,7 +79,7 @@ ForegroundとBackgroundを入れ替えて比較します。
 - Maskがあるか。
 - そのMergeの前後をViewerで比較できるか。
 
-## Common Misread
+## よくある誤解（Common Misread）
 
 **見た目の上下だけでForeground / Backgroundを決めること。**
 
@@ -87,19 +87,19 @@ Graphでは、画面上のNode配置ではなく、どのinputへ接続されて
 
 また、alpha / premultiplication / Operatorの詳細は、このページでは扱いません。そこは別Concept / Referenceの責任です。
 
-## Related Patterns
+## 関連する再利用構成（Patterns）
 
 - [画像を段階的に重ねる](../../patterns/compositing/stack-images-with-merge)
 - [Maskで処理範囲を限定する](../../patterns/masking/limit-effect-with-mask)
 
-## Node Reference
+## 関連Node
 
 - [Merge](../../nodes/compositing/merge)
 
-## Next
+## 次に読む
 
-→ [Keyframe / Spline / Time](../05-time/keyframes-spline-time)
+→ [キーフレーム / スプライン / 時間（Keyframe / Spline / Time）](../05-time/keyframes-spline-time)
 
 ---
 
-Verification note: MergeのForeground / Background inputとMask inputの基本は、2026-10-02時点のBlackmagic Design公式Fusion紹介と照合済み。alpha・premultiplication・Operatorの詳細はこのページでは未検証です。
+検証メモ: MergeのForeground / Background inputとMask inputの基本は、2026-10-02時点のBlackmagic Design公式Fusion紹介と照合済み。alpha・premultiplication・Operatorの詳細はこのページでは未検証です。

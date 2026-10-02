@@ -1,6 +1,6 @@
 ---
 title: Matte Control
-description: Alpha / matteの結合・反転・post processingを行うMatte utility Node。
+description: Alpha / matteの結合・反転・post 処理を行うMatte utility Node。
 doc_type: node
 verification: unverified
 aliases: [Matte Control, MAT]
@@ -17,59 +17,59 @@ suite_surfaces: [fusion]
 
 # Matte Control
 
-Alpha / matteの結合・反転・post processingを行うutility Nodeです。
+Alpha / matteの結合・反転・post 処理を行うutility Nodeです。
 
-## At a Glance
+## 概要（At a Glance）
 
-- **Family**: Matte / Keying
-- **Input domain**: 2D Image
-- **Output domain**: 2D Image
-- **Core concepts**: Alpha、matte、post processing
-- **Common tasks**: matte combine、invert、refine
+- **分類（Family）**: Matte / キーイング
+- **入力データ（Input domain）**: 2D Image
+- **出力データ（Output domain）**: 2D Image
+- **関連概念（Core concepts）**: Alpha、matte、post 処理
+- **よく使う作業（Common tasks）**: matte combine、invert、refine
 
-## Inputs
+## 入力（Inputs）
 
-foreground Imageやmatte情報を扱う系統ですが、exact 21.1 port layoutは未検証です。
+foreground Imageやmatte情報を扱う系統ですが、正確な 21.1 port 配置は未検証です。
 
-## Output
+## 出力（Output）
 
 matte / alpha処理を反映した2D Imageを出力します。
 
-## Controls
+## 主な設定項目（Controls）
 
-matte combine、invert、post-processingに関わるcontrolがあることはlegacy referenceから確認できます。
+matte combine、invert、post-処理に関わるcontrolがあることはlegacy referenceから確認できます。
 
-exact operation inventory / defaultsはcurrent 21.1 verification待ちです。
+利用できる演算の種類・初期値は現在の 21.1 verification待ちです。
 
-## Behavior / Notes
+## 挙動と注意点（Behavior / Notes）
 
 Matte ControlはEffect Maskそのものではありません。
 
 Image Alpha / matteを加工する責任を持つため、Node effectの適用範囲を制限するEffect Maskとは分けます。
 
-## Minimal Examples
+## 最小例（Minimal Examples）
 
-Keyer後のforegroundへMatte Controlを挟み、matte処理をcomposite前の独立stageとして持たせます。
+Keyer後のforegroundへMatte Controlを挟み、matte処理を合成前の独立段階として持たせます。
 
 ```text
 Source → Keyer → Matte Control → Merge
 ```
 
-## Related Concepts
+## 関連する考え方（Concepts）
 
 - [Alpha](../../learn/04-compositing/alpha)
 - [AlphaとMaskを分けて診断する](../../learn/07-debugging/alpha-vs-mask)
 
-## Related Patterns
+## 関連する再利用構成（Patterns）
 
-- [KeyとCompositeを分ける](../../patterns/matte-keying/key-then-composite)
+- [Keyと合成を分ける](../../patterns/matte-keying/key-then-composite)
 
-## Similar / Adjacent Nodes
+## 似たNode・関連Node
 
 - Delta Keyer
 - Channel Boolean
 - Alpha Divide / Alpha Multiply
 
-## Version / Verification Notes
+## バージョンと検証状況
 
-Matte ControlのidentityとAlpha/matteの結合・反転・post processing roleはlegacy-primary Fusion referenceで確認。21.1 exact controlsは未検証です。
+Matte Controlの存在とAlpha/matteの結合・反転・post 処理 役割は旧版のBlackmagic Design公式Fusion資料で確認。Fusion 21.1での正確な設定項目は未検証です。

@@ -1,6 +1,6 @@
 ---
 title: Resolutionを跨いでも位置関係を保つ
-description: pixel距離とnormalized positionを分離し、resolution変更時にもlayout intentを保つPattern。
+description: ピクセル距離とnormalized positionを分離し、resolution変更時にも配置 intentを保つPattern。
 doc_type: pattern
 verification: partial
 aliases: [resolution-aware layout, pixel to normalized]
@@ -14,18 +14,18 @@ product_scope: fusion
 
 # Resolutionを跨いでも位置関係を保つ
 
-## Problem Family
+## 使う場面（Problem Family）
 
-同じGraphを別resolutionで使うと、margin・offset・配置が意図せず変わる問題です。
+同じGraphを別の解像度（Resolution）で使うと、余白（Margin）・オフセット（Offset）・配置が意図せず変わる問題です。
 
-## Concepts
+## 前提となる考え方（Concepts）
 
-- [Normalized Coordinates](../../learn/03-space/normalized-coordinates)
-- [Resolution / Aspect](../../learn/03-space/resolution-aspect)
+- [正規化座標（Normalized Coordinates）](../../learn/03-space/normalized-coordinates)
+- [解像度 / アスペクト比（Resolution / Aspect）](../../learn/03-space/resolution-aspect)
 
-## Generic Graph
+## 基本構成（Generic Graph）
 
-pixel基準のdesign intentを1箇所でnormalized valueへ変換します。
+ピクセル基準のdesign intentを1箇所でnormalized 値へ変換します。
 
 ```text
 desired pixel offset
@@ -36,43 +36,43 @@ desired pixel offset
       Transform / layout
 ```
 
-## Invariant
+## 保つべき条件（Invariant）
 
-- pixel値とnormalized値を同じparameterとして扱わない。
-- reference resolutionのownerを1箇所に置く。
-- 複数Nodeで個別にpixel→normalized換算しない。
+- ピクセル値とnormalized値を同じパラメータとして扱わない。
+- reference resolutionの管理元を1箇所に置く。
+- 複数Nodeで個別にピクセル→normalized換算しない。
 - Resize後のImage extentを明示する。
 
-## Variants
+## バリエーション（Variants）
 
-### Relative layout
+### Relative 配置
 
-frame比率を保つことを優先し、normalized valueを直接使います。
+フレーム比率を保つことを優先し、normalized 値を直接使います。
 
-### Fixed-pixel layout
+### Fixed-ピクセル 配置
 
-一定pixel marginを保ちたい場合、current reference dimensionsからnormalized offsetを導きます。
+一定ピクセル marginを保ちたい場合、現在の reference dimensionsからnormalized offsetを導きます。
 
-### Mixed layout
+### Mixed 配置
 
-major positionはrelative、stroke/marginはpixel intentとして分離します。
+major positionはrelative、stroke/marginはピクセル intentとして分離します。
 
-## Node Choices
+## Nodeの選び方（Node Choices）
 
-Transformはposition/layout、Resizeはresolution contractを所有する候補です。
+Transformはposition/配置、Resizeはresolution contractを所有する候補です。
 
-## Failure Modes
+## 失敗しやすい点（Failure Modes）
 
 - 1920×1080前提の数値を4Kでもそのまま使う。
 - ResizeとTransform Sizeを混同する。
 - X/Yのreference dimensionsを逆にする。
-- Pixel Aspect / non-square pixelを無視する。
+- ピクセル Aspect / non-square ピクセルを無視する。
 
-## Recipes Using This Pattern
+## この構成を使う手順（Recipes）
 
 - [TransformでImageを移動する](../../recipes/layout/move-image-with-transform)
 
-## Related Node Reference
+## 関連Node
 
 - [Transform](../../nodes/transform/transform)
 - [Resize](../../nodes/transform/resize)

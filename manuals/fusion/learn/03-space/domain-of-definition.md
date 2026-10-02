@@ -1,6 +1,6 @@
 ---
-title: Domain of Definition
-description: frame全体と、実際に有効pixelが存在する領域を分けて理解する。
+title: 有効領域（Domain of Definition）
+description: フレーム（Frame）全体と、実際に有効なピクセルが存在する領域を分けて理解する。
 doc_type: concept
 verification: partial
 aliases: [DoD, Domain of Definition, image domain, ROI]
@@ -13,24 +13,24 @@ product_scope: fusion
 suite_surfaces: [fusion]
 ---
 
-# Domain of Definition
+# 有効領域（Domain of Definition）
 
-## Question
+## このページで分かること（Question）
 
-frame外へ動かしたImageが後で戻せる場合と、完全に消えて戻せない場合があるのはなぜでしょうか。
+フレーム外へ動かしたImageが後で戻せる場合と、完全に消えて戻せない場合があるのはなぜでしょうか。
 
-## Mental Model
+## 基本の考え方（Mental Model）
 
 Fusionでは少なくとも次を分けます。
 
-- **Frame / image extent** — nominalなwidth / height。
-- **Canvas** — Imageを扱う空間。
-- **Domain of Definition (DoD)** — 実際に有効pixelが存在する領域。
-- **Region of Interest (RoI)** — rendererが今回計算を要求する領域。
+- **フレーム / 画像範囲（Frame / image extent）** — 基準となる幅（width）と高さ（height）。
+- **キャンバス（Canvas）** — Imageを扱う空間。
+- **有効領域（Domain of Definition / DoD）** — 実際に有効なピクセルが存在する領域。
+- **計算領域（Region of Interest / RoI）** — rendererが今回の計算を要求している領域。
 
-DoDはcontentの存在範囲、RoIは計算requestです。
+DoDは「どこにピクセルが存在するか」、RoIは「どこを今回計算するか」を表します。
 
-## Minimum Example
+## 最小例（Minimum Example）
 
 ```text
 Image
@@ -39,57 +39,57 @@ Image
   → Output
 ```
 
-途中でpixelがDoDとして残っていれば戻せる場合があります。途中でclip / cropされて失われた場合は、後段Transformでは復元できません。
+途中でピクセルがDoDとして残っていれば戻せる場合があります。途中でclip / cropされて失われた場合は、後段Transformでは復元できません。
 
-## Invariants
+## 共通ルール（Invariants）
 
-- 「Viewerに見えない」と「pixelが存在しない」を分ける。
-- frame sizeとDoDを同一視しない。
+- 「Viewerに見えない」と「ピクセルが存在しない」を分ける。
+- フレームサイズとDoDを同一視しない。
 - DoDとRoIを同一視しない。
-- Crop / Resize / Transform等のdomain behaviorをNode固有Referenceで確認する。
+- Crop / Resize / Transformなどが有効領域をどう扱うかは、各Nodeのリファレンス（Reference）で確認する。
 
-## Change One Thing
+## 1つだけ変えて確認する（Change One Thing）
 
-途中Nodeを1つ外し、frame外pixelが後段で戻るか比較します。
+途中Nodeを1つ外し、フレーム外ピクセルが後段で戻るか比較します。
 
-## Transfer
+## 他のNodeへ応用する（Transfer）
 
 ### Transform
 
-positionとclippingを分けます。
+位置（position）の問題と、切り落とし（clipping）の問題を分けます。
 
 ### Resize / Crop
 
-resolution / extent変更とcontent lossを分けます。
+解像度（resolution）や画像範囲（extent）の変更と、ピクセルが失われることを分けます。
 
 ### Blur / Filter
 
-近傍pixelを必要とする処理ではedge / domain behaviorも確認します。
+周囲のピクセルを参照する処理では、画面端と有効領域の扱いも確認します。
 
-## Predict
+## 初見Nodeで予測する（Predict）
 
-「端が消えた」症状で、position、resolution、DoDのどこを調べるか選べます。
+「端が消えた」症状を見たとき、位置（position）、解像度（resolution）、DoDのどこを調べるべきか判断できます。
 
-## Common Misread
+## よくある誤解（Common Misread）
 
-**Imageがframe外にある = pixelが削除された**と考えること。
+**Imageがフレーム外にある = ピクセルが削除された**と考えること。
 
-見えないだけなのか、dataが失われたのかを観察してから判断します。
+単に見えないだけなのか、実際にデータが失われたのかを観察してから判断します。
 
-## Related Patterns
+## 関連する再利用構成（Patterns）
 
 - [Last Good / First BadでGraphを切る](../../patterns/debugging/last-good-first-bad)
 
-## Node Reference
+## 関連Node
 
 - [Transform](../../nodes/transform/transform)
 - [Resize](../../nodes/transform/resize)
 
-## Next
+## 次に読む
 
-Debuggingでの使い方:
-→ [Resolution / Domain of Definitionを確認する](../07-debugging/resolution-domain-of-definition)
+診断での使い方:
+→ [解像度（Resolution）/ 有効領域（Domain of Definition）を確認する](../07-debugging/resolution-domain-of-definition)
 
 ---
 
-Verification note: Frame / Canvas / DoD / RoIの区別はFusion 21系semantic baselineで確認。Node固有のclipping / domain optionはcurrent 21.1 evidenceを優先します。
+検証メモ: フレーム / Canvas / DoD / RoIの区別はFusion 21系の資料で確認しています。Node固有のclippingや領域設定は、現在のFusion 21.1の資料・実機確認を優先します。

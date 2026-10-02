@@ -11,7 +11,7 @@ product_scope: fusion
 
 # 最初のFlow
 
-## What you will be able to do
+## このページでできるようになること
 
 Nodeを追加することより先に、
 
@@ -22,7 +22,7 @@ Nodeを追加することより先に、
 
 をFlowとして読めるようになります。
 
-## Do this
+## まずやること
 
 最小構造を次のように考えます。
 
@@ -33,23 +33,23 @@ Source B → XF ──┘
 ```
 
 1. まずSource AをViewerで確認します。
-2. Source BをViewerで確認します。
-3. Source BをTransformへ通し、Transform outputを確認します。
+2. 素材B（Source B）をViewerで確認します。
+3. 素材B（Source B）をTransformへ通し、Transformの出力（Output）を確認します。
 4. Mergeで2つを合成します。
 5. Merge outputを確認します。
 6. 各Nodeを順番にViewerへ出し、どこで見た目が変わるか確認します。
 
 Resolve内Fusionでは、timeline clipがMediaInとしてFlowへ入る構成が代表的です。
 
-## What to notice
+## 見るポイント
 
 ### Node配置ではなく接続を見る
 
 Nodeが左や右にあることより、OutputがどのInputへ繋がっているかを見ます。
 
-### Mergeにはroleがある
+### Mergeには役割がある
 
-2つのImage inputを「上・下」だけで覚えず、Foreground / Backgroundという役割で読みます。
+2つのImage入力を「上・下」だけで覚えず、前景（Foreground）/ 背景（Background）という役割で読みます。
 
 ### 中間結果をViewerで見る
 
@@ -59,13 +59,13 @@ Nodeが左や右にあることより、OutputがどのInputへ繋がってい�
 
 Center、Mask、Blend等を同時に変えず、変化と原因の対応を保ちます。
 
-## Where to go next
+## 次に読む
 
 Flowの一般則:
 
 → [Graphとして考える](../learn/01-flow/graph-as-flow)
 
-Image / Mask / parameterの違い:
+Image / Mask / パラメータの違い:
 
 → [Image / Mask / Dataを分ける](../learn/02-data/image-mask-data)
 
@@ -75,4 +75,4 @@ Mergeを詳しく引く:
 
 ---
 
-Verification note: Node tree / Viewer / Mergeの基本roleは現行Blackmagic Design Fusion資料とcanonical Fusion pagesに基づきます。
+検証メモ: Node tree / Viewer / Mergeの基本役割は現行Blackmagic Design Fusion資料とFusionの正本ページに基づきます。

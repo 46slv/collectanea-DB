@@ -19,62 +19,62 @@ suite_surfaces: [fusion]
 
 2D Imageへ標準的なblur処理を行うFilter Nodeです。
 
-## At a Glance
+## 概要（At a Glance）
 
-- **Family**: Blur / Filter
-- **Primary input**: 2D Image
-- **Output**: 2D Image
-- **Core concepts**: filtering、edge behavior、DoD
-- **Common tasks**: soften、blur、mask-assisted blur
+- **分類（Family）**: Blur / Filter
+- **主入力（Primary input）**: 2D Image
+- **出力（Output）**: 2D Image
+- **関連概念（Core concepts）**: filtering、edge 挙動、DoD
+- **よく使う作業（Common tasks）**: soften、blur、mask-assisted blur
 
-## Inputs
+## 入力（Inputs）
 
 ### Image
 
 blur対象の2D Imageを受け取ります。
 
-Effect Mask等のexact auxiliary inputsは21.1で確認します。
+Effect Mask等の補助入力（auxiliary inputs）の正確な仕様は21.1で確認します。
 
-## Output
+## 出力（Output）
 
 blur後の2D Imageを出力します。
 
-## Controls
+## 主な設定項目（Controls）
 
-blur size / amount、channel、edge / clipping等に関連するcontrolを持つ系統ですが、21.1 exact label・range・defaultは未検証です。
+blur size / amount、channel、edge / clipping等に関連するcontrolを持つ系統ですが、Fusion 21.1での正確な名称・範囲・初期値は未検証です。
 
-## Behavior / Notes
+## 挙動と注意点（Behavior / Notes）
 
-Blurは近傍pixelを参照するFilterなので、frame edgeやDomain of Definitionの扱いが見た目へ影響する場合があります。
+Blurは近傍ピクセルを参照するFilterなので、フレーム edgeやDomain of Definitionの扱いが見た目へ影響する場合があります。
 
 「端だけおかしい」症状ではBlur amountだけでなくdomain / clippingも確認します。
 
-## Minimal Examples
+## 最小例（Minimal Examples）
 
 ```text
 Image → Blur → Output
 ```
 
-Maskで範囲を限定する場合は、Image branchとMask branchを別々に確認します。
+Maskで範囲を限定する場合は、Image 分岐とMask 分岐を別々に確認します。
 
-## Related Concepts
+## 関連する考え方（Concepts）
 
 - [Resolution / Domain of Definitionを確認する](../../learn/07-debugging/resolution-domain-of-definition)
 - [AlphaとMaskを分けて診断する](../../learn/07-debugging/alpha-vs-mask)
 
-## Related Patterns
+## 関連する再利用構成（Patterns）
 
 - [Maskで処理範囲を限定する](../../patterns/masking/limit-effect-with-mask)
 
-## Similar / Adjacent Nodes
+## 似たNode・関連Node
 
 - Defocus
 - Directional Blur
 - VariBlur
-- Vector Motion Blur
+- Vector 動き Blur
 
 これらは目的・入力dataが異なるため、Blurのmode違いとして扱いません。
 
-## Version / Verification Notes
+## バージョンと検証状況
 
-Blurのidentityと標準blurという役割はlegacy-primary Fusion referenceで確認。21.1 exact controls / edge behavior / mask portsは未検証です。
+Blurの存在と標準blurという役割は旧版のBlackmagic Design公式Fusion資料で確認。Fusion 21.1での正確な設定項目・Edge挙動・Mask Portは未検証です。

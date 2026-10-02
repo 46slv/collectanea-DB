@@ -1,6 +1,6 @@
 ---
 title: Last Good / First BadでGraphを切る
-description: 長いFlowを、最後に正常な地点と最初に壊れた地点の間へ縮めるdebugging Pattern。
+description: 長いFlowを、最後に正常な地点と最初に壊れた地点の間へ縮める診断 Pattern。
 doc_type: pattern
 verification: partial
 aliases: [last known good, first known bad, graph bisection]
@@ -13,16 +13,16 @@ product_scope: fusion
 
 # Last Good / First BadでGraphを切る
 
-## Problem Family
+## 使う場面（Problem Family）
 
 長いFlowで最終Outputだけが壊れており、どのNodeを調べればよいか分からない状態です。
 
-## Concepts
+## 前提となる考え方（Concepts）
 
-- [Branchを分離して原因範囲を狭める](../../learn/07-debugging/isolate-branches)
+- [分岐を分離して原因範囲を狭める](../../learn/07-debugging/isolate-branches)
 - [症状ではなくGraphを診断する](../../learn/07-debugging/diagnose-graph-not-symptom)
 
-## Generic Graph
+## 基本構成（Generic Graph）
 
 ```text
 A → B → C → D → E → F
@@ -37,15 +37,15 @@ A → B → C → D → E → F
 
 を特定します。
 
-## Invariant
+## 保つべき条件（Invariant）
 
 - 観察地点を明示する。
 - 同時に複数条件を変えない。
-- sourceから順番に全部触る必要はない。
-- branch合流点・data conversion境界を優先して確認する。
+- 参照元から順番に全部触る必要はない。
+- 分岐合流点・data conversion境界を優先して確認する。
 - repair後は元の最終症状で再確認する。
 
-## Variants
+## バリエーション（Variants）
 
 ### Linear chain
 
@@ -53,28 +53,28 @@ A → B → C → D → E → F
 
 ### Branching graph
 
-各branchを単体で確認してから合流点を見る。
+各分岐を単体で確認してから合流点を見る。
 
 ### Group / Macro
 
-外部input → internal stage → external outputの順で境界を跨ぎます。
+外部input → internal 段階 → external outputの順で境界を跨ぎます。
 
-## Node Choices
+## Nodeの選び方（Node Choices）
 
 Viewerで中間地点を観察できる任意のGraphへ適用します。
 
-## Failure Modes
+## 失敗しやすい点（Failure Modes）
 
 - Viewerが別Nodeを表示している。
 - temporary bypassを戻し忘れる。
 - Last Goodを確認せず、First Badだけ推測する。
 - bad Nodeを見つけただけで、bad input dataの可能性を除外する。
 
-## Recipes Using This Pattern
+## この構成を使う手順（Recipes）
 
 Troubleshooting全般から参照します。
 
-## Related Node Reference
+## 関連Node
 
 - [Merge](../../nodes/compositing/merge)
 - [Blur](../../nodes/blur-filter/blur)

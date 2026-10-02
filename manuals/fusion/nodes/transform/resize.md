@@ -17,31 +17,31 @@ suite_surfaces: [fusion]
 
 # Resize
 
-2D Imageのoutput resolutionを変更するNodeです。
+2D Imageの出力解像度（Output Resolution）を変更するNodeです。
 
-## At a Glance
+## 概要（At a Glance）
 
-- **Family**: Transform / Format
-- **Primary input**: 2D Image
-- **Output**: 2D Image
-- **Core concepts**: resolution、image extent、sampling
-- **Common tasks**: output size変更、resolution変換
+- **分類（Family）**: Transform / Format
+- **主入力（Primary input）**: 2D Image
+- **出力（Output）**: 2D Image
+- **関連概念（Core concepts）**: resolution、image extent、sampling
+- **よく使う作業（Common tasks）**: output size変更、resolution変換
 
-## Inputs
+## 入力（Inputs）
 
 ### Image
 
 resolutionを変更する2D Imageを受け取ります。
 
-## Output
+## 出力（Output）
 
 指定したresolutionへ変換された2D Imageを出力します。
 
-## Controls
+## 主な設定項目（Controls）
 
-Width / Height、format、sampling / scaling behaviorに関わるcontrolがある系統ですが、exact 21.1 UI・default・filter optionは未検証です。
+Width / Height、format、sampling / scaling 挙動に関わるcontrolがある系統ですが、正確な 21.1 UI・初期値・filter 設定は未検証です。
 
-## Behavior / Notes
+## 挙動と注意点（Behavior / Notes）
 
 ResizeとTransformのSizeは同じ目的ではありません。
 
@@ -50,7 +50,7 @@ ResizeとTransformのSizeは同じ目的ではありません。
 
 見た目が同程度に小さくなっても、後段のresolution contractは異なります。
 
-## Minimal Examples
+## 最小例（Minimal Examples）
 
 ```text
 Image → Resize → Output
@@ -58,22 +58,22 @@ Image → Resize → Output
 
 Resize前後でViewerの見た目だけでなく、Imageのwidth / heightがどう変わるかを確認します。
 
-## Related Concepts
+## 関連する考え方（Concepts）
 
 - [Resolution / Domain of Definitionを確認する](../../learn/07-debugging/resolution-domain-of-definition)
-- [Normalized Coordinates](../../learn/03-space/normalized-coordinates)
+- [正規化座標（Normalized Coordinates）](../../learn/03-space/normalized-coordinates)
 
-## Related Patterns
+## 関連する再利用構成（Patterns）
 
-resolution-aware layout Patternは今後追加します。
+resolution-aware 配置 Patternは今後追加します。
 
-## Similar / Adjacent Nodes
+## 似たNode・関連Node
 
 - Transform
 - Scale
 - Crop
 - Letterbox
 
-## Version / Verification Notes
+## バージョンと検証状況
 
-Resizeのidentityと「output resolutionを変更する」という役割はlegacy-primary Fusion referenceで確認。21.1 exact resolution controls / sampling optionは未検証です。
+Resizeの存在と「出力解像度（Output Resolution）を変更する」という役割は旧版のBlackmagic Design公式Fusion資料で確認。21.1 正確な resolution controls / sampling 設定は未検証です。

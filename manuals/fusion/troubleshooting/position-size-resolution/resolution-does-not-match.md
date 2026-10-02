@@ -1,6 +1,6 @@
 ---
 title: Resolutionが合わない
-description: Resize・Transform scale・frame extent・source resolutionを分けてdiagnoseする。
+description: Resize・Transform scale・フレーム extent・参照元 resolutionを分けてdiagnoseする。
 doc_type: diagnostic
 verification: partial
 aliases: [解像度が合わない, wrong resolution, size mismatch]
@@ -15,15 +15,15 @@ product_scope: fusion
 
 # Resolutionが合わない
 
-## Fast Checks
+## まず確認すること（Fast Checks）
 
-1. source Imageのwidth / heightは何か。
+1. 元画像（Source Image）のwidth / heightは何か。
 2. outputとして必要なwidth / heightは何か。
 3. Resizeでresolution自体を変えているか。
 4. Transform Sizeで見た目だけscaleしているか。
-5. aspect / pixel aspectが違わないか。
+5. aspect / ピクセル aspectが違わないか。
 
-## Isolate
+## 原因を切り分ける（Isolate）
 
 resolutionを変更する可能性があるNodeだけを残します。
 
@@ -32,43 +32,43 @@ source resolution
       ↓
 Resize / format-changing stage
       ↓
-output resolution
+出力解像度（Output Resolution）
 ```
 
 Transformのposition / scale問題とは分けます。
 
-## Likely Causes
+## 主な原因（Likely Causes）
 
 ### Transform SizeとResizeを混同
 
-見た目の大きさは変わっても、output Imageのpixel dimensionsは別問題です。
+見た目の大きさは変わっても、output Imageのピクセル dimensionsは別問題です。
 
-### sourceとtimeline / targetのaspectが違う
+### 参照元とtimeline / 対象のaspectが違う
 
-同じnormalized layoutでも見え方が変わる可能性があります。
+同じnormalized 配置でも見え方が変わる可能性があります。
 
 ### 途中でresolutionを変更している
 
-複数Resize / Crop / format stageを確認します。
+複数Resize / Crop / format 段階を確認します。
 
-## Fix
+## 修正方法（Fix）
 
-1. target resolutionを決める。
-2. resolution ownerを1箇所へ寄せる。
-3. layout adjustmentとformat conversionを分離する。
+1. 対象 resolutionを決める。
+2. resolution 管理元を1箇所へ寄せる。
+3. 配置 adjustmentとformat conversionを分離する。
 4. output dimensionsを再確認する。
 
-## Why
+## なぜ起きるか（Why）
 
-pixel dimensionsとnormalized layoutを同じ「サイズ」として扱うと、修正責任が曖昧になります。
+ピクセル dimensionsとnormalized 配置を同じ「サイズ」として扱うと、修正責任が曖昧になります。
 
-→ [Resolution / Aspect](../../learn/03-space/resolution-aspect)
+→ [解像度 / アスペクト比（Resolution / Aspect）](../../learn/03-space/resolution-aspect)
 
-## Version / Exception Notes
+## バージョン・例外（Version / Exception Notes）
 
-Timeline format / MediaIn / Node-specific frame format behaviorはcurrent Resolve project contextを確認します。
+Timeline format / MediaIn / Node-specific フレーム format 挙動は現在の Resolve project contextを確認します。
 
-## Related Symptoms
+## 関連する症状（Related Symptoms）
 
 - 4Kにすると位置がずれる
 - Resize後にMask sizeが合わない

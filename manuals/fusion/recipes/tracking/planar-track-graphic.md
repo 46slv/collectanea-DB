@@ -1,6 +1,6 @@
 ---
 title: 平面をtrackしてgraphicへ適用する
-description: Planar Trackerで平面motionを解き、graphic側へ適用する責任を分けた基本Recipe。
+description: Planar Trackerで平面動きを解き、graphic側へ適用する責任を分けた基本Recipe。
 doc_type: recipe
 verification: partial
 aliases: [planar track graphic, screen replacement]
@@ -15,28 +15,28 @@ product_scope: fusion
 
 # 平面をtrackしてgraphicへ適用する
 
-> Planar Trackerからtracking resultを生成・適用するexact 21.1 UI手順はcurrent manual / host確認前です。このページはGraph責任と診断順序を正本とします。
+> Planar Trackerからトラッキング 結果を生成・適用する正確な 21.1 UI手順は現在の manual / host確認前です。このページはGraph責任と診断順序を正本とします。
 
-## Result
+## 作るもの（Result）
 
-footage内の平面motionを解き、replacement graphicを同じmotionへ追従させる構造を作ります。
+footage内の平面動きを解き、replacement graphicを同じ動きへ追従させる構造を作ります。
 
-## Requirements
+## 必要なもの（Requirements）
 
 - footage
 - Planar Tracker
 - replacement graphic
-- tracking resultを適用するstage
+- トラッキング 結果を適用する段階
 
-## Steps
+## 手順（Steps）
 
 1. footageをPlanar Trackerへ渡します。
 2. 追跡する平面領域を決めます。
-3. tracking solveを行います。
-4. solve resultを単独で確認します。
-5. replacement graphicへtracking dataを適用します。
-6. graphicのlocal offset / scaleはtracking solveと別stageで調整します。
-7. 最終compositeを確認します。
+3. トラッキング solveを行います。
+4. solve 結果を単独で確認します。
+5. replacement graphicへトラッキング dataを適用します。
+6. graphicの個別オフセット / scaleはトラッキング solveと別段階で調整します。
+7. 最終合成を確認します。
 
 ```text
 Footage
@@ -48,27 +48,27 @@ Replacement Graphic
   → composite
 ```
 
-## Why This Works
+## なぜこの構成で動くか（Why This Works）
 
-trackingの精度とgraphic layoutを別々に評価できるため、driftやoffsetの原因を分離できます。
+トラッキングの精度とgraphic 配置を別々に評価できるため、driftやoffsetの原因を分離できます。
 
-## Variants / Alternatives
+## 別の方法（Variants / Alternatives）
 
 - Maskを追従させる。
 - stabilize用途へ使う。
-- planarではなくpoint / camera trackingが必要なら別Trackerを選ぶ。
+- planarではなくpoint / camera トラッキングが必要なら別Trackerを選ぶ。
 
-## Failure Checks
+## うまくいかないときの確認（Failure Checks）
 
-- tracking source自体に十分なplanar detailがあるか。
-- solve resultはgraphicを付ける前から安定しているか。
+- トラッキング 参照元自体に十分なplanar detailがあるか。
+- solve 結果はgraphicを付ける前から安定しているか。
 - resolution / coordinate spaceが合っているか。
-- graphic側のmanual animationがtracking resultと競合していないか。
+- graphic側のmanual アニメーションがトラッキング 結果と競合していないか。
 
-## Related Pattern
+## 関連パターン（Related Pattern）
 
 - [Trackを解いてから適用先を分ける](../../patterns/tracking/solve-then-apply-track)
 
-## Related Nodes
+## 関連ノード（Related Nodes）
 
 - [Planar Tracker](../../nodes/tracking/planar-tracker)

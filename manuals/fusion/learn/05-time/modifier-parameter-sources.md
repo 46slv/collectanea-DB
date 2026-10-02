@@ -1,6 +1,6 @@
 ---
 title: Modifier / Parameter Sources
-description: parameter valueがstatic・keyframe・expression・modifier・tracking等のどこから供給されるかを読む。
+description: パラメータ 値がstatic・keyframe・expression・modifier・トラッキング等のどこから供給されるかを読む。
 doc_type: concept
 verification: partial
 aliases: [Modifier, parameter source, driven parameter]
@@ -12,25 +12,25 @@ product_scope: fusion
 suite_surfaces: [fusion]
 ---
 
-# Modifier / Parameter Sources
+# Modifier / パラメータ Sources
 
-## Question
+## このページで分かること（Question）
 
-Inspectorに見える1つのparameterは、常に手入力したstatic valueだけから決まるのでしょうか。
+Inspectorに見える1つのパラメータは、常に手入力した固定値だけから決まるのでしょうか。
 
-## Mental Model
+## 基本の考え方（Mental Model）
 
-parameter valueのsourceは複数あります。
+パラメータ 値の参照元は複数あります。
 
 代表的には:
 
-- static value
+- 固定値
 - keyframe spline
 - path
 - expression
 - modifier
-- audio / probe / tracking data
-- host-linked parameter
+- audio / probe / トラッキング data
+- host-linked パラメータ
 
 ```text
 source
@@ -42,67 +42,67 @@ Node behavior
 
 問題を診断するときは、最終値だけでなく「誰がその値を供給しているか」を確認します。
 
-## Minimum Example
+## 最小例（Minimum Example）
 
 同じCenter controlについて、
 
-1. static value
+1. 固定値
 2. keyframe
 3. Expression
 
 の3方式を別々に考えます。
 
-見た目が同じ位置でも、value ownershipは異なります。
+見た目が同じ位置でも、値の管理関係は異なります。
 
-## Invariants
+## 共通ルール（Invariants）
 
-- parameterにはsource of truthがある。
+- パラメータには基準となる値がある。
 - static値とdriven値を二重管理しない。
-- ExpressionとInstanceを同じ共有mechanismとして扱わない。
-- tracking / audio等のexternal dataは、どのspace / timeで適用されるか確認する。
-- valueが期待と違う場合、controlを上書きする前にsourceを確認する。
+- ExpressionとInstanceを同じ共有仕組みとして扱わない。
+- トラッキング / audio等のexternal dataは、どのspace / timeで適用されるか確認する。
+- 値が期待と違う場合、controlを上書きする前に参照元を確認する。
 
-## Change One Thing
+## 1つだけ変えて確認する（Change One Thing）
 
-parameter sourceを1つだけ外し、static valueへ戻して結果を比較します。
+パラメータの供給元を1つだけ外し、固定値へ戻して結果を比較します。
 
-## Transfer
+## 他のNodeへ応用する（Transfer）
 
 ### Expressions
 
-別parameterから値を計算するsourceとして読めます。
+別パラメータから値を計算する参照元として読めます。
 
 ### Keyframes
 
-timeから値を供給するsourceとして読めます。
+timeから値を供給する参照元として読めます。
 
 ### Modifiers
 
-parameterへprocedural / external dataを供給する層として読めます。
+パラメータへprocedural / external dataを供給する層として読めます。
 
-## Predict
+## 初見Nodeで予測する（Predict）
 
-「数値を入力しても戻る」「勝手に動く」「他Nodeと同期する」症状で、value sourceを調べるべきだと判断できます。
+「数値を入力しても戻る」「勝手に動く」「他Nodeと同期する」症状で、値の供給元を調べるべきだと判断できます。
 
-## Common Misread
+## よくある誤解（Common Misread）
 
 **Inspectorに表示された最終数値だけ見れば、なぜその値になったか分かる**と考えること。
 
-値のsourceを辿らないと、ExpressionやModifierを上から手修正して一時的に壊す可能性があります。
+値の参照元を辿らないと、ExpressionやModifierを上から手修正して一時的に壊す可能性があります。
 
-## Related Patterns
+## 関連する再利用構成（Patterns）
 
 - [Expressionで値の関係を保つ](../../patterns/automation/link-values-with-expression)
 - [再利用の境界を選ぶ](../../patterns/reuse/choose-reuse-boundary)
 
-## Node Reference
+## 関連Node
 
 Modifier inventoryは今後Reference coverageを追加します。
 
-## Next
+## 次に読む
 
 → [Instanceで設定を共有する](../06-reuse/instances)
 
 ---
 
-Verification note: static / keyframe / path / expression / modifier / audio / tracking等がparameter sourceになり得ることはFusion 21系semantic baselineで確認。個別Modifierのexact behaviorはcurrent Referenceで確認します。
+検証メモ: static / keyframe / path / expression / modifier / audio / トラッキング等がパラメータの供給元になり得ることはFusion 21系semantic baselineで確認。個別Modifierの正確な 挙動は現在の Referenceで確認します。

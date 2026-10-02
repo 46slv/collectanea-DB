@@ -1,6 +1,6 @@
 ---
 title: Planar Transform
-description: Planar Trackerのtracking dataを任意のImage / Maskへ適用するNode。
+description: Planar Trackerのトラッキング dataを任意のImage / Maskへ適用するNode。
 doc_type: node
 verification: unverified
 aliases: [Planar Transform]
@@ -17,31 +17,31 @@ suite_surfaces: [fusion]
 
 # Planar Transform
 
-Planar Trackerで得たtracking dataを、任意のImage / Maskへ適用するためのNodeです。
+Planar Trackerで得たトラッキング dataを、任意のImage / Maskへ適用するためのNodeです。
 
-## At a Glance
+## 概要（At a Glance）
 
-- **Family**: Tracking
-- **Primary input**: Image / applicable data
-- **Output**: transformed result
-- **Core concepts**: tracking data、coordinate application
-- **Common tasks**: replacement graphic追従、tracked transformの再利用
+- **分類（Family）**: トラッキング
+- **主入力（Primary input）**: Image / applicable data
+- **出力（Output）**: transformed 結果
+- **関連概念（Core concepts）**: トラッキング data、coordinate application
+- **よく使う作業（Common tasks）**: replacement graphic追従、tracked transformの再利用
 
-## Inputs
+## 入力（Inputs）
 
-tracking transformを適用する対象を受け取る系統です。
+トラッキング transformを適用する対象を受け取る系統です。
 
-exact Image / Mask compatibility、tracking data binding mechanismはFusion 21.1 current verification待ちです。
+Image / Maskの正確な互換性、トラッキング data binding 仕組みはFusion 21.1 現在の資料または実機での確認待ちです。
 
-## Output
+## 出力（Output）
 
-Planar tracking transformを反映したresultを出力します。
+Planar トラッキング transformを反映した結果を出力します。
 
-## Controls
+## 主な設定項目（Controls）
 
-tracking result / reference / transform-related controlsを持つ系統ですが、exact current UIは未検証です。
+トラッキング 結果 / reference / transform-related controlsを持つ系統ですが、正確な 現在の UIは未検証です。
 
-## Behavior / Notes
+## 挙動と注意点（Behavior / Notes）
 
 Planar Trackerが「solve」、Planar Transformが「apply」と責任分離できる構成として読むとdebugしやすくなります。
 
@@ -51,25 +51,25 @@ Footage → Planar Tracker
 Graphic → Planar Transform → Merge
 ```
 
-## Minimal Examples
+## 最小例（Minimal Examples）
 
-replacement graphicへPlanar Transformを適用し、tracking solveとgraphic local offsetを分けます。
+replacement graphicへPlanar Transformを適用し、トラッキング solveとgraphic 個別オフセットを分けます。
 
-## Related Concepts
+## 関連する考え方（Concepts）
 
-- [Data domainを辿って診断する](../../learn/07-debugging/trace-data-domain)
+- [データ領域（data domain）を辿って診断する](../../learn/07-debugging/trace-data-domain)
 - [Center / Pivot / Size / Angle](../../learn/03-space/center-pivot-size-angle)
 
-## Related Patterns
+## 関連する再利用構成（Patterns）
 
 - [Trackを解いてから適用先を分ける](../../patterns/tracking/solve-then-apply-track)
 
-## Similar / Adjacent Nodes
+## 似たNode・関連Node
 
 - Planar Tracker
 - Tracker
 - Transform
 
-## Version / Verification Notes
+## バージョンと検証状況
 
-Planar TransformのidentityとPlanar Tracker dataを任意Image/Maskへ適用するroleはlegacy-primary Fusion referenceで確認。21.1 exact workflow / controlsは未検証です。
+Planar Transformの存在とPlanar Tracker dataを任意Image/Maskへ適用する役割は旧版のBlackmagic Design公式Fusion資料で確認。21.1 正確な 作業の流れ / controlsは未検証です。

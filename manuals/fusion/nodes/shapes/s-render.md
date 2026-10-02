@@ -19,54 +19,54 @@ suite_surfaces: [fusion]
 
 Shape streamを2D Imageへ変換するRenderer Nodeです。
 
-## At a Glance
+## 概要（At a Glance）
 
-- **Family**: Shapes / Render
-- **Input domain**: Shape
-- **Output domain**: 2D Image
-- **Core concepts**: domain conversion、rasterization
-- **Common tasks**: procedural Shapeを通常の2D compositingへ渡す
+- **分類（Family）**: Shapes / Render
+- **入力データ（Input domain）**: Shape
+- **出力データ（Output domain）**: 2D Image
+- **関連概念（Core concepts）**: domain conversion、rasterization
+- **よく使う作業（Common tasks）**: procedural Shapeを通常の2D 合成へ渡す
 
-## Inputs
+## 入力（Inputs）
 
 ### Shape
 
 sEllipse、sText、sMerge等のShape streamを受け取ります。
 
-## Output
+## 出力（Output）
 
 rasterized 2D Imageを出力します。
 
-## Controls
+## 主な設定項目（Controls）
 
-render size、style、sampling等に関わるcontrolを持つ可能性がありますが、exact 21.1 UIはcurrent verification待ちです。
+render size、見た目、sampling等に関わるcontrolを持つ可能性がありますが、正確な 21.1 UIは現在の資料または実機での確認待ちです。
 
-## Behavior / Notes
+## 挙動と注意点（Behavior / Notes）
 
 sRenderは**Shape domain → 2D Image domain**の境界です。
 
 Shapeを通常のMerge / Blur / Color Nodeへ渡す前に、この変換が必要な構成として読みます。
 
-## Minimal Examples
+## 最小例（Minimal Examples）
 
 ```text
 sEllipse → sRender → Merge
 ```
 
-## Related Concepts
+## 関連する考え方（Concepts）
 
-- [Data domainを辿って診断する](../../learn/07-debugging/trace-data-domain)
+- [データ領域（data domain）を辿って診断する](../../learn/07-debugging/trace-data-domain)
 
-## Related Patterns
+## 関連する再利用構成（Patterns）
 
 Shape-specific Patternは今後追加します。
 
-## Similar / Adjacent Nodes
+## 似たNode・関連Node
 
 - pRender — Particle set → 2D Image
 - Renderer 3D — Classic 3D scene → 2D Image
 - uRenderer — USD scene → 2D Image / AOV
 
-## Version / Verification Notes
+## バージョンと検証状況
 
-sRenderのShape → 2D Image roleはBlackmagic Design公式version資料系で確認。21.1 exact controlsは未検証です。
+sRenderのShape → 2D Image 役割はBlackmagic Design公式バージョン資料で確認。Fusion 21.1での正確な設定項目は未検証です。

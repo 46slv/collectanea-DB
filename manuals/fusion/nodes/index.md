@@ -1,5 +1,5 @@
 ---
-title: Node Reference
+title: ノードリファレンス（Node Reference）
 description: Fusion Nodeをfamily別に引くReference入口。
 doc_type: index
 verification: partial
@@ -7,13 +7,13 @@ product_scope: fusion
 tasks: [lookup-node, inspect-controls]
 ---
 
-# Node Reference
+# ノードリファレンス（Node Reference）
 
 Node固有の入出力・control・例外を引くためのReferenceです。
 
 一般概念は [Learn](../learn/) に、複数Nodeへ再利用する構成は [Patterns](../patterns/) に置きます。
 
-## Compositing
+## 合成（Compositing）
 
 - [Merge](./compositing/merge)
 - [MultiMerge](./compositing/multi-merge)
@@ -43,14 +43,14 @@ Node固有の入出力・control・例外を引くためのReferenceです。
 
 - [Blur](./blur-filter/blur)
 
-## Matte / Keying
+## Matte / キーイング
 
 - [Delta Keyer](./matte-keying/delta-keyer)
 - [Matte Control](./matte-keying/matte-control)
 - [Alpha Divide](./matte-keying/alpha-divide)
 - [Alpha Multiply](./matte-keying/alpha-multiply)
 
-## Tracking
+## トラッキング
 
 - [Tracker](./tracking/tracker)
 - [Planar Tracker](./tracking/planar-tracker)
@@ -86,10 +86,10 @@ Node固有の入出力・control・例外を引くためのReferenceです。
 - [MediaIn](./utility-io/media-in)
 - [MediaOut](./utility-io/media-out)
 
-## Current sample coverage
+## 現在の掲載範囲（Coverage）
 
 現在の代表Referenceは **31 Node** です。
 
-2D Image / Mask / tracking / Shape / Particle / Classic 3D / USD / Deep / channel / matte / premultiplication / multi-layer compositingに加え、Resolve timelineとのI/O boundaryまでcross-linkを試しています。
+2D Image / Mask / トラッキング / Shape / Particle / Classic 3D / USD / Deep / channel / matte / premultiplication / multi-layer 合成に加え、Resolve timelineとのI/O boundaryまでcross-linkを試しています。
 
 まだ全Node catalogではありません。taxonomyはこのrepresentative setを元に育てます。

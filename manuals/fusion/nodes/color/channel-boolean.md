@@ -19,51 +19,51 @@ suite_surfaces: [fusion]
 
 RGBA / Auxiliary channel間を演算・組み替えするNodeです。
 
-## At a Glance
+## 概要（At a Glance）
 
-- **Family**: Color / Channel
-- **Input domain**: 2D Image
-- **Output domain**: 2D Image
-- **Core concepts**: channels、alpha、channel routing
-- **Common tasks**: channel copy / combine / matte construction
+- **分類（Family）**: Color / Channel
+- **入力データ（Input domain）**: 2D Image
+- **出力データ（Output domain）**: 2D Image
+- **関連概念（Core concepts）**: channels、alpha、channel routing
+- **よく使う作業（Common tasks）**: channel copy / combine / matte construction
 
-## Inputs
+## 入力（Inputs）
 
-1つ以上のImageを使ってchannel関係を組み替える系統ですが、exact 21.1 input layoutは未検証です。
+1つ以上のImageを使ってchannel関係を組み替える系統ですが、正確な 21.1 input 配置は未検証です。
 
-## Output
+## 出力（Output）
 
 指定したchannel operationを反映した2D Imageを出力します。
 
-## Controls
+## 主な設定項目（Controls）
 
-RGBA / Aux channelのsource selection、operator等を持つ系統ですが、exact 21.1 labels / available operators / defaultsはcurrent manual / hostで確認します。
+RGBA / Aux channelの参照元 selection、operator等を持つ系統ですが、正確な 21.1 labels / available operators / defaultsは現在の manual / 実機で確認します。
 
-## Behavior / Notes
+## 挙動と注意点（Behavior / Notes）
 
 Channel Booleanは「見た目を明るくするColor Node」ではなく、**どのchannelからどのchannelへ何を入れるか**を扱うutilityとして読む方が適切です。
 
 Alphaを触る場合もEffect Maskとは責任が異なります。
 
-## Minimal Examples
+## 最小例（Minimal Examples）
 
-source Imageの特定channelを別channelへ移す／組み合わせる用途を想定します。
+元画像（Source Image）の特定channelを別channelへ移す／組み合わせる用途を想定します。
 
-## Related Concepts
+## 関連する考え方（Concepts）
 
 - [Alpha](../../learn/04-compositing/alpha)
 - [Image / Mask / Dataを分ける](../../learn/02-data/image-mask-data)
 
-## Related Patterns
+## 関連する再利用構成（Patterns）
 
 Channel / Matte Patternは今後追加します。
 
-## Similar / Adjacent Nodes
+## 似たNode・関連Node
 
 - Matte Control
 - Color Matrix
 - Copy Aux
 
-## Version / Verification Notes
+## バージョンと検証状況
 
-Channel BooleanのidentityとRGBA/Aux channelを演算・組み替える役割はlegacy-primary Fusion referenceで確認。21.1 exact controlsは未検証です。
+Channel Booleanの存在とRGBA/Aux channelを演算・組み替える役割は旧版のBlackmagic Design公式Fusion資料で確認。Fusion 21.1での正確な設定項目は未検証です。

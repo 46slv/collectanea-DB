@@ -1,6 +1,6 @@
 ---
-title: Parameter / Data
-description: Center・Blend・Size等のcontrol valueをImage/Maskとは別のdataとして理解する。
+title: パラメータ / データ（Parameter / Data）
+description: Center・Blend・Size等のcontrol 値をImage/Maskとは別のdataとして理解する。
 doc_type: concept
 verification: partial
 aliases: [Parameter, Data, control value, scalar, Point]
@@ -11,15 +11,15 @@ level: foundation
 product_scope: fusion
 ---
 
-# Parameter / Data
+# パラメータ / Data
 
-## Question
+## このページで分かること（Question）
 
 CenterやBlendのような値は、Image connectionと同じものなのでしょうか。
 
-## Mental Model
+## 基本の考え方（Mental Model）
 
-ParameterはNodeの挙動を決める**control data**です。
+パラメータはNodeの挙動を決める**control data**です。
 
 代表的な形:
 
@@ -27,8 +27,8 @@ ParameterはNodeの挙動を決める**control data**です。
 - Point / vector
 - boolean
 - text/string
-- choice / enum-like value
-- time-dependent evaluated value
+- choice / enum-like 値
+- time-dependent evaluated 値
 
 ```text
 parameter source
@@ -38,59 +38,59 @@ parameter source
   Node behavior
 ```
 
-## Minimum Example
+## 最小例（Minimum Example）
 
 TransformのCenterを考えます。
 
-ImageはTransformのImage Inputへ入り、Centerは「そのImageをどこへ配置するか」を決めるPoint valueです。
+ImageはTransformのImage Inputへ入り、Centerは「そのImageをどこへ配置するか」を決めるPoint 値です。
 
 ImageとCenterは別dataです。
 
-## Invariants
+## 共通ルール（Invariants）
 
-- Image connectionとparameter valueを分ける。
-- parameter typeを確認する。
-- static値・keyframe・Expression・Modifier等、value sourceを分ける。
-- source of truthを複数箇所へ作らない。
-- final displayed valueだけでなく「誰が値を供給しているか」を見る。
+- Image connectionとパラメータ 値を分ける。
+- パラメータ typeを確認する。
+- static値・keyframe・Expression・Modifier等、値の供給元を分ける。
+- 基準となる値を複数箇所へ作らない。
+- final displayed 値だけでなく「誰が値を供給しているか」を見る。
 
-## Change One Thing
+## 1つだけ変えて確認する（Change One Thing）
 
-Centerをstatic valueからExpression-driven valueへ変え、Image connectionは固定したまま比較します。
+Centerを固定値からExpression-driven 値へ変え、Image connectionは固定したまま比較します。
 
-## Transfer
+## 他のNodeへ応用する（Transfer）
 
-### Animation
+### アニメーション
 
-Keyframe splineがtimeからvalueを供給します。
+Keyframe splineがtimeから値を供給します。
 
 ### Expressions
 
-別parameterや計算からvalueを導きます。
+別パラメータや計算から値を導きます。
 
-### Tracking
+### トラッキング
 
-tracking resultをposition / transform controlへ適用します。
+トラッキング 結果をposition / transform controlへ適用します。
 
-## Predict
+## 初見Nodeで予測する（Predict）
 
-「値を入力しても戻る」「勝手に動く」「同期する」症状で、parameter sourceを確認すべきだと判断できます。
+「値を入力しても戻る」「勝手に動く」「同期する」症状で、パラメータの供給元を確認すべきだと判断できます。
 
-## Common Misread
+## よくある誤解（Common Misread）
 
-**Inspectorに見える最終数値だけがparameterの正本**と考えること。
+**Inspectorに見える最終数値だけがパラメータの正本**と考えること。
 
-Expression / Modifier / animation等が値を供給している場合があります。
+Expression / Modifier / アニメーション等が値を供給している場合があります。
 
-## Related Patterns
+## 関連する再利用構成（Patterns）
 
 - [Expressionで値の関係を保つ](../../patterns/automation/link-values-with-expression)
 
-## Node Reference
+## 関連Node
 
 - [Transform](../../nodes/transform/transform)
 - [Controls / Parameters](../../index/controls-parameters)
 
-## Next
+## 次に読む
 
 → [接続できるdata / 接続できないdata](./connection-compatibility)

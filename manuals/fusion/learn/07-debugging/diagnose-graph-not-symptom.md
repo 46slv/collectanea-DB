@@ -1,6 +1,6 @@
 ---
 title: 症状ではなくGraphを診断する
-description: Fusionの不具合を、見た目の症状からNode・connection・data・parameterの観察可能な原因へ変換する。
+description: Fusionの不具合を、見た目の症状からNode・connection・data・パラメータの観察可能な原因へ変換する。
 doc_type: concept
 verification: partial
 aliases: [debugging workflow, graph diagnosis]
@@ -14,11 +14,11 @@ suite_surfaces: [fusion]
 
 # 症状ではなくGraphを診断する
 
-## Question
+## このページで分かること（Question）
 
 「黒い」「ずれる」「Maskが効かない」「重い」のような症状から、推測ではなく再現可能な診断へどう移ればよいでしょうか。
 
-## Mental Model
+## 基本の考え方（Mental Model）
 
 症状は入口であり、原因ではありません。
 
@@ -40,76 +40,76 @@ minimal repair
 
 「何を触れば直るか」ではなく、「どこから期待と観測が分かれたか」を探します。
 
-## Minimum Example
+## 最小例（Minimum Example）
 
 「Mergeしたら何も見えない」を次の順へ変換します。
 
 1. Background単体は見えるか。
 2. Foreground単体は見えるか。
-3. Mergeのinput roleは正しいか。
+3. Mergeのinput 役割は正しいか。
 4. Maskなしでは見えるか。
 5. Alphaは意図した状態か。
 6. Merge outputをViewerで見ているか。
 
 これで症状を複数の小さい質問へ分解できます。
 
-## Invariants
+## 共通ルール（Invariants）
 
 - observation before mutation。
 - 1回に1つだけ条件を変える。
-- data domainが違う問題をparameter調整で直そうとしない。
+- データ領域（data domain）が違う問題をパラメータ調整で直そうとしない。
 - last-known-good / first-known-badを作る。
-- current frame / Viewer target / branchを明示する。
-- Node固有のexact behaviorが必要になった時点でReferenceへ移る。
+- 現在の フレーム / Viewer 対象 / 分岐を明示する。
+- Node固有の正確な 挙動が必要になった時点でReferenceへ移る。
 
-## Change One Thing
+## 1つだけ変えて確認する（Change One Thing）
 
 問題を再現した状態で、1本のconnectionまたは1つのNodeだけを一時的に外します。
 
-結果が変わったら、その境界を次の調査対象にします。変わらなければ別branchへ移ります。
+結果が変わったら、その境界を次の調査対象にします。変わらなければ別分岐へ移ります。
 
-## Transfer
+## 他のNodeへ応用する（Transfer）
 
 ### Visual symptoms
 
 黒い、透明、切れる、ずれる、といった見た目をGraph地点へ変換します。
 
-### Animation symptoms
+### アニメーション symptoms
 
-「動かない」を、current time・keyframe・parameter source・Expression / Modifierへ分解します。
+「動かない」を、現在の time・keyframe・パラメータの供給元・Expression / Modifierへ分解します。
 
-### Performance symptoms
+### 性能 symptoms
 
-「重い」を、広いDoD、重いbranch、3D / particle / temporal処理などの候補へ分け、まずどのstageで負荷が増えるか観察します。
+「重い」を、広いDoD、重い分岐、3D / particle / temporal処理などの候補へ分け、まずどの段階で負荷が増えるか観察します。
 
-## Predict
+## 初見Nodeで予測する（Predict）
 
 初見のfailureでも、次の順序を選べます。
 
 1. reproduce
 2. locate
 3. classify data
-4. isolate branch
-5. inspect node-specific behavior
+4. isolate 分岐
+5. inspect node-specific 挙動
 6. repair one cause
 7. re-check original symptom
 
-## Common Misread
+## よくある誤解（Common Misread）
 
 **似た症状の過去解決策をそのまま適用すること。**
 
-同じ「何も出ない」でも、Viewer target、data domain、Mask、alpha、DoD、timeなど原因は異なります。症状名はroutingに使い、修正理由には使いません。
+同じ「何も出ない」でも、Viewer 対象、データ領域（data domain）、Mask、alpha、DoD、timeなど原因は異なります。症状名はroutingに使い、修正理由には使いません。
 
-## Related Patterns
+## 関連する再利用構成（Patterns）
 
 - [画像を段階的に重ねる](../../patterns/compositing/stack-images-with-merge)
 - [Maskで処理範囲を限定する](../../patterns/masking/limit-effect-with-mask)
 
-## Node Reference
+## 関連Node
 
 Node固有の検証へ進む場合は [Node Reference](../../nodes/) を使います。
 
-## Next
+## 次に読む
 
 基礎Conceptの学習経路はここで一周します。
 
@@ -120,4 +120,4 @@ Node固有の検証へ進む場合は [Node Reference](../../nodes/) を使い�
 
 ---
 
-Verification note: このページは特定Nodeの仕様ではなく、前章までのConceptを統合した診断methodです。個別仕様の真偽はcurrent Reference / host evidenceを優先します。
+検証メモ: このページは特定Nodeの仕様ではなく、前章までのConceptを統合した診断methodです。個別仕様の真偽は現在の Reference / host evidenceを優先します。

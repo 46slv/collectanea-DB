@@ -13,18 +13,18 @@ tasks: [choose-surface, timeline, composite]
 
 # TimelineとFusion Flow
 
-## If you know Premiere Pro
+## Premiere Proで知っている考え方
 
 Premiere ProではSequence / Timeline上にclipやtrackを配置し、trim・reorder・effect適用を行うのが中心です。
 
-## First decision in Resolve
+## Resolveで最初に決めること
 
-Resolveでは、まず仕事のscopeを分けます。
+Resolveでは、まず仕事の対象範囲を分けます。
 
 - clip順序・trim・timeline timing → Edit
-- shot内部のVFX / motion graphics / compositing → Fusion
+- shot内部のVFX / モーショングラフィックス / 合成 → Fusion
 
-## Fusion mental model
+## Fusionでの考え方
 
 FusionはTimelineの代替ではなく、shot内部の処理関係をNode Graphで表します。
 
@@ -40,43 +40,43 @@ Fusion Flow
  MediaOut
 ```
 
-## What maps cleanly
+## そのまま活かしやすい考え方
 
-- source clipを使う
+- 元クリップ（参照元 clip）を使う
 - transform / effectを適用する
-- nested / grouped structureで複雑さを局所化する
+- nested / grouped 構造で複雑さを局所化する
 - reusable effectを作る
 
-## What does not map 1:1
+## そのまま一対一対応しない部分
 
-- Premiere Track = Fusion branch、ではない。
+- Premiere Track = Fusion 分岐、ではない。
 - Premiere clip order = Nodeの左右位置、ではない。
 - timeline trim / edit pointをFusion Nodeで置き換えない。
 - Fusion Flow内部のMerge chainはeditorial track stackの単純な複製ではない。
 
-## Learn this next
+## 次に読む
 
 - [Edit ↔ Fusionの境界](../../resolve-integration/edit-fusion-boundary)
 - [Graphとして考える](../../learn/01-flow/graph-as-flow)
 
-## Reusable Patterns
+## 関連する再利用構成（Patterns）
 
 - [画像を段階的に重ねる](../../patterns/compositing/stack-images-with-merge)
 
-## Relevant Nodes
+## 関連Node
 
 - [Merge](../../nodes/compositing/merge)
 - [Transform](../../nodes/transform/transform)
 
-## Example tasks
+## 具体例
 
 - [2つのImageを重ねる](../../recipes/compositing/two-image-merge)
 
-## Related index entries
+## 関連する索引
 
 - [By Resolve Surface](../../index/by-resolve-surface)
 - [By Task](../../index/by-task)
 
 ---
 
-Verification scope: Adobe current Premiere nesting documentation establishes Sequence/Nested Sequence as timeline constructs; Fusion-specific boundary is owned by Resolve Integration.
+検証範囲: Adobeの現行Premiere Pro資料でSequence / Nested SequenceがTimeline上の構造であることを確認しています。Fusionとの役割分担は「Resolveとの連携」を基準にします。

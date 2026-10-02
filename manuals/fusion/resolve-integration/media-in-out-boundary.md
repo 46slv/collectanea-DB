@@ -11,13 +11,13 @@ level: foundation
 
 # MediaIn / MediaOutの境界
 
-## User intent
+## 目的
 
 「Fusion FlowのSourceとOutputが、Resolve timelineの何に対応しているか」を理解します。
 
-## Which Resolve surface owns what
+## どのページで何を担当するか
 
-Blackmagic Designの現行Fusion documentationでは、MediaIn NodeはEdit Page timeline上のclipを表す入口として説明されています。
+Blackmagic Designの現行Fusion 資料では、MediaIn NodeはEdit Page timeline上のclipを表す入口として説明されています。
 
 MediaOutはFusion compositionの最終ImageをResolve側へ返す出口です。
 
@@ -30,47 +30,47 @@ Edit / Cut Timeline
        ↓
     MediaOut
        ↓
-Resolve timeline / downstream workflow
+Resolve timeline / downstream 作業の流れ
 ```
 
-## When Fusion is appropriate
+## Fusionが向いている場合
 
 MediaInとMediaOutの間へ、
 
-- compositing
-- tracking
-- keying
-- motion graphics
-- 2D / 3D processing
+- 合成
+- トラッキング
+- キーイング
+- モーショングラフィックス
+- 2D / 3D 処理
 
 を構成します。
 
-## When Fusion is not the primary surface
+## Fusionを主に使わない場合
 
 clipそのものの順序・trim・timeline timingを変更する仕事は、MediaIn以降のGraphへ持ち込む前にEdit側の責任か確認します。
 
-## Handoff / boundary
+## ページ間の受け渡し
 
 ### MediaIn
 
-timeline / Media Pool等からFusionへ入るsource boundaryとして読みます。
+timeline / Media Pool等からFusionへ入る参照元 boundaryとして読みます。
 
 ### MediaOut
 
 Fusion Node treeの最終結果をResolve側へ渡すboundaryとして読みます。
 
-MediaOutをNode treeから外すと、Fusion resultがtimeline側へ届かなくなるため、単なるViewer用Nodeとして扱いません。
+MediaOutをNode treeから外すと、Fusion 結果がtimeline側へ届かなくなるため、単なるViewer用Nodeとして扱いません。
 
-## Related Fusion Concepts
+## 関連するFusionの考え方
 
 - [Graphとして考える](../learn/01-flow/graph-as-flow)
 - [Nodeを読む](../start/read-a-node)
 
-## Related cross-page workflow
+## 関連するページ間の流れ
 
 - [Edit ↔ Fusionの境界](./edit-fusion-boundary)
-- [どのworking surfaceを使うか](./choose-working-surface)
+- [どの作業ページを使うか](./choose-working-surface)
 
 ---
 
-Verification note: MediaIn / MediaOutのResolve timelineとの境界はBlackmagic Design現行Fusion資料およびResolve 20 VFX Guideで確認。
+検証メモ: MediaIn / MediaOutのResolve timelineとの境界はBlackmagic Design現行Fusion資料およびResolve 20 VFX Guideで確認。

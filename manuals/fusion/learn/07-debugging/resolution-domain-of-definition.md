@@ -1,6 +1,6 @@
 ---
 title: Resolution / Domain of Definitionを確認する
-description: frame size・有効pixel領域・計算要求領域を分け、切れ・消失・位置ずれを診断する。
+description: フレーム size・有効ピクセル領域・計算要求領域を分け、切れ・消失・位置ずれを診断する。
 doc_type: concept
 verification: partial
 aliases: [DoD, Domain of Definition, resolution, canvas]
@@ -14,94 +14,94 @@ suite_surfaces: [fusion]
 
 # Resolution / Domain of Definitionを確認する
 
-## Question
+## このページで分かること（Question）
 
-画像をTransformしたら端が消えた、戻しても復活しない、Nodeによってframe外の扱いが違うのはなぜでしょうか。
+画像をTransformしたら端が消えた、戻しても復活しない、Nodeによってフレーム外の扱いが違うのはなぜでしょうか。
 
-## Mental Model
+## 基本の考え方（Mental Model）
 
 「画像サイズ」を1つの概念にまとめず、少なくとも次を分けます。
 
-- **Frame / image extent**: nominalなwidth / height。
+- **フレーム / image extent**: nominalなwidth / height。
 - **Canvas / image space**: 画像が配置される空間。
-- **Domain of Definition (DoD)**: 実際に有効pixelが存在する領域。
+- **Domain of Definition (DoD)**: 実際に有効ピクセルが存在する領域。
 - **Region of Interest (RoI)**: rendererが今回計算を要求している領域。
 
-DoDは「どこにpixelが存在するか」、RoIは「どこを今計算してほしいか」で、同じものではありません。
+DoDは「どこにピクセルが存在するか」、RoIは「どこを今計算してほしいか」で、同じものではありません。
 
-## Minimum Example
+## 最小例（Minimum Example）
 
-TransformでImageをframe外へ動かし、その後戻す構成を考えます。
+TransformでImageをフレーム外へ動かし、その後戻す構成を考えます。
 
 ```text
 Image → Transform A (outside) → Transform B (back) → Output
 ```
 
-Aの段階で有効pixelが保持されていれば戻せる場合があります。途中でclip / cropされてpixelが失われれば、Bで位置を戻しても復活しません。
+Aの段階で有効ピクセルが保持されていれば戻せる場合があります。途中でclip / cropされてピクセルが失われれば、Bで位置を戻しても復活しません。
 
-## Invariants
+## 共通ルール（Invariants）
 
-- frame sizeとDoDを同じだと決めない。
-- 「見えない」と「pixelが失われた」を分ける。
-- Crop / Resize / Transform等でdomain behaviorが変わる可能性を考える。
-- performance問題ではRoIとDoDの広がりも候補にする。
-- exact clipping behaviorはNodeごとにReferenceで確認する。
+- フレーム sizeとDoDを同じだと決めない。
+- 「見えない」と「ピクセルが失われた」を分ける。
+- Crop / Resize / Transform等でdomain 挙動が変わる可能性を考える。
+- 性能問題ではRoIとDoDの広がりも候補にする。
+- クリッピング（clipping）の正確な挙動はNodeごとにReferenceで確認する。
 
-## Change One Thing
+## 1つだけ変えて確認する（Change One Thing）
 
-途中Nodeを1つ外し、frame外へ出したpixelが後段で戻せるか比較します。
+途中Nodeを1つ外し、フレーム外へ出したピクセルが後段で戻せるか比較します。
 
-位置だけでなく、「その時点でpixelが存在しているか」を意識してViewer / Node behaviorを確認します。
+位置だけでなく、「その時点でピクセルが存在しているか」を意識してViewer / Node 挙動を確認します。
 
-## Transfer
+## 他のNodeへ応用する（Transfer）
 
 ### Transform
 
-position problemとclipping problemを分けます。
+position 問題とclipping 問題を分けます。
 
 ### Blur / Filter
 
-filterによって必要領域が広がる場合、edgeやdomain behaviorを確認します。
+filterによって必要領域が広がる場合、edgeやdomain 挙動を確認します。
 
 ### Resize / Crop
 
 resolutionを変える操作と、単にImageをscaleする操作を同一視しません。
 
-## Predict
+## 初見Nodeで予測する（Predict）
 
 「端が切れる」症状を見たら、次を順に考えられます。
 
 1. 画面外にあるだけか。
-2. DoDとしてpixelは残っているか。
+2. DoDとしてピクセルは残っているか。
 3. 途中でclip / cropされたか。
 4. resolution自体が変わったか。
 
-## Common Misread
+## よくある誤解（Common Misread）
 
-**Transformのpositionを元へ戻せば、どこかで失われたpixelも必ず戻ると思うこと。**
+**Transformのpositionを元へ戻せば、どこかで失われたピクセルも必ず戻ると思うこと。**
 
 後段は存在するdataしか再配置できません。
 
-## Canonical Concepts
+## 正本となる概念ページ
 
-- [Resolution / Aspect](../03-space/resolution-aspect)
-- [Domain of Definition](../03-space/domain-of-definition)
+- [解像度 / アスペクト比（Resolution / Aspect）](../03-space/resolution-aspect)
+- [有効領域（Domain of Definition）](../03-space/domain-of-definition)
 
 このページでは、それらを「切れ・消失・位置ずれ」の診断へ使うことだけを扱います。
 
-## Related Patterns
+## 関連する再利用構成（Patterns）
 
 - [複数要素の位置関係を共有する](../../patterns/transform/share-position-across-elements)
 
-## Node Reference
+## 関連Node
 
 - [Transform](../../nodes/transform/transform)
 - Resize Referenceはこのバッチで追加します。
 
-## Next
+## 次に読む
 
 → [症状ではなくGraphを診断する](./diagnose-graph-not-symptom)
 
 ---
 
-Verification note: DoD / RoI / frame extentの区別はFusion 21系semantic baselineに基づく。Nodeごとのcurrent clipping/domain optionは21.1 host/manual verificationを優先します。
+検証メモ: DoD / RoI / フレーム extentの区別はFusion 21系semantic baselineに基づく。Nodeごとの現在の clipping/domain 設定は21.1 実機 / マニュアル verificationを優先します。

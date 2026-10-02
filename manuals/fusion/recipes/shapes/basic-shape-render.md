@@ -15,16 +15,16 @@ product_scope: fusion
 
 # Shapeを2D Imageへrenderする
 
-## Result
+## 作るもの（Result）
 
 Shape domainで作った形状を、通常の2D Merge / Blur / Color処理へ渡せるImageにします。
 
-## Requirements
+## 必要なもの（Requirements）
 
 - sEllipse
 - sRender
 
-## Steps
+## 手順（Steps）
 
 1. sEllipseを作ります。
 2. sEllipse outputをsRenderへ接続します。
@@ -35,13 +35,13 @@ Shape domainで作った形状を、通常の2D Merge / Blur / Color処理へ渡
 sEllipse → sRender → 2D Image
 ```
 
-## Why This Works
+## なぜこの構成で動くか（Why This Works）
 
 sEllipseはShape streamを出し、sRenderはShape domainを2D Imageへrasterizeします。
 
 → [特殊domainのまま処理し、必要な境界で2Dへ戻す](../../patterns/data-domain/defer-domain-conversion)
 
-## Variants / Alternatives
+## 別の方法（Variants / Alternatives）
 
 sRenderの前へ:
 
@@ -52,17 +52,17 @@ sRenderの前へ:
 
 等のShape処理を追加できます。
 
-## Failure Checks
+## うまくいかないときの確認（Failure Checks）
 
 - sEllipse outputを通常Mergeへ直接入れていないか。
 - sRender outputをViewerで見ているか。
 - Shape処理をsRender後のImage処理と混同していないか。
 
-## Related Pattern
+## 関連パターン（Related Pattern）
 
 - [特殊domainのまま処理し、必要な境界で2Dへ戻す](../../patterns/data-domain/defer-domain-conversion)
 
-## Related Nodes
+## 関連ノード（Related Nodes）
 
 - [sEllipse](../../nodes/shapes/s-ellipse)
 - [sRender](../../nodes/shapes/s-render)

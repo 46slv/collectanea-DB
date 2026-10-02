@@ -1,5 +1,5 @@
 ---
-title: Resolve Integration
+title: Resolveとの連携（Resolve Integration）
 description: FusionをDaVinci Resolve全体の中で使うための境界とPage選択の入口。
 doc_type: index
 verification: partial
@@ -8,16 +8,16 @@ suite_surfaces: [edit, fusion, color, fairlight]
 tasks: [choose-surface, cross-page-workflow]
 ---
 
-# Resolve Integration
+# Resolveとの連携（Resolve Integration）
 
-Fusionは独立した考え方を持つNode-based compositorですが、DaVinci Resolveの中ではEdit / Color / Fairlight等と同じprojectを共有するworking surfaceです。
+Fusionは独立した考え方を持つNode-based compositorですが、DaVinci Resolveの中ではEdit / Color / Fairlight等と同じprojectを共有する作業ページです。
 
 この章はFusionのNode説明ではなく、**その仕事をどのPageへ置くか**を判断するために使います。
 
 ## Start
 
 - [FusionはResolveのどこにいるか](./where-fusion-fits)
-- [どのworking surfaceを使うか](./choose-working-surface)
+- [どの作業ページを使うか](./choose-working-surface)
 - [MediaIn / MediaOutの境界](./media-in-out-boundary)
 - [Edit ↔ Fusionの境界](./edit-fusion-boundary)
 - [Color ↔ Fusionの境界](./color-fusion-boundary)

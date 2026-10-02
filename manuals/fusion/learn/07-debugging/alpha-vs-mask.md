@@ -14,11 +14,11 @@ suite_surfaces: [fusion]
 
 # AlphaとMaskを分けて診断する
 
-## Question
+## このページで分かること（Question）
 
 「透明にならない」「縁がおかしい」「Maskが効かない」は、同じ問題でしょうか。
 
-## Mental Model
+## 基本の考え方（Mental Model）
 
 AlphaとEffect Maskは別責任です。
 
@@ -35,7 +35,7 @@ Image RGB + Alpha
 
 Maskを接続したからImage alphaそのものが書き換わる、と決めつけないことが重要です。
 
-## Minimum Example
+## 最小例（Minimum Example）
 
 Mergeで問題がある場合:
 
@@ -46,7 +46,7 @@ Mergeで問題がある場合:
 
 これで「素材alpha」「合成」「Mask適用範囲」を別々に見られます。
 
-## Invariants
+## 共通ルール（Invariants）
 
 - Effect MaskとImage alphaを同じものとして扱わない。
 - transparent edgeの色問題ではpremultiplicationを疑う。
@@ -54,13 +54,13 @@ Mergeで問題がある場合:
 - color operation前後のalpha処理はNode固有機能と二重にしない。
 - まず素材のalpha状態を確認し、その後Merge / Maskへ進む。
 
-## Change One Thing
+## 1つだけ変えて確認する（Change One Thing）
 
 Maskを外し、Image alphaだけで合成結果を確認します。
 
 次にMaskを戻し、変わった部分が「effect範囲」なのか「Image alpha」なのかを比較します。
 
-## Transfer
+## 他のNodeへ応用する（Transfer）
 
 ### Color correction
 
@@ -74,40 +74,40 @@ Foreground / Backgroundのalpha関係を、入力役割と分けて読みます�
 
 matteを作る処理と、effect範囲を制限するMaskを同一視しません。
 
-## Predict
+## 初見Nodeで予測する（Predict）
 
 透明周辺の問題を見たとき、次を順に確認できます。
 
-1. source alphaは存在するか。
+1. 参照元 alphaは存在するか。
 2. RGBはstraight / premultipliedのどちらとして扱われているか。
 3. Merge前からedge問題があるか。
 4. Effect Maskを外しても問題が残るか。
 
-## Common Misread
+## よくある誤解（Common Misread）
 
 **青いMask inputへ接続したので、image alphaも期待どおりになっているはずだと思うこと。**
 
 Maskはeffect amountを空間的に制限する入力であり、alpha channelそのものの編集とは分けて考えます。
 
-## Canonical Concepts
+## 正本となる概念ページ
 
 - [Alpha](../04-compositing/alpha)
-- [Premultiplication](../04-compositing/premultiplication)
+- [プリマルチプライ（Premultiplication）](../04-compositing/premultiplication)
 
 このページではAlpha / Mask / premultiplicationを症状診断へ適用することだけを扱います。
 
-## Related Patterns
+## 関連する再利用構成（Patterns）
 
 - [Maskで処理範囲を限定する](../../patterns/masking/limit-effect-with-mask)
 
-## Node Reference
+## 関連Node
 
 - [Merge](../../nodes/compositing/merge)
 
-## Next
+## 次に読む
 
 → [Resolution / Domain of Definitionを確認する](./resolution-domain-of-definition)
 
 ---
 
-Verification note: Alpha / premultiplication / Effect Maskの役割分離はFusion 21系公式資料を元にしたsemantic baseline。21.1 Node固有のalpha optionは個別Referenceで確認します。
+検証メモ: Alpha / premultiplication / Effect Maskの役割分離はFusion 21系公式資料を元にしたsemantic baseline。21.1 Node固有のalpha 設定は個別Referenceで確認します。

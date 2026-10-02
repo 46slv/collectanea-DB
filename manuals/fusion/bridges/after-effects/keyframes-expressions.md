@@ -1,6 +1,6 @@
 ---
 title: Keyframe / Expressionの読み替え
-description: AEのKeyframe・Graph Editor・Expression経験を、FusionのSpline・Expression・parameter sourceへ翻訳する。
+description: AEのKeyframe・Graph Editor・Expression経験を、FusionのSpline・Expression・パラメータの供給元へ翻訳する。
 doc_type: bridge
 verification: partial
 product_scope: resolve
@@ -13,69 +13,69 @@ tasks: [animate, automate, link-values]
 
 # Keyframe / Expressionの読み替え
 
-## If you know After Effects
+## After Effectsで知っている考え方
 
-AEではLayer propertyへKeyframeを置き、Graph Editorで時間変化を調整し、Expressionでproperty valueをproceduralに駆動する考え方が中心です。
+AEではLayer propertyへKeyframeを置き、Graph Editorで時間変化を調整し、Expressionでproperty 値をproceduralに駆動する考え方が中心です。
 
-## First decision in Resolve
+## Resolveで最初に決めること
 
-単純なtimeline clip animationならEdit側で十分な場合があります。
+単純なtimeline clip アニメーションならEdit側で十分な場合があります。
 
-Fusion Graph内部のNode parameterや複数parameter間の関係を設計するならFusionのTime / Automationへ進みます。
+Fusion Graph内部のNode パラメータや複数パラメータ間の関係を設計するならFusionのTime / 自動化へ進みます。
 
-## Fusion mental model
+## Fusionでの考え方
 
-Fusionではparameter valueのsourceとして:
+Fusionではパラメータ 値の参照元として:
 
-- static value
+- 固定値
 - keyframe spline
 - expression
 - modifier
-- tracking / audio等のdata
+- トラッキング / audio等のdata
 
 を分けて考えます。
 
-## What maps cleanly
+## そのまま活かしやすい考え方
 
-- keyframeで時間上のvalueを指定する
+- keyframeで時間上の値を指定する
 - curve editorで補間を整える
-- expressionで別valueから結果を導く
-- property/parameterのsourceを意識する
+- expressionで別値から結果を導く
+- property/パラメータの参照元を意識する
 
-というgoalは移しやすいです。
+という目的は移しやすいです。
 
-## What does not map 1:1
+## そのまま一対一対応しない部分
 
 - AE Expression syntax / object modelをFusionへコピーしない。
 - AE Graph EditorとFusion Spline Editorを同じUI/APIと考えない。
-- Layer property hierarchyとNode parameter ownershipは異なる。
-- evaluation orderやsource timeの扱いをAE前提で推測しない。
+- Layer property hierarchyとNode パラメータの管理関係は異なる。
+- 評価 orderや参照元の時間（参照元 time）の扱いをAE前提で推測しない。
 
-## Learn this next
+## 次に読む
 
-- [Keyframe / Spline / Time](../../learn/05-time/keyframes-spline-time)
-- [Expressions](../../learn/05-time/expressions)
-- [Frame Evaluation](../../learn/05-time/frame-evaluation)
-- [Modifier / Parameter Sources](../../learn/05-time/modifier-parameter-sources)
+- [キーフレーム / スプライン / 時間（Keyframe / Spline / Time）](../../learn/05-time/keyframes-spline-time)
+- [式（Expressions）](../../learn/05-time/expressions)
+- [フレーム 評価](../../learn/05-time/frame-evaluation)
+- [Modifier / パラメータ Sources](../../learn/05-time/modifier-parameter-sources)
 
-## Reusable Patterns
+## 関連する再利用構成（Patterns）
 
 - [Expressionで値の関係を保つ](../../patterns/automation/link-values-with-expression)
 
-## Relevant Nodes
+## 関連Node
 
 - [Transform](../../nodes/transform/transform)
 - [Merge](../../nodes/compositing/merge)
 
-## Example tasks
+## 具体例
 
 - [TransformでImageを移動する](../../recipes/layout/move-image-with-transform)
 
-## Related index entries
+## 関連する索引
 
 - [Controls / Parameters](../../index/controls-parameters)
 - [Concept A–Z](../../index/concept-a-z)
 
 ---
 
-Verification scope: Adobe current documentation confirms timeline/keyframe/curve workflows; Fusion canonical pages own Fusion-specific syntax and evaluation claims.
+検証範囲: Adobeの現行資料でTimeline / Keyframe / Curveの作業方法を確認しています。Fusion固有の構文や評価方法は、このマニュアル内のFusionページを正本とします。

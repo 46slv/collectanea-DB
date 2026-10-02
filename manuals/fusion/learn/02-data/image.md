@@ -1,5 +1,5 @@
 ---
-title: Image
+title: 画像（Image）
 description: Fusionの2D Imageを、RGB・Alpha・resolution・domainを持つdataとして理解する。
 doc_type: concept
 verification: partial
@@ -11,13 +11,13 @@ level: foundation
 product_scope: fusion
 ---
 
-# Image
+# 画像（Image）
 
-## Question
+## このページで分かること（Question）
 
 Fusionで「画像」と呼んでいるものは、単なるViewerの見た目でしょうか。
 
-## Mental Model
+## 基本の考え方（Mental Model）
 
 2D Imageを、少なくとも次を持つdataとして考えます。
 
@@ -25,12 +25,12 @@ Fusionで「画像」と呼んでいるものは、単なるViewerの見た目�
 - Alpha
 - width / height
 - image extent / Domain of Definition
-- time-dependent result
+- time-dependent 結果
 - 必要に応じたmetadata / auxiliary channels
 
 Viewerに見える結果は、このImage dataの1つの観察方法です。
 
-## Minimum Example
+## 最小例（Minimum Example）
 
 ```text
 Background → Transform → Merge
@@ -38,52 +38,52 @@ Background → Transform → Merge
 
 BackgroundはImageを生成し、TransformはImageを受け取ってImageを返し、Mergeは複数Imageを合成します。
 
-## Invariants
+## 共通ルール（Invariants）
 
 - ImageとMaskを同じdataとして扱わない。
 - Image AlphaとEffect Maskを同一視しない。
 - resolutionと見た目のscaleを分ける。
-- frame全体とDoDを分ける。
+- フレーム全体とDoDを分ける。
 - Viewerに見えないこととImage dataが存在しないことを分ける。
 
-## Change One Thing
+## 1つだけ変えて確認する（Change One Thing）
 
-同じImageをTransform前後でViewerへ出し、data domainはImageのまま、positionだけ変わることを観察します。
+同じImageをTransform前後でViewerへ出し、データ領域（data domain）はImageのまま、positionだけ変わることを観察します。
 
-## Transfer
+## 他のNodeへ応用する（Transfer）
 
 ### Generator
 
-Background / Text+はImage sourceを作ります。
+Background / Text+はImage 参照元を作ります。
 
 ### Effect
 
 Transform / Blur / Color Corrector等はImageを受け取ってImageを返します。
 
-### Compositing
+### 合成
 
 Merge / MultiMergeは複数Imageを1 Imageへまとめます。
 
-## Predict
+## 初見Nodeで予測する（Predict）
 
 初見NodeがImageを生成・加工・合成するどれかを、Input / Outputから予測できます。
 
-## Common Misread
+## よくある誤解（Common Misread）
 
 **Viewerに見えるものはすべてImage domain**と考えること。
 
 Maskやspecialized domainも可視化できる場合がありますが、Graph上のtypeは別です。
 
-## Related Patterns
+## 関連する再利用構成（Patterns）
 
 - [画像を段階的に重ねる](../../patterns/compositing/stack-images-with-merge)
 
-## Node Reference
+## 関連Node
 
 - [Background](../../nodes/generators/background)
 - [Transform](../../nodes/transform/transform)
 - [Merge](../../nodes/compositing/merge)
 
-## Next
+## 次に読む
 
-→ [Mask](./mask)
+→ [マスク（Mask）](./mask)

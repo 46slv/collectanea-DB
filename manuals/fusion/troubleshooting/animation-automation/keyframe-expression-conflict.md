@@ -1,6 +1,6 @@
 ---
 title: KeyframeとExpressionが競合している
-description: 同じparameterへ複数sourceが関与しているとき、最終valueのownerを特定してanimation競合を診断する。
+description: 同じパラメータへ複数の供給元が関与しているとき、最終的な値の管理元を特定してアニメーションの競合を診断する。
 doc_type: diagnostic
 verification: partial
 aliases: [keyframe expression conflict, animation conflict]
@@ -15,17 +15,17 @@ product_scope: fusion
 
 # KeyframeとExpressionが競合している
 
-## Fast Checks
+## まず確認すること（Fast Checks）
 
 1. 同じparameterにKeyframeとExpressionの両方が関わっていないか。
-2. Modifier / tracking / instance等、別sourceも存在しないか。
+2. Modifier / トラッキング / instance等、別参照元も存在しないか。
 3. Inspector上の値を手入力すると戻るか。
-4. sourceを1つ外すと期待どおり動くか。
-5. base layoutとanimation offsetを同じparameterへ押し込んでいないか。
+4. 参照元を1つ外すと期待どおり動くか。
+5. base 配置とアニメーション offsetを同じparameterへ押し込んでいないか。
 
-## Isolate
+## 原因を切り分ける（Isolate）
 
-parameter sourceを1つずつ減らします。
+parameter 参照元を1つずつ減らします。
 
 ```text
 static
@@ -35,42 +35,42 @@ modifier
 tracking
 ```
 
-最終valueを誰が所有するかを特定します。
+最終値を誰が所有するかを特定します。
 
-## Likely Causes
+## 主な原因（Likely Causes）
 
-### Expressionが最終valueを決めている
+### Expressionが最終値を決めている
 
-手入力やKeyframeの期待がExpression relationと競合しています。
+手入力やKeyframeの期待がExpression 関係と競合しています。
 
-### Modifier / trackingが駆動している
+### Modifier / トラッキングが駆動している
 
-別sourceがvalueを供給している可能性があります。
+別参照元が値を供給している可能性があります。
 
-### baseとmotionが混在
+### baseと動きが混在
 
-static layout変更とanimationが同じownerへ集中しています。
+static 配置変更とアニメーションが同じ管理元へ集中しています。
 
-## Fix
+## 修正方法（Fix）
 
-1. 必要なsourceを1つ決める。
-2. base / animation / derived relationを分離する。
-3.不要なsourceを外す。
+1. 必要な参照元を1つ決める。
+2. base / アニメーション / derived 関係を分離する。
+3.不要な参照元を外す。
 4. 1 parameterだけで確認する。
 5. 元のGraphへ戻す。
 
-## Why
+## なぜ起きるか（Why）
 
-parameter valueは複数source候補を持つため、「見えている数値」だけではownershipを判断できません。
+parameter 値は複数参照元候補を持つため、「見えている数値」だけでは管理関係を判断できません。
 
 → [Modifier / Parameter Sources](../../learn/05-time/modifier-parameter-sources)
 
-## Version / Exception Notes
+## バージョン・例外（Version / Exception Notes）
 
-exact UI上のsource表示・Expression解除操作はFusion 21.1 current documentationを優先します。
+正確なUI表記上の参照元表示・Expression解除操作はFusion 21.1 現在の資料を優先します。
 
-## Related Symptoms
+## 関連する症状（Related Symptoms）
 
 - 値を入力しても戻る
 - Keyframeを打っても動かない
-- Expressionを追加したら既存animationが変わった
+- Expressionを追加したら既存アニメーションが変わった

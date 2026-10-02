@@ -1,6 +1,6 @@
 ---
-title: TextのContent / Layout / Style / Motionを分ける
-description: Text+を1つの巨大設定として扱わず、文字内容・配置・見た目・animation・公開controlの責任を分離するPattern。
+title: TextのContent / 配置 / 見た目 / 動きを分ける
+description: Text+を1つの巨大設定として扱わず、文字内容・配置・見た目・アニメーション・公開controlの責任を分離するPattern。
 doc_type: pattern
 verification: partial
 aliases: [text architecture, motion graphics text]
@@ -12,19 +12,19 @@ level: intermediate
 product_scope: fusion
 ---
 
-# TextのContent / Layout / Style / Motionを分ける
+# Textの内容 / 配置 / 見た目 / 動きを分ける
 
-## Problem Family
+## 使う場面（Problem Family）
 
-Text+だけで文字・位置・見た目・animationを全部調整し続け、後からtemplate化したときに何を触ればよいか分からなくなる問題です。
+Text+だけで文字・位置・見た目・アニメーションを全部調整し続け、後からtemplate化したときに何を触ればよいか分からなくなる問題です。
 
-## Concepts
+## 前提となる考え方（Concepts）
 
-- [User Controlsで公開interfaceを作る](../../learn/06-reuse/user-controls)
+- [User Controlsで公開インターフェースを作る](../../learn/06-reuse/user-controls)
 - [Macro / Templateで再利用単位を作る](../../learn/06-reuse/macros-templates)
-- [Keyframe / Spline / Time](../../learn/05-time/keyframes-spline-time)
+- [キーフレーム / スプライン / 時間（Keyframe / Spline / Time）](../../learn/05-time/keyframes-spline-time)
 
-## Generic Graph
+## 基本構成（Generic Graph）
 
 Text systemを次の責任へ分けます。
 
@@ -47,47 +47,47 @@ Composite
 
 実装上すべてがText+内部にある場合でも、**設計上の責任**は分けて考えます。
 
-## Invariant
+## 保つべき条件（Invariant）
 
-- contentとlayoutを同じ意味controlにしない。
-- styleとanimationを独立して変更できるようにする。
+- 内容と配置を同じ意味controlにしない。
+- 見た目とアニメーションを独立して変更できるようにする。
 - public controlsは利用者が変更すべきintentだけを見せる。
 - position責任をText+とTransformの両方へ無秩序に持たせない。
-- repeated titleではsource of truthを明示する。
+- repeated titleでは基準となる値を明示する。
 
-## Variants
+## バリエーション（Variants）
 
 ### Simple title
 
-Text+だけでcontent / style / basic layoutを持ちます。
+Text+だけで内容 / 見た目 / basic 配置を持ちます。
 
 ### Separate transform
 
-Text+はcontent / style、Transformはposition / scale / rotationを持ちます。
+Text+は内容 / 見た目、Transformはposition / scale / rotationを持ちます。
 
 ### Template-ready
 
 User ControlsへText、Color、Position等の意味controlを集約し、内部GraphをMacro / Templateにします。
 
-## Node Choices
+## Nodeの選び方（Node Choices）
 
 - Text+ — text image generation
-- Transform — layout responsibilityを独立させる候補
-- Merge — backgroundとのcomposite
+- Transform — 配置 役割を独立させる候補
+- Merge — backgroundとの合成
 
-## Failure Modes
+## 失敗しやすい点（Failure Modes）
 
-- Text+とMergeの両方でpositionを調整し、ownerが分からない。
-- animation用offsetをcontent/layoutのbase valueへ混ぜる。
+- Text+とMergeの両方でpositionを調整し、管理元が分からない。
+- アニメーション用offsetを内容/配置のbase 値へ混ぜる。
 - templateに内部controlを大量公開する。
-- titleごとに同じstyleを手入力し、再利用関係がない。
+- titleごとに同じ見た目を手入力し、再利用関係がない。
 
-## Recipes Using This Pattern
+## この構成を使う手順（Recipes）
 
 - [Text+をImageへ重ねる](../../recipes/text-graphics/text-over-image)
 - [再利用可能なTitle構造を作る](../../recipes/text-graphics/reusable-title-structure)
 
-## Related Node Reference
+## 関連Node
 
 - [Text+](../../nodes/generators/text-plus)
 - [Transform](../../nodes/transform/transform)

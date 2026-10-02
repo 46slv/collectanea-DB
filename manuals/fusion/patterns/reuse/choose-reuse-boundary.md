@@ -13,18 +13,18 @@ product_scope: fusion
 
 # 再利用の境界を選ぶ
 
-## Problem Family
+## 使う場面（Problem Family）
 
 「同じものをもう一度使いたい」という理由だけでcopy / instance / group / macroを選ぶと、後からどこを直せばよいか分からなくなります。
 
-## Concepts
+## 前提となる考え方（Concepts）
 
 - [Instanceで設定を共有する](../../learn/06-reuse/instances)
-- [User Controlsで公開interfaceを作る](../../learn/06-reuse/user-controls)
+- [User Controlsで公開インターフェースを作る](../../learn/06-reuse/user-controls)
 - [GroupでGraphをまとめる](../../learn/06-reuse/groups)
 - [Macro / Templateで再利用単位を作る](../../learn/06-reuse/macros-templates)
 
-## Generic Graph
+## 基本構成（Generic Graph）
 
 選ぶ基準を「何を共有したいか」に置きます。
 
@@ -45,16 +45,16 @@ reusable packaged graph + public interface
   → Macro / Template
 ```
 
-## Invariant
+## 保つべき条件（Invariant）
 
-- shared stateのownerが1つ説明できる。
+- shared stateの管理元が1つ説明できる。
 - duplicateするものとlinkするものを混同しない。
 - structural organizationとdistributionを別判断にする。
-- public interfaceは利用者のintentを表す。
+- public インターフェースは利用者のintentを表す。
 
-## Variants
+## バリエーション（Variants）
 
-### Local reuse
+### 同じGraph内で再利用する場合（Local reuse）
 
 同じcomposition内だけで使う。Instance / Groupが候補になりやすいです。
 
@@ -66,22 +66,22 @@ reusable packaged graph + public interface
 
 別compやEdit Pageから再利用する。Macro / Template境界を検討します。
 
-## Node Choices
+## Nodeの選び方（Node Choices）
 
-このPatternは特定Nodeを選ぶものではなく、authoring structureを選びます。
+このPatternは特定Nodeを選ぶものではなく、authoring 構造を選びます。
 
-## Failure Modes
+## 失敗しやすい点（Failure Modes）
 
 - すべてCopyして変更が同期しない。
 - すべてInstanceにして個別差分を持てない。
-- Groupにしただけでpublic interfaceまで完成したと思う。
-- Macroへ内部parameterを大量に公開し、再利用側が実装詳細へ依存する。
+- Groupにしただけでpublic インターフェースまで完成したと思う。
+- Macroへ内部パラメータを大量に公開し、再利用側が実装詳細へ依存する。
 
-## Recipes Using This Pattern
+## この構成を使う手順（Recipes）
 
 - Text+とMergeを再利用可能なtitleへ育てるRecipeを今後追加します。
 
-## Related Node Reference
+## 関連Node
 
 - [Text+](../../nodes/generators/text-plus)
 - [Transform](../../nodes/transform/transform)

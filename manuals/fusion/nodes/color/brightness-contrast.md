@@ -19,58 +19,58 @@ suite_surfaces: [fusion]
 
 2D Imageのbrightness / contrast / gain系を調整するColor Nodeです。
 
-## At a Glance
+## 概要（At a Glance）
 
-- **Family**: Color
-- **Primary input**: 2D Image
-- **Output**: 2D Image
-- **Core concepts**: image processing、channel adjustment
-- **Common tasks**: 明るさ調整、contrast調整、gain調整
+- **分類（Family）**: Color
+- **主入力（Primary input）**: 2D Image
+- **出力（Output）**: 2D Image
+- **関連概念（Core concepts）**: image 処理、channel adjustment
+- **よく使う作業（Common tasks）**: 明るさ調整、contrast調整、gain調整
 
-## Inputs
+## 入力（Inputs）
 
 ### Image
 
 補正対象の2D Imageを受け取る系統としてlegacy Fusion referenceで確認されています。
 
-Effect Mask等のexact auxiliary inputsは21.1で確認します。
+Effect Mask等の補助入力（auxiliary inputs）の正確な仕様は21.1で確認します。
 
-## Output
+## 出力（Output）
 
 補正後の2D Imageを出力します。
 
-## Controls
+## 主な設定項目（Controls）
 
 Brightness / Contrast / Gain等に相当する主要adjustmentを持つことはlegacy referenceで確認されています。
 
-channel単位control、pivot、alpha handling、default / rangeは21.1 current verification待ちです。
+channel単位control、pivot、alpha 扱い、初期値 / 範囲は21.1 現在の資料または実機での確認待ちです。
 
-## Behavior / Notes
+## 挙動と注意点（Behavior / Notes）
 
-「明るくする」という見た目だけでColor Correctorと同一視せず、どのparameter familyを操作したいかで選びます。
+「明るくする」という見た目だけでColor Correctorと同一視せず、どのパラメータ familyを操作したいかで選びます。
 
 透明edgeを持つImageで強い補正を行う場合は、alpha / premultiplicationの状態も別に確認します。
 
-## Minimal Examples
+## 最小例（Minimal Examples）
 
 ```text
 Image → Brightness Contrast → Output
 ```
 
-## Related Concepts
+## 関連する考え方（Concepts）
 
 - [AlphaとMaskを分けて診断する](../../learn/07-debugging/alpha-vs-mask)
 
-## Related Patterns
+## 関連する再利用構成（Patterns）
 
 Color adjustment Patternは今後追加します。
 
-## Similar / Adjacent Nodes
+## 似たNode・関連Node
 
 - Color Corrector
 - Color Curves
 - Color Gain
 
-## Version / Verification Notes
+## バージョンと検証状況
 
-Brightness Contrastのidentityとbrightness / contrast / gain系という役割はlegacy-primary Fusion referenceで確認。21.1 exact controls / alpha handlingは未検証です。
+Brightness Contrastの存在とbrightness / contrast / gain系という役割は旧版のBlackmagic Design公式Fusion資料で確認。Fusion 21.1での正確な設定項目 / alpha 扱いは未検証です。

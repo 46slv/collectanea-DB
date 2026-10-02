@@ -16,63 +16,63 @@ product_scope: fusion
 
 > 具体的なExpression構文・各Nodeのspace互換性は21.1 host / manualで再検証前です。
 
-## Problem Family
+## 使う場面（Problem Family）
 
 複数要素を同じ位置へ置く、または一定のoffsetを保ちたいのに、それぞれのCenterを手で直している状態です。
 
-## Concepts
+## 前提となる考え方（Concepts）
 
-- [Normalized Coordinates](../../learn/03-space/normalized-coordinates)
-- [Expressions](../../learn/05-time/expressions)
+- [正規化座標（Normalized Coordinates）](../../learn/03-space/normalized-coordinates)
+- [式（Expressions）](../../learn/05-time/expressions)
 
-## Generic Graph
+## 基本構成（Generic Graph）
 
 ```text
-master position
+基準位置（Master position）
    ├─ element A
    ├─ element B
    └─ element C + offset
 ```
 
-重要なのはExpressionそのものではなく、**位置のsource of truthを1つにする**ことです。
+重要なのはExpressionそのものではなく、**位置の基準となる値を1つにする**ことです。
 
-## Invariant
+## 保つべき条件（Invariant）
 
 - masterがどれか説明できる。
 - follower側はmasterとの関係だけを持つ。
 - offsetが必要なら独立した意味として表す。
 - 異なるNode family間ではspaceが本当に互換か確認する。
 
-## Variants
+## バリエーション（Variants）
 
-### Exact shared position
+### 完全に同じ位置を共有する
 
 複数要素が同じPointを参照します。
 
-### Shared position + offset
+### 共有位置 + オフセット（Shared position + offset）
 
-master positionから一定量だけずらします。
+基準位置（Master position）から一定量だけずらします。
 
 ### Distributed positions
 
 min / max / index / countのような基準から、複数位置を計算します。
 
-## Node Choices
+## Nodeの選び方（Node Choices）
 
-Transformを位置責任のownerにすると読みやすい場合があります。Merge側のtransform controlを使う場合は、どこで配置責任を持つかをFlow全体で統一します。
+Transformを位置責任の管理元にすると読みやすい場合があります。Merge側のtransform controlを使う場合は、どこで配置責任を持つかをFlow全体で統一します。
 
-## Failure Modes
+## 失敗しやすい点（Failure Modes）
 
 - masterが複数あり、相互参照になる。
 - Nodeごとにspaceが違うのに同じPointをそのまま流用する。
 - offsetを各followerへ手入力し、再び同期が崩れる。
 - 位置・scale・rotationを一度に連動させ、原因を切り分けられなくする。
 
-## Recipes Using This Pattern
+## この構成を使う手順（Recipes）
 
 Recipesは次バッチで追加予定です。
 
-## Related Node Reference
+## 関連Node
 
 - [Transform](../../nodes/transform/transform)
 - [Merge](../../nodes/compositing/merge)

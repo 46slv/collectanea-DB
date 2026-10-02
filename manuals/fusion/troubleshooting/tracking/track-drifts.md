@@ -1,6 +1,6 @@
 ---
-title: Tracking結果がずれる / driftする
-description: tracking solve・reference・application space・graphic offsetを分けてdrift原因を診断する。
+title: トラッキング結果がずれる / driftする
+description: トラッキング solve・reference・application space・graphic offsetを分けてdrift原因を診断する。
 doc_type: diagnostic
 verification: partial
 aliases: [track drift, trackingずれ, planar drift]
@@ -14,17 +14,17 @@ level: intermediate
 product_scope: fusion
 ---
 
-# Tracking結果がずれる / driftする
+# トラッキング結果がずれる / driftする
 
-## Fast Checks
+## まず確認すること（Fast Checks）
 
-1. tracking solve単体でdriftしているか。
+1. トラッキング solve単体でdriftしているか。
 2. graphicを付けた後だけずれるか。
-3. reference frame / track rangeは意図した範囲か。
-4. trackingとgraphicでresolution / spaceが違わないか。
-5. graphic側へ追加したmanual offset / animationが競合していないか。
+3. reference フレーム / track 範囲は意図した範囲か。
+4. トラッキングとgraphicでresolution / spaceが違わないか。
+5. graphic側へ追加した手動オフセット / アニメーションが競合していないか。
 
-## Isolate
+## 原因を切り分ける（Isolate）
 
 ```text
 footage
@@ -38,43 +38,43 @@ graphic
 
 solve outputとapplication後の2段階を別々に確認します。
 
-## Likely Causes
+## 主な原因（Likely Causes）
 
 ### solve自体がdrift
 
-tracking region / source feature / occlusion等、solve側の問題です。
+トラッキング region / 参照元 feature / occlusion等、solve側の問題です。
 
 ### apply側だけずれる
 
-tracking dataを別space / resolutionへ適用している可能性があります。
+トラッキング dataを別space / resolutionへ適用している可能性があります。
 
-### reference offset
+### 参照オフセット（reference offset）
 
-reference frameとgraphic初期位置の関係がずれている可能性があります。
+reference フレームとgraphic初期位置の関係がずれている可能性があります。
 
-### 二重animation
+### 二重アニメーション
 
-tracking dataとmanual keyframeが同じparameterを動かしている可能性があります。
+トラッキング dataとmanual keyframeが同じパラメータを動かしている可能性があります。
 
-## Fix
+## 修正方法（Fix）
 
 1. graphicを外してsolveを評価する。
-2. reference / rangeを確認する。
+2. reference / 範囲を確認する。
 3. application spaceを確認する。
-4. manual offsetを一旦外す。
-5. solve → apply → local adjustmentの順に戻す。
+4. 手動オフセットを一旦外す。
+5. solve → apply → 個別調整の順に戻す。
 
-## Why
+## なぜ起きるか（Why）
 
-trackingは「motionを解く」と「別要素へmotionを適用する」の2責任に分けるとdiagnoseしやすくなります。
+トラッキングは「動きを解く」と「別要素へ動きを適用する」の2責任に分けるとdiagnoseしやすくなります。
 
 → [Trackを解いてから適用先を分ける](../../patterns/tracking/solve-then-apply-track)
 
-## Version / Exception Notes
+## バージョン・例外（Version / Exception Notes）
 
-Planar Trackerのexact solve mode / export / transform workflowはFusion 21.1 current documentationを優先します。
+Planar Trackerの正確な solve mode / export / transform 作業の流れはFusion 21.1 現在の 資料を優先します。
 
-## Related Symptoms
+## 関連する症状（Related Symptoms）
 
 - graphicが一定量だけoffsetする
 -途中からdriftする

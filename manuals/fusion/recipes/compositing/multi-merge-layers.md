@@ -1,6 +1,6 @@
 ---
 title: 複数ImageをMultiMergeでまとめる
-description: Backgroundと複数ForegroundをMultiMergeへ入れ、Layer単位でcompositeを管理するRecipe。
+description: Backgroundと複数ForegroundをMultiMergeへ入れ、Layer単位で合成を管理するRecipe。
 doc_type: recipe
 verification: partial
 aliases: [multi layer composite, MultiMerge layers]
@@ -15,23 +15,23 @@ product_scope: fusion
 
 # 複数ImageをMultiMergeでまとめる
 
-## Result
+## できあがるもの（Result）
 
 Background上へ複数Foreground Layerを1つのMultiMergeで管理します。
 
-## Requirements
+## 必要なもの（Requirements）
 
 - Background Image
 - 複数Foreground Image
 - MultiMerge
 
-## Steps
+## 手順（Steps）
 
 1. BackgroundをMultiMergeのBackgroundへ接続します。
 2. Foreground要素をLayerとして追加します。
 3. 各Layerのvisibility / transform / merge settingsを1つずつ確認します。
 4. outputをViewerで確認します。
-5. Layerごとに別effectが必要なら、そのeffectはMultiMergeへ入る前のbranchで持たせます。
+5. Layerごとに別effectが必要なら、そのeffectはMultiMergeへ入る前の分岐で持たせます。
 
 ```text
 Background ──────┐
@@ -41,27 +41,27 @@ Graphic ─────────┤
                  ┘
 ```
 
-## Why This Works
+## なぜこの構成にするか（Why This Works）
 
-MultiMergeは多数のForeground Layerを1 Nodeで管理し、Backgroundをoutput resolutionの基準として扱う構造を持ちます。
+MultiMergeは多数のForeground Layerを1 Nodeで管理し、Backgroundを出力解像度（Output Resolution）の基準として扱う構造を持ちます。
 
-## Variants / Alternatives
+## 別のやり方（Variants / Alternatives）
 
-- stageごとのdebuggingを重視するならMerge chain。
-- Layer単位でeffect branchを作り、その結果をMultiMergeへ集約する。
-- repeated title systemではText+ / Transform branchをLayerとして入れる。
+- 段階ごとの診断を重視するならMerge chain。
+- Layer単位でeffect 分岐を作り、その結果をMultiMergeへ集約する。
+- repeated title systemではText+ / Transform 分岐をLayerとして入れる。
 
-## Failure Checks
+## うまくいかないときの確認（Failure Checks）
 
 - Backgroundが意図したImageか。
-- Layer orderが意図したcomposite orderか。
+- Layer orderが意図した合成 orderか。
 - per-layer transform責任を別Transformと二重管理していないか。
-- individual effect branchをMultiMerge内部だけで解決しようとしていないか。
+- individual effect 分岐をMultiMerge内部だけで解決しようとしていないか。
 
-## Related Pattern
+## 関連する再利用構成（Pattern）
 
 - [Merge chainとMultiMergeを選ぶ](../../patterns/compositing/choose-merge-vs-multimerge)
 
-## Related Nodes
+## 関連Node
 
 - [MultiMerge](../../nodes/compositing/multi-merge)

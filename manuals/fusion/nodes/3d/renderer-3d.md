@@ -19,37 +19,37 @@ suite_surfaces: [fusion]
 
 Classic Fusion 3D sceneを2D Imageへ変換するRenderer Nodeです。
 
-## At a Glance
+## 概要（At a Glance）
 
-- **Family**: 3D / Render
-- **Input domain**: Classic 3D scene
-- **Output domain**: 2D Image
-- **Core concepts**: domain conversion、rendering
-- **Common tasks**: 3D sceneを2D compositingへ戻す
+- **分類（Family）**: 3D / Render
+- **入力データ（Input domain）**: Classic 3D scene
+- **出力データ（Output domain）**: 2D Image
+- **関連概念（Core concepts）**: domain conversion、rendering
+- **よく使う作業（Common tasks）**: 3D sceneを2D 合成へ戻す
 
-## Inputs
+## 入力（Inputs）
 
 ### Classic 3D scene
 
 Merge 3D等で構成したsceneを受け取ります。
 
-## Output
+## 出力（Output）
 
 rasterized 2D Imageを出力します。
 
-Fusion 20以降のDeep、Fusion 21のCryptomatte関連拡張が公式資料系で記録されていますが、この初期Referenceではexact auxiliary outputs / controlsを固定しません。
+Fusion 20以降のDeep、Fusion 21のCryptomatte関連拡張が公式資料系で記録されていますが、この初期Referenceでは補助出力（auxiliary outputs）と設定項目の正確な仕様を固定しません。
 
-## Controls
+## 主な設定項目（Controls）
 
-renderer selection、lighting / shadow / channel / auxiliary output等に関わる設定がありますが、exact 21.1 control surfaceは未検証です。
+renderer selection、lighting / shadow / channel / auxiliary output等に関わる設定がありますが、正確な 21.1 control surfaceは未検証です。
 
-## Behavior / Notes
+## 挙動と注意点（Behavior / Notes）
 
 Renderer 3Dは**3D domain → 2D Image domainの境界**です。
 
 後段の通常Merge / Blur等へ渡すには、このようなdomain conversionを意識します。
 
-## Minimal Examples
+## 最小例（Minimal Examples）
 
 ```text
 Shape3D / Text3D / Camera
@@ -61,19 +61,19 @@ Shape3D / Text3D / Camera
      2D Merge
 ```
 
-## Related Concepts
+## 関連する考え方（Concepts）
 
-- [Data domainを辿って診断する](../../learn/07-debugging/trace-data-domain)
+- [データ領域（data domain）を辿って診断する](../../learn/07-debugging/trace-data-domain)
 
-## Related Patterns
+## 関連する再利用構成（Patterns）
 
 3D Patternは今後追加します。
 
-## Similar / Adjacent Nodes
+## 似たNode・関連Node
 
 - uRenderer — USD scene
 - pRender — Particle set
 
-## Version / Verification Notes
+## バージョンと検証状況
 
-Renderer 3DのClassic 3D → 2D Image roleはFusion 21系semantic baselineとcatalogで確認。exact 21.1 controls / auxiliary outputは未検証です。
+Renderer 3DのClassic 3D → 2D Image 役割はFusion 21系semantic baselineとcatalogで確認。正確な 21.1 controls / auxiliary outputは未検証です。

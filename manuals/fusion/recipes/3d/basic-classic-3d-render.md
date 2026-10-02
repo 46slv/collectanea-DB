@@ -15,17 +15,17 @@ product_scope: fusion
 
 # Classic 3D sceneを2Dへrenderする
 
-## Result
+## 作るもの（Result）
 
-Classic Fusion 3D sceneを構成し、通常の2D compositingへ渡せるImageへrenderします。
+Classic Fusion 3D sceneを構成し、通常の2D 合成へ渡せるImageへrenderします。
 
-## Requirements
+## 必要なもの（Requirements）
 
 - Classic 3D object / camera / light
 - Merge 3D
 - Renderer 3D
 
-## Steps
+## 手順（Steps）
 
 1. Classic 3D objectを用意します。
 2. Camera / Light等、必要な3D elementをMerge 3Dへまとめます。
@@ -39,28 +39,28 @@ Camera ────┼─ Merge 3D → Renderer 3D → 2D Image
 Light ─────┘
 ```
 
-## Why This Works
+## なぜこの構成で動くか（Why This Works）
 
 Merge 3DはClassic 3D scene domainを維持し、Renderer 3Dが2D Imageへrasterizeします。
 
-## Variants / Alternatives
+## 別の方法（Variants / Alternatives）
 
 - Image Plane 3Dをsceneへ追加する。
 - Material / Textureを3D objectへ接続する。
 - USDを使う場合はClassic 3D pipelineと混ぜず、u* toolsetへ分ける。
 
-## Failure Checks
+## うまくいかないときの確認（Failure Checks）
 
 - Merge 3D outputを通常2D Mergeへ直接渡していないか。
 - Renderer 3D前にClassic 3D sceneとして成立しているか。
 - uMerge / uRendererと混同していないか。
 - Renderer 3D outputをViewerで確認しているか。
 
-## Related Pattern
+## 関連パターン（Related Pattern）
 
 - [特殊domainのまま処理し、必要な境界で2Dへ戻す](../../patterns/data-domain/defer-domain-conversion)
 
-## Related Nodes
+## 関連ノード（Related Nodes）
 
 - [Merge 3D](../../nodes/3d/merge-3d)
 - [Renderer 3D](../../nodes/3d/renderer-3d)

@@ -1,6 +1,6 @@
 ---
-title: Keyframeを置いたのにAnimationしない
-description: current time・parameter source・keyframe range・Viewer targetを分離して診断する。
+title: Keyframeを置いたのにアニメーションしない
+description: 現在の time・パラメータの供給元・keyframe 範囲・Viewer 対象を分離して診断する。
 doc_type: diagnostic
 verification: partial
 aliases: [Animationしない, keyframe not moving]
@@ -12,19 +12,19 @@ level: foundation
 product_scope: fusion
 ---
 
-# Keyframeを置いたのにAnimationしない
+# Keyframeを置いたのにアニメーションしない
 
-## Fast Checks
+## まず確認すること（Fast Checks）
 
-1. 動かしたいparameterにkeyframeがあるか。
-2. 2つ以上の異なるtimeで異なるvalueを持っているか。
-3. current frameはkeyframe range内か。
+1. 動かしたいパラメータにkeyframeがあるか。
+2. 2つ以上の異なるtimeで異なる値を持っているか。
+3. 現在の フレームはkeyframe 範囲内か。
 4. Viewerは対象Nodeの結果を見ているか。
-5. Expression / Modifier等がparameter sourceを置き換えていないか。
+5. Expression / Modifier等がパラメータの供給元を置き換えていないか。
 
-## Isolate
+## 原因を切り分ける（Isolate）
 
-1つのparameterだけを対象にします。
+1つのパラメータだけを対象にします。
 
 ```text
 frame A: value A
@@ -33,44 +33,44 @@ frame B: value B
 
 まずこの2点だけで変化が見えることを確認します。
 
-## Likely Causes
+## 主な原因（Likely Causes）
 
-### Keyframe間でvalueが同じ
+### Keyframe間で値が同じ
 
 timeは違っても結果が変わりません。
 
-### 別parameterを見ている
+### 別パラメータを見ている
 
 CenterとPivot等、似たcontrolを混同している可能性があります。
 
-### Viewer targetが違う
+### Viewer 対象が違う
 
-animation対象Nodeではなくupstream NodeをViewerへ出している可能性があります。
+アニメーション対象Nodeではなくupstream NodeをViewerへ出している可能性があります。
 
-### Parameter sourceが別
+### パラメータの供給元が別
 
 Expression / Modifier等が最終値を決めている場合があります。
 
-## Fix
+## 修正方法（Fix）
 
-1. 1 parameter / 2 keyframeへ縮める。
-2. Viewer targetを確認。
-3. parameter sourceを確認。
+1. 1 パラメータ / 2 keyframeへ縮める。
+2. Viewer 対象を確認。
+3. パラメータの供給元を確認。
 4. Spline Editorでcurveを確認。
-5. 徐々に他animationを戻す。
+5. 徐々に他アニメーションを戻す。
 
-## Why
+## なぜ起きるか（Why）
 
-animationはNode全体ではなく、current timeに対してparameter valueがどう供給されるかの問題です。
+アニメーションはNode全体ではなく、現在の timeに対してパラメータ 値がどう供給されるかの問題です。
 
-→ [Frame Evaluation](../../learn/05-time/frame-evaluation)
+→ [フレーム 評価](../../learn/05-time/frame-evaluation)
 
-## Version / Exception Notes
+## バージョン・例外（Version / Exception Notes）
 
-Spline / Keyframe Editorのexact UIはcurrent Resolve / Fusion versionを確認します。
+Spline / Keyframe Editorの正確なUI表記は現在の Resolve / Fusion versionを確認します。
 
-## Related Symptoms
+## 関連する症状（Related Symptoms）
 
 - Expressionでは動くがkeyframeでは動かない
 - Splineが見つからない
-- 一部frameだけ値が違う
+- 一部フレームだけ値が違う

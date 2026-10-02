@@ -1,6 +1,6 @@
 ---
-title: KeyとCompositeを分ける
-description: foreground extractionとbackgroundへの合成を別stageにし、matte問題とMerge問題を切り分けるPattern。
+title: Keyと合成を分ける
+description: 前景抽出（foreground extraction）とbackgroundへの合成を別段階にし、matte問題とMerge問題を切り分けるPattern。
 doc_type: pattern
 verification: partial
 aliases: [key then composite, keying pipeline]
@@ -12,19 +12,19 @@ level: intermediate
 product_scope: fusion
 ---
 
-# KeyとCompositeを分ける
+# Keyと合成を分ける
 
-## Problem Family
+## 使う場面（Problem Family）
 
 green / blue screenを抜いた後の問題が、Keyer由来なのかMerge由来なのか分からない状態です。
 
-## Concepts
+## 前提となる考え方（Concepts）
 
 - [Alpha](../../learn/04-compositing/alpha)
-- [Premultiplication](../../learn/04-compositing/premultiplication)
-- [Foreground / Background / Mask](../../learn/04-compositing/foreground-background-mask)
+- [プリマルチプライ（Premultiplication）](../../learn/04-compositing/premultiplication)
+- [前景（Foreground）/ 背景（Background）/ マスク（Mask）](../../learn/04-compositing/foreground-background-mask)
 
-## Generic Graph
+## 基本構成（Generic Graph）
 
 ```text
 source
@@ -36,40 +36,40 @@ keyed foreground ───┐
 new background ─────┘
 ```
 
-foreground extractionとcompositingを別stageとして観察します。
+前景抽出（foreground extraction）と合成を別段階として観察します。
 
-## Invariant
+## 保つべき条件（Invariant）
 
 - Keyer outputを単体で確認する。
-- matte edgeとbackground compositeを同時に直さない。
-- source RGB / alpha relationを確認する。
-- Merge input roleをkeying問題と混ぜない。
+- matte edgeとbackground 合成を同時に直さない。
+- 参照元 RGB / alpha 関係を確認する。
+- Merge input 役割をキーイング問題と混ぜない。
 
-## Variants
+## バリエーション（Variants）
 
 ### Clean key first
 
 まずkeyed foregroundのmatteを作り、その後backgroundへ合成します。
 
-### Edge repair stage
+### エッジ修復の段階
 
-KeyerとMergeの間にedge / spill / matte処理を置く場合も、各stageを独立してViewerで確認します。
+KeyerとMergeの間にedge / spill / matte処理を置く場合も、各段階を独立してViewerで確認します。
 
-## Node Choices
+## Nodeの選び方（Node Choices）
 
-Delta Keyerは主要Keyer候補、Mergeは2D composite ownerです。
+Delta Keyerは主要Keyer候補、Mergeは2D 合成 管理元です。
 
-## Failure Modes
+## 失敗しやすい点（Failure Modes）
 
 - Merge結果だけ見てKeyerを調整する。
 - Effect Maskとmatte alphaを混同する。
 - premultiplication問題をkey thresholdで直そうとする。
 
-## Recipes Using This Pattern
+## この構成を使う手順（Recipes）
 
 - [KeyしてBackgroundを置き換える](../../recipes/matte-keying/key-and-replace-background)
 
-## Related Node Reference
+## 関連Node
 
 - [Delta Keyer](../../nodes/matte-keying/delta-keyer)
 - [Merge](../../nodes/compositing/merge)

@@ -19,31 +19,31 @@ suite_surfaces: [fusion]
 
 RGBをAlphaで除算し、premultiplied colorをstraight / unpremultiplied方向へ変換するNodeです。
 
-## At a Glance
+## 概要（At a Glance）
 
-- **Family**: Matte / Keying
-- **Input domain**: 2D Image
-- **Output domain**: 2D Image
-- **Core concepts**: Alpha、premultiplication
-- **Common tasks**: transparent edgeを持つImageのcolor processing前処理
+- **分類（Family）**: Matte / キーイング
+- **入力データ（Input domain）**: 2D Image
+- **出力データ（Output domain）**: 2D Image
+- **関連概念（Core concepts）**: Alpha、premultiplication
+- **よく使う作業（Common tasks）**: transparent edgeを持つImageのcolor 処理前処理
 
-## Inputs
+## 入力（Inputs）
 
 ### Image
 
 Alphaを持つ2D Imageを受け取る系統です。
 
-## Output
+## 出力（Output）
 
-RGB / Alpha relationをAlpha Divide処理した2D Imageを出力します。
+RGB / Alpha 関係をAlpha Divide処理した2D Imageを出力します。
 
-## Controls
+## 主な設定項目（Controls）
 
-exact current controls / zero-alpha behavior / optionsはFusion 21.1 current verification待ちです。
+正確な 現在の controls / zero-alpha 挙動 / optionsはFusion 21.1 現在の資料または実機での確認待ちです。
 
-## Behavior / Notes
+## 挙動と注意点（Behavior / Notes）
 
-典型mental model:
+典型考え方:
 
 ```text
 premultiplied Image
@@ -55,24 +55,24 @@ premultiplied Image
 
 ただしColor Node自身に同等のpre-divide/post-multiply機能がある場合は二重処理しません。
 
-## Minimal Examples
+## 最小例（Minimal Examples）
 
-透明edgeを持つforegroundへ強いColor operationを行う前段に置く構成を検討します。
+透明edgeを持つforegroundへ強い色処理（Color operation）を行う前段に置く構成を検討します。
 
-## Related Concepts
+## 関連する考え方（Concepts）
 
-- [Premultiplication](../../learn/04-compositing/premultiplication)
+- [プリマルチプライ（Premultiplication）](../../learn/04-compositing/premultiplication)
 
-## Related Patterns
+## 関連する再利用構成（Patterns）
 
-- [KeyとCompositeを分ける](../../patterns/matte-keying/key-then-composite)
+- [Keyと合成を分ける](../../patterns/matte-keying/key-then-composite)
 
-## Similar / Adjacent Nodes
+## 似たNode・関連Node
 
 - Alpha Multiply
 - Color Corrector
 - Matte Control
 
-## Version / Verification Notes
+## バージョンと検証状況
 
-Alpha DivideのidentityとRGBをAlphaで除算する役割はlegacy-primary Fusion referenceで確認。21.1 exact numerical behavior / optionsは未検証です。
+Alpha Divideの存在とRGBをAlphaで除算する役割は旧版のBlackmagic Design公式Fusion資料で確認。21.1 数値処理の正確な挙動・設定は未検証です。

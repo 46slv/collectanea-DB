@@ -14,16 +14,16 @@ product_scope: fusion
 
 # Merge chainとMultiMergeを選ぶ
 
-## Problem Family
+## 使う場面（Problem Family）
 
 複数要素を重ねるとき、Mergeを何段も繋ぐべきか、MultiMergeへまとめるべきか判断できない状態です。
 
-## Concepts
+## 前提となる考え方（Concepts）
 
-- [Foreground / Background / Mask](../../learn/04-compositing/foreground-background-mask)
+- [前景（Foreground）/ 背景（Background）/ マスク（Mask）](../../learn/04-compositing/foreground-background-mask)
 - [Graphとして考える](../../learn/01-flow/graph-as-flow)
 
-## Generic Graph
+## 基本構成（Generic Graph）
 
 ### Merge chain
 
@@ -43,20 +43,20 @@ Element C ───┤
              ┘
 ```
 
-## Invariant
+## 保つべき条件（Invariant）
 
-- 1 stageごとのcompositing責任を説明できる。
-- per-layer transform / blend responsibilityのownerを明示する。
-- debuggingで中間結果を観察できる。
+- 1 段階ごとの合成責任を説明できる。
+- per-layer transform / blend 役割の管理元を明示する。
+- 診断で中間結果を観察できる。
 -「Node数が少ない」だけでMultiMergeを選ばない。
-- branch再利用や個別effect chainが必要なら、その構造を優先する。
+- 分岐再利用や個別effect chainが必要なら、その構造を優先する。
 
 ## When Merge chain fits
 
-- stageごとに別effectを挟む。
-- intermediate resultを頻繁に確認する。
-- branch構造が複雑。
-- 1つずつcompositing reasonを分離したい。
+- 段階ごとに別effectを挟む。
+- intermediate 結果を頻繁に確認する。
+- 分岐構造が複雑。
+- 1つずつ合成 reasonを分離したい。
 
 ## When MultiMerge fits
 
@@ -64,18 +64,18 @@ Element C ───┤
 - per-layer transform / merge controlをまとめたい。
 -同種Layerを一覧的に扱う方が読みやすい。
 
-## Failure Modes
+## 失敗しやすい点（Failure Modes）
 
 - MultiMerge内部へ役割の違う処理を押し込みすぎる。
-- Merge chainが長くなり、どのstageが何をしているか名前も構造も読めない。
+- Merge chainが長くなり、どの段階が何をしているか名前も構造も読めない。
 - 同じelementをMergeとMultiMergeの両方で二重管理する。
 
-## Recipes Using This Pattern
+## この構成を使う手順（Recipes）
 
 - [複数ImageをMultiMergeでまとめる](../../recipes/compositing/multi-merge-layers)
 - [2つのImageを重ねる](../../recipes/compositing/two-image-merge)
 
-## Related Node Reference
+## 関連Node
 
 - [Merge](../../nodes/compositing/merge)
 - [MultiMerge](../../nodes/compositing/multi-merge)

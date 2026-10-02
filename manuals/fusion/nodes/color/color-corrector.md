@@ -19,61 +19,61 @@ suite_surfaces: [fusion]
 
 2D Imageのcolor correctionを行う主要Nodeです。
 
-## At a Glance
+## 概要（At a Glance）
 
-- **Family**: Color
-- **Primary input**: 2D Image
-- **Output**: 2D Image
-- **Core concepts**: color correction、tone ranges、alpha awareness
-- **Common tasks**: shadows / midtones / highlights補正、色調整
+- **分類（Family）**: Color
+- **主入力（Primary input）**: 2D Image
+- **出力（Output）**: 2D Image
+- **関連概念（Core concepts）**: color correction、tone ranges、alpha awareness
+- **よく使う作業（Common tasks）**: shadows / midtones / highlights補正、色調整
 
-## Inputs
+## 入力（Inputs）
 
 ### Image
 
 補正対象の2D Imageを受け取ります。
 
-Mask等のexact auxiliary inputsは21.1で確認します。
+Mask等の補助入力（auxiliary inputs）の正確な仕様は21.1で確認します。
 
-## Output
+## 出力（Output）
 
 補正後の2D Imageを出力します。
 
-## Controls
+## 主な設定項目（Controls）
 
 Shadows / Midtones / Highlightsを含む補正系を持つことはlegacy Fusion referenceで確認されています。
 
-exact tab structure、range、channel mode、pre-divide / post-multiply相当optionは21.1 current verification待ちです。
+正確なTab構成、範囲、channel mode、pre-divide / post-multiply相当設定は21.1 現在の資料または実機での確認待ちです。
 
-## Behavior / Notes
+## 挙動と注意点（Behavior / Notes）
 
 Color CorrectorとDeep用の `dColorCorrector` は別domainです。
 
 通常2D Imageを扱うColor Correctorを、Deep image向けNodeの単純な低機能版として扱いません。
 
-透明edgeを強く補正する場合は、Node固有のalpha processing optionとmanualなAlpha Divide / Multiplyを二重適用しないよう確認します。
+透明edgeを強く補正する場合は、Node固有のalpha 処理 設定とmanualなAlpha Divide / Multiplyを二重適用しないよう確認します。
 
-## Minimal Examples
+## 最小例（Minimal Examples）
 
 ```text
 Image → Color Corrector → Output
 ```
 
-## Related Concepts
+## 関連する考え方（Concepts）
 
 - [AlphaとMaskを分けて診断する](../../learn/07-debugging/alpha-vs-mask)
-- [Data domainを辿って診断する](../../learn/07-debugging/trace-data-domain)
+- [データ領域（data domain）を辿って診断する](../../learn/07-debugging/trace-data-domain)
 
-## Related Patterns
+## 関連する再利用構成（Patterns）
 
 Color / Matte Patternは今後追加します。
 
-## Similar / Adjacent Nodes
+## 似たNode・関連Node
 
 - Brightness Contrast
 - Color Curves
 - dColorCorrector — Deep image domain
 
-## Version / Verification Notes
+## バージョンと検証状況
 
-Color CorrectorのidentityとShadows / Midtones / Highlights系の役割はlegacy-primary Fusion referenceで確認。21.1 exact controls、alpha option、defaultは未検証です。
+Color Correctorの存在とShadows / Midtones / Highlights系の役割は旧版のBlackmagic Design公式Fusion資料で確認。Fusion 21.1での正確な設定項目、alpha 設定、初期値は未検証です。
