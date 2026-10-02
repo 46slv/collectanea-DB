@@ -2,6 +2,7 @@ const fs = require('node:fs/promises');
 const path = require('node:path');
 const {makeCatalog} = require('./model.cjs');
 const labels = {manual: 'Manual', article: 'Article', reference: 'Reference', research: 'Research'};
+const list = (value) => value == null ? [] : (Array.isArray(value) ? value : [value]).map(String).filter(Boolean);
 function date(value) {
   if (value == null || value === '') return null;
   const candidate = typeof value === 'number' ? value * (value < 1e11 ? 1000 : 1) : value;
@@ -54,6 +55,14 @@ module.exports = function collectaneaCatalog(context, options = {}) {
       label: kind === 'manual' && dirs.includes('nodes') && leaf !== 'index' ? 'Node' : labels[kind],
       material, materialTitle: typeof fm.material_title === 'string' ? fm.material_title : (kind === 'article' && material === 'articles' ? 'Articles' : null),
       domain: typeof fm.domain === 'string' ? fm.domain : '', tags,
+      docType: typeof fm.doc_type === 'string' ? fm.doc_type : '',
+      nodeFamily: typeof fm.node_family === 'string' ? fm.node_family : '',
+      level: typeof fm.level === 'string' ? fm.level : '',
+      productScope: typeof fm.product_scope === 'string' ? fm.product_scope : '',
+      aliases: list(fm.aliases), concepts: list(fm.concepts), patterns: list(fm.patterns), nodes: list(fm.nodes),
+      controls: list(fm.controls), inputs: list(fm.inputs), outputs: list(fm.outputs), tasks: list(fm.tasks),
+      symptoms: list(fm.symptoms), prerequisites: list(fm.prerequisites), familiarApps: list(fm.familiar_apps),
+      familiarTerms: list(fm.familiar_terms), compareTopics: list(fm.compare_topics), suiteSurfaces: list(fm.suite_surfaces),
       updated: date(fm.updated ?? meta.lastUpdatedAt ?? fm.last_update?.date ?? meta.date),
       published: date(meta.date), status: typeof fm.verification === 'string' ? fm.verification : (typeof fm.status === 'string' ? fm.status : null),
       position: meta.sidebarPosition ?? fm.sidebar_position ?? 9999,

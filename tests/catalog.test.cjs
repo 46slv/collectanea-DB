@@ -37,6 +37,29 @@ test('search retains body and tag entries, compact navigation omits full body', 
   assert.equal(data.search.find((p) => p.kind === 'tag').tag, 'software');
   assert.ok(!Object.hasOwn(data.pages[0], 'body'));
 });
+test('semantic metadata is normalized, searchable and exposed as facets', () => {
+  const data = makeCatalog([page('semantic', {material: 'fusion', docType: 'node', nodeFamily: 'compositing', aliases: ['Alias'], controls: ['Blend', 'Blend'], tasks: ['composite'], familiarApps: ['nuke']})]);
+  assert.deepEqual(data.pages[0].controls, ['Blend']);
+  assert.deepEqual(data.semanticFacets.controls, ['Blend']);
+  assert.match(data.search[0].text, /Alias/);
+  assert.match(data.search[0].text, /composite/);
+  assert.match(data.search[0].text, /nuke/);
+});
+test('Fusion indexes are generated from semantic metadata', () => {
+  const data = makeCatalog([
+    page('merge', {material: 'fusion', docType: 'node', nodeFamily: 'compositing', controls: ['Blend'], inputs: ['image', 'mask'], outputs: ['image'], tasks: ['composite']}),
+    page('alpha', {material: 'fusion', docType: 'concept', concepts: ['alpha'], tasks: ['composite']}),
+    page('blank', {material: 'fusion', docType: 'diagnostic', symptoms: ['nothing-visible'], tasks: ['debug']}),
+    page('nuke', {material: 'fusion', docType: 'bridge', familiarApps: ['nuke'], familiarTerms: ['Merge'], suiteSurfaces: ['fusion']}),
+  ]);
+  assert.equal(data.indexes.nodes[0].title, 'merge');
+  assert.equal(data.indexes.controls.find((entry) => entry.key === 'Blend').items[0].title, 'merge');
+  assert.equal(data.indexes.tasks.find((entry) => entry.key === 'composite').count, 2);
+  assert.equal(data.indexes.symptoms[0].key, 'nothing-visible');
+  assert.equal(data.indexes.dataTypes.find((entry) => entry.key === 'image').producers[0].title, 'merge');
+  assert.equal(data.indexes.familiarApps[0].key, 'nuke');
+  assert.equal(data.indexes.resolveSurfaces[0].key, 'fusion');
+});
 test('duplicate permalinks and missing titles fail instead of misleading readers', () => {
   assert.throws(() => makeCatalog([page('one'), page('two', {href: '/base/one'})]), /duplicate/);
   assert.throws(() => makeCatalog([page('one', {title: ''})]), /Invalid/);
