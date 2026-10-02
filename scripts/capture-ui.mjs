@@ -131,6 +131,16 @@ try {
     await expect.poll(() => page.evaluate(() => window.scrollY)).toBeGreaterThan(0);
     await page.mouse.move(10, 10); await shot('07-heading-rail-current');
   });
+  await check('fusion-generated-indexes', async () => {
+    await go('/manuals/fusion/index/node-a-z');
+    const generated = page.locator('[data-cc-fusion-index="nodes"]');
+    await expect(generated).toBeVisible();
+    await expect(generated.getByRole('link', {name: 'Merge', exact: true})).toBeVisible();
+    await generated.getByLabel('この索引を絞り込む', {exact: true}).fill('MultiMerge');
+    await expect(generated.getByRole('link', {name: 'MultiMerge', exact: true})).toBeVisible();
+    await go('/manuals/fusion/index/by-task');
+    await expect(page.locator('[data-cc-fusion-index="tasks"]')).toBeVisible();
+  });
   await check('articles-single-layout-full-db', async () => {
     await go('/articles');
     assert.equal(await page.locator('main').count(), 1);
