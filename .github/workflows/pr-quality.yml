@@ -4,9 +4,6 @@ name: Collectanea PR Quality
 # large change or PR needs the full evidence packet.
 on:
   workflow_dispatch:
-  push:
-    branches:
-      - docs/fusion-foundation-content-1
 permissions:
   contents: read
 concurrency:
