@@ -2,6 +2,8 @@
 title: FusionはResolveのどこにいるか
 description: DaVinci Resolve内でFusionが担うVFX・モーショングラフィックス・合成（Compositing）の役割を理解する。
 doc_type: concept
+term_id: where-fusion-fits
+term_short: DaVinci Resolve内でFusionが担うVFX・motion graphics・compositingの役割。
 verification: partial
 product_scope: resolve
 suite_surfaces: [edit, fusion, color]
