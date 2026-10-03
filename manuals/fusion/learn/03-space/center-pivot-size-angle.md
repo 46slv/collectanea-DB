@@ -2,6 +2,8 @@
 title: Center / Pivot / Size / Angle
 description: 2D Transform系controlを、位置・変形中心・倍率・回転量という別責任として読む。
 doc_type: concept
+term_id: center-pivot-size-angle
+term_short: 位置・変形中心・倍率・回転量を分けた2D Transform control。
 verification: unverified
 aliases: [Center, Pivot, Size, Angle, transform controls]
 concepts: [coordinate-space, transform-controls]
@@ -12,20 +14,19 @@ level: foundation
 product_scope: fusion
 suite_surfaces: [fusion]
 ---
-
 # Center / Pivot / Size / Angle
 
 > 正確な 初期値・範囲・NodeごとのspaceはFusion 21.1 Manual / 実機で再確認前です。
 
 ## このページで分かること
 
-Transform系Nodeで似た見た目を作れるcontrolが複数あるとき、それぞれ何を変えているかを整理します。
+<Term id="transform">Transform</Term>系Nodeで似た見た目を作れるcontrolが複数あるとき、それぞれ何を変えているかを整理します。
 
 ## 基本の考え方
 
 2D transformを、少なくとも4つの責任へ分けます。
 
-- **Center** — Imageをどこへ置くか。
+- **Center** — <Term id="image">Image</Term>をどこへ置くか。
 - **Pivot** — scale / rotationの基準点をどこに置くか。
 - **Size** — どれだけ拡大縮小するか。
 - **Angle** — どれだけ回転するか。
