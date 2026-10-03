@@ -3,6 +3,8 @@ name: Collectanea PR Quality
 # Routine direct-main iteration is validated locally; run this once when a
 # large change or PR needs the full evidence packet.
 on:
+  push:
+    branches: [fix/center-heading-rail-right-edge]
   workflow_dispatch:
 permissions:
   contents: read
