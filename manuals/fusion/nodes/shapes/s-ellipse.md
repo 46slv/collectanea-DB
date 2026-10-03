@@ -2,6 +2,7 @@
 title: sEllipse
 description: Shape domainで円・楕円shapeを生成するFusion Shape Node。
 doc_type: node
+term_id: s-ellipse
 verification: partial
 aliases: [sEllipse, Shape Ellipse]
 concepts: [data-domain, shape-domain, vector-shape]
