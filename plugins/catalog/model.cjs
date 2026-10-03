@@ -64,9 +64,11 @@ function makeTerms(pages) {
   for (const page of pages) {
     const id = String(page.termId || '').trim();
     const short = String(page.termShort || '').trim();
-    if (page.material === 'fusion' && page.docType === 'concept') {
-      if (!id) throw new Error(`Fusion concept is missing term_id: ${page.source || page.id}`);
-      if (!short) throw new Error(`Fusion concept is missing term_short: ${page.source || page.id}`);
+    if (page.material === 'fusion' && ['concept', 'node'].includes(page.docType) && !id) {
+      throw new Error(`Fusion ${page.docType} is missing term_id: ${page.source || page.id}`);
+    }
+    if (page.material === 'fusion' && page.docType === 'concept' && !short) {
+      throw new Error(`Fusion concept is missing term_short: ${page.source || page.id}`);
     }
     if (!id) continue;
     if (terms[id]) throw new Error(`Duplicate term id: ${id}`);
@@ -98,7 +100,7 @@ function makeIndexes(pages) {
     tasks: groupedRows(fusion.filter((page) => page.docType !== 'index'), 'tasks'),
     symptoms: groupedRows(fusion.filter((page) => page.docType === 'diagnostic'), 'symptoms'),
     dataTypes: dataTypeRows(nodes),
-    glossary: concepts.map((page) => ({...semanticRow(page), summary: page.termShort || page.summary})).sort((a, b) => collator.compare(a.title, b.title)),
+    glossary: [...concepts, ...nodes].map((page) => ({...semanticRow(page), summary: page.termShort || page.summary})).sort((a, b) => collator.compare(a.title, b.title)),
     resolveSurfaces: groupedRows(fusion, 'suiteSurfaces'),
     familiarApps: groupedRows(fusion, 'familiarApps'),
   };
