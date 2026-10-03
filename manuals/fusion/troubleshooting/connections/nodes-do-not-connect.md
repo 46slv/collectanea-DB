@@ -11,14 +11,13 @@ prerequisites: [data-domain]
 level: foundation
 product_scope: fusion
 ---
-
 # Node同士を接続できない
 
 ## まず確認すること
 
 1. upstream NodeのOutputは何のデータ領域（data domain）か。
 2. downstream Inputは何を受け取るか。
-3. 2D Image / Mask / Shape / 3D / Particle / Deepを混同していないか。
+3. 2D Image / <Term id="mask">Mask</Term> / Shape / 3D / Particle / Deepを混同していないか。
 4. 同名に近い別domain Nodeを選んでいないか。
 
 ## 原因の切り分け
@@ -37,11 +36,11 @@ Node B Input: ?
 
 ### データ領域（data domain）が違う
 
-ShapeをImage inputへ、3D sceneを2D filterへ、といったdomain mismatchです。
+Shapeを<Term id="image">Image</Term> inputへ、3D sceneを2D filterへ、といったdomain mismatchです。
 
 ### 変換境界が必要
 
-Shape render、3D render、Deep to Image等、別domainを2D Imageへ変換する工程が必要な場合があります。
+Shape render、3D render、Deep to <Term id="image">Image</Term>等、別domainを2D Imageへ変換する工程が必要な場合があります。
 
 ### 似た名前の別Nodeを使っている
 
