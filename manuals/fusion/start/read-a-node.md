@@ -8,7 +8,6 @@ tasks: [learn, inspect-node, lookup-node]
 level: foundation
 product_scope: fusion
 ---
-
 # Nodeを読む
 
 ## このページで分かること
@@ -28,8 +27,8 @@ Nodeを見たら、次の順番で確認します。
 
 まずOutput / Inputが何のdataか確認します。
 
-- 2D Image
-- Mask
+- 2D <Term id="image">Image</Term>
+- <Term id="mask">Mask</Term>
 - Shape
 - Particle set
 - Classic 3D scene
@@ -43,7 +42,7 @@ Nodeを見たら、次の順番で確認します。
 
 「何本あるか」だけでなく、各Inputの役割とOutput domainを読みます。
 
-Mergeなら背景（Background）/ 前景（Foreground）/ Effect Maskのように役割が分かれます。
+Mergeなら背景（Background）/ 前景（Foreground）/ <Term id="mask">Effect Mask</Term>のように役割が分かれます。
 
 → [Input / Output / Connection](../learn/01-flow/inputs-outputs-connections)
 
@@ -107,5 +106,4 @@ Graph 評価:
 → [Graphが評価される依存関係](../learn/01-flow/evaluation-dependency)
 
 ---
-
 検証メモ: このページはNode-specific仕様ではなく、Manual全体で使うlookup / diagnosis methodです。
