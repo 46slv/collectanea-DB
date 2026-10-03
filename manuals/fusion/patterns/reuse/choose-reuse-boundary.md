@@ -13,18 +13,18 @@ product_scope: fusion
 
 # 再利用の境界を選ぶ
 
-## 使う場面（Problem Family）
+## 使う場面
 
 「同じものをもう一度使いたい」という理由だけでcopy / instance / group / macroを選ぶと、後からどこを直せばよいか分からなくなります。
 
-## 前提となる考え方（Concepts）
+## 前提となる考え方
 
 - [Instanceで設定を共有する](../../learn/06-reuse/instances)
 - [User Controlsで公開インターフェースを作る](../../learn/06-reuse/user-controls)
 - [GroupでGraphをまとめる](../../learn/06-reuse/groups)
 - [Macro / Templateで再利用単位を作る](../../learn/06-reuse/macros-templates)
 
-## 基本構成（Generic Graph）
+## 基本構成
 
 選ぶ基準を「何を共有したいか」に置きます。
 
@@ -45,14 +45,14 @@ reusable packaged graph + public interface
   → Macro / Template
 ```
 
-## 保つべき条件（Invariant）
+## 保つべき条件
 
 - shared stateの管理元が1つ説明できる。
 - duplicateするものとlinkするものを混同しない。
 - structural organizationとdistributionを別判断にする。
 - public インターフェースは利用者のintentを表す。
 
-## バリエーション（Variants）
+## バリエーション
 
 ### 同じGraph内で再利用する場合（Local reuse）
 
@@ -66,18 +66,18 @@ reusable packaged graph + public interface
 
 別compやEdit Pageから再利用する。Macro / Template境界を検討します。
 
-## Nodeの選び方（Node Choices）
+## Nodeの選び方
 
 このPatternは特定Nodeを選ぶものではなく、authoring 構造を選びます。
 
-## 失敗しやすい点（Failure Modes）
+## 失敗しやすい点
 
 - すべてCopyして変更が同期しない。
 - すべてInstanceにして個別差分を持てない。
 - Groupにしただけでpublic インターフェースまで完成したと思う。
 - Macroへ内部パラメータを大量に公開し、再利用側が実装詳細へ依存する。
 
-## この構成を使う手順（Recipes）
+## この構成を使う手順
 
 - Text+とMergeを再利用可能なtitleへ育てるRecipeを今後追加します。
 

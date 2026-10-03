@@ -15,16 +15,16 @@ product_scope: fusion
 
 # TransformをKeyframeで動かす
 
-## できあがるもの（Result）
+## できあがるもの
 
 Imageを2つの時点のposition間でアニメーションさせます。
 
-## 必要なもの（Requirements）
+## 必要なもの
 
 - Image
 - Transform
 
-## 手順（Steps）
+## 手順
 
 1. ImageへTransformを追加します。
 2. 最初のフレームでposition パラメータへKeyframeを作ります。
@@ -40,24 +40,24 @@ time A: position A
 time B: position B
 ```
 
-## なぜこの構成にするか（Why This Works）
+## この構成にする理由
 
 Keyframeはtimeごとのパラメータ 値を持ち、Splineはその間の変化を調整します。
 
-## 別のやり方（Variants / Alternatives）
+## 別の方法
 
 - base 配置用Transformとアニメーション用Transformを分ける。
 - Size / Angle等を別パラメータとしてアニメーションする。
 - procedural 関係が必要ならExpression / Modifierを使う。
 
-## うまくいかないときの確認（Failure Checks）
+## うまくいかないとき
 
 - ViewerはTransform outputを見ているか。
 - 2つのKeyframeで値が本当に違うか。
 - 現在の フレームはKeyframe 範囲内か。
 - Expression / Modifierが同じパラメータを駆動していないか。
 
-## 関連する再利用構成（Pattern）
+## 関連パターン
 
 - [基準値とアニメーションのオフセット（Offset）を分ける](../../patterns/animation/base-and-animation-offset)
 

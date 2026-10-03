@@ -11,16 +11,14 @@ product_scope: fusion
 
 # 最初のFlow
 
-## このページでできるようになること
+## このページで分かること
 
-Nodeを追加することより先に、
+Nodeの追加操作より先に、Flowの次の4点を読みます。
 
 - どこからImageが来るか
 - どこで処理が変わるか
 - どこで合成するか
 - どのNodeをViewerで見ているか
-
-をFlowとして読めるようになります。
 
 ## まずやること
 
@@ -75,4 +73,4 @@ Mergeを詳しく引く:
 
 ---
 
-検証メモ: Node tree / Viewer / Mergeの基本役割は現行Blackmagic Design Fusion資料とFusionの正本ページに基づきます。
+検証メモ: Node tree / Viewer / Mergeの基本役割は、現行Blackmagic Design Fusion資料とこのマニュアル内の関連ページに基づきます。

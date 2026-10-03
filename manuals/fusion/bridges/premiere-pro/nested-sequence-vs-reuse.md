@@ -1,6 +1,6 @@
 ---
 title: Nested SequenceとResolve/Fusionの再利用境界
-description: Premiere Nested Sequenceのtimeline reuseを、Fusion Group / Macro / Templateと単純等価せず整理する。
+description: Premiere ProのNested Sequenceによるtimeline再利用を、Fusion Group / Macro / Templateと単純に対応づけず整理する。
 doc_type: bridge
 verification: partial
 product_scope: resolve
@@ -19,7 +19,7 @@ Nested Sequenceは、別のSequenceをSequence内へ配置し、複数trackを�
 
 参照元 Sequenceを変更するとnested instanceへ反映されます。
 
-## Resolveで最初に決めること
+## Resolveではどこで扱うか
 
 PremiereでNestしていた理由を分類します。
 
@@ -48,13 +48,13 @@ reusable packaged graph
 
 という別の責任があります。
 
-## そのまま活かしやすい考え方
+## 共通する考え方
 
 - complexityを局所化する
 - repeated 構造を再利用する
 - 外側から扱いやすい単位を作る
 
-## そのまま一対一対応しない部分
+## そのまま対応しない点
 
 - Nested Sequence = Fusion Group、ではない。
 - Premiere Nestはtimeline/参照元 Sequence relationship。
@@ -68,7 +68,7 @@ reusable packaged graph
 - [Macro / Templateで再利用単位を作る](../../learn/06-reuse/macros-templates)
 - [Fusion assetをResolveで再利用する](../../resolve-integration/reusable-fusion-assets)
 
-## 関連する再利用構成（Patterns）
+## 関連パターン
 
 - [再利用の境界を選ぶ](../../patterns/reuse/choose-reuse-boundary)
 

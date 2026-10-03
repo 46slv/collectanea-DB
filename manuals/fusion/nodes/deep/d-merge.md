@@ -19,7 +19,7 @@ suite_surfaces: [fusion]
 
 Deep image domainでsample-aware 合成を行うMerge Nodeです。
 
-## 概要（At a Glance）
+## 概要
 
 - **分類（Family）**: Deep
 - **入力データ（Input domain）**: Deep image
@@ -27,23 +27,23 @@ Deep image domainでsample-aware 合成を行うMerge Nodeです。
 - **関連概念（Core concepts）**: per-ピクセル depth samples、front/back 関係
 - **よく使う作業（Common tasks）**: Deep 合成、depth-aware merge
 
-## 入力（Inputs）
+## 入力
 
 Deep imageを受け取るNodeとしてResolve 20以降のBlackmagic Design公式のバージョン資料系で確認されています。
 
 正確な入力数・補助PortはFusion 21.1 現在の資料または実機での確認待ちです。
 
-## 出力（Output）
+## 出力
 
 Deep imageを出力します。
 
 通常の2D Imageではありません。
 
-## 主な設定項目（Controls）
+## 主な設定項目
 
 Deep 合成 operatorやsample 扱いに関するcontrolを持つ系統ですが、正確な 21.1 UI / 初期値は未検証です。
 
-## 挙動と注意点（Behavior / Notes）
+## 挙動と注意点
 
 Deep imageは1 ピクセルに複数depth sampleを保持できるため、通常2D Mergeのalpha 合成とは同じ問題ではありません。
 
@@ -55,16 +55,16 @@ Deep B ─┘
 
 dMergeを「通常Mergeの高品質版」として扱わないことが重要です。
 
-## 最小例（Minimal Examples）
+## 最小例
 
 2つのDeep imageをdMergeで合成し、必要ならDeep to Imageで2Dへflattenします。
 
-## 関連する考え方（Concepts）
+## 関連する考え方
 
 - [データ領域（data domain）を辿って診断する](../../learn/07-debugging/trace-data-domain)
 - [Alpha](../../learn/04-compositing/alpha)
 
-## 関連する再利用構成（Patterns）
+## 関連パターン
 
 Deep-specific Patternは今後追加します。
 

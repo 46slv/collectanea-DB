@@ -1,6 +1,6 @@
 ---
 title: Premiere Proから来た人へ
-description: Premiere ProのSequence・Nested Sequence・clip effect経験をResolve / Fusionのsurface境界へ翻訳する入口。
+description: Premiere ProのSequence・Nested Sequence・clip effectの知識を使って、Resolve / Fusionの役割分担を読み解くための入口。
 doc_type: index
 verification: partial
 product_scope: resolve
@@ -17,7 +17,7 @@ Premiere Proでは、Sequence / Timeline上のclip構成を中心に編集し、
 
 Resolveでは、timeline editingはEdit、shot内部のNode-based VFX / モーショングラフィックスはFusionというsurface境界を先に意識すると読み替えやすくなります。
 
-## 対応の見方（Map）
+## 対応表
 
 | Premiere Proで知っているもの | Resolve / Fusionで読む先 |
 |---|---|
@@ -27,7 +27,7 @@ Resolveでは、timeline editingはEdit、shot内部のNode-based VFX / モー�
 | Shot内部の細かな合成 | [Graphとして考える](../../learn/01-flow/graph-as-flow) |
 | reusable Fusion title / effect | [Fusion assetをResolveで再利用する](../../resolve-integration/reusable-fusion-assets) |
 
-## 大事な点
+## 注意点
 
 PremiereのNested SequenceをFusion Group / Macroへ直接対応させません。
 

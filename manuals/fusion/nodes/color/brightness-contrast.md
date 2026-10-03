@@ -19,7 +19,7 @@ suite_surfaces: [fusion]
 
 2D Imageのbrightness / contrast / gain系を調整するColor Nodeです。
 
-## 概要（At a Glance）
+## 概要
 
 - **分類（Family）**: Color
 - **主入力（Primary input）**: 2D Image
@@ -27,7 +27,7 @@ suite_surfaces: [fusion]
 - **関連概念（Core concepts）**: image 処理、channel adjustment
 - **よく使う作業（Common tasks）**: 明るさ調整、contrast調整、gain調整
 
-## 入力（Inputs）
+## 入力
 
 ### Image
 
@@ -35,33 +35,33 @@ suite_surfaces: [fusion]
 
 Effect Mask等の補助入力（auxiliary inputs）の正確な仕様は21.1で確認します。
 
-## 出力（Output）
+## 出力
 
 補正後の2D Imageを出力します。
 
-## 主な設定項目（Controls）
+## 主な設定項目
 
 Brightness / Contrast / Gain等に相当する主要adjustmentを持つことはlegacy referenceで確認されています。
 
 channel単位control、pivot、alpha 扱い、初期値 / 範囲は21.1 現在の資料または実機での確認待ちです。
 
-## 挙動と注意点（Behavior / Notes）
+## 挙動と注意点
 
 「明るくする」という見た目だけでColor Correctorと同一視せず、どのパラメータ familyを操作したいかで選びます。
 
 透明edgeを持つImageで強い補正を行う場合は、alpha / premultiplicationの状態も別に確認します。
 
-## 最小例（Minimal Examples）
+## 最小例
 
 ```text
 Image → Brightness Contrast → Output
 ```
 
-## 関連する考え方（Concepts）
+## 関連する考え方
 
 - [AlphaとMaskを分けて診断する](../../learn/07-debugging/alpha-vs-mask)
 
-## 関連する再利用構成（Patterns）
+## 関連パターン
 
 Color adjustment Patternは今後追加します。
 

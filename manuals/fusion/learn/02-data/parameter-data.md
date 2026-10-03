@@ -13,11 +13,11 @@ product_scope: fusion
 
 # パラメータ / Data
 
-## このページで分かること（Question）
+## このページで分かること
 
-CenterやBlendのような値は、Image connectionと同じものなのでしょうか。
+CenterやBlendのような値とImage connectionの違いを整理します。
 
-## 基本の考え方（Mental Model）
+## 基本の考え方
 
 パラメータはNodeの挙動を決める**control data**です。
 
@@ -38,7 +38,7 @@ parameter source
   Node behavior
 ```
 
-## 最小例（Minimum Example）
+## 最小例
 
 TransformのCenterを考えます。
 
@@ -46,7 +46,7 @@ ImageはTransformのImage Inputへ入り、Centerは「そのImageをどこへ�
 
 ImageとCenterは別dataです。
 
-## 共通ルール（Invariants）
+## 共通ルール
 
 - Image connectionとパラメータ 値を分ける。
 - パラメータ typeを確認する。
@@ -54,11 +54,11 @@ ImageとCenterは別dataです。
 - 基準となる値を複数箇所へ作らない。
 - final displayed 値だけでなく「誰が値を供給しているか」を見る。
 
-## 1つだけ変えて確認する（Change One Thing）
+## 1つずつ変えて確認する
 
 Centerを固定値からExpression-driven 値へ変え、Image connectionは固定したまま比較します。
 
-## 他のNodeへ応用する（Transfer）
+## 他のNodeにも応用する
 
 ### アニメーション
 
@@ -72,17 +72,17 @@ Keyframe splineがtimeから値を供給します。
 
 トラッキング 結果をposition / transform controlへ適用します。
 
-## 初見Nodeで予測する（Predict）
+## 初見のNodeを読む
 
 「値を入力しても戻る」「勝手に動く」「同期する」症状で、パラメータの供給元を確認すべきだと判断できます。
 
-## よくある誤解（Common Misread）
+## よくある誤解
 
-**Inspectorに見える最終数値だけがパラメータの正本**と考えること。
+**Inspectorに見える最終数値だけがパラメータそのもの**と考えること。
 
 Expression / Modifier / アニメーション等が値を供給している場合があります。
 
-## 関連する再利用構成（Patterns）
+## 関連パターン
 
 - [Expressionで値の関係を保つ](../../patterns/automation/link-values-with-expression)
 

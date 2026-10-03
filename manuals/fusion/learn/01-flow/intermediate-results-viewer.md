@@ -13,11 +13,11 @@ product_scope: fusion
 
 # 中間結果をViewerで見る
 
-## このページで分かること（Question）
+## このページで分かること
 
-最終結果がおかしいとき、どのNodeが原因かをどう確かめればよいでしょうか。
+最終結果がおかしいときに、どのNodeで結果が変わったかを確かめる方法を説明します。
 
-## 基本の考え方（Mental Model）
+## 基本の考え方
 
 Viewerは最終Output専用ではなく、**Graphの任意地点を観察するprobe**として使います。
 
@@ -29,7 +29,7 @@ source → A → B → C → output
 
 「最後に正常だった地点」と「最初に期待から外れた地点」を作ります。
 
-## 最小例（Minimum Example）
+## 最小例
 
 ```text
 MediaIn → Transform → Blur → MediaOut
@@ -40,7 +40,7 @@ MediaIn → Transform → Blur → MediaOut
 3. BlurをViewerへ出す。
 4. どこで期待と差が生まれるか確認する。
 
-## 共通ルール（Invariants）
+## 共通ルール
 
 - どのNodeをViewerで見ているか明示する。
 - 1回に1 段階ずつ進む。
@@ -48,11 +48,11 @@ MediaIn → Transform → Blur → MediaOut
 - Viewerに見えないこととdataが存在しないことを分ける。
 - specialized domainは通常2D Imageと同じViewer結果を期待しない。
 
-## 1つだけ変えて確認する（Change One Thing）
+## 1つずつ変えて確認する
 
 問題Nodeの前後だけをViewerへ切り替え、パラメータは変えずに差を観察します。
 
-## 他のNodeへ応用する（Transfer）
+## 他のNodeにも応用する
 
 ### Merge chain
 
@@ -66,17 +66,17 @@ Image 分岐とMask 分岐を独立して確認できます。
 
 外部input → internal 段階 → outputの順に観察します。
 
-## 初見Nodeで予測する（Predict）
+## 初見のNodeを読む
 
 最終症状を見ても、次に「どの地点をViewerで観察すべきか」を決められます。
 
-## よくある誤解（Common Misread）
+## よくある誤解
 
 **Viewerに出したNode = 最終Outputへ使われているNode**と考えること。
 
 Viewerで観察していることと、Graph上でMediaOutへ接続されていることは別です。
 
-## 関連する再利用構成（Patterns）
+## 関連パターン
 
 - [Last Good / First BadでGraphを切る](../../patterns/debugging/last-good-first-bad)
 

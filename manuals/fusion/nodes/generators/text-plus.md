@@ -19,22 +19,22 @@ suite_surfaces: [fusion, edit]
 
 2D text Imageを生成するFusion Nodeです。
 
-## 概要（At a Glance）
+## 概要
 
 - **分類（Family）**: Generators / Text
 - **主出力（Primary output）**: 2D Image
 - **関連概念（Core concepts）**: Text generation、配置、Shading、アニメーション
 - **よく使う作業（Common tasks）**: title、lower third、モーショングラフィックス、template 参照元
 
-## 入力（Inputs）
+## 入力
 
 Text+はGeneratorとして扱います。primary Image inputを前提にしない構成が基本ですが、Effect Mask等を含む補助入力（auxiliary inputs）の正確な仕様はFusion 21.1 実機 / マニュアルで確認します。
 
-## 出力（Output）
+## 出力
 
 textを描画した2D Imageを出力します。
 
-## 主な設定項目（Controls）
+## 主な設定項目
 
 ### Styled Text
 
@@ -52,7 +52,7 @@ textの配置・配置に関わる領域です。正確な mode / control名は2
 
 文字単位のアニメーションへ関係する機構としてlegacy Fusion referenceで確認されています。21.1の正確な 挙動は今後の専用Reference対象です。
 
-## 挙動と注意点（Behavior / Notes）
+## 挙動と注意点
 
 Text+を単なる「文字を出すNode」としてだけ扱わず、
 
@@ -63,7 +63,7 @@ Text+を単なる「文字を出すNode」としてだけ扱わず、
 
 を分けて読むと、Template化したときに公開controlを選びやすくなります。
 
-## 最小例（Minimal Examples）
+## 最小例
 
 ### Text over image
 
@@ -73,12 +73,12 @@ Text+ ──────┐
 Image ──────┘
 ```
 
-## 関連する考え方（Concepts）
+## 関連する考え方
 
 - [Macro / Templateで再利用単位を作る](../../learn/06-reuse/macros-templates)
 - [キーフレーム / スプライン / 時間（Keyframe / Spline / Time）](../../learn/05-time/keyframes-spline-time)
 
-## 関連する再利用構成（Patterns）
+## 関連パターン
 
 - [画像を段階的に重ねる](../../patterns/compositing/stack-images-with-merge)
 

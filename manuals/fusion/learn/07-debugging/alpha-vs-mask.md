@@ -14,11 +14,11 @@ suite_surfaces: [fusion]
 
 # AlphaとMaskを分けて診断する
 
-## このページで分かること（Question）
+## このページで分かること
 
-「透明にならない」「縁がおかしい」「Maskが効かない」は、同じ問題でしょうか。
+「透明にならない」「縁がおかしい」「Maskが効かない」を同じ問題として扱わず、AlphaとMaskを分けて診断します。
 
-## 基本の考え方（Mental Model）
+## 基本の考え方
 
 AlphaとEffect Maskは別責任です。
 
@@ -35,7 +35,7 @@ Image RGB + Alpha
 
 Maskを接続したからImage alphaそのものが書き換わる、と決めつけないことが重要です。
 
-## 最小例（Minimum Example）
+## 最小例
 
 Mergeで問題がある場合:
 
@@ -46,7 +46,7 @@ Mergeで問題がある場合:
 
 これで「素材alpha」「合成」「Mask適用範囲」を別々に見られます。
 
-## 共通ルール（Invariants）
+## 共通ルール
 
 - Effect MaskとImage alphaを同じものとして扱わない。
 - transparent edgeの色問題ではpremultiplicationを疑う。
@@ -54,13 +54,13 @@ Mergeで問題がある場合:
 - color operation前後のalpha処理はNode固有機能と二重にしない。
 - まず素材のalpha状態を確認し、その後Merge / Maskへ進む。
 
-## 1つだけ変えて確認する（Change One Thing）
+## 1つずつ変えて確認する
 
 Maskを外し、Image alphaだけで合成結果を確認します。
 
 次にMaskを戻し、変わった部分が「effect範囲」なのか「Image alpha」なのかを比較します。
 
-## 他のNodeへ応用する（Transfer）
+## 他のNodeにも応用する
 
 ### Color correction
 
@@ -74,7 +74,7 @@ Foreground / Backgroundのalpha関係を、入力役割と分けて読みます�
 
 matteを作る処理と、effect範囲を制限するMaskを同一視しません。
 
-## 初見Nodeで予測する（Predict）
+## 初見のNodeを読む
 
 透明周辺の問題を見たとき、次を順に確認できます。
 
@@ -83,20 +83,20 @@ matteを作る処理と、effect範囲を制限するMaskを同一視しませ�
 3. Merge前からedge問題があるか。
 4. Effect Maskを外しても問題が残るか。
 
-## よくある誤解（Common Misread）
+## よくある誤解
 
 **青いMask inputへ接続したので、image alphaも期待どおりになっているはずだと思うこと。**
 
 Maskはeffect amountを空間的に制限する入力であり、alpha channelそのものの編集とは分けて考えます。
 
-## 正本となる概念ページ
+## 関連する概念ページ
 
 - [Alpha](../04-compositing/alpha)
 - [プリマルチプライ（Premultiplication）](../04-compositing/premultiplication)
 
 このページではAlpha / Mask / premultiplicationを症状診断へ適用することだけを扱います。
 
-## 関連する再利用構成（Patterns）
+## 関連パターン
 
 - [Maskで処理範囲を限定する](../../patterns/masking/limit-effect-with-mask)
 

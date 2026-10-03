@@ -15,11 +15,11 @@ suite_surfaces: [fusion]
 
 # Alpha
 
-## このページで分かること（Question）
+## このページで分かること
 
-「透明度」として見えるAlphaは、合成の中で何を持っているのでしょうか。
+合成でAlphaが何を表しているかを整理します。
 
-## 基本の考え方（Mental Model）
+## 基本の考え方
 
 2D Imageを単なるRGBではなく、**RGB + Alpha** として読みます。
 
@@ -27,22 +27,22 @@ AlphaはImageが合成へどの程度寄与するかを表すchannelで、Merge�
 
 ただしEffect MaskはAlpha channelそのものではありません。
 
-## 最小例（Minimum Example）
+## 最小例
 
 前景画像（Foreground Image）をMergeへ入れ、Alphaを持つ素材と持たない素材で、エッジ（Edge）や背景（Background）の見え方を比較します。
 
-## 共通ルール（Invariants）
+## 共通ルール
 
 - RGBとAlphaを別channelとして考える。
 - Effect MaskとImage Alphaを同一視しない。
 - Mergeの見た目だけで参照元 alphaを推測しない。
 - 透明エッジ（transparent edge）の問題ではpremultiplicationも確認する。
 
-## 1つだけ変えて確認する（Change One Thing）
+## 1つずつ変えて確認する
 
 Maskは外したまま、前景（Foreground）の参照元でAlphaだけが違う2素材を比較します。
 
-## 他のNodeへ応用する（Transfer）
+## 他のNodeにも応用する
 
 ### Merge
 
@@ -56,17 +56,17 @@ ColorのAlphaを含むImage 参照元として考えます。
 
 matte生成とeffect maskを別責任にします。
 
-## 初見Nodeで予測する（Predict）
+## 初見のNodeを読む
 
 透明問題で「素材alpha」「合成」「Mask」のどこを先に見るか決められます。
 
-## よくある誤解（Common Misread）
+## よくある誤解
 
 **Alpha = Effect Mask** と考えること。
 
 MaskはNodeのeffect適用範囲、AlphaはImage channelです。
 
-## 関連する再利用構成（Patterns）
+## 関連パターン
 
 - [Maskで処理範囲を限定する](../../patterns/masking/limit-effect-with-mask)
 

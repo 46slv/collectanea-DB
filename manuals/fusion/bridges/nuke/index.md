@@ -17,7 +17,7 @@ NukeとFusionはどちらもNode Graph中心の合成環境なので、AE / Phot
 
 ただしNode名・input 役割・alpha semantics・Group/Gizmo パッケージ化を同一仕様だとは扱いません。
 
-## 対応の見方（Map）
+## 対応表
 
 | Nukeで知っているもの | Fusionで読む先 |
 |---|---|
@@ -27,7 +27,7 @@ NukeとFusionはどちらもNode Graph中心の合成環境なので、AE / Phot
 | premultiplied 合成 | [プリマルチプライ（Premultiplication）](../../learn/04-compositing/premultiplication) |
 | 分岐 診断 | [Last Good / First Bad](../../patterns/debugging/last-good-first-bad) |
 
-## 大事な点
+## 注意点
 
 Nuke MergeのA/B input namingとFusion MergeのForeground/Background namingは同一ではありません。
 
@@ -35,4 +35,4 @@ Nuke Group / GizmoとFusion Group / Macroも、似た目的はあってもfile/r
 
 ---
 
-検証範囲: Foundryの現行Nuke資料（Node Graph / Group / Gizmo / Merge）と、このマニュアル内のFusion正本ページを照合しています。
+検証範囲: Foundryの現行Nuke資料（Node Graph / Group / Gizmo / Merge）と、このマニュアル内の関連するFusionページを照合しています。

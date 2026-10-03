@@ -19,7 +19,7 @@ suite_surfaces: [fusion]
 
 複数のUSD scene / object streamを統合するNodeです。
 
-## 概要（At a Glance）
+## 概要
 
 - **分類（Family）**: USD
 - **入力データ（Input domain）**: USD scene
@@ -27,21 +27,21 @@ suite_surfaces: [fusion]
 - **関連概念（Core concepts）**: USD scene graph、typed data
 - **よく使う作業（Common tasks）**: USD objects / lights / camerasを1 sceneへまとめる
 
-## 入力（Inputs）
+## 入力
 
 複数のUSD scene inputを受ける系統として扱います。dynamic inputやlayering semanticsの正確な 21.1挙動は現在の manual / host確認待ちです。
 
-## 出力（Output）
+## 出力
 
 統合したUSD sceneを出力します。
 
 通常の2D ImageやClassic Fusion 3D sceneではありません。
 
-## 主な設定項目（Controls）
+## 主な設定項目
 
 scene merge / hierarchyに関するcontrolを持つ可能性がありますが、Inspectorの正確な設定項目は未検証です。
 
-## 挙動と注意点（Behavior / Notes）
+## 挙動と注意点
 
 ```text
 uShape / uLoader ─┐
@@ -51,15 +51,15 @@ uLight ───────────┘
 
 uMergeとMerge 3Dは名前が似ても別pipelineです。
 
-## 最小例（Minimal Examples）
+## 最小例
 
 複数のUSD object / camera / lightをuMergeで1 sceneへまとめます。
 
-## 関連する考え方（Concepts）
+## 関連する考え方
 
 - [データ領域（data domain）を辿って診断する](../../learn/07-debugging/trace-data-domain)
 
-## 関連する再利用構成（Patterns）
+## 関連パターン
 
 USD Patternは今後追加します。
 

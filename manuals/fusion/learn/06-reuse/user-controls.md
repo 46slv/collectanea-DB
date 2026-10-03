@@ -14,11 +14,11 @@ suite_surfaces: [fusion]
 
 # User Controlsで公開インターフェースを作る
 
-## このページで分かること（Question）
+## このページで分かること
 
-複雑なGraphを再利用するとき、利用者に内部Nodeの全パラメータを触らせず、必要な意味だけをどう見せればよいでしょうか。
+複雑なGraphを再利用するとき、内部Nodeをすべて見せずに必要なcontrolだけを公開する方法を説明します。
 
-## 基本の考え方（Mental Model）
+## 基本の考え方
 
 User Controlは、**実装のパラメータと、利用者へ公開するインターフェースを分ける**ための層として考えます。
 
@@ -36,7 +36,7 @@ operator edits intent
 
 Blackmagic DesignのFusion 20 Manualでは、User Controlsで既存controlの変更・非表示、新しいcontrolの追加、typeや範囲の定義ができ、変更はNode instance自体に保存されると説明されています。21.1での正確なダイアログ項目は再確認対象です。
 
-## 最小例（Minimum Example）
+## 最小例
 
 内部で複数パラメータが連動しているGraphに、1つの意味controlを用意します。
 
@@ -49,7 +49,7 @@ User Control: "Spacing"
 
 利用者はSpacingだけを変更し、内部の計算式や個別offsetを直接触らない構成にします。
 
-## 共通ルール（Invariants）
+## 共通ルール
 
 - public controlはdesign intentを表す。
 - 内部パラメータ名をそのまま公開する必要はない。
@@ -57,13 +57,13 @@ User Control: "Spacing"
 - 範囲や初期値を公開する場合は、Graphが成立する範囲を意識する。
 - User Controlを増やすほど使いやすくなるとは限らない。
 
-## 1つだけ変えて確認する（Change One Thing）
+## 1つずつ変えて確認する
 
 内部パラメータを1つ直接触る代わりに、同じ結果をUser Control経由で変更します。
 
 どちらがGraphの意図を保ちやすいか、変更責任がどこにあるかを比較します。
 
-## 他のNodeへ応用する（Transfer）
+## 他のNodeにも応用する
 
 ### Macro / Template
 
@@ -77,7 +77,7 @@ User Controlを基準となる値にし、複数パラメータをExpressionで�
 
 brand color、margin、stroke widthのような意味パラメータを公開し、内部Node構造を隠す設計へ応用できます。
 
-## 初見Nodeで予測する（Predict）
+## 初見のNodeを読む
 
 新しい再利用Graphを作るとき、次を先に決められます。
 
@@ -86,13 +86,13 @@ brand color、margin、stroke widthのような意味パラメータを公開し
 3. どの値をmasterにするか。
 4. invalidな組み合わせをどう避けるか。
 
-## よくある誤解（Common Misread）
+## よくある誤解
 
 **Inspectorを短くするためだけにUser Controlを作ること。**
 
 目的は見た目の整理だけではなく、Graphの内部実装と利用者の意思決定を分けることです。
 
-## 関連する再利用構成（Patterns）
+## 関連パターン
 
 - [Expressionで値の関係を保つ](../../patterns/automation/link-values-with-expression)
 

@@ -17,11 +17,11 @@ suite_surfaces: [fusion]
 
 > 正確な 初期値・範囲・NodeごとのspaceはFusion 21.1 Manual / 実機で再確認前です。
 
-## このページで分かること（Question）
+## このページで分かること
 
-Transform系Nodeで似た見た目を作れるcontrolが複数あるとき、何を分けて考えればよいでしょうか。
+Transform系Nodeで似た見た目を作れるcontrolが複数あるとき、それぞれ何を変えているかを整理します。
 
-## 基本の考え方（Mental Model）
+## 基本の考え方
 
 2D transformを、少なくとも4つの責任へ分けます。
 
@@ -32,7 +32,7 @@ Transform系Nodeで似た見た目を作れるcontrolが複数あるとき、何
 
 同じ「位置が変わったように見える」場合でも、CenterとPivotでは意味が違います。
 
-## 最小例（Minimum Example）
+## 最小例
 
 TransformでCenterだけを変えます。
 
@@ -40,18 +40,18 @@ TransformでCenterだけを変えます。
 
 この2つを分けると、「Imageの位置」と「変形の中心」を別々に観察できます。
 
-## 共通ルール（Invariants）
+## 共通ルール
 
 - positionとtransform originを分ける。
 - scaleとresolution changeを分ける。
 - Nodeごとのcoordinate spaceを同一だと決めない。
 - Merge内のForeground transformとTransform Nodeを、見た目だけで同一責任にしない。
 
-## 1つだけ変えて確認する（Change One Thing）
+## 1つずつ変えて確認する
 
 Center / Pivot / Size / Angleのうち1つだけを変更し、Viewer上の変化を比較します。
 
-## 他のNodeへ応用する（Transfer）
+## 他のNodeにも応用する
 
 ### Transform
 
@@ -65,17 +65,17 @@ Foreground transform controlsがある場合も、何を所有させるかを同
 
 position / size / angleがある場合、Image transformと同じspaceだと決めず、役割だけを転用します。
 
-## 初見Nodeで予測する（Predict）
+## 初見のNodeを読む
 
 初見controlでも、「位置」「変形中心」「倍率」「回転」のどれを変えるものかを先に分類できます。
 
-## よくある誤解（Common Misread）
+## よくある誤解
 
 **Pivotを動かすこととImageを移動することを同じ操作として扱うこと。**
 
 Pivotは変形中心の責任を持つため、rotation / scaleと組み合わせたときに差が現れます。
 
-## 関連する再利用構成（Patterns）
+## 関連パターン
 
 - [複数要素の位置関係を共有する](../../patterns/transform/share-position-across-elements)
 

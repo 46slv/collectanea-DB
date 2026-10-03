@@ -17,11 +17,11 @@ suite_surfaces: [fusion]
 
 > Expressionの具体的な構文例はFusion 21.1 Reference Manual / 実機で再確認前です。ここでは既存seedをConcept構造へ移したDraftとして扱います。
 
-## このページで分かること（Question）
+## このページで分かること
 
-複数の値を「毎回手で合わせる」のではなく、関係そのものをどう記述すればよいでしょうか。
+複数の値を毎回手で揃えず、値どうしの関係を記述する方法を説明します。
 
-## 基本の考え方（Mental Model）
+## 基本の考え方
 
 Expressionは、パラメータへ最終値を直接固定する代わりに、**別の値や計算から結果を導く**ための仕組みとして考えます。
 
@@ -35,7 +35,7 @@ derived parameter
 
 目的は「自動化すること」より、**どの値を基準となる値にして、どの値を従属させるか**を明確にすることです。
 
-## 最小例（Minimum Example）
+## 最小例
 
 既存seedでは、別NodeのPoint パラメータを参照する例を次のように記述しています。
 
@@ -57,7 +57,7 @@ Width * 0.5
 
 これらの正確な構文（syntax）は21.1で再検証するまで `unverified` とします。
 
-## 共通ルール（Invariants）
+## 共通ルール
 
 Expressionを使うとき、Node名や式より先に次を決めます。
 
@@ -67,13 +67,13 @@ Expressionを使うとき、Node名や式より先に次を決めます。
 - Node名の変更や構造変更で参照が壊れないか。
 - 同じ関係をInstance / Modifier / User Controlで持つ方が適切ではないか。
 
-## 1つだけ変えて確認する（Change One Thing）
+## 1つずつ変えて確認する
 
 基準値を1つだけ変更し、派生値が期待した関係を保つか確認します。
 
 式自体と複数の参照元を同時に変えないことで、「参照が正しいか」「計算が正しいか」を分離できます。
 
-## 他のNodeへ応用する（Transfer）
+## 他のNodeにも応用する
 
 ### Position 関係
 
@@ -87,7 +87,7 @@ Expressionを使うとき、Node名や式より先に次を決めます。
 
 最小値・最大値・index・個数を分け、等間隔配置のような関係を式で表す設計へ発展させられます。
 
-## 初見Nodeで予測する（Predict）
+## 初見のNodeを読む
 
 Expressionを使う前に、次を予測できる状態を目指します。
 
@@ -96,7 +96,7 @@ Expressionを使う前に、次を予測できる状態を目指します。
 3. 値の型が合わない場合にどこを見るか。
 4. 式を増やすほど保守責任がどこへ集まるか。
 
-## よくある誤解（Common Misread）
+## よくある誤解
 
 **「同じ値にしたい = すべてExpression」と決めること。**
 
@@ -107,7 +107,7 @@ Expressionを使う前に、次を予測できる状態を目指します。
 - [フレーム 評価](./frame-evaluation)
 - [Modifier / パラメータ Sources](./modifier-parameter-sources)
 
-## 関連する再利用構成（Patterns）
+## 関連パターン
 
 - [Expressionで値の関係を保つ](../../patterns/automation/link-values-with-expression)
 - [複数要素の位置関係を共有する](../../patterns/transform/share-position-across-elements)

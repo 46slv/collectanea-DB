@@ -14,11 +14,11 @@ suite_surfaces: [fusion]
 
 # 症状ではなくGraphを診断する
 
-## このページで分かること（Question）
+## このページで分かること
 
-「黒い」「ずれる」「Maskが効かない」「重い」のような症状から、推測ではなく再現可能な診断へどう移ればよいでしょうか。
+「黒い」「ずれる」「Maskが効かない」「重い」といった症状を、再現可能な診断へつなげる手順を説明します。
 
-## 基本の考え方（Mental Model）
+## 基本の考え方
 
 症状は入口であり、原因ではありません。
 
@@ -40,7 +40,7 @@ minimal repair
 
 「何を触れば直るか」ではなく、「どこから期待と観測が分かれたか」を探します。
 
-## 最小例（Minimum Example）
+## 最小例
 
 「Mergeしたら何も見えない」を次の順へ変換します。
 
@@ -53,7 +53,7 @@ minimal repair
 
 これで症状を複数の小さい質問へ分解できます。
 
-## 共通ルール（Invariants）
+## 共通ルール
 
 - observation before mutation。
 - 1回に1つだけ条件を変える。
@@ -62,13 +62,13 @@ minimal repair
 - 現在の フレーム / Viewer 対象 / 分岐を明示する。
 - Node固有の正確な 挙動が必要になった時点でReferenceへ移る。
 
-## 1つだけ変えて確認する（Change One Thing）
+## 1つずつ変えて確認する
 
 問題を再現した状態で、1本のconnectionまたは1つのNodeだけを一時的に外します。
 
 結果が変わったら、その境界を次の調査対象にします。変わらなければ別分岐へ移ります。
 
-## 他のNodeへ応用する（Transfer）
+## 他のNodeにも応用する
 
 ### Visual symptoms
 
@@ -82,7 +82,7 @@ minimal repair
 
 「重い」を、広いDoD、重い分岐、3D / particle / temporal処理などの候補へ分け、まずどの段階で負荷が増えるか観察します。
 
-## 初見Nodeで予測する（Predict）
+## 初見のNodeを読む
 
 初見のfailureでも、次の順序を選べます。
 
@@ -94,13 +94,13 @@ minimal repair
 6. repair one cause
 7. re-check original symptom
 
-## よくある誤解（Common Misread）
+## よくある誤解
 
 **似た症状の過去解決策をそのまま適用すること。**
 
 同じ「何も出ない」でも、Viewer 対象、データ領域（data domain）、Mask、alpha、DoD、timeなど原因は異なります。症状名はroutingに使い、修正理由には使いません。
 
-## 関連する再利用構成（Patterns）
+## 関連パターン
 
 - [画像を段階的に重ねる](../../patterns/compositing/stack-images-with-merge)
 - [Maskで処理範囲を限定する](../../patterns/masking/limit-effect-with-mask)

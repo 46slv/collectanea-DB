@@ -19,7 +19,7 @@ suite_surfaces: [fusion]
 
 Deep imageを通常の2D ImageへflattenするNodeです。
 
-## 概要（At a Glance）
+## 概要
 
 - **分類（Family）**: Deep / Conversion
 - **入力データ（Input domain）**: Deep image
@@ -27,27 +27,27 @@ Deep imageを通常の2D ImageへflattenするNodeです。
 - **関連概念（Core concepts）**: domain conversion、flattening
 - **よく使う作業（Common tasks）**: Deep 合成結果を通常2D Flowへ戻す
 
-## 入力（Inputs）
+## 入力
 
 ### Deep image
 
 dMergeやDeep toolsetから来るDeep imageを受け取ります。
 
-## 出力（Output）
+## 出力
 
 通常の2D Imageを出力します。
 
-## 主な設定項目（Controls）
+## 主な設定項目
 
 flatten / sample resolutionに関する正確な設定項目はFusion 21.1 現在の manual / 実機確認待ちです。
 
-## 挙動と注意点（Behavior / Notes）
+## 挙動と注意点
 
 Deep to Imageは**Deep image → 2D Image**のdomain boundaryです。
 
 一度2Dへflattenした後は、Deep samplesを前提とするdMerge等へ戻す場合に同じ情報が保持されるとは考えません。
 
-## 最小例（Minimal Examples）
+## 最小例
 
 ```text
 Deep A ─┐
@@ -55,11 +55,11 @@ Deep A ─┐
 Deep B ─┘
 ```
 
-## 関連する考え方（Concepts）
+## 関連する考え方
 
 - [データ領域（data domain）を辿って診断する](../../learn/07-debugging/trace-data-domain)
 
-## 関連する再利用構成（Patterns）
+## 関連パターン
 
 Deep-specific Patternは今後追加します。
 

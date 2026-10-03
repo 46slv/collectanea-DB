@@ -19,7 +19,7 @@ suite_surfaces: [fusion]
 
 Particle setを2D Imageへ変換するRenderer Nodeです。
 
-## 概要（At a Glance）
+## 概要
 
 - **分類（Family）**: Particles / Render
 - **入力データ（Input domain）**: Particle set
@@ -27,21 +27,21 @@ Particle setを2D Imageへ変換するRenderer Nodeです。
 - **関連概念（Core concepts）**: domain conversion、particle rendering
 - **よく使う作業（Common tasks）**: particle chainを通常の2D 合成へ戻す
 
-## 入力（Inputs）
+## 入力
 
 ### Particle set
 
 pEmitterやparticle modifiersを通ったParticle setを受け取ります。
 
-## 出力（Output）
+## 出力
 
 rasterized 2D Imageを出力します。
 
-## 主な設定項目（Controls）
+## 主な設定項目
 
 render 見た目、動き blur、camera / depth等に関わるcontrolがある系統ですが、正確な 21.1 UIは未検証です。
 
-## 挙動と注意点（Behavior / Notes）
+## 挙動と注意点
 
 pRenderはParticle setを通常のImage Nodeへ直接渡すための**domain boundary**として読みます。
 
@@ -49,15 +49,15 @@ pRenderはParticle setを通常のImage Nodeへ直接渡すための**domain bou
 pEmitter → pTurbulence → pRender → Merge
 ```
 
-## 最小例（Minimal Examples）
+## 最小例
 
 Particle chainをpRenderでImageへ変換し、その後2D Mergeへ接続します。
 
-## 関連する考え方（Concepts）
+## 関連する考え方
 
 - [データ領域（data domain）を辿って診断する](../../learn/07-debugging/trace-data-domain)
 
-## 関連する再利用構成（Patterns）
+## 関連パターン
 
 Particle Patternは今後追加します。
 

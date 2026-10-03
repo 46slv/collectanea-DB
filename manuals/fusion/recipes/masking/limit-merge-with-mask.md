@@ -15,18 +15,18 @@ product_scope: fusion
 
 # Mergeの適用範囲をMaskで限定する
 
-## できあがるもの（Result）
+## できあがるもの
 
 Foreground / Backgroundの接続はそのままに、Maskで合成を適用する範囲だけを限定します。
 
-## 必要なもの（Requirements）
+## 必要なもの
 
 - Background Image
 - Foreground Image
 - Merge
 - Mask 参照元
 
-## 手順（Steps）
+## 手順
 
 1. まずMaskなしで2枚のImageがMergeできていることを確認します。
 2. Mask 参照元を用意します。
@@ -36,13 +36,13 @@ Foreground / Backgroundの接続はそのままに、Maskで合成を適用す�
 
 Blackmagic Designの現行Fusion紹介では、Maskはeffectの対象領域を定義し、青いMask inputへ接続する形で案内されています。
 
-## なぜこの構成にするか（Why This Works）
+## この構成にする理由
 
 Image 分岐が「何を合成するか」、Mask 分岐が「どこへ合成するか」を別々に持つためです。
 
 → [Image / Mask / Dataを分ける](../../learn/02-data/image-mask-data)
 
-## 別のやり方（Variants / Alternatives）
+## 別の方法
 
 - Mask 参照元をアニメーションさせる。
 - 複数Maskを組み合わせる。
@@ -50,14 +50,14 @@ Image 分岐が「何を合成するか」、Mask 分岐が「どこへ合成す
 
 Node固有のcombine / invert等は、正確な 挙動を検証してから個別Referenceへ置きます。
 
-## うまくいかないときの確認（Failure Checks）
+## うまくいかないとき
 
 - Maskを外すとMerge自体は正しく見えるか。
 - Mask 参照元単体は意図した範囲になっているか。
 - Image inputとMask inputを取り違えていないか。
 - 問題がImage 分岐かMask 分岐かを同時に変更せず切り分けたか。
 
-## 関連する再利用構成（Pattern）
+## 関連パターン
 
 - [Maskで処理範囲を限定する](../../patterns/masking/limit-effect-with-mask)
 

@@ -1,6 +1,6 @@
 ---
 title: 用語集（Glossary）
-description: Fusion Conceptの短い定義・aliasから正本となる Learnページへ進む生成用語集。
+description: Fusionの概念を短い定義やaliasから探し、関連するLearnページへ進む用語集。
 doc_type: index
 verification: partial
 product_scope: fusion

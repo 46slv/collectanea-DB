@@ -13,16 +13,16 @@ product_scope: fusion
 
 # Last Good / First BadでGraphを切る
 
-## 使う場面（Problem Family）
+## 使う場面
 
 長いFlowで最終Outputだけが壊れており、どのNodeを調べればよいか分からない状態です。
 
-## 前提となる考え方（Concepts）
+## 前提となる考え方
 
 - [分岐を分離して原因範囲を狭める](../../learn/07-debugging/isolate-branches)
 - [症状ではなくGraphを診断する](../../learn/07-debugging/diagnose-graph-not-symptom)
 
-## 基本構成（Generic Graph）
+## 基本構成
 
 ```text
 A → B → C → D → E → F
@@ -37,7 +37,7 @@ A → B → C → D → E → F
 
 を特定します。
 
-## 保つべき条件（Invariant）
+## 保つべき条件
 
 - 観察地点を明示する。
 - 同時に複数条件を変えない。
@@ -45,7 +45,7 @@ A → B → C → D → E → F
 - 分岐合流点・data conversion境界を優先して確認する。
 - repair後は元の最終症状で再確認する。
 
-## バリエーション（Variants）
+## バリエーション
 
 ### Linear chain
 
@@ -59,18 +59,18 @@ A → B → C → D → E → F
 
 外部input → internal 段階 → external outputの順で境界を跨ぎます。
 
-## Nodeの選び方（Node Choices）
+## Nodeの選び方
 
 Viewerで中間地点を観察できる任意のGraphへ適用します。
 
-## 失敗しやすい点（Failure Modes）
+## 失敗しやすい点
 
 - Viewerが別Nodeを表示している。
 - temporary bypassを戻し忘れる。
 - Last Goodを確認せず、First Badだけ推測する。
 - bad Nodeを見つけただけで、bad input dataの可能性を除外する。
 
-## この構成を使う手順（Recipes）
+## この構成を使う手順
 
 Troubleshooting全般から参照します。
 

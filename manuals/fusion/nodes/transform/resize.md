@@ -19,7 +19,7 @@ suite_surfaces: [fusion]
 
 2D Imageの出力解像度（Output Resolution）を変更するNodeです。
 
-## 概要（At a Glance）
+## 概要
 
 - **分類（Family）**: Transform / Format
 - **主入力（Primary input）**: 2D Image
@@ -27,21 +27,21 @@ suite_surfaces: [fusion]
 - **関連概念（Core concepts）**: resolution、image extent、sampling
 - **よく使う作業（Common tasks）**: output size変更、resolution変換
 
-## 入力（Inputs）
+## 入力
 
 ### Image
 
 resolutionを変更する2D Imageを受け取ります。
 
-## 出力（Output）
+## 出力
 
 指定したresolutionへ変換された2D Imageを出力します。
 
-## 主な設定項目（Controls）
+## 主な設定項目
 
 Width / Height、format、sampling / scaling 挙動に関わるcontrolがある系統ですが、正確な 21.1 UI・初期値・filter 設定は未検証です。
 
-## 挙動と注意点（Behavior / Notes）
+## 挙動と注意点
 
 ResizeとTransformのSizeは同じ目的ではありません。
 
@@ -50,7 +50,7 @@ ResizeとTransformのSizeは同じ目的ではありません。
 
 見た目が同程度に小さくなっても、後段のresolution contractは異なります。
 
-## 最小例（Minimal Examples）
+## 最小例
 
 ```text
 Image → Resize → Output
@@ -58,12 +58,12 @@ Image → Resize → Output
 
 Resize前後でViewerの見た目だけでなく、Imageのwidth / heightがどう変わるかを確認します。
 
-## 関連する考え方（Concepts）
+## 関連する考え方
 
 - [Resolution / Domain of Definitionを確認する](../../learn/07-debugging/resolution-domain-of-definition)
 - [正規化座標（Normalized Coordinates）](../../learn/03-space/normalized-coordinates)
 
-## 関連する再利用構成（Patterns）
+## 関連パターン
 
 resolution-aware 配置 Patternは今後追加します。
 

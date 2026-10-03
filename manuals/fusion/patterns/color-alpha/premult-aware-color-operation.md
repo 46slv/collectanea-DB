@@ -14,16 +14,16 @@ product_scope: fusion
 
 # Alphaを保ったまま色処理（Color operation）する
 
-## 使う場面（Problem Family）
+## 使う場面
 
 透明エッジ（Edge）を持つ前景（Foreground）へ強い色処理（Color operation）を行うと、黒縁・白縁・ハロー（Halo）が出る問題です。
 
-## 前提となる考え方（Concepts）
+## 前提となる考え方
 
 - [Alpha](../../learn/04-compositing/alpha)
 - [プリマルチプライ（Premultiplication）](../../learn/04-compositing/premultiplication)
 
-## 基本構成（Generic Graph）
+## 基本構成
 
 必要な場合のconceptual 構造:
 
@@ -39,7 +39,7 @@ premultiplied Image
  composite
 ```
 
-## 保つべき条件（Invariant）
+## 保つべき条件
 
 - 参照元のpremult状態を確認する。
 - color operationの前後でRGB / Alpha 関係を意識する。
@@ -47,7 +47,7 @@ premultiplied Image
 - マット（Matte）の形状の問題とpremultiplication問題を分ける。
 - effect maskでエッジの乱れ（artifact）を隠して原因解決としない。
 
-## バリエーション（Variants）
+## バリエーション
 
 ### Node-managed
 
@@ -61,14 +61,14 @@ Alpha Divide → color → Alpha Multiplyを明示する。
 
 Keyer / Matte Control後にcolor operationを行い、Merge前でpremult 関係を確認する。
 
-## 失敗しやすい点（Failure Modes）
+## 失敗しやすい点
 
 - straight / premult状態を確認せずpairを挿入する。
 - Alpha Divideだけ入れて再premultiplyせず合成する。
 - Node側の自動処理とexplicit pairを二重に使う。
 - エッジのマット（Matte）の問題をpremultだけで直そうとする。
 
-## この構成を使う手順（Recipes）
+## この構成を使う手順
 
 - [透明エッジ（Edge）を保って色補正する（Color Correct）](../../recipes/color/transparent-edge-color-correction)
 

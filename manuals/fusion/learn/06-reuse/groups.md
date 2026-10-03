@@ -14,11 +14,11 @@ suite_surfaces: [fusion]
 
 # GroupでGraphをまとめる
 
-## このページで分かること（Question）
+## このページで分かること
 
-複数Nodeで1つの役割を作っているとき、内部構造を残したままGraphを読みやすくするにはどうすればよいでしょうか。
+複数Nodeでできた処理を、内部構造を残したまま読みやすくまとめる方法を説明します。
 
-## 基本の考え方（Mental Model）
+## 基本の考え方
 
 Groupは、**複数Nodeを1つの構造単位としてまとめるが、内部Graphを編集可能なまま保持する**ための考え方です。
 
@@ -34,7 +34,7 @@ Groupは処理を新しい1 Nodeへ置き換えるというより、関連する
 
 Blackmagic DesignのFusion 19/20 Manualでは、GroupとMacroは似たbundleですが、GroupはNode treeのvisual complexityを下げて整理する用途、Macroはよりcustomizableで他compositionへ再利用しやすい用途として区別されています。
 
-## 最小例（Minimum Example）
+## 最小例
 
 複数Nodeで「タイトルの見た目」を作っている場合、その内部NodeをGroupにまとめます。
 
@@ -48,20 +48,20 @@ Merge
 
 必要なときだけGroupを開き、内部構造を編集します。
 
-## 共通ルール（Invariants）
+## 共通ルール
 
 - Groupの外から見える役割を1文で説明できる。
 - 内部Nodeは依然として個別の責任を持つ。
 - Groupを作っても、データ領域（data domain）や接続typeが変わるわけではない。
 - 「まとめられる」ことと「再利用インターフェースとして完成している」ことは別。
 
-## 1つだけ変えて確認する（Change One Thing）
+## 1つずつ変えて確認する
 
 同じNode群を、未Group状態とGroup状態で読み比べます。
 
 処理結果ではなく「どこまでを1つの責任として読めるか」が変わったかを確認します。
 
-## 他のNodeへ応用する（Transfer）
+## 他のNodeにも応用する
 
 ### Complex branches
 
@@ -75,7 +75,7 @@ Merge
 
 Group内部で問題が起きた場合も、境界を跨いで推測せず、Group input → internal stages → outputへ分解します。
 
-## 初見Nodeで予測する（Predict）
+## 初見のNodeを読む
 
 Group化する前に次を問えます。
 
@@ -84,13 +84,13 @@ Group化する前に次を問えます。
 3. 内部を頻繁に開いて編集するか。
 4. 他compへ配布するならMacroの方が適切か。
 
-## よくある誤解（Common Misread）
+## よくある誤解
 
 **Groupにした時点で再利用可能なtoolとして完成したと考えること。**
 
 Groupはまず構造整理の境界です。利用者向けインターフェースや配布形態まで必要ならMacro / Templateへ進みます。
 
-## 関連する再利用構成（Patterns）
+## 関連パターン
 
 - [画像を段階的に重ねる](../../patterns/compositing/stack-images-with-merge)
 

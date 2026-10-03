@@ -14,11 +14,11 @@ suite_surfaces: [fusion]
 
 # フレーム 評価
 
-## このページで分かること（Question）
+## このページで分かること
 
-「Nodeに値を設定した」ことと、「そのフレームでその値が使われた」ことは同じでしょうか。
+Nodeに値を設定することと、そのフレームで実際に使われる値を分けて考えます。
 
-## 基本の考え方（Mental Model）
+## 基本の考え方
 
 Fusionでは次を分けます。
 
@@ -29,24 +29,24 @@ Fusionでは次を分けます。
 
 Graphは現在の requestに応じて評価されます。
 
-## 最小例（Minimum Example）
+## 最小例
 
 1つのanimated パラメータを持つNodeを選び、フレームを移動します。
 
 同じNodeでもフレームごとにパラメータ 値が変わり、Viewer outputが変化することを確認します。
 
-## 共通ルール（Invariants）
+## 共通ルール
 
 - stored control値とevaluated 値を分ける。
 - composition timeと参照元の時間（参照元 time）を分ける。
 - rendererが必ずフレーム 0 → 1 → 2の順で評価すると仮定しない。
 - temporal effectやcustom 自動化ではprevious-フレーム mutable stateを暗黙に持たせない。
 
-## 1つだけ変えて確認する（Change One Thing）
+## 1つずつ変えて確認する
 
 現在の フレームだけを変え、Graph接続・パラメータの供給元は固定します。
 
-## 他のNodeへ応用する（Transfer）
+## 他のNodeにも応用する
 
 ### Keyframes
 
@@ -60,17 +60,17 @@ Splineが現在の timeに対して値を供給する層として読めます。
 
 前後フレームを必要とする処理では、明示的なtime reference / cache designを確認します。
 
-## 初見Nodeで予測する（Predict）
+## 初見のNodeを読む
 
 アニメーション不具合で「値が入っているか」だけでなく、「どのtimeで何が評価されたか」を確認できます。
 
-## よくある誤解（Common Misread）
+## よくある誤解
 
 **timelineを順再生したときだけ正しければ、renderでも同じ評価順になる**と考えること。
 
 cache、parallel render、scrub、out-of-order requestがあり得るため、順序依存の暗黙stateは危険です。
 
-## 関連する再利用構成（Patterns）
+## 関連パターン
 
 - [Last Good / First BadでGraphを切る](../../patterns/debugging/last-good-first-bad)
 

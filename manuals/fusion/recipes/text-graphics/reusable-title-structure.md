@@ -17,18 +17,18 @@ product_scope: fusion
 
 > Macro / Templateの正確な保存先やEdit Pageへの登録手順はFusion 21.1 現在の Manualで確認する必要があります。このRecipeはGraph 構造とpublic インターフェース設計を扱います。
 
-## できあがるもの（Result）
+## できあがるもの
 
 titleの内容・配置・合成責任を分け、後からUser Controls / Macro / TemplateへまとめやすいGraphを作ります。
 
-## 必要なもの（Requirements）
+## 必要なもの
 
 - Text+
 - Transform
 - Merge
 - Background Image
 
-## 手順（Steps）
+## 手順
 
 1. Text+で文字内容とappearanceを作ります。
 2. position / scale責任を独立させたい場合、Transformを追加します。
@@ -48,11 +48,11 @@ Foreground ─┐
 Background ─┘
 ```
 
-## なぜこの構成にするか（Why This Works）
+## この構成にする理由
 
 Text 内容、配置、合成の責任が分かれるため、見た目変更・動き追加・template化のchange localityが保ちやすくなります。
 
-## 別のやり方（Variants / Alternatives）
+## 別の方法
 
 ### Text+ owns 配置
 
@@ -66,14 +66,14 @@ Transformや別パラメータの供給元で動きを持たせます。
 
 Text、Color、Position等の意味パラメータだけをUser Controlsへ公開します。
 
-## うまくいかないときの確認（Failure Checks）
+## うまくいかないとき
 
 - 同じpositionを複数Nodeで二重管理していないか。
 - public controlが内部実装名のままになっていないか。
 - 配置とアニメーション offsetを同じ値へ押し込んでいないか。
 - MergeのForeground / Background 役割が正しいか。
 
-## 関連する再利用構成（Pattern）
+## 関連パターン
 
 - [Textの内容 / 配置 / 見た目 / 動きを分ける](../../patterns/text-motion/separate-content-layout-style)
 - [再利用の境界を選ぶ](../../patterns/reuse/choose-reuse-boundary)

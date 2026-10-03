@@ -15,11 +15,11 @@ suite_surfaces: [fusion]
 
 # 解像度 / アスペクト比（Resolution / Aspect）
 
-## このページで分かること（Question）
+## このページで分かること
 
-同じnormalized positionやSizeでも、resolutionが変わると見た目が変わるのはなぜでしょうか。
+同じnormalized positionやSizeでも、resolutionによって見た目が変わる理由を説明します。
 
-## 基本の考え方（Mental Model）
+## 基本の考え方
 
 少なくとも次を分けます。
 
@@ -30,26 +30,26 @@ suite_surfaces: [fusion]
 
 Fusion 21系のsemantic baselineでは、一般的な2D positionはnormalized coordinateを多用しますが、ピクセル Aspect Ratio、reference size、image domainが最終位置へ影響します。
 
-## 最小例（Minimum Example）
+## 最小例
 
 同じCenter値を持つ構成で、Imageのresolutionだけを変えます。
 
 見た目が同じか、relative positionは同じでもピクセル距離が変わるかを観察します。
 
-## 共通ルール（Invariants）
+## 共通ルール
 
 - normalized 値とピクセル距離は同じ単位ではない。
 - Resizeでresolutionを変えることとTransform SizeでImageをscaleすることを分ける。
 - fixed-ピクセル UIを作る場合は、ピクセル→normalized変換の管理元を1箇所へ寄せる。
 - aspectが違うImage間で「同じ数値 = 同じ見た目」と決めない。
 
-## 1つだけ変えて確認する（Change One Thing）
+## 1つずつ変えて確認する
 
 positionを固定したままresolutionだけを変更します。
 
 次にresolutionを固定したままpositionだけを変更します。
 
-## 他のNodeへ応用する（Transfer）
+## 他のNodeにも応用する
 
 ### Transform
 
@@ -63,17 +63,17 @@ Centerのrelative positionとピクセル distanceを分けます。
 
 円・楕円やsize controlがフレーム aspectの影響を受ける場合、shape値とdisplay結果を分けて確認します。
 
-## 初見Nodeで予測する（Predict）
+## 初見のNodeを読む
 
 resolution変更を含むFlowでは、配置がどの基準へ依存しているかを先に探せます。
 
-## よくある誤解（Common Misread）
+## よくある誤解
 
 **0.1の移動 = 常に同じピクセル数の移動**と考えること。
 
 relative coordinateならreference dimensionsが変わればピクセル距離も変わります。
 
-## 関連する再利用構成（Patterns）
+## 関連パターン
 
 - [複数要素の位置関係を共有する](../../patterns/transform/share-position-across-elements)
 

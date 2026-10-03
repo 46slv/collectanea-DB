@@ -14,7 +14,7 @@ product_scope: fusion
 
 # Viewerに何も表示されない
 
-## まず確認すること（Fast Checks）
+## まず確認すること
 
 1. Viewerへ表示しているNodeは、確認したいGraph地点か。
 2. upstreamのImage 参照元を単体でViewerに出すと見えるか。
@@ -23,7 +23,7 @@ product_scope: fusion
 
 Blackmagic Designの現行Fusion紹介では、選択したNodeを左右のViewerへ送って各地点の結果を確認する基本操作が案内されています。
 
-## 原因を切り分ける（Isolate）
+## 原因の切り分け
 
 Graph全体を一度に直そうとせず、Image 参照元からOutputへ1段ずつ進みます。
 
@@ -39,7 +39,7 @@ output
 
 「最後に正常だった地点」と「最初に壊れた地点」の間まで範囲を狭めます。
 
-## 主な原因（Likely Causes）
+## 主な原因
 
 ### 見ているNodeが違う
 
@@ -57,23 +57,23 @@ Maskを一時的に外し、Image 分岐自体が正常か確認します。
 
 MergeのForeground / Backgroundを確認します。
 
-## 修正方法（Fix）
+## 修正方法
 
 原因が見つかった地点だけを修正し、前後のViewer結果を再確認します。
 
 複数のNode・Mask・パラメータを同時に変更しないことが重要です。
 
-## なぜ起きるか（Why）
+## なぜ起きるか
 
 Fusionは接続されたGraphとして読めるため、症状から推測するより「どの接続まではImageが存在するか」を観察した方が原因を小さくできます。
 
 → [Graphとして考える](../../learn/01-flow/graph-as-flow)
 
-## バージョン・例外（Version / Exception Notes）
+## バージョン・例外
 
 このページはGraph診断の一般手順です。Node固有のblank / alpha / Domain of Definition問題は、各Referenceまたは個別diagnosticへ分離します。
 
-## 関連する症状（Related Symptoms）
+## 関連する症状
 
 - Maskを接続すると結果が消える
 - Merge後だけ想定と違う

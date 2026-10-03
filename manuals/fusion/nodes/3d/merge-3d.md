@@ -19,7 +19,7 @@ suite_surfaces: [fusion]
 
 複数のClassic Fusion 3D scene / object streamを統合するNodeです。
 
-## 概要（At a Glance）
+## 概要
 
 - **分類（Family）**: 3D
 - **入力データ（Input domain）**: Classic 3D scene
@@ -27,21 +27,21 @@ suite_surfaces: [fusion]
 - **関連概念（Core concepts）**: scene graph、typed data
 - **よく使う作業（Common tasks）**: geometry / camera / light等を1 sceneへまとめる
 
-## 入力（Inputs）
+## 入力
 
 複数のClassic 3D scene / object inputを受ける系統です。動的入力（dynamic input）の正確な挙動は21.1で確認します。
 
-## 出力（Output）
+## 出力
 
 統合したClassic 3D sceneを返します。
 
 2D Imageではありません。
 
-## 主な設定項目（Controls）
+## 主な設定項目
 
 3D sceneのmerge / ordering / lighting関連controlがある場合も、正確な 21.1 UIを確認してから固定します。
 
-## 挙動と注意点（Behavior / Notes）
+## 挙動と注意点
 
 ```text
 3D object ─┐
@@ -51,15 +51,15 @@ Light ─────┘
 
 Merge 3Dと2D Mergeは名前が似てもデータ領域（data domain）が異なります。
 
-## 最小例（Minimal Examples）
+## 最小例
 
 Classic 3D objectsをMerge 3Dへまとめ、Renderer 3Dで2D Imageへ変換します。
 
-## 関連する考え方（Concepts）
+## 関連する考え方
 
 - [データ領域（data domain）を辿って診断する](../../learn/07-debugging/trace-data-domain)
 
-## 関連する再利用構成（Patterns）
+## 関連パターン
 
 3D Patternは今後追加します。
 

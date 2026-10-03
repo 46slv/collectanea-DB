@@ -17,7 +17,7 @@ tasks: [choose-surface, timeline, composite]
 
 Premiere ProではSequence / Timeline上にclipやtrackを配置し、trim・reorder・effect適用を行うのが中心です。
 
-## Resolveで最初に決めること
+## Resolveではどこで扱うか
 
 Resolveでは、まず仕事の対象範囲を分けます。
 
@@ -40,14 +40,14 @@ Fusion Flow
  MediaOut
 ```
 
-## そのまま活かしやすい考え方
+## 共通する考え方
 
 - 元クリップ（参照元 clip）を使う
 - transform / effectを適用する
 - nested / grouped 構造で複雑さを局所化する
 - reusable effectを作る
 
-## そのまま一対一対応しない部分
+## そのまま対応しない点
 
 - Premiere Track = Fusion 分岐、ではない。
 - Premiere clip order = Nodeの左右位置、ではない。
@@ -59,7 +59,7 @@ Fusion Flow
 - [Edit ↔ Fusionの境界](../../resolve-integration/edit-fusion-boundary)
 - [Graphとして考える](../../learn/01-flow/graph-as-flow)
 
-## 関連する再利用構成（Patterns）
+## 関連パターン
 
 - [画像を段階的に重ねる](../../patterns/compositing/stack-images-with-merge)
 

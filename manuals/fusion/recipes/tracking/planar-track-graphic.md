@@ -15,20 +15,20 @@ product_scope: fusion
 
 # 平面をtrackしてgraphicへ適用する
 
-> Planar Trackerからトラッキング 結果を生成・適用する正確な 21.1 UI手順は現在の manual / host確認前です。このページはGraph責任と診断順序を正本とします。
+> Planar Trackerからトラッキング 結果を生成・適用する正確な 21.1 UI手順は現在の manual / host確認前です。このページでは、Graph上の役割と診断順序を扱います。
 
-## 作るもの（Result）
+## 作るもの
 
 footage内の平面動きを解き、replacement graphicを同じ動きへ追従させる構造を作ります。
 
-## 必要なもの（Requirements）
+## 必要なもの
 
 - footage
 - Planar Tracker
 - replacement graphic
 - トラッキング 結果を適用する段階
 
-## 手順（Steps）
+## 手順
 
 1. footageをPlanar Trackerへ渡します。
 2. 追跡する平面領域を決めます。
@@ -48,27 +48,27 @@ Replacement Graphic
   → composite
 ```
 
-## なぜこの構成で動くか（Why This Works）
+## この構成で動く理由
 
 トラッキングの精度とgraphic 配置を別々に評価できるため、driftやoffsetの原因を分離できます。
 
-## 別の方法（Variants / Alternatives）
+## 別の方法
 
 - Maskを追従させる。
 - stabilize用途へ使う。
 - planarではなくpoint / camera トラッキングが必要なら別Trackerを選ぶ。
 
-## うまくいかないときの確認（Failure Checks）
+## うまくいかないとき
 
 - トラッキング 参照元自体に十分なplanar detailがあるか。
 - solve 結果はgraphicを付ける前から安定しているか。
 - resolution / coordinate spaceが合っているか。
 - graphic側のmanual アニメーションがトラッキング 結果と競合していないか。
 
-## 関連パターン（Related Pattern）
+## 関連パターン
 
 - [Trackを解いてから適用先を分ける](../../patterns/tracking/solve-then-apply-track)
 
-## 関連ノード（Related Nodes）
+## 関連Node
 
 - [Planar Tracker](../../nodes/tracking/planar-tracker)

@@ -18,34 +18,34 @@ suite_surfaces: [fusion]
 
 平面として扱える領域の動きを追跡するトラッキング Nodeです。
 
-## 概要（At a Glance）
+## 概要
 
 - **分類（Family）**: トラッキング
 - **主な参照元（Primary 参照元）**: 2D Image
 - **関連概念（Core concepts）**: planar 動き、トラッキング data、coordinate transfer
 - **よく使う作業（Common tasks）**: screen / sign replacement、planar match move、stabilize、Corner Pin
 
-## 入力（Inputs）
+## 入力
 
 ### Image
 
 追跡対象の2D Imageを受け取ります。
 
-## 出力（Output）
+## 出力
 
 Image処理とトラッキング 結果を扱うToolですが、21.1 正確な Output port / exported data 仕組みはこのReferenceでは未固定です。
 
-## 主な設定項目（Controls）
+## 主な設定項目
 
 トラッキング region、動き model、track 範囲、reference time等に相当するcontrolがありますが、正確な 21.1 UIは未検証です。
 
-## 挙動と注意点（Behavior / Notes）
+## 挙動と注意点
 
 重要なのは「追跡した」ことより、**どのspaceのトラッキング dataを、どのdownstream controlへ適用するか**です。
 
 Planar Trackerの結果をPlanar TransformやCorner Pinへ使う場合も、トラッキングとapplicationを別責任として読みます。
 
-## 最小例（Minimal Examples）
+## 最小例
 
 ```text
 Footage
@@ -54,12 +54,12 @@ Footage
   → replacement graphic
 ```
 
-## 関連する考え方（Concepts）
+## 関連する考え方
 
 - [データ領域（data domain）を辿って診断する](../../learn/07-debugging/trace-data-domain)
 - [Center / Pivot / Size / Angle](../../learn/03-space/center-pivot-size-angle)
 
-## 関連する再利用構成（Patterns）
+## 関連パターン
 
 トラッキング Patternは今後追加します。
 

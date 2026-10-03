@@ -1,6 +1,6 @@
 ---
 title: 概念A–Z（Concept A–Z）
-description: Fusionの一般概念を正本となる Learnページから引く生成索引。
+description: Fusionの一般概念をLearnページから探す索引。
 doc_type: index
 verification: partial
 product_scope: fusion

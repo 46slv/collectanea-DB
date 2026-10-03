@@ -15,7 +15,7 @@ product_scope: fusion
 
 # 透明Edgeの色や縁がおかしい
 
-## まず確認すること（Fast Checks）
+## まず確認すること
 
 1. 参照元単体ですでにエッジの乱れ（artifact）があるか。
 2. Alpha shape自体は正しいか。
@@ -23,7 +23,7 @@ product_scope: fusion
 4. Merge前の前景（Foreground）単体で問題があるか。
 5. straight / premultipliedの前提を混同していないか。
 
-## 原因を切り分ける（Isolate）
+## 原因の切り分け
 
 ```text
 source
@@ -34,7 +34,7 @@ source
 
 各段階をViewerで確認し、どこからedgeが変わるか特定します。
 
-## 主な原因（Likely Causes）
+## 主な原因
 
 ### Matte shapeが不十分
 
@@ -52,23 +52,23 @@ alpha-awareな処理順を確認します。
 
 Foreground / Background / Operator側へ調査範囲を移します。
 
-## 修正方法（Fix）
+## 修正方法
 
 原因段階を1つに絞り、その責任だけを修正します。
 
 premultiplicationを直すためにkey thresholdを無理に変更する、など別責任で補正しないようにします。
 
-## なぜ起きるか（Why）
+## なぜ起きるか
 
 Alpha shapeとedge RGBは別情報で、premultiplicationはその関係を扱います。
 
 → [プリマルチプライ（Premultiplication）](../../learn/04-compositing/premultiplication)
 
-## バージョン・例外（Version / Exception Notes）
+## バージョン・例外
 
 Node固有のpre-divide / post-multiply等の設定は現在の 21.1 Referenceで確認します。
 
-## 関連する症状（Related Symptoms）
+## 関連する症状
 
 - keyは抜けているが縁だけ暗い
 - color correction後だけ縁が変わる

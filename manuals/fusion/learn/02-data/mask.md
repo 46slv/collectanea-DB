@@ -13,11 +13,11 @@ product_scope: fusion
 
 # マスク（Mask）
 
-## このページで分かること（Question）
+## このページで分かること
 
-Maskは白黒画像と同じものとして考えてよいでしょうか。
+Maskと白黒画像の違いを整理します。
 
-## 基本の考え方（Mental Model）
+## 基本の考え方
 
 FusionのMaskは、主に**どこへ処理を適用するか**を表すdataとして読みます。
 
@@ -29,13 +29,13 @@ Image → Effect → Output
 
 MaskをViewerで白黒に見られる場面があっても、そのGraph 役割は通常Imageとは異なります。
 
-## 最小例（Minimum Example）
+## 最小例
 
 Ellipse MaskをMergeのEffect Maskへ接続します。
 
 Image 分岐を変えず、Maskの有無だけを切り替え、合成範囲が変わることを観察します。
 
-## 共通ルール（Invariants）
+## 共通ルール
 
 - Maskと2D Imageを分ける。
 - Effect MaskとImage Alphaを分ける。
@@ -43,11 +43,11 @@ Image 分岐を変えず、Maskの有無だけを切り替え、合成範囲が�
 - Maskのshape問題と対象Nodeのeffect問題を同時に直さない。
 - combine / invertの正確な挙動はNode-specific Referenceで確認する。
 
-## 1つだけ変えて確認する（Change One Thing）
+## 1つずつ変えて確認する
 
 Mask connectionだけを外し、対象のEffect自体は正常か比較します。
 
-## 他のNodeへ応用する（Transfer）
+## 他のNodeにも応用する
 
 ### Merge
 
@@ -61,17 +61,17 @@ NodeがMask inputを持つ場合、同じ「effect範囲を限定する」考え
 
 Maskをトラッキング dataへ追従させる場合も、Mask dataとトラッキング dataを別責任にします。
 
-## 初見Nodeで予測する（Predict）
+## 初見のNodeを読む
 
 「Maskが効かない」症状で、Image 分岐・Mask 分岐・対象Nodeを分けて確認できます。
 
-## よくある誤解（Common Misread）
+## よくある誤解
 
 **Maskを繋げたのでImage Alphaも書き換わっているはず**と考えること。
 
 Effect MaskとImage Alphaは別責任です。
 
-## 関連する再利用構成（Patterns）
+## 関連パターン
 
 - [Maskで処理範囲を限定する](../../patterns/masking/limit-effect-with-mask)
 

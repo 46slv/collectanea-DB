@@ -14,11 +14,11 @@ suite_surfaces: [fusion]
 
 # Resolution / Domain of Definitionを確認する
 
-## このページで分かること（Question）
+## このページで分かること
 
-画像をTransformしたら端が消えた、戻しても復活しない、Nodeによってフレーム外の扱いが違うのはなぜでしょうか。
+Transform後に端が消れる、戻しても復活しない、といった症状をresolutionとDomain of Definitionの違いから整理します。
 
-## 基本の考え方（Mental Model）
+## 基本の考え方
 
 「画像サイズ」を1つの概念にまとめず、少なくとも次を分けます。
 
@@ -29,7 +29,7 @@ suite_surfaces: [fusion]
 
 DoDは「どこにピクセルが存在するか」、RoIは「どこを今計算してほしいか」で、同じものではありません。
 
-## 最小例（Minimum Example）
+## 最小例
 
 TransformでImageをフレーム外へ動かし、その後戻す構成を考えます。
 
@@ -39,7 +39,7 @@ Image → Transform A (outside) → Transform B (back) → Output
 
 Aの段階で有効ピクセルが保持されていれば戻せる場合があります。途中でclip / cropされてピクセルが失われれば、Bで位置を戻しても復活しません。
 
-## 共通ルール（Invariants）
+## 共通ルール
 
 - フレーム sizeとDoDを同じだと決めない。
 - 「見えない」と「ピクセルが失われた」を分ける。
@@ -47,13 +47,13 @@ Aの段階で有効ピクセルが保持されていれば戻せる場合があ�
 - 性能問題ではRoIとDoDの広がりも候補にする。
 - クリッピング（clipping）の正確な挙動はNodeごとにReferenceで確認する。
 
-## 1つだけ変えて確認する（Change One Thing）
+## 1つずつ変えて確認する
 
 途中Nodeを1つ外し、フレーム外へ出したピクセルが後段で戻せるか比較します。
 
 位置だけでなく、「その時点でピクセルが存在しているか」を意識してViewer / Node 挙動を確認します。
 
-## 他のNodeへ応用する（Transfer）
+## 他のNodeにも応用する
 
 ### Transform
 
@@ -67,7 +67,7 @@ filterによって必要領域が広がる場合、edgeやdomain 挙動を確認
 
 resolutionを変える操作と、単にImageをscaleする操作を同一視しません。
 
-## 初見Nodeで予測する（Predict）
+## 初見のNodeを読む
 
 「端が切れる」症状を見たら、次を順に考えられます。
 
@@ -76,20 +76,20 @@ resolutionを変える操作と、単にImageをscaleする操作を同一視し
 3. 途中でclip / cropされたか。
 4. resolution自体が変わったか。
 
-## よくある誤解（Common Misread）
+## よくある誤解
 
 **Transformのpositionを元へ戻せば、どこかで失われたピクセルも必ず戻ると思うこと。**
 
 後段は存在するdataしか再配置できません。
 
-## 正本となる概念ページ
+## 関連する概念ページ
 
 - [解像度 / アスペクト比（Resolution / Aspect）](../03-space/resolution-aspect)
 - [有効領域（Domain of Definition）](../03-space/domain-of-definition)
 
 このページでは、それらを「切れ・消失・位置ずれ」の診断へ使うことだけを扱います。
 
-## 関連する再利用構成（Patterns）
+## 関連パターン
 
 - [複数要素の位置関係を共有する](../../patterns/transform/share-position-across-elements)
 

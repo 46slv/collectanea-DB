@@ -14,16 +14,16 @@ product_scope: fusion
 
 # 最小Particle chainを作る
 
-## 作るもの（Result）
+## 作るもの
 
 Particle setを生成し、2D ImageとしてViewer / Mergeへ渡せる最小構造を作ります。
 
-## 必要なもの（Requirements）
+## 必要なもの
 
 - pEmitter
 - pRender
 
-## 手順（Steps）
+## 手順
 
 1. pEmitterを作ります。
 2. pEmitterのParticle setをpRenderへ接続します。
@@ -34,11 +34,11 @@ Particle setを生成し、2D ImageとしてViewer / Mergeへ渡せる最小構�
 pEmitter → pRender → 2D Image
 ```
 
-## なぜこの構成で動くか（Why This Works）
+## この構成で動く理由
 
 pEmitterはParticle set domainを生成し、pRenderはそれを2D Image domainへ変換します。
 
-## 別の方法（Variants / Alternatives）
+## 別の方法
 
 ```text
 pEmitter
@@ -49,18 +49,18 @@ pEmitter
 
 のように、Particle setを保ったまま中間処理を追加できます。
 
-## うまくいかないときの確認（Failure Checks）
+## うまくいかないとき
 
 - pEmitter outputを通常Image inputへ直接入れていないか。
 - pRenderまでParticle set domainを維持しているか。
 - 現在の フレーム / timeでparticleが存在する条件になっているか。
 - particle modifierを追加した直後から結果が消えていないか。
 
-## 関連パターン（Related Pattern）
+## 関連パターン
 
 - [Last Good / First BadでGraphを切る](../../patterns/debugging/last-good-first-bad)
 
-## 関連ノード（Related Nodes）
+## 関連Node
 
 - [pEmitter](../../nodes/particles/p-emitter)
 - [pRender](../../nodes/particles/p-render)

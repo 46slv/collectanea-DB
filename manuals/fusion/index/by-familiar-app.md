@@ -1,6 +1,6 @@
 ---
 title: 慣れたアプリから探す（By Familiar App）
-description: 慣れたアプリの用語・考え方からResolve / Fusionの正本となる 内容へ進む生成索引。
+description: 使い慣れたアプリの用語や考え方から、Resolve / Fusionの対応する内容を探す索引。
 doc_type: index
 verification: partial
 product_scope: resolve

@@ -1,6 +1,6 @@
 ---
 title: Smart ObjectとFusionの再利用構造
-description: Photoshop Smart Objectの参照元 preservation・linked update経験を、FusionのInstance・Group・Macro/Templateへ単純等価せず翻訳する。
+description: Photoshop Smart Objectの参照元保持やlinked updateの考え方を、FusionのInstance・Group・Macro / Templateと単純に対応づけず読み替える。
 doc_type: bridge
 verification: partial
 product_scope: resolve
@@ -19,7 +19,7 @@ Smart Objectは参照元 内容を保持しながらtransformやfilterを非破�
 
 複数Layerを1つのSmart Objectへまとめる作業の流れもあります。
 
-## Resolveで最初に決めること
+## Resolveではどこで扱うか
 
 PhotoshopでSmart Objectを使っていた理由を先に分類します。
 
@@ -49,7 +49,7 @@ reusable packaged graph
 
 これらはSmart Objectの別名ではありません。
 
-## そのまま活かしやすい考え方
+## 共通する考え方
 
 共通する目的:
 
@@ -58,7 +58,7 @@ reusable packaged graph
 - 一括変更の管理元を作る
 - 内部実装と外部操作を分ける
 
-## そのまま一対一対応しない部分
+## そのまま対応しない点
 
 - Smart Objectの参照元 preservation / external file linkと、Fusion Instanceのパラメータ sharingは別仕組み。
 - Groupはgraph organizationであり、linked external 参照元ではない。
@@ -72,7 +72,7 @@ reusable packaged graph
 - [User Controlsで公開インターフェースを作る](../../learn/06-reuse/user-controls)
 - [Macro / Templateで再利用単位を作る](../../learn/06-reuse/macros-templates)
 
-## 関連する再利用構成（Patterns）
+## 関連パターン
 
 - [再利用の境界を選ぶ](../../patterns/reuse/choose-reuse-boundary)
 

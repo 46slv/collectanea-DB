@@ -19,7 +19,7 @@ PhotoshopのLayer Maskは、Layerの一部をhide / revealするために使い�
 
 Layer本体のピクセルを直接削除せず、visibilityを非破壊に制御できるのが基本考え方です。
 
-## Resolveで最初に決めること
+## Resolveではどこで扱うか
 
 Fusionで「どこを見せるか」を扱うとき、まず次を分けます。
 
@@ -41,13 +41,13 @@ Photoshop Layer Maskの経験は「処理範囲を別dataとして持つ」と�
 
 ただしFusionではEffect MaskとImage Alphaは別責任です。
 
-## そのまま活かしやすい考え方
+## 共通する考え方
 
 - 元画像（Source Image）を直接破壊せず、範囲を別に持つ
 - mask shapeを後から編集する
 - visibility / effect areaを分離して考える
 
-## そのまま一対一対応しない部分
+## そのまま対応しない点
 
 - Photoshop Layer Mask = Fusion Effect Mask、ではない。
 - Fusion Effect Maskは必ずしもImage Alphaを書き換えない。
@@ -60,7 +60,7 @@ Photoshop Layer Maskの経験は「処理範囲を別dataとして持つ」と�
 - [Alpha](../../learn/04-compositing/alpha)
 - [AlphaとMaskを分けて診断する](../../learn/07-debugging/alpha-vs-mask)
 
-## 関連する再利用構成（Patterns）
+## 関連パターン
 
 - [Maskで処理範囲を限定する](../../patterns/masking/limit-effect-with-mask)
 

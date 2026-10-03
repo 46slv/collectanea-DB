@@ -19,7 +19,7 @@ suite_surfaces: [fusion]
 
 Shape streamを2D Imageへ変換するRenderer Nodeです。
 
-## 概要（At a Glance）
+## 概要
 
 - **分類（Family）**: Shapes / Render
 - **入力データ（Input domain）**: Shape
@@ -27,37 +27,37 @@ Shape streamを2D Imageへ変換するRenderer Nodeです。
 - **関連概念（Core concepts）**: domain conversion、rasterization
 - **よく使う作業（Common tasks）**: procedural Shapeを通常の2D 合成へ渡す
 
-## 入力（Inputs）
+## 入力
 
 ### Shape
 
 sEllipse、sText、sMerge等のShape streamを受け取ります。
 
-## 出力（Output）
+## 出力
 
 rasterized 2D Imageを出力します。
 
-## 主な設定項目（Controls）
+## 主な設定項目
 
 render size、見た目、sampling等に関わるcontrolを持つ可能性がありますが、正確な 21.1 UIは現在の資料または実機での確認待ちです。
 
-## 挙動と注意点（Behavior / Notes）
+## 挙動と注意点
 
 sRenderは**Shape domain → 2D Image domain**の境界です。
 
 Shapeを通常のMerge / Blur / Color Nodeへ渡す前に、この変換が必要な構成として読みます。
 
-## 最小例（Minimal Examples）
+## 最小例
 
 ```text
 sEllipse → sRender → Merge
 ```
 
-## 関連する考え方（Concepts）
+## 関連する考え方
 
 - [データ領域（data domain）を辿って診断する](../../learn/07-debugging/trace-data-domain)
 
-## 関連する再利用構成（Patterns）
+## 関連パターン
 
 Shape-specific Patternは今後追加します。
 

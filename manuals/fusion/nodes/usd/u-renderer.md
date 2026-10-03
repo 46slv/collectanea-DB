@@ -19,7 +19,7 @@ suite_surfaces: [fusion]
 
 USD sceneをrenderし、2D ImageやAOVへ変換するUSD pipelineのRenderer Nodeです。
 
-## 概要（At a Glance）
+## 概要
 
 - **分類（Family）**: USD / Render
 - **入力データ（Input domain）**: USD scene
@@ -27,29 +27,29 @@ USD sceneをrenderし、2D ImageやAOVへ変換するUSD pipelineのRenderer Nod
 - **関連概念（Core concepts）**: USD、Hydra、domain conversion
 - **よく使う作業（Common tasks）**: USD sceneを通常の2D 合成へ戻す
 
-## 入力（Inputs）
+## 入力
 
 ### USD scene
 
 uMerge、uLoader、uShape等で構成したUSD sceneを受け取ります。
 
-## 出力（Output）
+## 出力
 
 2D Imageおよびrendererが提供するAOVを扱う系統です。
 
 Resolve 21系ではUSD SDK 25.11 / Hydra 2.0 Storm対応と、camera-relative normalのNeye AOV追加が公式version資料に記録されています。
 
-## 主な設定項目（Controls）
+## 主な設定項目
 
 renderer / camera / AOV / render quality等のcontrolがありますが、21.1 正確な設定項目は未検証です。
 
-## 挙動と注意点（Behavior / Notes）
+## 挙動と注意点
 
 uRendererは**USD scene → 2D Image / AOV**のdomain boundaryです。
 
 Classic Fusion 3D用Renderer 3Dとは別Nodeです。
 
-## 最小例（Minimal Examples）
+## 最小例
 
 ```text
 uShape / uLoader
@@ -61,11 +61,11 @@ uShape / uLoader
 2D Image / AOV
 ```
 
-## 関連する考え方（Concepts）
+## 関連する考え方
 
 - [データ領域（data domain）を辿って診断する](../../learn/07-debugging/trace-data-domain)
 
-## 関連する再利用構成（Patterns）
+## 関連パターン
 
 USD Patternは今後追加します。
 
