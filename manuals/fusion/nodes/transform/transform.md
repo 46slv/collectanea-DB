@@ -2,6 +2,7 @@
 title: Transform
 description: 2D Imageの位置・大きさ・角度・変形中心を調整するTransform Node。
 doc_type: node
+term_id: transform
 verification: unverified
 aliases: [Transform, 変形]
 concepts: [normalized-coordinates, coordinate-space, parameter-data]
