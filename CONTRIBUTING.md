@@ -30,7 +30,7 @@ term_short: Imageが合成へどの程度寄与するかを表すalpha channel�
 <Term id="alpha">Alpha</Term>
 ```
 
-`term_id` はリポジトリ内で重複させません。`term_short` はhover / focus / tapで出す短い説明で、詳しい内容はリンク先のページを正本にします。
+`term_id` はリポジトリ内で重複させません。FusionのConceptページは `term_id` と `term_short` を必須とし、Nodeなど他の正規リファレンスも用語として扱いたい場合は `term_id` を持たせられます。`term_short` はhover / focus / tapで出す短い説明で、詳しい内容はリンク先のページを正本にします。本文では同じ語を毎回タグ化せず、初出・意味が分かりにくい箇所・別概念との区別が重要な箇所を優先します。未登録の `Term id` はproduction buildでエラーになります。
 
 ## Build
 
