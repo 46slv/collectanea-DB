@@ -2,6 +2,8 @@
 title: AlphaとMaskを分けて診断する
 description: ImageのAlphaとEffect Maskの役割を分離し、透明・合成・適用範囲の問題を切り分ける。
 doc_type: concept
+term_id: alpha-vs-mask
+term_short: Image AlphaとEffect Maskを分けて透明・合成・適用範囲を診断する考え方。
 verification: partial
 aliases: [Alpha, Effect Mask, premultiplication]
 concepts: [alpha, effect-mask, premultiplication, debugging]
@@ -11,16 +13,15 @@ level: intermediate
 product_scope: fusion
 suite_surfaces: [fusion]
 ---
-
 # AlphaとMaskを分けて診断する
 
 ## このページで分かること
 
-「透明にならない」「縁がおかしい」「Maskが効かない」を同じ問題として扱わず、AlphaとMaskを分けて診断します。
+「透明にならない」「縁がおかしい」「Maskが効かない」を同じ問題として扱わず、<Term id="alpha">Alpha</Term>とMaskを分けて診断します。
 
 ## 基本の考え方
 
-AlphaとEffect Maskは別責任です。
+Alphaと<Term id="mask">Effect Mask</Term>は別責任です。
 
 - **Image Alpha**: Image自身のRGBA関係。
 - **Effect Mask**: そのNodeのeffectをどこへ適用するか。
@@ -109,5 +110,4 @@ Maskはeffect amountを空間的に制限する入力であり、alpha channel�
 → [Resolution / Domain of Definitionを確認する](./resolution-domain-of-definition)
 
 ---
-
 検証メモ: Alpha / premultiplication / Effect Maskの役割分離はFusion 21系公式資料を元にしたsemantic baseline。21.1 Node固有のalpha 設定は個別Referenceで確認します。
