@@ -12,18 +12,17 @@ prerequisites: [normalized-coordinates]
 level: foundation
 product_scope: fusion
 ---
-
 # TransformでImageを移動する
 
-> Centerの正確な 21.1 numeric space / 初期値は現在の manual / ホスト上での確認待ちです。
+> <Term id="center-pivot-size-angle">Center</Term>の正確な 21.1 numeric space / 初期値は現在の manual / ホスト上での確認待ちです。
 
 ## できあがるもの
 
-Imageの処理分岐へTransformを追加し、position責任を独立させます。
+Imageの処理分岐へ<Term id="transform">Transform</Term>を追加し、position責任を独立させます。
 
 ## 必要なもの
 
-- 2D Image
+- 2D <Term id="image">Image</Term>
 - Transform
 
 ## 手順
