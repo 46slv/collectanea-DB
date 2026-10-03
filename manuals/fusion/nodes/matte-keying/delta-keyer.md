@@ -2,6 +2,7 @@
 title: Delta Keyer
 description: green/blue screen等のキーイングでforeground matteを作る主要キーイング Node。
 doc_type: node
+term_id: delta-keyer
 verification: unverified
 aliases: [Delta Keyer]
 concepts: [alpha, matte, keying]
