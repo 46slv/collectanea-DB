@@ -2,6 +2,7 @@
 title: Planar Transform
 description: Planar Trackerのトラッキング dataを任意のImage / Maskへ適用するNode。
 doc_type: node
+term_id: planar-transform
 verification: unverified
 aliases: [Planar Transform]
 concepts: [tracking, coordinate-space, parameter-data]
