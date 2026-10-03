@@ -2,6 +2,7 @@
 title: Merge
 description: ForegroundとBackgroundを合成し、必要に応じてMaskで適用範囲を制限する基本Node。
 doc_type: node
+term_id: merge
 verification: partial
 aliases: [Merge, 合成]
 concepts: [foreground-background, effect-mask, compositing]
