@@ -1,9 +1,9 @@
 ---
 title: "sGrid"
-description: "入力したShapeを横・縦の行列へ複製し、規則的な反復パターンを作るShape Node。"
+description: "入力したShapeをX・Y方向の行列へ複製し、行・列の数と間隔を調整して規則的な反復を作るShape Node。"
 doc_type: node
 term_id: "sgrid"
-term_short: "sGridは、入力したShapeを横・縦のグリッドへ並べて反復パターンを作るNode。"
+term_short: "sGridは、ShapeをX・Y方向のグリッドへ並べ、行列状の反復パターンを作るNode。"
 verification: partial
 aliases: ["sGrid"]
 concepts: ["shape-data", "vector-shape", "rasterization"]
@@ -11,6 +11,7 @@ nodes: ["sGrid"]
 node_family: "shapes"
 inputs: ["shape"]
 outputs: ["shape"]
+controls: ["Grid Cells X", "Grid Cells Y", "X Offset", "Y Offset"]
 tasks: ["build-shape", "procedural-graphics", "repeat-shape"]
 product_scope: fusion
 suite_surfaces: ["fusion"]
@@ -19,102 +20,88 @@ updated: "2026-10-03"
 
 # sGrid
 
-sGridは、入力した<Term id="shape-data">Shape</Term>を横方向と縦方向へ規則正しく並べ、行列状の反復パターンを作るNodeです。
-
-小さな円をドット柄にする、四角形をタイル状に並べる、同じ図形を等間隔で敷き詰める、といった場面で使います。
+sGridは、入力した<Term id="shape-data">Shape</Term>をX・Y方向へ並べ、行列状の反復パターンを作るNodeです。円を規則正しいドットにする、四角形をタイル状に並べる、といった用途に使えます。
 
 ## 役割
 
-sGridの役割は、**1つのShapeを基準に、横×縦の規則的な並びへ増やすこと**です。
-
-入力されたShapeそのものを画像へ変換するのではなく、複製された図形もShapeのまま次のShape系Nodeへ渡します。そのため、並べた後にさらに変形・結合してから画像化できます。
+1つのShape、または複数Shapeをまとめた結果を受け取り、横方向と縦方向へ複製します。出力もShapeのままなので、並べた後に別のShape処理を続けるか、最後に `sRender` で2D Imageへ変換できます。
 
 ## 入力
 
-### Shape
+### Input1
 
-並べたい元のShapeを受け取ります。
+オレンジ色の必須入力です。別のShape Nodeの出力を受け取ります。
 
-たとえば `sEllipse` なら円、`sRectangle` なら四角形を入力できます。複数のShapeを `sMerge` などでまとめた結果を入力する構成も考えられます。
-
-Fusion 21.1での正確な端子名と端子数は未検証のため、このページではデータ領域と役割を基準に説明します。
+単一Shapeだけでなく、`sMerge` や `sBoolean` で組み合わせたShapeも入力できます。
 
 ## 出力
 
-複製後のShapeを出力します。
+グリッド状に複製されたShapeを出力します。
 
-出力はまだ2D Imageではないため、通常の `Merge`、`Blur`、`Color Corrector` などへ渡す場合は、先に `sRender` で画像へ変換します。
+```text
+sEllipse → sGrid → sRender
+```
+
+この構成では、円のShapeをsGridで並べ、sRenderで通常の画像として表示・合成できる状態へ変換します。
 
 ## 主な設定項目
 
-sGridでは、主に次の要素で並び方を決めます。
+### Grid Cells X / Y
 
-- **横方向の個数**: 1行にいくつ並べるか。
-- **縦方向の個数**: 何行作るか。
-- **横・縦の間隔やオフセット**: 複製したShape同士をどの程度離して配置するか。
+横方向と縦方向にいくつのセルを作るかを指定します。
 
-正確なFusion 21.1のInspectorラベル、初期値、数値範囲は実機または現行資料での確認後に固定します。
+たとえばXとYをそれぞれ5にすると、Shapeは5列×5行に並びます。
+
+### X / Y Offset
+
+列同士・行同士の間隔を調整します。
+
+0.0では各行・列が同じ位置へ重なります。21.1 Manualでは、X Offsetを1.0にすると列がフレーム幅相当まで広がる例が示されています。
 
 ## 主な用途
 
-- 小さな円を多数並べてドットパターンを作る。
-- 四角形や六角形などを規則的に反復させ、タイル状の背景を作る。
-- 同じアイコンや装飾Shapeを行列状に並べる。
-- 規則正しいグリッドを作った後、`sJitter` などで崩して不規則なパターンの元にする。
-
-## 最小構成
-
-```text
-sEllipse → sGrid → sRender → Merge
-```
-
-この構成では、`sEllipse` が元の円を作り、`sGrid` が円を横・縦へ並べ、`sRender` がその結果を通常の2D Imageへ変換します。
+- 円を規則正しく並べてドット背景を作る。
+- 四角形などを反復してタイル状の模様を作る。
+- 同じ装飾Shapeを行列状に配置する。
+- 規則的な配列を作った後、`sJitter` で位置・大きさ・回転を崩す元にする。
 
 ## 運用例
 
-背景にドット模様を作る場合は、まず `sEllipse` で小さな円を1つ作ります。
-
-そのShapeをsGridへ接続し、横方向と縦方向の複製数を増やして画面を覆うように並べます。円同士が近すぎる、または離れすぎる場合は横・縦の間隔を調整します。
-
-最後に `sRender` へ接続すると、並べたShapeを通常の画像としてMergeなどへ渡せます。
+ドット背景を作る場合は、`sEllipse` で小さな円を1つ作り、sGridへ接続します。
 
 ```text
-小さな円
-  ↓
 sEllipse
   ↓
-sGrid       ← 横・縦の数と間隔を調整
+sGrid       ← Grid Cells X / Y
+  │         ← X / Y Offset
   ↓
 sRender
   ↓
-Merge       ← 映像や背景へ重ねる
+Merge
 ```
+
+まずGrid Cellsで数を決め、その後Offsetで円同士の距離を調整すると、どの設定が「数」、どの設定が「間隔」を担当しているか分けて確認できます。
 
 ## 挙動と注意点
 
-- sGridは**規則的な2次元の並び**を作りたいときに向いています。
-- 1方向へ連続して複製しながら位置・大きさ・回転を変えたい場合は、`sDuplicate` の方が意図に合うことがあります。
-- sGridの出力はShapeです。通常のImage系Nodeへ渡す位置で `sRender` を使います。
-- Shapeを画像化した後に同じ数のImageを複製する構成とは、データ領域と処理の組み方が異なります。
+- sGridはX・Yの**2次元の規則的な配列**を作るNodeです。
+- コピーごとに位置・大きさ・回転を段階的に変えたい場合は、[sDuplicate](./sduplicate)の方が意図に合います。
+- 不規則なばらつきを加える場合は、後段の `sJitter` が候補になります。
+- sGridの結果はShapeであり、通常のImage系Nodeへ渡す境界で `sRender` を使います。
 
 ## 関連する考え方
 
 - [シェイプ（Shape）](../../learn/02-data/shape)
 - [データ領域（data domain）を辿って診断する](../../learn/07-debugging/trace-data-domain)
 
-## 関連する再利用構成
-
-Shapeの規則的な反復を扱う専用Patternは今後追加します。
-
 ## 似たNode・関連Node
 
-- [sDuplicate](./sduplicate) — Shapeを複製し、コピーごとに変化を積み重ねたい場合
+- [sDuplicate](./sduplicate) — コピーごとに変化を積み重ねながら複製する
 - [sEllipse](./s-ellipse) — 円・楕円のShapeを作る
-- [sRectangle](./srectangle) — 四角形のShapeを作る
 - [sRender](./s-render) — Shapeを2D Imageへ変換する
 
-## バージョンと検証状況
+## 出典と確認範囲
 
-sGridはResolve 17以降のShape systemの系譜としてBlackmagic Design公式資料で確認されています。横・縦へShapeを並べる基本的な役割は確認済みです。
+DaVinci Resolve 21.1 Reference Manual、September 2026、Chapter 117、pp.2743–2744で、Input1、X/Yグリッドへの複製、Grid Cells X/Y、X/Y Offset、sRenderへ渡す構成を確認しました。
 
-Fusion 21.1の正確な端子名、Inspectorラベル、初期値、数値範囲は未検証のため、確認できていない名称や値は固定していません。
+このページではManualで確認できたControl名と基本挙動を記述しています。内部REGID、全設定、Edition差、実機での描画結果は未確認のため `verification: partial` を維持します。
