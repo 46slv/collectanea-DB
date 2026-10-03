@@ -2,6 +2,8 @@
 title: Edit ↔ Fusionの境界
 description: Timeline上のclip責任と、Fusion Flow内のshot処理責任を分けて考える。
 doc_type: concept
+term_id: edit-fusion-boundary
+term_short: timeline編集とshot内Fusion処理を分けるEditとFusionの責任境界。
 verification: partial
 product_scope: resolve
 suite_surfaces: [edit, fusion]
