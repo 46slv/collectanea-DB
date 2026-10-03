@@ -2,6 +2,7 @@
 title: dMerge
 description: Deep sample-aware 合成を行うDeep image domainのMerge Node。
 doc_type: node
+term_id: d-merge
 verification: partial
 aliases: [dMerge, Deep Merge]
 concepts: [data-domain, deep-image, compositing]
