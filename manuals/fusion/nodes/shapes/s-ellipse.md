@@ -17,7 +17,7 @@ suite_surfaces: [fusion]
 
 # sEllipse
 
-Shape domainで円・楕円shapeを生成するNodeです。
+sEllipseは、円や楕円の<Term id="shape-data">Shape</Term>を作るNodeです。
 
 ## 概要
 
@@ -61,6 +61,7 @@ sEllipse → sRender → Merge
 
 ## 関連する考え方
 
+- [シェイプ（Shape）](../../learn/02-data/shape)
 - [データ領域（data domain）を辿って診断する](../../learn/07-debugging/trace-data-domain)
 
 ## 関連パターン
