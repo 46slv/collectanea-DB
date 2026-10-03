@@ -4,6 +4,8 @@ Public technical knowledge base by [@46slv](https://github.com/46slv).
 
 COLLECTANEA is a Git-backed archive for technical knowledge that should be useful outside a private workspace.
 
+https://46slv.github.io/collectanea-DB
+
 ## Sections
 
 - **Manuals** — structured, maintained documentation
