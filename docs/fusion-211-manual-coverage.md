@@ -72,6 +72,15 @@ Do not add alias-only pages for Soft Clip vs SoftClip 3D, Texture 2D vs Texture,
 
 Still required: current product/build/OS/edition; registry IDs and visible/hidden flags; native vs installed extensions; per-tool inputs/outputs; defaults/ranges; diff against published node pages. A manual match is not runtime-confirmed.
 
-## Parallel work
+## Integration state
 
-PR #10 (`docs/fusion-node-reader-first-20261003`) owns the Shape concept and reader-first rewrites of sGrid/sDuplicate/sEllipse/sRender plus the authoring-contract change. This pass does not overwrite those node files or copy the concept page. The shared node index needs normal merge reconciliation; retain both readability guidance and coverage boundaries.
+PR #10のreader-first方針とShape concept、sGrid / sDuplicate / sEllipse / sRenderの改稿は、統合候補 `docs/fusion-reader-first-211-integration-20261003` でこのcoverage差分と合わせています。
+
+統合後も役割は分けます。
+
+- この文書: 21.1資料との照合範囲、追加候補、未確認事項の台帳
+- `docs/fusion-authoring-contract.md`: 読者向けNode Referenceの書き方と根拠の扱い
+- Learn / Family Overview: Shapeなど複数Nodeにまたがる概念とFamilyの案内
+- 各Nodeページ: Node固有の入出力、Control、最小構成、用途、確認範囲
+
+coverageを増やすことと、既存ページを読みやすく深くすることを同じ一括生成処理には戻さない。
