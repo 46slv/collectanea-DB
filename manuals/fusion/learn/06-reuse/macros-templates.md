@@ -2,6 +2,8 @@
 title: Macro / Templateで再利用単位を作る
 description: 完成したGraphを、公開controlを持つ再利用可能なbundleとして扱う。
 doc_type: concept
+term_id: macros-templates
+term_short: Graphと公開controlを再利用可能なbundleとして扱う仕組み。
 verification: partial
 aliases: [Macro, Template, Fusion Template]
 concepts: [macros, templates, public-interface, reuse]
@@ -11,7 +13,6 @@ level: intermediate
 product_scope: fusion
 suite_surfaces: [fusion, edit]
 ---
-
 # Macro / Templateで再利用単位を作る
 
 ## このページで分かること
@@ -87,12 +88,12 @@ Macro化する前に次を決められます。
 1. external input / outputは何か。
 2. userが変更すべきcontrolは何か。
 3. internal implementationとして隠すものは何か。
-4. Groupで十分か、保存Macroが必要か。
+4. <Term id="groups">Group</Term>で十分か、保存Macroが必要か。
 5. Resolveのどのsurfaceから使うか。
 
 ## よくある誤解
 
-**Macro = 複数Nodeを閉じただけのGroup**と考えること。
+**Macro = 複数Nodeを閉じただけの<Term id="groups">Group</Term>**と考えること。
 
 Macroでは、どのinput / output / controlを公開するかというインターフェース設計が重要です。公開面が不要で、内部を頻繁に開きたいだけならGroupの方が適切な場合があります。
 
@@ -109,5 +110,4 @@ Macro / Templateは複数Nodeをbundle化するauthoring / distribution機構で
 → [データ領域（data domain）を辿って診断する](../07-debugging/trace-data-domain)
 
 ---
-
 検証メモ: Macro作成、公開control選択、Edit Page用templateへの利用は2026-10-02時点のBlackmagic Design現行Fusionページで確認。詳細な保存path・template種別は21.1 Manualで個別確認します。
