@@ -2,6 +2,7 @@
 title: Alpha Multiply
 description: RGBへAlphaを乗算し、ストレートRGB（straight RGB）をpremultiplied状態へ戻すためのNode。
 doc_type: node
+term_id: alpha-multiply
 verification: unverified
 aliases: [Alpha Multiply, AML, premultiply]
 concepts: [alpha, premultiplication]
