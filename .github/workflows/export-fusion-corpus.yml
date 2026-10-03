@@ -1,0 +1,42 @@
+name: Export Fusion Corpus
+
+on:
+  push:
+    branches:
+      - automation/fusion-node-corpus-export-20261003
+
+permissions:
+  contents: read
+
+env:
+  CI: true
+
+jobs:
+  export:
+    runs-on: ubuntu-latest
+    timeout-minutes: 10
+    steps:
+      - uses: actions/checkout@v4
+      - name: Validate snapshot
+        shell: bash
+        run: |
+          set -euo pipefail
+          test "$(find manuals/fusion/nodes -type f -name '*.md' ! -name index.md | wc -l)" -eq 359
+      - name: Upload working corpus
+        uses: actions/upload-artifact@v4
+        with:
+          name: fusion-node-corpus-20261003
+          path: |
+            manuals/fusion
+            docs/fusion-authoring-contract.md
+            docs/fusion-content-architecture.md
+            docs/fusion-index-architecture.md
+            docs/quality-bar.md
+            plugins/catalog
+            scripts
+            tests
+            package.json
+            package-lock.json
+          if-no-files-found: error
+          retention-days: 1
+          include-hidden-files: true
