@@ -1,61 +1,45 @@
 ---
-title: "sOffset"
-description: "Shapeをoffset。"
+title: sOffset
+description: Shapeの輪郭を外側へ広げる、または内側へ縮める。Numberで処理を繰り返せる。
 doc_type: node
-term_id: "soffset"
-term_short: "sOffsetは、Shapeをoffset。"
+term_id: soffset
+term_short: Shapeの輪郭を外側・内側へずらし、広げたり縮めたりするツール。
 verification: partial
-aliases: ["sOffset"]
-concepts: ["shape-data"]
-nodes: ["sOffset"]
-node_family: "shapes"
-inputs: ["shape"]
-outputs: ["shape"]
-tasks: ["build-shape"]
+aliases: [sOffset]
+concepts: [shape-data]
+nodes: [sOffset]
+node_family: shapes
+inputs: [shape]
+outputs: [shape]
+controls: [Number]
+tasks: [build-shape]
 product_scope: fusion
-suite_surfaces: ["fusion"]
-updated: "2026-10-03"
+suite_surfaces: [fusion]
+updated: '2026-10-03'
 ---
 
 # sOffset
 
-Shapeをoffset。
-
-## 概要
-
-- **種別**: Node / Tool
-- **分類**: Shape System (Resolve 17+)
-- **主なデータ領域**: Shape
-- **導入・系譜**: 17
-- **根拠レベル**: 導入版のBlackmagic Design公式資料で確認した現行系譜
+Shapeの輪郭を外側へ広げたり、内側へ縮めたりします。ここでのoffsetは、図形全体を画面の別の位置へ移動することではなく、輪郭を広げる・縮める処理です。
 
 ## 入力と出力
 
-この項目はカタログ上、**Shape**を主なデータ領域として扱います。上のfrontmatterにある入出力は領域を検索するための分類であり、Fusion 21.1の正確な端子数や端子名を断定するものではありません。
+対象はShapeの輪郭です。輪郭を変更したShapeを後段で扱います。通常の画像合成へ渡す工程は[sRender](./s-render)を参照してください。正式な端子名と内部型は実機未確認です。
 
-実際に組むときはFlow上の端子ラベルとInspectorを確認し、2D Image、Mask、Shape、Particle、Classic 3D、USD、Deep、パラメータ値を取り違えないようにします。
+## 主な設定
 
-## 主な用途
+21.1 Manualには、処理を繰り返す`Number`スライダーがあると記載されています。輪郭をずらす量、正負の方向、繰り返した輪郭の塗り方などの正式な設定名・初期値は未確認です。
 
-Shapeをoffset。
+## 運用例
 
-## 使うときの判断
+元の図形に沿った別の輪郭を作りたいときの候補です。単純な形から始め、外側へ広げた場合と内側へ縮めた場合を比較すると、位置移動との違いを確認できます。Numberによる反復結果も、元の輪郭との関係を見ながら確認します。
 
-Shape領域のデータは2D Imageではありません。通常のMergeへ渡す前に`sRender`で画像へ変換します。
+## 似たツールとの違い
 
-## 最小構成
+[sRound](../krokodove/sround)は角を丸め、[sSmooth](../krokodove/ssmooth)は角を保って辺を滑らかにします。sOffsetの確認済みの役割は輪郭の拡張・収縮です。
 
-```text
-Shape Source → sOffset → sRender → Image
-```
+## 出典と旧記述の訂正
 
-## 注意点
+DaVinci Resolve 21.1 Reference Manual、September 2026、Chapter 105、p.2437のKrokodove Shape Toolsに基づき改稿しました。従来URLは維持しています。
 
-- このページはノードを選ぶための役割・データ領域・系譜を先に揃えています。
-- exactな内部ID、端子名、初期値、数値範囲、Edition差は、確認できたものだけ今後追記します。
-
-## バージョンと検証状況
-
-導入版のBlackmagic Design公式資料で現行系譜を確認しています。Fusion 21.1の端子名、Inspector項目、初期値、範囲は未検証です。
-
-このリファレンスのinventory基準はDaVinci Resolve / Fusion 21.0.4です。Manual全体は21.1基準へ更新中のため、21.1で差がある箇所は現行資料または実機確認後に更新します。
+旧ページは「Shapeをoffset」とだけ記載し、導入版を17と断定していました。今回確認した資料はその初出を裏付けないため、導入版の断定を取り除いています。同名の別ツールがあるかも含め、REGIDと系譜は実機・過去資料の追加照合が必要です。
