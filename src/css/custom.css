@@ -166,7 +166,7 @@ main:has(.cc-doc) > .container {width: 100%; max-width: none; padding: 24px 0 48
 .cc-doc {width: 100%; min-width: 0;}
 .cc-doc > .row {position: relative; display: block; margin: 0;}
 .cc-doc > .row > .col:first-child {width: min(var(--cc-reading-width), calc(100% - 2 * var(--cc-reading-gutter))); max-width: none; margin-inline: auto; padding: 0; flex: none;}
-.cc-doc > .row > .col:last-child:not(:first-child) {position: fixed; top: 50%; right: calc((100% - 100vw) / 2); bottom: auto; width: var(--cc-rail-width); max-width: none; padding: 0; transform: translateY(-50%); z-index: 25;}
+.cc-doc > .row > .col:last-child:not(:first-child) {position: absolute; top: 0; bottom: 0; width: var(--cc-rail-width); max-width: none; padding: 0; right: max(4px, calc((100% - var(--cc-reading-width)) / 2 - var(--cc-reading-gutter)));}
 .cc-content-status {width: min(var(--cc-reading-width), calc(100% - 2 * var(--cc-reading-gutter))); margin-inline: auto;}
 .cc-sidebar-inset-toggle {position: absolute; top: calc(var(--ifm-navbar-height) + 8px); right: 8px; z-index: 20; background: var(--cc-surface); border-color: var(--cc-control-line);}
 .cc-sidebar-inset-toggle:hover {background: var(--cc-raised);}
@@ -205,7 +205,7 @@ html[data-cc-sidebar='collapsed'] main:has(.cc-doc) {max-width: 100%; flex: 1 1 
 .cc-tree-leaf {width: 28px; text-align: center; color: var(--cc-muted); flex-shrink: 0;}
 
 /* Labels are a sibling of the scrollable rail, so overflow never clips them. */
-.cc-rail {position: relative; width: var(--cc-rail-width);}
+.cc-rail {position: fixed; top: 50%; right: calc((100% - 100vw) / 2); width: var(--cc-rail-width); transform: translateY(-50%); z-index: 25;}
 .cc-rail-lines {list-style: none; padding: 0; margin: 0; max-height: calc(100dvh - var(--ifm-navbar-height) - 64px); overflow-y: auto; overscroll-behavior: contain; scrollbar-width: thin;}
 .cc-rail-lines li {margin: 0;}
 .cc-rail-lines a {height: 28px; width: var(--cc-rail-width); display: flex; align-items: center; justify-content: flex-start; padding-left: 6px;}
