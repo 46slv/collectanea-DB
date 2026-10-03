@@ -59,6 +59,8 @@ test('Fusion indexes are generated from semantic metadata', () => {
   assert.equal(data.indexes.dataTypes.find((entry) => entry.key === 'image').producers[0].title, 'merge');
   assert.equal(data.indexes.familiarApps[0].key, 'nuke');
   assert.equal(data.indexes.resolveSurfaces[0].key, 'fusion');
+  assert.ok(data.indexes.glossary.some((entry) => entry.id === 'merge'));
+  assert.ok(data.indexes.glossary.some((entry) => entry.id === 'alpha'));
 });
 
 test('term registry is generated from canonical page metadata', () => {
