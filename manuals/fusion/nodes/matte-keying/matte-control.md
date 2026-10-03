@@ -2,6 +2,7 @@
 title: Matte Control
 description: Alpha / matteの結合・反転・post 処理を行うMatte utility Node。
 doc_type: node
+term_id: matte-control
 verification: unverified
 aliases: [Matte Control, MAT]
 concepts: [alpha, matte, compositing]
