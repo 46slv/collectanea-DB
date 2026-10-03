@@ -2,6 +2,8 @@
 title: Image / Mask / Dataを分ける
 description: Fusionで扱うImage・Mask・パラメータ dataを役割ごとに分けてGraphを読む。
 doc_type: concept
+term_id: image-mask-data
+term_short: Image・Mask・parameter dataを役割ごとに分ける分類。
 verification: partial
 aliases: [Image, Mask, Data, データ型]
 concepts: [image-data, mask-data, parameter-data]
@@ -12,7 +14,6 @@ level: foundation
 product_scope: fusion
 suite_surfaces: [fusion]
 ---
-
 # Image / Mask / Dataを分ける
 
 ## このページで分かること
@@ -43,11 +44,11 @@ Parameter:
 Merge.Blend / Transform.Center / ...
 ```
 
-Image connection、Mask connection、Inspector パラメータは別の責任です。
+Image connection、<Term id="mask">Mask</Term> connection、Inspector パラメータは別の責任です。
 
 ## 共通ルール
 
-- ImageはImageとして追う。
+- <Term id="image">Image</Term>はImageとして追う。
 - Maskはeffect範囲として追う。
 - パラメータはNode 挙動の値として追う。
 - 同じViewer表示ができてもデータ領域（data domain）を同一視しない。
@@ -97,5 +98,4 @@ Shape / Particle / 3D / USD / Deepは、Image / Mask / パラメータ以外に�
 → [画像（Image）](./image)
 
 ---
-
 検証メモ: Image connection、Mask 役割、Inspector パラメータの分離は現行Blackmagic Design Fusion資料とFusion 21 semantic baselineに基づきます。
