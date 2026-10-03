@@ -2,6 +2,8 @@
 title: Resolution / Domain of Definitionを確認する
 description: フレーム size・有効ピクセル領域・計算要求領域を分け、切れ・消失・位置ずれを診断する。
 doc_type: concept
+term_id: resolution-domain-of-definition
+term_short: frame size・有効pixel領域・計算要求領域を分ける診断観点。
 verification: partial
 aliases: [DoD, Domain of Definition, resolution, canvas]
 concepts: [resolution, domain-of-definition, canvas, roi]
@@ -11,12 +13,11 @@ level: intermediate
 product_scope: fusion
 suite_surfaces: [fusion]
 ---
-
 # Resolution / Domain of Definitionを確認する
 
 ## このページで分かること
 
-Transform後に端が消れる、戻しても復活しない、といった症状をresolutionとDomain of Definitionの違いから整理します。
+Transform後に端が消れる、戻しても復活しない、といった症状をresolutionと<Term id="domain-of-definition">Domain of Definition</Term>の違いから整理します。
 
 ## 基本の考え方
 
@@ -24,7 +25,7 @@ Transform後に端が消れる、戻しても復活しない、といった症�
 
 - **フレーム / image extent**: nominalなwidth / height。
 - **Canvas / image space**: 画像が配置される空間。
-- **Domain of Definition (DoD)**: 実際に有効ピクセルが存在する領域。
+- **<Term id="domain-of-definition">Domain of Definition</Term> (DoD)**: 実際に有効ピクセルが存在する領域。
 - **Region of Interest (RoI)**: rendererが今回計算を要求している領域。
 
 DoDは「どこにピクセルが存在するか」、RoIは「どこを今計算してほしいか」で、同じものではありません。
@@ -103,5 +104,4 @@ resolutionを変える操作と、単にImageをscaleする操作を同一視し
 → [症状ではなくGraphを診断する](./diagnose-graph-not-symptom)
 
 ---
-
 検証メモ: DoD / RoI / フレーム extentの区別はFusion 21系semantic baselineに基づく。Nodeごとの現在の clipping/domain 設定は21.1 実機 / マニュアル verificationを優先します。
