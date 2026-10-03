@@ -18,7 +18,7 @@ suite_surfaces: [fusion]
 
 # sRender
 
-Shape streamを2D Imageへ変換するRenderer Nodeです。
+sRenderは、<Term id="shape-data">Shape</Term>を通常の2D Imageへ変換するRenderer Nodeです。
 
 ## 概要
 
@@ -56,6 +56,7 @@ sEllipse → sRender → Merge
 
 ## 関連する考え方
 
+- [シェイプ（Shape）](../../learn/02-data/shape)
 - [データ領域（data domain）を辿って診断する](../../learn/07-debugging/trace-data-domain)
 
 ## 関連パターン
