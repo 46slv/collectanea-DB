@@ -12,15 +12,14 @@ prerequisites: [alpha, premultiplication]
 level: intermediate
 product_scope: fusion
 ---
-
 # 透明Edgeの色や縁がおかしい
 
 ## まず確認すること
 
 1. 参照元単体ですでにエッジの乱れ（artifact）があるか。
-2. Alpha shape自体は正しいか。
+2. <Term id="alpha">Alpha</Term> shape自体は正しいか。
 3. color correction前は正常か。
-4. Merge前の前景（Foreground）単体で問題があるか。
+4. Merge前の前景（<Term id="foreground-background-mask">Foreground</Term>）単体で問題があるか。
 5. straight / premultipliedの前提を混同していないか。
 
 ## 原因の切り分け
@@ -32,7 +31,7 @@ source
   → composite
 ```
 
-各段階をViewerで確認し、どこからedgeが変わるか特定します。
+各段階を<Term id="intermediate-results-viewer">Viewer</Term>で確認し、どこからedgeが変わるか特定します。
 
 ## 主な原因
 
