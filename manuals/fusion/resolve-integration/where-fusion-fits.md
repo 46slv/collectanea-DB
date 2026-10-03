@@ -8,7 +8,6 @@ suite_surfaces: [edit, fusion, color]
 tasks: [choose-surface, composite, motion-graphics, vfx]
 level: foundation
 ---
-
 # FusionはResolveのどこにいるか
 
 ## 目的
@@ -23,17 +22,17 @@ Fusionの主な責任としては:
 
 - ショット単位の合成（shot-level compositing）
 - モーショングラフィックス
-- マスク（Mask）/ トラッキング（Tracking）を伴うVFX
+- マスク（<Term id="mask">Mask</Term>）/ トラッキング（Tracking）を伴うVFX
 - 不要物除去・置き換え（cleanup / replacement）
 - キーイング（Keying）
 - 2D / 3D合成（composition）
-- 再利用できるFusion Template
+- 再利用できるFusion <Term id="macros-templates">Template</Term>
 
 が挙げられます。
 
 ## Fusionが向いている場合
 
-次のように、**Imageの処理関係そのものをGraphとして設計したい**場合にFusionが強い候補です。
+次のように、**<Term id="image">Image</Term>の処理関係そのものをGraphとして設計したい**場合にFusionが強い候補です。
 
 ```text
 source
@@ -69,5 +68,4 @@ Fusionへ入った後も、元クリップ（参照元 clip）やTimelineとの�
 - [Fusion assetをResolveで再利用する](./reusable-fusion-assets)
 
 ---
-
 検証メモ: FusionのResolve統合、Node-based VFX/モーショングラフィックス、Edit/Fusion/Color間の切替は2026-10-02時点のBlackmagic Design現行製品ページで確認。
