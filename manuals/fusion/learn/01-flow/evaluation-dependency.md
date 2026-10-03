@@ -2,6 +2,8 @@
 title: Graphが評価される依存関係
 description: FusionがOutput requestから必要なupstream dataを評価するGraphとして動くことを理解する。
 doc_type: concept
+term_id: evaluation-dependency
+term_short: Output要求から必要なupstream dataを評価する依存関係。
 verification: partial
 aliases: [evaluation, dependency graph, render request]
 concepts: [evaluation-flow, dependency, render-request]
@@ -10,7 +12,6 @@ prerequisites: [typed-connections]
 level: intermediate
 product_scope: fusion
 ---
-
 # Graphが評価される依存関係
 
 ## このページで分かること
@@ -35,14 +36,14 @@ Nodeの画面位置や作成順より、connectionとrender requestが重要で�
 
 ## 最小例
 
-分岐が2本あるFlowで、一方だけがMediaOutへ繋がっている状態を考えます。
+分岐が2本あるFlowで、一方だけが<Term id="media-out">MediaOut</Term>へ繋がっている状態を考えます。
 
 「Flowに存在する」ことと「現在のOutput計算に必要」ということを分けます。
 
 ## 共通ルール
 
 - connectionがdependencyを作る。
-- 現在の Viewer / MediaOut / render requestによって必要段階が決まる。
+- 現在の Viewer / <Term id="media-out">MediaOut</Term> / render requestによって必要段階が決まる。
 - フレーム/timeも評価条件の一部。
 - rendererが常にフレーム順に評価するとは仮定しない。
 - 性能を見るときも「Node数」より実際に要求されるdata / region / フレームを考える。
