@@ -12,7 +12,7 @@ updated: '2026-10-03'
 
 Krokodoveは一種類のデータだけを扱うツール群ではありません。画像を加工するもの、輪郭を持つShapeを加工するもの、3D形状を作るもの、別のツールへ作用範囲を渡すRegionに分かれます。
 
-画像は画素の集まりです。Shapeは図形の輪郭などを扱うデータで、画像として使う工程は[sRender](../shapes/s-render)で確認します。Regionは作用範囲を表し、Region入力を持つ対応ツールへ接続します。形状を作る3DノードとRegionを同じ入力へつなぐことは前提にしません。
+画像は画素の集まりです。<Term id="shape-data">Shape</Term>は図形の輪郭などを扱うデータで、詳しい考え方は[シェイプ（Shape）](../../learn/02-data/shape)、標準Shape Nodeの案内は[Shapeノード](../shapes/)で確認できます。画像として使う工程では[sRender](../shapes/s-render)を使います。Regionは作用範囲を表し、Region入力を持つ対応ツールへ接続します。形状を作る3DノードとRegionを同じ入力へつなぐことは前提にしません。
 
 ## 3D配置と形状生成
 
