@@ -2,6 +2,7 @@
 title: MediaIn
 description: Resolve timeline / Media Pool側の参照元をFusion Flowへ渡すResolve-integrated input Node。
 doc_type: node
+term_id: media-in
 verification: partial
 aliases: [MediaIn, Media In]
 concepts: [image-data, resolve-integration, source-boundary]
