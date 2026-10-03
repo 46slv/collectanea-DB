@@ -2,6 +2,8 @@
 title: Input / Output / Connection
 description: Fusion FlowをNode名ではなく、typed OutputからInputへの依存関係として読む。
 doc_type: concept
+term_id: inputs-outputs-connections
+term_short: typed dataをOutputからInputへ渡すNode間接続。
 verification: partial
 aliases: [Input, Output, Connection, port]
 concepts: [node-graph, typed-connections, data-flow]
@@ -10,7 +12,6 @@ prerequisites: [node-graph]
 level: foundation
 product_scope: fusion
 ---
-
 # Input / Output / Connection
 
 ## このページで分かること
@@ -37,8 +38,8 @@ Node B Input
 MediaIn → Transform → MediaOut
 ```
 
-- MediaInがImageをOutputする。
-- TransformがそのImageをInputとして受け取る。
+- <Term id="media-in">MediaIn</Term>がImageをOutputする。
+- <Term id="transform">Transform</Term>がそのImageをInputとして受け取る。
 - Transform OutputをMediaOutが受け取る。
 
 ## 共通ルール
