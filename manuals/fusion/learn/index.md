@@ -21,7 +21,7 @@ tasks: [learn, understand]
 6. [接続できるdata / 接続できないdata](./02-data/connection-compatibility)
 7. [シェイプ（Shape）](./02-data/shape)
 8. [正規化座標（Normalized Coordinates）](./03-space/normalized-coordinates)
-8. [前景（Foreground）/ 背景（Background）/ マスク（Mask）](./04-compositing/foreground-background-mask)
+9. [前景（Foreground）/ 背景（Background）/ マスク（Mask）](./04-compositing/foreground-background-mask)
 10. [キーフレーム / スプライン / 時間（Keyframe / Spline / Time）](./05-time/keyframes-spline-time)
 11. [式（Expressions）](./05-time/expressions)
 12. [Instanceで設定を共有する](./06-reuse/instances)
@@ -32,7 +32,7 @@ tasks: [learn, understand]
 17. [分岐を分離して原因範囲を狭める](./07-debugging/isolate-branches)
 18. [AlphaとMaskを分けて診断する](./07-debugging/alpha-vs-mask)
 19. [Resolution / Domain of Definitionを確認する](./07-debugging/resolution-domain-of-definition)
-19. [症状ではなくGraphを診断する](./07-debugging/diagnose-graph-not-symptom)
+20. [症状ではなくGraphを診断する](./07-debugging/diagnose-graph-not-symptom)
 
 各Conceptページは、最小例を試したあとに「別Nodeでも何が同じか」を確認する構成です。
 
