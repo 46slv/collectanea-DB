@@ -2,6 +2,8 @@
 title: MediaIn / MediaOutの境界
 description: Resolve timelineのclipがFusion Flowへ入り、Fusion結果がtimelineへ戻る入口と出口を理解する。
 doc_type: concept
+term_id: media-in-out-boundary
+term_short: Resolve timelineとFusion FlowをつなぐMediaIn・MediaOutの入口と出口。
 verification: partial
 product_scope: resolve
 suite_surfaces: [edit, fusion]
