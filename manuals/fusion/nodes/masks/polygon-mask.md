@@ -2,6 +2,7 @@
 title: Polygon Mask
 description: Bezier pathで任意形状のMaskを作る基本Mask Node。
 doc_type: node
+term_id: polygon-mask
 verification: unverified
 aliases: [Polygon, Polygon Mask, PLY]
 concepts: [mask-data, bezier-path]

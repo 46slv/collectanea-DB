@@ -2,6 +2,8 @@
 title: Modifier / Parameter Sources
 description: パラメータ 値がstatic・keyframe・expression・modifier・トラッキング等のどこから供給されるかを読む。
 doc_type: concept
+term_id: modifier-parameter-sources
+term_short: parameter値がstatic・keyframe・expression・modifier等のどこから来るかを表す考え方。
 verification: partial
 aliases: [Modifier, parameter source, driven parameter]
 concepts: [parameter-source, modifier, expression, keyframes]
@@ -11,7 +13,6 @@ level: intermediate
 product_scope: fusion
 suite_surfaces: [fusion]
 ---
-
 # Modifier / パラメータ Sources
 
 ## このページで分かること
@@ -25,9 +26,9 @@ Inspectorに見えるパラメータが、どの値の供給元から決まる�
 代表的には:
 
 - 固定値
-- keyframe spline
+- <Term id="keyframes-spline-time">keyframe</Term> spline
 - path
-- expression
+- <Term id="expressions">expression</Term>
 - modifier
 - audio / probe / トラッキング data
 - host-linked パラメータ
@@ -104,5 +105,4 @@ Modifier inventoryは今後Reference coverageを追加します。
 → [Instanceで設定を共有する](../06-reuse/instances)
 
 ---
-
 検証メモ: static / keyframe / path / expression / modifier / audio / トラッキング等がパラメータの供給元になり得ることはFusion 21系semantic baselineで確認。個別Modifierの正確な 挙動は現在の Referenceで確認します。

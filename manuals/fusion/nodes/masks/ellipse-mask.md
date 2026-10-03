@@ -2,6 +2,7 @@
 title: Ellipse Mask
 description: 円・楕円形状のMaskを生成する基本Mask Node。
 doc_type: node
+term_id: ellipse-mask
 verification: unverified
 aliases: [Ellipse, Ellipse Mask, ELP]
 concepts: [mask-data, normalized-coordinates]

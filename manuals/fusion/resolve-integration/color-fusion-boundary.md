@@ -2,6 +2,8 @@
 title: Color ↔ Fusionの境界
 description: shot内VFXとshot gradingを分け、FusionとColorの責任を重複させないための境界ガイド。
 doc_type: concept
+term_id: color-fusion-boundary
+term_short: shot内VFXとshot gradingを分けるFusionとColorの責任境界。
 verification: partial
 product_scope: resolve
 suite_surfaces: [fusion, color]

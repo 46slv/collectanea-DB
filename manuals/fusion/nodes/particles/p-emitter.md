@@ -2,6 +2,7 @@
 title: pEmitter
 description: Particle setを生成するFusion particle systemの基本Emitter Node。
 doc_type: node
+term_id: p-emitter
 verification: unverified
 aliases: [pEmitter, Particle Emitter]
 concepts: [data-domain, particle-set, time]

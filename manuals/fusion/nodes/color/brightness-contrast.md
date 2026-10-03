@@ -2,6 +2,7 @@
 title: Brightness Contrast
 description: 2D Imageの明るさ・コントラスト・gain系を調整する基本Color Node。
 doc_type: node
+term_id: brightness-contrast
 verification: unverified
 aliases: [Brightness Contrast, BC]
 concepts: [image-data, color-adjustment]

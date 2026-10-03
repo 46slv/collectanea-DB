@@ -11,15 +11,14 @@ prerequisites: [node-graph]
 level: foundation
 product_scope: fusion
 ---
-
 # Viewerに何も表示されない
 
 ## まず確認すること
 
-1. Viewerへ表示しているNodeは、確認したいGraph地点か。
-2. upstreamのImage 参照元を単体でViewerに出すと見えるか。
+1. <Term id="intermediate-results-viewer">Viewer</Term>へ表示しているNodeは、確認したいGraph地点か。
+2. upstreamのImage 参照元を単体で<Term id="intermediate-results-viewer">Viewer</Term>に出すと見えるか。
 3. 1つdownstreamへ進めるたびに、どこで表示が消えるか。
-4. Maskや合成を一旦外すとImageだけは見えるか。
+4. <Term id="mask">Mask</Term>や合成を一旦外すとImageだけは見えるか。
 
 Blackmagic Designの現行Fusion紹介では、選択したNodeを左右のViewerへ送って各地点の結果を確認する基本操作が案内されています。
 

@@ -2,6 +2,8 @@
 title: 解像度 / アスペクト比（Resolution / Aspect）
 description: ピクセル dimensions・aspect・normalized positionの関係を分けて考える。
 doc_type: concept
+term_id: resolution-aspect
+term_short: pixel dimensions・aspect・normalized positionの関係。
 verification: partial
 aliases: [resolution, aspect ratio, pixel aspect]
 concepts: [resolution, aspect-ratio, normalized-coordinates]
@@ -12,7 +14,6 @@ level: foundation
 product_scope: fusion
 suite_surfaces: [fusion]
 ---
-
 # 解像度 / アスペクト比（Resolution / Aspect）
 
 ## このページで分かること
@@ -32,14 +33,14 @@ Fusion 21系のsemantic baselineでは、一般的な2D positionはnormalized co
 
 ## 最小例
 
-同じCenter値を持つ構成で、Imageのresolutionだけを変えます。
+同じCenter値を持つ構成で、<Term id="image">Image</Term>のresolutionだけを変えます。
 
 見た目が同じか、relative positionは同じでもピクセル距離が変わるかを観察します。
 
 ## 共通ルール
 
 - normalized 値とピクセル距離は同じ単位ではない。
-- Resizeでresolutionを変えることとTransform SizeでImageをscaleすることを分ける。
+- Resizeでresolutionを変えることと<Term id="transform">Transform</Term> SizeでImageをscaleすることを分ける。
 - fixed-ピクセル UIを作る場合は、ピクセル→normalized変換の管理元を1箇所へ寄せる。
 - aspectが違うImage間で「同じ数値 = 同じ見た目」と決めない。
 
@@ -87,5 +88,4 @@ relative coordinateならreference dimensionsが変わればピクセル距離�
 → [有効領域（Domain of Definition）](./domain-of-definition)
 
 ---
-
 検証メモ: normalized coordinateとピクセル Aspect / reference size / image domainの関係はFusion 21系semantic baselineで確認。正確な Node 挙動は21.1 現在の evidenceを優先します。

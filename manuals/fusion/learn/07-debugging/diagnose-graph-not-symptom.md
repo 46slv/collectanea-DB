@@ -2,6 +2,8 @@
 title: 症状ではなくGraphを診断する
 description: Fusionの不具合を、見た目の症状からNode・connection・data・パラメータの観察可能な原因へ変換する。
 doc_type: concept
+term_id: diagnose-graph-not-symptom
+term_short: 見た目の症状をNode・connection・data・parameterの観察可能な原因へ分解する診断方法。
 verification: partial
 aliases: [debugging workflow, graph diagnosis]
 concepts: [debugging, observation, node-graph]
@@ -11,12 +13,11 @@ level: foundation
 product_scope: fusion
 suite_surfaces: [fusion]
 ---
-
 # 症状ではなくGraphを診断する
 
 ## このページで分かること
 
-「黒い」「ずれる」「Maskが効かない」「重い」といった症状を、再現可能な診断へつなげる手順を説明します。
+「黒い」「ずれる」「<Term id="mask">Mask</Term>が効かない」「重い」といった症状を、再現可能な診断へつなげる手順を説明します。
 
 ## 基本の考え方
 
@@ -42,7 +43,7 @@ minimal repair
 
 ## 最小例
 
-「Mergeしたら何も見えない」を次の順へ変換します。
+「<Term id="merge">Merge</Term>したら何も見えない」を次の順へ変換します。
 
 1. Background単体は見えるか。
 2. Foreground単体は見えるか。
@@ -119,5 +120,4 @@ Node固有の検証へ進む場合は [Node Reference](../../nodes/) を使い�
 - [Troubleshooting](../../troubleshooting) で具体的な症状から診断する
 
 ---
-
 検証メモ: このページは特定Nodeの仕様ではなく、前章までのConceptを統合した診断methodです。個別仕様の真偽は現在の Reference / host evidenceを優先します。

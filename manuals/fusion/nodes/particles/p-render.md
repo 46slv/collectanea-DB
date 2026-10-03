@@ -2,6 +2,7 @@
 title: pRender
 description: Particle setを2D Imageへrasterizeするparticle domainのRenderer Node。
 doc_type: node
+term_id: p-render
 verification: unverified
 aliases: [pRender, Particle Render, PRN]
 concepts: [data-domain, particle-set, rendering]

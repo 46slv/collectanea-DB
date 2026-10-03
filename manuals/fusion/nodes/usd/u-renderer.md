@@ -2,6 +2,7 @@
 title: uRenderer
 description: USD sceneをHydraベースで2D Image / AOVへrenderするUSD renderer Node。
 doc_type: node
+term_id: u-renderer
 verification: partial
 aliases: [uRenderer, USD Renderer]
 concepts: [data-domain, usd-scene, rendering, aov]

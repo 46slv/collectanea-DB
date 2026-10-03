@@ -2,6 +2,8 @@
 title: User Controlsで公開interfaceを作る
 description: Graph内部の実装パラメータと、操作する人へ見せるcontrolを分離する。
 doc_type: concept
+term_id: user-controls
+term_short: Graph内部のparameterから操作用の公開interfaceを作る仕組み。
 verification: partial
 aliases: [User Controls, Edit Control, custom controls]
 concepts: [user-controls, interface-design, parameter-ownership]
@@ -11,7 +13,6 @@ level: intermediate
 product_scope: fusion
 suite_surfaces: [fusion]
 ---
-
 # User Controlsで公開インターフェースを作る
 
 ## このページで分かること
@@ -67,11 +68,11 @@ User Control: "Spacing"
 
 ### Macro / Template
 
-再利用可能なMacroやTemplateでは、公開controlの選択そのものがインターフェース設計になります。
+再利用可能な<Term id="macros-templates">Macro</Term>やTemplateでは、公開controlの選択そのものがインターフェース設計になります。
 
 ### Expressions
 
-User Controlを基準となる値にし、複数パラメータをExpressionで派生させられます。
+User Controlを基準となる値にし、複数パラメータを<Term id="expressions">Expression</Term>で派生させられます。
 
 ### Repeated graphics
 
@@ -105,5 +106,4 @@ User ControlsはNode固有Referenceではなく、Inspector / authoring機構と
 → [GroupでGraphをまとめる](./groups)
 
 ---
-
 検証メモ: User Controlsの追加・変更・非表示とNode instanceへの保存はBlackmagic Design公式Fusion 20 Manualで確認。Fusion 21.1の正確なダイアログ項目は未確認です。

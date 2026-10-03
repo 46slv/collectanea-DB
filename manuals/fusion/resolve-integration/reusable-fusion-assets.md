@@ -2,6 +2,8 @@
 title: Fusion assetをResolveで再利用する
 description: Fusion GraphをMacro / Templateとしてまとめ、Edit/Cutなどから再利用する境界を理解する。
 doc_type: concept
+term_id: reusable-fusion-assets
+term_short: Fusion GraphをMacroやTemplateとしてResolve内で再利用する境界。
 verification: partial
 product_scope: resolve
 suite_surfaces: [fusion, edit]

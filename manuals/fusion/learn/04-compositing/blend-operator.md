@@ -2,6 +2,8 @@
 title: 合成量と演算（Blend / Operator）
 description: 合成結果のmix量と、Foreground/Background間の合成演算を別々に理解する。
 doc_type: concept
+term_id: blend-operator
+term_short: 合成のmix量とForeground・Background間の演算を分けて扱う考え方。
 verification: partial
 aliases: [Blend, Apply Mode, Operator, compositing mode]
 concepts: [blend, compositing-operator, foreground-background]
@@ -12,19 +14,18 @@ level: intermediate
 product_scope: fusion
 suite_surfaces: [fusion]
 ---
-
 # 合成量と演算（Blend / Operator）
 
 ## このページで分かること
 
-Mergeの「どれだけ混ぜるか」と「どう合成するか」の違いを整理します。
+<Term id="merge">Merge</Term>の「どれだけ混ぜるか」と「どう合成するか」の違いを整理します。
 
 ## 基本の考え方
 
 少なくとも次を分けます。
 
 - **Blend** — 合成結果と元状態のmix量。
-- **Apply / Operator** — ForegroundとBackgroundをどの演算意味で合成するか。
+- **Apply / Operator** — <Term id="foreground-background-mask">Foreground</Term>とBackgroundをどの演算意味で合成するか。
 
 Over、In、Atop、Xor、Screen等は同じ種類の「濃さ違い」ではなく、channel / alpha semanticsが異なる合成 operationです。
 
@@ -84,5 +85,4 @@ Blend相当のeffect mixがあっても、合成 operatorと同じ意味だと�
 → [キーフレーム / スプライン / 時間（Keyframe / Spline / Time）](../05-time/keyframes-spline-time)
 
 ---
-
 検証メモ: MergeのBlend、Apply/Operatorと複数合成 operationの区別はFusion 21系semantic baselineで確認。21.1 正確なUI表記 label / mode inventoryは現在の Manual / 実機で確認します。

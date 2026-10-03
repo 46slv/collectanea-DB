@@ -2,6 +2,7 @@
 title: Text+
 description: Styled Text・配置・Shading等を持つFusionの2D text generator。
 doc_type: node
+term_id: text-plus
 verification: partial
 aliases: [Text+, Text Plus, TXT+]
 concepts: [image-data, parameter-data, keyframes]

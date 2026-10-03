@@ -2,6 +2,7 @@
 title: Background
 description: 色やalphaを持つImageを生成するGenerator Node。
 doc_type: node
+term_id: background
 verification: unverified
 aliases: [Background, BG]
 concepts: [image-data, mask-data]

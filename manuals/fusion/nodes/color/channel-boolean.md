@@ -2,6 +2,7 @@
 title: Channel Boolean
 description: RGBAやAux channelを演算・組み替えするchannel utility Node。
 doc_type: node
+term_id: channel-boolean
 verification: unverified
 aliases: [Channel Boolean, BOL]
 concepts: [channels, alpha, image-data]

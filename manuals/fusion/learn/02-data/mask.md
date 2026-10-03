@@ -2,6 +2,8 @@
 title: マスク（Mask）
 description: FusionのMaskを、Imageとは別の処理範囲dataとして理解する。
 doc_type: concept
+term_id: mask
+term_short: Nodeの処理範囲を制限するMask data。
 verification: partial
 aliases: [Mask, Effect Mask, matte area]
 concepts: [mask-data, effect-mask]
@@ -10,7 +12,6 @@ prerequisites: [image-data, typed-connections]
 level: foundation
 product_scope: fusion
 ---
-
 # マスク（Mask）
 
 ## このページで分かること
@@ -27,11 +28,11 @@ Image → Effect → Output
         Mask
 ```
 
-MaskをViewerで白黒に見られる場面があっても、そのGraph 役割は通常Imageとは異なります。
+Maskを<Term id="intermediate-results-viewer">Viewer</Term>で白黒に見られる場面があっても、そのGraph 役割は通常Imageとは異なります。
 
 ## 最小例
 
-Ellipse MaskをMergeのEffect Maskへ接続します。
+Ellipse Maskを<Term id="merge">Merge</Term>のEffect Maskへ接続します。
 
 Image 分岐を変えず、Maskの有無だけを切り替え、合成範囲が変わることを観察します。
 

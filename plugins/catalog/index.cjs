@@ -10,6 +10,9 @@ function date(value) {
   if (Number.isNaN(parsed.valueOf())) throw new Error(`Invalid content date: ${value}`);
   return parsed.toISOString().slice(0, 10);
 }
+function termRefs(raw) {
+  return [...raw.matchAll(/<Term\s+[^>]*\bid=["']([^"']+)["'][^>]*>/g)].map((match) => match[1]);
+}
 function text(raw) {
   return raw.replace(/^\uFEFF?---\s*\r?\n[\s\S]*?\r?\n---\s*(?:\r?\n|$)/, '')
     .replace(/^import\s.+$/gm, '').replace(/<[^>]+>/g, ' ')
@@ -34,7 +37,8 @@ module.exports = function collectaneaCatalog(context, options = {}) {
     const source = String(meta.source || '').replace(/^@site\//, '');
     const file = path.resolve(context.siteDir, source);
     if (!file.startsWith(path.resolve(context.siteDir) + path.sep)) throw new Error(`Source outside site: ${source}`);
-    const body = text(await fs.readFile(file, 'utf8'));
+    const raw = await fs.readFile(file, 'utf8');
+    const body = text(raw);
     const dirs = String(meta.sourceDirName || '.').split('/').filter((p) => p && p !== '.').map((p) => p.replace(/^\d+-/, ''));
     const leaf = path.basename(source).replace(/\.(md|mdx)$/, '').replace(/^\d+-/, '');
     let material, segments;
@@ -69,7 +73,7 @@ module.exports = function collectaneaCatalog(context, options = {}) {
       published: date(meta.date), status: typeof fm.verification === 'string' ? fm.verification : (typeof fm.status === 'string' ? fm.status : null),
       position: meta.sidebarPosition ?? fm.sidebar_position ?? 9999,
       isMaterialRoot: kind !== 'article' && segments.length === 0,
-      segments, draft: Boolean(meta.draft || fm.draft), unlisted: Boolean(meta.unlisted || fm.unlisted), body,
+      segments, draft: Boolean(meta.draft || fm.draft), unlisted: Boolean(meta.unlisted || fm.unlisted), body, termRefs: termRefs(raw),
     };
   }
   return {

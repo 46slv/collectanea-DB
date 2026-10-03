@@ -2,6 +2,8 @@
 title: キーフレーム / スプライン / 時間（Keyframe / Spline / Time）
 description: Fusionのパラメータを時間で変化させるときの、KeyframeとSplineの役割を分けて理解する。
 doc_type: concept
+term_id: keyframes-spline-time
+term_short: KeyframeとSplineでparameterの時間変化を作る仕組み。
 verification: partial
 aliases: [Keyframe, Spline, animation]
 concepts: [keyframes, animation-curve, time]
@@ -12,7 +14,6 @@ level: foundation
 product_scope: fusion
 suite_surfaces: [fusion]
 ---
-
 # キーフレーム / スプライン / 時間（Keyframe / Spline / Time）
 
 ## このページで分かること
@@ -30,9 +31,9 @@ Blackmagic Designの現行Fusion紹介でも、Inspectorのcontrolからkeyframe
 
 ## 最小例
 
-TransformのCenterを使います。
+<Term id="transform">Transform</Term>のCenterを使います。
 
-1. 最初の時点でCenterにkeyframeを置く。
+1. 最初の時点で<Term id="center-pivot-size-angle">Center</Term>にkeyframeを置く。
 2. 後の時点へ移動する。
 3. Centerを別の位置へ変更する。
 4. 再生して変化を見る。
@@ -101,5 +102,4 @@ Inspectorでkeyframe可能なcontrolを見つけたら、Node名が違っても�
 → [式（Expressions）](./expressions)
 
 ---
-
 検証メモ: Inspectorからのkeyframe操作とSpline / Keyframe Editorの存在は、2026-10-02時点のBlackmagic Design公式Fusion紹介と照合済み。補間方式・curve controlの厳密な仕様は今後Reference Manual / 実機で確認します。

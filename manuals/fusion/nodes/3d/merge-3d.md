@@ -2,6 +2,7 @@
 title: Merge 3D
 description: 複数のClassic Fusion 3D scene/object streamを1つの3D sceneへ統合するNode。
 doc_type: node
+term_id: merge-3d
 verification: unverified
 aliases: [Merge3D, Merge 3D, 3MG]
 concepts: [data-domain, classic-3d, scene-graph]

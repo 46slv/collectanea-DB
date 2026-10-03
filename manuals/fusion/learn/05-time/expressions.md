@@ -2,6 +2,8 @@
 title: 式（Expressions）
 description: パラメータを別の値から計算し、値同士の関係を保つための考え方。
 doc_type: concept
+term_id: expressions
+term_short: parameter値を式で別の値から計算し関係を保つ仕組み。
 verification: unverified
 aliases: [Expression, 式, parameter link]
 concepts: [expressions, parameter-linking, derived-values]
@@ -12,7 +14,6 @@ level: foundation
 product_scope: fusion
 suite_surfaces: [fusion]
 ---
-
 # 式（Expressions）
 
 > Expressionの具体的な構文例はFusion 21.1 Reference Manual / 実機で再確認前です。ここでは既存seedをConcept構造へ移したDraftとして扱います。
@@ -65,7 +66,7 @@ Expressionを使うとき、Node名や式より先に次を決めます。
 - どのパラメータが派生値か。
 - 派生先が期待する型は何か。
 - Node名の変更や構造変更で参照が壊れないか。
-- 同じ関係をInstance / Modifier / User Controlで持つ方が適切ではないか。
+- 同じ関係をInstance / <Term id="modifier-parameter-sources">Modifier</Term> / User Controlで持つ方が適切ではないか。
 
 ## 1つずつ変えて確認する
 
@@ -77,7 +78,7 @@ Expressionを使うとき、Node名や式より先に次を決めます。
 
 ### Position 関係
 
-複数要素のCenterを同じ参照元から導き、位置関係を保つ設計へ転用できます。
+複数要素の<Term id="center-pivot-size-angle">Center</Term>を同じ参照元から導き、位置関係を保つ設計へ転用できます。
 
 ### Proportional size
 

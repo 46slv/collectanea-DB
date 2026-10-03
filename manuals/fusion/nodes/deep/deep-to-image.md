@@ -2,6 +2,7 @@
 title: Deep to Image
 description: Deep imageを通常の2D Imageへflattenするdomain変換Node。
 doc_type: node
+term_id: deep-to-image
 verification: partial
 aliases: [Deep to Image]
 concepts: [data-domain, deep-image, flatten]

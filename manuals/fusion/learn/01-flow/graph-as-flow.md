@@ -2,6 +2,8 @@
 title: Graphとして考える
 description: FusionのNode Graphを、処理の順番ではなく接続されたデータフローとして読む。
 doc_type: concept
+term_id: graph-as-flow
+term_short: Node接続を処理順ではなくdata flowとして読む考え方。
 verification: partial
 aliases: [Flow, Node Graph, ノードグラフ]
 concepts: [node-graph, evaluation-flow]
@@ -11,7 +13,6 @@ level: foundation
 product_scope: fusion
 suite_surfaces: [fusion]
 ---
-
 # Graphとして考える
 
 ## このページで分かること
@@ -30,8 +31,8 @@ Flowは、**Node同士の接続でデータの流れを記述するGraph**です
 MediaIn1 → Transform1 → MediaOut1
 ```
 
-1. `MediaIn1` が画像を供給する。
-2. `Transform1` がその画像を受け取る。
+1. `<Term id="media-in">MediaIn</Term>1` が画像を供給する。
+2. `<Term id="transform">Transform</Term>1` がその画像を受け取る。
 3. `MediaOut1` へ結果を渡す。
 
 選択したNodeをViewerで確認しながら、中間結果を1段ずつ見ると、Graphのどこで結果が変わったかを切り分けやすくなります。
@@ -97,5 +98,4 @@ BackgroundのようなGeneratorは、必ずしも上流画像を必要とせず�
 → [Image / Mask / Dataを分ける](../02-data/image-mask-data)
 
 ---
-
 検証メモ: 2026-10-02時点のBlackmagic Design公式Fusion紹介で、Node tree、接続、Viewerによる確認の基本を照合済み。Nodeごとの厳密な評価規則は別途Reference Manual / host検証対象です。

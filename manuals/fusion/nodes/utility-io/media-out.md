@@ -2,6 +2,7 @@
 title: MediaOut
 description: Fusion Flowの最終2D ImageをResolve timeline / downstream 作業の流れへ返すResolve-integrated output Node。
 doc_type: node
+term_id: media-out
 verification: partial
 aliases: [MediaOut, Media Out]
 concepts: [image-data, resolve-integration, output-boundary]

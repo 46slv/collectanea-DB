@@ -2,6 +2,7 @@
 title: sRender
 description: Shape domainを2D ImageへrasterizeするShape renderer Node。
 doc_type: node
+term_id: s-render
 verification: partial
 aliases: [sRender, Shape Render]
 concepts: [data-domain, shape-domain, rasterization]

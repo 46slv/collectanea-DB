@@ -2,6 +2,8 @@
 title: GroupでGraphをまとめる
 description: 複数Nodeを展開可能な構造単位としてまとめ、内部Graphを保ったまま整理・再利用する。
 doc_type: concept
+term_id: groups
+term_short: 複数Nodeを内部Graphを保ったまま1つの構造単位へまとめる仕組み。
 verification: partial
 aliases: [Group, Node Group]
 concepts: [groups, graph-structure, reuse]
@@ -11,7 +13,6 @@ level: foundation
 product_scope: fusion
 suite_surfaces: [fusion]
 ---
-
 # GroupでGraphをまとめる
 
 ## このページで分かること
@@ -32,7 +33,7 @@ A → [ Group: B → C ] → D
 
 Groupは処理を新しい1 Nodeへ置き換えるというより、関連するNode群に境界を作ります。
 
-Blackmagic DesignのFusion 19/20 Manualでは、GroupとMacroは似たbundleですが、GroupはNode treeのvisual complexityを下げて整理する用途、Macroはよりcustomizableで他compositionへ再利用しやすい用途として区別されています。
+Blackmagic DesignのFusion 19/20 Manualでは、Groupと<Term id="macros-templates">Macro</Term>は似たbundleですが、GroupはNode treeのvisual complexityを下げて整理する用途、Macroはよりcustomizableで他compositionへ再利用しやすい用途として区別されています。
 
 ## 最小例
 
@@ -69,7 +70,7 @@ Merge
 
 ### Reuse
 
-保存したGroupを再利用する運用もありますが、公開controlや外部利用を設計するならMacro / Templateとの違いを確認します。
+保存したGroupを再利用する運用もありますが、公開controlや外部利用を設計するなら<Term id="macros-templates">Macro</Term> / Templateとの違いを確認します。
 
 ### 診断
 
@@ -103,5 +104,4 @@ Groupは複数Nodeを包むauthoring構造であり、単一Node Referenceには
 → [Macro / Templateで再利用単位を作る](./macros-templates)
 
 ---
-
 検証メモ: GroupとMacroの役割差、Group保存・再利用の考え方はBlackmagic Design公式Fusion 19/20 Manualに基づく。Fusion 21.1の正確なUI表記は再確認対象です。

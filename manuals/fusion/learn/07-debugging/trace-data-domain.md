@@ -2,6 +2,8 @@
 title: Data domainを辿って診断する
 description: Node名ではなくImage・Mask・Shape・3D・Particle・Deepなどのデータ領域（data domain）を追って接続問題を切り分ける。
 doc_type: concept
+term_id: trace-data-domain
+term_short: Image・Mask・Shape・3D等のdata domainを追って接続問題を診断する方法。
 verification: partial
 aliases: [data domain, typed data, 接続できない]
 concepts: [data-domain, typed-connections, debugging]
@@ -11,7 +13,6 @@ level: foundation
 product_scope: fusion
 suite_surfaces: [fusion]
 ---
-
 # データ領域（data domain）を辿って診断する
 
 ## このページで分かること
@@ -24,8 +25,8 @@ FusionのFlowには、同じ「Node」に見えても異なるデータ領域（
 
 代表例:
 
-- 2D Image
-- Mask
+- 2D <Term id="image">Image</Term>
+- <Term id="mask">Mask</Term>
 - Shape
 - Particle set
 - Classic 3D scene
@@ -106,5 +107,4 @@ Node Referenceでは今後、各Nodeのデータ領域（data domain） / input 
 → [分岐を分離して原因範囲を狭める](./isolate-branches)
 
 ---
-
 検証メモ: Fusion 21系の公式資料を元に整理したデータ領域（data domain）分類を基準としています。Fusion 21.1での正確なRegistry / Port Typeは現在の ホスト上での確認を優先します。

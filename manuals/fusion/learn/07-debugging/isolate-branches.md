@@ -2,6 +2,8 @@
 title: 分岐を分離して原因範囲を狭める
 description: Graph全体を一度に触らず、Image・Mask・effect 分岐を独立して確認する診断方法。
 doc_type: concept
+term_id: isolate-branches
+term_short: Graphの分岐を個別に確認して原因範囲を狭める診断方法。
 verification: partial
 aliases: [branch isolation, binary search, 切り分け]
 concepts: [branch-isolation, debugging, node-graph]
@@ -11,7 +13,6 @@ level: foundation
 product_scope: fusion
 suite_surfaces: [fusion]
 ---
-
 # 分岐を分離して原因範囲を狭める
 
 ## このページで分かること
@@ -34,11 +35,11 @@ stage C
 problem scope = A → B
 ```
 
-Viewerは、Graphの各地点を観察するprobeとして使います。
+<Term id="intermediate-results-viewer">Viewer</Term>は、Graphの各地点を観察するprobeとして使います。
 
 ## 最小例
 
-Masked Mergeなら次の3つを別々に確認します。
+Masked <Term id="merge">Merge</Term>なら次の3つを別々に確認します。
 
 ```text
 Background branch ─┐
@@ -113,5 +114,4 @@ Groupの外→内→外という境界で同じ方法を使います。
 → [AlphaとMaskを分けて診断する](./alpha-vs-mask)
 
 ---
-
 検証メモ: Viewerで各Nodeの中間結果を確認する基本操作はBlackmagic Design現行Fusionページで確認済み。診断手順自体はこのManualの再利用可能なmethodです。

@@ -2,6 +2,7 @@
 title: Alpha Divide
 description: RGBをAlphaで除算し、premultiplied状態を解除するためのNode。
 doc_type: node
+term_id: alpha-divide
 verification: unverified
 aliases: [Alpha Divide, ADV, unpremultiply]
 concepts: [alpha, premultiplication]

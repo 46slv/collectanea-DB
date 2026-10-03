@@ -2,6 +2,8 @@
 title: 正規化座標（Normalized Coordinates）
 description: Fusionの2D controlで頻出する正規化座標を、ピクセル値と切り分けて考える。
 doc_type: concept
+term_id: normalized-coordinates
+term_short: 解像度から独立して位置を表す正規化座標。
 verification: unverified
 aliases: [正規化座標, normalized position, Center]
 concepts: [normalized-coordinates, coordinate-space]
@@ -12,20 +14,19 @@ level: foundation
 product_scope: fusion
 suite_surfaces: [fusion]
 ---
-
 # 正規化座標（Normalized Coordinates）
 
 > このページの数値仕様は、Fusion 21.1 Reference Manual / 実機での再確認前です。現時点では既存seedを整理したDraftとして扱ってください。
 
 ## このページで分かること
 
-Centerなどの位置controlで使われる、ピクセル座標とは異なる数値の読み方を説明します。
+<Term id="center-pivot-size-angle">Center</Term>などの位置controlで使われる、ピクセル座標とは異なる数値の読み方を説明します。
 
 ## 基本の考え方
 
 Fusionの多くの2D位置controlでは、フレームに対する位置を**正規化された値**として扱う考え方が使われます。
 
-既存のFusion seedでは、代表的な2D Centerを次のように捉えています。
+既存のFusion seedでは、代表的な2D <Term id="center-pivot-size-angle">Center</Term>を次のように捉えています。
 
 ```text
 X: 0.0 ───────── 0.5 ───────── 1.0

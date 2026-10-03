@@ -2,6 +2,7 @@
 title: Renderer 3D
 description: Classic Fusion 3D sceneを2D Imageへrasterizeするdomain変換Node。
 doc_type: node
+term_id: renderer-3d
 verification: partial
 aliases: [Renderer3D, Renderer 3D, 3RN]
 concepts: [data-domain, classic-3d, rendering]

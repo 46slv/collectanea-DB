@@ -2,6 +2,8 @@
 title: フレーム評価（Frame Evaluation）
 description: パラメータ 値・composition time・参照元の時間（参照元 time）・render requestを分け、Fusionがフレームを評価する仕組みを理解する。
 doc_type: concept
+term_id: frame-evaluation
+term_short: timeと参照元からFusionが1 frameの結果を評価する仕組み。
 verification: partial
 aliases: [frame evaluation, composition time, render request]
 concepts: [evaluation, time, render-request]
@@ -11,7 +13,6 @@ level: intermediate
 product_scope: fusion
 suite_surfaces: [fusion]
 ---
-
 # フレーム 評価
 
 ## このページで分かること
@@ -24,7 +25,7 @@ Fusionでは次を分けます。
 
 - **パラメータ 値** — その時点でNode input/controlが返す値。
 - **composition time** — composition上の現在の フレーム / time。
-- **参照元の時間（参照元 time）** — Loader / MediaIn / retime等が参照する参照元側時間。
+- **参照元の時間（参照元 time）** — Loader / <Term id="media-in">MediaIn</Term> / retime等が参照する参照元側時間。
 - **render request** — hostが実際に評価を要求するフレーム / region / channel。
 
 Graphは現在の requestに応じて評価されます。
@@ -33,7 +34,7 @@ Graphは現在の requestに応じて評価されます。
 
 1つのanimated パラメータを持つNodeを選び、フレームを移動します。
 
-同じNodeでもフレームごとにパラメータ 値が変わり、Viewer outputが変化することを確認します。
+同じNodeでもフレームごとにパラメータ 値が変わり、<Term id="intermediate-results-viewer">Viewer</Term> outputが変化することを確認します。
 
 ## 共通ルール
 
@@ -83,5 +84,4 @@ cache、parallel render、scrub、out-of-order requestがあり得るため、�
 → [Modifier / パラメータ Sources](./modifier-parameter-sources)
 
 ---
-
 検証メモ: パラメータ 値 / composition time / 参照元の時間（参照元 time） / render requestの分離とout-of-order 評価注意はFusion 21系semantic baselineで確認。

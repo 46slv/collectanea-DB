@@ -2,6 +2,8 @@
 title: 有効領域（Domain of Definition）
 description: フレーム（Frame）全体と、実際に有効なピクセルが存在する領域を分けて理解する。
 doc_type: concept
+term_id: domain-of-definition
+term_short: 実際に有効なpixelが存在するImage領域。
 verification: partial
 aliases: [DoD, Domain of Definition, image domain, ROI]
 concepts: [domain-of-definition, region-of-interest, image-extent]
@@ -12,19 +14,18 @@ level: intermediate
 product_scope: fusion
 suite_surfaces: [fusion]
 ---
-
 # 有効領域（Domain of Definition）
 
 ## このページで分かること
 
-フレーム外へ動かしたImageが戻せる場合と、戻せない場合の違いを説明します。
+フレーム外へ動かした<Term id="image">Image</Term>が戻せる場合と、戻せない場合の違いを説明します。
 
 ## 基本の考え方
 
 Fusionでは少なくとも次を分けます。
 
 - **フレーム / 画像範囲（Frame / image extent）** — 基準となる幅（width）と高さ（height）。
-- **キャンバス（Canvas）** — Imageを扱う空間。
+- **キャンバス（Canvas）** — <Term id="image">Image</Term>を扱う空間。
 - **有効領域（Domain of Definition / DoD）** — 実際に有効なピクセルが存在する領域。
 - **計算領域（Region of Interest / RoI）** — rendererが今回の計算を要求している領域。
 
@@ -91,5 +92,4 @@ Image
 → [解像度（Resolution）/ 有効領域（Domain of Definition）を確認する](../07-debugging/resolution-domain-of-definition)
 
 ---
-
 検証メモ: フレーム / Canvas / DoD / RoIの区別はFusion 21系の資料で確認しています。Node固有のclippingや領域設定は、現在のFusion 21.1の資料・実機確認を優先します。
