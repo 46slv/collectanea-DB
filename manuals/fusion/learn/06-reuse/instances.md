@@ -2,6 +2,8 @@
 title: Instanceで設定を共有する
 description: 同じNode設定を複数分岐で共有し、必要なパラメータだけ独立させる考え方。
 doc_type: concept
+term_id: instances
+term_short: 同じNode設定を複数箇所で共有し一部だけ独立させる仕組み。
 verification: partial
 aliases: [Instance, Paste Instance, Deinstance]
 concepts: [instancing, shared-parameters, reuse]
@@ -11,7 +13,6 @@ level: foundation
 product_scope: fusion
 suite_surfaces: [fusion]
 ---
-
 # Instanceで設定を共有する
 
 ## このページで分かること
@@ -69,7 +70,7 @@ Blur量を1箇所で変えたとき、両方へ同じ調整を保ちたいなら
 
 ### 診断
 
-意図せず複数Nodeが同時に変わる場合は、ExpressionだけでなくInstance関係も確認します。
+意図せず複数Nodeが同時に変わる場合は、<Term id="expressions">Expression</Term>だけでなくInstance関係も確認します。
 
 ## 初見のNodeを読む
 
@@ -78,7 +79,7 @@ Blur量を1箇所で変えたとき、両方へ同じ調整を保ちたいなら
 1. これは偶然同じ値なのか。
 2. 常に同期すべき関係なのか。
 3. 一部パラメータだけ独立させる必要があるか。
-4. InstanceよりMacro / Group / User Controlの方が責任に合うか。
+4. InstanceよりMacro / <Term id="groups">Group</Term> / User Controlの方が責任に合うか。
 
 ## よくある誤解
 
@@ -99,5 +100,4 @@ Instanceは特定NodeではなくNode Editor上の再利用機構です。
 → [User Controlsで公開インターフェースを作る](./user-controls)
 
 ---
-
 検証メモ: Instanceの共有settings、Deinstance、パラメータ単位のDeinstance/ReinstanceはBlackmagic Design公式Fusion 18.6 Manualで確認。Fusion 21.1でのmenu label・shortcut・例外は未確認です。
