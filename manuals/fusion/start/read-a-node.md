@@ -29,7 +29,7 @@ Nodeを見たら、次の順番で確認します。
 
 - 2D <Term id="image">Image</Term>
 - <Term id="mask">Mask</Term>
-- Shape
+- <Term id="shape-data">Shape</Term>
 - Particle set
 - Classic 3D scene
 - USD scene
@@ -89,7 +89,7 @@ dMerge
 
 これらを「Mergeの種類」とだけまとめず、データ領域（data domain）から区別します。
 
-また、正確な パラメータ名・初期値・範囲はversion依存です。Referenceで確認できないものを推測で埋めません。
+また、正確なパラメータ名・初期値・範囲はversion依存です。21.1 Manualや実機で確認できるものは具体的に記述し、確認できないものだけを推測で埋めません。Family固有の考え方が必要な場合は、個別Nodeへ入る前にFamily OverviewやLearnのConceptを確認します。
 
 ## 次に読む
 

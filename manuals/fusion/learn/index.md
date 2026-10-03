@@ -19,19 +19,20 @@ tasks: [learn, understand]
 4. [Graphが評価される依存関係](./01-flow/evaluation-dependency)
 5. [Image / Mask / Dataを分ける](./02-data/image-mask-data)
 6. [接続できるdata / 接続できないdata](./02-data/connection-compatibility)
-7. [正規化座標（Normalized Coordinates）](./03-space/normalized-coordinates)
-8. [前景（Foreground）/ 背景（Background）/ マスク（Mask）](./04-compositing/foreground-background-mask)
-9. [キーフレーム / スプライン / 時間（Keyframe / Spline / Time）](./05-time/keyframes-spline-time)
-10. [式（Expressions）](./05-time/expressions)
-11. [Instanceで設定を共有する](./06-reuse/instances)
-12. [User Controlsで公開インターフェースを作る](./06-reuse/user-controls)
-13. [GroupでGraphをまとめる](./06-reuse/groups)
-14. [Macro / Templateで再利用単位を作る](./06-reuse/macros-templates)
-15. [データ領域（data domain）を辿って診断する](./07-debugging/trace-data-domain)
-16. [分岐を分離して原因範囲を狭める](./07-debugging/isolate-branches)
-17. [AlphaとMaskを分けて診断する](./07-debugging/alpha-vs-mask)
-18. [Resolution / Domain of Definitionを確認する](./07-debugging/resolution-domain-of-definition)
-19. [症状ではなくGraphを診断する](./07-debugging/diagnose-graph-not-symptom)
+7. [シェイプ（Shape）](./02-data/shape)
+8. [正規化座標（Normalized Coordinates）](./03-space/normalized-coordinates)
+9. [前景（Foreground）/ 背景（Background）/ マスク（Mask）](./04-compositing/foreground-background-mask)
+10. [キーフレーム / スプライン / 時間（Keyframe / Spline / Time）](./05-time/keyframes-spline-time)
+11. [式（Expressions）](./05-time/expressions)
+12. [Instanceで設定を共有する](./06-reuse/instances)
+13. [User Controlsで公開インターフェースを作る](./06-reuse/user-controls)
+14. [GroupでGraphをまとめる](./06-reuse/groups)
+15. [Macro / Templateで再利用単位を作る](./06-reuse/macros-templates)
+16. [データ領域（data domain）を辿って診断する](./07-debugging/trace-data-domain)
+17. [分岐を分離して原因範囲を狭める](./07-debugging/isolate-branches)
+18. [AlphaとMaskを分けて診断する](./07-debugging/alpha-vs-mask)
+19. [Resolution / Domain of Definitionを確認する](./07-debugging/resolution-domain-of-definition)
+20. [症状ではなくGraphを診断する](./07-debugging/diagnose-graph-not-symptom)
 
 各Conceptページは、最小例を試したあとに「別Nodeでも何が同じか」を確認する構成です。
 
@@ -42,6 +43,7 @@ tasks: [learn, understand]
 - [画像（Image）](./02-data/image)
 - [マスク（Mask）](./02-data/mask)
 - [パラメータ / Data](./02-data/parameter-data)
+- [シェイプ（Shape）](./02-data/shape)
 
 ### 03 Coordinates & Space
 

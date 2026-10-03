@@ -1,7 +1,7 @@
 # Fusion Authoring Contract
 
-Status: Proposed
-Updated: 2026-10-02
+Status: Active
+Updated: 2026-10-03
 
 ## Purpose
 
@@ -144,52 +144,157 @@ Node familyごとの差。
 
 Patternは「最終成果物の作り方」ではなく「再利用できる構造」を所有する。
 
-## 関連Node template
+## Node Reference template
 
 Path:
 `manuals/fusion/nodes/<family>/<node>.md`
 
 Purpose:
-作業中にNodeの事実を速く引けるようにする。
+作業中にNodeの事実を速く引けるだけでなく、**そのNodeを初めて見た読者が「何を入れると、何が起きて、何に使えるか」をこのページだけで理解できる状態**にする。
+
+Node Referenceは辞書の見出しではない。別の専門語で役割名を言い換えるだけの説明を避ける。
+
+悪い例:
+
+```text
+主な用途
+ShapeをGrid複製。
+```
+
+この書き方では、`Grid複製` が何を意味するか分からない読者に情報が増えていない。
+
+良い例:
+
+```text
+sGridは、入力したShapeを横方向と縦方向へ規則正しく並べ、行列状の反復パターンを作るNodeです。
+同じ円や四角を一定間隔で並べたいときに使います。
+```
 
 Required structure:
 
 ```
 # Node Name
 
-One-sentence description.
+1〜3文の平易な説明。
+「何を受け取り」「何をする」「結果がどうなるか」を専門語だけで圧縮せず書く。
 
-## At a Glance
-- Family
-- Inputs
-- Output
-- Core concepts
-- Common tasks
+## 役割
+このNodeがFlowの中で何を担当するか。
+名前を言い換えるだけでなく、入力前と出力後で何が変わるかを書く。
 
-## Inputs
+## 入力
+### Input A
+- 受け取るデータ領域
+- 何を接続する場所か
+- 必須 / 任意が確認できている場合は明記
 
-## Output
+## 出力
+- 返すデータ領域
+- 後段で何へ接続できるか
+- Viewerへ直接表示できない場合は、その理由と変換Nodeを書く
 
-## Controls
-### Control A
-### Control B
-...
+## 主な設定項目
+確認済みのControlだけを、値の意味と見た目の変化が分かる形で説明する。
+Inspector名の列挙だけにしない。
 
-## Behavior / Notes
+## 主な用途
+「○○処理」「Grid複製」のような短い名詞で終わらせず、実際に何を作るときに使うかを2〜4例示す。
 
-## Minimal Examples
+## 最小構成
+最小Graphを示す。
 
-## Related Concepts
+## 運用例
+具体的な素材・目的・接続結果を1つ以上示す。
+例: 小さな円を入力して、横8×縦6へ並べ、ドット背景を作る。
+
+## 挙動と注意点
+Node固有の例外、data domain、rasterize前後、重い使い方、似たNodeとの違い等。
+
+## 関連する考え方
 ## 関連する再利用構成（Patterns）
-## Similar / Adjacent Nodes
-## Version / Verification Notes
+## 似たNode・関連Node
+## バージョンと検証状況
 ```
 
 Rules:
-- Conceptの長い説明を再掲しない。
+- Conceptの長い説明を丸ごと再掲しない。ただし、**そのNodeを理解するために最低限必要なConcept説明はページ内にも書く**。リンクを踏まないと役割が分からない状態にしない。
+- 専門語を専門語で定義しない。初学者が結果を想像できる具体語へ開く。
+- `description` / 冒頭 / `主な用途` を同じ一文のコピーで埋めない。それぞれ「検索用要約」「役割の説明」「実際の用途」を分ける。
 - Inspector順だけに依存せず、意味の近いControlsをgroup化してよい。
 - default / range / behaviorは確認済みのものだけ断定する。
+- exactな端子名を未確認でも、確認済みのdata domainと接続の役割は説明する。
 - Node固有の例外はここに置く。
+- 代表的なNodeでは、後から操作画面・Node graph・Before/After等の画像を追加できる構造にする。画像が未用意の段階で空placeholderを大量生成しない。
+- 読者に先に理解してほしいデータ領域や概念（Shape、Mask、Deep等）がある場合はConceptページを用意し、本文の重要な初出へ `<Term>` を付ける。hover説明は短い定義、詳しい説明はConceptページを正本とする。
+- 同じ用語を一文ごとにhover化しない。初出・意味が分かりにくい箇所・別概念との区別が重要な箇所を優先する。
+
+## Node Referenceの完成条件
+
+Nodeページは、項目が埋まっているだけでは完成としない。初見の読者がページを読んだ後に、少なくとも次を説明できることを目標にする。
+
+- 何を入力するNodeか
+- 入力に対して何が起きるか
+- 何を出力し、次にどこへつなげるか
+- 主要Controlを変えると結果がどう変わるか
+- 最小Graphを1つ組んで挙動を確かめる方法
+- 似たNodeと迷ったときの最初の選択基準
+- どこまでが21.1 Manual / 公式資料 / 実機で確認済みか
+
+「用語を別の用語へ置き換えただけ」「分類名と一行要約だけ」「未検証なので具体的な役割も書かない」は未完成として扱う。
+
+### Nodeの型に合わせて構成を変える
+
+全Nodeへ同じ見出しを機械的に強制しない。上の必須情報を保ちながら、Nodeの役割に応じて説明順を変えてよい。
+
+| 型 | 最初に説明すること | 重視する項目 |
+| --- | --- | --- |
+| Generator / Source | 何を新しく作るか | 入力がないこと、生成Control、最小出力 |
+| Processor / Transform | 入力の何を変えるか | 入力→変化→出力、変化量、Before/After |
+| Combiner / Mixer | 何をどうまとめるか | 各入力の役割、順序、重なり・演算 |
+| Converter / Renderer | どのデータ領域から何へ変えるか | domain境界、変換後に接続できるNode |
+| Controller / Modifier / Region | 何の値・範囲を制御するか | 対象側の入力、直接画像を作らない場合の意味 |
+
+該当しない見出しを空で残すより、そのNodeで必要な説明を前へ出す。
+
+### Family Overview
+
+Shape、Particle、Deep、USD、Classic 3D、Krokodoveなど、Node名を読む前にデータ領域や共通構造を理解した方がよいFamilyは、`manuals/fusion/nodes/<family>/index.md` に短いFamily Overviewを持てる。
+
+Family OverviewはConceptの全文コピーではなく、Referenceを選ぶための地図を担当する。
+
+- 何を扱うFamilyか
+- 典型的なInput / Output domain
+- 「作る / 変える / 増やす / 組み合わせる / 描画する」等の役割分類
+- 最小の代表Graph
+- 2D Imageへ戻す境界やrenderer
+- 詳細Conceptへのリンク
+- 代表Nodeへのリンク
+
+概念の正本はLearn、個別仕様の正本は各Node Referenceに置く。
+
+### 根拠の扱い
+
+`verification` はページ全体の状態であり、個々の主張の根拠を隠すために使わない。
+
+- **21.1 Manualで確認**: 現行Reference Manual本文・図・表で確認できた内容。
+- **公式発表で確認**: release note / New Features等で名称や役割だけ確認した内容。
+- **実機確認**: 現行hostで端子・Inspector・結果を観測した内容。
+- **構成案 / 確認案**: 確認済みの役割から組み立てた提案。実機結果として書かない。
+
+Manualに端子名・Control名・例があるなら、`partial`だからという理由でそれらを伏せない。逆に一行summaryしかないNodeでは、文章量を揃えるために存在しないControlやレシピを作らない。
+
+出典は必要なページで `出典と確認範囲` にManual章・ページ、release note、runtime条件等を残す。公式資料の文章や画像を大量に複製せず、独自の説明として再構成する。
+
+### 画像
+
+画像は装飾ではなく、文章だけでは理解しにくい点を示すために置く。優先順の目安:
+
+1. Node tile / 接続端子
+2. 最小Graph
+3. 説明している主要Inspector部分
+4. 結果画像またはBefore / After
+
+すべてを全ページへ義務化しない。自前の実機captureや検証用素材を優先し、公式Manualの画像をそのまま転載することを標準手段にしない。
 
 ## Recipe template
 
