@@ -1,6 +1,6 @@
 ---
 title: ノードリファレンス（Node Reference）
-description: Fusion Nodeをfamily別に引くReference入口。
+description: Fusion 21系で参照するNode・Modifier・Paint要素を、役割・データ領域・用途・注意点から引くReference入口。
 doc_type: index
 verification: partial
 product_scope: fusion
@@ -9,87 +9,33 @@ tasks: [lookup-node, inspect-controls]
 
 # ノードリファレンス（Node Reference）
 
-Node固有の入出力・control・例外を引くためのReferenceです。
+Fusionで使うノード（Node）と関連要素を、名前だけでなく、何を受け取り、何を返し、どの場面で使うかから確認するためのリファレンスです。
 
-一般概念は [Learn](../learn/) に、複数Nodeへ再利用する構成は [Patterns](../patterns/) に置きます。
+一覧から探す場合は [ノードA–Z（Node A–Z）](../index/node-a-z) を使ってください。一般的な仕組みは [Learn](../learn/) に、複数ノードへ再利用できる組み方は [Patterns](../patterns/) に分けています。
 
-## 合成（Compositing）
+## 掲載範囲
 
-- [Merge](./compositing/merge)
-- [MultiMerge](./compositing/multi-merge)
+現在は **359ページ** を収録しています。
 
-## Generators
+- Fusion 21カタログ由来の357項目
+- Resolve内Fusionの入出力境界となる `MediaIn` / `MediaOut`
+- 通常のFlowノードだけでなく、ModifierとPaint内部要素も検索対象に含む
+- 2D Image、Mask、Shape、Particle、Classic 3D、USD、Deep、Krokodoveを区別して記述
 
-- [Background](./generators/background)
-- [Text+](./generators/text-plus)
+カタログ上で同名の `Offset` は、Modifier版とKrokodove版を別ページとして扱います。
 
-## Transform / Format
+## 各ページで確認できること
 
-- [Transform](./transform/transform)
-- [Resize](./transform/resize)
+- ノードの役割
+- 扱うデータ領域（Data Domain）
+- 入力と出力の分類
+- 主な用途
+- 最小構成
+- 似たノードや別領域との区別
+- バージョンと検証状況
 
-## Masks
+## 記述の境界
 
-- [Ellipse Mask](./masks/ellipse-mask)
-- [Polygon Mask](./masks/polygon-mask)
+役割と系譜を確認できても、Fusion 21.1実機で端子名・Inspector項目・初期値・数値範囲を確認できていない項目は `partial` としています。
 
-## Color / Channel
-
-- [Brightness Contrast](./color/brightness-contrast)
-- [Color Corrector](./color/color-corrector)
-- [Channel Boolean](./color/channel-boolean)
-
-## Blur / Filter
-
-- [Blur](./blur-filter/blur)
-
-## Matte / キーイング
-
-- [Delta Keyer](./matte-keying/delta-keyer)
-- [Matte Control](./matte-keying/matte-control)
-- [Alpha Divide](./matte-keying/alpha-divide)
-- [Alpha Multiply](./matte-keying/alpha-multiply)
-
-## トラッキング
-
-- [Tracker](./tracking/tracker)
-- [Planar Tracker](./tracking/planar-tracker)
-- [Planar Transform](./tracking/planar-transform)
-
-## Classic 3D
-
-- [Merge 3D](./3d/merge-3d)
-- [Renderer 3D](./3d/renderer-3d)
-
-## Particles
-
-- [pEmitter](./particles/p-emitter)
-- [pRender](./particles/p-render)
-
-## Shapes
-
-- [sEllipse](./shapes/s-ellipse)
-- [sRender](./shapes/s-render)
-
-## USD
-
-- [uMerge](./usd/u-merge)
-- [uRenderer](./usd/u-renderer)
-
-## Deep
-
-- [dMerge](./deep/d-merge)
-- [Deep to Image](./deep/deep-to-image)
-
-## Utility / I/O
-
-- [MediaIn](./utility-io/media-in)
-- [MediaOut](./utility-io/media-out)
-
-## 現在の掲載範囲（Coverage）
-
-現在の代表Referenceは **31 Node** です。
-
-2D Image / Mask / トラッキング / Shape / Particle / Classic 3D / USD / Deep / channel / matte / premultiplication / multi-layer 合成に加え、Resolve timelineとのI/O boundaryまでcross-linkを試しています。
-
-まだ全Node catalogではありません。taxonomyはこのrepresentative setを元に育てます。
+未確認の仕様は推測で埋めません。既存の代表ページは詳しい説明を維持し、新しく追加したページは、ノードを検索して選ぶために必要な役割・データ領域・用途・注意点を先に揃えています。
