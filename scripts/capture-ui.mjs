@@ -125,12 +125,15 @@ try {
     await expect(target).toBeVisible();
     const railBox = await rail.boundingBox();
     const viewport = page.viewportSize();
+    const layoutEdge = await page.evaluate(() => document.documentElement.getBoundingClientRect().right);
     assert.ok(railBox && viewport, 'Heading rail geometry must be measurable');
     const railPosition = {
-      rightGap: viewport.width - (railBox.x + railBox.width),
+      layoutRightGap: Math.abs(layoutEdge - (railBox.x + railBox.width)),
+      physicalRightGap: viewport.width - (railBox.x + railBox.width),
       centerDrift: Math.abs((railBox.y + railBox.height / 2) - viewport.height / 2),
     };
-    assert.ok(railPosition.rightGap <= 1, `Heading rail must sit on the viewport right edge: ${JSON.stringify(railPosition)}`);
+    assert.ok(railPosition.layoutRightGap <= 1, `Heading rail must sit on the usable right edge: ${JSON.stringify(railPosition)}`);
+    assert.ok(railPosition.physicalRightGap <= 16, `Only the scrollbar gutter may remain to the physical edge: ${JSON.stringify(railPosition)}`);
     assert.ok(railPosition.centerDrift <= 2, `Heading rail must be vertically centered: ${JSON.stringify(railPosition)}`);
     report.measured.railPosition = railPosition;
     const widths = await rail.locator('.cc-rail-line').evaluateAll((els) => Object.fromEntries(els.map((el) => [el.parentElement.dataset.headingLevel, parseFloat(getComputedStyle(el).width)])));
