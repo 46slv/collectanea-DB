@@ -15,7 +15,7 @@ jobs:
     runs-on: ubuntu-latest
     timeout-minutes: 15
     env:
-      CC_EXPECTED_SHA: 272c3f69c64be1cb2c4982313c486632ee612493
+      CC_EXPECTED_SHA: 3fcb02cf3cfbfcabbe027c311e85d5c8349edb7a
     defaults:
       run:
         working-directory: candidate

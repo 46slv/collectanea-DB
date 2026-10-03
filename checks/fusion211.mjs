@@ -31,12 +31,19 @@ try {
     assert.ok(search.some((p) => p.href === node.href && p.text.includes(title)), `Missing search entry: ${title}`);
     return node;
   });
-  for (const suffix of ['/nodes/index','/nodes','/nodes/krokodove/index','/nodes/krokodove']) {
-    const page = catalog.pages.find((p) => p.href.endsWith(suffix));
-    if (page && !selected.some((p) => p.href === page.href)) selected.push(page);
+  assert.equal(nodes.find((p) => p.title === 'sOffset').nodeFamily, 'krokodove');
+  assert.equal(nodes.filter((p) => p.nodeFamily === 'krokodove').length, 86, '85 table entries plus Connect 3D');
+  assert.deepEqual(nodes.find((p) => p.title === 'OpenPBR').inputs, ['image']);
+  assert.deepEqual(nodes.find((p) => p.title === 'sExtrude').outputs, [], 'Unknown output must remain unclassified');
+  assert.ok(!nodes.find((p) => p.title === 'sTrace Create').tasks.includes('trace-image'));
+  // Resolve guide identity through the real catalog, not guessed permalink suffixes.
+  for (const title of ['ノードリファレンス（Node Reference）','Krokodoveの画像・Shape・3D・Region']) {
+    const guides = catalog.pages.filter((p) => p.material === 'fusion' && p.docType === 'index' && p.title === title);
+    assert.equal(guides.length, 1, `Missing guide: ${title}`);
+    selected.push(guides[0]);
   }
   assert.equal(selected.length, 30, '28 node pages plus two category guides');
-  report.checks.push('385 nodes; all 28 changed nodes have unique metadata, terms, partial status and search records');
+  report.checks.push('385 nodes; 86 Krokodove records; all 28 changed nodes have unique metadata, terms, partial status and search records');
   browser = await chromium.launch();
   const context = await browser.newContext({viewport: {width: 1440, height: 1000}});
   await context.route('https://fonts.googleapis.com/**', (route) => route.abort());
