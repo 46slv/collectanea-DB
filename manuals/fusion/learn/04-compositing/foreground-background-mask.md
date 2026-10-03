@@ -2,6 +2,8 @@
 title: Foreground / Background / Mask
 description: Mergeの3つの役割を使って、合成を「何を・何へ・どこで」に分解する。
 doc_type: concept
+term_id: foreground-background-mask
+term_short: Mergeを何を・何へ・どこで合成するかに分ける3つの役割。
 verification: partial
 aliases: [Foreground, Background, Effect Mask, 合成]
 concepts: [foreground-background, effect-mask, compositing]
@@ -12,16 +14,15 @@ level: foundation
 product_scope: fusion
 suite_surfaces: [fusion]
 ---
-
 # Foreground / Background / Mask
 
 ## このページで分かること
 
-2枚の画像を合成するときに、接続を単なる上下関係ではなくForeground / Background / Maskの役割で読みます。
+2枚の画像を合成するときに、接続を単なる上下関係ではなくForeground / Background / <Term id="mask">Mask</Term>の役割で読みます。
 
 ## 基本の考え方
 
-Mergeでは、合成を3つの質問へ分けます。
+<Term id="merge">Merge</Term>では、合成を3つの質問へ分けます。
 
 1. **Background** — 何を基準にするか。
 2. **Foreground** — 何をそこへ重ねるか。
@@ -101,5 +102,4 @@ Graphでは、画面上のNode配置ではなく、どのinputへ接続されて
 → [キーフレーム / スプライン / 時間（Keyframe / Spline / Time）](../05-time/keyframes-spline-time)
 
 ---
-
 検証メモ: MergeのForeground / Background inputとMask inputの基本は、2026-10-02時点のBlackmagic Design公式Fusion紹介と照合済み。alpha・premultiplication・Operatorの詳細はこのページでは未検証です。
