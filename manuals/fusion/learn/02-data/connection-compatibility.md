@@ -2,6 +2,8 @@
 title: 接続できるdata / 接続できないdata
 description: Image・Mask・Shape・Particle・3D・USD・Deep・パラメータのdomain compatibilityから接続可否を読む。
 doc_type: concept
+term_id: connection-compatibility
+term_short: 入出力data domainの互換性に基づく接続可否。
 verification: partial
 aliases: [connection compatibility, port type, data type]
 concepts: [data-domain, typed-connections]
@@ -10,7 +12,6 @@ prerequisites: [image-data, mask-data, parameter-data]
 level: foundation
 product_scope: fusion
 ---
-
 # 接続できるdata / 接続できないdata
 
 ## このページで分かること
@@ -32,8 +33,8 @@ Input domain
 
 代表domain:
 
-- 2D Image
-- Mask
+- 2D <Term id="image">Image</Term>
+- <Term id="mask">Mask</Term>
 - Shape
 - Particle set
 - Classic 3D scene
