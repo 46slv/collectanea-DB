@@ -293,3 +293,44 @@ html[data-cc-sidebar='collapsed'] main:has(.cc-doc) {max-width: 100%; flex: 1 1 
   .cc-fusion-index-tags {max-width: none; justify-content: start;}
   .cc-fusion-index-columns {grid-template-columns: minmax(0, 1fr);}
 }
+
+
+/* Inline glossary terms: subtle in text, detailed on hover/focus/tap. */
+.cc-term {position: relative; display: inline; font: inherit;}
+.cc-term-trigger {
+  display: inline; margin: 0; padding: 0 .04em; vertical-align: baseline;
+  font: inherit; line-height: inherit; color: inherit; background: transparent;
+  border: 0; border-bottom: 1px dotted var(--cc-control-line); border-radius: 1px;
+  cursor: help;
+  transition: background-color var(--cc-motion-fast) var(--cc-motion-ease), border-color var(--cc-motion-fast) var(--cc-motion-ease);
+}
+.cc-term-trigger:hover, .cc-term-trigger:focus-visible, .cc-term[data-open='true'] .cc-term-trigger {
+  background: var(--cc-proximity); border-bottom-color: var(--cc-text);
+}
+.cc-term-trigger:focus-visible {outline: 2px solid var(--cc-focus); outline-offset: 2px;}
+.cc-term-popover {
+  position: absolute; left: 50%; bottom: calc(100% + 9px); z-index: 90;
+  display: grid; gap: 6px; width: min(300px, calc(100vw - 32px)); padding: 10px 12px;
+  font: 12px/1.6 var(--cc-body-font); color: var(--cc-text); text-align: left;
+  background: var(--cc-surface); border: 1px solid var(--cc-control-line); border-radius: var(--cc-radius);
+  box-shadow: 0 10px 30px rgba(0, 0, 0, .16);
+  opacity: 0; visibility: hidden; pointer-events: none;
+  transform: translate(-50%, 4px);
+  transition: opacity var(--cc-motion-fast) var(--cc-motion-ease), transform var(--cc-motion-fast) var(--cc-motion-ease), visibility 0s linear var(--cc-motion-fast);
+}
+.cc-term-popover strong {font: 600 12px/1.4 var(--cc-ui-font);}
+.cc-term-popover > span {color: var(--cc-secondary);}
+.cc-term-popover a {justify-self: start; font: 500 11px/1.5 var(--cc-ui-font); color: var(--cc-text);}
+.cc-term:hover .cc-term-popover, .cc-term:focus-within .cc-term-popover, .cc-term[data-open='true'] .cc-term-popover {
+  opacity: 1; visibility: visible; pointer-events: auto; transform: translate(-50%, 0);
+  transition-delay: 0s;
+}
+@media (max-width: 620px) {
+  .cc-term-popover {
+    position: fixed; inset: auto 16px 16px; width: auto; bottom: 16px;
+    transform: translateY(4px);
+  }
+  .cc-term:hover .cc-term-popover, .cc-term:focus-within .cc-term-popover, .cc-term[data-open='true'] .cc-term-popover {
+    transform: translateY(0);
+  }
+}

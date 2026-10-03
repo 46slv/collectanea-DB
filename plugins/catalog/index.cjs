@@ -56,6 +56,8 @@ module.exports = function collectaneaCatalog(context, options = {}) {
       material, materialTitle: typeof fm.material_title === 'string' ? fm.material_title : (kind === 'article' && material === 'articles' ? 'Articles' : null),
       domain: typeof fm.domain === 'string' ? fm.domain : '', tags,
       docType: typeof fm.doc_type === 'string' ? fm.doc_type : '',
+      termId: typeof fm.term_id === 'string' ? fm.term_id.trim() : '',
+      termShort: typeof fm.term_short === 'string' ? fm.term_short.trim() : '',
       nodeFamily: typeof fm.node_family === 'string' ? fm.node_family : '',
       level: typeof fm.level === 'string' ? fm.level : '',
       productScope: typeof fm.product_scope === 'string' ? fm.product_scope : '',
