@@ -2,6 +2,7 @@
 title: MultiMerge
 description: 多数のForeground Layerを1 Nodeで合成し、各Layerへ個別Merge/Transform controlsを持つ合成 Node。
 doc_type: node
+term_id: multi-merge
 verification: partial
 aliases: [MultiMerge, Multi Merge]
 concepts: [compositing, foreground-background, transform-controls]
