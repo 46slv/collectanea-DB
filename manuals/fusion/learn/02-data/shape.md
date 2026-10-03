@@ -97,6 +97,10 @@ Shapeのまま処理している途中なら、通常の2D Imageとして扱う�
 
 後段でもShape系の複製や変形を続けるなら、必要になるまでShapeのまま保持した方が構成を読みやすくできます。
 
+## Nodeを探す
+
+Shape系Nodeを役割から選ぶ場合は、[Shapeノード](../../nodes/shapes/)を参照してください。標準Shape系と、KrokodoveのShape Toolsは同一カテゴリとして混ぜず、必要に応じて相互リンクします。
+
 ## 関連Node
 
 - [sEllipse](../../nodes/shapes/s-ellipse) — 円・楕円のShapeを作る
@@ -112,4 +116,6 @@ Shapeを通常の画像処理へ渡す境界を確認するなら、[sRender](..
 
 ## バージョンと検証状況
 
-Shape systemの基本的なデータ領域と `sRender` で2D Imageへ変換する構造は、Blackmagic Designの公式資料で確認された系譜に基づいています。Fusion 21.1の各Shape Nodeの正確な端子名・Inspector項目・初期値・数値範囲は、個別のNode Referenceで確認状況を分けて扱います。
+DaVinci Resolve 21.1 Reference Manual、September 2026、Chapter 117では、Shape系Nodeの結果をsRenderで表示し、sRenderがvector shapesをimageへ変換すると説明されています。sGrid / sDuplicate / sEllipse等の個別入力・Controlは各Node Reference側で確認範囲を分けます。
+
+Fusion 21.1の内部REGID、全Shape Nodeの実機端子・Inspector初期値・Edition差は、このConceptページでは確定していません。
