@@ -2,6 +2,8 @@
 title: 画像（Image）
 description: Fusionの2D Imageを、RGB・Alpha・resolution・domainを持つdataとして理解する。
 doc_type: concept
+term_id: image
+term_short: RGB・Alpha・resolution・domainを持つ2D Image data。
 verification: partial
 aliases: [Image, 2D Image, RGBA]
 concepts: [image-data, rgba, resolution]
@@ -10,7 +12,6 @@ prerequisites: [typed-connections]
 level: foundation
 product_scope: fusion
 ---
-
 # 画像（Image）
 
 ## このページで分かること
@@ -22,9 +23,9 @@ FusionでいうImageが何を含むデータなのかを整理します。
 2D Imageを、少なくとも次を持つdataとして考えます。
 
 - RGB color channels
-- Alpha
+- <Term id="alpha">Alpha</Term>
 - width / height
-- image extent / Domain of Definition
+- image extent / <Term id="domain-of-definition">Domain of Definition</Term>
 - time-dependent 結果
 - 必要に応じたmetadata / auxiliary channels
 
