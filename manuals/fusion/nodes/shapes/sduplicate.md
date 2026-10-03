@@ -1,9 +1,9 @@
 ---
 title: "sDuplicate"
-description: "入力したShapeを複数コピーし、コピーごとに位置・大きさ・回転などの変化を重ねられるShape Node。"
+description: "入力したShapeを複数コピーし、コピーごとに位置・大きさ・回転・時間の変化やランダム差を加えられるShape Node。"
 doc_type: node
 term_id: "sduplicate"
-term_short: "sDuplicateは、Shapeを複数コピーし、各コピーへ連続的な変化を付けるNode。"
+term_short: "sDuplicateは、Shapeを複数コピーし、各コピーへ段階的な変化を付けるNode。"
 verification: partial
 aliases: ["sDuplicate"]
 concepts: ["shape-data", "vector-shape", "rasterization"]
@@ -11,6 +11,7 @@ nodes: ["sDuplicate"]
 node_family: "shapes"
 inputs: ["shape"]
 outputs: ["shape"]
+controls: ["Copies", "Copy Probability", "Time Offset", "X Offset", "Y Offset", "X Size", "Y Size", "Axis Mode", "Rotation", "Random Seed"]
 tasks: ["build-shape", "procedural-graphics", "repeat-shape"]
 product_scope: fusion
 suite_surfaces: ["fusion"]
@@ -19,101 +20,106 @@ updated: "2026-10-03"
 
 # sDuplicate
 
-sDuplicateは、入力した<Term id="shape-data">Shape</Term>を複数コピーし、コピーを増やしながら位置・大きさ・回転などの変化を重ねていくためのNodeです。
+sDuplicateは、入力した<Term id="shape-data">Shape</Term>を複数コピーし、コピーが進むごとに位置・大きさ・回転などの変化を積み重ねるNodeです。
 
-同じ図形を少しずつずらして並べる、回転を加えながら反復する、徐々に大きさが変わる図形列を作る、といった用途に向いています。
+同じ図形を少しずつずらして並べる、徐々に小さくする、回転を足しながら反復する、といった構成に向いています。
 
 ## 役割
 
-sDuplicateの役割は、**元のShapeを複数個へ増やし、コピー同士に段階的な変化を付けること**です。
+元のShapeを複数へ増やし、コピー同士に段階的な差を付けます。
 
-規則正しい横×縦の表を作る `sGrid` と違い、sDuplicateは「次のコピーを前のコピーから少し変える」という考え方で使う場面が中心です。
+[sGrid](./sgrid)がX・Yの行列を直接作るのに対し、sDuplicateは「前のコピーから次のコピーへ変化を積み重ねる」使い方が中心です。
 
 ## 入力
 
-### Shape
+### Input1
 
-複製したい元のShapeを受け取ります。
-
-`sEllipse`、`sRectangle`、`sText` などで作ったShapeや、Shape系Nodeで加工した結果を入力できます。
-
-Fusion 21.1での正確な端子名と端子数は未検証のため、このページではデータ領域と役割を基準に説明します。
+オレンジ色の必須入力です。別のShape Nodeの出力を受け取ります。単一Shapeだけでなく、`sMerge` や `sBoolean` でまとめたShapeも入力できます。
 
 ## 出力
 
-複製された結果をShapeとして出力します。
+複製後のShapeを出力します。別のShape系Nodeで処理を続けるか、`sRender` で2D Imageへ変換します。
 
-そのまま別のShape系Nodeで加工を続けられます。通常のImage系Nodeへ渡す場合は、`sRender` で2D Imageへ変換します。
+```text
+sEllipse → sDuplicate → sRender
+```
 
 ## 主な設定項目
 
-sDuplicateでは、主に次の種類の値でコピーの作り方を決めます。
+### Copies
 
-- **複製数**: Shapeを何個まで増やすか。
-- **位置の変化**: コピーごとにどちらへ、どの程度ずらすか。
-- **大きさの変化**: コピーが進むごとに拡大・縮小する量。
-- **回転の変化**: コピーごとに加える回転量。
+作るコピー数です。元のShapeは数に含まれません。Manualの例では5を指定すると、元のShapeに加えて5コピーが作られます。
 
-正確なFusion 21.1のInspectorラベル、初期値、数値範囲は実機または現行資料での確認後に固定します。
+### Copy Probability
+
+各コピーが生成される確率を調整します。
+
+### Time Offset
+
+上流のShapeにアニメーションがある場合、コピーごとに参照する時間をずらします。コピーが同じアニメーションを同時に再生するのではなく、時間差を持たせる用途です。
+
+### X / Y Offset
+
+各コピーを前のコピーからどれだけずらすかを指定します。Fusionの正規化座標で、X Offset 0.5は各コピーを前のコピーからフレーム幅の半分だけ右へずらす例としてManualに記載されています。
+
+### X / Y Size
+
+前のコピーに対する大きさの倍率です。X/Yが1.0なら同じ大きさ、0.5なら次のコピーが前のコピーの半分になります。
+
+### Axis Mode / Pivot / Rotation
+
+回転中心の決め方と、コピーごとに加える回転を設定します。Axis ModeにはAbsolute、Origin Relative、Origin Absolute、Progressiveがあります。
+
+Progressiveでは、位置・回転・スケールの変化を前のコピーから累積させます。
+
+### Jitter
+
+Jitterタブでは、コピーごとの位置、回転、大きさ、色などにランダムな差を加えられます。Random Seedを変えると別のばらつきになります。
 
 ## 主な用途
 
-- 同じ図形を一定方向へ少しずつずらして並べる。
-- コピーごとに回転を加え、放射状・回転感のある反復を作る。
-- コピーごとに大きさを変え、奥行き感や収束感のある図形列を作る。
-- 位置・大きさ・回転を組み合わせ、単純なShapeからモーショングラフィックス用の反復形状を作る。
-
-## 最小構成
-
-```text
-sRectangle → sDuplicate → sRender → Merge
-```
-
-`sRectangle` が元になる四角形を作り、`sDuplicate` が複数へ増やし、`sRender` が最終結果を2D Imageへ変換します。
+- 図形を一定方向へ連続して並べる。
+- コピーごとに小さくして、収束する反復を作る。
+- 回転を加えながら放射状・螺旋状に見える配置を作る。
+- Time Offsetで、上流のアニメーションへコピーごとの時間差を付ける。
+- Jitterで完全に同じ反復を少し崩す。
 
 ## 運用例
 
-同じ四角形を右方向へ連続して並べたい場合は、`sRectangle` をsDuplicateへ接続します。
-
-複製数を増やし、コピーごとの位置変化を右方向へ設定すると、四角形が一定量ずつずれながら増えていきます。さらに回転の変化を加えると、コピーが進むほど角度も変わる反復になります。
+四角形を右へずらしながら小さくする場合:
 
 ```text
 sRectangle
     ↓
-sDuplicate   ← 複製数
-    │         ← コピーごとの位置変化
-    │         ← コピーごとの大きさ・回転変化
+sDuplicate   ← Copies
+    │         ← X Offset
+    │         ← X / Y Size
     ↓
 sRender
-    ↓
-Merge
 ```
+
+最初はCopiesだけを増やし、次にOffset、最後にSizeを変えると、どのControlが結果のどの部分を担当しているか確認しやすくなります。
 
 ## 挙動と注意点
 
-- sDuplicateは、コピーごとの変化を積み重ねる反復に向いています。
-- 横×縦の行列として等間隔に敷き詰めたい場合は、`sGrid` の方が構成を読みやすくできます。
-- 出力はShapeのままなので、複製後に `sMerge` や他のShape系処理を続けられます。
-- 通常のImage系Nodeへ渡す位置で `sRender` を使います。
-- Resolve 20.1ではShapeのDuplicate処理に改善が加えられた系譜がありますが、21.1の正確なUI差分はこのページでは未固定です。
+- 規則正しいX×Yの表を作るだけなら[sGrid](./sgrid)の方が直接的です。
+- sDuplicateはコピーごとの変化を累積できるため、単純な配列以外の反復に向きます。
+- 出力はShapeのままなので、通常のImage系Nodeへ渡す地点で `sRender` を使います。
+- StyleやJitterにも追加Controlがあります。このページは主要な役割と選択基準を優先し、全Controlの逐語的な一覧にはしていません。
 
 ## 関連する考え方
 
 - [シェイプ（Shape）](../../learn/02-data/shape)
-- [データ領域（data domain）を辿って診断する](../../learn/07-debugging/trace-data-domain)
-
-## 関連する再利用構成
-
-Shapeの反復を扱う専用Patternは今後追加します。
+- [正規化座標（Normalized Coordinates）](../../learn/03-space/normalized-coordinates)
 
 ## 似たNode・関連Node
 
-- [sGrid](./sgrid) — 横×縦の規則的なグリッドへ並べる
-- [sTransform](./stransform) — Shapeの変形
+- [sGrid](./sgrid) — X・Yの行列へ規則的に並べる
+- [sTransform](./stransform) — Shape全体へ追加のTransformを加える
 - [sRender](./s-render) — Shapeを2D Imageへ変換する
 
-## バージョンと検証状況
+## 出典と確認範囲
 
-sDuplicateはResolve 17以降のShape systemとしてBlackmagic Design公式資料で確認されており、コピーごとに位置・大きさ・回転の変化を与える基本的な役割も公式の系譜資料で確認されています。Resolve 20.1ではDuplicate処理の改善が記録されています。
+DaVinci Resolve 21.1 Reference Manual、September 2026、Chapter 117、pp.2735–2738で、Input1、Copies、Copy Probability、Time Offset、X/Y Offset、X/Y Size、Axis Mode、Pivot、Rotation、Style、Jitterの役割を確認しました。
 
-Fusion 21.1の正確な端子名、Inspectorラベル、初期値、数値範囲は未検証です。
+内部REGID、Edition差、実機での描画・処理性能は未確認のため `verification: partial` を維持します。
