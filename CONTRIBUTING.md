@@ -15,6 +15,23 @@ COLLECTANEAは、公開技術資料をGitHubで継続的に改善するための
 - 公式資料を根拠にする場合は出典を残す
 - 公式マニュアルの文章を大量に転載せず、独自の説明として書く
 
+## 用語タグ
+
+本文中の用語へ短い解説を付ける場合は、説明元のページに用語IDを持たせます。
+
+```yaml
+term_id: alpha
+term_short: Imageが合成へどの程度寄与するかを表すalpha channel。
+```
+
+本文ではグローバルMDXコンポーネントを使います。
+
+```mdx
+<Term id="alpha">Alpha</Term>
+```
+
+`term_id` はリポジトリ内で重複させません。`term_short` はhover / focus / tapで出す短い説明で、詳しい内容はリンク先のページを正本にします。
+
 ## Build
 
 ```bash
