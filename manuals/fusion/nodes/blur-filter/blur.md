@@ -2,6 +2,7 @@
 title: Blur
 description: 2D Imageへ標準的なblur処理を行うFilter Node。
 doc_type: node
+term_id: blur
 verification: unverified
 aliases: [Blur]
 concepts: [image-data, filtering, domain-of-definition]
