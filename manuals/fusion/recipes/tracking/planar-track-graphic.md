@@ -12,10 +12,9 @@ prerequisites: [data-domain]
 level: intermediate
 product_scope: fusion
 ---
-
 # 平面をtrackしてgraphicへ適用する
 
-> Planar Trackerからトラッキング 結果を生成・適用する正確な 21.1 UI手順は現在の manual / host確認前です。このページでは、Graph上の役割と診断順序を扱います。
+> <Term id="planar-tracker">Planar Tracker</Term>からトラッキング 結果を生成・適用する正確な 21.1 UI手順は現在の manual / host確認前です。このページでは、Graph上の役割と診断順序を扱います。
 
 ## 作るもの
 
@@ -24,13 +23,13 @@ footage内の平面動きを解き、replacement graphicを同じ動きへ追従
 ## 必要なもの
 
 - footage
-- Planar Tracker
+- <Term id="planar-tracker">Planar Tracker</Term>
 - replacement graphic
 - トラッキング 結果を適用する段階
 
 ## 手順
 
-1. footageをPlanar Trackerへ渡します。
+1. footageを<Term id="planar-tracker">Planar Tracker</Term>へ渡します。
 2. 追跡する平面領域を決めます。
 3. トラッキング solveを行います。
 4. solve 結果を単独で確認します。
