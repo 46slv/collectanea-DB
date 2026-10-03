@@ -2,6 +2,8 @@
 title: 中間結果をViewerで見る
 description: 最終OutputだけでなくGraph途中のNodeをViewerへ出し、処理境界を観察する。
 doc_type: concept
+term_id: intermediate-results-viewer
+term_short: Graph途中の結果をViewerへ出して処理境界を確認する方法。
 verification: partial
 aliases: [Viewer, intermediate result, node preview]
 concepts: [viewer, observation, debugging]
@@ -10,7 +12,6 @@ prerequisites: [node-graph, typed-connections]
 level: foundation
 product_scope: fusion
 ---
-
 # 中間結果をViewerで見る
 
 ## このページで分かること
@@ -35,8 +36,8 @@ source → A → B → C → output
 MediaIn → Transform → Blur → MediaOut
 ```
 
-1. MediaInをViewerへ出す。
-2. TransformをViewerへ出す。
+1. <Term id="media-in">MediaIn</Term>をViewerへ出す。
+2. <Term id="transform">Transform</Term>をViewerへ出す。
 3. BlurをViewerへ出す。
 4. どこで期待と差が生まれるか確認する。
 
