@@ -48,7 +48,7 @@ test('semantic metadata is normalized, searchable and exposed as facets', () => 
 test('Fusion indexes are generated from semantic metadata', () => {
   const data = makeCatalog([
     page('merge', {material: 'fusion', docType: 'node', nodeFamily: 'compositing', controls: ['Blend'], inputs: ['image', 'mask'], outputs: ['image'], tasks: ['composite']}),
-    page('alpha', {material: 'fusion', docType: 'concept', concepts: ['alpha'], tasks: ['composite']}),
+    page('alpha', {material: 'fusion', docType: 'concept', termId: 'alpha', termShort: 'Alphaの短い説明。', concepts: ['alpha'], tasks: ['composite']}),
     page('blank', {material: 'fusion', docType: 'diagnostic', symptoms: ['nothing-visible'], tasks: ['debug']}),
     page('nuke', {material: 'fusion', docType: 'bridge', familiarApps: ['nuke'], familiarTerms: ['Merge'], suiteSurfaces: ['fusion']}),
   ]);
@@ -72,6 +72,26 @@ test('term registry is generated from canonical page metadata', () => {
   assert.equal(data.indexes.glossary[0].summary, 'Alphaの短い説明。');
   assert.match(data.search[0].text, /Alphaの短い説明/);
 });
+
+test('every Fusion concept must provide stable term metadata', () => {
+  assert.throws(() => makeCatalog([
+    page('concept', {material: 'fusion', docType: 'concept', termShort: '短い説明。'}),
+  ]), /missing term_id/);
+  assert.throws(() => makeCatalog([
+    page('concept', {material: 'fusion', docType: 'concept', termId: 'concept'}),
+  ]), /missing term_short/);
+});
+test('term references must resolve to a registered canonical term', () => {
+  const data = makeCatalog([
+    page('alpha', {material: 'fusion', docType: 'concept', termId: 'alpha', termShort: 'Alphaの短い説明。'}),
+    page('reader', {termRefs: ['alpha']}),
+  ]);
+  assert.equal(data.terms.alpha.href, '/base/alpha');
+  assert.throws(() => makeCatalog([
+    page('reader', {termRefs: ['missing-term']}),
+  ]), /Unknown term id/);
+});
+
 test('duplicate term ids fail instead of producing an ambiguous hover target', () => {
   assert.throws(() => makeCatalog([
     page('alpha', {termId: 'shared'}),
