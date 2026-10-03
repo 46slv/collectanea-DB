@@ -8,7 +8,7 @@ verification: partial
 aliases: [sOffset]
 concepts: [shape-data]
 nodes: [sOffset]
-node_family: shapes
+node_family: krokodove
 inputs: [shape]
 outputs: [shape]
 controls: [Number]
@@ -40,6 +40,6 @@ Shapeの輪郭を外側へ広げたり、内側へ縮めたりします。ここ
 
 ## 出典と旧記述の訂正
 
-DaVinci Resolve 21.1 Reference Manual、September 2026、Chapter 105、p.2437のKrokodove Shape Toolsに基づき改稿しました。従来URLは維持しています。
+DaVinci Resolve 21.1 Reference Manual、September 2026、Chapter 105、p.2437のKrokodove Shape Toolsに基づき改稿しました。索引の分類もKrokodoveに合わせ、従来URLと用語IDは維持しています。
 
 旧ページは「Shapeをoffset」とだけ記載し、導入版を17と断定していました。今回確認した資料はその初出を裏付けないため、導入版の断定を取り除いています。同名の別ツールがあるかも含め、REGIDと系譜は実機・過去資料の追加照合が必要です。

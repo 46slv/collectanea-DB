@@ -8,7 +8,7 @@ verification: partial
 aliases: [OpenPBR, 3OP]
 nodes: [OpenPBR]
 node_family: materials-lights
-inputs: [image, material]
+inputs: [image]
 outputs: [material]
 controls: [Base Color, Metalness, Specular Roughness, Transmission, Coat, Sheen, Subsurface, Thin Film Thickness, Opacity, Thin Walled, Material ID]
 tasks: [build-material]
@@ -42,6 +42,8 @@ p.2061の図で読める29項目を、役割別に並べています。これは
 ### 凹凸とAmbient Occlusion
 
 同じp.2061には、法線・凹凸のテクスチャを[BumpMap](./bumpmap)へ入れ、その出力をOpenPBRのBumpmap入力へ接続する構成もあります。上の29項目のメニュー図と、このBumpmap入力の数え方の関係は本文で明確ではありません。実機の総端子数を29に固定した仕様表にはしていません。
+
+このBumpMapの接続例は、任意の材質をOpenPBRへ入力して混合できることまで示すものではありません。各端子が受け付ける内部型は未確認です。
 
 Ambient Occlusionの画像は`Occlusion`へ接続します。ManualではDomeLightまたはAmbientLightを使う場合に限り、この入力が利用できると説明しています。
 
