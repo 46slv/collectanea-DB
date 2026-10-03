@@ -2,6 +2,8 @@
 title: どのworking surfaceを使うか
 description: 目的からEdit・Fusion・Color・Fairlightの第一責任を選ぶためのResolve境界ガイド。
 doc_type: concept
+term_id: choose-working-surface
+term_short: 目的からEdit・Fusion・Color・Fairlightの担当surfaceを選ぶ境界ガイド。
 verification: partial
 product_scope: resolve
 suite_surfaces: [edit, fusion, color, fairlight]
