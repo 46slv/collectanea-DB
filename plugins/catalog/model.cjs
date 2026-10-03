@@ -63,18 +63,28 @@ function makeTerms(pages) {
   const terms = {};
   for (const page of pages) {
     const id = String(page.termId || '').trim();
+    const short = String(page.termShort || '').trim();
+    if (page.material === 'fusion' && page.docType === 'concept') {
+      if (!id) throw new Error(`Fusion concept is missing term_id: ${page.source || page.id}`);
+      if (!short) throw new Error(`Fusion concept is missing term_short: ${page.source || page.id}`);
+    }
     if (!id) continue;
     if (terms[id]) throw new Error(`Duplicate term id: ${id}`);
     terms[id] = {
       id,
       title: page.title,
-      summary: page.termShort || page.summary,
+      summary: short || page.summary,
       href: page.href,
       aliases: page.aliases || [],
       status: page.status || '',
     };
   }
   return terms;
+}
+function validateTermRefs(pages, terms) {
+  for (const page of pages) for (const id of page.termRefs || []) {
+    if (!terms[id]) throw new Error(`Unknown term id "${id}" referenced by ${page.source || page.id}`);
+  }
 }
 
 function makeIndexes(pages) {
@@ -125,6 +135,8 @@ function makeCatalog(records) {
       pageCount: members.length, tree: makeTree(members.filter((p) => p.kind === root.kind)),
     });
   }
+  const terms = makeTerms(pages);
+  validateTermRefs(pages, terms);
   const facets = unique(pages.flatMap((p) => [...p.tags, p.domain])).sort(collator.compare);
   const semanticFacets = Object.fromEntries(semanticListFields.map((field) => [field, unique(pages.flatMap((p) => p[field] || [])).sort(collator.compare)]));
   const search = pages.map((p) => ({
@@ -135,7 +147,7 @@ function makeCatalog(records) {
     ].filter(Boolean).join(' '),
   }));
   for (const tag of facets) search.push({id: `tag:${tag}`, title: tag, kind: 'tag', label: 'Tag', tag, tags: [tag], summary: 'このタグで絞り込む', text: tag});
-  const compact = pages.map(({body, draft, unlisted, ...page}) => page);
-  return {pages: compact, materials, facets, semanticFacets, indexes: makeIndexes(pages), terms: makeTerms(pages), search};
+  const compact = pages.map(({body, draft, unlisted, termRefs, ...page}) => page);
+  return {pages: compact, materials, facets, semanticFacets, indexes: makeIndexes(pages), terms, search};
 }
-module.exports = {makeCatalog, makeTree, makeIndexes, makeTerms};
+module.exports = {makeCatalog, makeTree, makeIndexes, makeTerms, validateTermRefs};
