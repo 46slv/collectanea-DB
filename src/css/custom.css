@@ -205,7 +205,7 @@ html[data-cc-sidebar='collapsed'] main:has(.cc-doc) {max-width: 100%; flex: 1 1 
 .cc-tree-leaf {width: 28px; text-align: center; color: var(--cc-muted); flex-shrink: 0;}
 
 /* Labels are a sibling of the scrollable rail, so overflow never clips them. */
-.cc-rail {position: sticky; top: calc(var(--ifm-navbar-height) + 28px); width: var(--cc-rail-width);}
+.cc-rail {position: fixed; top: 50%; right: 0; width: var(--cc-rail-width); transform: translateY(-50%); z-index: 25;}
 .cc-rail-lines {list-style: none; padding: 0; margin: 0; max-height: calc(100dvh - var(--ifm-navbar-height) - 64px); overflow-y: auto; overscroll-behavior: contain; scrollbar-width: thin;}
 .cc-rail-lines li {margin: 0;}
 .cc-rail-lines a {height: 28px; width: var(--cc-rail-width); display: flex; align-items: center; justify-content: flex-start; padding-left: 6px;}
