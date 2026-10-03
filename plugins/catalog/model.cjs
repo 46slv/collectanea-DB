@@ -59,6 +59,24 @@ function dataTypeRows(nodes) {
     consumers: nodes.filter((page) => page.inputs.includes(key)).map(semanticRow).sort(semanticCompare),
   }));
 }
+function makeTerms(pages) {
+  const terms = {};
+  for (const page of pages) {
+    const id = String(page.termId || '').trim();
+    if (!id) continue;
+    if (terms[id]) throw new Error(`Duplicate term id: ${id}`);
+    terms[id] = {
+      id,
+      title: page.title,
+      summary: page.termShort || page.summary,
+      href: page.href,
+      aliases: page.aliases || [],
+      status: page.status || '',
+    };
+  }
+  return terms;
+}
+
 function makeIndexes(pages) {
   const fusion = pages.filter((page) => page.material === 'fusion');
   const nodes = fusion.filter((page) => page.docType === 'node');
@@ -70,7 +88,7 @@ function makeIndexes(pages) {
     tasks: groupedRows(fusion.filter((page) => page.docType !== 'index'), 'tasks'),
     symptoms: groupedRows(fusion.filter((page) => page.docType === 'diagnostic'), 'symptoms'),
     dataTypes: dataTypeRows(nodes),
-    glossary: concepts.map(semanticRow).sort((a, b) => collator.compare(a.title, b.title)),
+    glossary: concepts.map((page) => ({...semanticRow(page), summary: page.termShort || page.summary})).sort((a, b) => collator.compare(a.title, b.title)),
     resolveSurfaces: groupedRows(fusion, 'suiteSurfaces'),
     familiarApps: groupedRows(fusion, 'familiarApps'),
   };
@@ -112,12 +130,12 @@ function makeCatalog(records) {
   const search = pages.map((p) => ({
     ...p,
     text: [
-      p.title, p.materialTitle, p.summary, p.body, p.docType, p.nodeFamily, p.level, p.productScope,
+      p.title, p.materialTitle, p.summary, p.body, p.docType, p.nodeFamily, p.level, p.productScope, p.termId, p.termShort,
       ...p.tags, ...semanticListFields.flatMap((field) => p[field] || []),
     ].filter(Boolean).join(' '),
   }));
   for (const tag of facets) search.push({id: `tag:${tag}`, title: tag, kind: 'tag', label: 'Tag', tag, tags: [tag], summary: 'このタグで絞り込む', text: tag});
   const compact = pages.map(({body, draft, unlisted, ...page}) => page);
-  return {pages: compact, materials, facets, semanticFacets, indexes: makeIndexes(pages), search};
+  return {pages: compact, materials, facets, semanticFacets, indexes: makeIndexes(pages), terms: makeTerms(pages), search};
 }
-module.exports = {makeCatalog, makeTree, makeIndexes};
+module.exports = {makeCatalog, makeTree, makeIndexes, makeTerms};

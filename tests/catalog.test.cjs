@@ -60,6 +60,25 @@ test('Fusion indexes are generated from semantic metadata', () => {
   assert.equal(data.indexes.familiarApps[0].key, 'nuke');
   assert.equal(data.indexes.resolveSurfaces[0].key, 'fusion');
 });
+
+test('term registry is generated from canonical page metadata', () => {
+  const data = makeCatalog([
+    page('alpha', {material: 'fusion', docType: 'concept', termId: 'alpha', termShort: 'Alphaの短い説明。', aliases: ['alpha channel']}),
+  ]);
+  assert.equal(data.terms.alpha.title, 'alpha');
+  assert.equal(data.terms.alpha.summary, 'Alphaの短い説明。');
+  assert.equal(data.terms.alpha.href, '/base/alpha');
+  assert.deepEqual(data.terms.alpha.aliases, ['alpha channel']);
+  assert.equal(data.indexes.glossary[0].summary, 'Alphaの短い説明。');
+  assert.match(data.search[0].text, /Alphaの短い説明/);
+});
+test('duplicate term ids fail instead of producing an ambiguous hover target', () => {
+  assert.throws(() => makeCatalog([
+    page('alpha', {termId: 'shared'}),
+    page('mask', {termId: 'shared'}),
+  ]), /Duplicate term id/);
+});
+
 test('duplicate permalinks and missing titles fail instead of misleading readers', () => {
   assert.throws(() => makeCatalog([page('one'), page('two', {href: '/base/one'})]), /duplicate/);
   assert.throws(() => makeCatalog([page('one', {title: ''})]), /Invalid/);

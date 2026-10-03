@@ -2,6 +2,8 @@
 title: プリマルチプライ（Premultiplication）
 description: RGBとAlphaの保存関係を分け、透明edgeのcolor処理を正しく考える。
 doc_type: concept
+term_id: premultiplication
+term_short: RGBがAlphaの影響を受けた状態で保存される関係。
 verification: partial
 aliases: [premultiplied alpha, straight alpha, premult]
 concepts: [alpha, premultiplication, compositing]
@@ -21,7 +23,7 @@ suite_surfaces: [fusion]
 
 ## 基本の考え方
 
-RGBとAlphaの保存関係には、少なくとも次の考え方があります。
+RGBと<Term id="alpha">Alpha</Term>の保存関係には、少なくとも次の考え方があります。
 
 - **premultiplied** — RGBがAlphaの影響を受けた状態。
 - **straight / unpremultiplied** — RGBとAlphaを別々に保持する状態。

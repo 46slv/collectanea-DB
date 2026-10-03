@@ -2,6 +2,8 @@
 title: Alpha
 description: RGBとは別に、Imageがどの程度寄与するかを持つalpha channelの役割を理解する。
 doc_type: concept
+term_id: alpha
+term_short: Imageが合成へどの程度寄与するかを表すalpha channel。
 verification: partial
 aliases: [alpha channel, transparency]
 concepts: [alpha, rgba, compositing]
@@ -36,7 +38,7 @@ AlphaはImageが合成へどの程度寄与するかを表すchannelで、Merge�
 - RGBとAlphaを別channelとして考える。
 - Effect MaskとImage Alphaを同一視しない。
 - Mergeの見た目だけで参照元 alphaを推測しない。
-- 透明エッジ（transparent edge）の問題ではpremultiplicationも確認する。
+- 透明エッジ（transparent edge）の問題では<Term id="premultiplication">premultiplication</Term>も確認する。
 
 ## 1つずつ変えて確認する
 

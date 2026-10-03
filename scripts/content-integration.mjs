@@ -23,7 +23,8 @@ const write = async (name, text) => {await fs.mkdir(path.dirname(name), {recursi
 try {
   await write('manuals/zz-ci-catalog/index.md', `---\ntitle: CI Material\nslug: /ci-material\ndomain: ci-domain\ntags: [software, ci-material]\nverification: unverified\nhide_title: true\nhide_table_of_contents: true\n---\n\nimport ManualOverview from '@site/src/components/ManualOverview';\n\n<ManualOverview />\n`);
   await write('manuals/zz-ci-catalog/nested/page.md', `---\ntitle: CI Nested Entry\nslug: /ci-custom-route\nupdated: 2026-09-28\n---\n\n# CI Nested Entry\n\n${'通常の説明です。'.repeat(80)}\n\n## Deep heading\n\n本文末尾だけの検索語CICatalog\n`);
-  await write('manuals/fusion/zz-ci-catalog/ordinary.md', '---\ntitle: CI Ordinary Markdown\n---\n\n# CI Ordinary Markdown\n\nA normal nested Markdown page.\n');
+  await write('manuals/fusion/zz-ci-catalog/ordinary.md', '---\ntitle: CI Ordinary Markdown\n---\n\n# CI Ordinary Markdown\n\nA normal nested Markdown page with <Term id="ci-term">CI用語</Term>.\n');
+  await write('manuals/fusion/zz-ci-catalog/term-source.md', '---\ntitle: CI用語\ndescription: CI用語の通常説明です。\ndoc_type: concept\nterm_id: ci-term\nterm_short: CI用語の短い説明です。\naliases: [ci alias]\n---\n\n# CI用語\n\nCI term source.\n');
   for (let i = 1; i <= 47; i++) {
     const id = String(i).padStart(2, '0');
     const publication = i === 46 ? 'draft: true\n' : i === 47 ? 'unlisted: true\n' : '';
@@ -41,6 +42,7 @@ try {
   assert.ok(root && root.pageCount === 2 && root.tags.includes('software'));
   assert.equal(root.tree[0].children[0].href, `${base}/manuals/ci-custom-route`);
   assert.ok(catalog.pages.find((p) => p.title === 'CI Ordinary Markdown').material === 'fusion');
+  assert.equal(catalog.terms['ci-term'].summary, 'CI用語の短い説明です。');
   assert.ok(search.find((p) => p.title === 'CI Nested Entry').text.includes('本文末尾だけの検索語CICatalog'));
   assert.ok(!catalog.pages.some((p) => ['CI Entry 46', 'CI Entry 47'].includes(p.title)));
   assert.ok(!search.some((p) => ['CI Entry 46', 'CI Entry 47'].includes(p.title)));
@@ -73,7 +75,21 @@ try {
   await page.getByRole('button', {name: '閉じる', exact: true}).click();
   await page.getByLabel('この資料を検索', {exact: true}).fill('CI Ordinary');
   await expect(page.locator('.cc-manual').getByRole('link', {name: 'CI Ordinary Markdown', exact: true})).toBeVisible();
-  report.checks.push('new material and nested ordinary page visible/navigable without component changes');
+  await go('/manuals/fusion/zz-ci-catalog/ordinary');
+  const term = page.locator('.cc-term[data-term-id="ci-term"]');
+  const termButton = term.getByRole('button', {name: 'CI用語', exact: true});
+  const termPopover = term.locator('.cc-term-popover');
+  await expect(termButton).toBeVisible();
+  await expect(termPopover).toBeHidden();
+  await termButton.hover();
+  await expect(termPopover).toBeVisible();
+  await expect(termPopover).toContainText('CI用語の短い説明です。');
+  await termButton.focus();
+  await expect(termPopover).toBeVisible();
+  await termButton.click();
+  await expect(termButton).toHaveAttribute('aria-expanded', 'true');
+  await expect(term.getByRole('link', {name: /詳しく見る/})).toHaveAttribute('href', /term-source/);
+  report.checks.push('new material, global Term MDX component, generated term registry, hover/focus/tap disclosure');
   await go('/articles');
   const articleTag = page.locator('[data-cc-articles]').locator('..').getByLabel('タグ', {exact: true});
   const articleTagValues = await articleTag.locator('option').evaluateAll((options) => options.map((option) => option.value));
