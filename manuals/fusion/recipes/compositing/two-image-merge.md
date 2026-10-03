@@ -12,17 +12,16 @@ prerequisites: [foreground-background]
 level: foundation
 product_scope: fusion
 ---
-
 # 2つのImageを重ねる
 
 ## できあがるもの
 
-2つのImageを1つのMergeへ接続し、ForegroundをBackgroundへ重ねたOutputを作ります。
+2つのImageを1つのMergeへ接続し、<Term id="foreground-background-mask">Foreground</Term>をBackgroundへ重ねたOutputを作ります。
 
 ## 必要なもの
 
-- BackgroundにするImage
-- ForegroundにするImage
+- <Term id="foreground-background-mask">Background</Term>にするImage
+- <Term id="foreground-background-mask">Foreground</Term>にするImage
 - Merge Node
 
 ## 手順
