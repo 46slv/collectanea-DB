@@ -2,6 +2,7 @@
 title: Tracker
 description: 点トラッキング（point tracking）を行い、Match Move / Stabilize等へ利用する基本トラッキング Node。
 doc_type: node
+term_id: tracker
 verification: unverified
 aliases: [Tracker, TRA, Point Tracker]
 concepts: [tracking, parameter-data, coordinate-space]
