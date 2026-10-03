@@ -2,6 +2,8 @@
 title: パラメータ / データ（Parameter / Data）
 description: Center・Blend・Size等のcontrol 値をImage/Maskとは別のdataとして理解する。
 doc_type: concept
+term_id: parameter-data
+term_short: CenterやBlendなどNode controlに渡す値。
 verification: partial
 aliases: [Parameter, Data, control value, scalar, Point]
 concepts: [parameter-data, parameter-source, typed-data]
@@ -10,12 +12,11 @@ prerequisites: [typed-connections]
 level: foundation
 product_scope: fusion
 ---
-
 # パラメータ / Data
 
 ## このページで分かること
 
-CenterやBlendのような値とImage connectionの違いを整理します。
+CenterやBlendのような値と<Term id="image">Image</Term> connectionの違いを整理します。
 
 ## 基本の考え方
 
@@ -40,7 +41,7 @@ parameter source
 
 ## 最小例
 
-TransformのCenterを考えます。
+<Term id="transform">Transform</Term>のCenterを考えます。
 
 ImageはTransformのImage Inputへ入り、Centerは「そのImageをどこへ配置するか」を決めるPoint 値です。
 
