@@ -1,7 +1,7 @@
 # Fusion Authoring Contract
 
-Status: Proposed
-Updated: 2026-10-02
+Status: Active
+Updated: 2026-10-03
 
 ## Purpose
 
@@ -144,7 +144,7 @@ Node familyごとの差。
 
 Patternは「最終成果物の作り方」ではなく「再利用できる構造」を所有する。
 
-## 関連Node template
+## Node Reference template
 
 Path:
 `manuals/fusion/nodes/<family>/<node>.md`
