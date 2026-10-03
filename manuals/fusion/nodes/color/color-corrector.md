@@ -2,6 +2,7 @@
 title: Color Corrector
 description: Shadows・Midtones・Highlightsを含む主要な2D color correction Node。
 doc_type: node
+term_id: color-corrector
 verification: unverified
 aliases: [Color Corrector, CC]
 concepts: [image-data, color-adjustment, alpha]
