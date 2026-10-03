@@ -2,6 +2,7 @@
 title: uMerge
 description: 複数のUSD scene / object streamを1つのUSD sceneへ統合するNode。
 doc_type: node
+term_id: u-merge
 verification: partial
 aliases: [uMerge, USD Merge]
 concepts: [data-domain, usd-scene, scene-graph]
