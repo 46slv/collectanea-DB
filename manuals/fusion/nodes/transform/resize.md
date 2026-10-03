@@ -2,6 +2,7 @@
 title: Resize
 description: 2D Imageの出力resolutionを変更するTransform系Node。
 doc_type: node
+term_id: resize
 verification: unverified
 aliases: [Resize, RSZ]
 concepts: [resolution, image-extent, domain-of-definition]
