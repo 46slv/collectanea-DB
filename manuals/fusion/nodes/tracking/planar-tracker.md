@@ -2,6 +2,7 @@
 title: Planar Tracker
 description: 平面領域を追跡し、Corner PinやPlanar Transform等へ利用するトラッキング Node。
 doc_type: node
+term_id: planar-tracker
 verification: unverified
 aliases: [Planar Tracker]
 concepts: [tracking, coordinate-space, parameter-data]
