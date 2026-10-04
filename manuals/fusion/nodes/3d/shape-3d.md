@@ -1,63 +1,93 @@
 ---
-title: "Shape 3D"
-description: "基本3Dプリミティブ生成。"
+title: Shape 3D
+description: Plane・Cube・Sphere・Cylinder・Cone・Torus等の基本primitive geometryを生成し、MaterialとTransformを設定するClassic 3D Node。
 doc_type: node
-term_id: "shape-3d"
-term_short: "Shape 3Dは、基本3Dプリミティブ生成。"
+term_id: shape-3d
 verification: partial
-aliases: ["Shape 3D", "3SH"]
-concepts: ["classic-3d"]
-nodes: ["Shape 3D"]
-node_family: "3d"
-inputs: ["classic-3d"]
-outputs: ["classic-3d"]
-tasks: ["build-3d-scene"]
+aliases: [Shape 3D, Shape3D, 3Sh]
+concepts: [classic-3d, geometry, material]
+nodes: [Shape 3D]
+node_family: 3d
+controls: [Shape, Size, Width, Height, Depth, Radius, Top Radius, Start/End Angle, Start/End Latitude, Caps, Section, Subdivision Level, Wireframe]
+inputs: [classic-3d, image, material]
+outputs: [classic-3d]
+tasks: [build-3d-scene, primitive, geometry]
 product_scope: fusion
-suite_surfaces: ["fusion"]
-updated: "2026-10-03"
+suite_surfaces: [fusion]
+updated: "2026-10-04"
 ---
 
 # Shape 3D
 
-基本3Dプリミティブ生成。
+Shape 3Dは、Plane、Cube、Sphere、Cylinder、Cone、Torus等の基本geometryを作る<Term id="classic-3d">Classic 3D</Term> Generatorです。
 
-## 概要
+外部3D modelを用意しなくても、sceneの床、壁、球、簡易object、projection surfaceを作れます。
 
-- **種別**: Node / Tool
-- **分類**: 3D Geometry / Scene
-- **主なデータ領域**: Classic 3D scene / geometry
-- **略称**: `3SH`
-- **導入・系譜**: legacy
-- **根拠レベル**: Blackmagic Design公式の旧Fusion Tool Referenceにある系譜
+## 入力
 
-## 入力と出力
+### Scene Input
 
-この項目はカタログ上、**Classic 3D scene / geometry**を主なデータ領域として扱います。上のfrontmatterにある入出力は領域を検索するための分類であり、Fusion 21.1の正確な端子数や端子名を断定するものではありません。
+オレンジ色の任意inputです。別の3D scene / geometryを同じoutputへ加えます。
 
-実際に組むときはFlow上の端子ラベルとInspectorを確認し、2D Image、Mask、Shape、Particle、Classic 3D、USD、Deep、パラメータ値を取り違えないようにします。
+### Material Input
 
-## 主な用途
+緑色のinputです。2D Imageまたは3D Materialを受け取ります。
 
-基本3Dプリミティブ生成。
+2D Imageならbuilt-in materialのdiffuse textureとして使い、3D Materialならbuilt-in materialを置き換えます。
 
-## 使うときの判断
+## Shape
 
-Classic 3D sceneはUSD sceneと別系統です。2D Imageへ戻すには通常`Renderer 3D`を使います。
+選択したprimitiveに応じてInspectorのControlが変わります。
+
+代表例:
+
+- Plane
+- Cube
+- Sphere
+- Cylinder
+- Cone
+- Torus
+
+## Size / Radius
+
+Plane / CubeではWidth / Height / Depth、Sphere / Cylinder / Cone / TorusではRadius等を使います。
+
+Lockを外すと各axisを個別に調整できます。
+
+## Angle / Latitude / Caps
+
+Sphere、Cylinder、Cone、Torus等ではStart / End Angleで一部分だけを生成できます。
+
+Sphere / TorusのLatitude、Cylinder / ConeのTop / Bottom Capもgeometry shapeを変えるControlです。
+
+## Subdivision
+
+Subdivisionを上げるとmesh vertexが増えます。
+
+smoothなlighting、Displace、deformationが必要な場合に増やします。単純な固定primitiveで無闇に高くする必要はありません。
 
 ## 最小構成
 
 ```text
-3D Source → Shape 3D → Merge 3D → Renderer 3D → Image
+Shape 3D → Renderer 3D → Image
 ```
 
-## 注意点
+Camera / Lightを使う場合:
 
-- このページはノードを選ぶための役割・データ領域・系譜を先に揃えています。
-- exactな内部ID、端子名、初期値、数値範囲、Edition差は、確認できたものだけ今後追記します。
-- legacy系譜の項目は、現在のEffects Libraryに同名で表示されることまで一件ずつ実機確認したものではありません。
+```text
+Shape 3D ──┐
+Camera 3D ─┼─ Merge 3D → Renderer 3D
+Light ─────┘
+```
 
-## バージョンと検証状況
+## Cube 3Dとの違い
 
-旧Blackmagic Design公式Tool Referenceで役割と系譜を確認しています。Fusion 21.1での存在、端子名、Inspector項目、初期値、範囲は実機または現行マニュアルで再確認が必要です。
+Shape 3DでもCubeを作れます。
 
-このリファレンスのinventory基準はDaVinci Resolve / Fusion 21.0.4です。Manual全体は21.1基準へ更新中のため、21.1で差がある箇所は現行資料または実機確認後に更新します。
+Cube 3Dは6面へ個別texture / material inputを持てるため、面ごとに違うImageを貼る用途で選びやすくなります。
+
+## 出典と確認範囲
+
+DaVinci Resolve 21.1 Reference Manual Chapter 88 pp.1990–1992で、Scene / Material input、primitive種類、Size / Radius / Angle / Latitude / Caps / Subdivision / Wireframeを確認しました。
+
+mesh topologyの詳細、実機performanceは未確認です。
