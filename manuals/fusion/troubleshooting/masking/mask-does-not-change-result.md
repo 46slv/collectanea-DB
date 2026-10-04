@@ -1,31 +1,32 @@
 ---
 title: Maskを接続しても結果が変わらない
-description: Image 分岐とMask 分岐を分離し、Maskが対象Nodeへ届いているかを確認する診断手順。
+description: Effect Maskの接続先、Mask値、Invert、Paint Mode、対象Effectを分離して原因を確認する。
 doc_type: diagnostic
 verification: partial
 aliases: [Maskが効かない, mask not working]
 concepts: [mask-data, effect-mask]
 patterns: [limit-effect-with-mask]
-nodes: [Merge]
+nodes: [Merge, Ellipse Mask, Polygon Mask, Bitmap Mask]
 tasks: [debug, mask]
 symptoms: [mask-no-effect, mask-not-working]
 prerequisites: [mask-data]
 level: foundation
 product_scope: fusion
+updated: "2026-10-04"
 ---
 
 # Maskを接続しても結果が変わらない
 
 ## まず確認すること
 
-1. Maskは意図した対象NodeのMask inputへ接続されているか。
-2. 対象NodeはMaskなしでは期待した処理をしているか。
-3. Mask 参照元単体を確認すると、意図した範囲を持っているか。
-4. Maskを接続／切断したとき、対象Nodeの結果に差があるか。
+1. Maskは意図したNodeの青色Effect Mask入力へ接続されているか。
+2. 対象NodeはMaskなしなら明確な変化を作っているか。
+3. Mask単体をViewerで見ると、白い対象範囲が存在するか。
+4. MaskのLevelが0付近になっていないか。
+5. Invertが意図せず有効になっていないか。
+6. 複数Maskを使っている場合、Paint Modeは何になっているか。
 
-## 原因の切り分け
-
-Image 分岐とMask 分岐を別々に確認します。
+## 原因を切り分ける
 
 ```text
 Image branch ── 対象Node → Output
@@ -33,46 +34,87 @@ Image branch ── 対象Node → Output
 Mask branch ───────┘
 ```
 
-まずImage 分岐だけで結果を確定し、次にMask 分岐だけを追加します。
+最初にMask branchを外し、対象Nodeが単体で機能していることを確認します。
+
+次にMaskだけをViewerへ出し、範囲を確認してから接続します。
 
 ## 主な原因
 
-### 接続先が違う
+### Effect Mask入力へ接続していない
 
-Mask 参照元を通常のImage inputへ入れている、または別NodeのMask inputへ接続している可能性があります。
+Mask dataをImage入力へ接続しようとしている、または別NodeのMask入力へつながっている可能性があります。
 
-### Mask 参照元側が意図した範囲を持っていない
+Nodeごとに入力の役割を確認します。
 
-対象Nodeではなく、Mask 参照元側のshape / position / sizeに原因がある場合があります。
+### Maskが黒になっている
 
-### 対象Node側の処理差が見えない
+Maskが全面黒なら、Effectを適用する領域がありません。
 
-Maskで限定しても、対象Nodeが実質的に見た目を変えていない場合は差を判断できません。まずMaskなしのeffect結果を確認します。
+Bitmap MaskではChannelやThreshold、Primitive / Polygon MaskではShape位置、Solid、Levelを確認します。
 
-### Node固有設定の影響
+### Levelが低い
 
-invert / combine / channel等、Node固有の設定が関係する場合があります。ここでは一般診断と分離し、個別Referenceで確認します。
+Levelを下げるとMask内部の値そのものが下がります。
 
-## 修正方法
+Effect側が弱い場合と見分けるため、一度Levelを1.0へ戻し、対象Effect側も見える強さにして確認します。
 
-1. 対象Nodeを単体で正常化する。
-2. Mask 参照元を単体で確認する。
-3. 正しいMask inputへ接続する。
-4. 接続前後だけを比較する。
-5. それでも差がなければNode固有のMask 挙動へ進む。
+### Invertで意図と逆になっている
+
+Invert checkboxはMask全体を反転します。
+
+「内側へ効かせたいのに外側へ効いている」場合はInvertを確認します。
+
+### Paint ModeがMaskを打ち消している
+
+複数MaskではPaint Modeによって結果が変わります。
+
+Subtract、Multiply、Copy、Ignore等では、接続されていても意図した領域が残らない場合があります。
+
+まず1つのMaskだけに戻し、次に2つ目をMergeまたはAddで加えて比較します。
+
+### 対象Effectの変化が小さい
+
+Maskが正しくても、Blur 0、Color変更なし、MergeのForegroundがBackgroundと同じ等では差が見えません。
+
+Mask診断中だけ一時的にEffectを見分けやすい値へして、Mask接続前後を比較します。
+
+### Bitmap MaskのChannelが想定と違う
+
+Bitmap MaskはAlphaだけでなくRed / Green / Blue、Hue、Luminance、Saturation等からMaskを作れます。
+
+目的のchannelを選んでいるか、Thresholdで範囲を消していないか確認します。
+
+## 修正手順
+
+1. 対象NodeからMaskを外す。
+2. 対象Node単体で明確なEffectを確認する。
+3. Mask単体をViewerで確認する。
+4. Primitive / PolygonならLevel = 1、Invert offの単純な状態へ戻す。
+5. BitmapならChannelとThresholdを確認する。
+6. MaskをEffect Maskへ再接続する。
+7. 複数Maskが必要なら1つずつ追加し、Paint Modeごとに結果を確認する。
 
 ## なぜ起きるか
 
-MaskはImageそのものではなく「どこへ処理を適用するか」を持つため、Image 分岐と同時に調整すると原因が混ざります。
+Mask branchは「どこへ処理するか」、Image / Effect branchは「何をどう処理するか」を担当します。
 
-→ [Image / Mask / Dataを分ける](../../learn/02-data/image-mask-data)
+両方を同時に触ると、Maskが悪いのかEffectが悪いのか判断できなくなります。
 
-## バージョン・例外
+## 関連する考え方
 
-Maskの基本的な役割とMask inputは2026-10-02時点のBlackmagic Design公式Fusion紹介と照合済みです。各Node固有のMask optionsは個別検証が必要です。
+- [マスク（Mask）](../../learn/02-data/mask)
+- [Image / Mask / Dataを分ける](../../learn/02-data/image-mask-data)
 
-## 関連する症状
+## 関連Node
 
-- [Viewerに何も表示されない](../viewer/nothing-visible)
-- Maskをつなぐと全体が消える
-- Maskの位置だけがずれる
+- [Maskノード](../../nodes/masks/)
+- [Ellipse Mask](../../nodes/masks/ellipse-mask)
+- [Polygon Mask](../../nodes/masks/polygon-mask)
+- [Bitmap Mask](../../nodes/masks/bitmap-mask)
+- [Merge](../../nodes/compositing/merge)
+
+## 出典と確認範囲
+
+DaVinci Resolve 21.1 Reference Manual、September 2026、Chapter 108でLevel、Invert、Paint Mode、Bitmap MaskのChannel / Thresholdを確認し、Chapter 94でMergeのEffect Mask挙動を確認しています。
+
+Node固有のEffect Mask処理順は対象NodeのReferenceを優先します。

@@ -20,6 +20,7 @@ effectや合成を、画像全体ではなく特定範囲にだけ適用した�
 
 ## 前提となる考え方
 
+- [マスク（Mask）](../../learn/02-data/mask)
 - [Image / Mask / Dataを分ける](../../learn/02-data/image-mask-data)
 - [前景（Foreground）/ 背景（Background）/ マスク（Mask）](../../learn/04-compositing/foreground-background-mask)
 
@@ -51,7 +52,7 @@ Mask側のshape / positionを時間変化させます。effect側のアニメー
 
 ### Combined mask
 
-複数Maskを組み合わせる場合でも、最終的に対象Nodeへ渡るMaskの意味を説明できるようにします。
+複数Maskを組み合わせる場合は、最終Maskを作るNodeのPaint Modeを確認します。Merge / Add / Subtract / Multiply等で意味が変わるため、接続本数だけで結果を判断しません。
 
 ## Nodeの選び方
 
@@ -66,9 +67,13 @@ MergeなどEffect Maskを持つNodeで適用できます。Node固有のMask挙�
 
 ## この構成を使う手順
 
-Recipesは次バッチで追加予定です。
+- [Mergeの適用範囲をMaskで限定する](../../recipes/masking/limit-merge-with-mask)
 
 ## 関連Node
 
+- [Maskノード](../../nodes/masks/)
+- [Ellipse Mask](../../nodes/masks/ellipse-mask)
+- [Polygon Mask](../../nodes/masks/polygon-mask)
+- [Bitmap Mask](../../nodes/masks/bitmap-mask)
 - [Merge](../../nodes/compositing/merge)
 - [Background](../../nodes/generators/background)
