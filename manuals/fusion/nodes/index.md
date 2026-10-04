@@ -16,7 +16,7 @@ Fusionで使うノードと関連要素を、名前だけでなく、何を受�
 
 ## 掲載範囲
 
-21.0.4基準の357項目とMediaIn・MediaOutによる従来の359ページに、September 2026版21.1 Reference Manualで確認した26項目と、公式21.1発表で確認したConnect 3Dを追加しています。現在は**388のノード・関連要素ページ**があります。カテゴリの案内ページはこの数に含めません。
+21.0.4基準の357項目とMediaIn・MediaOutによる従来の359ページに、September 2026版21.1 Reference Manualで確認した26項目と、公式21.1発表で確認したConnect 3Dを追加しています。現在は**394のノード・関連要素ページ**があります。カテゴリの案内ページはこの数に含めません。
 
 この数は「21.1のAdd Toolに表示されるノード数」ではありません。ModifierとPaint内部要素を含み、実機のTool registryとはまだ全件照合していません。Resolve FX・OpenFX・Fuse・Macro・Template・Reactorも、この固定件数と同じ意味では扱いません。
 
@@ -34,6 +34,7 @@ Node名より先にデータ領域や共通構造を知った方が理解しや�
 - [Particleノード](./particles/) — particleを作る・動かす・まとめる・2D/3Dへrenderする流れから選ぶ
 - [Classic 3Dノード](./3d/) — Geometry / Camera / Light / Merge / Rendererから3D sceneを組む
 - [3D Material / Lightノード](./materials-lights/) — surface materialとscene lightingを選ぶ
+- [USDノード](./usd/) — USD sceneのload / prim編集 / material / light / renderを役割から選ぶ
 - [Shapeノード](./shapes/) — Shapeを作る・変える・増やす・まとめる・画像化する流れ
 - [Krokodoveの画像・Shape・3D・Region](./krokodove/) — Krokodove内の異なるデータ領域を分けて探す
 
