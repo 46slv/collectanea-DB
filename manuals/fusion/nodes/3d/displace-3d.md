@@ -1,63 +1,66 @@
 ---
-title: "Displace 3D"
-description: "3Dサーフェスをテクスチャ等で変位。"
+title: Displace 3D
+description: 2D Imageのchannel値を使い、Classic 3D geometryの既存vertexをnormal方向またはcamera方向へ変位させるNode。
 doc_type: node
-term_id: "displace-3d"
-term_short: "Displace 3Dは、3Dサーフェスをテクスチャ等で変位。"
+term_id: displace-3d
+term_short: Displace 3Dは、Imageを高さmapとして3D meshのvertexを変位させるNode。
 verification: partial
-aliases: ["Displace 3D", "3DI"]
-concepts: ["classic-3d"]
-nodes: ["Displace 3D"]
-node_family: "3d"
-inputs: ["classic-3d"]
-outputs: ["classic-3d"]
-tasks: ["build-3d-scene"]
+aliases: [Displace 3D, 3Di]
+concepts: [classic-3d, image-data, geometry]
+nodes: [Displace 3D]
+node_family: 3d
+controls: [Channel, Scale, Bias, Point to Camera, Camera]
+inputs: [classic-3d, image]
+outputs: [classic-3d]
+tasks: [displace-3d, height-map, geometry]
 product_scope: fusion
-suite_surfaces: ["fusion"]
-updated: "2026-10-03"
+suite_surfaces: [fusion]
+updated: "2026-10-04"
 ---
 
 # Displace 3D
 
-3Dサーフェスをテクスチャ等で変位。
+Displace 3Dは、2D <Term id="image">Image</Term>の値を高さmapとして読み、<Term id="classic-3d">Classic 3D</Term> meshのvertexを変位させるNodeです。
 
-## 概要
+通常は各vertexをsurface normal方向へ動かします。
 
-- **種別**: Node / Tool
-- **分類**: 3D Geometry / Scene
-- **主なデータ領域**: Classic 3D scene / geometry
-- **略称**: `3DI`
-- **導入・系譜**: legacy
-- **根拠レベル**: Blackmagic Design公式の旧Fusion Tool Referenceにある系譜
+## 入力
 
-## 入力と出力
+### Scene Input
 
-この項目はカタログ上、**Classic 3D scene / geometry**を主なデータ領域として扱います。上のfrontmatterにある入出力は領域を検索するための分類であり、Fusion 21.1の正確な端子数や端子名を断定するものではありません。
+オレンジ色の必須入力です。変位させる3D geometry / sceneを接続します。
 
-実際に組むときはFlow上の端子ラベルとInspectorを確認し、2D Image、Mask、Shape、Particle、Classic 3D、USD、Deep、パラメータ値を取り違えないようにします。
+### Image Input
 
-## 主な用途
+緑色の2D Image入力です。どのvertexをどれだけ動かすかの参照mapになります。
 
-3Dサーフェスをテクスチャ等で変位。
+## 主な設定
 
-## 使うときの判断
+### Channel
 
-Classic 3D sceneはUSD sceneと別系統です。2D Imageへ戻すには通常`Renderer 3D`を使います。
+displacement量として読むImage channelを選びます。
+
+### Bias / Scale
+
+Biasで基準値をoffsetし、その後Scaleで変位量を拡大・縮小します。
+
+### Point to Camera
+
+有効にするとnormal方向ではなくcamera方向へvertexを動かします。
+
+camera image planeの見た目をcamera viewでは保ったまま、3D space上ではdepthを持たせたい場合などに使えます。
+
+## Subdivision
+
+Displace 3Dはvertexを追加しません。
+
+Planeが4 cornerしか持たなければ、その4 vertexしか動かせません。細かいheight mapを表現する場合は、Shape 3D / Image Plane 3D等のSubdivisionを先に増やします。
 
 ## 最小構成
 
-```text
-3D Source → Displace 3D → Merge 3D → Renderer 3D → Image
-```
+Fast Noise → Displace 3D
+Shape 3D ───→ Displace 3D → Merge 3D → Renderer 3D
 
-## 注意点
+## 出典と確認範囲
 
-- このページはノードを選ぶための役割・データ領域・系譜を先に揃えています。
-- exactな内部ID、端子名、初期値、数値範囲、Edition差は、確認できたものだけ今後追記します。
-- legacy系譜の項目は、現在のEffects Libraryに同名で表示されることまで一件ずつ実機確認したものではありません。
-
-## バージョンと検証状況
-
-旧Blackmagic Design公式Tool Referenceで役割と系譜を確認しています。Fusion 21.1での存在、端子名、Inspector項目、初期値、範囲は実機または現行マニュアルで再確認が必要です。
-
-このリファレンスのinventory基準はDaVinci Resolve / Fusion 21.0.4です。Manual全体は21.1基準へ更新中のため、21.1で差がある箇所は現行資料または実機確認後に更新します。
+DaVinci Resolve 21.1 Reference Manual Chapter 88 pp.1936–1937で、Scene / Image input、Channel、Scale / Bias、Camera Displacement、Subdivision上の制約を確認しました。
