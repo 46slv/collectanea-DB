@@ -1,61 +1,72 @@
 ---
-title: "dRecolor"
-description: "Deep image recolor。"
+title: dRecolor
+description: Deep Imageのdepth sampleへ2D RGB / RGBA Imageの色を対応づけ、sample構造を保ったままrecolorするNode。
 doc_type: node
-term_id: "drecolor"
-term_short: "dRecolorは、Deep image recolor。"
+term_id: drecolor
 verification: partial
-aliases: ["dRecolor"]
-concepts: ["image-data"]
-nodes: ["dRecolor"]
-node_family: "deep"
-inputs: ["image"]
-outputs: ["image"]
-tasks: ["process-deep"]
+aliases: [dRecolor, dRc]
+concepts: [deep-image, image-data, alpha]
+nodes: [dRecolor]
+node_family: deep
+controls: [Center X/Y, Target Input Alpha, Drop Input Zero Alpha]
+inputs: [deep-image, image]
+outputs: [deep-image]
+tasks: [deep, recolor, texture]
 product_scope: fusion
-suite_surfaces: ["fusion"]
-updated: "2026-10-03"
+suite_surfaces: [fusion]
+updated: "2026-10-04"
 ---
 
 # dRecolor
 
-Deep image recolor。
+dRecolorは、<Term id="deep-image">Deep Image</Term>のsampleへ、通常2D <Term id="image">Image</Term>のRGB / RGBA値を使って色を付け直すNodeです。
 
-## 概要
+Deep側の奥行きsampleを保持しつつ、beauty / color sourceだけを別Imageから与えたい場合に使います。
 
-- **種別**: Node / Tool
-- **分類**: Resolve 20+
-- **主なデータ領域**: 2D Image / control
-- **導入・系譜**: 20
-- **根拠レベル**: 導入版のBlackmagic Design公式資料で確認した現行系譜
+## 入力
 
-## 入力と出力
+### Depth
 
-この項目はカタログ上、**2D Image / control**を主なデータ領域として扱います。上のfrontmatterにある入出力は領域を検索するための分類であり、Fusion 21.1の正確な端子数や端子名を断定するものではありません。
+Deep Image inputです。
 
-実際に組むときはFlow上の端子ラベルとInspectorを確認し、2D Image、Mask、Shape、Particle、Classic 3D、USD、Deep、パラメータ値を取り違えないようにします。
+### Color
 
-## 主な用途
-
-Deep image recolor。
-
-## 使うときの判断
-
-前後のノードと同じ2D Image領域で使うのが基本です。Maskや補助入力がある場合は、画像入力と役割を分けて接続します。
-
-## 最小構成
+緑色の2D RGB / RGBA Image inputです。
 
 ```text
-Deep Source → dRecolor → Deep to Image
+Deep data ──┐
+            ├─ dRecolor → dMerge / Deep to Image
+2D Color ───┘
 ```
 
-## 注意点
+## Center X/Y
 
-- このページはノードを選ぶための役割・データ領域・系譜を先に揃えています。
-- exactな内部ID、端子名、初期値、数値範囲、Edition差は、確認できたものだけ今後追記します。
+Color inputをDeep Imageに対してXY方向へ位置合わせします。
 
-## バージョンと検証状況
+Deepと2D beautyが同じframe / resolutionでない場合、まずalignmentを確認します。
 
-導入版のBlackmagic Design公式資料で現行系譜を確認しています。Fusion 21.1の端子名、Inspector項目、初期値、範囲は未検証です。
+## Target Input Alpha
 
-このリファレンスのinventory基準はDaVinci Resolve / Fusion 21.0.4です。Manual全体は21.1基準へ更新中のため、21.1で差がある箇所は現行資料または実機確認後に更新します。
+Color inputのAlphaも使い、Deep sampleのtransparencyへ影響させます。
+
+無効時はRGBだけをrecolorへ使います。
+
+## Drop Input Zero Alpha
+
+Color inputのAlphaが0のpixelをrecolor計算から除外します。
+
+透明領域がDeep sampleへ不要なRGBを持ち込むのを避けたい場合に使います。
+
+## 使う場面
+
+外部rendererからDeep dataとbeauty / multi-layer RGBを別々に受け取り、depthを維持したまま色だけ差し替える構成で使えます。
+
+## Deep to Image後のColor補正との違い
+
+Deep to Image後に2D Color Correctorを使うと、すでにsampleはflatten済みです。
+
+dRecolorはDeep sampleを維持したまま2D color sourceを対応づけます。
+
+## 出典と確認範囲
+
+DaVinci Resolve 21.1 Reference Manual Chapter 95 pp.2247–2248で、Depth / Color inputs、Center、Target Input Alpha、Drop Input Zero Alphaを確認しました。

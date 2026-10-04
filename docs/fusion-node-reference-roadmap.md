@@ -140,7 +140,7 @@ Manual整理と実機inventory確認を混ぜない。
 8. Particle — full Chapter 114 family pass completed 2026-10-04; 20 Node + Particle Concept / Recipeをreader-first化
 9. Classic 3D / Materials — foundation batch completed 2026-10-04; core scene / renderer / camera / geometry / lightsをreader-first化
 10. USD — full Chapter 121 family pass completed 2026-10-04; 27 current Manual nodesをreader-first化
-11. Deep
+11. Deep — full Chapter 95 / 96 pass completed 2026-10-04; Deep Image 10 Node + Deep Pixel 5 Nodeをreader-first化
 12. Krokodove / specialized tools
 
 21.1で新規・差分が大きい項目は、この順序とは別にsource coverageとして追加してよい。
@@ -306,3 +306,14 @@ Day Sky / Mandelbrot / MultiText / Plasmaは後続batchへ分離する。
 - inventoryは394へ更新。
 
 次はDeep。USDのruntime registry / Hydra performance / external asset compatibilityは別のruntime verification passで扱う。
+
+
+### 2026-10-04 — Deep full family pass
+
+- Deep Image ConceptとAuxiliary Channel / AOV Conceptを追加し、true Deep ImageとDeep Pixel post-processを明確に分離。
+- Chapter 95のDeep Image 10 Nodeをすべてreader-first化。
+- dMerge / dHoldout / dCrop / dTransform / dRecolor / dResize / dColorCorrector / Image to Deep / Deep to Image / Deep to Pointsを現行Manualへ合わせた。
+- Chapter 96のAmbient Occlusion / Depth Blur / Fog / Shader / Textureを、Deep Imageではなくauxiliary-channel付き2D Imageとして改稿。
+- Studio限定、linear colorspace、domain boundary、必要AOVを本文へ明記。
+
+次はKrokodove / specialized。Deepのexternal renderer compatibility / runtime performanceは別verification passで扱う。

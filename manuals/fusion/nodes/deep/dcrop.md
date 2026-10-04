@@ -1,61 +1,72 @@
 ---
-title: "dCrop"
-description: "Deep image crop。"
+title: dCrop
+description: Deep ImageのsampleをMinimum / Maximum ZとMaskで選別し、指定depth rangeだけを残すまたはrange外を残すNode。
 doc_type: node
-term_id: "dcrop"
-term_short: "dCropは、Deep image crop。"
+term_id: dcrop
 verification: partial
-aliases: ["dCrop"]
-concepts: ["image-data"]
-nodes: ["dCrop"]
-node_family: "deep"
-inputs: ["image"]
-outputs: ["image"]
-tasks: ["process-deep"]
+aliases: [dCrop, dCr]
+concepts: [deep-image, depth, mask-data]
+nodes: [dCrop]
+node_family: deep
+controls: [Use Minimum Z, Minimum Z, Use Maximum Z, Maximum Z, Keep Outside Depth Range]
+inputs: [deep-image, mask]
+outputs: [deep-image]
+tasks: [deep, crop-depth, isolate-depth]
 product_scope: fusion
-suite_surfaces: ["fusion"]
-updated: "2026-10-03"
+suite_surfaces: [fusion]
+updated: "2026-10-04"
 ---
 
 # dCrop
 
-Deep image crop。
+dCropは、<Term id="deep-image">Deep Image</Term>内のsampleをZ depthで選別するNodeです。
 
-## 概要
+画面の矩形を切る通常Cropではなく、cameraからの奥行きrangeでDeep sampleを残す / 除外します。
 
-- **種別**: Node / Tool
-- **分類**: Resolve 20+
-- **主なデータ領域**: 2D Image / control
-- **導入・系譜**: 20
-- **根拠レベル**: 導入版のBlackmagic Design公式資料で確認した現行系譜
+## 入力
 
-## 入力と出力
+Deep Image inputと任意Effect Maskを受け取ります。
 
-この項目はカタログ上、**2D Image / control**を主なデータ領域として扱います。上のfrontmatterにある入出力は領域を検索するための分類であり、Fusion 21.1の正確な端子数や端子名を断定するものではありません。
+Maskはpixel範囲を限定し、Z controlsはそのpixel内にあるDeep sampleのdepth rangeを限定します。
 
-実際に組むときはFlow上の端子ラベルとInspectorを確認し、2D Image、Mask、Shape、Particle、Classic 3D、USD、Deep、パラメータ値を取り違えないようにします。
+## Depth Crop
 
-## 主な用途
+### Use Minimum Z / Minimum Z
 
-Deep image crop。
+最小depthを有効にし、それより手前 / 奥のsampleをrange条件で選別します。
 
-## 使うときの判断
+ViewerからSampleしてZ値を取得できます。
 
-前後のノードと同じ2D Image領域で使うのが基本です。Maskや補助入力がある場合は、画像入力と役割を分けて接続します。
+### Use Maximum Z / Maximum Z
+
+最大depthを有効にします。
+
+MinimumとMaximumを両方使うと、特定のdepth sliceだけを残せます。
+
+### Keep Outside Depth Range
+
+選択を反転し、設定したrangeの外側sampleを残します。
 
 ## 最小構成
 
 ```text
-Deep Source → dCrop → Deep to Image
+Deep EXR → dCrop → dMerge / Deep to Image
 ```
 
-## 注意点
+## 運用例
 
-- このページはノードを選ぶための役割・データ領域・系譜を先に揃えています。
-- exactな内部ID、端子名、初期値、数値範囲、Edition差は、確認できたものだけ今後追記します。
+background renderのうち、ある奥行きより遠いDeep sampleだけを別処理へ回したい場合:
 
-## バージョンと検証状況
+1. Use Minimum / Maximum Zを有効にします。
+2. Viewer Sampleで境界depthを取得します。
+3. Deep to Imageで一度確認します。
+4. 必要ならKeep Outside Depth Rangeで反転します。
 
-導入版のBlackmagic Design公式資料で現行系譜を確認しています。Fusion 21.1の端子名、Inspector項目、初期値、範囲は未検証です。
+## 通常Cropとの違い
 
-このリファレンスのinventory基準はDaVinci Resolve / Fusion 21.0.4です。Manual全体は21.1基準へ更新中のため、21.1で差がある箇所は現行資料または実機確認後に更新します。
+- **Crop** — 2D canvas / pixel rectangle
+- **dCrop** — Deep sampleのZ range
+
+## 出典と確認範囲
+
+DaVinci Resolve 21.1 Reference Manual Chapter 95 pp.2237–2238で、Deep / Effect Mask input、Minimum / Maximum Z、Sample、Keep Outside Depth Rangeを確認しました。
