@@ -1,62 +1,102 @@
 ---
-title: "Ambient Occlusion (Deep Pixel)"
-description: "World Position/Normal等のAuxチャンネルからAOを生成する旧Deep Pixel系。"
+title: Ambient Occlusion
+description: Z-Depth・Normals・Cameraを使い、3D renderへscreen-spaceのAmbient Occlusionを追加するDeep Pixel post effect。
 doc_type: node
-term_id: "ambient-occlusion-deep-pixel"
-term_short: "Ambient Occlusion (Deep Pixel)は、World Position/Normal等のAuxチャンネルからAOを生成する旧Deep Pixel系。"
+term_id: ambient-occlusion-deep-pixel
 verification: partial
-aliases: ["Ambient Occlusion (Deep Pixel)"]
-concepts: ["deep-image"]
-nodes: ["Ambient Occlusion (Deep Pixel)"]
-node_family: "deep"
-inputs: ["deep"]
-outputs: ["deep"]
-tasks: ["process-deep"]
+aliases: [Ambient Occlusion, SSAO]
+concepts: [auxiliary-channels, depth, normals, classic-3d]
+nodes: [Ambient Occlusion]
+node_family: deep
+controls: [Output Mode, Kernel Type, Number of Samples, Kernel Radius, Lift, Gamma, Tint]
+inputs: [image, camera, mask]
+outputs: [image]
+tasks: [ambient-occlusion, relight, auxiliary-channels]
 product_scope: fusion
-suite_surfaces: ["fusion"]
-updated: "2026-10-03"
+suite_surfaces: [fusion]
+updated: "2026-10-04"
 ---
 
-# Ambient Occlusion (Deep Pixel)
+# Ambient Occlusion
 
-World Position/Normal等のAuxチャンネルからAOを生成する旧Deep Pixel系。
+Ambient Occlusionは、3D renderに含まれるZ-DepthとNormalsを使い、接触部や入り組んだ場所を暗くするAOを2D post processとして生成するNodeです。
 
-## 概要
+<Term id="deep-image">Deep Image</Term>の複数sampleを扱うNodeではありません。通常の2D Imageに付随するauxiliary channelを使います。
 
-- **種別**: Node / Tool
-- **分類**: Deep Pixel (legacy aux)
-- **主なデータ領域**: Deep image
-- **導入・系譜**: legacy
-- **根拠レベル**: Blackmagic Design公式の旧Fusion Tool Referenceにある系譜
+## 必要な入力
 
-## 入力と出力
+### Input
 
-この項目はカタログ上、**Deep image**を主なデータ領域として扱います。上のfrontmatterにある入出力は領域を検索するための分類であり、Fusion 21.1の正確な端子数や端子名を断定するものではありません。
+RGBAに加えてZ-DepthとNormalsを含む2D Imageが必要です。
 
-実際に組むときはFlow上の端子ラベルとInspectorを確認し、2D Image、Mask、Shape、Particle、Classic 3D、USD、Deep、パラメータ値を取り違えないようにします。
+Renderer 3Dを使う場合は、Z-DepthとNormalsをoutput channelとして有効にします。
 
-## 主な用途
+### Camera
 
-World Position/Normal等のAuxチャンネルからAOを生成する旧Deep Pixel系。
+元ImageをrenderしたCamera 3Dまたはcameraを含む3D sceneを接続します。
 
-## 使うときの判断
+InputとCameraのどちらかがないとAOを計算できません。
 
-Deep imageは通常の2D Imageと別のサンプル構造を持ちます。通常の2D処理へ戻すときは`Deep to Image`を使います。
+### Effect Mask
+
+任意のMaskです。AOを適用する領域だけを限定します。
+
+## Output Mode
+
+- **Color** — 入力ImageへAOを適用した結果
+- **AO** — AO成分だけをgrayscaleで出力
+
+AO passを別に出し、Diffuse / Specular等と後段で組み合わせたい場合はAO modeを使います。
+
+## Kernel Type
+
+### Hemisphere
+
+surface normal方向のhemisphereへsample rayを出します。Manualでは通常はこちらを推奨しています。
+
+### Sphere
+
+point周囲のsphereへrayを出し、よりstylizedな結果を作ります。
+
+## Number of Samples / Kernel Radius
+
+Number of SamplesはAO計算のsampling量です。
+
+Kernel Radiusは3D spaceで「どの距離までoccluderを探すか」を決めます。scene scaleに強く依存するため、固定の万能値はありません。
+
+Radiusが小さすぎると近接occlusionを拾えず、大きすぎるとquality低下を補うためSamplesを増やす必要があります。
+
+## Lift / Gamma / Tint
+
+AO結果をartisticに調整します。
+
+AOの物理的な近似を作った後、合成用passとして見やすく整える用途です。
 
 ## 最小構成
 
 ```text
-Deep Source → Ambient Occlusion (Deep Pixel) → Deep to Image
+3D Scene → Renderer 3D ──→ Ambient Occlusion → Output
+             │ Z + Normal          ↑
+Camera 3D ─────────────────────────┘
 ```
 
 ## 注意点
 
-- このページはノードを選ぶための役割・データ領域・系譜を先に揃えています。
-- exactな内部ID、端子名、初期値、数値範囲、Edition差は、確認できたものだけ今後追記します。
-- legacy系譜の項目は、現在のEffects Libraryに同名で表示されることまで一件ずつ実機確認したものではありません。
+Manualは次の制約を挙げています。
 
-## バージョンと検証状況
+- transparent / translucent receiver・occluderでは制限がある
+- transparent particleやanti-aliased edgeはAOと相性が悪い
+- AOはviewer-space依存で、camera位置によって結果が変わり得る
+- anti-aliasingを改善する場合、Renderer 3D側のZ / Normals passをHiQで出す
 
-旧Blackmagic Design公式Tool Referenceで役割と系譜を確認しています。Fusion 21.1での存在、端子名、Inspector項目、初期値、範囲は実機または現行マニュアルで再確認が必要です。
+## Deep Imageとの違い
 
-このリファレンスのinventory基準はDaVinci Resolve / Fusion 21.0.4です。Manual全体は21.1基準へ更新中のため、21.1で差がある箇所は現行資料または実機確認後に更新します。
+dMerge等は1 pixelの複数depth sampleを直接合成します。
+
+Ambient Occlusionは2D Imageへ添付されたZ / Normals channelを読むpost effectであり、multi-sample Deep Image compositingではありません。
+
+## 出典と確認範囲
+
+DaVinci Resolve 21.1 Reference Manual Chapter 96 pp.2255–2258で、Input / Camera / Mask、Output Mode、Kernel Type、Samples、Kernel Radius、AO limitationsを確認しました。
+
+renderer別の精度・実機performanceは未確認です。
