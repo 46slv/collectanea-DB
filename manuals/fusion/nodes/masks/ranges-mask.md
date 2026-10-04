@@ -1,62 +1,80 @@
 ---
-title: "Ranges Mask"
-description: "値域/範囲条件からマスクを作る。"
+title: Ranges Mask
+description: 2D ImageのShadows・Midtones・HighlightsをSplineで範囲定義し、指定channelのtone rangeからMaskを生成するNode。
 doc_type: node
-term_id: "ranges-mask"
-term_short: "Ranges Maskは、値域/範囲条件からマスクを作る。"
+term_id: ranges-mask
 verification: partial
-aliases: ["Ranges Mask", "RNG"]
-concepts: ["mask-data"]
-nodes: ["Ranges Mask"]
-node_family: "masks"
-outputs: ["mask"]
-tasks: ["create-mask"]
+aliases: [Ranges Mask, RNG]
+concepts: [mask-data, image-data, tonal-range]
+nodes: [Ranges Mask]
+node_family: masks
+controls: [Level, Soft Edge, Paint Mode, Invert, Channel, Shadows/Midtones/Highlights, Mini Spline Editor, Presets]
+inputs: [image, mask]
+outputs: [mask]
+tasks: [create-mask, tonal-mask, isolate-luminance]
 product_scope: fusion
-suite_surfaces: ["fusion"]
-updated: "2026-10-03"
+suite_surfaces: [fusion]
+updated: "2026-10-04"
 ---
 
 # Ranges Mask
 
-値域/範囲条件からマスクを作る。
+Ranges Maskは、2D <Term id="image">Image</Term>のtoneをShadows / Midtones / Highlightsへ分け、その範囲から<Term id="mask">Mask</Term>を作るNodeです。
 
-## 概要
+単純なluminance thresholdではなく、Splineで各rangeの境界とfalloffを調整できます。
 
-- **種別**: Node / Tool
-- **分類**: Mask
-- **主なデータ領域**: Mask
-- **略称**: `RNG`
-- **導入・系譜**: legacy
-- **根拠レベル**: Blackmagic Design公式の旧Fusion Tool Referenceにある系譜
+## 入力
 
-## 入力と出力
+### Input
 
-この項目はカタログ上、**Mask**を主なデータ領域として扱います。上のfrontmatterにある入出力は領域を検索するための分類であり、Fusion 21.1の正確な端子数や端子名を断定するものではありません。
+オレンジ色の2D Image inputです。Maskのsourceになります。
 
-実際に組むときはFlow上の端子ラベルとInspectorを確認し、2D Image、Mask、Shape、Particle、Classic 3D、USD、Deep、パラメータ値を取り違えないようにします。
+### Effect Mask
 
-## 主な用途
+青色の任意Mask inputです。生成したRanges Maskと前段MaskをPaint Modeで組み合わせます。
 
-値域/範囲条件からマスクを作る。
+## Channel
 
-## 使うときの判断
+Mask作成に使うImage channelを選びます。
 
-Maskは画像そのものではなく、別ノードの適用範囲を制御するデータです。
+RGB、Alpha、Hue、Luminance、Saturation、Coverage等から選べます。Range selectionでは既定でLuminanceを使います。
+
+## Shadows / Midtones / Highlights
+
+どのtone rangeをMaskとして出力するか選びます。
+
+- 白 — rangeに含まれる
+- 黒 — range外
+- gray — 部分的にrangeへ含まれる
+
+## Mini Spline Editor
+
+4つのSpline pointとBézier handleでShadowsとHighlightsの境界 / falloffを調整します。
+
+MidtonesはShadowsとHighlightsの間として自動的に決まります。
+
+### Presets
+
+- Simple — linearなrange
+- Smooth — より滑らかなfalloff
+
+から基準shapeへ戻せます。
 
 ## 最小構成
 
 ```text
-Ranges Mask → 対象NodeのMask入力
+Image → Ranges Mask → Color Corrector Effect Mask
 ```
 
-## 注意点
+highlightだけ色を変える、shadowだけBlurする、といったtone-based isolationに使えます。
 
-- このページはノードを選ぶための役割・データ領域・系譜を先に揃えています。
-- exactな内部ID、端子名、初期値、数値範囲、Edition差は、確認できたものだけ今後追記します。
-- legacy系譜の項目は、現在のEffects Libraryに同名で表示されることまで一件ずつ実機確認したものではありません。
+## Bitmap Maskとの違い
 
-## バージョンと検証状況
+- **Bitmap Mask** — channel valueやthresholdからMask化
+- **Ranges Mask** — Shadows / Midtones / HighlightsをSplineで設計
 
-旧Blackmagic Design公式Tool Referenceで役割と系譜を確認しています。Fusion 21.1での存在、端子名、Inspector項目、初期値、範囲は実機または現行マニュアルで再確認が必要です。
+toneのtransitionを視覚的に調整したい場合はRangesが向きます。
 
-このリファレンスのinventory基準はDaVinci Resolve / Fusion 21.0.4です。Manual全体は21.1基準へ更新中のため、21.1で差がある箇所は現行資料または実機確認後に更新します。
+## 出典と確認範囲
+
+DaVinci Resolve 21.1 Reference Manual Chapter 108 pp.2485–2489で、Image / Effect Mask inputs、Channel、tone range selection、Mini Spline、Simple / Smooth presetを確認しました。

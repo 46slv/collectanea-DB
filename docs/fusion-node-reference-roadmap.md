@@ -132,7 +132,7 @@ Manual整理と実機inventory確認を混ぜない。
 
 1. Compositing / Merge — reader-first family pass started 2026-10-04; Merge / MultiMerge / Dissolve + Concept / Recipe / Pattern整合を実施
 2. Transform / Format — foundation batch started 2026-10-04; Transform / Resize / Scale / Crop + related Concept / Recipe / Diagnosticを改稿
-3. Mask — foundation batch started 2026-10-04; Bitmap / Ellipse / Polygon + Mask Concept / Recipe / Diagnosticを改稿
+3. Mask — full Chapter 108 pass completed 2026-10-04; 10 Mask Node + Concept / Recipe / Diagnosticをreader-first化
 4. Color / Blur — Blur foundationとColor foundationを2026-10-04に分離実施。Blur / Defocus / Directional Blur、Brightness Contrast / Color Corrector / White Balanceをreader-first化
 5. Tracking
 6. Shape
@@ -317,3 +317,13 @@ Day Sky / Mandelbrot / MultiText / Plasmaは後続batchへ分離する。
 - Studio限定、linear colorspace、domain boundary、必要AOVを本文へ明記。
 
 次はKrokodove / specialized。Deepのexternal renderer compatibility / runtime performanceは別verification passで扱う。
+
+
+### 2026-10-04 — Mask full family pass
+
+- foundationで残していたB-Spline / Mask Paint / MultiPoly / Ranges / Rectangle / Triangle / WandをChapter 108基準で改稿。
+- B-Splineのtension / auto-animation、Mask Paintのsingle-channel paint / stroke duration、MultiPolyのList managementを具体化。
+- Rangesのtone spline、Wandのconnected color selection / Color Space / Range、Rectangle / Triangleのprimitive固有Controlを反映。
+- Chapter 108掲載10 Mask Nodeをreader-first形式で一通り説明できる状態にした。
+
+Mask familyはManual本文passを完了。実機のshortcut / REGID / rendering結果はruntime verificationへ分離する。

@@ -1,62 +1,86 @@
 ---
-title: "Rectangle Mask"
-description: "矩形マスク。"
+title: Rectangle Mask
+description: Width・Height・Corner Radius・Angleで四角形から角丸矩形まで作り、Effect範囲やgraphic shapeへ使うPrimitive Mask。
 doc_type: node
-term_id: "rectangle-mask"
-term_short: "Rectangle Maskは、矩形マスク。"
+term_id: rectangle-mask
 verification: partial
-aliases: ["Rectangle Mask", "REC"]
-concepts: ["mask-data"]
-nodes: ["Rectangle Mask"]
-node_family: "masks"
-outputs: ["mask"]
-tasks: ["create-mask"]
+aliases: [Rectangle Mask, Rec]
+concepts: [mask-data]
+nodes: [Rectangle Mask]
+node_family: masks
+controls: [Level, Filter, Soft Edge, Border Width, Paint Mode, Invert, Solid, Center, Width, Height, Corner Radius, Angle]
+inputs: [mask]
+outputs: [mask]
+tasks: [create-mask, rectangle, rounded-rectangle]
 product_scope: fusion
-suite_surfaces: ["fusion"]
-updated: "2026-10-03"
+suite_surfaces: [fusion]
+updated: "2026-10-04"
 ---
 
 # Rectangle Mask
 
-矩形マスク。
+Rectangle Maskは、四角形の<Term id="mask">Mask</Term>を作るPrimitive Maskです。
 
-## 概要
+Width / HeightだけでなくCorner RadiusとAngleを持つため、角丸panel、window、UI card、画面領域の限定にも使えます。
 
-- **種別**: Node / Tool
-- **分類**: Mask
-- **主なデータ領域**: Mask
-- **略称**: `REC`
-- **導入・系譜**: legacy
-- **根拠レベル**: Blackmagic Design公式の旧Fusion Tool Referenceにある系譜
+## 入力 / 出力
 
-## 入力と出力
+任意Effect Mask inputへ別Maskを接続し、Paint Modeで組み合わせられます。出力はsingle-channel Maskです。
 
-この項目はカタログ上、**Mask**を主なデータ領域として扱います。上のfrontmatterにある入出力は領域を検索するための分類であり、Fusion 21.1の正確な端子数や端子名を断定するものではありません。
+## Geometry
 
-実際に組むときはFlow上の端子ラベルとInspectorを確認し、2D Image、Mask、Shape、Particle、Classic 3D、USD、Deep、パラメータ値を取り違えないようにします。
+### Center
 
-## 主な用途
+Maskの中心位置です。
 
-矩形マスク。
+### Width / Height
 
-## 使うときの判断
+横幅と縦幅を個別に調整します。Viewer edgeをdragしても変更できます。
 
-Maskは画像そのものではなく、別ノードの適用範囲を制御するデータです。
+### Corner Radius
+
+cornerの丸みです。
+
+Manualでは0.0がsharp corner、1.0が最大roundingとして記載されています。
+
+### Angle
+
+rectangle全体を回転します。
+
+## Edge / fill
+
+### Soft Edge
+
+edgeをfeatherします。
+
+### Border Width
+
+edgeの厚みを変えます。
+
+### Solid
+
+有効なら内部をfill、無効ならBorder Widthに従うoutline Maskになります。
+
+## Level / Invert
+
+LevelはMask値全体を弱めます。
+
+InvertはMask全体のwhite / blackを反転します。
 
 ## 最小構成
 
 ```text
-Rectangle Mask → 対象NodeのMask入力
+Rectangle Mask → Background / Blur / Merge Effect Mask
 ```
 
-## 注意点
+Backgroundへ接続するとsolid rectangle graphicを作る基本構成になります。
 
-- このページはノードを選ぶための役割・データ領域・系譜を先に揃えています。
-- exactな内部ID、端子名、初期値、数値範囲、Edition差は、確認できたものだけ今後追記します。
-- legacy系譜の項目は、現在のEffects Libraryに同名で表示されることまで一件ずつ実機確認したものではありません。
+## Ellipseとの違い
 
-## バージョンと検証状況
+Rectangleはstraight edgeとCorner Radius、Ellipseは円 / 楕円を直接扱います。
 
-旧Blackmagic Design公式Tool Referenceで役割と系譜を確認しています。Fusion 21.1での存在、端子名、Inspector項目、初期値、範囲は実機または現行マニュアルで再確認が必要です。
+角丸rectをEllipseと複数Maskで組むより、RectangleのCorner Radiusを使う方が構造を読みやすくできます。
 
-このリファレンスのinventory基準はDaVinci Resolve / Fusion 21.0.4です。Manual全体は21.1基準へ更新中のため、21.1で差がある箇所は現行資料または実機確認後に更新します。
+## 出典と確認範囲
+
+DaVinci Resolve 21.1 Reference Manual Chapter 108 pp.2490–2493で、Effect Mask、Level、Filter、Soft Edge、Border、Paint Mode、Invert、Solid、Center、Width / Height、Corner Radius、Angleを確認しました。
