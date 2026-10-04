@@ -1,61 +1,151 @@
 ---
-title: "Optical Flow"
-description: "前後方向のモーションベクトルを解析生成。21ではベクトルをmultilayer layerとして扱える経路が追加。"
+title: Optical Flow
+description: 連続frameを解析してForward / Back Vectorを生成し、retime・motion blur・vector warpなどの後段処理へ渡すNode。
 doc_type: node
-term_id: "optical-flow"
-term_short: "Optical Flowは、前後方向のモーションベクトルを解析生成。21ではベクトルをmultilayer layerとして扱える経路が追加。motion vector / frame間motionを扱うNode。"
+term_id: optical-flow
+term_short: "Optical Flowは、連続frameを解析してpixelごとの前後方向motion vectorを生成するNode。"
 verification: partial
-aliases: ["Optical Flow", "OF"]
-concepts: ["vector-data"]
-nodes: ["Optical Flow"]
-node_family: "optical-flow"
-inputs: ["image", "vector"]
-outputs: ["image", "vector"]
-tasks: ["analyze-motion"]
+aliases: [Optical Flow, OF]
+concepts: [image-data, auxiliary-channels, motion-vectors]
+nodes: [Optical Flow]
+node_family: optical-flow
+controls: [Method, Warp Count, Iteration Count, Smoothness, Half Resolution, Output Vectors as Layers, Proxy, Edges, Match Weight, Filtering]
+inputs: [image]
+outputs: [image, vector]
+tasks: [analyze-motion, motion-vectors, retime, motion-blur]
 product_scope: fusion
-suite_surfaces: ["fusion"]
+suite_surfaces: [fusion]
 updated: "2026-10-05"
 ---
 
 # Optical Flow
 
-Optical Flowは、前後方向のモーションベクトルを解析生成。21ではベクトルをmultilayer layerとして扱える経路が追加。frame間の動きを解析する、またはmotion vectorを使ってframe生成・修復・平滑化を行います。
+Optical Flowは、連続する2D <Term id="image">Image</Term>をframe間で比較し、各pixelが前後のframeへどの方向にどれだけ動いたかをmotion vectorとして求めるNodeです。
+
+解析後のImageには、元のRGBAに加えてForward Vector / Back Vectorの補助channelが入り、Time Stretcher、Time Speed、Vector Motion Blur、Vector Warpなどがその動きを利用できます。
 
 ## 役割
 
-前後方向のモーションベクトルを解析生成。21ではベクトルをmultilayer layerとして扱える経路が追加。このページでは、名前だけで選ばず、**何を受け取り、何が変わり、どのdomainへ返すか**を先に整理します。
+通常のImageだけでは「このpixelが次のframeでどこへ移動したか」は分かりません。Optical Flowはframe間の見た目を比較し、その移動量をvector dataとして付加します。
 
-この項目で確認できている中心的な役割は「前後方向のモーションベクトルを解析生成。21ではベクトルをmultilayer layerとして扱える経路が追加」です。exactなInspector項目が未確認の場合は、役割とdata domainを先に使って候補を絞ります。
+```text
+Image sequence → Optical Flow → Image + Forward / Back Vector
+                                   ↓
+              retime / blur / warp / smoothing
+```
 
-## 入力と出力
+Optical Flow自体はslow motionやwarpの最終結果を作るNodeではなく、後段が使うmotion dataを用意する役割です。
 
-入力分類: **image / vector**。 出力分類: **image / vector**。 この分類はdata domainを読むためのものです。Fusion 21.1のexactな端子名・端子数を未確認の場合、ここでは推測して固定しません。
+## 入力
 
-## 使うときの判断
+### Input
 
-vectorを作る工程か、既存vectorを使って新しいframe / resultを作る工程かを分けます。
+オレンジ色の入力へ、解析したい2D Image sequenceを接続します。
 
-同じ目的を別Familyでも作れる場合は、後段で必要なdata domainと、Graph上で責任をどこに置きたいかで選びます。
+長いclip全体を解析すると計算量が増えるため、ManualではLoaderやMediaInを必要な範囲へtrimしてから解析する方法が案内されています。
+
+## 出力
+
+元のImageと、解析したForward Vector / Back Vectorを出力します。
+
+vector channelはViewerでChannel > Vectorsを選び、Normalize Color Rangeを有効にすると確認できます。
+
+21.1では **Output Vectors as Layers** を使い、motion vectorをmultilayer pipelineの独立layerとして渡すこともできます。
+
+## Motion Vectorを使うNode
+
+代表的な接続先は次のとおりです。
+
+- Time Speed / Time Stretcher — Flow Interpolationでretimeする
+- Smooth Motion — vectorやAOVを時間方向に平滑化する
+- Vector Denoise — motion compensated averagingでnoiseを減らす
+- Vector Transform — vector / UV channelを変形する
+- Vector Warp — clipの動きに合わせて別Imageをwarpする
+- Vector Motion Blur — pixelごとの動きに沿ってmotion blurを作る
+
+Time Speed / Time Stretcherへ直接つなぐ場合、Manualは必要なForward / Back Vector layerの並びとOptical Flowの生成順が異なるため、解析が2回必要になる場合があると説明しています。重い処理ではEXRへvectorを保存して再利用する方が扱いやすいことがあります。
+
+## 主な設定項目
+
+### Method
+
+Optical Flow、Repair Frame、Tweenでは解析方式を選べます。
+
+- **Advanced** — GPUを使う現行のOptical Flow方式
+- **Classic** — 旧CPU方式。古いCompとの互換や一部Stereo 3D処理向け
+
+### Warp Count / Iteration Count
+
+Advanced解析で、画像を合わせ込む反復量を調整します。
+
+下げると計算を速くできますが、shotによって解析精度へ影響します。値を増やしても一定以上では改善量が小さくなるため、速度と結果を見ながら調整します。
+
+### Smoothness
+
+vector fieldをどの程度滑らかにするかを調整します。
+
+高めるとnoiseへ強くなり、下げると細かな動きを残しやすくなります。
+
+### Half Resolution
+
+解析用Imageを縮小して計算を軽くします。最終出力解像度を半分にするための設定ではなく、motion解析の高速化用です。
+
+### Output Vectors as Layers
+
+Forward / Back Vectorをmultilayer Imageのlayerとして出力します。
+
+Smooth Motion、Vector Denoise、Vector Transform、Vector Warp、Flow InterpolationのTime Speed / Time Stretcherなどへvector layerを渡す場合に使えます。
+
+### Classic側の主な調整
+
+Classic方式ではProxy、Smoothness、Edges、Match Weight、Filteringなどで速度とvector qualityを調整します。
+
+Catmull-Rom filteringは高品質側ですが計算時間が増えます。
+
+## 主な用途
+
+- slow motionや可変retime用のmotion vectorを作る
+- Vector Motion Blurへpixel単位の移動方向を渡す
+- Vector Warpで衣服・肌・看板などの動きへ別素材を追従させる
+- Smooth MotionやVector Denoiseの前段としてvectorを用意する
+- motion vectorをEXRへ保存し、重い解析を後続Compで再計算しないようにする
 
 ## 最小構成
 
-    Image sequence / Vector → Optical Flow → Image / Vector
+```text
+MediaIn → Optical Flow → Time Stretcher → MediaOut
+```
 
-これは接続関係を理解するための最小構成案です。公式Manualのexactな作例として確認していない構成は、実制作前にViewerで中間結果を確認します。
+vectorだけを確認したい場合はOptical FlowをViewerへ表示し、Vectors channelを確認します。
 
-## 確認ポイント
+## 運用例
 
-- 入力dataのdomainが合っているか。
-- この項目のoutputを受け取れる後段Nodeへ接続しているか。
-- 同じ役割を前段 / 後段で二重に処理していないか。
-- source-limited pageでは、未確認のControl名・default・rangeを名前から推測していないか。
+24fps素材から滑らかな中間frameを作ってslow motionへ使う場合:
 
-## Family内での位置づけ
+1. 必要なclip範囲だけをMediaInで用意します。
+2. Optical FlowでForward / Back Vectorを解析します。
+3. Time StretcherまたはTime SpeedをFlow Interpolationで使います。
+4. 動く輪郭で破綻が出る場合はvector表示を確認し、解析条件やSmooth Motionの使用を検討します。
 
-Optical Flow / Motionノードの全体像と近いNodeの選び分けは[Family Overview](./overview)を参照してください。
+長尺や高解像度で解析が重い場合は、Optical Flowの出力をSaverでOpenEXR sequenceへ書き出し、vector channelを保持したままLoaderから再利用できます。
+
+## 挙動と注意点
+
+- frameごとに明るさがちらつく素材はfeature matchingが不安定になりやすいため、Manualは事前のdeflickerを推奨しています。
+- Optical Flowは解析処理なのでreal-time前提ではありません。解像度、clip長、設定によって処理時間が大きく変わります。
+- motion vectorはRGBそのものではなく補助channelです。後段Nodeが要求するchannel名・layer構成を確認します。
+- exactな内部REGID、全既定値、全数値範囲、Edition差は実機未確認です。
+
+## 関連Node
+
+- [Smooth Motion](./smooth-motion)
+- [Tween](./tween)
+- [Repair Frame](./repair-frame)
+- [Vector Denoise](./vector-denoise)
+- [Vector Motion Blur](../blur-filter/vector-motion-blur)
 
 ## 出典と確認範囲
 
-このページの役割・data domain・系譜は、既存COLLECTANEA catalogとBlackmagic Design公式資料で確認された範囲をreader-first形式へ整理しています。
+DaVinci Resolve 21.1 Reference Manual、September 2026、Chapter 112 pp.2617–2621およびFusion Fundamentals Chapter 87 pp.1901–1904で、Input、Vector / Back Vector、Viewer確認、Advanced / Classic、Warp Count、Iteration Count、Smoothness、Half Resolution、Output Vectors as Layers、EXR保存、主要な後段用途を確認しました。
 
-Fusion 21.1 Reference Manualで個別のInspector項目・default・rangeまで確認できていない項目は、**source-limited**としてその詳細を断定していません。verification: partial はその未確認範囲を含みます。runtime REGIDや現在のEffects Library表示は別のruntime verificationで確定します。
+全Inspector既定値・数値範囲、実機性能、内部REGIDは未確認のため `verification: partial` としています。
