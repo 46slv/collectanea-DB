@@ -25,6 +25,7 @@ Fusionで使うノードと関連要素を、名前だけでなく、何を受�
 Node名より先にデータ領域や共通構造を知った方が理解しやすいFamilyは、案内ページを用意します。
 
 - [合成ノード（Compositing）](./compositing/) — Merge / MultiMerge / Dissolveを「重ねる・Layer管理・切り替える」で選ぶ
+- [Transform / Formatノード](./transform/) — 配置を変える処理と解像度・キャンバスを変える処理を分けて選ぶ
 - [Shapeノード](./shapes/) — Shapeを作る・変える・増やす・まとめる・画像化する流れ
 - [Krokodoveの画像・Shape・3D・Region](./krokodove/) — Krokodove内の異なるデータ領域を分けて探す
 

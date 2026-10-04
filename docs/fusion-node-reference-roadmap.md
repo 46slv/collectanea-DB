@@ -131,7 +131,7 @@ Manual整理と実機inventory確認を混ぜない。
 まず使用頻度と基礎転用性が高いFamilyから深くする。
 
 1. Compositing / Merge — reader-first family pass started 2026-10-04; Merge / MultiMerge / Dissolve + Concept / Recipe / Pattern整合を実施
-2. Transform / Format
+2. Transform / Format — foundation batch started 2026-10-04; Transform / Resize / Scale / Crop + related Concept / Recipe / Diagnosticを改稿
 3. Mask
 4. Color / Blur
 5. Tracking
@@ -208,3 +208,14 @@ primary source確認
 - 2つのImageを重ねるRecipe、MultiMerge Recipe、Merge関連Patternをreader-firstのNodeページへ整合。
 
 次の候補はTransform / Format。まず代表Nodeと21.1 Manual範囲を確認し、同じ規模の小さいbatchで進める。
+
+
+### 2026-10-04 — Transform / Format foundation
+
+- Transform / Format Family Overviewを追加。
+- TransformをChapter 120 pp.2879–2883基準で改稿し、解像度を変えない配置Nodeとして整理。
+- Resizeをpp.2873–2875、Scaleをpp.2876–2878、Cropをpp.2862–2864基準で改稿。
+- Center / Pivot / Size / AngleとResolution / Aspect Conceptを21.1 Manualへ合わせた。
+- Transform配置Recipeと「端が消える」Diagnosticを現行のEdges / Crop / Resize / Scale / DoD区分へ更新。
+
+Camera Shake / DVE / Letterbox / Planar Transformは同じChapter 120にあるが、このbatchでは基礎4 Nodeと混ぜず後続batchへ分離する。
