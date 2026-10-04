@@ -29,6 +29,7 @@ Node名より先にデータ領域や共通構造を知った方が理解しや�
 - [Maskノード](./masks/) — 図形・Spline・Image channel・Paintから処理範囲を作る
 - [Blur / Filterノード](./blur-filter/) — 均一blur・Defocus・Directional Blurなどを目的から選ぶ
 - [Colorノード](./color/) — 基本tone補正・range別補正・white balance・colorspace処理を目的から選ぶ
+- [Trackingノード](./tracking/) — Point / Planar / Cameraの解析方法と適用先を目的から選ぶ
 - [Shapeノード](./shapes/) — Shapeを作る・変える・増やす・まとめる・画像化する流れ
 - [Krokodoveの画像・Shape・3D・Region](./krokodove/) — Krokodove内の異なるデータ領域を分けて探す
 

@@ -1,70 +1,122 @@
 ---
 title: Tracker
-description: 点トラッキング（point tracking）を行い、Match Move / Stabilize等へ利用する基本トラッキング Node。
+description: 2D Image内の特徴点の動きを解析し、Match MoveやStabilize、別Nodeの位置Controlへ使う基本Tracker。
 doc_type: node
 term_id: tracker
-verification: unverified
-aliases: [Tracker, TRA, Point Tracker]
+verification: partial
+aliases: [Tracker, Point Tracker]
 concepts: [tracking, parameter-data, coordinate-space]
 nodes: [Tracker]
 node_family: tracking
-inputs: [image]
-outputs: [image]
+controls: [IntelliTrack, Point, Tracker List, Pattern Rectangle, Search Rectangle, Track Buttons, Operation, Pivot Type, Reference Time]
+inputs: [image, image, mask]
+outputs: [image, tracking]
 tasks: [track, point-track, match-move, stabilize]
 level: intermediate
 product_scope: fusion
 suite_surfaces: [fusion]
+updated: "2026-10-04"
 ---
 
 # Tracker
 
-点トラッキング（point tracking）を行い、Match Move / Stabilize等へ利用する基本トラッキング Nodeです。
+Trackerは、2D <Term id="image">Image</Term>内の特徴点の動きを解析し、その結果をMatch Move、Stabilize、Corner Positioning、別Nodeの位置Controlなどへ使うNodeです。
 
-## 概要
-
-- **分類（Family）**: トラッキング
-- **主入力（Primary input）**: 2D Image
-- **関連概念（Core concepts）**: point 動き、トラッキング data
-- **よく使う作業（Common tasks）**: 点トラッキング（point tracking）、match move、stabilize
+Planar Trackerが面全体のperspective変化を扱うのに対し、Trackerは比較的小さく識別しやすいfeatureやpatternを基準にします。
 
 ## 入力
 
-### Image
+### Background
 
-トラッキング対象の2D Imageを受け取ります。
+オレンジ色の入力です。解析対象の2D Imageを接続します。
 
-## 出力
+### Foreground
 
-トラッキング 結果を持つToolですが、正確な 21.1 Image output / data export 仕組みは現在の資料または実機での確認待ちです。
+緑色の任意入力です。Tracker自身でMatch MoveやCorner / Perspective Positioningを行う場合、Backgroundへ合わせるImageを接続します。
 
-## 主な設定項目
+### Effect Mask
 
-tracker points、search / pattern region、match move / stabilize等に関わるcontrolを持つ系統ですが、正確な 21.1 UI / defaultsは未検証です。
+青色の任意入力です。解析対象の範囲を限定します。
 
-## 挙動と注意点
+## IntelliTrackとPoint
 
-Planar Trackerが平面動きを解くのに対し、Trackerは点トラッキング（point tracking）を中心に扱います。
+DaVinci Resolve 21.1ではIntelliTrackが既定です。従来のPoint trackerもPoint buttonから選択できます。
 
-どちらを使うかは「何を追うか」と「結果をどのspaceへ適用するか」で選びます。
+Point trackerではViewerに2つの矩形が表示されます。
 
-## 最小例
+- **Pattern Rectangle** — 基準として比較するpixel pattern
+- **Search Rectangle** — 次frameでpatternを探す範囲
 
-footage上の特徴点をtrackし、その動きを別elementへ適用する構成を検討します。
+速いmovementではSearch Rectangleを広げる必要がありますが、広げるほど計算量も増えます。
+
+## 複数pattern
+
+1つのTracker Node内へ複数patternを追加できます。
+
+Tracker Listでは各patternを選択・renameし、Enabled / Suspended / Disabledを管理します。
+
+複数patternを使うと位置だけでなくrotationやscaleの変化も利用できます。Steady Angle / Steady Sizeには少なくとも2つのpatternが必要です。
+
+## 結果の使い方
+
+Trackerは解析結果をNode内部のMatch Moveへ使うだけでなく、別NodeのControlへ公開できます。
+
+代表的な出力:
+
+- **Offset Position** — 元のmotion path
+- **Steady Position** — movementを打ち消すposition
+- **Unsteady Position** — Stabilize後に元のmovementを戻すposition
+- **Steady Angle / Size** — rotation / scale変化を打ち消す値
+
+```text
+Footage → Tracker
+            └─ Offset Position → Transform Center
+```
+
+## Operation / Reference Time
+
+Operation tabではtracking dataをMatch MoveやStabilizeへどう適用するかを決めます。
+
+Reference Timeは、どのframeを基準状態として扱うかを決めます。Start / End / current / custom等の選択肢があります。
+
+## 最小構成
+
+```text
+Footage → Tracker
+
+Graphic → Transform → Merge
+             ↑
+       Tracker Offset Position
+```
+
+解析するbranchと、graphicへ適用するbranchを分けると、解析結果のずれとgraphic側のoffsetを別々に確認できます。
+
+## Tracker Modifier
+
+Center等のControlへTracker Modifierを直接付ける方法もあります。
+
+Modifierは1 patternだけを扱う簡易用途向けで、複数patternを使うMatch MoveやStabilizeではTracker Nodeの方が適しています。
+
+## Planar Trackerとの違い
+
+- **Tracker** — point / small featureのmotion
+- **Planar Tracker** — 平面領域のperspective distortion
+- **Camera Tracker** — 多数featureから3D camera motionを復元
 
 ## 関連する考え方
 
-- [データ領域（data domain）を辿って診断する](../../learn/07-debugging/trace-data-domain)
-
-## 関連パターン
-
 - [Trackを解いてから適用先を分ける](../../patterns/tracking/solve-then-apply-track)
+- [Center / Pivot / Size / Angle](../../learn/03-space/center-pivot-size-angle)
 
-## 似たNode・関連Node
+## 関連Node
 
-- Planar Tracker
-- Planar Transform
-- Camera Tracker
+- [Planar Tracker](./planar-tracker)
+- [Planar Transform](./planar-transform)
+- [Camera Tracker](./camera-tracker)
+- [Transform](../transform/transform)
 
-## バージョンと検証状況
+## 出典と確認範囲
 
-Trackerの存在と点トラッキング（point tracking） / Match Move / Stabilize 役割は旧版のBlackmagic Design公式Fusion資料で確認。Fusion 21.1での正確な設定項目 / operation modesは未検証です。
+DaVinci Resolve 21.1 Reference Manual、September 2026、Chapter 119 pp.2839–2857とFusion Fundamentals Chapter 81で、3入力、IntelliTrack既定、Point tracker、Pattern / Search Rectangle、複数pattern、published outputs、Match Move settingsを確認しました。
+
+tracking algorithmの内部仕様、全Controlの数値範囲、実機精度・性能は未確認のため `verification: partial` としています。
