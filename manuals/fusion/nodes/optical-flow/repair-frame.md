@@ -1,61 +1,136 @@
 ---
-title: "Repair Frame"
-description: "前後フレームとOptical Flowから欠損フレームを再構築。"
+title: Repair Frame
+description: 前後のframeを内部Optical Flowで解析し、一時的な映像ノイズや欠損を隣接frameの情報から補間するNode。
 doc_type: node
-term_id: "repair-frame"
-term_short: "Repair Frameは、前後フレームとOptical Flowから欠損フレームを再構築。motion vector / frame間motionを扱うNode。"
+term_id: repair-frame
+term_short: "Repair Frameは、前後frameを解析して一時的な映像ノイズや欠損を補間するNode。"
 verification: partial
-aliases: ["Repair Frame", "REP"]
-concepts: ["vector-data"]
-nodes: ["Repair Frame"]
-node_family: "optical-flow"
-inputs: ["image", "vector"]
-outputs: ["image", "vector"]
-tasks: ["analyze-motion"]
+aliases: [Repair Frame, REP]
+concepts: [image-data, motion-vectors, mask]
+nodes: [Repair Frame]
+node_family: optical-flow
+controls: [Method, Depth Ordering, Clamp Edges, Edge Softness, Prev Forward, Next Forward, Prev Backward, Next Backward]
+inputs: [image, mask]
+outputs: [image]
+tasks: [frame-repair, frame-interpolation]
 product_scope: fusion
-suite_surfaces: ["fusion"]
+suite_surfaces: [fusion]
 updated: "2026-10-05"
 ---
 
 # Repair Frame
 
-Repair Frameは、前後フレームとOptical Flowから欠損フレームを再構築。frame間の動きを解析する、またはmotion vectorを使ってframe生成・修復・平滑化を行います。
+Repair Frameは、対象frameとその前後frameを比較し、隣接Imageから動きを推定して、一時的な映像ノイズや欠損部分を補間するNodeです。
+
+外部のOptical Flowを前段へ置く必要はありません。Repair Frame自身が必要なmotion vectorを内部で計算します。
 
 ## 役割
 
-前後フレームとOptical Flowから欠損フレームを再構築。このページでは、名前だけで選ばず、**何を受け取り、何が変わり、どのdomainへ返すか**を先に整理します。
+1 frameだけに現れる一時的な映像異常を、前後frameの情報から補間する用途に向いています。
 
-この項目で確認できている中心的な役割は「前後フレームとOptical Flowから欠損フレームを再構築」です。exactなInspector項目が未確認の場合は、役割とdata domainを先に使って候補を絞ります。
+```text
+Image sequence → Repair Frame → repaired Image
+                     ↑
+                Effect Mask
+```
 
-## 入力と出力
+内部では対象frameと前後2 frame、合計3 frameの関係を使います。
 
-入力分類: **image / vector**。 出力分類: **image / vector**。 この分類はdata domainを読むためのものです。Fusion 21.1のexactな端子名・端子数を未確認の場合、ここでは推測して固定しません。
+## 入力
 
-## 使うときの判断
+### Input
 
-vectorを作る工程か、既存vectorを使って新しいframe / resultを作る工程かを分けます。
+オレンジ色の入力へ、処理したい2D Image sequenceを接続します。
 
-同じ目的を別Familyでも作れる場合は、後段で必要なdata domainと、Graph上で責任をどこに置きたいかで選びます。
+### Effect Mask
+
+青色のMask入力です。補間する範囲だけへ処理を限定できます。
+
+## 出力
+
+補間後の2D Imageを出力します。
+
+Repair Frameは内部でOptical Flowを計算しますが、そのaux channelを出力へ保持しません。Manualでは処理後にinputのaux channelも破棄すると説明されています。
+
+## 主な設定項目
+
+### Method
+
+Optical Flow解析はAdvanced GPU方式またはClassic CPU方式を選べます。解析側の詳細ControlはOptical Flowと共通です。
+
+### Depth Ordering
+
+motion vectorの速さを使い、どちらの領域を手前として扱うかを選びます。
+
+- **Fastest On Top** — 速く動くobjectを手前として扱う
+- **Slowest On Top** — camera panなどでbackground側のvectorが速い場合に、遅いobjectを手前として扱う
+
+固定cameraで移動objectだけが動くshotではFastest On Top、cameraがobjectを追ってpanするshotではSlowest On Topが候補になります。
+
+### Clamp Edges
+
+補間でframe端に透明なgapが出る場合、edgeを伸ばして埋めます。代わりに引き伸ばしartifactが出るため、Manualは小さなedge gapの補正に限定して使うことを勧めています。
+
+### Edge Softness
+
+Clamp Edgesを有効にしたとき、edge stretchingを和らげます。
+
+### Source Frame and Warp Direction
+
+どの隣接frameとvector方向を補間へ使うか選びます。
+
+- Prev Forward
+- Next Forward
+- Prev Backward
+- Next Backward
+
+複数を有効にすると、それぞれの結果がblendされます。
+
+## 主な用途
+
+- 1 frameだけに現れる映像ノイズを前後frameから補間する
+- 一時的なpixel dropoutや小さな欠損を補う
+- film scan等で単発の映像異常を局所Mask付きで補間する
+- object通過時に一瞬だけ生じるartifactを時間方向の情報で置き換える
 
 ## 最小構成
 
-    Image sequence / Vector → Repair Frame → Image / Vector
+```text
+MediaIn → Repair Frame → MediaOut
+              ↑
+        optional Mask
+```
 
-これは接続関係を理解するための最小構成案です。公式Manualのexactな作例として確認していない構成は、実制作前にViewerで中間結果を確認します。
+## 運用例
 
-## 確認ポイント
+1 frameだけ小さな映像ノイズが出たshotを補う場合:
 
-- 入力dataのdomainが合っているか。
-- この項目のoutputを受け取れる後段Nodeへ接続しているか。
-- 同じ役割を前段 / 後段で二重に処理していないか。
-- source-limited pageでは、未確認のControl名・default・rangeを名前から推測していないか。
+1. 問題frameを確認します。
+2. Repair FrameをMediaInの後へ追加します。
+3. 必要なら対象範囲だけを囲うsoft MaskをEffect Maskへ接続します。
+4. objectとbackgroundの動きが重なる場合はDepth Orderingを切り替えます。
+5. frame端にgapが出る場合だけClamp Edgesを試します。
 
-## Family内での位置づけ
+## 挙動と注意点
 
-Optical Flow / Motionノードの全体像と近いNodeの選び分けは[Family Overview](./overview)を参照してください。
+- Repair FrameはOptical Flowを毎回内部生成するため、事前計算済みvectorを使う単純な後段Nodeより処理が重くなります。
+- 前後frameで色や明るさが大きく変わると、別frameから取ったpixelが目立つことがあります。Manualはdeflicker、color correction、soft Maskを候補に挙げています。
+- Clamp Edgesはgapを埋めてもstretch artifactを作るため、必要な場面だけ使います。
+- inputに含まれていたaux channelは処理後に保持されません。
+
+## Optical Flowとの違い
+
+- **Optical Flow** — motion vectorを生成して後段へ残す
+- **Repair Frame** — 内部でvectorを生成してframe補間まで行い、vectorは残さない
+
+## 関連Node
+
+- [Optical Flow](./optical-flow)
+- [Tween](./tween)
+- [Smooth Motion](./smooth-motion)
 
 ## 出典と確認範囲
 
-このページの役割・data domain・系譜は、既存COLLECTANEA catalogとBlackmagic Design公式資料で確認された範囲をreader-first形式へ整理しています。
+DaVinci Resolve 21.1 Reference Manual、September 2026、Chapter 112 pp.2621–2623で、Image / Effect Mask入力、内部Optical Flow、aux channel破棄、Depth Ordering、Clamp Edges、Edge Softness、Source Frame / Warp Direction、Optical Flow Optionsを確認しました。
 
-Fusion 21.1 Reference Manualで個別のInspector項目・default・rangeまで確認できていない項目は、**source-limited**としてその詳細を断定していません。verification: partial はその未確認範囲を含みます。runtime REGIDや現在のEffects Library表示は別のruntime verificationで確定します。
+全既定値・全数値範囲、実機でのartifact傾向、内部REGIDは未確認です。
