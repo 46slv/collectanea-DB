@@ -40,6 +40,11 @@ jobs:
         working-directory: candidate
         run: node ../harness/scripts/fusion-reader-first-migration.mjs
 
+      - name: Fix same-name family overview links
+        working-directory: candidate
+        run: |
+          find manuals/fusion/nodes/optical-flow manuals/fusion/nodes/paint -type f -name '*.md' ! -name 'index.md' -print0 | xargs -0 sed -i 's|\[Family Overview\](\./)|[Family Overview](./overview)|g'
+
       - name: Install dependencies
         working-directory: candidate
         run: npm ci --no-audit --no-fund
