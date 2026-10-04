@@ -1,63 +1,55 @@
 ---
-title: "Override 3D"
-description: "下流の3D属性/Material等を上書き。"
+title: Override 3D
+description: Classic 3D scene内の全objectへVisibility・Lighting・Matte・Wireframe・ID等のproperty overrideを一括適用するNode。
 doc_type: node
-term_id: "override-3d"
-term_short: "Override 3Dは、下流の3D属性/Material等を上書き。"
+term_id: override-3d
+term_short: Override 3Dは、scene内objectの共通propertyをまとめて上書きするNode。
 verification: partial
-aliases: ["Override 3D", "3OV"]
-concepts: ["classic-3d"]
-nodes: ["Override 3D"]
-node_family: "3d"
-inputs: ["classic-3d"]
-outputs: ["classic-3d"]
-tasks: ["build-3d-scene"]
+aliases: [Override 3D, 3Ov]
+concepts: [classic-3d, scene-graph]
+nodes: [Override 3D]
+node_family: 3d
+controls: [Do Option, Override Option]
+inputs: [classic-3d]
+outputs: [classic-3d]
+tasks: [override-3d, render-pass, wireframe]
 product_scope: fusion
-suite_surfaces: ["fusion"]
-updated: "2026-10-03"
+suite_surfaces: [fusion]
+updated: "2026-10-04"
 ---
 
 # Override 3D
 
-下流の3D属性/Material等を上書き。
+Override 3Dは、入力<Term id="classic-3d">Classic 3D scene</Term>内の全objectへ、object-specific propertyをまとめて上書きするNodeです。
 
-## 概要
+Wireframe、Visibility、Lighting、Matte、Object ID等をscene全体へ同じ設定で適用したいときに使います。
 
-- **種別**: Node / Tool
-- **分類**: 3D Geometry / Scene
-- **主なデータ領域**: Classic 3D scene / geometry
-- **略称**: `3OV`
-- **導入・系譜**: legacy
-- **根拠レベル**: Blackmagic Design公式の旧Fusion Tool Referenceにある系譜
+## 入力
 
-## 入力と出力
+オレンジ色のScene Inputへ3D sceneを接続します。
 
-この項目はカタログ上、**Classic 3D scene / geometry**を主なデータ領域として扱います。上のfrontmatterにある入出力は領域を検索するための分類であり、Fusion 21.1の正確な端子数や端子名を断定するものではありません。
+## Overrideの仕組み
 
-実際に組むときはFlow上の端子ラベルとInspectorを確認し、2D Image、Mask、Shape、Particle、Classic 3D、USD、Deep、パラメータ値を取り違えないようにします。
+各propertyにはDo [Option] checkboxがあります。
 
-## 主な用途
+1. Do [Option]を有効にする
+2. 表示されたOption値を設定する
+3. upstream objectの同propertyをまとめてoverrideする
 
-下流の3D属性/Material等を上書き。
+Doを有効にしていないpropertyは元object設定を保持します。
 
-## 使うときの判断
+## Particle / Text 3Dで重要な理由
 
-Classic 3D sceneはUSD sceneと別系統です。2D Imageへ戻すには通常`Renderer 3D`を使います。
+Manualでは、3D particle systemとText 3Dについて、wireframe、visibility、lighting、matte、ID等を設定する手段としてOverride 3Dが使われると説明されています。
+
+## Render pass用途
+
+sceneをbranchし、Override 3Dでlighting等を変更したあとReplace Material 3Dへ通すと、独立したmask / falloff / material passを作れます。
 
 ## 最小構成
 
-```text
-3D Source → Override 3D → Merge 3D → Renderer 3D → Image
-```
+Merge 3D → Override 3D → Renderer 3D
 
-## 注意点
+## 出典と確認範囲
 
-- このページはノードを選ぶための役割・データ領域・系譜を先に揃えています。
-- exactな内部ID、端子名、初期値、数値範囲、Edition差は、確認できたものだけ今後追記します。
-- legacy系譜の項目は、現在のEffects Libraryに同名で表示されることまで一件ずつ実機確認したものではありません。
-
-## バージョンと検証状況
-
-旧Blackmagic Design公式Tool Referenceで役割と系譜を確認しています。Fusion 21.1での存在、端子名、Inspector項目、初期値、範囲は実機または現行マニュアルで再確認が必要です。
-
-このリファレンスのinventory基準はDaVinci Resolve / Fusion 21.0.4です。Manual全体は21.1基準へ更新中のため、21.1で差がある箇所は現行資料または実機確認後に更新します。
+DaVinci Resolve 21.1 Reference Manual Chapter 88 pp.1959–1960で、Scene input、Do [Option]によるscene-wide override、Replace Materialとのpass例を確認しました。
