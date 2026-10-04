@@ -136,7 +136,7 @@ Manual整理と実機inventory確認を混ぜない。
 4. Color / Blur — Blur foundationとColor foundationを2026-10-04に分離実施。Blur / Defocus / Directional Blur、Brightness Contrast / Color Corrector / White Balanceをreader-first化
 5. Tracking
 6. Shape
-7. Generator / Text
+7. Generator / Text — foundation batch started 2026-10-04; Background / Fast Noise / Text+をreader-first化
 8. Particle
 9. Classic 3D / Materials
 10. USD
@@ -264,3 +264,13 @@ Color Curves / Color Gain / Gamut / OCIO等はFamily Overviewから案内し、�
 - Planar graphic Recipeを21.1 workflowへ更新。
 
 次はGenerators。Trackingは主要4 Nodeを一通りreader-first化できたため、後続は必要に応じてPattern / Diagnosticを追加する。
+
+
+### 2026-10-04 — Generator foundation
+
+- Generator Family Overviewを追加。
+- Background、Fast Noise、Text+をDaVinci Resolve 21.1 Reference Manual Chapter 103基準で改稿。
+- Generator共通Image tabとResolve上のTimeline resolution基準を反映。
+- Text+ overlay Recipeを更新。
+
+Day Sky / Mandelbrot / MultiText / Plasmaは後続batchへ分離する。
