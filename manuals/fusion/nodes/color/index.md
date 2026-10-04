@@ -1,85 +1,81 @@
 ---
 title: Colorノード
-description: 明るさ・contrast・色味・white balance・curve・colorspaceなど、2D ImageのColor処理を目的から選ぶ入口。
+description: 明るさ・contrast・色味・white balance・curve・channel・ACES / RCM / OCIOなど、2D ImageのColor処理を目的から選ぶ入口。
 doc_type: index
 verification: partial
 product_scope: fusion
 tasks: [lookup-node, color-correct, white-balance, color-space]
-updated: "2026-10-04"
+updated: "2026-10-05"
 ---
 
 # Colorノード
 
-Color系Nodeは、2D <Term id="image">Image</Term>のRGB / Alpha値を変えるNodeです。
+Color系Nodeは、2D <Term id="image">Image</Term>の見た目を補正するものだけでなく、channelを組み替えるもの、camera / display color spaceを変換するもの、gamutを制限するものまで含みます。
 
-「色を直す」という一言では範囲が広いため、まず**単純な明るさ・contrast調整なのか、Shadows / Midtones / Highlightsまで分けたいのか、white balanceなのか、curve / colorspace変換なのか**を分けると選びやすくなります。
+最初に**look調整 / channel操作 / color management / lens補正**のどれかを分けると選びやすくなります。
 
-## まず選ぶ
+## 基本補正
 
-| やりたいこと | Node | 向いている用途 |
-| --- | --- | --- |
-| Gain / Lift / Gamma / Contrast / Brightness / Saturationを直接調整 | [Brightness Contrast](./brightness-contrast) | 基本的なtone・明るさ調整 |
-| Shadows / Midtones / Highlightsを分けて総合的に補正 | [Color Corrector](./color-corrector) | 詳細なcolor correction、histogram matching |
-| 灰色基準や色温度からwhite balance | [White Balance](./white-balance) | 色かぶり補正、色温度合わせ |
-| curveでchannelごとに値を変える | [Color Curves](./color-curves) | LUT-likeなcurve調整 |
-| RGBAのGain / Lift / Gammaをchannel別に調整 | [Color Gain](./color-gain) | channel balance、軽量な補正 |
-| colorspace / gamutを変換 | [Gamut](./gamut) / [OCIO Color Space](./ocio-colorspace) | workflow上のcolorspace変換 |
-| LUTを適用 | [OCIO File Transform](./ocio-filetransform) | OCIO経由のLUT適用 |
+| やりたいこと | Node |
+| --- | --- |
+| Gain / Lift / Gamma / Contrast等を直接調整 | [Brightness Contrast](./brightness-contrast) |
+| 最暗 / 最明値を自動でRangeへ広げる | [Auto Gain](./auto-gain) |
+| Shadows / Midtones / Highlightsまで総合補正 | [Color Corrector](./color-corrector) |
+| 軽量なLift / Gamma / Gain + Balance | [Color Gain](./color-gain) |
+| gray / color temperatureからwhite balance | [White Balance](./white-balance) |
 
-## Brightness Contrast
+## Curveで補正
 
-Brightness Contrastは、基本的なtone調整を1 Nodeで行います。
+- [Color Curves](./color-curves) — input value → output valueをSplineでremap
+- [Hue Curves](./hue-curves) — Hueを横軸に特定色域だけを補正
 
-Gain、Lift、Gamma、Contrast、Brightness、Saturationを持ち、それぞれ画素値へ違う計算を行います。単に「明るさを上げる」場合でもGainとBrightnessでは暗部への効き方が異なります。
+## Channelを組み替える
 
-## Color Corrector
+- [Channel Booleans](./channel-boolean) — RGBA / AuxをCopy・Multiply等で演算
+- [Color Matrix](./color-matrix) — 4×4 matrixでRGBAを線形変換
+- [Copy Aux](./copy-aux) — Z / Normal / Vector等をRGBAへ出す / Auxへ戻す
+- [Swizzler](./swizzler) — 複数sourceからcustom Layer / multilayer Imageを作る
 
-Color Correctorは、より総合的な補正Nodeです。
+## Color management
 
-Shadows / Midtones / Highlights / Masterを分けて調整し、Colors / Levels / Histogram / Suppressの各methodを切り替えられます。Match Reference入力を使ったhistogram matchingも持ちます。
+### ACES
 
-単純なGain・GammaだけならBrightness Contrastの方が目的を読みやすく、tone rangeを分ける必要がある場合はColor Correctorが候補になります。
+[ACES Transform](./aces-transform)はACES Version、IDT、ODTを使うACES専用transformです。
 
-## White Balance
+### Resolve Color Management系
 
-White Balanceは、CustomとTemperatureの2方式を持ちます。
+[Color Space Transform](./color-space-transform)はInput / Output Color Space + Gammaに加えTone / Gamut Mappingを扱います。
 
-Customでは本来grayであるpixelを参照し、指定Result Colorへ補正します。Temperatureでは撮影時の色温度と目標色温度を指定します。
+[Chromatic Adaptation](./chromatic-adaptation)はilluminant / white point間の変換を担当します。
 
-## Effect Mask
+### Gamut / Gamma
 
-Color系Nodeの多くは青色のEffect Mask入力を持ちます。
+- [Gamut](./gamut) — Source / Output SpaceとGamma add/remove
+- [Gamut Mapping](./gamut-mapping) — dynamic range / saturationをroll-offしてtargetへ収める
+- [Gamut Limiter](./gamut-limiter) — delivery境界をhard clip
+- [Color Space](./color-space) — RGBとYUV / HLS等のalternate representationを往復
 
-```text
-Image → Color Node → Output
-           ↑
-          Mask
-```
+### OpenColorIO
 
-MaskはColor処理の種類を変えず、処理を適用する範囲だけを制限します。
+- [OCIO CDL Transform](./ocio-cdl-transform) — CDL grade
+- [OCIO Color Space](./ocio-colorspace) — configに基づくspace変換
+- [OCIO Display](./ocio-display) — Display / View transform
+- [OCIO File Transform](./ocio-filetransform) — LUT / file transform
 
-## AlphaがあるImageをColor補正するとき
+## Lens色収差
 
-premultiplied Alphaを持つRGBA ImageでRGBだけを強く補正すると、半透明edgeのRGB / Alpha関係が崩れてhaloや不自然な明るさが出る場合があります。
+[Chromatic Aberration Removal](./chromatic-aberration-removal)はRGB fringeをchannel pairごとに手動補正します。
 
-Brightness Contrast、Color Curves、Color Corrector等にはPre-Divide / Post-Multiply系の設定があります。これはColor処理前にRGBをAlphaで割り、補正後に再度Alphaを掛けるための処理です。
+## Canvas / DoD
+
+[Set Canvas Color](./set-canvas-color)はImageのDoD外へどのColor / Alphaを持たせるかを設定します。
+
+## AlphaがあるImage
+
+premultiplied Alpha素材のColor補正では、対応NodeのPre-Divide / Post-Multiplyを確認します。
 
 詳しくは[プリマルチプライ（Premultiplication）](../../learn/04-compositing/premultiplication)を参照してください。
 
-## Color補正とColor Space変換は分ける
-
-Brightness ContrastやColor Correctorは「見た目・tone・色味を補正する」Nodeです。
-
-Gamut / OCIO Color Space等は「どのcolorspaceとして値を解釈・変換するか」を扱います。同じColorカテゴリでも役割を混ぜません。
-
-## 関連する考え方
-
-- [プリマルチプライ（Premultiplication）](../../learn/04-compositing/premultiplication)
-- [AlphaとMaskを分けて診断する](../../learn/07-debugging/alpha-vs-mask)
-- [マスク（Mask）](../../learn/02-data/mask)
-
 ## 出典と確認範囲
 
-DaVinci Resolve 21.1 Reference Manual、September 2026、Chapter 93、pp.2148–2206、およびFusion Fundamentals Chapter 77のpremultiplication説明を基に整理しています。
-
-このFamily OverviewではNodeの選び分けを担当します。全Color Nodeの全Control、数式、colorspace運用は個別Reference / workflow Conceptへ分けます。
+DaVinci Resolve 21.1 Reference Manual Chapter 93 pp.2133–2206とChapter 106 Swizzler pp.2445–2450を基に整理しています。

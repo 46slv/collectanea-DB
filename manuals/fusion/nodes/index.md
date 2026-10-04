@@ -16,7 +16,7 @@ Fusionで使うノードと関連要素を、名前だけでなく、何を受�
 
 ## 掲載範囲
 
-21.0.4基準の357項目とMediaIn・MediaOutによる従来の359ページに、September 2026版21.1 Reference Manualで確認した26項目と、公式21.1発表で確認したConnect 3Dを追加しています。現在は**394のノード・関連要素ページ**があります。カテゴリの案内ページはこの数に含めません。
+21.0.4基準の357項目とMediaIn・MediaOutによる従来の359ページに、September 2026版21.1 Reference Manualで確認した33項目と、公式21.1発表で確認したConnect 3Dを追加しています。現在は**401のノード・関連要素ページ**があります。カテゴリの案内ページはこの数に含めません。
 
 この数は「21.1のAdd Toolに表示されるノード数」ではありません。ModifierとPaint内部要素を含み、実機のTool registryとはまだ全件照合していません。Resolve FX・OpenFX・Fuse・Macro・Template・Reactorも、この固定件数と同じ意味では扱いません。
 
@@ -62,7 +62,7 @@ Node Referenceは、分類名と一行要約だけを並べる一覧ではあり
 
 [OpenPBR](./materials-lights/openpbr)は、21.1 Manualの入力メニューと構成図を基に、複数のテクスチャから3D材質を組む流れを記述しています。[sChangeStyle](./shapes/schangestyle)もManualのColorとAllow Combiningを説明し、既存[sOffset](./shapes/soffset)は曖昧な説明と裏付けのない導入版断定を修正しました。
 
-[sGrid](./shapes/sgrid)、[sDuplicate](./shapes/sduplicate)、[sEllipse](./shapes/s-ellipse)、[sRender](./shapes/s-render)は、21.1 Manualで確認できるInput・Control・基本Graphまで反映し、Shapeの代表例としてreader-first形式へ改稿しています。
+[sGrid](./shapes/sgrid)、[sDuplicate](./shapes/sduplicate)、[sEllipse](./shapes/s-ellipse)、[sRender](./shapes/s-render)は、21.1 Manualで確認できるInput・Control・基本Graphまで反映し、Shapeの代表例としてreader-first形式へ改稿しています。\n\nColor Chapterの照合で[ACES Transform](./color/aces-transform)、[Chromatic Adaptation](./color/chromatic-adaptation)、[Color Space Transform](./color/color-space-transform)、[Gamut Limiter](./color/gamut-limiter)、[Gamut Mapping](./color/gamut-mapping)、[Chromatic Aberration Removal](./color/chromatic-aberration-removal)、[OCIO Display](./color/ocio-display)の独立sectionを確認し、reader-first pageを追加しました。
 
 ## 根拠の読み方
 

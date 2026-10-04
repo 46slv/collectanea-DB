@@ -133,7 +133,7 @@ Manual整理と実機inventory確認を混ぜない。
 1. Compositing / Merge — reader-first family pass started 2026-10-04; Merge / MultiMerge / Dissolve + Concept / Recipe / Pattern整合を実施
 2. Transform / Format — foundation batch started 2026-10-04; Transform / Resize / Scale / Crop + related Concept / Recipe / Diagnosticを改稿
 3. Mask — full Chapter 108 pass completed 2026-10-04; 10 Mask Node + Concept / Recipe / Diagnosticをreader-first化
-4. Color / Blur — Blur / Filter full pass completed 2026-10-04。Color foundationは継続中
+4. Color / Blur — Blur / Filter full pass + Color Chapter 93 full pass completed 2026-10-05
 5. Tracking
 6. Shape
 7. Generator / Text — foundation batch started 2026-10-04; Background / Fast Noise / Text+をreader-first化
@@ -337,3 +337,13 @@ Mask familyはManual本文passを完了。実機のshortcut / REGID / rendering�
 - DoD / Clipping Mode、Motion Vector、convolution / morphology / rank filterの役割を具体化。
 
 Blur / Filter familyの現在掲載14 NodeはManual本文passを完了。次はColor full pass。
+
+
+### 2026-10-05 — Color full family pass
+
+- Chapter 93のexisting Color pagesをreader-first化し、Auto Gain / Channel Booleans / Color Curves / Color Gain / Color Matrix / Color Space / Copy Aux / Gamut / Hue Curves / OCIO 3種 / Set Canvas Colorを現行Manualへ合わせた。
+- Manualに独立sectionがあるACES Transform / Chromatic Adaptation / Color Space Transform / Gamut Limiter / Gamut Mapping / Chromatic Aberration Removal / OCIO Displayを新規page化。
+- Chapter 106のSwizzlerはmultilayer / Aux layer構築Nodeとして改稿。
+- inventoryは401へ更新。
+
+Color familyはManual本文passを完了。runtimeのinstalled OCIO config / host display / exact defaultsは別verificationへ分離する。
