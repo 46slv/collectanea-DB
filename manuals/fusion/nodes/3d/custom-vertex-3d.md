@@ -1,63 +1,77 @@
 ---
-title: "Custom Vertex 3D"
-description: "頂点処理をカスタムする3D Tool。"
+title: Custom Vertex 3D
+description: expressionとImage lookupを使い、3D geometryのvertex position・normal・UV・color・velocity等をper-vertexで計算する高度なNode。
 doc_type: node
-term_id: "custom-vertex-3d"
-term_short: "Custom Vertex 3Dは、頂点処理をカスタムする3D Tool。"
+term_id: custom-vertex-3d
+term_short: Custom Vertex 3Dは、expressionで3D meshのvertex属性を直接計算するNode。
 verification: partial
-aliases: ["Custom Vertex 3D", "3CV"]
-concepts: ["classic-3d"]
-nodes: ["Custom Vertex 3D"]
-node_family: "3d"
-inputs: ["classic-3d"]
-outputs: ["classic-3d"]
-tasks: ["build-3d-scene"]
+aliases: [Custom Vertex 3D, 3CV]
+concepts: [classic-3d, geometry, expressions]
+nodes: [Custom Vertex 3D]
+node_family: 3d
+controls: [Vertex Expressions, Numbers 1-8, Points 1-8, LUTs 1-4, Setups 1-8, Intermediates 1-8]
+inputs: [classic-3d, image, image, image]
+outputs: [classic-3d]
+tasks: [custom-geometry, vertex-expression, procedural-3d]
 product_scope: fusion
-suite_surfaces: ["fusion"]
-updated: "2026-10-03"
+suite_surfaces: [fusion]
+updated: "2026-10-04"
 ---
 
 # Custom Vertex 3D
 
-頂点処理をカスタムする3D Tool。
+Custom Vertex 3Dは、<Term id="classic-3d">Classic 3D</Term> geometryの各vertexをexpressionで処理する高度なNodeです。
 
-## 概要
+positionだけでなくnormal、texture coordinates、vertex color、vector、velocity等を式やImage lookupから計算できます。
 
-- **種別**: Node / Tool
-- **分類**: 3D Geometry / Scene
-- **主なデータ領域**: Classic 3D scene / geometry
-- **略称**: `3CV`
-- **導入・系譜**: legacy
-- **根拠レベル**: Blackmagic Design公式の旧Fusion Tool Referenceにある系譜
+## 入力
 
-## 入力と出力
+### Scene Input
 
-この項目はカタログ上、**Classic 3D scene / geometry**を主なデータ領域として扱います。上のfrontmatterにある入出力は領域を検索するための分類であり、Fusion 21.1の正確な端子数や端子名を断定するものではありません。
+唯一の必須入力です。加工する3D geometry / sceneを接続します。
 
-実際に組むときはFlow上の端子ラベルとInspectorを確認し、2D Image、Mask、Shape、Particle、Classic 3D、USD、Deep、パラメータ値を取り違えないようにします。
+### Image Input 1–3
 
-## 主な用途
+任意の2D Image入力です。LUT / pixel samplingをcustom expressionの参照に使えます。
 
-頂点処理をカスタムする3D Tool。
+## Vertex tab
 
-## 使うときの判断
+position、normal、vertex color、texture coordinates、UV tangent、velocity等の式を記述します。
 
-Classic 3D sceneはUSD sceneと別系統です。2D Imageへ戻すには通常`Renderer 3D`を使います。
+Manualではpositionをpx / py / pz、normalをnx / ny / nz等のvariableとして扱います。
+
+positionだけを変えてもnormal / tangentは自動で更新されません。surface shadingが崩れる場合は後段でReplace Normals 3Dを使います。
+
+## 補助parameter
+
+### Numbers 1–8
+
+animation / Modifierを接続できる数値parameterです。式からn1〜n8として参照します。
+
+### Points 1–8
+
+XYZ positionを外部Controlから式へ渡します。
+
+### LUTs 1–4
+
+Imageをlookup tableとして式へ利用します。
+
+### Setups / Intermediates
+
+複数expressionから共通利用する計算を段階化します。
 
 ## 最小構成
 
-```text
-3D Source → Custom Vertex 3D → Merge 3D → Renderer 3D → Image
-```
+Shape 3D → Custom Vertex 3D → Replace Normals 3D → Merge 3D
 
-## 注意点
+## 使う判断
 
-- このページはノードを選ぶための役割・データ領域・系譜を先に揃えています。
-- exactな内部ID、端子名、初期値、数値範囲、Edition差は、確認できたものだけ今後追記します。
-- legacy系譜の項目は、現在のEffects Libraryに同名で表示されることまで一件ずつ実機確認したものではありません。
+単純なbend / twistならBender 3D、Imageによる高さ変位ならDisplace 3Dの方がGraphの意味を読みやすくできます。
 
-## バージョンと検証状況
+Custom Vertex 3Dは、既存Nodeでは表現できないper-vertex algorithmが必要な場合に使います。
 
-旧Blackmagic Design公式Tool Referenceで役割と系譜を確認しています。Fusion 21.1での存在、端子名、Inspector項目、初期値、範囲は実機または現行マニュアルで再確認が必要です。
+## 出典と確認範囲
 
-このリファレンスのinventory基準はDaVinci Resolve / Fusion 21.0.4です。Manual全体は21.1基準へ更新中のため、21.1で差がある箇所は現行資料または実機確認後に更新します。
+DaVinci Resolve 21.1 Reference Manual Chapter 88 pp.1930–1935で、4入力、vertex attributes、Numbers / Points / LUT / Setup / Intermediate、normal再計算上の注意を確認しました。
+
+expression language全体とperformanceは未確認です。
