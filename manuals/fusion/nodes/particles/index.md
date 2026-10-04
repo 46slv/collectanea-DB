@@ -1,6 +1,6 @@
 ---
 title: Particleノード
-description: Particle setを作る・まとめる・forceで動かす・見た目を変える・2D/3DへrenderするNodeを役割から選ぶ入口。
+description: Particleを作る・動かす・まとめる・2D/3Dへrenderする流れと、各p* Nodeの選び分けを整理する。
 doc_type: index
 verification: partial
 product_scope: fusion
@@ -10,9 +10,9 @@ updated: "2026-10-04"
 
 # Particleノード
 
-Particle系Nodeは、<Term id="particle-data">Particle set</Term>を作り、途中で状態を変え、最後にpRenderで2D Imageまたは3D出力へ変換するためのNode群です。
+FusionのParticle系Nodeは、雨・煙・火花・群れなど、多数の要素を自動生成して動かすための仕組みです。
 
-最初に「生成」「合流」「force / behavior」「render」のどこを担当するNodeかで分けると、Particle chainを読みやすくできます。
+途中では通常の2D Imageではなく、各particleの位置・速度・寿命・回転・size・colorなどを持つ<Term id="particle-data">Particle set</Term>を扱います。最後にpRenderで2D Imageまたは3D geometryへ変換します。
 
 ## 最小構成
 
@@ -20,146 +20,98 @@ Particle系Nodeは、<Term id="particle-data">Particle set</Term>を作り、途
 pEmitter → pRender
 ```
 
-pEmitterだけでは通常のImageとしてViewerへ表示できません。pRenderがparticle systemを表示可能な出力へ変換します。
+pEmitterがparticleを生成し、pRenderが見える結果へ変換します。
 
-## まず選ぶ
+## Nodeを選ぶ
 
-| やりたいこと | Node | 役割 |
+| やりたいこと | Node | 何が変わるか |
 | --- | --- | --- |
-| particleを生成する | [pEmitter](./p-emitter) | 基本Emitter。数・寿命・速度・style・regionを決める |
-| Imageからparticleを作る | [pImage Emitter](./pimageemitter) | pixel位置・色・Alpha等をgenerationへ使う |
-| 既存particleから新しいparticleを作る | [pSpawn](./pspawn) | trail、burst等 |
-| 2つのparticle streamをまとめる | [pMerge](./pmerge) | Particle set同士を合流 |
-| 一方向へforceを加える | [pDirectionalForce](./pdirectionalforce) | gravity等 |
-| movement / spinを減衰する | [pFriction](./pfriction) | resistance |
-| 不規則なmovementを加える | [pTurbulence](./pturbulence) | smoke / dust等の揺らぎ |
-| 1点へ引き寄せる・反発させる | [pPoint Force](./ppointforce) | point force |
-| 渦状のmovementを作る | [pVortex](./pvortex) | vortex |
-| Particle setを2D/3Dへ出す | [pRender](./p-render) | render boundary |
+| particleを生成 | [pEmitter](./p-emitter) | 数、寿命、初速、region、style |
+| Imageのpixelからparticleを生成 | [pImage Emitter](./pimageemitter) | pixel位置・色・Alphaをparticle generationへ利用 |
+| particleからparticleを増やす | [pSpawn](./pspawn) | 既存particleをemitter化 |
+| 2つのparticle streamをまとめる | [pMerge](./pmerge) | 2 streamを1 streamへ統合 |
+| 一定方向へ加速 | [pDirectionalForce](./pdirectionalforce) | gravityのようなforce |
+| 1点へ引き寄せる / 反発させる | [pPoint Force](./ppointforce) | point中心のattract / repel |
+| 渦を作る | [pVortex](./pvortex) | rotational force |
+| motionへ乱れを加える | [pTurbulence](./pturbulence) | frequency-based chaos |
+| velocity / spinを減衰 | [pFriction](./pfriction) | movementやrotationをslow down |
+| regionを避ける | [pAvoid](./pavoid) | regionへ近づく前に進行方向を変える |
+| regionで跳ね返す | [pBounce](./pbounce) | collision-like bounce |
+| targetへ追従させる | [pFollow](./pfollow) | animated follow pointへspring-likeに追従 |
+| 群れ行動 | [pFlock](./pflock) | attraction / repulsion / following |
+| 見た目を途中で変える | [pChangeStyle](./pchangestyle) | styleやparticle set assignmentを変更 |
+| 条件で消す | [pKill](./pkill) | region / age / set等でparticleをdestroy |
+| Alpha gradientでforceを作る | [pGradientForce](./pgradientforce) | ImageのAlpha gradient方向へ加速 |
+| 独自式でparticle属性を変更 | [pCustom](./pcustom) | position / velocity / color等をexpressionで操作 |
+| 独自式でforceを作る | [pCustomForce](./pcustomforce) | position / torqueへcustom force |
+| tangent方向のforce | [pTangent Force](./ptangentforce) | regionに対する接線方向へforce |
+| 最終結果をrender | [pRender](./p-render) | Particle set → 2D Image / 3D geometry |
 
-## Particle chainの読み方
+## 「作る → 変える → render」で読む
 
-Particle Nodeは、通常の2D Image Nodeと同じ順序で考えない方が分かりやすくなります。
+Particle graphは3段階に分けると読みやすくなります。
 
 ```text
 Generate
-  ↓
-Modify / Force
-  ↓
-Combine
-  ↓
-Render
-```
-
-例:
-
-```text
 pEmitter
-  ↓
-pDirectionalForce
-  ↓
-pTurbulence
-  ↓
-pFriction
-  ↓
+   ↓
+Modify
+pDirectionalForce → pTurbulence → pFriction
+   ↓
+Render
 pRender
 ```
 
-この間はParticle setのままです。Blur、Color Corrector、Merge等の2D Image処理は、pRenderを2D modeで出した後に使います。
+ForceやBehaviorを何個追加しても、pRenderまではParticle setのままです。
 
-## Generate
+## 2Dと3D
 
-### pEmitter
+pRenderは2D / 3DのOutput Modeを持ち、既定は3Dです。
 
-もっとも基本的なparticle sourceです。
-
-Number / Lifespan / Velocity / Angle / Rotation / Spinを決め、Style tabで見た目、Region tabでどこから生成するかを決めます。
-
-### pImage Emitter
-
-Imageのpixelを元にparticleを生成します。
-
-image-to-particle effectや、映像の色を持つparticle gridを作る用途です。
-
-### pSpawn
-
-既存particle自身から新しいparticleを生成します。
-
-火花が途中で分裂する、rocketからtrailが出る、といった「particleが別particleを生む」構成で使います。
-
-## Combine
-
-### pMerge
-
-2つのParticle streamを1つへまとめます。
+2DならそのままMerge等の2D Image Nodeへ進みます。
 
 ```text
-pEmitter A ─┐
-            ├─ pMerge → pRender
-pEmitter B ─┘
+pEmitter → pRender (2D) → Merge
 ```
 
-pMergeには固有Controlがなく、各streamのParticle Set情報を保ったまま合流します。
+3DならMerge 3D等へ接続し、Renderer 3Dで最終Imageへ変換します。
 
-## Force / behavior
+```text
+pEmitter → pRender (3D) → Merge 3D → Renderer 3D
+```
 
-### pDirectionalForce
+## Common Controls
 
-指定方向へ一定のforceを加えます。Manualではgravityが代表例です。
+Particle Nodeの多くはConditions / Style / Region / Settings等の共通tabを持ちます。
 
-### pFriction
+### Conditions
 
-velocityとspinを減衰します。
+Probability、particle age、Setなどを使い、「どのparticleだけにこのNodeを効かせるか」を限定します。
 
-### pTurbulence / pVortex / pPoint Force
+### Region
 
-uniformなmotionを崩す、渦へ巻き込む、特定pointへ引き寄せる / 反発させる、といったmovementを追加します。
+pEmitterではparticleを生成する範囲、Force / Behavior系では作用範囲を決めます。
 
-Force Nodeの多くはRegionやConditionsを使い、「どのparticleへ」「どの場所で」「寿命のどの範囲で」効かせるかを制限できます。
+Bitmapや3D MeshをRegionへ使う場合、追加inputがNodeへ現れます。
 
-## Style
+### Sets
 
-pEmitter、pSpawn、pChangeStyle、pImage Emitterには共通Style tabがあります。
+pEmitter等でparticleへSet番号を割り当て、後段Nodeを特定Setだけへ作用させられます。
 
-Point、Bitmap等のparticle appearanceを選び、sizeやcolorを調整します。
+## Particleの時間
 
-Bitmap styleではImage inputが追加され、2D Imageをparticleの見た目として使えます。多数複製されるため、Manualは小さなsquare imageを使う例を示しています。
+Particle systemは前frameのstateを使って現在frameを計算します。
 
-## Region
-
-Region tabは、pEmitterではparticleを生成する場所、force系ではeffectが作用する場所を定義します。
-
-2D ImageのBitmap regionや3D Mesh regionを使う場合は、追加inputがNodeへ現れます。
-
-## Conditions / Sets
-
-Particle系では「全particleに同じEffect」を前提にしなくても構いません。
-
-ConditionsでProbabilityやStart / End Ageを使い、particle lifeの一部だけへEffectを適用できます。
-
-pEmitterではSet 1–32を割り当てられ、downstream Nodeから特定Setだけを対象にできます。
-
-## pRender
-
-pRenderはParticle chainの終端です。
-
-- **2D mode** → 2D Image。Merge等へ接続
-- **3D mode** → 3D particle output。Merge 3D / Renderer 3Dへ接続
-
-既定は3D modeです。
+大きくframeを飛んだとき結果が違って見える場合は、pRenderのPre-Roll / Automatic Pre-Rollを確認します。開始frameですでに煙が立っている状態などを作る場合はPre-Generate Framesを使います。
 
 ## 関連する考え方
 
 - [パーティクル（Particle）](../../learn/02-data/particle)
-- [データ領域（data domain）を辿って診断する](../../learn/07-debugging/trace-data-domain)
 - [フレーム評価](../../learn/05-time/frame-evaluation)
-
-## 関連Recipe
-
-- [最小Particle chainを作る](../../recipes/particles/basic-particle-chain)
+- [データ領域を辿って診断する](../../learn/07-debugging/trace-data-domain)
 
 ## 出典と確認範囲
 
-DaVinci Resolve 21.1 Reference Manual、September 2026、Chapter 114 pp.2646–2699とFusion Fundamentals Chapter 86を基に整理しています。
+DaVinci Resolve 21.1 Reference Manual、September 2026、Chapter 114 pp.2646–2703とFusion Fundamentals Chapter 86を基に整理しています。
 
-このFamily OverviewはNodeの役割分けを担当します。各Force / behavior Nodeの詳細、Particle Common Controlsの全項目、実機performanceは個別Referenceへ分けます。
+各Node固有Controlは個別ページで説明します。内部particle representation、solver / simulation実装、実機性能は未確認です。
