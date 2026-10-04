@@ -3,7 +3,7 @@ title: "SpeedWarp"
 description: "AI retiming node。Speed/Delay、Faster/Better mode。2D image input。"
 doc_type: node
 term_id: "speedwarp"
-term_short: "SpeedWarpは、AI retiming node。Speed/Delay、Faster/Better mode。2D image input。"
+term_short: "SpeedWarpは、AI retiming node。Speed/Delay、Faster/Better mode。2D image input。time / metadata / domainを扱うNode。"
 verification: partial
 aliases: ["SpeedWarp"]
 concepts: ["image-data"]
@@ -15,56 +15,48 @@ outputs: ["image"]
 tasks: ["retime"]
 product_scope: fusion
 suite_surfaces: ["fusion"]
-updated: "2026-10-03"
+updated: "2026-10-05"
 ---
 
 # SpeedWarp
 
-AI retiming node。Speed/Delay、Faster/Better mode。2D image input。
+SpeedWarpは、AI retiming node。Speed/Delay、Faster/Better mode。2D image input。Imageの再生time、metadata、bit depth、Domain of Definition等、画素以外も含む付帯情報を変更します。
 
-## 概要
+## 役割
 
-- **種別**: Node / Tool
-- **分類**: Resolve 21
-- **主なデータ領域**: 2D Image / control
-- **導入・系譜**: 21 [SPDw]
-- **根拠レベル**: Resolve 21のBlackmagic Design公式資料で確認
+AI retiming node。Speed/Delay、Faster/Better mode。2D image input。このページでは、名前だけで選ばず、**何を受け取り、何が変わり、どのdomainへ返すか**を先に整理します。
+
+同じframeの画素処理ではなく、どのsource timeをcurrent frameへ対応させるかを確認します。
 
 ## 入力と出力
 
-この項目はカタログ上、**2D Image / control**を主なデータ領域として扱います。上のfrontmatterにある入出力は領域を検索するための分類であり、Fusion 21.1の正確な端子数や端子名を断定するものではありません。
-
-実際に組むときはFlow上の端子ラベルとInspectorを確認し、2D Image、Mask、Shape、Particle、Classic 3D、USD、Deep、パラメータ値を取り違えないようにします。
-
-## 主な用途
-
-AI retiming node。Speed/Delay、Faster/Better mode。2D image input。
+入力分類: **image**。 出力分類: **image**。 この分類はdata domainを読むためのものです。Fusion 21.1のexactな端子名・端子数を未確認の場合、ここでは推測して固定しません。
 
 ## 使うときの判断
 
-前後のノードと同じ2D Image領域で使うのが基本です。Maskや補助入力がある場合は、画像入力と役割を分けて接続します。
+見た目のEffectかではなく、time mapping、metadata、DoD、precisionのどれを変えるNodeかを確認します。
+
+同じ目的を別Familyでも作れる場合は、後段で必要なdata domainと、Graph上で責任をどこに置きたいかで選びます。
 
 ## 最小構成
 
-```text
-Image → SpeedWarp → Image
-```
+    Image / Time / Metadata → SpeedWarp → Result
 
-## 主に確認する設定
+これは接続関係を理解するための最小構成案です。公式Manualのexactな作例として確認していない構成は、実制作前にViewerで中間結果を確認します。
 
-- `Speed`
-- `Delay`
-- `Mode`
+## 確認ポイント
 
-上記は公式資料で役割が確認できた主要項目です。表示名や配置はFusion 21.1のホストで再確認します。
+- 入力dataのdomainが合っているか。
+- この項目のoutputを受け取れる後段Nodeへ接続しているか。
+- 同じ役割を前段 / 後段で二重に処理していないか。
+- source-limited pageでは、未確認のControl名・default・rangeを名前から推測していないか。
 
-## 注意点
+## Family内での位置づけ
 
-- このページはノードを選ぶための役割・データ領域・系譜を先に揃えています。
-- exactな内部ID、端子名、初期値、数値範囲、Edition差は、確認できたものだけ今後追記します。
+Time / Metadata / Utilityノードの全体像と近いNodeの選び分けは[Family Overview](./)を参照してください。
 
-## バージョンと検証状況
+## 出典と確認範囲
 
-Resolve 21のBlackmagic Design公式資料で役割を確認しています。Fusion 21.1の実機差、端子名、初期値、範囲は必要に応じて再確認します。
+このページの役割・data domain・系譜は、既存COLLECTANEA catalogとBlackmagic Design公式資料で確認された範囲をreader-first形式へ整理しています。
 
-このリファレンスのinventory基準はDaVinci Resolve / Fusion 21.0.4です。Manual全体は21.1基準へ更新中のため、21.1で差がある箇所は現行資料または実機確認後に更新します。
+Fusion 21.1 Reference Manualで個別のInspector項目・default・rangeまで確認できていない項目は、**source-limited**としてその詳細を断定していません。verification: partial はその未確認範囲を含みます。runtime REGIDや現在のEffects Library表示は別のruntime verificationで確定します。
