@@ -1,63 +1,69 @@
 ---
-title: "Replace Normals 3D"
-description: "法線を置換。表示略号はRendererと衝突し得る。"
+title: Replace Normals 3D
+description: 3D meshのper-vertex normal / tangentを再計算・反転し、Smoothing Angleやpre-weldでshading seamを修正するNode。
 doc_type: node
-term_id: "replace-normals-3d"
-term_short: "Replace Normals 3Dは、法線を置換。表示略号はRendererと衝突し得る。"
+term_id: replace-normals-3d
+term_short: Replace Normals 3Dは、meshのnormal / tangentを再計算してsmooth / faceted shadingを調整するNode。
 verification: partial
-aliases: ["Replace Normals 3D", "3RN"]
-concepts: ["classic-3d"]
-nodes: ["Replace Normals 3D"]
-node_family: "3d"
-inputs: ["classic-3d"]
-outputs: ["classic-3d"]
-tasks: ["build-3d-scene"]
+aliases: [Replace Normals 3D, ReplaceNormals, 3RpN]
+concepts: [classic-3d, geometry, normals]
+nodes: [Replace Normals 3D]
+node_family: 3d
+controls: [Pre-Weld Position Vertices, Recompute, Smoothing Angle, Ignore Smooth Groups, Flip Normals]
+inputs: [classic-3d]
+outputs: [classic-3d]
+tasks: [normals, shading, repair-geometry]
 product_scope: fusion
-suite_surfaces: ["fusion"]
-updated: "2026-10-03"
+suite_surfaces: [fusion]
+updated: "2026-10-04"
 ---
 
 # Replace Normals 3D
 
-法線を置換。表示略号はRendererと衝突し得る。
+Replace Normals 3Dは、3D meshのper-vertex normal / tangentを再計算し、smooth shadingやhard edgeを調整するNodeです。
 
-## 概要
+Light、Camera、Point Cloud、Locator等のnon-mesh objectは変更せず通過します。
 
-- **種別**: Node / Tool
-- **分類**: 3D Geometry / Scene
-- **主なデータ領域**: Classic 3D scene / geometry
-- **略称**: `3RN`
-- **導入・系譜**: legacy
-- **根拠レベル**: Blackmagic Design公式の旧Fusion Tool Referenceにある系譜
+## 入力
 
-## 入力と出力
+オレンジ色のScene Inputへ3D geometry / sceneを接続します。
 
-この項目はカタログ上、**Classic 3D scene / geometry**を主なデータ領域として扱います。上のfrontmatterにある入出力は領域を検索するための分類であり、Fusion 21.1の正確な端子数や端子名を断定するものではありません。
+## 主な設定
 
-実際に組むときはFlow上の端子ラベルとInspectorを確認し、2D Image、Mask、Shape、Particle、Classic 3D、USD、Deep、パラメータ値を取り違えないようにします。
+### Pre-Weld Position Vertices
 
-## 主な用途
+同じpositionに重複vertexがある場合、normal計算前だけ一時的にweldして計算を安定させます。output geometryのposition vertex自体を恒久的にweldする機能ではありません。
 
-法線を置換。表示略号はRendererと衝突し得る。
+### Recompute
 
-## 使うときの判断
+- Always — 常にnormal / tangentを再計算
+- If Not Present — dataがないときだけ計算
+- Never — 再計算しない
 
-Classic 3D sceneはUSD sceneと別系統です。2D Imageへ戻すには通常`Renderer 3D`を使います。
+### Smoothing Angle
 
-## 最小構成
+隣接face角度がこの値より小さいedgeをsmoothにします。
 
-```text
-3D Source → Replace Normals 3D → Merge 3D → Renderer 3D → Image
-```
+0ではfaceted normalを作る用途があります。
 
-## 注意点
+### Ignore Smooth Groups
 
-- このページはノードを選ぶための役割・データ領域・系譜を先に揃えています。
-- exactな内部ID、端子名、初期値、数値範囲、Edition差は、確認できたものだけ今後追記します。
-- legacy系譜の項目は、現在のEffects Libraryに同名で表示されることまで一件ずつ実機確認したものではありません。
+meshのSmooth Group境界を無視してSmoothing Angleだけでsmoothするかを決めます。
 
-## バージョンと検証状況
+### Flip Normals
 
-旧Blackmagic Design公式Tool Referenceで役割と系譜を確認しています。Fusion 21.1での存在、端子名、Inspector項目、初期値、範囲は実機または現行マニュアルで再確認が必要です。
+normal方向を反転します。
 
-このリファレンスのinventory基準はDaVinci Resolve / Fusion 21.0.4です。Manual全体は21.1基準へ更新中のため、21.1で差がある箇所は現行資料または実機確認後に更新します。
+## Custom Vertex / Displace後で使う
+
+Custom Vertex 3Dでpositionを変えてもnormalは自動更新されません。
+
+Displace 3Dやcustom deformation後にlightingが不自然なら、Replace Normals 3Dで再計算する構成を検討します。
+
+## 注意
+
+bump mapが元normalへ依存しているassetでは、normal再計算でappearanceが変わる場合があります。必要な時だけ使います。
+
+## 出典と確認範囲
+
+DaVinci Resolve 21.1 Reference Manual Chapter 88 pp.1981–1982で、Scene input、Pre-Weld、Recompute、Smoothing Angle、Smooth Group、Flip Normalsとnormal / tangent上の注意を確認しました。
