@@ -132,7 +132,7 @@ Manual整理と実機inventory確認を混ぜない。
 
 1. Compositing / Merge — reader-first family pass started 2026-10-04; Merge / MultiMerge / Dissolve + Concept / Recipe / Pattern整合を実施
 2. Transform / Format — foundation batch started 2026-10-04; Transform / Resize / Scale / Crop + related Concept / Recipe / Diagnosticを改稿
-3. Mask
+3. Mask — foundation batch started 2026-10-04; Bitmap / Ellipse / Polygon + Mask Concept / Recipe / Diagnosticを改稿
 4. Color / Blur
 5. Tracking
 6. Shape
@@ -219,3 +219,14 @@ primary source確認
 - Transform配置Recipeと「端が消える」Diagnosticを現行のEdges / Crop / Resize / Scale / DoD区分へ更新。
 
 Camera Shake / DVE / Letterbox / Planar Transformは同じChapter 120にあるが、このbatchでは基礎4 Nodeと混ぜず後続batchへ分離する。
+
+
+### 2026-10-04 — Mask foundation
+
+- Mask Family Overviewを追加し、Primitive / Spline / Image-derived / Paint系の選び分けを整理。
+- Bitmap MaskをChapter 108 pp.2463–2467基準で改稿。
+- Ellipse Maskをpp.2472–2474、Polygon Maskをpp.2480–2484基準で改稿。
+- Mask Conceptへsingle-channel、Level、Invert、Paint Modeの基本を反映。
+- Mask Pattern、Merge Mask Recipe、「Maskが効かない」Diagnosticを現行Controlへ合わせた。
+
+B-Spline / MultiPoly / Mask Paint / Ranges / Rectangle / Triangle / WandはFamily Overviewから参照できる状態にし、次のMask batchへ分離する。
