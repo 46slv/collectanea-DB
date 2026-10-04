@@ -5,7 +5,7 @@ doc_type: index
 verification: partial
 product_scope: fusion
 tasks: [lookup-node, inspect-controls]
-updated: '2026-10-03'
+updated: '2026-10-05'
 ---
 
 # ノードリファレンス（Node Reference）
