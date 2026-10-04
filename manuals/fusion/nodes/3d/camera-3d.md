@@ -1,63 +1,82 @@
 ---
-title: "Camera 3D"
-description: "Fusion 3Dシーンのカメラ。"
+title: Camera 3D
+description: Classic 3D sceneのviewpointを定義し、Perspective / Orthographic、lens、clip plane、stereo、camera projectionを扱うNode。
 doc_type: node
-term_id: "camera-3d"
-term_short: "Camera 3Dは、Fusion 3Dシーンのカメラ。"
+term_id: camera-3d
+term_short: Camera 3Dは、Fusion Classic 3D sceneをどこからどう見るかを定義するvirtual camera。
 verification: partial
-aliases: ["Camera 3D", "3CM"]
-concepts: ["classic-3d"]
-nodes: ["Camera 3D"]
-node_family: "3d"
-inputs: ["classic-3d"]
-outputs: ["classic-3d"]
-tasks: ["build-3d-scene"]
+aliases: [Camera 3D, Camera3D, 3Cm]
+concepts: [classic-3d, camera, projection]
+nodes: [Camera 3D]
+node_family: 3d
+controls: [Projection Type, Near/Far Clip, Adaptive Near/Far Clip, Viewing Volume Size, Angle of View, Focal Length, Plane of Focus, Stereo, Eye Separation, Convergence Distance, Film Gate, Resolution Gate Fit]
+inputs: [classic-3d, image, camera]
+outputs: [classic-3d]
+tasks: [camera-3d, frame-scene, projection, stereo]
 product_scope: fusion
-suite_surfaces: ["fusion"]
-updated: "2026-10-03"
+suite_surfaces: [fusion]
+updated: "2026-10-04"
 ---
 
 # Camera 3D
 
-Fusion 3Dシーンのカメラ。
+Camera 3Dは、<Term id="classic-3d">Classic 3D scene</Term>をどこから、どのlens / field of viewで見るかを定義するvirtual cameraです。
 
-## 概要
+camera movementのanimation、Perspective / Orthographic切り替え、depth of field用focus、stereoscopic setup、2D Imageのcamera projectionも扱います。
 
-- **種別**: Node / Tool
-- **分類**: 3D Geometry / Scene
-- **主なデータ領域**: Classic 3D scene / geometry
-- **略称**: `3CM`
-- **導入・系譜**: legacy
-- **根拠レベル**: Blackmagic Design公式の旧Fusion Tool Referenceにある系譜
+## 入力
 
-## 入力と出力
+### Scene Input
 
-この項目はカタログ上、**Classic 3D scene / geometry**を主なデータ領域として扱います。上のfrontmatterにある入出力は領域を検索するための分類であり、Fusion 21.1の正確な端子数や端子名を断定するものではありません。
+オレンジ色の任意入力です。3D geometryをcameraへparentする、またはprojection対象sceneとして扱います。
 
-実際に組むときはFlow上の端子ラベルとInspectorを確認し、2D Image、Mask、Shape、Particle、Classic 3D、USD、Deep、パラメータ値を取り違えないようにします。
+### Image Input
 
-## 主な用途
+magentaの任意入力です。2D Imageをcamera image planeまたはcamera projectionへ使います。接続するとImage Plane / Projection / Materials系tabが現れます。
 
-Fusion 3Dシーンのカメラ。
+### Right Stereo Camera
 
-## 使うときの判断
+緑色の任意入力です。stereo renderでright eye用cameraを外部Camera 3Dへ置き換えます。
 
-Classic 3D sceneはUSD sceneと別系統です。2D Imageへ戻すには通常`Renderer 3D`を使います。
+## 主な設定
 
-## 最小構成
+### Projection Type
 
-```text
-3D Source → Camera 3D → Merge 3D → Renderer 3D → Image
-```
+- Perspective — 実写cameraに近いperspective projection
+- Orthographic — distanceでobject sizeが変わらないparallel projection
 
-## 注意点
+### Near / Far Clip
 
-- このページはノードを選ぶための役割・データ領域・系譜を先に揃えています。
-- exactな内部ID、端子名、初期値、数値範囲、Edition差は、確認できたものだけ今後追記します。
-- legacy系譜の項目は、現在のEffects Libraryに同名で表示されることまで一件ずつ実機確認したものではありません。
+cameraから近すぎる / 遠すぎるgeometryをrender対象外にします。
 
-## バージョンと検証状況
+Adaptive Near/Far Clipが有効な場合、scene範囲に合わせて自動調整されます。
 
-旧Blackmagic Design公式Tool Referenceで役割と系譜を確認しています。Fusion 21.1での存在、端子名、Inspector項目、初期値、範囲は実機または現行マニュアルで再確認が必要です。
+### Angle of View / Focal Length
 
-このリファレンスのinventory基準はDaVinci Resolve / Fusion 21.0.4です。Manual全体は21.1基準へ更新中のため、21.1で差がある箇所は現行資料または実機確認後に更新します。
+lensの広角・望遠を決めます。両者は連動し、短いfocal lengthほど広いangle of viewになります。
+
+### Plane of Focus
+
+Renderer 3Dのdepth of fieldでfocus distanceを決めます。
+
+### Stereo
+
+Eye Separation、Convergence Distance、stereo method等を設定します。
+
+## Camera Projection
+
+Image Inputへ2D Imageを接続すると、camera viewに一致したImage Planeとして使うか、scene geometryへprojectionできます。
+
+Projector 3Dよりもcamera自身とprojectionが厳密に一致する構成が必要な場合に使えます。
+
+## 基本構成
+
+Shape 3D / Light / Camera 3D → Merge 3D → Renderer 3D
+
+Camera単体をViewerへ出してもscene objectは見えません。Cameraを含むMerge 3D以降をViewerへ出し、ViewerのCamera menuからcamera viewを選びます。
+
+## 出典と確認範囲
+
+DaVinci Resolve 21.1 Reference Manual Chapter 88 pp.1919–1927で、3入力、Perspective / Orthographic、clip plane、Focal Length / Angle of View、focus、stereo、camera projectionを確認しました。
+
+renderer別DOF品質や実機performanceは未確認です。
