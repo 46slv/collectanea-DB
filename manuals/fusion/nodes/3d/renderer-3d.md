@@ -1,80 +1,105 @@
 ---
 title: Renderer 3D
-description: Classic Fusion 3D sceneを2D Imageへrasterizeするdomain変換Node。
+description: Classic 3D sceneを2D Imageへ変換し、Camera・renderer engine・lighting・AA・auxiliary channel・multilayer passを管理するrender boundary。
 doc_type: node
 term_id: renderer-3d
 verification: partial
-aliases: [Renderer3D, Renderer 3D, 3RN]
-concepts: [data-domain, classic-3d, rendering]
+aliases: [Renderer3D, Renderer 3D, 3Rn]
+concepts: [classic-3d, image-data, rendering]
 nodes: [Renderer 3D]
 node_family: 3d
-inputs: [classic-3d-scene]
+controls: [Camera, Eye, Renderer Type, Output Channels, Anti-Aliasing, Supersampling, Filter Type, Lighting, Texturing, Transparency, Shading Model, Cryptomatte]
+inputs: [classic-3d, mask]
 outputs: [image]
 tasks: [render-3d, convert-domain, composite-3d]
 level: intermediate
 product_scope: fusion
 suite_surfaces: [fusion]
+updated: "2026-10-04"
 ---
 
 # Renderer 3D
 
-Classic Fusion 3D sceneを2D Imageへ変換するRenderer Nodeです。
+Renderer 3Dは、<Term id="classic-3d">Classic 3D scene</Term>を2D <Term id="image">Image</Term>へ変換するrender boundaryです。
 
-## 概要
-
-- **分類（Family）**: 3D / Render
-- **入力データ（Input domain）**: Classic 3D scene
-- **出力データ（Output domain）**: 2D Image
-- **関連概念（Core concepts）**: domain conversion、rendering
-- **よく使う作業（Common tasks）**: 3D sceneを2D 合成へ戻す
+Geometry、Camera、Light、MaterialをMerge 3D等で組んだ後、通常のBlur / Color / Merge / MediaOutへ戻る地点になります。
 
 ## 入力
 
-### Classic 3D scene
+### Scene Input
 
-Merge 3D等で構成したsceneを受け取ります。
+オレンジ色の必須入力です。renderする3D sceneを接続します。
 
-## 出力
+### Effect Mask
 
-rasterized 2D Imageを出力します。
+青色の任意入力です。render後の2D ImageをMaskで制限します。
 
-Fusion 20以降のDeep、Fusion 21のCryptomatte関連拡張が公式資料系で記録されていますが、この初期Referenceでは補助出力（auxiliary outputs）と設定項目の正確な仕様を固定しません。
+## Camera
 
-## 主な設定項目
+scene内のどのCameraでrenderするかを選びます。
 
-renderer selection、lighting / shadow / channel / auxiliary output等に関わる設定がありますが、正確な 21.1 control surfaceは未検証です。
+Defaultでは最初に見つかったCameraを使い、Cameraがなければdefault perspective viewを使います。
 
-## 挙動と注意点
+## Renderer Type
 
-Renderer 3Dは**3D domain → 2D Image domainの境界**です。
+Fusion 21.1 ManualではSoftware、OpenGL、OpenGL UVのrendererが説明されています。
 
-後段の通常Merge / Blur等へ渡すには、このようなdomain conversionを意識します。
+### Software
 
-## 最小例
+CPU rendererです。platform間で結果を揃えやすく、soft shadow等、OpenGLで扱えないfeatureがあります。
 
-```text
-Shape3D / Text3D / Camera
-        ↓
-     Merge 3D
-        ↓
-    Renderer 3D
-        ↓
-     2D Merge
-```
+### OpenGL
 
-## 関連する考え方
+GPU rendererです。高速なpreview / render、supersampling、3D depth of field等を使えますが、hardware / driverで結果差が出る場合があります。soft shadowは生成できません。
 
-- [データ領域（data domain）を辿って診断する](../../learn/07-debugging/trace-data-domain)
+### OpenGL UV
 
-## 関連パターン
+UV関連のrender用途です。
 
-3D Patternは今後追加します。
+## Output Channels
 
-## 似たNode・関連Node
+RGBA以外のauxiliary dataもImageへ埋め込めます。
 
-- uRenderer — USD scene
-- pRender — Particle set
+代表例:
 
-## バージョンと検証状況
+- Z
+- Coverage
+- Background Color
+- Normal
+- Texture Coordinate
+- Object ID
+- Material ID
 
-Renderer 3DのClassic 3D → 2D Image 役割はFusion 21系semantic baselineとcatalogで確認。正確な 21.1 controls / auxiliary outputは未検証です。
+後段でdepth、normal、ID matte等を使う場合に必要なchannelだけ有効にします。
+
+## Multilayer
+
+Renderer 3Dはlighting passをlayerとして出力できます。
+
+ManualではShadow、Diffuse、Specular、Ambient、Reflect、Refract、Fogの7 layerが説明されています。必要なら2D compositing側でpassを再構成します。
+
+## Anti-Aliasing
+
+rendererごとにsupersamplingとfilterを設定します。
+
+qualityを上げるほど計算量も増えるため、Viewer作業とfinal renderで必要な精度を分けます。
+
+## Particleとの注意
+
+3D particleでMotion Blurを使う場合、pRenderとRenderer 3DのMotion Blur設定を一致させる必要があります。subframe設定が違うと正しくない結果になります。
+
+## 最小構成
+
+Shape 3D / Camera / Light → Merge 3D → Renderer 3D → 2D Merge
+
+## pRender / uRendererとの違い
+
+- **Renderer 3D** — Classic 3D scene → 2D Image
+- **pRender** — Particle set → 2D ImageまたはClassic 3D
+- **uRenderer** — USD scene → 2D Image
+
+## 出典と確認範囲
+
+DaVinci Resolve 21.1 Reference Manual Chapter 88 pp.1970–1978で、Scene / Effect Mask input、Software / OpenGL / OpenGL UV、Camera / Eye、auxiliary channels、multilayer、AA、Particle Motion Blur上の注意を確認しました。
+
+GPU別performanceとdriver差は実機未検証です。
