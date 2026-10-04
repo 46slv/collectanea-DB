@@ -35,6 +35,7 @@ Node名より先にデータ領域や共通構造を知った方が理解しや�
 - [Classic 3Dノード](./3d/) — Geometry / Camera / Light / Merge / Rendererから3D sceneを組む
 - [3D Material / Lightノード](./materials-lights/) — surface materialとscene lightingを選ぶ
 - [USDノード](./usd/) — USD sceneのload / prim編集 / material / light / renderを役割から選ぶ
+- [Deep / Auxiliary Channelノード](./deep/) — true Deep ImageとZ / Normal / UV AOV post-processを分けて選ぶ
 - [Shapeノード](./shapes/) — Shapeを作る・変える・増やす・まとめる・画像化する流れ
 - [Krokodoveの画像・Shape・3D・Region](./krokodove/) — Krokodove内の異なるデータ領域を分けて探す
 
