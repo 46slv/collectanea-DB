@@ -1,62 +1,81 @@
 ---
-title: "Mask Paint"
-description: "Paintストロークをマスクとして使う。"
+title: Mask Paint
+description: brush・stroke・primitive・polylineを直接描いてsingle-channel Maskを作り、frame単位のpaint cleanupやroto補修に使うNode。
 doc_type: node
-term_id: "mask-paint"
-term_short: "Mask Paintは、Paintストロークをマスクとして使う。"
+term_id: mask-paint
 verification: partial
-aliases: ["Mask Paint", "PNM"]
-concepts: ["mask-data"]
-nodes: ["Mask Paint"]
-node_family: "masks"
-outputs: ["mask"]
-tasks: ["create-mask"]
+aliases: [Mask Paint, PNM]
+concepts: [mask-data, paint, time]
+nodes: [Mask Paint]
+node_family: masks
+inputs: [mask]
+outputs: [mask]
+tasks: [create-mask, paint-mask, cleanup, roto]
 product_scope: fusion
-suite_surfaces: ["fusion"]
-updated: "2026-10-03"
+suite_surfaces: [fusion]
+updated: "2026-10-04"
 ---
 
 # Mask Paint
 
-Paintストロークをマスクとして使う。
+Mask Paintは、Viewerへ直接paintして<Term id="mask">Mask</Term>を作るNodeです。
 
-## 概要
+freehand strokeだけでなく、primitiveやpolyline styleのstrokeも使えます。既存matteの穴埋め、frame限定のcleanup、手描きrotoに向きます。
 
-- **種別**: Node / Tool
-- **分類**: Mask
-- **主なデータ領域**: Mask
-- **略称**: `PNM`
-- **導入・系譜**: legacy
-- **根拠レベル**: Blackmagic Design公式の旧Fusion Tool Referenceにある系譜
+## 入力 / 出力
 
-## 入力と出力
-
-この項目はカタログ上、**Mask**を主なデータ領域として扱います。上のfrontmatterにある入出力は領域を検索するための分類であり、Fusion 21.1の正確な端子数や端子名を断定するものではありません。
-
-実際に組むときはFlow上の端子ラベルとInspectorを確認し、2D Image、Mask、Shape、Particle、Classic 3D、USD、Deep、パラメータ値を取り違えないようにします。
-
-## 主な用途
-
-Paintストロークをマスクとして使う。
-
-## 使うときの判断
-
-Maskは画像そのものではなく、別ノードの適用範囲を制御するデータです。
-
-## 最小構成
+青色の任意Effect Mask inputへ別Maskを接続でき、Paint Modeで合成します。出力はsingle-channel Maskです。
 
 ```text
-Mask Paint → 対象NodeのMask入力
+Bitmap Mask → Mask Paint → Effect Mask
+                  ↑
+               paint repair
 ```
 
-## 注意点
+## Paint Nodeとの違い
 
-- このページはノードを選ぶための役割・データ領域・系譜を先に揃えています。
-- exactな内部ID、端子名、初期値、数値範囲、Edition差は、確認できたものだけ今後追記します。
-- legacy系譜の項目は、現在のEffects Libraryに同名で表示されることまで一件ずつ実機確認したものではありません。
+基本的なpaint操作はPaint Nodeとほぼ共通です。
 
-## バージョンと検証状況
+ただしMask Paintはsingle-channel Maskを作るため:
 
-旧Blackmagic Design公式Tool Referenceで役割と系譜を確認しています。Fusion 21.1での存在、端子名、Inspector項目、初期値、範囲は実機または現行マニュアルで再確認が必要です。
+- Channel Selectorはありません。
+- color controlsはRGBAではなくAlpha値だけを扱います。
 
-このリファレンスのinventory基準はDaVinci Resolve / Fusion 21.0.4です。Manual全体は21.1基準へ更新中のため、21.1で差がある箇所は現行資料または実機確認後に更新します。
+「色を描く」のではなく「Mask値を描く」と考えます。
+
+## Strokeの時間
+
+strokeごとにdurationを持てます。
+
+- project全体
+- 1 frame
+- 任意のframe range
+
+Keyframes Editorでdurationを変更できます。
+
+一時的なgarbage matteや数frameだけのcleanupを、Mask Node内で完結できます。
+
+## Multistroke
+
+大量の簡単なpaint cleanupにはMultistrokeが高速です。
+
+ただし通常Strokeのような後編集性は持たないため、後でpointやpathを細かく調整する必要があるstrokeには向きません。
+
+## Polyline / primitive
+
+Paint系toolbarからPolyline、Circle、Rectangle等を作れます。
+
+Polyline strokeはtrackや既存polylineへ接続でき、durationも後から編集できます。
+
+## 運用例
+
+Bitmap Maskで作ったmatteに小さな穴が残る場合:
+
+1. Bitmap MaskをMask PaintのEffect Maskへ接続します。
+2. hole部分だけbrushで白くpaintします。
+3. frame限定の問題ならstroke durationを該当frameだけにします。
+4. matte全体を壊さず局所補修します。
+
+## 出典と確認範囲
+
+DaVinci Resolve 21.1 Reference Manual Chapter 108 pp.2475–2476、Paint Node Chapter 113、およびFusion Fundamentals Chapter 79で、single-channel paint、Effect Mask、stroke duration、Multistroke、Paint Nodeとの差を確認しました。
