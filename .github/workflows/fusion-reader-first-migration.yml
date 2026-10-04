@@ -1,0 +1,74 @@
+name: Fusion reader-first text migration
+on:
+  push:
+    branches: [verify/fusion-reader-first-migration-20261005]
+    paths:
+      - .github/workflows/fusion-reader-first-migration.yml
+      - scripts/fusion-reader-first-migration.mjs
+
+permissions:
+  contents: write
+
+concurrency:
+  group: fusion-reader-first-migration
+  cancel-in-progress: true
+
+jobs:
+  migrate:
+    runs-on: ubuntu-latest
+    timeout-minutes: 20
+    steps:
+      - uses: actions/checkout@v4
+        with:
+          path: harness
+          persist-credentials: false
+
+      - uses: actions/checkout@v4
+        with:
+          ref: docs/fusion-reference-completion-20261005
+          path: candidate
+          fetch-depth: 0
+          persist-credentials: true
+
+      - uses: actions/setup-node@v4
+        with:
+          node-version: 24
+          cache: npm
+          cache-dependency-path: candidate/package-lock.json
+
+      - name: Migrate legacy generated pages
+        working-directory: candidate
+        run: node ../harness/scripts/fusion-reader-first-migration.mjs
+
+      - name: Install dependencies
+        working-directory: candidate
+        run: npm ci --no-audit --no-fund
+
+      - name: Existing regressions
+        working-directory: candidate
+        run: npm run test:regressions
+
+      - name: Production build
+        working-directory: candidate
+        run: npm run build
+
+      - name: Commit reader-first migration
+        working-directory: candidate
+        run: |
+          git config user.name "github-actions[bot]"
+          git config user.email "41898282+github-actions[bot]@users.noreply.github.com"
+          git add manuals/fusion/nodes manuals/fusion/learn docs
+          if git diff --cached --quiet; then
+            echo "No documentation changes to commit."
+          else
+            git commit -m "docs: complete reader-first text migration"
+            git push origin HEAD:docs/fusion-reference-completion-20261005
+          fi
+
+      - uses: actions/upload-artifact@v4
+        if: always()
+        with:
+          name: fusion-reader-first-migration-report
+          path: candidate/artifacts/reader-first-migration
+          retention-days: 14
+          if-no-files-found: warn
