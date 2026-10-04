@@ -1,6 +1,6 @@
 # Fusion Node Reference 改稿ロードマップ
 
-Updated: 2026-10-03
+Updated: 2026-10-05
 Status: Active
 Scope: Fusion Node Referenceのcoverage拡張とreader-first改稿を、同じ大量生成へ戻さず段階的に統合する。
 
@@ -25,10 +25,11 @@ Runtime verification
 
 ## Current state
 
-- main: 21.0.4基準カタログを出発点に359ページ。
-- PR #11: September 2026版21.1 Reference Manualとの照合で26ページを追加し、385ページへ拡張する候補。
-- PR #10: Node Referenceをreader-firstへ変更し、Shape conceptと代表Shape Nodeを改稿。
-- integration branch: `docs/fusion-reader-first-211-integration-20261003` で両方を統合し、21.1 Manualの具体Controlまで代表Shapeページへ反映。
+- `main@fa98d792fcb4653abf308861761dbfe9a3a76ab1`: PR #12まで統合済み。21.1 source coverageとreader-first基盤を含み、Node / related-element inventoryは385。
+- current cumulative writer line: PR #13 → #14 → #15 → #16 → #17 → #18 → #19 → #20 → #21 → #22 → #24 → #25 → #26 → #27。
+- selected source tip: `648ff92b3920459656adf30cf5df5b834ce2a1f3`。mainに対してahead 185 / behind 0で、candidate inventoryは401。
+- PR #23はPR #22から分岐したDeep siblingで、統合lineには含めない。Deepは後続のPR #24を採用する。
+- integration branch: `integration/resolve-db-20261005-01`。coverage ledger等の統合修正とexact-candidate validationをここで行う。
 
 ## 進め方
 
@@ -50,7 +51,7 @@ Family OverviewはConceptの全文コピーではなく、Nodeを選ぶための
 
 ### 2. 各Familyの代表Nodeを先に完成形へ近づける
 
-一度に全385ページを同じ文章量へ膨らませない。各Familyから、実際によく使うNodeと役割の異なるNodeを選び、21.1 Manualを一次資料としてreader-first形式へ改稿する。
+一度に全ページを同じ文章量へ膨らませない。各Familyから、実際によく使うNodeと役割の異なるNodeを選び、21.1 Manualを一次資料としてreader-first形式へ改稿する。
 
 代表Nodeで確認する型:
 
@@ -178,7 +179,7 @@ primary source確認
 
 ## 避けること
 
-- 385ページを同じテンプレートで一括再生成する
+- 全ページを同じテンプレートで一括再生成する
 - 一行summaryを3箇所へコピーして「完成」とする
 - `partial`を「具体的なことを書かない」の意味にする
 - Node名だけからInput / Control / REGIDを推測する
