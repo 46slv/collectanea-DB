@@ -139,7 +139,7 @@ Manual整理と実機inventory確認を混ぜない。
 7. Generator / Text — foundation batch started 2026-10-04; Background / Fast Noise / Text+をreader-first化
 8. Particle — full Chapter 114 family pass completed 2026-10-04; 20 Node + Particle Concept / Recipeをreader-first化
 9. Classic 3D / Materials — foundation batch completed 2026-10-04; core scene / renderer / camera / geometry / lightsをreader-first化
-10. USD
+10. USD — full Chapter 121 family pass completed 2026-10-04; 27 current Manual nodesをreader-first化
 11. Deep
 12. Krokodove / specialized tools
 
@@ -295,3 +295,14 @@ Day Sky / Mandelbrot / MultiText / Plasmaは後続batchへ分離する。
 - OpenPBRは既存の21.1 source-grounded pageを継続利用。
 
 次はUSD。Classic 3Dのspecialized geometry / modifierはFamily Overviewから辿れる状態にし、必要に応じて第二passで深掘りする。
+
+
+### 2026-10-04 — USD full family pass
+
+- USD ConceptとFamily Overviewを追加。
+- Chapter 121に記載された27 USD Nodeすべてをreader-first形式へ更新。
+- uLoader / uMerge / uRenderer / uCamera / uShape / uTransform / uDuplicate / uProjector / uCatcher / uVolume、6 USD Light、texture / shader chainを現行Manualへ合わせた。
+- Manual candidateだったuExport / uMaterialX / uReplaceMaterial / uSwitch / uVariant / uVisibilityを独立sectionとして確認し、新規pageを追加。
+- inventoryは394へ更新。
+
+次はDeep。USDのruntime registry / Hydra performance / external asset compatibilityは別のruntime verification passで扱う。
