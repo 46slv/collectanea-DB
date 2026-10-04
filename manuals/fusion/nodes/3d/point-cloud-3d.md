@@ -1,63 +1,61 @@
 ---
-title: "Point Cloud 3D"
-description: "点群を扱う。Camera Tracker等と連携。"
+title: Point Cloud 3D
+description: Camera tracking等で得た3D locator群をClassic 3D sceneで表示・選択・公開し、ground planeやobject配置の参照に使うNode。
 doc_type: node
-term_id: "point-cloud-3d"
-term_short: "Point Cloud 3Dは、点群を扱う。Camera Tracker等と連携。"
+term_id: point-cloud-3d
+term_short: Point Cloud 3Dは、trackingで復元した3D point群をscene内の配置基準として扱うNode。
 verification: partial
-aliases: ["Point Cloud 3D", "3PC"]
-concepts: ["classic-3d"]
-nodes: ["Point Cloud 3D"]
-node_family: "3d"
-inputs: ["classic-3d"]
-outputs: ["classic-3d"]
-tasks: ["build-3d-scene"]
+aliases: [Point Cloud 3D, PointCloud 3D, 3PC]
+concepts: [classic-3d, tracking-data]
+nodes: [Point Cloud 3D]
+node_family: 3d
+controls: [Style, Lock X/Y/Z, Size X/Y/Z, Density, Color, Import Point Cloud, Make Renderable, Unseen by Camera]
+inputs: [classic-3d]
+outputs: [classic-3d]
+tasks: [point-cloud, camera-track, align-3d]
 product_scope: fusion
-suite_surfaces: ["fusion"]
-updated: "2026-10-03"
+suite_surfaces: [fusion]
+updated: "2026-10-04"
 ---
 
 # Point Cloud 3D
 
-点群を扱う。Camera Tracker等と連携。
+Point Cloud 3Dは、camera trackingや外部3D trackingから得た多数の3D pointを<Term id="classic-3d">Classic 3D scene</Term>で扱うNodeです。
 
-## 概要
+各pointは見た目のgeometryというよりlocatorとして使われ、ground planeや実写featureに対応する位置へ3D objectを置く基準になります。
 
-- **種別**: Node / Tool
-- **分類**: 3D Geometry / Scene
-- **主なデータ領域**: Classic 3D scene / geometry
-- **略称**: `3PC`
-- **導入・系譜**: legacy
-- **根拠レベル**: Blackmagic Design公式の旧Fusion Tool Referenceにある系譜
+## 入力
 
-## 入力と出力
+オレンジ色のScene Inputへ3D sceneを接続できます。
 
-この項目はカタログ上、**Classic 3D scene / geometry**を主なデータ領域として扱います。上のfrontmatterにある入出力は領域を検索するための分類であり、Fusion 21.1の正確な端子数や端子名を断定するものではありません。
+Camera TrackerからExportしたPoint Cloud 3Dは、Camera 3D等とMerge 3Dへ接続して使います。
 
-実際に組むときはFlow上の端子ラベルとInspectorを確認し、2D Image、Mask、Shape、Particle、Classic 3D、USD、Deep、パラメータ値を取り違えないようにします。
+## 主な設定
 
-## 主な用途
+### Style / Size / Density / Color
 
-点群を扱う。Camera Tracker等と連携。
+Viewerでpointをcrosshairまたはpointとして表示し、size、表示density、colorを調整します。
 
-## 使うときの判断
+Densityはpoint cloud data自体を削減するのではなく、表示するpointの割合を変えます。
 
-Classic 3D sceneはUSD sceneと別系統です。2D Imageへ戻すには通常`Renderer 3D`を使います。
+### Import Point Cloud
+
+Maya .ma、3DS Max ASCII .ase、LightWave .lws、Softimage .xsi等のpoint cloudをimportできます。
+
+### Make Renderable
+
+OpenGL Rendererでpoint crosshair自体を最終renderへ含めます。通常はplacement guideとして使い、renderしない運用が多いNodeです。
+
+## Pointを公開する
+
+Viewerのcontext menuからpointをFind / Rename / Delete / Publishできます。
+
+Publishすると、そのpointの3D位置がControlとしてInspectorへ現れ、他Nodeから参照できます。
 
 ## 最小構成
 
-```text
-3D Source → Point Cloud 3D → Merge 3D → Renderer 3D → Image
-```
+Camera 3D / Point Cloud 3D → Merge 3D → Renderer 3D
 
-## 注意点
+## 出典と確認範囲
 
-- このページはノードを選ぶための役割・データ領域・系譜を先に揃えています。
-- exactな内部ID、端子名、初期値、数値範囲、Edition差は、確認できたものだけ今後追記します。
-- legacy系譜の項目は、現在のEffects Libraryに同名で表示されることまで一件ずつ実機確認したものではありません。
-
-## バージョンと検証状況
-
-旧Blackmagic Design公式Tool Referenceで役割と系譜を確認しています。Fusion 21.1での存在、端子名、Inspector項目、初期値、範囲は実機または現行マニュアルで再確認が必要です。
-
-このリファレンスのinventory基準はDaVinci Resolve / Fusion 21.0.4です。Manual全体は21.1基準へ更新中のため、21.1で差がある箇所は現行資料または実機確認後に更新します。
+DaVinci Resolve 21.1 Reference Manual Chapter 88 pp.1961–1964で、Scene input、display controls、point cloud import、Make Renderable、Find / Rename / Publish等を確認しました。
