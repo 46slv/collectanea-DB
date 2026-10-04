@@ -56,7 +56,9 @@ Element B ───────────────────────�
 
 ## Nodeの選び方
 
-このPatternのcanonical nodeはMergeです。特殊な合成目的では別Nodeを使う場合がありますが、「1段の責任を説明できる」ことは維持します。
+このPatternの基本Nodeは[Merge](../../nodes/compositing/merge)です。1段ずつ中間結果を確認したい場合に向きます。
+
+多数の同種Layerを1か所で管理したい場合は[MultiMerge](../../nodes/compositing/multi-merge)も候補になります。Node数の少なさだけで選ばず、どこで中間結果を確認したいか、Layer順をどこで管理したいかで決めます。
 
 ## 失敗しやすい点
 
@@ -67,8 +69,11 @@ Element B ───────────────────────�
 
 ## この構成を使う手順
 
-Recipesは次バッチで追加予定です。
+- [2つのImageを重ねる](../../recipes/compositing/two-image-merge)
+- [複数ImageをMultiMergeでまとめる](../../recipes/compositing/multi-merge-layers)
 
 ## 関連Node
 
+- [合成ノード（Compositing）](../../nodes/compositing/)
 - [Merge](../../nodes/compositing/merge)
+- [MultiMerge](../../nodes/compositing/multi-merge)

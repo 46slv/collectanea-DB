@@ -130,7 +130,7 @@ Manual整理と実機inventory確認を混ぜない。
 
 まず使用頻度と基礎転用性が高いFamilyから深くする。
 
-1. Compositing / Merge
+1. Compositing / Merge — reader-first family pass started 2026-10-04; Merge / MultiMerge / Dissolve + Concept / Recipe / Pattern整合を実施
 2. Transform / Format
 3. Mask
 4. Color / Blur
@@ -194,3 +194,17 @@ primary source確認
 - current corpus / lookup entry: `manuals/fusion/nodes/index.md`
 - primary technical source: DaVinci Resolve 21.1 Reference Manual, September 2026
 - current runtime facts: Resolve / Fusion実機を最優先
+
+
+## Batch history
+
+### 2026-10-04 — Compositing foundation
+
+- Compositing Family Overviewを追加。
+- Mergeを21.1 Manual Chapter 94 pp.2211–2219基準で改稿。
+- MultiMergeをpp.2220–2223基準で改稿。
+- Dissolveをpp.2208–2210基準で改稿。
+- Foreground / Background / MaskとBlend / Apply Mode / Operator Conceptを現行Manualへ合わせた。
+- 2つのImageを重ねるRecipe、MultiMerge Recipe、Merge関連Patternをreader-firstのNodeページへ整合。
+
+次の候補はTransform / Format。まず代表Nodeと21.1 Manual範囲を確認し、同じ規模の小さいbatchで進める。
