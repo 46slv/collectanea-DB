@@ -5,6 +5,7 @@ on:
     paths:
       - .github/workflows/fusion-reader-first-migration.yml
       - scripts/fusion-reader-first-migration.mjs
+      - scripts/fix-term-id-collisions.mjs
 
 permissions:
   contents: write
@@ -44,6 +45,10 @@ jobs:
         working-directory: candidate
         run: |
           find manuals/fusion/nodes/optical-flow manuals/fusion/nodes/paint -type f -name '*.md' ! -name 'index.md' -print0 | xargs -0 sed -i 's|\[Family Overview\](\./)|[Family Overview](./overview)|g'
+
+      - name: Resolve Krokodove term id collisions
+        working-directory: candidate
+        run: node ../harness/scripts/fix-term-id-collisions.mjs
 
       - name: Install dependencies
         working-directory: candidate
