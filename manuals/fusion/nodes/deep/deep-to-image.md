@@ -1,76 +1,62 @@
 ---
 title: Deep to Image
-description: Deep imageを通常の2D Imageへflattenするdomain変換Node。
+description: Deep Imageの複数depth sampleをflattenし、通常の2D Imageへ変換するDeep compositingの終端Node。
 doc_type: node
 term_id: deep-to-image
 verification: partial
-aliases: [Deep to Image]
-concepts: [data-domain, deep-image, flatten]
+aliases: [Deep to Image, DTI]
+concepts: [deep-image, image-data, rendering]
 nodes: [Deep to Image]
 node_family: deep
-inputs: [deep-image]
+controls: [Flip Depth, Volumetric Composition, Process Mode, Width, Height, Pixel Aspect, Depth, Source Color Space, Source Gamma Space, Remove Curve, Pre-Divide/Post-Multiply]
+inputs: [deep]
 outputs: [image]
 tasks: [deep, flatten, convert-domain]
-level: advanced
 product_scope: fusion
 suite_surfaces: [fusion]
+updated: "2026-10-04"
 ---
 
 # Deep to Image
 
-Deep imageを通常の2D ImageへflattenするNodeです。
+Deep to Imageは、<Term id="deep-image">Deep Image</Term>の複数depth sampleをflattenし、通常の2D <Term id="image">Image</Term>へ変換するNodeです。
 
-## 概要
+## 入力 / 出力
 
-- **分類（Family）**: Deep / Conversion
-- **入力データ（Input domain）**: Deep image
-- **出力データ（Output domain）**: 2D Image
-- **関連概念（Core concepts）**: domain conversion、flattening
-- **よく使う作業（Common tasks）**: Deep 合成結果を通常2D Flowへ戻す
+Deep Imageを1つ受け、2D Imageを出力します。
 
-## 入力
+```text
+dMerge → Deep to Image → Merge / Blur / Color
+```
 
-### Deep image
+この地点でDeep sample構造は2D pixelへflattenされます。
 
-dMergeやDeep toolsetから来るDeep imageを受け取ります。
+## Flip Depth
 
-## 出力
+depth情報の向きを反転します。
 
-通常の2D Imageを出力します。
+sourceのdepth conventionが期待と逆の場合に確認します。
 
-## 主な設定項目
+## Volumetric Composition
 
-flatten / sample resolutionに関する正確な設定項目はFusion 21.1 現在の manual / 実機確認待ちです。
+overlapするDeep sampleをflat surfaceではなくsemi-transparent volumeとしてblendします。
 
-## 挙動と注意点
+fogやVDBのようなvolumetric elementのDeep compositingで使います。
 
-Deep to Imageは**Deep image → 2D Image**のdomain boundaryです。
+## Image tab
 
-一度2Dへflattenした後は、Deep samplesを前提とするdMerge等へ戻す場合に同じ情報が保持されるとは考えません。
+Process Mode、output pixel Depth、Source Color Space / Gamma等を設定します。
 
-## 最小例
+Pre-Divide / Post-Multiplyも持ち、flatten後のAlpha relationshipを扱えます。
+
+## 最小構成
 
 ```text
 Deep A ─┐
-        ├─ dMerge → Deep to Image → Merge / Color / Blur
+        ├─ dMerge → Deep to Image → MediaOut
 Deep B ─┘
 ```
 
-## 関連する考え方
+## 出典と確認範囲
 
-- [データ領域（data domain）を辿って診断する](../../learn/07-debugging/trace-data-domain)
-
-## 関連パターン
-
-Deep-specific Patternは今後追加します。
-
-## 似たNode・関連Node
-
-- Image to Deep — 2D Image → Deep image
-- Renderer 3D — Classic 3D scene → 2D Image
-- uRenderer — USD scene → 2D Image / AOV
-- pRender — Particle set → 2D Image
-
-## バージョンと検証状況
-
-Deep to ImageはResolve/Fusion 20以降のDeep toolsetとしてBlackmagic Design公式バージョン資料で確認。Fusion 21.1での正確な設定項目は未検証です。
+DaVinci Resolve 21.1 Reference Manual Chapter 95 pp.2238–2240で、flatten、Flip Depth、Volumetric Composition、Image tab、Color / Gamma handlingを確認しました。Deep Image toolsetはStudio Version Onlyです。
