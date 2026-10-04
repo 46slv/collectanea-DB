@@ -1,62 +1,75 @@
 ---
-title: "pDirectionalForce"
-description: "一定方向のForce。"
+title: pDirectionalForce
+description: Particleへ一定方向のforceを加え、Strength・Direction・Direction Zでgravityやwindのようなmovementを作るNode。
 doc_type: node
-term_id: "pdirectionalforce"
-term_short: "pDirectionalForceは、一定方向のForce。"
+term_id: pdirectionalforce
+term_short: pDirectionalForceは、particleへ一定方向のforceを加えるNode。
 verification: partial
-aliases: ["pDirectionalForce"]
-concepts: ["particle-data"]
-nodes: ["pDirectionalForce"]
-node_family: "particles"
-inputs: ["particle"]
-outputs: ["particle"]
-tasks: ["create-particles"]
+aliases: [pDirectionalForce, pDirectional Force, pDF]
+concepts: [particle-data, particle-region]
+nodes: [pDirectionalForce]
+node_family: particles
+controls: [Random Seed, Strength, Direction, Direction Z, Conditions, Region]
+inputs: [particle, region]
+outputs: [particle]
+tasks: [particles, force, gravity, wind]
 product_scope: fusion
-suite_surfaces: ["fusion"]
-updated: "2026-10-03"
+suite_surfaces: [fusion]
+updated: "2026-10-04"
 ---
 
 # pDirectionalForce
 
-一定方向のForce。
+pDirectionalForceは、<Term id="particle-data">Particle</Term>へ同じ方向のforceを加えるNodeです。
 
-## 概要
+最も代表的な用途はgravityで、既定方向は下向きです。horizontal windのようなmovementにも使えます。
 
-- **種別**: Node / Tool
-- **分類**: Particles
-- **主なデータ領域**: Particle set
-- **導入・系譜**: legacy
-- **根拠レベル**: Blackmagic Design公式の旧Fusion Tool Referenceにある系譜
+## 入力
 
-## 入力と出力
+オレンジ色のParticle inputへ前段Particleを接続します。
 
-この項目はカタログ上、**Particle set**を主なデータ領域として扱います。上のfrontmatterにある入出力は領域を検索するための分類であり、Fusion 21.1の正確な端子数や端子名を断定するものではありません。
+RegionをBitmap / Meshにすると、forceを適用する範囲を定義する2D Image / 3D Mesh inputが追加されます。
 
-実際に組むときはFlow上の端子ラベルとInspectorを確認し、2D Image、Mask、Shape、Particle、Classic 3D、USD、Deep、パラメータ値を取り違えないようにします。
+## 主な設定
 
-## 主な用途
+### Strength
 
-一定方向のForce。
+forceの強さを決めます。
 
-## 使うときの判断
+正の値は指定方向、負の値は逆方向へparticleを加速します。
 
-Particle setは2D Imageではありません。最終的に画像として合成する場合は`pRender`を使います。
+### Direction
+
+XY plane上のforce方向を決めます。
+
+### Direction Z
+
+Z方向、つまりcameraへ近づく / 遠ざかる成分を決めます。
 
 ## 最小構成
 
 ```text
-pEmitter → pDirectionalForce → pRender → Image
+pEmitter → pDirectionalForce → pRender
 ```
 
-## 注意点
+pEmitterのVelocityが初速、pDirectionalForceが時間とともに加わるaccelerationとして考えると、役割を分けやすくなります。
 
-- このページはノードを選ぶための役割・データ領域・系譜を先に揃えています。
-- exactな内部ID、端子名、初期値、数値範囲、Edition差は、確認できたものだけ今後追記します。
-- legacy系譜の項目は、現在のEffects Libraryに同名で表示されることまで一件ずつ実機確認したものではありません。
+## 運用例
 
-## バージョンと検証状況
+上へ噴き出してから落下するparticle:
 
-旧Blackmagic Design公式Tool Referenceで役割と系譜を確認しています。Fusion 21.1での存在、端子名、Inspector項目、初期値、範囲は実機または現行マニュアルで再確認が必要です。
+1. pEmitterのVelocity / Angleで上向きの初速を作ります。
+2. pDirectionalForceを下向きへ設定します。
+3. Strengthを調整し、上昇から下降へ切り替わるtimingを決めます。
+4. pRenderで確認します。
 
-このリファレンスのinventory基準はDaVinci Resolve / Fusion 21.0.4です。Manual全体は21.1基準へ更新中のため、21.1で差がある箇所は現行資料または実機確認後に更新します。
+## pPoint Forceとの違い
+
+- **pDirectionalForce** — scene全体またはRegion内で一定方向
+- **pPoint Force** — 1点を中心にattract / repel
+
+## 出典と確認範囲
+
+DaVinci Resolve 21.1 Reference Manual Chapter 114 pp.2658–2659で、Particle / Region input、Strength、Direction、Direction Z、gravity用途を確認しました。
+
+Forceの内部integratorや実機性能は未確認です。
