@@ -1,61 +1,50 @@
 ---
-title: "dCrop"
-description: "Deep image crop。"
+title: dCrop
+description: Deep ImageのsampleをMinimum / Maximum ZとEffect Maskで切り分け、depth range内外だけを後段へ渡すNode。
 doc_type: node
-term_id: "dcrop"
-term_short: "dCropは、Deep image crop。"
+term_id: dcrop
 verification: partial
-aliases: ["dCrop"]
-concepts: ["image-data"]
-nodes: ["dCrop"]
-node_family: "deep"
-inputs: ["image"]
-outputs: ["image"]
-tasks: ["process-deep"]
+aliases: [dCrop, dCr]
+concepts: [deep-image, depth, mask-data]
+nodes: [dCrop]
+node_family: deep
+controls: [Use Minimum Z, Minimum Z, Use Maximum Z, Maximum Z, Keep Outside Depth Range]
+inputs: [deep, mask]
+outputs: [deep]
+tasks: [deep, crop-depth, isolate-depth]
 product_scope: fusion
-suite_surfaces: ["fusion"]
-updated: "2026-10-03"
+suite_surfaces: [fusion]
+updated: "2026-10-04"
 ---
 
 # dCrop
 
-Deep image crop。
+dCropは、<Term id="deep-image">Deep Image</Term>のsampleをZ depth rangeで切り分けるNodeです。
 
-## 概要
+2D Cropのようにframe rectangleを切るのではなく、cameraからのdepthでsampleを残す / 除外します。
 
-- **種別**: Node / Tool
-- **分類**: Resolve 20+
-- **主なデータ領域**: 2D Image / control
-- **導入・系譜**: 20
-- **根拠レベル**: 導入版のBlackmagic Design公式資料で確認した現行系譜
+## 入力
 
-## 入力と出力
+Deep Imageと任意Effect Maskを受け取ります。
 
-この項目はカタログ上、**2D Image / control**を主なデータ領域として扱います。上のfrontmatterにある入出力は領域を検索するための分類であり、Fusion 21.1の正確な端子数や端子名を断定するものではありません。
+## Depth Crop
 
-実際に組むときはFlow上の端子ラベルとInspectorを確認し、2D Image、Mask、Shape、Particle、Classic 3D、USD、Deep、パラメータ値を取り違えないようにします。
+- Use Minimum Z / Minimum Z
+- Use Maximum Z / Maximum Z
+- Keep Outside Depth Range
 
-## 主な用途
+で通過させるdepth範囲を決めます。
 
-Deep image crop。
-
-## 使うときの判断
-
-前後のノードと同じ2D Image領域で使うのが基本です。Maskや補助入力がある場合は、画像入力と役割を分けて接続します。
+Keep Outside Depth Rangeは選択rangeを反転します。
 
 ## 最小構成
 
 ```text
-Deep Source → dCrop → Deep to Image
+Deep EXR → dCrop → dMerge
 ```
 
-## 注意点
+foreground付近のsampleだけ、background depthだけ等を分離して別処理へ渡す用途です。
 
-- このページはノードを選ぶための役割・データ領域・系譜を先に揃えています。
-- exactな内部ID、端子名、初期値、数値範囲、Edition差は、確認できたものだけ今後追記します。
+## 出典と確認範囲
 
-## バージョンと検証状況
-
-導入版のBlackmagic Design公式資料で現行系譜を確認しています。Fusion 21.1の端子名、Inspector項目、初期値、範囲は未検証です。
-
-このリファレンスのinventory基準はDaVinci Resolve / Fusion 21.0.4です。Manual全体は21.1基準へ更新中のため、21.1で差がある箇所は現行資料または実機確認後に更新します。
+DaVinci Resolve 21.1 Reference Manual Chapter 95 p.2237で、Deep / Effect Mask inputs、Minimum / Maximum Z、invert相当のKeep Outside Depth Rangeを確認しました。

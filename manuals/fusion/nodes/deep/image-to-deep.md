@@ -1,61 +1,59 @@
 ---
-title: "Image to Deep"
-description: "2D画像をDeep image domainへ変換。"
+title: Image to Deep
+description: 通常の2D ImageへZ depth情報を付け、dMerge等でDeep compositingできるDeep Imageへ変換するNode。
 doc_type: node
-term_id: "image-to-deep"
-term_short: "Image to Deepは、2D画像をDeep image domainへ変換。"
+term_id: image-to-deep
 verification: partial
-aliases: ["Image to Deep"]
-concepts: ["image-data"]
-nodes: ["Image to Deep"]
-node_family: "deep"
-inputs: ["image"]
-outputs: ["image"]
-tasks: ["process-deep"]
+aliases: [Image to Deep, ITD]
+concepts: [deep-image, image-data, depth]
+nodes: [Image to Deep]
+node_family: deep
+controls: [Specify Z, Z Scale, Z Offset, Center X, Center Y]
+inputs: [image]
+outputs: [deep]
+tasks: [deep, convert-domain, add-depth]
 product_scope: fusion
-suite_surfaces: ["fusion"]
-updated: "2026-10-03"
+suite_surfaces: [fusion]
+updated: "2026-10-04"
 ---
 
 # Image to Deep
 
-2D画像をDeep image domainへ変換。
+Image to Deepは、通常の2D <Term id="image">Image</Term>へdepth情報を付け、<Term id="deep-image">Deep Image</Term>として扱えるようにするNodeです。
 
-## 概要
+## 入力 / 出力
 
-- **種別**: Node / Tool
-- **分類**: Resolve 20+
-- **主なデータ領域**: 2D Image / control
-- **導入・系譜**: 20
-- **根拠レベル**: 導入版のBlackmagic Design公式資料で確認した現行系譜
+1つの2D Imageを受け、Deep Imageを出力します。
 
-## 入力と出力
+```text
+2D Image → Image to Deep → dMerge
+```
 
-この項目はカタログ上、**2D Image / control**を主なデータ領域として扱います。上のfrontmatterにある入出力は領域を検索するための分類であり、Fusion 21.1の正確な端子数や端子名を断定するものではありません。
+## Specify Z
 
-実際に組むときはFlow上の端子ラベルとInspectorを確認し、2D Image、Mask、Shape、Particle、Classic 3D、USD、Deep、パラメータ値を取り違えないようにします。
+指定Z depthを使うかを決めます。
 
-## 主な用途
+2D elementをDeep scene内の特定depthへ置く用途です。
 
-2D画像をDeep image domainへ変換。
+## Z Scale / Z Offset
 
-## 使うときの判断
+- Z Scale — source depth rangeを拡大・圧縮
+- Z Offset — cameraから見た前後位置を移動
 
-前後のノードと同じ2D Image領域で使うのが基本です。Maskや補助入力がある場合は、画像入力と役割を分けて接続します。
+SampleからViewer上の値を拾えます。
+
+## Center X / Y
+
+2D Imageの位置をDeep compositing空間内でずらします。
 
 ## 最小構成
 
 ```text
-Deep Source → Image to Deep → Deep to Image
+Graphic → Image to Deep ─┐
+                         ├─ dMerge → Deep to Image
+Deep EXR ────────────────┘
 ```
 
-## 注意点
+## 出典と確認範囲
 
-- このページはノードを選ぶための役割・データ領域・系譜を先に揃えています。
-- exactな内部ID、端子名、初期値、数値範囲、Edition差は、確認できたものだけ今後追記します。
-
-## バージョンと検証状況
-
-導入版のBlackmagic Design公式資料で現行系譜を確認しています。Fusion 21.1の端子名、Inspector項目、初期値、範囲は未検証です。
-
-このリファレンスのinventory基準はDaVinci Resolve / Fusion 21.0.4です。Manual全体は21.1基準へ更新中のため、21.1で差がある箇所は現行資料または実機確認後に更新します。
+DaVinci Resolve 21.1 Reference Manual Chapter 95 pp.2252–2253で、2D input、Specify Z、Z Scale / Offset、Center X/Yを確認しました。Deep Image toolsetはStudio Version Onlyです。

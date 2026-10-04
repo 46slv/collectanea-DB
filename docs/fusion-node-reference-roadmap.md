@@ -140,7 +140,7 @@ Manual整理と実機inventory確認を混ぜない。
 8. Particle — full Chapter 114 family pass completed 2026-10-04; 20 Node + Particle Concept / Recipeをreader-first化
 9. Classic 3D / Materials — foundation batch completed 2026-10-04; core scene / renderer / camera / geometry / lightsをreader-first化
 10. USD — full Chapter 121 family pass completed 2026-10-04; 27 current Manual nodesをreader-first化
-11. Deep
+11. Deep — full Chapter 95 / 96 family pass completed 2026-10-04; 15 Deep / Deep Pixel pagesをreader-first化
 12. Krokodove / specialized tools
 
 21.1で新規・差分が大きい項目は、この順序とは別にsource coverageとして追加してよい。
@@ -306,3 +306,14 @@ Day Sky / Mandelbrot / MultiText / Plasmaは後続batchへ分離する。
 - inventoryは394へ更新。
 
 次はDeep。USDのruntime registry / Hydra performance / external asset compatibilityは別のruntime verification passで扱う。
+
+
+### 2026-10-04 — Deep / Deep Pixel full family pass
+
+- Deep Image ConceptとFamily Overviewを追加し、multi-sample Deep Imageとauxiliary-channel Deep Pixelを分離。
+- Chapter 95の10 Deep Image Nodeをreader-first化。dColorCorrector、dCrop、Deep to Image、Deep to Points、dHoldout、dMerge、dRecolor、dResize、dTransform、Image to Deepを現行Manualへ合わせた。
+- Chapter 96の5 Deep Pixel Nodeをreader-first化。Ambient Occlusion、Depth Blur、Fog、Shader、TextureをZ / Normals / UV等のrequired channelから説明。
+- Chapter 95のDeep Image toolsetがStudio Version Onlyであることを明記し、Chapter 96へ無条件に同制約を広げない。
+- coverage候補のShaderは既存Deep Pixel pageと同一Nodeとして解消。
+
+次は21.1 coverage残候補の解消と、未着手のI/O / Layer / Flow / Time / Vector等のFamily整理を進める。

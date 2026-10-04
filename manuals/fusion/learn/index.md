@@ -23,19 +23,20 @@ tasks: [learn, understand]
 8. [パーティクル（Particle）](./02-data/particle)
 9. [Classic 3D scene](./02-data/classic-3d)
 10. [USD scene](./02-data/usd)
-11. [正規化座標（Normalized Coordinates）](./03-space/normalized-coordinates)
-12. [前景（Foreground）/ 背景（Background）/ マスク（Mask）](./04-compositing/foreground-background-mask)
-13. [キーフレーム / スプライン / 時間（Keyframe / Spline / Time）](./05-time/keyframes-spline-time)
-14. [式（Expressions）](./05-time/expressions)
-15. [Instanceで設定を共有する](./06-reuse/instances)
-16. [User Controlsで公開インターフェースを作る](./06-reuse/user-controls)
-17. [GroupでGraphをまとめる](./06-reuse/groups)
-18. [Macro / Templateで再利用単位を作る](./06-reuse/macros-templates)
-19. [データ領域（data domain）を辿って診断する](./07-debugging/trace-data-domain)
-20. [分岐を分離して原因範囲を狭める](./07-debugging/isolate-branches)
-21. [AlphaとMaskを分けて診断する](./07-debugging/alpha-vs-mask)
-22. [Resolution / Domain of Definitionを確認する](./07-debugging/resolution-domain-of-definition)
-23. [症状ではなくGraphを診断する](./07-debugging/diagnose-graph-not-symptom)
+11. [Deep Image](./02-data/deep)
+12. [正規化座標（Normalized Coordinates）](./03-space/normalized-coordinates)
+13. [前景（Foreground）/ 背景（Background）/ マスク（Mask）](./04-compositing/foreground-background-mask)
+14. [キーフレーム / スプライン / 時間（Keyframe / Spline / Time）](./05-time/keyframes-spline-time)
+15. [式（Expressions）](./05-time/expressions)
+16. [Instanceで設定を共有する](./06-reuse/instances)
+17. [User Controlsで公開インターフェースを作る](./06-reuse/user-controls)
+18. [GroupでGraphをまとめる](./06-reuse/groups)
+19. [Macro / Templateで再利用単位を作る](./06-reuse/macros-templates)
+20. [データ領域（data domain）を辿って診断する](./07-debugging/trace-data-domain)
+21. [分岐を分離して原因範囲を狭める](./07-debugging/isolate-branches)
+22. [AlphaとMaskを分けて診断する](./07-debugging/alpha-vs-mask)
+23. [Resolution / Domain of Definitionを確認する](./07-debugging/resolution-domain-of-definition)
+24. [症状ではなくGraphを診断する](./07-debugging/diagnose-graph-not-symptom)
 
 各Conceptページは、最小例を試したあとに「別Nodeでも何が同じか」を確認する構成です。
 
@@ -50,6 +51,7 @@ tasks: [learn, understand]
 - [パーティクル（Particle）](./02-data/particle)
 - [Classic 3D scene](./02-data/classic-3d)
 - [USD scene](./02-data/usd)
+- [Deep Image](./02-data/deep)
 
 ### 03 Coordinates & Space
 

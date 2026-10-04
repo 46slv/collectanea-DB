@@ -1,61 +1,41 @@
 ---
-title: "dResize"
-description: "Deep image resize。"
+title: dResize
+description: Deep ImageのWidth / Heightを変更し、depth sampleを保持したまま出力解像度を変えるNode。
 doc_type: node
-term_id: "dresize"
-term_short: "dResizeは、Deep image resize。"
+term_id: dresize
 verification: partial
-aliases: ["dResize"]
-concepts: ["image-data"]
-nodes: ["dResize"]
-node_family: "deep"
-inputs: ["image"]
-outputs: ["image"]
-tasks: ["process-deep"]
+aliases: [dResize, dRz]
+concepts: [deep-image, resolution]
+nodes: [dResize]
+node_family: deep
+controls: [Width, Height]
+inputs: [deep]
+outputs: [deep]
+tasks: [deep, resize, resolution]
 product_scope: fusion
-suite_surfaces: ["fusion"]
-updated: "2026-10-03"
+suite_surfaces: [fusion]
+updated: "2026-10-04"
 ---
 
 # dResize
 
-Deep image resize。
+dResizeは、<Term id="deep-image">Deep Image</Term>のWidth / Heightを変更するNodeです。
 
-## 概要
+通常のResizeへflattenする前に、Deep domainのままresolutionを変えます。
 
-- **種別**: Node / Tool
-- **分類**: Resolve 20+
-- **主なデータ領域**: 2D Image / control
-- **導入・系譜**: 20
-- **根拠レベル**: 導入版のBlackmagic Design公式資料で確認した現行系譜
+## 入力 / 出力
 
-## 入力と出力
+1つのDeep Imageを受け、resize後のDeep Imageを出力します。
 
-この項目はカタログ上、**2D Image / control**を主なデータ領域として扱います。上のfrontmatterにある入出力は領域を検索するための分類であり、Fusion 21.1の正確な端子数や端子名を断定するものではありません。
+## Width / Height
 
-実際に組むときはFlow上の端子ラベルとInspectorを確認し、2D Image、Mask、Shape、Particle、Classic 3D、USD、Deep、パラメータ値を取り違えないようにします。
+outputの横・縦sizeを設定します。
 
-## 主な用途
+## dTransformとの違い
 
-Deep image resize。
+- **dResize** — Imageのpixel dimensionsを変更
+- **dTransform** — Deep sampleのXY配置やZ rangeを変形
 
-## 使うときの判断
+## 出典と確認範囲
 
-前後のノードと同じ2D Image領域で使うのが基本です。Maskや補助入力がある場合は、画像入力と役割を分けて接続します。
-
-## 最小構成
-
-```text
-Deep Source → dResize → Deep to Image
-```
-
-## 注意点
-
-- このページはノードを選ぶための役割・データ領域・系譜を先に揃えています。
-- exactな内部ID、端子名、初期値、数値範囲、Edition差は、確認できたものだけ今後追記します。
-
-## バージョンと検証状況
-
-導入版のBlackmagic Design公式資料で現行系譜を確認しています。Fusion 21.1の端子名、Inspector項目、初期値、範囲は未検証です。
-
-このリファレンスのinventory基準はDaVinci Resolve / Fusion 21.0.4です。Manual全体は21.1基準へ更新中のため、21.1で差がある箇所は現行資料または実機確認後に更新します。
+DaVinci Resolve 21.1 Reference Manual Chapter 95 p.2249で、Deep input、Width、Heightを確認しました。
