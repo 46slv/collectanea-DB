@@ -1,61 +1,58 @@
 ---
-title: "dTransform"
-description: "Deep image transform。"
+title: dTransform
+description: Deep Imageのsampleを保持したままXY位置・Pivot・SizeとZ Scale / Translateを変更するDeep Transform Node。
 doc_type: node
-term_id: "dtransform"
-term_short: "dTransformは、Deep image transform。"
+term_id: dtransform
 verification: partial
-aliases: ["dTransform"]
-concepts: ["image-data", "transform"]
-nodes: ["dTransform"]
-node_family: "deep"
-inputs: ["image"]
-outputs: ["image"]
-tasks: ["process-deep"]
+aliases: [dTransform, dXF]
+concepts: [deep-image, transform, depth]
+nodes: [dTransform]
+node_family: deep
+controls: [Scale Z, Translate Z, Center X, Center Y, Pivot X, Pivot Y, Size X, Size Y, Use Size and Aspect, Size, Aspect]
+inputs: [deep, mask]
+outputs: [deep]
+tasks: [deep, transform, move-depth]
 product_scope: fusion
-suite_surfaces: ["fusion"]
-updated: "2026-10-03"
+suite_surfaces: [fusion]
+updated: "2026-10-04"
 ---
 
 # dTransform
 
-Deep image transform。
+dTransformは、<Term id="deep-image">Deep Image</Term>のsampleを保持したまま、XY配置とZ depthを変形するNodeです。
 
-## 概要
+## 入力
 
-- **種別**: Node / Tool
-- **分類**: Resolve 20+
-- **主なデータ領域**: 2D Image / control
-- **導入・系譜**: 20
-- **根拠レベル**: 導入版のBlackmagic Design公式資料で確認した現行系譜
+Deep Imageと任意Effect Maskを受け取ります。
 
-## 入力と出力
+## Z transform
 
-この項目はカタログ上、**2D Image / control**を主なデータ領域として扱います。上のfrontmatterにある入出力は領域を検索するための分類であり、Fusion 21.1の正確な端子数や端子名を断定するものではありません。
+### Scale Z
 
-実際に組むときはFlow上の端子ラベルとInspectorを確認し、2D Image、Mask、Shape、Particle、Classic 3D、USD、Deep、パラメータ値を取り違えないようにします。
+depth sample間の距離を拡大・圧縮します。
 
-## 主な用途
+### Translate Z
 
-Deep image transform。
+Deep object全体をcameraへ近づける / 遠ざける方向へ移動します。
 
-## 使うときの判断
+## 2D transform
 
-前後のノードと同じ2D Image領域で使うのが基本です。Maskや補助入力がある場合は、画像入力と役割を分けて接続します。
+Center X/Y、Pivot X/Y、Size X/Yを持ちます。
+
+Use Size and Aspectを有効にするとuniform Size + Aspectで調整できます。
 
 ## 最小構成
 
 ```text
-Deep Source → dTransform → Deep to Image
+Deep Image → dTransform → dMerge → Deep to Image
 ```
 
-## 注意点
+## Transformとの違い
 
-- このページはノードを選ぶための役割・データ領域・系譜を先に揃えています。
-- exactな内部ID、端子名、初期値、数値範囲、Edition差は、確認できたものだけ今後追記します。
+通常Transformは2D Imageを扱います。
 
-## バージョンと検証状況
+dTransformはDeep sampleとZ情報を保持したまま変形します。
 
-導入版のBlackmagic Design公式資料で現行系譜を確認しています。Fusion 21.1の端子名、Inspector項目、初期値、範囲は未検証です。
+## 出典と確認範囲
 
-このリファレンスのinventory基準はDaVinci Resolve / Fusion 21.0.4です。Manual全体は21.1基準へ更新中のため、21.1で差がある箇所は現行資料または実機確認後に更新します。
+DaVinci Resolve 21.1 Reference Manual Chapter 95 pp.2250–2251で、Deep / Effect Mask input、Scale Z、Translate Z、Center、Pivot、Size、Aspectを確認しました。
