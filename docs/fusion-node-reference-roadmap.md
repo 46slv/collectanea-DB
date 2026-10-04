@@ -1,7 +1,7 @@
 # Fusion Node Reference 改稿ロードマップ
 
-Updated: 2026-10-03
-Status: Active
+Updated: 2026-10-05
+Status: Reader-first text pass complete; runtime/image verification remains separate
 Scope: Fusion Node Referenceのcoverage拡張とreader-first改稿を、同じ大量生成へ戻さず段階的に統合する。
 
 ## Goal
@@ -50,7 +50,7 @@ Family OverviewはConceptの全文コピーではなく、Nodeを選ぶための
 
 ### 2. 各Familyの代表Nodeを先に完成形へ近づける
 
-一度に全385ページを同じ文章量へ膨らませない。各Familyから、実際によく使うNodeと役割の異なるNodeを選び、21.1 Manualを一次資料としてreader-first形式へ改稿する。
+全ページを同じ文章量へ機械的に膨らませない。Manualで詳細があるNodeは深くし、source-limited項目は未確認情報を増やさず役割・domain・判断基準を明確にする。各Familyから、実際によく使うNodeと役割の異なるNodeを選び、21.1 Manualを一次資料としてreader-first形式へ改稿する。
 
 代表Nodeで確認する型:
 
@@ -178,7 +178,7 @@ primary source確認
 
 ## 避けること
 
-- 385ページを同じテンプレートで一括再生成する
+- 全ページへ同じ量の未確認情報を一括生成する
 - 一行summaryを3箇所へコピーして「完成」とする
 - `partial`を「具体的なことを書かない」の意味にする
 - Node名だけからInput / Control / REGIDを推測する
@@ -347,3 +347,17 @@ Blur / Filter familyの現在掲載14 NodeはManual本文passを完了。次はC
 - inventoryは401へ更新。
 
 Color familyはManual本文passを完了。runtimeのinstalled OCIO config / host display / exact defaultsは別verificationへ分離する。
+
+
+### 2026-10-05 — Reader-first text pass completion
+
+- completion candidateをrepository-wideに監査。
+- 420 node / related-element pagesを対象に、旧generated template 196ページをreader-first / source-limited形式へ移行。
+- legacy template marker 0、descriptionをそのまま主な用途へ再掲するpattern 0、missing family index 0を確認。
+- same-name Family Overview route collisionを修正。
+- Krokodove Duplicateと2D Duplicateのterm_id衝突を、non-Krokodove canonical termを保持したまま解消。
+- catalog regression 14/14 PASS、Docusaurus production build PASS。
+
+この時点で**reader-first本文passは完了**とする。
+
+今後のruntime verificationと画像追加は別waveであり、本文passの未完了項目として扱わない。runtime waveではREGID / exact ports / defaults / ranges / Edition /実描画、image waveではcurrent runtimeの自前captureを扱う。
