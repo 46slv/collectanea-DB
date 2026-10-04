@@ -1,61 +1,43 @@
 ---
-title: "uSphere Light"
-description: "USD sphere light。"
+title: uSphere Light
+description: 半径を持つlocal spherical lightをUSD sceneへ追加し、Point Lightに近い全方向照明へsource sizeを持たせるNode。
 doc_type: node
-term_id: "usphere-light"
-term_short: "uSphere Lightは、USD sphere light。"
+term_id: usphere-light
 verification: partial
-aliases: ["uSphere Light"]
-concepts: ["usd"]
-nodes: ["uSphere Light"]
-node_family: "usd"
-inputs: ["usd"]
-outputs: ["usd"]
-tasks: ["build-usd-scene"]
+aliases: [uSphere Light, uSL]
+concepts: [usd-scene, lighting]
+nodes: [uSphere Light]
+node_family: usd
+controls: [Override Selection, Color, Intensity, Exposure, Color Temperature, Diffuse Response, Specular Response, Normalize, Treat as Point, Radius, Transform]
+inputs: [usd]
+outputs: [usd]
+tasks: [usd, lighting, sphere-light, point-light]
 product_scope: fusion
-suite_surfaces: ["fusion"]
-updated: "2026-10-03"
+suite_surfaces: [fusion]
+updated: "2026-10-04"
 ---
 
 # uSphere Light
 
-USD sphere light。
+uSphere Lightは、半径を持つlocal spherical lightを<Term id="usd-scene">USD scene</Term>へ追加するNodeです。
 
-## 概要
+Point Lightに近い全方向lightingへ、source sizeを持たせたい場合に使います。
 
-- **種別**: Node / Tool
-- **分類**: USD (18.5+)
-- **主なデータ領域**: USD scene / asset
-- **導入・系譜**: 18.5
-- **根拠レベル**: 導入版のBlackmagic Design公式資料で確認した現行系譜
+## 主な設定
 
-## 入力と出力
+- Color / Intensity / Exposure
+- Color Temperature
+- Diffuse / Specular Response
+- Normalize
+- Treat as Point
+- Radius
 
-この項目はカタログ上、**USD scene / asset**を主なデータ領域として扱います。上のfrontmatterにある入出力は領域を検索するための分類であり、Fusion 21.1の正確な端子数や端子名を断定するものではありません。
+Treat as Pointを有効にすると単純なpoint sourceとして扱います。
 
-実際に組むときはFlow上の端子ラベルとInspectorを確認し、2D Image、Mask、Shape、Particle、Classic 3D、USD、Deep、パラメータ値を取り違えないようにします。
+## Radius
 
-## 主な用途
+sphere light sourceの大きさを決めます。
 
-USD sphere light。
+## 出典と確認範囲
 
-## 使うときの判断
-
-USD系の`u*`ノードはClassic 3Dノードと別のデータ領域です。通常は`uRenderer`で画像へ変換します。
-
-## 最小構成
-
-```text
-uLoader / uShape → uSphere Light → uRenderer → Image
-```
-
-## 注意点
-
-- このページはノードを選ぶための役割・データ領域・系譜を先に揃えています。
-- exactな内部ID、端子名、初期値、数値範囲、Edition差は、確認できたものだけ今後追記します。
-
-## バージョンと検証状況
-
-導入版のBlackmagic Design公式資料で現行系譜を確認しています。Fusion 21.1の端子名、Inspector項目、初期値、範囲は未検証です。
-
-このリファレンスのinventory基準はDaVinci Resolve / Fusion 21.0.4です。Manual全体は21.1基準へ更新中のため、21.1で差がある箇所は現行資料または実機確認後に更新します。
+DaVinci Resolve 21.1 Reference Manual Chapter 121 pp.2938–2939で、Scene Input、共通Light controls、Treat as Point、Radiusを確認しました。
