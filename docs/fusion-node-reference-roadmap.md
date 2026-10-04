@@ -133,7 +133,7 @@ Manual整理と実機inventory確認を混ぜない。
 1. Compositing / Merge — reader-first family pass started 2026-10-04; Merge / MultiMerge / Dissolve + Concept / Recipe / Pattern整合を実施
 2. Transform / Format — foundation batch started 2026-10-04; Transform / Resize / Scale / Crop + related Concept / Recipe / Diagnosticを改稿
 3. Mask — foundation batch started 2026-10-04; Bitmap / Ellipse / Polygon + Mask Concept / Recipe / Diagnosticを改稿
-4. Color / Blur — Blur foundation started 2026-10-04; Blur / Defocus / Directional Blur + DoD diagnostic conceptを改稿。Colorは別batchで継続
+4. Color / Blur — Blur foundationとColor foundationを2026-10-04に分離実施。Blur / Defocus / Directional Blur、Brightness Contrast / Color Corrector / White Balanceをreader-first化
 5. Tracking
 6. Shape
 7. Generator / Text
@@ -241,3 +241,14 @@ B-Spline / MultiPoly / Mask Paint / Ranges / Rectangle / Triangle / WandはFamil
 - Blur / Defocus / Directional Blurを「均一にぼかす / lens defocus / 方向・中心を持つblur」で選び分けられるように整理。
 
 Glow / Soft Glow / Sharpen / Unsharp Mask / Vari Blur / Vector Motion BlurはFamily Overviewから参照し、次のBlur batchへ分離する。Color familyは同じ優先段だが、このbatchへ混ぜず別PRにする。
+
+
+### 2026-10-04 — Color foundation
+
+- Color Family Overviewを追加。
+- Brightness ContrastをChapter 93 pp.2150–2153基準で改稿。
+- Color Correctorをpp.2157–2167基準で改稿し、4入力、tone Range、Colors / Levels / Histogram / Suppress、Ranges / Optionsを整理。
+- White Balanceをpp.2200–2202基準で改稿し、Custom / Temperature、Black / Mid / White、Space / Use Gammaを整理。
+- Premultiplication ConceptへChapter 77のPre-Divide / Post-MultiplyとAlpha Divide / Multiplyの確認内容を反映。
+
+Color Curves / Color Gain / Gamut / OCIO等はFamily Overviewから案内し、後続Color batchへ分離する。
