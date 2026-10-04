@@ -1,63 +1,67 @@
 ---
-title: "pTurbulence"
-description: "乱流Force。"
+title: pTurbulence
+description: Particle movementへfrequency-basedな乱れを加え、Strength・Strength Over Life・Densityで自然な不規則motionを作るNode。
 doc_type: node
-term_id: "pturbulence"
-term_short: "pTurbulenceは、乱流Force。"
+term_id: pturbulence
+term_short: pTurbulenceは、particleのmovementへ不規則なturbulenceを加えるNode。
 verification: partial
-aliases: ["pTurbulence", "PTR"]
-concepts: ["particle-data"]
-nodes: ["pTurbulence"]
-node_family: "particles"
-inputs: ["particle"]
-outputs: ["particle"]
-tasks: ["create-particles"]
+aliases: [pTurbulence, pTr]
+concepts: [particle-data, particle-region]
+nodes: [pTurbulence]
+node_family: particles
+controls: [Random Seed, Strength XYZ, Strength Over Life, Density, Conditions, Region]
+inputs: [particle, region]
+outputs: [particle]
+tasks: [particles, turbulence, natural-motion]
 product_scope: fusion
-suite_surfaces: ["fusion"]
-updated: "2026-10-03"
+suite_surfaces: [fusion]
+updated: "2026-10-04"
 ---
 
 # pTurbulence
 
-乱流Force。
+pTurbulenceは、<Term id="particle-data">Particle</Term>のmovementへfrequency-basedな乱れを加えるNodeです。
 
-## 概要
+直線的すぎる煙・dust・fire等へ不規則なmotionを足すときに使います。
 
-- **種別**: Node / Tool
-- **分類**: Particles
-- **主なデータ領域**: Particle set
-- **略称**: `PTR`
-- **導入・系譜**: legacy
-- **根拠レベル**: Blackmagic Design公式の旧Fusion Tool Referenceにある系譜
+## 主な設定
 
-## 入力と出力
+### Strength X / Y / Z
 
-この項目はカタログ上、**Particle set**を主なデータ領域として扱います。上のfrontmatterにある入出力は領域を検索するための分類であり、Fusion 21.1の正確な端子数や端子名を断定するものではありません。
+各axisへ加えるturbulenceの強さを決めます。
 
-実際に組むときはFlow上の端子ラベルとInspectorを確認し、2D Image、Mask、Shape、Particle、Classic 3D、USD、Deep、パラメータ値を取り違えないようにします。
+特定方向だけ乱したい場合はaxisごとに調整します。
 
-## 主な用途
+### Strength Over Life
 
-乱流Force。
+particle ageに応じてturbulence量を変えます。
 
-## 使うときの判断
+たとえば誕生直後はまっすぐ進み、寿命後半ほど煙のように乱れるmovementを作れます。
 
-Particle setは2D Imageではありません。最終的に画像として合成する場合は`pRender`を使います。
+### Density
+
+turbulence fieldの細かさを変えます。
+
+低い値では多くのparticleがまとまって似た方向へ揺れ、高い値ではparticleごとの細かなvariationが増えます。
 
 ## 最小構成
 
 ```text
-pEmitter → pTurbulence → pRender → Image
+pEmitter → pTurbulence → pRender
 ```
 
-## 注意点
+## 運用例
 
-- このページはノードを選ぶための役割・データ領域・系譜を先に揃えています。
-- exactな内部ID、端子名、初期値、数値範囲、Edition差は、確認できたものだけ今後追記します。
-- legacy系譜の項目は、現在のEffects Libraryに同名で表示されることまで一件ずつ実機確認したものではありません。
+煙のmovement:
 
-## バージョンと検証状況
+1. pEmitterで上向きVelocityを作ります。
+2. pTurbulenceのX / Y Strengthを少量追加します。
+3. Densityで大きなうねりと細かな揺れの比率を調整します。
+4. Strength Over Lifeで後半ほど乱れを増やします。
+5. pRenderで確認します。
 
-旧Blackmagic Design公式Tool Referenceで役割と系譜を確認しています。Fusion 21.1での存在、端子名、Inspector項目、初期値、範囲は実機または現行マニュアルで再確認が必要です。
+## 出典と確認範囲
 
-このリファレンスのinventory基準はDaVinci Resolve / Fusion 21.0.4です。Manual全体は21.1基準へ更新中のため、21.1で差がある箇所は現行資料または実機確認後に更新します。
+DaVinci Resolve 21.1 Reference Manual Chapter 114 pp.2689–2690で、Strength XYZ、Strength Over Life、Densityを確認しました。
+
+turbulence field内部algorithmと実機performanceは未確認です。
