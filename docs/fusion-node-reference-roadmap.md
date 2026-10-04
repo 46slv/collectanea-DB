@@ -252,3 +252,15 @@ Glow / Soft Glow / Sharpen / Unsharp Mask / Vari Blur / Vector Motion BlurはFam
 - Premultiplication ConceptへChapter 77のPre-Divide / Post-MultiplyとAlpha Divide / Multiplyの確認内容を反映。
 
 Color Curves / Color Gain / Gamut / OCIO等はFamily Overviewから案内し、後続Color batchへ分離する。
+
+
+### 2026-10-04 — Tracking foundation
+
+- Tracking Family Overviewを追加し、Point / Planar / Camera trackingの選び分けを整理。
+- TrackerをChapter 119 pp.2839–2857基準で改稿し、IntelliTrack / Point、複数pattern、published outputsを説明。
+- Planar Trackerをpp.2819–2828基準で改稿し、4 Operation Mode、Occlusion Mask、Track Channel、Create Planar Transformを整理。
+- Planar TransformをChapter 120 pp.2870–2872基準で改稿し、Image / Maskへのtrack data再利用を説明。
+- Camera TrackerをChapter 119 pp.2803–2819基準で改稿し、Track → Camera → Solve → Exportと3D scene生成を整理。
+- Planar graphic Recipeを21.1 workflowへ更新。
+
+次はGenerators。Trackingは主要4 Nodeを一通りreader-first化できたため、後続は必要に応じてPattern / Diagnosticを追加する。
