@@ -1,61 +1,132 @@
 ---
-title: "Tween"
-description: "非連続画像間をOptical Flowで補間。"
+title: Tween
+description: 前後2枚の非連続Imageを内部Optical Flowで比較し、その間に位置する新しいframeを補間生成するNode。
 doc_type: node
-term_id: "tween"
-term_short: "Tweenは、非連続画像間をOptical Flowで補間。motion vector / frame間motionを扱うNode。"
+term_id: tween
+term_short: "Tweenは、前後2枚のImageから中間frameをOptical Flowで生成するNode。"
 verification: partial
-aliases: ["Tween", "TW"]
-concepts: ["vector-data"]
-nodes: ["Tween"]
-node_family: "optical-flow"
-inputs: ["image", "vector"]
-outputs: ["image", "vector"]
-tasks: ["analyze-motion"]
+aliases: [Tween, Tw]
+concepts: [image-data, motion-vectors, mask]
+nodes: [Tween]
+node_family: optical-flow
+controls: [Method, Interpolation Parameter, Depth Ordering, Clamp Edges, Edge Softness, Prev Forward, Next Forward, Prev Backward, Next Backward]
+inputs: [image, image, mask]
+outputs: [image]
+tasks: [analyze-motion]
 product_scope: fusion
-suite_surfaces: ["fusion"]
+suite_surfaces: [fusion]
 updated: "2026-10-05"
 ---
 
 # Tween
 
-Tweenは、非連続画像間をOptical Flowで補間。frame間の動きを解析する、またはmotion vectorを使ってframe生成・修復・平滑化を行います。
+Tweenは、前後2枚のImageを比較してmotionを推定し、その間にある新しいframeを生成するNodeです。
+
+連続clip全体を入力するTime Speed / Time Stretcherと違い、2枚の非連続Imageを直接入力して中間Imageを作ることが中心です。
 
 ## 役割
 
-非連続画像間をOptical Flowで補間。このページでは、名前だけで選ばず、**何を受け取り、何が変わり、どのdomainへ返すか**を先に整理します。
+```text
+Previous Image ─┐
+                ├→ Tween → interpolated Image
+Next Image ─────┘
+        Mask ───↑
+```
 
-この項目で確認できている中心的な役割は「非連続画像間をOptical Flowで補間」です。exactなInspector項目が未確認の場合は、役割とdata domainを先に使って候補を絞ります。
+Tween自身がOptical Flow解析を行うため、前段にOptical Flow Nodeは不要です。
 
-## 入力と出力
+## 入力
 
-入力分類: **image / vector**。 出力分類: **image / vector**。 この分類はdata domainを読むためのものです。Fusion 21.1のexactな端子名・端子数を未確認の場合、ここでは推測して固定しません。
+### Input 0
 
-## 使うときの判断
+オレンジ色の入力です。生成したいframeより前のImageを接続します。
 
-vectorを作る工程か、既存vectorを使って新しいframe / resultを作る工程かを分けます。
+### Input 1
 
-同じ目的を別Familyでも作れる場合は、後段で必要なdata domainと、Graph上で責任をどこに置きたいかで選びます。
+緑色の入力です。生成したいframeより後のImageを接続します。
+
+### Effect Mask
+
+青色のMask入力です。補間を適用する範囲を限定します。
+
+## 出力
+
+2枚の入力から補間した2D Imageを出力します。
+
+Tweenが内部生成したmotion vectorは結果へ保持されません。またManualではinputに含まれていたaux channelも処理後に破棄すると説明されています。
+
+## 主な設定項目
+
+### Interpolation Parameter
+
+Input 0とInput 1の間のどこを生成するか指定します。
+
+- 0.0 — Input 0
+- 0.5 — 2枚のちょうど中間
+- 1.0 — Input 1
+
+frame 01と03からframe 02相当を作る場合、0.5が基本の確認値になります。
+
+### Depth Ordering
+
+移動量の大きい領域と小さい領域が重なる場合、どちらを手前として合成するか選びます。Fastest On TopとSlowest On Topをshotのmotion関係に応じて使い分けます。
+
+### Clamp Edges / Edge Softness
+
+補間でframe端に透明gapが出る場合、Clamp Edgesでedgeを伸ばして埋められます。stretch artifactが出るため必要な場合だけ使い、Edge Softnessで境界を調整します。
+
+### Source Frame and Warp Direction
+
+Previous / Next frameとForward / Backward vectorの組み合わせを選びます。複数methodを有効にすると、その結果をblendして中間frameを作ります。
+
+## 主な用途
+
+- 前後2 frameから欠けた中間frameを作る
+- 連番から1枚だけ不足したframeを再構築する
+- 非連続な2枚のImageから途中のmotion状態を作る
+- 局所的なframe補間を行う
 
 ## 最小構成
 
-    Image sequence / Vector → Tween → Image / Vector
+```text
+Frame 01 ─→ Input 0
+                     Tween → Frame 02相当
+Frame 03 ─→ Input 1
+```
 
-これは接続関係を理解するための最小構成案です。公式Manualのexactな作例として確認していない構成は、実制作前にViewerで中間結果を確認します。
+Interpolation Parameter = 0.5から確認します。
 
-## 確認ポイント
+## 運用例
 
-- 入力dataのdomainが合っているか。
-- この項目のoutputを受け取れる後段Nodeへ接続しているか。
-- 同じ役割を前段 / 後段で二重に処理していないか。
-- source-limited pageでは、未確認のControl名・default・rangeを名前から推測していないか。
+欠落した1 frameを前後frameから補う場合:
 
-## Family内での位置づけ
+1. 欠落frameの直前ImageをInput 0へ接続します。
+2. 直後ImageをInput 1へ接続します。
+3. Interpolation Parameterを0.5にします。
+4. objectの重なりがおかしい場合はDepth Orderingを切り替えます。
+5. 局所的な範囲だけを処理したい場合はEffect Maskを追加します。
 
-Optical Flow / Motionノードの全体像と近いNodeの選び分けは[Family Overview](./overview)を参照してください。
+## 挙動と注意点
+
+- Optical Flowは色のmatchingを使うため、2枚の色や露出が大きく違う場合は事前のcolor correctionが候補になります。
+- noiseが強いImageでは事前denoiseが助けになる場合があります。
+- Tweenは内部でflowを毎回生成するため計算量が大きくなります。
+- input aux channelは出力へ保持されません。
+
+## Repair Frame / Time系との違い
+
+- **Tween** — 任意の2枚を直接入力して中間Imageを作る
+- **Repair Frame** — sequence上の対象frameとその前後を内部的に使って補間する
+- **Time Speed / Time Stretcher** — clip sequenceを時間軸上でretimeする
+
+## 関連Node
+
+- [Optical Flow](./optical-flow)
+- [Repair Frame](./repair-frame)
+- [Smooth Motion](./smooth-motion)
 
 ## 出典と確認範囲
 
-このページの役割・data domain・系譜は、既存COLLECTANEA catalogとBlackmagic Design公式資料で確認された範囲をreader-first形式へ整理しています。
+DaVinci Resolve 21.1 Reference Manual、September 2026、Chapter 112 pp.2625–2628で、Input 0 / Input 1 / Effect Mask、内部Optical Flow、Interpolation Parameter、Depth Ordering、Clamp Edges、Edge Softness、Source Frame / Warp Direction、aux channel破棄を確認しました。
 
-Fusion 21.1 Reference Manualで個別のInspector項目・default・rangeまで確認できていない項目は、**source-limited**としてその詳細を断定していません。verification: partial はその未確認範囲を含みます。runtime REGIDや現在のEffects Library表示は別のruntime verificationで確定します。
+全既定値・全数値範囲、実機性能、内部REGIDは未確認です。
