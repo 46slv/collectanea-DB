@@ -1,63 +1,106 @@
 ---
-title: "Camera 3D"
-description: "Fusion 3Dシーンのカメラ。"
+title: Camera 3D
+description: Classic 3D sceneのviewpointを決め、Perspective / Orthographic、Focal Length、Film Gate、Depth of Field、Camera Projectionを扱うvirtual camera。
 doc_type: node
-term_id: "camera-3d"
-term_short: "Camera 3Dは、Fusion 3Dシーンのカメラ。"
+term_id: camera-3d
 verification: partial
-aliases: ["Camera 3D", "3CM"]
-concepts: ["classic-3d"]
-nodes: ["Camera 3D"]
-node_family: "3d"
-inputs: ["classic-3d"]
-outputs: ["classic-3d"]
-tasks: ["build-3d-scene"]
+aliases: [Camera 3D, Camera3D, 3Cm]
+concepts: [classic-3d, camera, projection]
+nodes: [Camera 3D]
+node_family: 3d
+controls: [Projection Type, Near/Far Clip, Adaptive Near/Far Clip, Viewing Volume Size, Angle of View, Focal Length, Film Gate, Plane of Focus, Stereo Method, Eye Separation, Convergence Distance, Camera Projection]
+inputs: [classic-3d, image, camera]
+outputs: [classic-3d]
+tasks: [build-3d-scene, camera, projection, stereo]
 product_scope: fusion
-suite_surfaces: ["fusion"]
-updated: "2026-10-03"
+suite_surfaces: [fusion]
+updated: "2026-10-04"
 ---
 
 # Camera 3D
 
-Fusion 3Dシーンのカメラ。
+Camera 3Dは、<Term id="classic-3d">Classic 3D scene</Term>をどこから見るかを決めるvirtual cameraです。
 
-## 概要
+実写cameraに近いFocal Length / Film Gate / clipping設定を持ち、camera animation、stereo、2D Imageのcamera projectionにも使えます。
 
-- **種別**: Node / Tool
-- **分類**: 3D Geometry / Scene
-- **主なデータ領域**: Classic 3D scene / geometry
-- **略称**: `3CM`
-- **導入・系譜**: legacy
-- **根拠レベル**: Blackmagic Design公式の旧Fusion Tool Referenceにある系譜
+## 入力
 
-## 入力と出力
+### Scene Input
 
-この項目はカタログ上、**Classic 3D scene / geometry**を主なデータ領域として扱います。上のfrontmatterにある入出力は領域を検索するための分類であり、Fusion 21.1の正確な端子数や端子名を断定するものではありません。
+オレンジ色の任意inputです。3D scene / objectをcameraと同じoutputへまとめます。
 
-実際に組むときはFlow上の端子ラベルとInspectorを確認し、2D Image、Mask、Shape、Particle、Classic 3D、USD、Deep、パラメータ値を取り違えないようにします。
+### Image Input
 
-## 主な用途
+magentaの任意inputです。2D Imageをcamera image planeやprojection sourceとして使います。
 
-Fusion 3Dシーンのカメラ。
+Imageを接続するとImage Plane / Projection関連tabが表示されます。
 
-## 使うときの判断
+### Right Stereo Camera
 
-Classic 3D sceneはUSD sceneと別系統です。2D Imageへ戻すには通常`Renderer 3D`を使います。
+緑色の任意inputです。stereo renderでright-eye cameraを別Camera 3Dから与える場合に使います。
+
+## Projection Type
+
+### Perspective
+
+通常のreal cameraに近いperspective projectionです。
+
+近いobjectは大きく、遠いobjectは小さく見えます。
+
+### Orthographic
+
+perspective distortionのないparallel projectionです。
+
+cameraからのZ距離ではobject sizeが変わらず、Viewing Volume Sizeで見える範囲を決めます。
+
+## Focal Length / Angle of View
+
+Focal LengthとAngle of Viewは連動します。
+
+短いFocal Lengthでは広角になり、長いFocal Lengthでは狭いviewになります。
+
+実写footageへ3Dを合わせる場合は、撮影cameraのFocal LengthとFilm Gateをできるだけ合わせます。
+
+## Near / Far Clip
+
+cameraから近すぎる / 遠すぎるgeometryをrender対象から外します。
+
+NearとFarのrangeを必要以上に広くするとdepth precisionが下がるため、artifactが出る場合はclipping rangeも確認します。
+
+Adaptive Near/Far Clipを使うとscene boundsから自動調整できます。
+
+## Plane of Focus
+
+OpenGL rendererのDepth of Fieldで焦点距離を決めます。
+
+3D ViewerでFocal Plane表示を有効にすると、どこへfocusがあるか確認できます。
+
+## Camera Projection
+
+Image Inputへ2D Imageを接続すると、cameraからgeometryへImageをprojectionできます。
+
+Projection ModeにはLight / Ambient Light / Texture等があり、projectionをlightingとして使うかtextureとして使うかを選べます。
+
+Texture modeではCatcher material等、別のMaterial構成が必要になります。
 
 ## 最小構成
 
 ```text
-3D Source → Camera 3D → Merge 3D → Renderer 3D → Image
+Shape 3D ──┐
+Camera 3D ─┼─ Merge 3D → Renderer 3D
+           ┘
 ```
 
-## 注意点
+ViewerでMerge 3Dを表示し、Camera submenuからCamera 3Dを選ぶとcamera viewpointを確認できます。
 
-- このページはノードを選ぶための役割・データ領域・系譜を先に揃えています。
-- exactな内部ID、端子名、初期値、数値範囲、Edition差は、確認できたものだけ今後追記します。
-- legacy系譜の項目は、現在のEffects Libraryに同名で表示されることまで一件ずつ実機確認したものではありません。
+## Camera Trackerとの関係
 
-## バージョンと検証状況
+Camera Trackerで3D solveした場合、ExportされたCamera 3DをClassic 3D sceneへ使います。
 
-旧Blackmagic Design公式Tool Referenceで役割と系譜を確認しています。Fusion 21.1での存在、端子名、Inspector項目、初期値、範囲は実機または現行マニュアルで再確認が必要です。
+Camera Trackerはcamera motionを解析するNode、Camera 3Dは解析結果や手動animationを使ってsceneをframingするNodeです。
 
-このリファレンスのinventory基準はDaVinci Resolve / Fusion 21.0.4です。Manual全体は21.1基準へ更新中のため、21.1で差がある箇所は現行資料または実機確認後に更新します。
+## 出典と確認範囲
+
+DaVinci Resolve 21.1 Reference Manual Chapter 88 pp.1918–1927とFusion Fundamentals Chapter 84で、3 input、Projection Type、Near/Far Clip、Focal Length / Angle of View、Film Gate、Plane of Focus、stereo、Camera Projectionを確認しました。
+
+実機のcamera import互換性、rendererごとのDoF差、stereo deliveryは未確認です。
