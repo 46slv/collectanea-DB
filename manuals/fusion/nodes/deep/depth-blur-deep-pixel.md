@@ -1,62 +1,93 @@
 ---
-title: "Depth Blur (Deep Pixel)"
-description: "Z深度を利用したブラー。"
+title: Depth Blur (Deep Pixel)
+description: Z channelまたは任意channelをpixelごとのblur量として使い、Focal Point / Depth of Fieldで2D depth-of-fieldを作るNode。
 doc_type: node
-term_id: "depth-blur-deep-pixel"
-term_short: "Depth Blur (Deep Pixel)は、Z深度を利用したブラー。"
+term_id: depth-blur-deep-pixel
 verification: partial
-aliases: ["Depth Blur (Deep Pixel)"]
-concepts: ["deep-image"]
-nodes: ["Depth Blur (Deep Pixel)"]
-node_family: "deep"
-inputs: ["deep"]
-outputs: ["deep"]
-tasks: ["process-deep"]
+aliases: [Depth Blur, DBl, Depth Blur (Deep Pixel)]
+concepts: [auxiliary-channels, image-data, depth]
+nodes: [Depth Blur]
+node_family: deep
+controls: [Filter, Blur Channel, Lock X/Y, Blur Size, Focal Point, Depth of Field, Z Scale]
+inputs: [image, image, mask]
+outputs: [image]
+tasks: [aov, depth-of-field, blur]
 product_scope: fusion
-suite_surfaces: ["fusion"]
-updated: "2026-10-03"
+suite_surfaces: [fusion]
+updated: "2026-10-04"
 ---
 
 # Depth Blur (Deep Pixel)
 
-Z深度を利用したブラー。
+Depth Blurは、2D <Term id="image">Image</Term>に含まれるZ channelを使い、cameraからの距離ごとにblur量を変えるNodeです。
 
-## 概要
+<Term id="deep-image">Deep Image</Term>をblurするNodeではなく、<Term id="auxiliary-channels">Auxiliary Channel</Term>付き2D Imageのpost-processです。
 
-- **種別**: Node / Tool
-- **分類**: Deep Pixel (legacy aux)
-- **主なデータ領域**: Deep image
-- **導入・系譜**: legacy
-- **根拠レベル**: Blackmagic Design公式の旧Fusion Tool Referenceにある系譜
+## 入力
 
-## 入力と出力
+### Input
 
-この項目はカタログ上、**Deep image**を主なデータ領域として扱います。上のfrontmatterにある入出力は領域を検索するための分類であり、Fusion 21.1の正確な端子数や端子名を断定するものではありません。
+必須の2D Imageです。Depth of Field用途ではZ channelを含む必要があります。
 
-実際に組むときはFlow上の端子ラベルとInspectorを確認し、2D Image、Mask、Shape、Particle、Classic 3D、USD、Deep、パラメータ値を取り違えないようにします。
+### Blur Image
 
-## 主な用途
+任意の別Imageです。
 
-Z深度を利用したブラー。
+このImageのchannelをblur mapとして使うと、Z以外のper-pixel blurも作れます。
 
-## 使うときの判断
+### Effect Mask
 
-Deep imageは通常の2D Imageと別のサンプル構造を持ちます。通常の2D処理へ戻すときは`Deep to Image`を使います。
+最終的にDepth Blurを適用する範囲を限定します。
+
+## Filter
+
+ManualではBox / Soften / Super Softenを選べます。
+
+qualityと計算量が異なるため、まず見た目とspeedの両方を比較します。
+
+## Blur Channel
+
+どのchannelをpixelごとのblur量に使うか選びます。
+
+Blur Imageが接続されている場合、そのImage側channelがcontrol sourceになります。
+
+## Blur Size
+
+X / Y方向のblur strengthです。
+
+Lock X/Yを外すとaxis別に設定できます。
+
+## Focal Point
+
+Blur Channel = Zのとき、focusが合うdepth位置を指定します。
+
+Viewer sampleで対象位置のZを基準にする使い方ができます。
+
+## Depth of Field
+
+Focal Pointを中心に、どのdepth rangeをsharpに保つかを決めます。
+
+range外へ離れるほどblurが増えます。
+
+## Z Scale
+
+Z値のrangeをscaleし、depth effectの強さを誇張 / 圧縮します。
+
+source Zの数値scaleがshotに合わない場合に使います。
 
 ## 最小構成
 
 ```text
-Deep Source → Depth Blur (Deep Pixel) → Deep to Image
+Renderer 3D (RGBA + Z) → Depth Blur → Output
 ```
 
-## 注意点
+Zが別Imageにある場合はChannel Booleans等でmain ImageのZへ組み込んでからDepth Blurへ渡す構成がManualで示されています。
 
-- このページはノードを選ぶための役割・データ領域・系譜を先に揃えています。
-- exactな内部ID、端子名、初期値、数値範囲、Edition差は、確認できたものだけ今後追記します。
-- legacy系譜の項目は、現在のEffects Libraryに同名で表示されることまで一件ずつ実機確認したものではありません。
+## Defocusとの違い
 
-## バージョンと検証状況
+- **Defocus** — Image全体をlens-likeにぼかす2D filter
+- **Depth Blur** — Z / mapに応じてpixelごとにblur量を変える
 
-旧Blackmagic Design公式Tool Referenceで役割と系譜を確認しています。Fusion 21.1での存在、端子名、Inspector項目、初期値、範囲は実機または現行マニュアルで再確認が必要です。
+## 出典と確認範囲
 
-このリファレンスのinventory基準はDaVinci Resolve / Fusion 21.0.4です。Manual全体は21.1基準へ更新中のため、21.1で差がある箇所は現行資料または実機確認後に更新します。
+DaVinci Resolve 21.1 Reference Manual Chapter 96 pp.2259–2261で、3 inputs、Filter、Blur Channel、Focal Point、Depth of Field、Z Scaleを確認しました。
