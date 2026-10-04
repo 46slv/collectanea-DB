@@ -1,61 +1,150 @@
 ---
-title: "Vector Warp"
-description: "モーションベクトル/UVベクトルを利用して画像をwarp。Generate/Texture Map/Unmap等のモード。"
+title: Vector Warp
+description: precomputed Vector / Back Vectorを持つImage sequenceの動きに合わせてTextureを変形し、柔らかい表面へ貼り付けるStudio専用Node。
 doc_type: node
-term_id: "vector-warp"
-term_short: "Vector Warpは、モーションベクトル/UVベクトルを利用して画像をwarp。Generate/Texture Map/Unmap等のモード。Imageの座標を変形するNode。"
+term_id: vector-warp
+term_short: "Vector Warpは、motion vectorを使ってTextureやImageをframeごとの動きに追従させるNode。"
 verification: partial
-aliases: ["Vector Warp"]
-concepts: ["image-data"]
-nodes: ["Vector Warp"]
-node_family: "warp"
-inputs: ["image"]
-outputs: ["image"]
-tasks: ["warp-image"]
-product_scope: fusion
-suite_surfaces: ["fusion"]
+aliases: [Vector Warp, VWp]
+concepts: [image-data, auxiliary-channels, motion-vectors, warp]
+nodes: [Vector Warp]
+node_family: warp
+controls: [Set Frame, Reference Frame, Operation, Generate Warp, Generate Warp + Map, Apply Warp Map, UnWarp, Smooth UV, Grid Overlay, Merge Warp over BG]
+inputs: [image, texture, vector]
+outputs: [image, vector]
+tasks: [warp-image, track-texture]
+product_scope: fusion-studio
+suite_surfaces: [fusion]
 updated: "2026-10-05"
 ---
 
 # Vector Warp
 
-Vector Warpは、モーションベクトル/UVベクトルを利用して画像をwarp。Generate/Texture Map/Unmap等のモード。Imageのsampling座標を変え、pixelを別位置へ移すことでwarp / distortionを作ります。
+Vector Warpは、source clipのmotion vectorを使って、別のstill Imageやtextureをframeごとの動きに合わせて変形するNodeです。
+
+服や肌のように形が変わる面へlogo・傷・textureなどを追従させたいときに使います。Main sequence側には、Optical Flowまたはvector channel入りEXRで事前計算したVector / Back Vectorが必要です。
 
 ## 役割
 
-モーションベクトル/UVベクトルを利用して画像をwarp。Generate/Texture Map/Unmap等のモード。このページでは、名前だけで選ばず、**何を受け取り、何が変わり、どのdomainへ返すか**を先に整理します。
+```text
+MediaIn → Optical Flow ─────────────┐
+                                    ├→ Vector Warp → output
+Texture / still ────────────────────┘
+```
 
-この項目で確認できている中心的な役割は「モーションベクトル/UVベクトルを利用して画像をwarp。Generate/Texture Map/Unmap等のモード」です。exactなInspector項目が未確認の場合は、役割とdata domainを先に使って候補を絞ります。
+Input Layerのmotion vectorが「source clipのどこがどう動いたか」を表し、Texture Layerへ入れたstill Imageをその動きに沿ってwarpします。
 
-## 入力と出力
+## 入力
 
-入力分類: **image**。 出力分類: **image**。 この分類はdata domainを読むためのものです。Fusion 21.1のexactな端子名・端子数を未確認の場合、ここでは推測して固定しません。
+### Input
 
-## 使うときの判断
+オレンジ色のInputへ2D Image sequenceを接続します。
 
-manual controlで歪ませるのか、別Image / vector mapを使うのか、lens / perspective補正なのかで選びます。
+このImageにはprecomputed Vector / Back Vector channelが必要です。21.1 Manualでは、Optical Flowの出力またはvector channelを保存したEXRを使えると説明されています。
 
-同じ目的を別Familyでも作れる場合は、後段で必要なdata domainと、Graph上で責任をどこに置きたいかで選びます。
+### Texture
+
+緑色のTexture inputへ、warpしたい2D still Imageを接続します。
+
+reference frameで作ったlogo、修正patch、skin textureなどをsource clipの動きへ追従させる用途です。
+
+## 出力
+
+RGBA Imageを出力します。
+
+21.1 Manualでは、出力にforward / backward tracking informationとしてVx / Vy / BVx / BVyなどの追加motion vector channelが含まれる場合があり、後段Nodeで利用できると説明されています。
+
+## 主な設定項目
+
+### Set Frame / Reference Frame
+
+Set Frameは現在frameをreferenceとして設定します。
+
+Reference Frameには、Textureやmapを作成した基準frameを指定します。source clipとTextureをどのframeで対応させるかをここで決めます。
+
+### Operation
+
+#### Generate Warp
+
+reference frameからcurrent frameまでのwarp mapを生成し、UV channelへ保存します。
+
+#### Generate Warp + Map
+
+warp mapを生成したうえで、Texture側のmap frameにもwarpを適用します。
+
+#### Apply Warp Map
+
+入力済みのtexture mapから以前生成したwarp mapを使い、map frameを変形します。
+
+#### UnWarp
+
+reference frameでmapを固定し、current frameのMain sequenceを逆方向へwarpしてreference frameに近い形へ戻します。
+
+### Smooth UV
+
+近傍のUV値を平均し、warp mapの局所的な乱れを滑らかにします。
+
+### Grid Overlay
+
+warpの状態をViewer上のgrid overlayで確認します。
+
+### Merge Warp over BG
+
+warpしたmap ImageをMain sequence上へcompositeして表示します。
+
+## 主な用途
+
+- 動く服へlogoやgraphicsを貼り、布地の変形へ追従させる
+- 顔や肌へscar / makeup / textureを貼り、表面の動きに合わせる
+- reference frameで作ったpaint patchを別frameへ追従させ、除去・修正へ使う
+- UV warp mapを生成し、後段で再利用する
 
 ## 最小構成
 
-    Image + Control Map → Vector Warp → Image
+```text
+MediaIn → Optical Flow → Vector Warp → MediaOut
+                            ↑
+                    Texture / still
+```
 
-これは接続関係を理解するための最小構成案です。公式Manualのexactな作例として確認していない構成は、実制作前にViewerで中間結果を確認します。
+まずOptical FlowのVector / Back Vectorが安定していることを確認します。次に、Textureを作成したframeをReference Frameへ設定してwarp結果を確認します。
 
-## 確認ポイント
+## 運用例
 
-- 入力dataのdomainが合っているか。
-- この項目のoutputを受け取れる後段Nodeへ接続しているか。
-- 同じ役割を前段 / 後段で二重に処理していないか。
-- source-limited pageでは、未確認のControl名・default・rangeを名前から推測していないか。
+shirtへlogoを追加する場合:
 
-## Family内での位置づけ
+1. shirtが見やすいframeでlogo stillを作ります。
+2. source clipをOptical Flowへ通してVector / Back Vectorを生成します。
+3. Optical Flowの出力をVector WarpのInputへ接続します。
+4. logo stillをTextureへ接続します。
+5. logoを作ったframeをReference Frameへ設定します。
+6. Generate Warp + Mapでlogoをmotionへ追従させ、必要ならSmooth UVで局所的な乱れを調整します。
 
-Warp / Distortノードの全体像と近いNodeの選び分けは[Family Overview](./)を参照してください。
+この例は21.1 Manualに記載された用途とControlの役割から再構成した手順です。実際のshotではocclusionや大きな形状変化によって追加のmask / paint処理が必要になる場合があります。
+
+## Vector Transformとの違い
+
+- **Vector Transform** — motion vector / UV channel自体の位置・scale・角度・強さを調整する
+- **Vector Warp** — motion vectorを使ってTextureやImageを実際に変形する
+
+vector fieldの位置合わせが先に必要ならVector Transformを前段に置き、実際のtexture追従はVector Warpで行います。
+
+## 挙動と注意点
+
+Vector Warpは、21.1 Manual Chapter 112の **Vector Warping Toolset (Studio Version Only)** に含まれます。
+
+Input LayerにVector / Back Vectorがない状態では、source clipのmotionに基づくwarpを行えません。まずOptical Flowのvector品質を確認してから、Reference FrameやOperationを調整します。
+
+大きなocclusion、交差する動き、急激な変形ではOptical Flow自体の推定が不安定になる可能性があります。warp結果だけでなく元vectorも確認します。
+
+## 関連Node
+
+- [Optical Flow](../optical-flow/optical-flow)
+- [Vector Transform](./vector-transform)
+- [Vector Denoise](../optical-flow/vector-denoise)
 
 ## 出典と確認範囲
 
-このページの役割・data domain・系譜は、既存COLLECTANEA catalogとBlackmagic Design公式資料で確認された範囲をreader-first形式へ整理しています。
+DaVinci Resolve 21.1 Reference Manual、September 2026、Chapter 112 pp.2632–2633で、Input / Texture、Vector / Back Vector要件、RGBA output、Set Frame、Reference Frame、4つのOperation、Smooth UV、Grid Overlay、Merge Warp over BG、clothing / skinへの利用例を確認しました。
 
-Fusion 21.1 Reference Manualで個別のInspector項目・default・rangeまで確認できていない項目は、**source-limited**としてその詳細を断定していません。verification: partial はその未確認範囲を含みます。runtime REGIDや現在のEffects Library表示は別のruntime verificationで確定します。
+全既定値・数値範囲、内部REGID、実機performanceは未確認です。

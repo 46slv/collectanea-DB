@@ -1,61 +1,139 @@
 ---
-title: "Vector Transform"
-description: "Vector layer自体をtransform/smooth/attenuateする。"
+title: Vector Transform
+description: Optical Flowが作ったVector / Back VectorやUV channelを平滑化・減衰・移動・scale・回転し、別の画像やsequenceへ合わせるStudio専用Node。
 doc_type: node
-term_id: "vector-transform"
-term_short: "Vector Transformは、Vector layer自体をtransform/smooth/attenuateする。Imageの座標を変形するNode。"
+term_id: vector-transform
+term_short: "Vector Transformは、motion vectorやUV channel自体を整形して後段のwarpへ渡すNode。"
 verification: partial
-aliases: ["Vector Transform"]
-concepts: ["image-data", "transform"]
-nodes: ["Vector Transform"]
-node_family: "warp"
-inputs: ["image"]
-outputs: ["image"]
-tasks: ["warp-image"]
-product_scope: fusion
-suite_surfaces: ["fusion"]
+aliases: [Vector Transform, VXf]
+concepts: [image-data, auxiliary-channels, motion-vectors, transform]
+nodes: [Vector Transform]
+node_family: warp
+controls: [Smooth UV, Smooth Vector, Attenuate UV, Attenuate Vector, Center X, Center Y, Size X, Size Y, Use Size and Aspect, Size, Aspect, Angle]
+inputs: [image, vector, mask]
+outputs: [image, vector]
+tasks: [warp-image, transform-vector]
+product_scope: fusion-studio
+suite_surfaces: [fusion]
 updated: "2026-10-05"
 ---
 
 # Vector Transform
 
-Vector Transformは、Vector layer自体をtransform/smooth/attenuateする。Imageのsampling座標を変え、pixelを別位置へ移すことでwarp / distortionを作ります。
+Vector Transformは、画像そのものを移動・拡大する通常のTransformではなく、Imageに含まれるmotion vectorやUV channelを平滑化・減衰・移動・scale・回転するNodeです。
+
+Optical Flowで得たVector / Back Vectorを別の画像やsequenceへ合わせ直したいときや、Vector Warpへ渡す前にvector fieldを整えたいときに使います。
 
 ## 役割
 
-Vector layer自体をtransform/smooth/attenuateする。このページでは、名前だけで選ばず、**何を受け取り、何が変わり、どのdomainへ返すか**を先に整理します。
+```text
+MediaIn → Optical Flow → Vector Transform → Vector Warp
+```
 
-位置・回転・scale等を変える系統です。見た目だけを変えるのか、data自体のdomain / resolutionを変えるのかを確認します。
+Optical Flowが生成したVector / Back Vector channelを受け取り、そのvector情報の位置・大きさ・角度・強さを調整します。
 
-## 入力と出力
+見えているRGB Imageを直接変形することが主目的ではなく、後段が参照するmotion / UV dataを整えるNodeです。
 
-入力分類: **image**。 出力分類: **image**。 この分類はdata domainを読むためのものです。Fusion 21.1のexactな端子名・端子数を未確認の場合、ここでは推測して固定しません。
+## 入力
 
-## 使うときの判断
+### Input
 
-manual controlで歪ませるのか、別Image / vector mapを使うのか、lens / perspective補正なのかで選びます。
+オレンジ色のInputへ2D Imageを接続します。
 
-同じ目的を別Familyでも作れる場合は、後段で必要なdata domainと、Graph上で責任をどこに置きたいかで選びます。
+21.1 Manualでは、Optical Flowの出力を接続し、そのImageに含まれるVector / Back Vector channelを変換する構成が示されています。
+
+### Attenuate Mask
+
+白色のAttenuate Mask inputへMask shapeを接続します。
+
+vector / UVの減衰を画面全体ではなく、必要な領域へ限定したい場合に使います。
+
+## 出力
+
+2D Imageを出力し、その中のvector / UV channelへVector Transformの調整結果を反映します。
+
+後段ではVector Warpなど、motion vectorやUV channelを利用するNodeへ接続できます。
+
+## 主な設定項目
+
+### Smooth UV
+
+近傍pixelのUV値を平均し、UV channelの局所的な乱れや不連続を滑らかにします。
+
+### Smooth Vector
+
+隣接frame間でvectorを滑らかにします。21.1 Manualでは、texture mapを使うVector Warpの前処理として使えると説明されています。
+
+### Attenuate UV
+
+UV magnitudeがwarpへ与える影響を強めたり、弱めたり、0まで落としたりします。
+
+### Attenuate Vector
+
+motion vectorの長さを短くし、vectorによるwarp量をfullから0まで減らします。
+
+### Center X / Y
+
+UV channelの位置を移動します。
+
+### Size X / Y
+
+UVをX / Y方向へ個別にscaleします。
+
+### Use Size and Aspect / Size / Aspect
+
+Use Size and Aspectを有効にすると、SizeでX / Yをまとめてscaleし、Aspectで縦横比を調整できます。
+
+### Angle
+
+UV channelの角度を回転します。
+
+## 主な用途
+
+- Optical Flowで得たtracking / motion情報を別サイズの画像やsequenceへ合わせる
+- Vector Warpの前でUVやmotion vectorの局所的な乱れを滑らかにする
+- vector fieldを移動・scale・回転し、貼り付けるtextureとの位置関係を調整する
+- Attenuate Maskでvectorの効く領域を限定し、warp量を部分的に弱める
 
 ## 最小構成
 
-    Image + Control Map → Vector Transform → Image
+```text
+MediaIn → Optical Flow → Vector Transform → Vector Warp → MediaOut
+                                      ↑
+                              Texture / still
+```
 
-これは接続関係を理解するための最小構成案です。公式Manualのexactな作例として確認していない構成は、実制作前にViewerで中間結果を確認します。
+まずOptical Flowの出力でmotion vectorが得られていることを確認し、その後にVector Transformで位置・scale・角度・強さを調整します。
 
-## 確認ポイント
+## 運用例
 
-- 入力dataのdomainが合っているか。
-- この項目のoutputを受け取れる後段Nodeへ接続しているか。
-- 同じ役割を前段 / 後段で二重に処理していないか。
-- source-limited pageでは、未確認のControl名・default・rangeを名前から推測していないか。
+動く布地へtextureを追従させる場合は、先にOptical Flowで布地のmotion vectorを生成します。
 
-## Family内での位置づけ
+そのvectorの位置やscaleが貼り付けたいtextureと合っていなければ、Vector TransformのCenter / Size / Angleで調整し、必要に応じてSmooth Vectorで揺れを抑えます。その出力をVector Warpへ渡してtextureを変形します。
 
-Warp / Distortノードの全体像と近いNodeの選び分けは[Family Overview](./)を参照してください。
+これは21.1 Manualで確認できるNodeの役割から組んだ運用例で、特定shotでの結果を実機確認したものではありません。
+
+## Vector Warpとの違い
+
+- **Vector Transform** — vector / UV dataそのものを整形する
+- **Vector Warp** — そのvectorを使ってTextureやImageを実際にwarpする
+
+Vector Warpの結果がずれているとき、warp処理そのものではなくvector fieldの位置・scale・角度を直したい場合はVector Transformを使います。
+
+## 挙動と注意点
+
+Vector Transformは、21.1 Manual Chapter 112の **Vector Warping Toolset (Studio Version Only)** に含まれます。
+
+通常のTransform Nodeと違い、主な対象はRGB Imageの見た目ではなくvector / UV auxiliary channelです。前段で必要なVector / Back Vectorが生成されていない場合、意図したmotion warp用dataを調整できません。
+
+## 関連Node
+
+- [Optical Flow](../optical-flow/optical-flow)
+- [Vector Denoise](../optical-flow/vector-denoise)
+- [Vector Warp](./vector-warp)
 
 ## 出典と確認範囲
 
-このページの役割・data domain・系譜は、既存COLLECTANEA catalogとBlackmagic Design公式資料で確認された範囲をreader-first形式へ整理しています。
+DaVinci Resolve 21.1 Reference Manual、September 2026、Chapter 112 pp.2630–2631で、Input / Attenuate Mask、Optical FlowからのVector / Back Vector利用、Smooth UV、Smooth Vector、Attenuate UV、Attenuate Vector、Center、Size、Aspect、Angleを確認しました。
 
-Fusion 21.1 Reference Manualで個別のInspector項目・default・rangeまで確認できていない項目は、**source-limited**としてその詳細を断定していません。verification: partial はその未確認範囲を含みます。runtime REGIDや現在のEffects Library表示は別のruntime verificationで確定します。
+全既定値・数値範囲、内部REGID、実機performanceは未確認です。
