@@ -17,7 +17,7 @@ Base: main aa97c2ac53cdeecab9f1d260a53b5fdc30fed4c9.
 
 ## Delivered page scope
 
-27 new node pages:
+29 new node pages:
 
 - 3D Create, p.2434: Fold Create 3D; Heightfield Create 3D; Tube Create 3D.
 - Image Warp, p.2437: Warped Transform.
@@ -27,13 +27,15 @@ Base: main aa97c2ac53cdeecab9f1d260a53b5fdc30fed4c9.
 - Standard Shape, pp.2733–2734: sChangeStyle.
 - Material, pp.2060–2066: OpenPBR.
 - Particle, p.2667: pFollow.
+- Classic 3D, pp.1942–1944: Extrude 3D.
+- Classic 3D Light, pp.2033–2034: DomeLight.
 - Release-note-only: Connect 3D.
 
 Existing sOffset and Mapped Duplicate 3D are rewritten, not duplicated. The sOffset URL and term_id are retained. Its unsupported introduction-version 17 statement is removed; the 21.1 manual places it in Krokodove Shape Tools. Same-name/REGID identity still needs confirmation.
 
 Krokodove table comparison: 85 unique named rows on pp.2434–2438; all 61 prior Krokodove catalogue names are present. Of the additional 24 table names, one is the already-published sOffset and 23 receive new pages. This is a documentation diff, not proof that all 24 were introduced in 21.1. Connect 3D is outside those 85 rows.
 
-Node-page arithmetic: prior 359 + 27 = 386. The Krokodove category guide and node index are not counted as nodes.
+Node-page arithmetic: prior 359 + 29 = 388. The Krokodove category guide and node index are not counted as nodes.
 
 ## Source boundaries that must remain visible
 
@@ -54,8 +56,6 @@ Priority candidates with individual manual sections:
 
 | Candidate | Manual page | Required next check |
 | --- | --- | --- |
-| Extrude 3D | 1942 | Distinguish from image Extrude and sExtrude |
-| DomeLight | 2033 | Distinguish from USD uDomeLight |
 | Shader | 2263 | Distinguish Deep Pixel shader from USD shader |
 | Object Removal / Rays | 2288 / 2293 | Check implementation and edition boundary |
 | Layer Muxer / Layer Regex / Layer Remover | 2440 / 2441 / 2444 | Read multilayer I/O and existing aliases |
@@ -69,6 +69,8 @@ Priority candidates with individual manual sections:
 Do not add alias-only pages for Soft Clip vs SoftClip 3D, Texture 2D vs Texture, Primatte vs Primatte5, Z to World Pos vs ZtoWorld, or modifiers before checking identity. Do not count Common Controls, toolset headings, shortcuts, or navigation entries as Tool instances.
 
 pFollowはChapter 114 pp.2667–2668の独立Node sectionで、pFlockとは別Nodeとして確認し、reader-first pageを追加しました。
+
+Extrude 3DはChapter 88 pp.1942–1944、DomeLightはChapter 89 pp.2033–2034の独立Node sectionとして確認し、reader-first pageを追加しました。sExtrude / uDomeLightとは別domainです。
 
 ## Runtime gate
 

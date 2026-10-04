@@ -21,19 +21,20 @@ tasks: [learn, understand]
 6. [接続できるdata / 接続できないdata](./02-data/connection-compatibility)
 7. [シェイプ（Shape）](./02-data/shape)
 8. [パーティクル（Particle）](./02-data/particle)
-9. [正規化座標（Normalized Coordinates）](./03-space/normalized-coordinates)
-10. [前景（Foreground）/ 背景（Background）/ マスク（Mask）](./04-compositing/foreground-background-mask)
-11. [キーフレーム / スプライン / 時間（Keyframe / Spline / Time）](./05-time/keyframes-spline-time)
-12. [式（Expressions）](./05-time/expressions)
-13. [Instanceで設定を共有する](./06-reuse/instances)
-14. [User Controlsで公開インターフェースを作る](./06-reuse/user-controls)
-15. [GroupでGraphをまとめる](./06-reuse/groups)
-16. [Macro / Templateで再利用単位を作る](./06-reuse/macros-templates)
-17. [データ領域（data domain）を辿って診断する](./07-debugging/trace-data-domain)
-18. [分岐を分離して原因範囲を狭める](./07-debugging/isolate-branches)
-19. [AlphaとMaskを分けて診断する](./07-debugging/alpha-vs-mask)
-20. [Resolution / Domain of Definitionを確認する](./07-debugging/resolution-domain-of-definition)
-21. [症状ではなくGraphを診断する](./07-debugging/diagnose-graph-not-symptom)
+9. [Classic 3D scene](./02-data/classic-3d)
+10. [正規化座標（Normalized Coordinates）](./03-space/normalized-coordinates)
+11. [前景（Foreground）/ 背景（Background）/ マスク（Mask）](./04-compositing/foreground-background-mask)
+12. [キーフレーム / スプライン / 時間（Keyframe / Spline / Time）](./05-time/keyframes-spline-time)
+13. [式（Expressions）](./05-time/expressions)
+14. [Instanceで設定を共有する](./06-reuse/instances)
+15. [User Controlsで公開インターフェースを作る](./06-reuse/user-controls)
+16. [GroupでGraphをまとめる](./06-reuse/groups)
+17. [Macro / Templateで再利用単位を作る](./06-reuse/macros-templates)
+18. [データ領域（data domain）を辿って診断する](./07-debugging/trace-data-domain)
+19. [分岐を分離して原因範囲を狭める](./07-debugging/isolate-branches)
+20. [AlphaとMaskを分けて診断する](./07-debugging/alpha-vs-mask)
+21. [Resolution / Domain of Definitionを確認する](./07-debugging/resolution-domain-of-definition)
+22. [症状ではなくGraphを診断する](./07-debugging/diagnose-graph-not-symptom)
 
 各Conceptページは、最小例を試したあとに「別Nodeでも何が同じか」を確認する構成です。
 
@@ -46,6 +47,7 @@ tasks: [learn, understand]
 - [パラメータ / Data](./02-data/parameter-data)
 - [シェイプ（Shape）](./02-data/shape)
 - [パーティクル（Particle）](./02-data/particle)
+- [Classic 3D scene](./02-data/classic-3d)
 
 ### 03 Coordinates & Space
 

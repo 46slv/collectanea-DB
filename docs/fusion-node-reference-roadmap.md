@@ -138,7 +138,7 @@ Manual整理と実機inventory確認を混ぜない。
 6. Shape
 7. Generator / Text — foundation batch started 2026-10-04; Background / Fast Noise / Text+をreader-first化
 8. Particle — full Chapter 114 family pass completed 2026-10-04; 20 Node + Particle Concept / Recipeをreader-first化
-9. Classic 3D / Materials
+9. Classic 3D / Materials — foundation batch completed 2026-10-04; core scene / renderer / camera / geometry / lightsをreader-first化
 10. USD
 11. Deep
 12. Krokodove / specialized tools
@@ -284,3 +284,14 @@ Day Sky / Mandelbrot / MultiText / Plasmaは後続batchへ分離する。
 - basic particle chain Recipeを21.1へ更新。
 
 次はClassic 3D / Materials。ParticleはChapter 114掲載Nodeを一通り改稿済み。
+
+
+### 2026-10-04 — Classic 3D / Materials foundation
+
+- Classic 3D ConceptとFamily Overviewを追加。
+- Merge 3D / Renderer 3D / Camera 3D / Image Plane 3D / Shape 3D / Transform 3D / Text 3DをChapter 88基準で改稿。
+- Material / Light Family Overviewを追加し、Directional / Point / Spot LightをChapter 89基準で改稿。
+- Manual candidateだったExtrude 3DとDomeLightを独立sectionとして確認し、新規pageを追加。inventoryは388へ更新。
+- OpenPBRは既存の21.1 source-grounded pageを継続利用。
+
+次はUSD。Classic 3Dのspecialized geometry / modifierはFamily Overviewから辿れる状態にし、必要に応じて第二passで深掘りする。
