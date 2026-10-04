@@ -1,63 +1,71 @@
 ---
-title: "Duplicate 3D"
-description: "3Dオブジェクトを複製配列。"
+title: Duplicate 3D
+description: Classic 3D objectを複数copyし、copyごとの累積/線形Transform・Time Offset・Jitterでarrayや反復motionを作るNode。
 doc_type: node
-term_id: "duplicate-3d"
-term_short: "Duplicate 3Dは、3Dオブジェクトを複製配列。"
+term_id: duplicate-3d
+term_short: Duplicate 3Dは、3D objectを連続Transform付きで複製するNode。
 verification: partial
-aliases: ["Duplicate 3D", "3DP"]
-concepts: ["classic-3d"]
-nodes: ["Duplicate 3D"]
-node_family: "3d"
-inputs: ["classic-3d"]
-outputs: ["classic-3d"]
-tasks: ["build-3d-scene"]
+aliases: [Duplicate 3D, 3Dp]
+concepts: [classic-3d, duplication, transform]
+nodes: [Duplicate 3D]
+node_family: 3d
+controls: [Copies, Time Offset, Transform Method, Transform Order, Translation, Rotation, Pivot, Scale, Random Seed, Jitter Probability, Translation Jitter, Rotation Jitter, Scale Jitter, Region]
+inputs: [classic-3d, classic-3d]
+outputs: [classic-3d]
+tasks: [duplicate-3d, array, repeat]
 product_scope: fusion
-suite_surfaces: ["fusion"]
-updated: "2026-10-03"
+suite_surfaces: [fusion]
+updated: "2026-10-04"
 ---
 
 # Duplicate 3D
 
-3Dオブジェクトを複製配列。
+Duplicate 3Dは、<Term id="classic-3d">Classic 3D</Term> objectを複数copyし、copyごとにposition・rotation・scaleを順次変えてarrayや反復構造を作るNodeです。
 
-## 概要
+## 入力
 
-- **種別**: Node / Tool
-- **分類**: 3D Geometry / Scene
-- **主なデータ領域**: Classic 3D scene / geometry
-- **略称**: `3DP`
-- **導入・系譜**: legacy
-- **根拠レベル**: Blackmagic Design公式の旧Fusion Tool Referenceにある系譜
+### Scene Input
 
-## 入力と出力
+オレンジ色の必須入力です。複製するobject / sceneを接続します。
 
-この項目はカタログ上、**Classic 3D scene / geometry**を主なデータ領域として扱います。上のfrontmatterにある入出力は領域を検索するための分類であり、Fusion 21.1の正確な端子数や端子名を断定するものではありません。
+### Mesh Input
 
-実際に組むときはFlow上の端子ラベルとInspectorを確認し、2D Image、Mask、Shape、Particle、Classic 3D、USD、Deep、パラメータ値を取り違えないようにします。
+RegionをMeshにすると現れる任意入力です。Meshをregionとしてcopy placementを制限できます。
 
-## 主な用途
+## 主な設定
 
-3Dオブジェクトを複製配列。
+### Copies
 
-## 使うときの判断
+何個copyを作るかを設定します。First Copyを0より大きくするとoriginalを表示せずcopyだけを使えます。
 
-Classic 3D sceneはUSD sceneと別系統です。2D Imageへ戻すには通常`Renderer 3D`を使います。
+### Time Offset
+
+source geometryにanimationがある場合、copyごとに時間をずらします。
+
+同じanimated clip / objectの異なるframeを並べる表現に使えます。
+
+### Transform Method
+
+- **Linear** — copy番号に応じてtransform量を掛け合わせる
+- **Accumulated** — 前のcopy位置を出発点に次のtransformを積み上げる
+
+### Translation / Rotation / Pivot / Scale
+
+copyごとに加えるtransformです。
+
+### Jitter
+
+position、rotation、scaleへrandom variationを追加します。Random Seedでpatternを変え、Jitter Probabilityでどのcopyへrandomnessを適用するか制御できます。
 
 ## 最小構成
 
-```text
-3D Source → Duplicate 3D → Merge 3D → Renderer 3D → Image
-```
+Cube 3D → Duplicate 3D → Merge 3D → Renderer 3D
 
-## 注意点
+## Replicate 3Dとの違い
 
-- このページはノードを選ぶための役割・データ領域・系譜を先に揃えています。
-- exactな内部ID、端子名、初期値、数値範囲、Edition差は、確認できたものだけ今後追記します。
-- legacy系譜の項目は、現在のEffects Libraryに同名で表示されることまで一件ずつ実機確認したものではありません。
+- **Duplicate 3D** — copyごとのTransformで規則的 / jittered arrayを作る
+- **Replicate 3D** — 別geometryのvertexやparticle位置へsource objectを配置する
 
-## バージョンと検証状況
+## 出典と確認範囲
 
-旧Blackmagic Design公式Tool Referenceで役割と系譜を確認しています。Fusion 21.1での存在、端子名、Inspector項目、初期値、範囲は実機または現行マニュアルで再確認が必要です。
-
-このリファレンスのinventory基準はDaVinci Resolve / Fusion 21.0.4です。Manual全体は21.1基準へ更新中のため、21.1で差がある箇所は現行資料または実機確認後に更新します。
+DaVinci Resolve 21.1 Reference Manual Chapter 88 pp.1938–1941で、Scene / Mesh input、Copies、Time Offset、Linear / Accumulated、Transform、Jitter、Regionを確認しました。
