@@ -1,61 +1,72 @@
 ---
-title: "Smooth Motion"
-description: "Optical Flowを使い時間方向に色/Auxチャンネルを平滑化。"
+title: Smooth Motion
+description: Optical FlowのForward / Back Vectorを使い、AOV channelをframe間で平滑化するNode。
 doc_type: node
-term_id: "smooth-motion"
-term_short: "Smooth Motionは、Optical Flowを使い時間方向に色/Auxチャンネルを平滑化。motion vector / frame間motionを扱うNode。"
+term_id: smooth-motion
+term_short: "Smooth Motionは、motion vectorを参照してAOVを時間方向に平滑化するNode。"
 verification: partial
-aliases: ["Smooth Motion", "SM"]
-concepts: ["vector-data"]
-nodes: ["Smooth Motion"]
-node_family: "optical-flow"
-inputs: ["image", "vector"]
-outputs: ["image", "vector"]
-tasks: ["analyze-motion"]
+aliases: [Smooth Motion, SM]
+concepts: [image-data, auxiliary-channels, motion-vectors]
+nodes: [Smooth Motion]
+node_family: optical-flow
+controls: [Channel]
+inputs: [image, vector]
+outputs: [image, vector]
+tasks: [smooth-motion, smooth-aov, stereo, motion-vectors]
 product_scope: fusion
-suite_surfaces: ["fusion"]
+suite_surfaces: [fusion]
 updated: "2026-10-05"
 ---
 
 # Smooth Motion
 
-Smooth Motionは、Optical Flowを使い時間方向に色/Auxチャンネルを平滑化。frame間の動きを解析する、またはmotion vectorを使ってframe生成・修復・平滑化を行います。
+Smooth Motionは、Forward / Back Vectorを使い、Disparity、Vector、Normal、Zなどの補助channelをframe間で平滑化するNodeです。
 
 ## 役割
 
-Optical Flowを使い時間方向に色/Auxチャンネルを平滑化。このページでは、名前だけで選ばず、**何を受け取り、何が変わり、どのdomainへ返すか**を先に整理します。
+Optical Flowで解析したframe間の対応関係を使い、選択したAOV channelの時間方向の変化を整えます。
 
-この項目で確認できている中心的な役割は「Optical Flowを使い時間方向に色/Auxチャンネルを平滑化」です。exactなInspector項目が未確認の場合は、役割とdata domainを先に使って候補を絞ります。
+```text
+MediaIn → Optical Flow → Smooth Motion → Result
+```
 
-## 入力と出力
+## 入力
 
-入力分類: **image / vector**。 出力分類: **image / vector**。 この分類はdata domainを読むためのものです。Fusion 21.1のexactな端子名・端子数を未確認の場合、ここでは推測して固定しません。
+2D ImageをInputへ接続します。入力ImageにはOptical Flowまたはvector付きEXRから得たVector / Back Vectorが必要です。
 
-## 使うときの判断
+## 出力
 
-vectorを作る工程か、既存vectorを使って新しいframe / resultを作る工程かを分けます。
+元のImageと、選択したchannelを時間方向に平滑化した結果を出力します。
 
-同じ目的を別Familyでも作れる場合は、後段で必要なdata domainと、Graph上で責任をどこに置きたいかで選びます。
+## Channel
 
-## 最小構成
+Controls tabで平滑化するchannelを選びます。ManualではDisparity、Vector、Normal、ZなどのAOVが例示されています。
 
-    Image sequence / Vector → Smooth Motion → Image / Vector
+必要なVector / Back Vectorがない場合は処理に必要なmotion dataが不足します。一方、選択した個別AOVが存在しない場合は、そのchannelについて処理されません。
 
-これは接続関係を理解するための最小構成案です。公式Manualのexactな作例として確認していない構成は、実制作前にViewerで中間結果を確認します。
+## 主な用途
 
-## 確認ポイント
+- Stereo 3DのDisparityをframe間で滑らかにする
+- Forward / Back Vectorを後段処理の前に整える
+- NormalやZなどのAOVを時間方向に平滑化する
 
-- 入力dataのdomainが合っているか。
-- この項目のoutputを受け取れる後段Nodeへ接続しているか。
-- 同じ役割を前段 / 後段で二重に処理していないか。
-- source-limited pageでは、未確認のControl名・default・rangeを名前から推測していないか。
+## 運用例
 
-## Family内での位置づけ
+Stereo clipのDisparityを平滑化する場合は、Optical FlowでVector / Back Vectorを用意し、Smooth MotionでDisparityを選びます。vector自体を先にSmooth Motionで処理し、その後でもう1つのSmooth MotionでDisparityを処理する構成もManualにあります。
 
-Optical Flow / Motionノードの全体像と近いNodeの選び分けは[Family Overview](./overview)を参照してください。
+## 直列に使う場合
+
+Manualでは、1 Nodeで3 frame、2 Nodeで5 frame、3 Nodeで7 frameを参照する例が示されています。frame間の変化が複雑なshotでは結果を見ながら調整します。
+
+## 関連Node
+
+- [Optical Flow](./optical-flow)
+- [Vector Denoise](./vector-denoise)
+- [Tween](./tween)
+- [Repair Frame](./repair-frame)
 
 ## 出典と確認範囲
 
-このページの役割・data domain・系譜は、既存COLLECTANEA catalogとBlackmagic Design公式資料で確認された範囲をreader-first形式へ整理しています。
+DaVinci Resolve 21.1 Reference Manual、September 2026、Chapter 112 pp.2623–2625およびFusion Fundamentals Chapter 87 p.1903で、precomputed Vector / Back Vector要件、AOV smoothing、Channel選択、直列使用時の3 / 5 / 7 frame例を確認しました。
 
-Fusion 21.1 Reference Manualで個別のInspector項目・default・rangeまで確認できていない項目は、**source-limited**としてその詳細を断定していません。verification: partial はその未確認範囲を含みます。runtime REGIDや現在のEffects Library表示は別のruntime verificationで確定します。
+実機での全channel、既定値、性能、内部REGIDは未確認です。
