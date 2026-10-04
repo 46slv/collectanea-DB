@@ -1,70 +1,60 @@
 ---
-title: Channel Boolean
-description: RGBAやAux channelを演算・組み替えするchannel utility Node。
+title: Channel Booleans
+description: Background / Foreground / MatteのchannelをCopy・Add・Multiply等で組み替え、RGBAやauxiliary channelを作り直す2D Channel Node。
 doc_type: node
 term_id: channel-boolean
-verification: unverified
-aliases: [Channel Boolean, BOL]
-concepts: [channels, alpha, image-data]
-nodes: [Channel Boolean]
+term_short: 複数ImageのRGBAや補助channelを数式・論理演算で組み替えるNode。
+verification: partial
+aliases: [Channel Booleans, Bol]
+concepts: [image-data, auxiliary-channels, alpha]
+nodes: [Channel Booleans]
 node_family: color
-inputs: [image]
+controls: [Operation, To Red, To Green, To Blue, To Alpha, Enable Extra Channels]
+inputs: [image, image, mask, mask]
 outputs: [image]
-tasks: [channels, alpha, composite, matte]
-level: intermediate
+tasks: [channel-remap, alpha, auxiliary-channels]
 product_scope: fusion
 suite_surfaces: [fusion]
+updated: "2026-10-05"
 ---
 
-# Channel Boolean
+# Channel Booleans
 
-RGBA / Auxiliary channel間を演算・組み替えするNodeです。
+Channel Booleansは、2つの2D Imageと任意Matteを使い、RGBAや<Term id="auxiliary-channels">補助Channel</Term>を別channelへCopyしたり、Add / Multiply / Difference等の演算で組み替えるNodeです。
 
-## 概要
-
-- **分類（Family）**: Color / Channel
-- **入力データ（Input domain）**: 2D Image
-- **出力データ（Output domain）**: 2D Image
-- **関連概念（Core concepts）**: channels、alpha、channel routing
-- **よく使う作業（Common tasks）**: channel copy / combine / matte construction
+「画像を重ねる」Mergeとは違い、**channelそのものを配線し直す**用途です。
 
 ## 入力
 
-1つ以上のImageを使ってchannel関係を組み替える系統ですが、正確な 21.1 input 配置は未検証です。
+- **Background** — 出力の土台になる必須Image
+- **Foreground** — 別channelのsourceに使う任意Image
+- **Matte** — channel演算へ使う外部matte
+- **Effect Mask** — Nodeの結果を適用する画面範囲
 
-## 出力
+Foreground未接続でFG channelを選ぶと、Background側channelが代わりに使われます。
 
-指定したchannel operationを反映した2D Imageを出力します。
+## Operation
 
-## 主な設定項目
+Copy、Add、Subtract、And、Or、Exclusive Or、Multiply、Divide、Maximum、Minimum、Negative、Solid、Clear、Difference、Signed Add等から演算を選びます。
 
-RGBA / Aux channelの参照元 selection、operator等を持つ系統ですが、正確な 21.1 labels / available operators / defaultsは現在の manual / 実機で確認します。
+たとえば「ForegroundのAlphaをBackgroundのAlphaへ入れ替える」なら、To AlphaへAlpha FGを選び、OperationをCopyにします。
 
-## 挙動と注意点
+## To Red / Green / Blue / Alpha
 
-Channel Booleanは「見た目を明るくするColor Node」ではなく、**どのchannelからどのchannelへ何を入れるか**を扱うutilityとして読む方が適切です。
+各出力channelへ、Background / ForegroundのRGBA、Z、Luminance、Hue等のどのchannelを送るか選びます。
 
-Alphaを触る場合もEffect Maskとは責任が異なります。
+これにより、RedをAlphaへ移す、ZをRGBへ見える形でコピーする、といったchannel remapができます。
 
-## 最小例
+## Auxiliary Channel
 
-元画像（Source Image）の特定channelを別channelへ移す／組み合わせる用途を想定します。
+Enable Extra Channelsを有効にすると、RGBA以外の補助channelも出力へ保持・コピーできます。
 
-## 関連する考え方
+Z、Normal、Vector等を途中で失わずに扱う場合はAux tabも確認します。
 
-- [Alpha](../../learn/04-compositing/alpha)
-- [Image / Mask / Dataを分ける](../../learn/02-data/image-mask-data)
+## 3D版との違い
 
-## 関連パターン
+[Channel Boolean Material](../materials-lights/channel-boolean-material)は3D Material用です。2D ImageのRGBA / Auxを組み替える場合はこのChannel Booleansを使います。
 
-Channel / Matte Patternは今後追加します。
+## 出典と確認範囲
 
-## 似たNode・関連Node
-
-- Matte Control
-- Color Matrix
-- Copy Aux
-
-## バージョンと検証状況
-
-Channel Booleanの存在とRGBA/Aux channelを演算・組み替える役割は旧版のBlackmagic Design公式Fusion資料で確認。Fusion 21.1での正確な設定項目は未検証です。
+DaVinci Resolve 21.1 Reference Manual Chapter 93 pp.2154–2156で、4入力、Operation、To RGBA、Aux Channelを確認しました。全Operationの数式的edge caseは実機未確認です。
