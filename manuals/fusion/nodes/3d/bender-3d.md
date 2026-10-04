@@ -1,63 +1,68 @@
 ---
-title: "Bender 3D"
-description: "3Dジオメトリを曲げる。"
+title: Bender 3D
+description: Classic 3D geometryの既存vertexをbend・taper・twist・shearし、RangeやAxisで変形方向と範囲を調整するNode。
 doc_type: node
-term_id: "bender-3d"
-term_short: "Bender 3Dは、3Dジオメトリを曲げる。"
+term_id: bender-3d
+term_short: Bender 3Dは、3D geometryをbend・taper・twist・shearするNode。
 verification: partial
-aliases: ["Bender 3D", "3BN"]
-concepts: ["classic-3d"]
-nodes: ["Bender 3D"]
-node_family: "3d"
-inputs: ["classic-3d"]
-outputs: ["classic-3d"]
-tasks: ["build-3d-scene"]
+aliases: [Bender 3D, 3Bn]
+concepts: [classic-3d, geometry]
+nodes: [Bender 3D]
+node_family: 3d
+controls: [Bender Type, Amount, Axis, Angle, Range, Group Objects]
+inputs: [classic-3d]
+outputs: [classic-3d]
+tasks: [deform-3d, bend, taper, twist, shear]
 product_scope: fusion
-suite_surfaces: ["fusion"]
-updated: "2026-10-03"
+suite_surfaces: [fusion]
+updated: "2026-10-04"
 ---
 
 # Bender 3D
 
-3Dジオメトリを曲げる。
+Bender 3Dは、<Term id="classic-3d">Classic 3D</Term> geometryをbend、taper、twist、shearするNodeです。
 
-## 概要
-
-- **種別**: Node / Tool
-- **分類**: 3D Geometry / Scene
-- **主なデータ領域**: Classic 3D scene / geometry
-- **略称**: `3BN`
-- **導入・系譜**: legacy
-- **根拠レベル**: Blackmagic Design公式の旧Fusion Tool Referenceにある系譜
+入力scene内のgeometryだけを変形し、Camera、Light、Materialはそのまま通過します。
 
 ## 入力と出力
 
-この項目はカタログ上、**Classic 3D scene / geometry**を主なデータ領域として扱います。上のfrontmatterにある入出力は領域を検索するための分類であり、Fusion 21.1の正確な端子数や端子名を断定するものではありません。
+オレンジ色のScene Inputへ3D object / sceneを接続し、変形後のClassic 3D sceneを出力します。
 
-実際に組むときはFlow上の端子ラベルとInspectorを確認し、2D Image、Mask、Shape、Particle、Classic 3D、USD、Deep、パラメータ値を取り違えないようにします。
+## 主な設定
 
-## 主な用途
+### Bender Type
 
-3Dジオメトリを曲げる。
+- Bend — 曲げる
+- Taper — 先細り / 先太り
+- Twist — 軸まわりにねじる
+- Shear — 斜め方向へずらす
 
-## 使うときの判断
+### Amount
 
-Classic 3D sceneはUSD sceneと別系統です。2D Imageへ戻すには通常`Renderer 3D`を使います。
+変形量です。
+
+### Axis / Angle
+
+変形の基準axisと方向を決めます。AngleはBend / Shearで使用します。
+
+### Range
+
+geometry全体ではなく一部だけを変形します。Shearでは表示されません。
+
+### Group Objects
+
+入力sceneに複数objectがある場合、それらを1 groupとして共通centerから変形します。無効なら各objectを個別centerで変形します。
+
+## Subdivisionが必要な理由
+
+Bender 3Dは新しいvertexを追加しません。
+
+少ないvertexしかないPlaneやTextを大きく曲げると角張るため、元Node側のSubdivisionを増やしてからBender 3Dへ渡します。
 
 ## 最小構成
 
-```text
-3D Source → Bender 3D → Merge 3D → Renderer 3D → Image
-```
+Shape 3D → Bender 3D → Merge 3D → Renderer 3D
 
-## 注意点
+## 出典と確認範囲
 
-- このページはノードを選ぶための役割・データ領域・系譜を先に揃えています。
-- exactな内部ID、端子名、初期値、数値範囲、Edition差は、確認できたものだけ今後追記します。
-- legacy系譜の項目は、現在のEffects Libraryに同名で表示されることまで一件ずつ実機確認したものではありません。
-
-## バージョンと検証状況
-
-旧Blackmagic Design公式Tool Referenceで役割と系譜を確認しています。Fusion 21.1での存在、端子名、Inspector項目、初期値、範囲は実機または現行マニュアルで再確認が必要です。
-
-このリファレンスのinventory基準はDaVinci Resolve / Fusion 21.0.4です。Manual全体は21.1基準へ更新中のため、21.1で差がある箇所は現行資料または実機確認後に更新します。
+DaVinci Resolve 21.1 Reference Manual Chapter 88 pp.1916–1918で、Scene input、4 deformation mode、Amount / Axis / Angle / Range / Group Objects、Subdivision上の注意を確認しました。
