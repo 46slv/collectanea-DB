@@ -133,7 +133,7 @@ Manual整理と実機inventory確認を混ぜない。
 1. Compositing / Merge — reader-first family pass started 2026-10-04; Merge / MultiMerge / Dissolve + Concept / Recipe / Pattern整合を実施
 2. Transform / Format — foundation batch started 2026-10-04; Transform / Resize / Scale / Crop + related Concept / Recipe / Diagnosticを改稿
 3. Mask — full Chapter 108 pass completed 2026-10-04; 10 Mask Node + Concept / Recipe / Diagnosticをreader-first化
-4. Color / Blur — Blur foundationとColor foundationを2026-10-04に分離実施。Blur / Defocus / Directional Blur、Brightness Contrast / Color Corrector / White Balanceをreader-first化
+4. Color / Blur — Blur / Filter full pass completed 2026-10-04。Color foundationは継続中
 5. Tracking
 6. Shape
 7. Generator / Text — foundation batch started 2026-10-04; Background / Fast Noise / Text+をreader-first化
@@ -327,3 +327,13 @@ Day Sky / Mandelbrot / MultiText / Plasmaは後続batchへ分離する。
 - Chapter 108掲載10 Mask Nodeをreader-first形式で一通り説明できる状態にした。
 
 Mask familyはManual本文passを完了。実機のshortcut / REGID / rendering結果はruntime verificationへ分離する。
+
+
+### 2026-10-04 — Blur / Filter full family pass
+
+- Chapter 92のBlur / Defocus / Directional Blur / Glow / Sharpen / Soft Glow / Unsharp Mask / Vari Blur / Vector Motion Blurをreader-first化。
+- Chapter 99のCreate Bump Map / Custom Filter / Erode Dilate / Filter / Rank Filterも同Family overviewから辿れる形でreader-first化。
+- Glow MaskとEffect Mask、SharpenとUnsharp Mask、Vari BlurとDepth Blur、Vector Motion BlurとDirectional Blurなど、名前が近いNodeの選択基準を明記。
+- DoD / Clipping Mode、Motion Vector、convolution / morphology / rank filterの役割を具体化。
+
+Blur / Filter familyの現在掲載14 NodeはManual本文passを完了。次はColor full pass。
