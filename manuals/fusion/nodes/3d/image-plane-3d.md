@@ -1,63 +1,67 @@
 ---
-title: "Image Plane 3D"
-description: "2D画像を平面として3Dへ配置。"
+title: Image Plane 3D
+description: 2D Image / Materialをaspect比付きの平面geometryへ載せ、Classic 3D sceneへ「card」として配置するNode。
 doc_type: node
-term_id: "image-plane-3d"
-term_short: "Image Plane 3Dは、2D画像を平面として3Dへ配置。"
+term_id: image-plane-3d
+term_short: Image Plane 3Dは、2D Imageを3D空間の平面cardとして扱うNode。
 verification: partial
-aliases: ["Image Plane 3D", "3IM"]
-concepts: ["classic-3d"]
-nodes: ["Image Plane 3D"]
-node_family: "3d"
-inputs: ["classic-3d"]
-outputs: ["classic-3d"]
-tasks: ["build-3d-scene"]
+aliases: [Image Plane 3D, ImagePlane3D, 3Im]
+concepts: [classic-3d, image-data, geometry]
+nodes: [Image Plane 3D]
+node_family: 3d
+controls: [Lock Width/Height, Subdivision Level, Wireframe]
+inputs: [classic-3d, material]
+outputs: [classic-3d]
+tasks: [image-plane, card, build-3d-scene]
 product_scope: fusion
-suite_surfaces: ["fusion"]
-updated: "2026-10-03"
+suite_surfaces: [fusion]
+updated: "2026-10-04"
 ---
 
 # Image Plane 3D
 
-2D画像を平面として3Dへ配置。
+Image Plane 3Dは、2D <Term id="image">Image</Term>を平面geometryへ載せ、<Term id="classic-3d">Classic 3D scene</Term>の「card」として扱うNodeです。
 
-## 概要
+video clip、still、graphic等を3D空間へ配置するときの基本Nodeです。
 
-- **種別**: Node / Tool
-- **分類**: 3D Geometry / Scene
-- **主なデータ領域**: Classic 3D scene / geometry
-- **略称**: `3IM`
-- **導入・系譜**: legacy
-- **根拠レベル**: Blackmagic Design公式の旧Fusion Tool Referenceにある系譜
+## 入力
 
-## 入力と出力
+### Scene Input
 
-この項目はカタログ上、**Classic 3D scene / geometry**を主なデータ領域として扱います。上のfrontmatterにある入出力は領域を検索するための分類であり、Fusion 21.1の正確な端子数や端子名を断定するものではありません。
+任意のClassic 3D scene入力です。
 
-実際に組むときはFlow上の端子ラベルとInspectorを確認し、2D Image、Mask、Shape、Particle、Classic 3D、USD、Deep、パラメータ値を取り違えないようにします。
+### Material Input
 
-## 主な用途
+主に使う入力です。2D Imageまたは3D Materialを接続します。
 
-2D画像を平面として3Dへ配置。
+2D Imageを接続すると、そのImageがdiffuse textureになり、Image aspect比がplane geometryにも反映されます。
 
-## 使うときの判断
+## 主な設定
 
-Classic 3D sceneはUSD sceneと別系統です。2D Imageへ戻すには通常`Renderer 3D`を使います。
+### Subdivision Level
+
+planeを細かく分割します。
+
+lightingやDisplace 3D / Bender 3Dでvertex-based deformationを使う場合、Subdivisionを増やすと滑らかになります。
+
+### Lock Width / Height
+
+SubdivisionのX / Y分割を同じ値にするか分けるかを決めます。
+
+### Wireframe
+
+OpenGL Rendererでwireframe表示 / renderします。
 
 ## 最小構成
 
-```text
-3D Source → Image Plane 3D → Merge 3D → Renderer 3D → Image
-```
+MediaIn → Image Plane 3D → Merge 3D → Renderer 3D
 
-## 注意点
+## Shape 3Dとの違い
 
-- このページはノードを選ぶための役割・データ領域・系譜を先に揃えています。
-- exactな内部ID、端子名、初期値、数値範囲、Edition差は、確認できたものだけ今後追記します。
-- legacy系譜の項目は、現在のEffects Libraryに同名で表示されることまで一件ずつ実機確認したものではありません。
+Image aspect比に合わせた平面cardが欲しい場合はImage Plane 3Dが直接的です。
 
-## バージョンと検証状況
+Image aspectにgeometry sizeを支配されたくない場合はShape 3DのPlaneへMaterialを接続する方法を検討します。
 
-旧Blackmagic Design公式Tool Referenceで役割と系譜を確認しています。Fusion 21.1での存在、端子名、Inspector項目、初期値、範囲は実機または現行マニュアルで再確認が必要です。
+## 出典と確認範囲
 
-このリファレンスのinventory基準はDaVinci Resolve / Fusion 21.0.4です。Manual全体は21.1基準へ更新中のため、21.1で差がある箇所は現行資料または実機確認後に更新します。
+DaVinci Resolve 21.1 Reference Manual Chapter 88 pp.1953–1954で、Scene / Material input、Image aspect、Subdivision、Wireframeを確認しました。
