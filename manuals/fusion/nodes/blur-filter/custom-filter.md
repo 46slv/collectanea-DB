@@ -1,62 +1,78 @@
 ---
-title: "Custom Filter"
-description: "カスタム畳み込み/フィルタ処理。"
+title: Custom Filter
+description: 3×3・5×5・7×7のconvolution matrixへ整数weightを入力し、blur・sharpen・emboss・edge detection等を自作するFilter Node。
 doc_type: node
-term_id: "custom-filter"
-term_short: "Custom Filterは、カスタム畳み込み/フィルタ処理。"
+term_id: custom-filter
 verification: partial
-aliases: ["Custom Filter"]
-concepts: ["image-data"]
-nodes: ["Custom Filter"]
-node_family: "blur-filter"
-inputs: ["image"]
-outputs: ["image"]
-tasks: ["filter-image"]
+aliases: [Custom Filter, CFlt]
+concepts: [image-data, convolution, filtering]
+nodes: [Custom Filter]
+node_family: blur-filter
+controls: [Color Channels, Matrix Size, Update Lock, Filter Matrix, Normalize, Floor Level]
+inputs: [image, mask]
+outputs: [image]
+tasks: [custom-filter, convolution, edge-detect, sharpen]
 product_scope: fusion
-suite_surfaces: ["fusion"]
-updated: "2026-10-03"
+suite_surfaces: [fusion]
+updated: "2026-10-04"
 ---
 
 # Custom Filter
 
-カスタム畳み込み/フィルタ処理。
+Custom Filterは、近傍pixelへどのweightを掛けるかをmatrixで指定し、convolution filterを自作するNodeです。
 
-## 概要
+既存Filter Typeでは足りないkernelを作る場合に使います。blur、sharpen、emboss、relief、edge detection等を同じ仕組みで表現できます。
 
-- **種別**: Node / Tool
-- **分類**: Blur / Filter
-- **主なデータ領域**: 2D Image / control
-- **導入・系譜**: legacy
-- **根拠レベル**: Blackmagic Design公式の旧Fusion Tool Referenceにある系譜
+## 入力
 
-## 入力と出力
+2D Imageと任意Effect Maskを受けます。
 
-この項目はカタログ上、**2D Image / control**を主なデータ領域として扱います。上のfrontmatterにある入出力は領域を検索するための分類であり、Fusion 21.1の正確な端子数や端子名を断定するものではありません。
+## Matrix Size
 
-実際に組むときはFlow上の端子ラベルとInspectorを確認し、2D Image、Mask、Shape、Particle、Classic 3D、USD、Deep、パラメータ値を取り違えないようにします。
+3×3、5×5、7×7からkernel sizeを選びます。
 
-## 主な用途
+Inspectorには7×7 gridが表示されますが、3×3を選んだ場合は中央9 cellだけが有効です。
 
-カスタム畳み込み/フィルタ処理。
+大きいmatrixほど遠い近傍pixelまで参照し、計算量も増えます。
 
-## 使うときの判断
+## Filter Matrix
 
-前後のノードと同じ2D Image領域で使うのが基本です。Maskや補助入力がある場合は、画像入力と役割を分けて接続します。
+中央cellがcurrent pixel、周囲cellがneighbor pixelを表します。
+
+- 1 — そのpixel値をそのまま加える
+- 0 — 無視
+- 正の大きい値 — 強く加える
+- 負値 — subtract方向へ寄与
+
+21.1 Manualではmatrix cellは整数値として説明されています。
+
+## Update Lock
+
+matrixを編集中に毎回renderしないよう計算を止めます。
+
+複数cellをまとめて変更し、設定後に解除してresultを確認できます。
+
+## Normalize / Floor Level
+
+Normalizeでkernel resultのlevelを調整し、Floor Levelで結果へbase offsetを加減します。
+
+kernel sumによって全体brightnessが変わる場合の調整に使います。
 
 ## 最小構成
 
 ```text
-Image → Custom Filter → Image
+Image → Custom Filter → Output
 ```
 
-## 注意点
+最初は3×3で1つの目的だけを作り、kernelの意味を確認してから5×5 / 7×7へ広げます。
 
-- このページはノードを選ぶための役割・データ領域・系譜を先に揃えています。
-- exactな内部ID、端子名、初期値、数値範囲、Edition差は、確認できたものだけ今後追記します。
-- legacy系譜の項目は、現在のEffects Libraryに同名で表示されることまで一件ずつ実機確認したものではありません。
+## Filter Nodeとの違い
 
-## バージョンと検証状況
+- **Filter** — Sobel、Laplacian、Grain等のpreset algorithmをmenuから選ぶ
+- **Custom Filter** — convolution kernelをcell単位で直接定義
 
-旧Blackmagic Design公式Tool Referenceで役割と系譜を確認しています。Fusion 21.1での存在、端子名、Inspector項目、初期値、範囲は実機または現行マニュアルで再確認が必要です。
+既存presetで足りるならFilterの方が意図を読みやすくできます。
 
-このリファレンスのinventory基準はDaVinci Resolve / Fusion 21.0.4です。Manual全体は21.1基準へ更新中のため、21.1で差がある箇所は現行資料または実機確認後に更新します。
+## 出典と確認範囲
+
+DaVinci Resolve 21.1 Reference Manual Chapter 99 pp.2332–2336で、3/5/7 matrix、integer weights、RGBA selection、Update Lock、Normalize、Floor Levelを確認しました。

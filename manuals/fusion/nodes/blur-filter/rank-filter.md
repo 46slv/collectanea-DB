@@ -1,62 +1,66 @@
 ---
-title: "Rank Filter"
-description: "近傍の順位統計に基づくフィルタ。"
+title: Rank Filter
+description: 周囲pixelを値順にsortし、指定Rankのpixel colorへ置き換えることでsalt-and-pepper noise除去からwatercolor風まで作るNode。
 doc_type: node
-term_id: "rank-filter"
-term_short: "Rank Filterは、近傍の順位統計に基づくフィルタ。"
+term_id: rank-filter
 verification: partial
-aliases: ["Rank Filter"]
-concepts: ["image-data"]
-nodes: ["Rank Filter"]
-node_family: "blur-filter"
-inputs: ["image"]
-outputs: ["image"]
-tasks: ["filter-image"]
+aliases: [Rank Filter, RFlt]
+concepts: [image-data, filtering, rank-statistics]
+nodes: [Rank Filter]
+node_family: blur-filter
+controls: [Size, Rank]
+inputs: [image, mask]
+outputs: [image]
+tasks: [rank-filter, denoise, stylize]
 product_scope: fusion
-suite_surfaces: ["fusion"]
-updated: "2026-10-03"
+suite_surfaces: [fusion]
+updated: "2026-10-04"
 ---
 
 # Rank Filter
 
-近傍の順位統計に基づくフィルタ。
+Rank Filterは、current pixel周辺のpixelを値順に並べ、その中の**指定順位のpixel color**でcurrent pixelを置き換えるNodeです。
 
-## 概要
+単純なaverage blurとは違い、近傍値の順位統計を使います。
 
-- **種別**: Node / Tool
-- **分類**: Blur / Filter
-- **主なデータ領域**: 2D Image / control
-- **導入・系譜**: legacy
-- **根拠レベル**: Blackmagic Design公式の旧Fusion Tool Referenceにある系譜
+## 入力
 
-## 入力と出力
+2D Imageと任意Effect Maskを受けます。
 
-この項目はカタログ上、**2D Image / control**を主なデータ領域として扱います。上のfrontmatterにある入出力は領域を検索するための分類であり、Fusion 21.1の正確な端子数や端子名を断定するものではありません。
+## Size
 
-実際に組むときはFlow上の端子ラベルとInspectorを確認し、2D Image、Mask、Shape、Particle、Classic 3D、USD、Deep、パラメータ値を取り違えないようにします。
+sampleする近傍rangeをpixel単位で決めます。
 
-## 主な用途
+Size = 1ではcenterの周囲1 pixelを含む3×3、合計9 pixelをsampleします。
 
-近傍の順位統計に基づくフィルタ。
+小さいSizeはsalt-and-pepper noise除去に向き、大きいSizeは形を平坦化してwatercolor-likeな見た目を作れます。
 
-## 使うときの判断
+## Rank
 
-前後のノードと同じ2D Image領域で使うのが基本です。Maskや補助入力がある場合は、画像入力と役割を分けて接続します。
+sortした値のどこを選ぶかを0〜1で指定します。
+
+- 0 — darkest / minimum
+- 0.5付近 — median
+- 1 — brightest / maximum
+
+低Rankではbright speckを減らしやすく、高Rankではdark speckを減らしやすい方向になります。
 
 ## 最小構成
 
 ```text
-Image → Rank Filter → Image
+Image → Rank Filter → Output
 ```
 
-## 注意点
+noise cleanupでは小さいSizeから始め、Rankを0.5付近で確認します。
 
-- このページはノードを選ぶための役割・データ領域・系譜を先に揃えています。
-- exactな内部ID、端子名、初期値、数値範囲、Edition差は、確認できたものだけ今後追記します。
-- legacy系譜の項目は、現在のEffects Libraryに同名で表示されることまで一件ずつ実機確認したものではありません。
+stylizeではSizeを大きくし、edgeやflat regionがどう変わるか確認します。
 
-## バージョンと検証状況
+## Erode Dilateとの違い
 
-旧Blackmagic Design公式Tool Referenceで役割と系譜を確認しています。Fusion 21.1での存在、端子名、Inspector項目、初期値、範囲は実機または現行マニュアルで再確認が必要です。
+Erode Dilateはbright / dark領域の境界を広げ縮めるmorphology処理です。
 
-このリファレンスのinventory基準はDaVinci Resolve / Fusion 21.0.4です。Manual全体は21.1基準へ更新中のため、21.1で差がある箇所は現行資料または実機確認後に更新します。
+Rank Filterは近傍pixelをsortし、選択順位の実pixel値へ置換します。
+
+## 出典と確認範囲
+
+DaVinci Resolve 21.1 Reference Manual Chapter 99 pp.2341–2342で、Image / Effect Mask、Size、Rank、noise removal / watercolor例を確認しました。
