@@ -1,62 +1,83 @@
 ---
-title: "pMerge"
-description: "複数particle streamを統合。"
+title: pMerge
+description: 2つのParticle streamを1つへ統合し、各particleのSet情報を保持したまま後段へ渡すParticle Combiner。
 doc_type: node
-term_id: "pmerge"
-term_short: "pMergeは、複数particle streamを統合。"
+term_id: pmerge
+term_short: pMergeは、2つのParticle streamを1つへまとめるNode。
 verification: partial
-aliases: ["pMerge"]
-concepts: ["particle-data"]
-nodes: ["pMerge"]
-node_family: "particles"
-inputs: ["particle"]
-outputs: ["particle"]
-tasks: ["create-particles"]
+aliases: [pMerge, pMg]
+concepts: [particle-data]
+nodes: [pMerge]
+node_family: particles
+inputs: [particle, particle]
+outputs: [particle]
+tasks: [particles, merge-particles]
 product_scope: fusion
-suite_surfaces: ["fusion"]
-updated: "2026-10-03"
+suite_surfaces: [fusion]
+updated: "2026-10-04"
 ---
 
 # pMerge
 
-複数particle streamを統合。
+pMergeは、2つの<Term id="particle-data">Particle stream</Term>を1つにまとめるNodeです。
 
-## 概要
+通常のMergeのように2D Imageを重ねるのではなく、2つのParticle setを1つのParticle setへ統合します。
 
-- **種別**: Node / Tool
-- **分類**: Particles
-- **主なデータ領域**: Particle set
-- **導入・系譜**: legacy
-- **根拠レベル**: Blackmagic Design公式の旧Fusion Tool Referenceにある系譜
+## 入力
 
-## 入力と出力
+Particle 1とParticle 2の2入力を持ち、どちらもParticle Nodeの出力だけを受け取ります。
 
-この項目はカタログ上、**Particle set**を主なデータ領域として扱います。上のfrontmatterにある入出力は領域を検索するための分類であり、Fusion 21.1の正確な端子数や端子名を断定するものではありません。
+```text
+pEmitter A ─┐
+            ├─ pMerge → pRender
+pEmitter B ─┘
+```
 
-実際に組むときはFlow上の端子ラベルとInspectorを確認し、2D Image、Mask、Shape、Particle、Classic 3D、USD、Deep、パラメータ値を取り違えないようにします。
+## 出力
 
-## 主な用途
+統合後のParticle setを出力します。
 
-複数particle streamを統合。
+後段のForce / Behavior / pRenderからは1つのstreamとして扱われます。
 
-## 使うときの判断
+## Control
 
-Particle setは2D Imageではありません。最終的に画像として合成する場合は`pRender`を使います。
+pMerge固有のInspector Controlはありません。
+
+役割はstreamの統合だけです。
+
+## Particle Setは保持される
+
+各Emitter等で割り当てたSet番号はpMerge後も保持されます。
+
+たとえばEmitter AをSet 1、Emitter BをSet 2にしておけば、pMerge後のpDirectionalForceをSet 1だけへ適用する、といった分岐ができます。
 
 ## 最小構成
 
 ```text
-pEmitter → pMerge → pRender → Image
+pEmitter A ─┐
+            ├─ pMerge → pRender (2D) → Merge
+pEmitter B ─┘
 ```
 
-## 注意点
+「異なる見た目のparticleを同じforce fieldへ入れたい」「複数Emitterを1つのpRenderでrenderしたい」場合に使います。
 
-- このページはノードを選ぶための役割・データ領域・系譜を先に揃えています。
-- exactな内部ID、端子名、初期値、数値範囲、Edition差は、確認できたものだけ今後追記します。
-- legacy系譜の項目は、現在のEffects Libraryに同名で表示されることまで一件ずつ実機確認したものではありません。
+## 通常のMergeとの違い
 
-## バージョンと検証状況
+- **pMerge** — Particle set + Particle set → Particle set
+- **Merge** — 2D Image + 2D Image → 2D Image
+- **Merge 3D** — Classic 3D sceneをまとめる
 
-旧Blackmagic Design公式Tool Referenceで役割と系譜を確認しています。Fusion 21.1での存在、端子名、Inspector項目、初期値、範囲は実機または現行マニュアルで再確認が必要です。
+名前は似ていますがdata domainが違います。
 
-このリファレンスのinventory基準はDaVinci Resolve / Fusion 21.0.4です。Manual全体は21.1基準へ更新中のため、21.1で差がある箇所は現行資料または実機確認後に更新します。
+## 関連Node
+
+- [pEmitter](./p-emitter)
+- [pRender](./p-render)
+- [Merge](../compositing/merge)
+- Merge 3D
+
+## 出典と確認範囲
+
+DaVinci Resolve 21.1 Reference Manual Chapter 114 p.2676で、2 Particle入力、Controlなし、Set保持を確認しました。
+
+実機性能は未確認のため `verification: partial` としています。

@@ -17,7 +17,7 @@ Base: main aa97c2ac53cdeecab9f1d260a53b5fdc30fed4c9.
 
 ## Delivered page scope
 
-26 new node pages:
+27 new node pages:
 
 - 3D Create, p.2434: Fold Create 3D; Heightfield Create 3D; Tube Create 3D.
 - Image Warp, p.2437: Warped Transform.
@@ -26,13 +26,14 @@ Base: main aa97c2ac53cdeecab9f1d260a53b5fdc30fed4c9.
 - Region, p.2438: rCube; rMerge; rModify; rNoise; rPlane; rSphere; rTransform.
 - Standard Shape, pp.2733–2734: sChangeStyle.
 - Material, pp.2060–2066: OpenPBR.
+- Particle, p.2667: pFollow.
 - Release-note-only: Connect 3D.
 
 Existing sOffset and Mapped Duplicate 3D are rewritten, not duplicated. The sOffset URL and term_id are retained. Its unsupported introduction-version 17 statement is removed; the 21.1 manual places it in Krokodove Shape Tools. Same-name/REGID identity still needs confirmation.
 
 Krokodove table comparison: 85 unique named rows on pp.2434–2438; all 61 prior Krokodove catalogue names are present. Of the additional 24 table names, one is the already-published sOffset and 23 receive new pages. This is a documentation diff, not proof that all 24 were introduced in 21.1. Connect 3D is outside those 85 rows.
 
-Node-page arithmetic: prior 359 + 26 = 385. The Krokodove category guide and node index are not counted as nodes.
+Node-page arithmetic: prior 359 + 27 = 386. The Krokodove category guide and node index are not counted as nodes.
 
 ## Source boundaries that must remain visible
 
@@ -60,13 +61,14 @@ Priority candidates with individual manual sections:
 | Layer Muxer / Layer Regex / Layer Remover | 2440 / 2441 / 2444 | Read multilayer I/O and existing aliases |
 | Relight | 2557 | Check edition and data dependencies |
 | Frame Average / Keyframe Stretcher / Switch / Wireless Link | 2596 / 2597 / 2606 / 2613 | Read individual operation and controls |
-| pFollow | 2667 | Distinguish from pFlock |
 | External Matte Saver | 2723 | Resolve integration boundary |
 | Surface Tracker | 2830 | Read tracking requirements and edition |
 | uExport / uMaterialX / uReplaceMaterial | 2900 / 2904 / 2915 | USD-specific inputs and materials |
 | uSwitch / uVariant / uVisibility | 2921 / 2925 / 2927 | USD scene and selection behavior |
 
 Do not add alias-only pages for Soft Clip vs SoftClip 3D, Texture 2D vs Texture, Primatte vs Primatte5, Z to World Pos vs ZtoWorld, or modifiers before checking identity. Do not count Common Controls, toolset headings, shortcuts, or navigation entries as Tool instances.
+
+pFollowはChapter 114 pp.2667–2668の独立Node sectionで、pFlockとは別Nodeとして確認し、reader-first pageを追加しました。
 
 ## Runtime gate
 

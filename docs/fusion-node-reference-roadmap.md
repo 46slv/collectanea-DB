@@ -137,7 +137,7 @@ Manual整理と実機inventory確認を混ぜない。
 5. Tracking
 6. Shape
 7. Generator / Text — foundation batch started 2026-10-04; Background / Fast Noise / Text+をreader-first化
-8. Particle
+8. Particle — full Chapter 114 family pass completed 2026-10-04; 20 Node + Particle Concept / Recipeをreader-first化
 9. Classic 3D / Materials
 10. USD
 11. Deep
@@ -274,3 +274,13 @@ Color Curves / Color Gain / Gamut / OCIO等はFamily Overviewから案内し、�
 - Text+ overlay Recipeを更新。
 
 Day Sky / Mandelbrot / MultiText / Plasmaは後続batchへ分離する。
+
+
+### 2026-10-04 — Particle family
+
+- Particle ConceptとFamily Overviewを追加。
+- Chapter 114の20 Nodeをreader-first化し、pEmitter / pRenderのdomain boundary、Force / Behavior / Region / Sets / Pre-Rollを整理。
+- Manual候補だったpFollowを独立Node sectionとして確認し、新規pageを追加。inventoryは386へ更新。
+- basic particle chain Recipeを21.1へ更新。
+
+次はClassic 3D / Materials。ParticleはChapter 114掲載Nodeを一通り改稿済み。
