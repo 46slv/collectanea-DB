@@ -1,63 +1,74 @@
 ---
-title: "FBX Exporter 3D"
-description: "FBX出力。"
+title: FBX Exporter 3D
+description: Fusion Classic 3D sceneをFBX・3DS・DAE・DXF・OBJ等へ書き出し、geometry・light・camera・animationのexport条件を設定するNode。
 doc_type: node
-term_id: "fbx-exporter-3d"
-term_short: "FBX Exporter 3Dは、FBX出力。"
+term_id: fbx-exporter-3d
+term_short: FBX Exporter 3Dは、Fusion 3D sceneを外部3D fileへ書き出すNode。
 verification: partial
-aliases: ["FBX Exporter 3D", "FBX"]
-concepts: ["classic-3d"]
-nodes: ["FBX Exporter 3D"]
-node_family: "3d"
-inputs: ["classic-3d"]
-outputs: ["classic-3d"]
-tasks: ["build-3d-scene"]
+aliases: [FBX Exporter 3D, FBX Exporter]
+concepts: [classic-3d, export-3d]
+nodes: [FBX Exporter 3D]
+node_family: 3d
+controls: [Filename, Format, Version, Frame Rate, Scale Units By, Geometry, Lights, Cameras, Render Range, Reduce Constant Keys, File Per Frame, Sequence Start Frame]
+inputs: [classic-3d]
+outputs: [file]
+tasks: [export-3d, fbx]
 product_scope: fusion
-suite_surfaces: ["fusion"]
-updated: "2026-10-03"
+suite_surfaces: [fusion]
+updated: "2026-10-04"
 ---
 
 # FBX Exporter 3D
 
-FBX出力。
+FBX Exporter 3Dは、<Term id="classic-3d">Classic 3D scene</Term>を外部3D fileへ書き出すNodeです。
 
-## 概要
+FBXのほか、3DS、Collada DAE、AutoCAD DXF、OBJも扱います。Saverのようにrender操作でfileを書き出します。
 
-- **種別**: Node / Tool
-- **分類**: 3D Geometry / Scene
-- **主なデータ領域**: Classic 3D scene / geometry
-- **略称**: `FBX`
-- **導入・系譜**: legacy
-- **根拠レベル**: Blackmagic Design公式の旧Fusion Tool Referenceにある系譜
+## 入力
 
-## 入力と出力
+オレンジ色のScene Inputへexportしたい3D sceneを接続します。
 
-この項目はカタログ上、**Classic 3D scene / geometry**を主なデータ領域として扱います。上のfrontmatterにある入出力は領域を検索するための分類であり、Fusion 21.1の正確な端子数や端子名を断定するものではありません。
+Node treeのbranchへ接続すれば、そのbranchに含まれる3D elementsだけをexportできます。
 
-実際に組むときはFlow上の端子ラベルとInspectorを確認し、2D Image、Mask、Shape、Particle、Classic 3D、USD、Deep、パラメータ値を取り違えないようにします。
+## 主な設定
 
-## 主な用途
+### Filename / Format / Version
 
-FBX出力。
+保存先、file format、format versionを設定します。
 
-## 使うときの判断
+OBJなど一部formatはanimationを保持できません。
 
-Classic 3D sceneはUSD sceneと別系統です。2D Imageへ戻すには通常`Renderer 3D`を使います。
+### Frame Rate / Scale Units By
+
+export sceneのfpsとunit scaleを設定します。
+
+外部3D softwareとworld scaleが合わない場合にScale Units Byを使います。
+
+### Geometry / Lights / Cameras
+
+どの種類のscene elementをexportするかを選びます。
+
+### Render Range
+
+Fusion側のrender range情報をfileへ保存します。
+
+### Reduce Constant Keys
+
+隣接keyframeと値が同じkeyを削減します。
+
+### File Per Frame
+
+animationを1 fileへ持たせず、frameごとに別fileへ書き出します。
 
 ## 最小構成
 
-```text
-3D Source → FBX Exporter 3D → Merge 3D → Renderer 3D → Image
-```
+Merge 3D / 3D object → FBX Exporter 3D
 
-## 注意点
+## FBX Mesh 3Dとの違い
 
-- このページはノードを選ぶための役割・データ領域・系譜を先に揃えています。
-- exactな内部ID、端子名、初期値、数値範囲、Edition差は、確認できたものだけ今後追記します。
-- legacy系譜の項目は、現在のEffects Libraryに同名で表示されることまで一件ずつ実機確認したものではありません。
+- **FBX Exporter 3D** — Fusionから外へ書く
+- **FBX Mesh 3D** — 外部geometryをFusionへ読む
 
-## バージョンと検証状況
+## 出典と確認範囲
 
-旧Blackmagic Design公式Tool Referenceで役割と系譜を確認しています。Fusion 21.1での存在、端子名、Inspector項目、初期値、範囲は実機または現行マニュアルで再確認が必要です。
-
-このリファレンスのinventory基準はDaVinci Resolve / Fusion 21.0.4です。Manual全体は21.1基準へ更新中のため、21.1で差がある箇所は現行資料または実機確認後に更新します。
+DaVinci Resolve 21.1 Reference Manual Chapter 88 pp.1945–1946で、Scene input、対応format、Filename / Format / Version、export対象、animation / sequence設定を確認しました。
