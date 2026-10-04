@@ -1,61 +1,100 @@
 ---
-title: "Vector Denoise"
-description: "モーションベクトルを使い時間方向にdenoise/average。"
+title: Vector Denoise
+description: Forward / Back Vectorでframe間の対応位置を合わせながら複数frameを平均し、時間方向のnoiseを減らすNode。
 doc_type: node
-term_id: "vector-denoise"
-term_short: "Vector Denoiseは、モーションベクトルを使い時間方向にdenoise/average。motion vector / frame間motionを扱うNode。"
+term_id: vector-denoise
+term_short: "Vector Denoiseは、motion vectorでframe間を合わせながら複数frameを平均するNode。"
 verification: partial
-aliases: ["Vector Denoise"]
-concepts: ["image-data"]
-nodes: ["Vector Denoise"]
-node_family: "optical-flow"
-inputs: ["image"]
-outputs: ["image"]
-tasks: ["analyze-motion"]
-product_scope: fusion
-suite_surfaces: ["fusion"]
+aliases: [Vector Denoise, VDn]
+concepts: [image-data, auxiliary-channels, motion-vectors]
+nodes: [Vector Denoise]
+node_family: optical-flow
+controls: [Average, Threshold]
+inputs: [image, vector]
+outputs: [image]
+tasks: [analyze-motion]
+product_scope: fusion-studio
+suite_surfaces: [fusion]
 updated: "2026-10-05"
 ---
 
 # Vector Denoise
 
-Vector Denoiseは、モーションベクトルを使い時間方向にdenoise/average。frame間の動きを解析する、またはmotion vectorを使ってframe生成・修復・平滑化を行います。
+Vector Denoiseは、frame間のmotion vectorを使って同じ被写体位置を対応させ、そのうえで複数frameのpixel値を平均するNodeです。
+
+同じ画面座標だけを平均する方法より、cameraや被写体が動くshotで時間方向のaverageを使いやすくします。
 
 ## 役割
 
-モーションベクトルを使い時間方向にdenoise/average。このページでは、名前だけで選ばず、**何を受け取り、何が変わり、どのdomainへ返すか**を先に整理します。
+```text
+Image → Optical Flow → Vector Denoise → output Image
+```
 
-procedural patternを作る / 使う系統です。見せるImageなのか、Mask / displacement / control sourceなのかを分けます。
+Optical FlowがForward / Back Vectorを生成し、Vector Denoiseがその情報を使って複数frameを平均します。
 
-## 入力と出力
+## 入力
 
-入力分類: **image**。 出力分類: **image**。 この分類はdata domainを読むためのものです。Fusion 21.1のexactな端子名・端子数を未確認の場合、ここでは推測して固定しません。
+オレンジ色のInputへ2D Imageを接続します。
 
-## 使うときの判断
+入力Imageには事前計算済みのVector / Back Vector channelが必要です。Optical Flowの出力、またはvector channelを保持したEXRを使えます。
 
-vectorを作る工程か、既存vectorを使って新しいframe / resultを作る工程かを分けます。
+## 出力
 
-同じ目的を別Familyでも作れる場合は、後段で必要なdata domainと、Graph上で責任をどこに置きたいかで選びます。
+motion compensated averagingを適用した2D Imageを出力します。
+
+## 主な設定項目
+
+### Average
+
+平均へ使う時間windowをframe数で指定します。
+
+参照frameを増やすほど時間方向の平均範囲が広がるため、結果を見ながら調整します。
+
+### Threshold
+
+短いflashや一時的なhighlightなど、周囲frameと大きく異なるpixelを平均へ含めにくくする上限thresholdです。
+
+## 主な用途
+
+- moving subjectを含むshotで時間方向のnoiseを減らす
+- static temporal averageよりframe間の位置ずれを考慮して平均する
+- Optical Flowで得たmotion vectorをnoise reductionへ再利用する
+- vector付きEXRから解析済みmotionを使ってdenoiseする
 
 ## 最小構成
 
-    Image sequence / Vector → Vector Denoise → Image / Vector
+```text
+MediaIn → Optical Flow → Vector Denoise → MediaOut
+```
 
-これは接続関係を理解するための最小構成案です。公式Manualのexactな作例として確認していない構成は、実制作前にViewerで中間結果を確認します。
+Optical Flowのvectorが安定していることを確認してからAverageを調整すると、原因を分けて確認しやすくなります。
 
-## 確認ポイント
+## 運用例
 
-- 入力dataのdomainが合っているか。
-- この項目のoutputを受け取れる後段Nodeへ接続しているか。
-- 同じ役割を前段 / 後段で二重に処理していないか。
-- source-limited pageでは、未確認のControl名・default・rangeを名前から推測していないか。
+低照度shotの時間方向noiseを減らす場合:
 
-## Family内での位置づけ
+1. MediaInをOptical Flowへ接続し、Forward / Back Vectorを生成します。
+2. Vector Denoiseへ接続します。
+3. Averageで参照frame数を調整します。
+4. 一瞬だけ明るいpixelが平均へ混ざる場合はThresholdを調整します。
+5. moving edgeで結果が不安定なら、denoise量だけでなく元のvectorも確認します。
 
-Optical Flow / Motionノードの全体像と近いNodeの選び分けは[Family Overview](./overview)を参照してください。
+## Smooth Motionとの違い
+
+- **Vector Denoise** — Imageのpixel値を複数frameで平均する
+- **Smooth Motion** — Disparity、Vector、Normal、Zなど選んだAOV channelを時間方向に平滑化する
+
+## Studio制約
+
+21.1 Manual Chapter 112では、Vector Denoise、Vector Transform、Vector Warpを **Vector Warping Toolset (Studio Version Only)** の節で説明しています。
+
+## 関連Node
+
+- [Optical Flow](./optical-flow)
+- [Smooth Motion](./smooth-motion)
 
 ## 出典と確認範囲
 
-このページの役割・data domain・系譜は、既存COLLECTANEA catalogとBlackmagic Design公式資料で確認された範囲をreader-first形式へ整理しています。
+DaVinci Resolve 21.1 Reference Manual、September 2026、Chapter 112 pp.2628–2629で、Studio-only Vector Warping Toolset、precomputed Vector / Back Vector要件、motion compensated averaging、Average、Thresholdを確認しました。
 
-Fusion 21.1 Reference Manualで個別のInspector項目・default・rangeまで確認できていない項目は、**source-limited**としてその詳細を断定していません。verification: partial はその未確認範囲を含みます。runtime REGIDや現在のEffects Library表示は別のruntime verificationで確定します。
+全既定値・数値範囲、実機performance、内部REGIDは未確認です。
