@@ -1,61 +1,67 @@
 ---
-title: "uDuplicate"
-description: "USD objectをarray/jitter複製。"
+title: uDuplicate
+description: USD assetを連続複製し、copyごとのTransform・Time Offset・Jitter・Region制限でarrayやscatterを作るNode。
 doc_type: node
-term_id: "uduplicate"
-term_short: "uDuplicateは、USD objectをarray/jitter複製。"
+term_id: uduplicate
 verification: partial
-aliases: ["uDuplicate"]
-concepts: ["usd"]
-nodes: ["uDuplicate"]
-node_family: "usd"
-inputs: ["usd"]
-outputs: ["usd"]
-tasks: ["build-usd-scene"]
+aliases: [uDuplicate, uDp]
+concepts: [usd-scene, transform, procedural-layout]
+nodes: [uDuplicate]
+node_family: usd
+controls: [USD Instancing, Copies, Time Offset, Transform Method, Transform Order, Translation, Rotation, Pivot, Scale, Random Seed, Jitter Probability, Translation Jitter, Rotation Jitter, Scale Jitter, Region Mode, Region]
+inputs: [usd, usd]
+outputs: [usd]
+tasks: [usd, duplicate, array, scatter]
 product_scope: fusion
-suite_surfaces: ["fusion"]
-updated: "2026-10-03"
+suite_surfaces: [fusion]
+updated: "2026-10-04"
 ---
 
 # uDuplicate
 
-USD objectをarray/jitter複製。
+uDuplicateは、<Term id="usd-scene">USD asset</Term>を複製し、copyごとにTransformを積み重ねてarrayを作るNodeです。
 
-## 概要
+Jitterで位置・回転・scaleをばらつかせ、Regionでcopyを出す範囲を限定できます。
 
-- **種別**: Node / Tool
-- **分類**: USD (18.5+)
-- **主なデータ領域**: USD scene / asset
-- **導入・系譜**: 19
-- **根拠レベル**: 導入版のBlackmagic Design公式資料で確認した現行系譜
+## 入力
 
-## 入力と出力
+必須Scene Inputへ複製するUSD scene / objectを接続します。
 
-この項目はカタログ上、**USD scene / asset**を主なデータ領域として扱います。上のfrontmatterにある入出力は領域を検索するための分類であり、Fusion 21.1の正確な端子数や端子名を断定するものではありません。
+Region = Meshの場合は、copyを出す範囲として使うMesh inputが追加されます。
 
-実際に組むときはFlow上の端子ラベルとInspectorを確認し、2D Image、Mask、Shape、Particle、Classic 3D、USD、Deep、パラメータ値を取り違えないようにします。
+## Copies / Instancing
 
-## 主な用途
+Copiesで生成範囲を決めます。
 
-USD objectをarray/jitter複製。
+USD Instancingを有効にするとcopy間で同じUSD dataを共有し、効率を上げられる場合があります。copy差が大きい場合は逆に効率が落ちることもあるため、必要なら無効化します。
 
-## 使うときの判断
+## Transform Method
 
-USD系の`u*`ノードはClassic 3Dノードと別のデータ領域です。通常は`uRenderer`で画像へ変換します。
+- Linear — copy番号に応じてTransform量を計算
+- Accumulated — 前copyの結果を次copyの基準にする
+
+Translation / Rotation / Pivot / Scaleを組み合わせると、直線array、spiral、階段状配置等を作れます。
+
+## Time Offset
+
+source geometryにanimationがある場合、copyごとに参照frameをずらします。
+
+## Jitter
+
+Random Seed、Probability、Translation / Rotation / Pivot / Scale Jitterでcopyごとのばらつきを加えます。
+
+## Region
+
+Ignore / When inside / When not insideで、指定Regionの内外にcopyを出すかを制御します。
+
+Cube、Sphere、Rectangle、Mesh、All等を使えます。
 
 ## 最小構成
 
 ```text
-uLoader / uShape → uDuplicate → uRenderer → Image
+uShape / uLoader → uDuplicate → uMerge → uRenderer
 ```
 
-## 注意点
+## 出典と確認範囲
 
-- このページはノードを選ぶための役割・データ領域・系譜を先に揃えています。
-- exactな内部ID、端子名、初期値、数値範囲、Edition差は、確認できたものだけ今後追記します。
-
-## バージョンと検証状況
-
-導入版のBlackmagic Design公式資料で現行系譜を確認しています。Fusion 21.1の端子名、Inspector項目、初期値、範囲は未検証です。
-
-このリファレンスのinventory基準はDaVinci Resolve / Fusion 21.0.4です。Manual全体は21.1基準へ更新中のため、21.1で差がある箇所は現行資料または実機確認後に更新します。
+DaVinci Resolve 21.1 Reference Manual Chapter 121 pp.2895–2899で、Scene / Mesh inputs、USD Instancing、Copies、Transform、Time Offset、Jitter、Regionを確認しました。

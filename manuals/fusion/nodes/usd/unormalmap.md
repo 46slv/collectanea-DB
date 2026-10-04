@@ -1,61 +1,47 @@
 ---
-title: "uNormalMap"
-description: "USD material用normal map。"
+title: uNormalMap
+description: uTextureで読み込んだnormal textureをuShaderへ渡す前に調整し、USD material用normal inputを整えるNode。
 doc_type: node
-term_id: "unormalmap"
-term_short: "uNormalMapは、USD material用normal map。"
+term_id: unormalmap
 verification: partial
-aliases: ["uNormalMap"]
-concepts: ["usd"]
-nodes: ["uNormalMap"]
-node_family: "usd"
-inputs: ["usd"]
-outputs: ["usd"]
-tasks: ["build-usd-scene"]
+aliases: [uNormalMap, uNm]
+concepts: [usd-scene, material, normal-map]
+nodes: [uNormalMap]
+node_family: usd
+inputs: [texture]
+outputs: [texture]
+tasks: [usd, material, normal-map]
 product_scope: fusion
-suite_surfaces: ["fusion"]
-updated: "2026-10-03"
+suite_surfaces: [fusion]
+updated: "2026-10-04"
 ---
 
 # uNormalMap
 
-USD material用normal map。
+uNormalMapは、normal textureをuShaderへ渡す前に調整するUSD Material Nodeです。
 
-## 概要
+単独でscene geometryを作るNodeではなく、uTextureとuShaderの間で使います。
 
-- **種別**: Node / Tool
-- **分類**: USD (18.5+)
-- **主なデータ領域**: USD scene / asset
-- **導入・系譜**: 19
-- **根拠レベル**: 導入版のBlackmagic Design公式資料で確認した現行系譜
-
-## 入力と出力
-
-この項目はカタログ上、**USD scene / asset**を主なデータ領域として扱います。上のfrontmatterにある入出力は領域を検索するための分類であり、Fusion 21.1の正確な端子数や端子名を断定するものではありません。
-
-実際に組むときはFlow上の端子ラベルとInspectorを確認し、2D Image、Mask、Shape、Particle、Classic 3D、USD、Deep、パラメータ値を取り違えないようにします。
-
-## 主な用途
-
-USD material用normal map。
-
-## 使うときの判断
-
-USD系の`u*`ノードはClassic 3Dノードと別のデータ領域です。通常は`uRenderer`で画像へ変換します。
-
-## 最小構成
+## 基本構成
 
 ```text
-uLoader / uShape → uNormalMap → uRenderer → Image
+uTexture → uNormalMap → uShader → uReplaceMaterial
 ```
 
-## 注意点
+## Source Color Space
 
-- このページはノードを選ぶための役割・データ領域・系譜を先に揃えています。
-- exactな内部ID、端子名、初期値、数値範囲、Edition差は、確認できたものだけ今後追記します。
+normal mapをuTextureで読み込む場合、ManualはSource Color SpaceをLinearにすることを推奨しています。
 
-## バージョンと検証状況
+normal vectorを色としてgamma補正してしまわないためです。
 
-導入版のBlackmagic Design公式資料で現行系譜を確認しています。Fusion 21.1の端子名、Inspector項目、初期値、範囲は未検証です。
+## 使う判断
 
-このリファレンスのinventory基準はDaVinci Resolve / Fusion 21.0.4です。Manual全体は21.1基準へ更新中のため、21.1で差がある箇所は現行資料または実機確認後に更新します。
+base color等の通常textureはuTextureからuShaderへ直接つなげます。
+
+normal textureだけ、normal map解釈の調整が必要な場合にuNormalMapを挟みます。
+
+## 出典と確認範囲
+
+DaVinci Resolve 21.1 Reference Manual Chapter 121 pp.2940–2941で、uTextureとuShaderの間に置くnormal texture processorとして確認しました。
+
+各normal convention / channel flipの全Controlは実機未確認です。

@@ -1,61 +1,67 @@
 ---
-title: "uTransform"
-description: "USD object/scene transform。"
+title: uTransform
+description: USD scene内のselected primへ追加のTranslation・Rotation・Pivot・Scaleを適用し、Scene Treeで対象を限定するNode。
 doc_type: node
-term_id: "utransform"
-term_short: "uTransformは、USD object/scene transform。"
+term_id: utransform
 verification: partial
-aliases: ["uTransform"]
-concepts: ["usd", "transform"]
-nodes: ["uTransform"]
-node_family: "usd"
-inputs: ["usd"]
-outputs: ["usd"]
-tasks: ["build-usd-scene"]
+aliases: [uTransform, uXF]
+concepts: [usd-scene, transform, scene-tree]
+nodes: [uTransform]
+node_family: usd
+controls: [Pick, Selected Prims, Translation, Rotation Order, Rotation, Pivot, Scale, Use Target]
+inputs: [usd]
+outputs: [usd]
+tasks: [usd, transform, prim-selection, hierarchy]
 product_scope: fusion
-suite_surfaces: ["fusion"]
-updated: "2026-10-03"
+suite_surfaces: [fusion]
+updated: "2026-10-04"
 ---
 
 # uTransform
 
-USD object/scene transform。
+uTransformは、<Term id="usd-scene">USD scene</Term>またはUSD objectへ追加Transformを適用するNodeです。
 
-## 概要
+scene全体ではなく、Scene Treeから特定primだけを選んで動かせます。
 
-- **種別**: Node / Tool
-- **分類**: USD (18.5+)
-- **主なデータ領域**: USD scene / asset
-- **導入・系譜**: 18.5
-- **根拠レベル**: 導入版のBlackmagic Design公式資料で確認した現行系譜
+## 入力 / 出力
 
-## 入力と出力
-
-この項目はカタログ上、**USD scene / asset**を主なデータ領域として扱います。上のfrontmatterにある入出力は領域を検索するための分類であり、Fusion 21.1の正確な端子数や端子名を断定するものではありません。
-
-実際に組むときはFlow上の端子ラベルとInspectorを確認し、2D Image、Mask、Shape、Particle、Classic 3D、USD、Deep、パラメータ値を取り違えないようにします。
-
-## 主な用途
-
-USD object/scene transform。
-
-## 使うときの判断
-
-USD系の`u*`ノードはClassic 3Dノードと別のデータ領域です。通常は`uRenderer`で画像へ変換します。
-
-## 最小構成
+1つのUSD Scene inputを受け、Transform後のUSD sceneを出力します。
 
 ```text
-uLoader / uShape → uTransform → uRenderer → Image
+uLoader → uTransform → uMerge → uRenderer
 ```
 
-## 注意点
+## Prim Selection
 
-- このページはノードを選ぶための役割・データ領域・系譜を先に揃えています。
-- exactな内部ID、端子名、初期値、数値範囲、Edition差は、確認できたものだけ今後追記します。
+PickからUSD Scene Treeを開き、対象object / material groupを選択します。
 
-## バージョンと検証状況
+大きなUSD scene内の1 objectだけを動かす場合に、sceneを分解せず選択できます。
 
-導入版のBlackmagic Design公式資料で現行系譜を確認しています。Fusion 21.1の端子名、Inspector項目、初期値、範囲は未検証です。
+## Transform
 
-このリファレンスのinventory基準はDaVinci Resolve / Fusion 21.0.4です。Manual全体は21.1基準へ更新中のため、21.1で差がある箇所は現行資料または実機確認後に更新します。
+- Translation
+- Rotation Order
+- Rotation
+- Pivot
+- Scale
+- Use Target
+
+を持ちます。
+
+Use Targetを有効にすると、指定XYZ targetを向くようrotationを計算します。
+
+## Hierarchy
+
+複数uTransformを直列にし、local movementとgroup / parent movementを分けられます。
+
+```text
+USD Scene → uTransform A → uTransform B → uMerge
+```
+
+## uMerge Transformとの違い
+
+uMerge Transformは接続したscene全体、uTransformはPrim Selectionでscene内の対象を限定できます。
+
+## 出典と確認範囲
+
+DaVinci Resolve 21.1 Reference Manual Chapter 121 pp.2923–2924で、Scene Input、Pick、Scene Tree、Translation、Rotation、Pivot、Scale、Use Target、hierarchy用途を確認しました。

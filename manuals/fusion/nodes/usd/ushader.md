@@ -1,61 +1,67 @@
 ---
-title: "uShader"
-description: "USD material/shader構築。"
+title: uShader
+description: uTexture等をvariable inputで受け、USDまたはMaterialX shader modelからmaterialを構築してuReplaceMaterialへ渡すNode。
 doc_type: node
-term_id: "ushader"
-term_short: "uShaderは、USD material/shader構築。"
+term_id: ushader
 verification: partial
-aliases: ["uShader"]
-concepts: ["usd"]
-nodes: ["uShader"]
-node_family: "usd"
-inputs: ["usd"]
-outputs: ["usd"]
-tasks: ["build-usd-scene"]
+aliases: [uShader, uSd]
+concepts: [usd-scene, material, texture]
+nodes: [uShader]
+node_family: usd
+controls: [Shader Model, Diffuse, Emissive, Workflow Mode, Metallic, Specular Color, Roughness, Clearcoat, Clearcoat Roughness, Opacity]
+inputs: [texture]
+outputs: [usd-material]
+tasks: [usd, material, shader, lookdev]
 product_scope: fusion
-suite_surfaces: ["fusion"]
-updated: "2026-10-03"
+suite_surfaces: [fusion]
+updated: "2026-10-04"
 ---
 
 # uShader
 
-USD material/shader構築。
+uShaderは、USD sceneで使うmaterial / lookをFusion内で構築するNodeです。
 
-## 概要
+Shader ModelとしてUSDまたはMaterialXを選べます。
 
-- **種別**: Node / Tool
-- **分類**: USD (18.5+)
-- **主なデータ領域**: USD scene / asset
-- **導入・系譜**: 19
-- **根拠レベル**: 導入版のBlackmagic Design公式資料で確認した現行系譜
+## Variable Inputs
 
-## 入力と出力
+uTexture等をuShaderへ接続すると、接続先propertyを選ぶmenuが表示されます。
 
-この項目はカタログ上、**USD scene / asset**を主なデータ領域として扱います。上のfrontmatterにある入出力は領域を検索するための分類であり、Fusion 21.1の正確な端子数や端子名を断定するものではありません。
-
-実際に組むときはFlow上の端子ラベルとInspectorを確認し、2D Image、Mask、Shape、Particle、Classic 3D、USD、Deep、パラメータ値を取り違えないようにします。
-
-## 主な用途
-
-USD material/shader構築。
-
-## 使うときの判断
-
-USD系の`u*`ノードはClassic 3Dノードと別のデータ領域です。通常は`uRenderer`で画像へ変換します。
-
-## 最小構成
+textureを接続したpropertyでは対応sliderが無効になり、Channel / Scale / Bias等のtexture制御が表示されます。
 
 ```text
-uLoader / uShape → uShader → uRenderer → Image
+uTexture → uTextureTransform → uShader → uReplaceMaterial
+uTexture → uNormalMap ────────↑
 ```
 
-## 注意点
+## USD Shader Model
 
-- このページはノードを選ぶための役割・データ領域・系譜を先に揃えています。
-- exactな内部ID、端子名、初期値、数値範囲、Edition差は、確認できたものだけ今後追記します。
+代表Control:
 
-## バージョンと検証状況
+- Diffuse
+- Emissive
+- Metallic / Specular workflow
+- Roughness
+- Clearcoat
+- Clearcoat Roughness
+- Opacity
 
-導入版のBlackmagic Design公式資料で現行系譜を確認しています。Fusion 21.1の端子名、Inspector項目、初期値、範囲は未検証です。
+surfaceのbase color、metallic appearance、roughness、coat等を組み合わせます。
 
-このリファレンスのinventory基準はDaVinci Resolve / Fusion 21.0.4です。Manual全体は21.1基準へ更新中のため、21.1で差がある箇所は現行資料または実機確認後に更新します。
+## MaterialX Shader Model
+
+MaterialXはplatform-independentなmaterial descriptionです。
+
+uShader内でMaterialX toolsetを使う方法と、外部.mtlxを[uMaterialX](./umaterialx)で読み込む方法を分けます。
+
+## uReplaceMaterialとの関係
+
+uShader単体でscene objectのmaterialが自動的に置き換わるわけではありません。
+
+uReplaceMaterialで対象primを選び、uShader materialをMaterial Inputへ渡します。
+
+## 出典と確認範囲
+
+DaVinci Resolve 21.1 Reference Manual Chapter 121 pp.2941–2943で、variable input、Shader Model、USD material controls、MaterialX mode、uReplaceMaterial workflowを確認しました。
+
+material rendererの内部実装、完全なMaterialX compatibilityは未確認です。
