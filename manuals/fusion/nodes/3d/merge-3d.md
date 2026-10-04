@@ -1,76 +1,92 @@
 ---
 title: Merge 3D
-description: 複数のClassic Fusion 3D scene/object streamを1つの3D sceneへ統合するNode。
+description: Geometry・Camera・Light・別sceneを動的inputで1つのClassic 3D sceneへまとめる3D scene hub。
 doc_type: node
 term_id: merge-3d
-verification: unverified
-aliases: [Merge3D, Merge 3D, 3MG]
-concepts: [data-domain, classic-3d, scene-graph]
+verification: partial
+aliases: [Merge3D, Merge 3D, 3Mg]
+concepts: [classic-3d, scene-graph]
 nodes: [Merge 3D]
 node_family: 3d
-inputs: [classic-3d-scene]
-outputs: [classic-3d-scene]
+controls: [Pass Through Lights, Transform]
+inputs: [classic-3d]
+outputs: [classic-3d]
 tasks: [combine-3d, scene, composite-3d]
 level: intermediate
 product_scope: fusion
 suite_surfaces: [fusion]
+updated: "2026-10-04"
 ---
 
 # Merge 3D
 
-複数のClassic Fusion 3D scene / object streamを統合するNodeです。
+Merge 3Dは、Geometry、Camera、Light、別の3D sceneを1つの<Term id="classic-3d">Classic 3D scene</Term>へまとめるNodeです。
 
-## 概要
-
-- **分類（Family）**: 3D
-- **入力データ（Input domain）**: Classic 3D scene
-- **出力データ（Output domain）**: Classic 3D scene
-- **関連概念（Core concepts）**: scene graph、typed data
-- **よく使う作業（Common tasks）**: geometry / camera / light等を1 sceneへまとめる
+2D Mergeのようにpixelを前景・背景として重ねるのではなく、3D scene graphへ複数要素を参加させます。
 
 ## 入力
 
-複数のClassic 3D scene / object inputを受ける系統です。動的入力（dynamic input）の正確な挙動は21.1で確認します。
+Scene inputは動的に増えます。
+
+Image Plane 3D、Shape 3D、Text 3D、Camera 3D、Light、別のMerge 3Dなどを接続でき、接続するたびに次の空inputが用意されます。
+
+```text
+Image Plane 3D ─┐
+Shape 3D ───────┤
+Camera 3D ──────┼─ Merge 3D → Renderer 3D
+Spot Light ─────┤
+                ┘
+```
 
 ## 出力
 
-統合したClassic 3D sceneを返します。
+統合したClassic 3D sceneを出力します。
 
-2D Imageではありません。
+通常の2D Imageではないため、Blurや2D Mergeへ進む前にRenderer 3Dでrenderします。
 
-## 主な設定項目
+## Pass Through Lights
 
-3D sceneのmerge / ordering / lighting関連controlがある場合も、正確な 21.1 UIを確認してから固定します。
+upstream Merge 3Dへ接続されたLightを、downstreamのsceneへ通すかを決めます。
 
-## 挙動と注意点
+無効なら、そのMerge 3D内のLightを局所的なlighting groupとして扱えます。
 
 ```text
-3D object ─┐
-Camera ────┼─ Merge 3D → Renderer 3D → 2D Image
+Object A + Light A → Merge 3D A
+                        ↓
+Object B ─────────→ Merge 3D B
+```
+
+Light AをObject Bにも効かせたい場合にPass Through Lightsを使います。
+
+## Transform
+
+Merge 3D自身のTransformで、まとめたscene全体を移動・回転・scaleできます。
+
+個々のobject transformとscene全体のtransformを分けたい場合に使います。
+
+## 最小構成
+
+```text
+Shape 3D ──┐
+Camera 3D ─┼─ Merge 3D → Renderer 3D → Image
 Light ─────┘
 ```
 
-Merge 3Dと2D Mergeは名前が似てもデータ領域（data domain）が異なります。
+## 使うときの判断
 
-## 最小例
+1 objectだけをRenderer 3Dへ直接接続することもできます。
 
-Classic 3D objectsをMerge 3Dへまとめ、Renderer 3Dで2D Imageへ変換します。
+Camera、Light、複数Geometryを扱う段階ではMerge 3Dをscene hubとして使う方が関係を読みやすくなります。
 
-## 関連する考え方
+## 似たNode
 
-- [データ領域（data domain）を辿って診断する](../../learn/07-debugging/trace-data-domain)
+- Merge — 2D Imageを合成
+- pMerge — Particle streamを統合
+- uMerge — USD sceneを統合
+- dMerge — Deep Imageを統合
 
-## 関連パターン
+## 出典と確認範囲
 
-3D Patternは今後追加します。
+DaVinci Resolve 21.1 Reference Manual Chapter 88 pp.1957–1958とFusion Fundamentals Chapter 84で、動的scene input、3D scene hub、Pass Through Lights、Renderer 3Dへの接続を確認しました。
 
-## 似たNode・関連Node
-
-- Merge — 2D Image 合成
-- uMerge — USD scene
-- dMerge — Deep image
-- sMerge — Shape stream
-
-## バージョンと検証状況
-
-Merge 3Dの存在と複数3D scene/object統合という役割は旧版のBlackmagic Design公式Fusion資料で確認。
+内部scene representation、実機performanceは未確認です。
