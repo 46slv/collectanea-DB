@@ -133,7 +133,7 @@ Manual整理と実機inventory確認を混ぜない。
 1. Compositing / Merge — reader-first family pass started 2026-10-04; Merge / MultiMerge / Dissolve + Concept / Recipe / Pattern整合を実施
 2. Transform / Format — foundation batch started 2026-10-04; Transform / Resize / Scale / Crop + related Concept / Recipe / Diagnosticを改稿
 3. Mask — foundation batch started 2026-10-04; Bitmap / Ellipse / Polygon + Mask Concept / Recipe / Diagnosticを改稿
-4. Color / Blur
+4. Color / Blur — Blur foundation started 2026-10-04; Blur / Defocus / Directional Blur + DoD diagnostic conceptを改稿。Colorは別batchで継続
 5. Tracking
 6. Shape
 7. Generator / Text
@@ -230,3 +230,14 @@ Camera Shake / DVE / Letterbox / Planar Transformは同じChapter 120にある�
 - Mask Pattern、Merge Mask Recipe、「Maskが効かない」Diagnosticを現行Controlへ合わせた。
 
 B-Spline / MultiPoly / Mask Paint / Ranges / Rectangle / Triangle / WandはFamily Overviewから参照できる状態にし、次のMask batchへ分離する。
+
+
+### 2026-10-04 — Blur foundation
+
+- Blur / Filter Family Overviewを追加。
+- BlurをChapter 92 pp.2109–2111基準で改稿。
+- Defocusをpp.2112–2113、Directional Blurをpp.2114–2115基準で改稿。
+- Blur系で重要なDoD / Clipping Modeの診断導線を更新。
+- Blur / Defocus / Directional Blurを「均一にぼかす / lens defocus / 方向・中心を持つblur」で選び分けられるように整理。
+
+Glow / Soft Glow / Sharpen / Unsharp Mask / Vari Blur / Vector Motion BlurはFamily Overviewから参照し、次のBlur batchへ分離する。Color familyは同じ優先段だが、このbatchへ混ぜず別PRにする。

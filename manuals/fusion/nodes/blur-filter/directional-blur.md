@@ -1,63 +1,137 @@
 ---
-title: "Directional Blur"
-description: "方向/角度を持つブラー。"
+title: Directional Blur
+description: 2D ImageをLinear・Centered・Radial・Zoom方向へ流し、移動感・放射・zoom streak・light ray風のblurを作るNode。
 doc_type: node
-term_id: "directional-blur"
-term_short: "Directional Blurは、方向/角度を持つブラー。"
+term_id: directional-blur
+term_short: Directional Blurは、方向・中心を持つblurを作るNode。
 verification: partial
-aliases: ["Directional Blur", "DRBL"]
-concepts: ["image-data"]
-nodes: ["Directional Blur"]
-node_family: "blur-filter"
-inputs: ["image"]
-outputs: ["image"]
-tasks: ["filter-image"]
+aliases: [Directional Blur, DrBl]
+concepts: [image-data, filtering, mask-data]
+nodes: [Directional Blur]
+node_family: blur-filter
+controls: [Type, Center, Length, Angle, Glow]
+inputs: [image, mask]
+outputs: [image]
+tasks: [filter-image, motion-blur, radial-blur, light-rays]
 product_scope: fusion
-suite_surfaces: ["fusion"]
-updated: "2026-10-03"
+suite_surfaces: [fusion]
+updated: "2026-10-04"
 ---
 
 # Directional Blur
 
-方向/角度を持つブラー。
+Directional Blurは、2D <Term id="image">Image</Term>を一定方向へ流したり、中心から放射状・zoom方向へ引き伸ばしたりするNodeです。speed感のあるmotion blurやlight ray風の表現に使えます。
 
-## 概要
+## 役割
 
-- **種別**: Node / Tool
-- **分類**: Blur / Filter
-- **主なデータ領域**: 2D Image / control
-- **略称**: `DRBL`
-- **導入・系譜**: legacy
-- **根拠レベル**: Blackmagic Design公式の旧Fusion Tool Referenceにある系譜
+通常の[Blur](./blur)が周囲へ均一にぼかすのに対し、Directional Blurは**方向または中心を持つblur**を作ります。
 
-## 入力と出力
+```text
+Image → Directional Blur → Output
+                 ↑
+              Effect Mask
+```
 
-この項目はカタログ上、**2D Image / control**を主なデータ領域として扱います。上のfrontmatterにある入出力は領域を検索するための分類であり、Fusion 21.1の正確な端子数や端子名を断定するものではありません。
+## 入力
 
-実際に組むときはFlow上の端子ラベルとInspectorを確認し、2D Image、Mask、Shape、Particle、Classic 3D、USD、Deep、パラメータ値を取り違えないようにします。
+### Input
 
-## 主な用途
+オレンジ色の必須入力です。Directional Blurをかける2D Imageを接続します。
 
-方向/角度を持つブラー。
+### Effect Mask
 
-## 使うときの判断
+青色の任意入力です。Maskの白い範囲だけDirectional Blur結果を適用します。
 
-前後のノードと同じ2D Image領域で使うのが基本です。Maskや補助入力がある場合は、画像入力と役割を分けて接続します。
+## 出力
+
+Directional / Radial blur後の2D Imageを出力します。
+
+21.1 ManualではDirectional BlurはRGBAすべてのchannelへ作用すると説明されています。
+
+## 主な設定項目
+
+### Type
+
+blurの形を選びます。
+
+- **Linear** — Imageを一直線方向へ流す。speeding trainの窓から見た景色のようなsmear
+- **Radial** — 任意のCenterから外側へ放射状に流す
+- **Centered** — Linearに似るが、元Imageの両側へ均等にblurを分配
+- **Zoom** — slow shutterでzoom操作したようなscale方向のstreak
+
+### Center X / Y
+
+RadialとZoomで、blurの中心位置を決めます。
+
+Linear / Centeredでは主にAngleとLengthを使うため、Centerは同じ意味で働きません。
+
+### Length
+
+blurの強さ・長さを決めます。
+
+負の値ではAngleで示す方向とは逆へblurが伸びます。スライダー上限を超える値も数値入力できます。
+
+### Angle
+
+blurの方向を決めます。
+
+Linear / Centeredではstraight blurの向きを変えます。Radial / Zoomでは、中心を基準とした回転方向のような変化として現れ、Lengthが0以外の場合はwhirlpoolのような見え方になる場合があります。
+
+### Glow
+
+Directional BlurへGlowを加えます。
+
+Manualでは、長い露光時間で光が強く露出したような見え方を作る用途として説明されています。
 
 ## 最小構成
 
 ```text
-Image → Directional Blur → Image
+MediaIn → Directional Blur → Output
 ```
 
-## 注意点
+まずTypeをLinear、Lengthを小さく設定し、Angleだけを変えて方向を確認します。その後Radial / Zoomへ切り替え、Centerの意味が変わることを観察します。
 
-- このページはノードを選ぶための役割・データ領域・系譜を先に揃えています。
-- exactな内部ID、端子名、初期値、数値範囲、Edition差は、確認できたものだけ今後追記します。
-- legacy系譜の項目は、現在のEffects Libraryに同名で表示されることまで一件ずつ実機確認したものではありません。
+## 運用例
 
-## バージョンと検証状況
+横方向へ高速移動しているような背景を作る場合:
 
-旧Blackmagic Design公式Tool Referenceで役割と系譜を確認しています。Fusion 21.1での存在、端子名、Inspector項目、初期値、範囲は実機または現行マニュアルで再確認が必要です。
+1. Type = Linear
+2. Lengthでblur量を決める
+3. Angleで進行方向へ合わせる
+4. 必要ならGlowを少量加える
+5. 一部だけ処理したい場合はEffect Maskを接続する
 
-このリファレンスのinventory基準はDaVinci Resolve / Fusion 21.0.4です。Manual全体は21.1基準へ更新中のため、21.1で差がある箇所は現行資料または実機確認後に更新します。
+放射状のlight ray風にしたい場合はRadialまたはZoomへ切り替え、Centerを光源位置へ合わせます。
+
+## Blur / Defocusとの違い
+
+- **Blur** — 方向を強く意識しない一般的なsoftening
+- **Defocus** — camera lensのピント外れ・bokeh
+- **Directional Blur** — 方向・中心・zoomを持つsmear
+
+「detailを落とす」のか「ピントを外す」のか「動き・放射を表現する」のかで選びます。
+
+## 挙動と注意点
+
+- TypeによってCenter / Angleの意味が変わります。
+- Lengthの正負でもblur方向が変わります。
+- Radial / ZoomでCenterが画面外にあると、放射方向が直感と違って見える場合があります。
+- Effect Maskは最終blur適用範囲を限定する用途です。blurの方向自体をMask形状で決めるわけではありません。
+
+## 関連する考え方
+
+- [マスク（Mask）](../../learn/02-data/mask)
+- [Center / Pivot / Size / Angle](../../learn/03-space/center-pivot-size-angle)
+
+## 似たNode・関連Node
+
+- [Blur](./blur)
+- [Defocus](./defocus)
+- [Vector Motion Blur](./vector-motion-blur) — motion vector mapから方向・量を得る
+- Rays — 光線状の別Effect
+
+## 出典と確認範囲
+
+DaVinci Resolve 21.1 Reference Manual、September 2026、Chapter 92、pp.2114–2115で、Image / Effect Mask入力、RGBAへの作用、Type（Linear / Radial / Centered / Zoom）、Center、Length、Angle、Glowを確認しました。
+
+内部REGID、各Typeの数学的kernel、実機性能、Edition差は未確認のため `verification: partial` としています。
