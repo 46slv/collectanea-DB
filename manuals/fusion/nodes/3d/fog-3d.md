@@ -1,63 +1,66 @@
 ---
-title: "Fog 3D"
-description: "Fusion 3Dシーン内フォグ。"
+title: Fog 3D
+description: Cameraからのdistanceを使ってClassic 3D geometryへfog colorを加え、Linear / Exp / Exp2 falloffやdensity textureで大気感を作るNode。
 doc_type: node
-term_id: "fog-3d"
-term_short: "Fog 3Dは、Fusion 3Dシーン内フォグ。"
+term_id: fog-3d
+term_short: Fog 3Dは、cameraからのdepth distanceに応じて3D sceneへfogを加えるNode。
 verification: partial
-aliases: ["Fog 3D", "3FO"]
-concepts: ["classic-3d"]
-nodes: ["Fog 3D"]
-node_family: "3d"
-inputs: ["classic-3d"]
-outputs: ["classic-3d"]
-tasks: ["build-3d-scene"]
+aliases: [Fog 3D, 3Fo]
+concepts: [classic-3d, depth, atmosphere]
+nodes: [Fog 3D]
+node_family: 3d
+controls: [Enable, Show Fog in View, Color, Radial, Type, Near Fog Distance, Far Fog Distance]
+inputs: [classic-3d, image]
+outputs: [classic-3d]
+tasks: [fog-3d, atmosphere, depth]
 product_scope: fusion
-suite_surfaces: ["fusion"]
-updated: "2026-10-03"
+suite_surfaces: [fusion]
+updated: "2026-10-04"
 ---
 
 # Fog 3D
 
-Fusion 3Dシーン内フォグ。
+Fog 3Dは、<Term id="classic-3d">Classic 3D scene</Term>内のgeometryへ、cameraからのdistanceに応じたfogを加えるNodeです。
 
-## 概要
+2DのFog effectを後段Imageへ掛けるのではなく、3D space上のdepthを使ってgeometryをretextureします。
 
-- **種別**: Node / Tool
-- **分類**: 3D Geometry / Scene
-- **主なデータ領域**: Classic 3D scene / geometry
-- **略称**: `3FO`
-- **導入・系譜**: legacy
-- **根拠レベル**: Blackmagic Design公式の旧Fusion Tool Referenceにある系譜
+## 入力
 
-## 入力と出力
+- **Scene Input** — 必須。fogを適用する3D scene。
+- **Density Texture** — 任意の2D Image。Fog colorへ掛け合わせ、場所ごとのdensity variationを作ります。cameraからsceneへ投影されるように使われます。
 
-この項目はカタログ上、**Classic 3D scene / geometry**を主なデータ領域として扱います。上のfrontmatterにある入出力は領域を検索するための分類であり、Fusion 21.1の正確な端子数や端子名を断定するものではありません。
+## 主な設定
 
-実際に組むときはFlow上の端子ラベルとInspectorを確認し、2D Image、Mask、Shape、Particle、Classic 3D、USD、Deep、パラメータ値を取り違えないようにします。
+### Color
 
-## 主な用途
+fogの色です。Density Textureがある場合はそのImage値と乗算されます。
 
-Fusion 3Dシーン内フォグ。
+### Radial
 
-## 使うときの判断
+無効時はcamera near planeに平行なplaneからのperpendicular distanceを使います。有効時はcamera eye pointからのradial distanceを使います。
 
-Classic 3D sceneはUSD sceneと別系統です。2D Imageへ戻すには通常`Renderer 3D`を使います。
+cameraを横へ動かしたとき、画面端objectのfog量が不自然に変わる場合はRadialを検討します。
+
+### Type
+
+- Linear
+- Exp
+- Exp2
+
+distanceに対するfog falloff curveを選びます。
+
+### Near / Far Fog Distance
+
+Nearでfog開始位置、Farで最大fogになるdistanceを決めます。
 
 ## 最小構成
 
-```text
-3D Source → Fog 3D → Merge 3D → Renderer 3D → Image
-```
+Scene → Merge 3D → Fog 3D → Renderer 3D
 
-## 注意点
+## Soft Clipとの違い
 
-- このページはノードを選ぶための役割・データ領域・系譜を先に揃えています。
-- exactな内部ID、端子名、初期値、数値範囲、Edition差は、確認できたものだけ今後追記します。
-- legacy系譜の項目は、現在のEffects Libraryに同名で表示されることまで一件ずつ実機確認したものではありません。
+Fog 3Dはdistanceに応じてfog colorを加えます。Soft Clipはcamera近傍のgeometry / particleを透明へfadeします。
 
-## バージョンと検証状況
+## 出典と確認範囲
 
-旧Blackmagic Design公式Tool Referenceで役割と系譜を確認しています。Fusion 21.1での存在、端子名、Inspector項目、初期値、範囲は実機または現行マニュアルで再確認が必要です。
-
-このリファレンスのinventory基準はDaVinci Resolve / Fusion 21.0.4です。Manual全体は21.1基準へ更新中のため、21.1で差がある箇所は現行資料または実機確認後に更新します。
+DaVinci Resolve 21.1 Reference Manual Chapter 88 pp.1950–1952で、Scene / Density Texture input、Color、Radial、falloff Type、Near / Far Distanceを確認しました。
