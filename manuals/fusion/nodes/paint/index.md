@@ -6,6 +6,7 @@ verification: partial
 product_scope: fusion
 tasks: [lookup-node, paint, cleanup]
 updated: "2026-10-05"
+slug: overview
 ---
 
 # Paintノード
