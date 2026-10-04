@@ -1,63 +1,89 @@
 ---
-title: "Projector 3D"
-description: "2D画像をFusion 3Dジオメトリへ投影。USD uProjectorとは別系統。"
+title: Projector 3D
+description: 2D ImageをClassic 3D geometryへ投影し、Light / Ambient Light / Texture modeでlightingまたはmaterial textureとして使うNode。
 doc_type: node
-term_id: "projector-3d"
-term_short: "Projector 3Dは、2D画像をFusion 3Dジオメトリへ投影。USD uProjectorとは別系統。"
+term_id: projector-3d
+term_short: Projector 3Dは、2D Imageを3D geometryへprojectionするNode。
 verification: partial
-aliases: ["Projector 3D", "3PJ"]
-concepts: ["classic-3d"]
-nodes: ["Projector 3D"]
-node_family: "3d"
-inputs: ["classic-3d"]
-outputs: ["classic-3d"]
-tasks: ["build-3d-scene"]
+aliases: [Projector 3D, 3Pj]
+concepts: [classic-3d, image-data, projection]
+nodes: [Projector 3D]
+node_family: 3d
+controls: [Enabled, Color, Intensity, Decay Type, Angle, Fit Method, Projection Mode, Shadows]
+inputs: [classic-3d, image]
+outputs: [classic-3d]
+tasks: [projection, texture-3d, image-based-rendering]
 product_scope: fusion
-suite_surfaces: ["fusion"]
-updated: "2026-10-03"
+suite_surfaces: [fusion]
+updated: "2026-10-04"
 ---
 
 # Projector 3D
 
-2D画像をFusion 3Dジオメトリへ投影。USD uProjectorとは別系統。
+Projector 3Dは、2D <Term id="image">Image</Term>を<Term id="classic-3d">Classic 3D</Term> geometryへ投影するNodeです。
 
-## 概要
+set projection、camera-like texture projection、複数objectへ1枚のImageをまたいで貼る用途に使えます。
 
-- **種別**: Node / Tool
-- **分類**: 3D Geometry / Scene
-- **主なデータ領域**: Classic 3D scene / geometry
-- **略称**: `3PJ`
-- **導入・系譜**: legacy
-- **根拠レベル**: Blackmagic Design公式の旧Fusion Tool Referenceにある系譜
+## 入力
 
-## 入力と出力
+### Scene Input
 
-この項目はカタログ上、**Classic 3D scene / geometry**を主なデータ領域として扱います。上のfrontmatterにある入出力は領域を検索するための分類であり、Fusion 21.1の正確な端子数や端子名を断定するものではありません。
+オレンジ色の3D scene入力です。
 
-実際に組むときはFlow上の端子ラベルとInspectorを確認し、2D Image、Mask、Shape、Particle、Classic 3D、USD、Deep、パラメータ値を取り違えないようにします。
+### Projective Image
 
-## 主な用途
+白色の必須Image入力です。投影する2D Imageを接続します。
 
-2D画像をFusion 3Dジオメトリへ投影。USD uProjectorとは別系統。
+## Projection Mode
 
-## 使うときの判断
+Projector 3DはLightに近い仕組みを持ちます。
 
-Classic 3D sceneはUSD sceneと別系統です。2D Imageへ戻すには通常`Renderer 3D`を使います。
+### Light / Ambient Light
+
+projected Imageをlightingとしてgeometryへ当てます。
+
+Lightingが有効である必要があり、surface normalやmaterialのReceives Lightingの影響を受けます。Light modeではspecular highlightやshadowも関係します。
+
+### Texture
+
+Imageをmaterial textureとしてprojectします。
+
+Alphaでgeometry opacityを切りたい場合や、Diffuse以外のtexture propertyへprojectionを使う場合はTexture modeが必要です。ManualではCatcher materialと組み合わせます。
+
+## 主な設定
+
+### Color / Intensity
+
+projected Imageの色を乗算し、projection strengthを調整します。
+
+### Decay Type
+
+distanceでprojection intensityを減らします。No Falloff / Linear / Quadraticがあります。
+
+### Angle
+
+projection frustumの広さを決めます。
+
+### Fit Method
+
+Image aspectをprojection pyramidへどう収めるか決めます。Inside / Width / Height / Outside等があります。
+
+### Shadows
+
+Light modeでprojectionにshadow castingを使います。
+
+## Camera Projectionとの違い
+
+Camera 3Dにもprojection機能があります。
+
+- **Camera 3D projection** — live-action camera match、film back / aperture / clip planeまでcameraと一致させたい
+- **Projector 3D** — custom lightとしてIntensity / Color / Decay / Shadowを細かく扱いたい
 
 ## 最小構成
 
-```text
-3D Source → Projector 3D → Merge 3D → Renderer 3D → Image
-```
+Image → Projector 3D
+Scene ─→ Projector 3D → Merge 3D → Renderer 3D
 
-## 注意点
+## 出典と確認範囲
 
-- このページはノードを選ぶための役割・データ領域・系譜を先に揃えています。
-- exactな内部ID、端子名、初期値、数値範囲、Edition差は、確認できたものだけ今後追記します。
-- legacy系譜の項目は、現在のEffects Libraryに同名で表示されることまで一件ずつ実機確認したものではありません。
-
-## バージョンと検証状況
-
-旧Blackmagic Design公式Tool Referenceで役割と系譜を確認しています。Fusion 21.1での存在、端子名、Inspector項目、初期値、範囲は実機または現行マニュアルで再確認が必要です。
-
-このリファレンスのinventory基準はDaVinci Resolve / Fusion 21.0.4です。Manual全体は21.1基準へ更新中のため、21.1で差がある箇所は現行資料または実機確認後に更新します。
+DaVinci Resolve 21.1 Reference Manual Chapter 88 pp.1965–1969で、Scene / Projective Image input、Light / Ambient / Texture projection、Color / Intensity / Decay / Angle / Fit、Camera Projectionとの差を確認しました。
