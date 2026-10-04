@@ -1,63 +1,67 @@
 ---
-title: "Cube 3D"
-description: "Cubeジオメトリ生成。"
+title: Cube 3D
+description: 6面を持つcube primitiveを生成し、各faceへ個別Image / Materialを割り当てられるClassic 3D geometry Node。
 doc_type: node
-term_id: "cube-3d"
-term_short: "Cube 3Dは、Cubeジオメトリ生成。"
+term_id: cube-3d
+term_short: Cube 3Dは、6面を個別texturingできるcube primitiveを生成するNode。
 verification: partial
-aliases: ["Cube 3D", "3CB"]
-concepts: ["classic-3d"]
-nodes: ["Cube 3D"]
-node_family: "3d"
-inputs: ["classic-3d"]
-outputs: ["classic-3d"]
-tasks: ["build-3d-scene"]
+aliases: [Cube 3D, Cube3D, 3Cb]
+concepts: [classic-3d, geometry, material]
+nodes: [Cube 3D]
+node_family: 3d
+controls: [Lock Width/Height/Depth, Size, Width, Height, Depth, Subdivision Level, Cube Mapping, Wireframe]
+inputs: [classic-3d, material]
+outputs: [classic-3d]
+tasks: [build-3d-scene, cube, environment-map]
 product_scope: fusion
-suite_surfaces: ["fusion"]
-updated: "2026-10-03"
+suite_surfaces: [fusion]
+updated: "2026-10-04"
 ---
 
 # Cube 3D
 
-Cubeジオメトリ生成。
+Cube 3Dは、<Term id="classic-3d">Classic 3D</Term>のcube primitiveを生成するNodeです。
 
-## 概要
+6面それぞれへ別の2D Image / 3D Materialを割り当てられる点が、Shape 3Dの一般的なprimitive生成と比べた特徴です。
 
-- **種別**: Node / Tool
-- **分類**: 3D Geometry / Scene
-- **主なデータ領域**: Classic 3D scene / geometry
-- **略称**: `3CB`
-- **導入・系譜**: legacy
-- **根拠レベル**: Blackmagic Design公式の旧Fusion Tool Referenceにある系譜
+## 入力
 
-## 入力と出力
+### Scene Input
 
-この項目はカタログ上、**Classic 3D scene / geometry**を主なデータ領域として扱います。上のfrontmatterにある入出力は領域を検索するための分類であり、Fusion 21.1の正確な端子数や端子名を断定するものではありません。
+既存3D sceneを追加する任意入力です。
 
-実際に組むときはFlow上の端子ラベルとInspectorを確認し、2D Image、Mask、Shape、Particle、Classic 3D、USD、Deep、パラメータ値を取り違えないようにします。
+### 6つのMaterial Input
 
-## 主な用途
+各faceへ2D Imageまたは3D Materialを接続します。接続したtexture / materialはCube自身にだけ適用され、Scene Inputから来た別objectへは適用されません。
 
-Cubeジオメトリ生成。
+## 主な設定
 
-## 使うときの判断
+### Size / Width / Height / Depth
 
-Classic 3D sceneはUSD sceneと別系統です。2D Imageへ戻すには通常`Renderer 3D`を使います。
+Lockを有効にすると1つのSizeで均等scaleします。解除すると3軸を個別に設定できます。
+
+### Subdivision Level
+
+面を細かく分割します。
+
+vertex lightingやDisplace / Bender等のvertex-based処理ではSubdivisionを増やすと滑らかになります。
+
+### Cube Mapping
+
+最初のtextureを6面へcubic mappingでwrapします。cross layoutのcube map textureを使う場合に向きます。
+
+### Wireframe
+
+OpenGL Renderer使用時にwireframeとしてrenderします。
 
 ## 最小構成
 
-```text
-3D Source → Cube 3D → Merge 3D → Renderer 3D → Image
-```
+Cube 3D → Merge 3D → Renderer 3D
 
-## 注意点
+## Shape 3Dとの違い
 
-- このページはノードを選ぶための役割・データ領域・系譜を先に揃えています。
-- exactな内部ID、端子名、初期値、数値範囲、Edition差は、確認できたものだけ今後追記します。
-- legacy系譜の項目は、現在のEffects Libraryに同名で表示されることまで一件ずつ実機確認したものではありません。
+Shape 3DはPlane / Sphere / Cylinder等を含む一般primitive generatorです。6 faceを個別にtexturingするcubeが必要ならCube 3Dを使います。
 
-## バージョンと検証状況
+## 出典と確認範囲
 
-旧Blackmagic Design公式Tool Referenceで役割と系譜を確認しています。Fusion 21.1での存在、端子名、Inspector項目、初期値、範囲は実機または現行マニュアルで再確認が必要です。
-
-このリファレンスのinventory基準はDaVinci Resolve / Fusion 21.0.4です。Manual全体は21.1基準へ更新中のため、21.1で差がある箇所は現行資料または実機確認後に更新します。
+DaVinci Resolve 21.1 Reference Manual Chapter 88 pp.1928–1929で、Scene / six material inputs、size、Subdivision、Cube Mapping、Wireframeを確認しました。
