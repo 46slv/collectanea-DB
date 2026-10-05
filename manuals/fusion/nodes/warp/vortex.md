@@ -1,15 +1,16 @@
 ---
 title: "Vortex"
-description: "渦巻きワープ。"
+description: "指定領域のImageを中心の周囲へ巻き込み、渦状のwarpを作るNode。"
 doc_type: node
 term_id: "vortex"
-term_short: "Vortexは、渦巻きワープ。Imageの座標を変形するNode。"
+term_short: "Vortexは、指定領域を中心の周囲へ渦状に巻き込むNode。"
 verification: partial
-aliases: ["Vortex", "VTX"]
+aliases: ["Vortex", "Vtx"]
 concepts: ["image-data"]
 nodes: ["Vortex"]
 node_family: "warp"
-inputs: ["image"]
+controls: ["Center", "Size", "Angle", "Power"]
+inputs: ["image", "mask"]
 outputs: ["image"]
 tasks: ["warp-image"]
 product_scope: fusion
@@ -19,43 +20,74 @@ updated: "2026-10-05"
 
 # Vortex
 
-Vortexは、渦巻きワープ。Imageのsampling座標を変え、pixelを別位置へ移すことでwarp / distortionを作ります。
-
-## 役割
-
-渦巻きワープ。このページでは、名前だけで選ばず、**何を受け取り、何が変わり、どのdomainへ返すか**を先に整理します。
-
-この項目で確認できている中心的な役割は「渦巻きワープ」です。exactなInspector項目が未確認の場合は、役割とdata domainを先に使って候補を絞ります。
+Vortexは、指定した中心の周囲へImageを巻き込み、whirlpoolのような渦状のwarpを作るNodeです。Center、Size、Angle、Powerをanimationすると、渦を移動・拡大・回転させられます。
 
 ## 入力と出力
 
-入力分類: **image**。 出力分類: **image**。 この分類はdata domainを読むためのものです。Fusion 21.1のexactな端子名・端子数を未確認の場合、ここでは推測して固定しません。
+オレンジ色のInputへ、渦状に変形したい2D Imageを接続します。青色のEffect MaskへMaskを接続すると、Vortexの効果を必要な領域だけに限定できます。出力は指定領域が渦状に変形された2D Imageです。
 
-## 使うときの判断
+## 主な設定項目
 
-manual controlで歪ませるのか、別Image / vector mapを使うのか、lens / perspective補正なのかで選びます。
+### Center X / Y
 
-同じ目的を別Familyでも作れる場合は、後段で必要なdata domainと、Graph上で責任をどこに置きたいかで選びます。
+Vortexの中心位置を決めます。Viewer上で渦の中心を対象へ合わせます。
+
+### Size
+
+Vortexが影響する範囲を調整します。Viewer上の円周をdragして変更することもできます。
+
+### Angle
+
+Vortexの回転量を調整します。値を大きくするほど巻き込みが強くなります。
+
+### Power
+
+Vortexの集中度を調整します。21.1 Manualでは、Powerを上げるとVortexが小さく、よりtightになると説明されています。
+
+## 主な用途
+
+- logoやTextの一部を渦状に巻き込む
+- 画面の一部分だけをtwistしてdistortionを作る
+- Center / Size / Angleをanimationし、移動・成長する渦を作る
+- 背景patternへ局所的な回転distortionを加える
 
 ## 最小構成
 
-    Image + Control Map → Vortex → Image
+    MediaIn → Vortex → MediaOut
 
-これは接続関係を理解するための最小構成案です。公式Manualのexactな作例として確認していない構成は、実制作前にViewerで中間結果を確認します。
+Centerを歪ませたい位置へ合わせ、Sizeで範囲を決めます。Angleを少しずつ上げて回転量を確認し、Powerで渦の締まり方を調整します。
 
-## 確認ポイント
+## Text+で使う場合
 
-- 入力dataのdomainが合っているか。
-- この項目のoutputを受け取れる後段Nodeへ接続しているか。
-- 同じ役割を前段 / 後段で二重に処理していないか。
-- source-limited pageでは、未確認のControl名・default・rangeを名前から推測していないか。
+Textを渦状に変形する場合、文字の元のImage domainが小さいと、Vortexで外側へ動いたpixelが境界で切れることがあります。
 
-## Family内での位置づけ
+21.1 ManualのBasic Node Setupでは、Text+の後段へSet Domainを置いてImage boundaryを広げ、その後にVortexを適用しています。
 
-Warp / Distortノードの全体像と近いNodeの選び分けは[Family Overview](./)を参照してください。
+    Text+ → Set Domain → Vortex → MediaOut
+
+これにより、渦で文字が元の境界外へ動いてもcropされにくくなります。
+
+## Dent / Dripとの違い
+
+- **Vortex** — 中心の周囲へImageを回転させ、渦状に巻き込む
+- **Dent** — 中心の周囲を膨らませたり凹ませたりする
+- **Drip** — ripple patternを周期的に並べ、波紋状に歪ませる
+
+## 挙動と注意点
+
+Powerを上げると影響範囲が単純に広がるのではなく、渦がより小さくtightになります。範囲の大きさはSize、巻き込み量はAngle、集中度はPowerとして分けて調整します。
+
+Text+などImage domainが内容に合わせて小さい素材では、必要に応じてSet Domainで余白を確保してからVortexを適用します。
+
+## 関連Node
+
+- [Dent](./dent)
+- [Drip](./drip)
+- [Coordinate Space](./coordinate-space)
+- [Set Domain](../transform/set-domain)
 
 ## 出典と確認範囲
 
-このページの役割・data domain・系譜は、既存COLLECTANEA catalogとBlackmagic Design公式資料で確認された範囲をreader-first形式へ整理しています。
+DaVinci Resolve 21.1 Reference Manual、September 2026、Chapter 123 pp.2986–2987で、Input / Effect Mask、Center、Size、Angle、Power、Text+ + Set Domainを使うBasic Node Setupを確認しました。
 
-Fusion 21.1 Reference Manualで個別のInspector項目・default・rangeまで確認できていない項目は、**source-limited**としてその詳細を断定していません。verification: partial はその未確認範囲を含みます。runtime REGIDや現在のEffects Library表示は別のruntime verificationで確定します。
+全既定値・数値範囲、内部REGID、実機performanceは未確認です。
