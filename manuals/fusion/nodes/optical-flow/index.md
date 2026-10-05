@@ -32,9 +32,9 @@ Repair FrameとTweenの前にOptical Flowを置く必要はありません。ど
 ## 代表Node
 
 - [Optical Flow](./optical-flow) — forward / backward motion vectorを解析する
-- [Tween](./tween) — 2つのImageから中間frameを生成する
-- [Repair Frame](./repair-frame) — 欠損・異常frameを前後frameから補間する
-- [Smooth Motion](./smooth-motion) — Vector / Z / Normal等のAOVを時間方向に平滑化する
+- [Tween](./tween) — 2つの隣接Imageから内部optical flowを生成し、中間frameを作る
+- [Repair Frame](./repair-frame) — 前後frameを内部解析し、欠損・異常frameを補う
+- [Smooth Motion](./smooth-motion) — precomputed Vector / Back Vectorを使い、Vector / Z / Normal等のAOVを時間方向に平滑化する
 - [Vector Denoise](./vector-denoise) — motion compensated averagingで時間方向のnoiseを減らす
 - [Vector Transform](../warp/vector-transform) — vector / UV channel自体の位置・scale・角度・強さを整える
 - [Vector Warp](../warp/vector-warp) — motion vectorを使ってTextureをsource clipの動きへ追従させる
@@ -49,8 +49,8 @@ Vector Transform / Vector WarpはWarp / Distort側のNode Referenceにも配置�
 
 motion vectorは通常のRGB Imageとは別の補助dataです。Vector Motion Blur、TimeSpeed、TimeStretcher、Vector Warp等へ渡す場合は、必要なVector / Back Vector channelと向きを確認します。
 
-warpや補間の結果が崩れる場合は、後段のControlだけで直そうとせず、まずOptical Flowで生成されたvectorがsourceの動きを正しく捉えているか確認します。
+precomputed vectorを使う構成でwarpや平滑化の結果が崩れる場合は、後段のControlだけで直そうとせず、まずOptical Flowで生成されたvectorがsourceの動きを正しく捉えているか確認します。Tween / Repair Frameでは内部flowの解析設定を確認します。
 
 ## 出典と確認範囲
 
-DaVinci Resolve 21.1 Reference Manual、September 2026、Chapter 112 pp.2617–2634を基に整理しています。algorithm内部仕様、全既定値・数値範囲、Studio / GPU performanceは実機確認へ分離します。
+DaVinci Resolve 21.1 Reference Manual、September 2026、Chapter 112 pp.2617–2634を基に整理しています。Repair Frame pp.2622–2624、Smooth Motion pp.2624–2626、Tween pp.2626–2628、Vector Warping Toolset pp.2629–2633で、precomputed vectorを必要とするNodeと内部計算するNodeの境界を確認しました。algorithm内部仕様、全既定値・数値範囲、Studio / GPU performanceは実機確認へ分離します。
