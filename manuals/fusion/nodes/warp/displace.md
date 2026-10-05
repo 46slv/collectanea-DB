@@ -10,7 +10,7 @@ concepts: [image-data]
 nodes: [Displace]
 node_family: warp
 controls: [Type, Center, Refraction Channel, Refraction Strength, X Refraction, Y Refraction, Light Power, Light Angle, Spread, Light Channel]
-inputs: [image, mask]
+inputs: [image, image, mask]
 outputs: [image]
 tasks: [warp-image]
 product_scope: fusion
