@@ -1,15 +1,16 @@
 ---
 title: "Dent"
-description: "局所的な凹凸ワープ。"
+description: "中心と範囲を指定して2D Imageへ円形の膨らみ・凹みを作るWarp Node。"
 doc_type: node
 term_id: "dent"
-term_short: "Dentは、局所的な凹凸ワープ。Imageの座標を変形するNode。"
+term_short: "Dentは、中心と範囲を指定してImageへ円形の変形を作るNode。"
 verification: partial
-aliases: ["Dent", "DNT"]
+aliases: ["Dent", "Dnt"]
 concepts: ["image-data"]
 nodes: ["Dent"]
 node_family: "warp"
-inputs: ["image"]
+controls: ["Type", "Center", "Size", "Strength"]
+inputs: ["image", "mask"]
 outputs: ["image"]
 tasks: ["warp-image"]
 product_scope: fusion
@@ -19,43 +20,72 @@ updated: "2026-10-05"
 
 # Dent
 
-Dentは、局所的な凹凸ワープ。Imageのsampling座標を変え、pixelを別位置へ移すことでwarp / distortionを作ります。
-
-## 役割
-
-局所的な凹凸ワープ。このページでは、名前だけで選ばず、**何を受け取り、何が変わり、どのdomainへ返すか**を先に整理します。
-
-この項目で確認できている中心的な役割は「局所的な凹凸ワープ」です。exactなInspector項目が未確認の場合は、役割とdata domainを先に使って候補を絞ります。
+Dentは、Imageの指定した位置を中心に、円形の膨らみ・凹みなどを作るNodeです。6種類のTypeを切り替え、Center、Size、Strengthで変形の位置・範囲・強さを調整します。
 
 ## 入力と出力
 
-入力分類: **image**。 出力分類: **image**。 この分類はdata domainを読むためのものです。Fusion 21.1のexactな端子名・端子数を未確認の場合、ここでは推測して固定しません。
+オレンジ色のInputへ変形したい2D Imageを接続します。青色のEffect MaskへMaskを接続すると、効果を必要な領域だけに限定できます。出力はDentの設定に従って変形された2D Imageです。
 
-## 使うときの判断
+## 主な設定項目
 
-manual controlで歪ませるのか、別Image / vector mapを使うのか、lens / perspective補正なのかで選びます。
+### Type
 
-同じ目的を別Familyでも作れる場合は、後段で必要なdata domainと、Graph上で責任をどこに置きたいかで選びます。
+21.1 Manualでは6種類のDent filterが説明されています。
+
+- **Dent 1** — bulge状の変形
+- **Kaleidoscope** — Dentをmirrorして反転を加える
+- **Dent 2** — displacement系の変形
+- **Dent 3** — deform系の変形
+- **Cosine Dent** — 中心へ集まる形の変形
+- **Sine Dent** — 滑らかで丸い変形
+
+### Center X / Y
+
+効果の中心位置を決めます。
+
+### Size
+
+Dentが影響する範囲を調整します。animationすると効果範囲を広げたり縮めたりできます。
+
+### Strength
+
+Dent全体の変形量を調整します。
+
+## 主な用途
+
+- Imageの一部を局所的に膨らませる
+- 円形の変形をanimationし、pulse状のmotion graphicsを作る
+- Kaleidoscope Typeでmirrorを含むdistortionを作る
+- 背景素材へ局所的な変形を加える
 
 ## 最小構成
 
-    Image + Control Map → Dent → Image
+    MediaIn → Dent → MediaOut
 
-これは接続関係を理解するための最小構成案です。公式Manualのexactな作例として確認していない構成は、実制作前にViewerで中間結果を確認します。
+Sizeを小さめにして影響範囲を確認し、Centerを対象へ移動します。その後StrengthとTypeを変え、変形の違いを比較します。
 
-## 確認ポイント
+## Drip / Vortex / Displaceとの違い
 
-- 入力dataのdomainが合っているか。
-- この項目のoutputを受け取れる後段Nodeへ接続しているか。
-- 同じ役割を前段 / 後段で二重に処理していないか。
-- source-limited pageでは、未確認のControl名・default・rangeを名前から推測していないか。
+- **Dent** — 中心と範囲を指定し、単発の円形変形を作る
+- **Drip** — rippleの形・周波数・Phaseで波紋状に歪ませる
+- **Vortex** — 指定範囲を渦状に回転させる
+- **Displace** — 別Imageのchannel値を変位mapとして使う
 
-## Family内での位置づけ
+別のmap Imageを用意せず、局所的な円形warpを作りたい場合はDentを先に検討します。
 
-Warp / Distortノードの全体像と近いNodeの選び分けは[Family Overview](./)を参照してください。
+## 挙動と注意点
+
+21.1 ManualではDentの各parameterをkeyframe可能としています。Center、Size、Strengthを動かすことで、移動・拡大するwarpを作れます。
+
+## 関連Node
+
+- [Drip](./drip)
+- [Vortex](./vortex)
+- [Displace](./displace)
+- [Coordinate Space](./coordinate-space)
 
 ## 出典と確認範囲
 
-このページの役割・data domain・系譜は、既存COLLECTANEA catalogとBlackmagic Design公式資料で確認された範囲をreader-first形式へ整理しています。
+DaVinci Resolve 21.1 Reference Manual、September 2026、Chapter 123 pp.2965–2966で、Input / Effect Mask、6種類のDent Type、Center、Size、Strength、Basic Node Setupを確認しました。
 
-Fusion 21.1 Reference Manualで個別のInspector項目・default・rangeまで確認できていない項目は、**source-limited**としてその詳細を断定していません。verification: partial はその未確認範囲を含みます。runtime REGIDや現在のEffects Library表示は別のruntime verificationで確定します。
+全既定値・数値範囲、内部REGID、実機performanceは未確認です。
