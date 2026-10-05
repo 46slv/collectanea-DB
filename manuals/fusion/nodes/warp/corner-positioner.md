@@ -1,17 +1,18 @@
 ---
 title: "Corner Positioner"
-description: "4点コーナーピン。"
+description: "Imageの4隅をViewer上で動かし、看板・画面・紙面などの平面へ画像をはめ込む4点コーナーピンNode。"
 doc_type: node
 term_id: "corner-positioner"
-term_short: "Corner Positionerは、4点コーナーピン。Imageの座標を変形するNode。"
+term_short: "Corner Positionerは、Imageの4隅を動かして別の四辺形へはめ込む4点コーナーピンNode。"
 verification: partial
-aliases: ["Corner Positioner", "CPN"]
+aliases: ["Corner Positioner", "CPn"]
 concepts: ["image-data"]
 nodes: ["Corner Positioner"]
 node_family: "warp"
-inputs: ["image"]
+controls: ["Mapping Type", "Corners X", "Corners Y", "Offset X", "Offset Y"]
+inputs: ["image", "mask"]
 outputs: ["image"]
-tasks: ["warp-image"]
+tasks: ["warp-image", "screen-replace"]
 product_scope: fusion
 suite_surfaces: ["fusion"]
 updated: "2026-10-05"
@@ -19,43 +20,78 @@ updated: "2026-10-05"
 
 # Corner Positioner
 
-Corner Positionerは、4点コーナーピン。Imageのsampling座標を変え、pixelを別位置へ移すことでwarp / distortionを作ります。
+Corner Positionerは、入力Imageの4隅をViewer上で動かし、別の四辺形へはめ込むNodeです。看板、モニター、ポスターのような平面へ別のImageを配置するときに使います。
 
-## 役割
-
-4点コーナーピン。このページでは、名前だけで選ばず、**何を受け取り、何が変わり、どのdomainへ返すか**を先に整理します。
-
-この項目で確認できている中心的な役割は「4点コーナーピン」です。exactなInspector項目が未確認の場合は、役割とdata domainを先に使って候補を絞ります。
+元のImageを遠近の付いた平面へ**はめ込む（corner pinする）**方向のNodeです。すでに遠近が付いている領域を正面向きへ展開したい場合は、[Perspective Positioner](./perspective-positioner)を使います。
 
 ## 入力と出力
 
-入力分類: **image**。 出力分類: **image**。 この分類はdata domainを読むためのものです。Fusion 21.1のexactな端子名・端子数を未確認の場合、ここでは推測して固定しません。
+### Input
 
-## 使うときの判断
+オレンジ色のInputへ、変形したい2D Imageを接続します。
 
-manual controlで歪ませるのか、別Image / vector mapを使うのか、lens / perspective補正なのかで選びます。
+### Effect Mask
 
-同じ目的を別Familyでも作れる場合は、後段で必要なdata domainと、Graph上で責任をどこに置きたいかで選びます。
+青色のEffect MaskへMaskを接続すると、Corner Positionerの結果を必要な領域だけに限定できます。21.1 Manualでは、Effect MaskはNodeの処理後に適用されると説明されています。
 
-## 最小構成
+### Output
 
-    Image + Control Map → Corner Positioner → Image
+4点の位置とMapping Typeに従って変形された2D Imageを出力します。
 
-これは接続関係を理解するための最小構成案です。公式Manualのexactな作例として確認していない構成は、実制作前にViewerで中間結果を確認します。
+## 主な設定項目
 
-## 確認ポイント
+### Mapping Type
 
-- 入力dataのdomainが合っているか。
-- この項目のoutputを受け取れる後段Nodeへ接続しているか。
-- 同じ役割を前段 / 後段で二重に処理していないか。
-- source-limited pageでは、未確認のControl名・default・rangeを名前から推測していないか。
+4隅の間をどの方法で変形するかを選びます。
 
-## Family内での位置づけ
+- **Bi-Linear** — 2D上でそのまま四辺形へ変形する
+- **Perspective** — 4隅のoffsetを基に、遠近を考慮してImageを四辺形へ割り当てる
 
-Warp / Distortノードの全体像と近いNodeの選び分けは[Family Overview](./)を参照してください。
+遠近の付いた看板や画面へImageを合わせる場合は、Perspectiveの方が目的に合います。
+
+### Corners X / Y
+
+4つのcorner pointの位置を指定します。Viewer上で直接ドラッグでき、PathやTrackerなどのmodifierへ接続してanimationすることもできます。
+
+### Offset X / Y
+
+各cornerの位置を少しだけ補正します。Trackerのpattern位置と、実際にImageを合わせたい角が一致していない場合の微調整に使えます。
+
+## 主な用途
+
+- 看板やポスターの面へ別のgraphicをはめ込む
+- モニターや端末画面へUI・映像を配置する
+- 4点をanimationして、四辺形の形が変わるwarpを作る
+- tracking済みの平面へreplacement Imageを追従させる
+
+## Planar Trackerと組み合わせる
+
+背景側の平面が動く場合、21.1 Manualでは[Planar Tracker](../tracking/planar-tracker)で背景をtrackし、そこから作成した[Planar Transform](../tracking/planar-transform)でCorner Positionerの結果を背景の動きへ追従させる例が示されています。
+
+```text
+Replacement Image → Corner Positioner → Planar Transform → 合成側へ
+                                ↑
+                   背景をPlanar Trackerで解析
+```
+
+Planar Transformを作成した後、そのtracking dataを他に使わない場合はPlanar TrackerをGraphから外せます。
+
+## Perspective Positionerとの違い
+
+- **Corner Positioner** — 平らなsource Imageを、遠近の付いた四辺形へはめ込む
+- **Perspective Positioner** — 遠近の付いた四辺形を指定し、その領域を正面向きへ展開する
+
+平面を一度正面向きにしてPaintし、元の遠近へ戻す場合は、Perspective Positioner → Paint → Corner Positionerという往復構成を使えます。
+
+## 関連Node
+
+- [Perspective Positioner](./perspective-positioner)
+- [Planar Tracker](../tracking/planar-tracker)
+- [Planar Transform](../tracking/planar-transform)
+- [Grid Warp](./grid-warp)
 
 ## 出典と確認範囲
 
-このページの役割・data domain・系譜は、既存COLLECTANEA catalogとBlackmagic Design公式資料で確認された範囲をreader-first形式へ整理しています。
+DaVinci Resolve 21.1 Reference Manual、September 2026、Chapter 123 pp.2963–2964で、Input / Effect Mask、Basic Node Setup、Mapping Type、Corners X / Y、Offset X / Yを確認しました。
 
-Fusion 21.1 Reference Manualで個別のInspector項目・default・rangeまで確認できていない項目は、**source-limited**としてその詳細を断定していません。verification: partial はその未確認範囲を含みます。runtime REGIDや現在のEffects Library表示は別のruntime verificationで確定します。
+全既定値・数値範囲、内部REGID、実機performanceは未確認です。
