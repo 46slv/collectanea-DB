@@ -1,15 +1,16 @@
 ---
 title: "Perspective Positioner"
-description: "パース付き4点配置/補正。"
+description: "perspectiveの付いた四辺形を4つのcornerで指定し、平面として取り出すNode。"
 doc_type: node
 term_id: "perspective-positioner"
-term_short: "Perspective Positionerは、パース付き4点配置/補正。Imageの座標を変形するNode。"
+term_short: "Perspective Positionerは、perspectiveの付いた領域を4点で指定して平坦化するNode。"
 verification: partial
-aliases: ["Perspective Positioner", "PPN"]
+aliases: ["Perspective Positioner", "PPn"]
 concepts: ["image-data"]
 nodes: ["Perspective Positioner"]
 node_family: "warp"
-inputs: ["image"]
+controls: ["Mapping Type", "Corners X and Y"]
+inputs: ["image", "mask"]
 outputs: ["image"]
 tasks: ["warp-image"]
 product_scope: fusion
@@ -19,43 +20,76 @@ updated: "2026-10-05"
 
 # Perspective Positioner
 
-Perspective Positionerは、パース付き4点配置/補正。Imageのsampling座標を変え、pixelを別位置へ移すことでwarp / distortionを作ります。
-
-## 役割
-
-パース付き4点配置/補正。このページでは、名前だけで選ばず、**何を受け取り、何が変わり、どのdomainへ返すか**を先に整理します。
-
-この項目で確認できている中心的な役割は「パース付き4点配置/補正」です。exactなInspector項目が未確認の場合は、役割とdata domainを先に使って候補を絞ります。
+Perspective Positionerは、撮影素材の中にあるperspectiveの付いた四辺形へ4つのcornerを置き、その領域からperspectiveを取り除いて平坦なImageへ変換するNodeです。Corner Positionerと逆方向の処理を担当します。
 
 ## 入力と出力
 
-入力分類: **image**。 出力分類: **image**。 この分類はdata domainを読むためのものです。Fusion 21.1のexactな端子名・端子数を未確認の場合、ここでは推測して固定しません。
+### Input
 
-## 使うときの判断
+オレンジ色のInputへ、perspectiveを取り除きたい2D Imageを接続します。
 
-manual controlで歪ませるのか、別Image / vector mapを使うのか、lens / perspective補正なのかで選びます。
+### Effect Mask
 
-同じ目的を別Familyでも作れる場合は、後段で必要なdata domainと、Graph上で責任をどこに置きたいかで選びます。
+青色のEffect MaskへMaskを接続すると、transformを適用する範囲を限定できます。Effect MaskはNodeの処理後に適用されます。
 
-## 最小構成
+### Output
 
-    Image + Control Map → Perspective Positioner → Image
+指定した四辺形を平坦化した2D Imageを出力します。
 
-これは接続関係を理解するための最小構成案です。公式Manualのexactな作例として確認していない構成は、実制作前にViewerで中間結果を確認します。
+## 主なControl
 
-## 確認ポイント
+### Mapping Type
 
-- 入力dataのdomainが合っているか。
-- この項目のoutputを受け取れる後段Nodeへ接続しているか。
-- 同じ役割を前段 / 後段で二重に処理していないか。
-- source-limited pageでは、未確認のControl名・default・rangeを名前から推測していないか。
+transformの方法を選びます。
+
+- **Perspective** — 現実のperspectiveへより正確に対応するため、21.1 Manualでは通常こちらを使うことが強く推奨されています。
+- **Bi-Linear** — 古いprojectとの互換用に残されているmodeです。
+
+### Corners X and Y
+
+perspectiveの付いた領域を囲む4つのcontrol pointです。Viewerで各cornerを直接dragし、InspectorでもTop / Bottom / Left / Rightの値から位置を調整できます。
+
+## 主な用途
+
+- 看板やモニター面をいったん平坦化してPaintする
+- perspectiveの付いたtextureを正面から見た状態へ戻す
+- 平坦化した領域へretouchやgraphics処理を行う
+- 4つのcornerをanimationしてImageをwarpする
+
+## Corner Positionerとの往復
+
+21.1 Manualでは、perspectiveの付いた領域をPerspective Positionerでunpinし、平坦なtextureへPaintした後、Corner Positionerで元の面へ戻す例が示されています。
+
+```text
+Footage
+  ↓
+Perspective Positioner
+  ↓
+Paint / retouch
+  ↓
+Corner Positioner
+  ↓
+Composite
+```
+
+この2つのNodeはconcatenateされないため、往復すると多少softnessが加わります。不要な変換を重ねない方が画質を保ちやすくなります。
+
+- [Corner Positioner](./corner-positioner)
+- [Paint](../paint/paint)
+
+## Corner Positionerとの違い
+
+- **Perspective Positioner** — perspectiveの付いた領域を選び、平坦化する（unpin）
+- **Corner Positioner** — 平らなImageを4つのcornerへ合わせ、perspectiveの付いた面へ配置する（pin）
+
+screen replacementで「いったん正面化して修正してから戻したい」場合は、この2つを対にして使えます。
 
 ## Family内での位置づけ
 
-Warp / Distortノードの全体像と近いNodeの選び分けは[Family Overview](./)を参照してください。
+Warp / Distortノードの選び分けは[Family Overview](./)を参照してください。
 
 ## 出典と確認範囲
 
-このページの役割・data domain・系譜は、既存COLLECTANEA catalogとBlackmagic Design公式資料で確認された範囲をreader-first形式へ整理しています。
+DaVinci Resolve 21.1 Reference Manual、September 2026、Chapter 123 pp.2982–2983で、Input / Effect Mask、unpin用途、Mapping Type、Corners X and Y、Perspective推奨、Corner Positionerとの往復例とnon-concatenationを確認しました。
 
-Fusion 21.1 Reference Manualで個別のInspector項目・default・rangeまで確認できていない項目は、**source-limited**としてその詳細を断定していません。verification: partial はその未確認範囲を含みます。runtime REGIDや現在のEffects Library表示は別のruntime verificationで確定します。
+全既定値・数値範囲、内部REGID、実機performanceは未確認です。
