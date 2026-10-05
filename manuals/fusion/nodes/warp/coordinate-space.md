@@ -1,17 +1,18 @@
 ---
 title: "Coordinate Space"
-description: "座標空間変換/ワープ。"
+description: "2D Imageの座標をRectangularとPolarの間で変換し、円形・放射状のmotion graphicsや座標変換を使ったwarpを作るNode。"
 doc_type: node
 term_id: "coordinate-space"
-term_short: "Coordinate Spaceは、座標空間変換/ワープ。Imageの座標を変形するNode。"
+term_short: "Coordinate Spaceは、Imageの座標系をRectangularとPolarの間で変換するNode。"
 verification: partial
-aliases: ["Coordinate Space", "CDS"]
+aliases: ["Coordinate Space", "CdS"]
 concepts: ["image-data"]
 nodes: ["Coordinate Space"]
 node_family: "warp"
-inputs: ["image"]
+controls: ["Shape"]
+inputs: ["image", "mask"]
 outputs: ["image"]
-tasks: ["warp-image"]
+tasks: ["warp-image", "motion-graphics"]
 product_scope: fusion
 suite_surfaces: ["fusion"]
 updated: "2026-10-05"
@@ -19,43 +20,91 @@ updated: "2026-10-05"
 
 # Coordinate Space
 
-Coordinate Spaceは、座標空間変換/ワープ。Imageのsampling座標を変え、pixelを別位置へ移すことでwarp / distortionを作ります。
+Coordinate Spaceは、2D Imageの座標系を**Rectangular（通常のX/Y座標）**と**Polar（中心からの距離と角度で表す座標）**の間で変換するNodeです。
+
+通常の横・縦方向の動きや模様を、円周方向・放射方向の動きへ読み替えられるため、円形パターンやトンネル表現、座標変換を挟んだ特殊なwarpに使えます。
 
 ## 役割
 
-座標空間変換/ワープ。このページでは、名前だけで選ばず、**何を受け取り、何が変わり、どのdomainへ返すか**を先に整理します。
+    2D Image → Coordinate Space → transformed Image
 
-この項目で確認できている中心的な役割は「座標空間変換/ワープ」です。exactなInspector項目が未確認の場合は、役割とdata domainを先に使って候補を絞ります。
+Imageそのものの色を作り直すのではなく、pixelを参照する座標系を組み替えて見え方を変えます。
 
-## 入力と出力
+## 入力
 
-入力分類: **image**。 出力分類: **image**。 この分類はdata domainを読むためのものです。Fusion 21.1のexactな端子名・端子数を未確認の場合、ここでは推測して固定しません。
+### Input
 
-## 使うときの判断
+オレンジ色のInputへ、変換したい2D Imageを接続します。
 
-manual controlで歪ませるのか、別Image / vector mapを使うのか、lens / perspective補正なのかで選びます。
+### Effect Mask
 
-同じ目的を別Familyでも作れる場合は、後段で必要なdata domainと、Graph上で責任をどこに置きたいかで選びます。
+青色のEffect MaskへMaskを接続すると、Coordinate Spaceの結果を必要な領域だけに限定できます。MaskはNodeの処理後に適用されます。
+
+## 出力
+
+座標変換された2D Imageを出力します。後段では通常のImageとしてTransform、Drip、Mergeなどへ接続できます。
+
+## 主な設定項目
+
+### Shape
+
+座標変換の方向を選びます。
+
+- **Rectangular to Polar** — 通常のX/Y配置を、中心からの距離と角度で表す配置へ変換する
+- **Polar to Rectangular** — Polar配置を通常のX/Y配置へ戻す
+
+同じImageでも、変換方向によって「横方向の移動が回転に見える」「縦方向の移動が中心から外側への移動に見える」など、動きの意味が変わります。
+
+## 主な用途
+
+- 直線的なpatternを円形・放射状のmotion graphicsへ変換する
+- Text+を縦方向へ動かし、奥から手前へ伸びるようなトンネル表現を作る
+- Coordinate Spaceを2つ使い、その間にDripやTransformを挟んで、元の座標系では作りにくい歪みを作る
+- Fast Noiseやmosaic状の素材を円形patternへ変換して背景graphicsを作る
 
 ## 最小構成
 
-    Image + Control Map → Coordinate Space → Image
+    Text+ → Coordinate Space → MediaOut
 
-これは接続関係を理解するための最小構成案です。公式Manualのexactな作例として確認していない構成は、実制作前にViewerで中間結果を確認します。
+Text+を上下へanimationし、Coordinate Spaceを**Polar to Rectangular**にすると、元の上下移動が中心から遠近方向へ動くように見えます。
 
-## 確認ポイント
+必要に応じて前段または後段へTransformを置き、文字の向きやscaleを整えます。
 
-- 入力dataのdomainが合っているか。
-- この項目のoutputを受け取れる後段Nodeへ接続しているか。
-- 同じ役割を前段 / 後段で二重に処理していないか。
-- source-limited pageでは、未確認のControl名・default・rangeを名前から推測していないか。
+## 運用例
 
-## Family内での位置づけ
+座標変換の途中でだけwarpを加える場合:
 
-Warp / Distortノードの全体像と近いNodeの選び分けは[Family Overview](./)を参照してください。
+    Image
+      ↓
+    Coordinate Space 1
+      ↓
+    Drip / Transform
+      ↓
+    Coordinate Space 2
+      ↓
+    Result
+
+1つ目で別の座標系へ変換し、その状態で歪みやTransformを加え、2つ目で元の座標系へ戻します。これにより、通常のX/Y空間では作りにくい円周方向・放射方向の変形を作れます。
+
+## Dent / Drip / Vortexとの違い
+
+- **Coordinate Space** — Imageを扱う座標系そのものをRectangular / Polar間で変換する
+- **Dent** — 中心を基準に局所的な膨らみ・凹みを作る
+- **Drip** — 波紋形状でImageを歪ませる
+- **Vortex** — 指定領域を渦状に回転させる
+
+特定形状のwarpを直接作りたい場合はDent / Drip / Vortex、別の座標系へ一度変換して処理したい場合はCoordinate Spaceを使います。
+
+## 関連Node
+
+- [Drip](./drip)
+- [Dent](./dent)
+- [Vortex](./vortex)
+- [Transform](../transform/transform)
+- [Text+](../generators/text-plus)
 
 ## 出典と確認範囲
 
-このページの役割・data domain・系譜は、既存COLLECTANEA catalogとBlackmagic Design公式資料で確認された範囲をreader-first形式へ整理しています。
+DaVinci Resolve 21.1 Reference Manual、September 2026、Chapter 123 pp.2961–2962で、Input / Effect Mask、Rectangular to Polar / Polar to Rectangular、Text+を使うtunnel例、Coordinate Spaceを2つ使いDripまたはTransformを間へ挟む構成を確認しました。
 
-Fusion 21.1 Reference Manualで個別のInspector項目・default・rangeまで確認できていない項目は、**source-limited**としてその詳細を断定していません。verification: partial はその未確認範囲を含みます。runtime REGIDや現在のEffects Library表示は別のruntime verificationで確定します。
+全既定値・内部REGID・実機performanceは未確認です。
