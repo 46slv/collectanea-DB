@@ -10,17 +10,24 @@ updated: "2026-10-05"
 
 # Optical Flow / Motionノード
 
-このFamilyでは、前後frameを比較してmotion vectorを推定し、そのvectorをframe生成・修復・平滑化・texture追従へ使います。
+このFamilyには、motion vectorを前計算して後段へ渡すNodeと、必要なoptical flowを内部で計算して結果だけを返すNodeがあります。
 
 ## 基本の流れ
 
 ```text
-Image sequence → Optical Flow → motion vectors
+Image sequence → Optical Flow → Vector / Back Vector
                             ↓
-              Tween / Repair Frame / Smooth Motion
-                            ↓
-         Vector Denoise / Vector Transform / Vector Warp
+       Smooth Motion / Vector Denoise
+       Vector Transform / Vector Warp
+
+Image sequence → Repair Frame → repaired frame
+                  (internal optical flow)
+
+Previous + Next Image → Tween → interpolated Image
+                         (internal optical flow)
 ```
+
+Repair FrameとTweenの前にOptical Flowを置く必要はありません。どちらも内部でoptical flowを計算します。Smooth MotionやVector Warping Toolsetは、事前に用意したVector / Back Vectorを使います。
 
 ## 代表Node
 
