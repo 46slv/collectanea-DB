@@ -1,15 +1,16 @@
 ---
 title: "Drip"
-description: "滴/波紋系ワープ。"
+description: "中心から広がるripple patternで2D Imageを歪ませ、水面の波紋や周期的なmotion graphicsを作るNode。"
 doc_type: node
 term_id: "drip"
-term_short: "Dripは、滴/波紋系ワープ。Imageの座標を変形するNode。"
+term_short: "Dripは、中心から広がるripple patternでImageを歪ませるNode。"
 verification: partial
 aliases: ["Drip", "DRP"]
 concepts: ["image-data"]
 nodes: ["Drip"]
 node_family: "warp"
-inputs: ["image"]
+controls: ["Shape", "Center", "Aspect", "Amplitude", "Dampening", "Frequency", "Phase"]
+inputs: ["image", "mask"]
 outputs: ["image"]
 tasks: ["warp-image"]
 product_scope: fusion
@@ -19,43 +20,74 @@ updated: "2026-10-05"
 
 # Drip
 
-Dripは、滴/波紋系ワープ。Imageのsampling座標を変え、pixelを別位置へ移すことでwarp / distortionを作ります。
-
-## 役割
-
-滴/波紋系ワープ。このページでは、名前だけで選ばず、**何を受け取り、何が変わり、どのdomainへ返すか**を先に整理します。
-
-この項目で確認できている中心的な役割は「滴/波紋系ワープ」です。exactなInspector項目が未確認の場合は、役割とdata domainを先に使って候補を絞ります。
+Dripは、中心から広がる波紋の形で2D Imageを歪ませるNodeです。水面のrippleのような円形波だけでなく、四角、水平・垂直波、星形など複数のShapeを選べます。Phaseをanimationすると、波紋が中心から外側へ進むような動きを作れます。
 
 ## 入力と出力
 
-入力分類: **image**。 出力分類: **image**。 この分類はdata domainを読むためのものです。Fusion 21.1のexactな端子名・端子数を未確認の場合、ここでは推測して固定しません。
+オレンジ色のInputへ歪ませたい2D Imageを接続します。青色のEffect MaskへMaskを接続すると、効果を必要な領域だけに限定できます。出力は波紋patternに従って変形された2D Imageです。
 
-## 使うときの判断
+## 主な設定項目
 
-manual controlで歪ませるのか、別Image / vector mapを使うのか、lens / perspective補正なのかで選びます。
+### Shape
 
-同じ目的を別Familyでも作れる場合は、後段で必要なdata domainと、Graph上で責任をどこに置きたいかで選びます。
+21.1 Manualでは8種類のShapeが説明されています。
+
+- **Circular** — 円形の波紋
+- **Square** — 四辺を持つ波紋
+- **Random** — 不規則なnoise状の歪み
+- **Horizontal** — 横方向へ進む波
+- **Vertical** — 縦方向へ進む波
+- **Exponential** — 内側へ曲がった菱形に近い波形
+- **Star** — 8方向対称の星形
+- **Radial** — 固定patternから放射する星形ripple
+
+### Center / Aspect
+
+Centerで波紋の発生位置を決めます。AspectはShapeの縦横比を変えます。
+
+### Amplitude / Dampening
+
+Amplitudeは歪みの強さ、Dampeningは中心から離れるにつれてAmplitudeをどの程度弱めるかを調整します。
+
+### Frequency / Phase
+
+Frequencyはrippleの数・密度を調整します。Phaseはpatternの位相をずらし、animationすると波紋が中心から外側へ進むように見えます。
+
+## 主な用途
+
+- 水面へ落ちた滴のような円形rippleを作る
+- Horizontal / Verticalで一方向へ流れる波状distortionを作る
+- StarやRadialで幾何学的なmotion graphicsを作る
+- RandomでImage全体へ不規則な揺れを加える
 
 ## 最小構成
 
-    Image + Control Map → Drip → Image
+    MediaIn → Drip → MediaOut
 
-これは接続関係を理解するための最小構成案です。公式Manualのexactな作例として確認していない構成は、実制作前にViewerで中間結果を確認します。
+Circularを選び、Centerを波紋の発生位置へ合わせます。Amplitudeを小さく設定し、Frequencyで波の密度を決め、Phaseをanimationして動きを確認します。
 
-## 確認ポイント
+## Coordinate Spaceと組み合わせる
 
-- 入力dataのdomainが合っているか。
-- この項目のoutputを受け取れる後段Nodeへ接続しているか。
-- 同じ役割を前段 / 後段で二重に処理していないか。
-- source-limited pageでは、未確認のControl名・default・rangeを名前から推測していないか。
+21.1 Manualでは、2つのCoordinate Spaceを異なるShape設定で置き、その間にDripまたはTransformを入れる使い方も示されています。
 
-## Family内での位置づけ
+    Image → Coordinate Space → Drip → Coordinate Space → Result
 
-Warp / Distortノードの全体像と近いNodeの選び分けは[Family Overview](./)を参照してください。
+一度別の座標系へ変換してからDripを適用し、最後に座標系を戻すことで、通常とは異なる方向へrippleを変形できます。
+
+## Dent / Vortexとの違い
+
+- **Drip** — 複数のrippleを周期的に並べ、Frequency / Phaseで動きを作る
+- **Dent** — 中心の周囲を単発の膨らみ・凹みとして変形する
+- **Vortex** — 中心の周囲を渦状に回転させる
+
+## 関連Node
+
+- [Coordinate Space](./coordinate-space)
+- [Dent](./dent)
+- [Vortex](./vortex)
 
 ## 出典と確認範囲
 
-このページの役割・data domain・系譜は、既存COLLECTANEA catalogとBlackmagic Design公式資料で確認された範囲をreader-first形式へ整理しています。
+DaVinci Resolve 21.1 Reference Manual、September 2026、Chapter 123 pp.2969–2971で、Input / Effect Mask、8種類のShape、Center、Aspect、Amplitude、Dampening、Frequency、Phase、MediaInを使うBasic Node Setupを確認しました。Coordinate Spaceとの組み合わせは同章p.2962で確認しています。
 
-Fusion 21.1 Reference Manualで個別のInspector項目・default・rangeまで確認できていない項目は、**source-limited**としてその詳細を断定していません。verification: partial はその未確認範囲を含みます。runtime REGIDや現在のEffects Library表示は別のruntime verificationで確定します。
+全既定値・内部REGID・実機performanceは未確認です。
