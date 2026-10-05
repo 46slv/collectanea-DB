@@ -29,37 +29,22 @@ Vortexは、指定した中心の周囲へImageを巻き込み、whirlpoolのよ
 ## 主な設定項目
 
 ### Center X / Y
-
-Vortexの中心位置を決めます。Viewer上で渦の中心を対象へ合わせます。
+Vortexの中心位置を決めます。
 
 ### Size
-
-Vortexが影響する範囲を調整します。Viewer上の円周をdragして変更することもできます。
+Vortexが影響する範囲を調整します。
 
 ### Angle
-
 Vortexの回転量を調整します。値を大きくするほど巻き込みが強くなります。
 
 ### Power
-
 Vortexの集中度を調整します。21.1 Manualでは、Powerを上げるとVortexが小さく、よりtightになると説明されています。
-
-## 主な用途
-
-- logoやTextの一部を渦状に巻き込む
-- 画面の一部分だけをtwistしてdistortionを作る
-- Center / Size / Angleをanimationし、移動・成長する渦を作る
-- 背景patternへ局所的な回転distortionを加える
 
 ## 最小構成
 
     MediaIn → Vortex → MediaOut
 
-Centerを歪ませたい位置へ合わせ、Sizeで範囲を決めます。Angleを少しずつ上げて回転量を確認し、Powerで渦の締まり方を調整します。
-
 ## Text+で使う場合
-
-Textを渦状に変形する場合、文字の元のImage domainが小さいと、Vortexで外側へ動いたpixelが境界で切れることがあります。
 
 21.1 ManualのBasic Node Setupでは、Text+の後段へSet Domainを置いてImage boundaryを広げ、その後にVortexを適用しています。
 
@@ -73,18 +58,11 @@ Textを渦状に変形する場合、文字の元のImage domainが小さいと�
 - **Dent** — 中心の周囲を膨らませたり凹ませたりする
 - **Drip** — ripple patternを周期的に並べ、波紋状に歪ませる
 
-## 挙動と注意点
-
-Powerを上げると影響範囲が単純に広がるのではなく、渦がより小さくtightになります。範囲の大きさはSize、巻き込み量はAngle、集中度はPowerとして分けて調整します。
-
-Text+などImage domainが内容に合わせて小さい素材では、必要に応じてSet Domainで余白を確保してからVortexを適用します。
-
 ## 関連Node
 
 - [Dent](./dent)
 - [Drip](./drip)
 - [Coordinate Space](./coordinate-space)
-- [Set Domain](../transform/set-domain)
 
 ## 出典と確認範囲
 
