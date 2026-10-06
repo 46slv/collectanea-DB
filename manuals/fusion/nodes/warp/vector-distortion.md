@@ -146,7 +146,7 @@ EdgesをDuplicateにすると外周pixelを引き伸ばして空きを埋める�
 
 ## 関連Node
 
-- [Optical Flow](../optical-flow/optical-flow)
+- [Optical Flow](../optical-flow/optical-flow.md)
 - [Vector Transform](./vector-transform)
 - [Vector Warp](./vector-warp)
 - [Vector Motion Blur](../blur-filter/vector-motion-blur)
