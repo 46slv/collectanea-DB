@@ -1,61 +1,110 @@
 ---
 title: "Natural Cubic Spline"
-description: "Natural cubic spline animation。"
+description: "数値ParameterのAnimationを、handleを手動調整せずcontrol point間で滑らかにつなぐSpline Modifier。"
 doc_type: node
 term_id: "natural-cubic-spline"
-term_short: "Natural Cubic Splineは、Natural cubic spline animation。別Parameterへ値を供給するModifier。"
+term_short: "Natural Cubic Splineは、数値Parameterのcontrol point間を自動的に滑らかなcurveでつなぐAnimation Modifier。"
 verification: partial
 aliases: ["Natural Cubic Spline"]
-concepts: ["parameter-data"]
+concepts: ["parameter-data", "time"]
 nodes: ["Natural Cubic Spline"]
 node_family: "modifiers"
 inputs: ["parameter"]
 outputs: ["parameter"]
-tasks: ["drive-parameter"]
+tasks: ["drive-parameter", "animate"]
 product_scope: fusion
 suite_surfaces: ["fusion"]
-updated: "2026-10-05"
+updated: "2026-10-07"
 ---
 
 # Natural Cubic Spline
 
-Natural Cubic Splineは、Natural cubic spline animation。画像を直接加工せず、別NodeのParameterへ値・animation・path・関係を供給します。
+Natural Cubic Splineは、**数値ParameterのAnimationを、control point間で自動的に滑らかなcurveとしてつなぐModifier**です。
 
-## 役割
+DaVinci Resolve 21.1 Reference Manualでは、Point / Positionのようなpoint valueではなく、主に数値Controlへ使うAnimation Modifierとして説明されています。curveの形はSpline Editorで編集します。
 
-Natural cubic spline animation。このページでは、名前だけで選ばず、**何を受け取り、何が変わり、どのdomainへ返すか**を先に整理します。
+## 何をするModifierか
 
-この項目で確認できている中心的な役割は「Natural cubic spline animation」です。exactなInspector項目が未確認の場合は、役割とdata domainを先に使って候補を絞ります。
+数値ParameterへNatural Cubic Splineを追加すると、そのParameterの時間変化をSplineとして扱えます。
+
+```text
+control point / keyframe
+        ↓
+Natural Cubic Spline
+        ↓
+数値Parameterの時間変化
+```
+
+21.1 Manualでは、このSplineには他のSpline typeのようなcontrol handleがなく、**control pointを通る滑らかなcurveを自動的に作る**と説明されています。
+
+そのため、各pointの時間と値を決めたうえで、区間のcurveをhandleで細かく作り込むより、point間を自動的に滑らかにつなぎたい場合に向いています。
+
+## 追加方法
+
+数値Controlを右クリックし、`Modify With > Natural Cubic Spline`を選びます。
+
+Natural Cubic SplineはImageを処理するNodeではありません。対象Parameterへ直接付くModifierです。
+
+## どこで編集するか
+
+Natural Cubic Splineには、通常のModifierのような専用Controls tabがありません。
+
+Animationの結果は**Spline Editor**に表示され、そこでcontrol pointを編集してcurveへ影響を与えます。つまり、Inspectorで専用のStrengthやScaleを調整する種類のModifierではなく、Spline Editor上のAnimation curveそのものを扱う仕組みです。
+
+## control handleを使わない意味
+
+21.1 ManualはNatural Cubic Splineについて、control handleを持たず、control pointを通るsmooth curveを自動的に作ると説明しています。
+
+たとえば複数frameに数値を置いた場合、各pointの間を滑らかにつなぐcurveをFusion側に任せられます。
+
+一方で、区間ごとの接線をhandleで直接作り込みたい場合は、handleを使うSpline方式と操作感が異なります。Natural Cubic Splineでは、まずpointの位置と値を編集して結果を整える、と考えると分かりやすくなります。
 
 ## 入力と出力
 
-入力分類: **parameter**。 出力分類: **parameter**。 この分類はdata domainを読むためのものです。Fusion 21.1のexactな端子名・端子数を未確認の場合、ここでは推測して固定しません。
+Natural Cubic Splineが扱う中心的なdataは**数値ParameterのAnimation**です。
+
+- 対象: 主にnumerical value
+- 出力: 対象Parameterへ返す時間ごとの数値
+- 編集場所: Spline Editor
+- Image input / output: なし
+
+21.1 Manualはpoint valueではなくnumerical valueへ通常適用すると説明しています。Positionのようなpoint animationを作りたい場合は、[Path](./path)や[XY Path](./xy-path)などpoint向けのModifierを先に検討します。
 
 ## 使うときの判断
 
-値を式で作るのか、Spline / Path / Shake / Tracker等から供給するのかで選びます。
+Natural Cubic Splineが候補になるのは、数値Parameterを複数のcontrol pointでAnimationし、その間を滑らかにつなぎたい場合です。
 
-同じ目的を別Familyでも作れる場合は、後段で必要なdata domainと、Graph上で責任をどこに置きたいかで選びます。
+特に、次のように考えると選びやすくなります。
 
-## 最小構成
+- 数値Parameterを時間で変化させたい
+- point間を滑らかなcurveでつなぎたい
+- curveの接線をhandleで逐一調整するより、自動補間を使いたい
+- Inspectorの専用ControlではなくSpline EditorでAnimationを編集したい
 
-    対象Parameter ← Natural Cubic Spline
+逆に、Positionを画面上の軌道として動かしたい場合はPath / XY Path、式や他Parameterから値を計算したい場合はExpression / Calculationの方が目的に合います。
 
-これは接続関係を理解するための最小構成案です。公式Manualのexactな作例として確認していない構成は、実制作前にViewerで中間結果を確認します。
+## Cubic Splineとの関係
 
-## 確認ポイント
+COLLECTANEAには[Cubic Spline](./cubic-spline)も別項目としてあります。
 
-- 入力dataのdomainが合っているか。
-- この項目のoutputを受け取れる後段Nodeへ接続しているか。
-- 同じ役割を前段 / 後段で二重に処理していないか。
-- source-limited pageでは、未確認のControl名・default・rangeを名前から推測していないか。
+21.1 ManualではCubic SplineとNatural Cubic Splineが別の見出しで掲載されていますが、Cubic Spline側の追加手順にも`Modify With > Natural Cubic Spline`という記述があります。このページでは、その記述だけから両者のruntime上のidentityや違いを推測して統合しません。
 
-## Family内での位置づけ
+現在のEffects Library / contextual menu上での名称、内部REGID、両項目の厳密な差はruntime verification対象として残します。
 
-Modifierの全体像と近いNodeの選び分けは[Family Overview](./)を参照してください。
+## 関連ページ
 
-## 出典と確認範囲
+- [Modifier Family Overview](./)
+- [Cubic Spline](./cubic-spline)
+- [Bezier Spline](./bezier-spline)
+- [Path](./path)
+- [XY Path](./xy-path)
+- [Calculation](./calculation)
+- [Expression Modifier](./expression)
 
-このページの役割・data domain・系譜は、既存COLLECTANEA catalogとBlackmagic Design公式資料で確認された範囲をreader-first形式へ整理しています。
+## バージョンと出典
 
-Fusion 21.1 Reference Manualで個別のInspector項目・default・rangeまで確認できていない項目は、**source-limited**としてその詳細を断定していません。verification: partial はその未確認範囲を含みます。runtime REGIDや現在のEffects Library表示は別のruntime verificationで確定します。
+DaVinci Resolve 21.1 Reference Manual（September 2026）Chapter 124「Modifiers」p.3015を基準にしています。
+
+同Manualで、Natural Cubic Splineが主に数値Controlへ適用されるAnimation Modifierであること、`Modify With > Natural Cubic Spline`から追加すること、control handleを持たずcontrol point間に滑らかなcurveを自動生成すること、専用Controls tabを持たずSpline Editorで結果を編集することを確認しています。
+
+current runtimeのREGID、内部Parameter ID、edition差、およびManual内のCubic Splineとの厳密なruntime上の違いはこのrunでは確定していません。
