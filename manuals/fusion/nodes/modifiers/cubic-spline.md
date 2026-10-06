@@ -1,61 +1,154 @@
 ---
 title: "Cubic Spline"
-description: "Cubic spline animation。"
+description: "数値Parameterのcontrol pointを通りながら、handleなしで自動的に滑らかなAnimation curveを作るSpline Modifier。"
 doc_type: node
 term_id: "cubic-spline"
-term_short: "Cubic Splineは、Cubic spline animation。別Parameterへ値を供給するModifier。"
+term_short: "Cubic Splineは、control pointを通る滑らかなcurveをhandleなしで自動生成する数値Parameter向けAnimation Modifier。"
 verification: partial
 aliases: ["Cubic Spline"]
-concepts: ["parameter-data"]
+concepts: ["parameter-data", "time"]
 nodes: ["Cubic Spline"]
 node_family: "modifiers"
 inputs: ["parameter"]
 outputs: ["parameter"]
-tasks: ["drive-parameter"]
+tasks: ["drive-parameter", "animate"]
 product_scope: fusion
 suite_surfaces: ["fusion"]
-updated: "2026-10-05"
+updated: "2026-10-07"
 ---
 
 # Cubic Spline
 
-Cubic Splineは、Cubic spline animation。画像を直接加工せず、別NodeのParameterへ値・animation・path・関係を供給します。
+Cubic Splineは、**数値Parameterのcontrol pointを通りながら、handleを手動調整せず滑らかなAnimation curveを作るModifier**です。
 
-## 役割
+DaVinci Resolve 21.1 Reference Manualでは、Bézier Splineと同じようにcurveがcontrol pointを通る一方、Bézier handleは表示せず、可能な限り滑らかなcurveを自動的に作るSplineとして説明されています。画像を直接加工するNodeではなく、対象Parameterへframeごとの数値を返します。
 
-Cubic spline animation。このページでは、名前だけで選ばず、**何を受け取り、何が変わり、どのdomainへ返すか**を先に整理します。
+## 何をするModifierか
 
-この項目で確認できている中心的な役割は「Cubic spline animation」です。exactなInspector項目が未確認の場合は、役割とdata domainを先に使って候補を絞ります。
+数値ParameterをAnimationすると、Spline Editorでは各Keyframeがcontrol pointとして表されます。Cubic Splineは、そのpointを通るcurveを自動計算します。
+
+```text
+Keyframeの時間と値
+        ↓
+   Cubic Spline
+  └─ handleなしで滑らかなcurveを作る
+        ↓
+対象Parameterの時間ごとの値
+```
+
+Bézier SplineではKeyframe前後のhandleを動かしてcurveを作り込みますが、Cubic Splineにはそのhandleがありません。各control pointの時間と値を決めると、その間を滑らかにつなぐ形をFusion側が決めます。
+
+21.1 ManualはこのSplineを「almost never used」とも説明しています。通常のAnimationで最初に選ぶSplineではなく、handleを使わずcontrol pointを通る自動補間が必要な場合に選ぶもの、と考えると位置づけが分かりやすくなります。
 
 ## 入力と出力
 
-入力分類: **parameter**。 出力分類: **parameter**。 この分類はdata domainを読むためのものです。Fusion 21.1のexactな端子名・端子数を未確認の場合、ここでは推測して固定しません。
+Cubic Splineが扱う中心的なdataは、**数値ParameterのAnimation**です。
 
-## 使うときの判断
+- 対象: 主にnumerical value
+- 入力として考えるもの: Keyframeの時間と値
+- 出力: 対象Parameterへ返すframeごとの数値
+- 編集場所: Spline Editor
+- Image input / output: なし
 
-値を式で作るのか、Spline / Path / Shake / Tracker等から供給するのかで選びます。
+Centerのような2D Positionを画面上の軌道として動かしたい場合は、[Path](./path)や[XY Path](./xy-path)などpoint向けのModifierを先に検討します。
 
-同じ目的を別Familyでも作れる場合は、後段で必要なdata domainと、Graph上で責任をどこに置きたいかで選びます。
+## 追加と編集
+
+DaVinci Resolve 21.1 Reference Manual Chapter 71では、数値Parameterのcontextual menuから `Modify With > Cubic Spline` を選ぶ方法が説明されています。
+
+Cubic Splineには、通常のModifierのような専用Controls tabはありません。結果は**Spline Editor**に表示され、control pointの時間や値を動かしてcurveへ影響を与えます。
+
+### Manual内の名称不一致
+
+21.1 Manualには、追加方法の表記に食い違いがあります。
+
+- Chapter 71では `Modify With > Cubic Spline` と記載
+- Chapter 124の「Cubic Spline」節では `Modify With > Natural Cubic Spline` と記載
+
+同じManualの中で記述が一致していないため、このページでは「Cubic SplineとNatural Cubic Splineが同一である」とは扱いません。現在のResolve 21.1のcontextual menuで実際に表示される名称と内部REGIDは、runtime verification対象として残します。
+
+## 主な用途
+
+Cubic Splineは、数値Parameterを複数のKeyframeでAnimationし、**各値を通りながら滑らかにつなぎたいが、Bézier handleを個別に調整したくない**場合に候補になります。
+
+たとえば次のような使い方です。
+
+- TransformのSizeを複数の値でAnimationし、各Keyframeを通る滑らかな変化を自動で作る。
+- 数値Parameterの中間Keyframeを動かし、handleを触らずにcurve全体がどう変わるか比較する。
+- 既存CompositionでCubic Splineが使われているときに、Spline Editor上でKeyframeの時間や値を修正する。
+- Bézier / B-Spline / Natural Cubicとの補間の違いを確認し、目的に合うSpline typeを選ぶ。
 
 ## 最小構成
 
-    対象Parameter ← Cubic Spline
+```text
+対象の数値Parameter
+        ↑
+   Cubic Spline
+        ↑
+ Keyframe / control point
+```
 
-これは接続関係を理解するための最小構成案です。公式Manualのexactな作例として確認していない構成は、実制作前にViewerで中間結果を確認します。
+Cubic SplineはNode EditorでImageを接続するNodeではなく、対象Parameterへ付くModifierです。
 
-## 確認ポイント
+## 運用例: Sizeを3点で変化させる
 
-- 入力dataのdomainが合っているか。
-- この項目のoutputを受け取れる後段Nodeへ接続しているか。
-- 同じ役割を前段 / 後段で二重に処理していないか。
-- source-limited pageでは、未確認のControl名・default・rangeを名前から推測していないか。
+TransformのSizeを3つのKeyframeで変化させる例です。
 
-## Family内での位置づけ
+1. Sizeの数値ControlからCubic Splineを追加します。
+2. frame 0、12、24にKeyframeを置き、それぞれ異なるSize値を設定します。
+3. Spline EditorでSizeのcurveを表示します。
+4. 中央のKeyframeの値や時間を動かし、前後のcurveが自動的に滑らかにつながり直すことを確認します。
 
-Modifierの全体像と近いNodeの選び分けは[Family Overview](./)を参照してください。
+ここで確認するポイントは、Bézier Splineのようなhandle操作をしなくても、curveが各control pointを通りながら滑らかに再計算されることです。
 
-## 出典と確認範囲
+frame番号は挙動を確認するための例で、21.1 Manualの固定presetではありません。
 
-このページの役割・data domain・系譜は、既存COLLECTANEA catalogとBlackmagic Design公式資料で確認された範囲をreader-first形式へ整理しています。
+## 他のSplineとの使い分け
 
-Fusion 21.1 Reference Manualで個別のInspector項目・default・rangeまで確認できていない項目は、**source-limited**としてその詳細を断定していません。verification: partial はその未確認範囲を含みます。runtime REGIDや現在のEffects Library表示は別のruntime verificationで確定します。
+### Bézier Spline
+
+[Bézier Spline](./bezier-spline)は、各Keyframeに前後のhandleを持ちます。直線区間とcurveを混ぜたり、Keyframeへ入る傾きと出る傾きを細かく調整したりしたい場合はこちらが向いています。
+
+21.1では、数値Parameterを通常の `Animate` でAnimationするとBézier Splineが使われるのが既定です。ただしFusion PreferencesのDefault Animate設定で既定Modifierは変更できます。
+
+### B-Spline
+
+[B-Spline Modifier](./b-spline-modifier)はhandleを使わず、control pointのweight / tensionでcurveの滑らかさを調整します。21.1 Manualでは、control pointを選択して `W` を押しながら左右へdragする操作が説明されています。
+
+Cubic Splineはcontrol pointを通るcurveを自動的に作るのに対し、B-Splineではpointのweightingがcurveへ影響します。
+
+### Natural Cubic Spline
+
+[Natural Cubic Spline](./natural-cubic-spline)はCubic Splineに似ていますが、21.1 Manualでは**変更の影響がより局所的**だと説明されています。
+
+あるcontrol pointを変更しても、その影響は次または前のcontrol pointより先のtangentへ及びません。Cubic系の自動的な滑らかさを使いつつ、離れた区間への影響を抑えたい場合の違いとして確認できます。
+
+## 注意点
+
+- Cubic Splineは主に数値Parameter向けで、Imageを処理するNodeではありません。
+- Bézier handleは表示されません。curveの形はcontrol pointの時間と値を変えて調整します。
+- 21.1 Manual自身が、このSpline typeはほとんど使われないと説明しています。通常の数値AnimationではBézier Splineが既定です。
+- Chapter 71とChapter 124で追加menuの名称が一致しないため、current runtimeのcontextual menu表記は未確定として扱います。
+- current runtimeのREGID、内部Parameter ID、edition差はこのページでは確定していません。
+
+## 関連ページ
+
+- [Modifier Family Overview](./)
+- [Bezier Spline](./bezier-spline)
+- [B-Spline Modifier](./b-spline-modifier)
+- [Natural Cubic Spline](./natural-cubic-spline)
+- [Path](./path)
+- [XY Path](./xy-path)
+
+## バージョンと出典
+
+DaVinci Resolve 21.1 Reference Manual（September 2026）の次の範囲を基準にしています。
+
+- Chapter 71「Animating in Fusion's Spline Editor」pp.1544–1545
+- Chapter 73「Using Modifiers, Expressions, and Custom Controls」pp.1584–1585
+- Chapter 124「Modifiers」p.3000
+- Chapter 74「Fusion Preferences」p.1600（Default Animate）
+
+21.1 Manualで、Cubic Splineが主に数値Parameterへ使うAnimation Modifierであること、control pointを通ること、Bézier handleを表示せず滑らかなcurveを自動生成すること、専用Controls tabを持たずSpline Editorで編集することを確認しています。
+
+Chapter 71とChapter 124で追加menu名が食い違うため、current runtimeのmenu表記、REGID、内部Parameter ID、edition差は別のruntime verification対象です。
