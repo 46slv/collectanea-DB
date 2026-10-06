@@ -1,0 +1,8 @@
+{
+  "label": "学ぶ（Learn）",
+  "position": 4,
+  "link": {
+    "type": "doc",
+    "id": "fusion/learn/index"
+  }
+}

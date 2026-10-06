@@ -1,0 +1,1 @@
+COLLECTANEA static assets
