@@ -1,62 +1,94 @@
 ---
-title: "Ambient Occlusion (Deep Pixel)"
-description: "World Position/Normal等のAuxチャンネルからAOを生成する旧Deep Pixel系。"
+title: Ambient Occlusion (Deep Pixel)
+description: Z・Normal・Cameraを使い、3D render後の2D Imageへscreen-space ambient occlusionを追加するpost-process Node。
 doc_type: node
-term_id: "ambient-occlusion-deep-pixel"
-term_short: "Ambient Occlusion (Deep Pixel)は、World Position/Normal等のAuxチャンネルからAOを生成する旧Deep Pixel系。"
+term_id: ambient-occlusion-deep-pixel
 verification: partial
-aliases: ["Ambient Occlusion (Deep Pixel)"]
-concepts: ["deep-image"]
-nodes: ["Ambient Occlusion (Deep Pixel)"]
-node_family: "deep"
-inputs: ["deep"]
-outputs: ["deep"]
-tasks: ["process-deep"]
+aliases: [Ambient Occlusion, SSAO, Ambient Occlusion (Deep Pixel)]
+concepts: [auxiliary-channels, image-data, classic-3d]
+nodes: [Ambient Occlusion]
+node_family: deep
+controls: [Output Mode, Kernel Type, Number of Samples, Kernel Radius, Lift, Gamma, Tint]
+inputs: [image, camera, mask]
+outputs: [image]
+tasks: [aov, ambient-occlusion, post-process]
 product_scope: fusion
-suite_surfaces: ["fusion"]
-updated: "2026-10-03"
+suite_surfaces: [fusion]
+updated: "2026-10-04"
 ---
 
 # Ambient Occlusion (Deep Pixel)
 
-World Position/Normal等のAuxチャンネルからAOを生成する旧Deep Pixel系。
+Ambient Occlusionは、render済み2D <Term id="image">Image</Term>に含まれるZ / NormalとCamera informationを使い、接触部や凹部を暗くするAOをpost-processで計算するNodeです。
 
-## 概要
+ここでいう「Deep Pixel」は<Term id="deep-image">Deep Image</Term>のmulti-sample dataではありません。<Term id="auxiliary-channels">Auxiliary Channel / AOV</Term>付き2D Imageを扱います。
 
-- **種別**: Node / Tool
-- **分類**: Deep Pixel (legacy aux)
-- **主なデータ領域**: Deep image
-- **導入・系譜**: legacy
-- **根拠レベル**: Blackmagic Design公式の旧Fusion Tool Referenceにある系譜
+## 必要な入力
 
-## 入力と出力
+### Input
 
-この項目はカタログ上、**Deep image**を主なデータ領域として扱います。上のfrontmatterにある入出力は領域を検索するための分類であり、Fusion 21.1の正確な端子数や端子名を断定するものではありません。
+RGBAに加えてZ-DepthとNormalsを持つ2D Imageが必要です。
 
-実際に組むときはFlow上の端子ラベルとInspectorを確認し、2D Image、Mask、Shape、Particle、Classic 3D、USD、Deep、パラメータ値を取り違えないようにします。
+### Camera
 
-## 主な用途
+そのImageをrenderしたCamera 3DまたはCameraを含む3D sceneを接続します。
 
-World Position/Normal等のAuxチャンネルからAOを生成する旧Deep Pixel系。
+InputかCameraのどちらかが欠けるとManual上はoutputをrenderしません。
 
-## 使うときの判断
+### Effect Mask
 
-Deep imageは通常の2D Imageと別のサンプル構造を持ちます。通常の2D処理へ戻すときは`Deep to Image`を使います。
+AOを適用する画面範囲を限定します。
+
+## Output Mode
+
+- **Color** — source ImageへAOを適用した結果
+- **AO** — AOだけをgrayscaleで出力
+
+AOだけを出して別Merge / Multiplyで合成したい場合はAO modeを使います。
+
+## Kernel Type
+
+### Hemisphere
+
+surface Normalを基準にhemisphereへrayを飛ばします。Manualでは通常こちらを推奨しています。
+
+### Sphere
+
+sample pointを中心としたsphereへrayを飛ばすstyleです。よりstylizedな結果を作れます。
+
+## Number of Samples
+
+sample数を増やすほどnoise / artifactを減らせますが、render timeが増えます。
+
+## Kernel Radius
+
+3D spaceでoccluderを探す距離です。
+
+scene scaleに強く依存するため、AOが全く出ない / 全体が暗くなる場合はまずRadiusを調整します。
+
+小さすぎると近傍occluderを見逃し、大きすぎるとqualityが下がり、より多くのSamplesが必要になります。
+
+## Lift / Gamma / Tint
+
+AO結果の見た目をartisticに調整します。
+
+物理的なocclusion計算と最終lookを分けて考えます。
 
 ## 最小構成
 
 ```text
-Deep Source → Ambient Occlusion (Deep Pixel) → Deep to Image
+Renderer 3D (RGBA + Z + Normal) ──→ Ambient Occlusion → Output
+Camera 3D ─────────────────────────→ Camera input
 ```
 
 ## 注意点
 
-- このページはノードを選ぶための役割・データ領域・系譜を先に揃えています。
-- exactな内部ID、端子名、初期値、数値範囲、Edition差は、確認できたものだけ今後追記します。
-- legacy系譜の項目は、現在のEffects Libraryに同名で表示されることまで一件ずつ実機確認したものではありません。
+Manualはtransparent / translucent object、particle、anti-aliased edgeに制約があると説明しています。
 
-## バージョンと検証状況
+AOはviewer-space post effectなので、cameraを動かすと同じsurfaceでもAO量が変わる場合があります。
 
-旧Blackmagic Design公式Tool Referenceで役割と系譜を確認しています。Fusion 21.1での存在、端子名、Inspector項目、初期値、範囲は実機または現行マニュアルで再確認が必要です。
+## 出典と確認範囲
 
-このリファレンスのinventory基準はDaVinci Resolve / Fusion 21.0.4です。Manual全体は21.1基準へ更新中のため、21.1で差がある箇所は現行資料または実機確認後に更新します。
+DaVinci Resolve 21.1 Reference Manual Chapter 96 pp.2255–2258で、required inputs、Output Mode、Kernel、Samples、Radius、AO limitationsを確認しました。
+
+実機renderer差とshot別最適値は未確認です。

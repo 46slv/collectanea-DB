@@ -1,63 +1,56 @@
 ---
-title: "Color Gain"
-description: "チャンネルゲインを操作。"
+title: Color Gain
+description: RGBA別のLift・Gamma・GainとSaturation / Hue、high・mid・lowの色Balanceを比較的軽量に調整するColor Node。
 doc_type: node
-term_id: "color-gain"
-term_short: "Color Gainは、チャンネルゲインを操作。"
+term_id: color-gain
+term_short: RGBAのLift/Gamma/Gainと色Balanceをまとめて調整するColor Node。
 verification: partial
-aliases: ["Color Gain", "CLR"]
-concepts: ["image-data"]
-nodes: ["Color Gain"]
-node_family: "color"
-inputs: ["image"]
-outputs: ["image"]
-tasks: ["adjust-color"]
+aliases: [Color Gain, Clr]
+concepts: [image-data, color-adjustment]
+nodes: [Color Gain]
+node_family: color
+controls: [Lock R/G/B, Gain RGBA, Lift RGBA, Gamma RGBA, Saturation, Balance, Hue]
+inputs: [image, mask]
+outputs: [image]
+tasks: [color-correct, channel-balance]
 product_scope: fusion
-suite_surfaces: ["fusion"]
-updated: "2026-10-03"
+suite_surfaces: [fusion]
+updated: "2026-10-05"
 ---
 
 # Color Gain
 
-チャンネルゲインを操作。
+Color Gainは、RGBA別のLift / Gamma / Gainを中心に、Saturation、Hue、high / mid / lowの色Balanceをまとめて調整するNodeです。
 
-## 概要
+Color Correctorより機能を絞った構成で、単純なchannel balanceやtone補正を短く組みたい場合に向きます。
 
-- **種別**: Node / Tool
-- **分類**: Color
-- **主なデータ領域**: 2D Image / control
-- **略称**: `CLR`
-- **導入・系譜**: legacy
-- **根拠レベル**: Blackmagic Design公式の旧Fusion Tool Referenceにある系譜
+## 入力
 
-## 入力と出力
+2D Imageと任意Effect Maskを受け、補正後の2D Imageを出力します。
 
-この項目はカタログ上、**2D Image / control**を主なデータ領域として扱います。上のfrontmatterにある入出力は領域を検索するための分類であり、Fusion 21.1の正確な端子数や端子名を断定するものではありません。
+## Gain tab
 
-実際に組むときはFlow上の端子ラベルとInspectorを確認し、2D Image、Mask、Shape、Particle、Classic 3D、USD、Deep、パラメータ値を取り違えないようにします。
+- **Gain RGBA** — bright側へ強く効く乗算
+- **Lift RGBA** — dark側へ強く効く補正
+- **Gamma RGBA** — black / whiteを保ちつつmidtoneを動かす
+- **Lock R/G/B** — RGBをまとめて動かす
 
-## 主な用途
+AlphaはRGB lockとは独立して調整できます。
 
-チャンネルゲインを操作。
+## Balance tab
 
-## 使うときの判断
+opposite color pairを使い、high / mid / lowごとに色かぶりを調整します。
 
-前後のノードと同じ2D Image領域で使うのが基本です。Maskや補助入力がある場合は、画像入力と役割を分けて接続します。
+単なるHue rotationではなく、明るさ帯ごとにtintを変えたい場合に使います。
 
-## 最小構成
+## Saturation / Hue
 
-```text
-Image → Color Gain → Image
-```
+Saturationで色の強さ、Hueで全体の色相を回します。
 
-## 注意点
+## Color Correctorとの違い
 
-- このページはノードを選ぶための役割・データ領域・系譜を先に揃えています。
-- exactな内部ID、端子名、初期値、数値範囲、Edition差は、確認できたものだけ今後追記します。
-- legacy系譜の項目は、現在のEffects Libraryに同名で表示されることまで一件ずつ実機確認したものではありません。
+Color CorrectorはRange、Histogram、Suppress、Reference Matchまで含む総合Nodeです。Color Gainはより小さい役割へ絞りたい場合の候補です。
 
-## バージョンと検証状況
+## 出典と確認範囲
 
-旧Blackmagic Design公式Tool Referenceで役割と系譜を確認しています。Fusion 21.1での存在、端子名、Inspector項目、初期値、範囲は実機または現行マニュアルで再確認が必要です。
-
-このリファレンスのinventory基準はDaVinci Resolve / Fusion 21.0.4です。Manual全体は21.1基準へ更新中のため、21.1で差がある箇所は現行資料または実機確認後に更新します。
+DaVinci Resolve 21.1 Reference Manual Chapter 93 pp.2171–2175で、Image / Effect Mask、Lift / Gamma / Gain、Balance、Saturation、Hueを確認しました。

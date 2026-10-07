@@ -16,46 +16,45 @@ product_scope: fusion
 suite_surfaces: ["fusion"]
 updated: "2026-10-03"
 ---
-
 # sBoolean
 
-Shape同士のBoolean演算。
+sBooleanは、2つの<Term id="shape-data">Shape</Term>の重なり方をIntersection / Union / Subtract / Xorで組み合わせるNodeです。
 
-## 概要
+通常のsMergeがshapeをlayerとして重ねるのに対し、sBooleanは**重なった領域そのものを計算して新しいshapeを作る**ために使います。
 
-- **種別**: Node / Tool
-- **分類**: Shape System (Resolve 17+)
-- **主なデータ領域**: Shape
-- **導入・系譜**: 17
-- **根拠レベル**: 導入版のBlackmagic Design公式資料で確認した現行系譜
+## 入力
 
-## 入力と出力
+- **Input1** — required。Subtractでは基準shapeになります。
+- **Input2** — optional。SubtractではInput1から切り抜くshapeになります。
 
-この項目はカタログ上、**Shape**を主なデータ領域として扱います。上のfrontmatterにある入出力は領域を検索するための分類であり、Fusion 21.1の正確な端子数や端子名を断定するものではありません。
+Subtract以外では、どちらへ接続するかで結果は基本的に変わりません。
 
-実際に組むときはFlow上の端子ラベルとInspectorを確認し、2D Image、Mask、Shape、Particle、Classic 3D、USD、Deep、パラメータ値を取り違えないようにします。
+## Operation
 
-## 主な用途
+- **Intersection** — 2 shapeが重なった部分だけ残す
+- **Union** — どちらか一方にshapeがある領域を残す
+- **Subtract** — Input1からInput2が重なる部分を除く
+- **Xor** — 片方だけにshapeがある領域を残し、重なりを消す
 
-Shape同士のBoolean演算。
+## Style
 
-## 使うときの判断
+sBooleanではupstreamの個別Styleをそのまま使うのではなく、Style tabのColorでoutput shape全体の色とAlphaを上書きできます。
 
-Shape領域のデータは2D Imageではありません。通常のMergeへ渡す前に`sRender`で画像へ変換します。
+Allow Combiningは、後段でDuplicate / Grid等によってself-overlapしたときにAlphaを重ね合わせるか保持するかを決めます。
 
 ## 最小構成
 
-```text
-Shape Source → sBoolean → sRender → Image
-```
+    sStar ───┐
+             ├─ sBoolean → sRender → Image
+    sEllipse ┘
 
-## 注意点
+Subtractで円形の穴を開ける、Intersectionで重なりだけを残す、といった形状生成に使えます。
 
-- このページはノードを選ぶための役割・データ領域・系譜を先に揃えています。
-- exactな内部ID、端子名、初期値、数値範囲、Edition差は、確認できたものだけ今後追記します。
+## sMergeとの違い
 
-## バージョンと検証状況
+- **sMerge** — 複数shapeをlayerとして1 treeにまとめる
+- **sBoolean** — overlap領域を計算してshape geometryを作り替える
 
-導入版のBlackmagic Design公式資料で現行系譜を確認しています。Fusion 21.1の端子名、Inspector項目、初期値、範囲は未検証です。
+## 出典と確認範囲
 
-このリファレンスのinventory基準はDaVinci Resolve / Fusion 21.0.4です。Manual全体は21.1基準へ更新中のため、21.1で差がある箇所は現行資料または実機確認後に更新します。
+DaVinci Resolve 21.1 Reference Manual Chapter 117 pp.2729–2732で、2 inputs、4 Operation、Style、Allow Combiningを確認しました。

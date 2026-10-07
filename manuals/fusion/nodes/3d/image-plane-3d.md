@@ -1,63 +1,82 @@
 ---
-title: "Image Plane 3D"
-description: "2D画像を平面として3Dへ配置。"
+title: Image Plane 3D
+description: 2D Imageをaspect比付きの平面geometryへ貼り、Classic 3D scene内のcardとして扱うNode。
 doc_type: node
-term_id: "image-plane-3d"
-term_short: "Image Plane 3Dは、2D画像を平面として3Dへ配置。"
+term_id: image-plane-3d
 verification: partial
-aliases: ["Image Plane 3D", "3IM"]
-concepts: ["classic-3d"]
-nodes: ["Image Plane 3D"]
-node_family: "3d"
-inputs: ["classic-3d"]
-outputs: ["classic-3d"]
-tasks: ["build-3d-scene"]
+aliases: [Image Plane 3D, ImagePlane3D, 3Im]
+concepts: [classic-3d, image-data, material]
+nodes: [Image Plane 3D]
+node_family: 3d
+controls: [Lock Width/Height, Subdivision Level, Wireframe, Transform, Materials, Lighting]
+inputs: [classic-3d, image, material]
+outputs: [classic-3d]
+tasks: [build-3d-scene, image-card, texture]
 product_scope: fusion
-suite_surfaces: ["fusion"]
-updated: "2026-10-03"
+suite_surfaces: [fusion]
+updated: "2026-10-04"
 ---
 
 # Image Plane 3D
 
-2D画像を平面として3Dへ配置。
+Image Plane 3Dは、2D <Term id="image">Image</Term>を平面geometryへ貼り、<Term id="classic-3d">Classic 3D scene</Term>内のcardとして扱うNodeです。
 
-## 概要
+映像、静止画、matte painting、screen graphic等を3D空間へ置くときに使います。
 
-- **種別**: Node / Tool
-- **分類**: 3D Geometry / Scene
-- **主なデータ領域**: Classic 3D scene / geometry
-- **略称**: `3IM`
-- **導入・系譜**: legacy
-- **根拠レベル**: Blackmagic Design公式の旧Fusion Tool Referenceにある系譜
+## 入力
 
-## 入力と出力
+### Scene Input
 
-この項目はカタログ上、**Classic 3D scene / geometry**を主なデータ領域として扱います。上のfrontmatterにある入出力は領域を検索するための分類であり、Fusion 21.1の正確な端子数や端子名を断定するものではありません。
+オレンジ色の任意inputです。別の3D scene / objectを同じoutputへ加えられます。
 
-実際に組むときはFlow上の端子ラベルとInspectorを確認し、2D Image、Mask、Shape、Particle、Classic 3D、USD、Deep、パラメータ値を取り違えないようにします。
+### Material Input
 
-## 主な用途
+緑色のinputです。2D Imageまたは3D Materialを接続します。
 
-2D画像を平面として3Dへ配置。
+2D Imageを接続するとbuilt-in materialのdiffuse textureとして使われ、Imageのaspect比がplane geometryにも反映されます。
 
-## 使うときの判断
+専用3D Materialを接続するとbuilt-in material側は無効になります。
 
-Classic 3D sceneはUSD sceneと別系統です。2D Imageへ戻すには通常`Renderer 3D`を使います。
+## 出力
+
+Imageを貼ったplane geometryをClassic 3D sceneとして出力します。
+
+## Subdivision
+
+Subdivision Levelを上げるとplaneのvertex数が増えます。
+
+通常のflat cardでは低い値で足りますが、Displace 3Dでgeometryを変形する場合やvertex lightingを細かく表現する場合は十分なsubdivisionが必要です。
+
+## Wireframe
+
+OpenGL rendererでplaneをwireframeとして表示します。
+
+subdivision densityを確認する用途にも使えます。
 
 ## 最小構成
 
 ```text
-3D Source → Image Plane 3D → Merge 3D → Renderer 3D → Image
+MediaIn → Image Plane 3D → Merge 3D → Renderer 3D
 ```
 
-## 注意点
+## Shape 3DのPlaneとの違い
 
-- このページはノードを選ぶための役割・データ領域・系譜を先に揃えています。
-- exactな内部ID、端子名、初期値、数値範囲、Edition差は、確認できたものだけ今後追記します。
-- legacy系譜の項目は、現在のEffects Libraryに同名で表示されることまで一件ずつ実機確認したものではありません。
+Image Plane 3Dは接続したImageのaspect比をplane geometryへ反映するため、映像card用途に向きます。
 
-## バージョンと検証状況
+geometryのWidth / HeightをImage aspectから独立して決めたい場合はShape 3DのPlaneを使う方が直接的です。
 
-旧Blackmagic Design公式Tool Referenceで役割と系譜を確認しています。Fusion 21.1での存在、端子名、Inspector項目、初期値、範囲は実機または現行マニュアルで再確認が必要です。
+## 運用例
 
-このリファレンスのinventory基準はDaVinci Resolve / Fusion 21.0.4です。Manual全体は21.1基準へ更新中のため、21.1で差がある箇所は現行資料または実機確認後に更新します。
+2.5D parallax:
+
+1. 複数ImageをImage Plane 3Dへ変換します。
+2. Z位置を少しずつ分けます。
+3. Merge 3Dへまとめます。
+4. Camera 3Dを動かします。
+5. Renderer 3DでImageへ戻します。
+
+## 出典と確認範囲
+
+DaVinci Resolve 21.1 Reference Manual Chapter 88 pp.1952–1954で、Scene / Material input、Image aspect、Subdivision、Wireframe、built-in materialとの関係を確認しました。
+
+実機performanceとtexture filtering差は未確認です。

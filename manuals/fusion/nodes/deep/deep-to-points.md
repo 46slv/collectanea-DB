@@ -1,61 +1,75 @@
 ---
-title: "Deep to Points"
-description: "Deep samplesを3D point representationへ変換。"
+title: Deep to Points
+description: Deep ImageのsampleをClassic 3D point cloudへ変換し、Cameraを使って元sceneとの位置関係を再現・可視化するNode。
 doc_type: node
-term_id: "deep-to-points"
-term_short: "Deep to Pointsは、Deep samplesを3D point representationへ変換。"
+term_id: deep-to-points
 verification: partial
-aliases: ["Deep to Points"]
-concepts: ["image-data"]
-nodes: ["Deep to Points"]
-node_family: "deep"
-inputs: ["image"]
-outputs: ["image"]
-tasks: ["process-deep"]
+aliases: [Deep to Points, DTP]
+concepts: [deep-image, classic-3d, depth]
+nodes: [Deep to Points]
+node_family: deep
+controls: [Style, Size, Antialiasing, Density, Default Color, Use Per-Point Colors, Make Renderable, Unseen by Camera, Scale, Depth Scale, Flip Depth, Transform]
+inputs: [deep-image, camera]
+outputs: [classic-3d]
+tasks: [deep, visualize-depth, point-cloud, convert-domain]
 product_scope: fusion
-suite_surfaces: ["fusion"]
-updated: "2026-10-03"
+suite_surfaces: [fusion]
+updated: "2026-10-04"
 ---
 
 # Deep to Points
 
-Deep samplesを3D point representationへ変換。
+Deep to Pointsは、<Term id="deep-image">Deep Image</Term>のdepth sampleを<Term id="classic-3d">Classic 3D point cloud</Term>へ変換するNodeです。
 
-## 概要
+Deep dataの奥行きを3D Viewerで確認したり、元3D sceneとの位置関係を見ながらelementを配置する用途に使います。
 
-- **種別**: Node / Tool
-- **分類**: Resolve 20+
-- **主なデータ領域**: 2D Image / control
-- **導入・系譜**: 20
-- **根拠レベル**: 導入版のBlackmagic Design公式資料で確認した現行系譜
+## 入力
 
-## 入力と出力
+### Input
 
-この項目はカタログ上、**2D Image / control**を主なデータ領域として扱います。上のfrontmatterにある入出力は領域を検索するための分類であり、Fusion 21.1の正確な端子数や端子名を断定するものではありません。
+Deep Image inputです。
 
-実際に組むときはFlow上の端子ラベルとInspectorを確認し、2D Image、Mask、Shape、Particle、Classic 3D、USD、Deep、パラメータ値を取り違えないようにします。
+### Camera
 
-## 主な用途
+元sceneをrenderしたCamera 3Dを接続すると、そのperspectiveを使ってpointを元の3D位置へ配置します。
 
-Deep samplesを3D point representationへ変換。
+camera無しでもpoint cloudは作れますが、元sceneとの正確な対応を確認する場合にCamera inputが重要です。
 
-## 使うときの判断
+## 表示Control
 
-前後のノードと同じ2D Image領域で使うのが基本です。Maskや補助入力がある場合は、画像入力と役割を分けて接続します。
+- Style — Cross Hair / Point等の表示
+- Size
+- Antialiasing
+- Density
+- Default Color
+- Use Per-Point Colors
+
+source Imageの色をpointへ持たせるか、一定colorで表示するか選べます。
+
+## Make Renderable
+
+有効にするとRenderer 3Dでpoint cloudを2D Imageへrenderできます。
+
+Unseen by Cameraを有効にすると3D Viewerには見せつつ、最終Renderer outputからは除外できます。
+
+## Scale / Depth Scale / Flip Depth
+
+Scaleはpoint cloud全体、Depth ScaleはZ方向の広がりを調整します。
+
+Flip Depthでdepth方向を反転できます。
+
+## Transform tab
+
+Translation / Rotation / Pivot / Scale / Use Target等、Classic 3D共通Transformを持ちます。
 
 ## 最小構成
 
 ```text
-Deep Source → Deep to Points → Deep to Image
+Deep EXR ─────→ Deep to Points ─┐
+Camera 3D ─────→ Camera input   ├─ Merge 3D → Renderer 3D
+Other 3D object ────────────────┘
 ```
 
-## 注意点
+## 出典と確認範囲
 
-- このページはノードを選ぶための役割・データ領域・系譜を先に揃えています。
-- exactな内部ID、端子名、初期値、数値範囲、Edition差は、確認できたものだけ今後追記します。
-
-## バージョンと検証状況
-
-導入版のBlackmagic Design公式資料で現行系譜を確認しています。Fusion 21.1の端子名、Inspector項目、初期値、範囲は未検証です。
-
-このリファレンスのinventory基準はDaVinci Resolve / Fusion 21.0.4です。Manual全体は21.1基準へ更新中のため、21.1で差がある箇所は現行資料または実機確認後に更新します。
+DaVinci Resolve 21.1 Reference Manual Chapter 95 pp.2241–2244で、Deep / Camera inputs、point display controls、Make Renderable、Depth Scale、Transformを確認しました。

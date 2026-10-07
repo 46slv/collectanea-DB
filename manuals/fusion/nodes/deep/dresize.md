@@ -1,61 +1,55 @@
 ---
-title: "dResize"
-description: "Deep image resize。"
+title: dResize
+description: Deep Imageのwidth / heightを変更し、depth sampleを保持したまま画像解像度をresizeするNode。
 doc_type: node
-term_id: "dresize"
-term_short: "dResizeは、Deep image resize。"
+term_id: dresize
 verification: partial
-aliases: ["dResize"]
-concepts: ["image-data"]
-nodes: ["dResize"]
-node_family: "deep"
-inputs: ["image"]
-outputs: ["image"]
-tasks: ["process-deep"]
+aliases: [dResize, dRz]
+concepts: [deep-image, resolution]
+nodes: [dResize]
+node_family: deep
+controls: [Width, Height]
+inputs: [deep-image]
+outputs: [deep-image]
+tasks: [deep, resize, resolution]
 product_scope: fusion
-suite_surfaces: ["fusion"]
-updated: "2026-10-03"
+suite_surfaces: [fusion]
+updated: "2026-10-04"
 ---
 
 # dResize
 
-Deep image resize。
+dResizeは、<Term id="deep-image">Deep Image</Term>のwidth / heightを変更するNodeです。
 
-## 概要
+通常Resizeと同様にcanvas resolutionを変えますが、outputはDeep Imageのままです。
 
-- **種別**: Node / Tool
-- **分類**: Resolve 20+
-- **主なデータ領域**: 2D Image / control
-- **導入・系譜**: 20
-- **根拠レベル**: 導入版のBlackmagic Design公式資料で確認した現行系譜
+## 入力 / 出力
 
-## 入力と出力
-
-この項目はカタログ上、**2D Image / control**を主なデータ領域として扱います。上のfrontmatterにある入出力は領域を検索するための分類であり、Fusion 21.1の正確な端子数や端子名を断定するものではありません。
-
-実際に組むときはFlow上の端子ラベルとInspectorを確認し、2D Image、Mask、Shape、Particle、Classic 3D、USD、Deep、パラメータ値を取り違えないようにします。
-
-## 主な用途
-
-Deep image resize。
-
-## 使うときの判断
-
-前後のノードと同じ2D Image領域で使うのが基本です。Maskや補助入力がある場合は、画像入力と役割を分けて接続します。
-
-## 最小構成
+1つのDeep Image inputを受け、resize後のDeep Imageを出力します。
 
 ```text
-Deep Source → dResize → Deep to Image
+Deep EXR → dResize → dMerge / Deep to Image
 ```
+
+## Width / Height
+
+output Deep Imageの幅と高さを設定します。
+
+21.1 ManualでdResize固有Controlとして記載されているのはこの2項目です。
+
+## dTransformとの違い
+
+- **dResize** — Deep Imageのresolution自体を変更
+- **dTransform** — canvasを保ちながらXY位置・SizeやZ depthを変形
+
+通常2DのResizeとTransformの違いと同様に、「output resolutionを変えたいか」で選びます。
 
 ## 注意点
 
-- このページはノードを選ぶための役割・データ領域・系譜を先に揃えています。
-- exactな内部ID、端子名、初期値、数値範囲、Edition差は、確認できたものだけ今後追記します。
+Deep dataは通常2D Imageよりmemory量が大きくなりやすいため、不要に大きいresolutionへresizeすると処理負荷が増える可能性があります。
 
-## バージョンと検証状況
+具体的なmemory倍率やperformanceはsourceとsample数に依存するため、ここでは固定値を示しません。
 
-導入版のBlackmagic Design公式資料で現行系譜を確認しています。Fusion 21.1の端子名、Inspector項目、初期値、範囲は未検証です。
+## 出典と確認範囲
 
-このリファレンスのinventory基準はDaVinci Resolve / Fusion 21.0.4です。Manual全体は21.1基準へ更新中のため、21.1で差がある箇所は現行資料または実機確認後に更新します。
+DaVinci Resolve 21.1 Reference Manual Chapter 95 pp.2249–2250で、Deep Image inputとWidth / Height controlsを確認しました。

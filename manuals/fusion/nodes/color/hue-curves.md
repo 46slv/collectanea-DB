@@ -1,63 +1,54 @@
 ---
-title: "Hue Curves"
-description: "Hue等を基準にしたカーブ補正。"
+title: Hue Curves
+description: Hueを横軸にしたSplineで、特定色域だけのHue・Saturation・Luminance・RGBやsuppressionを局所調整するNode。
 doc_type: node
-term_id: "hue-curves"
-term_short: "Hue Curvesは、Hue等を基準にしたカーブ補正。"
+term_id: hue-curves
+term_short: Hue範囲をSplineで狙って色を局所補正するNode。
 verification: partial
-aliases: ["Hue Curves", "HCV"]
-concepts: ["image-data"]
-nodes: ["Hue Curves"]
-node_family: "color"
-inputs: ["image"]
-outputs: ["image"]
-tasks: ["adjust-color"]
+aliases: [Hue Curves, HCv]
+concepts: [image-data, color-adjustment, premultiplication]
+nodes: [Hue Curves]
+node_family: color
+controls: [Mode, Color Channel Checkboxes, Spline Window, In, Out, Eyedropper, Pre-Divide/Post-Multiply]
+inputs: [image, mask]
+outputs: [image]
+tasks: [hue-selective, color-correct]
 product_scope: fusion
-suite_surfaces: ["fusion"]
-updated: "2026-10-03"
+suite_surfaces: [fusion]
+updated: "2026-10-05"
 ---
 
 # Hue Curves
 
-Hue等を基準にしたカーブ補正。
+Hue Curvesは、**横軸をHue**として、赤・黄・緑・cyan・青・magentaのどの色域へ補正を加えるかSplineで決めるNodeです。
 
-## 概要
+特定の青だけSaturationを下げる、skin付近のHueだけ少し動かす、といったcolor-selectiveな補正に向きます。
 
-- **種別**: Node / Tool
-- **分類**: Color
-- **主なデータ領域**: 2D Image / control
-- **略称**: `HCV`
-- **導入・系譜**: legacy
-- **根拠レベル**: Blackmagic Design公式の旧Fusion Tool Referenceにある系譜
+## Spline Window
 
-## 入力と出力
+横方向がHue、縦方向が選択したpropertyの補正量です。
 
-この項目はカタログ上、**2D Image / control**を主なデータ領域として扱います。上のfrontmatterにある入出力は領域を検索するための分類であり、Fusion 21.1の正確な端子数や端子名を断定するものではありません。
+curveは色相環として循環しており、左端と右端はつながっています。
 
-実際に組むときはFlow上の端子ラベルとInspectorを確認し、2D Image、Mask、Shape、Particle、Classic 3D、USD、Deep、パラメータ値を取り違えないようにします。
+## Channel / property
 
-## 主な用途
+Hue、Saturation、Luminance、個別color channel、suppression用curveを切り替えて編集します。
 
-Hue等を基準にしたカーブ補正。
+EyedropperでViewer上の色をsampleすると、選択Hueへcontrol pointを追加できます。
 
-## 使うときの判断
+## Mode
 
-前後のノードと同じ2D Image領域で使うのが基本です。Maskや補助入力がある場合は、画像入力と役割を分けて接続します。
+No Animationではcurveが固定です。Animated Pointsを使うと、shot内で色が変化する場合にcurve自体をanimationできます。
 
-## 最小構成
+## Pre-Divide / Post-Multiply
 
-```text
-Image → Hue Curves → Image
-```
+premultiplied Alpha素材の透明edgeを補正する場合に使います。
 
-## 注意点
+## Color Curvesとの違い
 
-- このページはノードを選ぶための役割・データ領域・系譜を先に揃えています。
-- exactな内部ID、端子名、初期値、数値範囲、Edition差は、確認できたものだけ今後追記します。
-- legacy系譜の項目は、現在のEffects Libraryに同名で表示されることまで一件ずつ実機確認したものではありません。
+- **Hue Curves** — Hueの位置を基準に「どの色」を触るか決める
+- **Color Curves** — channel valueを基準に「どの明るさ / 値」をremapする
 
-## バージョンと検証状況
+## 出典と確認範囲
 
-旧Blackmagic Design公式Tool Referenceで役割と系譜を確認しています。Fusion 21.1での存在、端子名、Inspector項目、初期値、範囲は実機または現行マニュアルで再確認が必要です。
-
-このリファレンスのinventory基準はDaVinci Resolve / Fusion 21.0.4です。Manual全体は21.1基準へ更新中のため、21.1で差がある箇所は現行資料または実機確認後に更新します。
+DaVinci Resolve 21.1 Reference Manual Chapter 93 pp.2188–2190で、Hue-based Spline、animation、Eyedropper、Pre-Divide/Post-Multiplyを確認しました。

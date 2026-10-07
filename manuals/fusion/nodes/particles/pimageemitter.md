@@ -1,62 +1,80 @@
 ---
-title: "pImageEmitter"
-description: "画像から粒子を発生。"
+title: pImage Emitter
+description: 2D Imageのpixel gridをParticleへ変換し、pixel位置・Color・Alpha・Z channelをparticle generationへ利用するEmitter。
 doc_type: node
-term_id: "pimageemitter"
-term_short: "pImageEmitterは、画像から粒子を発生。"
+term_id: pimageemitter
+term_short: pImage Emitterは、source Imageのpixelからparticleを生成するNode。
 verification: partial
-aliases: ["pImageEmitter"]
-concepts: ["particle-data"]
-nodes: ["pImageEmitter"]
-node_family: "particles"
-inputs: ["particle"]
-outputs: ["particle"]
-tasks: ["create-particles"]
+aliases: [pImage Emitter, pImageEmitter, pIE]
+concepts: [particle-data, image-data, alpha, depth]
+nodes: [pImage Emitter]
+node_family: particles
+controls: [X Density, Y Density, Alpha Threshold, Lock Particle Color to Initial Frame, Create Particles Every Frame, Pivot XYZ, Use Z Channel for Particle Z]
+inputs: [image, region]
+outputs: [particle]
+tasks: [particles, image-to-particles, pixel-particles]
 product_scope: fusion
-suite_surfaces: ["fusion"]
-updated: "2026-10-03"
+suite_surfaces: [fusion]
+updated: "2026-10-04"
 ---
 
-# pImageEmitter
+# pImage Emitter
 
-画像から粒子を発生。
+pImage Emitterは、2D <Term id="image">Image</Term>のpixel gridを元に<Term id="particle-data">Particle</Term>を生成するEmitterです。
 
-## 概要
+Imageの形・色・Alphaをそのままparticle distributionへ使いたい場合に、通常のpEmitterより直接的です。
 
-- **種別**: Node / Tool
-- **分類**: Particles
-- **主なデータ領域**: Particle set
-- **導入・系譜**: legacy
-- **根拠レベル**: Blackmagic Design公式の旧Fusion Tool Referenceにある系譜
+## 入力
 
-## 入力と出力
+主入力へ2D Imageを接続します。
 
-この項目はカタログ上、**Particle set**を主なデータ領域として扱います。上のfrontmatterにある入出力は領域を検索するための分類であり、Fusion 21.1の正確な端子数や端子名を断定するものではありません。
+入力Imageのpixel位置をparticleの初期位置へ使い、ColorやAlphaをparticle generationへ利用できます。
 
-実際に組むときはFlow上の端子ラベルとInspectorを確認し、2D Image、Mask、Shape、Particle、Classic 3D、USD、Deep、パラメータ値を取り違えないようにします。
+## 主な設定
 
-## 主な用途
+### X / Y Density
 
-画像から粒子を発生。
+pixel gridをどの密度でsampleしてparticleを作るかを決めます。
 
-## 使うときの判断
+1.0は1 pixelあたり1 sampleです。小さくするとpointillisticに粗くなり、1より大きくするとpixelあたり複数particleを生成できます。
 
-Particle setは2D Imageではありません。最終的に画像として合成する場合は`pRender`を使います。
+### Alpha Threshold
+
+どのAlpha値以上のpixelからparticleを作るかを決めます。
+
+soft Alphaを持つImageで、透明edgeから大量のparticleが生まれるのを抑えたい場合に使います。
+
+### Lock Particle Color to Initial Frame
+
+有効にするとparticleは誕生frameのColorを保持します。
+
+無効ならsource Imageが時間で変化するとparticle colorも更新されます。
+
+### Create Particles Every Frame
+
+有効にすると毎frame新しいparticle setを生成します。
+
+animated sourceから継続的にparticleを放出できますが、particle数が急速に増えるため注意します。
+
+### Use Z Channel for Particle Z
+
+source ImageにZ depth channelがある場合、pixelのdepthをparticleのZ位置へ使えます。
 
 ## 最小構成
 
 ```text
-pEmitter → pImageEmitter → pRender → Image
+Image → pImage Emitter → pRender
 ```
 
-## 注意点
+## pEmitterとの違い
 
-- このページはノードを選ぶための役割・データ領域・系譜を先に揃えています。
-- exactな内部ID、端子名、初期値、数値範囲、Edition差は、確認できたものだけ今後追記します。
-- legacy系譜の項目は、現在のEffects Libraryに同名で表示されることまで一件ずつ実機確認したものではありません。
+- **pEmitter** — Point / Region等を基準にparticleを生成
+- **pImage Emitter** — Imageのpixel gridを直接particle distributionへ使う
 
-## バージョンと検証状況
+logoを粒へ崩す、映像のpixelからparticle cloudを作る用途ではpImage Emitterが候補です。
 
-旧Blackmagic Design公式Tool Referenceで役割と系譜を確認しています。Fusion 21.1での存在、端子名、Inspector項目、初期値、範囲は実機または現行マニュアルで再確認が必要です。
+## 出典と確認範囲
 
-このリファレンスのinventory基準はDaVinci Resolve / Fusion 21.0.4です。Manual全体は21.1基準へ更新中のため、21.1で差がある箇所は現行資料または実機確認後に更新します。
+DaVinci Resolve 21.1 Reference Manual Chapter 114 pp.2672–2674で、Image input、X/Y Density、Alpha Threshold、Color lock、Create Particles Every Frame、Z channel利用を確認しました。
+
+全pEmitter共通Controlは[pEmitter](./p-emitter)を参照してください。

@@ -16,46 +16,43 @@ product_scope: fusion
 suite_surfaces: ["fusion"]
 updated: "2026-10-03"
 ---
-
 # sJitter
 
-Shape属性へランダム揺らぎ。
+sJitterは、入力した<Term id="shape-data">Shape</Term>へrandomな位置・size・rotation・point displacementを加えるNodeです。
 
-## 概要
+特にsGrid / sDuplicateで作った規則的な配列を崩し、手作業では作りにくいばらつきを与える用途に向きます。
 
-- **種別**: Node / Tool
-- **分類**: Shape System (Resolve 17+)
-- **主なデータ領域**: Shape
-- **導入・系譜**: 17
-- **根拠レベル**: 導入版のBlackmagic Design公式資料で確認した現行系譜
+## 入力 / 出力
 
-## 入力と出力
+1つのrequired Shape inputを受け、jitter後のShapeを出力します。
 
-この項目はカタログ上、**Shape**を主なデータ領域として扱います。上のfrontmatterにある入出力は領域を検索するための分類であり、Fusion 21.1の正確な端子数や端子名を断定するものではありません。
+    sEllipse → sGrid → sJitter → sRender
 
-実際に組むときはFlow上の端子ラベルとInspectorを確認し、2D Image、Mask、Shape、Particle、Classic 3D、USD、Deep、パラメータ値を取り違えないようにします。
+## Jitter Mode
 
-## 主な用途
+staticなばらつきと、auto-animating random modeを切り替えます。
 
-Shape属性へランダム揺らぎ。
+auto-animationを使うと、keyframeを大量に打たずにshapeが時間で揺らぐ動きを作れます。
 
-## 使うときの判断
+## variation controls
 
-Shape領域のデータは2D Imageではありません。通常のMergeへ渡す前に`sRender`で画像へ変換します。
+Controls tabのrange controlsで位置、size、rotationのrandom幅を決めます。
 
-## 最小構成
+Point Jitterは、shapeを構成するvector point自体を動かすため、単なるobject position jitterではなく輪郭の歪みにも使えます。
 
-```text
-Shape Source → sJitter → sRender → Image
-```
+## 運用例
 
-## 注意点
+ドット背景を完全なgridではなく少し手描き風にする場合:
 
-- このページはノードを選ぶための役割・データ領域・系譜を先に揃えています。
-- exactな内部ID、端子名、初期値、数値範囲、Edition差は、確認できたものだけ今後追記します。
+1. sEllipseをsGridで並べます。
+2. sJitterで位置variationを少量追加します。
+3. size / rotation variationも必要量だけ加えます。
+4. sRenderでImage化します。
 
-## バージョンと検証状況
+## sDuplicateのJitterとの違い
 
-導入版のBlackmagic Design公式資料で現行系譜を確認しています。Fusion 21.1の端子名、Inspector項目、初期値、範囲は未検証です。
+sDuplicateにもcopy単位のJitterがあります。sJitterは独立Nodeなので、既に作ったcompound / grid全体へ後段からrandomizeでき、point-level jitterも扱えます。
 
-このリファレンスのinventory基準はDaVinci Resolve / Fusion 21.0.4です。Manual全体は21.1基準へ更新中のため、21.1で差がある箇所は現行資料または実機確認後に更新します。
+## 出典と確認範囲
+
+DaVinci Resolve 21.1 Reference Manual Chapter 117 pp.2744–2746で、Shape input、arrayへのrandom offset、Jitter Mode、position / size / rotation / point jitterを確認しました。

@@ -1,61 +1,78 @@
 ---
-title: "dTransform"
-description: "Deep image transform。"
+title: dTransform
+description: Deep ImageのXY位置・Pivot・Sizeと、sample ZのScale / Translateを同時に調整し、depth sampleを保持するTransform Node。
 doc_type: node
-term_id: "dtransform"
-term_short: "dTransformは、Deep image transform。"
+term_id: dtransform
 verification: partial
-aliases: ["dTransform"]
-concepts: ["image-data", "transform"]
-nodes: ["dTransform"]
-node_family: "deep"
-inputs: ["image"]
-outputs: ["image"]
-tasks: ["process-deep"]
+aliases: [dTransform, dXF]
+concepts: [deep-image, transform, depth, mask-data]
+nodes: [dTransform]
+node_family: deep
+controls: [Scale Z, Translate Z, Center X/Y, Pivot X/Y, Size X/Y, Use Size and Aspect, Size, Aspect]
+inputs: [deep-image, mask]
+outputs: [deep-image]
+tasks: [deep, transform, move-depth]
 product_scope: fusion
-suite_surfaces: ["fusion"]
-updated: "2026-10-03"
+suite_surfaces: [fusion]
+updated: "2026-10-04"
 ---
 
 # dTransform
 
-Deep image transform。
+dTransformは、<Term id="deep-image">Deep Image</Term>をXY方向へ移動・scaleしながら、Deep sampleのZ値も調整できるTransform Nodeです。
 
-## 概要
+2D見た目だけを動かすのではなく、depth relationshipまで保ったまま変形します。
 
-- **種別**: Node / Tool
-- **分類**: Resolve 20+
-- **主なデータ領域**: 2D Image / control
-- **導入・系譜**: 20
-- **根拠レベル**: 導入版のBlackmagic Design公式資料で確認した現行系譜
+## 入力
 
-## 入力と出力
+Deep Image inputと任意Effect Maskを受け取ります。
 
-この項目はカタログ上、**2D Image / control**を主なデータ領域として扱います。上のfrontmatterにある入出力は領域を検索するための分類であり、Fusion 21.1の正確な端子数や端子名を断定するものではありません。
+## Z方向
 
-実際に組むときはFlow上の端子ラベルとInspectorを確認し、2D Image、Mask、Shape、Particle、Classic 3D、USD、Deep、パラメータ値を取り違えないようにします。
+### Scale Z
 
-## 主な用途
+sample間のdepth rangeを拡大 / 圧縮します。
 
-Deep image transform。
+値を上げると奥行き差が大きくなり、下げるとdepthが圧縮されます。
 
-## 使うときの判断
+### Translate Z
 
-前後のノードと同じ2D Image領域で使うのが基本です。Maskや補助入力がある場合は、画像入力と役割を分けて接続します。
+sample全体をcameraに対して前後へ移動します。
+
+Viewer SampleからZ値を取得して位置合わせできます。
+
+## XY方向
+
+### Center X/Y
+
+Deep Imageの画面内positionです。
+
+### Pivot X/Y
+
+scaleの中心を変えます。
+
+### Size X/Y
+
+axis別に2D sizeを調整します。
+
+### Use Size and Aspect
+
+有効にするとuniform SizeとAspectで調整できます。
 
 ## 最小構成
 
 ```text
-Deep Source → dTransform → Deep to Image
+Deep Element → dTransform → dMerge → Deep to Image
 ```
 
-## 注意点
+foreground Deep renderを少し手前へ出す場合はTranslate Z、screen上のplacementをずらす場合はCenterを使い分けます。
 
-- このページはノードを選ぶための役割・データ領域・系譜を先に揃えています。
-- exactな内部ID、端子名、初期値、数値範囲、Edition差は、確認できたものだけ今後追記します。
+## Transformとの違い
 
-## バージョンと検証状況
+通常Transformは2D Imageを変形します。
 
-導入版のBlackmagic Design公式資料で現行系譜を確認しています。Fusion 21.1の端子名、Inspector項目、初期値、範囲は未検証です。
+dTransformはDeep sampleのZも含めて扱うため、Deep composite途中で奥行き関係を変える場合に使います。
 
-このリファレンスのinventory基準はDaVinci Resolve / Fusion 21.0.4です。Manual全体は21.1基準へ更新中のため、21.1で差がある箇所は現行資料または実機確認後に更新します。
+## 出典と確認範囲
+
+DaVinci Resolve 21.1 Reference Manual Chapter 95 pp.2250–2251で、Deep / Effect Mask inputs、Scale Z、Translate Z、Center / Pivot / Size / Aspectを確認しました。

@@ -3,7 +3,7 @@ title: "Volume Fog"
 description: "World Position等を使うボリュームフォグ。"
 doc_type: node
 term_id: "volume-fog"
-term_short: "Volume Fogは、World Position等を使うボリュームフォグ。"
+term_short: "Volume Fogは、World Position等を使うボリュームフォグ。stereo / disparity / depthを扱うNode。"
 verification: partial
 aliases: ["Volume Fog", "VLF"]
 concepts: ["image-data"]
@@ -14,50 +14,48 @@ outputs: ["image"]
 tasks: ["process-stereo"]
 product_scope: fusion
 suite_surfaces: ["fusion"]
-updated: "2026-10-03"
+updated: "2026-10-05"
 ---
 
 # Volume Fog
 
-World Position等を使うボリュームフォグ。
+Volume Fogは、World Position等を使うボリュームフォグ。stereo pairのalignment、disparity、depth変換、packing / view生成を扱います。
 
-## 概要
+## 役割
 
-- **種別**: Node / Tool
-- **分類**: Stereo / Position
-- **主なデータ領域**: 2D Image / immersive image
-- **略称**: `VLF`
-- **導入・系譜**: legacy
-- **根拠レベル**: Blackmagic Design公式の旧Fusion Tool Referenceにある系譜
+World Position等を使うボリュームフォグ。このページでは、名前だけで選ばず、**何を受け取り、何が変わり、どのdomainへ返すか**を先に整理します。
+
+この項目で確認できている中心的な役割は「World Position等を使うボリュームフォグ」です。exactなInspector項目が未確認の場合は、役割とdata domainを先に使って候補を絞ります。
 
 ## 入力と出力
 
-この項目はカタログ上、**2D Image / immersive image**を主なデータ領域として扱います。上のfrontmatterにある入出力は領域を検索するための分類であり、Fusion 21.1の正確な端子数や端子名を断定するものではありません。
-
-実際に組むときはFlow上の端子ラベルとInspectorを確認し、2D Image、Mask、Shape、Particle、Classic 3D、USD、Deep、パラメータ値を取り違えないようにします。
-
-## 主な用途
-
-World Position等を使うボリュームフォグ。
+入力分類: **image**。 出力分類: **image**。 この分類はdata domainを読むためのものです。Fusion 21.1のexactな端子名・端子数を未確認の場合、ここでは推測して固定しません。
 
 ## 使うときの判断
 
-前後のノードと同じ2D Image領域で使うのが基本です。Maskや補助入力がある場合は、画像入力と役割を分けて接続します。
+left/right Imageを扱うのか、disparity mapを扱うのか、Z depthへ変換するのかを先に確認します。
+
+同じ目的を別Familyでも作れる場合は、後段で必要なdata domainと、Graph上で責任をどこに置きたいかで選びます。
 
 ## 最小構成
 
-```text
-Image → Volume Fog → Image
-```
+    Stereo / Disparity / Z data → Volume Fog → Stereo result
 
-## 注意点
+これは接続関係を理解するための最小構成案です。公式Manualのexactな作例として確認していない構成は、実制作前にViewerで中間結果を確認します。
 
-- このページはノードを選ぶための役割・データ領域・系譜を先に揃えています。
-- exactな内部ID、端子名、初期値、数値範囲、Edition差は、確認できたものだけ今後追記します。
-- legacy系譜の項目は、現在のEffects Libraryに同名で表示されることまで一件ずつ実機確認したものではありません。
+## 確認ポイント
 
-## バージョンと検証状況
+- 入力dataのdomainが合っているか。
+- この項目のoutputを受け取れる後段Nodeへ接続しているか。
+- 同じ役割を前段 / 後段で二重に処理していないか。
+- source-limited pageでは、未確認のControl名・default・rangeを名前から推測していないか。
 
-旧Blackmagic Design公式Tool Referenceで役割と系譜を確認しています。Fusion 21.1での存在、端子名、Inspector項目、初期値、範囲は実機または現行マニュアルで再確認が必要です。
+## Family内での位置づけ
 
-このリファレンスのinventory基準はDaVinci Resolve / Fusion 21.0.4です。Manual全体は21.1基準へ更新中のため、21.1で差がある箇所は現行資料または実機確認後に更新します。
+Stereo 3Dノードの全体像と近いNodeの選び分けは[Family Overview](./)を参照してください。
+
+## 出典と確認範囲
+
+このページの役割・data domain・系譜は、既存COLLECTANEA catalogとBlackmagic Design公式資料で確認された範囲をreader-first形式へ整理しています。
+
+Fusion 21.1 Reference Manualで個別のInspector項目・default・rangeまで確認できていない項目は、**source-limited**としてその詳細を断定していません。verification: partial はその未確認範囲を含みます。runtime REGIDや現在のEffects Library表示は別のruntime verificationで確定します。

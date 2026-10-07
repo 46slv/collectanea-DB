@@ -1,61 +1,65 @@
 ---
-title: "dHoldout"
-description: "Deep holdout。"
+title: dHoldout
+description: Foreground Deep Imageのdepth sampleを使い、Background Deep Imageを奥行きに応じてoccludeするNode。
 doc_type: node
-term_id: "dholdout"
-term_short: "dHoldoutは、Deep holdout。"
+term_id: dholdout
 verification: partial
-aliases: ["dHoldout"]
-concepts: ["image-data"]
-nodes: ["dHoldout"]
-node_family: "deep"
-inputs: ["image"]
-outputs: ["image"]
-tasks: ["process-deep"]
+aliases: [dHoldout, dHld]
+concepts: [deep-image, depth, occlusion]
+nodes: [dHoldout]
+node_family: deep
+controls: [Compute Occluded Samples, Holdout Z Offset, Holdout Center]
+inputs: [deep-image, deep-image]
+outputs: [deep-image]
+tasks: [deep, holdout, occlusion]
 product_scope: fusion
-suite_surfaces: ["fusion"]
-updated: "2026-10-03"
+suite_surfaces: [fusion]
+updated: "2026-10-04"
 ---
 
 # dHoldout
 
-Deep holdout。
+dHoldoutは、Foreground <Term id="deep-image">Deep Image</Term>をholdoutとして使い、Background Deep Imageの奥側sampleを隠すNodeです。
 
-## 概要
+2D matteでpixel全体を切るのではなく、foregroundのdepthに応じてbackground sampleをoccludeします。
 
-- **種別**: Node / Tool
-- **分類**: Resolve 20+
-- **主なデータ領域**: 2D Image / control
-- **導入・系譜**: 20
-- **根拠レベル**: 導入版のBlackmagic Design公式資料で確認した現行系譜
+## 入力
 
-## 入力と出力
+### Background
 
-この項目はカタログ上、**2D Image / control**を主なデータ領域として扱います。上のfrontmatterにある入出力は領域を検索するための分類であり、Fusion 21.1の正確な端子数や端子名を断定するものではありません。
+残したいbackground Deep Imageです。
 
-実際に組むときはFlow上の端子ラベルとInspectorを確認し、2D Image、Mask、Shape、Particle、Classic 3D、USD、Deep、パラメータ値を取り違えないようにします。
+### Foreground
 
-## 主な用途
-
-Deep holdout。
-
-## 使うときの判断
-
-前後のノードと同じ2D Image領域で使うのが基本です。Maskや補助入力がある場合は、画像入力と役割を分けて接続します。
-
-## 最小構成
+holdoutとして使うforeground Deep Imageです。
 
 ```text
-Deep Source → dHoldout → Deep to Image
+Background Deep ─┐
+                 ├─ dHoldout → Deep to Image
+Foreground Deep ─┘
 ```
 
-## 注意点
+## Compute Occluded Samples
 
-- このページはノードを選ぶための役割・データ領域・系譜を先に揃えています。
-- exactな内部ID、端子名、初期値、数値範囲、Edition差は、確認できたものだけ今後追記します。
+semi-transparent foregroundで隠されるbackground sampleを単純削除せず、foreground越しに見える値を計算します。
 
-## バージョンと検証状況
+volume / glass-likeな半透明Deep sampleを扱う場合に重要です。
 
-導入版のBlackmagic Design公式資料で現行系譜を確認しています。Fusion 21.1の端子名、Inspector項目、初期値、範囲は未検証です。
+## Holdout Z Offset
 
-このリファレンスのinventory基準はDaVinci Resolve / Fusion 21.0.4です。Manual全体は21.1基準へ更新中のため、21.1で差がある箇所は現行資料または実機確認後に更新します。
+holdout sampleをdepth方向へ前後させます。
+
+edgeでdepthがわずかに合わない場合の調整に使えます。
+
+## Holdout Center
+
+foreground holdoutをXY方向へ位置調整します。
+
+## dMergeとの違い
+
+- **dMerge** — 複数Deep streamをsample-awareに統合
+- **dHoldout** — foreground Deepを使ってbackground sampleを隠す
+
+## 出典と確認範囲
+
+DaVinci Resolve 21.1 Reference Manual Chapter 95 pp.2245–2246で、Background / Foreground inputs、Compute Occluded Samples、Z Offset、Centerを確認しました。
