@@ -1,63 +1,83 @@
 ---
-title: "Transform 3D"
-description: "3D位置/回転/スケール変換。"
+title: Transform 3D
+description: Classic 3D sceneまたはobject全体へ追加のTranslation・Rotation・Pivot・Scaleを適用し、hierarchyを組むNode。
 doc_type: node
-term_id: "transform-3d"
-term_short: "Transform 3Dは、3D位置/回転/スケール変換。"
+term_id: transform-3d
 verification: partial
-aliases: ["Transform 3D", "3XF"]
-concepts: ["classic-3d", "transform"]
-nodes: ["Transform 3D"]
-node_family: "3d"
-inputs: ["classic-3d"]
-outputs: ["classic-3d"]
-tasks: ["build-3d-scene"]
+aliases: [Transform 3D, Transform3D, 3XF]
+concepts: [classic-3d, transform]
+nodes: [Transform 3D]
+node_family: 3d
+controls: [Offset XYZ, Rotation Order, Rotation XYZ, Pivot XYZ, Scale XYZ, Use Target, Target Position, Import Transform]
+inputs: [classic-3d]
+outputs: [classic-3d]
+tasks: [build-3d-scene, transform-3d, hierarchy]
 product_scope: fusion
-suite_surfaces: ["fusion"]
-updated: "2026-10-03"
+suite_surfaces: [fusion]
+updated: "2026-10-04"
 ---
 
 # Transform 3D
 
-3D位置/回転/スケール変換。
+Transform 3Dは、<Term id="classic-3d">Classic 3D scene</Term>または3D objectへ、追加の位置・回転・scaleを適用するNodeです。
 
-## 概要
+Geometry自身のTransformを変更せず、後段で別Transformを重ねたい場合やhierarchyを作る場合に使います。
 
-- **種別**: Node / Tool
-- **分類**: 3D Geometry / Scene
-- **主なデータ領域**: Classic 3D scene / geometry
-- **略称**: `3XF`
-- **導入・系譜**: legacy
-- **根拠レベル**: Blackmagic Design公式の旧Fusion Tool Referenceにある系譜
+## 入力 / 出力
 
-## 入力と出力
-
-この項目はカタログ上、**Classic 3D scene / geometry**を主なデータ領域として扱います。上のfrontmatterにある入出力は領域を検索するための分類であり、Fusion 21.1の正確な端子数や端子名を断定するものではありません。
-
-実際に組むときはFlow上の端子ラベルとInspectorを確認し、2D Image、Mask、Shape、Particle、Classic 3D、USD、Deep、パラメータ値を取り違えないようにします。
-
-## 主な用途
-
-3D位置/回転/スケール変換。
-
-## 使うときの判断
-
-Classic 3D sceneはUSD sceneと別系統です。2D Imageへ戻すには通常`Renderer 3D`を使います。
-
-## 最小構成
+オレンジ色のScene Inputへ3D scene / objectを接続し、変形後のClassic 3D sceneを出力します。
 
 ```text
-3D Source → Transform 3D → Merge 3D → Renderer 3D → Image
+Shape 3D → Transform 3D → Merge 3D
 ```
 
-## 注意点
+## Translation
 
-- このページはノードを選ぶための役割・データ領域・系譜を先に揃えています。
-- exactな内部ID、端子名、初期値、数値範囲、Edition差は、確認できたものだけ今後追記します。
-- legacy系譜の項目は、現在のEffects Libraryに同名で表示されることまで一件ずつ実機確認したものではありません。
+X / Y / Z Offsetで3D space内の位置を変更します。
 
-## バージョンと検証状況
+## Rotation
 
-旧Blackmagic Design公式Tool Referenceで役割と系譜を確認しています。Fusion 21.1での存在、端子名、Inspector項目、初期値、範囲は実機または現行マニュアルで再確認が必要です。
+Rotation OrderでX / Y / Zをどの順に適用するかを決めます。
 
-このリファレンスのinventory基準はDaVinci Resolve / Fusion 21.0.4です。Manual全体は21.1基準へ更新中のため、21.1で差がある箇所は現行資料または実機確認後に更新します。
+同じ3軸rotation値でも順序が違えば最終orientationが変わるため、複雑なanimationではRotation Orderも設定の一部として扱います。
+
+## Pivot
+
+rotation / scaleの中心です。
+
+object center以外を軸に回したい場合、Pivotをoffsetします。
+
+## Scale
+
+Lock X / Y / Zが有効ならuniform scale、無効ならaxisごとに別scaleを設定できます。
+
+## Use Target
+
+Target Positionを有効にすると、objectが指定targetを向くようにrotationを計算します。
+
+CameraやLightのaim、常に1点を向くobject animation等に使えます。
+
+## Hierarchy
+
+複数Transform 3Dを直列にすると、local transformとparent-like transformを分離できます。
+
+```text
+Object
+  ↓
+Transform 3D  ← local motion
+  ↓
+Transform 3D  ← group / parent motion
+  ↓
+Merge 3D
+```
+
+## 2D Transformとの違い
+
+- **Transform** — 2D Imageを同じImage domain内で変形
+- **Transform 3D** — Classic 3D object / sceneを3D coordinatesで変形
+
+## 出典と確認範囲
+
+DaVinci Resolve 21.1 Reference Manual Chapter 88 pp.2007–2009とCommon Transform controls pp.2023–2025で、Offset、Rotation Order、Pivot、Scale、Use Target、hierarchical useを確認しました。
+
+coordinate conventionの全詳細、import format差、実機performanceは未確認です。

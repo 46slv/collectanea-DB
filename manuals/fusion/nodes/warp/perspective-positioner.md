@@ -1,63 +1,101 @@
 ---
 title: "Perspective Positioner"
-description: "パース付き4点配置/補正。"
+description: "遠近の付いた平面領域を4点で指定し、その領域を正面向きのImageへ展開するunpin Node。"
 doc_type: node
 term_id: "perspective-positioner"
-term_short: "Perspective Positionerは、パース付き4点配置/補正。"
+term_short: "Perspective Positionerは、遠近の付いた四辺形を4点で指定して正面向きへ展開するunpin Node。"
 verification: partial
-aliases: ["Perspective Positioner", "PPN"]
+aliases: ["Perspective Positioner", "PPn"]
 concepts: ["image-data"]
 nodes: ["Perspective Positioner"]
 node_family: "warp"
-inputs: ["image"]
+controls: ["Mapping Type", "Corners X", "Corners Y", "Top", "Bottom", "Left", "Right"]
+inputs: ["image", "mask"]
 outputs: ["image"]
-tasks: ["warp-image"]
+tasks: ["warp-image", "screen-replace", "paint"]
 product_scope: fusion
 suite_surfaces: ["fusion"]
-updated: "2026-10-03"
+updated: "2026-10-05"
 ---
 
 # Perspective Positioner
 
-パース付き4点配置/補正。
+Perspective Positionerは、遠近の付いた平面領域を4点で指定し、その部分を正面向きへ展開するNodeです。Blackmagic DesignのManualでは、[Corner Positioner](./corner-positioner)と対になるNodeとして説明されています。
 
-## 概要
-
-- **種別**: Node / Tool
-- **分類**: Warp
-- **主なデータ領域**: 2D Image / control
-- **略称**: `PPN`
-- **導入・系譜**: legacy
-- **根拠レベル**: Blackmagic Design公式の旧Fusion Tool Referenceにある系譜
+画面や看板を一度平らにしてからPaintや修正を行いたいときに使います。この処理は**unpin**と呼ばれ、Corner Positionerが平らなImageを遠近の付いた面へはめ込むのとは逆方向です。
 
 ## 入力と出力
 
-この項目はカタログ上、**2D Image / control**を主なデータ領域として扱います。上のfrontmatterにある入出力は領域を検索するための分類であり、Fusion 21.1の正確な端子数や端子名を断定するものではありません。
+### Input
 
-実際に組むときはFlow上の端子ラベルとInspectorを確認し、2D Image、Mask、Shape、Particle、Classic 3D、USD、Deep、パラメータ値を取り違えないようにします。
+オレンジ色のInputへ、遠近を取り除きたい2D Imageを接続します。
+
+### Effect Mask
+
+青色のEffect MaskへMaskを接続すると、Perspective Positionerの結果を必要な領域だけに限定できます。21.1 Manualでは、Effect MaskはNodeの処理後に適用されると説明されています。
+
+### Output
+
+4点で囲んだ領域のperspectiveを取り除き、正面向きへ展開した2D Imageを出力します。
+
+## 主な設定項目
+
+### Mapping Type
+
+変形方法を選びます。
+
+- **Bi-Linear** — 旧projectとの互換用
+- **Perspective** — 遠近を考慮して変形する
+
+21.1 Manualでは、実際の遠近をより正確に扱えるためPerspectiveの使用が強く推奨されています。
+
+### Corners X / Y
+
+遠近を取り除きたい平面の4隅へcontrol pointを合わせます。Viewer上で直接ドラッグできます。
+
+InspectorではTop、Bottom、Left、Rightの各controlを使って位置を細かく調整できます。
 
 ## 主な用途
 
-パース付き4点配置/補正。
+- 遠近の付いた看板や画面を正面向きへ展開して修正する
+- textureを平らな状態にしてPaint / cleanupを行う
+- 4点をanimationし、平面を揺らす・歪ませる表現を作る
+- Corner Positionerと組み合わせ、unpin → edit → pinの流れを作る
 
-## 使うときの判断
+## Paintして元の面へ戻す
 
-前後のノードと同じ2D Image領域で使うのが基本です。Maskや補助入力がある場合は、画像入力と役割を分けて接続します。
-
-## 最小構成
+21.1 Manualでは、遠近の付いた領域をPerspective Positionerで平らにし、その状態でPaintした後、Corner Positionerで元の位置へ戻す例が示されています。
 
 ```text
-Image → Perspective Positioner → Image
+Footage
+  ↓
+Perspective Positioner
+  ↓
+Paint
+  ↓
+Corner Positioner
+  ↓
+Result
 ```
 
-## 注意点
+たとえば斜めから撮影された看板の汚れを消す場合、まず看板面を正面向きへ展開してから[Paint](../paint/paint.md)で修正し、最後にCorner Positionerで元の遠近へ戻せます。
 
-- このページはノードを選ぶための役割・データ領域・系譜を先に揃えています。
-- exactな内部ID、端子名、初期値、数値範囲、Edition差は、確認できたものだけ今後追記します。
-- legacy系譜の項目は、現在のEffects Libraryに同名で表示されることまで一件ずつ実機確認したものではありません。
+## Corner Positionerとの違い
 
-## バージョンと検証状況
+- **Perspective Positioner** — 遠近の付いた領域を平らにする
+- **Corner Positioner** — 平らなImageを遠近の付いた領域へはめ込む
 
-旧Blackmagic Design公式Tool Referenceで役割と系譜を確認しています。Fusion 21.1での存在、端子名、Inspector項目、初期値、範囲は実機または現行マニュアルで再確認が必要です。
+この2つは逆向きの処理に見えますが、21.1 Manualでは**両Nodeはconcatenateされない**と説明されています。往復させると多少softnessが加わるため、画質が重要な処理では不要な往復を増やさない方が安全です。
 
-このリファレンスのinventory基準はDaVinci Resolve / Fusion 21.0.4です。Manual全体は21.1基準へ更新中のため、21.1で差がある箇所は現行資料または実機確認後に更新します。
+## 関連Node
+
+- [Corner Positioner](./corner-positioner)
+- [Paint](../paint/paint.md)
+- [Planar Tracker](../tracking/planar-tracker)
+- [Planar Transform](../tracking/planar-transform)
+
+## 出典と確認範囲
+
+DaVinci Resolve 21.1 Reference Manual、September 2026、Chapter 123 pp.2982–2983で、Input / Effect Mask、unpinの役割、Basic Node Setup、Mapping Type、Corners X / Y、Top / Bottom / Left / Right、Corner Positionerと往復した際のsoftnessを確認しました。
+
+全既定値・数値範囲、内部REGID、実機performanceは未確認です。

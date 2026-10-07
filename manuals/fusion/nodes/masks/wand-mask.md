@@ -1,62 +1,91 @@
 ---
-title: "Wand Mask"
-description: "色選択ベースのワンド型マスク。"
+title: Wand Mask
+description: Viewerでsampleしたpixel colorから、連続してつながる近似色領域をRange / Soft Rangeで拡張しMask化するcolor-selection Node。
 doc_type: node
-term_id: "wand-mask"
-term_short: "Wand Maskは、色選択ベースのワンド型マスク。"
+term_id: wand-mask
 verification: partial
-aliases: ["Wand Mask", "WND"]
-concepts: ["mask-data"]
-nodes: ["Wand Mask"]
-node_family: "masks"
-outputs: ["mask"]
-tasks: ["create-mask"]
+aliases: [Wand Mask, Wnd]
+concepts: [mask-data, image-data, color-selection]
+nodes: [Wand Mask]
+node_family: masks
+controls: [Level, Filter, Soft Edge, Paint Mode, Invert, Selection Point, Color Space, Channel, Range, Range Soft Edge]
+inputs: [image, mask]
+outputs: [mask]
+tasks: [create-mask, select-color, isolate-color]
 product_scope: fusion
-suite_surfaces: ["fusion"]
-updated: "2026-10-03"
+suite_surfaces: [fusion]
+updated: "2026-10-04"
 ---
 
 # Wand Mask
 
-色選択ベースのワンド型マスク。
+Wand Maskは、Viewer上の1 pixelをsampleし、その色と近く、**連続してつながっている領域**を広げながら<Term id="mask">Mask</Term>にするNodeです。
 
-## 概要
+Adobe PhotoshopのMagic Wandに近い選択方法です。色補正したい領域が明確な色でまとまっている場合に向きます。
 
-- **種別**: Node / Tool
-- **分類**: Mask
-- **主なデータ領域**: Mask
-- **略称**: `WND`
-- **導入・系譜**: legacy
-- **根拠レベル**: Blackmagic Design公式の旧Fusion Tool Referenceにある系譜
+## 入力
 
-## 入力と出力
+### Input
 
-この項目はカタログ上、**Mask**を主なデータ領域として扱います。上のfrontmatterにある入出力は領域を検索するための分類であり、Fusion 21.1の正確な端子数や端子名を断定するものではありません。
+オレンジ色の2D <Term id="image">Image</Term> inputです。color sampleと領域探索のsourceです。
 
-実際に組むときはFlow上の端子ラベルとInspectorを確認し、2D Image、Mask、Shape、Particle、Classic 3D、USD、Deep、パラメータ値を取り違えないようにします。
+### Effect Mask
 
-## 主な用途
+青色の任意Mask inputです。Wand結果と別MaskをPaint Modeで組み合わせます。
 
-色選択ベースのワンド型マスク。
+## Selection Point
 
-## 使うときの判断
+Viewerにcrosshairとして表示されます。
 
-Maskは画像そのものではなく、別ノードの適用範囲を制御するデータです。
+その位置のpixel colorを初期sampleとして、周囲へ連続している近似色pixelを探索します。
+
+Selection Pointは手動移動だけでなく、Tracker、Path、Expression等へ接続できます。
+
+## Color Space
+
+色の距離をどのspaceで判定するか選びます。
+
+21.1 ManualではRGB、YUV、HLS、LABを確認できます。
+
+## Channel
+
+All color、Alpha、または個別channelを選びます。
+
+個別channel名は選択Color Spaceによって変わり、RGBならR/G/B、YUVならY/U/Vになります。
+
+## Range
+
+sample colorからどの程度離れた色まで100% Maskへ含めるかを決めます。
+
+0ではsampleと同色のpixelだけが完全選択対象です。上げるほど似た色まで含めます。
+
+## Range Soft Edge
+
+Range外側の近似色をgray Maskとして段階的に含めます。
+
+hard thresholdではなくcolor selectionにfalloffを作れます。
+
+## Soft Edgeとの違い
+
+- **Range Soft Edge** — 色の近さに対するsoftness
+- **Soft Edge** — 生成済みMask shapeの空間edge feather
+
+何がsoftになっているかを分けて調整します。
 
 ## 最小構成
 
 ```text
-Wand Mask → 対象NodeのMask入力
+Image → Wand Mask → Color Corrector Effect Mask
 ```
 
-## 注意点
+## Bitmap / Rangesとの違い
 
-- このページはノードを選ぶための役割・データ領域・系譜を先に揃えています。
-- exactな内部ID、端子名、初期値、数値範囲、Edition差は、確認できたものだけ今後追記します。
-- legacy系譜の項目は、現在のEffects Libraryに同名で表示されることまで一件ずつ実機確認したものではありません。
+- **Bitmap Mask** — channel value全体からMaskを作る
+- **Ranges Mask** — tonal rangeをSplineで選ぶ
+- **Wand Mask** — 1点から連続する近似色領域をgrowする
 
-## バージョンと検証状況
+同色が画面内の離れた場所にもあるが、その一部だけを選びたい場合はWandのconnected-region性が有効です。
 
-旧Blackmagic Design公式Tool Referenceで役割と系譜を確認しています。Fusion 21.1での存在、端子名、Inspector項目、初期値、範囲は実機または現行マニュアルで再確認が必要です。
+## 出典と確認範囲
 
-このリファレンスのinventory基準はDaVinci Resolve / Fusion 21.0.4です。Manual全体は21.1基準へ更新中のため、21.1で差がある箇所は現行資料または実機確認後に更新します。
+DaVinci Resolve 21.1 Reference Manual Chapter 108 pp.2496–2499で、Image / Effect Mask inputs、connected color selection、Selection Point、Color Space、Channel、Range、Range Soft Edgeを確認しました。

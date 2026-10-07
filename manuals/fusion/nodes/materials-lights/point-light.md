@@ -1,63 +1,66 @@
 ---
-title: "Point Light"
-description: "点光源。"
+title: Point Light
+description: 3D空間の1点から全方向へ光を放ち、Color・Intensity・Decay・shadow mapを調整するClassic 3D Light。
 doc_type: node
-term_id: "point-light"
-term_short: "Point Lightは、点光源。"
+term_id: point-light
 verification: partial
-aliases: ["Point Light", "3PL"]
-concepts: ["classic-3d"]
-nodes: ["Point Light"]
-node_family: "materials-lights"
-inputs: ["classic-3d"]
-outputs: ["classic-3d"]
-tasks: ["shade-3d"]
+aliases: [Point Light, 3PL]
+concepts: [classic-3d, lighting]
+nodes: [Point Light]
+node_family: materials-lights
+controls: [Enabled, Color, Intensity, Decay Type, Enable Shadows, Shadow Color, Density, Shadow Map Size, Bias, Softness, Transform]
+inputs: [classic-3d]
+outputs: [classic-3d]
+tasks: [shade-3d, light-3d, point-light]
 product_scope: fusion
-suite_surfaces: ["fusion"]
-updated: "2026-10-03"
+suite_surfaces: [fusion]
+updated: "2026-10-04"
 ---
 
 # Point Light
 
-点光源。
+Point Lightは、電球のように1点から全方向へ光を放つ<Term id="classic-3d">Classic 3D</Term> Lightです。
 
-## 概要
+位置とobjectまでの距離が重要で、rotationはlighting結果へ影響しません。
 
-- **種別**: Node / Tool
-- **分類**: 3D Lights
-- **主なデータ領域**: Classic 3D scene / geometry
-- **略称**: `3PL`
-- **導入・系譜**: legacy
-- **根拠レベル**: Blackmagic Design公式の旧Fusion Tool Referenceにある系譜
+## 入力 / 出力
 
-## 入力と出力
+任意のScene Inputへ3D sceneを接続できますが、通常はPoint Light自体をMerge 3Dへ接続します。
 
-この項目はカタログ上、**Classic 3D scene / geometry**を主なデータ領域として扱います。上のfrontmatterにある入出力は領域を検索するための分類であり、Fusion 21.1の正確な端子数や端子名を断定するものではありません。
+## Color / Intensity
 
-実際に組むときはFlow上の端子ラベルとInspectorを確認し、2D Image、Mask、Shape、Particle、Classic 3D、USD、Deep、パラメータ値を取り違えないようにします。
+光の色と強さを調整します。
 
-## 主な用途
+## Decay Type
 
-点光源。
+distanceでIntensityを減衰させる方法を選びます。
 
-## 使うときの判断
+- No Decay — 距離に関係なく同じ強さ
+- Linear — 距離に応じて線形に減衰
+- Quadratic — より強く距離減衰
 
-Classic 3D sceneはUSD sceneと別系統です。2D Imageへ戻すには通常`Renderer 3D`を使います。
+localなlampのように見せたい場合はDecayを使います。
 
-## 最小構成
+## Position
 
-```text
-3D Source → Point Light → Merge 3D → Renderer 3D → Image
-```
+Transform tabのXYZ positionでLight sourceの場所を決めます。
 
-## 注意点
+360° sourceなのでrotationは意味を持ちません。
 
-- このページはノードを選ぶための役割・データ領域・系譜を先に揃えています。
-- exactな内部ID、端子名、初期値、数値範囲、Edition差は、確認できたものだけ今後追記します。
-- legacy系譜の項目は、現在のEffects Libraryに同名で表示されることまで一件ずつ実機確認したものではありません。
+## Shadows
 
-## バージョンと検証状況
+Enable Shadows、Shadow Map Size、Bias、Density、Softness等を持ちます。
 
-旧Blackmagic Design公式Tool Referenceで役割と系譜を確認しています。Fusion 21.1での存在、端子名、Inspector項目、初期値、範囲は実機または現行マニュアルで再確認が必要です。
+shadow mapのresolutionとsoftnessを上げるほど処理負荷が増えるため、必要な品質へ調整します。
 
-このリファレンスのinventory基準はDaVinci Resolve / Fusion 21.0.4です。Manual全体は21.1基準へ更新中のため、21.1で差がある箇所は現行資料または実機確認後に更新します。
+## Directional / Spotとの違い
+
+- **Point Light** — 1点から全方向
+- **Directional Light** — scene全体へ平行光
+- **Spot Light** — 1点からcone状に照射
+
+## 出典と確認範囲
+
+DaVinci Resolve 21.1 Reference Manual Chapter 89 pp.2034–2038で、Scene Input、Color / Intensity、Decay Type、position、shadow controlsを確認しました。
+
+shadow renderer差と実機performanceは未確認です。

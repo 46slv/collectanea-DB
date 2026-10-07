@@ -16,48 +16,21 @@ product_scope: fusion
 suite_surfaces: ["fusion"]
 updated: "2026-10-03"
 ---
-
 # Pseudo Color
 
-値域を疑似色へマッピング。
+Pseudo Colorは、Imageの値をwaveformへmappingし、元とは異なるfalse-color patternへ変換するstylize Nodeです。
 
-## 概要
+scientific visualization風の色分けや、psychedelicなcolor cyclingを作る用途に向きます。
 
-- **種別**: Node / Tool
-- **分類**: Effect / Film
-- **主なデータ領域**: 2D Image / control
-- **略称**: `PSCL`
-- **導入・系譜**: legacy
-- **根拠レベル**: Blackmagic Design公式の旧Fusion Tool Referenceにある系譜
+## 主な設定
+Red / Green / Blue / Alphaそれぞれへwaveformを設定し、入力値に応じた出力colorを作ります。
 
-## 入力と出力
+- Phase: waveform位置。animationするとcolor cycling
+- Mean: waveform中心値
+- Amplitude: 色変化の強さ
 
-この項目はカタログ上、**2D Image / control**を主なデータ領域として扱います。上のfrontmatterにある入出力は領域を検索するための分類であり、Fusion 21.1の正確な端子数や端子名を断定するものではありません。
+## 使う判断
+Color Correctorのように自然な補正をするNodeではなく、値を意図的に別色へ再配置するNodeです。
 
-実際に組むときはFlow上の端子ラベルとInspectorを確認し、2D Image、Mask、Shape、Particle、Classic 3D、USD、Deep、パラメータ値を取り違えないようにします。
-
-## 主な用途
-
-値域を疑似色へマッピング。
-
-## 使うときの判断
-
-前後のノードと同じ2D Image領域で使うのが基本です。Maskや補助入力がある場合は、画像入力と役割を分けて接続します。
-
-## 最小構成
-
-```text
-Image → Pseudo Color → Image
-```
-
-## 注意点
-
-- このページはノードを選ぶための役割・データ領域・系譜を先に揃えています。
-- exactな内部ID、端子名、初期値、数値範囲、Edition差は、確認できたものだけ今後追記します。
-- legacy系譜の項目は、現在のEffects Libraryに同名で表示されることまで一件ずつ実機確認したものではありません。
-
-## バージョンと検証状況
-
-旧Blackmagic Design公式Tool Referenceで役割と系譜を確認しています。Fusion 21.1での存在、端子名、Inspector項目、初期値、範囲は実機または現行マニュアルで再確認が必要です。
-
-このリファレンスのinventory基準はDaVinci Resolve / Fusion 21.0.4です。Manual全体は21.1基準へ更新中のため、21.1で差がある箇所は現行資料または実機確認後に更新します。
+## 出典と確認範囲
+DaVinci Resolve 21.1 Reference Manual Chapter 97 pp.2291–2293で、waveform-based mapping、Phase、Mean、Amplitudeを確認しました。

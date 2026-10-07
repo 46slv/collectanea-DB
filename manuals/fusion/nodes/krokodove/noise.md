@@ -3,7 +3,7 @@ title: "Noise"
 description: "pixelated pattern。random/selected color。"
 doc_type: node
 term_id: "noise"
-term_short: "Noiseは、pixelated pattern。random/selected color。"
+term_short: "Noiseは、pixelated pattern。random/selected color。Krokodove固有のtool。"
 verification: partial
 aliases: ["Noise"]
 concepts: ["image-data"]
@@ -14,49 +14,48 @@ outputs: ["image"]
 tasks: ["motion-graphics"]
 product_scope: fusion
 suite_surfaces: ["fusion"]
-updated: "2026-10-03"
+updated: "2026-10-05"
 ---
 
 # Noise
 
-pixelated pattern。random/selected color。
+Noiseは、pixelated pattern。random/selected color。Krokodove固有のtoolです。名前だけで2D Image Nodeと判断せず、Input / Output domainとFamily Overviewを先に確認します。
 
-## 概要
+## 役割
 
-- **種別**: Node / Tool
-- **分類**: Krokodove / Image Pixel
-- **主なデータ領域**: 2D Image または3D
-- **導入・系譜**: 21
-- **根拠レベル**: Resolve 21 New Features GuideのKrokodove項目で確認
+pixelated pattern。random/selected color。このページでは、名前だけで選ばず、**何を受け取り、何が変わり、どのdomainへ返すか**を先に整理します。
+
+procedural patternを作る / 使う系統です。見せるImageなのか、Mask / displacement / control sourceなのかを分けます。
 
 ## 入力と出力
 
-この項目はカタログ上、**2D Image または3D**を主なデータ領域として扱います。上のfrontmatterにある入出力は領域を検索するための分類であり、Fusion 21.1の正確な端子数や端子名を断定するものではありません。
-
-実際に組むときはFlow上の端子ラベルとInspectorを確認し、2D Image、Mask、Shape、Particle、Classic 3D、USD、Deep、パラメータ値を取り違えないようにします。
-
-## 主な用途
-
-pixelated pattern。random/selected color。
+入力分類: **image**。 出力分類: **image**。 この分類はdata domainを読むためのものです。Fusion 21.1のexactな端子名・端子数を未確認の場合、ここでは推測して固定しません。
 
 ## 使うときの判断
 
-Resolve/Fusion 21へ統合されたKrokodove項目です。同名・近い役割の標準Fusionノードがあっても、設定と処理系は別として扱います。
+KrokodoveはImage、Shape、3D、Regionが同じchapterに並ぶため、まずOutput domainで候補を絞ります。
+
+同じ目的を別Familyでも作れる場合は、後段で必要なdata domainと、Graph上で責任をどこに置きたいかで選びます。
 
 ## 最小構成
 
-```text
-Image → Noise → Image
-```
+    Image / Source → Noise → Result
 
-## 注意点
+これは接続関係を理解するための最小構成案です。公式Manualのexactな作例として確認していない構成は、実制作前にViewerで中間結果を確認します。
 
-- このページはノードを選ぶための役割・データ領域・系譜を先に揃えています。
-- exactな内部ID、端子名、初期値、数値範囲、Edition差は、確認できたものだけ今後追記します。
-- Krokodove版と標準Fusionの同名・類似ノードを同一仕様として扱わないでください。
+## 確認ポイント
 
-## バージョンと検証状況
+- 入力dataのdomainが合っているか。
+- この項目のoutputを受け取れる後段Nodeへ接続しているか。
+- 同じ役割を前段 / 後段で二重に処理していないか。
+- source-limited pageでは、未確認のControl名・default・rangeを名前から推測していないか。
 
-Resolve 21のBlackmagic Design公式資料で役割を確認しています。Fusion 21.1の実機差、端子名、初期値、範囲は必要に応じて再確認します。
+## Family内での位置づけ
 
-このリファレンスのinventory基準はDaVinci Resolve / Fusion 21.0.4です。Manual全体は21.1基準へ更新中のため、21.1で差がある箇所は現行資料または実機確認後に更新します。
+Krokodoveノードの全体像と近いNodeの選び分けは[Family Overview](./)を参照してください。
+
+## 出典と確認範囲
+
+このページの役割・data domain・系譜は、既存COLLECTANEA catalogとBlackmagic Design公式資料で確認された範囲をreader-first形式へ整理しています。
+
+Fusion 21.1 Reference Manualで個別のInspector項目・default・rangeまで確認できていない項目は、**source-limited**としてその詳細を断定していません。verification: partial はその未確認範囲を含みます。runtime REGIDや現在のEffects Library表示は別のruntime verificationで確定します。

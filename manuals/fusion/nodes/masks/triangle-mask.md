@@ -1,62 +1,66 @@
 ---
-title: "Triangle Mask"
-description: "三角形マスク。"
+title: Triangle Mask
+description: 3つの独立pointで三角形Maskを作り、各頂点を個別にTracker・Path・Expressionへ接続できるPrimitive Mask。
 doc_type: node
-term_id: "triangle-mask"
-term_short: "Triangle Maskは、三角形マスク。"
+term_id: triangle-mask
 verification: partial
-aliases: ["Triangle Mask", "TRI"]
-concepts: ["mask-data"]
-nodes: ["Triangle Mask"]
-node_family: "masks"
-outputs: ["mask"]
-tasks: ["create-mask"]
+aliases: [Triangle Mask, Tri]
+concepts: [mask-data, tracking]
+nodes: [Triangle Mask]
+node_family: masks
+controls: [Level, Filter, Soft Edge, Border Width, Paint Mode, Invert, Solid, Point 1, Point 2, Point 3]
+inputs: [mask]
+outputs: [mask]
+tasks: [create-mask, triangle, tracked-corners]
 product_scope: fusion
-suite_surfaces: ["fusion"]
-updated: "2026-10-03"
+suite_surfaces: [fusion]
+updated: "2026-10-04"
 ---
 
 # Triangle Mask
 
-三角形マスク。
+Triangle Maskは、3つの頂点から三角形の<Term id="mask">Mask</Term>を作るPrimitive Maskです。
 
-## 概要
+他のprimitive maskと違い、**Center・Size・Angleを持たず、3頂点を直接動かす**のが特徴です。
 
-- **種別**: Node / Tool
-- **分類**: Mask
-- **主なデータ領域**: Mask
-- **略称**: `TRI`
-- **導入・系譜**: legacy
-- **根拠レベル**: Blackmagic Design公式の旧Fusion Tool Referenceにある系譜
+## 入力 / 出力
 
-## 入力と出力
+任意Effect Mask inputを持ち、別MaskとPaint Modeで組み合わせられます。
 
-この項目はカタログ上、**Mask**を主なデータ領域として扱います。上のfrontmatterにある入出力は領域を検索するための分類であり、Fusion 21.1の正確な端子数や端子名を断定するものではありません。
+## Point 1 / 2 / 3
 
-実際に組むときはFlow上の端子ラベルとInspectorを確認し、2D Image、Mask、Shape、Particle、Classic 3D、USD、Deep、パラメータ値を取り違えないようにします。
+3つのcorner positionを個別に設定します。
 
-## 主な用途
+各Pointはanimation、Path、published control、Tracker、他Controlへのconnectionへ個別に接続できます。
 
-三角形マスク。
+そのため3点を別trackへ追従させ、三角形自体を変形させる構成が可能です。
 
-## 使うときの判断
+## 共通Mask Control
 
-Maskは画像そのものではなく、別ノードの適用範囲を制御するデータです。
+Level、Filter、Soft Edge、Border Width、Paint Mode、Invert、Solidを持ちます。
+
+Solidを無効にするとBorder Widthに従うoutlineになります。
+
+## Rectangle / Polygonとの違い
+
+- **Triangle Mask** — 3頂点固定。各cornerを独立接続しやすい
+- **Rectangle Mask** — Center / Width / Height / Angle / Corner Radiusで矩形として操作
+- **Polygon Mask** — 任意数pointで自由shapeを作る
+
+3点だけで十分ならTriangleはparameter構造が単純です。
 
 ## 最小構成
 
 ```text
-Triangle Mask → 対象NodeのMask入力
+Triangle Mask → Target Effect Mask
 ```
 
-## 注意点
+trackingする場合:
 
-- このページはノードを選ぶための役割・データ領域・系譜を先に揃えています。
-- exactな内部ID、端子名、初期値、数値範囲、Edition差は、確認できたものだけ今後追記します。
-- legacy系譜の項目は、現在のEffects Libraryに同名で表示されることまで一件ずつ実機確認したものではありません。
+```text
+Tracker outputs → Point 1 / Point 2 / Point 3
+```
 
-## バージョンと検証状況
+## 出典と確認範囲
 
-旧Blackmagic Design公式Tool Referenceで役割と系譜を確認しています。Fusion 21.1での存在、端子名、Inspector項目、初期値、範囲は実機または現行マニュアルで再確認が必要です。
-
-このリファレンスのinventory基準はDaVinci Resolve / Fusion 21.0.4です。Manual全体は21.1基準へ更新中のため、21.1で差がある箇所は現行資料または実機確認後に更新します。
+DaVinci Resolve 21.1 Reference Manual Chapter 108 pp.2493–2496で、Center / Size / Angleを持たないこと、Point 1–3、tracking / path connection、共通Mask controlsを確認しました。

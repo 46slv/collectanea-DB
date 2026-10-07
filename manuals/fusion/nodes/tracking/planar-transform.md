@@ -1,76 +1,99 @@
 ---
 title: Planar Transform
-description: Planar Trackerのトラッキング dataを任意のImage / Maskへ適用するNode。
+description: Planar Trackerの解析結果をImageやMaskへ適用し、graphicやroto shapeを平面の動きへ合わせるNode。
 doc_type: node
 term_id: planar-transform
-verification: unverified
-aliases: [Planar Transform]
+verification: partial
+aliases: [Planar Transform, PXF]
 concepts: [tracking, coordinate-space, parameter-data]
 nodes: [Planar Transform]
 node_family: tracking
-inputs: [image]
+controls: [Reference Time, Track Spline]
+inputs: [image, mask]
 outputs: [image]
-tasks: [track, apply-track, attach-graphics]
+tasks: [track, apply-track, attach-graphics, roto]
 level: intermediate
 product_scope: fusion
 suite_surfaces: [fusion]
+updated: "2026-10-04"
 ---
 
 # Planar Transform
 
-Planar Trackerで得たトラッキング dataを、任意のImage / Maskへ適用するためのNodeです。
+Planar Transformは、[Planar Tracker](./planar-tracker)で解析した平面の動きを、別の2D <Term id="image">Image</Term>や<Term id="mask">Mask</Term>へ適用するNodeです。
 
-## 概要
+Planar Trackerが解析を担当し、Planar Transformがその結果の再利用を担当します。
 
-- **分類（Family）**: トラッキング
-- **主入力（Primary input）**: Image / applicable data
-- **出力（Output）**: transformed 結果
-- **関連概念（Core concepts）**: トラッキング data、coordinate application
-- **よく使う作業（Common tasks）**: replacement graphic追従、tracked transformの再利用
+## 作成方法
+
+Planar Trackerで解析した後、Inspectorの **Create Planar Transform** を押します。
+
+作成されたPlanar TransformはPlanar TrackerのTrack splineを共有します。元のtrackを変更すると、Planar Transformにも反映されます。
 
 ## 入力
 
-トラッキング transformを適用する対象を受け取る系統です。
+### Image Input
 
-Image / Maskの正確な互換性、トラッキング data binding 仕組みはFusion 21.1 現在の資料または実機での確認待ちです。
+オレンジ色の入力です。平面の動きを適用したい2D Imageを接続します。
+
+### Effect Mask
+
+青色の任意入力です。Planar Transformのoutputを適用する範囲を限定します。
 
 ## 出力
 
-Planar トラッキング transformを反映した結果を出力します。
+Planar Trackerで得たperspective変化が適用された2D Imageを出力します。
 
 ## 主な設定項目
 
-トラッキング 結果 / reference / transform-related controlsを持つ系統ですが、正確な 現在の UIは未検証です。
+### Reference Time
 
-## 挙動と注意点
+Planar Trackerでpatternを取得した基準frameです。
 
-Planar Trackerが「solve」、Planar Transformが「apply」と責任分離できる構成として読むとdebugしやすくなります。
+### Track Spline
+
+Planar Trackerが作ったperspective変化のdataです。Spline Editorでtracked frameの範囲を確認できます。
+
+## Graphicへ使う
 
 ```text
 Footage → Planar Tracker
-                ↓ tracking data
+               ↓ Create Planar Transform
+
 Graphic → Planar Transform → Merge
 ```
 
-## 最小例
+Graphic固有の位置・大きさ調整と、平面のmovementを別段階にできます。
 
-replacement graphicへPlanar Transformを適用し、トラッキング solveとgraphic 個別オフセットを分けます。
+## Mask / Rotoへ使う
+
+Polygon等のMaskへPlanar Transformを適用し、roughなmovementを先に合わせることもできます。
+
+```text
+Polygon Mask → Planar Transform → Effect Mask
+```
+
+対象が完全な平面でない場合は、Planar Transformだけで輪郭が完全に合うとは限りません。Manualでは、まずplanar movementを適用し、ずれるframeでpolylineを修正するworkflowが説明されています。
+
+## Transformとの違い
+
+- **Transform** — Center / Size / Angle等を手動またはanimationで指定
+- **Planar Transform** — Planar Trackerの解析結果を使ってperspective変化を適用
 
 ## 関連する考え方
 
-- [データ領域（data domain）を辿って診断する](../../learn/07-debugging/trace-data-domain)
-- [Center / Pivot / Size / Angle](../../learn/03-space/center-pivot-size-angle)
-
-## 関連パターン
-
 - [Trackを解いてから適用先を分ける](../../patterns/tracking/solve-then-apply-track)
+- [トラッキング結果がずれる / driftする](../../troubleshooting/tracking/track-drifts)
 
-## 似たNode・関連Node
+## 関連Node
 
-- Planar Tracker
-- Tracker
-- Transform
+- [Planar Tracker](./planar-tracker)
+- [Tracker](./tracker)
+- [Transform](../transform/transform)
+- [Polygon Mask](../masks/polygon-mask)
 
-## バージョンと検証状況
+## 出典と確認範囲
 
-Planar Transformの存在とPlanar Tracker dataを任意Image/Maskへ適用する役割は旧版のBlackmagic Design公式Fusion資料で確認。21.1 正確な 作業の流れ / controlsは未検証です。
+DaVinci Resolve 21.1 Reference Manual、September 2026、Chapter 120 pp.2870–2872とFusion Fundamentals Chapter 80 / 82で、Image / Effect Mask入力、Create Planar Transform、Reference Time、共有Track spline、Image / Maskへの適用を確認しました。
+
+solver内部仕様、実機性能は未確認のため `verification: partial` としています。

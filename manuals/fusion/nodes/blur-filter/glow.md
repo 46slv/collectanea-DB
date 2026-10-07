@@ -1,63 +1,86 @@
 ---
-title: "Glow"
-description: "ハイライト等からグローを生成。"
+title: Glow
+description: Imageをblurして明るくし元Imageへ戻すことでhaloを作り、Glow Mask・Filter・Size・Apply Mode・Color Scaleで発光を制御するNode。
 doc_type: node
-term_id: "glow"
-term_short: "Glowは、ハイライト等からグローを生成。"
+term_id: glow
 verification: partial
-aliases: ["Glow", "GLO"]
-concepts: ["image-data"]
-nodes: ["Glow"]
-node_family: "blur-filter"
-inputs: ["image"]
-outputs: ["image"]
-tasks: ["filter-image"]
+aliases: [Glow, Glo]
+concepts: [image-data, mask-data, filtering, domain-of-definition]
+nodes: [Glow]
+node_family: blur-filter
+controls: [Filter, Color Channels, Lock X/Y, Glow Size, Num Passes, Glow, Clipping Mode, Blend, Apply Mode, Color Scale]
+inputs: [image, mask, mask]
+outputs: [image]
+tasks: [glow, bloom, light-effect]
 product_scope: fusion
-suite_surfaces: ["fusion"]
-updated: "2026-10-03"
+suite_surfaces: [fusion]
+updated: "2026-10-04"
 ---
 
 # Glow
 
-ハイライト等からグローを生成。
+Glowは、2D <Term id="image">Image</Term>をblurして明るくし、その結果を元Imageへ重ねて発光のhaloを作るNodeです。
 
-## 概要
+明るい文字、light、neon、highlightへ広がる光を足す用途に向きます。
 
-- **種別**: Node / Tool
-- **分類**: Blur / Filter
-- **主なデータ領域**: 2D Image / control
-- **略称**: `GLO`
-- **導入・系譜**: legacy
-- **根拠レベル**: Blackmagic Design公式の旧Fusion Tool Referenceにある系譜
+## 入力
 
-## 入力と出力
+### Input
 
-この項目はカタログ上、**2D Image / control**を主なデータ領域として扱います。上のfrontmatterにある入出力は領域を検索するための分類であり、Fusion 21.1の正確な端子数や端子名を断定するものではありません。
+Glowを適用する2D Imageです。
 
-実際に組むときはFlow上の端子ラベルとInspectorを確認し、2D Image、Mask、Shape、Particle、Classic 3D、USD、Deep、パラメータ値を取り違えないようにします。
+### Effect Mask
 
-## 主な用途
+青色のMaskです。Glow処理後の最終結果をどこへ適用するかを限定します。
 
-ハイライト等からグローを生成。
+### Glow Mask
 
-## 使うときの判断
+白色のpre-maskです。**Glowのsourceになるpixel**を処理前に限定します。
 
-前後のノードと同じ2D Image領域で使うのが基本です。Maskや補助入力がある場合は、画像入力と役割を分けて接続します。
-
-## 最小構成
+Glow Maskならmask境界の外へhaloを広げられます。Effect Maskでは最終結果自体をmaskするため、haloも境界で切れます。
 
 ```text
-Image → Glow → Image
+Bright source ─→ Glow ─→ Output
+                 ↑
+              Glow Mask
 ```
 
-## 注意点
+## Filter
 
-- このページはノードを選ぶための役割・データ領域・系譜を先に揃えています。
-- exactな内部ID、端子名、初期値、数値範囲、Edition差は、確認できたものだけ今後追記します。
-- legacy系譜の項目は、現在のEffects Libraryに同名で表示されることまで一件ずつ実機確認したものではありません。
+Box / Bartlett / Multi-box / Gaussian / Fast Gaussian / Blend / Hilight / Solarize等を選べます。
 
-## バージョンと検証状況
+単なるquality順ではなく、haloの形や計算方法が異なります。
 
-旧Blackmagic Design公式Tool Referenceで役割と系譜を確認しています。Fusion 21.1での存在、端子名、Inspector項目、初期値、範囲は実機または現行マニュアルで再確認が必要です。
+## Glow Size / Glow
 
-このリファレンスのinventory基準はDaVinci Resolve / Fusion 21.0.4です。Manual全体は21.1基準へ更新中のため、21.1で差がある箇所は現行資料または実機確認後に更新します。
+- **Glow Size** — haloの広がり
+- **Glow** — haloの強さ
+
+「大きい弱い光」と「小さい強い光」を分けて作れます。
+
+## Apply Mode
+
+- **Normal** — glowを元Imageへ通常合成
+- **Merge Under** — Alphaを基準にglowをImageの下側へ置く
+- **Threshold** — glow値をLow / High rangeでclip
+
+Threshold modeでは、弱いglowを切り捨てたり強い部分を明確にできます。
+
+## Color Scale
+
+RGBA channelごとにglow量をscaleし、発光色をtintできます。
+
+## Clipping Mode
+
+大きなGlowではDoD edgeから外側のpixelも参照するため、Frame / Domain / NoneのClipping Modeが見た目へ影響します。
+
+edgeだけhaloが切れる場合はGlow SizeだけでなくClipping Modeも確認します。
+
+## Soft Glowとの違い
+
+- **Glow** — 明確なhalo、複数Apply Mode、強いgraphic lightにも向く
+- **Soft Glow** — より柔らかく自然なhaze / dream-like glow
+
+## 出典と確認範囲
+
+DaVinci Resolve 21.1 Reference Manual Chapter 92 pp.2116–2119で、3 inputs、pre-maskとEffect Maskの違い、Filter、Glow Size / Glow、Apply Mode、Color Scale、Clipping Modeを確認しました。

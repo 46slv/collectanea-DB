@@ -1,80 +1,79 @@
 ---
 title: dMerge
-description: Deep sample-aware 合成を行うDeep image domainのMerge Node。
+description: Background Deep Imageへ複数Foreground Deep streamを追加し、各pixelのdepth sampleを奥行き順で統合するDeep compositing Node。
 doc_type: node
 term_id: d-merge
 verification: partial
-aliases: [dMerge, Deep Merge]
-concepts: [data-domain, deep-image, compositing]
+aliases: [dMerge, Deep Merge, dMg]
+concepts: [deep-image, compositing, depth]
 nodes: [dMerge]
 node_family: deep
-inputs: [deep-image]
+inputs: [deep-image, deep-image]
 outputs: [deep-image]
 tasks: [deep, composite, merge]
 level: advanced
 product_scope: fusion
 suite_surfaces: [fusion]
+updated: "2026-10-04"
 ---
 
 # dMerge
 
-Deep image domainでsample-aware 合成を行うMerge Nodeです。
+dMergeは、複数の<Term id="deep-image">Deep Image</Term>を、各pixel内のdepth sampleを保ったまま1つへ統合するNodeです。
 
-## 概要
-
-- **分類（Family）**: Deep
-- **入力データ（Input domain）**: Deep image
-- **出力データ（Output domain）**: Deep image
-- **関連概念（Core concepts）**: per-ピクセル depth samples、front/back 関係
-- **よく使う作業（Common tasks）**: Deep 合成、depth-aware merge
+通常MergeのForeground / Background alpha合成ではなく、sampleの奥行き関係を使ってDeep compositeを作ります。
 
 ## 入力
 
-Deep imageを受け取るNodeとしてResolve 20以降のBlackmagic Design公式のバージョン資料系で確認されています。
+### Background
 
-正確な入力数・補助PortはFusion 21.1 現在の資料または実機での確認待ちです。
+オレンジ色のDeep background inputです。
+
+### Foreground
+
+白色のDeep foreground inputです。
+
+追加接続するとForeground inputが増え、複数Deep sourceを1つのdMergeへまとめられます。
+
+```text
+Deep Background ──┐
+Deep Foreground A ─┼─ dMerge → Deep to Image
+Deep Foreground B ─┘
+```
 
 ## 出力
 
-Deep imageを出力します。
+統合後もDeep Imageのままです。
 
-通常の2D Imageではありません。
+後段でdColorCorrector、dTransform、dCrop等を続けられます。
 
-## 主な設定項目
+## Inspector
 
-Deep 合成 operatorやsample 扱いに関するcontrolを持つ系統ですが、正確な 21.1 UI / 初期値は未検証です。
+21.1 ManualではdMerge固有のControls tabは記載されず、主な役割はdepth sample streamの統合です。
 
-## 挙動と注意点
+「設定が少ない = 通常Mergeと同じ」ではなく、data model自体が違います。
 
-Deep imageは1 ピクセルに複数depth sampleを保持できるため、通常2D Mergeのalpha 合成とは同じ問題ではありません。
+## 2D Image input
 
-```text
-Deep A ─┐
-        ├─ dMerge → Deep to Image → 2D
-Deep B ─┘
-```
+Chapter 95では、Image to Deep / Deep to Imageを除くDeep compositing toolが2D Image inputを自動Deep変換できると説明されています。
 
-dMergeを「通常Mergeの高品質版」として扱わないことが重要です。
+ただし2D sourceのdepth位置を明示したい場合は[Image to Deep](./image-to-deep)でZを設定してからdMergeへ入れる方が意図を読みやすくなります。
 
-## 最小例
+## Mergeとの違い
 
-2つのDeep imageをdMergeで合成し、必要ならDeep to Imageで2Dへflattenします。
+- **Merge** — 2D ImageのRGBA / Alpha合成
+- **dMerge** — Deep sampleのdepth-aware統合
 
-## 関連する考え方
+dMergeを「高品質なMerge」と考えるのではなく、別domainのcombinerとして扱います。
 
-- [データ領域（data domain）を辿って診断する](../../learn/07-debugging/trace-data-domain)
-- [Alpha](../../learn/04-compositing/alpha)
+## linear colorspace
 
-## 関連パターン
+Deep compositingはlinear colorspaceで行う必要があります。
 
-Deep-specific Patternは今後追加します。
+合成後にDeep to Imageでflattenし、必要に応じてdisplay / delivery spaceへ変換します。
 
-## 似たNode・関連Node
+## 出典と確認範囲
 
-- Merge — 2D Image
-- Merge 3D — Classic 3D scene
-- uMerge — USD scene
+DaVinci Resolve 21.1 Reference Manual Chapter 95 pp.2227、2246–2247で、Deep toolset、Background + multiple Foreground inputs、sample mergeを確認しました。
 
-## バージョンと検証状況
-
-dMergeはResolve/Fusion 20以降のDeep toolsetとしてBlackmagic Design公式バージョン資料で確認。Fusion 21.1での正確な設定項目 / sample rulesは未検証です。
+Studio限定Deep toolsetです。

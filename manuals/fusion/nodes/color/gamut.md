@@ -1,63 +1,59 @@
 ---
-title: "Gamut"
-description: "ガマット/色域関連の変換。"
+title: Gamut
+description: Source / Outputのcolor spaceとGammaを指定し、gamut変換・Gamma remove/add・linear workflowの入出力変換を行うNode。
 doc_type: node
-term_id: "gamut"
-term_short: "Gamutは、ガマット/色域関連の変換。"
+term_id: gamut
+term_short: SourceとOutputのgamut / gammaを変換するColor Management Node。
 verification: partial
-aliases: ["Gamut", "GMT"]
-concepts: ["image-data"]
-nodes: ["Gamut"]
-node_family: "color"
-inputs: ["image"]
-outputs: ["image"]
-tasks: ["adjust-color"]
+aliases: [Gamut, Gmt]
+concepts: [image-data, color-space, premultiplication]
+nodes: [Gamut]
+node_family: color
+controls: [Source Space, Output Space, Remove Gamma, Add Gamma, Pre-Divide/Post-Multiply]
+inputs: [image, mask]
+outputs: [image]
+tasks: [color-space, linear-workflow, gamut-convert]
 product_scope: fusion
-suite_surfaces: ["fusion"]
-updated: "2026-10-03"
+suite_surfaces: [fusion]
+updated: "2026-10-05"
 ---
 
 # Gamut
 
-ガマット/色域関連の変換。
+Gamutは、入力Imageをどのcolor space / gammaとして解釈し、どのspaceへ変換するかを指定するNodeです。
 
-## 概要
+Fusion StudioでLoader直後にlinearizeし、Saver直前にdelivery spaceへ戻すようなcolor managementに使います。
 
-- **種別**: Node / Tool
-- **分類**: Color
-- **主なデータ領域**: 2D Image / control
-- **略称**: `GMT`
-- **導入・系譜**: legacy
-- **根拠レベル**: Blackmagic Design公式の旧Fusion Tool Referenceにある系譜
+## Source Space
 
-## 入力と出力
+source Imageのgamutを指定します。
 
-この項目はカタログ上、**2D Image / control**を主なデータ領域として扱います。上のfrontmatterにある入出力は領域を検索するための分類であり、Fusion 21.1の正確な端子数や端子名を断定するものではありません。
+Remove Gammaを併用すると、source gammaを外してlinearへ変換できます。
 
-実際に組むときはFlow上の端子ラベルとInspectorを確認し、2D Image、Mask、Shape、Particle、Classic 3D、USD、Deep、パラメータ値を取り違えないようにします。
+## Output Space
 
-## 主な用途
+最終的に変換したいgamutを指定します。
 
-ガマット/色域関連の変換。
+linear compの最後でdelivery gamutへ戻す場合に使います。
 
-## 使うときの判断
+## Remove / Add Gamma
 
-前後のノードと同じ2D Image領域で使うのが基本です。Maskや補助入力がある場合は、画像入力と役割を分けて接続します。
+gamut conversionとは別に、gamma curveだけを外す / 加えることができます。
 
-## 最小構成
+「gamutを変えること」と「transfer curveを変えること」を分けて操作します。
 
-```text
-Image → Gamut → Image
-```
+## Pre-Divide / Post-Multiply
 
-## 注意点
+premultiplied Alphaを持つImageをcolor transformする場合、透明edgeのRGB / Alpha関係を保つために使います。
 
-- このページはノードを選ぶための役割・データ領域・系譜を先に揃えています。
-- exactな内部ID、端子名、初期値、数値範囲、Edition差は、確認できたものだけ今後追記します。
-- legacy系譜の項目は、現在のEffects Libraryに同名で表示されることまで一件ずつ実機確認したものではありません。
+## CST / OCIOとの違い
 
-## バージョンと検証状況
+- **Gamut** — Fusionの内蔵space / gammaを明示して変換
+- **Color Space Transform** — Resolve Color Managementと同系統のtransform / tone mapping / gamut mapping
+- **OCIO Color Space** — OCIO configを基準に変換
 
-旧Blackmagic Design公式Tool Referenceで役割と系譜を確認しています。Fusion 21.1での存在、端子名、Inspector項目、初期値、範囲は実機または現行マニュアルで再確認が必要です。
+pipelineのauthorityに合わせて選びます。
 
-このリファレンスのinventory基準はDaVinci Resolve / Fusion 21.0.4です。Manual全体は21.1基準へ更新中のため、21.1で差がある箇所は現行資料または実機確認後に更新します。
+## 出典と確認範囲
+
+DaVinci Resolve 21.1 Reference Manual Chapter 93 pp.2185–2187で、Source / Output Space、Remove / Add Gamma、Pre-Divide/Post-Multiplyを確認しました。

@@ -1,61 +1,60 @@
 ---
-title: "uVolume"
-description: "VDB file/sequenceをUSD volumeとして扱う。density/emission等。"
+title: uVolume
+description: VDB file / sequenceをUSD environmentへ読み込み、density・emission・temperature・colorとtimeを調整するVolume Node。
 doc_type: node
-term_id: "uvolume"
-term_short: "uVolumeは、VDB file/sequenceをUSD volumeとして扱う。density/emission等。"
+term_id: uvolume
 verification: partial
-aliases: ["uVolume"]
-concepts: ["usd"]
-nodes: ["uVolume"]
-node_family: "usd"
-inputs: ["usd"]
-outputs: ["usd"]
-tasks: ["build-usd-scene"]
+aliases: [uVolume, uVo]
+concepts: [usd-scene, volume-data, time]
+nodes: [uVolume]
+node_family: usd
+controls: [File, Trim, Loop, Time Scale, Density Scale, Emission Mode, Emission Field, Color, Gradient, Transform]
+outputs: [usd]
+tasks: [usd, volume, vdb, smoke, fire]
 product_scope: fusion
-suite_surfaces: ["fusion"]
-updated: "2026-10-03"
+suite_surfaces: [fusion]
+updated: "2026-10-04"
 ---
 
 # uVolume
 
-VDB file/sequenceをUSD volumeとして扱う。density/emission等。
+uVolumeは、VDB fileまたはVDB sequenceをFusionの<Term id="usd-scene">USD environment</Term>へ読み込むNodeです。
 
-## 概要
+煙、雲、fire、explosion等のvolumetric assetを扱います。
 
-- **種別**: Node / Tool
-- **分類**: USD (18.5+)
-- **主なデータ領域**: USD scene / asset
-- **導入・系譜**: 19
-- **根拠レベル**: 導入版のBlackmagic Design公式資料で確認した現行系譜
+## File / time
 
-## 入力と出力
+Node追加時にVDB fileを選びます。
 
-この項目はカタログ上、**USD scene / asset**を主なデータ領域として扱います。上のfrontmatterにある入出力は領域を検索するための分類であり、Fusion 21.1の正確な端子数や端子名を断定するものではありません。
+single VDBだけでなくanimated sequenceを読み込め、Trim、Loop、speed変更でtimeを調整できます。
 
-実際に組むときはFlow上の端子ラベルとInspectorを確認し、2D Image、Mask、Shape、Particle、Classic 3D、USD、Deep、パラメータ値を取り違えないようにします。
+## Density
 
-## 主な用途
+Scaleでvolume densityを調整します。
 
-VDB file/sequenceをUSD volumeとして扱う。density/emission等。
+## Emission
 
-## 使うときの判断
+Manualでは代表的に次のmodeが記載されています。
 
-USD系の`u*`ノードはClassic 3Dノードと別のデータ領域です。通常は`uRenderer`で画像へ変換します。
+- Color — volume全体へcolor
+- Field — 指定fieldを使ってcolorをscatter
+- Blackbody — temperatureに基づくfire / explosion向けcolor
+- Gradient — field値へcolor gradientをmapping
+
+## Transform
+
+USD共通Transform controlsでposition / rotation / scaleを調整します。
 
 ## 最小構成
 
 ```text
-uLoader / uShape → uVolume → uRenderer → Image
+uVolume ────┐
+uCamera ────┼─ uMerge → uRenderer
+uLight ─────┘
 ```
 
-## 注意点
+## 出典と確認範囲
 
-- このページはノードを選ぶための役割・データ領域・系譜を先に揃えています。
-- exactな内部ID、端子名、初期値、数値範囲、Edition差は、確認できたものだけ今後追記します。
+DaVinci Resolve 21.1 Reference Manual Chapter 121 pp.2928–2929で、VDB file / sequence、time control、Density、Emission mode、Transformを確認しました。
 
-## バージョンと検証状況
-
-導入版のBlackmagic Design公式資料で現行系譜を確認しています。Fusion 21.1の端子名、Inspector項目、初期値、範囲は未検証です。
-
-このリファレンスのinventory基準はDaVinci Resolve / Fusion 21.0.4です。Manual全体は21.1基準へ更新中のため、21.1で差がある箇所は現行資料または実機確認後に更新します。
+VDB field naming compatibilityとrender performanceは未確認です。

@@ -1,62 +1,64 @@
 ---
-title: "pCustomForce"
-description: "カスタムForceを与える。"
+title: pCustomForce
+description: expressionでParticleへ加えるXYZ forceとTorqueを計算し、独自physics / behaviorを作る高度なParticle Force Node。
 doc_type: node
-term_id: "pcustomforce"
-term_short: "pCustomForceは、カスタムForceを与える。"
+term_id: pcustomforce
+term_short: pCustomForceは、独自expressionでparticleへのforceとTorqueを計算するNode。
 verification: partial
-aliases: ["pCustomForce"]
-concepts: ["particle-data"]
-nodes: ["pCustomForce"]
-node_family: "particles"
-inputs: ["particle"]
-outputs: ["particle"]
-tasks: ["create-particles"]
+aliases: [pCustomForce, pCustom Force, pCF]
+concepts: [particle-data, expressions]
+nodes: [pCustomForce]
+node_family: particles
+controls: [Number Inputs, Position Inputs, Setup, Intermediate, Force Expressions, Torque Expressions, Conditions, Region]
+inputs: [particle, image, image, region]
+outputs: [particle]
+tasks: [particles, force, expressions, custom-physics]
 product_scope: fusion
-suite_surfaces: ["fusion"]
-updated: "2026-10-03"
+suite_surfaces: [fusion]
+updated: "2026-10-04"
 ---
 
 # pCustomForce
 
-カスタムForceを与える。
+pCustomForceは、<Term id="particle-data">Particle set</Term>へ加えるforceをexpressionで定義するNodeです。
 
-## 概要
+particleのXYZ movementとTorqueを独自計算し、既存のForce Nodeでは作れないbehaviorを組み立てます。
 
-- **種別**: Node / Tool
-- **分類**: Particles
-- **主なデータ領域**: Particle set
-- **導入・系譜**: legacy
-- **根拠レベル**: Blackmagic Design公式の旧Fusion Tool Referenceにある系譜
+## 入力
 
-## 入力と出力
+- Particle input
+- custom calculation用の2D Image 1 / 2
+- RegionをBitmap / Meshにした場合のRegion input
 
-この項目はカタログ上、**Particle set**を主なデータ領域として扱います。上のfrontmatterにある入出力は領域を検索するための分類であり、Fusion 21.1の正確な端子数や端子名を断定するものではありません。
+さらにInspectorから数値ControlやPosition Controlをexpressionへ渡せます。
 
-実際に組むときはFlow上の端子ラベルとInspectorを確認し、2D Image、Mask、Shape、Particle、Classic 3D、USD、Deep、パラメータ値を取り違えないようにします。
+## 何を計算するか
 
-## 主な用途
+pCustomForceでは、position方向へ加えるforceと、particleのspinへ影響するTorqueを独立した式として扱います。
 
-カスタムForceを与える。
-
-## 使うときの判断
-
-Particle setは2D Imageではありません。最終的に画像として合成する場合は`pRender`を使います。
+pCustomと同様、Setup / Intermediateを使って共通計算を分け、Image samplingや外部parameterを参照できます。
 
 ## 最小構成
 
 ```text
-pEmitter → pCustomForce → pRender → Image
+pEmitter → pCustomForce → pRender
+                  ↑
+             Image / Region
 ```
 
-## 注意点
+## 使う判断
 
-- このページはノードを選ぶための役割・データ領域・系譜を先に揃えています。
-- exactな内部ID、端子名、初期値、数値範囲、Edition差は、確認できたものだけ今後追記します。
-- legacy系譜の項目は、現在のEffects Libraryに同名で表示されることまで一件ずつ実機確認したものではありません。
+単純なgravityなら[pDirectionalForce](./pdirectionalforce)、attract / repelなら[pPoint Force](./ppointforce)、chaosなら[pTurbulence](./pturbulence)の方が意図を読みやすくできます。
 
-## バージョンと検証状況
+pCustomForceは、数式でforce fieldを設計する必要がある場合に選びます。
 
-旧Blackmagic Design公式Tool Referenceで役割と系譜を確認しています。Fusion 21.1での存在、端子名、Inspector項目、初期値、範囲は実機または現行マニュアルで再確認が必要です。
+## pCustomとの違い
 
-このリファレンスのinventory基準はDaVinci Resolve / Fusion 21.0.4です。Manual全体は21.1基準へ更新中のため、21.1で差がある箇所は現行資料または実機確認後に更新します。
+- **pCustomForce** — force / torqueとしてmovementへ作用
+- **pCustom** — position、velocity、color、size等のparticle属性を直接expressionで操作
+
+## 出典と確認範囲
+
+DaVinci Resolve 21.1 Reference Manual Chapter 114 p.2657で、Particle / Image / Region inputs、custom position force / Torque、Number / Position input、pCustomと共通するInspector構造を確認しました。
+
+expression syntax全体と実機performanceは未確認です。

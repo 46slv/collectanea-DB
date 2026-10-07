@@ -1,63 +1,74 @@
 ---
-title: "pVortex"
-description: "渦Force。"
+title: pVortex
+description: Particleへrotational forceと中心方向のpullを加え、Strength・Power・Size・Angleで渦movementを作るNode。
 doc_type: node
-term_id: "pvortex"
-term_short: "pVortexは、渦Force。"
+term_id: pvortex
+term_short: pVortexは、particleを中心へ引きながら回転させるVortex force Node。
 verification: partial
-aliases: ["pVortex", "PVT"]
-concepts: ["particle-data"]
-nodes: ["pVortex"]
-node_family: "particles"
-inputs: ["particle"]
-outputs: ["particle"]
-tasks: ["create-particles"]
+aliases: [pVortex, pVt]
+concepts: [particle-data, particle-region]
+nodes: [pVortex]
+node_family: particles
+controls: [Random Seed, Strength, Power, Offset XYZ, Size, Angle X, Angle Y, Conditions, Region]
+inputs: [particle, region]
+outputs: [particle]
+tasks: [particles, vortex, spiral]
 product_scope: fusion
-suite_surfaces: ["fusion"]
-updated: "2026-10-03"
+suite_surfaces: [fusion]
+updated: "2026-10-04"
 ---
 
 # pVortex
 
-渦Force。
+pVortexは、<Term id="particle-data">Particle</Term>へrotational forceを加え、中心へ引き込みながらspiral movementを作るNodeです。
 
-## 概要
+渦、竜巻、吸い込み、orbital motionの基礎に使えます。
 
-- **種別**: Node / Tool
-- **分類**: Particles
-- **主なデータ領域**: Particle set
-- **略称**: `PVT`
-- **導入・系譜**: legacy
-- **根拠レベル**: Blackmagic Design公式の旧Fusion Tool Referenceにある系譜
+## 主な設定
 
-## 入力と出力
+### Strength
 
-この項目はカタログ上、**Particle set**を主なデータ領域として扱います。上のfrontmatterにある入出力は領域を検索するための分類であり、Fusion 21.1の正確な端子数や端子名を断定するものではありません。
+Vortex forceの強さを決めます。
 
-実際に組むときはFlow上の端子ラベルとInspectorを確認し、2D Image、Mask、Shape、Particle、Classic 3D、USD、Deep、パラメータ値を取り違えないようにします。
+### Power
 
-## 主な用途
+distanceに応じてStrengthがどれだけfalloffするかを決めます。
 
-渦Force。
+### Offset X / Y / Z
 
-## 使うときの判断
+Vortex centerの位置を動かします。
 
-Particle setは2D Imageではありません。最終的に画像として合成する場合は`pRender`を使います。
+### Size
+
+Vortex forceの作用scaleを調整します。
+
+### Angle X / Y
+
+Vortexの回転axis / orientationを調整します。
 
 ## 最小構成
 
 ```text
-pEmitter → pVortex → pRender → Image
+pEmitter → pVortex → pRender
 ```
 
-## 注意点
+## 運用例
 
-- このページはノードを選ぶための役割・データ領域・系譜を先に揃えています。
-- exactな内部ID、端子名、初期値、数値範囲、Edition差は、確認できたものだけ今後追記します。
-- legacy系譜の項目は、現在のEffects Libraryに同名で表示されることまで一件ずつ実機確認したものではありません。
+particleを渦へ吸い込む場合:
 
-## バージョンと検証状況
+1. pEmitterで広めのRegionからparticleを出します。
+2. pVortex centerを吸い込み位置へ置きます。
+3. Strengthを上げてrotationを作ります。
+4. Powerで外側particleへのforce falloffを調整します。
+5. Size / Angleで渦の空間方向を合わせます。
 
-旧Blackmagic Design公式Tool Referenceで役割と系譜を確認しています。Fusion 21.1での存在、端子名、Inspector項目、初期値、範囲は実機または現行マニュアルで再確認が必要です。
+## pPointForceとの違い
 
-このリファレンスのinventory基準はDaVinci Resolve / Fusion 21.0.4です。Manual全体は21.1基準へ更新中のため、21.1で差がある箇所は現行資料または実機確認後に更新します。
+- **pPointForce** — centerへ直線的にattract / repel
+- **pVortex** — center方向のpullとrotationを組み合わせる
+
+## 出典と確認範囲
+
+DaVinci Resolve 21.1 Reference Manual Chapter 114 pp.2690–2691で、Strength、Power、Offset XYZ、Size、Angle X/Yを確認しました。
+
+Vortex内部式と実機performanceは未確認です。

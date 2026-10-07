@@ -1,61 +1,50 @@
 ---
-title: "uDistant Light"
-description: "USD distant light。"
+title: uDistant Light
+description: 太陽のような遠方光源をUSD sceneへ追加し、rotationとAngular Sizeで平行光の方向と見かけの広がりを調整するNode。
 doc_type: node
-term_id: "udistant-light"
-term_short: "uDistant Lightは、USD distant light。"
+term_id: udistant-light
 verification: partial
-aliases: ["uDistant Light"]
-concepts: ["usd"]
-nodes: ["uDistant Light"]
-node_family: "usd"
-inputs: ["usd"]
-outputs: ["usd"]
-tasks: ["build-usd-scene"]
+aliases: [uDistant Light, uDL]
+concepts: [usd-scene, lighting]
+nodes: [uDistant Light]
+node_family: usd
+controls: [Override Selection, Color, Intensity, Exposure, Color Temperature, Diffuse Response, Specular Response, Normalize, Angular Size, Transform]
+inputs: [usd]
+outputs: [usd]
+tasks: [usd, lighting, sun-light]
 product_scope: fusion
-suite_surfaces: ["fusion"]
-updated: "2026-10-03"
+suite_surfaces: [fusion]
+updated: "2026-10-04"
 ---
 
 # uDistant Light
 
-USD distant light。
+uDistant Lightは、太陽のような遠方light sourceを<Term id="usd-scene">USD scene</Term>へ追加するNodeです。
 
-## 概要
+positionよりrotationが照射方向を決めます。
 
-- **種別**: Node / Tool
-- **分類**: USD (18.5+)
-- **主なデータ領域**: USD scene / asset
-- **導入・系譜**: 18.5
-- **根拠レベル**: 導入版のBlackmagic Design公式資料で確認した現行系譜
+## 主な設定
 
-## 入力と出力
+- Color
+- Intensity / Exposure
+- Color Temperature
+- Diffuse / Specular Response
+- Normalize
+- Angular Size
 
-この項目はカタログ上、**USD scene / asset**を主なデータ領域として扱います。上のfrontmatterにある入出力は領域を検索するための分類であり、Fusion 21.1の正確な端子数や端子名を断定するものではありません。
+Angular Sizeでlightの見かけ上の広がりを調整します。
 
-実際に組むときはFlow上の端子ラベルとInspectorを確認し、2D Image、Mask、Shape、Particle、Classic 3D、USD、Deep、パラメータ値を取り違えないようにします。
+## Transform
 
-## 主な用途
+rotationで光の方向を決めます。
 
-USD distant light。
+## Classic Directional Lightとの違い
 
-## 使うときの判断
+- **uDistant Light** — USD
+- **Directional Light** — Classic 3D
 
-USD系の`u*`ノードはClassic 3Dノードと別のデータ領域です。通常は`uRenderer`で画像へ変換します。
+役割は近いですが別domainです。
 
-## 最小構成
+## 出典と確認範囲
 
-```text
-uLoader / uShape → uDistant Light → uRenderer → Image
-```
-
-## 注意点
-
-- このページはノードを選ぶための役割・データ領域・系譜を先に揃えています。
-- exactな内部ID、端子名、初期値、数値範囲、Edition差は、確認できたものだけ今後追記します。
-
-## バージョンと検証状況
-
-導入版のBlackmagic Design公式資料で現行系譜を確認しています。Fusion 21.1の端子名、Inspector項目、初期値、範囲は未検証です。
-
-このリファレンスのinventory基準はDaVinci Resolve / Fusion 21.0.4です。Manual全体は21.1基準へ更新中のため、21.1で差がある箇所は現行資料または実機確認後に更新します。
+DaVinci Resolve 21.1 Reference Manual Chapter 121 pp.2933–2934で、Scene Input、rotation、Angular Sizeと共通Light controlsを確認しました。

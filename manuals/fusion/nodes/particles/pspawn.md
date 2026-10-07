@@ -1,63 +1,77 @@
 ---
-title: "pSpawn"
-description: "既存粒子から新規粒子を発生。"
+title: pSpawn
+description: 既存Particle自身をEmitterとして新しいParticleを生成し、burst・trail・firework等の二次発生を作るNode。
 doc_type: node
-term_id: "pspawn"
-term_short: "pSpawnは、既存粒子から新規粒子を発生。"
+term_id: pspawn
+term_short: pSpawnは、既存particleから新しいparticleを生成するNode。
 verification: partial
-aliases: ["pSpawn", "PSP"]
-concepts: ["particle-data"]
-nodes: ["pSpawn"]
-node_family: "particles"
-inputs: ["particle"]
-outputs: ["particle"]
-tasks: ["create-particles"]
+aliases: [pSpawn, pSp]
+concepts: [particle-data, particle-region]
+nodes: [pSpawn]
+node_family: particles
+controls: [Affect Spawned Particles, Velocity Transfer, Number, Lifespan, Style, Conditions, Region]
+inputs: [particle, image, region]
+outputs: [particle]
+tasks: [particles, spawn, fireworks, trail]
 product_scope: fusion
-suite_surfaces: ["fusion"]
-updated: "2026-10-03"
+suite_surfaces: [fusion]
+updated: "2026-10-04"
 ---
 
 # pSpawn
 
-既存粒子から新規粒子を発生。
+pSpawnは、既存<Term id="particle-data">Particle</Term>を小さなEmitterとして扱い、そこから新しいparticleを生成するNodeです。
 
-## 概要
+rocketの先端からsparkを出す、particleが一定ageになったらburstする、といった二次発生に使います。
 
-- **種別**: Node / Tool
-- **分類**: Particles
-- **主なデータ領域**: Particle set
-- **略称**: `PSP`
-- **導入・系譜**: legacy
-- **根拠レベル**: Blackmagic Design公式の旧Fusion Tool Referenceにある系譜
+## 入力
 
-## 入力と出力
+オレンジ色のParticle inputへsource particleを接続します。
 
-この項目はカタログ上、**Particle set**を主なデータ領域として扱います。上のfrontmatterにある入出力は領域を検索するための分類であり、Fusion 21.1の正確な端子数や端子名を断定するものではありません。
+StyleをBitmapにするとspawned particle用Image input、RegionをBitmap / MeshにするとRegion inputが追加されます。
 
-実際に組むときはFlow上の端子ラベルとInspectorを確認し、2D Image、Mask、Shape、Particle、Classic 3D、USD、Deep、パラメータ値を取り違えないようにします。
+## pEmitterと共通するControl
 
-## 主な用途
+Number、Lifespan、Velocity、Style等、多くのControlはpEmitterと同じ考え方でspawned particleの初期状態を決めます。
 
-既存粒子から新規粒子を発生。
+## pSpawn固有Control
 
-## 使うときの判断
+### Affect Spawned Particles
 
-Particle setは2D Imageではありません。最終的に画像として合成する場合は`pRender`を使います。
+spawnされたparticleも後続frameでpSpawnの対象にします。
+
+有効にするとparticleがparticleを生み、そのparticleもさらにparticleを生むため、数が指数的に増える場合があります。必要な場合だけ使います。
+
+### Velocity Transfer
+
+source particleのVelocityをspawned particleへどれだけ引き継ぐかを決めます。
+
+1.0ならsourceのmovementを100%引き継ぎます。
+
+## Conditionsで発生timingを制限する
+
+pSpawnは対象particleが作用条件に入っている間、継続的にparticleを生成します。
+
+Start / End Age、Probability、Sets、Region等を使い、意図したtimingだけpSpawnが作用するよう制限します。
 
 ## 最小構成
 
 ```text
-pEmitter → pSpawn → pRender → Image
+pEmitter → pSpawn → pRender
 ```
 
-## 注意点
+## 運用例
 
-- このページはノードを選ぶための役割・データ領域・系譜を先に揃えています。
-- exactな内部ID、端子名、初期値、数値範囲、Edition差は、確認できたものだけ今後追記します。
-- legacy系譜の項目は、現在のEffects Libraryに同名で表示されることまで一件ずつ実機確認したものではありません。
+rocket → firework burst:
 
-## バージョンと検証状況
+1. pEmitterでrocket particleを作ります。
+2. pSpawnを追加します。
+3. ConditionsのAgeでrocket寿命後半だけspawnするよう限定します。
+4. spawned particleのNumber / Velocity / Angleを広げます。
+5. pRenderで確認します。
 
-旧Blackmagic Design公式Tool Referenceで役割と系譜を確認しています。Fusion 21.1での存在、端子名、Inspector項目、初期値、範囲は実機または現行マニュアルで再確認が必要です。
+## 出典と確認範囲
 
-このリファレンスのinventory基準はDaVinci Resolve / Fusion 21.0.4です。Manual全体は21.1基準へ更新中のため、21.1で差がある箇所は現行資料または実機確認後に更新します。
+DaVinci Resolve 21.1 Reference Manual Chapter 114 pp.2685–2686で、inputs、pEmitter共通Control、Affect Spawned Particles、Velocity Transfer、Conditionsによる制限を確認しました。
+
+spawn growthの性能上限は実機未確認です。

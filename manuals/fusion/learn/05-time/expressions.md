@@ -1,11 +1,11 @@
 ---
 title: 式（Expressions）
-description: パラメータを別の値から計算し、値同士の関係を保つための考え方。
+description: FusionでParameterを式から計算し、別Parameterや時間と関係づける基本。
 doc_type: concept
 term_id: expressions
-term_short: parameter値を式で別の値から計算し関係を保つ仕組み。
-verification: unverified
-aliases: [Expression, 式, parameter link]
+term_short: Parameter値を計算式・別Parameter・時間から求める仕組み。
+verification: partial
+aliases: [Expression, SimpleExpression, 式, parameter link]
 concepts: [expressions, parameter-linking, derived-values]
 nodes: [Transform, Merge]
 tasks: [automate, link-values, derive-values]
@@ -13,113 +13,139 @@ prerequisites: [parameter-data, keyframes]
 level: foundation
 product_scope: fusion
 suite_surfaces: [fusion]
+updated: "2026-10-06"
 ---
+
 # 式（Expressions）
 
-> Expressionの具体的な構文例はFusion 21.1 Reference Manual / 実機で再確認前です。ここでは既存seedをConcept構造へ移したDraftとして扱います。
+FusionのExpressionは、Parameterへ固定値を入れる代わりに、**別の値や時間から結果を計算する**ための仕組みです。
 
-## このページで分かること
+たとえば「別NodeのBlendと同じ値にする」「Centerから少し下へずらす」「時間に合わせてSizeを周期的に変える」といった関係を、Keyframeを大量に置かずに作れます。
 
-複数の値を毎回手で揃えず、値どうしの関係を記述する方法を説明します。
+## まず3種類を分ける
 
-## 基本の考え方
+Fusionでは「式」と呼びたくなる機能がいくつかあります。
 
-Expressionは、パラメータへ最終値を直接固定する代わりに、**別の値や計算から結果を導く**ための仕組みとして考えます。
+### 数値欄で計算する
+
+多くの数値欄では、その場で簡単な計算ができます。
 
 ```text
-source value
-   ↓
-expression / relation
-   ↓
-derived parameter
+2.0 + 4.0
 ```
 
-目的は「自動化すること」より、**どの値を基準となる値にして、どの値を従属させるか**を明確にすることです。
+この場合は6.0という値を求めるための計算です。別Parameterとの継続的な関係を作りたい場合はSimpleExpressionを使います。
 
-## 最小例
+### SimpleExpression
 
-既存seedでは、別NodeのPoint パラメータを参照する例を次のように記述しています。
+Parameterの数値欄へ`=`を入力してReturnを押すと、Parameterの下にSimpleExpression欄が開きます。
+
+ここには1行のLua式とFusion固有の省略記法を書けます。
 
 ```lua
-OtherTransform.Center
+time
 ```
 
-PointのX componentだけを参照する例:
+現在のframe番号を返します。
 
 ```lua
-OtherTransform.Center.X
+Merge1.Blend
 ```
 
-同じNode内の値から派生させる例:
+別NodeのParameterを参照します。この例では`Merge1`の`Blend`です。
 
 ```lua
-Width * 0.5
+sin(time/20)/2+.5
 ```
 
-これらの正確な構文（syntax）は21.1で再検証するまで `unverified` とします。
+0〜1の範囲を往復する値を作ります。SizeやBlendなどを周期的に動かすときの基本形です。
 
-## 共通ルール
+```lua
+iif(Merge1.Blend == 0, 0, 1)
+```
 
-Expressionを使うとき、Node名や式より先に次を決めます。
+Blendが0なら0、それ以外なら1を返します。一定条件で値を切り替えたいときに使えます。
 
-- どのパラメータが基準値か。
-- どのパラメータが派生値か。
-- 派生先が期待する型は何か。
-- Node名の変更や構造変更で参照が壊れないか。
-- 同じ関係をInstance / <Term id="modifier-parameter-sources">Modifier</Term> / User Controlで持つ方が適切ではないか。
+### Expression Modifier
 
-## 1つずつ変えて確認する
+InspectorでParameterを右クリックし、`Modify With > Expression`を選ぶ方法です。
 
-基準値を1つだけ変更し、派生値が期待した関係を保つか確認します。
+Expression Modifierには9個のNumber inputと9個のPoint inputがあり、式では`n1 ... n9`、`p1x ... p9x`、`p1y ... p9y`として参照できます。Number ParameterではNumber Out、CenterのようなPoint ParameterではPoint Outを使います。
 
-式自体と複数の参照元を同時に変えないことで、「参照が正しいか」「計算が正しいか」を分離できます。
+SimpleExpressionよりControlを整理しやすく、複数の入力値をまとめて扱いたい場合に向いています。
 
-## 他のNodeにも応用する
+→ [Expression Modifier](../../nodes/modifiers/expression)
 
-### Position 関係
+## 別Nodeの値を参照する
 
-複数要素の<Term id="center-pivot-size-angle">Center</Term>を同じ参照元から導き、位置関係を保つ設計へ転用できます。
+基本形は`Node名.Parameter名`です。
 
-### Proportional size
+```lua
+Merge1.Blend
+```
 
-基準WidthやSizeから別の値を比率で計算する設計へ転用できます。
+Pointの一部だけを使う場合は、X / Y componentを参照できます。
 
-### Repeated spacing
+```lua
+Text1.Center.X
+```
 
-最小値・最大値・index・個数を分け、等間隔配置のような関係を式で表す設計へ発展させられます。
+Pointそのものを返したい場合は`Point(x, y)`を使います。
 
-## 初見のNodeを読む
+```lua
+Point(Text1.Center.X, Text1.Center.Y-.1)
+```
 
-Expressionを使う前に、次を予測できる状態を目指します。
+この例ではText1のCenterを基準に、Y方向へ0.1だけずらしたPointを返します。
 
-1. 参照元を変えたとき何が連動するか。
-2. 参照先が消えた／名前が変わったとき何が壊れるか。
-3. 値の型が合わない場合にどこを見るか。
-4. 式を増やすほど保守責任がどこへ集まるか。
+## 別frameの値を読む
 
-## よくある誤解
+SimpleExpressionでは`GetValue()`を使って別frameのParameter値を読むこともできます。
 
-**「同じ値にしたい = すべてExpression」と決めること。**
+```lua
+Merge1:GetValue("Blend", time-5)
+```
 
-必要なのは値の関係です。Instance、Modifier、User Controlsなど別の再利用手段が適切な場合もあるため、責任の置き場所で選びます。
+これはMerge1のBlendを、現在より5frame前から取得します。
 
-## Deepen
+一方、21.1 ManualではExpression Modifierはcurrent time以外の値へアクセスできないとされています。時間をずらして値を読む必要がある場合は、SimpleExpressionやCalculation Modifierなど別の方法を検討します。
 
-- [フレーム 評価](./frame-evaluation)
-- [Modifier / パラメータ Sources](./modifier-parameter-sources)
+## Pick Whipで参照を作る
 
-## 関連パターン
+SimpleExpression欄を開くと左側に`+`が表示されます。これを別Parameterへdragすると、そのParameterへの参照を作れます。
 
+Node名やParameter名を手入力するより、まずPick Whipで正しい参照を作ってから式を編集する方が間違いを減らせます。
+
+## 使い分けの目安
+
+- 値をその場で計算したい → 数値欄で計算
+- 別Parameterと簡単な関係を作りたい → SimpleExpression
+- 複数のNumber / Pointを入力として整理したい → Expression Modifier
+- 時間差を含む2つの値を演算したい → Calculation Modifierも候補
+- 自然なrandom animationが欲しい → Shake / Perturbも候補
+
+Expressionを使うこと自体が目的ではありません。どのParameterを基準にし、どのParameterをそこから計算するかを先に決めると、後からGraphを読みやすくなります。
+
+## 次に追加する内容
+
+このページから、次の内容を個別記事へ分けていく予定です。
+
+- Node / Parameter参照の書き方
+- `time`と周期運動
+- `iif`、`min`、`max`を使った閾値処理
+- NumberとPointの違い
+- Custom Toolを制御ハブとして使う方法
+- Expression / Calculation / Publishの使い分け
+
+## 出典と確認範囲
+
+DaVinci Resolve 21.1 Reference Manual Chapter 73「Using Modifiers, Expressions, and Custom Controls」とChapter 124「Modifiers」を基準にしています。
+
+SimpleExpressionの追加方法、`time`、Node Parameter参照、`GetValue()`、`sin()`、`iif()`、`Point()`、Pick Whip、Expression ModifierのNumber / Point inputsは21.1 Manualで確認済みです。実機上のすべてのLua関数、Parameter ID、Node rename時の細かな挙動まではこのページでは確認していません。
+
+## 関連ページ
+
+- [Modifier / Parameter Sources](./modifier-parameter-sources)
+- [キーフレーム / スプライン / 時間](./keyframes-spline-time)
+- [Expression Modifier](../../nodes/modifiers/expression)
 - [Expressionで値の関係を保つ](../../patterns/automation/link-values-with-expression)
-- [複数要素の位置関係を共有する](../../patterns/transform/share-position-across-elements)
-
-## 関連Node
-
-- [Transform](../../nodes/transform/transform)
-- [Merge](../../nodes/compositing/merge)
-
-## 次に読む
-
-次はConceptを具体的な再利用構造へ落とします。
-
-→ [Patterns](../../patterns/)
