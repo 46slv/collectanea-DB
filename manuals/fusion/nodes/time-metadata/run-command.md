@@ -1,61 +1,173 @@
 ---
 title: "Run Command"
-description: "外部コマンド実行。自動化では副作用/安全境界を明示する。"
+description: "renderの開始・終了・各frame完了時に、外部コマンドやscriptを実行するFusion Node。"
 doc_type: node
 term_id: "run-command"
-term_short: "Run Commandは、外部コマンド実行。自動化では副作用/安全境界を明示する。time / metadata / domainを扱うNode。"
+term_short: "Run Commandは、renderの特定タイミングで外部コマンドやscriptを実行し、保存後処理や外部tool連携を組み込むNode。"
 verification: partial
-aliases: ["Run Command", "RUN"]
+aliases: ["Run Command", "Run"]
 concepts: ["image-data"]
 nodes: ["Run Command"]
 node_family: "time-metadata"
+controls: ["Hide", "Wait", "Frame Command", "Interactive", "Number A", "Number B"]
 inputs: ["image"]
 outputs: ["image"]
-tasks: ["retime"]
+tasks: ["automation", "render-pipeline", "external-command"]
 product_scope: fusion
 suite_surfaces: ["fusion"]
-updated: "2026-10-05"
+updated: "2026-10-08"
 ---
 
 # Run Command
 
-Run Commandは、外部コマンド実行。自動化では副作用/安全境界を明示する。Imageの再生time、metadata、bit depth、Domain of Definition等、画素以外も含む付帯情報を変更します。
+Run Command [Run]は、Fusionのrenderに合わせて外部コマンド、batch file、script、command-line toolを実行するNodeです。処理を走らせるタイミングは、render開始時、render終了時、または各frameのrender後から選べます。
 
-## 役割
-
-外部コマンド実行。自動化では副作用/安全境界を明示する。このページでは、名前だけで選ばず、**何を受け取り、何が変わり、どのdomainへ返すか**を先に整理します。
-
-この項目で確認できている中心的な役割は「外部コマンド実行。自動化では副作用/安全境界を明示する」です。exactなInspector項目が未確認の場合は、役割とdata domainを先に使って候補を絞ります。
+Imageの見た目を加工するNodeではありません。Saverで書き出したfileを別の処理へ渡すなど、render pipelineの自動化に使います。
 
 ## 入力と出力
 
-入力分類: **image**。 出力分類: **image**。 この分類はdata domainを読むためのものです。Fusion 21.1のexactな端子名・端子数を未確認の場合、ここでは推測して固定しません。
+DaVinci Resolve 21.1 Reference Manualでは、次の2D Image接続が記載されています。
 
-## 使うときの判断
+- **Input**（orange）: 任意。2D Imageをpass-throughする入力です。接続しなくてもRun Command自体は動作します。
+- **Output**: 接続した2D Imageを後段へ渡します。
 
-見た目のEffectかではなく、time mapping、metadata、DoD、precisionのどれを変えるNodeかを確認します。
+Inputを接続した場合、Run Commandは接続元Nodeのrenderが完了してから外部コマンドを起動します。
 
-同じ目的を別Familyでも作れる場合は、後段で必要なdata domainと、Graph上で責任をどこに置きたいかで選びます。
+この順序が重要なのがSaverとの組み合わせです。
 
-## 最小構成
+```text
+Image → Saver → Run Command
+```
 
-    Image / Time / Metadata → Run Command → Result
+Saverの後ろへRun Commandを置くと、そのframeの保存が終わった後にFrame Commandを実行できます。保存中のfileを外部toolが先に処理しない構成にしたいときに使えます。
 
-これは接続関係を理解するための最小構成案です。公式Manualのexactな作例として確認していない構成は、実制作前にViewerで中間結果を確認します。
+Manualでは、起動したapplicationがnon-zero resultを返した場合、Run Command Nodeもfailすると説明されています。
 
-## 確認ポイント
+## 実行タイミング
 
-- 入力dataのdomainが合っているか。
-- この項目のoutputを受け取れる後段Nodeへ接続しているか。
-- 同じ役割を前段 / 後段で二重に処理していないか。
-- source-limited pageでは、未確認のControl名・default・rangeを名前から推測していないか。
+Run Commandには、用途の異なる3つの実行タイミングがあります。
 
-## Family内での位置づけ
+### Frame
 
-Time / Metadata / Utilityノードの全体像と近いNodeの選び分けは[Family Overview](./)を参照してください。
+各frameのrender後にコマンドを実行します。連番fileを1枚ずつ後処理するような用途向けです。
+
+### Start
+
+compositionのrender開始時にコマンドを実行します。render前の準備処理を外部scriptへ任せたい場合に使えます。
+
+### End
+
+compositionのrender完了時にコマンドを実行します。全frameのrender完了後に行いたい後処理をまとめる用途に向きます。
+
+Start / End tabについて、21.1 Manualはそれぞれrender開始時・完了時に実行するcommandをfile browserで指定すると説明しています。このページでは、Manualに明記されていない追加Control名は推測していません。
+
+## Frame tab
+
+### Hide
+
+有効にすると、実行したapplicationやscriptのwindowを表示しないようにします。
+
+### Wait
+
+有効にすると、起動したapplicationやtoolが終了するまでRun Commandが待機します。無効の場合、Fusionは外部applicationの終了を待たずrenderを続行します。
+
+次のframeへ進む前に外部処理が完了している必要がある場合はWaitを使います。
+
+### Frame Command
+
+各frameのrender後に実行するcommandのpathやcommand lineを指定します。ManualではBrowse buttonからpathを指定できると説明されています。
+
+### Interactive
+
+有効にすると、起動したapplicationをinteractiveに実行し、ユーザー入力を受け取れるようにします。
+
+無人renderやbatch処理では、外部application側が入力待ちにならない構成かも確認してください。
+
+### Number A / Number B
+
+Frame Command内では次のwildcardを使えます。
+
+- `%a`: Number Aの値
+- `%b`: Number Bの値
+- `%t`: 現在のframe番号
+- `%s`: text entry fieldの文字列
+
+render時にwildcardが実際の値へ置き換えられます。
+
+## frame番号をzero paddingする
+
+`%t`はそのままではzero paddingされません。21.1 Manualでは、桁数を付けたwildcardでzero paddingできると説明されています。
+
+4桁のframe番号なら、次のように記述します。
+
+```text
+test%04t.tga
+```
+
+render時には`test0000.tga`、`test0001.tga`、`test0009.tga`、`test0010.tga`のような名前になります。同じpadding指定は`%a`と`%b`にも使えます。
+
+## 具体的な使い方
+
+### Saverで保存したframeを外部処理へ渡す
+
+代表的な構成は次のとおりです。
+
+```text
+Image
+  ↓
+Saver
+  ↓
+Run Command
+```
+
+1. Saverで連番fileを書き出す。
+2. Run CommandをSaverの後ろへ接続する。
+3. Frame Commandへ外部scriptやtoolのcommandを設定する。
+4. 必要なら`%t`を使って現在frameを識別する。
+5. 外部処理の完了を待つ必要がある場合はWaitを有効にする。
+
+Manualでは、保存した各frameのcopy、FTP転送、print、custom image-processing toolの実行などが用途として挙げられています。
+
+### render全体の前後に処理を入れる
+
+frameごとではなくrender session全体の前後に処理したい場合は、Start / Endを使います。
+
+```text
+Start command
+    ↓
+Fusion render
+    ↓
+End command
+```
+
+毎frame実行する必要がない初期化や完了後処理をFrame Commandへ入れず、実行回数を分けられます。
+
+## 実行対象
+
+Run Commandは単純なbatch fileだけに限定されません。21.1 Manualでは例としてFusionScript、VBScript、JScript、CGI、Perl fileも挙げられています。
+
+実際に起動できるcommand / interpreter / scriptは、Resolveを実行しているOSと環境に依存します。path、quoting、権限、利用可能なinterpreterは対象環境で確認してください。
+
+## 注意点
+
+- Run Commandは外部processを起動します。実行内容と対象pathを確認してからrenderします。
+- Inputは任意です。画像処理が目的ではなく、render順序へ外部commandを組み込むためのNodeです。
+- Saverの出力fileへ依存する処理は、Saverの後ろへ接続して保存完了との順序を明確にします。
+- Waitを有効にすると外部processの終了を待つため、そのprocessが終了しない限りrenderも先へ進みません。
+- Start / Frame / Endで実行回数が変わります。1回だけでよい処理をFrameへ置かないようにします。
+- command pathやshellの書式はplatform依存です。対象環境のpath / command syntaxへ合わせます。
+- runtime REGID、Effects Library上のcurrent表示、edition差、各platformでのshell起動方法は、このページの確認範囲では断定していません。
+
+## 関連
+
+- [Time / Metadata / Utility Family Overview](./index.md)
+- Saver: Image sequenceやmovieを書き出した後の処理をRun Commandへ接続する代表的な組み合わせ。
+- [Wireless Link](./wireless-link.md): cableを引かずに2D Imageを参照するNodeで、外部process実行とは役割が異なる。
 
 ## 出典と確認範囲
 
-このページの役割・data domain・系譜は、既存COLLECTANEA catalogとBlackmagic Design公式資料で確認された範囲をreader-first形式へ整理しています。
+DaVinci Resolve 21.1 Reference Manual（September 2026）、Chapter 111「Miscellaneous Nodes」の`Run Command [Run]`（pp.2599–2602）を基準にしています。
 
-Fusion 21.1 Reference Manualで個別のInspector項目・default・rangeまで確認できていない項目は、**source-limited**としてその詳細を断定していません。verification: partial はその未確認範囲を含みます。runtime REGIDや現在のEffects Library表示は別のruntime verificationで確定します。
+確認した項目は、render開始 / 終了 / 各frame後のcommand実行、任意のorange 2D Image input、upstream render完了後にcommandを起動する順序、non-zero result時のfailure、`Hide`、`Wait`、`Frame Command`、`Interactive`、`Number A` / `Number B`、`%a` / `%b` / `%t` / `%s` wildcard、zero padding、Start / End tab、Saver後へ置く基本構成です。
+
+runtime REGID、Effects Library上のcurrent表示、edition差、platform別のshell / interpreter挙動は別verification対象として残しているため、`verification: partial`を維持しています。
