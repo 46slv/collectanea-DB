@@ -1,61 +1,157 @@
 ---
 title: "Set Domain"
-description: "Domain of Definitionを明示的に変更。"
+description: "Imageの物理サイズを変えずに、Domain of Definition（DoD）を明示的に設定・調整するNode。"
 doc_type: node
 term_id: "set-domain"
-term_short: "Set Domainは、Domain of Definitionを明示的に変更。time / metadata / domainを扱うNode。"
+term_short: "Set Domainは、ImageのDomain of Definition（DoD）を手動で設定・調整するNode。"
 verification: partial
 aliases: ["Set Domain", "DOD"]
-concepts: ["image-data"]
+concepts: ["image-data", "domain-of-definition"]
 nodes: ["Set Domain"]
 node_family: "time-metadata"
-inputs: ["image"]
+controls: ["Mode", "Left", "Bottom", "Right", "Top"]
+inputs: ["image", "image"]
 outputs: ["image"]
-tasks: ["retime"]
+tasks: ["domain-of-definition", "performance"]
 product_scope: fusion
 suite_surfaces: ["fusion"]
-updated: "2026-10-05"
+updated: "2026-10-07"
 ---
 
 # Set Domain
 
-Set Domainは、Domain of Definitionを明示的に変更。Imageの再生time、metadata、bit depth、Domain of Definition等、画素以外も含む付帯情報を変更します。
+Set Domain [DOD]は、2D Imageの**Domain of Definition（DoD）を明示的に設定または調整する**Nodeです。Imageのwidth / heightは変えず、「どの範囲に有効なdataがあると扱うか」だけを変更します。
 
-## 役割
+DoDは、Image内で実際にdataが存在するとFusionが扱う矩形領域です。後段NodeはDoDの外側を処理しないため、適切なDoDを設定すると計算量を減らせる場合があります。DoDそのものの考え方は[有効領域（Domain of Definition）](../../learn/03-space/domain-of-definition.md)を参照してください。
 
-Domain of Definitionを明示的に変更。このページでは、名前だけで選ばず、**何を受け取り、何が変わり、どのdomainへ返すか**を先に整理します。
+## 何をするNodeか
 
-この項目で確認できている中心的な役割は「Domain of Definitionを明示的に変更」です。exactなInspector項目が未確認の場合は、役割とdata domainを先に使って候補を絞ります。
+Set Domainには、DoDを座標で決める**Set**と、現在のDoDを基準に広げたり狭めたりする**Adjust**があります。
+
+- **Set**: Left / Bottom / Right / TopでDoDの境界を直接指定する。
+- **Adjust**: 既存DoDの各辺を相対的に移動する。正の値でDoDを狭め、負の値で外側へ広げる。
+
+Set Domainが変更する中心的な情報はDoDです。retime、metadataの書き換え、bit depth変更を行うNodeではありません。
 
 ## 入力と出力
 
-入力分類: **image**。 出力分類: **image**。 この分類はdata domainを読むためのものです。Fusion 21.1のexactな端子名・端子数を未確認の場合、ここでは推測して固定しません。
+DaVinci Resolve 21.1 Reference Manualでは、2つの2D Image入力が記載されています。
 
-## 使うときの判断
+- **Input**（orange / Background）: 必須。DoDを設定・調整したい2D Imageを接続します。
+- **Foreground**（green）: 任意。接続すると、Background側ImageのDoDをForeground側ImageのDoDへ置き換えます。
+- **Output**: 物理的なImage dimensionsを保ったまま、設定されたDoDを持つ2D Imageを返します。
 
-見た目のEffectかではなく、time mapping、metadata、DoD、precisionのどれを変えるNodeかを確認します。
+Foreground入力は、別Imageがすでに持っているDoDを基準として使いたい場合に利用できます。
 
-同じ目的を別Familyでも作れる場合は、後段で必要なdata domainと、Graph上で責任をどこに置きたいかで選びます。
+## 主な設定項目
 
-## 最小構成
+### Mode
 
-    Image / Time / Metadata → Set Domain → Result
+`Set`と`Adjust`を切り替えます。
 
-これは接続関係を理解するための最小構成案です。公式Manualのexactな作例として確認していない構成は、実制作前にViewerで中間結果を確認します。
+**Set**では、Image左端 / 下端を0、右端 / 上端を1とする正規化座標でDoDを指定します。初期状態はImage全体です。
 
-## 確認ポイント
+```text
+Left   = 0
+Bottom = 0
+Right  = 1
+Top    = 1
+```
 
-- 入力dataのdomainが合っているか。
-- この項目のoutputを受け取れる後段Nodeへ接続しているか。
-- 同じ役割を前段 / 後段で二重に処理していないか。
-- source-limited pageでは、未確認のControl名・default・rangeを名前から推測していないか。
+**Adjust**では、4つの値が0の状態で現在のDoDを維持します。正の値は対応する辺を内側へ動かしてDoDを狭め、負の値は外側へ動かしてDoDを広げます。
 
-## Family内での位置づけ
+### Left
 
-Time / Metadata / Utilityノードの全体像と近いNodeの選び分けは[Family Overview](./)を参照してください。
+DoDの左端を決めます。
+
+Setでは値を上げるほど左端が右へ移動し、左側のdataをDoDから外します。既定値は0です。
+
+### Bottom
+
+DoDの下端を決めます。
+
+Setでは値を上げるほど下端が上へ移動し、下側のdataをDoDから外します。既定値は0です。
+
+### Right
+
+DoDの右端を決めます。
+
+Setでは値を下げるほど右端を左へ寄せられます。既定値は1です。
+
+Adjustでは正の値が右端を左へ移動し、DoDを狭めます。
+
+### Top
+
+DoDの上端を決めます。
+
+Setでは値を下げるほど上端を下へ寄せられます。既定値は1です。
+
+Adjustでは正の値が上端を下へ移動し、DoDを狭めます。
+
+## 主な用途
+
+### 処理する範囲を明示的に限定する
+
+有効なpixelがframeの一部にしかないことが分かっている場合、Set DomainでDoDをその範囲へ合わせると、後段の重い処理が不要な領域まで計算するのを避けられます。
+
+```text
+Image → Set Domain → Blur / Color / other downstream node
+```
+
+Set Domain自体はImageをCropしません。width / heightはそのままで、Fusionが有効dataとして扱う範囲を指定します。
+
+### 既存DoDを少し広げる / 狭める
+
+すでにDoDを持つImageで、境界だけを調整したい場合はAdjustを使います。
+
+たとえば後段処理に必要な余白を確保したい場合は負の値でDoDを広げ、不要な外周を処理対象から外したい場合は正の値で狭められます。
+
+### 別ImageのDoDを使う
+
+Foregroundへ2D Imageを接続すると、そのImageのDoDをBackground側へ適用できます。
+
+```text
+Image A ──(orange Input)──────┐
+Image B ──(green Foreground)──┴→ Set Domain → Result
+```
+
+Image AのDoDを、Image Bが持つDoDへ揃えたい構成で使えます。
+
+## DoDを確認する
+
+Viewerで右クリックし、`Region > Show DoD`を有効にすると現在のDoDを表示できます。
+
+frame sizeとDoDが異なる場合は、Node EditorでNodeへpointerを置いたときのtooltipにもDoDが表示されます。Set / Adjustの変更前後を比較すると、Image dimensionsを変えずにDoDだけが変化していることを確認できます。
+
+## Auto Domainとの違い
+
+- **[Auto Domain](./auto-domain.md)**: Image内容とCanvas colorを調べ、frameごとにDoDを自動計算する。
+- **Set Domain**: DoDを数値で明示的に設定・相対調整する。または別ImageのDoDをForegroundから受け取る。
+
+contentの範囲へ自動追従させたい場合はAuto Domain、固定範囲や既存DoDからの調整が必要な場合はSet Domainが向いています。
+
+## 注意点
+
+- Set DomainはImageのwidth / heightを変更しません。[Crop](../transform/crop.md)やResizeとは役割が異なります。
+- DoDを必要以上に狭くすると、その外側は後段Nodeの処理対象になりません。Viewerの`Show DoD`で意図した範囲になっているか確認します。
+- DoDとRegion of Interest（RoI）は別の概念です。DoDは「Imageにdataがある範囲」、RoIは「今回renderを要求する範囲」を表します。
+- runtime REGID、Effects Library上のcurrent表示、edition差は、このページの確認範囲では断定していません。
+
+## 関連する考え方
+
+- [有効領域（Domain of Definition）](../../learn/03-space/domain-of-definition.md)
+- [Resolution / Domain of Definitionを確認する](../../learn/07-debugging/resolution-domain-of-definition.md)
+
+## 関連Node
+
+- [Auto Domain](./auto-domain.md): Image内容からDoDを自動設定する。
+- [Crop](../transform/crop.md): Image領域を切り出す。DoDだけを設定するSet Domainとは目的が異なる。
+- [Time / Metadata / Utility Family Overview](./index.md)
 
 ## 出典と確認範囲
 
-このページの役割・data domain・系譜は、既存COLLECTANEA catalogとBlackmagic Design公式資料で確認された範囲をreader-first形式へ整理しています。
+DaVinci Resolve 21.1 Reference Manual（September 2026）Chapter 111「Miscellaneous Nodes」の`Set Domain [DOD]`（pp.2602–2604）と、Fusion Fundamentals Chapter 68「Using Viewers」のDomain of Definition / Region of Interest説明（pp.1479–1480）を基準にしています。
 
-Fusion 21.1 Reference Manualで個別のInspector項目・default・rangeまで確認できていない項目は、**source-limited**としてその詳細を断定していません。verification: partial はその未確認範囲を含みます。runtime REGIDや現在のEffects Library表示は別のruntime verificationで確定します。
+確認した項目は、Image dimensionsを変更しないこと、Background / Foregroundの2入力、`Set` / `Adjust`、`Left` / `Bottom` / `Right` / `Top`、DoD外を後段Nodeが処理しないこと、ViewerでのDoD表示です。
+
+runtime REGID、Effects Library上のcurrent表示、edition差は別verification対象として残しているため、`verification: partial`を維持しています。
