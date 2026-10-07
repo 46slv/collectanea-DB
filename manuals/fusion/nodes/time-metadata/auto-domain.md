@@ -93,15 +93,19 @@ Image → Set Canvas Color → Auto Domain → Result
 
 ### Right
 
-探索範囲の右端です。値を下げる方向へ右側を除外できます。
+探索範囲の右端を指定します。
 
-0がImage左端、1が右端で、defaultは1です。
+21.1 Manualでは、0がImage左端、1が右端、defaultは1と記載されています。一方、同じControlの説明には「値を上げるほど右端が左へ移動する」という記述もあり、座標scaleの説明と増減方向の説明が一致しません。
+
+そのため、実機確認までは値の増減方向をこのページで断定しません。右側の探索範囲を狭める場合は、ViewerでDoDを確認しながら調整してください。
 
 ### Top
 
-探索範囲の上端です。値を下げる方向へ上側を除外できます。
+探索範囲の上端を指定します。
 
-0がImage下端、1が上端で、defaultは1です。
+21.1 Manualでは、0がImage下端、1が上端、defaultは1と記載されています。一方、同じControlの説明には「値を上げるほど上端が下へ移動する」という記述もあり、座標scaleの説明と増減方向の説明が一致しません。
+
+そのため、実機確認までは値の増減方向をこのページで断定しません。上側の探索範囲を狭める場合は、ViewerでDoDを確認しながら調整してください。
 
 Left / Bottom / Right / TopはImageをCropするControlsではなく、Auto Domainが内容を探す範囲を決めるためのControlsです。
 
@@ -171,4 +175,6 @@ DaVinci Resolve 21.1 Reference Manual（September 2026）Chapter 111「Miscellan
 
 確認した項目は、Canvas colorを基準にしたDoDの自動計算、Image dimensionsを変更しないこと、frameごとの更新、Input / Effect Mask、`Left` / `Bottom` / `Right` / `Top`、Set Canvas Colorを使う構成、OpenEXRと一般clipのDoDの扱いです。
 
-runtime REGID、Effects Library上のcurrent表示、edition差、Effect MaskのDoD計算に対するexactな挙動は別verification対象として残しているため、`verification: partial`を維持しています。
+`Right` / `Top`は、21.1 Manual内で座標scaleの説明と値を増やしたときの移動方向が一致していません。このページでは一方を推測で採用せず、増減方向を実機確認待ちとして扱います。
+
+runtime REGID、Effects Library上のcurrent表示、edition差、Effect MaskのDoD計算に対するexactな挙動、`Right` / `Top`の実機上の増減方向は別verification対象として残しているため、`verification: partial`を維持しています。
