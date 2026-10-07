@@ -15,7 +15,7 @@ outputs: ["image"]
 tasks: ["domain-of-definition", "performance"]
 product_scope: fusion
 suite_surfaces: ["fusion"]
-updated: "2026-10-07"
+updated: "2026-10-08"
 ---
 
 # Set Domain
@@ -76,17 +76,21 @@ Setでは値を上げるほど下端が上へ移動し、下側のdataをDoDか�
 
 DoDの右端を決めます。
 
-Setでは値を下げるほど右端を左へ寄せられます。既定値は1です。
+21.1 Manualでは、Set modeの座標scaleについて「0がImage左端、1が右端、既定値は1」と記載されています。一方、同じControlの説明には「値を上げるほど右端が左へ移動する」とあり、座標scaleの説明と増減方向の説明が一致しません。
 
-Adjustでは正の値が右端を左へ移動し、DoDを狭めます。
+そのため、Set modeで右端を狭める際の値の増減方向は実機確認前に断定しません。ViewerでDoDを表示し、境界の動きを確認しながら調整してください。
+
+Adjust modeについては、Manualが「正の値でDoDを狭め、負の値で広げる」と明記しています。Rightへ正の値を入れると右端側からDoDを狭めます。
 
 ### Top
 
 DoDの上端を決めます。
 
-Setでは値を下げるほど上端を下へ寄せられます。既定値は1です。
+21.1 Manualでは、Set modeの座標scaleについて「0がImage下端、1が上端、既定値は1」と記載されています。一方、同じControlの説明には「値を上げるほど上端が下へ移動する」とあり、座標scaleの説明と増減方向の説明が一致しません。
 
-Adjustでは正の値が上端を下へ移動し、DoDを狭めます。
+そのため、Set modeで上端を狭める際の値の増減方向は実機確認前に断定しません。ViewerでDoDを表示し、境界の動きを確認しながら調整してください。
+
+Adjust modeについては、Manualが「正の値でDoDを狭め、負の値で広げる」と明記しています。Topへ正の値を入れると上端側からDoDを狭めます。
 
 ## 主な用途
 
@@ -154,4 +158,6 @@ DaVinci Resolve 21.1 Reference Manual（September 2026）Chapter 111「Miscellan
 
 確認した項目は、Image dimensionsを変更しないこと、Background / Foregroundの2入力、`Set` / `Adjust`、`Left` / `Bottom` / `Right` / `Top`、DoD外を後段Nodeが処理しないこと、ViewerでのDoD表示です。
 
-runtime REGID、Effects Library上のcurrent表示、edition差は別verification対象として残しているため、`verification: partial`を維持しています。
+`Right` / `Top`は、21.1 Manual内でSet modeの座標scale説明と値を増やしたときの移動方向が一致していません。このページでは一方を推測で採用せず、Set modeの増減方向を実機確認待ちとして扱います。Adjust modeの「正の値でDoDを狭め、負の値で広げる」はManual本文に明記されているため、その説明は維持しています。
+
+runtime REGID、Effects Library上のcurrent表示、edition差、`Right` / `Top`のSet modeにおける実機上の増減方向は別verification対象として残しているため、`verification: partial`を維持しています。
