@@ -1,6 +1,7 @@
 ---
 title: Optical Flow / Motionノード
 description: frame間の動きをvectorとして解析し、retime・frame repair・motion smoothing・denoise・texture warpへ使うNodeを目的から選ぶ入口。
+slug: overview
 doc_type: index
 verification: partial
 product_scope: fusion
@@ -31,7 +32,7 @@ Repair FrameとTweenの前にOptical Flowを置く必要はありません。ど
 
 ## 代表Node
 
-- [Optical Flow](./optical-flow) — forward / backward motion vectorを解析する
+- [Optical Flow](./optical-flow.md) — forward / backward motion vectorを解析する
 - [Tween](./tween) — 2つの隣接Imageから内部optical flowを生成し、中間frameを作る
 - [Repair Frame](./repair-frame) — 前後frameを内部解析し、欠損・異常frameを補う
 - [Smooth Motion](./smooth-motion) — precomputed Vector / Back Vectorを使い、Vector / Z / Normal等のAOVを時間方向に平滑化する
