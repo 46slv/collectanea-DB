@@ -1,61 +1,57 @@
 ---
-title: "uDome Light"
-description: "USD dome/environment light。"
+title: uDome Light
+description: HDR / SDR ImageをUSD scene全体へ球状にmapし、environment lightingを作るNode。Image InputでFusionの動画やGeneratorも使える。
 doc_type: node
-term_id: "udome-light"
-term_short: "uDome Lightは、USD dome/environment light。"
+term_id: udome-light
 verification: partial
-aliases: ["uDome Light"]
-concepts: ["usd"]
-nodes: ["uDome Light"]
-node_family: "usd"
-inputs: ["usd"]
-outputs: ["usd"]
-tasks: ["build-usd-scene"]
+aliases: [uDome Light, uDo]
+concepts: [usd-scene, lighting, image-data]
+nodes: [uDome Light]
+node_family: usd
+controls: [Override Selection, Color, Intensity, Exposure, Color Temperature, Diffuse Response, Specular Response, Normalize, Guide Radius, Texture File, Texture Format, Transform]
+inputs: [usd, image]
+outputs: [usd]
+tasks: [usd, environment-light, hdr-light]
 product_scope: fusion
-suite_surfaces: ["fusion"]
-updated: "2026-10-03"
+suite_surfaces: [fusion]
+updated: "2026-10-04"
 ---
 
 # uDome Light
 
-USD dome/environment light。
+uDome Lightは、HDR / SDR Imageをscene周囲へ球状にmapし、environment lightingを作る<Term id="usd-scene">USD Light</Term>です。
 
-## 概要
+## 入力
 
-- **種別**: Node / Tool
-- **分類**: USD (18.5+)
-- **主なデータ領域**: USD scene / asset
-- **導入・系譜**: 18.5
-- **根拠レベル**: 導入版のBlackmagic Design公式資料で確認した現行系譜
+### Scene Input
 
-## 入力と出力
+USD sceneを接続します。
 
-この項目はカタログ上、**USD scene / asset**を主なデータ領域として扱います。上のfrontmatterにある入出力は領域を検索するための分類であり、Fusion 21.1の正確な端子数や端子名を断定するものではありません。
+### Image Input
 
-実際に組むときはFlow上の端子ラベルとInspectorを確認し、2D Image、Mask、Shape、Particle、Classic 3D、USD、Deep、パラメータ値を取り違えないようにします。
+Fusionの2D <Term id="image">Image</Term>をenvironment textureとして接続できます。
 
-## 主な用途
+file指定よりImage Inputが優先されるため、動画やGeneratorをanimated environmentとして使えます。
 
-USD dome/environment light。
+## Texture
 
-## 使うときの判断
+Texture Fileからfileを読み込む方法と、Image InputからFusion Nodeを接続する方法があります。
 
-USD系の`u*`ノードはClassic 3Dノードと別のデータ領域です。通常は`uRenderer`で画像へ変換します。
+Texture FormatはLat-Long、MirrorBall、Angular、Cube Mapped Vertical Cross等に対応します。
 
-## 最小構成
+## Guide Radius
 
-```text
-uLoader / uShape → uDome Light → uRenderer → Image
-```
+domeをsceneに対してどのscaleで見せるか調整します。
 
-## 注意点
+outdoor environmentだけでなくroom sizeに近いguideへ縮める用途もManualに記載されています。
 
-- このページはノードを選ぶための役割・データ領域・系譜を先に揃えています。
-- exactな内部ID、端子名、初期値、数値範囲、Edition差は、確認できたものだけ今後追記します。
+## Classic DomeLightとの違い
 
-## バージョンと検証状況
+- **uDome Light** — USD
+- **DomeLight** — Classic 3D
 
-導入版のBlackmagic Design公式資料で現行系譜を確認しています。Fusion 21.1の端子名、Inspector項目、初期値、範囲は未検証です。
+名前が近いためNode familyを確認します。
 
-このリファレンスのinventory基準はDaVinci Resolve / Fusion 21.0.4です。Manual全体は21.1基準へ更新中のため、21.1で差がある箇所は現行資料または実機確認後に更新します。
+## 出典と確認範囲
+
+DaVinci Resolve 21.1 Reference Manual Chapter 121 pp.2934–2936で、Scene / Image inputs、Color / Intensity、Guide Radius、Texture File / Formatを確認しました。

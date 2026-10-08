@@ -1,61 +1,58 @@
 ---
-title: "uCylinder Light"
-description: "USD cylinder light。"
+title: uCylinder Light
+description: 長さと半径を持つcylindrical area lightをUSD sceneへ追加し、蛍光灯のようなline-shaped lightingを作るNode。
 doc_type: node
-term_id: "ucylinder-light"
-term_short: "uCylinder Lightは、USD cylinder light。"
+term_id: ucylinder-light
 verification: partial
-aliases: ["uCylinder Light"]
-concepts: ["usd"]
-nodes: ["uCylinder Light"]
-node_family: "usd"
-inputs: ["usd"]
-outputs: ["usd"]
-tasks: ["build-usd-scene"]
+aliases: [uCylinder Light, uCL]
+concepts: [usd-scene, lighting]
+nodes: [uCylinder Light]
+node_family: usd
+controls: [Override Selection, Color, Intensity, Exposure, Color Temperature, Diffuse Response, Specular Response, Normalize, Treat As Line, Length, Radius, Transform]
+inputs: [usd]
+outputs: [usd]
+tasks: [usd, lighting, area-light]
 product_scope: fusion
-suite_surfaces: ["fusion"]
-updated: "2026-10-03"
+suite_surfaces: [fusion]
+updated: "2026-10-04"
 ---
 
 # uCylinder Light
 
-USD cylinder light。
+uCylinder Lightは、長さと太さを持つcylindrical lightを<Term id="usd-scene">USD scene</Term>へ追加するNodeです。
 
-## 概要
+蛍光灯やtube lightのような、線状に広がるlight sourceを作る用途に向きます。
 
-- **種別**: Node / Tool
-- **分類**: USD (18.5+)
-- **主なデータ領域**: USD scene / asset
-- **導入・系譜**: 18.5
-- **根拠レベル**: 導入版のBlackmagic Design公式資料で確認した現行系譜
+## 入力
 
-## 入力と出力
+黄色のScene InputへUSD sceneを接続できます。
 
-この項目はカタログ上、**USD scene / asset**を主なデータ領域として扱います。上のfrontmatterにある入出力は領域を検索するための分類であり、Fusion 21.1の正確な端子数や端子名を断定するものではありません。
+import済みscene内Lightを調整する場合はOverride SelectionのPickからScene Treeで対象Lightを選びます。
 
-実際に組むときはFlow上の端子ラベルとInspectorを確認し、2D Image、Mask、Shape、Particle、Classic 3D、USD、Deep、パラメータ値を取り違えないようにします。
+## 主な設定
 
-## 主な用途
+- Color / Intensity / Exposure
+- Color Temperature
+- Diffuse / Specular Response
+- Normalize
+- Treat As Line
+- Length
+- Radius
 
-USD cylinder light。
+Treat As Lineを有効にすると、より単純なline lightとして扱います。
 
-## 使うときの判断
+## Transform
 
-USD系の`u*`ノードはClassic 3Dノードと別のデータ領域です。通常は`uRenderer`で画像へ変換します。
+position / rotation / scaleでscene内のlight source位置と方向を決めます。
 
 ## 最小構成
 
 ```text
-uLoader / uShape → uCylinder Light → uRenderer → Image
+uShape ─────────┐
+uCylinder Light ├─ uMerge → uRenderer
+uCamera ────────┘
 ```
 
-## 注意点
+## 出典と確認範囲
 
-- このページはノードを選ぶための役割・データ領域・系譜を先に揃えています。
-- exactな内部ID、端子名、初期値、数値範囲、Edition差は、確認できたものだけ今後追記します。
-
-## バージョンと検証状況
-
-導入版のBlackmagic Design公式資料で現行系譜を確認しています。Fusion 21.1の端子名、Inspector項目、初期値、範囲は未検証です。
-
-このリファレンスのinventory基準はDaVinci Resolve / Fusion 21.0.4です。Manual全体は21.1基準へ更新中のため、21.1で差がある箇所は現行資料または実機確認後に更新します。
+DaVinci Resolve 21.1 Reference Manual Chapter 121 pp.2930–2931で、Scene Input、Override Selection、共通Light controls、Treat As Line、Length、Radiusを確認しました。

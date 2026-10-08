@@ -1,61 +1,53 @@
 ---
-title: "uImage Plane"
-description: "USD image plane。"
+title: uImage Plane
+description: 2D Imageをaspect比に合わせたplane geometryへ貼り、USD scene内のcardとして配置するNode。
 doc_type: node
-term_id: "uimage-plane"
-term_short: "uImage Planeは、USD image plane。"
+term_id: uimage-plane
 verification: partial
-aliases: ["uImage Plane"]
-concepts: ["usd"]
-nodes: ["uImage Plane"]
-node_family: "usd"
-inputs: ["usd"]
-outputs: ["usd"]
-tasks: ["build-usd-scene"]
+aliases: [uImage Plane, uImagePlane, uIm]
+concepts: [usd-scene, image-data, geometry]
+nodes: [uImage Plane]
+node_family: usd
+controls: [Filename, Size, Transform]
+inputs: [image]
+outputs: [usd]
+tasks: [usd, image-card, set-extension]
 product_scope: fusion
-suite_surfaces: ["fusion"]
-updated: "2026-10-03"
+suite_surfaces: [fusion]
+updated: "2026-10-04"
 ---
 
 # uImage Plane
 
-USD image plane。
+uImage Planeは、2D <Term id="image">Image</Term>をplane geometryへ貼り、<Term id="usd-scene">USD scene</Term>内のcardとして使うNodeです。
 
-## 概要
+入力Imageのaspect比がplaneへ反映されるため、matte painting、background plate、screen等を3Dへ置く用途に向きます。
 
-- **種別**: Node / Tool
-- **分類**: USD (18.5+)
-- **主なデータ領域**: USD scene / asset
-- **導入・系譜**: 18.5
-- **根拠レベル**: 導入版のBlackmagic Design公式資料で確認した現行系譜
+## 入力
 
-## 入力と出力
+黄色のImage InputへMediaInやGenerator等の2D Imageを接続します。
 
-この項目はカタログ上、**USD scene / asset**を主なデータ領域として扱います。上のfrontmatterにある入出力は領域を検索するための分類であり、Fusion 21.1の正確な端子数や端子名を断定するものではありません。
+Imageを直接pipeする代わりにFilenameからfileを読み込むこともできます。
 
-実際に組むときはFlow上の端子ラベルとInspectorを確認し、2D Image、Mask、Shape、Particle、Classic 3D、USD、Deep、パラメータ値を取り違えないようにします。
+## Size / Transform
 
-## 主な用途
-
-USD image plane。
-
-## 使うときの判断
-
-USD系の`u*`ノードはClassic 3Dノードと別のデータ領域です。通常は`uRenderer`で画像へ変換します。
+Sizeでplane全体の大きさを調整し、共通Transform controlsでscene内位置・rotation・scaleを決めます。
 
 ## 最小構成
 
 ```text
-uLoader / uShape → uImage Plane → uRenderer → Image
+MediaIn → uImage Plane ─┐
+uCamera ────────────────┼─ uMerge → uRenderer
+                        ┘
 ```
 
-## 注意点
+## Classic Image Plane 3Dとの違い
 
-- このページはノードを選ぶための役割・データ領域・系譜を先に揃えています。
-- exactな内部ID、端子名、初期値、数値範囲、Edition差は、確認できたものだけ今後追記します。
+- **uImage Plane** — USD
+- **Image Plane 3D** — Classic 3D
 
-## バージョンと検証状況
+見た目は似てもscene domainが異なります。
 
-導入版のBlackmagic Design公式資料で現行系譜を確認しています。Fusion 21.1の端子名、Inspector項目、初期値、範囲は未検証です。
+## 出典と確認範囲
 
-このリファレンスのinventory基準はDaVinci Resolve / Fusion 21.0.4です。Manual全体は21.1基準へ更新中のため、21.1で差がある箇所は現行資料または実機確認後に更新します。
+DaVinci Resolve 21.1 Reference Manual Chapter 121 pp.2901–2902で、Image Input、Filename、Size、input aspectをplaneへ反映することを確認しました。

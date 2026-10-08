@@ -7,7 +7,7 @@ term_short: RGBがAlphaの影響を受けた状態で保存される関係。
 verification: partial
 aliases: [premultiplied alpha, straight alpha, premult]
 concepts: [alpha, premultiplication, compositing]
-nodes: [Merge, Color Corrector]
+nodes: [Merge, Brightness Contrast, Color Corrector, Color Curves, Alpha Divide, Alpha Multiply]
 tasks: [composite, color-correct, debug, transparency]
 prerequisites: [alpha]
 level: intermediate
@@ -58,7 +58,7 @@ color operationだけを外し、エッジの乱れ（artifact）が参照元か
 
 ### Color correction
 
-透明edgeを強く補正するときのdiagnosticとして使います。
+透明edgeを強く補正するときのdiagnosticとして使います。Brightness Contrast、Color Curves、Color Correctorには21.1系資料でPre-Divide / Post-Multiplyが確認できるため、Node自身で処理できる場合は外部のAlpha Divide / Alpha Multiplyとの二重適用を避けます。
 
 ### Merge
 
@@ -85,6 +85,7 @@ key / matteで作ったedgeでもRGB/alpha 関係を確認します。
 ## 関連Node
 
 - [Merge](../../nodes/compositing/merge)
+- [Brightness Contrast](../../nodes/color/brightness-contrast)
 - [Color Corrector](../../nodes/color/color-corrector)
 
 ## 次に読む
@@ -93,4 +94,4 @@ key / matteで作ったedgeでもRGB/alpha 関係を確認します。
 
 ---
 
-検証メモ: standard Over概念式、straight / premultiplied区別、Alpha Divide / Multiplyの考え方はFusion 21系semantic baselineで確認。Node固有設定は現在の 21.1 evidenceを優先します。
+検証メモ: DaVinci Resolve 21.1 Reference ManualのFusion Fundamentals Chapter 77 pp.1679–1680で、premultiplied RGBAをColor補正する前のdivide、補正後のmultiply、Brightness Contrast / Color Curves / Color CorrectorのPre-Divide / Post-Multiply、Alpha Divide / Alpha Multiplyで複数処理を挟む構成を確認しています。Node固有設定は各21.1 Referenceを優先します。

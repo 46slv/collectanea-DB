@@ -1,62 +1,93 @@
 ---
-title: "Shader (Deep Pixel)"
-description: "Aux情報からシェーディング。"
+title: Shader (Deep Pixel)
+description: Normal channelを使ってrender済み2D ImageのAmbient・Diffuse・Specular・Reflectionをpost-processで再調整するNode。
 doc_type: node
-term_id: "shader-deep-pixel"
-term_short: "Shader (Deep Pixel)は、Aux情報からシェーディング。"
+term_id: shader-deep-pixel
 verification: partial
-aliases: ["Shader (Deep Pixel)"]
-concepts: ["deep-image"]
-nodes: ["Shader (Deep Pixel)"]
-node_family: "deep"
-inputs: ["deep"]
-outputs: ["deep"]
-tasks: ["process-deep"]
+aliases: [Shader, Shd, Shader (Deep Pixel)]
+concepts: [auxiliary-channels, image-data, normals, relighting]
+nodes: [Shader]
+node_family: deep
+controls: [Ambient, Diffuse, Specular, Reflection, Reflection Type, Equator Angle, Polar Height, Diffuse Curve, Specular Curve, Specular Color]
+inputs: [image, image, mask]
+outputs: [image]
+tasks: [aov, relight, reflection, shading]
 product_scope: fusion
-suite_surfaces: ["fusion"]
-updated: "2026-10-03"
+suite_surfaces: [fusion]
+updated: "2026-10-04"
 ---
 
 # Shader (Deep Pixel)
 
-Aux情報からシェーディング。
+Shaderは、2D <Term id="image">Image</Term>に含まれるNormal channelを使い、render後にlighting / reflection / shadingを調整するNodeです。
 
-## 概要
+<Term id="auxiliary-channels">Normal AOV</Term>が無いImageではEffectがありません。
 
-- **種別**: Node / Tool
-- **分類**: Deep Pixel (legacy aux)
-- **主なデータ領域**: Deep image
-- **導入・系譜**: legacy
-- **根拠レベル**: Blackmagic Design公式の旧Fusion Tool Referenceにある系譜
+## 入力
 
-## 入力と出力
+### Input
 
-この項目はカタログ上、**Deep image**を主なデータ領域として扱います。上のfrontmatterにある入出力は領域を検索するための分類であり、Fusion 21.1の正確な端子数や端子名を断定するものではありません。
+Normal channelを含む2D Imageです。
 
-実際に組むときはFlow上の端子ラベルとInspectorを確認し、2D Image、Mask、Shape、Particle、Classic 3D、USD、Deep、パラメータ値を取り違えないようにします。
+### Reflection Map Image
 
-## 主な用途
+緑色の任意inputです。
 
-Aux情報からシェーディング。
+environment / reflectionとして使うImageを接続します。Manualは32-bit floatのequirectangular Imageを適した形式として挙げています。
 
-## 使うときの判断
+### Effect Mask
 
-Deep imageは通常の2D Imageと別のサンプル構造を持ちます。通常の2D処理へ戻すときは`Deep to Image`を使います。
+Effect範囲を限定します。
+
+Object / Material IDによる選択もCommon Settingsで利用できます。
+
+## Light controls
+
+### Ambient
+
+shadow部にも加わるbase illuminationです。
+
+### Diffuse
+
+surfaceから全方向へ散乱するbase color / light成分を調整します。
+
+### Specular
+
+view方向へ反射するhighlight成分を調整します。
+
+### Reflection
+
+Reflection Mapの寄与量です。Reflection inputが無い場合は効果を持ちません。
+
+## Reflection Type
+
+- Screen
+- Spherical
+- Refraction
+
+からmapping方式を選びます。
+
+Equator Angle / Polar Heightでenvironmentの向きを調整します。
+
+## Shader tab
+
+Diffuse / Specular curveをSplineで編集し、surface normal angleに対するshading responseを変えます。
+
+Specular Colorでhighlight colorを調整します。
 
 ## 最小構成
 
 ```text
-Deep Source → Shader (Deep Pixel) → Deep to Image
+Renderer 3D (RGBA + Normal) → Shader → Output
+HDR / LatLong Image ─────────→ Reflection Map
 ```
 
-## 注意点
+## 3D Materialとの違い
 
-- このページはノードを選ぶための役割・データ領域・系譜を先に揃えています。
-- exactな内部ID、端子名、初期値、数値範囲、Edition差は、確認できたものだけ今後追記します。
-- legacy系譜の項目は、現在のEffects Libraryに同名で表示されることまで一件ずつ実機確認したものではありません。
+OpenPBRやPhongは3D sceneをrenderする前のMaterialです。
 
-## バージョンと検証状況
+Shader (Deep Pixel)はrender後の2D Image + Normal channelへpost-processを行います。
 
-旧Blackmagic Design公式Tool Referenceで役割と系譜を確認しています。Fusion 21.1での存在、端子名、Inspector項目、初期値、範囲は実機または現行マニュアルで再確認が必要です。
+## 出典と確認範囲
 
-このリファレンスのinventory基準はDaVinci Resolve / Fusion 21.0.4です。Manual全体は21.1基準へ更新中のため、21.1で差がある箇所は現行資料または実機確認後に更新します。
+DaVinci Resolve 21.1 Reference Manual Chapter 96 pp.2263–2266で、Normal requirement、Reflection Map、Ambient / Diffuse / Specular / Reflection、mapping type、Shader curvesを確認しました。

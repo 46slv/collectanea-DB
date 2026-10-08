@@ -1,9 +1,9 @@
 ---
-title: 合成量と演算（Blend / Operator）
-description: 合成結果のmix量と、Foreground/Background間の合成演算を別々に理解する。
+title: 合成量と演算（Blend / Apply Mode / Operator）
+description: Mergeで「結果をどれだけ戻すか」「色をどう混ぜるか」「Alphaでどう組み合わせるか」を分けて理解する。
 doc_type: concept
 term_id: blend-operator
-term_short: 合成のmix量とForeground・Background間の演算を分けて扱う考え方。
+term_short: MergeのBlend、Apply Mode、Operatorを別の役割として読む考え方。
 verification: partial
 aliases: [Blend, Apply Mode, Operator, compositing mode]
 concepts: [blend, compositing-operator, foreground-background]
@@ -13,76 +13,108 @@ prerequisites: [foreground-background, alpha]
 level: intermediate
 product_scope: fusion
 suite_surfaces: [fusion]
+updated: "2026-10-04"
 ---
-# 合成量と演算（Blend / Operator）
+
+# 合成量と演算（Blend / Apply Mode / Operator）
 
 ## このページで分かること
 
-<Term id="merge">Merge</Term>の「どれだけ混ぜるか」と「どう合成するか」の違いを整理します。
+<Term id="merge">Merge</Term>には「Blend」「Apply Mode」「Operator」があります。どれも合成結果を変えますが、同じ種類のControlではありません。
 
 ## 基本の考え方
 
-少なくとも次を分けます。
+21.1 Manualでは、次の3つを分けて扱えます。
 
-- **Blend** — 合成結果と元状態のmix量。
-- **Apply / Operator** — <Term id="foreground-background-mask">Foreground</Term>とBackgroundをどの演算意味で合成するか。
+- **Blend** — Merge済みの結果をBackgroundへどれだけ戻すか
+- **Apply Mode** — ForegroundとBackgroundの色をどの計算で混ぜるか
+- **Operator** — 主にAlphaを使ってForeground / Backgroundをどう組み合わせるか
 
-Over、In、Atop、Xor、Screen等は同じ種類の「濃さ違い」ではなく、channel / alpha semanticsが異なる合成 operationです。
+この3つを一度に変えると、何が結果を変えたのか分かりにくくなります。
 
-## 最小例
+## Blend
 
-まず通常の合成でForeground / Backgroundを確認します。
+Blendを1.0未満にすると、Merge結果へBackgroundが戻ってきます。
 
-次にBlendだけを変え、演算modeは固定します。
+「ForegroundのOpacityを下げる」と似た見た目になる場面はありますが、BlendはMerge処理全体の結果とBackgroundを混ぜるControlです。
 
-その後、Blendを戻してOperator / Apply Modeだけを変更します。
+## Apply Mode
 
-## 共通ルール
+Apply Modeは、RGBをどの計算で組み合わせるかを選びます。
 
-- amountとoperationを分ける。
-- mode名だけでalpha 挙動を推測しない。
-- Screen等を通常のalpha-aware Overと同一視しない。
-- input 役割が正しいことを確認してからmodeを比較する。
+21.1 ManualにはNormal、Screen、Dissolve、Multiply、Overlay、Difference、Color、Luminosityなど多数のmodeがあります。
 
-## 1つずつ変えて確認する
+たとえば:
 
-BlendかOperatorのどちらか片方だけを変更します。
+- **Normal** — Foreground Alphaを使う通常の合成
+- **Screen** — 結果を明るくする方向の合成
+- **Multiply** — 色値を乗算し、一般に暗くする方向の合成
+- **Difference** — ForegroundとBackgroundの色差を使う
 
-## 他のNodeにも応用する
+mode名だけを「濃さpreset」と考えず、計算方法そのものが変わると考えます。
 
-### Merge
+## Operator
 
-Node固有controlを「量（Amount）」と「演算（Operation）」へ分けて読めます。
+Operatorは、Apply ModeがNormalまたはScreenのときに表示されます。
 
-### Color / effect nodes
+代表的なOperator:
 
-Blend相当のeffect mixがあっても、合成 operatorと同じ意味だと決めません。
+- **Over** — ForegroundをBackgroundの上へ置く
+- **In** — Background AlphaでForegroundを切り抜く
+- **Held Out** — Background Alphaの反転側でForegroundを残す
+- **Atop** — Backgroundにmatteがある範囲へForegroundを置く
+- **XOr** — ForegroundかBackgroundのどちらか一方だけにmatteがある領域を残す
 
-### 診断
+Mask、Stencil、Underなどもあります。
 
-「modeを変えたら直った」を原因説明にせず、alpha / channel semanticsへ戻れます。
+## 最小確認
 
-## 初見のNodeを読む
+最初は次の順で1つずつ変えます。
 
-初見の合成 controlで、値のmixか演算選択かを先に分類できます。
+1. Apply Mode = Normal
+2. Operator = Over
+3. Blend = 1.0
+4. Foreground / Backgroundを確認
+5. Blendだけを変更
+6. Blendを戻し、Apply Modeだけを変更
+7. Normalへ戻し、Operatorだけを変更
+
+これで「量」「色の演算」「Alphaの演算」を分離して観察できます。
+
+## Premultiplicationとの関係
+
+MergeにはSubtractive / Additiveもあり、Foregroundがpremultipliedかどうかで合成結果、特に透明Edgeが変わります。
+
+これはApply ModeやBlendとは別の論点です。
+
+→ [プリマルチプライ（Premultiplication）](./premultiplication)
 
 ## よくある誤解
 
-**Screen / Multiply等をBlend値のpresetのように考えること。**
+### BlendとOpacityを完全に同じものとして扱う
 
-演算自体が変わるため、RGB / alphaの意味も確認します。
+BlendはMerge済みの結果とBackgroundを混ぜるControlです。
 
-## 関連パターン
+### Apply ModeとOperatorを同じ一覧だと思う
 
-- [画像を段階的に重ねる](../../patterns/compositing/stack-images-with-merge)
+Apply Modeは色の混ぜ方、Operatorは主にAlphaを使った画像の組み合わせ方です。
+
+### modeを変えて直ったので原因も解決したと考える
+
+透明Edgeの問題なら、Alphaやpremultiplicationが原因の可能性があります。見た目が改善しただけで原因を確定しません。
 
 ## 関連Node
 
 - [Merge](../../nodes/compositing/merge)
+- [MultiMerge](../../nodes/compositing/multi-merge)
 
-## 次に読む
+## 関連パターン
 
-→ [キーフレーム / スプライン / 時間（Keyframe / Spline / Time）](../05-time/keyframes-spline-time)
+- [画像を段階的に重ねる](../../patterns/compositing/stack-images-with-merge)
+- [Merge chainとMultiMergeを選ぶ](../../patterns/compositing/choose-merge-vs-multimerge)
 
----
-検証メモ: MergeのBlend、Apply/Operatorと複数合成 operationの区別はFusion 21系semantic baselineで確認。21.1 正確なUI表記 label / mode inventoryは現在の Manual / 実機で確認します。
+## 出典と確認範囲
+
+DaVinci Resolve 21.1 Reference Manual、September 2026、Chapter 94、pp.2213–2217で、Apply Mode、Operator、Subtractive/Additive、Blendの役割を確認しました。
+
+各Apply Modeの画作りや全数式をこのConceptでは再掲していません。必要なNode固有情報は[Merge](../../nodes/compositing/merge)を参照してください。

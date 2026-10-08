@@ -1,61 +1,75 @@
 ---
-title: "MultiPoly"
-description: "複数Polygon/B-Spline形状を1Toolで管理するマスク/roto系。"
+title: MultiPoly
+description: 複数のPolygon / B-Spline Maskを1 Nodeのlayer listで作成・並べ替え・animationし、複雑なrotoをまとめて管理するNode。
 doc_type: node
-term_id: "multipoly"
-term_short: "MultiPolyは、複数Polygon/B-Spline形状を1Toolで管理するマスク/roto系。"
+term_id: multipoly
 verification: partial
-aliases: ["MultiPoly"]
-concepts: ["image-data"]
-nodes: ["MultiPoly"]
-node_family: "masks"
-inputs: ["image"]
-outputs: ["image"]
-tasks: ["create-mask"]
+aliases: [MultiPoly, MPly]
+concepts: [mask-data, spline, roto]
+nodes: [MultiPoly]
+node_family: masks
+outputs: [mask]
+tasks: [create-mask, roto, manage-masks]
 product_scope: fusion
-suite_surfaces: ["fusion"]
-updated: "2026-10-03"
+suite_surfaces: [fusion]
+updated: "2026-10-04"
 ---
 
 # MultiPoly
 
-複数Polygon/B-Spline形状を1Toolで管理するマスク/roto系。
+MultiPolyは、複数のPolygon / B-Spline shapeを**1つのNode内のlist**で管理する<Term id="mask">Mask</Term> Nodeです。
 
-## 概要
+人物の腕・胴体・顔など、複数shapeを別々にrotoしつつ1つのmatteとして扱いたい場合に向きます。
 
-- **種別**: Node / Tool
-- **分類**: Resolve 19+
-- **主なデータ領域**: 2D Image / control
-- **導入・系譜**: 19 [Mply]
-- **根拠レベル**: 導入版のBlackmagic Design公式資料で確認した現行系譜
+## 出力
 
-## 入力と出力
+複数shapeをまとめたsingle-channel Maskを出力します。
 
-この項目はカタログ上、**2D Image / control**を主なデータ領域として扱います。上のfrontmatterにある入出力は領域を検索するための分類であり、Fusion 21.1の正確な端子数や端子名を断定するものではありません。
+複数のPolygon NodeをFlow上へ大量に並べる代わりに、shape管理をInspectorのList viewへ集約できます。
 
-実際に組むときはFlow上の端子ラベルとInspectorを確認し、2D Image、Mask、Shape、Particle、Classic 3D、USD、Deep、パラメータ値を取り違えないようにします。
+## Shapeを追加する
 
-## 主な用途
+InspectorのPolygonまたはB-Spline buttonから新しいMask shapeを追加します。
 
-複数Polygon/B-Spline形状を1Toolで管理するマスク/roto系。
+Viewer toolbarからpointを追加し、最初のpointを再度clickするとshapeを閉じます。
 
-## 使うときの判断
+## List view
 
-前後のノードと同じ2D Image領域で使うのが基本です。Maskや補助入力がある場合は、画像入力と役割を分けて接続します。
+各shapeを1行として管理します。
 
-## 最小構成
+- select
+- rename
+- reorder
+- visibility確認
+- 個別parameter編集
 
-```text
-Image → MultiPoly → Image
-```
+複雑なrotoで「どのshapeを今編集しているか」をNode単位ではなくlist内で管理できます。
 
-## 注意点
+## Animation
 
-- このページはノードを選ぶための役割・データ領域・系譜を先に揃えています。
-- exactな内部ID、端子名、初期値、数値範囲、Edition差は、確認できたものだけ今後追記します。
+shape animationを有効にすると、frameごとのshape変化をkeyframe化できます。
 
-## バージョンと検証状況
+選択中shapeだけを編集するため、複数部位のroto animationを1 Node内にまとめられます。
 
-導入版のBlackmagic Design公式資料で現行系譜を確認しています。Fusion 21.1の端子名、Inspector項目、初期値、範囲は未検証です。
+## 右click操作
 
-このリファレンスのinventory基準はDaVinci Resolve / Fusion 21.0.4です。Manual全体は21.1基準へ更新中のため、21.1で差がある箇所は現行資料または実機確認後に更新します。
+21.1 Manualでは次を確認できます。
+
+- Duplicate — shapeを複製
+- Split here — 選択shape以下を新しいMultiPolyへ分離
+- Rename
+- Reset to default
+- Delete
+
+Split hereは、1 Nodeが複雑になりすぎたときにGraphを分割する出口になります。
+
+## Polygonを複数Nodeで組む場合との違い
+
+- **MultiPoly** — shape数が多いrotoをListで集中管理
+- **複数Polygon Mask** — Flow上でshape同士のPaint Mode関係を明示しやすい
+
+小さいmatteなら複数Polygon、shape数が多く管理性が重要ならMultiPolyが候補です。
+
+## 出典と確認範囲
+
+DaVinci Resolve 21.1 Reference Manual Chapter 108 pp.2478–2479で、multiple mask list、Polygon / B-Spline作成、rename / reorder、animation、Duplicate / Split / Reset / Deleteを確認しました。

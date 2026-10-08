@@ -1,63 +1,117 @@
 ---
-title: "Scale"
-description: "スケール中心のサイズ変更。"
+title: Scale
+description: 元の2D Imageに対する倍率でWidth / Heightを変え、出力解像度そのものを拡大・縮小するNode。
 doc_type: node
-term_id: "scale"
-term_short: "Scaleは、スケール中心のサイズ変更。"
+term_id: scale
+term_short: Scaleは、元Imageに対する倍率で出力解像度を変更するNode。
 verification: partial
-aliases: ["Scale", "SCL"]
-concepts: ["image-data", "transform"]
-nodes: ["Scale"]
-node_family: "transform"
-inputs: ["image"]
-outputs: ["image"]
-tasks: ["transform-image"]
+aliases: [Scale, SCL]
+concepts: [image-data, resolution, transform]
+nodes: [Scale]
+node_family: transform
+controls: [Lock X/Y, Size, X Size, Y Size, Only Use Filter in HiQ, Change Pixel Aspect, Pixel Aspect, Filter Method]
+inputs: [image]
+outputs: [image]
+tasks: [transform-image, resize, resolution]
 product_scope: fusion
-suite_surfaces: ["fusion"]
-updated: "2026-10-03"
+suite_surfaces: [fusion]
+updated: "2026-10-04"
 ---
 
 # Scale
 
-スケール中心のサイズ変更。
+Scaleは、元の2D <Term id="image">Image</Term>に対する倍率で出力解像度を変更するNodeです。
 
-## 概要
+Resizeが「1920×1080」のようにピクセル寸法を直接指定するのに対し、Scaleは「2倍」「0.5倍」のように元サイズとの比率で指定します。
 
-- **種別**: Node / Tool
-- **分類**: Transform
-- **主なデータ領域**: 2D Image / control
-- **略称**: `SCL`
-- **導入・系譜**: legacy
-- **根拠レベル**: Blackmagic Design公式の旧Fusion Tool Referenceにある系譜
+## 役割
 
-## 入力と出力
+ImageのWidth / Heightを相対倍率で変更します。
 
-この項目はカタログ上、**2D Image / control**を主なデータ領域として扱います。上のfrontmatterにある入出力は領域を検索するための分類であり、Fusion 21.1の正確な端子数や端子名を断定するものではありません。
+```text
+1920×1080
+  ↓ Scale 0.5
+960×540
+```
 
-実際に組むときはFlow上の端子ラベルとInspectorを確認し、2D Image、Mask、Shape、Particle、Classic 3D、USD、Deep、パラメータ値を取り違えないようにします。
+TransformのSizeと違い、Scaleでは後段へ渡るImageの物理解像度そのものが変わります。
 
-## 主な用途
+## 入力
 
-スケール中心のサイズ変更。
+### Input
 
-## 使うときの判断
+オレンジ色の入力です。解像度を変更したい2D Imageを接続します。
 
-前後のノードと同じ2D Image領域で使うのが基本です。Maskや補助入力がある場合は、画像入力と役割を分けて接続します。
+## 出力
+
+指定倍率で解像度が変更された2D Imageを出力します。
+
+Scale後のImageをMergeのBackgroundへ接続すると、そのScale後の解像度がMerge出力の基準になります。
+
+## 主な設定項目
+
+### Lock X / Y
+
+有効にすると1つのSizeでX / Yを同じ倍率にします。
+
+無効にするとX Size / Y Sizeを個別に設定できるため、縦横を別々の倍率へ変更できます。
+
+### Size
+
+元Imageに対する解像度倍率です。
+
+- 1.0: 元と同じ解像度
+- 2.0: Width / Heightを2倍
+- 0.5: Width / Heightを半分
+
+Imageを画面内で2倍に見せるだけではなく、実際に出力するピクセル寸法が2倍になります。
+
+### Only Use Filter in HiQ
+
+非HiQ renderで選択Filterを使うかどうかを制御します。
+
+### Change Pixel Aspect
+
+有効にするとPixel Aspectを変更できます。
+
+### Filter Method
+
+Scale時の再サンプリング方法を選びます。ManualにはResizeと同様、Box、Linear、Quadratic、Cubic、Catmull-Rom、Gaussian、Mitchell、Lanczos、Sinc、Bessel等が記載されています。
 
 ## 最小構成
 
 ```text
-Image → Scale → Image
+MediaIn → Scale 0.5 → Output
 ```
 
-## 注意点
+元ImageとScale後のWidth / Heightを比較すると、Transform Sizeとの違いを確認できます。
 
-- このページはノードを選ぶための役割・データ領域・系譜を先に揃えています。
-- exactな内部ID、端子名、初期値、数値範囲、Edition差は、確認できたものだけ今後追記します。
-- legacy系譜の項目は、現在のEffects Libraryに同名で表示されることまで一件ずつ実機確認したものではありません。
+## 運用例
 
-## バージョンと検証状況
+同じ処理を「入力解像度に対して常に半分」にしたい場合、Scale 0.5を使うと元素材のWidth / Heightへ依存して相対的に縮小できます。
 
-旧Blackmagic Design公式Tool Referenceで役割と系譜を確認しています。Fusion 21.1での存在、端子名、Inspector項目、初期値、範囲は実機または現行マニュアルで再確認が必要です。
+固定の1920×1080へ揃える必要がある場合はResizeの方が意図を読みやすくできます。
 
-このリファレンスのinventory基準はDaVinci Resolve / Fusion 21.0.4です。Manual全体は21.1基準へ更新中のため、21.1で差がある箇所は現行資料または実機確認後に更新します。
+## 挙動と注意点
+
+- Scaleは出力解像度を変更します。
+- 21.1 Manualでは、物理解像度が時間で変化することになるためScale controlsのアニメーションは推奨されていません。
+- 位置・回転・見た目の大きさをアニメーションしたい場合は[Transform](./transform)を先に検討します。
+- 正確なピクセル寸法へ揃える場合は[Resize](./resize)を使います。
+
+## 関連する考え方
+
+- [解像度 / アスペクト比（Resolution / Aspect）](../../learn/03-space/resolution-aspect)
+- [Center / Pivot / Size / Angle](../../learn/03-space/center-pivot-size-angle)
+
+## 似たNode・関連Node
+
+- [Resize](./resize) — Width / Heightをピクセル数で指定
+- [Transform](./transform) — 解像度を変えずに見た目を拡大縮小
+- [Crop](./crop) — 切り出し・キャンバス寸法を変更
+
+## 出典と確認範囲
+
+DaVinci Resolve 21.1 Reference Manual、September 2026、Chapter 120、pp.2876–2878で、Input、物理解像度の変更、Lock X/Y、Size、Only Use Filter in HiQ、Change Pixel Aspect、Filter Methodを確認しました。
+
+内部REGID、Edition差、各Filterの実機比較、性能は未確認のため `verification: partial` としています。

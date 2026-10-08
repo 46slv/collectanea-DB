@@ -28,7 +28,7 @@ suite_surfaces: [fusion]
 2. **Foreground** — 何をそこへ重ねるか。
 3. **Mask** — その処理をどこへ適用するか。
 
-Blackmagic Designの現行Fusion紹介では、Mergeの黄色inputがBackground、緑inputがForegroundとして示されています。Maskは青いMask inputへ接続してeffectの対象領域を制限します。
+DaVinci Resolve 21.1 Reference Manualでは、Mergeのオレンジ色inputがBackground、緑色inputがForeground、青色inputがEffect Maskとして説明されています。Maskは3枚目の見た目を足す入力ではなく、Foregroundを合成する範囲を制限します。
 
 ## 最小例
 
@@ -95,11 +95,14 @@ Graphでは、画面上のNode配置ではなく、どのinputへ接続されて
 
 ## 関連Node
 
+- [合成ノード（Compositing）](../../nodes/compositing/)
 - [Merge](../../nodes/compositing/merge)
+- [MultiMerge](../../nodes/compositing/multi-merge)
+- [Dissolve](../../nodes/compositing/dissolve)
 
 ## 次に読む
 
 → [キーフレーム / スプライン / 時間（Keyframe / Spline / Time）](../05-time/keyframes-spline-time)
 
 ---
-検証メモ: MergeのForeground / Background inputとMask inputの基本は、2026-10-02時点のBlackmagic Design公式Fusion紹介と照合済み。alpha・premultiplication・Operatorの詳細はこのページでは未検証です。
+検証メモ: DaVinci Resolve 21.1 Reference Manual、September 2026、Chapter 94、pp.2211–2212でMergeのBackground / Foreground / Effect Mask入力とBackground基準の出力解像度を確認済みです。Apply Mode・Operator・premultiplicationの詳細は別Concept / Node Referenceで扱います。

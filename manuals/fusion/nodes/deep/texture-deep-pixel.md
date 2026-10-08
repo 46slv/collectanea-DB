@@ -1,62 +1,83 @@
 ---
-title: "Texture (Deep Pixel)"
-description: "Aux情報を使いテクスチャを投影/参照。"
+title: Texture (Deep Pixel)
+description: UV channelを持つrender済み2D Imageへ別Texture Imageをmappingし、Flip・Swap UV・Scale・Offsetで貼り方を変更するNode。
 doc_type: node
-term_id: "texture-deep-pixel"
-term_short: "Texture (Deep Pixel)は、Aux情報を使いテクスチャを投影/参照。"
+term_id: texture-deep-pixel
 verification: partial
-aliases: ["Texture (Deep Pixel)"]
-concepts: ["deep-image"]
-nodes: ["Texture (Deep Pixel)"]
-node_family: "deep"
-inputs: ["deep"]
-outputs: ["deep"]
-tasks: ["process-deep"]
+aliases: [Texture, Txr, Texture (Deep Pixel)]
+concepts: [auxiliary-channels, image-data, uv]
+nodes: [Texture]
+node_family: deep
+controls: [Flip Horizontal, Flip Vertical, Swap UV, Rotate 90, U Scale, V Scale, U Offset, V Offset]
+inputs: [image, image, mask]
+outputs: [image]
+tasks: [aov, texture-replace, uv]
 product_scope: fusion
-suite_surfaces: ["fusion"]
-updated: "2026-10-03"
+suite_surfaces: [fusion]
+updated: "2026-10-04"
 ---
 
 # Texture (Deep Pixel)
 
-Aux情報を使いテクスチャを投影/参照。
+Textureは、2D <Term id="image">Image</Term>に含まれるUV channelを使い、render後に別Texture Imageを3D surfaceへ貼り直すNodeです。
 
-## 概要
+<Term id="auxiliary-channels">UV AOV</Term>が入力Imageに無い場合はEffectがありません。
 
-- **種別**: Node / Tool
-- **分類**: Deep Pixel (legacy aux)
-- **主なデータ領域**: Deep image
-- **導入・系譜**: legacy
-- **根拠レベル**: Blackmagic Design公式の旧Fusion Tool Referenceにある系譜
+## 入力
 
-## 入力と出力
+### Input
 
-この項目はカタログ上、**Deep image**を主なデータ領域として扱います。上のfrontmatterにある入出力は領域を検索するための分類であり、Fusion 21.1の正確な端子数や端子名を断定するものではありません。
+UV channelを含むrender済み2D Imageです。
 
-実際に組むときはFlow上の端子ラベルとInspectorを確認し、2D Image、Mask、Shape、Particle、Classic 3D、USD、Deep、パラメータ値を取り違えないようにします。
+### Texture
 
-## 主な用途
+緑色のImage inputです。新しくmappingするtextureを接続します。
 
-Aux情報を使いテクスチャを投影/参照。
+### Effect Mask
 
-## 使うときの判断
+texture replacementを適用する範囲を限定します。
 
-Deep imageは通常の2D Imageと別のサンプル構造を持ちます。通常の2D処理へ戻すときは`Deep to Image`を使います。
+## Texture controls
+
+### Flip Horizontal / Vertical
+
+texture ImageをU / V方向へ反転します。
+
+### Swap UV
+
+UとV coordinateを入れ替えます。
+
+### Rotate 90
+
+textureを90°回転してmappingします。
+
+### U / V Scale
+
+UV coordinate scaleを変え、surface上でtextureが大きく / 小さく見えるようにします。
+
+### U / V Offset
+
+UV coordinateをずらし、surface上のtexture位置を移動します。
+
+## 背景pixelへの注意
+
+Manualではbackground pixelのUVが0,0の場合、textureのcorner pixel色がbackgroundへ出る可能性があると説明しています。
+
+Object Alpha、Object ID、Material ID等で対象objectだけへEffectを限定します。
 
 ## 最小構成
 
 ```text
-Deep Source → Texture (Deep Pixel) → Deep to Image
+Renderer 3D (RGBA + UV) → Texture → Output
+New Texture Image ───────→ Texture input
 ```
 
-## 注意点
+## 3D Material textureとの違い
 
-- このページはノードを選ぶための役割・データ領域・系譜を先に揃えています。
-- exactな内部ID、端子名、初期値、数値範囲、Edition差は、確認できたものだけ今後追記します。
-- legacy系譜の項目は、現在のEffects Libraryに同名で表示されることまで一件ずつ実機確認したものではありません。
+3D Materialへtextureを設定するとrender前のsurface shadingへ参加します。
 
-## バージョンと検証状況
+Texture (Deep Pixel)はrender済みImageのUV AOVを使ってpost-processでtextureを差し替えます。
 
-旧Blackmagic Design公式Tool Referenceで役割と系譜を確認しています。Fusion 21.1での存在、端子名、Inspector項目、初期値、範囲は実機または現行マニュアルで再確認が必要です。
+## 出典と確認範囲
 
-このリファレンスのinventory基準はDaVinci Resolve / Fusion 21.0.4です。Manual全体は21.1基準へ更新中のため、21.1で差がある箇所は現行資料または実機確認後に更新します。
+DaVinci Resolve 21.1 Reference Manual Chapter 96 pp.2266–2268で、UV requirement、Texture / Mask inputs、Flip、Swap UV、Rotate、Scale / Offset、background注意を確認しました。

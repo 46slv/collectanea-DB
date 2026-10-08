@@ -1,75 +1,67 @@
 ---
 title: uMerge
-description: 複数のUSD scene / object streamを1つのUSD sceneへ統合するNode。
+description: USD asset・camera・light・sceneを動的inputで同じUSD environmentへ統合し、Transformでscene全体を動かす主要Scene Node。
 doc_type: node
 term_id: u-merge
 verification: partial
-aliases: [uMerge, USD Merge]
-concepts: [data-domain, usd-scene, scene-graph]
+aliases: [uMerge, USD Merge, uMg]
+concepts: [usd-scene, scene-graph]
 nodes: [uMerge]
 node_family: usd
-inputs: [usd-scene]
-outputs: [usd-scene]
-tasks: [usd, combine-3d, scene]
+controls: [Transform]
+inputs: [usd]
+outputs: [usd]
+tasks: [usd, combine-3d, scene, parenting]
 level: advanced
 product_scope: fusion
 suite_surfaces: [fusion]
+updated: "2026-10-04"
 ---
 
 # uMerge
 
-複数のUSD scene / object streamを統合するNodeです。
-
-## 概要
-
-- **分類（Family）**: USD
-- **入力データ（Input domain）**: USD scene
-- **出力データ（Output domain）**: USD scene
-- **関連概念（Core concepts）**: USD scene graph、typed data
-- **よく使う作業（Common tasks）**: USD objects / lights / camerasを1 sceneへまとめる
+uMergeは、USD object、camera、light、sceneを同じ<Term id="usd-scene">USD environment</Term>へまとめる中心Nodeです。
 
 ## 入力
 
-複数のUSD scene inputを受ける系統として扱います。dynamic inputやlayering semanticsの正確な 21.1挙動は現在の manual / host確認待ちです。
+初期状態では複数Scene inputがあり、接続するごとに新しいinputが追加されます。
+
+Manualではinput数に上限を設けず、常に1つ空inputが残るdynamic inputとして説明されています。
+
+```text
+uLoader ─────┐
+uShape ──────┤
+uCamera ─────┼─ uMerge → uRenderer
+uDome Light ─┘
+```
 
 ## 出力
 
-統合したUSD sceneを出力します。
+統合されたUSD sceneを出力します。
 
-通常の2D ImageやClassic Fusion 3D sceneではありません。
+cameraやlightは同じuMerge environmentへ入って初めて、同じscene内のgeometryとの関係を持ちます。
 
-## 主な設定項目
+## Transform
 
-scene merge / hierarchyに関するcontrolを持つ可能性がありますが、Inspectorの正確な設定項目は未検証です。
+uMergeのTransformは、接続されているobject全体へ作用します。
 
-## 挙動と注意点
+個別objectのTransformと違い、group全体を動かすため、parenting相当の階層movementを組む基礎になります。
+
+## 最小構成
 
 ```text
-uShape / uLoader ─┐
-uCamera ──────────┼─ uMerge → uRenderer → 2D Image / AOV
-uLight ───────────┘
+uShape ──┐
+uCamera ─┼─ uMerge → uRenderer
+         ┘
 ```
 
-uMergeとMerge 3Dは名前が似ても別pipelineです。
+## Merge 3Dとの違い
 
-## 最小例
+- **uMerge** — USD scene
+- **Merge 3D** — Classic 3D scene
 
-複数のUSD object / camera / lightをuMergeで1 sceneへまとめます。
+同じ3D scene合成でも別pipelineです。
 
-## 関連する考え方
+## 出典と確認範囲
 
-- [データ領域（data domain）を辿って診断する](../../learn/07-debugging/trace-data-domain)
-
-## 関連パターン
-
-USD Patternは今後追加します。
-
-## 似たNode・関連Node
-
-- Merge 3D — Classic Fusion 3D
-- Merge — 2D Image
-- dMerge — Deep image
-
-## バージョンと検証状況
-
-uMergeはResolve 18.5以降のUSD toolsetとしてBlackmagic Design公式バージョン資料で確認。21.1 正確な input / merge semanticsは未検証です。
+DaVinci Resolve 21.1 Reference Manual Chapter 121 pp.2905–2906で、dynamic input、scene統合、Transformによる全object操作、uRendererへの基本構成を確認しました。

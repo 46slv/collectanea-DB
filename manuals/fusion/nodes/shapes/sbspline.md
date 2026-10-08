@@ -16,46 +16,39 @@ product_scope: fusion
 suite_surfaces: ["fusion"]
 updated: "2026-10-03"
 ---
-
 # sBSpline
 
-B-SplineをShape domainへ生成。
+sBSplineは、少ないcontrol pointから滑らかな<Term id="shape-data">Shape</Term>を描くShape Generatorです。
 
-## 概要
-
-- **種別**: Node / Tool
-- **分類**: Shape System (Resolve 17+)
-- **主なデータ領域**: Shape
-- **導入・系譜**: 19
-- **根拠レベル**: 導入版のBlackmagic Design公式資料で確認した現行系譜
+sPolygonがBézier splineを使うのに対し、sBSplineは各pointがcurveを引っ張るB-Spline方式です。handleを個別に操作しなくても滑らかな輪郭を作れます。
 
 ## 入力と出力
 
-この項目はカタログ上、**Shape**を主なデータ領域として扱います。上のfrontmatterにある入出力は領域を検索するための分類であり、Fusion 21.1の正確な端子数や端子名を断定するものではありません。
+Generatorなのでupstream Shape inputはありません。outputはShape dataで、sMerge / sDuplicate / sRender等へ接続します。
 
-実際に組むときはFlow上の端子ラベルとInspectorを確認し、2D Image、Mask、Shape、Particle、Classic 3D、USD、Deep、パラメータ値を取り違えないようにします。
+    sBSpline → sRender → Image
 
-## 主な用途
+## pointを追加する
 
-B-SplineをShape domainへ生成。
+Viewerをclickするとpointが増え、各pointはcurveを直接通るのではなく、curveをその方向へ引っ張ります。
 
-## 使うときの判断
+少ないpointで滑らかなorganic shapeを作りやすいのが特徴です。
 
-Shape領域のデータは2D Imageではありません。通常のMergeへ渡す前に`sRender`で画像へ変換します。
+## Animation
 
-## 最小構成
+sBSplineはsPolygonと同様にauto-animateします。
 
-```text
-Shape Source → sBSpline → sRender → Image
-```
+Nodeを追加したcurrent frameにkeyframeが入り、別frameでshapeを変更すると新しいkeyframeが作られ、間がinterpolateされます。
 
-## 注意点
+## sPolygonとの違い
 
-- このページはノードを選ぶための役割・データ領域・系譜を先に揃えています。
-- exactな内部ID、端子名、初期値、数値範囲、Edition差は、確認できたものだけ今後追記します。
+- **sBSpline** — 少ないpoint + smooth curve。handleなし
+- **sPolygon** — Bézier handleで局所curveを細かく制御
 
-## バージョンと検証状況
+## 運用例
 
-導入版のBlackmagic Design公式資料で現行系譜を確認しています。Fusion 21.1の端子名、Inspector項目、初期値、範囲は未検証です。
+柔らかいblob shapeやmotion graphicsのorganic outlineを作り、sDuplicate / sJitterで増やす場合に向きます。
 
-このリファレンスのinventory基準はDaVinci Resolve / Fusion 21.0.4です。Manual全体は21.1基準へ更新中のため、21.1で差がある箇所は現行資料または実機確認後に更新します。
+## 出典と確認範囲
+
+DaVinci Resolve 21.1 Reference Manual Chapter 117 pp.2732–2733で、B-Spline方式、control point、sPolygonとの違い、auto-animationを確認しました。

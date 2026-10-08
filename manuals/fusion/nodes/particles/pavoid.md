@@ -1,63 +1,85 @@
 ---
-title: "pAvoid"
-description: "粒子を指定対象から回避させる。"
+title: pAvoid
+description: 指定regionへparticleが近づく前から進行方向を変え、DistanceとStrengthで回避挙動を作るParticle Behavior Node。
 doc_type: node
-term_id: "pavoid"
-term_short: "pAvoidは、粒子を指定対象から回避させる。"
+term_id: pavoid
+term_short: pAvoidは、particleが指定regionを避けるように進行方向へforceを加えるNode。
 verification: partial
-aliases: ["pAvoid", "PAV"]
-concepts: ["particle-data"]
-nodes: ["pAvoid"]
-node_family: "particles"
-inputs: ["particle"]
-outputs: ["particle"]
-tasks: ["create-particles"]
+aliases: [pAvoid, pAv]
+concepts: [particle-data, particle-region]
+nodes: [pAvoid]
+node_family: particles
+controls: [Random Seed, Distance, Strength, Conditions, Region]
+inputs: [particle, region]
+outputs: [particle]
+tasks: [particles, avoid-region, motion]
 product_scope: fusion
-suite_surfaces: ["fusion"]
-updated: "2026-10-03"
+suite_surfaces: [fusion]
+updated: "2026-10-04"
 ---
 
 # pAvoid
 
-粒子を指定対象から回避させる。
+pAvoidは、<Term id="particle-data">Particle set</Term>へ「このregionへ入らないように進路を変える」挙動を加えるNodeです。
 
-## 概要
+壁に当たって跳ね返すpBounceと違い、collisionする前からparticleの方向を変えます。
 
-- **種別**: Node / Tool
-- **分類**: Particles
-- **主なデータ領域**: Particle set
-- **略称**: `PAV`
-- **導入・系譜**: legacy
-- **根拠レベル**: Blackmagic Design公式の旧Fusion Tool Referenceにある系譜
+## 入力
 
-## 入力と出力
+### Input
 
-この項目はカタログ上、**Particle set**を主なデータ領域として扱います。上のfrontmatterにある入出力は領域を検索するための分類であり、Fusion 21.1の正確な端子数や端子名を断定するものではありません。
+オレンジ色のParticle inputです。pEmitterや前段のParticle Nodeを接続します。
 
-実際に組むときはFlow上の端子ラベルとInspectorを確認し、2D Image、Mask、Shape、Particle、Classic 3D、USD、Deep、パラメータ値を取り違えないようにします。
+### Region
 
-## 主な用途
+Region tabをBitmapまたはMeshにすると、2D Imageまたは3D MeshのRegion inputが追加されます。ここで「避ける領域」を定義します。
 
-粒子を指定対象から回避させる。
+## 主な設定
 
-## 使うときの判断
+### Distance
 
-Particle setは2D Imageではありません。最終的に画像として合成する場合は`pRender`を使います。
+regionからどのくらい離れた時点で回避を始めるかを決めます。
+
+大きくするとparticleが早い段階から進路を変え、小さくするとregionの近くまで直進します。
+
+### Strength
+
+regionから離れる方向へどれだけ強くmovementを変えるかを決めます。
+
+負の値では逆にregionへ向かう方向へ作用します。
+
+## momentumとの関係
+
+pAvoidはparticleを強制的に停止させるbarrierではありません。
+
+particleのVelocityが大きく、Distance / Strengthが弱い場合は、回避しようとしてもmomentumに負けてregionを横切ることがあります。
+
+「絶対に通過させたくない」collision用途なら[pBounce](./pbounce)や[pKill](./pkill)も検討します。
 
 ## 最小構成
 
 ```text
-pEmitter → pAvoid → pRender → Image
+pEmitter → pAvoid → pRender
+               ↑
+             Region
 ```
 
-## 注意点
+## 運用例
 
-- このページはノードを選ぶための役割・データ領域・系譜を先に揃えています。
-- exactな内部ID、端子名、初期値、数値範囲、Edition差は、確認できたものだけ今後追記します。
-- legacy系譜の項目は、現在のEffects Libraryに同名で表示されることまで一件ずつ実機確認したものではありません。
+particleがlogoや人物の周囲を避けて流れる表現を作る場合:
 
-## バージョンと検証状況
+1. Regionで避ける形を設定します。
+2. Distanceで回避開始位置を決めます。
+3. Strengthを少しずつ上げます。
+4. particleがregionを突き抜ける場合はVelocityとの比率を確認します。
 
-旧Blackmagic Design公式Tool Referenceで役割と系譜を確認しています。Fusion 21.1での存在、端子名、Inspector項目、初期値、範囲は実機または現行マニュアルで再確認が必要です。
+## pBounceとの違い
 
-このリファレンスのinventory基準はDaVinci Resolve / Fusion 21.0.4です。Manual全体は21.1基準へ更新中のため、21.1で差がある箇所は現行資料または実機確認後に更新します。
+- **pAvoid** — 接触前から進路を変える
+- **pBounce** — regionへ接触した後に反射させる
+
+## 出典と確認範囲
+
+DaVinci Resolve 21.1 Reference Manual Chapter 114 pp.2647–2648で、Particle / Region input、Distance、Strength、momentumとの関係を確認しました。
+
+Region共通Controlの全設定、実機性能は未確認です。

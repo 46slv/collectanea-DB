@@ -1,62 +1,92 @@
 ---
-title: "pCustom"
-description: "式/条件で粒子属性を操作。"
+title: pCustom
+description: expressionでParticleのposition・velocity・rotation・spin・size・RGBA等を直接計算する高度なParticle Processor。
 doc_type: node
-term_id: "pcustom"
-term_short: "pCustomは、式/条件で粒子属性を操作。"
+term_id: pcustom
+term_short: pCustomは、expressionでparticle属性を直接計算するNode。
 verification: partial
-aliases: ["pCustom"]
-concepts: ["particle-data"]
-nodes: ["pCustom"]
-node_family: "particles"
-inputs: ["particle"]
-outputs: ["particle"]
-tasks: ["create-particles"]
+aliases: [pCustom, pCu]
+concepts: [particle-data, expressions]
+nodes: [pCustom]
+node_family: particles
+controls: [Number 1-8, Position 1-8, Setup 1-8, Intermediate 1-8, Particle Expressions, Conditions, Region]
+inputs: [particle, image, image, region]
+outputs: [particle]
+tasks: [particles, expressions, custom-particle]
 product_scope: fusion
-suite_surfaces: ["fusion"]
-updated: "2026-10-03"
+suite_surfaces: [fusion]
+updated: "2026-10-04"
 ---
 
 # pCustom
 
-式/条件で粒子属性を操作。
+pCustomは、expressionを使って<Term id="particle-data">Particle</Term>の属性を直接計算する高度なProcessorです。
 
-## 概要
+通常のpDirectionalForceやpFrictionでは表せない独自movement、color変化、size制御などを式で作ります。
 
-- **種別**: Node / Tool
-- **分類**: Particles
-- **主なデータ領域**: Particle set
-- **導入・系譜**: legacy
-- **根拠レベル**: Blackmagic Design公式の旧Fusion Tool Referenceにある系譜
+## 入力
 
-## 入力と出力
+- **Input** — Particle set
+- **Image 1 / Image 2** — expressionからpixel値を参照する2D Image
+- **Region** — Bitmap / Mesh Regionを使う場合に追加される入力
 
-この項目はカタログ上、**Particle set**を主なデータ領域として扱います。上のfrontmatterにある入出力は領域を検索するための分類であり、Fusion 21.1の正確な端子数や端子名を断定するものではありません。
+Image inputは通常のcompositing用ではなく、custom calculationの参照元として使います。
 
-実際に組むときはFlow上の端子ラベルとInspectorを確認し、2D Image、Mask、Shape、Particle、Classic 3D、USD、Deep、パラメータ値を取り違えないようにします。
+## Number / Position inputs
 
-## 主な用途
+### Number 1–8
 
-式/条件で粒子属性を操作。
+animationやModifierへ接続できる数値Controlです。
 
-## 使うときの判断
+expression側から `n1` 〜 `n8` 等として参照でき、外部ControlをpCustom式へ渡すparameterとして使います。
 
-Particle setは2D Imageではありません。最終的に画像として合成する場合は`pRender`を使います。
+### Position 1–8
+
+XYZ position Controlです。
+
+animated pointや別Controlをexpressionへ渡す用途です。
+
+## Setup / Intermediate
+
+### Setup 1–8
+
+frameごとに最初に評価される式です。
+
+複数のParticle expressionから共通利用する値を先に計算する用途に向きます。
+
+### Intermediate 1–8
+
+Setup後にframeごとに評価され、Particle channel expressionから参照できます。
+
+複雑な式を段階的に分けるための中間値として使います。
+
+## Particle属性
+
+Manualではposition、velocity、rotation、spin、size、RGBA、particle ID、age、lifespan、Region hit / distance / normal、Image size等がexpressionから参照可能とされています。
+
+つまりpCustomは「画素ごとのCustom Node」のParticle版に近く、個々のparticle stateへ式を適用します。
 
 ## 最小構成
 
 ```text
-pEmitter → pCustom → pRender → Image
+pEmitter → pCustom → pRender
+               ↑
+          Image / Region
 ```
 
-## 注意点
+## 使う判断
 
-- このページはノードを選ぶための役割・データ領域・系譜を先に揃えています。
-- exactな内部ID、端子名、初期値、数値範囲、Edition差は、確認できたものだけ今後追記します。
-- legacy系譜の項目は、現在のEffects Libraryに同名で表示されることまで一件ずつ実機確認したものではありません。
+既存Particle Nodeで目的を表せる場合は、pDirectionalForce / pTurbulence / pFriction等の方がGraphの意味を読みやすくできます。
 
-## バージョンと検証状況
+pCustomは「既存Nodeの組み合わせでは足りない」「particle属性を式で明示的に計算したい」場合に使います。
 
-旧Blackmagic Design公式Tool Referenceで役割と系譜を確認しています。Fusion 21.1での存在、端子名、Inspector項目、初期値、範囲は実機または現行マニュアルで再確認が必要です。
+## pCustomForceとの違い
 
-このリファレンスのinventory基準はDaVinci Resolve / Fusion 21.0.4です。Manual全体は21.1基準へ更新中のため、21.1で差がある箇所は現行資料または実機確認後に更新します。
+- **pCustom** — particleの各属性をexpressionで操作
+- **pCustomForce** — custom force / torqueの計算へ特化
+
+## 出典と確認範囲
+
+DaVinci Resolve 21.1 Reference Manual Chapter 114 pp.2653–2656で、Particle / Image / Region inputs、Number / Position、Setup / Intermediate、Particle expression variablesを確認しました。
+
+expression syntax全体、全variableのversion差、実機性能は未確認です。

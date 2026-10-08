@@ -1,70 +1,97 @@
 ---
-title: "dColorCorrector"
-description: "Deep image専用Color Corrector。histogram matching/equalization、hue/tint/suppression等。"
+title: dColorCorrector
+description: Deep Imageのsample構造を保ったまま、Shadows・Midtones・Highlights・Master別のColors / Levels / Histogram / Suppress補正を行うColor Node。
 doc_type: node
-term_id: "dcolorcorrector"
-term_short: "dColorCorrectorは、Deep image専用Color Corrector。histogram matching/equalization、hue/tint/suppression等。"
+term_id: dcolorcorrector
 verification: partial
-aliases: ["dColorCorrector"]
-concepts: ["image-data"]
-nodes: ["dColorCorrector"]
-node_family: "deep"
-controls: ["Correction", "Ranges", "Options"]
-inputs: ["image"]
-outputs: ["image"]
-tasks: ["process-deep"]
+aliases: [dColorCorrector, dCC]
+concepts: [deep-image, color-adjustment, mask-data]
+nodes: [dColorCorrector]
+node_family: deep
+controls: [Correction, Range, Color Wheel, Hue, Saturation, Contrast, Gain, Lift, Gamma, Brightness, Levels, Histogram, Suppress, Ranges, Histogram Proxy Scale, Process Order, Apply Mask Inverted]
+inputs: [deep-image, mask]
+outputs: [deep-image]
+tasks: [deep, color-correct, histogram]
+level: advanced
 product_scope: fusion
-suite_surfaces: ["fusion"]
-updated: "2026-10-03"
+suite_surfaces: [fusion]
+updated: "2026-10-04"
 ---
 
 # dColorCorrector
 
-Deep image専用Color Corrector。histogram matching/equalization、hue/tint/suppression等。
+dColorCorrectorは、<Term id="deep-image">Deep Image</Term>のsample構造を保ったまま色補正するNodeです。
 
-## 概要
+通常のColor Correctorと似たCorrection / Ranges / Options構造を持ちますが、input / outputはDeep Imageです。
 
-- **種別**: Node / Tool
-- **分類**: Resolve 21
-- **主なデータ領域**: 2D Image / control
-- **導入・系譜**: 21 [dCC]
-- **根拠レベル**: Resolve 21のBlackmagic Design公式資料で確認
+## 入力
 
-## 入力と出力
+### Input
 
-この項目はカタログ上、**2D Image / control**を主なデータ領域として扱います。上のfrontmatterにある入出力は領域を検索するための分類であり、Fusion 21.1の正確な端子数や端子名を断定するものではありません。
+黄色の必須inputです。Deep Imageを接続します。
 
-実際に組むときはFlow上の端子ラベルとInspectorを確認し、2D Image、Mask、Shape、Particle、Classic 3D、USD、Deep、パラメータ値を取り違えないようにします。
+### Effect Mask
 
-## 主な用途
+青色の任意inputです。補正範囲をMaskで限定します。Effect Maskは処理後に適用されます。
 
-Deep image専用Color Corrector。histogram matching/equalization、hue/tint/suppression等。
+## Correction
 
-## 使うときの判断
+Correction tabでは4種類のmethodを切り替えます。
 
-前後のノードと同じ2D Image領域で使うのが基本です。Maskや補助入力がある場合は、画像入力と役割を分けて接続します。
+- Colors
+- Levels
+- Histogram
+- Suppress
+
+### Range
+
+Shadows / Midtones / Highlights / Masterを選びます。
+
+各Rangeの設定は独立しており、Masterは他Rangeの補正後に適用されます。
+
+### Colors
+
+Color Wheel、Hue、Saturation、Contrast、Gain、Lift、Gamma、Brightness等を使います。
+
+### Levels
+
+black / white pointとGammaをHistogramと合わせて調整します。
+
+### Histogram
+
+input / reference / output Histogramを比較し、equalizationやmatchingを行います。
+
+### Suppress
+
+特定色成分を抑えます。
+
+## Ranges tab
+
+Shadows / Midtones / Highlightsの境界をSplineで定義します。
+
+Viewerへrange matteを表示し、必要ならそのrangeをoutputとして使えます。
+
+## Options
+
+Histogram Proxy ScaleでHistogram精度を調整し、Process OrderでGammaとLevelsの順序を選びます。
+
+Apply Mask InvertedでMask全体を反転できます。
 
 ## 最小構成
 
 ```text
-Deep Source → dColorCorrector → Deep to Image
+Deep EXR → dColorCorrector → dMerge / Deep to Image
 ```
 
-## 主に確認する設定
+## Color Correctorとの違い
 
-- `Correction`
-- `Ranges`
-- `Options`
+- **Color Corrector** — 通常2D Image
+- **dColorCorrector** — Deep Image sampleを保持
 
-上記は公式資料で役割が確認できた主要項目です。表示名や配置はFusion 21.1のホストで再確認します。
+Deep compの途中でflattenしたくない場合はdColorCorrectorを使います。
 
-## 注意点
+## 出典と確認範囲
 
-- このページはノードを選ぶための役割・データ領域・系譜を先に揃えています。
-- exactな内部ID、端子名、初期値、数値範囲、Edition差は、確認できたものだけ今後追記します。
+DaVinci Resolve 21.1 Reference Manual Chapter 95 pp.2227–2236で、Deep Input / Effect Mask、Correction 4 method、Range、Ranges / Options、Histogram、Process Order等を確認しました。
 
-## バージョンと検証状況
-
-Resolve 21のBlackmagic Design公式資料で役割を確認しています。Fusion 21.1の実機差、端子名、初期値、範囲は必要に応じて再確認します。
-
-このリファレンスのinventory基準はDaVinci Resolve / Fusion 21.0.4です。Manual全体は21.1基準へ更新中のため、21.1で差がある箇所は現行資料または実機確認後に更新します。
+Studio限定Deep toolsetです。実機performanceと全default / rangeは未確認です。

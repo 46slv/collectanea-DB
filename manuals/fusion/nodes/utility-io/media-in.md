@@ -14,66 +14,44 @@ level: foundation
 product_scope: resolve
 suite_surfaces: [edit, fusion]
 ---
-
 # MediaIn
 
-Resolve側のmedia / timeline clipをFusion Flowへ渡すinput Nodeです。
+MediaInは、DaVinci ResolveのTimeline / Media PoolにあるclipをFusion pageへ渡すsource Nodeです。
 
-## 概要
+Fusion StudioのLoaderに近い役割ですが、Resolveのclip context、trim、color / gamma metadata、audio等とつながっています。
 
-- **分類（Family）**: Utility / I/O
-- **出力データ（Output domain）**: 2D Image / 参照元 media 結果
-- **関連概念（Core concepts）**: Resolve integration、参照元 boundary
-- **よく使う作業（Common tasks）**: timeline clipをFusionで処理する入口
+## どこから作られるか
+
+- Edit / Cut pageのtimeline clipからFusion pageへ入る
+- Media Pool clipをNode Editorへdrag
+- OSからclipをdrag
+- PSD import
+
+Effects LibraryのMediaInを置くだけでは一般的なclip import方法にはなりません。
 
 ## 入力
 
-通常はResolve側のclip / media contextから供給されるため、Fusion Flow上で別Imageをprimary inputへ接続する参照元 Nodeとしては扱いません。
+青色Effect Maskだけを持ち、source Imageの表示範囲を限定できます。
 
-Resolve側から生成される正確な設定項目は現在の Resolve / Fusion contextを確認します。
+## Image tab
 
-## 出力
+Media Pool / OSから入れたMediaInでは、trim、freeze、loop、reverse等のtiming controlを使えます。
 
-Fusion Flowで処理するImage 参照元を出力します。
+Timeline clip由来の場合は、Edit / Cut側のclip rangeと連動するため利用できるControlが一部異なります。
 
-## 主な設定項目
+## Audio
 
-clip / media / trim / global in-out等に関するhost-linked surfaceがありますが、正確な 21.1 Inspector / control availabilityはcontext依存として扱います。
+MediaInはsource clipのaudioもFusion playbackへ持ち込めます。Sound OffsetはFusion page内だけでaudio timingをsubframe単位にずらします。
 
-## 挙動と注意点
+## Loaderとの違い
 
-Blackmagic Designの現行Fusion 資料では、MediaInはEdit Page timeline上のclipを表す入口として説明されています。
+- MediaIn — Resolve project / Timeline / Media Poolのsource
+- Loader — Fusion Studioのfile source。ResolveではEXR限定
 
-```text
-Edit Timeline Clip
-      ↓
-   MediaIn
-      ↓
- Fusion Flow
-```
+## 最小構成
 
-Fusion StudioのLoaderと、Resolve-integrated MediaInを同一Nodeとして扱いません。
+    MediaIn → Transform / Color / Merge → MediaOut
 
-## 最小例
+## 出典と確認範囲
 
-```text
-MediaIn → Transform → MediaOut
-```
-
-## 関連する考え方
-
-- [Graphとして考える](../../learn/01-flow/graph-as-flow)
-- [Image / Mask / Dataを分ける](../../learn/02-data/image-mask-data)
-
-## 関連パターン
-
-- [Last Good / First BadでGraphを切る](../../patterns/debugging/last-good-first-bad)
-
-## 似たNode・関連Node
-
-- Loader — Fusion Studio / file 参照元系
-- MediaOut — Resolveへのoutput boundary
-
-## バージョンと検証状況
-
-MediaInがEdit timeline clipをFusionへ渡すboundaryであることはBlackmagic Design現行Fusion 資料で確認。正確な 21.1 host controlsはproject/context依存として未固定です。
+DaVinci Resolve 21.1 Reference Manual Chapter 104 pp.2415–2419で、Resolve限定、4つの作成経路、Effect Mask、timing、audioを確認しました。
