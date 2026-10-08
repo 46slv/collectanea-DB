@@ -90,7 +90,7 @@ Optical Flowのvectorが安定していることを確認してからAverageを�
 
 ## 関連Node
 
-- [Optical Flow](./optical-flow)
+- [Optical Flow](./optical-flow.md)
 - [Smooth Motion](./smooth-motion)
 
 ## 出典と確認範囲
