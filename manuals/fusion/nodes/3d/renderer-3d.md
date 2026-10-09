@@ -135,7 +135,7 @@ OpenGL UVは「モデルをカメラで撮る」のではなく、モデルのUV
 - [Merge 3D](./merge-3d) — 物体・カメラ・ライトを同じシーンへまとめる
 - [Camera 3D](./camera-3d) — 撮影位置・画角・焦点位置を決める
 - [Image Plane 3D](./image-plane-3d) — 2D素材を3D空間へ置く
-- [Classic 3Dノード一覧](./index) — 関連Nodeを探す
+- [Classic 3Dノード一覧](./) — 関連Nodeを探す
 
 ## 出典と確認範囲
 

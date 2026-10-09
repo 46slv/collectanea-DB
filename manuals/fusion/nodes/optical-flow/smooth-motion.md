@@ -60,7 +60,7 @@ Manualでは、1 Nodeで3 frame、2 Nodeで5 frame、3 Nodeで7 frameを参照�
 
 ## 関連Node
 
-- [Optical Flow](./optical-flow)
+- [Optical Flow](./optical-flow.md)
 - [Vector Denoise](./vector-denoise)
 - [Tween](./tween)
 - [Repair Frame](./repair-frame)
