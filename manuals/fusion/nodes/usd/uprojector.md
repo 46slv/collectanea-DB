@@ -1,72 +1,75 @@
 ---
-title: "uProjector"
-description: "2D画像をUSD geometryへ投影。Light/Ambient Light/Texture系モード。SceneInput + required ProjectiveImage。"
+title: uProjector
+description: 2D ImageをUSD geometryへLightまたはTextureとして投影し、Color・Intensity・Projection Mode・shadow等を制御するNode。
 doc_type: node
-term_id: "uprojector"
-term_short: "uProjectorは、2D画像をUSD geometryへ投影。Light/Ambient Light/Texture系モード。SceneInput + required ProjectiveImage。"
+term_id: uprojector
 verification: partial
-aliases: ["uProjector"]
-concepts: ["usd"]
-nodes: ["uProjector"]
-node_family: "usd"
-controls: ["Projection Mode", "Color", "Intensity", "Exposure", "Shadows"]
-inputs: ["usd"]
-outputs: ["usd"]
-tasks: ["build-usd-scene"]
+aliases: [uProjector, uPj]
+concepts: [usd-scene, projection, image-data, lighting]
+nodes: [uProjector]
+node_family: usd
+controls: [Color, Intensity, Exposure, Projection Mode, Decay, Shadows, Projector ID, Transform]
+inputs: [usd, image]
+outputs: [usd]
+tasks: [usd, projection, texture, lighting]
 product_scope: fusion
-suite_surfaces: ["fusion"]
-updated: "2026-10-03"
+suite_surfaces: [fusion]
+updated: "2026-10-04"
 ---
 
 # uProjector
 
-2D画像をUSD geometryへ投影。Light/Ambient Light/Texture系モード。SceneInput + required ProjectiveImage。
+uProjectorは、2D <Term id="image">Image</Term>を<Term id="usd-scene">USD geometry</Term>へ投影するNodeです。
 
-## 概要
+projectionをLightとして使う方法と、uCatcherへTextureとして渡す方法があります。
 
-- **種別**: Node / Tool
-- **分類**: USD (18.5+)
-- **主なデータ領域**: USD scene / asset
-- **導入・系譜**: 21 [uPj]
-- **根拠レベル**: Resolve 21のBlackmagic Design公式資料で確認
+## 入力
 
-## 入力と出力
+### Scene Input
 
-この項目はカタログ上、**USD scene / asset**を主なデータ領域として扱います。上のfrontmatterにある入出力は領域を検索するための分類であり、Fusion 21.1の正確な端子数や端子名を断定するものではありません。
+投影を受けるUSD sceneを接続します。
 
-実際に組むときはFlow上の端子ラベルとInspectorを確認し、2D Image、Mask、Shape、Particle、Classic 3D、USD、Deep、パラメータ値を取り違えないようにします。
+### Projective Image
 
-## 主な用途
+必須の2D Image inputです。投影する画像を接続します。
 
-2D画像をUSD geometryへ投影。Light/Ambient Light/Texture系モード。SceneInput + required ProjectiveImage。
+## Light mode
 
-## 使うときの判断
+projected RGBをdiffuse / specular lightingとしてsurfaceへ加えます。
 
-USD系の`u*`ノードはClassic 3Dノードと別のデータ領域です。通常は`uRenderer`で画像へ変換します。
+surface normalの影響を受け、shadowも使えます。ただしAlphaでgeometryをclipしません。
+
+## Texture mode
+
+uCatcherをMaterialとして使うgeometryだけへtexture projectionを当てます。
+
+Alphaを使った透明projectionや、diffuse以外のmaterial propertyへ投影したい場合に向きます。
+
+## Color / Intensity / Exposure
+
+ImageへColorを掛け、projectionのstrengthを調整します。
+
+## uCamera projectionとの違い
+
+camera-matched projectionではuCameraの方がFocal Length、Film Back、clip plane等を持つため向いています。
+
+uProjectorはcustom light / texture projectorとしてColor、Intensity、Decay、Shadows等を直接調整したい場合に向きます。
 
 ## 最小構成
 
 ```text
-uLoader / uShape → uProjector → uRenderer → Image
+Image ─────────→ uProjector
+USD Geometry ──→ uProjector → uMerge → uRenderer
 ```
 
-## 主に確認する設定
+Texture mode:
 
-- `Projection Mode`
-- `Color`
-- `Intensity`
-- `Exposure`
-- `Shadows`
+```text
+Image → uProjector (Texture)
+             ↓
+Geometry → uCatcher → uMerge → uRenderer
+```
 
-上記は公式資料で役割が確認できた主要項目です。表示名や配置はFusion 21.1のホストで再確認します。
+## 出典と確認範囲
 
-## 注意点
-
-- このページはノードを選ぶための役割・データ領域・系譜を先に揃えています。
-- exactな内部ID、端子名、初期値、数値範囲、Edition差は、確認できたものだけ今後追記します。
-
-## バージョンと検証状況
-
-Resolve 21のBlackmagic Design公式資料で役割を確認しています。Fusion 21.1の実機差、端子名、初期値、範囲は必要に応じて再確認します。
-
-このリファレンスのinventory基準はDaVinci Resolve / Fusion 21.0.4です。Manual全体は21.1基準へ更新中のため、21.1で差がある箇所は現行資料または実機確認後に更新します。
+DaVinci Resolve 21.1 Reference Manual Chapter 121 pp.2906–2911で、Scene / Projective Image inputs、Light / Texture projection、Alpha、uCatcher、uCameraとの差、Color / Intensity等を確認しました。

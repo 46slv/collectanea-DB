@@ -1,62 +1,65 @@
 ---
-title: "Erode/Dilate"
-description: "マット/画像を収縮・膨張する。"
+title: Erode Dilate
+description: 近傍pixelの明暗を広げ/縮め、negative Amountでerode・positive Amountでdilateしてmatteやedge thicknessを調整するNode。
 doc_type: node
-term_id: "erode-dilate"
-term_short: "Erode/Dilateは、マット/画像を収縮・膨張する。"
+term_id: erode-dilate
 verification: partial
-aliases: ["Erode/Dilate"]
-concepts: ["image-data"]
-nodes: ["Erode/Dilate"]
-node_family: "blur-filter"
-inputs: ["image"]
-outputs: ["image"]
-tasks: ["filter-image"]
+aliases: [Erode Dilate, ErDl]
+concepts: [image-data, mask-data, morphology]
+nodes: [Erode Dilate]
+node_family: blur-filter
+controls: [Color Channels, Lock X/Y, Amount]
+inputs: [image, mask]
+outputs: [image]
+tasks: [erode, dilate, matte, edge-thickness]
 product_scope: fusion
-suite_surfaces: ["fusion"]
-updated: "2026-10-03"
+suite_surfaces: [fusion]
+updated: "2026-10-04"
 ---
 
-# Erode/Dilate
+# Erode Dilate
 
-マット/画像を収縮・膨張する。
+Erode Dilateは、明るい領域を縮めたり広げたりして、matteやImage edgeのthicknessを調整するNodeです。
 
-## 概要
+key matteを少し細くする、穴を埋める、bright shapeを広げる用途で使います。
 
-- **種別**: Node / Tool
-- **分類**: Blur / Filter
-- **主なデータ領域**: 2D Image / control
-- **導入・系譜**: legacy
-- **根拠レベル**: Blackmagic Design公式の旧Fusion Tool Referenceにある系譜
+## 入力
 
-## 入力と出力
+2D Imageと任意Effect Maskを受けます。
 
-この項目はカタログ上、**2D Image / control**を主なデータ領域として扱います。上のfrontmatterにある入出力は領域を検索するための分類であり、Fusion 21.1の正確な端子数や端子名を断定するものではありません。
+Alphaだけを処理したい場合はColor ChannelsでRGBを外し、Alphaだけを有効にします。
 
-実際に組むときはFlow上の端子ラベルとInspectorを確認し、2D Image、Mask、Shape、Particle、Classic 3D、USD、Deep、パラメータ値を取り違えないようにします。
+## Amount
 
-## 主な用途
+- **negative** — Erode。bright領域を縮め、dark領域を広げる
+- **positive** — Dilate。bright領域を広げ、dark領域を縮める
 
-マット/画像を収縮・膨張する。
+Amount = 0では変化しません。
 
-## 使うときの判断
+ManualではAmountのscaleは入力Image width基準と説明されています。正確に1 pixel相当を指定する場合、widthに応じたnormalized値を使います。
 
-前後のノードと同じ2D Image領域で使うのが基本です。Maskや補助入力がある場合は、画像入力と役割を分けて接続します。
+## Lock X/Y
 
-## 最小構成
+解除するとhorizontal / verticalで別Amountを使えます。
+
+片方向だけmatteを広げたい場合に使います。
+
+## 運用例
+
+key edgeを少し内側へ縮める場合:
 
 ```text
-Image → Erode/Dilate → Image
+Keyer → Erode Dilate → Matte Control / Merge
 ```
 
-## 注意点
+Alpha channelだけを選択し、negative Amountを少量使います。
 
-- このページはノードを選ぶための役割・データ領域・系譜を先に揃えています。
-- exactな内部ID、端子名、初期値、数値範囲、Edition差は、確認できたものだけ今後追記します。
-- legacy系譜の項目は、現在のEffects Libraryに同名で表示されることまで一件ずつ実機確認したものではありません。
+## Blurとの違い
 
-## バージョンと検証状況
+Soft EdgeやBlurはedgeを**ぼかす**処理です。
 
-旧Blackmagic Design公式Tool Referenceで役割と系譜を確認しています。Fusion 21.1での存在、端子名、Inspector項目、初期値、範囲は実機または現行マニュアルで再確認が必要です。
+Erode Dilateはedge position / thicknessを**移動**させる処理なので、matte edge cleanupでは役割を分けます。
 
-このリファレンスのinventory基準はDaVinci Resolve / Fusion 21.0.4です。Manual全体は21.1基準へ更新中のため、21.1で差がある箇所は現行資料または実機確認後に更新します。
+## 出典と確認範囲
+
+DaVinci Resolve 21.1 Reference Manual Chapter 99 pp.2337–2338で、Image / Effect Mask、RGBA selection、Lock X/Y、negative Erode / positive Dilate、normalized Amount scaleを確認しました。

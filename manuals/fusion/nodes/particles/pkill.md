@@ -1,62 +1,62 @@
 ---
-title: "pKill"
-description: "条件に合う粒子を削除。"
+title: pKill
+description: Region・age・Set・probability等の条件に合うParticleをdestroyし、後段から除外するNode。
 doc_type: node
-term_id: "pkill"
-term_short: "pKillは、条件に合う粒子を削除。"
+term_id: pkill
+term_short: pKillは、条件に合うparticleを削除するNode。
 verification: partial
-aliases: ["pKill"]
-concepts: ["particle-data"]
-nodes: ["pKill"]
-node_family: "particles"
-inputs: ["particle"]
-outputs: ["particle"]
-tasks: ["create-particles"]
+aliases: [pKill, pKI]
+concepts: [particle-data, particle-region]
+nodes: [pKill]
+node_family: particles
+controls: [Conditions, Region]
+inputs: [particle, region]
+outputs: [particle]
+tasks: [particles, kill, limit-particles]
 product_scope: fusion
-suite_surfaces: ["fusion"]
-updated: "2026-10-03"
+suite_surfaces: [fusion]
+updated: "2026-10-04"
 ---
 
 # pKill
 
-条件に合う粒子を削除。
+pKillは、条件に合う<Term id="particle-data">Particle</Term>をdestroyするNodeです。
 
-## 概要
+「見えなくする」だけではなく、そのparticleをParticle setから取り除きます。
 
-- **種別**: Node / Tool
-- **分類**: Particles
-- **主なデータ領域**: Particle set
-- **導入・系譜**: legacy
-- **根拠レベル**: Blackmagic Design公式の旧Fusion Tool Referenceにある系譜
+## 入力
 
-## 入力と出力
+オレンジ色のParticle inputへ前段Particleを接続します。
 
-この項目はカタログ上、**Particle set**を主なデータ領域として扱います。上のfrontmatterにある入出力は領域を検索するための分類であり、Fusion 21.1の正確な端子数や端子名を断定するものではありません。
+RegionをBitmap / Meshへすると、particleを消す範囲を2D Image / 3D Meshで指定できます。
 
-実際に組むときはFlow上の端子ラベルとInspectorを確認し、2D Image、Mask、Shape、Particle、Classic 3D、USD、Deep、パラメータ値を取り違えないようにします。
+## 固有Control
 
-## 主な用途
+pKill固有のControlはありません。
 
-条件に合う粒子を削除。
+ConditionsとRegionの共通Controlで「どのparticleを消すか」を決めます。
 
-## 使うときの判断
+- Regionに入ったparticle
+- lifespanの特定割合に達したparticle
+- 特定Set
+- Probabilityで選ばれたparticle
 
-Particle setは2D Imageではありません。最終的に画像として合成する場合は`pRender`を使います。
+などを対象にできます。
 
 ## 最小構成
 
 ```text
-pEmitter → pKill → pRender → Image
+pEmitter → pKill → pRender
+             ↑
+           Region
 ```
 
-## 注意点
+## 運用例
 
-- このページはノードを選ぶための役割・データ領域・系譜を先に揃えています。
-- exactな内部ID、端子名、初期値、数値範囲、Edition差は、確認できたものだけ今後追記します。
-- legacy系譜の項目は、現在のEffects Libraryに同名で表示されることまで一件ずつ実機確認したものではありません。
+一定範囲から出たparticleを消したい場合、pKillのRegionをその境界として使います。
 
-## バージョンと検証状況
+performance目的で単に画面外particleを消したい場合は、pRenderのKill Particles That Leave the Viewも候補です。pKillはregion / age / setなど、より明示的な条件でdestroyしたい場合に使います。
 
-旧Blackmagic Design公式Tool Referenceで役割と系譜を確認しています。Fusion 21.1での存在、端子名、Inspector項目、初期値、範囲は実機または現行マニュアルで再確認が必要です。
+## 出典と確認範囲
 
-このリファレンスのinventory基準はDaVinci Resolve / Fusion 21.0.4です。Manual全体は21.1基準へ更新中のため、21.1で差がある箇所は現行資料または実機確認後に更新します。
+DaVinci Resolve 21.1 Reference Manual Chapter 114 p.2675で、Particle / Region input、Conditions / Regionによるkillを確認しました。

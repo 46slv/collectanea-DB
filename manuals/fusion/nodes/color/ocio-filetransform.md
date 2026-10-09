@@ -1,63 +1,55 @@
 ---
-title: "OCIO FileTransform"
-description: "OCIOの外部transform/LUTを適用。"
+title: OCIO File Transform
+description: OCIO経由でLUT / file transformを読み込み、Forward / ReverseとInterpolationを指定してImageへ適用するNode。
 doc_type: node
-term_id: "ocio-filetransform"
-term_short: "OCIO FileTransformは、OCIOの外部transform/LUTを適用。"
+term_id: ocio-filetransform
+term_short: LUT等のfile transformをOCIO pipelineで適用するNode。
 verification: partial
-aliases: ["OCIO FileTransform", "OCF"]
-concepts: ["image-data", "transform"]
-nodes: ["OCIO FileTransform"]
-node_family: "color"
-inputs: ["image"]
-outputs: ["image"]
-tasks: ["adjust-color"]
+aliases: [OCIO File Transform, OCF]
+concepts: [image-data, color-space, ocio, lut]
+nodes: [OCIO File Transform]
+node_family: color
+controls: [LUT File, CCC ID, Direction, Interpolation]
+inputs: [image, mask]
+outputs: [image]
+tasks: [ocio, lut]
 product_scope: fusion
-suite_surfaces: ["fusion"]
-updated: "2026-10-03"
+suite_surfaces: [fusion]
+updated: "2026-10-05"
 ---
 
-# OCIO FileTransform
+# OCIO File Transform
 
-OCIOの外部transform/LUTを適用。
+OCIO File Transformは、LUT等のfile-based color transformをOpenColorIO経由でImageへ適用するNodeです。
 
-## 概要
+OCIO Color Spaceがconfig内のspace変換を選ぶのに対し、こちらは外部LUT / transform fileを直接読み込みます。
 
-- **種別**: Node / Tool
-- **分類**: Color
-- **主なデータ領域**: 2D Image / control
-- **略称**: `OCF`
-- **導入・系譜**: legacy
-- **根拠レベル**: Blackmagic Design公式の旧Fusion Tool Referenceにある系譜
+## LUT File
 
-## 入力と出力
+適用するfileを選びます。
 
-この項目はカタログ上、**2D Image / control**を主なデータ領域として扱います。上のfrontmatterにある入出力は領域を検索するための分類であり、Fusion 21.1の正確な端子数や端子名を断定するものではありません。
+ASC CDL XML内の特定transformを選ぶ場合はCCC IDを使います。
 
-実際に組むときはFlow上の端子ラベルとInspectorを確認し、2D Image、Mask、Shape、Particle、Classic 3D、USD、Deep、パラメータ値を取り違えないようにします。
+## Direction
 
-## 主な用途
+Forwardでtransformを適用、Reverseで逆向きのtransformを試みます。
 
-OCIOの外部transform/LUTを適用。
+不可逆なLUT / transformでは完全に元へ戻らない場合があります。
 
-## 使うときの判断
+## Interpolation
 
-前後のノードと同じ2D Image領域で使うのが基本です。Maskや補助入力がある場合は、画像入力と役割を分けて接続します。
+LUT sample間の補間方法を選びます。
+
+Nearestは高速、Bestは高品質側です。preview speedとfinal qualityで使い分けます。
 
 ## 最小構成
 
 ```text
-Image → OCIO FileTransform → Image
+Image → OCIO File Transform → Output
 ```
 
-## 注意点
+linear workflowでは、必要に応じて前段のGamut等でsourceを適切なworking stateへ揃えます。
 
-- このページはノードを選ぶための役割・データ領域・系譜を先に揃えています。
-- exactな内部ID、端子名、初期値、数値範囲、Edition差は、確認できたものだけ今後追記します。
-- legacy系譜の項目は、現在のEffects Libraryに同名で表示されることまで一件ずつ実機確認したものではありません。
+## 出典と確認範囲
 
-## バージョンと検証状況
-
-旧Blackmagic Design公式Tool Referenceで役割と系譜を確認しています。Fusion 21.1での存在、端子名、Inspector項目、初期値、範囲は実機または現行マニュアルで再確認が必要です。
-
-このリファレンスのinventory基準はDaVinci Resolve / Fusion 21.0.4です。Manual全体は21.1基準へ更新中のため、21.1で差がある箇所は現行資料または実機確認後に更新します。
+DaVinci Resolve 21.1 Reference Manual Chapter 93 pp.2196–2197で、LUT File、CCC ID、Direction、Interpolation、OCIOの役割を確認しました。

@@ -1,86 +1,152 @@
 # Fusion 21.1 Manual coverage
 
-Updated: 2026-10-03
+Updated: 2026-10-05
 Scope: source-grounded node documentation; not runtime inventory certification.
-Base: main aa97c2ac53cdeecab9f1d260a53b5fdc30fed4c9.
 
 ## Source identity
 
 - User-supplied `DaVinci_Resolve_21.1_Reference_Manual.pdf`
 - Cover: September 2026 / DaVinci Resolve 21.1
-- 4,351 pages; 183,184,250 bytes
-- SHA-256: `ccc5fadcb51c47ff0ced658fecd95f7a4f73b85ff74b08c1d98ac8b5eaa17c7e`
-- Text extraction: all pages via PyMuPDF; PDF outline: 4,611 entries. Outline entries are navigation headings, not Tool counts.
-- Visual review: pp.2061, 2434, 2437, 2438. The OpenPBR input-menu image is evidence, not a live Inspector capture.
-- No copy of the full copyrighted manual or full extracted prose is committed.
-- Supplement: Blackmagic Design, https://www.blackmagicdesign.com/media/partial/release/20260908-03 (2026-09-08), checked 2026-10-03. Used only for Connect 3D name/role and the sPrimitive Create spelling; not for Inspector details.
+- 4,351 pages
+- Supplement: Blackmagic Design 21.1 release material was used where the supplied PDF had no exact text match, notably Connect 3D.
+- Full copyrighted manual text / image dump is not committed. Documentation is paraphrased and scoped to the claim it supports.
 
-## Delivered page scope
+## Current documentation candidate
 
-26 new node pages:
+The reader-first completion candidate contains **420 node / related-element pages**.
 
-- 3D Create, p.2434: Fold Create 3D; Heightfield Create 3D; Tube Create 3D.
-- Image Warp, p.2437: Warped Transform.
-- Shape Tools, p.2437: sExtrude; sKill; sResample; sRestyle; sRound; sSmooth; sTriangulate; sWriteOn; sZigZag.
-- Shape Create, p.2437: sPrimitiveCreate; sSpiral Create; sTrace Create.
-- Region, p.2438: rCube; rMerge; rModify; rNoise; rPlane; rSphere; rTransform.
-- Standard Shape, pp.2733–2734: sChangeStyle.
-- Material, pp.2060–2066: OpenPBR.
-- Release-note-only: Connect 3D.
+This is a documentation inventory, not a claim that Resolve 21.1 exposes exactly 420 Add Tool entries. The corpus includes Modifier and Paint internal elements, MediaIn / MediaOut, Krokodove, USD, Deep and other related records.
 
-Existing sOffset and Mapped Duplicate 3D are rewritten, not duplicated. The sOffset URL and term_id are retained. Its unsupported introduction-version 17 statement is removed; the 21.1 manual places it in Krokodove Shape Tools. Same-name/REGID identity still needs confirmation.
+The current candidate separates three states:
 
-Krokodove table comparison: 85 unique named rows on pp.2434–2438; all 61 prior Krokodove catalogue names are present. Of the additional 24 table names, one is the already-published sOffset and 23 receive new pages. This is a documentation diff, not proof that all 24 were introduced in 21.1. Connect 3D is outside those 85 rows.
+1. **Manual-grounded detailed page** — 21.1 Manual provides individual sections, inputs, controls or workflow detail.
+2. **Source-limited reader-first page** — official material confirms the role / domain but does not support invented Inspector details.
+3. **Runtime verification pending** — REGID, visible/hidden state, exact ports, defaults/ranges, Edition and host behavior need current Resolve/Fusion runtime evidence.
 
-Node-page arithmetic: prior 359 + 26 = 385. The Krokodove category guide and node index are not counted as nodes.
+## 21.1 additions and candidate reconciliation
+
+The original 21.0.4-based corpus was expanded as individual 21.1 Manual sections were confirmed.
+
+### Krokodove / 21.1 material
+
+Chapter 105 pp.2434–2438 contains 85 unique Krokodove named rows. The category includes Image, Shape, 3D and Region tools; those domains are not collapsed into one generic type.
+
+The first pass added or rewrote items such as:
+
+- Fold Create 3D / Heightfield Create 3D / Tube Create 3D
+- Warped Transform
+- sExtrude / sKill / sResample / sRestyle / sRound / sSmooth / sTriangulate / sWriteOn / sZigZag
+- sPrimitive Create / sSpiral Create / sTrace Create
+- rCube / rMerge / rModify / rNoise / rPlane / rSphere / rTransform
+- sChangeStyle
+- OpenPBR
+- Connect 3D from release material
+
+Most Krokodove entries are short Manual summaries. Their pages therefore preserve explicit source limits instead of inventing ports, defaults or controls.
+
+### Candidates resolved by individual Manual sections
+
+The following items were initially held as candidates and were later confirmed as independent sections / documented tools, then added or deepened:
+
+- Extrude 3D
+- DomeLight
+- Shader (Deep Pixel)
+- Object Removal
+- Rays
+- Layer Muxer / Layer Regex / Layer Remover
+- Relight
+- Frame Average / Keyframe Stretcher / Switch / Wireless Link
+- pFollow
+- External Matte Saver
+- Surface Tracker
+- uExport / uMaterialX / uReplaceMaterial
+- uSwitch / uVariant / uVisibility
+- ACES Transform
+- Chromatic Adaptation
+- Color Space Transform
+- Gamut Limiter
+- Gamut Mapping
+- Chromatic Aberration Removal
+- OCIO Display
+
+The exact current page count should be taken from the built catalog / repository tree rather than reconstructed from one historical delta, because several source-grounded passes were integrated after the original 359-page baseline.
+
+## Major Manual-grounded family passes
+
+- Chapter 92 / 99 — Blur and Filter
+- Chapter 93 — Color
+- Chapter 94 — Composite
+- Chapter 95 — Deep Image
+- Chapter 96 — Deep Pixel / auxiliary channels
+- Chapter 103 — Generators
+- Chapter 105 — Krokodove
+- Chapter 108 — Masks
+- Chapter 114 — Particles
+- Chapter 119 / 120 — Tracking / Planar Transform / Transform
+- Chapter 121 — USD
+- Chapter 88–90 — Classic 3D / Materials / Lights
+
+Representative pages with richer Manual evidence include exact input roles, major Inspector controls and basic graph examples. Pages whose Manual evidence is limited remain `verification: partial` / source-limited.
 
 ## Source boundaries that must remain visible
 
-- Most Krokodove entries are one-row summaries. They do not provide full Inspector labels, defaults, ranges, terminal counts, or all valid upstream/downstream tools.
-- Do not identify Select Tool shorthand or whitespace variants as REGIDs.
-- sExtrude has only a connected-shape extrusion description; do not claim a verified 3D output or invent a complete graph.
-- rModify has only a region-alteration description; do not invent Boolean, invert, blur, or remapping controls.
-- Connect 3D / Connect3D have zero exact text matches across this supplied PDF. This is not proof of absence from runtime or from image-only content. The 2D Connect entry is distinct.
-- OpenPBR text says 29 possible inputs; the menu image shows 29 names. The same page separately describes a Bumpmap connection. The runtime count and how the Bumpmap connection relates to that count are unresolved.
-- Preserve the manual's OpenPBR terminology. Repeated Alpha descriptions for several controls are not silently rewritten into independently assumed shading equations.
-- Proposed uses are labelled as proposals; no runtime render or GUI acceptance is claimed.
+- A Manual page heading or row confirms documentation identity; it does not prove the current runtime REGID or Effects Library visibility.
+- Select Tool shorthand, whitespace variants and UI abbreviations are not automatically REGIDs.
+- Krokodove one-row summaries do not justify invented Inspector controls.
+- Deep Image and Deep Pixel are distinct: Chapter 95 uses true multi-sample Deep data; Chapter 96 uses auxiliary-channel 2D Image post-processing.
+- Classic 3D and USD are distinct scene domains.
+- Shape and 2D Image are distinct until sRender.
+- Particle set remains a separate data domain until pRender.
+- OpenPBR Manual evidence is preserved as written; repeated labels are not silently converted into assumed shading equations.
+- Proposed operational examples are labeled as configuration proposals rather than runtime-tested facts.
 
-## Next documentation pass: named candidates, not confirmed new nodes
+## Reader-first text completion gate
 
-Comparing normalized level-3 headings from Chapters 88–124 to the 357-entry catalogue surfaced more candidates. Some are aliases or chapter headings. These are not an approved add-list and must be checked against live repository pages and full manual sections first.
+A repository-wide migration was run against the final candidate on 2026-10-05.
 
-Priority candidates with individual manual sections:
+Result:
 
-| Candidate | Manual page | Required next check |
-| --- | --- | --- |
-| Extrude 3D | 1942 | Distinguish from image Extrude and sExtrude |
-| DomeLight | 2033 | Distinguish from USD uDomeLight |
-| Shader | 2263 | Distinguish Deep Pixel shader from USD shader |
-| Object Removal / Rays | 2288 / 2293 | Check implementation and edition boundary |
-| Layer Muxer / Layer Regex / Layer Remover | 2440 / 2441 / 2444 | Read multilayer I/O and existing aliases |
-| Relight | 2557 | Check edition and data dependencies |
-| Frame Average / Keyframe Stretcher / Switch / Wireless Link | 2596 / 2597 / 2606 / 2613 | Read individual operation and controls |
-| pFollow | 2667 | Distinguish from pFlock |
-| External Matte Saver | 2723 | Resolve integration boundary |
-| Surface Tracker | 2830 | Read tracking requirements and edition |
-| uExport / uMaterialX / uReplaceMaterial | 2900 / 2904 / 2915 | USD-specific inputs and materials |
-| uSwitch / uVariant / uVisibility | 2921 / 2925 / 2927 | USD scene and selection behavior |
+- node / related-element pages scanned: **420**
+- old generated-template pages transformed: **196**
+- remaining legacy-template pages: **0**
+- exact repeated `description → 主な用途` pattern: **0**
+- missing family indexes: **0**
+- duplicate Krokodove/non-Krokodove term-id collision repaired without changing the non-Krokodove canonical term
+- catalog regressions: PASS
+- production Docusaurus build: PASS
 
-Do not add alias-only pages for Soft Clip vs SoftClip 3D, Texture 2D vs Texture, Primatte vs Primatte5, Z to World Pos vs ZtoWorld, or modifiers before checking identity. Do not count Common Controls, toolset headings, shortcuts, or navigation entries as Tool instances.
+The migration intentionally does **not** fabricate missing 21.1 Inspector data. Source-limited pages now tell the reader what the item is for, which domain it accepts/returns, how to choose it, a minimal connection shape and what remains unverified.
 
 ## Runtime gate
 
-Still required: current product/build/OS/edition; registry IDs and visible/hidden flags; native vs installed extensions; per-tool inputs/outputs; defaults/ranges; diff against published node pages. A manual match is not runtime-confirmed.
+Still separate from documentation text completion:
 
-## Integration state
+- product / build / OS / Edition
+- registry IDs and visible / hidden flags
+- native vs installed extensions
+- per-tool exact inputs / outputs
+- defaults / ranges
+- current host behavior
+- image / render acceptance
+- diff against published node pages
 
-PR #10のreader-first方針とShape concept、sGrid / sDuplicate / sEllipse / sRenderの改稿は、統合候補 `docs/fusion-reader-first-211-integration-20261003` でこのcoverage差分と合わせています。
+A Manual match is not runtime certification.
 
-統合後も役割は分けます。
+## Image pass
 
-- この文書: 21.1資料との照合範囲、追加候補、未確認事項の台帳
-- `docs/fusion-authoring-contract.md`: 読者向けNode Referenceの書き方と根拠の扱い
-- Learn / Family Overview: Shapeなど複数Nodeにまたがる概念とFamilyの案内
-- 各Nodeページ: Node固有の入出力、Control、最小構成、用途、確認範囲
+Images are a later evidence / usability layer:
 
-coverageを増やすことと、既存ページを読みやすく深くすることを同じ一括生成処理には戻さない。
+1. Node tile / ports
+2. minimal graph
+3. major Inspector section
+4. result / Before-After
+
+Use self-produced current-runtime captures rather than copying the Manual. Empty placeholders are not added in bulk.
+
+## Owners
+
+- reader-facing policy: `docs/fusion-authoring-contract.md`
+- current corpus entry: `manuals/fusion/nodes/index.md`
+- text-pass roadmap / history: `docs/fusion-node-reference-roadmap.md`
+- primary source: DaVinci Resolve 21.1 Reference Manual, September 2026
+- runtime facts: current Resolve / Fusion host

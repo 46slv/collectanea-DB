@@ -1,62 +1,72 @@
 ---
-title: "pGradientForce"
-description: "Gradient画像に基づくForce。"
+title: pGradientForce
+description: 2D ImageのAlpha gradientからforce fieldを作り、Particleを高いAlphaから低いAlpha方向へ加速させるNode。
 doc_type: node
-term_id: "pgradientforce"
-term_short: "pGradientForceは、Gradient画像に基づくForce。"
+term_id: pgradientforce
+term_short: pGradientForceは、ImageのAlpha gradientを使ってparticleへforceを加えるNode。
 verification: partial
-aliases: ["pGradientForce"]
-concepts: ["particle-data"]
-nodes: ["pGradientForce"]
-node_family: "particles"
-inputs: ["particle"]
-outputs: ["particle"]
-tasks: ["create-particles"]
+aliases: [pGradientForce, pGradient Force, pGF]
+concepts: [particle-data, image-data, alpha, particle-region]
+nodes: [pGradientForce]
+node_family: particles
+controls: [Random Seed, Strength, Conditions, Region]
+inputs: [particle, image, region]
+outputs: [particle]
+tasks: [particles, gradient-force, flow-field]
 product_scope: fusion
-suite_surfaces: ["fusion"]
-updated: "2026-10-03"
+suite_surfaces: [fusion]
+updated: "2026-10-04"
 ---
 
 # pGradientForce
 
-Gradient画像に基づくForce。
+pGradientForceは、2D <Term id="image">Image</Term>のAlpha gradientを読み、その傾きを<Term id="particle-data">Particle</Term>へforceとして適用するNodeです。
 
-## 概要
+既定ではAlphaが高い場所から低い場所へ向かってparticleを加速させます。
 
-- **種別**: Node / Tool
-- **分類**: Particles
-- **主なデータ領域**: Particle set
-- **導入・系譜**: legacy
-- **根拠レベル**: Blackmagic Design公式の旧Fusion Tool Referenceにある系譜
+## 入力
 
-## 入力と出力
+### Input
 
-この項目はカタログ上、**Particle set**を主なデータ領域として扱います。上のfrontmatterにある入出力は領域を検索するための分類であり、Fusion 21.1の正確な端子数や端子名を断定するものではありません。
+オレンジ色のParticle inputです。
 
-実際に組むときはFlow上の端子ラベルとInspectorを確認し、2D Image、Mask、Shape、Particle、Classic 3D、USD、Deep、パラメータ値を取り違えないようにします。
+### Image
 
-## 主な用途
+緑色の2D Image inputです。Alpha channelのgradientをforce fieldとして使います。
 
-Gradient画像に基づくForce。
+### Region
 
-## 使うときの判断
+Region tabをBitmap / Meshへすると、作用範囲を限定するRegion inputが追加されます。
 
-Particle setは2D Imageではありません。最終的に画像として合成する場合は`pRender`を使います。
+## Strength
+
+gradient forceの強さを決めます。
+
+負の値にするとforce方向が反転し、Alphaが低い方から高い方へparticleを動かします。
 
 ## 最小構成
 
 ```text
-pEmitter → pGradientForce → pRender → Image
+Fast Noise ─────────────→ pGradientForce
+                           ↑
+pEmitter ──────────────────┘
+             ↓
+           pRender
 ```
 
-## 注意点
+Fast Noise等でAlpha gradientを作ると、particleが画像の明暗地形に沿って流れるようなmovementを作れます。
 
-- このページはノードを選ぶための役割・データ領域・系譜を先に揃えています。
-- exactな内部ID、端子名、初期値、数値範囲、Edition差は、確認できたものだけ今後追記します。
-- legacy系譜の項目は、現在のEffects Libraryに同名で表示されることまで一件ずつ実機確認したものではありません。
+## 運用例
 
-## バージョンと検証状況
+noise fieldに沿う煙やdust:
 
-旧Blackmagic Design公式Tool Referenceで役割と系譜を確認しています。Fusion 21.1での存在、端子名、Inspector項目、初期値、範囲は実機または現行マニュアルで再確認が必要です。
+1. Fast Noiseでgrayscale patternを作ります。
+2. Fast NoiseのAlphaをpGradientForceへ接続します。
+3. Strengthを少量から上げます。
+4. pTurbulenceと組み合わせる場合は、どちらがmovementの大きな流れを作るか分けて調整します。
 
-このリファレンスのinventory基準はDaVinci Resolve / Fusion 21.0.4です。Manual全体は21.1基準へ更新中のため、21.1で差がある箇所は現行資料または実機確認後に更新します。
+## 出典と確認範囲
+
+DaVinci Resolve 21.1 Reference Manual Chapter 114 pp.2670–2671で、Particle / Image / Region inputs、Alpha gradient方向、Strength、negative Strengthの反転を確認しました。
+
+gradient計算の内部式と実機性能は未確認です。

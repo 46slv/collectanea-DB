@@ -1,61 +1,78 @@
 ---
-title: "uCamera"
-description: "USD camera。21でImage Input/Projection機能追加。"
+title: uCamera
+description: USD sceneへvirtual cameraを追加または既存cameraをoverrideし、Perspective / Orthographic・Focal Length・Film Back・Depth of Fieldを設定するNode。
 doc_type: node
-term_id: "ucamera"
-term_short: "uCameraは、USD camera。21でImage Input/Projection機能追加。"
+term_id: ucamera
 verification: partial
-aliases: ["uCamera"]
-concepts: ["usd"]
-nodes: ["uCamera"]
-node_family: "usd"
-inputs: ["usd"]
-outputs: ["usd"]
-tasks: ["build-usd-scene"]
+aliases: [uCamera, uCa]
+concepts: [usd-scene, camera, scene-tree]
+nodes: [uCamera]
+node_family: usd
+controls: [Override Selection, Projection Type, Near/Far Clip, Focal Length, Focal Distance, F Stop, Film Back, Aperture, Lens Shift, Shutter, Transform]
+inputs: [usd]
+outputs: [usd]
+tasks: [usd, camera, frame-scene]
 product_scope: fusion
-suite_surfaces: ["fusion"]
-updated: "2026-10-03"
+suite_surfaces: [fusion]
+updated: "2026-10-04"
 ---
 
 # uCamera
 
-USD camera。21でImage Input/Projection機能追加。
+uCameraは、<Term id="usd-scene">USD scene</Term>へvirtual cameraを追加したり、import済みUSD内cameraをoverrideするNodeです。
 
-## 概要
+## 入力 / 出力
 
-- **種別**: Node / Tool
-- **分類**: USD (18.5+)
-- **主なデータ領域**: USD scene / asset
-- **導入・系譜**: 18.5; 21 projection
-- **根拠レベル**: 導入版のBlackmagic Design公式資料で確認した現行系譜
+黄色のScene InputへUSD sceneを接続できます。
 
-## 入力と出力
+uCamera単体をViewerへ出しても見る対象がないため、通常はuMergeへcameraを組み込み、uMerge以降をViewerで表示してcameraを選びます。
 
-この項目はカタログ上、**USD scene / asset**を主なデータ領域として扱います。上のfrontmatterにある入出力は領域を検索するための分類であり、Fusion 21.1の正確な端子数や端子名を断定するものではありません。
+## Override Selection
 
-実際に組むときはFlow上の端子ラベルとInspectorを確認し、2D Image、Mask、Shape、Particle、Classic 3D、USD、Deep、パラメータ値を取り違えないようにします。
+PickからScene Treeを開き、import済みUSD内の特定cameraを選択して設定をoverrideできます。
 
-## 主な用途
+## Projection Type
 
-USD camera。21でImage Input/Projection機能追加。
+Perspective / Orthographicを選べます。
 
-## 使うときの判断
+PerspectiveではFocal Length / Film Backがviewへ影響し、Orthographicではperspective distortionなしにsceneを見ます。
 
-USD系の`u*`ノードはClassic 3Dノードと別のデータ領域です。通常は`uRenderer`で画像へ変換します。
+## Camera controls
+
+- Near / Far Clip
+- Focal Length
+- Focal Distance
+- F Stop
+- Horizontal / Vertical Aperture
+- Lens Shift
+- Shutter Open / Close
+- Stereo Role
+
+を持ちます。
+
+Focal Distance / F StopはDepth of Field計算に使われます。
+
+## Viewerとrender frame
+
+ViewerのaspectとcameraのFilm Backが一致しない場合があります。
+
+Frame Aspect Guideを表示し、uRendererが実際にrenderする範囲を確認します。
 
 ## 最小構成
 
 ```text
-uLoader / uShape → uCamera → uRenderer → Image
+uLoader ──┐
+uCamera ──┼─ uMerge → uRenderer
+          ┘
 ```
 
-## 注意点
+## Camera 3Dとの違い
 
-- このページはノードを選ぶための役割・データ領域・系譜を先に揃えています。
-- exactな内部ID、端子名、初期値、数値範囲、Edition差は、確認できたものだけ今後追記します。
+- **uCamera** — USD
+- **Camera 3D** — Classic 3D
 
-## バージョンと検証状況
+## 出典と確認範囲
 
-導入版のBlackmagic Design公式資料で現行系譜を確認しています。Fusion 21.1の端子名、Inspector項目、初期値、範囲は未検証です。
+DaVinci Resolve 21.1 Reference Manual Chapter 121 pp.2889–2892で、Scene Input、Scene Tree override、Projection Type、clipping、Focal Length、Focal Distance、F Stop、Film Back等を確認しました。
 
-このリファレンスのinventory基準はDaVinci Resolve / Fusion 21.0.4です。Manual全体は21.1基準へ更新中のため、21.1で差がある箇所は現行資料または実機確認後に更新します。
+21で追加されたprojection関連はuProjector / uCamera projection節と併せて扱います。

@@ -1,63 +1,64 @@
 ---
-title: "Color Curves"
-description: "スプラインカーブで色/輝度を補正。"
+title: Color Curves
+description: RGB・YUV・HLS等のchannelをSpline LUTとして編集し、特定のinput valueだけを別output valueへ曲線でremapするNode。
 doc_type: node
-term_id: "color-curves"
-term_short: "Color Curvesは、スプラインカーブで色/輝度を補正。"
+term_id: color-curves
+term_short: 入力値→出力値の関係をSplineで編集するLUT型Color Node。
 verification: partial
-aliases: ["Color Curves", "CCV"]
-concepts: ["image-data"]
-nodes: ["Color Curves"]
-node_family: "color"
-inputs: ["image"]
-outputs: ["image"]
-tasks: ["adjust-color"]
+aliases: [Color Curves, CCv]
+concepts: [image-data, color-adjustment, premultiplication]
+nodes: [Color Curves]
+node_family: color
+controls: [Mode, Color Space, Color Channels, Spline Window, In, Out, Eyedropper, Match Reference, Pre-Divide/Post-Multiply]
+inputs: [image, mask, image, mask]
+outputs: [image]
+tasks: [color-curves, tone-curve, match-reference]
 product_scope: fusion
-suite_surfaces: ["fusion"]
-updated: "2026-10-03"
+suite_surfaces: [fusion]
+updated: "2026-10-05"
 ---
 
 # Color Curves
 
-スプラインカーブで色/輝度を補正。
+Color Curvesは、input valueとoutput valueの対応をSplineで編集するLUT型のColor Nodeです。
 
-## 概要
+「0.5の明るさだけ少し上げる」「Blueのshadowだけ下げる」のように、値域を狙って非線形に補正できます。
 
-- **種別**: Node / Tool
-- **分類**: Color
-- **主なデータ領域**: 2D Image / control
-- **略称**: `CCV`
-- **導入・系譜**: legacy
-- **根拠レベル**: Blackmagic Design公式の旧Fusion Tool Referenceにある系譜
+## 入力
 
-## 入力と出力
+必須Inputのほか、Effect Mask、Reference Image、Match Maskを持ちます。
 
-この項目はカタログ上、**2D Image / control**を主なデータ領域として扱います。上のfrontmatterにある入出力は領域を検索するための分類であり、Fusion 21.1の正確な端子数や端子名を断定するものではありません。
+Reference ImageとMatch Maskは、別Imageの特定領域へcurveを合わせるMatch用途です。
 
-実際に組むときはFlow上の端子ラベルとInspectorを確認し、2D Image、Mask、Shape、Particle、Classic 3D、USD、Deep、パラメータ値を取り違えないようにします。
+## Color Space
 
-## 主な用途
+RGBだけでなくYUV、YIQ、CMY、HLS等へ切り替えられます。
 
-スプラインカーブで色/輝度を補正。
+選択したColor Spaceに合わせて、編集対象channelの名前も変わります。
 
-## 使うときの判断
+## Spline Window
 
-前後のノードと同じ2D Image領域で使うのが基本です。Maskや補助入力がある場合は、画像入力と役割を分けて接続します。
+横軸がinput、縦軸がoutputです。
 
-## 最小構成
+初期状態は0→0、1→1の直線です。中間へpointを追加して上へ動かすと、その値域が明るくなります。
 
-```text
-Image → Color Curves → Image
-```
+EyedropperでViewer上のpixelを選ぶと、その値に対応するpointをcurveへ追加できます。
 
-## 注意点
+## Animation / Match
 
-- このページはノードを選ぶための役割・データ領域・系譜を先に揃えています。
-- exactな内部ID、端子名、初期値、数値範囲、Edition差は、確認できたものだけ今後追記します。
-- legacy系譜の項目は、現在のEffects Libraryに同名で表示されることまで一件ずつ実機確認したものではありません。
+Modeでcurve animationを有効にできます。
 
-## バージョンと検証状況
+Reference Imageを使う場合はMatch Reference、Sample Reference、Number of Samples、Match Rectangle等でreferenceの値分布へ合わせます。
 
-旧Blackmagic Design公式Tool Referenceで役割と系譜を確認しています。Fusion 21.1での存在、端子名、Inspector項目、初期値、範囲は実機または現行マニュアルで再確認が必要です。
+## Alphaを持つImage
 
-このリファレンスのinventory基準はDaVinci Resolve / Fusion 21.0.4です。Manual全体は21.1基準へ更新中のため、21.1で差がある箇所は現行資料または実機確認後に更新します。
+Pre-Divide / Post-Multiplyを使うと、premultiplied Alphaの半透明edgeでRGB補正が不自然になりにくくなります。
+
+## Hue Curvesとの違い
+
+- **Color Curves** — input value → output valueをchannelごとにremap
+- **Hue Curves** — 横軸がHueで、特定色域だけを狙う
+
+## 出典と確認範囲
+
+DaVinci Resolve 21.1 Reference Manual Chapter 93 pp.2168–2171で、4入力、Color Space、Spline、Eyedropper、Reference Match、Pre-Divide/Post-Multiplyを確認しました。

@@ -1,63 +1,88 @@
 ---
-title: "pBounce"
-description: "粒子を面/領域で反射させる。"
+title: pBounce
+description: Particleを指定regionで反射させ、Elasticity・Variance・Spin・Roughness・Surface Motionで衝突後の動きを調整するNode。
 doc_type: node
-term_id: "pbounce"
-term_short: "pBounceは、粒子を面/領域で反射させる。"
+term_id: pbounce
+term_short: pBounceは、particleを指定regionで跳ね返すNode。
 verification: partial
-aliases: ["pBounce", "PBN"]
-concepts: ["particle-data"]
-nodes: ["pBounce"]
-node_family: "particles"
-inputs: ["particle"]
-outputs: ["particle"]
-tasks: ["create-particles"]
+aliases: [pBounce, pBn]
+concepts: [particle-data, particle-region]
+nodes: [pBounce]
+node_family: particles
+controls: [Random Seed, Elasticity, Variance, Spin, Roughness, Surface Motion, Surface Motion Direction, Conditions, Region]
+inputs: [particle, region]
+outputs: [particle]
+tasks: [particles, bounce, collision]
 product_scope: fusion
-suite_surfaces: ["fusion"]
-updated: "2026-10-03"
+suite_surfaces: [fusion]
+updated: "2026-10-04"
 ---
 
 # pBounce
 
-粒子を面/領域で反射させる。
+pBounceは、<Term id="particle-data">Particle set</Term>が指定regionへ接触したとき、particleを反射させるNodeです。
 
-## 概要
+床や壁へ当たる粒、跳ねる破片など、collision後のmovementを作るときに使います。
 
-- **種別**: Node / Tool
-- **分類**: Particles
-- **主なデータ領域**: Particle set
-- **略称**: `PBN`
-- **導入・系譜**: legacy
-- **根拠レベル**: Blackmagic Design公式の旧Fusion Tool Referenceにある系譜
+## 入力
 
-## 入力と出力
+オレンジ色のParticle inputへ前段Particleを接続します。
 
-この項目はカタログ上、**Particle set**を主なデータ領域として扱います。上のfrontmatterにある入出力は領域を検索するための分類であり、Fusion 21.1の正確な端子数や端子名を断定するものではありません。
+Region tabをBitmap / Meshにするとregion inputが追加され、2D Imageや3D Meshをcollision surfaceとして使えます。
 
-実際に組むときはFlow上の端子ラベルとInspectorを確認し、2D Image、Mask、Shape、Particle、Classic 3D、USD、Deep、パラメータ値を取り違えないようにします。
+## 主な設定
 
-## 主な用途
+### Elasticity
 
-粒子を面/領域で反射させる。
+衝突後にVelocityをどの程度残すかを決めます。
 
-## 使うときの判断
+- 1.0付近: 入射前のspeedをほぼ保つ
+- 小さい値: bounceのたびにspeedを失う
+- 1より大きい値: 衝突後にspeedが増える
 
-Particle setは2D Imageではありません。最終的に画像として合成する場合は`pRender`を使います。
+### Variance
+
+反射角へばらつきを加えます。
+
+規則的に同じ角度で反射する見た目を崩したい場合に使います。
+
+### Spin
+
+collisionによってparticleへ回転を与える、または既存Spinを変えます。
+
+### Roughness
+
+bounce方向へ小さなrandomnessを加え、surfaceの粗さのような挙動を作ります。
+
+### Surface Motion / Direction
+
+surface自体が動いているような影響をparticleへ与えます。
 
 ## 最小構成
 
 ```text
-pEmitter → pBounce → pRender → Image
+pEmitter → pBounce → pRender
+                ↑
+              Region
 ```
 
-## 注意点
+## 運用例
 
-- このページはノードを選ぶための役割・データ領域・系譜を先に揃えています。
-- exactな内部ID、端子名、初期値、数値範囲、Edition差は、確認できたものだけ今後追記します。
-- legacy系譜の項目は、現在のEffects Libraryに同名で表示されることまで一件ずつ実機確認したものではありません。
+地面へ落ちて数回跳ねるparticleを作る場合:
 
-## バージョンと検証状況
+1. pDirectionalForceで下向きに加速します。
+2. pBounceのRegionを床位置へ置きます。
+3. Elasticityを1未満へしてbounceごとにenergyを失わせます。
+4. Roughness / Varianceを少量加えて均一な反射を崩します。
+5. 必要ならpFrictionで横方向movementも減衰します。
 
-旧Blackmagic Design公式Tool Referenceで役割と系譜を確認しています。Fusion 21.1での存在、端子名、Inspector項目、初期値、範囲は実機または現行マニュアルで再確認が必要です。
+## pAvoidとの違い
 
-このリファレンスのinventory基準はDaVinci Resolve / Fusion 21.0.4です。Manual全体は21.1基準へ更新中のため、21.1で差がある箇所は現行資料または実機確認後に更新します。
+- **pBounce** — collisionした後に反射
+- **pAvoid** — collision前からregionを避ける
+
+## 出典と確認範囲
+
+DaVinci Resolve 21.1 Reference Manual Chapter 114 pp.2649–2650で、Particle / Region input、Elasticity、Variance、Spin、Roughness、Surface Motionを確認しました。
+
+collision内部実装、Region geometry別の精度差、実機性能は未確認です。
