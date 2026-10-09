@@ -44,7 +44,7 @@ reader-first本文passは完了しています。
 - [Colorノード](./color/) — tone・channel・white balance・color management
 - [Matte / Keying](./matte-keying/) — key・matte・Alpha cleanup
 - [Trackingノード](./tracking/) — Point / Planar / Camera tracking
-- [Optical Flow / Motion](./optical-flow/overview) — motion vector解析とframe生成
+- [Optical Flow / Motion](./optical-flow/) — motion vector解析とframe生成
 - [Generatorノード](./generators/) — Background・noise・text等のsource
 - [Shapeノード](./shapes/) — vector Shapeの生成・加工・render
 - [Particleノード](./particles/) — emit・force・behavior・pRender
@@ -53,7 +53,7 @@ reader-first本文passは完了しています。
 - [USDノード](./usd/) — load・prim編集・material・light・render
 - [Deep / Auxiliary Channelノード](./deep/) — true Deep ImageとAOV post-process
 - [Warp / Distort](./warp/) — displacement・grid・lens・vector warp
-- [Paint](./paint/overview) — Paint Nodeと内部Stroke / Clone要素
+- [Paint](./paint/) — Paint Nodeと内部Stroke / Clone要素
 - [Modifier](./modifiers/) — Parameterを式・Spline・Path等で駆動
 - [Time / Metadata / Utility](./time-metadata/) — retime・metadata・DoD・bit depth
 - [Utility / I/O](./utility-io/) — Loader / Saver / MediaIn / MediaOut / routing
