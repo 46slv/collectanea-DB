@@ -26,7 +26,7 @@ Clone Multistrokeは、**映像の別の場所から画素を複製し、小さ�
 
 ## 入力と出力
 
-Clone Multistrokeは独立したFlowノードではなく、[Paintノード](./paint)のViewerツールバーから選ぶ描画方式です。独自のFlow端子は持ちません。
+Clone Multistrokeは独立したFlowノードではなく、[Paintノード](./)のViewerツールバーから選ぶ描画方式です。独自のFlow端子は持ちません。
 
 - **PaintのInput（オレンジ）**：必須。作業する2D画像をつなぎます。画像の解像度がキャンバスの大きさになります。
 - **PaintのEffect Mask（青）**：任意。補修を許可する領域を制限するマスクです。クローン参照元の端子ではありません。
@@ -93,7 +93,7 @@ Paintを透明なBackgroundに接続して描画だけを別レイヤーにす�
 | [Stroke](./stroke) | 補修後に線の形、位置、時間を編集・アニメーションさせる |
 | [Paint Group](./paint-group) | 複数の補修操作をまとめて移動・回転・追跡する |
 
-[Paint全体の解説](./paint)と[Paintツールの一覧](./)も参照してください。
+[Paint全体の解説](./)と[Paintツールの一覧](./overview)も参照してください。
 
 ## バージョンと出典
 
