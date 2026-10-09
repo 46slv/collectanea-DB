@@ -125,7 +125,7 @@ MediaIn → Repair Frame → MediaOut
 
 ## 関連Node
 
-- [Optical Flow](./optical-flow)
+- [Optical Flow](./optical-flow.md)
 - [Tween](./tween)
 - [Smooth Motion](./smooth-motion)
 
