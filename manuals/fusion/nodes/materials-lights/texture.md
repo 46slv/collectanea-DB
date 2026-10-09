@@ -11,7 +11,6 @@ nodes: ["Texture 2D"]
 node_family: "materials-lights"
 controls: ["U/V Offset", "U/V Scale", "Wrap Mode", "Texture Filtering Mode"]
 inputs: ["image"]
-outputs: ["material"]
 tasks: ["shade-3d"]
 product_scope: fusion
 suite_surfaces: ["fusion"]
