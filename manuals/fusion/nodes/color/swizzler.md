@@ -1,61 +1,58 @@
 ---
-title: "Swizzler"
-description: "Multilayer/channel/layer swizzle utility。20.1 releaseで改善が公式言及。導入版の厳密な初出は要追加確認。"
+title: Swizzler
+description: 複数ImageのLayer / RGBA / Aux channelをsourceとして選び、新しいmultilayer Imageやcustom layerを組み立てるLayer Node。
 doc_type: node
-term_id: "swizzler"
-term_short: "Swizzlerは、Multilayer/channel/layer swizzle utility。20.1 releaseで改善が公式言及。導入版の厳密な初出は要追加確認。"
+term_id: swizzler
+term_short: 複数sourceのLayer / channelを組み替えてmultilayer Imageを作るNode。
 verification: partial
-aliases: ["Swizzler"]
-concepts: ["image-data"]
-nodes: ["Swizzler"]
-node_family: "color"
-inputs: ["image"]
-outputs: ["image"]
-tasks: ["adjust-color"]
+aliases: [Swizzler, Swz]
+concepts: [image-data, auxiliary-channels, multilayer]
+nodes: [Swizzler]
+node_family: color
+controls: [Layer List, Add Layer, Keep Main Input Layers, Channels, Source, Source Layer, Source Channels]
+inputs: [image]
+outputs: [image]
+tasks: [multilayer, auxiliary-channels, channel-remap]
 product_scope: fusion
-suite_surfaces: ["fusion"]
-updated: "2026-10-03"
+suite_surfaces: [fusion]
+updated: "2026-10-05"
 ---
 
 # Swizzler
 
-Multilayer/channel/layer swizzle utility。20.1 releaseで改善が公式言及。導入版の厳密な初出は要追加確認。
+Swizzlerは、複数ImageのLayerやchannelを材料にして、新しいcustom layer / multilayer Imageを組み立てるNodeです。
 
-## 概要
+Channel Booleansが主に1枚のImage内のchannel演算を行うのに対し、Swizzlerは**Layerを作る・残す・別inputからchannelを割り当てる**ことに重点があります。
 
-- **種別**: Node / Tool
-- **分類**: Resolve 20+
-- **主なデータ領域**: 2D Image / control
-- **導入・系譜**: 20-era; 20.1 improved
-- **根拠レベル**: 導入版のBlackmagic Design公式資料で確認した現行系譜
+## 入力
 
-## 入力と出力
+Input 1がmain source、追加の白inputへ別Imageを接続します。必要なだけsourceを増やして、新しいLayerへ割り当てます。
 
-この項目はカタログ上、**2D Image / control**を主なデータ領域として扱います。上のfrontmatterにある入出力は領域を検索するための分類であり、Fusion 21.1の正確な端子数や端子名を断定するものではありません。
+## Layer List / Add Layer
 
-実際に組むときはFlow上の端子ラベルとInspectorを確認し、2D Image、Mask、Shape、Particle、Classic 3D、USD、Deep、パラメータ値を取り違えないようにします。
+Layer Listでoutputに作るcustom layerを管理します。
 
-## 主な用途
+Add Layerで新しいLayerを作り、renameして用途が分かる名前にできます。
 
-Multilayer/channel/layer swizzle utility。20.1 releaseで改善が公式言及。導入版の厳密な初出は要追加確認。
+## Keep Main Input Layers
 
-## 使うときの判断
+Input 1にもともとあるLayerを保持したまま、新しいLayerを追加します。
 
-前後のノードと同じ2D Image領域で使うのが基本です。Maskや補助入力がある場合は、画像入力と役割を分けて接続します。
+既存multilayer EXRへAOVを追加したい場合に使えます。
 
-## 最小構成
+## Channels / Source / Source Layer
 
-```text
-Image → Swizzler → Image
-```
+ChannelsでRGBA / Aux / individual channelの粒度を選び、Sourceでどのinputから取るかを指定します。
 
-## 注意点
+multilayer sourceの場合はSource Layerで元Layerも選べます。
 
-- このページはノードを選ぶための役割・データ領域・系譜を先に揃えています。
-- exactな内部ID、端子名、初期値、数値範囲、Edition差は、確認できたものだけ今後追記します。
+たとえば別々のRGB passをNormal / UV等のAux channelとして1つのLayerへまとめたり、各passを独立Layerとして1つのmultilayer Imageへ束ねられます。
 
-## バージョンと検証状況
+## Channel Booleansとの違い
 
-導入版のBlackmagic Design公式資料で現行系譜を確認しています。Fusion 21.1の端子名、Inspector項目、初期値、範囲は未検証です。
+- **Channel Booleans** — channel演算・copyが中心
+- **Swizzler** — Layer構造の作成・保持・source割り当てが中心
 
-このリファレンスのinventory基準はDaVinci Resolve / Fusion 21.0.4です。Manual全体は21.1基準へ更新中のため、21.1で差がある箇所は現行資料または実機確認後に更新します。
+## 出典と確認範囲
+
+DaVinci Resolve 21.1 Reference Manual Chapter 106 pp.2445–2450で、multiple inputs、Layer List、Add Layer、Keep Main Input Layers、Channels / Source / Source Layerを確認しました。

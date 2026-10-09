@@ -3,7 +3,7 @@ title: "sTransform"
 description: "Shape domain transform。"
 doc_type: node
 term_id: "stransform"
-term_short: "sTransformは、Shape domain transform。"
+term_short: "sTransformは、Shape domain transform。Shape領域で使うNode。"
 verification: partial
 aliases: ["sTransform"]
 concepts: ["shape-data", "transform"]
@@ -14,48 +14,48 @@ outputs: ["shape"]
 tasks: ["build-shape"]
 product_scope: fusion
 suite_surfaces: ["fusion"]
-updated: "2026-10-03"
+updated: "2026-10-05"
 ---
 
 # sTransform
 
-Shape domain transform。
+sTransformは、Shape domain transform。sRender前のvector Shapeを生成・変形・複製・結合します。通常の2D Imageとは別domainです。
 
-## 概要
+## 役割
 
-- **種別**: Node / Tool
-- **分類**: Shape System (Resolve 17+)
-- **主なデータ領域**: Shape
-- **導入・系譜**: 17
-- **根拠レベル**: 導入版のBlackmagic Design公式資料で確認した現行系譜
+Shape domain transform。このページでは、名前だけで選ばず、**何を受け取り、何が変わり、どのdomainへ返すか**を先に整理します。
+
+位置・回転・scale等を変える系統です。見た目だけを変えるのか、data自体のdomain / resolutionを変えるのかを確認します。
 
 ## 入力と出力
 
-この項目はカタログ上、**Shape**を主なデータ領域として扱います。上のfrontmatterにある入出力は領域を検索するための分類であり、Fusion 21.1の正確な端子数や端子名を断定するものではありません。
-
-実際に組むときはFlow上の端子ラベルとInspectorを確認し、2D Image、Mask、Shape、Particle、Classic 3D、USD、Deep、パラメータ値を取り違えないようにします。
-
-## 主な用途
-
-Shape domain transform。
+入力分類: **shape**。 出力分類: **shape**。 この分類はdata domainを読むためのものです。Fusion 21.1のexactな端子名・端子数を未確認の場合、ここでは推測して固定しません。
 
 ## 使うときの判断
 
-Shape領域のデータは2D Imageではありません。通常のMergeへ渡す前に`sRender`で画像へ変換します。
+Shapeを作るNodeか、既存Shapeを変えるNodeか、複数ShapeをまとめるNodeかで選びます。
+
+同じ目的を別Familyでも作れる場合は、後段で必要なdata domainと、Graph上で責任をどこに置きたいかで選びます。
 
 ## 最小構成
 
-```text
-Shape Source → sTransform → sRender → Image
-```
+    Shape Source / sTransform → Shape chain → sRender → Image
 
-## 注意点
+これは接続関係を理解するための最小構成案です。公式Manualのexactな作例として確認していない構成は、実制作前にViewerで中間結果を確認します。
 
-- このページはノードを選ぶための役割・データ領域・系譜を先に揃えています。
-- exactな内部ID、端子名、初期値、数値範囲、Edition差は、確認できたものだけ今後追記します。
+## 確認ポイント
 
-## バージョンと検証状況
+- 入力dataのdomainが合っているか。
+- この項目のoutputを受け取れる後段Nodeへ接続しているか。
+- 同じ役割を前段 / 後段で二重に処理していないか。
+- source-limited pageでは、未確認のControl名・default・rangeを名前から推測していないか。
 
-導入版のBlackmagic Design公式資料で現行系譜を確認しています。Fusion 21.1の端子名、Inspector項目、初期値、範囲は未検証です。
+## Family内での位置づけ
 
-このリファレンスのinventory基準はDaVinci Resolve / Fusion 21.0.4です。Manual全体は21.1基準へ更新中のため、21.1で差がある箇所は現行資料または実機確認後に更新します。
+Shapeノードの全体像と近いNodeの選び分けは[Family Overview](./)を参照してください。
+
+## 出典と確認範囲
+
+このページの役割・data domain・系譜は、既存COLLECTANEA catalogとBlackmagic Design公式資料で確認された範囲をreader-first形式へ整理しています。
+
+Fusion 21.1 Reference Manualで個別のInspector項目・default・rangeまで確認できていない項目は、**source-limited**としてその詳細を断定していません。verification: partial はその未確認範囲を含みます。runtime REGIDや現在のEffects Library表示は別のruntime verificationで確定します。

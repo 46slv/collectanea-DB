@@ -1,62 +1,78 @@
 ---
-title: "pChangeStyle"
-description: "粒子Styleを変更。"
+title: pChangeStyle
+description: 指定regionを通過するParticleのStyleやSet assignmentを途中から変更するParticle Style Node。
 doc_type: node
-term_id: "pchangestyle"
-term_short: "pChangeStyleは、粒子Styleを変更。"
+term_id: pchangestyle
+term_short: pChangeStyleは、particleがregionへ入ったときに見た目やSetを変更するNode。
 verification: partial
-aliases: ["pChangeStyle"]
-concepts: ["particle-data"]
-nodes: ["pChangeStyle"]
-node_family: "particles"
-inputs: ["particle"]
-outputs: ["particle"]
-tasks: ["create-particles"]
+aliases: [pChangeStyle, pChange Style, pCS]
+concepts: [particle-data, particle-region]
+nodes: [pChangeStyle]
+node_family: particles
+controls: [Random Seed, Change Sets, Style, Conditions, Region]
+inputs: [particle, region]
+outputs: [particle]
+tasks: [particles, change-style, event]
 product_scope: fusion
-suite_surfaces: ["fusion"]
-updated: "2026-10-03"
+suite_surfaces: [fusion]
+updated: "2026-10-04"
 ---
 
 # pChangeStyle
 
-粒子Styleを変更。
+pChangeStyleは、<Term id="particle-data">Particle</Term>が指定regionへ入ったとき、見た目やSet assignmentを変更するNodeです。
 
-## 概要
+多くのParticle Nodeがmovementを変えるのに対し、pChangeStyleはparticleのappearanceを途中から変える用途が中心です。
 
-- **種別**: Node / Tool
-- **分類**: Particles
-- **主なデータ領域**: Particle set
-- **導入・系譜**: legacy
-- **根拠レベル**: Blackmagic Design公式の旧Fusion Tool Referenceにある系譜
+## 入力
 
-## 入力と出力
+オレンジ色のParticle inputへ前段Particleを接続します。
 
-この項目はカタログ上、**Particle set**を主なデータ領域として扱います。上のfrontmatterにある入出力は領域を検索するための分類であり、Fusion 21.1の正確な端子数や端子名を断定するものではありません。
+Region tabをBitmap / Meshへするとregion inputが追加され、style changeを起こす範囲を定義できます。
 
-実際に組むときはFlow上の端子ラベルとInspectorを確認し、2D Image、Mask、Shape、Particle、Classic 3D、USD、Deep、パラメータ値を取り違えないようにします。
+## 主な設定
 
-## 主な用途
+### Change Sets
 
-粒子Styleを変更。
+particleのSet assignmentを変更します。
 
-## 使うときの判断
+後段Forceを別Setだけへ作用させる構成へ切り替えるときに使えます。
 
-Particle setは2D Imageではありません。最終的に画像として合成する場合は`pRender`を使います。
+### Style
 
-## 最小構成
+pEmitterのStyle tabに近いControlでparticle appearanceを変更します。
+
+色・size・bitmap style等、Style側で扱う属性をevent後に切り替えられます。
+
+## Node順が重要
+
+pChangeStyleとcollision系Nodeで同じRegionを使う場合、pChangeStyleを**eventを起こすNodeより前**へ置く必要があることがあります。
+
+Manualの例では、pBounceより後ろへpChangeStyleを置くと、particleは先にbounceしてRegionから離れるため、pChangeStyleがintersectionを検出できません。
 
 ```text
-pEmitter → pChangeStyle → pRender → Image
+pEmitter → pChangeStyle → pBounce → pRender
+              ↑             ↑
+              └── same Region
 ```
 
-## 注意点
+## 運用例
 
-- このページはノードを選ぶための役割・データ領域・系譜を先に揃えています。
-- exactな内部ID、端子名、初期値、数値範囲、Edition差は、確認できたものだけ今後追記します。
-- legacy系譜の項目は、現在のEffects Libraryに同名で表示されることまで一件ずつ実機確認したものではありません。
+床へ当たったparticleの色を変える場合:
 
-## バージョンと検証状況
+1. pChangeStyleとpBounceへ同じRegionを設定します。
+2. pChangeStyleをpBounceより前へ置きます。
+3. Styleでcollision後に見せたいColor / appearanceを設定します。
+4. pBounceで反射させます。
 
-旧Blackmagic Design公式Tool Referenceで役割と系譜を確認しています。Fusion 21.1での存在、端子名、Inspector項目、初期値、範囲は実機または現行マニュアルで再確認が必要です。
+## 関連Node
 
-このリファレンスのinventory基準はDaVinci Resolve / Fusion 21.0.4です。Manual全体は21.1基準へ更新中のため、21.1で差がある箇所は現行資料または実機確認後に更新します。
+- [pBounce](./pbounce)
+- [pEmitter](./p-emitter)
+- [pCustom](./pcustom)
+
+## 出典と確認範囲
+
+DaVinci Resolve 21.1 Reference Manual Chapter 114 pp.2651–2652で、RegionによるStyle change、Change Sets、Node順の公式例を確認しました。
+
+Style共通Controlの全項目は個別に未展開です。

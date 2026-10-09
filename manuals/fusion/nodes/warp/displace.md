@@ -1,63 +1,122 @@
 ---
-title: "Displace"
-description: "別画像を変位マップとしてワープ。"
+title: Displace
+description: 別Imageのchannel値を変位mapとして読み、2D Imageを中心方向またはX/Y方向へ歪ませるNode。
 doc_type: node
-term_id: "displace"
-term_short: "Displaceは、別画像を変位マップとしてワープ。"
+term_id: displace
+term_short: "Displaceは、別Imageの画素値を変位量として使い、Imageを歪ませるNode。"
 verification: partial
-aliases: ["Displace", "DSP"]
-concepts: ["image-data"]
-nodes: ["Displace"]
-node_family: "warp"
-inputs: ["image"]
-outputs: ["image"]
-tasks: ["warp-image"]
+aliases: [Displace, Dsp]
+concepts: [image-data]
+nodes: [Displace]
+node_family: warp
+controls: [Type, Center, Refraction Channel, Refraction Strength, X Refraction, Y Refraction, Light Power, Light Angle, Spread, Light Channel]
+inputs: [image, image, mask]
+outputs: [image]
+tasks: [warp-image]
 product_scope: fusion
-suite_surfaces: ["fusion"]
-updated: "2026-10-03"
+suite_surfaces: [fusion]
+updated: "2026-10-05"
 ---
 
 # Displace
 
-別画像を変位マップとしてワープ。
+Displaceは、変形したいImageとは別に**変位map用のImage**を受け取り、その画素値を使ってmain Imageのsampling位置をずらすNodeです。Fast Noiseのような模様をmapへ使えば、熱気・水面・布の揺れのような不規則な歪みを作れます。
 
-## 概要
+## 役割
 
-- **種別**: Node / Tool
-- **分類**: Warp
-- **主なデータ領域**: 2D Image / control
-- **略称**: `DSP`
-- **導入・系譜**: legacy
-- **根拠レベル**: Blackmagic Design公式の旧Fusion Tool Referenceにある系譜
+```text
+Image to warp ────────→ Input
+Displacement map ─────→ Foreground Image → Displace → Image
+Mask ─────────────────→ Effect Mask
+```
 
-## 入力と出力
+mapそのものを合成するのではなく、Red / Green / Blue / Alpha / Luminanceの値を変位量として利用します。
 
-この項目はカタログ上、**2D Image / control**を主なデータ領域として扱います。上のfrontmatterにある入出力は領域を検索するための分類であり、Fusion 21.1の正確な端子数や端子名を断定するものではありません。
+## 入力
 
-実際に組むときはFlow上の端子ラベルとInspectorを確認し、2D Image、Mask、Shape、Particle、Classic 3D、USD、Deep、パラメータ値を取り違えないようにします。
+### Input
+
+オレンジ色のInputへ、実際に歪ませたい2D Imageを接続します。21.1 Manualでは必須入力です。
+
+### Foreground Image
+
+緑色のForeground Imageへ、変位mapとして使うImageを接続します。こちらも必須です。どのchannelを変位へ使うかはRefraction Channelで選びます。
+
+### Effect Mask
+
+青色のEffect MaskへMaskを接続すると、効果を必要な領域だけに限定できます。MaskはNodeの処理後に適用されます。
+
+## 出力
+
+mapに従って座標が移動した2D Imageを出力します。後段では通常のImageとしてMerge、Color、Blurなどへ接続できます。
+
+## RadialとX/Y
+
+### Radial
+
+Centerを基準に、mapの値でpixelを内側または外側へ動かします。Refraction Strengthで変位の強さを調整します。
+
+### X/Y
+
+X方向とY方向を別々に扱います。X Refraction / Y Refractionで各軸の強さを調整し、Refraction ChannelもXとYで個別に選べます。
+
+## 主な設定項目
+
+### Refraction Channel
+
+変位mapのRed / Green / Blue / Alpha / Luminanceから、変位へ使うchannelを選びます。Radialでは1組、X/YではX用とY用の2組です。
+
+### Light Power / Light Angle
+
+変位mapの起伏へ仮想的な明暗を付けます。Light Powerは強さ、Light Angleは方向を調整します。
+
+### Spread / Light Channel
+
+Spreadはmapのridgeやedgeを広げます。Light Channelは仮想lightの計算へ使うColor / Red / Green / Blue / Alpha / Luminanceを選びます。
 
 ## 主な用途
 
-別画像を変位マップとしてワープ。
-
-## 使うときの判断
-
-前後のノードと同じ2D Image領域で使うのが基本です。Maskや補助入力がある場合は、画像入力と役割を分けて接続します。
+- Fast Noiseをmapにして、空気が揺れるようなheat distortionを作る
+- noiseを時間変化させ、布や水面へ不規則な揺れを加える
+- channelごとに異なるmapを使い、X/Y方向を独立して歪ませる
+- Light controlsを使い、屈折したedgeへ明暗を付けてbevel風に見せる
 
 ## 最小構成
 
 ```text
-Image → Displace → Image
+MediaIn ───────→ Displace → MediaOut
+Fast Noise ───→ Foreground Image
 ```
 
-## 注意点
+Fast NoiseをForeground Imageへ接続し、Refraction Strengthを小さく動かして変位方向を確認します。Fast Noiseを時間変化させると、歪みも動きます。
 
-- このページはノードを選ぶための役割・データ領域・系譜を先に揃えています。
-- exactな内部ID、端子名、初期値、数値範囲、Edition差は、確認できたものだけ今後追記します。
-- legacy系譜の項目は、現在のEffects Libraryに同名で表示されることまで一件ずつ実機確認したものではありません。
+## 運用例
 
-## バージョンと検証状況
+背景へ熱気の揺らぎを加える場合、背景clipをInput、Fast NoiseをForeground Imageへ接続します。X/Y modeなら横方向と縦方向のchannel・強さを別々に調整できます。必要ならEffect Maskで熱気を出したい範囲だけに限定します。
 
-旧Blackmagic Design公式Tool Referenceで役割と系譜を確認しています。Fusion 21.1での存在、端子名、Inspector項目、初期値、範囲は実機または現行マニュアルで再確認が必要です。
+21.1 ManualでもFast NoiseをDisplace mapへ使うBasic Node Setupが示されています。
 
-このリファレンスのinventory基準はDaVinci Resolve / Fusion 21.0.4です。Manual全体は21.1基準へ更新中のため、21.1で差がある箇所は現行資料または実機確認後に更新します。
+## Grid Warp / Vector Distortionとの違い
+
+- **Displace** — 別Imageのchannel値を変位mapとして使う
+- **Grid Warp** — Viewer上のmeshを直接動かす
+- **Vector Distortion** — vector channelをX/Y方向の変位量として使う
+
+noiseやgrayscale mapから歪みを作るならDisplace、手で形を合わせるならGrid Warp、motion vector等を使うならVector Distortionを先に検討します。
+
+## 挙動と注意点
+
+Foreground Imageは変位量を決めるcontrol sourceです。map側のcontrastやchannel内容を変えると、同じStrengthでも歪み方が変わります。
+
+## 関連Node
+
+- [Fast Noise](../generators/fast-noise)
+- [Grid Warp](./grid-warp)
+- [Vector Distortion](./vector-distortion)
+- [Vector Warp](./vector-warp)
+
+## 出典と確認範囲
+
+DaVinci Resolve 21.1 Reference Manual、September 2026、Chapter 123 pp.2967–2969で、3入力、Radial / X/Y、Center、Refraction Channel、Refraction Strength、X/Y Refraction、Light Power / Angle、Spread、Light Channel、Fast Noiseを使うBasic Node Setupを確認しました。
+
+全既定値・数値範囲、内部REGID、実機performanceは未確認です。

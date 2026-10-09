@@ -48,21 +48,23 @@ Element C ───┤
 - 1 段階ごとの合成責任を説明できる。
 - per-layer transform / blend 役割の管理元を明示する。
 - 診断で中間結果を観察できる。
--「Node数が少ない」だけでMultiMergeを選ばない。
+- 「Node数が少ない」だけでMultiMergeを選ばない。
 - 分岐再利用や個別effect chainが必要なら、その構造を優先する。
 
-## When Merge chain fits
+## Merge chainが向く場合
 
-- 段階ごとに別effectを挟む。
-- intermediate 結果を頻繁に確認する。
+- 段階ごとに別Effectを挟む。
+- 中間結果を頻繁にViewerで確認する。
 - 分岐構造が複雑。
-- 1つずつ合成 reasonを分離したい。
+- 1つずつ合成の役割を分けたい。
 
-## When MultiMerge fits
+## MultiMergeが向く場合
 
 - 多数のForeground Layerを1箇所で管理したい。
-- per-layer transform / merge controlをまとめたい。
--同種Layerを一覧的に扱う方が読みやすい。
+- Layer Listで順序を入れ替えたい。
+- Layer単位でEnable / Disableや素材差し替えを行いたい。
+- 各LayerのTransform / Merge controlsを同じInspectorで管理したい。
+- 同種Layerを一覧的に扱う方が読みやすい。
 
 ## 失敗しやすい点
 
@@ -77,5 +79,12 @@ Element C ───┤
 
 ## 関連Node
 
+- [合成ノード（Compositing）](../../nodes/compositing/)
 - [Merge](../../nodes/compositing/merge)
 - [MultiMerge](../../nodes/compositing/multi-merge)
+
+## 21.1で確認できる違い
+
+DaVinci Resolve 21.1 Reference Manualでは、MultiMergeはForegroundを追加するたびにLayer Listへ新しいLayerを作り、Layer順、Enable / Disable、素材差し替え、Layerごとの独立Merge controlsを管理できます。
+
+Merge chainでは各MergeがGraph上に独立して残るため、間へ別Nodeを挟み、中間結果を直接Viewerへ出す構造を保ちやすくなります。

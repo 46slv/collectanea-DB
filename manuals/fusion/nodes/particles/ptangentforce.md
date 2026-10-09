@@ -1,63 +1,52 @@
 ---
-title: "pTangentForce"
-description: "接線方向のForce。"
+title: pTangentForce
+description: RegionとParticleを結ぶvectorに対して接線方向のforceを加え、region周囲を回り込むmovementを作るNode。
 doc_type: node
-term_id: "ptangentforce"
-term_short: "pTangentForceは、接線方向のForce。"
+term_id: ptangentforce
+term_short: pTangentForceは、regionに対する接線方向へparticleを動かすNode。
 verification: partial
-aliases: ["pTangentForce", "PTF"]
-concepts: ["particle-data"]
-nodes: ["pTangentForce"]
-node_family: "particles"
-inputs: ["particle"]
-outputs: ["particle"]
-tasks: ["create-particles"]
+aliases: [pTangentForce, pTangent Force, pTF]
+concepts: [particle-data, particle-region]
+nodes: [pTangentForce]
+node_family: particles
+controls: [Random Seed, Center Position XYZ, Center Strength XYZ, Conditions, Region]
+inputs: [particle, region]
+outputs: [particle]
+tasks: [particles, tangent-force, orbit]
 product_scope: fusion
-suite_surfaces: ["fusion"]
-updated: "2026-10-03"
+suite_surfaces: [fusion]
+updated: "2026-10-04"
 ---
 
 # pTangentForce
 
-接線方向のForce。
+pTangentForceは、Regionと<Term id="particle-data">Particle</Term>を結ぶvectorに対して垂直な方向、つまり接線方向へforceを加えるNodeです。
 
-## 概要
+particleをregionへ直接引き寄せるのではなく、その周囲を回り込むようなmovementを作れます。
 
-- **種別**: Node / Tool
-- **分類**: Particles
-- **主なデータ領域**: Particle set
-- **略称**: `PTF`
-- **導入・系譜**: legacy
-- **根拠レベル**: Blackmagic Design公式の旧Fusion Tool Referenceにある系譜
+## 主な設定
 
-## 入力と出力
+### Center Position XYZ
 
-この項目はカタログ上、**Particle set**を主なデータ領域として扱います。上のfrontmatterにある入出力は領域を検索するための分類であり、Fusion 21.1の正確な端子数や端子名を断定するものではありません。
+tangent forceの中心位置を指定します。
 
-実際に組むときはFlow上の端子ラベルとInspectorを確認し、2D Image、Mask、Shape、Particle、Classic 3D、USD、Deep、パラメータ値を取り違えないようにします。
+### Center Strength XYZ
 
-## 主な用途
-
-接線方向のForce。
-
-## 使うときの判断
-
-Particle setは2D Imageではありません。最終的に画像として合成する場合は`pRender`を使います。
+各axisで接線方向forceの強さを決めます。
 
 ## 最小構成
 
 ```text
-pEmitter → pTangentForce → pRender → Image
+pEmitter → pTangentForce → pRender
 ```
 
-## 注意点
+Regionを設定した場合、その形に対するtangent方向へparticle movementが変化します。
 
-- このページはノードを選ぶための役割・データ領域・系譜を先に揃えています。
-- exactな内部ID、端子名、初期値、数値範囲、Edition差は、確認できたものだけ今後追記します。
-- legacy系譜の項目は、現在のEffects Libraryに同名で表示されることまで一件ずつ実機確認したものではありません。
+## pVortexとの違い
 
-## バージョンと検証状況
+- **pTangentForce** — region / centerとの幾何関係から接線方向forceを作る
+- **pVortex** — rotational forceと中心への引き寄せを組み合わせた渦movementを作る
 
-旧Blackmagic Design公式Tool Referenceで役割と系譜を確認しています。Fusion 21.1での存在、端子名、Inspector項目、初期値、範囲は実機または現行マニュアルで再確認が必要です。
+## 出典と確認範囲
 
-このリファレンスのinventory基準はDaVinci Resolve / Fusion 21.0.4です。Manual全体は21.1基準へ更新中のため、21.1で差がある箇所は現行資料または実機確認後に更新します。
+DaVinci Resolve 21.1 Reference Manual Chapter 114 pp.2687–2688で、Particle / Region input、Center Position / Strength XYZを確認しました。

@@ -5,7 +5,7 @@ doc_type: index
 verification: partial
 product_scope: fusion
 tasks: [lookup-node, inspect-controls]
-updated: '2026-10-03'
+updated: '2026-10-05'
 ---
 
 # ノードリファレンス（Node Reference）
@@ -16,52 +16,105 @@ Fusionで使うノードと関連要素を、名前だけでなく、何を受�
 
 ## 掲載範囲
 
-21.0.4基準の357項目とMediaIn・MediaOutによる従来の359ページに、September 2026版21.1 Reference Manualで確認した25項目と、公式21.1発表で確認したConnect 3Dを追加しています。現在は**385のノード・関連要素ページ**があります。カテゴリの案内ページはこの数に含めません。
+2026-10-05のreader-first completion candidateには、**420のノード・関連要素ページ**があります。カテゴリ案内ページはこの数に含めません。
 
-この数は「21.1のAdd Toolに表示されるノード数」ではありません。ModifierとPaint内部要素を含み、実機のTool registryとはまだ全件照合していません。Resolve FX・OpenFX・Fuse・Macro・Template・Reactorも、この固定件数と同じ意味では扱いません。
+この420は「Resolve 21.1のAdd Toolに表示される420 Node」という意味ではありません。通常のFlow Nodeだけでなく、Modifier、Paint内部要素、Krokodove、USD、Deep、MediaIn / MediaOut等の関連項目も含むdocumentation inventoryです。
+
+21.1 Reference Manualとの照合で独立sectionを確認できた項目は追加し、既存catalogのlegacy項目は役割・data domainを保ったreader-first形式へ移行しました。正確なruntime Tool registry件数とは分けて扱います。
+
+## 本文passの状態
+
+reader-first本文passは完了しています。
+
+- 旧generated templateのまま残っていた196ページを、役割・入出力domain・使うときの判断・最小構成・Family導線・確認範囲を持つ形式へ移行
+- 旧template marker: 0
+- `description` と同じ一行をそのまま `主な用途` に繰り返すpattern: 0
+- 全Node categoryにFamily Overviewあり
+- 21.1 Manualで主要ControlやInputを確認できたNodeは、確認できた内容を具体的に記述
+- Manual側の情報が一行要約等に限られる項目は、`source-limited` として未確認Controlを推測しない
+
+つまり、全420ページが同じ情報密度という意味ではありません。**Manualで深く確認できたページ**と**役割・domainまでを安全に説明するsource-limitedページ**を意図的に区別しています。
 
 ## Familyから探す
 
-Node名より先にデータ領域や共通構造を知った方が理解しやすいFamilyは、案内ページを用意します。
+- [合成ノード（Compositing）](./compositing/) — Merge / MultiMerge / Dissolve
+- [Transform / Formatノード](./transform/) — 配置・perspective・解像度変換
+- [Maskノード](./masks/) — Primitive / Spline / Image由来 / Paint
+- [Blur / Filterノード](./blur-filter/) — blur・glow・sharpen・filter
+- [Colorノード](./color/) — tone・channel・white balance・color management
+- [Matte / Keying](./matte-keying/) — key・matte・Alpha cleanup
+- [Trackingノード](./tracking/) — Point / Planar / Camera tracking
+- [Optical Flow / Motion](./optical-flow/overview) — motion vector解析とframe生成
+- [Generatorノード](./generators/) — Background・noise・text等のsource
+- [Shapeノード](./shapes/) — vector Shapeの生成・加工・render
+- [Particleノード](./particles/) — emit・force・behavior・pRender
+- [Classic 3Dノード](./3d/) — Geometry / Camera / Merge / Renderer
+- [3D Material / Lightノード](./materials-lights/) — surface materialとlighting
+- [USDノード](./usd/) — load・prim編集・material・light・render
+- [Deep / Auxiliary Channelノード](./deep/) — true Deep ImageとAOV post-process
+- [Warp / Distort](./warp/) — displacement・grid・lens・vector warp
+- [Paint](./paint/overview) — Paint Nodeと内部Stroke / Clone要素
+- [Modifier](./modifiers/) — Parameterを式・Spline・Path等で駆動
+- [Time / Metadata / Utility](./time-metadata/) — retime・metadata・DoD・bit depth
+- [Utility / I/O](./utility-io/) — Loader / Saver / MediaIn / MediaOut / routing
+- [Stereo 3D](./stereo/) — stereo pair・disparity・depth
+- [Immersive / 360°](./immersive/) — lat-long・spherical処理
+- [LUT](./lut/) — LUT適用・生成・解析
+- [Krokodove](./krokodove/) — Image / Shape / 3D / Regionをdomain別に案内
 
-- [Shapeノード](./shapes/) — Shapeを作る・変える・増やす・まとめる・画像化する流れ
-- [Krokodoveの画像・Shape・3D・Region](./krokodove/) — Krokodove内の異なるデータ領域を分けて探す
+## まずConceptを読むFamily
 
-Shapeそのものの意味は[シェイプ（Shape）](../learn/02-data/shape)で説明しています。
+Node名だけではdata domainが分かりにくいFamilyは、LearnのConceptを先に読むと理解しやすくなります。
+
+- [シェイプ（Shape）](../learn/02-data/shape)
+- [パーティクル（Particle）](../learn/02-data/particle)
+- [Classic 3D scene](../learn/02-data/classic-3d)
+- [USD scene](../learn/02-data/usd)
+- [Deep Image](../learn/02-data/deep-image)
+- [補助Channel / AOV](../learn/02-data/auxiliary-channels)
+- [マスク（Mask）](../learn/02-data/mask)
 
 ## 各Nodeページで確認すること
 
-Node Referenceは、分類名と一行要約だけを並べる一覧ではありません。初めてそのNodeを見る場合でも、確認できている範囲で次を判断できることを基準にします。
+Node Referenceは、分類名と一行要約だけを並べる一覧ではありません。確認できている範囲で、次を判断できることを基準にします。
 
 - **役割** — 入力前と出力後で何が変わるか
-- **入力** — 何を接続するか。必須・任意やデータ領域
-- **出力** — 何が返り、次にどの種類のNodeへ渡せるか
-- **主な設定** — Controlを変えると結果がどう変わるか
+- **入力 / 出力** — 何を接続し、何のdata domainが返るか
+- **主な設定** — Manualで確認できたControlを変えると何が変わるか
 - **最小構成** — 役割を確認できる短いGraph
-- **運用例** — 何を作るときに使うか
-- **似たNodeとの違い** — 最初の選択基準
-- **出典と確認範囲** — Manual、公式発表、実機確認、構成案のどこまでか
+- **運用例 / 判断** — 何を作るときに使うか、似たNodeとどう選ぶか
+- **Family / Concept導線** — 前提となる用語・data domainへ戻れるか
+- **出典と確認範囲** — Manual確認、source-limited、runtime未確認を区別
 
-「ShapeをGrid複製」「色を処理」のように、別の専門語へ言い換えただけの説明は完成扱いにしません。専門語が必要な場合は本文でも最低限の意味を説明し、詳しいConceptへつなぎます。
+「ShapeをGrid複製」「式で駆動」のような一行だけでは完成扱いにしません。Manualに詳細がないページでも、読者が少なくともdata domainと役割、次の接続先を判断できるところまでは説明します。
 
-## 21.1資料から追記した内容
+## 21.1 Manualで深くした代表例
 
-[Krokodoveの案内](./krokodove/)では、Shapeの生成・輪郭加工、3D生成、Regionによる作用範囲の指定を分けています。Chapter 105の85記名項目には参照先を揃えていますが、全項目のInspectorや実機動作まで確認済みという意味ではありません。
+- Shape: [sGrid](./shapes/sgrid)、[sDuplicate](./shapes/sduplicate)、[sEllipse](./shapes/s-ellipse)、[sRender](./shapes/s-render)
+- Compositing: [Merge](./compositing/merge)、[MultiMerge](./compositing/multi-merge)、[Dissolve](./compositing/dissolve)
+- Transform: [Transform](./transform/transform)、[Resize](./transform/resize)、[Crop](./transform/crop)
+- Masks: Chapter 108掲載の10 Mask Node
+- Blur / Filter: Chapter 92 / 99の現行掲載Node
+- Color: Chapter 93とSwizzler
+- Tracking: Tracker / Planar Tracker / Planar Transform / Camera Tracker
+- Particles: Chapter 114掲載20 Node
+- Classic 3D / Materials: core scene / renderer / camera / geometry / light
+- USD: Chapter 121掲載27 Node
+- Deep: Chapter 95のDeep ImageとChapter 96のDeep Pixel / AOV
+- Krokodove: Chapter 105の85記名項目をdomain別に整理
 
-[OpenPBR](./materials-lights/openpbr)は、21.1 Manualの入力メニューと構成図を基に、複数のテクスチャから3D材質を組む流れを記述しています。[sChangeStyle](./shapes/schangestyle)もManualのColorとAllow Combiningを説明し、既存[sOffset](./shapes/soffset)は曖昧な説明と裏付けのない導入版断定を修正しました。
+## まだ「未完了」とするもの
 
-[sGrid](./shapes/sgrid)、[sDuplicate](./shapes/sduplicate)、[sEllipse](./shapes/s-ellipse)、[sRender](./shapes/s-render)は、21.1 Manualで確認できるInput・Control・基本Graphまで反映し、Shapeの代表例としてreader-first形式へ改稿しています。
+本文passとruntime verificationは別です。次は本文完成の未達ではなく、別verification waveとして扱います。
 
-## 根拠の読み方
+- 現行Resolve 21.1実機のvisible tool name / REGID
+- native / installed extensionの所属
+- exact Input / Output端子
+- default / range
+- Free / Studio差
+- 各最小Graphの実機render結果
+- representative Node graph / Inspector / Before-After画像
 
-ページ全体の `verification: partial` は「何も分かっていない」という意味ではありません。Manualで確認できた役割・Control・接続例は具体的に書き、実機で確認していないREGID、Edition差、全端子、全既定値などは別に残します。
+画像は文章を補う実例として後から追加します。全ページへ空placeholderを置くことはしません。
 
-「Manualの構成例」は公式資料の図・本文に基づきます。「構成案」「確認案」は、確認済みの役割から組み立てた提案です。実機で再現した結果とは分けます。
-
-## 未完了の確認
-
-21.1 Manual全体と従来カタログの照合では、Krokodove以外にも未照合の名称が残っています。見出し・別名・同名別機能を整理してから追加する必要があるため、現時点では「21.1全ノード網羅完了」としません。
-
-正確なREGID、実機のTool registry、端子、初期値、範囲、Edition差、描画結果は、Manual整理とは別のruntime確認段階で進めます。
-
-詳細な照合状況は `docs/fusion-211-manual-coverage.md` に記録しています。
+詳細なManual照合状況は `docs/fusion-211-manual-coverage.md` を参照してください。

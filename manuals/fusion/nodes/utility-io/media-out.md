@@ -14,67 +14,37 @@ level: foundation
 product_scope: resolve
 suite_surfaces: [fusion, edit]
 ---
-
 # MediaOut
 
-Fusion Flowの最終ImageをResolve側へ返すoutput Nodeです。
+MediaOutは、Fusion compositionの2D ImageをDaVinci ResolveのEdit / Cut / Color pipelineへ返すoutput Nodeです。
 
-## 概要
-
-- **分類（Family）**: Utility / I/O
-- **入力データ（Input domain）**: 2D Image
-- **関連概念（Core concepts）**: Resolve integration、output boundary
-- **よく使う作業（Common tasks）**: Fusion 結果をtimelineへ返す
+Resolve Fusion pageでは、最終compに少なくとも1つのMediaOutが必要です。
 
 ## 入力
 
-### Image
+orange Inputへ最終2D Imageを接続します。
 
-Fusion compositionの最終結果としてResolve側へ返す2D Imageを受け取ります。
+    MediaIn → Node Graph → MediaOut
 
-## 出力
+## MediaOut1
 
-Flow上の通常Image outputを下流Nodeへ渡すためのNodeというより、Resolve hostへ結果を返すboundaryとして扱います。
+最初のMediaOutはFusion pageの最終ImageとしてEdit / Cut timelineへ戻ります。
 
-## 主な設定項目
+Resolve Color Management / ACESを使うprojectでは、MediaOutでtimeline color spaceへのhandoffが行われます。
 
-Resolve側と連携する正確な設定項目は現在の Resolve / Fusion contextで確認します。
+## 追加MediaOut
 
-## 挙動と注意点
+2つ目以降のMediaOutは、matteをColor pageへ渡す用途に使えます。
 
-Resolve 20 VFX Guideでは、MediaOutはfinal Fusion 結果をEdit timelineへ送るoutputとして説明されています。
+そのため「MediaOutは常に1個だけ」と考えず、beauty outputとmatte handoffを分けられます。
 
-```text
-MediaIn
-  ↓
-Fusion processing
-  ↓
-MediaOut
-  ↓
-Resolve Timeline
-```
+## Saverとの違い
 
-MediaOutを外した状態でViewerにImageが見えていても、それだけでtimelineへ正しく結果が返っているとは限りません。
+- MediaOut — Resolve project内のpage間handoff
+- Saver — disk fileへrender
 
-## 最小例
+Resolveで通常のtimeline outputを作る場合、SaverではなくMediaOutが正規の終端です。
 
-```text
-MediaIn → Transform → MediaOut
-```
+## 出典と確認範囲
 
-## 関連する考え方
-
-- [Graphとして考える](../../learn/01-flow/graph-as-flow)
-
-## 関連パターン
-
-- [Last Good / First BadでGraphを切る](../../patterns/debugging/last-good-first-bad)
-
-## 似たNode・関連Node
-
-- Saver — file/sequence output系
-- MediaIn — ResolveからFusionへのinput boundary
-
-## バージョンと検証状況
-
-MediaOutがFusion 結果をResolve timelineへ返すboundaryであることはBlackmagic Design公式Resolve 20 VFX Guideで確認。21.1 host-specific controlsは未固定です。
+DaVinci Resolve 21.1 Reference Manual Chapter 104 pp.2419–2422で、必須output、Color page handoff、追加MediaOutによるmatte送出を確認しました。

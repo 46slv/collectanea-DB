@@ -62,7 +62,7 @@ position 問題とclipping 問題を分けます。
 
 ### Blur / Filter
 
-filterによって必要領域が広がる場合、edgeやdomain 挙動を確認します。
+BlurやDefocusのように周囲のpixelを参照するFilterでは、DoD境界が見た目へ直接影響します。21.1 ManualのBlur系にはClipping ModeとしてFrame / Domain / Noneがあり、特に大きなfilterでedge clippingが出る場合の確認項目です。
 
 ### Resize / Crop
 
@@ -97,11 +97,14 @@ resolutionを変える操作と、単にImageをscaleする操作を同一視し
 ## 関連Node
 
 - [Transform](../../nodes/transform/transform)
-- Resize Referenceはこのバッチで追加します。
+- [Resize](../../nodes/transform/resize)
+- [Crop](../../nodes/transform/crop)
+- [Blur](../../nodes/blur-filter/blur)
+- [Defocus](../../nodes/blur-filter/defocus)
 
 ## 次に読む
 
 → [症状ではなくGraphを診断する](./diagnose-graph-not-symptom)
 
 ---
-検証メモ: DoD / RoI / フレーム extentの区別はFusion 21系semantic baselineに基づく。Nodeごとの現在の clipping/domain 設定は21.1 実機 / マニュアル verificationを優先します。
+検証メモ: DoD / RoI / frame extentの区別はFusion 21系semantic baselineに基づきます。DaVinci Resolve 21.1 Reference ManualではChapter 92のBlur / Defocus等とChapter 120のCropにFrame / Domain / NoneのClipping Modeが記載されています。Node固有の処理順は各Referenceを優先します。

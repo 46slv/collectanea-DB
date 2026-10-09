@@ -1,75 +1,156 @@
 ---
 title: Planar Tracker
-description: 平面領域を追跡し、Corner PinやPlanar Transform等へ利用するトラッキング Node。
+description: 平面領域のtranslation・rotation・scale・perspective変化を解析し、Planar Transform、Corner Pin、Steady、Stabilizeへ使うTracker。
 doc_type: node
 term_id: planar-tracker
-verification: unverified
-aliases: [Planar Tracker]
+verification: partial
+aliases: [Planar Tracker, PTRA]
 concepts: [tracking, coordinate-space, parameter-data]
 nodes: [Planar Tracker]
 node_family: tracking
-inputs: [image]
+controls: [Operation Mode, Reference Time, Tracker, Motion Type, Track Channel, Output, Tracking Controls, Create Planar Transform, Steady Time, Invert Steady Transform, Clipping Mode]
+inputs: [image, image, mask, mask]
+outputs: [image, tracking]
 tasks: [track, planar-track, screen-replace, stabilize]
 level: intermediate
 product_scope: fusion
 suite_surfaces: [fusion]
+updated: "2026-10-04"
 ---
 
 # Planar Tracker
 
-平面として扱える領域の動きを追跡するトラッキング Nodeです。
+Planar Trackerは、看板・壁・画面など、平面として扱える領域の動きとperspective変化を解析するNodeです。
 
-## 概要
-
-- **分類（Family）**: トラッキング
-- **主な参照元（Primary 参照元）**: 2D Image
-- **関連概念（Core concepts）**: planar 動き、トラッキング data、coordinate transfer
-- **よく使う作業（Common tasks）**: screen / sign replacement、planar match move、stabilize、Corner Pin
+1点の位置だけでなく、面の傾きやscale変化までまとめて追えるため、screen replacementやsign replacement、planar rotoで使います。
 
 ## 入力
 
-### Image
+### Background
 
-追跡対象の2D Imageを受け取ります。
+オレンジ色の入力です。平面領域を含む2D Imageを接続します。
 
-## 出力
+### Corner Pin
 
-Image処理とトラッキング 結果を扱うToolですが、21.1 正確な Output port / exported data 仕組みはこのReferenceでは未固定です。
+緑色の入力です。Corner Pin modeで、解析した平面へ貼り付けるImageを接続します。複数のCorner Pin入力を持てます。
 
-## 主な設定項目
+### Occlusion Mask
 
-トラッキング region、動き model、track 範囲、reference time等に相当するcontrolがありますが、正確な 21.1 UIは未検証です。
+白色の任意入力です。
 
-## 挙動と注意点
+Maskが白い領域を解析対象から除外します。tracked planeの手前を別objectが横切る場合など、誤ったfeatureを計算へ含めたくないときに使います。
 
-重要なのは「追跡した」ことより、**どのspaceのトラッキング dataを、どのdownstream controlへ適用するか**です。
+### Effect Mask
 
-Planar Trackerの結果をPlanar TransformやCorner Pinへ使う場合も、トラッキングとapplicationを別責任として読みます。
+青色の任意入力です。Planar Trackerの最終outputを適用する範囲を制限します。
 
-## 最小例
+Occlusion Maskはanalysis対象を除外するMask、Effect MaskはNode出力を制限するMaskなので役割が異なります。
+
+## 基本workflow
+
+21.1 Manualの基本手順は次の流れです。
+
+1. lens distortionが大きい場合は先に補正する。
+2. Backgroundへfootageを接続する。
+3. planeが大きく見え、occlusionが少ないframeをReferenceにする。
+4. Viewerで追うplaneをclosed polygonとして囲む。
+5. 必要ならOcclusion Maskを接続する。
+6. render rangeとTracker / Motion Type / Track Channelを確認する。
+7. Reference frameから前後へ解析する。
+8. Steady mode等で結果がplaneへ固定されて見えるか確認する。
+9. 多くの用途ではCreate Planar Transformで適用用Nodeを作る。
+
+## Operation Mode
+
+Planar Trackerは4つのOperation Modeを持ちます。
+
+### Track
+
+planeを解析する基本modeです。
+
+Track後にCreate Planar Transformを使い、別ImageやMaskへ同じperspective movementを適用できます。
+
+### Steady
+
+解析したplaneが動かないようにBackgroundを変形します。
+
+paintやrotoを静止状態で行う前処理や、track qualityの確認に使えます。trackが正確なら、Steady中は対象planeがほぼ動かず、周囲のImageが変形して見えます。
+
+### Corner Pin
+
+解析したplaneへForeground Imageを直接貼り付けます。
+
+Corner Pin modeへ切り替え、緑入力へtexture / graphicを接続してViewerの4cornerを合わせます。
+
+### Stabilize
+
+translation・rotation・scaleの不要な揺れをsmoothにします。
+
+planeを完全停止させるSteadyとは目的が異なり、意図したcamera movementを残しつつ細かな振動を抑える用途です。
+
+## Motion Type
+
+どの種類の変形まで解析するかを決めます。
+
+shotにperspective変化があるのに単純なmotion modelへ制限すると、slideやwobbleが出ることがあります。一方、小さなregionやtrackable featureが少ないshotでは単純なmodelの方が安定する場合もあります。
+
+## Track Channel
+
+Red / Green / Blue / Luminanceから解析するchannelを選びます。
+
+高contrastでfeatureが多く、noiseの少ないchannelを選びます。OutputをBackground - Preprocessedへすると、tracking前処理後のImageを確認できます。
+
+## Create Planar Transform
+
+Track後にこのbuttonを押すと、現在のtrack dataを使うPlanar Transform Nodeが作られます。
+
+full-frame Imageを直接Corner Pinする場合を除き、graphicやMaskへtrackを再利用する用途ではPlanar Transformへ分ける構成が扱いやすくなります。
+
+## 保存時の注意
+
+21.1 Manualでは、Planar Trackerは最終trackはcompositionへ保存しますが、解析途中の個別point trackerなど一時dataは保存しません。
+
+保存・再読込後は途中からtrackingを再開できない場合があるため、1つのplanar analysisは可能なら同じsession内で完了させます。
+
+## 最小構成
 
 ```text
-Footage
-  → Planar Tracker
-  → tracking data / derived transform
-  → replacement graphic
+Footage → Planar Tracker
+               ↓ Create Planar Transform
+
+Graphic → Planar Transform → Merge
 ```
+
+## 運用例
+
+看板へ別graphicを貼る場合:
+
+1. 看板面をReference frameで囲みます。
+2. Track modeで前後へ解析します。
+3. Steady modeでdriftを確認します。
+4. Create Planar Transformを作ります。
+5. GraphicへPlanar Transformを適用してMergeします。
+6. Graphic固有の位置調整はtrack dataと分けて行います。
+
+## Trackerとの違い
+
+- **Tracker** — point / small featureのmotion
+- **Planar Tracker** — plane全体のperspective movement
+- **Camera Tracker** — 3D camera motionとpoint cloudを復元
 
 ## 関連する考え方
 
-- [データ領域（data domain）を辿って診断する](../../learn/07-debugging/trace-data-domain)
-- [Center / Pivot / Size / Angle](../../learn/03-space/center-pivot-size-angle)
+- [Trackを解いてから適用先を分ける](../../patterns/tracking/solve-then-apply-track)
+- [トラッキング結果がずれる / driftする](../../troubleshooting/tracking/track-drifts)
 
-## 関連パターン
+## 関連Node
 
-トラッキング Patternは今後追加します。
+- [Planar Transform](./planar-transform)
+- [Tracker](./tracker)
+- [Camera Tracker](./camera-tracker)
 
-## 似たNode・関連Node
+## 出典と確認範囲
 
-- Tracker
-- Planar Transform
-- Camera Tracker
+DaVinci Resolve 21.1 Reference Manual、September 2026、Chapter 119 pp.2819–2828とFusion Fundamentals Chapter 82で、4入力、basic workflow、4 Operation Mode、Track Channel、Create Planar Transform、Steady / Corner Pin、保存されるtracking dataの範囲を確認しました。
 
-## バージョンと検証状況
-
-Planar Trackerの存在と平面領域のトラッキング（planar region tracking） → Corner Pin / Planar Transform用途は旧版のBlackmagic Design公式Fusion資料で確認。Fusion 21.1での正確な設定項目 / data exportは未検証です。
+全Motion Typeの数式、各tracker engineの内部仕様、実機精度・速度は未確認のため `verification: partial` としています。

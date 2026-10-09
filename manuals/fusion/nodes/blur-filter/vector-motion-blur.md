@@ -1,63 +1,98 @@
 ---
-title: "Vector Motion Blur"
-description: "モーションベクトルを利用したモーションブラー。表示ショート名は他Toolと衝突し得る。"
+title: Vector Motion Blur
+description: Motion Vector AOVまたはOptical Flowのvector mapを使い、pixelごとのX/Y movementに沿ったmotion blurを生成するNode。
 doc_type: node
-term_id: "vector-motion-blur"
-term_short: "Vector Motion Blurは、モーションベクトルを利用したモーションブラー。表示ショート名は他Toolと衝突し得る。"
+term_id: vector-motion-blur
 verification: partial
-aliases: ["Vector Motion Blur", "VBL"]
-concepts: ["image-data"]
-nodes: ["Vector Motion Blur"]
-node_family: "blur-filter"
-inputs: ["image"]
-outputs: ["image"]
-tasks: ["filter-image"]
+aliases: [Vector Motion Blur, VMB]
+concepts: [image-data, auxiliary-channels, motion-vectors]
+nodes: [Vector Motion Blur]
+node_family: blur-filter
+controls: [X Channel, Y Channel, Flip Channel, Lock Scale X/Y, Scale]
+inputs: [image, image, mask, mask]
+outputs: [image]
+tasks: [motion-blur, motion-vectors, aov]
 product_scope: fusion
-suite_surfaces: ["fusion"]
-updated: "2026-10-03"
+suite_surfaces: [fusion]
+updated: "2026-10-04"
 ---
 
 # Vector Motion Blur
 
-モーションベクトルを利用したモーションブラー。表示ショート名は他Toolと衝突し得る。
+Vector Motion Blurは、pixelごとのmovementを記録したMotion Vector mapを読み、動きの方向と距離に沿って2D <Term id="image">Image</Term>をblurするNodeです。
 
-## 概要
+3D rendererのMotion Vector AOVやFusionのOptical Flowからvectorを作れます。
 
-- **種別**: Node / Tool
-- **分類**: Blur / Filter
-- **主なデータ領域**: 2D Image / control
-- **略称**: `VBL`
-- **導入・系譜**: legacy
-- **根拠レベル**: Blackmagic Design公式の旧Fusion Tool Referenceにある系譜
+## Motion Vectorとは
 
-## 入力と出力
+典型的には2つのfloat channelを使います。
 
-この項目はカタログ上、**2D Image / control**を主なデータ領域として扱います。上のfrontmatterにある入出力は領域を検索するための分類であり、Fusion 21.1の正確な端子数や端子名を断定するものではありません。
+- X vector — 横方向に何pixel動いたか
+- Y vector — 縦方向に何pixel動いたか
 
-実際に組むときはFlow上の端子ラベルとInspectorを確認し、2D Image、Mask、Shape、Particle、Classic 3D、USD、Deep、パラメータ値を取り違えないようにします。
+正負の値が必要なため、Manualはfloat16 / float32 channelを前提に説明しています。
 
-## 主な用途
+## 入力
 
-モーションベクトルを利用したモーションブラー。表示ショート名は他Toolと衝突し得る。
+### Input
 
-## 使うときの判断
+motion blurを適用する2D Imageです。
 
-前後のノードと同じ2D Image領域で使うのが基本です。Maskや補助入力がある場合は、画像入力と役割を分けて接続します。
+### Vectors
+
+必須のMotion Vector mapです。
+
+3D rendererのAOVまたはOptical Flowから作ったvector Imageを接続します。
+
+### Vector Mask
+
+白色のpre-maskです。vector blur計算へ入るsourceを処理前に限定します。
+
+### Effect Mask
+
+青色のpost-effect Maskです。最終outputへEffectを適用する範囲を限定します。
+
+## X / Y Channel
+
+vector mapのどのchannelをX movement / Y movementとして使うか指定します。
+
+rendererごとにvector channelの格納先が違う可能性があるため、source rendererのAOV仕様に合わせます。
+
+## Flip Channel
+
+X / Y vectorの符号を反転します。
+
+blurが移動方向と逆へ伸びる場合に確認します。
+
+## Scale
+
+vector値へ倍率を掛け、motion blur lengthを調整します。
+
+Lock Scale X/Yを外すとaxis別scaleを使えます。
 
 ## 最小構成
 
 ```text
-Image → Vector Motion Blur → Image
+Beauty Image ─────→ Vector Motion Blur → Output
+Motion Vector AOV ─→ Vectors
 ```
 
-## 注意点
+Fusionでvectorを作る場合:
 
-- このページはノードを選ぶための役割・データ領域・系譜を先に揃えています。
-- exactな内部ID、端子名、初期値、数値範囲、Edition差は、確認できたものだけ今後追記します。
-- legacy系譜の項目は、現在のEffects Libraryに同名で表示されることまで一件ずつ実機確認したものではありません。
+```text
+Image → Optical Flow ─→ vectors
+  └──────────────────→ Vector Motion Blur
+```
 
-## バージョンと検証状況
+## Directional Blurとの違い
 
-旧Blackmagic Design公式Tool Referenceで役割と系譜を確認しています。Fusion 21.1での存在、端子名、Inspector項目、初期値、範囲は実機または現行マニュアルで再確認が必要です。
+- **Directional Blur** — Image全体へ同じdirection / center modelを適用
+- **Vector Motion Blur** — pixelごとに異なるmotion vectorを使う
 
-このリファレンスのinventory基準はDaVinci Resolve / Fusion 21.0.4です。Manual全体は21.1基準へ更新中のため、21.1で差がある箇所は現行資料または実機確認後に更新します。
+objectごとにmovementが違うshotではVector Motion Blurが本来のmotionに近い結果を作れます。
+
+## 出典と確認範囲
+
+DaVinci Resolve 21.1 Reference Manual Chapter 92 pp.2128–2130で、Motion Vector形式、4 inputs、X/Y Channel、Flip、Scaleを確認しました。
+
+rendererごとのvector convention / normalizationはsource renderer側の仕様確認が必要です。

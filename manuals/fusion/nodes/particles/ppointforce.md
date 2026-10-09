@@ -1,62 +1,64 @@
 ---
-title: "pPointForce"
-description: "点を中心に引力/斥力。"
+title: pPointForce
+description: 3D空間の1点を中心にParticleを引き寄せる/反発させ、Strength・Power・Limit Forceで距離依存のforceを作るNode。
 doc_type: node
-term_id: "ppointforce"
-term_short: "pPointForceは、点を中心に引力/斥力。"
+term_id: ppointforce
+term_short: pPointForceは、1点を中心にparticleをattract / repelするNode。
 verification: partial
-aliases: ["pPointForce"]
-concepts: ["particle-data"]
-nodes: ["pPointForce"]
-node_family: "particles"
-inputs: ["particle"]
-outputs: ["particle"]
-tasks: ["create-particles"]
+aliases: [pPointForce, pPoint Force, pPF]
+concepts: [particle-data, particle-region]
+nodes: [pPointForce]
+node_family: particles
+controls: [Random Seed, Strength, Power, Limit Force, Center XYZ, Conditions, Region]
+inputs: [particle, region]
+outputs: [particle]
+tasks: [particles, attract, repel, point-force]
 product_scope: fusion
-suite_surfaces: ["fusion"]
-updated: "2026-10-03"
+suite_surfaces: [fusion]
+updated: "2026-10-04"
 ---
 
 # pPointForce
 
-点を中心に引力/斥力。
+pPointForceは、3D spaceの1点を中心に<Term id="particle-data">Particle</Term>を引き寄せたり反発させたりするNodeです。
 
-## 概要
+## 主な設定
 
-- **種別**: Node / Tool
-- **分類**: Particles
-- **主なデータ領域**: Particle set
-- **導入・系譜**: legacy
-- **根拠レベル**: Blackmagic Design公式の旧Fusion Tool Referenceにある系譜
+### Strength
 
-## 入力と出力
+正の値でcenterへattract、負の値でcenterからrepelします。
 
-この項目はカタログ上、**Particle set**を主なデータ領域として扱います。上のfrontmatterにある入出力は領域を検索するための分類であり、Fusion 21.1の正確な端子数や端子名を断定するものではありません。
+### Power
 
-実際に組むときはFlow上の端子ラベルとInspectorを確認し、2D Image、Mask、Shape、Particle、Classic 3D、USD、Deep、パラメータ値を取り違えないようにします。
+distanceに応じてforceがどれだけ弱くなるかを決めます。
 
-## 主な用途
+0ではdistanceによるfalloffがなく、値を上げるほどcenterから離れたparticleへforceが届きにくくなります。
 
-点を中心に引力/斥力。
+### Limit Force
 
-## 使うときの判断
+sub-frame samplingが粗い場合、particleがcenterを一気に通り越して反対側へ大きく飛ばされることがあります。
 
-Particle setは2D Imageではありません。最終的に画像として合成する場合は`pRender`を使います。
+Limit Forceを上げると、そのovershootを抑えるために使えます。必要ならpRenderのSub-Frame Calculation Accuracyも合わせて確認します。
+
+### Center XYZ
+
+force中心の3D位置です。
+
+animateするとmoving attractor / repellerを作れます。
 
 ## 最小構成
 
 ```text
-pEmitter → pPointForce → pRender → Image
+pEmitter → pPointForce → pRender
 ```
 
-## 注意点
+## pDirectionalForceとの違い
 
-- このページはノードを選ぶための役割・データ領域・系譜を先に揃えています。
-- exactな内部ID、端子名、初期値、数値範囲、Edition差は、確認できたものだけ今後追記します。
-- legacy系譜の項目は、現在のEffects Libraryに同名で表示されることまで一件ずつ実機確認したものではありません。
+- **pPointForce** — 1点との距離・方向でforceが変わる
+- **pDirectionalForce** — 一定方向へ同じforceを加える
 
-## バージョンと検証状況
+## 出典と確認範囲
 
-旧Blackmagic Design公式Tool Referenceで役割と系譜を確認しています。Fusion 21.1での存在、端子名、Inspector項目、初期値、範囲は実機または現行マニュアルで再確認が必要です。
+DaVinci Resolve 21.1 Reference Manual Chapter 114 p.2677で、Strength、Power、Limit Force、Center XYZを確認しました。
 
-このリファレンスのinventory基準はDaVinci Resolve / Fusion 21.0.4です。Manual全体は21.1基準へ更新中のため、21.1で差がある箇所は現行資料または実機確認後に更新します。
+force integrationの内部式は未確認です。

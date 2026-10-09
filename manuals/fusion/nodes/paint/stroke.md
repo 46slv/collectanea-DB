@@ -3,7 +3,7 @@ title: "Stroke"
 description: "基本Paintストローク。"
 doc_type: node
 term_id: "stroke"
-term_short: "Strokeは、基本Paintストローク。"
+term_short: "Strokeは、基本Paintストローク。Paint systemで使う項目。"
 verification: partial
 aliases: ["Stroke"]
 concepts: ["paint"]
@@ -14,50 +14,48 @@ outputs: ["paint"]
 tasks: ["paint"]
 product_scope: fusion
 suite_surfaces: ["fusion"]
-updated: "2026-10-03"
+updated: "2026-10-05"
 ---
 
 # Stroke
 
-基本Paintストローク。
+Strokeは、基本Paintストローク。Paint Nodeまたはその内部elementとして、stroke / clone / fill等をImageへ描画します。
 
-## 概要
+## 役割
 
-- **種別**: Paint内部要素
-- **分類**: Paint
-- **主なデータ領域**: Paint element
-- **導入・系譜**: legacy
-- **根拠レベル**: Blackmagic Design公式の旧Fusion Tool Referenceにある系譜
+基本Paintストローク。このページでは、名前だけで選ばず、**何を受け取り、何が変わり、どのdomainへ返すか**を先に整理します。
+
+この項目で確認できている中心的な役割は「基本Paintストローク」です。exactなInspector項目が未確認の場合は、役割とdata domainを先に使って候補を絞ります。
 
 ## 入力と出力
 
-この項目はカタログ上、**Paint element**を主なデータ領域として扱います。上のfrontmatterにある入出力は領域を検索するための分類であり、Fusion 21.1の正確な端子数や端子名を断定するものではありません。
-
-実際に組むときはFlow上の端子ラベルとInspectorを確認し、2D Image、Mask、Shape、Particle、Classic 3D、USD、Deep、パラメータ値を取り違えないようにします。
-
-## 主な用途
-
-基本Paintストローク。
+入力分類: **paint**。 出力分類: **paint**。 この分類はdata domainを読むためのものです。Fusion 21.1のexactな端子名・端子数を未確認の場合、ここでは推測して固定しません。
 
 ## 使うときの判断
 
-Add Toolから独立ノードとして置く項目ではなく、Paintノード内部で使う要素です。Paint全体の入力・出力と混同しないでください。
+後編集できるStrokeが必要か、大量の軽量Multistrokeか、Clone / Fill / Shape elementかを分けます。
+
+同じ目的を別Familyでも作れる場合は、後段で必要なdata domainと、Graph上で責任をどこに置きたいかで選びます。
 
 ## 最小構成
 
-```text
-Paint Node
-└─ Stroke
-```
+    Image → Paint / Stroke → Image
 
-## 注意点
+これは接続関係を理解するための最小構成案です。公式Manualのexactな作例として確認していない構成は、実制作前にViewerで中間結果を確認します。
 
-- このページはノードを選ぶための役割・データ領域・系譜を先に揃えています。
-- exactな内部ID、端子名、初期値、数値範囲、Edition差は、確認できたものだけ今後追記します。
-- legacy系譜の項目は、現在のEffects Libraryに同名で表示されることまで一件ずつ実機確認したものではありません。
+## 確認ポイント
 
-## バージョンと検証状況
+- 入力dataのdomainが合っているか。
+- この項目のoutputを受け取れる後段Nodeへ接続しているか。
+- 同じ役割を前段 / 後段で二重に処理していないか。
+- source-limited pageでは、未確認のControl名・default・rangeを名前から推測していないか。
 
-旧Blackmagic Design公式Tool Referenceで役割と系譜を確認しています。Fusion 21.1での存在、端子名、Inspector項目、初期値、範囲は実機または現行マニュアルで再確認が必要です。
+## Family内での位置づけ
 
-このリファレンスのinventory基準はDaVinci Resolve / Fusion 21.0.4です。Manual全体は21.1基準へ更新中のため、21.1で差がある箇所は現行資料または実機確認後に更新します。
+Paintノードの全体像と近いNodeの選び分けは[Family Overview](./overview)を参照してください。
+
+## 出典と確認範囲
+
+このページの役割・data domain・系譜は、既存COLLECTANEA catalogとBlackmagic Design公式資料で確認された範囲をreader-first形式へ整理しています。
+
+Fusion 21.1 Reference Manualで個別のInspector項目・default・rangeまで確認できていない項目は、**source-limited**としてその詳細を断定していません。verification: partial はその未確認範囲を含みます。runtime REGIDや現在のEffects Library表示は別のruntime verificationで確定します。

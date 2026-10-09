@@ -1,68 +1,86 @@
 ---
 title: 平面をtrackしてgraphicへ適用する
-description: Planar Trackerで平面動きを解き、graphic側へ適用する責任を分けた基本Recipe。
+description: Planar Trackerで平面の動きを解析し、Planar Transformへ分けてgraphicを追従させる基本Recipe。
 doc_type: recipe
 verification: partial
 aliases: [planar track graphic, screen replacement]
 concepts: [tracking, coordinate-space]
 patterns: [solve-then-apply-track]
-nodes: [Planar Tracker]
+nodes: [Planar Tracker, Planar Transform, Merge]
 tasks: [track, attach-graphics, screen-replace]
 prerequisites: [data-domain]
 level: intermediate
 product_scope: fusion
+updated: "2026-10-04"
 ---
+
 # 平面をtrackしてgraphicへ適用する
 
-> <Term id="planar-tracker">Planar Tracker</Term>からトラッキング 結果を生成・適用する正確な 21.1 UI手順は現在の manual / host確認前です。このページでは、Graph上の役割と診断順序を扱います。
+## できあがるもの
 
-## 作るもの
+footage内の看板・壁・画面などの平面を解析し、replacement graphicへ同じperspective movementを適用します。
 
-footage内の平面動きを解き、replacement graphicを同じ動きへ追従させる構造を作ります。
+```text
+Footage → Planar Tracker
+               ↓ Create Planar Transform
+
+Graphic → Planar Transform → Merge
+```
 
 ## 必要なもの
 
-- footage
+- planar surfaceを含むfootage
 - <Term id="planar-tracker">Planar Tracker</Term>
 - replacement graphic
-- トラッキング 結果を適用する段階
+- <Term id="planar-transform">Planar Transform</Term>
+- Merge
 
 ## 手順
 
-1. footageを<Term id="planar-tracker">Planar Tracker</Term>へ渡します。
-2. 追跡する平面領域を決めます。
-3. トラッキング solveを行います。
-4. solve 結果を単独で確認します。
-5. replacement graphicへトラッキング dataを適用します。
-6. graphicの個別オフセット / scaleはトラッキング solveと別段階で調整します。
-7. 最終合成を確認します。
+1. footageをPlanar TrackerのBackgroundへ接続します。
+2. Operation ModeをTrackにします。
+3. planeが見やすいframeをReferenceとしてSetします。
+4. Viewerで解析するplaneをclosed polygonとして囲みます。
+5. Motion TypeとTrack Channelを確認します。
+6. Reference frameから前後へ解析します。
+7. Steady modeへ切り替え、planeがずれないか確認します。
+8. Track modeへ戻し、Create Planar Transformを押します。
+9. graphicをPlanar Transformへ接続します。
+10. Planar Transformの出力をMergeのForegroundへ接続します。
+11. graphic固有の位置・大きさは別段階で調整します。
 
-```text
-Footage
-  → Planar Tracker
-  → tracking data
-       ↓
-Replacement Graphic
-  → apply tracked transform
-  → composite
-```
+## Reference frame
 
-## この構成で動く理由
+planeが大きく、輪郭やtextureを読み取りやすいframeを選びます。
 
-トラッキングの精度とgraphic 配置を別々に評価できるため、driftやoffsetの原因を分離できます。
+tracking用に囲むpatternと、Corner Pinで使う4cornerは別です。
 
-## 別の方法
+## Track Channel
 
-- Maskを追従させる。
-- stabilize用途へ使う。
-- planarではなくpoint / camera トラッキングが必要なら別Trackerを選ぶ。
+Red / Green / Blue / Luminanceのうち、contrastが高くfeatureが多いchannelを選びます。
+
+OutputをBackground - Preprocessedへすると、解析前処理後のImageを確認できます。
+
+## Track qualityを確認する
+
+Steady modeでは、解析したplaneが固定されて見えるか確認できます。
+
+この時点でplaneがずれる場合は、graphic側を調整せずPlanar Tracker側を見直します。
+
+## Graphic側の調整
+
+Planar Transformはplaneのmovementを担当します。
+
+graphicのlocal offsetやscaleはgraphic側または別Transformへ分けると、解析結果と見た目調整を別々に扱えます。
 
 ## うまくいかないとき
 
-- トラッキング 参照元自体に十分なplanar detailがあるか。
-- solve 結果はgraphicを付ける前から安定しているか。
-- resolution / coordinate spaceが合っているか。
-- graphic側のmanual アニメーションがトラッキング 結果と競合していないか。
+- lens distortionが強くないか。
+- Reference frameでplaneが十分見えているか。
+- Motion Typeがshotに合っているか。
+- Track Channelにcontrastがあるか。
+- Steady modeの時点でずれていないか。
+- graphic側のanimationとPlanar Transformが重なっていないか。
 
 ## 関連パターン
 
@@ -71,3 +89,11 @@ Replacement Graphic
 ## 関連Node
 
 - [Planar Tracker](../../nodes/tracking/planar-tracker)
+- [Planar Transform](../../nodes/tracking/planar-transform)
+- [Merge](../../nodes/compositing/merge)
+
+## 出典と確認範囲
+
+DaVinci Resolve 21.1 Reference Manual、September 2026、Chapter 119 pp.2819–2828、Chapter 120 pp.2870–2872、およびFusion Fundamentals Chapter 82を基にしています。
+
+実機でのshot別精度は未検証のため `verification: partial` を維持します。
