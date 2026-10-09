@@ -1,9 +1,9 @@
 ---
 title: "Light Trim"
-description: "log Imageの見かけの露出を、film scanner / labのlight trim pointで調整するNode。"
+description: "ログ画像をリニアへ変換する前に、フィルムのトリムポイント単位で見かけの露出を調整するFusionノード。"
 doc_type: node
 term_id: "light-trim"
-term_short: "Light Trimは、log Imageの見かけの露出をfilm scanner / labのtrim point単位で調整するNode。"
+term_short: "Light Trimは、ログ画像の見かけの露出をフィルムのトリムポイント単位で調整するノード。"
 verification: partial
 aliases: ["Light Trim", "LT"]
 concepts: ["image-data", "mask-data"]
@@ -15,93 +15,122 @@ outputs: ["image"]
 tasks: ["stylize-image"]
 product_scope: fusion
 suite_surfaces: ["fusion"]
-updated: "2026-10-05"
+updated: "2026-10-09"
 ---
+
 # Light Trim
 
-Light Trimは、film scannerのlight trimを再現する考え方で、logarithmic dataの見かけの露出を上げ下げするNodeです。
+Light Trimは、ログ（Log）状態の映像を受け取り、見かけの露出をフィルムのトリムポイントという尺度で増減するノードです。たとえば、暗く撮れたログ素材を合成に使う前に明るくしたい場合、ログからリニアへ変換する前段に挿入します。
 
-21.1 Manualでは、Cineon、ARRI、Blackmagic RAWなどのlogarithmic dataで使うことを想定しています。一般的なlinear Imageの露出調整Nodeとして使うのではなく、log sourceをlinearへ変換する前段に置くのが基本です。
+フィルムスキャナーのライト調整を模した処理であり、色の記録方式をログからリニアへ変換するノードではありません。
 
-## 何をするNodeか
+## 役割
 
-Light Trimはlog encodingそのものを変換するNodeではありません。入力されたlog 2D Imageに対して、film / optical printing / lab printingで使うtrim pointの尺度で明るさを調整します。
+カメラのログ記録では、光の強さと画像の数値が直線的に対応していません。Light Trimは、そのログ画像の露出を調整するためのノードです。DaVinci Resolve 21.1 Reference Manualでは、Cineon、ARRI、Blackmagic RAWなどに関係するログデータを対象として説明しています。
 
-log → linear変換は[Cineon Log](./cineon-log)など別のNodeが担当します。
+基本的な接続順は次のとおりです。
 
-    Log Source → Light Trim → Cineon Log (Log to Lin) → Comp
+    ログ画像 → Light Trim → Cineon Log（Log to Lin） → 合成処理
 
-この順序にすると、Light Trimでlog状態の露出を整えてから、compositing用のlinear Imageへ変換できます。
+Light Trimを通した画像は、まだログ状態として扱います。[Cineon Log](./cineon-log)などの変換を別途行い、後段が必要とするリニア（Linear）画像へ渡します。Cineon Logの変換方式は、入力画像のログ方式に合わせて選んでください。
+
+注意したいのは、カメラのファイル形式と、Fusionへ渡った時点の画像の状態が同じとは限らないことです。RAW素材でも、デコードやプロジェクトの色管理ですでにリニア化されている場合は、ここに示した「ログ画像 → Light Trim」の前提が成立しません。
 
 ## 入力
 
-### Input
+### Input（オレンジ）
 
-オレンジ色の入力です。露出を調整したいlog 2D <Term id="image">Image</Term>を接続します。
+露出を調整する2D <Term id="image">Image</Term>を受け取る主入力です。通常はログとしてデコードされたMediaInやLoaderの画像を接続します。
 
-### Effect Mask
+### Effect Mask（青）
 
-青色の任意入力です。<Term id="mask">Mask</Term>を接続すると、Light Trimの効果をMask内へ限定できます。
+任意の<Term id="mask">Mask</Term>入力です。PolygonやEllipseなどで作ったマスクを接続し、露出の変更を画面の一部に限定できます。
 
-たとえば画面全体ではなく、窓の外や人物だけを少し明るくしたい場合に使えます。21.1 Manualでは、Effect MaskはNodeの処理後に適用されると説明されています。
+たとえば、ログで撮影した室内映像で、窓の外だけをわずかに調整するときに使います。21.1 Manualでは、Effect Maskはノードの処理後に適用されると説明されています。マスクを接続しても、入力画像全体を別のログ方式へ変換する機能が追加されるわけではありません。
 
 ## 出力
 
-trim後の2D Imageを出力します。log Imageをそのまま後段へ渡すので、必要に応じて後ろにCineon Logなどの変換Nodeを置きます。
+トリム後の2D Imageを出力します。入力がログ画像なら、後段でもログ画像として扱ってください。通常はCineon Logなどを通してから、リニア状態で計算したいMergeや光の合成処理につなぎます。
+
+ノードの出力端子に「ログ専用」の特別なデータ型があるわけではありません。ログかリニアかは画像の数値の意味と、前後の変換処理で判断します。
 
 ## 主な設定項目
 
 ### Lock RGBA
 
-有効時はR / G / B / Aをまとめて1つのTrimで動かします。21.1 Manualでは既定で有効です。
+初期状態では有効です。R・G・B・Aの各チャンネルのTrim操作を一つのスライダーにまとめます。無効にすると各チャンネルを独立して調整できます。
 
-解除するとchannelごとにTrimを調整できます。全体の露出だけでなく、channel間のバランスも個別に調整したい場合に使います。
+画面全体の明るさを揃えるなら、まず連動した状態で操作します。特定の色チャンネルだけ明るさの傾向を変えたい場合には解除しますが、RGBと同時にアルファ（透明度）を扱う合成では、出力のアルファも確認してください。各チャンネルへ適用される具体的な数式は、このManualの節からは確定できません。
 
 ### Trim
 
-film、optical printing、lab printingのtrim point単位で値を動かします。
+露出の変更量を、フィルム・光学プリント・ラボプリントで使うポイント単位で指定します。21.1 Manualは、**8ポイントが露出1ストップに相当する**と説明しています。
 
-21.1 Manualでは **8 points = 1 stop** とされています。たとえば1 stop相当の変化量を考えるときは、Light Trimの尺度では8 pointsが基準になります。
+たとえば4ポイントなら、ポイント尺度では半ストップ相当の差です。ただし、これはリニア画像のGainを直接何倍にするかを指定する数値ではありません。素材に合ったログ処理と表示変換を通して、結果の階調を確認してください。
 
-この値は一般的なlinear gainの数値ではなく、Light Trim固有のprinting / scanner系の尺度として扱います。
+## 最小構成と確認手順
 
-## 具体的な使い方
+ログ素材の明るさだけを調整する最小構成です。
 
-### log sourceの露出をcompositing前に整える
+    MediaIn / Loader（ログ画像）
+      → Light Trim
+      → Cineon Log（Log to Lin）
+      → Viewer / 後段の合成
 
-    MediaIn / Loader
-        ↓
-    Light Trim
-        ↓
-    Cineon Log (Log to Lin)
-        ↓
-    Key / Color / Composite
+1. MediaInまたはLoaderの入力が、本当にログ状態なのかを確認します。色管理ですでにリニアへ変換されている場合は、この構成をそのまま追加しません。
+2. Light Trimを挿入し、Lock RGBAを有効のままTrimを少量動かします。
+3. ノードを一時的に無効化し、露出の変化が必要な方向かを比較します。
+4. Cineon LogのModeをLog to Linにし、Log Typeを入力に合った方式へ設定して、後段へ接続します。
 
-素材がlog状態のうちにLight Trimで明るさを整え、その後linearへ変換して合成処理へ進みます。
+表示上の明るさだけでログ変換の正しさを判断しないでください。Viewer側に表示変換がかかっている場合、画像の画素値と見た目は一致しません。
 
-### 一部だけtrimする
+## 運用例
 
-    Log Source ─────────────→ Light Trim → Cineon Log
-                                  ↑
-    Polygon / Ellipse Mask ───────┘
+### 夜景のログ素材と発光グラフィックを合成する
 
-Effect Maskを使えば、同じlog Imageの一部だけtrimできます。Nodeを分岐してMergeする必要がない単純な局所補正なら、この構成で済みます。
+夜景の実写に、別途作った発光看板を重ねる例です。実写がわずかに暗い場合、ログ状態でLight Trimを使って露出を調整します。その後、Cineon Logでリニアへ変換し、合成先と同じ作業空間に揃えた発光グラフィックをMergeします。
 
-## Cineon Logとの違い
+    夜景（ログ）→ Light Trim → Cineon Log（Log to Lin） ─┐
+                                                         Merge → 合成結果
+    発光グラフィック（合成空間に合わせた画像）───────────┘
 
-[Cineon Log](./cineon-log)はlog Imageとlinear Imageの変換を担当します。Light Trimはその変換前のlog Imageに対して、trim point単位で見かけの露出を調整します。
+Light Trimは夜景の露出だけを担当し、発光グラフィックの光の加算や画像同士の重ね合わせは後段が担当します。すでに別の箇所でログからリニアへの変換が済んでいるなら、Cineon Logを重ねて挿入しないでください。
 
-- **Light Trim** — log状態の露出をtrim pointで調整
-- **Cineon Log** — log ↔ linearの変換
+### 窓の外だけ露出を補正する
 
-役割が違うため、Light TrimをCineon Logの代わりにはできません。
+室内の人物はそのままに、窓の外だけ明るさを変えたい場合は、PolygonまたはEllipseで範囲を作り、Light TrimのEffect Maskに接続します。
 
-## 注意点
+    ログ素材 ─────────→ Light Trim → Cineon Log
+                              ↑
+    Polygon / Ellipse ────────┘（Effect Mask）
 
-Light Trimはlogarithmic data向けです。すでにlinearへ変換したImageに対して同じ意味の「1 stop調整」を期待する使い方は、21.1 Manualの基本構成とは異なります。
+マスクの境界が硬いと補正範囲が目立つため、必要に応じてマスク側で境界のぼかしを調整します。画面全体の変換はこの例でも後段のCineon Logが受け持ちます。マスクによる部分補正と、画像全体のログ／リニア変換は別の処理です。
 
-また、exactな内部処理式、trim pointからpixel値への変換式、camera log curveごとの差はManualのこの節では説明されていません。本ページではそれらを推測していません。
+### 色チャンネルを分けて試す
 
-## 出典と確認範囲
+ログ素材でRGBの明るさの偏りを補正したい場合、Lock RGBAを解除して各チャンネルのTrimを個別に動かせます。これは標準的な色域変換やカメラの正規のホワイトバランス復元を代替するものではありません。アルファを含む合成素材では、透明部分や輪郭に意図しない変化がないかも比較してください。
 
-DaVinci Resolve 21.1 Reference Manual（September 2026）Chapter 98 Film Nodes pp.2320–2321で、Light Trimの用途、2 inputs、log data前提、Cineon Logより前へ置く構成、Lock RGBA、Trim、8 points = 1 stopを確認しました。
+## よくある問題
+
+| 症状 | 最初に確認すること |
+| --- | --- |
+| 露出が想定と違う | 入力がログ状態か、素材に合わないログ変換を後段で選んでいないか |
+| 画像が明るすぎる、階調が失われる | すでに別の場所で露出やログ変換が適用されていないか。Cineon Log側のLevel・Soft Clip・処理深度も確認する |
+| 効果が画面の一部にしか出ない | Effect Maskが接続され、処理範囲を制限していないか |
+| 色や透明部分が予期せず変わる | Lock RGBAを解除してチャンネル別にTrimしていないか。後段でアルファがどう使われるか |
+
+## 似たノード・関連する考え方
+
+- [Cineon Log](./cineon-log)：ログとリニアを変換します。Light Trimはその変換を担当しません。
+- [Gamut](../color/gamut)：色域やガンマの変換を含めて考える場合の参照先です。Light Trimだけでは色域は変わりません。
+- [Imageの基礎](../../learn/02-data/image)：2D画像の数値とデータの受け渡しについて確認できます。
+- [Effect Maskを使う構成](../../patterns/masking/limit-effect-with-mask)：ノードの処理を画像の一部に限定する一般的な方法です。
+- [Film系ノードの選び方](./index)：Light TrimとCineon Logを含む用途別の入口です。
+
+## バージョンと検証状況
+
+**Manual確認：** DaVinci Resolve 21.1 Reference Manual（September 2026）、Chapter 98「Film Nodes」、pp.2320–2321。用途、ログ画像を入力とする2端子、Cineon Logより前に配置する基本構成、Lock RGBAの既定状態、Trimの8ポイント＝1ストップ相当を確認しました。
+
+**構成例：** 夜景の合成、窓の部分補正、RGB別の試用例は上記の仕様に基づく操作案です。具体的な見た目を現行ホストで確認した結果ではありません。
+
+**未確認：** DaVinci Resolve 21.1の実機における各チャンネルの数値変化、ログ方式ごとの内部計算、RAWのデコード設定、Free/Studio間の細かな差異は検証していません。
