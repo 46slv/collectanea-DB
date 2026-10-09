@@ -93,7 +93,7 @@ Paintを透明なBackgroundに接続して描画だけを別レイヤーにす�
 | [Stroke](./stroke) | 補修後に線の形、位置、時間を編集・アニメーションさせる |
 | [Paint Group](./paint-group) | 複数の補修操作をまとめて移動・回転・追跡する |
 
-[Paint全体の解説](./paint)と[Paintツールの一覧](./overview)も参照してください。
+[Paint全体の解説](./paint)と[Paintツールの一覧](./)も参照してください。
 
 ## バージョンと出典
 

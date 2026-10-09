@@ -89,7 +89,7 @@ MediaIn → Paint → MediaOutの構成でStrokeを選び、Apply ModeをClone�
 - [Multistroke](./multistroke)：大量の細かな修正を軽く処理する方式。初期表示は1フレームで、個々の線は後編集できません。
 - [Clone Multistroke](./clone-multistroke)：画素複製用のMultistroke。1フレーム内で多数の小さな不要物を隠す用途です。
 - [Paint Group](./paint-group)：複数ストロークをまとめて移動・追従させます。
-- [Paintの概要](./overview)：Paint内の各描画ツールの違いを確認できます。
+- [Paintの概要](./)：Paint内の各描画ツールの違いを確認できます。
 
 数百本の独立したStrokeを使うと処理が遅くなることがあります。補修後の細かな編集が不要ならMultistrokeを選びます。
 
