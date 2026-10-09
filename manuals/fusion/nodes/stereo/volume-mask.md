@@ -8,7 +8,7 @@ verification: partial
 aliases: ["Volume Mask", "VLM"]
 concepts: ["image-data"]
 nodes: ["Volume Mask"]
-node_family: "stereo"
+node_family: "position"
 controls: ["Shape", "Translation Pick", "X, Y, Z Offset", "Rotation Pick", "X, Y, Z Rotation", "X, Y, Z Scale", "Size", "Soft Edge", "Color", "Subtractive/Additive Slider", "Mask Only", "Camera"]
 inputs: ["image", "mask"]
 outputs: ["image"]

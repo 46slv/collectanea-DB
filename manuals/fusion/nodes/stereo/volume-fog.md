@@ -8,7 +8,7 @@ verification: partial
 aliases: ["Volume Fog", "VLF"]
 concepts: ["image-data"]
 nodes: ["Volume Fog"]
-node_family: "stereo"
+node_family: "position"
 controls: ["Shape", "Size", "Soft Edge", "Samples", "Z Slices", "First Slice Time", "Fog Only", "Do Lighting", "Do In-Scattering"]
 inputs: ["image", "mask", "classic-3d"]
 outputs: ["image"]

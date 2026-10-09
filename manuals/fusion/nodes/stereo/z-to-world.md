@@ -8,14 +8,14 @@ verification: partial
 aliases: ["Z to World", "Z to World Pos", "Z to World Position", "Z2W"]
 concepts: ["image-data"]
 nodes: ["Z to World Pos"]
-node_family: "stereo"
+node_family: "position"
 controls: ["Mode", "Camera", "Blend", "Process When Blend Is 0.0"]
 inputs: ["image", "mask", "classic-3d"]
 outputs: ["image"]
 tasks: ["process-stereo"]
 product_scope: fusion
 suite_surfaces: ["fusion"]
-updated: "2026-10-09"
+updated: "2026-10-10"
 ---
 
 # Z to World Pos（Z to World）

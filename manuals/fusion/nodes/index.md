@@ -5,7 +5,7 @@ doc_type: index
 verification: partial
 product_scope: fusion
 tasks: [lookup-node, inspect-controls]
-updated: '2026-10-05'
+updated: '2026-10-10'
 ---
 
 # ノードリファレンス（Node Reference）
@@ -57,7 +57,8 @@ reader-first本文passは完了しています。
 - [Modifier](./modifiers/) — Parameterを式・Spline・Path等で駆動
 - [Time / Metadata / Utility](./time-metadata/) — retime・metadata・DoD・bit depth
 - [Utility / I/O](./utility-io/) — Loader / Saver / MediaIn / MediaOut / routing
-- [Stereo 3D](./stereo/) — stereo pair・disparity・depth
+- [Stereo 3D](./stereo/) — 左右眼の位置合わせ・視差・深度変換・立体視形式
+- [Position / World Position](./position/) — 各画素のXYZ位置・Volume Fog・Volume Mask（記事のURLは維持）
 - [Immersive / 360°](./immersive/) — lat-long・spherical処理
 - [LUT](./lut/) — LUT適用・生成・解析
 - [Krokodove](./krokodove/) — Image / Shape / 3D / Regionをdomain別に案内
