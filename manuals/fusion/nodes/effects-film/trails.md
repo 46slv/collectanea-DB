@@ -9,13 +9,13 @@ aliases: [Trails, TRLS]
 concepts: [image-data, mask-data, alpha, premultiplication]
 nodes: [Trails]
 node_family: effects-film
-controls: [Restart, Preroll, Reset/Preroll on Render, Preroll Frames, Gain, Rotate, Offset X/Y, Scale, Blur Size, Apply Mode, Operator, Subtractive/Additive, Alpha Gain, Burn In, Merge Under]
+controls: [Restart, Preroll, Reset/Preroll on Render, This Time Only, Preroll Frames, Lock RGBA, Gain, Rotate, Offset X/Y, Lock Scale X/Y, Scale, Lock Blur X/Y, Blur Size, Apply Mode, Operator, Subtractive/Additive, Alpha Gain, Burn In, Merge Under]
 inputs: [image, mask]
 outputs: [image]
 tasks: [afterimage, light-trails, stylize]
 product_scope: fusion
 suite_surfaces: [fusion]
-updated: "2026-10-05"
+updated: "2026-10-09"
 ---
 
 # Trails
@@ -68,7 +68,9 @@ ManualではEffect MaskはNodeの処理後に適用されると説明されて�
 
 `Reset/Preroll on Render`を有効にすると、previewや最終render開始時にbufferをresetしてから指定frame数をprerollします。
 
-`This Time Only`を使うと、過去frameの内容を読む代わりに現在frameを使ってPrerollします。
+`This Time Only`を使うと、過去frameの内容を読む代わりに**現在frameだけを使って**Prerollします。直前まで動いてきた物体の軌跡を再現するのではなく、同じframeからbufferを準備するモードです。
+
+`Preroll Frames`で事前計算するframe数を指定します。残像の長さを決める直接のパラメータではありません。例えば30 frame分の移動履歴を残したいのにPrerollが短い場合、目的frameの直前まで十分に評価されず、残像が途中からしか見えないことがあります。
 
 ## 残像の形を変える設定
 
@@ -78,15 +80,21 @@ buffer内のImage強度を変えます。
 
 値を下げると前のImageが早く弱くなり、短く薄いtrailになります。高くすると過去のImageがより長く残ります。
 
+`Lock RGBA`はGainをRGB・Alphaチャンネル別に扱うための切り替えです。色チャンネルごとの強さを変えれば、残像に色の偏りを付けられます。これは入力をクロマキーで抜く機能ではなく、buffer内のチャンネル強度を調整する操作です。
+
 ### Rotate / Offset X/Y / Scale
 
 buffer内の過去Imageへ変形を加えてから次のframeを合成します。
 
-これらの変形はtrailの各段へ累積します。たとえばOffset Xを少しずらすと、元のmotionとは別に残像自体がframeごとに横へ流れていきます。
+これらの変形はtrailの各段へ累積します。たとえばOffset Xを少しずらすと、元のmotionとは別に残像自体がframeごとに横へ流れていきます。Rotateはbufferを回転させますが、各残像がそれぞれ自分の中心で独立回転する設定ではありません。
+
+`Lock Scale X/Y`でX・Y軸の拡大縮小を個別に扱う設定へ切り替えられます。縦方向だけに残像を広げたいときは、全体Scaleを変更する前にこの軸の分離を確認します。
 
 ### Blur Size
 
 過去ImageへBlurを加えてから次のframeを合成します。Blurもtrailの各段へ累積するため、古い残像ほど柔らかく広がる見た目を作れます。
+
+`Lock Blur X/Y`でX・Yのぼかし量を別々に扱えます。例えば横移動する光点の残像だけを水平方向に柔らかくし、縦方向の輪郭は比較的残す、といった調整ができます。
 
 ## 重なり方を決める設定
 
@@ -94,7 +102,7 @@ buffer内の過去Imageへ変形を加えてから次のframeを合成します�
 
 残像同士が重なる部分をどのblend計算で合成するか選びます。
 
-Normalのほか、Screen、Multiply、Overlay、Differenceなど複数のmodeが用意されています。発光する軌跡ならScreen、通常のAlpha付き素材を重ねるならNormalから試すと違いを確認しやすくなります。
+Normalのほか、Screen、Multiply、Overlay、Differenceなど複数のmodeが用意されています。発光する軌跡ならScreen、通常のAlpha付き素材を重ねるならNormalから試すと違いを確認しやすくなります。Screenは色の値で重ねるモードで、ManualではAlphaを無視すると説明されています。透明度のある文字やロゴを重ねたい場合、Screenを選んだだけでAlpha合成を再現できるわけではありません。
 
 ### Operator
 
@@ -134,12 +142,28 @@ Text+ → Transform → Trails → Glow → Merge
 
 短い残像ならGainを低めにし、残像が硬すぎる場合はBlur Sizeを加えます。軌跡を元のmotionとは別方向へ流したい場合はOffset X/Yを使います。
 
+## DuplicateやMotion Blurとの使い分け
+
+[Duplicate](./duplicate)はCopiesで作る枚数を決め、必要ならTime Offsetで**コピーごとに異なる時刻の入力**を参照します。例えばアニメーションする丸を5個、時間差を付けて横に並べる場合はDuplicateが適しています。一方、Trailsは前frameまでの出力を内部bufferへ蓄積し続けます。元の丸がどの経路を通ったかを残す用途ならTrailsを選びます。
+
+Motion Blurや[Directional Blur](../blur-filter/directional-blur)は、主に1つの画像／その時刻の動きや方向をぼかして見せる処理です。Trailsは過去の複数frameの像が重なるため、文字を読める形のまま何段も残す表現など、単純なぼかしとは別の見た目になります。
+
 ## 挙動と注意点
 
 - Trailsは内部bufferを持つため、単一frameだけを評価した状態と連続再生 / renderで結果が異なることがあります。
 - 設定変更後に過去の結果が残って見える場合はRestartを使います。
 - Effect MaskはTrails処理後に適用されるため、bufferへ入るImage自体を制限する操作とは役割が異なります。
-- Motion Blurは1 frame内の移動をblurとして見せる処理です。Trailsは複数frameのImageを明示的に残すため、長いafterimageや多重露光風の見た目に向きます。
+- Manual Chapter 65（p.1377）は、Trailsを**ネットワークレンダリングに適さない、前frameの計算結果に依存するNode**の例として挙げています。分散レンダーではframeを別々のマシンへ割り当てても同じbuffer履歴を共有できません。連続再生で問題なくても、分割ジョブの出力が一致するとは限らない点に注意してください。
+
+## 表示がおかしいとき
+
+| 症状 | 最初に確認すること |
+| --- | --- |
+| 再生開始直後だけ残像が短い | Restart後にframeを順に評価し、必要ならPreroll FramesとReset/Preroll on Renderを確認する。 |
+| シークした位置で残像が違う | bufferが評価履歴を持つため、Restartして同じ開始位置から連続再生して比較する。 |
+| テキストの跡が期待どおり出ない | Trailsの前段で文字に実際の位置アニメーションが付いているか、Alphaがあるかを確認する。 |
+| エッジが暗い／明るい | 素材のpremultiplicationとSubtractive/Additive、Alpha Gainを確認する。 |
+| 分散レンダーだけ結果が違う | network renderのframe分散を見直す。Trailsのbuffer履歴がマシン間で共有される前提にはしない。 |
 
 ## 関連する考え方
 
@@ -149,11 +173,12 @@ Text+ → Transform → Trails → Glow → Merge
 ## 似たNode・関連Node
 
 - [Directional Blur](../blur-filter/directional-blur) — 1 frameのImageを方向・中心に沿ってぼかす
+- [Duplicate](./duplicate) — 決まった枚数を繰り返し複製し、Time Offsetを与える
 - [Glow](../blur-filter/glow) — 発光成分を広げる
 - [Merge](../compositing/merge) — trail結果を別Imageへ重ねる
 
 ## 出典と確認範囲
 
-DaVinci Resolve 21.1 Reference Manual、September 2026、Chapter 97、pp.2297–2302で、Image / Effect Mask入力、image buffer、Restart / Preroll、Gain、Rotate、Offset、Scale、Blur Size、Apply Mode、Operator、Subtractive/Additive、Alpha Gain、Burn In、Merge Underを確認しました。
+DaVinci Resolve 21.1 Reference Manual、September 2026、Chapter 97、pp.2297–2302で、Image / Effect Mask入力、image buffer、Restart / Preroll、This Time Only、Preroll Frames、Lock RGBA、Lock Scale X/Y、Lock Blur X/Y、Gain、Rotate、Offset、Scale、Blur Size、Apply Mode、Operator、Subtractive/Additive、Alpha Gain、Burn In、Merge Underを確認しました。分散レンダーに関する注意は同ManualのChapter 65、p.1377に基づきます。
 
 内部bufferの実装方式、各Apply Modeの内部最適化、実機性能は未確認のため `verification: partial` としています。
