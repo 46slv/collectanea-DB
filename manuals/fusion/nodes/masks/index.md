@@ -5,7 +5,7 @@ doc_type: index
 verification: partial
 product_scope: fusion
 tasks: [lookup-node, create-mask, isolate-effect, roto]
-updated: "2026-10-04"
+updated: "2026-10-10"
 ---
 
 # Maskノード
@@ -47,27 +47,34 @@ EllipseならCenter、Width、Height、Angleを調整し、Soft Edgeで境界を
 
 PolygonはViewerをクリックしてBézier polylineを作り、Shapeの変更をkeyframe化できます。MultiPolyは複数のPolygon / B-Splineを1 Node内のListで管理する用途です。
 
-## Bitmap / Ranges / Wand
+## 画像からMaskを作る：Bitmap / Ranges / Wand
 
-Imageの画素情報をMaskへ変換したい場合の系統です。
+[Bitmap Mask](./bitmap-mask)は、入力画像のAlphaやLuminanceなどを**マスク値へ変換**します。例えば、透明部分のある人物画像からAlphaを取り出すと、後段のBlurへ人物領域だけを渡せます。画像そのものをぼかすのはBitmap Maskではなく、マスクを受け取るBlurです。
 
-Bitmap MaskではRed / Green / Blue / Alpha、Hue、Luminance、Saturation、Coverage、Object ID、Material IDなどを元にMaskを作れます。RangesとWandは、明暗域や連続する色領域から選択する用途です。
+[Ranges Mask](./ranges-mask)は明暗域や色の範囲、[Wand Mask](./wand-mask)はクリックした位置と近い色が連続する領域からマスクを作ります。画素の特徴だけで輪郭を選びきれない場合は、Polygon系で手動指定します。
+
+## Mask PaintとPaintを使い分ける
+
+[Mask Paint](./mask-paint)は画像入力なしでもマスクを手描きできます。Bitmap Maskの人物領域に小さな穴があるときは、その出力をMask Paintの青いEffect Mask入力につなぎ、穴を白く描いて埋めます。出力は単一チャンネルのマスクです。
+
+一方、[Paint](../paint/paint)は入力された2D画像に色やクローン画素を描き、加工後の2D画像を出力します。**効果の適用範囲を補修するならMask Paint、映像自体を修復・描画するならPaint**を選びます。ペイント用描画要素の比較は[Paintカテゴリ概要](../paint/index)を参照してください。
 
 ## 複数Maskを組み合わせる
 
-多くのMask Nodeには青色のEffect Mask入力があります。
+青いEffect Mask入力に別のマスクをつなぐと、Inspectorの**Paint Mode**で入力マスクと新しいマスクの合成方法を選べます。Merge、Add、Subtract、Minimum、Maximum、Average、Multiply、Replace、Invert、Copy、Ignoreがあります。
 
-別のMaskを接続するとPaint Modeが表示され、Merge、Add、Subtract、Minimum、Maximum、Average、Multiply、Replace、Invert、Copy、Ignoreなどの方法で組み合わせられます。
+例えば、楕円で決めたぼかし範囲から、画面右上の四角い領域だけを除きます。
 
 ```text
-Mask A ───────┐
-              ↓
-          Mask B
-              ↓
-        Effect Mask input
+MediaIn ────────────────────→ Blur ─→ MediaOut
+                              ↑ Effect Mask
+Ellipse Mask → Rectangle Mask ┘
+               Paint Mode: Subtract
 ```
 
-単に「線をつなぐと足し算になる」と決めず、Paint Modeを確認します。
+Ellipse MaskをRectangle Maskの青い入力に接続し、矩形を除外したい位置へ合わせます。**Subtractでは、入力した楕円のマスク値からRectangle Maskが作る矩形の値を引きます**。その結果をBlurのEffect Maskへ渡すので、楕円の内側でも矩形と重なる部分はぼけません。
+
+Paint Modeの**Invert**は入力マスクと新しいマスクの重なり部分を反転する演算です。**Invertチェックボックス**はマスク全体を反転するため、混同しないでください。最終結果はMaskノードをViewerに表示して確認します。
 
 ## 白・黒・グレーの意味
 
@@ -87,6 +94,6 @@ Maskでは、白に近いほど処理を強く適用し、黒に近いほど適�
 
 ## 出典と確認範囲
 
-DaVinci Resolve 21.1 Reference Manual、September 2026、Chapter 108、pp.2462–2500、およびFusion Fundamentals Chapter 79のMask / Polyline説明を基に整理しています。
+DaVinci Resolve 21.1 Reference Manual、September 2026、Chapter 108、pp.2462–2500（Paint Modeはp.2465、Mask Paintはpp.2475–2476）、およびFusion Fundamentals Chapter 79のMask / Polyline説明を基に整理しています。
 
 このFamily OverviewはMaskの選び分けを担当します。個々のSpline editing、Paint操作、全Common Controlsは各Node Referenceと専用Conceptへ分けます。
