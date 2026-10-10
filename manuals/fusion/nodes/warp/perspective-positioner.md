@@ -78,7 +78,7 @@ Corner Positioner
 Result
 ```
 
-たとえば斜めから撮影された看板の汚れを消す場合、まず看板面を正面向きへ展開してから[Paint](../paint/paint)で修正し、最後にCorner Positionerで元の遠近へ戻せます。
+たとえば斜めから撮影された看板の汚れを消す場合、まず看板面を正面向きへ展開してから[Paint](../paint/paint.md)で修正し、最後にCorner Positionerで元の遠近へ戻せます。
 
 ## Corner Positionerとの違い
 
@@ -90,7 +90,7 @@ Result
 ## 関連Node
 
 - [Corner Positioner](./corner-positioner)
-- [Paint](../paint/paint)
+- [Paint](../paint/paint.md)
 - [Planar Tracker](../tracking/planar-tracker)
 - [Planar Transform](../tracking/planar-transform)
 
