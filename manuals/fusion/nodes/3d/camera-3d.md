@@ -15,7 +15,7 @@ outputs: [classic-3d]
 tasks: [build-3d-scene, camera, projection, stereo]
 product_scope: fusion
 suite_surfaces: [fusion]
-updated: "2026-10-08"
+updated: "2026-10-10"
 ---
 
 # Camera 3D
@@ -125,6 +125,29 @@ StereoのModeは通常Monoです。立体視用の左右映像を作る場合、
 
 **Eye Separation**は左右カメラの間隔、**Convergence Distance**はToe In / Off Axisでの収束距離です。**Rig Attached To**でCenter / Left / Rightのどこを操作基準にするかを選べます。外部の右目カメラを使うときはRightStereoCameraへつなぎます。
 
+### Stereoを2D画像として出力する
+
+Camera 3Dで左右の視点を設定するだけでは、完成した左右の画像にはなりません。**Camera 3Dが視点を決め、[Renderer 3D](./renderer-3d.md)のEyeが実際に描画する眼と出力のまとめ方を決めます。** 両者を同じ3Dシーンへ接続して使います。
+
+```text
+3Dの物体 ──┐
+Camera 3D ──┼→ Merge 3D ─┬→ Renderer 3D（Eye: Left）  → 左眼画像
+ライト ─────┘            └→ Renderer 3D（Eye: Right） → 右眼画像
+```
+
+例えば、CGの文字を左右の画像に分けて作る場合は、次の順で確認します。
+
+1. Camera 3DのStereoを**Off Axis**にし、Eye Separationで左右カメラの間隔を設定します。必要に応じてConvergence Distanceで収束距離を調整します。Off Axisではカメラを内向きに回転させず、投影範囲をずらします。
+2. Text 3D、Camera 3D、ライトをMerge 3Dへ接続します。
+3. 同じMerge 3Dの出力から**Renderer 3Dを2つに分岐**させ、それぞれのCameraに対象のCamera 3Dを指定します。
+4. 一方のEyeを**Left**、もう一方を**Right**にして、左右で物体の重なり方が少し異なることを確認します。**Mono**ではCamera 3DのStereo設定が無視されるため、左右の視差を確認できません。
+
+左右を個別の画像ではなく1つの出力にまとめたい場合、Renderer 3DのEyeを**Stacked**にすると上下に配置され、**Layers**にすると左右が別レイヤーとして出力されます。どちらも単純な横並び画像とは異なります。書き出し先が必要とする左右の順序、画像サイズ、レイヤー対応は別途確認してください。
+
+**Toe In**は左右を内側へ向けるため、画像端で垂直方向の視差や台形状のずれが生じることがあります。特殊な実写のカメラリグに合わせる目的がなければ、まずOff Axisで確認する方が扱いやすい構成です。**Parallel**は左右を平行にずらす方式で、Convergence Distanceは設定できません。右眼を独立したCamera 3Dで制御する場合は、元のCamera 3Dの**Right Stereo Camera入力**へ接続します。
+
+この手順は21.1 ManualのCamera 3D（pp.1919、1922–1923）およびRenderer 3DのEye（p.1972）の仕様を組み合わせた接続例です。実機でのステレオ納品や各出力形式の互換性は未検証です。
+
 ## Camera Trackerとの関係
 
 [Camera Tracker](../tracking/camera-tracker.md)で実写のカメラ動作を解析した場合、Exportで作られたCamera 3Dをシーンに使います。Camera Trackerは**動きを解析する**ノード、Camera 3Dは**得られた撮影視点で3Dを映す**ノードです。
@@ -133,6 +156,6 @@ StereoのModeは通常Monoです。立体視用の左右映像を作る場合、
 
 ## 出典と確認範囲
 
-**一次資料**：Blackmagic Design『DaVinci Resolve 21.1 Reference Manual』（2026年9月版）、Chapter 88「3D Nodes」、**Camera 3D [3Cm]（pp.1919–1927）**。3入力、Projection Type、画角・Film Gate、Clipping、Stereo、Image Plane、Camera Projection、Import Cameraを照合しました。
+**一次資料**：Blackmagic Design『DaVinci Resolve 21.1 Reference Manual』（2026年9月版）、Chapter 88「3D Nodes」、**Camera 3D [3Cm]（pp.1919–1927）**。3入力、Projection Type、画角・Film Gate、Clipping、Stereo、Image Plane、Camera Projection、Import Cameraを照合しました。また、Renderer 3DのEye（p.1972）を確認し、Stereo出力例へ反映しました。
 
 Manualとの照合であり、Resolve 21.1実機でのREGID、Inspector全設定のdefault/range、Rendererごとの画質差、Stereo納品、外部カメラ形式の互換性は未確認です。そのため**verification: partial**を維持しています。
