@@ -83,7 +83,7 @@ MediaIn（汚れがある素材）→ Paint → MediaOut
 - Durationは描画後に自由に延長する設定ではありません。作業範囲が分かっているときは**描く前に**決めます。
 - Paint Groupで動かせるのはまとめた補修全体です。Multistroke内部の各線を個別に再編集できるようになるわけではありません。
 - ブラシ設定はすべての描画方式で同一表示ではありません。Multistrokeで使う設定を確認してから描きます。
-- [Paint全体の解説](./paint)と[Paintツールの一覧](./overview)で、Stroke・Clone・Fillなどの選択基準を確認できます。
+- [Paint全体の解説](./paint)と[Paintツールの一覧](./)で、Stroke・Clone・Fillなどの選択基準を確認できます。
 
 ## バージョンと出典
 

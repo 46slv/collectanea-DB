@@ -117,7 +117,7 @@ Write On / Write Offでは**StartとEndで経路上の表示範囲**を調整で
 - [Copy Polyline](./copy-polyline)：閉じた領域を使い、別の場所・画像の画素を複製する用途。輪郭に沿う線を描くPolyline Strokeとは目的が異なります。
 - [Multistroke](./multistroke)：大量の短い補修に向く方式。描画後の個別の線編集はできません。
 - [Paint Group](./paint-group)：複数のストロークをまとめて移動・追従させます。
-- [Paintの概要](./overview)：Paint内部の要素全体を比較できます。
+- [Paintの概要](./)：Paint内部の要素全体を比較できます。
 
 制御点は追加できますが、細かな手ぶれまで大量の点として残すと調整しにくくなります。Draw Appendで作った経路の点が多すぎる場合は、**Reduce**で点数を減らしてから形を整えます。
 
