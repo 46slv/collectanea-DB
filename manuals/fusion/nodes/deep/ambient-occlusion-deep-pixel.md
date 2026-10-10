@@ -92,7 +92,7 @@ AOは**画面に写っている情報から推定する後処理**です。カ�
 - [Camera 3D](../3d/camera-3d) — AOが参照する撮影視点
 - [補助Channel / AOV](../../learn/02-data/auxiliary-channels) — Z、Normal、IDなどの意味と用途
 - [Depth Blur](./depth-blur-deep-pixel) — 同じZチャンネルを使った奥行きぼかし
-- [Deep / Auxiliary Channelノード](./index) — 真のDeep Imageとの違い
+- [Deep / Auxiliary Channelノード](./index.md) — 真のDeep Imageとの違い
 
 ## 出典・確認範囲
 
