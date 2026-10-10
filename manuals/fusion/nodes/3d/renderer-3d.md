@@ -62,6 +62,25 @@ Camera 3Dを動かせば3D空間の遠近関係も変わります。画像化し
 
 **Reporting**には、描画中のwarning / errorをConsoleへ表示するか、発生時にrenderを中断するかを決める設定があります。
 
+## Spherical Cameraで360°画像を作る
+
+[Spherical Camera](../immersive/spherical-camera.md)を使うと、通常の一方向のカメラではなく、カメラ位置を中心に周囲の方向を記録した画像を描画できます。3DシーンをRenderer 3Dへ渡す点は通常のカメラと同じで、**画像の投影形式はSpherical CameraのLayout、シーン内で使用するカメラはRenderer 3DのCamera**で決めます。
+
+~~~text
+Shape 3D（周囲の建物など） ──┐
+Spherical Camera ────────────┼→ Merge 3D → Renderer 3D → 360°画像
+ライト（必要に応じて） ─────┘
+~~~
+
+1. 3Dの物体とSpherical CameraをMerge 3Dへ接続し、カメラを撮影位置に置きます。Spherical CameraのImage入力には球面配置の画像を接続できますが、**カメラ単体で3D物体や完成した2D画像が作られるわけではありません**。
+2. Spherical Cameraの**Layout**でLatLong（周囲を横長の2:1画像へ展開）やHCross／VCross（立方体の6方向を十字に配置）、HStrip／VStrip（6方向を一列に配置）を選びます。
+3. Renderer 3Dの**Camera**でSpherical Cameraを指定します。Defaultのままだと、シーン内に別のCamera 3Dがある場合、意図した球面出力にならないことがあります。
+4. 出力の比率と各方向の向きを確認します。Cube形式ではRenderer 3Dの**Image Widthが完成画像全体の幅ではなく、正方形1面の幅**を表します。例えば1面512pxなら、HCrossは2048×1536px（4列×3行）、HStripは3072×512px（6列×1行）です。
+
+立体視が必要な場合は、Spherical Camera側のEye Separationなどで左右の視点を設定し、Renderer 3Dの**Eye**をLeft／Right／Stacked／Layersから用途に合わせて選びます。**Stackedは左右の画像を上下に配置**し、Layersは左右を別レイヤーにします。選んだ投影LayoutとStereoの配置は別の設定なので、納品先が求める配置まで確認してください。
+
+Spherical Cameraは2D映像を変換するPanoMapとは異なり、3Dシーンをどの方向から描くかを決めるカメラです。球面映像の形式変換だけが目的なら[PanoMap](../immersive/panomap.md)を使います。
+
 ## Renderer Type：3つの描画方式
 
 | 方式 | 処理の特徴 | 用途・制約 |
@@ -141,6 +160,7 @@ OpenGL UVは「モデルをカメラで撮る」のではなく、モデルのUV
 
 - **Blackmagic Design, DaVinci Resolve 21.1 Reference Manual**, Chapter 88「Renderer3D [3Rn]」、本文pp.1970–1978。入力、Camera / Eye、Software / OpenGL / OpenGL UV、Output Channels、Multilayer、アンチエイリアス、Depth of Field、Cryptomatte、UV書き出しを確認。
 - 同ManualのChapter 77「Understanding Image Channels」。補助チャンネルと2D合成の関係を確認。
+- 同ManualのChapter 88「Spherical Camera [3SC]」（pp.1995–1996）。投影Layout、Cube形式の面幅、3Dシーンへのカメラ接続を確認。
 - [Blackmagic Design公式サポート](https://www.blackmagicdesign.com/support)（21.1 Manual、2026-09-08公開）。
 
 設定名と方式の違いは21.1マニュアルによります。GPUごとの速度、補助チャンネルの実機挙動、edition差は未検証です。
