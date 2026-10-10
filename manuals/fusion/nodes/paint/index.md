@@ -11,7 +11,7 @@ slug: overview
 
 # Paintノード：描画要素の使い分け
 
-Fusionの[Paint](./paint)は、映像へ線や図形を描き、別の位置の画素を複製して不要物を隠せる**2D画像処理ノード**です。Flowに配置するPaintは1つですが、Viewer上部のツールバーから用途に応じた描画要素を選べます。
+Fusionの[Paint](./paint.md)は、映像へ線や図形を描き、別の位置の画素を複製して不要物を隠せる**2D画像処理ノード**です。Flowに配置するPaintは1つですが、Viewer上部のツールバーから用途に応じた描画要素を選べます。
 
 手描きの線を後から修正するならStroke、1フレームの細かなゴミを大量に消すならClone Multistroke、四角い看板の一部を画像で置き換えるならCopy Rectangleを使います。**いずれもPaint内部の描画要素であり、別のFlowノードではありません。** 結果はPaintの画像出力から次のノードへ渡します。
 
@@ -81,7 +81,7 @@ Stroke、Polyline Stroke、Circle、Rectangle、Copy系、Fillは、初期状態
 
 ## PaintとMask、Shapeの違い
 
-[Paint](./paint)は2D画像へ色や画素コピーを描き、2D画像を出力します。[Mask Paint](../masks/mask-paint)は入力画像がなくても単一チャンネルのMaskを描けます。Paint内部にあるCircleやCopy Polylineは図形を使った描画ですが、**Shapeノード群（s*）のShapeデータ**と同じものではありません。
+[Paint](./paint.md)は2D画像へ色や画素コピーを描き、2D画像を出力します。[Mask Paint](../masks/mask-paint)は入力画像がなくても単一チャンネルのMaskを描けます。Paint内部にあるCircleやCopy Polylineは図形を使った描画ですが、**Shapeノード群（s*）のShapeデータ**と同じものではありません。
 
 基礎概念は[Image](../../learn/02-data/image)、[Mask](../../learn/02-data/mask)、[Shape](../../learn/02-data/shape)を参照してください。名称から探す場合は[用語集](../../index/glossary)も使えます。
 

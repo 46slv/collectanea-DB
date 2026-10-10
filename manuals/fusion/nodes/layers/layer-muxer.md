@@ -21,7 +21,7 @@ updated: "2026-10-10"
 
 **Layer Muxerは、別々の画像に入っているLayerを1つのマルチレイヤー画像へまとめるノード**です。たとえばCGのBeauty・Depthを含むEXRと、別工程で出力したMotionのLayerを後段で一緒に扱いたいときに使います。
 
-ここでの**Layer**は、マルチレイヤーEXRなどが持つ名前付きの画像データのまとまりです。RGBAのチャンネルや、Depth・Normal・Motionなどの補助情報をLayerとして保持できる場合があります。Fusionタイムライン上のクリップの重なりとは異なります。詳しくは[Layerノードの使い分け](./index)と[補助Channel / AOV](../../learn/02-data/auxiliary-channels)を参照してください。
+ここでの**Layer**は、マルチレイヤーEXRなどが持つ名前付きの画像データのまとまりです。RGBAのチャンネルや、Depth・Normal・Motionなどの補助情報をLayerとして保持できる場合があります。Fusionタイムライン上のクリップの重なりとは異なります。詳しくは[Layerノードの使い分け](./)と[補助Channel / AOV](../../learn/02-data/auxiliary-channels)を参照してください。
 
 Layer Muxerは、2枚の画像を前後に重ねて画面を合成する[Merge](../compositing/merge)の代わりではありません。画面の見た目を合成するのではなく、**後段へ渡すLayerの集合**を組み立てます。
 
