@@ -95,7 +95,7 @@ Copy系の形状では、Manualに従って複製元の画像をPaintに指定�
 ## 関連項目と注意点
 
 - [Paint](./paint)：画像入力、Effect Mask、ブラシ・Clone・Modifiersなど親ノードの構成。
-- [Paintの概要](./overview)：Stroke、Shape、Copy系、Groupの使い分け。
+- [Paintの概要](./)：Stroke、Shape、Copy系、Groupの使い分け。
 - [Polyline Stroke](./polyline-stroke)：自由な輪郭を制御点で作り、経路上に線を描く。Write Onの用途はこちら。
 - [Copy Ellipse](./copy-ellipse)：円／楕円形の範囲で画像をコピーする用途。Circleの色付き描画とは別。
 - [Paint Group](./paint-group)：複数の描画要素をまとめて位置・大きさなどを調整する。
