@@ -1,61 +1,121 @@
 ---
-title: "sOutline"
-description: "Shape輪郭化。"
+title: sOutline
+description: 複数のShapeの輪郭を線として描き、線幅・角・端・描画範囲をまとめて調整する。
 doc_type: node
-term_id: "soutline"
-term_short: "sOutlineは、Shape輪郭化。Shape領域で使うNode。"
+term_id: soutline
+term_short: sOutlineはShapeの輪郭を線にし、太さや描画範囲を設定するNode。
 verification: partial
-aliases: ["sOutline"]
-concepts: ["shape-data"]
-nodes: ["sOutline"]
-node_family: "shapes"
-inputs: ["shape"]
-outputs: ["shape"]
-tasks: ["build-shape"]
+aliases: [sOutline]
+concepts: [shape-data]
+nodes: [sOutline]
+node_family: shapes
+inputs: [shape]
+outputs: [shape]
+tasks: [build-shape]
 product_scope: fusion
-suite_surfaces: ["fusion"]
-updated: "2026-10-05"
+suite_surfaces: [fusion]
+updated: "2026-10-11"
 ---
 
 # sOutline
 
-sOutlineは、Shape輪郭化。sRender前のvector Shapeを生成・変形・複製・結合します。通常の2D Imageとは別domainです。
+sOutlineは、<Term id="shape-data">Shape</Term>の輪郭を太さのある線に変えるNodeです。単独の円や多角形だけでなく、`sMerge`や`sBoolean`でまとめた複数のShapeへ、共通の線幅や線端の設定を適用できます。
 
-## 役割
-
-Shape輪郭化。このページでは、名前だけで選ばず、**何を受け取り、何が変わり、どのdomainへ返すか**を先に整理します。
-
-この項目で確認できている中心的な役割は「Shape輪郭化」です。exactなInspector項目が未確認の場合は、役割とdata domainを先に使って候補を絞ります。
+複数の図形を入力しても、それぞれの色・位置・大きさなどは保持されます。sOutlineは図形の色を一括変更するNodeではなく、**輪郭線の描き方を一括変更するNode**です。
 
 ## 入力と出力
 
-入力分類: **shape**。 出力分類: **shape**。 この分類はdata domainを読むためのものです。Fusion 21.1のexactな端子名・端子数を未確認の場合、ここでは推測して固定しません。
+**Input1（オレンジ、必須）**にShapeを接続します。単独の`sEllipse`、`sPolygon`だけでなく、`sMerge`や`sBoolean`が出力する複合Shapeも受け取れます。
 
-## 使うときの判断
+出力もShapeです。後段でほかのShape系Nodeへ渡せますが、通常の2D Image処理へ接続するには`sRender`で画像化します。
 
-Shapeを作るNodeか、既存Shapeを変えるNodeか、複数ShapeをまとめるNodeかで選びます。
+```text
+sEllipse ──┐
+           ├─ sMerge → sOutline → sRender → Merge
+sStar ─────┘
+```
 
-同じ目的を別Familyでも作れる場合は、後段で必要なdata domainと、Graph上で責任をどこに置きたいかで選びます。
+`sMerge`が複数Shapeをまとめ、sOutlineがその輪郭を加工し、`sRender`が画像に変換する順序です。[Shapeの基本](../../learn/02-data/shape)も参照してください。
 
-## 最小構成
+## InspectorのControls
 
-    Shape Source / sOutline → Shape chain → sRender → Image
+### Thickness
 
-これは接続関係を理解するための最小構成案です。公式Manualのexactな作例として確認していない構成は、実制作前にViewerで中間結果を確認します。
+輪郭線の太さです。複合Shapeなら含まれる図形にまとめて適用されます。外形を押し広げたり縮めたりする[sExpand](./sexpand)のAmountとは目的が異なります。
 
-## 確認ポイント
+### Border Style
 
-- 入力dataのdomainが合っているか。
-- この項目のoutputを受け取れる後段Nodeへ接続しているか。
-- 同じ役割を前段 / 後段で二重に処理していないか。
-- source-limited pageでは、未確認のControl名・default・rangeを名前から推測していないか。
+輪郭線が角で曲がるときのつなぎ方です。
 
-## Family内での位置づけ
+- **Bevel**：角を斜めに切り落とします。
+- **Round**：角を丸くします。
+- **Miter**：尖った角を保ちます。
 
-Shapeノードの全体像と近いNodeの選び分けは[Family Overview](./)を参照してください。
+角の鋭い星や多角形で違いがよく分かります。
 
-## 出典と確認範囲
+### Cap Style
 
-このページの役割・data domain・系譜は、既存COLLECTANEA catalogとBlackmagic Design公式資料で確認された範囲をreader-first形式へ整理しています。
+開いた線の両端の形を選びます。
 
-Fusion 21.1 Reference Manualで個別のInspector項目・default・rangeまで確認できていない項目は、**source-limited**としてその詳細を断定していません。verification: partial はその未確認範囲を含みます。runtime REGIDや現在のEffects Library表示は別のruntime verificationで確定します。
+- **Flat**：端を平らに切ります。
+- **Round**：半円状の端にします。
+- **Square**：端を線幅の半分だけ延長した四角い形にします。
+
+**Lengthが1.0未満のときだけ線端が見えます。** 輪郭が閉じている状態でCap Styleだけ切り替えても、通常は違いが分かりません。
+
+### Position / Length
+
+**Position**は輪郭線の開始位置を動かします。**Length**は線をどこまで描くかを指定します。`1.0`で閉じた輪郭になり、小さくすると開いた部分（隙間）ができます。PositionとLengthを組み合わせれば、隙間の位置を調整できます。
+
+Lengthをキーフレームで変えると、輪郭が伸びる**write-onアニメーション**を作れます。どこから描画が始まるかはShapeの経路とPositionで確認してください。
+
+### Settings
+
+SettingsタブはShape系Nodeの共通設定です。上記のThickness・Border Style・Cap Style・Position・LengthはsOutline固有のControlsです。このページでは共通Settingsの未確認の項目名・初期値を推測しません。
+
+## 実際の使い方
+
+### 複数の図形の線幅をそろえる
+
+```text
+sEllipse ──┐
+           ├─ sMerge → sOutline → sRender
+sStar ─────┘
+```
+
+円と星を異なる色で作成し、`sMerge`で重ねます。その後段のsOutlineでThicknessを調整すると、図形ごとに線幅を設定することなく共通の輪郭線を描けます。
+
+重なりから一つの外周を作りたい場合は、`sMerge`の代わりに[sBoolean](./sboolean)でUnionなどを計算し、得られたShapeへsOutlineを適用します。`sMerge`の重ね合わせとBoolean演算は同じ処理ではありません。
+
+### 線を描いていくアニメーション
+
+```text
+sPolygon → sOutline → sRender → Merge
+```
+
+`sPolygon`で経路を作り、sOutlineのThicknessとCap Styleで線の見た目を決めます。開始フレームでLengthを小さくし、終了フレームで`1.0`にするキーフレームを設定すると、線が徐々に伸びる表現を作れます。Positionで開始位置を調整し、途中フレームで線の方向と端の形を確かめます。
+
+### 一つの図形から太線と細線を重ねる
+
+```text
+              ┌─ sOutline（太）→ sChangeStyle ─┐
+sRectangle ───┤                                ├─ sMerge → sRender
+              └─ sOutline（細）→ sChangeStyle ─┘
+```
+
+元の四角形からShapeの流れを2本に分け、異なるThicknessを設定します。`sChangeStyle`で線の色を分けてから`sMerge`で合成すれば、元Shapeの形を一度直すだけで二重線の両方へ反映できます。
+
+## 関連Nodeとの違い
+
+- [sMerge](./smerge)：複数Shapeを重ねてまとめます。
+- [sBoolean](./sboolean)：重なりをUnion / Subtractなどで計算して形そのものを変えます。
+- [sExpand](./sexpand)：Shapeの領域を膨張・収縮します。
+- [sRender](./s-render)：Shapeを2D Imageへ変換します。
+
+Shape全体の流れは[Shapeノード一覧](./)から確認できます。
+
+## バージョンと出典
+
+Blackmagic Design『DaVinci Resolve 21.1 Reference Manual』（September 2026）、Chapter 117「Shape Nodes」、**pp.2750–2752**。Input1、複合Shapeへの適用、Thickness、Border Style、Cap Style、Position、Lengthを確認しました。
+
+接続例はマニュアル上の仕様に基づく制作例であり、21.1実機でレンダリングした結果ではありません。正確なREGID、全パラメータの初期値と範囲、Edition差は未確認のため、`verification: partial`を維持します。
