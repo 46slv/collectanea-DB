@@ -1,8 +1,9 @@
 ---
 title: Ellipse Mask
-description: 円・楕円の単一channel Maskを作り、Level・Soft Edge・Border・Invert・Paint Modeで範囲を調整する基本Mask Node。
+description: 円・楕円のマスクを作るFusionノード。画像との接続、幅・高さ・回転、境界、別マスクとの合成と具体例を解説。
 doc_type: node
 term_id: ellipse-mask
+term_short: 円や楕円の形で、後段の効果を適用する範囲を指定するマスクノード。
 verification: partial
 aliases: [Ellipse, Ellipse Mask, Elp]
 concepts: [mask-data, normalized-coordinates]
@@ -15,131 +16,128 @@ tasks: [mask, circle, ellipse, isolate-effect]
 level: foundation
 product_scope: fusion
 suite_surfaces: [fusion]
-updated: "2026-10-04"
+updated: "2026-10-10"
 ---
 
 # Ellipse Mask
 
-Ellipse Maskは、円・楕円の<Term id="mask">Mask</Term>を作る基本Nodeです。円形の範囲だけにEffectをかける、顔の周囲を楕円で囲う、柔らかいスポット状のMaskを作る、といった用途に使います。
+Ellipse Maskは、円や楕円の形で「映像のどこに処理をかけるか」を指定するノードです。最初は円形ですが、横幅・高さ・角度を別々に変えられます。人物の顔だけをぼかす、画面の一部だけ色を調整する、円形の色付き図形を作るといった場面で使います。
 
-## 役割
+作るのは色付きの映像ではなく、白・黒・グレーで処理範囲を表す単一チャンネルの<Term id="mask">マスク</Term>です。白は効果を強く適用する領域、黒は適用しない領域、グレーは部分的に適用する領域を表します。
 
-Ellipse MaskはRGBA Imageを生成するNodeではなく、処理範囲を表す単一channelのMaskを作ります。
+## 入力と出力
 
-```text
-Ellipse Mask ──→ Effect Mask input
-Image ─────────→ Effect → Output
-```
+| 端子 | データ | 役割 |
+| --- | --- | --- |
+| **Effect Mask（青、任意）** | 別のマスク | 入力したマスクとEllipse Mask自身の円・楕円を組み合わせる |
+| **出力** | 単一チャンネルのマスク | Blur、Background、Mergeなど、マスクを受け取るノードへ処理範囲を渡す |
 
-## 入力
+Ellipse Maskには、通常のRGBA画像を加工するための画像入力はありません。加工したい映像は、効果を実行するノードへ入力します。
 
-### Effect Mask
+例えば、顔の周りだけをぼかすなら次の接続です。
 
-青色の任意入力です。別のMaskを接続すると、Ellipse Mask自身の形と組み合わせられます。
+~~~text
+MediaIn ──────────────→ Blur ─────────→ MediaOut
+                        ↑ Effect Mask
+                    Ellipse Mask
+~~~
 
-組み合わせ方はPaint Modeで決めます。
+BlurはMediaInの画像を処理し、Ellipse MaskはBlurの適用範囲を指定します。Ellipse Maskの出力をMediaOutへつないでも、カラー映像にはなりません。
 
-## 出力
+## 位置と形を調整する
 
-円・楕円形のMaskを出力します。
+Ellipse Maskを選択してViewerに対象画像を表示し、円を被写体に重ねて調整します。主な設定はInspectorのControlsタブにあります。
 
-白に近いMask値では対象Effectが強く適用され、黒に近い値では適用されません。
+| 設定 | 変わるもの | Viewerでの操作 |
+| --- | --- | --- |
+| **Center X / Y** | 円・楕円の位置 | 中心をドラッグして移動 |
+| **Width** | 横方向の大きさ | 左右の端をドラッグ |
+| **Height** | 縦方向の大きさ | 上下の端をドラッグ |
+| **Angle** | 楕円の傾き | 点線の先にある回転用の小円をドラッグ |
+| **Show View Controls** | 位置・形状を操作するハンドルの表示 | 無効にすると選択中でもViewerの操作表示が消える |
 
-## 主な設定項目
+Viewerでは、縦横の端の間にある斜め方向の操作点を使うと、縦横比を保ちながら幅と高さを同時に変えられます。真円は回しても外形がほぼ変わらないため、Angleの効果は縦長・横長の楕円で確認すると分かりやすくなります。
 
-### Center X / Y
+位置や大きさを指定する際の座標の読み方は[正規化座標](../../learn/03-space/normalized-coordinates)も参照してください。
 
-Ellipse Maskの位置を動かします。
+## 境界と強さを調整する
 
-### Width / Height
+| 設定 | 作用 |
+| --- | --- |
+| **Solid** | 有効なら円・楕円の内側を塗ったマスク、無効なら輪郭線だけのマスクにする |
+| **Border Width** | Solid無効時は輪郭線の太さ、Solid有効時はマスクの縁の広がり・縮まりを調整する |
+| **Soft Edge** | 境界をぼかす。0.0では輪郭がはっきりする |
+| **Filter** | Soft Edgeの計算方法を選ぶ |
+| **Level** | マスクの値を下げ、効果の適用を弱める |
+| **Invert** | マスク全体の白黒を反転する |
 
-楕円の横幅・縦幅を個別に調整します。
+Filterには**Box、Bartlett、Multi-box、Gaussian**があります。Boxは処理が軽く、Gaussianは滑らかなぼかしを得やすい方式です。Multi-boxを選ぶと**Num Passes**が表示され、計算回数を調整できます。輪郭合わせはSoft Edgeを0にしてから行い、最後に必要な分だけぼかすと調整しやすくなります。
 
-Viewer上では左右・上下のcontrolをドラッグして変更できます。斜め方向のcontrolを使うと縦横比を保ったまま大きさを変えられます。
+Levelを下げると、単に円の内側が薄く見えるだけではありません。別のマスクを重ねている場合、Ellipse Maskが覆う位置では、入力側に不透明な領域があっても最終マスク値が下がる場合があります。意図しない濃淡が出たら、LevelとPaint Modeの両方を確認してください。
 
-### Angle
+## 別のマスクと組み合わせる
 
-Ellipse Maskを回転します。
+Ellipse Maskの青いEffect Mask入力へほかのマスクを接続すると、**Paint Mode**で合成方法を選べます。これは画像のMergeノードにあるForeground・Backgroundの合成ではなく、**2枚のマスク値をどう組み合わせるか**の設定です。
 
-真円では見た目の変化が小さいですが、楕円にすると回転方向を確認しやすくなります。
+| Paint Mode | 入力マスクとEllipse自身のマスクの関係 |
+| --- | --- |
+| **Merge（初期値）** | 新しい楕円のマスクを入力マスクに重ねる |
+| **Add / Subtract** | 値を足す／重なる領域で新しい楕円の値を引く |
+| **Minimum / Maximum** | 画素ごとに小さい方／大きい方の値を採用する |
+| **Average / Multiply** | 2つの値の平均／積を使う |
+| **Replace** | 楕円と重なる部分を新しい値で置き換える。新しいマスク値が0の場所は入力を変えない |
+| **Invert** | 楕円が覆う入力マスクの領域だけを反転する |
+| **Copy / Ignore** | 入力を捨てて楕円だけ使う／楕円を捨てて入力だけ使う |
 
-### Level
-
-Mask値全体の強さを調整します。
-
-1.0ではMask内部が最大値になり、値を下げるとEffectの適用量も部分的になります。
-
-### Soft Edge / Filter
-
-Soft EdgeはMask境界をぼかします。0.0では明確な境界です。
-
-FilterはSoft Edgeに使う計算方法を選び、Box、Bartlett、Multi-box、Gaussianが21.1 Manualに記載されています。
-
-### Border Width / Solid
-
-Solidが有効ならMask内部を塗った領域として使います。
-
-Solidを無効にすると輪郭だけのMaskになり、Border Widthで線の太さを決めます。
-
-### Paint Mode
-
-Effect Mask入力へ別Maskを接続したとき、2つのMaskをどう組み合わせるかを決めます。
-
-Merge、Add、Subtract、Minimum、Maximum、Average、Multiply、Replace、Invert、Copy、Ignoreがあります。
-
-### Invert
-
-Mask全体の白黒を反転します。
-
-Paint ModeのInvertは入力Maskとの重なり方、Invert checkboxは最終Mask全体の反転なので区別します。
-
-## 最小構成
-
-Mergeの合成範囲を円形に限定する場合:
-
-```text
-Foreground ─┐
-Background ─┼─ Merge → Output
-Ellipse ────↑
-```
-
-まずSolidの円形Maskで確認し、その後Soft Edgeを増やすと境界の変化だけを観察できます。
+**Paint ModeのInvert**と**Invertチェックボックス**は別の機能です。前者は新しい楕円が重なる入力領域に作用し、後者は出力マスク全体を反転します。選択した演算の結果は、Ellipse Mask自体をViewerに表示して白黒の範囲を確認してください。ほかの形との選び分けは[Maskカテゴリ概要](./index)にまとめています。
 
 ## 運用例
 
-人物の顔周辺だけにColor処理をかけたい場合、Ellipse Maskを対象NodeのEffect Maskへ接続します。
+### 顔の周囲だけをぼかす
 
-1. Centerで顔へ移動
-2. Width / Heightで輪郭に合わせる
-3. Angleで傾きを合わせる
-4. Soft Edgeで境界をなじませる
+1. MediaIn → Blur → MediaOutを接続し、Blurでぼかし量を決めます。
+2. Ellipse MaskをBlurの青いEffect Mask入力へ接続します。
+3. Centerを顔の中心へ移動し、WidthとHeightを顔より少し広めに合わせます。顔が傾いていればAngleも調整します。
+4. Soft Edgeを増やして境界をなじませます。顔の移動に合わせて位置を変える場合は、途中のフレームでもマスクのずれを確認します。
 
-Mask自体を調整する間は、Effect側の強さを同時に変えない方が原因を追いやすくなります。
+この構成で変わるのは**Blurがかかる場所**です。Ellipse Maskは顔そのものを移動したり、映像から切り抜いて別の画像に変えたりするわけではありません。
 
-## Polygon Maskとの違い
+### 色のついた円形パネルを重ねる
 
-Ellipse Maskは円・楕円で十分な範囲を素早く作る場合に向いています。
+Ellipse Maskだけでは色は作れません。[Background](../generators/background)に色を指定し、その表示範囲をEllipse Maskで決めます。
 
-人物や物体の複雑な輪郭を正確に囲う場合は[Polygon Mask](./polygon-mask)を使います。
+~~~text
+Ellipse Mask ─→ BackgroundのEffect Mask
+                      ↓
+                  MergeのForeground ─→ MediaOut
+MediaIn ─────────→ MergeのBackground
+~~~
 
-## 関連する考え方
+Backgroundが色付きの画像を作り、Ellipse Maskが円形の部分だけを残します。円を細い枠にしたい場合はSolidを無効にしてBorder Widthを調整します。円の内側にテキストなどを配置するときも、色と形を別々に調整できます。
 
-- [マスク（Mask）](../../learn/02-data/mask)
-- [正規化座標（Normalized Coordinates）](../../learn/03-space/normalized-coordinates)
+### 大きな処理範囲から円だけを除く
 
-## 関連パターン
+例えば、[Rectangle Mask](./rectangle-mask)で画面の右半分をぼかす範囲にした後、その中の丸いロゴだけはぼかしたくない場合です。
 
+~~~text
+Rectangle Mask ─→ Ellipse Mask（Paint Mode: Subtract）
+                         ↓
+                   BlurのEffect Mask
+~~~
+
+Rectangle MaskをEllipse Maskの青い入力へ接続し、Ellipse Maskをロゴに合わせて**Subtract**にします。入力した長方形から楕円と重なる部分が差し引かれ、Blurはロゴの周囲にだけかかります。
+
+## 似たノード・注意点
+
+[Rectangle Mask](./rectangle-mask)は四角形、[Polygon Mask](./polygon-mask)は任意のBézier輪郭、[B-Spline Mask](./b-spline-mask)は滑らかな自由曲線に向きます。楕円で十分な場合はEllipse Maskの方が少数の設定で位置と形を調整できます。
+
+入力画像の明るさやAlphaからマスクを作りたい場合は[Bitmap Mask](./bitmap-mask)を使います。手描きでマスクを補修したい場合は[Mask Paint](./mask-paint)が候補です。[Paint](../paint/paint)内の楕円描画とは異なり、Ellipse Maskは独立したFlowノードです。
+
+- [マスクの基本](../../learn/02-data/mask)
 - [Maskで処理範囲を限定する](../../patterns/masking/limit-effect-with-mask)
 
-## 似たNode・関連Node
+## バージョン・出典・未確認範囲
 
-- [Polygon Mask](./polygon-mask) — 任意形状を描く
-- [Rectangle Mask](./rectangle-mask) — 四角形
-- [B-Spline Mask](./b-spline-mask) — 滑らかな自由曲線
-- [Bitmap Mask](./bitmap-mask) — Image channelからMaskを作る
+Blackmagic Design『DaVinci Resolve 21.1 Reference Manual』（2026年9月）、Chapter 108「Mask Nodes」pp.2472–2475を基準にしています。Effect Mask入力、Ellipseの寸法と回転、境界のFilter、Paint Modeの各演算、Solid、Levelの注意点、Backgroundとの基本構成を確認しました。現行の21.1 Manualの配布元は[Blackmagic Design Support Center](https://www.blackmagicdesign.com/support)です。
 
-## 出典と確認範囲
-
-DaVinci Resolve 21.1 Reference Manual、September 2026、Chapter 108、pp.2472–2474で、Effect Mask入力、Level、Filter、Soft Edge、Border Width、Paint Mode、Invert、Solid、Center、Width、Height、Angleを確認しました。
-
-内部REGID、全Viewer shortcut、実機でのsoftness性能、Edition差は未確認のため `verification: partial` としています。
+マニュアルの**[Elp]**はSelect Toolで使う略号で、内部REGIDと同一とは断定しません。実機での細かな設定範囲・全ショートカット・Free／Studio差は未確認のため、verificationはpartialのままです。
