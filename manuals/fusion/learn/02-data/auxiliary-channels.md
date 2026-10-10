@@ -106,6 +106,22 @@ Ambient Occlusionの**Input**にはZとNormalを含むRenderer 3Dの画像を、
 
 AOは画面上で近似計算するため、透明物体や画面端、カメラ位置が変わる場面では制約があります。通常の3Dライトが作るすべての陰影を置き換える処理ではありません。
 
+## 補助チャンネルの境界処理：アンチエイリアスとHiQ
+
+Renderer 3DのOpenGLでは、表示する色（RGBA）の輪郭を滑らかにする処理と、Z・Normal・ObjectIDなどの補助チャンネルに適用する処理を分けて考えます。異なる物体の値を境界で平均してしまうと、元の3Dシーンには存在しない番号や表面方向、UV座標が作られることがあります。
+
+**物体のIDからマスクを作る場合**は、ObjectID / MaterialIDのアンチエイリアスを無効にします。TexCoord、Normal、Vector、BackVectorも、21.1マニュアルでは原則として無効が強く推奨されています。IDマスクの縁を滑らかにしたければ、番号を平均するのではなく、[Bitmap Mask](../../nodes/masks/bitmap-mask.md)でマスクへ変換した後のSoft Edgeなどを調整します。
+
+**AOでZとNormalを使う場合**は、次の順で確認します。
+
+1. [Renderer 3D](../../nodes/3d/renderer-3d.md)のOutput ChannelsでZとNormalを有効にし、AOのCamera入力にはその画像を描画したカメラを接続します。
+2. AO節（21.1 Manual p.2259）には、AOのアンチエイリアスを行うにはRenderer 3DのZ／NormalsパスでHiQを有効にするという案内があります。HiQ表示と最終品質で、陰影や輪郭を見比べます。
+3. 同じマニュアルのRenderer 3D節（p.1975）は、Normal値自体のアンチエイリアスを無効にするよう強く推奨しています。HiQで評価することと、Normalの値を境界で平均することを一律に同じ意味だと決めず、不自然な筋やにじみが出る場合はNormal側のアンチエイリアス設定を個別に確認します。Z側も境界で有効・無効を比較します。
+
+**Zを使って前後の画像を合成する場合**も、輪郭が滑らかに見える設定が正しいとは限りません。21.1マニュアルはZへのスーパーサンプリングが役立つ例を挙げる一方、Mergeの**Perform Depth Merge**では逆効果になる場合もあると説明しています。また、Z値はアンチエイリアスを含まないという説明（p.1974）もあるため、内部処理の一律な断定は避け、実際の前後関係と境界を確認します。
+
+AOは透明・半透明の物体や粒子の輪郭でも破綻しやすい処理です。設定だけで解決しない場合は、不透明な物体だけを別の3DシーンでAO処理する方法も検討します。詳しくは[Ambient Occlusion](../../nodes/deep/ambient-occlusion-deep-pixel.md)を参照してください。
+
 ## 補助チャンネルを可視化・加工する
 
 補助チャンネルは通常のRGBプレビューで見えなくても、画像に残っていることがあります。**[Copy Aux](../../nodes/color/copy-aux.md)**を使うと、目的の補助チャンネルを一時的にRGBAへコピーして確認できます。
@@ -126,7 +142,7 @@ Renderer 3D ──┬───────────────────�
 
 - **Depth BlurやFogが意図どおりに効かない**：Renderer 3Dまたは読み込んだEXRにZが実際に入っているか確認します。Viewerで「深度らしく見える画像」と、Z補助チャンネルを保持している画像は別です。
 - **ObjectIDで想定外の物体も選択される**：物体のIDが重複していないか、背景IDの0と混同していないかを確認します。
-- **Normal / UV / IDの境界に不自然な値が出る**：OpenGLの補助チャンネルのアンチエイリアスを確認します。21.1 Manualは**ObjectID / MaterialID / TexCoord / Normal / Vector / BackVectorのアンチエイリアスを無効**にするよう強く推奨しています。境界で異なる物体の値を平均すると、存在しないIDや座標が作られるためです。
+- **Normal / UV / IDの境界に不自然な値が出る**：OpenGLの補助チャンネルのアンチエイリアスを確認します。ID・UV・Normalの推奨設定とAOのHiQとの関係は、上の「補助チャンネルの境界処理」を参照してください。
 - **Copy Auxで画面が真っ黒になる**：チャンネル未出力や、負の値・広い値域を整数RGBへコピーした際のクリッピングを疑います。Aux Channel、Out Color Depth、Remappingを確認します。
 - **後段で補助データが消える**：RGBAだけで保存・変換したり、Copy AuxのKill Aux Channelsを使ったりしていないか、ノードごとに確認します。
 
@@ -142,9 +158,9 @@ Renderer 3D ──┬───────────────────�
 
 一次資料：**Blackmagic Design『DaVinci Resolve 21.1 Reference Manual』（September 2026）**。
 
-- Chapter 88「Renderer3D」、pp.1970–1975：Output Channels、IDの意味と範囲、Software / OpenGL差、補助チャンネルのアンチエイリアス。
+- Chapter 88「Renderer3D」、pp.1970–1975：Output Channels、IDの意味と範囲、Software / OpenGL差、補助チャンネルのアンチエイリアス、Zの境界処理。
 - Chapter 93「Copy Aux」、pp.2182–2185：Aux to Color / Color to Aux、浮動小数点値の表示、固定Remapping、Kill Aux Channels。
-- Chapter 96「Deep Pixel Nodes」、pp.2255–2261：Ambient OcclusionのZ・Normal・Camera入力、Depth BlurのZ・Focal Point・Depth of Field。
+- Chapter 96「Deep Pixel Nodes」、pp.2255–2261：Ambient OcclusionのZ・Normal・Camera入力、AOのHiQ案内と透明・半透明素材への制約、Depth BlurのZ・Focal Point・Depth of Field。
 - Chapter 108「Bitmap Mask」、pp.2463–2467：ImageからのMask生成、Use Object / Use Material、Threshold、Soft Edge。
 
 この記事の接続例はこれらの仕様を組み合わせたものです。Resolve 21.1実機での各レンダラー・GPU・外部EXRによる差、およびノード間での全チャンネル保持の動作は未検証のため、**verification: partial**としています。
