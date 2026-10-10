@@ -26,7 +26,7 @@ Multistrokeは、**Paintノードの中で多数のブラシ操作をまとめ�
 
 ## 入力と出力
 
-Multistroke自体にFlow上の独立した入出力端子はありません。画像を処理するのは[Paintノード](./paint)です。
+Multistroke自体にFlow上の独立した入出力端子はありません。画像を処理するのは[Paintノード](./paint.md)です。
 
 - **PaintのInput（オレンジ）**：必須の2D画像。素材やBackgroundを接続します。解像度はこの画像で決まります。
 - **PaintのEffect Mask（青）**：任意。描画の適用範囲を制限するマスクを接続します。クローン元の画像入力ではありません。
@@ -83,7 +83,7 @@ MediaIn（汚れがある素材）→ Paint → MediaOut
 - Durationは描画後に自由に延長する設定ではありません。作業範囲が分かっているときは**描く前に**決めます。
 - Paint Groupで動かせるのはまとめた補修全体です。Multistroke内部の各線を個別に再編集できるようになるわけではありません。
 - ブラシ設定はすべての描画方式で同一表示ではありません。Multistrokeで使う設定を確認してから描きます。
-- [Paint全体の解説](./paint)と[Paintツールの一覧](./)で、Stroke・Clone・Fillなどの選択基準を確認できます。
+- [Paint全体の解説](./paint.md)と[Paintツールの一覧](./)で、Stroke・Clone・Fillなどの選択基準を確認できます。
 
 ## バージョンと出典
 

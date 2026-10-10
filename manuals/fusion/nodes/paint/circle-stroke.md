@@ -19,7 +19,7 @@ updated: "2026-10-10"
 
 # Circle Stroke（PaintのCircle）
 
-**Circleは、[Paintノード](./paint)の中で円形の領域を描くツール**です。中心位置と半径を変えられるため、映像上の丸い目印、図形の塗り、円が広がるアニメーションなどに使えます。描いた後も形状や表示期間を調整できます。
+**Circleは、[Paintノード](./paint.md)の中で円形の領域を描くツール**です。中心位置と半径を変えられるため、映像上の丸い目印、図形の塗り、円が広がるアニメーションなどに使えます。描いた後も形状や表示期間を調整できます。
 
 本サイトの項目名は「Circle Stroke」ですが、**DaVinci Resolve 21.1 Reference ManualのPaintツール一覧では「Circle」**と記載されています。単独のFusion Flowノードではなく、Paint内部で作成する描画要素です。「Circle Stroke」という名前の独立ノードをAdd Toolで探す必要はありません。
 
@@ -94,7 +94,7 @@ Copy系の形状では、Manualに従って複製元の画像をPaintに指定�
 
 ## 関連項目と注意点
 
-- [Paint](./paint)：画像入力、Effect Mask、ブラシ・Clone・Modifiersなど親ノードの構成。
+- [Paint](./paint.md)：画像入力、Effect Mask、ブラシ・Clone・Modifiersなど親ノードの構成。
 - [Paintの概要](./)：Stroke、Shape、Copy系、Groupの使い分け。
 - [Polyline Stroke](./polyline-stroke)：自由な輪郭を制御点で作り、経路上に線を描く。Write Onの用途はこちら。
 - [Copy Ellipse](./copy-ellipse)：円／楕円形の範囲で画像をコピーする用途。Circleの色付き描画とは別。
