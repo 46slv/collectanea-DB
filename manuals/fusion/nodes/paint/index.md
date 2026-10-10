@@ -43,7 +43,7 @@ Merge → MediaOut
 | ゴミやマーカーを画素の複製で手早く消す | [Clone Multistroke](./clone-multistroke) | 参照した画素を別位置へコピーする。多くの短い補修向き |
 | 輪郭や文字の経路を正確に描く | [Polyline Stroke](./polyline-stroke) | 点を置いて経路を作り、経路に沿って描く。既存Pathとの接続も可能 |
 | 円形の色付き図形を描く | [Circle](./circle-stroke) | 中心と半径を変えられる。画素の複製ではない |
-| 四角い色付き図形を描く | Rectangle | 矩形の描画領域を作る。21.1 ManualにあるPaint内部のツール |
+| 四角い色付き図形を描く | [Rectangle](./rectangle) | 矩形の描画領域を作る。21.1 ManualにあるPaint内部のツール |
 | 円・楕円状の範囲へ周囲の画素をコピーする | [Copy Ellipse（Copy Circle系）](./copy-ellipse) | Sourceの画像を円形範囲へ複製する |
 | 矩形の範囲へ画素をコピーする | [Copy Rectangle](./copy-rectangle) | 直線状の縁を持つ物体の補修に使う |
 | 複雑な輪郭の内側を画像で置き換える | [Copy Polyline](./copy-polyline) | 閉じた自由形状を作り、内部へSourceの画素を複製する |
