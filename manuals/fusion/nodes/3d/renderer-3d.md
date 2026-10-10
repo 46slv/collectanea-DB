@@ -16,7 +16,7 @@ tasks: [render-3d, convert-domain, composite-3d]
 level: intermediate
 product_scope: fusion
 suite_surfaces: [fusion]
-updated: "2026-10-09"
+updated: "2026-10-10"
 ---
 
 # Renderer 3D
@@ -112,7 +112,7 @@ Renderer 3Dは完成した色に加え、深度や法線、物体IDを画像の�
 | **ObjectID / MaterialID** | 物体・マテリアルに割り当てた識別番号 | 目的の物体・マテリアルをマスクとして分離する |
 | **Coverage / BgColor** | 境界画素での前景占有率と、その背後の色 | 深度合成の境界を補助する。**Software側の出力項目** |
 
-不要な補助チャンネルを有効にするとメモリと描画時間が増えます。SoftwareのZ値は、複数の面が同じ画素へ重なったとき手前側の深度を採用し、通常の色のようにはアンチエイリアス処理されません。
+不要な補助チャンネルを有効にするとメモリと描画時間が増えます。Zは、複数の面が同じ画素へ重なったとき手前側の深度を記録します。**前後に重なった各面の深度を同じ画素へ保存するDeep Imageとは別物**です。Zの境界処理は下の「補助チャンネルのアンチエイリアス」で説明します。
 
 **例：3Dの球だけ色を変える。** まず球へObject IDを設定し、Renderer 3DでObjectIDを出力します。後段でその番号に対応する画素を取り出してマスク化すると、他の物体を保ったまま球を色補正できます。Object IDは自動的にすべての物体を異なる番号へ振り分ける仕組みではないため、対象のID設定も確認します。
 
@@ -128,7 +128,24 @@ OpenGLの**Cryptomatte**は物体やマテリアルの識別情報から、境�
 
 **Anti-Aliasing**は、内部でより大きな画像を描画して縮小し、斜めの輪郭のギザつきを減らす処理です。OpenGLではLowQ / HiQ別に有効化し、**Supersampling LowQ/HiQ Rate**や**Filter Type**を調整できます。倍率を大きくすると通常は描画コストも増えます。通常のViewerではHiQを有効にしない限り、アンチエイリアスを省略することがあります。
 
-補助チャンネルで境界の値を平均すると、存在しないIDやUV、法線の向きができて後段処理を乱すことがあります。21.1マニュアルは**ObjectID / MaterialID / TexCoord / Normal / Vector / BackVector**へのアンチエイリアスを無効にするよう強く推奨しています。ZやWorldCoordも処理によっては有効化が逆効果になります。
+### 補助チャンネルのアンチエイリアスは用途で選ぶ
+
+OpenGLでは、輪郭を滑らかにする**RGBA**と、距離・向き・識別番号などの**補助チャンネル**に別々のアンチエイリアス設定があります。補助チャンネルの値を境界で平均すると、シーンに存在しないID・UV・法線が生まれ、後段の処理を誤らせる場合があります。
+
+| チャンネル | 設定の考え方 | 理由・具体例 |
+| --- | --- | --- |
+| **RGBA** | 必要な画質に合わせて有効化 | 色と輪郭のギザつきを減らす |
+| **Normal** | **無効を強く推奨** | 異なる面の方向を混ぜると誤った法線になる。[Ambient Occlusion](../deep/ambient-occlusion-deep-pixel.md)やShaderで不自然な陰影が出る場合はまず確認する |
+| **ObjectID / MaterialID / TexCoord / Vector / BackVector** | **無効を強く推奨** | 別の面の値と混ざると物体マスク、UVテクスチャ、動きの処理が崩れる |
+| **Z / WorldCoord** | 結果を比較して判断 | 21.1 Manualがアンチエイリアスを試す候補として挙げる。ただし**Perform Depth Merge**ではZの処理が逆効果になることもある |
+
+**AOを後処理で追加する**場合は、Renderer 3Dで**ZとNormal**を出力し、その描画に使ったCamera 3DをAmbient Occlusionの緑のCamera入力へ接続します。まずNormalのアンチエイリアスを無効にして確認し、Zは実際の境界で有効・無効を比較します。
+
+21.1 ManualのAO節（p.2258）は、AOへアンチエイリアスを適用したい場合に**Renderer 3DのZ／NormalsパスでHiQを有効にする**よう案内しています。一方、Renderer 3Dの補助チャンネル節（pp.1974–1975）ではNormal自体のアンチエイリアスを無効にするよう強く推奨しています。**HiQで描画することとNormal値を境界で平均することを同じ設定として扱わず**、両節の条件と出力結果を確認してください。具体的な接続例は[Ambient Occlusion](../deep/ambient-occlusion-deep-pixel.md)を参照してください。
+
+**ObjectIDから物体を選択する**場合は、ID値のアンチエイリアスで輪郭を滑らかにしようとしないでください。IDをマスクに変換した後で必要な調整をするか、境界の精度が重要なら[Cryptomatte](../matte-keying/cryptomatte.md)を検討します。
+
+なお、Zのアンチエイリアスを使っても、重なった複数の深度を保持するDeep Imageにはなりません。深度合成では見た目の滑らかさだけでなく、前後関係が正しく合成されているかも確認します。
 
 OpenGLで3Dの被写界深度を作る場合は、**Accumulation Effects**と**Depth of Field**を両方有効にし、Camera 3Dの**Plane of Focus**を被写体までの距離に合わせます。焦点位置をアニメーションすればラックフォーカスができます。ぼけを大きくするほどQualityを高くする必要があります。
 
@@ -154,11 +171,15 @@ OpenGL UVは「モデルをカメラで撮る」のではなく、モデルのUV
 - [Merge 3D](./merge-3d) — 物体・カメラ・ライトを同じシーンへまとめる
 - [Camera 3D](./camera-3d) — 撮影位置・画角・焦点位置を決める
 - [Image Plane 3D](./image-plane-3d) — 2D素材を3D空間へ置く
+- [補助Channel / AOV](../../learn/02-data/auxiliary-channels.md) — Z・Normal・ObjectIDの意味と使い方
+- [Ambient Occlusion](../deep/ambient-occlusion-deep-pixel.md) — Z・Normal・Cameraを使う陰影処理
 - [Classic 3Dノード一覧](./index) — 関連Nodeを探す
 
 ## 出典と確認範囲
 
 - **Blackmagic Design, DaVinci Resolve 21.1 Reference Manual**, Chapter 88「Renderer3D [3Rn]」、本文pp.1970–1978。入力、Camera / Eye、Software / OpenGL / OpenGL UV、Output Channels、Multilayer、アンチエイリアス、Depth of Field、Cryptomatte、UV書き出しを確認。
+- 同ManualのChapter 88「Anti-Aliasing of Aux Channels in the OpenGL Renderer」（pp.1974–1975）。RGBAとAuxの設定、Z・WorldCoordの条件付き推奨、ID・UV・Normalの無効推奨、Depth Mergeでの注意を確認。
+- 同ManualのChapter 96「Ambient Occlusion [SSAO]」（pp.2256–2258）。Z・Normal・Cameraの入力、AO時のHiQの記述を確認。
 - 同ManualのChapter 77「Understanding Image Channels」。補助チャンネルと2D合成の関係を確認。
 - 同ManualのChapter 88「Spherical Camera [3SC]」（pp.1995–1996）。投影Layout、Cube形式の面幅、3Dシーンへのカメラ接続を確認。
 - [Blackmagic Design公式サポート](https://www.blackmagicdesign.com/support)（21.1 Manual、2026-09-08公開）。
