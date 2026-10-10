@@ -5,7 +5,7 @@ doc_type: index
 verification: partial
 product_scope: fusion
 tasks: [lookup-node, create-mask, isolate-effect, roto]
-updated: "2026-10-10"
+updated: "2026-10-11"
 ---
 
 # Maskノード
@@ -82,6 +82,10 @@ Maskでは、白に近いほど処理を強く適用し、黒に近いほど適�
 
 これはRGBA Imageの「白い絵」「黒い絵」という意味ではなく、単一channelのMask値として読みます。
 
+## Mask共通Controls（Image / Settings）
+
+マスクの形や選択条件とは別に、各Maskノードには解像度と画像領域を決める**Output Size / Clipping Mode**、動くマスクの**Motion Blur**、描画環境の**Use GPU**などの共通設定があります。画面端でSoft Edgeが不自然な場合や、画像とマスクの解像度が異なる場合は[Mask共通Controls](./common-controls)でImage / Settingsタブを確認してください。
+
 ## 関連する考え方
 
 - [マスク（Mask）](../../learn/02-data/mask)
@@ -94,6 +98,6 @@ Maskでは、白に近いほど処理を強く適用し、黒に近いほど適�
 
 ## 出典と確認範囲
 
-DaVinci Resolve 21.1 Reference Manual、September 2026、Chapter 108、pp.2462–2500（Paint Modeはp.2465、Mask Paintはpp.2475–2476）、およびFusion Fundamentals Chapter 79のMask / Polyline説明を基に整理しています。
+DaVinci Resolve 21.1 Reference Manual、September 2026、Chapter 108、pp.2462–2502（Paint Modeはp.2465、Mask Paintはpp.2475–2476）、およびFusion Fundamentals Chapter 79のMask / Polyline説明を基に整理しています。
 
-このFamily OverviewはMaskの選び分けを担当します。個々のSpline editing、Paint操作、全Common Controlsは各Node Referenceと専用Conceptへ分けます。
+このFamily OverviewはMaskの選び分けを担当します。個々のSpline editingとPaint操作は各Node Referenceを参照してください。Image / Settingsタブの共通項目は[Mask共通Controls](./common-controls)にまとめています。
