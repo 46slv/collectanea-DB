@@ -125,7 +125,7 @@ Light Trimは夜景の露出だけを担当し、発光グラフィックの光�
 - [Gamut](../color/gamut)：色域やガンマの変換を含めて考える場合の参照先です。Light Trimだけでは色域は変わりません。
 - [Imageの基礎](../../learn/02-data/image)：2D画像の数値とデータの受け渡しについて確認できます。
 - [Effect Maskを使う構成](../../patterns/masking/limit-effect-with-mask)：ノードの処理を画像の一部に限定する一般的な方法です。
-- [Film系ノードの選び方](./index)：Light TrimとCineon Logを含む用途別の入口です。
+- [Film系ノードの選び方](./)：Light TrimとCineon Logを含む用途別の入口です。
 
 ## バージョンと検証状況
 
