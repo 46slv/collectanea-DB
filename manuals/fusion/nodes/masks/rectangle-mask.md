@@ -106,7 +106,7 @@ Polygon Mask ──→ Rectangle Mask（Paint Mode: Subtract）
 
 ### 角丸の色付きパネルを作る
 
-1. [Background](../generator/background)でパネルに使う色を作ります。
+1. [Background](../generators/background)でパネルに使う色を作ります。
 2. Rectangle MaskをBackgroundのEffect Mask入力へ接続します。Backgroundの色は矩形マスクの内側にだけ現れます。
 3. Corner Radiusで四隅を丸め、必要ならSoft Edgeを調整します。
 4. Backgroundの出力をMergeのForegroundへ、背景映像をMergeのBackgroundへ入れて重ねます。
