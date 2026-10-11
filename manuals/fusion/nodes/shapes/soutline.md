@@ -11,10 +11,11 @@ nodes: [sOutline]
 node_family: shapes
 inputs: [shape]
 outputs: [shape]
+controls: [Thickness, Border Style, Cap Style, Position, Length]
 tasks: [build-shape]
 product_scope: fusion
 suite_surfaces: [fusion]
-updated: "2026-10-11"
+updated: "2026-10-12"
 ---
 
 # sOutline
@@ -37,11 +38,15 @@ sStar ─────┘
 
 `sMerge`が複数Shapeをまとめ、sOutlineがその輪郭を加工し、`sRender`が画像に変換する順序です。[Shapeの基本](../../learn/02-data/shape)も参照してください。
 
+sOutlineにはShapeの入力が1つしかありません。円と星を両方扱う場合は、先に`sMerge`などで一つの複合Shapeとして渡します。複数の図形を**別々のまま重ねる**ならsMerge、重なった領域の形を**演算して変える**ならsBooleanを選びます。どちらを入力したかによって、sOutlineが輪郭を描く対象も変わります。
+
 ## InspectorのControls
 
 ### Thickness
 
-輪郭線の太さです。複合Shapeなら含まれる図形にまとめて適用されます。外形を押し広げたり縮めたりする[sExpand](./sexpand)のAmountとは目的が異なります。
+輪郭線の太さです。複合Shapeなら含まれる図形にまとめて適用されます。たとえば円と星の線を同じ太さにしたいとき、各Generatorの`Border Width`を個別に直す代わりに、両方をまとめた後段のsOutlineでThicknessを調整できます。
+
+外形を押し広げたり縮めたりする[sExpand](./sexpand)のAmountとは目的が異なります。sOutlineで線を太くする操作は、元Shapeの位置や大きさを一律に拡大する操作でもありません。
 
 ### Border Style
 
@@ -69,6 +74,8 @@ sStar ─────┘
 
 Lengthをキーフレームで変えると、輪郭が伸びる**write-onアニメーション**を作れます。どこから描画が始まるかはShapeの経路とPositionで確認してください。
 
+複合Shapeを入力した場合、PositionとLengthは含まれる図形の輪郭へ共通に適用されます。これは、複数の図形を一筆書きのようにつなげたり、一つずつ順番に描いたりする機能ではありません。図形ごとに描画タイミングを変えるなら、sOutlineを合流前の各経路に配置してそれぞれのLengthをアニメーションします。
+
 ### Settings
 
 SettingsタブはShape系Nodeの共通設定です。上記のThickness・Border Style・Cap Style・Position・LengthはsOutline固有のControlsです。このページでは共通Settingsの未確認の項目名・初期値を推測しません。
@@ -94,6 +101,16 @@ sPolygon → sOutline → sRender → Merge
 ```
 
 `sPolygon`で経路を作り、sOutlineのThicknessとCap Styleで線の見た目を決めます。開始フレームでLengthを小さくし、終了フレームで`1.0`にするキーフレームを設定すると、線が徐々に伸びる表現を作れます。Positionで開始位置を調整し、途中フレームで線の方向と端の形を確かめます。
+
+### 複数の輪郭を同時に描く
+
+```text
+sEllipse ──┐
+           ├─ sMerge → sOutline → sRender
+sStar ─────┘
+```
+
+円と星を作って`sMerge`へ入れ、sOutlineの`Length`を開始時の短い値から終了時の`1.0`へアニメーションします。両方の輪郭が同じ設定で伸びるので、複数のアイコンを同時に出現させるアニメーションに向いています。一方、円を描き終わってから星を描きたい場合は、sOutlineをそれぞれの枝へ置き、キーフレームの時刻をずらしてから`sMerge`でまとめます。
 
 ### 一つの図形から太線と細線を重ねる
 
