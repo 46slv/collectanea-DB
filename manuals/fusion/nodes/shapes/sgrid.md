@@ -1,9 +1,9 @@
 ---
 title: "sGrid"
-description: "入力したShapeをX・Y方向の行列へ複製し、行・列の数と間隔を調整して規則的な反復を作るShape Node。"
+description: "Shapeを指定した行数・列数へ複製するノード。格子状の配置、複合Shapeの反復、sJitterと組み合わせたパターン制作に使う。"
 doc_type: node
 term_id: "sgrid"
-term_short: "sGridは、ShapeをX・Y方向のグリッドへ並べ、行列状の反復パターンを作るNode。"
+term_short: "sGridは、入力したShapeを行列状に複製し、行・列の数と間隔を調整するノード。"
 verification: partial
 aliases: ["sGrid"]
 concepts: ["shape-data", "vector-shape", "rasterization"]
@@ -15,93 +15,125 @@ controls: ["Grid Cells X", "Grid Cells Y", "X Offset", "Y Offset"]
 tasks: ["build-shape", "procedural-graphics", "repeat-shape"]
 product_scope: fusion
 suite_surfaces: ["fusion"]
-updated: "2026-10-03"
+updated: "2026-10-11"
 ---
 
 # sGrid
 
-sGridは、入力した<Term id="shape-data">Shape</Term>をX・Y方向へ並べ、行列状の反復パターンを作るNodeです。円を規則正しいドットにする、四角形をタイル状に並べる、といった用途に使えます。
+sGridは、入力した<Term id="shape-data">Shape</Term>を横方向と縦方向へ複製し、規則的な行列に並べるノードです。小さな円をドット状に敷き詰めたり、複数の図形を組み合わせた模様を一定間隔で反復したりできます。
 
-## 役割
+ここでいうShapeは、ピクセル画像になる前の図形データです。[Shapeの基本](../../learn/02-data/shape)で、通常の2D ImageやMaskとの違いを確認できます。
 
-1つのShape、または複数Shapeをまとめた結果を受け取り、横方向と縦方向へ複製します。出力もShapeのままなので、並べた後に別のShape処理を続けるか、最後に `sRender` で2D Imageへ変換できます。
+## 入力と出力
 
-## 入力
+**Input1（オレンジ、必須）**には、別のShapeノードの出力を接続します。例えば `sEllipse` の円を入れると、その円が行列状に複製されます。
 
-### Input1
+`sMerge` で複数のShapeをまとめたものや、`sBoolean` で図形同士の重なりを処理した結果も入力できます。この場合、入力された**複合Shapeを一つの反復元として**行・列へ並べます。sGridに図形を何本も直接挿すのではなく、必要なら上流でまとめておく構成です。
 
-オレンジ色の必須入力です。別のShape Nodeの出力を受け取ります。
-
-単一Shapeだけでなく、`sMerge` や `sBoolean` で組み合わせたShapeも入力できます。
-
-## 出力
-
-グリッド状に複製されたShapeを出力します。
+出力もShapeです。後段のShapeノードで加工を続けられますが、通常の画像用MergeやBlurへ直接つなぐものではありません。画面に描画して合成するには、[sRender](./s-render)で2D Imageへ変換します。
 
 ```text
-sEllipse → sGrid → sRender
+sEllipse → sGrid → sRender → Merge
+                       ↑
+             ここから2D Image
 ```
 
-この構成では、円のShapeをsGridで並べ、sRenderで通常の画像として表示・合成できる状態へ変換します。
+上のMergeでは、sRenderの画像を前景として、別に用意した背景画像と合成します。sGrid単体は画像を出力しないので、Viewerで結果を確認する場合もsRenderまで接続します。
 
-## 主な設定項目
+## Inspectorの設定
 
-### Grid Cells X / Y
+### Grid Cells X / Grid Cells Y
 
-横方向と縦方向にいくつのセルを作るかを指定します。
+横方向の列数と縦方向の行数を設定します。例えばXを5、Yを5にすると、入力したShapeを**5列×5行**に並べます。単一の円を入力した例なら、25個分の配置です。
 
-たとえばXとYをそれぞれ5にすると、Shapeは5列×5行に並びます。
+数を増やしても元のShapeの大きさや列の間隔が自動で最適化されるとは限りません。細かな模様を作る際は、列数・行数だけでなく、入力図形のサイズと後述のOffsetを合わせて調整します。
 
-### X / Y Offset
+### X Offset / Y Offset
 
-列同士・行同士の間隔を調整します。
+列同士の横方向の距離と、行同士の縦方向の距離を調整します。どちらも0.0なら、各行・列のShapeは同じ場所へ重なります。**数を増やしているのに一つしか見えない場合は、まずOffsetを確認**してください。
 
-0.0では各行・列が同じ位置へ重なります。21.1 Manualでは、X Offsetを1.0にすると列がフレーム幅相当まで広がる例が示されています。
+21.1 Manualでは、X Offsetを1.0に設定すると、列がフレーム幅に相当する範囲へ広がる例が示されています。これは「1.0＝1ピクセル」という指定ではありません。ここでは厳密なピクセル位置や、各セルの座標計算式までは断定しません。
 
-## 主な用途
+### Settingsタブ
 
-- 円を規則正しく並べてドット背景を作る。
-- 四角形などを反復してタイル状の模様を作る。
-- 同じ装飾Shapeを行列状に配置する。
-- 規則的な配列を作った後、`sJitter` で位置・大きさ・回転を崩す元にする。
+SettingsはShape系ノードに共通するタブです。sGrid独自の行数・列数・間隔は、**Controls**タブで調整します。共通Settingsの説明を探している場合は、21.1 Manualの同章末尾にあるCommon Controlsを参照してください。
 
-## 運用例
+## 具体的な制作例
 
-ドット背景を作る場合は、`sEllipse` で小さな円を1つ作り、sGridへ接続します。
+### 1. ドット状の背景を作る
 
 ```text
-sEllipse
-  ↓
-sGrid       ← Grid Cells X / Y
-  │         ← X / Y Offset
-  ↓
+sEllipse（小さな円）
+   ↓
+sGrid（8列×6行）
+   ↓
 sRender
-  ↓
-Merge
+   ↓ Foreground
+Merge ← Background（背景画像）
 ```
 
-まずGrid Cellsで数を決め、その後Offsetで円同士の距離を調整すると、どの設定が「数」、どの設定が「間隔」を担当しているか分けて確認できます。
+1. `sEllipse` で小さな円を一つ作ります。ここで決めるのは反復させる**一個のドット**の大きさです。
+2. `sGrid` に接続し、Grid Cells Xを8、Yを6にします。円が8列×6行に複製されます。
+3. X/Y Offsetを調整して、隣り合う円が重ならない間隔にします。配置が広がりすぎる場合はOffsetを小さくします。
+4. `sRender` に接続して画像化し、`Merge` で映像や背景に重ねます。
 
-## 挙動と注意点
+結果は、円の大きさ、個数、間隔を別々に修正できるドット背景です。画面の密度を上げたいときに、完成画像を何枚も手作業で複製する必要はありません。
 
-- sGridはX・Yの**2次元の規則的な配列**を作るNodeです。
-- コピーごとに位置・大きさ・回転を段階的に変えたい場合は、[sDuplicate](./sduplicate)の方が意図に合います。
-- 不規則なばらつきを加える場合は、後段の `sJitter` が候補になります。
-- sGridの結果はShapeであり、通常のImage系Nodeへ渡す境界で `sRender` を使います。
+### 2. 二つの図形から作った模様を繰り返す
 
-## 関連する考え方
+```text
+sRectangle ─┐
+            sMerge → sGrid → sRender
+sEllipse ───┘
+```
 
-- [シェイプ（Shape）](../../learn/02-data/shape)
-- [データ領域（data domain）を辿って診断する](../../learn/07-debugging/trace-data-domain)
+四角形と円を重ねて一つの装飾パーツにしたい場合は、`sMerge` で両方のShapeをまとめてからsGridへ渡します。sGridは、その組み合わせを行列状に繰り返します。
 
-## 似たNode・関連Node
+例えば、小さな四角形の中央に円を重ねたパーツを3列×4行に並べれば、同じ意匠のタイル背景を作れます。円だけ、あるいは四角形だけを変更した場合も、反復先へまとめて反映できます。
 
-- [sDuplicate](./sduplicate) — コピーごとに変化を積み重ねながら複製する
-- [sEllipse](./s-ellipse) — 円・楕円のShapeを作る
-- [sRender](./s-render) — Shapeを2D Imageへ変換する
+一方、四角形と円を**別々の密度や間隔で配置したい**なら、各Shapeに個別のsGridを付けて、後段でまとめる方が調整しやすくなります。
 
-## 出典と確認範囲
+### 3. 等間隔の配置を少し崩す
 
-DaVinci Resolve 21.1 Reference Manual、September 2026、Chapter 117、pp.2743–2744で、Input1、X/Yグリッドへの複製、Grid Cells X/Y、X/Y Offset、sRenderへ渡す構成を確認しました。
+```text
+sEllipse → sGrid → sJitter → sRender → Merge
+```
 
-このページではManualで確認できたControl名と基本挙動を記述しています。内部REGID、全設定、Edition差、実機での描画結果は未確認のため `verification: partial` を維持します。
+sGridで円を一定間隔に並べたあと、[sJitter](./sjitter)で個々の円の位置や大きさにばらつきを付ける構成です。
+
+まずsGridだけで行数・列数・Offsetを決めます。続いてsJitterの**Fixed**モードでShape X/Y Offsetの範囲を少し広げると、規則的な配列を基準にした不揃いなドット背景になります。動くばらつきが必要な場合は、sJitter側の**Random**モードと範囲設定を使います。sGridのOffset自体がランダムな動きを生成するわけではありません。
+
+この分離によって、模様の**基本的な密度・配列**はsGrid、**ばらつき**はsJitterという役割にできます。sJitterの詳しい設定は各ノードの記事を参照してください。
+
+## どの位置にノードを置くか
+
+sGridの前後に[sTransform](./stransform)を置くと、操作対象を分けられます。
+
+- **sTransform → sGrid**：複製する前の元Shapeを移動・拡大縮小・回転させてから並べます。同じ変更を受けたパーツが各セルへ複製されます。
+- **sGrid → sTransform**：作成済みの配列全体に追加の移動・拡大縮小・回転を与える構成です。画面上で模様全体を動かしたい場合はこちらが分かりやすくなります。
+
+両者はノードの接続順序の違いです。Pivotや各Controlの細かな座標挙動まで同じになると決めつけず、必要ならsRenderのViewerで確認します。
+
+## sDuplicateとの使い分け
+
+**行と列の数を直接決めて等間隔に並べる**ならsGridが適しています。一方、[sDuplicate](./sduplicate)はコピーごとに位置・大きさ・回転などの変化を積み重ねられるノードです。
+
+例えば、均一な円を6列×4行に配置するならsGrid、次のコピーほど小さくなる連続図形を作るならsDuplicateという選び方です。どちらもShapeを複製しますが、何をControlで指定したいかが異なります。
+
+## 表示されない・想定と違うとき
+
+- **行・列を増やしても一つに見える**：X/Y Offsetが0.0付近で、複製先が重なっていないか確認します。
+- **画面内に収まらない／詰まりすぎる**：Grid Cellsだけで解決しようとせず、入力図形のサイズとX/Y Offsetを調整します。
+- **sGridの出力を通常のImage系ノードへ接続できない**：出力はShapeです。sRenderで2D Imageへ変換します。
+- **複数の図形を一緒に並べたい**：sMergeやsBooleanで上流のShapeをまとめ、sGridのInput1へ接続します。
+- **規則的すぎる**：配列の規則性を残して一部だけ崩す場合は、sGridの後段にsJitterを追加します。
+
+[Shapeノード一覧](./)には、生成・加工・複製・画像化の各ノードへの入口があります。
+
+## バージョンと出典
+
+Blackmagic Design『DaVinci Resolve 21.1 Reference Manual』（September 2026）、Chapter 117「Shape Nodes」、**pp.2743–2744**を参照しました。Input1（オレンジ、必須）、単一・複合Shapeの入力、sRenderへの接続、Grid Cells X/Y、X/Y Offsetの役割は同Manualに基づきます。
+
+制作例のsJitterとの組み合わせは同Manual **pp.2744–2745**、sDuplicateとの使い分けは**pp.2735–2738**の記述と整合する構成として説明しています。記事の手順はManualの仕様から組み立てた例であり、個別の見た目やアニメーションを実機で検証した記録ではありません。
+
+内部REGID、Offsetの正確な座標計算式・数値範囲、Edition差、21.1実機での描画結果は未確認です。そのため `verification: partial` を維持します。
