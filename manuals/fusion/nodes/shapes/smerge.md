@@ -104,7 +104,7 @@ sText ────┘                  ↑
 
 ## 関連Nodeと考え方
 
-- [Shapeノード一覧](./index) — Shapeを作る・変える・まとめる処理を探す
+- [Shapeノード一覧](./) — Shapeを作る・変える・まとめる処理を探す
 - [シェイプ（Shape）](../../learn/02-data/shape) — ShapeとMask・2D Imageの区別
 - [sBoolean](./sboolean) — 形状の重なりを演算する
 - [sTransform](./stransform) — Shapeの位置や大きさなどを変える

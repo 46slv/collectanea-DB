@@ -22,7 +22,7 @@ updated: "2026-10-10"
 
 Swizzlerは、複数の画像から必要なLayer（レイヤー）やchannel（チャンネル）を取り出し、**新しいLayerを持つ画像へ組み直す**ノードです。CGのレンダーパスを別々の画像で受け取ったとき、それぞれを名前付きLayerへまとめたり、ある画像のRGBAと別の画像の補助channelを組み合わせたりできます。
 
-ここでいうLayerは、Fusionのタイムライン上に重ねるクリップではなく、**1つの画像データの中に保持できる名前付きのデータのまとまり**です。RGBAはRed・Green・Blue・Alpha、Aux（補助channel）は深度・法線・UVなどの追加データを指します。先に[Layerノードの概要](../layers/index)と[補助Channel / AOV](../../learn/02-data/auxiliary-channels)を読むと接続の意味が分かりやすくなります。
+ここでいうLayerは、Fusionのタイムライン上に重ねるクリップではなく、**1つの画像データの中に保持できる名前付きのデータのまとまり**です。RGBAはRed・Green・Blue・Alpha、Aux（補助channel）は深度・法線・UVなどの追加データを指します。先に[Layerノードの概要](../layers/)と[補助Channel / AOV](../../learn/02-data/auxiliary-channels)を読むと接続の意味が分かりやすくなります。
 
 ## 入力と出力
 

@@ -24,7 +24,7 @@ Rectangle Maskは、映像上に長方形や角丸の長方形を置き、その
 
 ここで作るのは色付きの画像ではなく、白・黒・グレーの値で範囲を示す**マスク**です。白は効果が強くかかる領域、黒はかからない領域、グレーは部分的にかかる領域を表します。基本は[Maskの概念](../../learn/02-data/mask)を参照してください。
 
-Paint内の[Rectangle描画要素](../paint/rectangle)は入力画像そのものに矩形を描きます。一方、Rectangle Maskは独立したFlowノードで、ほかのノードに渡すマスクを出力します。名前が似ていても接続先と用途が異なります。
+Paint内の[Rectangle描画要素](../paint/rectangle.md)は入力画像そのものに矩形を描きます。一方、Rectangle Maskは独立したFlowノードで、ほかのノードに渡すマスクを出力します。名前が似ていても接続先と用途が異なります。
 
 ## 入力と出力
 
@@ -123,7 +123,7 @@ Merge ─→ MediaOut
 
 [Ellipse Mask](./ellipse-mask)は円形や楕円形、[Polygon Mask](./polygon-mask)は人物などの不規則な輪郭に向きます。矩形で足りるならRectangle Maskを選んだ方が、Width、Height、Corner Radiusなどの意味が分かりやすく、後から調整しやすくなります。
 
-[Bitmap Mask](./bitmap-mask)は入力画像のAlphaや輝度などから領域を作り、[Mask Paint](./mask-paint)は手描きで欠けたマスクを補修します。複数のマスクをどうつなぐかは[Maskカテゴリ概要](./index)を参照してください。
+[Bitmap Mask](./bitmap-mask)は入力画像のAlphaや輝度などから領域を作り、[Mask Paint](./mask-paint)は手描きで欠けたマスクを補修します。複数のマスクをどうつなぐかは[Maskカテゴリ概要](./index.md)を参照してください。
 
 ## バージョン・出典・未確認範囲
 

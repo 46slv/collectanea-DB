@@ -127,7 +127,7 @@ Glowは2D Imageを処理するため、ShapeのままではなくsRenderの後�
 - **sBSpline**は制御点が周辺の曲線へ影響するため、少ない点で滑らかな輪郭を作りやすい一方、点の位置を線が必ず通るわけではありません。
 - [sMerge](./smerge)は複数のShapeをまとめ、[sBoolean](./sboolean)は重なりを論理演算し、[sRender](./s-render)はShapeを2D Imageへ変換します。
 
-全体の選び分けは[Shapeノード一覧](./index)を参照してください。
+全体の選び分けは[Shapeノード一覧](./)を参照してください。
 
 ## バージョンと出典
 
