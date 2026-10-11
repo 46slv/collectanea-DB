@@ -135,7 +135,7 @@ Ranges Mask (output) → Color Corrector (Effect Mask)
 - [Wand Mask](./wand-mask)：Viewerで指定した点から、色の近い連続領域を選ぶ。
 - [Polygon Mask](./polygon-mask)：画素値ではなく、手描きの輪郭で場所を指定する。
 
-Mask同士の合成は[Maskノードの概要](./index)、基本概念は[マスク（Mask）](../../learn/02-data/mask)も参照してください。
+Mask同士の合成は[Maskノードの概要](./index.md)、基本概念は[マスク（Mask）](../../learn/02-data/mask)も参照してください。
 
 ## 出典と確認範囲
 
