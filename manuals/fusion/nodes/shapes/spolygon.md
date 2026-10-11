@@ -136,7 +136,7 @@ sPolygonでひとつの不規則な図形を作り、SolidとColorを設定し�
 - [sBoolean](./sboolean)は複数Shapeの重なりを演算し、[sMerge](./smerge)はShapeをまとめます。sPolygon自体はほかのShapeを受け取るノードではありません。
 - 通常のPolygon Maskは処理範囲を指定する**Mask**、sPolygonは図形を作る**Shape**です。見た目が似ても用途と接続先は異なります。
 
-[Shapeノード一覧](./index)では、各ノードの選び分けを整理しています。
+[Shapeノード一覧](./index.md)では、各ノードの選び分けを整理しています。
 
 ## バージョンと出典
 

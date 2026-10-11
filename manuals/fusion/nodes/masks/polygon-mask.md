@@ -88,7 +88,7 @@ Filterの**Multi-box**では**Num Passes**が表示されます。値を増や�
 
 Polygon Maskの青い**Effect Mask入力**へ別のマスクをつないだ場合、Inspectorに**Paint Mode**が表示されます。これは入力マスクとPolygon自身の形をどのように組み合わせるかを選ぶ設定です。
 
-例えば**Subtract**は、入力マスクからPolygonと重なる部分を差し引きます。**Multiply**は2つの値の積、**Minimum / Maximum**は小さい方／大きい方を採用します。**Copy**は入力を捨てPolygon自身のみ、**Ignore**はPolygon自身を捨て入力のみを使います。**Invert（Paint Mode）**はPolygonと重なる入力領域を反転する演算で、上表の**Invertチェックボックス**によるマスク全体の反転とは異なります。その他のモードは[Maskカテゴリ概要](./index)で説明しています。
+例えば**Subtract**は、入力マスクからPolygonと重なる部分を差し引きます。**Multiply**は2つの値の積、**Minimum / Maximum**は小さい方／大きい方を採用します。**Copy**は入力を捨てPolygon自身のみ、**Ignore**はPolygon自身を捨て入力のみを使います。**Invert（Paint Mode）**はPolygonと重なる入力領域を反転する演算で、上表の**Invertチェックボックス**によるマスク全体の反転とは異なります。その他のモードは[Maskカテゴリ概要](./index.md)で説明しています。
 
 ## 時間を動かして輪郭を追う
 
