@@ -1,9 +1,9 @@
 ---
 title: Color Matrix
-description: RGBA入力を4×4 matrixとAdd列で再計算し、channel mix・swap・brightness offset等を数値で組むNode。
+description: 4×4の係数とAddでRGBAの各出力を計算するFusionノード。チャンネルの入れ替え、色の混合、ネガ反転と元に戻せない変換の注意点を解説。
 doc_type: node
 term_id: color-matrix
-term_short: RGBAをmatrix演算で別RGBAへ変換するNode。
+term_short: 入力RGBAを係数で組み合わせ、各チャンネルの値を再計算する2Dノード。
 verification: partial
 aliases: [Color Matrix, CMx]
 concepts: [image-data, channel-remap]
@@ -15,42 +15,141 @@ outputs: [image]
 tasks: [channel-remap, matrix-color]
 product_scope: fusion
 suite_surfaces: [fusion]
-updated: "2026-10-05"
+updated: "2026-10-11"
 ---
 
 # Color Matrix
 
-Color Matrixは、入力RGBAをmatrix演算して別のRGBAへ作り替えるNodeです。
+Color Matrixは、入力画像の赤・緑・青・Alpha（RGBA）から、**出力する各チャンネルの値を計算し直す**ノードです。たとえば、赤に緑の成分を少し足す、赤と青を入れ替える、赤だけ一定量暗くする、といった変更を数値で指定できます。
 
-「RedへGreenを20%混ぜる」「RGBを入れ替える」「channelごとに一定値を足す」といった処理を、4×4 matrixとAdd列で数値的に定義できます。
+普通の色調整ノードがGainやContrastなどを直接操作するのに対して、Color Matrixでは**「出力の赤を、入力のどの成分から何割作るか」**を指定します。複数の成分を同時に使う計算や、計算式を再現したい場合に向いています。
 
-## 入力
+ここでいう「行列（Matrix）」は、チャンネルごとの計算に使う係数の表です。RGBAという4つの入力に対し、RGBAという4つの出力を作るため、基本は4×4の係数を使います。さらに各出力へ固定値を足す**Add**があります。
 
-2D Imageと任意Effect Maskを受けます。
+## 入力・出力
 
-## Matrix
+| 端子 | 接続するもの | 動作 |
+| --- | --- | --- |
+| **Input**（オレンジ、必須） | MediaIn、Loader、Mergeなどの2D画像 | 入力RGBAの値を計算に使う |
+| **Effect Mask**（青、任意） | PolygonやRectangleなどのマスク | 計算結果を画像のどこに反映するかを制限する |
+| **Output** | Merge、MediaOutなどの後続ノード | 計算後のRGBAを持つ2D画像を出力する |
 
-横方向が出力R/G/B/AとAdd、縦方向が入力R/G/B/Aです。
+```text
+MediaIn ──→ Color Matrix ──→ MediaOut
+                   ↑
+              Effect Mask（任意）
+```
 
-初期状態は対角成分が1で、入力RGBAをそのまま出力します。
+Effect Maskを接続しなければ画像全体が処理対象です。21.1の公式マニュアルでは、Effect Maskはノードの処理後に適用されると説明されています。Alphaを別の値にする設定と、Effect Maskで処理範囲を絞る設定は役割が異なります。
 
-別channelの係数を加えるとchannel mixになり、Add列は各出力へ一定値を加えます。
+## Matrix：係数を読む
 
-## Update Lock
+出力の各成分は、おおむね次のように計算されます。`Rin`は入力の赤、`Rout`は出力の赤を表します。`rR`や`rG`などはMatrixで設定する係数です。
 
-matrixを複数cell編集するときにrender更新を止めます。設定後に解除して結果を確認します。
+```text
+Rout = rR × Rin + rG × Gin + rB × Bin + rA × Ain + rAdd
+Gout = gR × Rin + gG × Gin + gB × Bin + gA × Ain + gAdd
+Bout = bR × Rin + bG × Gin + bB × Bin + bA × Ain + bAdd
+Aout = aR × Rin + aG × Gin + aB × Bin + aA × Ain + aAdd
+```
 
-## Invert
+たとえば出力の赤を`1 × 入力赤 + 0.2 × 入力緑`にすれば、入力の赤に緑の成分を20%加えます。**「赤を20%にする」のではなく、元の赤に緑の値の20%を足す**ため、赤の値はもとの画像より大きくなる場合があります。
 
-matrixの逆変換を試みます。
+### 初期状態：何も変えない
 
-channel swapなど可逆なmatrixの後段で元へ戻したい場合に使えますが、情報を失うmatrixは完全には戻せません。
+初期状態はR→R、G→G、B→B、A→Aの係数が`1`で、それ以外が`0`です。この状態では入力と出力のRGBAは同じ値になります。
 
-## Channel Booleansとの違い
+| 出力 | 入力R | 入力G | 入力B | 入力A | Add |
+| --- | ---: | ---: | ---: | ---: | ---: |
+| R | 1 | 0 | 0 | 0 | 0 |
+| G | 0 | 1 | 0 | 0 | 0 |
+| B | 0 | 0 | 1 | 0 | 0 |
+| A | 0 | 0 | 0 | 1 | 0 |
 
-- **Channel Booleans** — Copy / Add / Multiply等のoperationをchannel単位で選ぶ
-- **Color Matrix** — 複数channelの線形combinationをmatrixで同時に定義
+表の横軸を**計算に使う入力成分**、縦軸を**計算結果の出力成分**として読んでください。InspectorのMatrixではR・G・B・Aの係数とAddを編集します。どの値がどの出力に効くかを確かめたい場合は、まず1つの係数だけを変更すると対応関係を確認できます。
 
-## 出典と確認範囲
+### Add：入力に関係なく一定量を足す
 
-DaVinci Resolve 21.1 Reference Manual Chapter 93 pp.2176–2179で、4×4 matrix、Add列、Update Lock、Invert、channel mix例を確認しました。
+Addは、対応する出力の計算結果に固定値を足します。たとえば`rAdd = -0.2`なら出力の赤を0.2下げ、`gAdd = 0.314`なら緑を0.314上げます。21.1マニュアルには、赤から0.2を引き、緑に0.314、青に0.75を足し、Alphaを保持する例があります。
+
+この処理はGainのような乗算とは違います。入力が0でもAddが0以外なら出力は0以外になるため、黒を保持したい処理での使用には注意が必要です。
+
+## Inspectorのほかの設定
+
+### Update Lock
+
+オンにすると、このノードのレンダリングを止めます。Matrixの多数の係数を変更する間に途中結果を表示させたくない場合に使い、**編集が終わったらオフへ戻して**画像を確認します。マニュアルは、ノードをレンダリングしない状態になると説明しています。
+
+### Invert
+
+Matrixで定義した変換を逆向きに適用するための設定です。チャンネルを入れ替えて別の処理を行い、後段に同じColor Matrix設定をコピーしてInvertを有効にすると、入れ替える前のチャンネル配置へ戻せる場合があります。
+
+**ただし、すべてのMatrixを元に戻せるわけではありません。** たとえば入力R・G・Bを一つの白黒値へまとめ、3チャンネルへ同じ値を出した場合、元の色の違いは失われています。逆変換に必要な情報がないため、Invertをオンにしても完全には復元できません。処理途中で値をクリップした場合も、クリップ前の値は復元できません。
+
+## 実践例1：赤と青を入れ替える
+
+```text
+MediaIn → Color Matrix → MediaOut
+```
+
+初期状態から、出力Rへ入力B、出力Bへ入力Rを渡すように変更します。緑とAlphaはそのまま維持します。
+
+| 出力 | 入力R | 入力G | 入力B | 入力A | Add |
+| --- | ---: | ---: | ---: | ---: | ---: |
+| R | 0 | 0 | 1 | 0 | 0 |
+| G | 0 | 1 | 0 | 0 | 0 |
+| B | 1 | 0 | 0 | 0 | 0 |
+| A | 0 | 0 | 0 | 1 | 0 |
+
+この設定では、赤い部分が青に、青い部分が赤になります。元のRGBのどの成分も捨てていないため、同じ入れ替えをもう一度行えば元の配置に戻ります。複数のノードを間に入れて元へ戻す場合は、変更前後の画像を比較してください。
+
+## 実践例2：ネガ反転してAlphaを変えない
+
+RGBが0〜1の範囲である場合、`1 - 入力値`でネガ反転できます。RGBの自分自身への係数を`-1`、各RGBのAddを`1`にします。Alphaは変えません。
+
+| 出力 | 入力R | 入力G | 入力B | 入力A | Add |
+| --- | ---: | ---: | ---: | ---: | ---: |
+| R | -1 | 0 | 0 | 0 | 1 |
+| G | 0 | -1 | 0 | 0 | 1 |
+| B | 0 | 0 | -1 | 0 | 1 |
+| A | 0 | 0 | 0 | 1 | 0 |
+
+単に係数を`-1`にしただけでは、元の0〜1の値は0〜-1になります。**Addの`1`は、その負の値を反転画像の0〜1へ移すため**に必要です。マニュアルは32-bitグレースケールの波形を使い、この違いを説明しています。
+
+浮動小数点画像に0未満や1を超える値があれば、結果も0〜1に収まるとは限りません。Addは自動の範囲制限ではありません。
+
+## 実践例3：入力の緑を赤へ20%追加する
+
+出力Rの係数を`R=1、G=0.2、B=0、A=0、Add=0`にします。ほかの出力は初期状態を維持します。
+
+```text
+Rout = Rin + 0.2 × Gin
+Gout = Gin
+Bout = Bin
+Aout = Ain
+```
+
+画像中で緑の値が高い部分ほど、赤が強くなる計算です。これは彩度を一定割合だけ変更する処理ではありません。値の範囲を限定していないため、後段のノードや納品形式でクリップが起きていないかを確認します。
+
+## うまくいかない場合
+
+- **画像が黒くなった／色が欠けた**：必要な出力チャンネルの係数を0にしていないか確認します。入力の赤をすべての出力から外した場合、元の赤は出力から取り出せません。
+- **Invertで戻らない**：白黒化のように情報が失われる組み合わせになっていないか、途中でクリップや不可逆な補正がないかを確認します。
+- **背景や透明な輪郭の色が変になる**：Alpha係数を保持しているか確認します。半透明画像にAddでRGBの固定値を足すと、RGBとAlphaの関係が合わなくなる場合があります。[プリマルチプライ](../../learn/04-compositing/premultiplication)の扱いを確認してください。
+- **数値を変えても結果が更新されない**：Update Lockをオフへ戻し、Viewerで当該ノードを表示しているか確認します。
+- **マスクの内外で結果が違う**：Effect Maskが接続されていないか、また処理後のどの部分に効いているかを確認します。
+
+## 関連ノードとの違い
+
+- **[Channel Booleans](./channel-boolean)**：別画像からチャンネルをコピーしたり、Copy・Multiplyなどの演算をチャンネル単位で指定したりする場合に向きます。補助チャンネルも扱えます。
+- **Color Matrix（本ノード）**：1枚の入力RGBAから、複数成分に係数を掛けて同時に新しいRGBAを計算する場合に向きます。別画像のForegroundを入力するノードではありません。
+- **[Color Space](./color-space)**：RGBをYUVやHLSなど、別の成分の組み合わせへ変換してから処理する場合に使います。
+- **[Brightness Contrast](./brightness-contrast)**：Gain・Lift・Gamma・Contrastなど、一般的な見た目の色調整に向きます。
+- **[Copy Aux](./copy-aux)**：ZやNormalなどの補助チャンネルをRGBAへ取り出し、必要なら戻す用途です。
+
+## 出典・確認範囲
+
+- **Blackmagic Design『DaVinci Resolve 21.1 Reference Manual』**、Chapter 93「Color Matrix [CMx]」、**pp.2176–2179**。入力・Effect Mask、Matrix、Update Lock、Invert、ネガ反転、各チャンネルへの固定値加算、チャンネルのコピー例を確認。
+- 関連：同Manual Chapter 93「Channel Booleans [Bol]」（pp.2154–2157）、「Color Space [CS]」（pp.2180–2182）。
+
+数式と表はマニュアルにあるRGBAの計算例をもとに、このページ用に説明し直したものです。Resolve 21.1実機での全係数の境界値や、入力のビット深度・Premultiplicationによる差は未検証のため、`verification: partial`としています。
