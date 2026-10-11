@@ -124,7 +124,7 @@ sRectangleで小さな正方形を1個作り、sGridへつないで縦横に並�
 - [sGrid](./sgrid)は格子状に増やし、[sDuplicate](./sduplicate)はコピーごとの変化を積み重ねます。
 - [sRender](./s-render)はShapeを通常の2D Imageへ変換します。BlurやGlow、通常のMergeへ渡す前に必要です。
 
-Shape全体の流れとほかのノードの一覧は[Shapeノード](./index)を参照してください。
+Shape全体の流れとほかのノードの一覧は[Shapeノード](./index.md)を参照してください。
 
 ## バージョンと出典
 
