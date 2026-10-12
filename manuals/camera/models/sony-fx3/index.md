@@ -2,7 +2,7 @@
 title: Sony FX3
 description: Sony FX3の記録方式、動画設定、Log / Cine EIを中心にした機種別操作ガイド。
 doc_type: model
-verification: verified
+verification: partial
 updated: 2026-10-13
 tags: [camera, Sony, FX3, XAVC, S-Log3, Cine-EI]
 tasks: [choose-recording-format, shoot-log]
