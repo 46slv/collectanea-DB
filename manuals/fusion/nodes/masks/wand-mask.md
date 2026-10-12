@@ -75,7 +75,7 @@ InspectorではX・Y座標を調整できます。Tracker、Path、Expressionな
 - **Add / Merge / Maximum**：それぞれの規則で領域を足す・まとめる用途です。
 - **Minimum / Average / Replace / Invert / Copy / Ignore**：入力マスクと新しいマスクの値を別の規則で扱います。
 
-Paint Modeの**Invert**は、入力マスクに新しいマスクが重なる部分の値を反転する演算です。別にある**Invertチェックボックス**はマスク全体を反転します。両者を混同しないでください。各演算の入口は[Maskカテゴリ概要](./index)にあります。
+Paint Modeの**Invert**は、入力マスクに新しいマスクが重なる部分の値を反転する演算です。別にある**Invertチェックボックス**はマスク全体を反転します。両者を混同しないでください。各演算の入口は[Maskカテゴリ概要](./index.md)にあります。
 
 ### Image / Settingsタブの共通設定
 
