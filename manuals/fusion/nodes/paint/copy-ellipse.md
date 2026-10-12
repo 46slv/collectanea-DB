@@ -19,7 +19,7 @@ updated: "2026-10-10"
 
 # Copy Ellipse（Paintの楕円形コピー）
 
-**Copy Ellipseは、[Paintノード](./paint)の内部で楕円形の範囲を定め、別の位置や画像の画素をコピーする描画要素**です。壁の小さなマーカーを消すなら、マーカーのない壁の模様を楕円形にコピーして上から重ねます。塗りつぶしと異なり、元画像の明暗や質感を使った補修ができます。
+**Copy Ellipseは、[Paintノード](./paint.md)の内部で楕円形の範囲を定め、別の位置や画像の画素をコピーする描画要素**です。壁の小さなマーカーを消すなら、マーカーのない壁の模様を楕円形にコピーして上から重ねます。塗りつぶしと異なり、元画像の明暗や質感を使った補修ができます。
 
 本サイトの項目名は「Copy Ellipse」ですが、DaVinci Resolve 21.1 Reference ManualのPaintツール一覧では**Copy Circle/Rectangle**、ショートカット一覧では**Copy Rect/Ellipse**と記載されています。本記事では円・楕円形のコピー要素を扱います。実機での正確なボタン表記は未確認であり、名称の違いから別の独立ノードがあるとは推測しません。
 
@@ -91,7 +91,7 @@ Merge → MediaOut
 - [Clone Multistroke](./clone-multistroke)：大量の小さな補修を素早く描けますが、個々の描画は後から直接編集できず、初期表示期間は1フレームです。
 - [Paint Group](./paint-group)：複数の描画要素をまとめて移動・調整できます。
 
-**Copy Ellipseは色付きの円を描くCircleとも、別エフェクトの範囲を制限するMask Ellipseとも用途が違います。** Paint全体の使い分けは[カテゴリ概要](./overview)を参照してください。
+**Copy Ellipseは色付きの円を描くCircleとも、別エフェクトの範囲を制限するMask Ellipseとも用途が違います。** Paint全体の使い分けは[カテゴリ概要](./index.md)を参照してください。
 
 ## 出典と確認範囲
 
