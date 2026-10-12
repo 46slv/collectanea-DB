@@ -43,7 +43,7 @@ InspectorのRegionタブでBitmapまたはMeshを選ぶと、追加のRegion入�
 
 結果もParticleデータです。pTurbulenceの出力を直接通常の2D画像処理へ渡すのではなく、pRenderで表示できる形式に変換します。pRenderの出力を2Dにすれば、Mergeなどで映像に合成できます。3D出力を選ぶ場合は、3Dシーンのノードへ渡します。
 
-Particleのデータ形式やpRenderの役割は、[パーティクルの基礎](../../learn/02-data/particle)と[Particleノード一覧](./index)でも説明しています。
+Particleのデータ形式やpRenderの役割は、[パーティクルの基礎](../../learn/02-data/particle)と[Particleノード一覧](./index.md)でも説明しています。
 
 ## 主な設定
 
@@ -74,7 +74,7 @@ Random Seedは乱数結果を再現するための値です。Randomizeボタン
 
 ### Conditions / Style / Region / Settings
 
-Particleノード共通のタブです。Conditionsは条件に合う粒子に処理を絞り、Regionは処理が作用する空間的な範囲を制限します。たとえば「特定のParticle Setだけ」を絞る用途と「画面の右側だけ」を絞る用途は異なります。共通設定は[Particleノードの概要](./index)を参照してください。
+Particleノード共通のタブです。Conditionsは条件に合う粒子に処理を絞り、Regionは処理が作用する空間的な範囲を制限します。たとえば「特定のParticle Setだけ」を絞る用途と「画面の右側だけ」を絞る用途は異なります。共通設定は[Particleノードの概要](./index.md)を参照してください。
 
 ## 最小構成
 

@@ -54,7 +54,7 @@ Bitmapから作った領域を接続すれば、その画像で指定した部�
 pEmitter → pFlock → pRender (2D) → Merge
 ```
 
-粒子データと画像の違いは[Particleノードの全体像](./index)と[パーティクルの基本](../../learn/02-data/particle)も参照してください。
+粒子データと画像の違いは[Particleノードの全体像](./index.md)と[パーティクルの基本](../../learn/02-data/particle)も参照してください。
 
 ## Inspectorの主な設定
 
