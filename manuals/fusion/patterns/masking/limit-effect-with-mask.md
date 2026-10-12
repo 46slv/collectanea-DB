@@ -28,7 +28,7 @@ Fusionの<Term id="mask">Mask</Term>は、基本的に白黒の単一チャン�
 MediaIn ───────────→ Color Corrector ─→ MediaOut
                             ↑［青：Effect Mask］
 Polygon Mask ───────────────┘
-~~~ 
+~~~
 
 1. **MediaInをColor Correctorへ接続する。** まずMaskをつながず、Color Correctorで青みや明るさをはっきり変え、画像全体へ補正がかかることを確認します。
 2. **Polygon Maskで空を囲む。** Polygonは自由に点を置いて輪郭を作るMaskです。建物との境目に沿って形を閉じ、Mask Nodeを単独でViewerへ表示します。空が白、残したい建物が黒になるようにします。
@@ -60,7 +60,7 @@ Blurでも接続の考え方は同じです。
 MediaIn ────────→ Blur ─────────→ MediaOut
                     ↑［Effect Mask］
 Ellipse Mask ───────┘
-~~~ 
+~~~
 
 1. Blurを挿入し、Maskがない状態で画面全体がぼける強さに調整します。
 2. Ellipse Maskを作り、Viewerで顔の大きさと位置に合わせます。
@@ -103,7 +103,7 @@ MediaIn ──────────────→ Color Corrector ─→ Med
                               ↑［Effect Mask］
 Ellipse Mask → Polygon Mask ──┘
                  ［Paint Mode］
-~~~ 
+~~~
 
 Ellipseが作った領域へPolygonを重ね、Polygonの**Paint Mode**で2つをどう組み合わせるか選びます。Subtractなら入力側のMaskから新しいMaskの領域を差し引く方法になります。Multiplyは両方の値を掛け合わせるので、重なった部分を残したい場合に使います。
 
@@ -119,7 +119,7 @@ Mask Node間の接続は、画像とMaskを合成するMergeとは別の操作�
 背景Image ───────→ Merge［Background］
 前景Image ───────→ Merge［Foreground］ ─→ 出力
 Ellipse Mask ────→ Merge［Effect Mask］
-~~~ 
+~~~
 
 この接続は、**前景Image自体へ楕円形のAlphaを保存する操作ではありません。** そのMergeでの合成範囲を制限しています。ほかの合成へ使い回す前景素材に透明部分を作りたい場合は、前景側のAlphaを別途作成・編集します。具体的な手順は[Mergeの適用範囲をMaskで限定する](../../recipes/masking/limit-merge-with-mask.md)を参照してください。
 
