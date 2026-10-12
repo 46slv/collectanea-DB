@@ -122,7 +122,7 @@ sStarのStyleタブでAlphaを0.5程度にし、`sDuplicate` で少しずつ位�
 - [sRender](./s-render)はShapeを2D Imageへ変換します。通常のMerge、Glow、Blurなどへ進む前に必要です。
 - `Cap Style`、`Position`、`Length` を調整したいときは、`Solid` が無効になっているか確認します。
 
-Shape系全体の使い分けは[Shapeノード一覧](./index)を参照してください。
+Shape系全体の使い分けは[Shapeノード一覧](./)を参照してください。
 
 ## バージョンと出典
 

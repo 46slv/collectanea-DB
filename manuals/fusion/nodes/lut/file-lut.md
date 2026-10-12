@@ -9,7 +9,7 @@ aliases: ["File LUT", "FLU"]
 concepts: ["image-data"]
 nodes: ["File LUT"]
 node_family: "lut"
-inputs: ["image"]
+inputs: ["image", "mask"]
 outputs: ["image"]
 controls: ["LUT File", "Pre-Gain", "Post-Gain", "Color Space", "Pre-Divide/Post-Multiply"]
 tasks: ["apply-lut"]
