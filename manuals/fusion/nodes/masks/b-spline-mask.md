@@ -103,7 +103,7 @@ Solidを無効にするとMaskは輪郭線だけになり、**Border Width**が�
 | **Invert** | B-Splineが覆う入力Maskの領域を反転する |
 | **Copy / Ignore** | 入力Maskを捨てる／B-Spline自身を無視する |
 
-**Paint ModeのInvert**は入力Maskの一部を反転する演算であり、共通設定の**Invertチェックボックス**によるMask全体の反転とは異なります。詳細な選び分けは[Maskカテゴリ概要](./index)を参照してください。
+**Paint ModeのInvert**は入力Maskの一部を反転する演算であり、共通設定の**Invertチェックボックス**によるMask全体の反転とは異なります。詳細な選び分けは[Maskカテゴリ概要](./index.md)を参照してください。
 
 ## 形状をアニメーションする
 

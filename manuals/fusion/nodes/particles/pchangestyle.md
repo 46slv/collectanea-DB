@@ -150,7 +150,7 @@ Setの切り替えを確認する際は、最初から複数のForceを重ねず
 - [pBounce](./pbounce)：指定Regionに接触した粒子を反射する。
 - [pDirectionalForce](./pdirectionalforce)：指定したSetへ方向性のある力を加える。
 - [pCustom](./pcustom)：式による個別のParticle属性変更を行う。
-- [Particleノード一覧](./index)：ほかのForce・Behaviorノードとの使い分け。
+- [Particleノード一覧](./index.md)：ほかのForce・Behaviorノードとの使い分け。
 
 ## 出典・バージョンと未確認事項
 

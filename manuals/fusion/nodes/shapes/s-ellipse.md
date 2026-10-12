@@ -132,7 +132,7 @@ MediaIn（背景映像）─────────→ Merge（Background）
 - [sRender](./s-render)：Shapeを2D Imageに変換します。通常のMergeやGlowに渡すときに必要です。
 - **Ellipse Mask**：画像処理の適用範囲を指定するマスクです。見た目が同じ円でも、sEllipseのShape出力とは用途と接続領域が異なります。
 
-[Shapeノード一覧](./index)では、ほかのGeneratorやShape処理ノードとの関係を整理しています。
+[Shapeノード一覧](./index.md)では、ほかのGeneratorやShape処理ノードとの関係を整理しています。
 
 ## バージョンと出典
 
