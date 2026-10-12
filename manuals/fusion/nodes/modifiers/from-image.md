@@ -15,7 +15,7 @@ outputs: ["parameter"]
 tasks: ["drive-parameter"]
 product_scope: fusion
 suite_surfaces: ["fusion"]
-updated: "2026-10-07"
+updated: "2026-10-13"
 ---
 
 # From Image
@@ -146,6 +146,35 @@ Start / EndはViewer上で動かせるため、横方向だけでなく、縦・
 
 Imageの明るさや色を数値Controlへ使いたい場合はProbe、Imageの配色そのものをGradientへ変換したい場合はFrom Imageを選びます。
 
+## Gradient Colorで時間変化へ使う
+
+From Imageが作るのは**色の並び**です。色を取得しただけでは、「何フレーム目にどの色を使うか」という時間変化は決まりません。時間に沿って色を変えたい場合は、[Gradient Color Modifier](./gradient-color-modifier)と組み合わせます。
+
+1. 色の変化を与えたいParameterで、Gradient Colorを利用できることを確認してModifierを追加します。
+2. Gradient ColorのGradient barを右クリックし、From Imageを適用します。
+3. `Image to Scan`へ色の取得元を指定し、ViewerでStart / Endの位置と向きを調整します。
+4. 取得した色を固定して編集したい場合は、From Imageを外し、残ったcolor stopを整えます。
+5. Gradient Color側で`Start Time`と`End Time`を設定し、色の並びを時間へ割り当てます。
+
+たとえば夕焼けの画像で、空の上側から地平線側へ線を引くと、線上にある青・紫・橙の並びをGradientへ取り込めます。次にGradient Colorで時間範囲を設定すれば、その色の並びを順にたどるAnimationの出発点にできます。**どこから色を拾うか**はFrom Image、**いつその色を使うか**はGradient Colorで決めます。
+
+この操作の各Controlは21.1 Manualに記載されていますが、特定のNodeとParameterの組み合わせによる実機render結果は未検証です。
+
+## うまく色を取得できない場合
+
+| 症状 | 確認すること |
+| --- | --- |
+| Gradientに期待した色が入らない | `Image to Scan`に目的のsource Nodeを指定したか確認します。Gradientを持つNode自身とsample元Imageを混同しないようにします。 |
+| Gradientが黒っぽい、または単色になる | Start / EndがImageの外に出ていないか、色の変化がない領域をsampleしていないか確認します。frame外では`Edges`の設定が結果に影響します。 |
+| 端に黒や指定色が混ざる | sample lineがframe外に出ており、`Edges = Black`または`Color`になっていないか確認します。意図した範囲内に線を戻す方法もあります。 |
+| 色の順番が逆になる | StartとEndの位置関係を確認します。取得する向きを逆にするには始点と終点を入れ替えます。 |
+| 滑らかな色変化が途中で飛ぶ | `Number of Sample Steps`が少なすぎないか確認します。step数は色を取得する点の数であり、補間方法とは別の設定です。 |
+| Gradientの編集点が多すぎる | `Number of Sample Steps`を減らし、必要な色の変化だけが残る設定から作り直します。 |
+| From Imageを外したのに色が残る | 21.1 Manualで説明されている挙動です。作成済みGradientは保持されるので、必要なら各color stopを手動で編集します。 |
+| 色を取得したが時間で変化しない | From Image自体はGradientを作る機能です。時間制御にはGradient Colorなど別の仕組みが必要です。 |
+
+最初はsample lineをImage内の短い範囲に収めて色を取得し、その後でStart / End、Sample Steps、Edgesを一つずつ変えると、意図しない色の原因を判別しやすくなります。
+
 ## 注意点
 
 From Imageは**Gradient専用**です。通常のnumeric Parameterへ`Modify With > From Image`を追加する操作ではありません。
@@ -160,6 +189,7 @@ From Imageは**Gradient専用**です。通常のnumeric Parameterへ`Modify Wit
 
 - [Modifier Family Overview](./)
 - [Probe](./probe)
+- [Gradient Color Modifier](./gradient-color-modifier)
 
 ## バージョンと出典
 
@@ -167,4 +197,4 @@ DaVinci Resolve 21.1 Reference Manual（September 2026）Chapter 124「Modifiers
 
 同Manualで、From ImageがGradient専用であること、Gradient barから追加すること、`Image to Scan`、`Start X/Y` / `End X/Y`、`Number of Sample Steps`、`Edges`のBlack / Wrap / Duplicate / Colorを確認しています。
 
-また、生成後にFrom Image Modifierを外してもGradientが残り、手動でfine tuneできる運用を確認しています。
+また、生成後にFrom Image Modifierを外してもGradientが残り、手動でfine tuneできる運用を確認しています。Gradient Colorへの適用については同Manual Chapter 124 pp.3010–3011も参照しています。
