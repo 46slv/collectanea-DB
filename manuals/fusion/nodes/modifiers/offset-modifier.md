@@ -15,7 +15,7 @@ outputs: ["parameter"]
 tasks: ["drive-parameter", "animate"]
 product_scope: fusion
 suite_surfaces: ["fusion"]
-updated: "2026-10-07"
+updated: "2026-10-13"
 ---
 
 # Offset
@@ -174,6 +174,30 @@ Text ───────┘
 [Path](./path)は位置を経路に沿って動かすModifierです。OffsetはPathそのものを作るのではなく、Pathから得た位置をPositionまたはOffsetへ接続し、**その位置ともう1点の関係を別の値へ変換**できます。
 
 ManualのSize作例では、Pathが「どこを動くか」、Offset Distanceが「その位置と固定点がどれだけ離れているか」を担当します。
+
+## 症状別の確認方法
+
+Offsetで結果が思いどおりにならないときは、先に**どのParameterを動かしたいか**と、**Position / Offsetの2点を何から取得しているか**を分けて確認します。
+
+| 症状 | まず確認する箇所 | 理由・対処 |
+| --- | --- | --- |
+| `Modify With`に目的のOffsetが出ない | 右クリックしたParameterの種類 | Offset Angle / Distanceは数値、Offset PositionはX / Y位置を返します。出力の種類と対象Parameterが合っているか確認します。 |
+| Positionを動かしてもTextのSizeが変わらない | `Offset Distance`がSizeへ付いているか、Modifiers tabのPosition / Offsetが別々の点になっているか | 2点間の距離が変わらなければ結果も変わりません。まずPath接続なしの2点をViewerで離したり近づけたりして確認します。 |
+| Textの移動とSizeの変化が連動しない | Modifierの`Position`がTextの`Path1 Position`へ接続されているか | TextのCenterを動かしただけでは、Offset側のPositionがその移動を自動参照するとは限りません。上の作例では明示的に`Connect To`します。 |
+| 距離を変えると目的と逆方向に値が動く | 使っているのが`Offset Distance`か、目的が「近いほど大きい」なのか | Offset Distanceが返すのは距離です。近づくほど大きい値が必要なら、距離をそのままSizeへ渡す構成では目的を満たしません。別の数値変換が必要です。 |
+| 2点を同じ位置に置いたのに結果が予想と違う | `Mode`、両方の`Flip`、`Image Aspect` | Offsetの種類だけでなく、計算方法や反転・Aspect補正も結果へ影響します。まずModeとFlipを確認してから片方ずつ変えます。 |
+| Animationと計算結果のタイミングがずれる | `Position Time Scale / Offset`と`Offset Time Scale / Offset` | 2つの点はそれぞれ別のframeを参照できます。片方だけ時間がずれていないか確認します。 |
+| 縦長・横長のCompositionで距離や方向の見え方が違う | `Image Aspect`と現在のFrame Format | Image AspectはPixel Aspectとは別です。Manualの計算式と数値例にも不整合があるため、実画面で結果を確認します。 |
+
+### Time Offsetの符号はModifierごとに確認する
+
+21.1 Reference ManualのOffset節では、`Position Time Offset = 10`の例を「10 frames back」と記しています。一方、同ManualのCalculation節では、正のTime Offsetを未来方向に参照する例が説明されています。
+
+そのため、**Calculationで使った符号をOffsetへそのまま当てはめない**ようにします。向きが重要な構成では、まず位置が明確に変わるAnimationを作り、`Time Offset`を小さく増減させて参照frameの方向を確認してください。これはManual間の説明差を切り分けるための確認手順であり、21.1実機における全Modifierの符号規則を確定したものではありません。
+
+### 最小構成で確認してから接続を増やす
+
+複数のPathやParameter参照を一度に接続すると、ずれの原因が分かりにくくなります。最初は上のText Size作例で**静的なPosition / Offsetの2点だけ**を動かし、距離とSizeが連動することを確認します。その後、Positionを`Path1 Position`へ接続し、最後に必要ならTime Scale / Time Offsetを加えると、どの段階で結果が変わったか追いやすくなります。
 
 ## 注意点
 
