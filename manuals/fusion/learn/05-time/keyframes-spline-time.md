@@ -31,6 +31,22 @@ Fusionで文字を拡大したり、画像を移動したり、エフェクト�
 
 Inspectorでキーフレームを置くと、そのパラメータには通常アニメーション用のSplineが作られます。Spline Editorはその結果を表示・編集するための画面です。Expressionで計算した値など、通常のキーフレーム曲線以外の時間変化を表示できる場合もあります。
 
+## 時刻の基準を確認する：Global RangeとRender Range
+
+「クリップの先頭から12フレーム後」と「フレーム番号12」は、いつも同じではありません。キーを置く前に、Fusion画面下部の**Time Ruler（時間目盛り）**で再生可能な範囲を確認します。
+
+| 範囲 | 意味 | キーフレームとの関係 |
+| --- | --- | --- |
+| **Global Range** | コンポジションが扱う全時間範囲 | 再生ヘッドはこの範囲の外へ移動できない |
+| **Render Range** | 通常の再生・プレビュー・キャッシュの対象範囲。Time Rulerの黄色い境界で示す | 変更してもキーの時刻が自動で移動するわけではない |
+| **Keyframeの時刻** | パラメータに値を指定した実際のフレーム位置 | Render Rangeの先頭が0とは限らない |
+
+**DaVinci ResolveのEdit / Cutページで通常の動画クリップ1つを選んだ場合**、21.1マニュアルでは、FusionページのGlobal Rangeは元素材の長さに基づき、Render Rangeはタイムラインで使うIn / Outに対応します。Render Rangeの前後には、編集で使っていない素材のフレーム（**ハンドル**）が残る場合があります。Fusionクリップや複合クリップの場合は、作業範囲がそのクリップ全体の長さを反映します。
+
+例として、100フレームの素材のうち、20〜59番目の40フレームを編集で使用しているとします。**使用部分の先頭から12フレーム後は32番目**です。「フレーム12」へキーを打つと、クリップで使っている部分より前に置いてしまいます。これは概念を示す数字で、実際のTime Ruler表示や素材のタイムコードが必ず0から始まるという意味ではありません。
+
+以下の0・12・24の操作例は、**0から始まるFusion Composition**を作った場合を前提とします。通常の動画クリップで再現するときは、表示中のRender Rangeの先頭から相対的にキーを配置します。
+
 ## 最小例：拡大して少し戻す
 
 まず、フレーム0から24まで使えるFusion Compositionを例にします。開始フレームが異なる場合は、以下の時刻をコンポジションの先頭からの相対位置として読み替えてください。
@@ -97,6 +113,24 @@ Keyframes Editorはツールバーから開けます。ノードのトラック�
 
 複数キーの間隔を保ったまま全体を長く・短くしたい場合は**Time Stretch**を使います。選択範囲の時間方向を伸縮する操作であり、個々の値を変更する操作ではありません。
 
+### 範囲・Nodeの有効期間・キーフレームの位置は別々に変わる
+
+「開始を後ろへずらしたい」とき、どこを編集するかで結果が違います。
+
+| 操作 | 変わるもの | 注意点 |
+| --- | --- | --- |
+| FusionページのRender Rangeを短くする | 通常の再生・プレビュー範囲 | **Edit / Cutページのクリップはトリムされない** |
+| Keyframes EditorでMediaInの区間をトリム | コンポジションで使える素材のIn / Out | プレビュー範囲とは別の変更 |
+| Keyframes EditorでEffect Nodeの区間をトリム | 効果が有効な時間。範囲外では無効として扱われる | キーを左右へ動かす操作ではない |
+| キーフレームを左右へ移動 | パラメータの値が変わる時刻 | 素材の読み出し時刻を直接変更するものではない |
+| Time Stretcherの`Source Time`を変更 | 出力時刻に対して読む素材の位置 | キーを一括移動する操作ではない |
+
+FusionページのRender Rangeを変更して作業位置が分からなくなったら、Time Rulerを右クリックして`Auto Render Range`を選び、編集側のクリップIn / Outに戻せます。これは**プレビュー範囲を戻す機能**で、キーフレームを元の位置へ戻す機能ではありません。
+
+Fusion Studioの場合は、Global Start / Endでコンポジション全体の長さを設定でき、Render Rangeは別に指定します。Resolveの通常の編集クリップと同じ操作方法だと決めつけないでください。
+
+アニメーションが途中から始まる・途中で消える場合は、①Time RulerのRender Range、②Keyframes EditorのNode区間、③キーフレームの実際の時刻、④必要ならリタイム設定の順に調べます。素材の読み出し位置については[フレーム評価](./frame-evaluation)で説明します。
+
 ### さらに細かいEase調整
 
 Bezierのキーを選択し、グラフの右クリックメニューから`Edit > Ease In/Out`を選ぶと、Spline Easeの数値コントロールを使えます。これは選択キーの前後にあるBezierハンドルの長さを調整する機能です。前後を連動させるLock In/Outもあります。
@@ -134,7 +168,7 @@ Sizeの数値曲線とCenterの移動経路を同一視すると、「Splineが0
 
 | 症状 | 先に確認すること |
 | --- | --- |
-| 再生しても値が動かない | Inspectorで対象パラメータにキーがあるか、再生ヘッドがキーを置いた区間を通っているか |
+| 再生しても値が動かない | Inspectorにキーがあるか、再生ヘッドがその区間を通るか。Render Range外へキーを置いていないか |
 | 1つだけキーが消えた | キーの位置でオレンジ色のボタンを押して削除していないか |
 | 途中で急に速度が変わる | Linearになっている区間や、Bezierハンドルの傾きが急な点がないか |
 | 突然値が切り替わる | Step In / Step Outが設定されていないか |
@@ -142,6 +176,8 @@ Sizeの数値曲線とCenterの移動経路を同一視すると、「Splineが0
 | Spline Editorに曲線が見えない | 対象パラメータのSpline表示チェック、選択ノード、グラフの表示範囲 |
 | Centerの縦軸が位置座標に見えない | Motion PathのDisplacement Splineを見ていないか |
 | Inspectorの値を直しても戻る | Keyframe以外のModifier・Expression・Connect Toが値を供給していないか |
+| クリップ先頭とアニメーション開始がずれる | 元素材の先頭ではなく、Render RangeのInを基準にキーを配置しているか |
+| 効果が途中で消える | Keyframes EditorでEffect Nodeの有効区間を短くしていないか |
 
 まず「**キーがあるか**」「**何の値を表示しているか**」「**キーの時間と値は正しいか**」「**補間が合っているか**」の順に切り分けます。Nodeの画像接続とパラメータの時間変化は別の問題です。
 
@@ -160,7 +196,8 @@ Sizeの数値曲線とCenterの移動経路を同一視すると、「Splineが0
 
 基準：**DaVinci Resolve 21.1 Reference Manual（2026年9月）**。
 
-- Chapter 70「Animating in Fusion's Keyframes Editor」pp.1519–1526：Inspectorでのキー追加・削除、Keyframes Editor、時間編集。
+- Chapter 63「Exploring the Fusion Interface」pp.1293–1295：FusionページとFusion StudioのGlobal / Render Range、Edit / Cutとの関係、Auto Render Range。
+- Chapter 70「Animating in Fusion's Keyframes Editor」pp.1519–1526：Inspectorでのキー追加・削除、Keyframes Editor、MediaIn / Effect Nodeの区間編集。
 - Chapter 71「Animating in Fusion's Spline Editor」pp.1535–1546、1549–1551、1556–1562：Splineの定義と種類、補間、Motion PathのDisplacement、Time Stretch、Ease In/Out。
 - 公式配布元：[Blackmagic Design Support Center](https://www.blackmagicdesign.com/support)。
 
