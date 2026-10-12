@@ -89,7 +89,7 @@ Ellipse Maskの青いEffect Mask入力へほかのマスクを接続すると、
 | **Invert** | 楕円が覆う入力マスクの領域だけを反転する |
 | **Copy / Ignore** | 入力を捨てて楕円だけ使う／楕円を捨てて入力だけ使う |
 
-**Paint ModeのInvert**と**Invertチェックボックス**は別の機能です。前者は新しい楕円が重なる入力領域に作用し、後者は出力マスク全体を反転します。選択した演算の結果は、Ellipse Mask自体をViewerに表示して白黒の範囲を確認してください。ほかの形との選び分けは[Maskカテゴリ概要](./index)にまとめています。
+**Paint ModeのInvert**と**Invertチェックボックス**は別の機能です。前者は新しい楕円が重なる入力領域に作用し、後者は出力マスク全体を反転します。選択した演算の結果は、Ellipse Mask自体をViewerに表示して白黒の範囲を確認してください。ほかの形との選び分けは[Maskカテゴリ概要](./index.md)にまとめています。
 
 ## 運用例
 
@@ -131,7 +131,7 @@ Rectangle MaskをEllipse Maskの青い入力へ接続し、Ellipse Maskをロゴ
 
 [Rectangle Mask](./rectangle-mask)は四角形、[Polygon Mask](./polygon-mask)は任意のBézier輪郭、[B-Spline Mask](./b-spline-mask)は滑らかな自由曲線に向きます。楕円で十分な場合はEllipse Maskの方が少数の設定で位置と形を調整できます。
 
-入力画像の明るさやAlphaからマスクを作りたい場合は[Bitmap Mask](./bitmap-mask)を使います。手描きでマスクを補修したい場合は[Mask Paint](./mask-paint)が候補です。[Paint](../paint/paint)内の楕円描画とは異なり、Ellipse Maskは独立したFlowノードです。
+入力画像の明るさやAlphaからマスクを作りたい場合は[Bitmap Mask](./bitmap-mask)を使います。手描きでマスクを補修したい場合は[Mask Paint](./mask-paint)が候補です。[Paint](../paint/paint.md)内の楕円描画とは異なり、Ellipse Maskは独立したFlowノードです。
 
 - [マスクの基本](../../learn/02-data/mask)
 - [Maskで処理範囲を限定する](../../patterns/masking/limit-effect-with-mask)

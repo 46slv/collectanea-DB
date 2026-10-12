@@ -19,7 +19,7 @@ updated: "2026-10-10"
 
 # Copy Rectangle（Paintの矩形コピー）
 
-**Copy Rectangleは、[Paint](./paint)の内部で四角い領域を指定し、元画像の別の位置や別画像の画素をそこへコピーする描画要素**です。例えば、壁に貼られた小さな長方形のラベルを消す場合、ラベルのない壁の模様を矩形の範囲に移して覆えます。単色で塗るのと違い、元の明暗や模様を利用して補修できます。
+**Copy Rectangleは、[Paint](./paint.md)の内部で四角い領域を指定し、元画像の別の位置や別画像の画素をそこへコピーする描画要素**です。例えば、壁に貼られた小さな長方形のラベルを消す場合、ラベルのない壁の模様を矩形の範囲に移して覆えます。単色で塗るのと違い、元の明暗や模様を利用して補修できます。
 
 DaVinci Resolve 21.1 Reference Manualでは、Paintのツール一覧に**Copy Circle/Rectangle**、ショートカットの節に**Copy Rect/Ellipse**という表記があります。本記事はそのうち矩形のコピー範囲を扱います。「Copy Rectangle」という独立したFlowノードが存在するという意味ではありません。
 
@@ -100,7 +100,7 @@ Merge → MediaOut
 - [Clone Multistroke](./clone-multistroke)：多数の小さなブラシ補修を素早く行いますが、描いた個々の線は後から編集できません。
 - [Paint Group](./paint-group)：複数の描画要素をまとめて移動・調整するときに使います。
 
-Copy Rectangleは**「矩形領域へ何を複製するか」**を決めるPaint内部の操作です。別ノードの処理範囲を制限するMask Rectangleとは、出力するデータと接続先が異なります。Paint全体の選び方は[カテゴリ概要](./overview)を参照してください。
+Copy Rectangleは**「矩形領域へ何を複製するか」**を決めるPaint内部の操作です。別ノードの処理範囲を制限するMask Rectangleとは、出力するデータと接続先が異なります。Paint全体の選び方は[カテゴリ概要](./index.md)を参照してください。
 
 ## 出典と確認範囲
 
