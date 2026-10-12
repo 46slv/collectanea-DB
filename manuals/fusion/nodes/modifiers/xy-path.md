@@ -15,7 +15,7 @@ outputs: ["parameter"]
 tasks: ["drive-parameter", "animate"]
 product_scope: fusion
 suite_surfaces: ["fusion"]
-updated: "2026-10-07"
+updated: "2026-10-13"
 ---
 
 # XY Path
@@ -165,9 +165,43 @@ TransformのCenterへXY Pathを追加し、開始frameと終了frameでViewer上
 
 この例は21.1 Manualで確認したXY Pathの仕組みを使った構成例で、Manualに記載された固定presetではありません。
 
+## 既存のPolyline PathをXY Pathへ切り替える
+
+すでにPathで作った動きを、X座標とY座標を別々に編集できる状態へ変更するために、**最初からキーフレームを打ち直す必要はありません**。21.1 Manualでは、Polyline PathとXY Pathはコンテキストメニューから相互に変換できると説明されています。
+
+### PolylineからXYへ
+
+1. TransformのCenterなど、すでにPolyline Pathで動いている座標を用意します。Spline Editorに`Displacement`がある状態です。
+2. Viewerにそのモーションパスを表示し、線の上で右クリックします。ManualのChapter 71では、パス名に続く`Path#: Polyline > Convert to X/Y Path`という項目が示されています。`#`は実際のPath番号です。
+3. Trackerが生成した経路のように、Viewerのコンテキストメニュー下部に`Tracker1Tracker1Path:Polyline`などの項目がある場合は、そのサブメニューから`Convert to XY Path`を選びます。これも21.1 ManualのChapter 81に記載された操作です。
+4. Spline Editorで対象Modifierを開き、`Displacement`ではなくX・Yの2本の曲線が表示されることを確認します。
+5. 変換前に確認した開始・中間・終了フレームの位置を再生して確かめます。続けて、XまたはYの曲線だけを編集します。
+
+2と3は異なる経路のコンテキストメニューの例で、**両方の操作を続けて行う手順ではありません**。表示されるPath名は、選択したModifierやTracker名によって変わります。`XY Path`と`X/Y Path`というメニュー表記の違いも、Manual内の記載箇所によるものです。
+
+### XYからPolylineへ戻す
+
+作業途中で「通過する場所を固定し、進行時間だけを別に調整したい」となった場合も、21.1 ManualではXY PathからPolyline Pathへの変換が可能とされています。Viewer上の対象経路を右クリックし、Pathの変換項目を確認してください。**逆方向の項目名は、今回確認したManualの本文では明示されていないため固定表記として記載しません**。
+
+切り替え後にSpline Editorで`Displacement`が現れれば、進行タイミングを経路形状から分けて編集できます。変換操作はキーフレームをゼロから作り直さずに方法を変更するものですが、元のSplineのX/Y値・曲線ハンドル・Displacementの点を同一形式で保持するという意味ではありません。重要なフレームの位置と速度はViewerとSpline Editorで確認します。
+
+## XY Pathの点とキーフレームの関係
+
+XY Pathでは、Viewerで指定した位置に対応する時刻に、Spline Editorの**X曲線とY曲線それぞれへキーが作られます**。Chapter 72では、Viewerの経路上の点とX/Y曲線のキーは対応しており、一方で点を追加すればもう一方にも追加されると説明されています。
+
+一方、Polyline Pathには**locked point**と**unlocked point**があります。Viewerで経路の曲がり方だけを変える点を増やしても、Displacementの時刻キーが増えるとは限りません。XY PathではX/Yの値を変えることが軌跡とその時刻での位置を直接変えるため、両者の編集感覚は異なります。
+
+例えば説明用に、0フレームで`(X=0.2, Y=0.5)`、20フレームで`(0.8, 0.5)`、40フレームで`(0.8, 0.8)`と設定した場合、最初は横へ、後半は縦へ動く構成になります。Xのキーだけを調整すれば、Yのキーの時刻・数値を直接書き換えずに横方向の移動を変更できます。ただしXとYを合成した最終的な軌跡や移動速度は変化するので、Viewerで確認します。数値は操作説明用であり、既定値を表すものではありません。
+
+### Trackerで得た動きを軸別に修正する
+
+Trackerが作ったPolylineの経路をXY Pathへ変換すると、Spline EditorでXとYの動きを分けて確認できます。例えば追跡位置の上下の振れを整えたい場合、まずY曲線を確認し、X方向の動きまでまとめて変更しないように編集できます。ManualのChapter 81も、追跡データをDisplacementからX/Y座標のSplineへ変換する例を挙げています。
+
+ただしこれは**追跡解析をやり直す機能ではなく、得られた座標アニメーションの編集方法を変える操作**です。Pathを参照する他のパラメータがある場合は、変換後の動作も再生して確認します。
+
 ## 既定のPathをXY Pathへ変更する
 
-Coordinate Controlで`Animate`を選んだときにXY Pathを既定で使いたい場合は、Global PreferencesのDefault categoryにある`Point With`を`XY Path`へ変更できます。
+Coordinate Controlで`Animate`を選んだときにXY Pathを既定で使いたい場合は、DaVinci Resolveの`Fusion > Fusion Settings`（Fusion Studioでは`Fusion > Preferences > Globals`）を開き、`Defaults`カテゴリの`Point With`を`XY Path`へ変更できます。
 
 以後、Coordinate Controlのcontextual menuから`Animate`を選ぶと、Displacement pathではなくXY Pathが使われます。
 
@@ -190,8 +224,8 @@ Pathと同じようなViewer上の軌跡が見えても、内部の時間表現�
 
 ## バージョンと出典
 
-DaVinci Resolve 21.1 Reference Manual（September 2026）Chapter 124「Modifiers」pp.3030–3031を基準にしています。
+DaVinci Resolve 21.1 Reference Manual（September 2026）Chapter 71「Animating in Fusion’s Spline Editor」p.1546、Chapter 72「Animating with Motion Paths」pp.1572–1574、Chapter 81「Using the Tracker Node」pp.1779–1780、およびChapter 124「Modifiers」pp.3030–3031を基準にしています。
 
-同Manualで、X / Yを別々のSplineとして扱うこと、`Modify With > XY Path`で追加する操作、Viewer上のpathとSpline Editor上のX / Y channelの違い、X Y Z Values、Center、Size、Angle、Heading Offset、Plot Path in View、およびGlobal Preferencesの`Point With`でXY Pathを既定にできることを確認しています。
+同Manualで、X / Yを別々のSplineとして扱うこと、`Modify With > XY Path`で追加する操作、Polyline Pathとのコンテキストメニューからの相互変換、Viewer上の点とX/Yのキーの対応、Tracker由来のPolylineからの変換、各Controlの役割、および`Point With`でXY Pathを既定にできることを確認しています。
 
 current runtimeのREGID、内部Parameter ID、Manualに記載されていないdefault / range、edition差は別のruntime verification対象です。
