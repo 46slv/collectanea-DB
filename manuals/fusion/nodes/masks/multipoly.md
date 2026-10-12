@@ -112,7 +112,7 @@ MediaIn ────────────────────────
 - **[Polygon Mask](./polygon-mask)**：複雑でも1つの輪郭を細かく編集したい場合。
 - **[B-Spline Mask](./b-spline-mask)**：少ない点で滑らかな輪郭を作りたい場合。
 - **MultiPoly**：複数の輪郭を1つのList viewで選択・整理し、まとまったマスクとして管理したい場合。
-- **複数の独立したMaskノード**：効果を分けたい場合や、[Paint Modeによる合成](./index)をFlow上で明示したい場合。
+- **複数の独立したMaskノード**：効果を分けたい場合や、[Paint Modeによる合成](./)をFlow上で明示したい場合。
 
 解像度、Clipping Mode、Motion Blurなど、形状そのもの以外の設定は[Mask共通Controls](./common-controls)を参照してください。マスクとRGBA画像の違いは[Image / Mask / Data](../../learn/02-data/image-mask-data)で説明しています。
 

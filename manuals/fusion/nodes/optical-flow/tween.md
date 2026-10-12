@@ -121,7 +121,7 @@ Interpolation Parameter = 0.5から確認します。
 
 ## 関連Node
 
-- [Optical Flow](./optical-flow)
+- [Optical Flow](./optical-flow.md)
 - [Repair Frame](./repair-frame)
 - [Smooth Motion](./smooth-motion)
 

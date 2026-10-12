@@ -173,7 +173,7 @@ OpenGL UVは「モデルをカメラで撮る」のではなく、モデルのUV
 - [Image Plane 3D](./image-plane-3d) — 2D素材を3D空間へ置く
 - [補助Channel / AOV](../../learn/02-data/auxiliary-channels.md) — Z・Normal・ObjectIDの意味と使い方
 - [Ambient Occlusion](../deep/ambient-occlusion-deep-pixel.md) — Z・Normal・Cameraを使う陰影処理
-- [Classic 3Dノード一覧](./index) — 関連Nodeを探す
+- [Classic 3Dノード一覧](./index.md) — 関連Nodeを探す
 
 ## 出典と確認範囲
 
