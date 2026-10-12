@@ -15,7 +15,7 @@ outputs: [mask]
 tasks: [create-mask, tonal-mask, isolate-luminance]
 product_scope: fusion
 suite_surfaces: [fusion]
-updated: "2026-10-11"
+updated: "2026-10-12"
 ---
 
 # Ranges Mask
@@ -50,6 +50,21 @@ MediaInから二つに分岐し、一方をColor Correctorの画像入力へ、�
 どの画像情報をもとに階調を判定するか選びます。21.1のマニュアルにはRed・Green・Blue・Alpha・Hue・Luminance・Saturationと、入力画像に含まれる場合の補助Coverageチャンネルが挙げられています。範囲を調整する画面にもチャンネル選択があり、通常はLuminanceが基準です。
 
 Luminanceを使えば明るさで、Redを使えば赤チャンネルの値で範囲を判定します。画面内の特定の色そのものを選ぶWand Maskとは異なるので、同じ結果になるとは限りません。
+
+### Shadows / Highlightsは「明るさ」だけを意味しない
+
+Shadows・Midtones・Highlightsという名前は明暗の選択を連想させますが、**実際にはChannelで選んだ値の低域・中域・高域**を取り出します。ChannelをLuminance以外へ変更した場合、この三つは必ずしも画面の暗部・中間調・明部には対応しません。
+
+| Channel | Shadows（低い値）の例 | Highlights（高い値）の例 |
+| --- | --- | --- |
+| Luminance | 明るさの低い画素 | 明るさの高い画素 |
+| Alpha | 透明に近い画素 | 不透明に近い画素 |
+| Saturation | 彩度の低い画素 | 彩度の高い画素 |
+| Red | 赤チャンネル値の低い画素 | 赤チャンネル値の高い画素 |
+
+例えばAlphaのShadowsを選ぶと、暗い物体ではなく**透明に近い部分**が選ばれます。不透明な黒い物体はAlpha値が高いため、AlphaのHighlights側です。SaturationのHighlightsなら、暗い色でも彩度が高ければ選択対象になり得ます。
+
+Hueを選択した場合も明るさの範囲ではなく色相のチャンネル値を判定します。特定の色に対応する範囲を決める前に、Ranges MaskをViewerで表示して選択結果を確認してください。
 
 ### Shadows / Midtones / Highlights
 
@@ -127,6 +142,35 @@ Ranges Mask (output) → Color Corrector (Effect Mask)
 4. Ranges Maskが選ぶ中間調とEllipse Maskの顔領域が重なる場所だけにColor Correctorの処理がかかります。
 
 人物が動く場合は、Ellipse Maskの位置をキーフレームなどで追従させる必要があります。Ranges Mask自体は顔の位置を追跡しません。
+
+## 運用例3：彩度が高い部分だけを少し抑える
+
+鮮やかな看板と彩度の低い壁が同時に写った映像で、看板の強い色だけを弱めたい場合です。
+
+1. MediaInをColor CorrectorとRanges MaskのInputへ分岐させます。Ranges Maskは**補正前の映像**から判定させます。
+2. Ranges MaskのChannelを**Saturation**、出力範囲を**Highlights**へ切り替えます。このHighlightsは「明るい部分」ではなく「彩度の高い部分」です。
+3. Ranges MaskをViewerに表示し、看板が白に近く、壁が黒に近いか確認します。Mini Spline Editorで彩度の高い側への減衰を調整します。
+4. Ranges Maskの出力をColor CorrectorのEffect Maskへ接続し、Color Correctorで彩度を少し下げます。
+5. 他の鮮やかな物体まで変わる場合は、Rectangle MaskやPolygon MaskをMultiplyで組み合わせて場所も限定します。
+
+選択結果は色の強さから決まります。**「看板」という物体を識別しているわけではない**ため、同程度に鮮やかな衣服なども選ばれる可能性があります。
+
+## 選択結果が想定と違うとき
+
+先にRanges Maskの出力をViewerへ表示し、**白く見える場所がどこか**を確認します。最初からColor Correctorの値を大きく動かすより、選択自体の誤りと補正の強さを分けて調べられます。
+
+| 症状 | 確認・対処 |
+| --- | --- |
+| 暗い物体を選んだつもりが、透明部分を選んでいる | ChannelがAlphaになっていないか確認。暗い画素を選ぶならLuminanceのShadowsを起点にする |
+| 明るさで選んだはずなのに彩度の高い色が選ばれる | ChannelがSaturationなどに変わっていないか確認。Shadows / Highlightsは選択Channelの値に対して働く |
+| Midtonesが想定より広い、または狭い | Midtones固有の制御点はない。Mini Spline EditorのShadows・Highlights側の範囲とBézierハンドルを調整する |
+| 背景の同じ明るさ・彩度にも効果が出る | Ranges Maskは画素値で選ぶ。Ellipse / Polygon MaskなどをMultiplyで重ねて場所を限定する |
+| 境界に急な段差が残る | まずMini Spline Editorの減衰を確認し、必要ならSoft Edgeを加える。階調の判定と画面上のぼかしを分けて調整する |
+| Maskの位置や大きさがずれる | 判定に使う画像とMaskの出力寸法を比較し、Fit Input・Center X/Yを確認する |
+| 動く被写体からMaskが外れる | Ranges Maskは形状を追跡しない。併用する形状Maskをキーフレーム等で追従させる |
+| 効果の有無が分からない | Color CorrectorのEffect Maskへ接続しているか、Ranges MaskのLevelと出力範囲、後段の効果量をそれぞれ確認する |
+
+**切り分けの順序**は、①Channel → ②Shadows / Midtones / Highlights → ③Splineの減衰 → ④位置・寸法と併用Mask → ⑤Soft Edge・Level → ⑥後段のEffect Mask接続です。この順なら「どの画素を選ぶか」と「選んだ場所へどれだけ処理をかけるか」を混同しにくくなります。
 
 ## 似たMaskとの使い分け
 
