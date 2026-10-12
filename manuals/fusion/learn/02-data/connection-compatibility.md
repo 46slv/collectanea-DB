@@ -82,7 +82,7 @@ MediaIn ────────────────────────
 pEmitter → pRender［Output Mode: 3D］→ Merge 3D → Renderer 3D → 2D Image
 ~~~
 
-pRenderの先が通常のMergeにつながらない場合、Output Modeが3Dのままではないかを確認します。3Dのまま扱うならMerge 3Dなどの3D Nodeへ渡し、Renderer 3Dで最終的に画像化します。[pRender](../../nodes/particle/p-render)も参照してください。
+pRenderの先が通常のMergeにつながらない場合、Output Modeが3Dのままではないかを確認します。3Dのまま扱うならMerge 3Dなどの3D Nodeへ渡し、Renderer 3Dで最終的に画像化します。[pRender](../../nodes/particles/p-render)も参照してください。
 
 ### Classic 3D
 
