@@ -2,7 +2,7 @@
 title: カメラ資料の使い方
 description: 共通知識から機種別の実際の操作へ移るための入口。
 doc_type: start
-verification: verified
+verification: partial
 updated: 2026-10-13
 tags: [camera, workflow]
 tasks: [learn, lookup, compare-cameras]
