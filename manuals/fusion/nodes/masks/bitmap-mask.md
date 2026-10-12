@@ -149,6 +149,54 @@ Image AをBitmap Mask Aへ、Image BをBitmap Mask Bへ入力し、Bitmap Mask A
 
 Object ID / Material IDを含む3Dレンダー画像をBitmap MaskのInputへ入れ、Use Object / Use Materialで対象を選びます。出力をColor Correction等のEffect Maskへつなげば、背景と似た色の物体でもIDで区別して補正できます。必要なIDが元画像に保存されていることが前提です。
 
+
+## LuminanceとAlphaを区別して選ぶ
+
+同じ画像からMaskを作っても、Channelが**Luminance**か**Alpha**かで白くなる場所が変わります。
+
+| 入力画像の状態 | Channel: Luminance | Channel: Alpha |
+| --- | --- | --- |
+| 黒く塗られた不透明な画素 | 暗いので低い値 | 不透明なので高い値 |
+| 白く塗られた不透明な画素 | 明るいので高い値 | 不透明なので高い値 |
+| 透明な部分 | RGBの格納方法やAlphaの扱いに左右される | 透明なので低い値 |
+
+**人物やテキストの切り抜き形状を使うならAlpha**、**明るい場所を選ぶならLuminance**が基本です。「黒い場所がMaskでも黒い」とは限りません。不透明な黒い画素は、Alphaでは白い領域として扱われます。
+
+たとえば、別の透過素材にある文字の形に合わせて背景の色補正をかける場合は、次のように接続します。
+
+~~~text
+MediaIn1（背景の映像） ─────────────────────→ ColorCorrector1 → MediaOut
+MediaIn2（Alpha付き文字素材） → BitmapMask1 ──→ ColorCorrector1［Effect Mask］
+                                    Channel: Alpha
+~~~
+
+1. 背景映像をColorCorrector1のImage入力へつなぎ、色の変化が分かるように調整します。
+2. 透過部分を持つ文字素材をBitmapMask1のオレンジ色のInputへつなぎます。
+3. BitmapMask1のChannelを**Alpha**にし、出力をViewerへ表示します。文字の形が白く、それ以外が黒いことを確認します。
+4. BitmapMask1の出力をColorCorrector1の青いEffect Mask入力へつなぎます。色補正は文字の形に対応した範囲だけに適用されます。
+
+この例では、MediaIn2の文字そのものを合成していません。**文字素材の透明度を「背景のどこを色補正するか」という範囲指定に利用**しています。MediaIn2のAlphaが全面1なら、BitmapMask1も全面白に近くなり、文字形状の限定には使えません。元素材のAlphaを先にViewerで確かめます。
+
+## Thresholdで何を変えているか
+
+Luminanceの値が0.2、0.5、0.9の場所を想定します。Threshold Lowを0.4へ上げると0.2の画素は黒側へ切り詰められ、Threshold Highを0.7へ下げると0.9の画素は白側へ切り詰められます。一方、LowとHighの間をすべて黒にする「明るさの帯だけの抽出」ではありません。
+
+したがって「中間の明るさだけを残し、暗部もハイライトも除外したい」場合は、[Ranges Mask](./ranges-mask)で明暗域の選択を調整する方が適しています。Thresholdは元Channelの**下端と上端を制限する**操作として使い、Viewerでマスク値の残り方を確認してください。
+
+## 意図した領域にならないとき
+
+| 症状 | まず確認すること |
+| --- | --- |
+| 黒い物体まで白く選ばれる | ChannelがAlphaになっていないか。不透明な黒はAlphaでは高い値になる |
+| 透過素材の輪郭が出ない | ChannelがLuminanceのままではないか。元ImageのAlphaが実際に部分透明か |
+| 明るい窓だけのつもりが照明も選ばれる | Luminanceは位置を区別しない。Rectangle / Polygon MaskとMultiplyで範囲を限定する |
+| 画像サイズを変えると選択位置がずれる | Fit Input、Center X / Y、マスクのOutput Sizeを確認する |
+| Maskは正しいのに処理が全面に適用される | Bitmap Maskの出力が対象NodeのEffect Mask入力に接続されているか |
+| 境界が硬い、または周囲まで広がりすぎる | Soft EdgeとFilterを確認する。Levelでは輪郭だけをぼかせない |
+| IDによる選択が効かない | 元ImageにObject / Material ID channelが含まれているか |
+
+問題を調べる順序は、**元ImageのRGBとAlpha → Bitmap Mask単体の白黒 → 後段NodeのEffect Mask接続 → 最終出力**です。マスクが正しいか確かめる前に後段の色補正やBlurを調整すると、原因を切り分けにくくなります。
+
 ## Bitmap Maskを挟まなくてもよい場合
 
 21.1 Manualでは、Effect Mask入力にImageを直接接続できる場合、Bitmap Maskは必須ではないと説明されています。
