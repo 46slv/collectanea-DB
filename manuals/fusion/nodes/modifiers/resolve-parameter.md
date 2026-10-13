@@ -80,7 +80,7 @@ Macroへ名前を付け、ResolveのFusion Transition用template folderへ保存
 
 | OS | Transition template folder（Manual記載） |
 | --- | --- |
-| Windows | `C:\\Users\\username\\AppData\\Roaming\\Blackmagic Design\\DaVinci Resolve\\Support\\Fusion\\Templates\\Edit\\Transitions` |
+| Windows | `C:\Users\username\AppData\Roaming\Blackmagic Design\DaVinci Resolve\Support\Fusion\Templates\Edit\Transitions` |
 | macOS | `/Users/username/Library/Application Support/Blackmagic Design/DaVinci Resolve/Fusion/Templates/Edit/Transitions` |
 | Linux | `/home/username/.local/share/DaVinciResolve/Fusion/Templates/Edit/Transitions` |
 
