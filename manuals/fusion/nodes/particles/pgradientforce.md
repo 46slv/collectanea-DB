@@ -9,13 +9,13 @@ aliases: [pGradientForce, pGradient Force, pGF]
 concepts: [particle-data, image-data, alpha, particle-region]
 nodes: [pGradientForce]
 node_family: particles
-controls: [Random Seed, Strength, Conditions, Style, Region, Settings]
+controls: [Random Seed, Strength, Conditions, Region, Settings]
 inputs: [particle, image, region]
 outputs: [particle]
 tasks: [particles, gradient-force, flow-field]
 product_scope: fusion
 suite_surfaces: [fusion]
-updated: "2026-10-12"
+updated: "2026-10-13"
 ---
 
 # pGradientForce
@@ -75,9 +75,11 @@ Strengthは粒子の速度を直接指定する値ではありません。ほか
 
 Particleノードに共通する乱数の設定です。マニュアルでは、同じSeedなら乱数を使う処理の結果を再現できると説明されています。ただし、Alpha勾配そのものの向きがRandom Seedでランダム化されるという記載ではありません。
 
-### Conditions / Style / Region / Settings
+### Conditions / Region / SettingsとStyleの記載差
 
-これらはParticle系で共通するタブです。Conditionsでは条件に合うParticleへの適用を絞り、Regionでは空間的な作用範囲を設定します。共通項目の全体像は[Particleノード](./index)を参照してください。pGradientForce固有の力の調整項目として、21.1マニュアルが挙げるのはStrengthです。
+**Conditions**はProbability・Age・Setによって、力を受けるParticleを絞ります。**Region**は、力を作用させる場所を限定します。共通設定は[Particleノード](./index)を参照してください。21.1マニュアルがpGradientForce固有の力の調整項目として挙げるのはStrengthです。
+
+**Styleタブの有無について、公式マニュアル内の記述が一致していません。** pGradientForceの節（p.2672）はStyleを共通タブに含めていますが、同じ章の「Style Tab」（p.2701）は、Styleを持つノードをpEmitter・pSpawn・pChangeStyle・pImage Emitterの4種類と記しています。このため、本記事ではpGradientForceのInspectorにStyleタブがあると断定せず、実機での確認待ちとします。粒子の見た目は、発生源の[pEmitter](./p-emitter)や[pChangeStyle](./pchangestyle)で調整できます。
 
 ## 運用例
 
@@ -125,6 +127,6 @@ Particleノードに共通する乱数の設定です。マニュアルでは、
 
 ## 出典と確認範囲
 
-- **Blackmagic Design, DaVinci Resolve 21.1 Reference Manual**（September 2026）、Chapter 114「Particle Nodes」pp.2670–2671。Alpha勾配による力の向き、Particle / Image / Region入力、Basic Node Setup、Strengthの正負、Random Seedと共通タブを確認。
+- **Blackmagic Design, DaVinci Resolve 21.1 Reference Manual**（September 2026）、Chapter 114「Particle Nodes」pp.2670–2672。Alpha勾配による力の向き、Particle / Image / Region入力、Basic Node Setup、Strengthの正負、Random Seedと共通タブを確認。p.2701の「Style Tab」節とp.2672の共通タブ案内には、対象ノードについて記述差があります。
 - 本文の円形Alpha・ノイズ・Regionの接続例は、上記仕様から構成した制作手順です。Resolve 21.1実機でのレンダー確認は未実施です。
-- 勾配の内部計算式、Strengthの既定値・数値範囲、Editionごとの違い、実際の処理負荷は未確認です。
+- 勾配の内部計算式、Strengthの既定値・数値範囲、Editionごとの違い、実際の処理負荷、pGradientForceでのStyleタブの実機表示は未確認です。
