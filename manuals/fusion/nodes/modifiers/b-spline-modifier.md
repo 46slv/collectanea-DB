@@ -14,7 +14,7 @@ outputs: ["parameter"]
 tasks: ["drive-parameter", "animate"]
 product_scope: fusion
 suite_surfaces: ["fusion"]
-updated: "2026-10-07"
+updated: "2026-10-13"
 ---
 
 # B-Spline Modifier
@@ -126,6 +126,34 @@ TransformのSizeを複数のKeyframeでAnimationする例です。
 5. curveの形だけでなく、control pointを置いたframeで実際に返される値も確認します。
 
 B-Splineではsmoothing / weightingによって、control pointに設定した数値とcurveの評価値がずれる場合があります。Viewer上の結果とSpline Editorのcurveを両方見ながら調整します。
+
+## B-SplineとCubic Splineを同じKeyframeで比べる
+
+見た目が滑らかでも、「指定したframeで指定した数値になるか」は補間方式によって異なります。B-Splineは周囲のcontrol pointも使ってcurveを作るため、**control pointの位置をそのまま通過するとは限りません**。一方、Cubic Splineはcontrol pointを通ることを前提とした方式です。
+
+TransformのSizeを例に、違いを確認できます。
+
+1. 比較用に別々のTransformを用意し、一方のSizeへB-Spline、もう一方へ[Cubic Spline](./cubic-spline)を適用します。異なる種類のSpline間ではKeyframeをcopy / pasteできないため、それぞれで設定します。
+2. 両方に同じ3つのcontrol pointを作ります。たとえばframe 0でSize `0.8`、frame 12で`1.2`、frame 24で`0.8`とします。この値とframeは比較用の例です。
+3. Spline Editorで各curveを表示し、frame 12のcontrol pointが示す値と、同frameで実際に評価されるcurveの値を見比べます。B-Splineでは両者が一致しない場合があります。
+4. B-Spline側で中央のcontrol pointを選び、`W`を押しながら左右へdragします。前後のcurveがどう変化するかを確認します。
+5. frame 12でSizeを厳密に`1.2`へ到達させたい場合は、control pointを通るCubic Splineまたは[Bézier Spline](./bezier-spline)が要件に合うかを比較します。
+
+21.1 ManualのB-Splineの図には、2つ目のcontrol pointの値が`0`でも、同時刻のcurve評価値が`0.33`になる例があります。ただし`0.33`はその図の条件での値で、上の3点構成から得られる固定値ではありません。
+
+## 期待どおりにならないとき
+
+| 症状 | 確認すること |
+| --- | --- |
+| Keyframeへ入力した数値にそのframeで到達しない | B-Splineではcontrol point値とcurve評価値が一致しないことがあります。数値の厳密な通過が必要ならCubic / Bézier Splineも比較します。 |
+| `W`を押してもcurveが変わらない | Spline EditorにB-Splineを表示しているか、対象control pointを選択してから`W`を押しながら左右へdragしているか確認します。 |
+| 1点だけ直したつもりが複数の区間で変化した | 複数のcontrol pointを選択していないか確認します。`W`操作は複数選択したpointへ同時に適用できます。 |
+| 同じKeyframe値でも別の環境でcurve形状が異なる | Fusion PreferencesのSplinesにある`B-Spline Modifier Degree`とAutosmoothの設定を確認します。Mask用の`B-Spline Polyline Degree`とは別です。 |
+| BézierのKeyframeを貼り付けられない | 21.1 Manualでは異なるSpline type間のKeyframe copy / pasteはできません。対象Splineでcontrol pointを作り直します。 |
+| Sizeを変えても新しいpointができない | Animation対象のSizeを操作しているか、playheadを別frameへ移して値を変更したか、Spline Editorで対象curveを表示しているか確認します。 |
+| 画面上の移動経路を編集したい | B-Spline Modifierは数値の時間変化用です。位置の軌道を編集する用途なら[Path](./path) / [XY Path](./xy-path)を確認します。 |
+
+この表は21.1 Manualの補間・操作・Preferencesの説明に基づく確認手順であり、各症状を21.1実機で再現した記録ではありません。
 
 ## 他のSplineとの使い分け
 
