@@ -107,7 +107,7 @@ sNGonのStyleタブでAlphaを0.5などに下げ、`sDuplicate`で位置を少�
 - [sRender](./s-render)はShapeを2D Imageへ変換します。sNGonから通常のMergeやBlurへ直接接続するのではなく、間にsRenderを置きます。
 - Solidが有効なままではPosition / Length / Cap Styleを期待どおり操作できません。輪郭だけの設定を試すときは、先にSolidを無効にします。
 
-Shape系ノードの用途別一覧は[Shapeノード](./index)を参照してください。
+Shape系ノードの用途別一覧は[Shapeノード](./)を参照してください。
 
 ## バージョンと確認範囲
 

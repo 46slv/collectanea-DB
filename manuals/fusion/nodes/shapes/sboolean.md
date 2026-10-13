@@ -141,7 +141,7 @@ ManualではUnionはsMergeの結果に似るとされています。ただし、
 - **入力元の色が消えた**：Style ModeはReplaceです。出力の色はsBooleanのStyleタブで指定します。
 - **複製した形の重なりだけ濃い**：sBooleanのAllow Combiningを確認します。上流の個々のShape側よりも、このノードの設定が優先されます。
 
-関連する入口は[Shapeノード一覧](./index)です。変形には[sTransform](./stransform)、コピーごとに変化を与える場合は[sDuplicate](./sduplicate)を参照してください。
+関連する入口は[Shapeノード一覧](./index.md)です。変形には[sTransform](./stransform)、コピーごとに変化を与える場合は[sDuplicate](./sduplicate)を参照してください。
 
 ## バージョンと確認範囲
 

@@ -108,7 +108,7 @@ Regionは**空間のどこで作用するか**、Conditionsは**どの粒子が�
 - **一部だけ動きが変わる**：ConditionsのProbability、Age、Setの制限を確認します。
 - **映像として見えない**：Particle出力のままMergeへつないでいないか、pRenderの2D/3D出力設定が後段と合っているか確認します。
 
-ほかの粒子ノードは[Particleノード一覧](./index)を参照してください。
+ほかの粒子ノードは[Particleノード一覧](./index.md)を参照してください。
 
 ## 出典・バージョンと未確認事項
 

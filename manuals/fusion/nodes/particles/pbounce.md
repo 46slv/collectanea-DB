@@ -142,7 +142,7 @@ Regionが「どこで反射するか」を、Conditionsが「どの粒子に反�
 - **フレームを飛ばすと結果が変わる**：[pRender](./p-render)のPre-RollとSub-Frame Calculation Accuracyを確認します。後者は精度向上と引き換えに計算量が増えます。
 - **映像へ合成できない**：pBounceの出力はParticleなので、pRenderの2D/3D出力モードを後段に合わせます。
 
-関連ノードは[Particleノード一覧](./index)を参照してください。
+関連ノードは[Particleノード一覧](./index.md)を参照してください。
 
 ## 出典・バージョンと未確認事項
 
