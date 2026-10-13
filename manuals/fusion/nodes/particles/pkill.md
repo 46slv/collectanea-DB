@@ -152,7 +152,7 @@ pRenderの**Kill Particles That Leave the View**は、表示範囲外へ出た�
 
 ## 関連資料
 
-- [Particleノード一覧](./index)：発生・移動・削除・描画の全体像。
+- [Particleノード一覧](./index.md)：発生・移動・削除・描画の全体像。
 - [パーティクルの基礎](../../learn/02-data/particle)：Particleデータと2D Imageの違い。
 - [pRender](./p-render)：表示への変換、Pre-Roll、表示領域外の粒子削除。
 - [pChangeStyle](./pchangestyle)：Setを変更して後段の対象を振り分ける。

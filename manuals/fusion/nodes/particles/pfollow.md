@@ -44,7 +44,7 @@ Bitmapでは入力画像の指定チャンネルから、Meshでは形状から�
 pEmitter → pFollow → pRender (2D) → MediaOut
 ```
 
-ParticleとImageの区別は[Particleノードの全体像](./index)と[パーティクルの基本](../../learn/02-data/particle)も参照してください。
+ParticleとImageの区別は[Particleノードの全体像](./index.md)と[パーティクルの基本](../../learn/02-data/particle)も参照してください。
 
 ## Inspectorの主な設定
 

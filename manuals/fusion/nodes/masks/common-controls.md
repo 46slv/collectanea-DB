@@ -30,7 +30,7 @@ Ellipse Mask、Polygon Mask、Bitmap MaskなどのMaskノードには、形や�
 | 入力画像の解像度 | 接続したSource Image | Bitmap / Wandなど、画像を入力するMaskノードで元画像とサイズを合わせる |
 | Custom | 個別に設定するサイズ | 最終出力とは異なるサイズでマスクを扱う必要がある |
 
-入力画像を持たないEllipse Maskなどでは、「入力画像に合わせる」という選択はできません。Inputの有無は個別の[Maskノード一覧](./index)と各ノード記事で確認します。
+入力画像を持たないEllipse Maskなどでは、「入力画像に合わせる」という選択はできません。Inputの有無は個別の[Maskノード一覧](./index.md)と各ノード記事で確認します。
 
 Customの関連項目には**Width / Height**（横・縦の画素数）、**Pixel Aspect**（画素の縦横比）、**Depth**（画素の精度）があります。Pixel Aspectが1:1なら正方形画素です。マニュアルでは、Frame Format設定に数値を連動させる場合と、その連動を外して別解像度の合成を作る場合も説明されています。Customの操作表示と連動状態は、選択中ノードのInspectorで確認してください。
 
@@ -106,7 +106,7 @@ Ellipse Mask（Centerをアニメーション）
 | 描画時間が増えた | Motion BlurのQuality、Shutter Angle、Use GPU |
 | 多数のマスクの役割が分からない | Commentsとノード名を整理 |
 
-ここで扱うのは共通の生成・描画設定です。どの領域を選ぶか、複数マスクをどう合成するかは、各ノードの**Controls**と**Paint Mode**で決めます。[Maskカテゴリ概要](./index)で目的から選んでください。
+ここで扱うのは共通の生成・描画設定です。どの領域を選ぶか、複数マスクをどう合成するかは、各ノードの**Controls**と**Paint Mode**で決めます。[Maskカテゴリ概要](./index.md)で目的から選んでください。
 
 ## 出典と確認範囲
 

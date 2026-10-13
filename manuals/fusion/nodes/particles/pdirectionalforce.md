@@ -82,7 +82,7 @@ pDirectionalForceでは「**どの粒子へ、いつ作用するか**」をCondi
 
 **Region**は粒子がいる場所で作用を制限します。初期設定のように領域を制限しなければ、Particle入力から来た対象粒子全体へ力が働きます。たとえばCubeなら3D空間の一定範囲、Bitmapなら2D画像の選択チャンネル、Meshなら接続した3D形状を使えます。BitmapとMeshを選んだ場合のみ、該当する追加入力を接続します。
 
-pEmitterのRegionは**粒子が生まれる場所**を決めますが、pDirectionalForceのRegionは**すでにある粒子に力が働く場所**を決めます。この違いが重要です。ParticleとRegionの基礎は[Particleノード一覧](./index)と[Particleの基本](../../learn/02-data/particle)で確認できます。
+pEmitterのRegionは**粒子が生まれる場所**を決めますが、pDirectionalForceのRegionは**すでにある粒子に力が働く場所**を決めます。この違いが重要です。ParticleとRegionの基礎は[Particleノード一覧](./index.md)と[Particleの基本](../../learn/02-data/particle)で確認できます。
 
 ## 制作例
 

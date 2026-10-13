@@ -131,7 +131,7 @@ pEmitter ─(Particle)─→ pCustom ──────────────�
 
 ## Conditions / Regionと関連ノード
 
-Conditionsは、Age、Probability、Setなどを使って**どの粒子を対象とするか**を決めます。Regionは**どの場所で処理するか**を決めます。詳しくは[Particleノード](./index)を参照してください。
+Conditionsは、Age、Probability、Setなどを使って**どの粒子を対象とするか**を決めます。Regionは**どの場所で処理するか**を決めます。詳しくは[Particleノード](./index.md)を参照してください。
 
 | ノード | 適する操作 |
 | --- | --- |
