@@ -14,7 +14,7 @@ outputs: ["parameter"]
 tasks: ["drive-parameter", "animate"]
 product_scope: fusion
 suite_surfaces: ["fusion"]
-updated: "2026-10-07"
+updated: "2026-10-13"
 ---
 
 # Bezier Spline
@@ -128,6 +128,27 @@ Bezier SplineはNode Editor上でImageを接続するNodeではなく、対象Pa
 
 この数値は操作を理解するための例で、21.1 Manualの固定preset値ではありません。
 
+## Keyframeとcurveを別々に確認する
+
+Keyframeは「そのframeで何の値にするか」を決める点で、Bézier handleは**その値へどのような速さで近づき、次の値へどう離れるか**を決めるための操作です。
+
+たとえばSizeをframe 0で`0.8`、frame 24で`1.0`に設定した場合、Keyframeの時刻と値を変えなくても、handleを変えると途中のframeでの拡大率と変化速度が変わります。まず指定frameで狙った値になっているかを確認し、次に中間frameでの動きを調整すると、原因を切り分けやすくなります。
+
+**値をしばらく変えずに保ちたい場合**は、Spline Editorのgraph領域を右クリックし、`Set Key Equal To`の前後Keyframeと同じ値にする選択肢を使えます。これは新しいKeyframeに既存と同じ値を設定する操作です。Ease In/Outで減速させることと、同じ値のKeyframeを置いて値が変わらない区間を作ることは区別してください。DaVinci Resolve 21.1 Reference ManualのChapter 71（p.1545）に記載されています。
+
+## Animationが期待どおりにならないとき
+
+| 状況 | 確認すること |
+| --- | --- |
+| `Animate`を選んだのにBézierにならない | Fusion PreferencesでDefault Animateが変更されている可能性があります。21.1 ManualではBézierが通常の既定値ですが、他のSplineにも変更できます。 |
+| 別のframeで値を変えてもKeyframeが増えない | 対象ParameterがAnimation状態か、playheadを別frameへ移してそのParameterの値を変更したか確認します。Spline Editorではcurve上をクリックしてKeyframeを追加する操作もあります。 |
+| 曲線を見失った | 対象Splineが表示されているか確認し、graph領域の`Scale > Scale to Fit`で表示範囲を合わせます。これはcurveやKeyframeの値を変更する操作ではありません。 |
+| Smoothにしたのに変化速度が意図と違う | 対象のcontrol pointを選び、`Shift-S`または`Smooth`を適用したうえで、入る側・出る側のhandleを調整します。`Shift-L`/`Linear`は直線的な区間に戻したいときの操作です。 |
+| 特定の値で止めたいのに滑らかに通過してしまう | Easeだけで停止区間を作ろうとせず、必要な区間の両端に同じ値のKeyframeを設ける方法も検討します。`Set Key Equal To`はその補助になります。 |
+| ParameterからAnimationを外したのに共有Splineが残る | Inspectorで対象Controlを右クリックし、`Remove [Parameter名]`を選ぶ操作は、そのParameterとSplineの接続を外します。ほかのToolが同じSplineへ接続している場合、Spline自体は削除されません。 |
+
+これはManualに記載された操作・挙動から組み立てた確認手順であり、表内の各症状を21.1実機で再現した結果ではありません。
+
 ## 他のSplineとの使い分け
 
 ### B-Spline
@@ -166,7 +187,7 @@ Bezier SplineはNode Editor上でImageを接続するNodeではなく、対象Pa
 
 DaVinci Resolve 21.1 Reference Manual（September 2026）の次の範囲を基準にしています。
 
-- Chapter 71「Animating in Fusion's Spline Editor」pp.1543–1545
+- Chapter 71「Animating in Fusion's Spline Editor」pp.1540–1545
 - Chapter 124「Modifiers」pp.2994–2996
 
 21.1 Manualで、Bezier Splineが数値Parameter向けのAnimation Modifierであること、通常の`Animate`で使われる既定Splineであること、Spline EditorでBezier handle / Smooth / Linear / Ease In/Outを編集できることを確認しています。
