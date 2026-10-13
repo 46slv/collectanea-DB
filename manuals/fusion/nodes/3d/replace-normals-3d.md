@@ -87,7 +87,7 @@ importしたmodelにNormalがない場合だけ補いたいならIf Not Present�
 
 onにするとSmooth Groupの区切りを無視し、Smoothing Angleを基準に再計算できます。Manualでは、十分大きなSmoothing Angleと組み合わせればCubeのface間もsmoothにできる例を挙げています。
 
-import modelの既存Smooth Groupを尊重したいのか、Fusion側で角度基準に作り直したいのかで切り替えます。
+読み込んだ3Dモデルの既存Smooth Groupを尊重したいのか、Fusion側で角度基準に作り直したいのかで切り替えます。
 
 ## TangentとFlipの注意
 

@@ -44,7 +44,7 @@ pFrictionが作用した後のParticle setを出力します。結果を2D画像
 pEmitter → pFriction → pRender (2D) → MediaOut
 ```
 
-Particle setと2D Imageの区別は[Particleノード](./index)と[Particleの基本](../../learn/02-data/particle)を参照してください。
+Particle setと2D Imageの区別は[Particleノード](./index.md)と[Particleの基本](../../learn/02-data/particle)を参照してください。
 
 ## Inspectorの主な設定
 
@@ -136,7 +136,7 @@ pFrictionにもParticleノード共通のConditionsとRegionがあります。�
 - [pDirectionalForce](./pdirectionalforce)：粒子を一定方向へ加速させる。減速と同時に働く力を切り分ける場合。
 - [pFollow](./pfollow)：指定位置へ粒子を追従させる。移動目標を設定する目的ならこちらです。
 - [pKill](./pkill)：指定条件の粒子を削除する。動きを遅くすることとは違います。
-- [Particleノード一覧](./index)：pEmitterからpRenderまでの流れを確認できます。
+- [Particleノード一覧](./index.md)：pEmitterからpRenderまでの流れを確認できます。
 
 ## 出典と確認範囲
 

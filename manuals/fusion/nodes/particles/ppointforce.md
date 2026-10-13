@@ -134,7 +134,7 @@ pEmitter → pVortex → pPointForce → pRender (2D)
 | [pGradientForce](./pgradientforce) | 画像のAlpha勾配を使って力を作る | 指定画像の濃淡変化に沿って粒子を導く |
 | [pRender](./p-render) | Particleを2D画像または3Dの結果に変換する | 最終的に映像へ表示・合成する |
 
-ほかのParticleノードとの関係は[Particleノード一覧](./index)でも確認できます。
+ほかのParticleノードとの関係は[Particleノード一覧](./index.md)でも確認できます。
 
 ## 出典・バージョンと未確認事項
 
