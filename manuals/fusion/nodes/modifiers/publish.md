@@ -68,6 +68,40 @@ Size A Size B Size C
 
 1つの値を動かして複数箇所をまとめて調整したいときに使えます。
 
+## 入力と出力：映像ではなくParameterの値を共有する
+
+Publishが受け取るのは、元のNodeのInspectorにあるParameterの値です。接続先が受け取るのも、画像ではなく**同じ種類のParameterの値**です。たとえばTransformのSizeなら数値を、Centerのような位置Controlなら位置を共有することになります。接続可能な組み合わせは`Connect To`のメニュー側で絞り込まれます。
+
+Publishを追加しても、Node Editorに新しい映像用Input / Output端子ができるわけではありません。映像の流れは元のNode構成のままで、Inspectorで使う値の参照関係だけが変わります。
+
+## 操作例：別々の映像にある2つのTransformを同じSizeにする
+
+2枚の画像を別々のTransformで縮小するとき、後から両方の大きさを揃えて変更できる構成を作ります。次は21.1 Manualに記載されたPublish / Connect Toの動作を確かめるための操作例です。
+
+```text
+Background1 → Transform1 → Viewer 1
+Background2 → Transform2 → Viewer 2
+                  ↑
+        Transform1のSizeを共有
+```
+
+1. 2つのBackgroundを用意し、それぞれの後ろにTransformを接続します。2つのTransformを別々のViewerへ表示します。
+2. `Transform1`のInspectorで`Size`を`0.5`に設定します。`Size`を右クリックして`Publish`を選びます。
+3. `Transform2`の`Size`を右クリックし、`Connect To`から公開した`Transform1`のSizeに対応する項目を選びます。
+4. `Transform1`のInspectorで`Modifiers`タブを開き、`Published Value`を変更します。`Transform2`のSizeも同じ値になり、両方の縮小率が一緒に変わることを確認します。
+5. 必要なら3つ目のTransformも同じ公開元へ接続します。公開元を追加で作る必要はありません。
+
+**同じSizeでも、見える画像が同じ大きさ・位置になるとは限りません。** Sizeが揃うのは拡大縮小率であり、入力画像の内容や解像度、Center / Pivotなどのほかの設定まで揃える機能ではありません。
+
+## 期待どおりに共有されないとき
+
+| 症状 | まず確認すること |
+| --- | --- |
+| `Connect To`に公開元が見つからない | 元Parameterに`Publish`を実行したか確認します。候補は接続先と互換性のあるParameterに絞られるため、数値と位置など異なる種類を選んでいないかも確認します。 |
+| `Connect To`を選んでも値が連動しない | 接続先で実際に公開元を選択したかを確認し、公開元の`Modifiers`タブにある`Published Value`を1つだけ変更して値の連動を観察します。 |
+| 値は同じなのに画面の結果が違う | 両方の入力画像と、Size以外のCenter / Pivot等を確認します。Publishは映像の内容やほかのControlを同期しません。 |
+| 一方を2倍・半分にしたい | Publishだけでは値を演算できません。単純な式なら[SimpleExpression](../../learn/05-time/expressions)、計算と参照時刻の調整なら[Calculation](./calculation)を検討します。 |
+
 ## AnimationされたParameterとの関係
 
 Publishは主に**非AnimationのParameterを接続可能にする**ために使います。
