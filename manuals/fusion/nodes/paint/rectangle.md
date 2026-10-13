@@ -19,7 +19,7 @@ updated: "2026-10-10"
 
 # Rectangle（Paintの矩形描画）
 
-**Rectangleは、[Paint](./paint)の中で四角い描画領域を作るツール**です。映像の一部を色で覆う、タイトルの背景に帯を置く、画面上に四角い目印を表示するといった作業に使います。塗りの範囲を後から編集でき、表示する時間も変更できます。
+**Rectangleは、[Paint](./paint.md)の中で四角い描画領域を作るツール**です。映像の一部を色で覆う、タイトルの背景に帯を置く、画面上に四角い目印を表示するといった作業に使います。塗りの範囲を後から編集でき、表示する時間も変更できます。
 
 DaVinci Resolve 21.1 Reference Manualでは、Paintツールバーの描画要素として**Rectangle**と記載されています。これはFlowに単独配置するノードではありません。また、[Copy Rectangle](./copy-rectangle)は画像の別の場所から画素を複製するツールであり、単純な色付きRectangleとは目的が異なります。
 
@@ -85,7 +85,7 @@ Merge → MediaOut
 | [Rectangle Mask](../masks/rectangle-mask) | 別ノードの効果を制限する単一チャンネルのマスクを作る | BlurやColor補正の対象範囲を四角く限定する |
 | [Copy Polyline](./copy-polyline) | 自由形状の内側へ画像の画素を複製する | 四辺が直線ではない不要物の補修 |
 
-PaintのRectangleを作っても、Shapeノード群のShapeデータや独立したMask出力が生まれるわけではありません。画像とマスクの違いは[Image](../../learn/02-data/image)・[Mask](../../learn/02-data/mask)、Paintの描画要素全体の選び方は[カテゴリ概要](./overview)を参照してください。
+PaintのRectangleを作っても、Shapeノード群のShapeデータや独立したMask出力が生まれるわけではありません。画像とマスクの違いは[Image](../../learn/02-data/image)・[Mask](../../learn/02-data/mask)、Paintの描画要素全体の選び方は[カテゴリ概要](./index.md)を参照してください。
 
 ## 出典と確認範囲
 

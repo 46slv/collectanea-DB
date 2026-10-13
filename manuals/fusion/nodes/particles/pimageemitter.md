@@ -138,7 +138,7 @@ Zチャンネル付き2D画像
 - [pDirectionalForce](./pdirectionalforce)／[pTurbulence](./pturbulence)：粒子を発生させた後、その動きを変えます。
 - [pRender](./p-render)：Particle setを2D Imageまたは3D側の出力へ変換します。
 
-Lifespan、Velocity、Style、Region、Setsなどの共通設定は[pEmitter](./p-emitter)、ほかのParticleノードは[Particleノード一覧](./index)を参照してください。
+Lifespan、Velocity、Style、Region、Setsなどの共通設定は[pEmitter](./p-emitter)、ほかのParticleノードは[Particleノード一覧](./index.md)を参照してください。
 
 ## バージョンと確認範囲
 
