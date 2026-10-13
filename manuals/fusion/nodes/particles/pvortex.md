@@ -15,7 +15,7 @@ outputs: [particle]
 tasks: [particles, vortex, spiral]
 product_scope: fusion
 suite_surfaces: [fusion]
-updated: "2026-10-12"
+updated: "2026-10-13"
 ---
 
 # pVortex
@@ -62,7 +62,7 @@ pVortexの前後で動きを比較すると、粒子の発生設定による動�
 
 ### Size
 
-渦の力の大きさ（Size）を設定します。Strengthが力の強さ、Powerが距離による減衰を扱うのに対し、Sizeは渦の空間的な規模を調整する項目です。具体的な距離単位や影響境界の式は未確認です。
+渦の力のSizeを設定します。21.1マニュアルは「Vortex ForceのSize」と説明しますが、距離単位や影響境界、Strength・Powerとどのように組み合わされるかまでは示していません。Sizeの効果を調べるときは、StrengthとPowerを固定し、同じ位置から放出した粒子の軌道を比較します。
 
 ### Angle X / Angle Y
 
@@ -71,6 +71,12 @@ pVortexの前後で動きを比較すると、粒子の発生設定による動�
 ### Random Seed / Randomize
 
 ランダムな結果を扱うノードに共通する設定です。同じSeedで同じランダム結果を得られるようにし、Randomizeで別のSeedを選べます。すべてのParticleが必ずランダム軌道になる、という意味ではありません。
+
+### 粒子の見た目を変える場合
+
+pVortexは粒子の**動き**を変えるノードで、粒子の色・形・サイズを設定するためのノードではありません。21.1マニュアルのpVortex個別節（p.2692）は共通項目として**Conditions・Region・Settings**を挙げ、Styleは含めていません。共通Style節（pp.2692、2701）も対象をpEmitter・pSpawn・pChangeStyle・pImage Emitterの4種類としています。一方、同章にはStyleを粒子ノード全般の共通タブとする記述もあり、マニュアルだけからすべての実機UIを断定することはできません。
+
+粒子の見た目を変える場合は、発生時の[pEmitter](./p-emitter)か、途中で属性を変更する[pChangeStyle](./pchangestyle)を使います。pVortexのRegionに接続した画像は**作用範囲の指定**であり、粒子の絵柄になるわけではありません。
 
 ## 作用する粒子・範囲を絞る
 
@@ -104,7 +110,18 @@ pEmitterで煙の粒子を作り、[pTurbulence](./pturbulence)で不規則な�
 
 ### 粒子が成長した後だけ旋回させる
 
-pEmitterで生まれた粒子を最初はそのまま飛ばし、pVortexのConditionsで寿命後半の粒子だけを対象にします。舞い上がった火花が途中から渦へ巻き込まれる動きなどに使えます。必要なら前段に[pDirectionalForce](./pdirectionalforce)を置き、上昇方向の力と渦の力を別々に調整します。
+pEmitterで生まれた粒子を最初はそのまま飛ばし、pVortexのConditionsで寿命後半の粒子だけを対象にします。舞い上がった火花が途中から渦へ巻き込まれる動きなどに使えます。寿命の最後の20%だけを対象にするなら、**Start Ageを0.8、End Ageを1.0**にします。必要なら前段に[pDirectionalForce](./pdirectionalforce)を置き、上昇方向の力と渦の力を別々に調整します。
+
+### ある領域を通った粒子だけ渦に巻き込む
+
+```text
+pEmitter（Set 1）→ pChangeStyle（RegionでSet 2へ変更）
+                → pVortex（Conditions：Set 2のみ）→ pRender
+```
+
+pEmitterでSet 1の粒子を発生させます。[pChangeStyle](./pchangestyle)ではRegionをBitmapにし、白い部分と透明部分が分かれた画像を追加のRegion入力へ接続します。**Change Sets**を使って、その領域に入った粒子をSet 2へ変更します。続くpVortexではConditionsの**Set ModeをAffect Specified Sets**にし、**Set 2**を有効にします。
+
+この構成は、pVortexのRegionだけで「**現在その場所にいる粒子**」へ力を加える方法とは異なり、前段で変更したSetを使って**後段の処理対象**を選びます。違いを確認するにはpVortexのRegionをいったん制限せず、Set条件だけで軌道が分かれるかを比べてください。Setを変えたいだけならpChangeStyleで色まで変更する必要はありません。
 
 ## 関連ノードと使い分け
 
@@ -117,8 +134,15 @@ pEmitterで生まれた粒子を最初はそのまま飛ばし、pVortexのCondi
 
 複数の力を重ねた結果は、各ノードの設定やParticleの状態によって変わります。まず一つずつ有効にし、どの力が軌道へ作用したかを確かめると調整しやすくなります。
 
+## 期待した動きにならないとき
+
+- **粒子が表示されない**：橙色のParticle入力がpEmitterなどに繋がっているか、末端のpRenderが意図した2D／3D出力になっているかを確認します。pVortex自身は画像を描画しません。
+- **Strengthを上げても旋回しない**：PowerとSizeだけで判断せず、pEmitterの発生位置・初速とpVortexのRegionを確認します。まずRegionやSetによる絞り込みを外し、pVortexの有無で軌道を比較します。
+- **一部の粒子しか動かない**：ConditionsのProbability、Start/End Age、Set ModeとSet番号を確認します。Probabilityは粒子ごとに毎フレーム判定されるため、結果が一定の粒子に固定されるわけではありません。
+- **BitmapのRegionが効かない**：Region ModeがBitmapになっているか、追加された入力へ2D Imageを渡したか、判定に使用する画像チャンネルが適切かを確認します。Particleの主入力へ画像を差してもRegionの指定にはなりません。
+
 ## 出典・バージョンと未確認事項
 
-- **一次資料**：*DaVinci Resolve 21.1 Reference Manual*（September 2026）、Chapter 114「Particle Nodes」、pp.2690–2692（pVortexの入出力、Strength、Power、Offset、Size、Angle）、pp.2697–2699（共通Conditions / Region）。
+- **一次資料**：*DaVinci Resolve 21.1 Reference Manual*（September 2026）、Chapter 114「Particle Nodes」、pp.2690–2692（pVortexの入出力、Strength、Power、Offset、Size、Angle）、pp.2692、2701（Styleタブの対象）、pp.2697–2701（共通Conditions / Region）。
 - **対象**：DaVinci Resolve 21.1のFusionページ。上記資料に記載されたノードの説明として整理しています。
 - **未確認**：内部の力の計算式、各設定の既定値と厳密な数値範囲、OffsetとAngleの軸別挙動、実機でのパフォーマンス、Edition間の差。これらを21.1で実測済みとは扱いません。
