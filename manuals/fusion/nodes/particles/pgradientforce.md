@@ -77,7 +77,7 @@ Particleノードに共通する乱数の設定です。マニュアルでは、
 
 ### Conditions / Style / Region / Settings
 
-これらはParticle系で共通するタブです。Conditionsでは条件に合うParticleへの適用を絞り、Regionでは空間的な作用範囲を設定します。共通項目の全体像は[Particleノード](./index)を参照してください。pGradientForce固有の力の調整項目として、21.1マニュアルが挙げるのはStrengthです。
+これらはParticle系で共通するタブです。Conditionsでは条件に合うParticleへの適用を絞り、Regionでは空間的な作用範囲を設定します。共通項目の全体像は[Particleノード](./index.md)を参照してください。pGradientForce固有の力の調整項目として、21.1マニュアルが挙げるのはStrengthです。
 
 ## 運用例
 

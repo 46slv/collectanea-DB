@@ -57,7 +57,7 @@ PolygonはViewerをクリックしてBézier polylineを作り、Shapeの変更�
 
 [Mask Paint](./mask-paint)は画像入力なしでもマスクを手描きできます。Bitmap Maskの人物領域に小さな穴があるときは、その出力をMask Paintの青いEffect Mask入力につなぎ、穴を白く描いて埋めます。出力は単一チャンネルのマスクです。
 
-一方、[Paint](../paint/paint)は入力された2D画像に色やクローン画素を描き、加工後の2D画像を出力します。**効果の適用範囲を補修するならMask Paint、映像自体を修復・描画するならPaint**を選びます。ペイント用描画要素の比較は[Paintカテゴリ概要](../paint/index)を参照してください。
+一方、[Paint](../paint/paint.md)は入力された2D画像に色やクローン画素を描き、加工後の2D画像を出力します。**効果の適用範囲を補修するならMask Paint、映像自体を修復・描画するならPaint**を選びます。ペイント用描画要素の比較は[Paintカテゴリ概要](../paint/index.md)を参照してください。
 
 ## 複数Maskを組み合わせる
 

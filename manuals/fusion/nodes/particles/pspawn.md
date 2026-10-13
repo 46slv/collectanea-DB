@@ -171,7 +171,7 @@ pSpawnのRegionを**Bitmap**にし、透明背景のロゴ画像を追加のRegi
 
 ## 関連ノード
 
-- [Particleノード一覧](./index)：粒子を作る・変える・描く流れ。
+- [Particleノード一覧](./index.md)：粒子を作る・変える・描く流れ。
 - [pEmitter](./p-emitter)：親粒子の生成と、Number・Lifespan・Velocityなどの共通設定。
 - [pImage Emitter](./pimageemitter)：画像のピクセルから最初の粒子を発生させる別の方法。
 - [pChangeStyle](./pchangestyle)：途中で粒子の見た目やSetを変更する。

@@ -34,7 +34,7 @@ pEmitterやForce系Nodeが扱うのは、各粒子の位置・速度・寿命・
 | Region用の追加入力（条件付き・緑） | BitmapまたはMesh | RegionタブでBitmap／Meshを選んだときに現れる。Camera Inputとは別の目的で使う。 |
 | Output | 2D Image **または** 3D geometry | Output Modeに従って出力のデータ種類が切り替わる。 |
 
-Region用の接続は常時表示される端子ではありません。外部画像や形状をRegionの基準にする構成では、Regionタブの選択と実際に現れた端子を確認してください。Regionの共通概念は[Particleノード](./index)にもまとめています。
+Region用の接続は常時表示される端子ではありません。外部画像や形状をRegionの基準にする構成では、Regionタブの選択と実際に現れた端子を確認してください。Regionの共通概念は[Particleノード](./index.md)にもまとめています。
 
 ## Output Modeと後段への接続
 
@@ -156,7 +156,7 @@ Pre-Generate Framesは「粒子数を増やす」専用の設定ではなく、�
 
 ## 関連ページ
 
-- [Particleノードの全体像](./index)
+- [Particleノードの全体像](./index.md)
 - [pEmitter](./p-emitter)
 - [pDirectionalForce](./pdirectionalforce)
 - [pPoint Force](./ppointforce)
