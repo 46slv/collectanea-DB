@@ -16,7 +16,7 @@ tasks: ["drive-parameter", "link-values", "derive-values", "retime-parameter"]
 level: intermediate
 product_scope: fusion
 suite_surfaces: ["fusion"]
-updated: "2026-10-06"
+updated: "2026-10-13"
 ---
 
 # Calculation
@@ -40,6 +40,20 @@ Second Operand ┘
 ```
 
 First / Second Operandには、数値を直接入れるほか、別Parameterを接続できます。
+
+## 入力と出力
+
+Calculationが扱うのは画像ではなく、数値Parameterの値です。Inspectorの特定の数値ControlへModifierを付け、そこから**最大2つのOperandを読み、演算結果を元のControlへ返します**。
+
+| 役割 | 内容 |
+| --- | --- |
+| First Operand | 手入力の数値、または公開済み・Animation済みの別Parameterから読む数値 |
+| Second Operand | 手入力の数値、または公開済み・Animation済みの別Parameterから読む数値 |
+| Time Scale / Time Offset | Operandごとに、どのframeにある値を読み取るかを調整 |
+| Operator | 2つのOperandに適用する演算。片方だけを使う`First only`も選択可能 |
+| 出力先 | Calculationを付けた対象Parameterの、そのframeで評価される数値 |
+
+Node Editorで画像を通す端子はありません。たとえば`Text+のSize`はOperandの参照元、`BlurのSize`はCalculationの出力先として使えます。画像そのものは通常の`Text+ → Blur`というNode接続を通ります。
 
 ## Calcタブ
 
@@ -136,6 +150,20 @@ Textが大きくなるにつれて、Calculationが参照するText Sizeは小�
 
 - Multiplyで値の範囲をBlur向けに拡大する
 - Time Scale / OffsetでAnimationの時間方向を反転する
+
+## 期待どおりにならないとき
+
+| 症状 | 先に確認すること |
+| --- | --- |
+| Blur SizeがText Sizeと同じ方向へ動く | `Multiply`は値域を広げるだけで変化の向きは反転しません。元Animationを後ろから参照したいなら、Manualの作例どおりFirst Operandの`Time Scale = -1`と`Time Offset = 100`を組み合わせます。`100`は元がframe 0〜100の作例用です。 |
+| 参照元の動きを遅くしたいのに結果が速くなる | どちらのOperandへTime Scaleを設定したか確認します。21.1 Manualでは`0.5`でそのOperandのframe参照を半分の速度にする例があります。 |
+| 元Animationの範囲外を読んでしまう | Time Scaleを負にしたときは、Time Offsetも確認します。Manualの例では現在frame 10からframe -10を参照してしまうため、Offsetを追加しています。範囲外での補間・保持挙動はここでは断定しません。 |
+| 参照するframeが前後逆になる | **正のTime Offsetは未来、負のTime Offsetは過去**のframeの値を読む、とManualに記されています。 |
+| 演算後の数値が期待と違う | `Subtract`と`Divide`にはFirst/Secondの順序を逆にした選択肢があります。まずFirst Operand、Second Operandの値とOperatorを確認します。除数に0を与えた場合の実装上の挙動は未検証です。 |
+| CalculationがNode graphに出てこない | Calculationは画像NodeではなくParameter Modifierです。対象Controlに付けた後、Inspectorの**Modifiers** tabを確認します。 |
+| 参照元を変えても結果が変わらない | `First only`ではSecond Operandが計算に使われません。両Operandの参照元、選択Operator、対象Parameterの接続を確認します。 |
+
+この表はReference ManualのCalc / Time Controlsと作例から作った切り分け手順です。各症状の実機再現結果ではなく、21.1実行環境での確認余地を残しています。
 
 ## Expressionとの違い
 

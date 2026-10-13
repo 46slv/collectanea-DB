@@ -15,7 +15,7 @@ outputs: ["parameter"]
 tasks: ["drive-parameter", "procedural-animation", "randomize-value"]
 product_scope: fusion
 suite_surfaces: ["fusion"]
-updated: "2026-10-06"
+updated: "2026-10-13"
 ---
 
 # Shake
@@ -135,6 +135,19 @@ ShakeはNode Editor上でImage Input / Outputを接続するNodeではありま�
 ```
 
 対象となるPosition / Value ParameterへModifierとして付与し、そのParameterの値を生成します。したがって「何の画像を入力するか」ではなく、**どのParameterをどの範囲で揺らしたいか**を先に決めると選びやすくなります。
+
+## 期待どおりにならないとき
+
+| 症状 | 確認すること |
+| --- | --- |
+| 文字や画像が画面全体へ飛び回ってしまう | Shake Positionの`Minimum` / `Maximum`を確認します。Centerのような正規化位置では、`0`〜`1`を広く指定すると移動範囲も広がります。まず範囲を狭め、意図した場所の近くで動くようにします。 |
+| 横方向と縦方向の揺れ幅を別々に調整できない | Positionを対象としているか、`Lock X/Y`を確認します。Lockを外すとXとYで独立した範囲を設定できます。数値1つだけのValue Controlでは同じX/Y操作はできません。 |
+| 揺れがフレームごとに急に切り替わる | `Smoothness`を確認します。21.1 Manualでは`0`をsmoothingなしのrandom、値を大きくした状態を滑らかな変化として説明しています。 |
+| 揺れの範囲を狭めたのに中央へ完全には止まらない | `Minimum = 0.45` / `Maximum = 0.55`は、中央付近の**範囲内でまだ動く**設定です。一定の値へ収束させたい場合は、最終frameで両方を目的の同じ値にする方法を検討します。最終位置の精度は対象Parameterの座標系で判断します。 |
+| `Random Seed`を変えても揺れの位置や強さが期待と違う | Seedは生成されるrandom sequenceを切り替えるControlです。移動できる値の範囲は`Minimum` / `Maximum`、変化の滑らかさは`Smoothness`で調整します。SeedだけをAmountやSpeedの代わりに使わないでください。 |
+| Modifierを追加したのに操作項目が見えない | 対象Nodeを選択し、Inspector上部の`Modifiers` tabを確認します。Shakeは通常の画像Nodeではなく、Parameterへ付けるModifierです。 |
+
+この表は21.1 Manual記載のControlsとText Centerの作例をもとに整理した確認順序です。各症状を実機で再現した記録ではありません。
 
 ## 注意点
 
