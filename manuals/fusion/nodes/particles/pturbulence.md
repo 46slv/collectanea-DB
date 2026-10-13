@@ -9,13 +9,13 @@ aliases: [pTurbulence, pTr]
 concepts: [particle-data, particle-region]
 nodes: [pTurbulence]
 node_family: particles
-controls: [Random Seed, Randomize, X Strength, Y Strength, Z Strength, Strength Over Life, Density, Conditions, Style, Region, Settings]
+controls: [Random Seed, Randomize, X Strength, Y Strength, Z Strength, Strength Over Life, Density, Conditions, Region, Settings]
 inputs: [particle, region]
 outputs: [particle]
 tasks: [particles, turbulence, natural-motion]
 product_scope: fusion
 suite_surfaces: [fusion]
-updated: "2026-10-12"
+updated: "2026-10-13"
 ---
 
 # pTurbulence
@@ -72,9 +72,15 @@ Densityは発生粒子数を指定する設定ではありません。「粒子�
 
 Random Seedは乱数結果を再現するための値です。Randomizeボタンは別のSeedを選びます。同じ設定とSeedから同じ乱数結果を得るのに使えますが、Seedは粒子の初速やDensityの代わりに動きの強さを決める項目ではありません。
 
-### Conditions / Style / Region / Settings
+### Conditions / Region / Settings
 
-Particleノード共通のタブです。Conditionsは条件に合う粒子に処理を絞り、Regionは処理が作用する空間的な範囲を制限します。たとえば「特定のParticle Setだけ」を絞る用途と「画面の右側だけ」を絞る用途は異なります。共通設定は[Particleノードの概要](./index)を参照してください。
+**Conditions**は処理対象の粒子を絞ります。Probabilityは各粒子について各フレームで作用する確率、Start / End Ageは寿命のどの期間に作用するか、Set ModeとSet番号はどの粒子グループに作用するかを指定します。たとえばSet 2だけに乱れを加えるなら、前段で粒子をSet 2へ割り当て、pTurbulenceのConditionsで**Affect Specified Sets**を選んでSet 2を有効にします。
+
+Probabilityを0.5にしても「粒子の半数を最初から最後まで固定して選ぶ」動作にはなりません。判定はフレームごとに行われます。一定の粒子群だけを継続的に乱したい場合はSetによる選別を使います。
+
+**Region**は処理が作用する場所を制限します。「Set 2だけ」を選ぶConditionsと「画面の右半分だけ」を選ぶRegionは別の条件です。両方を使うと、選んだSetの粒子がその領域にいるときだけ乱れを与える構成にできます。共通設定は[Particleノードの概要](./index)を参照してください。
+
+**Styleタブの扱いにはマニュアル内で記述差があります。** 21.1 Reference ManualのpTurbulence個別ページ（p.2690）はStyleを全Particleノードの共通タブに含めています。一方、共通設定の説明（pp.2692、2701）はStyleを持つノードを**pEmitter、pSpawn、pChangeStyle、pImage Emitterの4種類**に限定しており、pTurbulenceは含まれません。そのため、pTurbulenceでStyleタブを操作できるとは断定しません。粒子の色や絵柄を変えるときは前段の[pEmitter](./p-emitter)か[pChangeStyle](./pchangestyle)を使います。実機での21.1 Inspector表示は未確認です。
 
 ## 最小構成
 
@@ -143,5 +149,5 @@ RegionタブでBitmapを選び、乱れを適用したい範囲を表す2D画像
 ## 出典と確認範囲
 
 - **Blackmagic Design, DaVinci Resolve 21.1 Reference Manual**（September 2026）、Chapter 114「Particle Nodes」pp.2689–2690。役割、Particle / Region入力、RegionのBitmap・Mesh、Strength XYZ、Strength Over Life、Density、Random Seedを確認。
-- Conditions・Style・Region・Settingsについては同Chapter「The Common Controls」の説明を参照。ParticleとImageの違いは[パーティクルの基礎](../../learn/02-data/particle)にも整理しています。
+- **同Chapter pp.2692、2697–2698、2701**：ConditionsのProbability・Age・Set、Styleタブが4種類のノードに限定される記述を確認。p.2690の「全ParticleノードにStyleが共通」という説明との不一致は本文に明記しています。Regionの詳細は同Chapter pp.2698–2701を参照。ParticleとImageの違いは[パーティクルの基礎](../../learn/02-data/particle)にも整理しています。
 - 運用例はマニュアルに記された接続・設定から構成した手順です。Resolve 21.1実機での表示結果、Strength・Densityの既定値や数値範囲、内部の乱流計算式、Edition差、処理負荷は未確認です。
