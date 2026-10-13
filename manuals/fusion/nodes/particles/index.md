@@ -111,9 +111,25 @@ pEmitterでは粒子を**発生させる場所**、Force系では**力が働く�
 
 ### Style：どんな姿で描画するか
 
-21.1マニュアルでStyleタブを持つと記されているのは、pEmitter、pImage Emitter、pSpawn、pChangeStyleです。すべてのParticle NodeがStyleを持つわけではありません。Pointなら点、Bitmapなら画像、Blobなら柔らかい塊、Lineなら線状の粒子として表現できます。画像を粒子の見た目に使う場合はStyle Bitmapに2D Imageを接続します。
+21.1マニュアルの共通「Style Tab」節（p.2692）は、**pEmitter・pSpawn・pChangeStyle・pImage Emitter**の4つを対象として明記しています。一方、[pGradientForce](./pgradientforce)の個別節（p.2672）にはStyleを共通タブに含める説明があり、記述が一致しません。したがって、4つ以外のNodeにStyleタブが表示されるかは本資料だけでは断定できません。pGradientForceの実機表示は未確認です。
+
+Styleで選ぶPointは点、Bitmapは画像、Blobは柔らかい塊、Lineは線状の粒子です。画像を粒子の見た目に使う場合は、StyleをBitmapにしたノードの**Style Bitmap入力**へ2D Imageを接続します。
 
 [pGradientForce](./pgradientforce)にもImage入力がありますが、こちらは**Alphaの濃淡から力を計算する**ための入力です。同じ画像であっても「粒子の姿」と「動かす方向」は別に設定します。
+
+## 端子を選ぶ：Particle・Image・Regionの例外
+
+Particle系でも、**端子の色だけで入力データを決めない**ことが重要です。とくにpImage Emitterの橙色の主入力は、一般的なParticle処理ノードとは異なり**2D Image**を受け取ります。
+
+| Node | 主入力・追加入力 | 出力と接続判断 |
+| --- | --- | --- |
+| [pEmitter](./p-emitter) | 既定では入力なし。StyleをBitmapにすると一粒の絵柄用Image入力、RegionをBitmap／Meshにすると発生場所用の入力が追加 | Particleを新たに生成する |
+| [pImage Emitter](./pimageemitter) | **橙色の主入力が2D Image**。その画素位置・色を粒子化する。Style Bitmap入力とRegion入力は別用途 | 画像を受け取るが、出力はParticle |
+| [pGradientForce](./pgradientforce) | 橙色はParticle、緑色のImageはAlphaの勾配から力を作るための2D画像。Regionは作用範囲を限定する別入力 | 粒子を新たに作らず、入力Particleの動きを変える |
+
+たとえば透過ロゴを粒子へ分解するなら、ロゴを**pImage Emitterの主入力**へ渡します。一方、ロゴの形の範囲内でランダムに粒子を生みたいなら、**pEmitterのRegion Bitmap入力**へロゴを渡します。前者は画像の画素を格子状に粒子化し、後者は画像の領域を発生場所として使います。
+
+pImage Emitterで透明な余白が広い画像を扱うときは、**Alpha Threshold**にも注意します。21.1マニュアルでは既定の0.0で透明画素からも不可視の粒子が発生すると説明し、完全透明部分を除く目安に約0.004（1/255）を挙げています。動画の色を既存の粒子格子へ反映したいだけなら、毎フレーム新たな粒子を作る必要はありません。詳しい設定は[pImage Emitter](./pimageemitter)を参照してください。
 
 ## Particleの時間：Pre-RollとPre-Generate
 
