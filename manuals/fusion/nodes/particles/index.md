@@ -5,7 +5,7 @@ doc_type: index
 verification: partial
 product_scope: fusion
 tasks: [lookup-node, particles, emit, force, render]
-updated: "2026-10-04"
+updated: "2026-10-13"
 ---
 
 # Particleノード
@@ -47,62 +47,110 @@ pEmitterがparticleを生成し、pRenderが見える結果へ変換します。
 | tangent方向のforce | [pTangent Force](./ptangentforce) | regionに対する接線方向へforce |
 | 最終結果をrender | [pRender](./p-render) | Particle set → 2D Image / 3D geometry |
 
-## 「作る → 変える → render」で読む
+## 処理順を読む：生成 → 作用 → 描画
 
-Particle graphは3段階に分けると読みやすくなります。
-
-```text
-Generate
-pEmitter
-   ↓
-Modify
-pDirectionalForce → pTurbulence → pFriction
-   ↓
-Render
-pRender
-```
-
-ForceやBehaviorを何個追加しても、pRenderまではParticle setのままです。
-
-## 2Dと3D
-
-pRenderは2D / 3DのOutput Modeを持ち、既定は3Dです。
-
-2DならそのままMerge等の2D Image Nodeへ進みます。
+ParticleデータはpEmitterからpRenderまで接続をたどって流れます。Force系の効果を順に適用するなら、次のように**直列**へ挿入します。
 
 ```text
-pEmitter → pRender (2D) → Merge
+pEmitter → pDirectionalForce → pTurbulence → pFriction → pRender
 ```
 
-3DならMerge 3D等へ接続し、Renderer 3Dで最終Imageへ変換します。
+pDirectionalForceが設定した方向へ加速し、pTurbulenceが不規則な動きを加え、pFrictionが速度を減衰させます。Nodeを別々の枝へ置いただけでは結果は自動で合流しません。
+
+2種類の粒子を別々に処理して統合するには、Particle専用の[pMerge](./pmerge)を使います。
 
 ```text
-pEmitter → pRender (3D) → Merge 3D → Renderer 3D
+pEmitter（火花） → pDirectionalForce ─┐
+                                    ├→ pMerge → pRender
+pEmitter（煙）   → pTurbulence ──────┘
 ```
 
-## Common Controls
+この順なら火花と煙に異なる動きを付けた後で、一緒に描画できます。pMergeの**後**にForceを挿入すれば、統合済みのParticle全体が対象になります。対象を火花だけに限定したい場合は、後述のSetとConditionsを使います。
 
-Particle Nodeの多くはConditions / Style / Region / Settings等の共通tabを持ちます。
+**pMergeはParticle同士の統合**、通常のMergeは**描画後の2D画像同士の合成**、Merge 3Dは**3Dシーン要素の統合**です。似た名前でも入出力は異なります。
 
-### Conditions
+## 2Dで重ねるか、3Dシーンへ渡すか
 
-Probability、particle age、Setなどを使い、「どのparticleだけにこのNodeを効かせるか」を限定します。
+[pRender](./p-render)のOutput Modeは2D Imageか3D Geometryを選ぶ設定で、21.1マニュアルでは初期値が3Dと記載されています。
 
-### Region
+**2D画像として実写へ合成する場合：**
 
-pEmitterではparticleを生成する範囲、Force / Behavior系では作用範囲を決めます。
+```text
+pEmitter → pRender（2D） ──→ Merge（Foreground）→ MediaOut
+MediaIn（実写） ──────────→ Merge（Background）
+```
 
-Bitmapや3D MeshをRegionへ使う場合、追加inputがNodeへ現れます。
+pRenderが粒子を画像にしてからMergeで実写へ重ねます。画像用Blurなどの後処理もこの描画後の経路へ置きます。
 
-### Sets
+**3Dシーンの一部として描画する場合：**
 
-pEmitter等でparticleへSet番号を割り当て、後段Nodeを特定Setだけへ作用させられます。
+```text
+pEmitter → pRender（3D） ──→ Merge 3D → Renderer 3D → Merge（2D）
+Shape 3D / Light 3D ─────→ Merge 3D
+```
 
-## Particleの時間
+3D出力は最終的な2D画像ではなくGeometryです。別の3D形状やLightと合わせ、Renderer 3Dで画像へ変換します。21.1マニュアルには、Output Modeを決めてInspectorの操作をした後はモードを切り替えられない場合があるとの注意があります。後段に合わせて最初に出力方法を選びます。実機での制限条件は未検証です。
 
-Particle systemは前frameのstateを使って現在frameを計算します。
+## Conditions・Region・Styleの違い
 
-大きくframeを飛んだとき結果が違って見える場合は、pRenderのPre-Roll / Automatic Pre-Rollを確認します。開始frameですでに煙が立っている状態などを作る場合はPre-Generate Framesを使います。
+### Conditions：どのParticleに作用させるか
+
+Conditionsは、後段のForceやBehaviorが**どの粒子に適用されるか**を限定します。21.1マニュアルには次の設定があります。
+
+- **Probability**：各粒子がそのフレームで影響を受ける確率。0.6なら約60%です。**毎フレーム判定**されるため、生まれた時点で60%を選び、以後ずっと固定する設定ではありません。
+- **Start/End Age**：生存時間のどの割合で作用させるか。Start 0.8、End 1.0なら最後の20%だけが対象です。
+- **Set Mode / Set #**：番号付きSetで対象を指定。Ignore SetsはSetを区別せず、Affect Specified Setsは選択Setだけ、Ignore Specified Setsは選択していないSetだけへ適用します。
+
+SetはpEmitter、pImage Emitter、pSpawn、pChangeStyleなどで割り当てられます。例えば煙をSet 2、火花をSet 1で作り、pMergeで統合した後の[pFriction](./pfriction)をSet 1だけに作用させられます。
+
+### Region：どこで発生／作用させるか
+
+pEmitterでは粒子を**発生させる場所**、Force系では**力が働く場所**を指定します。BitmapをRegionに使えば画像由来の領域、Meshなら3D Geometryで領域を定義できます。BitmapまたはMeshへ切り替えた際に入力が追加されるNodeもあります。
+
+ロゴの輪郭から火花を生むなら、ロゴ画像をpEmitterの発生Regionに渡します。右半分に来た粒子だけ減速させるならpFriction側の作用Regionに画像を渡します。見た目のためのStyle Bitmapとは異なる入力です。
+
+### Style：どんな姿で描画するか
+
+21.1マニュアルでStyleタブを持つと記されているのは、pEmitter、pImage Emitter、pSpawn、pChangeStyleです。すべてのParticle NodeがStyleを持つわけではありません。Pointなら点、Bitmapなら画像、Blobなら柔らかい塊、Lineなら線状の粒子として表現できます。画像を粒子の見た目に使う場合はStyle Bitmapに2D Imageを接続します。
+
+[pGradientForce](./pgradientforce)にもImage入力がありますが、こちらは**Alphaの濃淡から力を計算する**ための入力です。同じ画像であっても「粒子の姿」と「動かす方向」は別に設定します。
+
+## Particleの時間：Pre-RollとPre-Generate
+
+Particleは前のフレームの状態から現在の動きを計算します。フレームを大きく飛ぶと、途中の計算不足で結果が違って見えることがあります。
+
+- **Pre-Roll**：render rangeの開始から現在フレームまで計算し直します。飛ばした先で粒子の位置や数がおかしい場合に使います。
+- **Automatic Pre-Roll**：大きく時間を移動しても自動で再計算します。重いシミュレーションでは処理時間に注意します。
+- **Pre-Generate Frames**：最初の有効フレームより前に指定フレーム数を生成し、冒頭から煙などが存在する状態を作ります。
+- **Restart**：現在フレームからParticle systemを開始し直します。
+
+Pre-Rollは**途中の状態の計算し直し**、Pre-Generate Framesは**開始時点の状態の用意**です。混同しないようにします。
+
+## 制作例
+
+### 1. 実写映像へ火花を加える
+
+pEmitterで寿命の短い火花を生成し、pDirectionalForceで落下方向へ加速、pFrictionで減速します。pRenderを2DにしてMergeのForegroundへ渡し、MediaInの実写をBackgroundへ接続します。画像として見えない場合は、pRenderのOutput ModeとMergeの入出力を確認します。
+
+### 2. 火花と煙を異なる動きで合成する
+
+2つのpEmitterを用意し、火花だけをpDirectionalForce、煙だけをpTurbulenceへ通します。それぞれのParticleをpMergeで統合し、pRenderで描画します。統合後に共通のForceを加える場合は、SetとConditionsで影響対象を制限できます。
+
+### 3. 3Dシーンの冒頭から煙を漂わせる
+
+pEmitterで煙を生成し、pRenderを3Dに設定します。Merge 3Dで別の3Dオブジェクトと合わせ、Renderer 3Dで画像へ変換します。撮影カットの開始時から煙を見せたい場合はPre-Generate Framesで事前の状態を作ります。途中のフレームへ移動した際の位置が不正確ならPre-Rollを確認します。
+
+## 接続・表示の確認
+
+| 症状 | 確認すること |
+| --- | --- |
+| pEmitterから通常のMergeへ接続できない | Particleは未描画。pRender（2D）で画像へ変換する |
+| pRenderからMerge 3Dへ接続できない | Output Modeが3Dか確認する |
+| Forceが効かない | 直列経路にあるか、Strength・Conditions・Regionが対象外にしていないか |
+| Bitmapを入れても意図と異なる | Style Bitmap・Image・Regionのどの入力か |
+| 一部の粒子にしか効果が出ない | Probability・Start/End Age・Set Mode・Set番号 |
+| フレームを飛ぶと粒子数が変わる | Pre-Roll・Automatic Pre-Roll |
+| 冒頭で煙が出始めてしまう | Pre-Generate Frames |
 
 ## 関連する考え方
 
@@ -112,6 +160,6 @@ Particle systemは前frameのstateを使って現在frameを計算します。
 
 ## 出典と確認範囲
 
-DaVinci Resolve 21.1 Reference Manual、September 2026、Chapter 114 pp.2646–2703とFusion Fundamentals Chapter 86を基に整理しています。
+Blackmagic Design『DaVinci Resolve 21.1 Reference Manual』（September 2026）、Chapter 86「Particle Systems」pp.1891–1895、Chapter 114「Particle Nodes」pp.2678–2681・2697–2702を基に整理しています。
 
 各Node固有Controlは個別ページで説明します。内部particle representation、solver / simulation実装、実機性能は未確認です。
