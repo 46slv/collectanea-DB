@@ -43,7 +43,7 @@ InspectorのRegionタブでBitmapまたはMeshを選ぶと、追加のRegion入�
 
 結果もParticleデータです。pTurbulenceの出力を直接通常の2D画像処理へ渡すのではなく、pRenderで表示できる形式に変換します。pRenderの出力を2Dにすれば、Mergeなどで映像に合成できます。3D出力を選ぶ場合は、3Dシーンのノードへ渡します。
 
-Particleのデータ形式やpRenderの役割は、[パーティクルの基礎](../../learn/02-data/particle)と[Particleノード一覧](./index)でも説明しています。
+Particleのデータ形式やpRenderの役割は、[パーティクルの基礎](../../learn/02-data/particle)と[Particleノード一覧](./index.md)でも説明しています。
 
 ## 主な設定
 
@@ -78,7 +78,7 @@ Random Seedは乱数結果を再現するための値です。Randomizeボタン
 
 Probabilityを0.5にしても「粒子の半数を最初から最後まで固定して選ぶ」動作にはなりません。判定はフレームごとに行われます。一定の粒子群だけを継続的に乱したい場合はSetによる選別を使います。
 
-**Region**は処理が作用する場所を制限します。「Set 2だけ」を選ぶConditionsと「画面の右半分だけ」を選ぶRegionは別の条件です。両方を使うと、選んだSetの粒子がその領域にいるときだけ乱れを与える構成にできます。共通設定は[Particleノードの概要](./index)を参照してください。
+**Region**は処理が作用する場所を制限します。「Set 2だけ」を選ぶConditionsと「画面の右半分だけ」を選ぶRegionは別の条件です。両方を使うと、選んだSetの粒子がその領域にいるときだけ乱れを与える構成にできます。共通設定は[Particleノードの概要](./index.md)を参照してください。
 
 **Styleタブの扱いにはマニュアル内で記述差があります。** 21.1 Reference ManualのpTurbulence個別ページ（p.2690）はStyleを全Particleノードの共通タブに含めています。一方、共通設定の説明（pp.2692、2701）はStyleを持つノードを**pEmitter、pSpawn、pChangeStyle、pImage Emitterの4種類**に限定しており、pTurbulenceは含まれません。そのため、pTurbulenceでStyleタブを操作できるとは断定しません。粒子の色や絵柄を変えるときは前段の[pEmitter](./p-emitter)か[pChangeStyle](./pchangestyle)を使います。実機での21.1 Inspector表示は未確認です。
 

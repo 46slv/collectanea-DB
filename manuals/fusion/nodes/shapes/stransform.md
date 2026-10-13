@@ -126,7 +126,7 @@ sEllipse → sTransform → sGrid → sRender
 - 通常の[Transform](../transform/transform)は**2D Image**を変形します。sTransformは**Shape**を変形するため、使う位置はsRenderの前です。
 - 図形がViewerに通常の画像として表示されない場合は、[sRender](./s-render)まで接続した状態で確認します。Transform自体の動作不良とは限りません。
 
-Shapeノード全体の説明は[Shapeノード一覧](./index)から確認できます。
+Shapeノード全体の説明は[Shapeノード一覧](./index.md)から確認できます。
 
 ## バージョンと出典
 

@@ -21,7 +21,7 @@ updated: "2026-10-10"
 
 Mask Paintは、Viewer上でブラシや図形を描き、**処理を適用する範囲を表すマスク**を作るノードです。映像の色を塗り替えるのではなく、白・黒・グレーの値で「どこに、どの程度処理をかけるか」を決めます。例えば、人物のマスクに小さな穴が開いている場合、その部分だけ白く描いて補修できます。
 
-[Paint](../paint/paint)は2D画像の入力が必須ですが、**Mask Paintは画像を接続しなくてもマスクを描けます**。FusionのEffects LibraryではMaskカテゴリにあり、リファレンスマニュアルの表記は「Mask Paint [PNM]」です。ここでのPNMを内部REGIDとは断定しません。
+[Paint](../paint/paint.md)は2D画像の入力が必須ですが、**Mask Paintは画像を接続しなくてもマスクを描けます**。FusionのEffects LibraryではMaskカテゴリにあり、リファレンスマニュアルの表記は「Mask Paint [PNM]」です。ここでのPNMを内部REGIDとは断定しません。
 
 ## 入力と出力
 
@@ -102,9 +102,9 @@ Mask Paintの描画操作は、基本的にPaintと共通です。Viewerのペ�
 
 ## Paint・他のMaskノードとの使い分け
 
-[Paint](../paint/paint)は入力画像に色・クローン・補修を描いて2D画像を返します。Mask Paintは単一チャンネルのMaskを返し、ほかの効果の適用範囲を作ります。**透明BackgroundをPaintへ入れて線を描く構成**と、**画像入力なしでMask Paintからマスクを作る構成**は、出力データが異なります。
+[Paint](../paint/paint.md)は入力画像に色・クローン・補修を描いて2D画像を返します。Mask Paintは単一チャンネルのMaskを返し、ほかの効果の適用範囲を作ります。**透明BackgroundをPaintへ入れて線を描く構成**と、**画像入力なしでMask Paintからマスクを作る構成**は、出力データが異なります。
 
-幾何学的な輪郭を最初から作るなら[Polygon Mask](./polygon-mask)や[Ellipse Mask](./ellipse-mask)、画像のAlphaや輝度から抽出するなら[Bitmap Mask](./bitmap-mask)を先に検討します。Mask Paintは手描きが必要な部分や、**既存のマスクを少しだけ直す作業**で特に有効です。選択基準の全体像は[Maskノードの概要](./index)を参照してください。
+幾何学的な輪郭を最初から作るなら[Polygon Mask](./polygon-mask)や[Ellipse Mask](./ellipse-mask)、画像のAlphaや輝度から抽出するなら[Bitmap Mask](./bitmap-mask)を先に検討します。Mask Paintは手描きが必要な部分や、**既存のマスクを少しだけ直す作業**で特に有効です。選択基準の全体像は[Maskノードの概要](./index.md)を参照してください。
 
 ## バージョン・出典・未確認範囲
 

@@ -126,7 +126,7 @@ RegionはTorqueの式を作る場所ではなく**作用範囲を限定する入
 
 Conditionsは**どの粒子に効かせるか**を絞り、Regionは**どの場所で効かせるか**を絞ります。ConditionsのProbabilityは粒子ごと・フレームごとの適用確率、Start/End Ageは寿命の割合、Set ModeはParticle Setによる対象の選択です。
 
-「Set 2の粒子がロゴ内にいるときだけ回転させる」なら、**SetをConditions、ロゴの場所をRegion**で指定します。共通設定の詳しい説明は[Particleノード](./index)を参照してください。
+「Set 2の粒子がロゴ内にいるときだけ回転させる」なら、**SetをConditions、ロゴの場所をRegion**で指定します。共通設定の詳しい説明は[Particleノード](./index.md)を参照してください。
 
 ## 関連ノードとの使い分け
 

@@ -77,7 +77,7 @@ Particleノードに共通する乱数の設定です。マニュアルでは、
 
 ### Conditions / Region / SettingsとStyleの記載差
 
-**Conditions**はProbability・Age・Setによって、力を受けるParticleを絞ります。**Region**は、力を作用させる場所を限定します。共通設定は[Particleノード](./index)を参照してください。21.1マニュアルがpGradientForce固有の力の調整項目として挙げるのはStrengthです。
+**Conditions**はProbability・Age・Setによって、力を受けるParticleを絞ります。**Region**は、力を作用させる場所を限定します。共通設定は[Particleノード](./index.md)を参照してください。21.1マニュアルがpGradientForce固有の力の調整項目として挙げるのはStrengthです。
 
 **Styleタブの有無について、公式マニュアル内の記述が一致していません。** pGradientForceの節（p.2672）はStyleを共通タブに含めていますが、同じ章の「Style Tab」（p.2701）は、Styleを持つノードをpEmitter・pSpawn・pChangeStyle・pImage Emitterの4種類と記しています。このため、本記事ではpGradientForceのInspectorにStyleタブがあると断定せず、実機での確認待ちとします。粒子の見た目は、発生源の[pEmitter](./p-emitter)や[pChangeStyle](./pchangestyle)で調整できます。
 
