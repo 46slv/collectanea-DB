@@ -5,7 +5,7 @@ doc_type: index
 verification: partial
 product_scope: fusion
 tasks: [lookup-node, generate-image, text, procedural-texture]
-updated: "2026-10-14"
+updated: "2026-10-15"
 ---
 
 # Generatorノード
@@ -25,6 +25,10 @@ Generatorは、既存のImageを加工するのではなく、新しい2D <Term 
 | 場所と日時から昼光のHDR分布を作る | [Day Sky](./day-sky) | 太陽周辺や地平線の明るさを持つ光の背景素材。雲や風景は別に合成 |
 | fractal pattern | [Mandelbrot](./mandelbrot) | motion graphics、sci-fi pattern |
 | procedural plasma pattern | [Plasma](./plasma) | animated color pattern |
+
+## 外部アニメーション素材を読み込む場合
+
+OGraf（.json）やLottie（.lottie）のアニメーション素材は[OGrafLoader](../utility-io/ografloader)で読み込めます。出力は2D Imageなので、Mergeを使って既存映像へ重ねられます。OGrafLoaderは21.1 ManualのGenerator Nodes章にも収録されていますが、ここでの役割は**外部アニメーションを読み込むこと**であり、背景や文字を一から作るGeneratorとは異なります。
 
 ## GeneratorとImage processorの違い
 

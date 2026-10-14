@@ -5,7 +5,7 @@ doc_type: index
 verification: partial
 product_scope: fusion
 tasks: [lookup-node, io, graph-organization]
-updated: "2026-10-05"
+updated: "2026-10-15"
 ---
 
 # I/O・Graph Utilityノード
@@ -28,7 +28,7 @@ updated: "2026-10-05"
 - [Underlay](./underlay) — Node群の背景に視覚的なまとまりを作る
 - [Sticky Note](./sticky-note) — Graph内の説明メモ
 - [Pipe Router](./pipe-router) — connection lineの経路だけを整理
-- [OGrafLoader](./ografloader) — OGRF graph / dataの読み込み用途
+- [OGrafLoader](./ografloader) — OGraf（.json）/ Lottie（.lottie）アニメーションを2D Imageとして読み込む。Effect Maskと時間制御に対応
 
 I/O Nodeはdataを処理するだけでなく、Resolve page boundaryやdisk boundaryを作ります。Graph UtilityはImage結果を変えず、構造・再利用・可読性を管理します。
 
