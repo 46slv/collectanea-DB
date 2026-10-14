@@ -1,6 +1,6 @@
 ---
 title: Glow
-description: Imageをblurして明るくし元Imageへ戻すことでhaloを作り、Glow Mask・Filter・Size・Apply Mode・Color Scaleで発光を制御するNode。
+description: 光のにじみを作るFusionノード。3種類の入力、8種類のFilter、Apply Mode、Glow Maskの使い方と制作例を解説。
 doc_type: node
 term_id: glow
 verification: partial
@@ -14,73 +14,155 @@ outputs: [image]
 tasks: [glow, bloom, light-effect]
 product_scope: fusion
 suite_surfaces: [fusion]
-updated: "2026-10-04"
+updated: "2026-10-14"
 ---
 
 # Glow
 
-Glowは、2D <Term id="image">Image</Term>をblurして明るくし、その結果を元Imageへ重ねて発光のhaloを作るNodeです。
+Glowは、入力された2D <Term id="image">Image</Term>をぼかして明るくし、その光の成分を元画像に重ねるNodeです。文字の周囲に広がる発光、ライトのにじみ、明るい反射の強調などに使います。元の輪郭を残したまま周囲へ光を広げられる点が、画像そのものをぼかす[Blur](./blur)との違いです。
 
-明るい文字、light、neon、highlightへ広がる光を足す用途に向きます。
+Glow Sizeは「どこまで広がるか」、Glowは「どれだけ強く光るか」、Blendは「元画像と効果をどれだけ混ぜるか」を調整します。入力にないライトの形や反射を自動生成するNodeではありません。
 
-## 入力
+## 入力と出力
 
-### Input
+| 端子 | データ | 役割 |
+| --- | --- | --- |
+| Input（オレンジ） | 2D Image | Glowを適用する画像。元画像も合成の基準になる |
+| Effect Mask（青） | Mask | Glowを**計算した後**、効果の適用範囲を制限する |
+| Glow Mask（白） | Mask | Glowを**計算する前**、発光元になる画素を制限する |
+| Output | 2D Image | Glowを合成した画像。後続の2D NodeやMergeに渡す |
 
-Glowを適用する2D Imageです。
+Glow Maskはpre-maskです。例えばランプの発光部分だけを囲むEllipseを白い端子へ接続すると、ランプの外側に広がる光はマスク境界を越えられます。発光元を選んだ後で、その画素をぼかすためです。
 
-### Effect Mask
-
-青色のMaskです。Glow処理後の最終結果をどこへ適用するかを限定します。
-
-### Glow Mask
-
-白色のpre-maskです。**Glowのsourceになるpixel**を処理前に限定します。
-
-Glow Maskならmask境界の外へhaloを広げられます。Effect Maskでは最終結果自体をmaskするため、haloも境界で切れます。
+同じEllipseを青いEffect Maskへつなぐと、処理済みの結果がマスクで制限され、周囲に広がった光も境界で切れます。**光源を選ぶならGlow Mask、最終的に効果を見せる範囲を限定するならEffect Mask**が基本です。[マスクの基礎](../../learn/02-data/mask)も参照してください。
 
 ```text
-Bright source ─→ Glow ─→ Output
-                 ↑
-              Glow Mask
+MediaIn（ランプを含む映像） → Glow → MediaOut
+                            ↑ 白：Glow Mask
+                         Ellipse（光源の部分）
 ```
 
-## Filter
+## Inspector：発光の形を決める
 
-Box / Bartlett / Multi-box / Gaussian / Fast Gaussian / Blend / Hilight / Solarize等を選べます。
+### Filter：どのようにぼかすか
 
-単なるquality順ではなく、haloの形や計算方法が異なります。
+Filterは8種類です。単純な「品質順」ではなく、光の広がり方や負荷の異なる方式を選びます。
 
-## Glow Size / Glow
+| Filter | 動作と使い分け |
+| --- | --- |
+| Box | 単純で速いぼかし。広がりを試すときに使いやすい |
+| Bartlett | より滑らかに減衰するGlow。大きなSizeではBoxより重くなり得る |
+| Multi-box | Boxを複数回重ねてGaussianに近い分布を作る。Gaussianより速い場合があり、マニュアルではringingを生じない方式として説明される |
+| Gaussian | Gaussian方式で柔らかく広げる |
+| Fast Gaussian | Gaussian方式の高速版。**21.1マニュアル上の既定Filter** |
+| Blend | 白い部分と黒い部分の双方に現れる非線形のGlow |
+| Hilight | 周囲の画素にhaloを作らずハイライト効果を加える |
+| Solarize | Glowとともにsolarize効果を加える |
 
-- **Glow Size** — haloの広がり
-- **Glow** — haloの強さ
+**Filterの「Blend」とBlendスライダーは別の設定**です。前者は発光の処理方式、後者は元画像との混合率を選びます。Hilightも、光源の周囲に広いhaloを作る通常の発光とは異なります。
 
-「大きい弱い光」と「小さい強い光」を分けて作れます。
+### Color Channels（RGBA）
 
-## Apply Mode
+R・G・B・Aのうち、Glowの処理対象にするチャンネルを選びます。この選択はGlowの**演算前**に適用され、外したチャンネルは演算されません。Common ControlsにあるRGBAの選択は演算**後**に反映されるため、同じ動作ではありません。
 
-- **Normal** — glowを元Imageへ通常合成
-- **Merge Under** — Alphaを基準にglowをImageの下側へ置く
-- **Threshold** — glow値をLow / High rangeでclip
+透明背景の文字やロゴで輪郭が不自然なときは、RGBだけでなくAチャンネルの扱いと元画像のAlphaも確認します。適切な設定は入力素材のチャンネル構成によります。
 
-Threshold modeでは、弱いglowを切り捨てたり強い部分を明確にできます。
+### Lock X/Y・Glow Size・Num Passes
 
-## Color Scale
+**Lock X/Y**を有効にすると、水平方向と垂直方向のGlow Sizeを連動させます。解除すれば横と縦で異なる広がりを設定できます。横長の光を強調したい場合などに比較します。
 
-RGBA channelごとにglow量をscaleし、発光色をtintできます。
+**Glow Size**は光の広がりを決めます。大きくすればhaloは広くなりますが、光そのものを強くする設定ではありません。
 
-## Clipping Mode
+**Num Passes**はFilterが**Multi-boxのときだけ**使います。増やすと分布を滑らかにできますが、レンダリング時間も増えます。21.1マニュアルは4 Pass程度を例示しますが、固定の推奨値ではありません。
 
-大きなGlowではDoD edgeから外側のpixelも参照するため、Frame / Domain / NoneのClipping Modeが見た目へ影響します。
+### Glow・Blend：強さと混合率
 
-edgeだけhaloが切れる場合はGlow SizeだけでなくClipping Modeも確認します。
+**Glow**は発光の強さです。上げすぎると画像が白く飛ぶことがあります。広い発光が欲しいときでもGlowだけを上げず、Glow Sizeで広がりを作ってから強さを決めます。
 
-## Soft Glowとの違い
+**Blend**は処理後の画像と元画像の混合率です。0に近づけるほど元画像の割合が増えます。Common ControlsのBlendと連動しており、一方を変えるともう一方にも反映されます。
 
-- **Glow** — 明確なhalo、複数Apply Mode、強いgraphic lightにも向く
-- **Soft Glow** — より柔らかく自然なhaze / dream-like glow
+例えばネオン文字なら、Glow Sizeを広げて周囲への光を作り、Glowで明るさを合わせ、Blendで元の文字の輪郭が読める程度に戻します。
+
+## Apply Mode：光をどう重ねるか
+
+Glowには3種類のApply Modeがあります。
+
+| Apply Mode | 処理の意味 | 選ぶ場面 |
+| --- | --- | --- |
+| Normal | Glowを元画像の上に加える既定方式 | 通常の発光やライトのにじみ |
+| Merge Under | **Alphaを基準に**Glowを元画像の下へ置く | 透明な文字・図形で本体と周囲のhaloの重なりを比較 |
+| Threshold | Glowの値をLow / Highの範囲でclipする | 弱いGlowを切り、強い部分を明確にする |
+
+**Thresholdを選ぶとHigh–Low Range Controlが表示されます。** マニュアルではGlowが適用された領域の値について、Low未満を黒、High超を白へ押し込むと説明しています。これは「入力画像の明るい画素だけを事前に発光元として抽出するThreshold」と同じ意味ではありません。[Soft Glow](./soft-glow)のThresholdと、名前だけで動作を同一視しないでください。
+
+透明な文字を使うときはNormalとMerge Underを切り替え、文字の塗りと外側のhaloがどう重なるかをViewerで比較します。不透明な映像では、Alphaを基準とするMerge Underの見え方は透明素材と異なります。
+
+## Color Scale（RGBA）：光の色
+
+Color ScaleはR・G・B・Aそれぞれの**Glow成分**の量を変え、発光を色付けする設定です。元画像全体を別の色に置き換えるものではありません。
+
+例えば白い文字に青みのある光を足すなら、発光成分のR/G/Bバランスを調整します。Pickボタンを押したままViewerへドラッグすると、画像から色を取得できます。色が予想と違うときは、Color Scaleだけでなく元画像のRGB値とGlowの処理チャンネルも確認します。
+
+## Clipping Mode：画面端で発光が切れるとき
+
+Glowは周辺画素を参照するため、入力の**DoD（Domain of Definition：画像データが存在する有効領域）**が発光の端に影響します。特に透明なText+、小さい画像、大きなGlow Sizeでは確認が必要です。
+
+| Clipping Mode | 21.1マニュアルの動作 |
+| --- | --- |
+| Frame | 既定値。入力のDoDにかかわらずフレーム全体を使用し、元DoDの外は黒／透明として扱う |
+| Domain | 入力のDoDを尊重する。大きなFilterでは境界が切れる場合がある |
+| None | 元画像のsource clippingを行わない。必要なDoD外のデータは黒／透明として扱う |
+
+FrameとNoneを「どちらも無制限」と捉えないでください。端の光が不自然なら、Glow Sizeと入力画像の有効領域を確認し、そのうえでClipping Modeを切り替えて比較します。[DoDの基礎](../../learn/03-space/domain-of-definition)と[境界の確認手順](../../learn/07-debugging/resolution-domain-of-definition)を参照してください。
+
+## 制作例
+
+### 1. Text+のネオン文字を実写に重ねる
+
+Text+で明るい文字を作り、Glowへ接続します。Glowの出力をMergeのForegroundへ、実写MediaInをMergeのBackgroundへつなぎます。
+
+```text
+Text+ → Glow ─────────────→ Merge（Foreground）→ MediaOut
+実写 MediaIn ─────────────→ Merge（Background）
+```
+
+Fast Gaussianを起点にGlow Sizeを上げ、文字の外側へ光が広がることを確認します。次にGlowとBlendを調整し、文字が読みにくくならない程度にします。透明なText+ならNormalとMerge Underを比較します。色はColor Scaleで調整します。
+
+明るい芯と広いhaloの両方が欲しければGlowを2段使う方法もあります。前段は小さいSize・控えめな強さ、後段は広いSize・弱い強さにし、各段を単独表示しながら調整します。
+
+### 2. ランプからの光だけを周囲へ広げる
+
+実写のランプと背景を含むMediaInをGlowのInputへつなぎます。Ellipseでランプの光源部分を囲み、**白いGlow Mask**へ接続します。
+
+するとランプ付近の画素が発光元となり、周囲の壁や暗部へhaloを伸ばせます。青いEffect Maskへ同じEllipseをつなぐと光が境界で切れます。Glow Sizeで範囲を決め、GlowとBlendで周囲の明るさに合わせます。
+
+Glowは**ランプの既存画素をにじませる**処理です。壁への照明方向や影まで物理的に計算するものではありません。
+
+### 3. 透明なロゴを外側だけ光らせる
+
+Alphaのあるロゴ画像をGlowへ入力し、出力をMergeで背景と合成します。Apply ModeをNormalからMerge Underへ切り替え、ロゴ本体と下側の発光の重なり方を比較します。
+
+境界が暗くなったり色が変わる場合は、入力Alpha、Color ChannelsのA、Apply Mode、Blendを一つずつ確認します。発光がロゴ画像の端で切れるなら、Clipping ModeとDoDを確認します。最初はGlowを控えめにし、原寸表示で輪郭を確認すると原因を切り分けやすくなります。
+
+## トラブルシューティング
+
+| 症状 | 確認する設定 |
+| --- | --- |
+| ほとんど光らない | 元画像の明るさ、Glow、Blend、Glow Mask |
+| 全体が白くなる | Glowを下げ、Blendで元画像を戻す |
+| 光がMask境界で切れる | Glow MaskとEffect Maskの接続先、DoD |
+| 光が画像端で切れる | Clipping Mode、入力DoD、Glow Size |
+| 透明部分の色や輪郭が不自然 | RGBA、Color Scale、元画像のAlpha、Apply Mode |
+| 横方向だけ広げられない | Lock X/Yを解除する |
+| Multi-boxの処理が重い | Num PassesとGlow Sizeを下げる |
+| Thresholdで発光元を選べない | GlowのApply Mode Thresholdは合成側のclip設定。光源選択にはGlow Maskを使う |
+
+## Glow・Soft Glow・Blurの使い分け
+
+[Glow](./glow)はFilterやApply Modeを使い、明確なhaloやグラフィックな発光を組み立てる場合に向きます。[Soft Glow](./soft-glow)は追加処理による柔らかく自然な発光が必要な場合に向き、ThresholdとGainで発光元と強さを調整します。[Blur](./blur)は元画像をぼかすNodeで、Glowのように光の成分を元画像へ重ねる目的ではありません。[Blur / Filterノード一覧](./index)も参照してください。
 
 ## 出典と確認範囲
 
-DaVinci Resolve 21.1 Reference Manual Chapter 92 pp.2116–2119で、3 inputs、pre-maskとEffect Maskの違い、Filter、Glow Size / Glow、Apply Mode、Color Scale、Clipping Modeを確認しました。
+Blackmagic Design『DaVinci Resolve 21.1 Reference Manual』（2026年9月）Chapter 92「Blur Nodes」pp.2116–2119に基づき、3入力、8種類のFilter、RGBAの演算順、Glow Size・Glow・Num Passes、Apply Mode・Color Scale・Clipping Mode・Blendを確認しました。
+
+制作例はマニュアルに記載された入出力と処理内容から構成したものです。同一素材による21.1実機レンダリングは未検証であり、内部REGID、各値の範囲・初期値、Edition差、GPUごとの性能は断定しません。そのため `verification: partial` を維持しています。
