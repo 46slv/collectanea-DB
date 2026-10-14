@@ -1,11 +1,11 @@
 ---
 title: Generatorノード
-description: upstream Imageを必要とせず、色・noise・text・sky・procedural patternなどの2D Imageを生成するNodeを目的から選ぶ入口。
+description: 既存Imageを使わず、色・noise・text・昼光のHDR分布・procedural patternを生成するNodeの選び方。
 doc_type: index
 verification: partial
 product_scope: fusion
 tasks: [lookup-node, generate-image, text, procedural-texture]
-updated: "2026-10-04"
+updated: "2026-10-14"
 ---
 
 # Generatorノード
@@ -22,7 +22,7 @@ Generatorは、既存のImageを加工するのではなく、新しい2D <Term 
 | procedural noise / organic texture | [Fast Noise](./fast-noise) | 雲、霧、波、displacement源、particle / mask source |
 | 2D text | [Text+](./text-plus) | title、lower third、文字animation |
 | 複数text layerを1 Nodeで管理 | [MultiText](./multitext) | 複数style / layerのtext |
-| procedural daylight sky | [Day Sky](./day-sky) | 空・太陽方向・大気表現 |
+| 場所と日時から昼光のHDR分布を作る | [Day Sky](./day-sky) | 太陽周辺や地平線の明るさを持つ光の背景素材。雲や風景は別に合成 |
 | fractal pattern | [Mandelbrot](./mandelbrot) | motion graphics、sci-fi pattern |
 | procedural plasma pattern | [Plasma](./plasma) | animated color pattern |
 
@@ -73,6 +73,14 @@ Fast NoiseはPerlin Noiseを生成します。
 Detail、Brightness、Contrast、Scale、Angle、Seetheでpatternを作り、Color tabでTwo ColorまたはGradientへ色付けできます。
 
 Imageとして直接見せるだけでなく、Displace、DissolveのGradient Map、particle、Mask等へ「制御用のImage」として渡す用途が重要です。
+
+## Day Sky
+
+Day Skyは、緯度・経度、日付、時刻、大気の濁り（Turbidity）から**昼光の明るさと色の分布をHDR Imageとして作る**Nodeです。名前にSkyとありますが、**空や雲の風景そのものを描くGeneratorではありません**。
+
+たとえば時間帯によって光の色が変わるタイトル背景なら、Day SkyをMergeのBackgroundへ、Text+をForegroundへ接続します。雲を加えたいときは[Fast Noise](./fast-noise)などで明暗模様を作り、それをMaskとして加工して別のBackgroundに適用し、Mergeで重ねます。Day Skyの出力へ雲が自動で追加されるわけではありません。
+
+HDRの明るさを後段で調整する場合は、Day SkyのDo Tone Mappingを無効にし、浮動小数点で処理する選択肢があります。各項目と使い分けは[Day Skyの個別記事](./day-sky)を参照してください。
 
 ## Text+
 
