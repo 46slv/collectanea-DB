@@ -21,7 +21,7 @@ uLoader / uShape
       ↓
 uTransform / uVariant / uVisibility
       ↓
-uMerge ← uCamera / uLight
+uMerge ← uCamera / uDistant Light / uDome Light
       ↓
 uRenderer
       ↓
