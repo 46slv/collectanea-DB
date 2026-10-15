@@ -1,6 +1,6 @@
 ---
 title: "DomeLight"
-description: "HDR・SDR画像を3Dシーンの周囲へ配置して環境光を作るClassic 3DのDomeLight。DomeTexture入力、接続、明るさ、制作例を解説。"
+description: "HDR・SDR画像からClassic 3Dの環境光を作るDomeLight。DomeTexture、OpenPBRのAOとの使い分け、制作例を解説。"
 doc_type: node
 term_id: "dome-light"
 term_short: "DomeLightは、HDR・SDR画像を3Dシーンの周囲へ配置し、画像に基づいた環境照明を作るClassic 3Dライト。"
@@ -15,7 +15,7 @@ outputs: ["classic-3d"]
 tasks: ["shade-3d", "environment-light", "hdr-light"]
 product_scope: fusion
 suite_surfaces: [fusion]
-updated: "2026-10-15"
+updated: "2026-10-16"
 ---
 
 # DomeLight
@@ -53,6 +53,20 @@ Camera 3D ───────────────────────�
 例えばスタジオを撮影した環境画像には、明るいソフトボックスや暗い壁が写っていることがあります。DomeLightではその画像を環境として使います。ただし、**画像内の白い長方形が必ず同じ形の反射ハイライトになる**、あるいは**画像がそのまま背景に描画される**とまでは、21.1 ManualのDomeLight節からは保証できません。表示結果は材質・Renderer・画像の投影方法に依存します。
 
 HDRとSDRのどちらも入力できますが、画像を用意するときは撮影・書き出し時の投影方式や明るさの扱いを確認してください。DomeLightの同節には、対応する全天球画像の厳密な投影形式やピクセル配置、色空間変換の規則までは記載されていません。**横長の写真なら何でも正しい360度環境画像になる、とは考えない**ことが重要です。
+
+## OpenPBRのOcclusionと組み合わせる
+
+DomeLightの**DomeTexture**へ接続するのは、周囲の明るさや色を記録した**環境画像**です。物体のくぼみや接触部分など、環境光が届きにくい位置を表す**Ambient Occlusion（AO）画像**とは役割が異なります。AO画像はDomeTextureへ入れず、材質を作る[OpenPBR](./openpbr.md)の**Occlusion**入力へ接続します。
+
+```text
+環境画像 ─→ DomeLight［DomeTexture］ ──────────────┐
+AO画像 ────→ OpenPBR［Occlusion］→ Shape 3D［Material］─┼→ Merge 3D → Renderer 3D
+Camera 3D ────────────────────────────────────────┘
+```
+
+DomeLightは**シーンへ照明を追加するライト**、OpenPBRは**物体の表面を設定する材質**です。OpenPBRの出力をShape 3DのMaterial入力へ渡し、Shape 3DとDomeLightをそれぞれMerge 3Dへ接続します。AOの効き方を確認するときは、まずDomeLightのIntensityで照明全体を調整し、次にOpenPBRのInspectorにある**Ambient Occlusion**でOcclusion画像の寄与を調整すると、二つの作用を比較しやすくなります。
+
+DaVinci Resolve 21.1 Reference ManualのChapter 90（p.2061）は、OpenPBRのOcclusion入力について**DomeLightまたはAmbient Lightを使用する場合に利用できる**と説明しています（調整項目はp.2063）。AO画像はライトを増やすものではなく、形状を変形させたり、新しい投影影を生成したりもしません。床へ落ちる影が必要なら、影を扱える別のライトを用います。[Ambient Light](./ambient-light.md)との違いも確認してください。
 
 ## Inspectorで調整する項目
 
@@ -110,11 +124,12 @@ uDome Lightの記事にはTexture File、Texture Format、Exposure、Guide Radiu
 | 期待した方向から照らされない | 入力画像の投影方式・向き、DomeLightのTransformを一つずつ確認 |
 | HDR画像の明るさや色が想定と違う | 画像素材の値・色空間・レンダリング設定を確認。自動変換を推測で決めつけない |
 | 画像が背景に現れない | DomeTextureは環境照明用入力。背景表示は別に構成する |
+| AO画像を接続してもくぼみなどが暗くならない | AO画像はDomeTextureではなくOpenPBRのOcclusionへ入力する。DomeLightをシーンに含め、OpenPBRのAmbient Occlusionを確認する |
 | USDのノードと接続できない | DomeLightはClassic 3D用。USDではuDome Lightを使う |
 
 ## 出典と確認範囲
 
-**Blackmagic Design『DaVinci Resolve 21.1 Reference Manual』Chapter 89「3D Light Nodes」pp.2033–2034（DomeLight）、pp.2043–2044（ライト共通Transform）、Chapter 89の各Classic 3D Light節**を参照しました。入力の種類、環境画像による照明、Color・Intensity、Merge 3Dへの組み込みはこの資料に基づきます。
+**Blackmagic Design『DaVinci Resolve 21.1 Reference Manual』Chapter 89「3D Light Nodes」pp.2033–2034（DomeLight）、pp.2043–2044（ライト共通Transform）、Chapter 89の各Classic 3D Light節**を参照しました。入力の種類、環境画像による照明、Color・Intensity、Merge 3Dへの組み込みはこの資料に基づきます。 **OpenPBRとのAO接続条件はChapter 90「3D Material Nodes」p.2061、Occlusionの強さを変えるInspector項目はp.2063**を参照しました。
 
 なお、p.2034のDomeLight Inspector節には「uDome light」という表記がありますが、同じページの見出し・入力説明はClassic 3DのDomeLightです。その語だけを根拠にUSDのuDome Lightのパラメータを同一視しません。
 
