@@ -15,7 +15,7 @@ outputs: ["classic-3d"]
 tasks: ["shade-3d", "ambient-light"]
 product_scope: fusion
 suite_surfaces: ["fusion"]
-updated: "2026-10-15"
+updated: "2026-10-16"
 ---
 
 # Ambient Light
@@ -65,6 +65,20 @@ Viewerにライトを示す表示があっても、Ambient Light自体には意�
 
 目的は**新しい影を作ることではなく、基礎的な明るさを足すこと**です。床に落ちる影や照射方向の表現が必要なら、別のライトを使います。
 
+## 材質側のAmbient Occlusionとの違い
+
+Ambient Lightはシーン全体に均一な光を加える**ライト**です。一方、**Ambient Occlusion（AO）**は、物体同士が接する場所やくぼみなど、周囲からの光が届きにくい部分を暗く表現するための**材質側の補助情報**です。AOを使っても光源は増えず、物体から床へ新たな投影影を作るわけではありません。
+
+[OpenPBR](./openpbr.md)では、AO用の画像を`Occlusion`入力へ接続し、Inspectorの`Ambient Occlusion`で効果の強さを調整します。**Ambient LightへAO画像を接続するのではありません。** DaVinci Resolve 21.1 Reference Manualは、OpenPBRのOcclusion入力を使える条件として**DomeLightまたはAmbientLightの使用**を挙げています（Chapter 90、pp.2061–2062）。
+
+```text
+AO画像 ──→ OpenPBR［Occlusion］──→ Shape 3D［Material］─┐
+Ambient Light ──────────────────────────────────────────┼→ Merge 3D → Renderer 3D
+Camera 3D ──────────────────────────────────────────────┘
+```
+
+たとえば商品CGの置き台にAO画像を使うと、台と商品が近接する部分など、画像で指定した箇所の環境光による見え方を調整できます。まずAO画像なしでAmbient LightのIntensityを決め、その後でOpenPBRのOcclusionを接続・調整すると、照明全体の明るさと材質ごとの暗さを切り分けて確認できます。**AO画像そのものの作成方法や、各Rendererでの最終結果は実機未検証**です。
+
 ## 関連ライトとの違い
 
 | ノード | 照明の特徴 | 主な用途 |
@@ -87,9 +101,10 @@ Ambient LightにはDome Textureの画像入力はありません。周囲のHDR�
 | ライトを動かしても光の向きが変わらない | Ambient Lightには照射方向がない。Directional / Spot Lightを検討する |
 | Transformを変更したら物体まで動いた | SceneInputへ3Dシーンをつないでいないか |
 | 影ができない | Ambient Light自体は影を生成しない。影を扱える別のライトを使用する |
+| OpenPBRのAOが効かない | Occlusion入力へのAO画像接続、Ambient Occlusionの強さ、シーン内のAmbient Light／DomeLightを確認する |
 
 ## 出典・確認範囲
 
-**Blackmagic Design『DaVinci Resolve 21.1 Reference Manual』**（2026年9月）、Chapter 89「3D Light Nodes」**pp.2027–2029**。方向・位置のない照明、任意のSceneInput、Merge 3Dへの接続、Enabled / Color / Intensityを確認。Chapter 84「3D Compositing Basics」**p.1842**で、Ambient Lightが影を作らず暗部を明るくすることを確認しました。公式資料：[Blackmagic Design Support](https://www.blackmagicdesign.com/support)。
+**Blackmagic Design『DaVinci Resolve 21.1 Reference Manual』**（2026年9月）、Chapter 89「3D Light Nodes」**pp.2027–2029**。方向・位置のない照明、任意のSceneInput、Merge 3Dへの接続、Enabled / Color / Intensityを確認。Chapter 84「3D Compositing Basics」**p.1842**で、Ambient Lightが影を作らず暗部を明るくすることを確認しました。Chapter 90「3D Material Nodes」**pp.2061–2062**で、OpenPBRのOcclusion入力とAmbient Occlusion設定、使用できる照明条件を確認しました。公式資料：[Blackmagic Design Support](https://www.blackmagicdesign.com/support)。
 
 **略号の訂正：** 旧記事の`3AM`ではなく、21.1 Manualの表記は`Ambient Light [3AL]`です。制作例はManualの仕様を組み合わせた手順案です。21.1実機でのREGID、正確な既定値・可動範囲、Rendererごとの差、Edition差は未確認のため、`verification: partial`を維持します。
