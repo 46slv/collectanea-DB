@@ -9,13 +9,13 @@ aliases: [uProjector, uPj]
 concepts: [usd-scene, projection, image-data, lighting]
 nodes: [uProjector]
 node_family: usd
-controls: [Color, Intensity, Exposure, Projection Mode, Decay Type, Fit Method, Shadows, Transform]
+controls: [Color, Intensity, Exposure, Color Temperature, Diffuse Response, Specular Response, Decay Type, Decay Rate, Shaping Focus, Shaping Cone Angle, Normalize Intensity, Fit Method, Projection Mode, Shadows, Shadow Map Size, Shadow Map Bias, Transform]
 inputs: [usd, image]
 outputs: [usd]
 tasks: [usd, projection, texture, lighting]
 product_scope: fusion
 suite_surfaces: [fusion]
-updated: "2026-10-14"
+updated: "2026-10-15"
 ---
 
 # uProjector
@@ -95,20 +95,47 @@ Manualでは照射範囲を「Cone」と呼ぶ箇所がありますが、幾何�
 
 [uCamera](./ucamera)による投影ではFilm Backに応じて視野が長方形になり得るため、同じFit Methodでも結果が異なります。**画像自体の縦横比と、投影範囲の縦横比は別**に確認します。
 
+## 制作例3：1枚の画像を壁と床にまたがって投影する
+
+展示空間の壁から床へ続くグラフィックを、別々の画像に分けず、一つの投影元で表現する例です。
+
+1. 壁と床を別々の[uShape](./ushape)、または[uLoader](./uloader)で読み込んだUSD形状として用意します。
+2. 2D画像をuProjectorの**ProjectiveImage**へ接続します。
+3. 光の模様として見せるなら**Light**を選び、壁・床・uProjectorを[uMerge](./u-merge)で同じUSDシーンへ集めます。照明の有効化も確認します。
+4. あとで別のライトから照らせる表面模様として使うなら**Texture**を選び、壁と床の双方に[uCatcher](./ucatcher)を用います。Texture投影はuCatcherを使う物体に届く点がLightと異なります。
+5. [uRenderer](./u-renderer)で結果を見ながら、投影方向とFit Methodを調整します。片方の面だけ投影されない場合は、その面が投影範囲にあるか、Textureの場合はuCatcherが接続されているかを確認します。
+
+物体と投影元の相対位置が変わると、模様は表面を滑って見えます。一体で動かす場合は、両者をuMergeでまとめて同じ変換を適用する構成を検討します。一方、uProjectorの**SceneInput**に物体を接続するとProjector側のTransformが物体にも作用するため、方向だけ調整しているつもりで物体まで動かさないようにします。
+
+撮影済み画像をカメラの画角に合わせたい場合は、Film BackやClip Planeを扱える[uCamera](./ucamera)の投影機能も候補です。uProjectorは光の色・強さ・減衰・影を制御する投影光源として選ぶと違いが明確になります。
+
 ## Inspector：重要な項目
 
-| 設定 | 役割 |
+| 設定 | 働き・確認点 |
 | --- | --- |
-| **Color / Intensity** | 画像へ掛ける色と投影の強さ。Texture時にもIntensityは色値のスケールに使われます。 |
-| **Exposure / Color Temperature / Enable** | 露出への寄与と光源の色温度。Manualの色温度初期値は6500 Kです。 |
-| **Diffuse Response / Specular Response** | 拡散反射・鏡面反射へ与える光の量。 |
-| **Decay Type / Decay Rate** | 距離による減衰。Quadratic、Linear、No Decayが説明されます。Manual上の既定値はQuadratic Decayです。 |
-| **Shaping Focus / Shaping Cone Angle** | 照射中心と周辺の分布、照射の広がり。 |
-| **Normalize Intensity** | 投影のWidth / Heightを標準値にするか、手動設定するか。 |
-| **Fit Method / Projection Mode** | 投影範囲への画像の合わせ方と、Light / Textureの選択。 |
-| **Shadows** | Enable Shadows、Shadow Color、Density、Softness、Shadow Map Size / Biasなど、影の見え方を調整します。 |
+| **Color** | 投影する2D画像へ乗算する色。元画像の色をそのまま使う場合も乗算色を確認します。 |
+| **Intensity** | Lightでは投影光の強さ、TextureではColor乗算後の画像色値の倍率を調整します。 |
+| **Exposure** | シーンを照らす露出への寄与。Intensityと似ていますが別の調整項目です。 |
+| **Color Temperature / Enable** | 色温度と、その使用の切り替え。Manualの記載値は6500 Kです。 |
+| **Diffuse Response / Specular Response** | 拡散反射・鏡面反射それぞれへの光の寄与。 |
+| **Decay Type** | 距離減衰。Manual記載の既定はQuadratic Decay。Linear DecayとNo Decayも選択肢として説明されています。 |
+| **Decay Rate** | 距離による減衰速度。Manualでは小さい値ほど投影が強くなると説明されます。 |
+| **Shaping Focus** | 投影強度の分布を周辺から中心へ寄せます。 |
+| **Shaping Cone Angle** | 投影範囲の広がり。大きいほど広くなり、Manual記載の上限は180度です。 |
+| **Normalize Intensity** | Manualでは有効時にWidth / Heightを標準値へ設定し、無効時に手動調整すると説明しています。明るさだけを一定化するスイッチと読み替えません。 |
+| **Fit Method** | 元画像を投影範囲へ収める方法。Inside / Width / Height / Outside / Stretchの違いは前節を参照。 |
+| **Projection Mode** | Lightは照明として投影、TextureはuCatcherが受け取る表面テクスチャとして投影。 |
+| **Enable Shadows / Shadow Color / Density** | 影の有効化、色、密度に関する設定。 |
+| **Softness / Softness Quality** | 影の柔らかさと、その計算品質。 |
+| **Shadow Map Size / Bias / Offset** | 影のマップ解像度、影が出ない場合の補正、Size設定へのオフセット。Sizeを上げると細部が改善する代わりにメモリ・処理負荷が増えます。 |
 
-**Manualの記述差に注意**：Intensityの説明には「Ambient Light projection mode」とありますが、同じuProjector節の**Projection Mode一覧にはLightとTextureのみ**が載っています。Ambient Lightを21.1のuProjectorで選べるとは断定しません。またShadow Densityは、数値を上げ下げした際の説明が文中で整合しないため、濃さの変化方向をManualだけから確定しません。
+### 光量・影を調整する順番
+
+投影が暗い場合、Intensityを大きくする前に、**物体が投影範囲内にあるか**、**LightかTextureか**を確認します。Lightの場合はDecay TypeとDecay Rateも影響します。No Decayは距離が変わっても強さが一定になる方式で、自然な光の距離減衰を表す場合とは用途が異なります。
+
+影を使う場合はEnable ShadowsとShadow Map Sizeを別々に確認します。影の輪郭が荒いときはSizeが関係し、影が見えない場合はBiasも確認します。SoftnessとSoftness Qualityも同一の項目ではありません。ManualはEnable Shadowsを既定で有効としていますが、現在の値はInspectorで確認してください。
+
+**公式Manualの記述差：** Intensityの説明には「Ambient Light projection mode」が登場する一方、Projection Modeの一覧は**LightとTextureのみ**です。さらにShadow Densityには「1.0で完全透明」と「値を下げるほど透明」という整合しない説明があります。この文章だけで第三のModeの存在やDensityの変化方向は確定しません。
 
 ## トラブル診断
 
@@ -121,8 +148,8 @@ Manualでは照射範囲を「Cone」と呼ぶ箇所がありますが、幾何�
 | 画像が伸びる、または端が切れる | **Fit Method**、元画像の縦横比、投影範囲の縦横比を確認します。 |
 | Projectorを動かすと物体も動く | **SceneInput**に形状を接続していないか確認します。Projectorと形状をuMergeの別要素にする方法と比較します。 |
 | 物体が動くと画像が表面を滑る | Projectorと物体の相対位置が変化していないか確認します。 |
-| 投影が重なると明るすぎる | 複数のLight投影が重なっていないか確認します。 |
-| 影が粗い、見えない | Shadowsの有効化、Shadow Map Size / Bias、投影の向きを確認します。 |
+| 投影が重なると明るすぎる | 複数のLight投影の重なりと、Decay Type / Decay Rateを確認します。 |
+| 影が粗い、見えない | Enable Shadows、Shadow Map Size / Bias、Softness / Softness Quality、投影の向きを確認します。 |
 
 ## 関連ノード
 

@@ -129,7 +129,7 @@ EXR → EXT MATTE（skyを選択）    ── Key → 空用の補正ノード
 | ノード | 使用する場所 | 主な出口 |
 | --- | --- | --- |
 | **External Matte Saver** | Fusion Studio | 複数のマットを格納したEXRファイル |
-| [Saver](./saver) | Fusion Studio | 画像・連番などをディスクへ出す汎用I/O |
+| [Saver](./saver) | Fusion Studio／ResolveのFusionページ（Resolve内はEXR連番） | Imageをディスクへ書き出す。ResolveではEXRの手動キャッシュなどに使う |
 | [MediaOut](./media-out) | DaVinci ResolveのFusionページ | 合成結果をResolve内部のTimelineなどへ渡す |
 
 通常のSaverで複数マットをまとめて保存する場合は、Channel Booleanなどで保存先チャンネルを組み、名称も設定する必要があります。External Matte Saverは**入力の追加とチャンネル名の設定を1か所で行える**のが利点です。

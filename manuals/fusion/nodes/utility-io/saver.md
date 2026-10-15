@@ -84,21 +84,24 @@ High Quality Interactiveは通常のRender Cacheとは違います。**保存済
 
 **Save Alpha to Color**は、Alpha（透明度）をグレースケールとしてカラー成分へ書き込みます。**元のRGB色情報は上書きされます。** RGBを残しつつAlphaを追加で保持する設定ではありません。
 
-### Color Space TypeとCurve Type
+### Color Space TypeとCurve Type：Loaderとの違い
 
-色の指定では、**画像に付く色空間情報と、ディスクへ保存するときの実際の値の変換**を混同しないことが重要です。
+**LoaderのColor Space Typeは入力画像に色空間メタデータを付ける設定で、それ自体は画素値を変換しません。** 一方、**SaverのColor Space Typeは出力ファイルの色空間を指定する設定で、保存時の色空間変換にも使えます。** 同じ名前の項目でも、読み込みと書き出しでは役割が違います。
 
-| Control | 何を指定するか |
+| Control | 保存ファイルでの役割 |
 | --- | --- |
-| **Color Space Type** | Autoは入力画像のメタデータを引き継ぎ、Spaceでは出力の色空間を指定する |
-| **Curve Type** | Autoは入力側のガンマ情報を引き継ぎ、Spaceでは出力形式に応じたガンマ曲線を選ぶ。LogではLog／Lin用の設定が現れる |
-| **Apply Curve** | 選んだガンマ曲線を保存画像に適用し、Linearの作業データを出力用に変換する |
+| **Color Space Type → Auto** | 入力画像に付いている色空間メタデータを引き継ぐ |
+| **Color Space Type → Space** | 保存形式に応じて出力先の色空間を指定する。ManualはLinear素材からRec.709などへの保存時変換を例示している |
+| **Curve Type → Auto／Space／Log** | Autoはガンマ情報を引き継ぐ。Spaceは出力形式に合わせて曲線を指定し、LogではLog／Lin設定が現れる |
+| **Apply Curve** | 選択した、またはAutoで取得したガンマ曲線を保存する画像に適用し、Linearの作業データから出力用の値へ変換する |
 
-Saverによる出力時の変換は、**Composition内部を流れる画像自体には適用されません。** Fusion Studioで同じ結果を複数のSaverへ分岐すれば、一方はリニアEXR、もう一方は別の視聴用形式、という書き出しが可能です。ただし保存形式と色空間名を選んだだけで目的の見え方が保証されるわけではありません。Curve、Apply Curve、読み込み先の色管理を合わせて確認します。
+**色空間（RGBの原色・白色点などの定義）とガンマ曲線（明るさの値の符号化）は別の指定**です。Color Space Typeを設定したことだけで、意図した表示用ファイルが完成したと判断せず、Curve TypeとApply Curveを合わせて確認します。上流ですでに表示用へ変換した画像なら、Saverで同じ変換を重ねないようにします。
+
+Fusion Studioでは、同じLinearの画像を2つのSaverへ分岐し、片方を後工程用のLinear EXR、もう片方を視聴用のRec.709 QuickTimeにする構成が可能です。各Saverで保存形式・出力色空間・ガンマ曲線を別々に設定し、書き出したファイルを再読込して色と階調を確認します。**Saverによる出力時の変換はComposition内の上流画像を書き換えず、ディスクへ保存するファイル側に適用**されます。ResolveのFusionページではSaverの出力がEXRに限られるため、QuickTimeの例はFusion Studioの運用です。
 
 ## Audio・Legal・Formatタブ
 
-**AudioタブはFusion StudioのSaverだけにあります。** Scratch Track（仮の音声トラック）を読み込み、エフェクトを音に合わせるために使います。Source FilenameでWAVを指定し、Sound Offsetで時間位置をずらせます。Fusionは音声ファイル全体をメモリに読むため、Manualでは小さいファイルの使用を推奨しています。最終的な音声納品を、この作業用トラックだけに依存しないでください。
+**AudioタブはFusion StudioのSaverだけにあります。** Scratch Track（仮の音声トラック）を読み込み、エフェクトを音に合わせるために使います。Source FilenameでWAVを指定し、Sound Offsetで時間位置をずらせます。Fusionは音声ファイル全体をメモリに読むため、Manualでは小さいファイルの使用を推奨しています。Manualによると、QuickTime形式で保存すると音声トラックが出力ファイルに含まれます。ただしScratch Trackは効果を音に合わせるための補助機能であり、最終的な音声納品をこの機能だけに依存しないでください。
 
 **Legalタブ**では、放送向けの信号範囲を扱います。Video TypeはNTSC／NHK／PAL・SECAM等の基準、ActionはAdjust to Legal／Indicate as Black／Indicate as White／No Changesから選びます。Adjust Based OnとSoft Clipもあります。必要な基準は放送先・納品仕様によって異なるため、値を一律の正解として扱いません。
 
