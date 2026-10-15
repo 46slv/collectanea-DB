@@ -92,7 +92,15 @@ Fileタブと異なり、ImportタブではField、色深度、Pixel Aspect、Al
 | Post-Multiply by Alpha | RGBをAlphaで乗算する |
 | Swap Field Dominance | Fieldの時間順だけを反転する。Process Modeのreversedとは異なる |
 
-21.1 ManualではDepthをFormatにした場合、EXRはFloatとして読み込まれると説明されています。AlphaがすでにPremultipliedで書き出された画像にPost-Multiplyを再適用すると、合成時の縁が意図せず変わる可能性があります。
+21.1 ManualではDepthをFormatにした場合、EXRはFloatとして読み込まれると説明されています。
+
+### Post-Multiplyを適用するか判断する
+
+**Straight Alpha**はRGBが透明度で乗算されていない状態、**Premultiplied Alpha**はすでに乗算された状態です。Loaderの**Post-Multiply by Alpha**はStraightのRGBをPremultipliedに変える項目であり、常に有効にする設定ではありません。
+
+例えば、RGB 0.8、Alpha 0.5の画素に一度乗算するとRGBは0.4です。**すでに0.4として保存された画素に再びPost-Multiplyをかけると0.2となり、Mergeで暗い輪郭が出る**場合があります。素材の書き出し仕様を確かめ、すでに乗算済みなら再適用しません。
+
+LoaderのPost-Multiplyと、[Color Corrector](../color/color-corrector)などの**Pre-Divide/Post-Multiply**は異なります。後者はPremultipliedなRGBを一時的にAlphaで割って色補正し、最後に再乗算します。連続する複数の補正では、[Alpha Divide](../matte-keying/alpha-divide)と[Alpha Multiply](../matte-keying/alpha-multiply)で補正区間を挟む方法もあります。
 
 ### 色空間の指定だけでは変換されない
 
@@ -107,6 +115,14 @@ Formatタブの項目は指定したファイル形式によって変わりま�
 例えばCGから出したマルチチャンネルEXRに、深度やMaskに相当する追加データが入っている場合、実際のファイルに収録されているチャンネル名を調べ、Formatタブで対応付けます。チャンネル名と格納内容は書き出し元に依存するため、特定の名前が必ず存在すると決めつけません。
 
 Manualには他の形式に固有のFormat設定もありますが、**それはResolveのFusionページでLoaderが任意の動画形式を読めることを意味しません。** ResolveのLoaderはEXR向けです。
+
+### マルチパートEXRのBeauty Passを別々に扱う
+
+CGレンダリングの**Beauty Pass**は、色・反射・照明などを分けて書き出した画像成分です。1つのEXRに複数のPassを収録できますが、Loaderの画像出力は1組のRGBAです。たとえばColorとReflectionを個別に加工するには、**同じEXRを指定したLoaderを2つ用意**し、それぞれのFormatタブで異なるチャンネルをRGBAへ割り当てます。
+
+Color側とReflection側を別々に補正し、元の3Dレンダラーが定義した方式で合成します。**Passはすべて加算すれば正しく復元できるわけではありません。** PassごとにAlphaがあるとも限らないため、必要なら別Passから適切なAlphaを割り当てます。21.1 Manualでは同一EXRを複数Loaderで読む際、ファイルの読み込みを共用できると説明されています。
+
+[MediaIn](./media-in)でも1ノードにつき1組のRGBAを扱いますが、Passの選択や割り当てはImageタブのLayer／Channelsタブで行います。Loaderの場合は**Formatタブ**です。
 
 ## 制作例1：EXRのCGを実写へ合成する（Resolve）
 
@@ -123,6 +139,14 @@ Manualには他の形式に固有のFormat設定もありますが、**それは
 
 3DソフトがEXR連番を書き出している途中にFusionで後半のフレームを確認する必要があれば、Missing FramesをWaitにしてファイルの出現を待ちます。出力が完了した後はFailに変更して欠番を点検します。Waitは欠番を無視して次へ進む設定ではなく、**そのフレームが現れるまで処理を止める設定**です。
 
+## 制作例3：Saver→LoaderでEXRとAlphaを検査する
+
+別のCompositionへ人物CGを渡すなら、処理後のRGBAを[Saver](./saver)でEXRとして保存し、新しいLoaderで読み直します。Saverの**Save Alpha to Color**はAlphaをグレースケールとしてRGBへ書き込む機能で、元のRGBを上書きします。色付きのRGBA素材を渡す目的では有効にしません。
+
+読み直したEXRを実写背景へMergeで重ね、輪郭が暗い場合はPremultiplied素材へのPost-Multiply二重適用、輪郭が明るい場合はStraightのままの合成を疑います。Alphaの解釈を変更する前に、元ファイル側の仕様を確認します。
+
+色の不一致は、Saver側の**Color Space Type／Curve Type／Apply Curve**と、Loader側の**Color Space Type／Curve Type／Remove Curve**を分けて調べます。LoaderのColor Space Typeは色空間メタデータの指定で、それ自体は変換を行いません。表示用ガンマや色空間の変換を往復で二度適用しないようにします。
+
 ## Fusion Studioの相対パス
 
 Fusion Studioには**Comp: Path Map**があり、保存したCompositionファイルを基準とした相対パスでLoader／Saverの素材を参照できます。Compositionと素材フォルダの相対関係を維持して別PCへコピーするときに役立ちます。Path Map PreferencesのEnable Reverse Mapping of Pathsで自動使用する方法もあります。ResolveのMedia Pool管理とは別の仕組みです。
@@ -136,7 +160,7 @@ Fusion Studioには**Comp: Path Map**があり、保存したCompositionファ�
 | CGの縁が暗くなる | Alphaの書き出しとPost-Multiplyの二重適用を確認 |
 | Proxyだけ動きがずれる | 元とProxyの開始・終了番号、フレーム数を確認 |
 | 色が合わない | Color Space Typeはメタデータ指定。Remove CurveやGamutで実変換したか確認 |
-| EXRの追加データが見つからない | 元EXRのチャンネル名を調べ、Formatタブで割り当てを確認 |
+| EXRの追加データが見つからない | 元EXRのチャンネル名とFormatタブの割り当てを確認。別Passは別Loaderに割り当てる |
 
 ## 関連ページ
 
@@ -147,6 +171,6 @@ Fusion Studioには**Comp: Path Map**があり、保存したCompositionファ�
 
 ## バージョンと出典
 
-DaVinci Resolve 21.1 Reference Manual（September 2026）**Chapter 104「I/O Nodes」pp.2407–2415**を基準に、端子、環境差、連番、File／Import／Format各タブ、Proxy、Missing Frames、Color Space TypeとRemove Curveの違いを確認しました。Fusion StudioのLoader→Saver構成はChapter 62（p.1281）でも確認できます。
+DaVinci Resolve 21.1 Reference Manual（September 2026）**Chapter 104「I/O Nodes」pp.2407–2415**を基準に、端子、環境差、連番、File／Import／Format各タブ、Proxy、Missing Frames、Color Space TypeとRemove Curveの違いを確認しました。**Chapter 77「Understanding Image Channels」pp.1679–1683**はAlphaの二重乗算、Beauty Passと複数LoaderによるEXR読込の根拠です。Saverへの出力については**Chapter 104 pp.2423–2426**、Fusion StudioのLoader→Saver構成はChapter 62（p.1281）を参照しています。
 
 個別のEXRチャンネル名、現在の実機のInspector Default値・Range、内部Parameter ID、細かなEdition差は未確認のため断定しません。
