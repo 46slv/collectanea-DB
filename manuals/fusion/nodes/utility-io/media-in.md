@@ -95,20 +95,36 @@ Globalの長さを短くするとFusionがTrimを自動調整し、逆に長く�
 
 ## 色空間・ガンマ・Alpha
 
-画像が正しく合成されるためには、MediaInが読む素材の色の解釈と、Fusionでの計算空間を区別する必要があります。
+MediaInは画像の色空間・ガンマとAlphaを解釈して後段へ渡します。**色空間の指定**、**画素値の変換**、**透明部分のRGBの扱い**は別の操作です。
 
-| 項目 | 役割 |
+| 項目 | 何を指定・変更するか |
 | --- | --- |
-| Source Color Space | ソース画像の色空間をAutoまたはSpaceから指定する |
-| Source Gamma Space | Auto／Space／Logでガンマの解釈を選ぶ |
-| Remove Curve | 選択したガンマ曲線を除去する、またはLogからLinearへ変換する |
-| Pre-Divide/Post-Multiply | Straight AlphaとPremultiplied Alphaの扱いを必要に応じて調整する |
+| Source Color Space | 出力画像の色空間。AutoはTimelineの色空間、RCMが有効ならRCMが割り当てた色空間を参照する。Spaceで明示指定もできる |
+| Source Gamma Space | 出力画像のガンマ。AutoはTimelineまたはRCMのガンマを参照し、Space／Logで明示指定できる |
+| Remove Curve | 指定・取得したガンマ曲線を除去する、またはLogからLinearへ実際に変換する |
+| Pre-Divide/Post-Multiply | 必要な場合にStraight AlphaのRGBをPremultiplied Alphaとして後段へ渡す |
 
-Source Color Spaceで色空間を選ぶ操作**だけ**では、Gamutによる色空間変換と同じ画素値変換にはなりません。ManualのFusion Fundamentalsでは、色空間の指定が画像メタデータに反映され、後段の[Gamut](../color/gamut)がその情報を参照できると説明されています。一方、**Remove Curveはガンマ曲線を実際に除去する操作**です。
+**Source Color Spaceを手動で選んでも、それだけで[Gamut](../color/gamut)のような画素値の色空間変換は実行されません。** 色空間の情報を画像へ関連付け、後段が解釈できるようにする設定です。対してRemove Curveはガンマ曲線を除去するため、画素値に影響します。
 
-Resolve Color Management（RCM）が有効なプロジェクトでは、MediaInからFusionへ出る画像をLinearへ変換し、MediaOutからTimeline色空間へ戻す管理経路がManualに記載されています。RCMを使わない場合は、素材の色空間・ガンマと必要な変換を個別に確認します。見た目が違うからといって、根拠なく同じ変換を二重に加えないことが重要です。
+Resolve Color Management（RCM）が有効なプロジェクトでは、ManualはMediaInからFusionへの画像をLinearへ変換し、MediaOutでTimeline色空間へ戻す経路を説明しています。RCMを使わない場合は素材と作業空間を確認して必要な変換を組みます。どちらの場合も、色が違って見えることだけを理由に同じ変換を二重適用しないでください。
 
-Alphaは透明度を表すチャンネルです。合成の縁に暗い線や不自然な色が出る場合は、まず素材がStraightかPremultipliedか、後段のNodeがどう解釈しているかを確認します。Pre-Divide/Post-Multiplyを一律に有効化する手順ではありません。
+### Clip AttributesのAlpha ModeとMediaInの違い
+
+**Alpha（アルファ）**は画素の透明度です。RGBがAlphaで乗算されていない画像を**Straight（非乗算）**、乗算済みの画像を**Premultiplied（乗算済み）**と呼びます。例えばRGBが1.0、Alphaが0.5の画素をPremultipliedにすると、RGBは0.5になります。乗算をさらに繰り返すとRGBが0.25になり、輪郭が暗くなる原因になります。
+
+素材ファイルにAlphaが収録されている場合、Media Poolの対象クリップで **Clip Attributes > Video > Alpha Mode** を確認します。ここではAlphaを無視するNone、Premultiplied／Straightの解釈、反転を選択できます。利用できる選択肢は素材形式によって異なります。Alphaを持たない一般的な動画では表示されない項目もあります。
+
+MediaInの**Pre-Divide/Post-Multiply**は、必要な場合にStraightの画像をPremultipliedにして後段へ渡すための設定です。一方、Color Correctorなどの色補正Nodeにある**同名の設定**は、すでにPremultipliedの画像を一時的にAlphaで割り、色を補正したあと再乗算する処理です。**同じ名前でも、素材入力時の解釈と色補正時の処理を混同しないでください。**
+
+[Merge](../compositing/merge)の通常の前景合成はPremultipliedを想定します。Straightのまま重ねると明るい縁が出る場合があり、二重に乗算すると暗い縁が出ます。問題があればClip Attributesの解釈、MediaInの設定、途中のAlpha Multiply／Alpha Divideや色補正Nodeを順に確認します。設定を一律にONにする方法ではありません。
+
+### マルチパートEXRのBeauty Pass
+
+**Beauty Pass**はCGレンダリングの色、光、反射、影などを分けた画像成分です。複数のPassを1つのマルチパートEXR連番に保存できます。MediaInは1ノードにつき**1組のRGBA**を出力するため、複数Passを別々に加工したいときは**同じEXRを参照するMediaInをPassごとに用意**します。
+
+MediaInの**Imageタブ > Layer**ではEXR内のPassを選択できます。個々のRed／Green／Blue／Alphaチャンネルを別々に割り当てたい場合は**Channelsタブ**を使います。例えばAmbient Occlusion（物体の接触部などの間接的な陰影を表すPass）にAlphaがなければ、必要に応じて別のPassに含まれるAlphaを割り当てます。Pass名や収録チャンネルは3Dソフトの書き出し設定によって異なります。
+
+[Loader](./loader)では同様の割り当てをFormatタブで行います。**MediaInにChannelsタブがあること**と、**LoaderがEXRファイルを直接指定できること**を区別してください。深度や法線、動きベクトルなど、RGB画像以外の補助データ（AOV）を扱う場合は、使いたいデータの種類と読み込み先チャンネルも確認します。
 
 ## Audioタブ：Fusionで聞く音声
 
@@ -148,6 +164,16 @@ Audio Track、Sound Offsetや他ページ側の音量を変更した後にFusion
 
 この方法では、Fusion側で背景素材を別のMediaInとして読み込まず、Editページの下位トラックと合成できます。MediaOutへ透明度を正しく返せていることが前提です。
 
+## 制作例4：マルチパートEXRのCGをPass別に調整する
+
+1. 複数のBeauty Pass（例：ColorとReflection）を収めたEXR連番をMedia Poolへ登録します。
+2. 同じ素材をFusionのNode Editorへ2回ドラッグし、それぞれ別のMediaInを作ります。
+3. 一方のImageタブ > LayerでColor、もう一方でReflectionのPassを指定します。Layerで必要なチャンネルを選べない場合はChannelsタブでRGBAを割り当てます。
+4. Reflection側の色や明るさを調整してから、CGの書き出し仕様に合った合成演算でColor側と組み合わせます。必要ならAlphaを別Passから割り当てます。
+5. CG全体の結果を、実写MediaInをBackgroundとするMergeへ送り、MediaOutからTimelineへ返します。
+
+Passを分けておけば、反射だけを弱めたり色を変えたりしても、元のCGを毎回3Dソフトで再レンダリングする必要がありません。ただし、**Passの合成方法はレンダリング元が出力したデータの意味によって異なる**ため、すべてを単純加算すれば正しく復元できるとは限りません。
+
 ## Loaderとの違いと確認ポイント
 
 | 観点 | MediaIn | Loader |
@@ -163,7 +189,7 @@ Audio Track、Sound Offsetや他ページ側の音量を変更した後にFusion
 - **編集した長さとFusionの表示が合わない**：Timeline由来かMedia Pool由来かを確認し、後者ならGlobal／Trim／Holdを見ます。
 - **色がおかしい**：RCMの有無、Source Color Space／Gamma、Remove Curve、Alphaの解釈を分けて調べます。
 - **追加素材の音が出ない**：Audio Track、スピーカーアイコンの選択、Purge Audio Cacheを確認します。
-- **MediaInでEXR補助チャンネルを明示的に扱いたい**：ResolveのEXR直接入力に使う[Loader](./loader)のFormatタブも検討します。
+- **マルチパートEXRのPassが違う／見つからない**：MediaInのLayer／Channelsタブで選択・割り当てを確認します。直接ファイルを指定するLoaderならFormatタブです。
 
 ## 関連ページ
 
@@ -181,5 +207,7 @@ Audio Track、Sound Offsetや他ページ側の音量を変更した後にFusion
 - Chapter 104「I/O Nodes」pp.2415–2419：MediaInの作成経路、Effect Mask、Image／Audioタブ、時間制御。
 - Chapter 64「Getting Clips into Fusion」pp.1332–1333、1339–1345：TimelineとMedia Poolの導入差、単独クリップの解像度、Media Source、Mask、キーイング、色・音声、Loaderとの使い分け。
 - Chapter 9「Data Levels, Color Management, and ACES」p.243：RCM時のFusion内Linear処理とMediaOutへの変換。
+- Chapter 21「Modifying Clips and Clip Attributes」p.451：Clip AttributesのAlpha Mode。
+- Chapter 77「Understanding Image Channels」pp.1678–1685：Premultipliedの扱い、色補正、EXRのBeauty PassとMediaInのChannelsタブ。
 
 正確な内部Parameter ID、Inspector項目の全環境での表示可否、既定値・数値範囲、個別CodecやEditionの動作は21.1実機で総当たり検証していないため断定しません。
