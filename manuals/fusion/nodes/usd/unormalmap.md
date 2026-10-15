@@ -14,7 +14,7 @@ outputs: [texture]
 tasks: [usd, material, normal-map]
 product_scope: fusion
 suite_surfaces: [fusion]
-updated: "2026-10-14"
+updated: "2026-10-15"
 ---
 
 # uNormalMap
@@ -63,6 +63,28 @@ Source Color SpaceはuNormalMapではなく、**画像を読み込むuTexture側
 
 法線による効果は光源の方向や材質のRoughnessでも見え方が変わります。陰影の差を確認するときは、カメラとライトを固定し、法線の接続前後だけを比較してください。
 
+## 制作例：動く法線マップで水面の細かい波を表す
+
+法線画像は静止画に限りません。**法線情報として作成された動画や連番**を使えば、モデルの形を変えずに、時間とともに変化する細かな陰影や反射を与える構成を試せます。例えば水面の大きなうねりは形状側で表現し、細かな波紋による光の反射の変化を法線マップで担当させます。
+
+```text
+法線マップの連番／動画 → MediaInなどの2Dノード
+                              │ 2D Image（各フレーム）
+                              ▼ Image Input
+                           uTexture → uNormalMap → uShader
+                                                      │ 材質
+USDの水面モデル → uLoader ─────────────────────────→ uReplaceMaterial → uRenderer
+```
+
+1. **法線マップとして作成された**動画や画像連番をMediaInなどから2D画像として供給します。通常の水面映像をそのまま流しても、正しい法線データになるわけではありません。
+2. uTextureの**Image Input**にその2D画像を接続し、**Source Color SpaceをLinear**に設定します。
+3. uTexture → uNormalMap → uShaderの順につなぎ、uShader側の法線に対応する入力を選びます。
+4. uShaderをuReplaceMaterialのMaterial Inputに渡し、水面のPrimを選択します。ライト・カメラ・モデルを含むUSDシーンをuRendererで描画し、複数フレームで陰影が変化するか確認します。
+
+21.1 Manualによると、**uTextureのFile Nameは単一フレームのテクスチャを指定**する経路です。一方、**Image InputはFusionの別ノードからフレームを受け取れる**ため、動くテクスチャに使えます。Image Inputを接続するとInspectorのFile Name欄が隠れ、以前に指定したファイルより入力画像が優先されます。静止画ファイルを選んだまま「連番が動かない」と思ったときは、どちらの入力経路を使っているか確認してください。
+
+**uReplaceMaterialやuShapeのImage Inputに2D画像を直接接続する方法とは役割が違います。** Manualではその入力はDiffuse（表面の色）用として説明されています。法線データで陰影を変えたいときは、2D画像をuTextureからuNormalMap、uShaderへ渡す経路を使います。色の画像と法線の画像を別々の入力へ割り当てる点は、静止画でも動画でも同じです。
+
 ## 表示がおかしいとき
 
 | 症状 | 確認すること |
@@ -73,6 +95,8 @@ Source Color SpaceはuNormalMapではなく、**画像を読み込むuTexture側
 | 接続しても物体自体が見えない | uNormalMapは画像出力ノードではありません。uReplaceMaterialで材質を割り当て、uRendererまで接続されているか確認します。 |
 | 横から見た輪郭が変わらない | 法線マップは形状の輪郭を変更しません。目的に応じてモデルの形状側を調整します。 |
 | 変化が小さく判断できない | ライトの方向とRoughnessを固定し、法線の接続あり・なしで比較します。 |
+| 動かしたい法線マップが静止したまま | uTextureの**File Name**で静止画像を指定していないか確認します。動画・連番は**Image Input**へ2Dフレームを供給する方法を使います。 |
+| 動画を接続したが色だけが変化する | uReplaceMaterialやuShapeのImage Inputへ直接接続していないか、uShaderの色用入力へ誤接続していないか確認します。 |
 
 ## 関連ノード
 
@@ -84,6 +108,6 @@ Source Color SpaceはuNormalMapではなく、**画像を読み込むuTexture側
 
 ## バージョン・出典と確認範囲
 
-**Blackmagic Design『DaVinci Resolve 21.1 Reference Manual』（September 2026）、Chapter 121「USD Nodes」、pp.2940–2941**を基準にしました。Manualで確認できるのは、uNormalMapがuTextureとuShaderの間で法線テクスチャを調整する役割、基本接続、および法線画像をuTextureに読み込む際のLinear指定（p.2944）です。説明用の制作例と症状別の確認順序は、これらの仕様に基づく運用例です。
+**Blackmagic Design『DaVinci Resolve 21.1 Reference Manual』（September 2026）、Chapter 121「USD Nodes」、pp.2940–2941**を基準にしました。Manualで確認できるのは、uNormalMapがuTextureとuShaderの間で法線テクスチャを調整する役割、基本接続、および法線画像をuTextureに読み込む際のLinear指定、およびImage Input経由の動画・連番フレームとFile Nameの切り替え（p.2944）です。説明用の制作例と症状別の確認順序は、これらの仕様に基づく運用例です。
 
 **uNormalMap固有のInspector全項目、各パラメータの範囲・既定値、法線の座標規約、Edition差、21.1実機の最終描画結果は未確認**です。存在を確認していない制御名や数値は記載していません。そのため`verification: partial`を維持しています。

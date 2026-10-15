@@ -1,60 +1,141 @@
 ---
 title: uVolume
-description: VDB file / sequenceをUSD environmentへ読み込み、density・emission・temperature・colorとtimeを調整するVolume Node。
+description: VDB形式の煙・雲・炎などをUSDシーンへ取り込むノード。静止VDBと連番、密度、発光モード、接続と確認方法を解説する。
 doc_type: node
 term_id: uvolume
+term_short: uVolumeは、VDBに保存された煙や炎などの立体的な濃淡データを読み込み、USDシーンで配置・描画できるようにするノード。
 verification: partial
 aliases: [uVolume, uVo]
 concepts: [usd-scene, volume-data, time]
 nodes: [uVolume]
 node_family: usd
-controls: [File, Trim, Loop, Time Scale, Density Scale, Emission Mode, Emission Field, Color, Gradient, Transform]
+controls: [Scale, Mode, Transform]
 outputs: [usd]
 tasks: [usd, volume, vdb, smoke, fire]
 product_scope: fusion
 suite_surfaces: [fusion]
-updated: "2026-10-04"
+updated: "2026-10-15"
 ---
 
 # uVolume
 
-uVolumeは、VDB fileまたはVDB sequenceをFusionの<Term id="usd-scene">USD environment</Term>へ読み込むNodeです。
+**uVolumeは、VDBファイルに保存された煙・雲・炎などの「空間の中に広がるもの」をUSDシーンへ読み込むノード**です。煙を例にすると、表面の形だけでなく、内部のどの場所にどれくらい濃い煙があるかという分布を扱います。
 
-煙、雲、fire、explosion等のvolumetric assetを扱います。
+VDBは、3D空間内の位置ごとに密度や温度などの値を保持できるデータ形式です。ポリゴンでできた通常の3Dモデルとは違い、煙の輪郭が曖昧に広がる様子や、内部の濃淡を表現するのに使われます。**uVolumeはVDBを読み込むノードであり、煙の物理シミュレーションを新たに計算するノードではありません。** 元ファイルにない複雑な動きを、自動で作り出す機能として考えないでください。
 
-## File / time
+このノードの出力は**USDシーンのデータ**です。読み込んだ直後のuVolumeを通常の2D Mergeへつないで完成画像にするのではなく、[uMerge](./u-merge)でカメラなどとまとめ、[uRenderer](./u-renderer)で2D画像へ描画します。
 
-Node追加時にVDB fileを選びます。
+## 入力・出力：何を受け取り、何を渡すか
 
-single VDBだけでなくanimated sequenceを読み込め、Trim、Loop、speed変更でtimeを調整できます。
+| 項目 | 受け渡すもの | 役割 |
+| --- | --- | --- |
+| **ファイル選択** | ディスク上のVDBファイル、またはVDB連番 | 読み込む煙や炎の元データを指定する。通常のFusionノードからつなぐ画像入力とは別 |
+| **出力** | Volumeを含むUSDシーン | uMergeなど、後段のUSDノードへ渡す |
 
-## Density
+DaVinci Resolve 21.1 Reference Manualでは、**uVolumeをNode Editorへ追加するとVDBを選ぶファイルダイアログが開く**と説明されています。単一のVDBだけでなく、複数フレームを保存した**VDBシーケンス**も読み込めます。
 
-Scaleでvolume densityを調整します。
+最初の接続例は次のとおりです。
 
-## Emission
+~~~text
+uVolume（VDB） ───────┐
+uCamera ─────────────┼→ uMerge → uRenderer → MediaOut
+uDistant Light ──────┘
+~~~
 
-Manualでは代表的に次のmodeが記載されています。
+uVolumeからuMergeまでは、煙の形・密度などを含む**3Dシーン側の経路**です。uRendererから先が通常の2D画像になります。uRendererのCameraやLightingはシーン構成に合わせて確認してください。
 
-- Color — volume全体へcolor
-- Field — 指定fieldを使ってcolorをscatter
-- Blackbody — temperatureに基づくfire / explosion向けcolor
-- Gradient — field値へcolor gradientをmapping
+VDBを置き換えるのではなく、建物などのUSDモデルと重ねたい場合は、[uLoader](./uloader)から来るモデルも同じuMergeへ接続します。煙と建物は別々に読み込み、描画段階で同じカメラから見られるようにします。
 
-## Transform
+## VDBシーケンスと時間の扱い
 
-USD共通Transform controlsでposition / rotation / scaleを調整します。
+煙や爆発のアニメーションは、時間の異なるVDBを連番として保存することがあります。uVolumeはその連番を読み込み、**使う範囲のトリミング、繰り返し再生（Loop）、再生速度の調整**を行えます。
 
-## 最小構成
+| 調整したいこと | 何が変わるか | 確認すること |
+| --- | --- | --- |
+| 使用する範囲 | 連番のうちショットで使う部分 | 必要な開始・終了フレームが含まれているか |
+| Loop | 読み込み済みの動きを繰り返す | 継ぎ目で煙の形が急に変わらないか |
+| 再生速度 | VDBのフレームが進む速さ | タイムラインと元連番の対応が意図どおりか |
 
-```text
-uVolume ────┐
-uCamera ────┼─ uMerge → uRenderer
-uLight ─────┘
-```
+**時間を調整しても、読み込んだVDB内部の流体計算をやり直すわけではありません。** たとえば爆発を遅く見せることはできますが、新しい中間フレームの物理的な正しさまでは保証されません。Manualのこの節では、個々の時間設定のInspector上の正確な表示名・補間方式・初期値は説明されていないため、ここでは機能として区別しています。
 
-## 出典と確認範囲
+単一の静止VDBしか読み込んでいない場合は、時間を進めても元データ自体にフレームごとの変化がありません。動く煙を期待しているときは、まず連番を選択できているか確認します。
 
-DaVinci Resolve 21.1 Reference Manual Chapter 121 pp.2928–2929で、VDB file / sequence、time control、Density、Emission mode、Transformを確認しました。
+## 密度とEmission：見た目を変える主要設定
 
-VDB field naming compatibilityとrender performanceは未確認です。
+21.1 Manualでは、**密度をScaleで調整**できることと、**EmissionセクションのMode**でVDBの色・発光の表し方を切り替えられることが説明されています。
+
+密度は「空間のその場所にどれくらい煙が存在するか」に相当する値です。変更すると、煙の塊が濃く見える部分や薄く見える部分の印象が変わります。ただし同じScaleでも、元VDBの密度値、描画設定、カメラとの位置関係によって結果は変わります。**特定の数値で必ず不透明になる**といった固定の目安はありません。
+
+### Emissionの4つのMode
+
+| Mode | 何をするか | 使い分けの例 |
+| --- | --- | --- |
+| **Color** | VDB全体へ色を与える | 一定の色合いを持つ煙や雲 |
+| **Field** | 指定したEmission Fieldを使い、色の寄与を与える | 元データ内の特定の分布に合わせて色を変える |
+| **Blackbody** | 温度を基に色と強さを決める | 火炎、爆発、加熱された気体 |
+| **Gradient** | 選んだFieldの値の範囲に色の変化を割り当てる | 密度などの分布によって色を段階的に変える |
+
+**Field（フィールド）**は、VDBの内部で空間の各場所に保存された値の分布です。たとえば「煙が濃い場所」を示す値と、「高温の場所」を示す値は、異なる種類の情報です。Fieldを選ぶModeは、**元のVDBに目的の情報があるか**が重要になります。任意のフィールド名や、すべてのVDBに共通するチャンネル構成を想定しないでください。
+
+**Gradient**は画像全体に一方向のグラデーションを重ねるという意味ではありません。**指定したFieldの値に応じて、VDB内部の場所ごとに色を対応させる**方式です。煙の濃淡を色分けするような用途を考えると理解しやすくなります。
+
+**Blackbody**は温度に基づいて色と強度を決めるModeです。炎を描きたい場合に選択肢となりますが、元VDBの温度情報や描画条件が適合しないと、期待どおりの発光にはなりません。対応Fieldの正確な命名規則や自動検出の挙動は、21.1 ManualのuVolume節だけでは確認できません。
+
+**Colorモードとライトの注意点：** 21.1 ManualのuVolume節には、**Colorを白にしたVDBにはUSDライトが影響しない**という注意書きがあります。一般的な3Dオブジェクトの「白い材質ならライトで明るくなる」という感覚を、そのまま当てはめないでください。どの描画条件で影響がなくなるかの詳細は、この節からは確定できないため、ライトの影響を試す場合はColorの設定も含めて比較します。
+
+## Transform：煙や炎の配置を調整する
+
+uVolumeにはUSD系ノード共通の**Transform**があります。これはVDBをシーンのどこに置くか、大きさや向きをどうするかを調整するためのものです。
+
+たとえば爆発のVDBを建物の窓の近くへ配置したい場合、建物のUSDモデルを変更するのではなく、uVolume側のTransformで位置とスケールを合わせます。**密度のScaleと、立体の大きさを変更するTransformのScaleは別の操作**として考えてください。
+
+VDBがカメラの視野から外れていると、密度を調整しても画像には何も現れません。最初はカメラとの位置関係を確認してから見た目を調整すると、原因を切り分けやすくなります。
+
+## 制作例1：建物の横に煙を重ねる
+
+1. 建物のUSDを[uLoader](./uloader)で読み込みます。
+2. uVolumeを追加し、煙のVDBまたはVDBシーケンスを選びます。
+3. uLoader、uVolume、[uCamera](./ucamera)、必要なUSDライトを[uMerge](./u-merge)へ接続します。
+4. uMerge → [uRenderer](./u-renderer) → MediaOutの経路で画像を表示し、カメラから建物と煙が同じ画面に入るようにします。
+5. uVolumeのTransformで煙の位置・大きさを合わせ、密度のScaleで濃淡を調整します。
+6. 必要に応じてColorかGradientなどを比較します。連番なら、ショットの開始・終了位置と再生速度も確認します。
+
+この例はManualにある機能を組み合わせた運用手順であり、特定のVDB素材で描画確認した結果ではありません。煙の自然さは、元データの形やカメラ、照明、描画設定にも左右されます。
+
+## 制作例2：温度情報を使った炎
+
+火炎や爆発のVDBを使う場合は、**EmissionのBlackbody**を検討します。21.1 Manualでは、温度に基づく色と強度の表現として説明されています。
+
+まずVDBを読み込み、Blackbodyに切り替えて、uRendererで結果を確認します。元のVDBが想定した情報を持つか分からない場合は、Colorモードで体積の位置・表示自体を確認してから切り替えると、ファイルや配置の問題と温度情報の問題を分けられます。
+
+炎の明るさや色が期待と異なるとき、Blackbodyを選んだだけで解決するとは限りません。元データの温度分布、密度、描画環境を切り分けて確認してください。
+
+## 表示・再生がおかしいとき
+
+| 症状 | 確認すること |
+| --- | --- |
+| 画面に何も映らない | ファイルの読み込み、uVolume → uMerge → uRendererのUSD経路、カメラの視野を確認する |
+| uVolumeを2D Mergeへ接続できない | uVolumeの出力はUSD。uRendererで画像に変換してから2D合成へ渡す |
+| 煙が薄い、または濃すぎる | 密度のScaleと元VDBの値、カメラとの位置関係を確認する |
+| 動画のはずなのに静止する | 単一VDBではなく連番を読み込めているか、時間範囲と速度の設定を確認する |
+| Loopすると急に形が飛ぶ | 元シーケンスの最後と最初が自然につながる素材か確認する |
+| Field / Gradientで期待した色にならない | 対象とするFieldが元VDBにあるか、ModeとFieldの選択が合っているか確認する |
+| Blackbodyで炎らしく見えない | VDB内の温度情報と、レンダーでの見え方を分けて確認する |
+| USDライトを置いても変化しない | uRendererのLightingを確認し、Colorが白のVDBへのライトの注意事項も確認する |
+| 建物など別の3Dモデルとまとめられない | 両方がUSD側のノード経路にあり、同じuMergeへ接続されているか確認する |
+
+## 関連ノード・考え方
+
+- [USDシーンの基礎](../../learn/02-data/usd)：USDが扱う立体・カメラ・ライトと、2D画像との違い。
+- [uLoader](./uloader)：通常のUSDアセットを読み込む。VDB専用のuVolumeとは読み込む対象が異なる。
+- [uShape](./ushape)：立方体や球など、明確な表面を持つ基本形状を作る。
+- [uMerge](./u-merge)：VDB、モデル、カメラ、ライトを同じシーンにまとめる。
+- [uCamera](./ucamera)：描画用の視点を設定する。
+- [uDistant Light](./udistant-light)：シーン照明を追加する。Colorモードの白いVDBへの注意事項を参照。
+- [uRenderer](./u-renderer)：USDシーンを2D画像へ描画する。
+
+## バージョン・出典と確認範囲
+
+**一次資料：** Blackmagic Design『DaVinci Resolve 21.1 Reference Manual』（September 2026）、Chapter 121「USD Nodes」、**uVolume [uVo] pp.2928–2929**。VDBファイルと連番の読み込み、Trim / Loop / 再生速度の変更、密度のScale、EmissionのColor / Field / Blackbody / Gradient、共通Transform、白いColorとUSDライトに関する注意を確認しました。USDシーンをuMerge → uRendererで描画する一般的な経路は**p.2887**と照合しています。配布元：[Blackmagic Design Support](https://www.blackmagicdesign.com/support/)。
+
+ここに記した接続図、制作例、トラブル対処は公式仕様から組み立てた説明です。**uVolume固有のInspector全項目、時間調整の正確なControl名・初期値、個々のVDBのField対応、内部REGID、Edition差、21.1実機での描画結果は未検証**です。確認できていない数値や接続端子の色を補っていないため、**verification: partial**を維持しています。
