@@ -77,6 +77,25 @@ Resolve Color Management（RCM）またはACESを使用する場合、Manualで�
 
 MediaOutのColor GradeをColorやMixへ変更しても、この受け渡しの変換設定を変更することにはなりません。**プレビューの見え方**と**色管理された出力経路**は別の仕組みです。
 
+## Timelineへ返す画像・透明度・キャッシュ
+
+MediaOut1へ渡すのは、完成した**2D Image（RGBとAlphaを含む画像）**です。Alphaを透明にしたまま返せば、Editページの下のトラックを背景として見せることもできます。必ずしもFusion内で背景までMergeして完成させる必要はありません。
+
+例えば、Editページで人物のグリーンバック素材を上段トラック、背景映像を下段トラックに置いている場合、人物のクリップをFusionページで開き、次のようにつなぎます。
+
+```text
+MediaIn1（人物素材） → DeltaKeyer1（背景を透明化） → MediaOut1
+Editページ：上段＝Alpha付き人物 ／ 下段＝背景映像
+```
+
+Delta Keyerが作ったAlphaをMediaOut1まで保持すると、Editページでは人物の透明部分から下段の背景が見えます。逆に、人物と背景を1つのFusion Compositionの中で完成させたい場合は、人物と背景を[Merge](../compositing/merge)してからMediaOut1へ接続します。**「Timelineで上下のトラックを重ねる」のか「Fusion内で合成を完結させる」のか**で構成が変わります。
+
+### 画像サイズはTimelineと必ずしも同じではない
+
+通常の単独クリップをEdit／CutページからFusionへ開いた場合、そのFusion Compositionは**元クリップの解像度**を基準にします。一方、複数のTimelineクリップをまとめて**Fusion Clip**にすると、各クリップはTimeline解像度へ合わせられます。例えば4K素材2本をHD Timeline上でFusion Clipにすると、そのFusion Clip内では元の4K解像度をそのまま扱えません。解像度を維持したい素材は、単独クリップからFusionを開き、ほかの素材をMedia Poolから追加する方法も検討します。
+
+MediaOutで返した画像がTimeline解像度と異なる場合のスケーリングや、Edit／Cutページで使うキャッシュのファイル形式は、**ResolveのProject Settings側**で扱われます。MediaOutにはSaverのようなFilenameやOutput Formatの指定はありません。Smart Render Cacheを利用する構成では、Edit／Cutページに戻るとMediaOutの結果がキャッシュされることがありますが、それは[Saver](./saver)から手動でEXRをファイルに書き出す処理とは別です。
+
 ## 制作例1：TimelineのショットにFusionで加工を加える
 
 1. Editページで映像クリップを選び、Fusionページへ移動します。
@@ -133,6 +152,7 @@ ColorページでSourceを複数表示した場合、各Sourceにカーソルを
 
 - Chapter 104「I/O Nodes」pp.2419–2422：MediaOutの必須Image入力、Resolve専用の役割、複数MediaOut、Color GradeのNone／Color／Mixと表示解像度、RCM／ACESの受け渡し。
 - Chapter 146「Combining Keys and Using Mattes」pp.3428–3430：FusionのMediaOut2からColorページでAdd Sourceを作成し、CorrectorのKey入力へ接続する実例。画像サイズが異なるときのMatteの調整。
-- Chapter 64「Getting Clips into Fusion」p.1332、Chapter 65「Rendering in Fusion」p.1358：MediaInからMediaOutへの標準Flowと、Fusion StudioのSaverによるファイル出力との違い。
+- Chapter 64「Getting Clips into Fusion」pp.1332–1334：単独クリップとFusion Clipの解像度差、AlphaをTimelineの下段トラックと合成する例。
+- Chapter 65「Rendering Using Saver Nodes」p.1358：MediaOutのTimelineへの出力とSmart Render Cache、Project Settingsで扱う出力解像度・キャッシュ形式、Saverとの違い。
 
 本記事の説明は21.1 Manualで確認できた範囲です。Inspectorの内部Parameter ID、全Hostでの細かなUI差、解像度の特殊条件、複数Outputのすべての利用方法を実機で網羅検証したものではありません。
