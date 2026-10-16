@@ -15,7 +15,7 @@ outputs: [image]
 tasks: [transform-image, crop, resolution, format]
 product_scope: fusion
 suite_surfaces: [fusion]
-updated: "2026-10-04"
+updated: "2026-10-17"
 ---
 
 # Crop
