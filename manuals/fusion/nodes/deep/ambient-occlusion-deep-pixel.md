@@ -14,7 +14,7 @@ outputs: [image]
 tasks: [aov, ambient-occlusion, post-process]
 product_scope: fusion
 suite_surfaces: [fusion]
-updated: "2026-10-10"
+updated: "2026-10-16"
 ---
 
 # Ambient Occlusion (Deep Pixel)
