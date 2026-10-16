@@ -15,7 +15,7 @@ outputs: [image]
 tasks: [aov, relight, reflection, shading]
 product_scope: fusion
 suite_surfaces: [fusion]
-updated: "2026-10-10"
+updated: "2026-10-16"
 ---
 
 # Shader (Deep Pixel)
@@ -26,7 +26,7 @@ Shaderは、3Dシーンを2D画像へ描画した後に、表面の明るさ・�
 
 名称はDeep Pixelですが、Shaderの入力は**補助チャンネル付きの2D画像**です。画素内に複数の奥行きサンプルを保存するDeep Imageとは別物です。詳しくは[補助Channel / AOV](../../learn/02-data/auxiliary-channels.md)を参照してください。
 
-## 入力
+## 入力と出力
 
 ### Input
 
@@ -40,25 +40,26 @@ Shaderは、3Dシーンを2D画像へ描画した後に、表面の明るさ・�
 
 効果を2D画像の一部へ限定する**青色の任意入力**です。マニュアルによれば、マスクは処理後の結果に適用されます。
 
-入力画像にObjectID / MaterialIDが保存されていれば、共通のSettingsから対象の物体・材質を制限することもできます。IDが画像になければその選択はできません。
+入力画像にObject ID / Material IDが保存されていれば、共通設定で処理対象の物体・材質を絞ることもできます。ID情報がなければ、その方法で対象を分けることはできません。
 
-## Light controls
+### 出力
 
-### Ambient
+Normalに基づいて明暗や反射を調整した**2D画像**を出力します。3DオブジェクトやMaterialを出力するNodeではなく、通常の2D Mergeや色補正Nodeへ接続できます。
 
-shadow部にも加わるbase illuminationです。
+## Lightの主要設定
 
-### Diffuse
+Inspectorの**Controls > Light**で、面の見え方を構成する要素を調整します。同じ「明るさ」でも、どの部分へ変化を与えるかが異なります。
 
-surfaceから全方向へ散乱するbase color / light成分を調整します。
+| 設定 | 変化する部分 | 使い方の例 |
+| --- | --- | --- |
+| **Ambient** | 影になっている部分にも加わる基礎的な明るさ・色 | 暗部が沈みすぎる場合に調整する |
+| **Diffuse** | 光が面で拡散し、広い方向から見える基本色の成分 | 面の向きに応じた明暗を整える |
+| **Specular** | 光沢のある面で光が反射して見えるハイライトの成分 | 金属などの光沢を強く・弱く見せる |
+| **Reflection** | 緑入力の環境画像を映り込ませる寄与量 | 周囲の景色の映り込みを強める |
 
-### Specular
+例えば球を調整するとき、暗い側が沈みすぎるなら**Ambient**を、表面全体の明暗を変えるなら**Diffuse**を、光源の反射による明るい点を調整するなら**Specular**を確認します。**Reflection**は映り込み用画像の寄与を変える設定で、緑入力に画像がなければ効果がありません。
 
-view方向へ反射するhighlight成分を調整します。
-
-### Reflection
-
-Reflection Mapの寄与量です。Reflection inputが無い場合は効果を持ちません。
+これらは元の3Dシーンへ光源を追加する操作ではありません。入力画像に残ったNormalを使って、**描画後の画素の見え方**を調整します。
 
 ## Reflection Type
 
@@ -70,11 +71,13 @@ Reflection Mapの寄与量です。Reflection inputが無い場合は効果を�
 
 **Equator Angle**は左右方向、**Polar Height**は上下方向の向きを調整します。Reflectionの強さだけを変えても反射位置が合わない場合に確認します。
 
-## Shader tab
+## Shaderタブ
 
-**Diffuse / Specular**チェックボックスを有効にすると、それぞれの明暗変化をShaderのSpline画面で編集できます。**In / Out**は選択ポイントの値を表示・編集する項目です。**Specular Color**ではハイライトの色を調整します。
+**Shader**タブでは、Diffuse（拡散反射）とSpecular（光沢反射）の明暗がどのように変わるかをカーブで調整します。Lightタブが各成分の量を扱うのに対し、こちらでは**明るい部分から暗い部分へ移る変化の仕方**を調整できます。
 
-例えばハイライトが広がりすぎる場合は、Specularの量だけでなくカーブの変化も比較します。カーブの形状は面の向きに対する陰影の出方を変えるため、作業前後をViewerで見比べます。
+**Diffuse / Specular**のチェックボックスを有効にすると、対応するカーブをShaderのSpline画面で編集できます。**In / Out**は選択中のカーブの点の値を表示・編集する欄です。複数の点を囲んで選び、右クリックメニューからカーブを調整する操作もマニュアルに記載されています。**Specular Color**はハイライトに付ける色です。
+
+例えば金属表面のハイライトが広く見えすぎる場合は、まずLightタブのSpecularで寄与量を比べ、次にShaderタブのSpecularカーブで変化を調整します。量と変化の仕方を分けて確認すると、何が映像を変えたか追いやすくなります。
 
 ## 例1：Renderer 3Dの出力へ反射を追加する
 
@@ -106,9 +109,9 @@ Shaderは3Dレンダリングをやり直すNodeではありません。**レン
 
 ## 3D Materialとの違い
 
-OpenPBRやPhongは3D sceneをrenderする前のMaterialです。
+OpenPBRやPhongなどの3D Materialは、3Dオブジェクトをレンダリングする**前**に表面の見え方を定義します。一方、Shader (Deep Pixel)はレンダリングが終わった**後**の2D画像とNormalを使って調整します。
 
-Shader (Deep Pixel)はrender後の2D Image + Normal channelへpost-processを行います。
+合成段階で光沢や映り込みを微調整するならShaderが候補ですが、隠れた面、影の形、3Dシーン内の光の伝わり方まで再計算するものではありません。必要な情報がレンダリング結果に残っていない場合は、3D側を変更して描画し直します。
 
 ## よくある問題
 
