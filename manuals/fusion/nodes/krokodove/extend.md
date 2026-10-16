@@ -1,61 +1,78 @@
 ---
-title: "Extend"
-description: "edge pixelを水平/垂直方向に延長。"
+title: Extend
+description: 画像の端の画素を水平方向または垂直方向へ繰り返し、反復するピクセル模様を作るKrokodoveの画像処理ツール。
 doc_type: node
-term_id: "extend"
-term_short: "Extendは、edge pixelを水平/垂直方向に延長。Krokodove固有のtool。"
+term_id: extend
+term_short: 画像端の画素を横または縦へ繰り返し、帯や筋のような反復模様を作るツール。
 verification: partial
-aliases: ["Extend"]
-concepts: ["image-data"]
-nodes: ["Extend"]
-node_family: "krokodove"
-inputs: ["image"]
-outputs: ["image"]
-tasks: ["motion-graphics"]
+aliases: [Extend]
+concepts: [image-data]
+nodes: [Extend]
+node_family: krokodove
+inputs: [image]
+outputs: [image]
+tasks: [motion-graphics]
 product_scope: fusion
-suite_surfaces: ["fusion"]
-updated: "2026-10-05"
+suite_surfaces: [fusion]
+updated: '2026-10-17'
 ---
 
 # Extend
 
-Extendは、edge pixelを水平/垂直方向に延長。Krokodove固有のtoolです。名前だけで2D Image Nodeと判断せず、Input / Output domainとFamily Overviewを先に確認します。
+Extendは、**画像の端にある画素を横方向または縦方向へ繰り返して見せる**、Krokodoveの画像処理ツールです。端の色や模様が一定方向へ続いているような、反復するピクセル表現を作ります。
 
-## 役割
+ここでいう「画素」は、画像を構成する小さな色の点です。たとえば画像の端が赤と黒の縦縞になっている場合、その端の画素を横へ繰り返すことで、縞が横へ続くような見た目を考えられます。画像全体を同じ大きさで何枚も並べる「タイル状の複製」とは説明されていません。
 
-edge pixelを水平/垂直方向に延長。このページでは、名前だけで選ばず、**何を受け取り、何が変わり、どのdomainへ返すか**を先に整理します。
+公式資料が明示しているのは、**端の画素を水平・垂直方向に反復し、繰り返し模様を作る**という役割までです。実際の繰り返し単位、延長距離、方向の指定方法は、対象バージョンのInspectorやViewerで確認する必要があります。
 
-この項目で確認できている中心的な役割は「edge pixelを水平/垂直方向に延長」です。exactなInspector項目が未確認の場合は、役割とdata domainを先に使って候補を絞ります。
+## 入力・出力
 
-## 入力と出力
+| 段階 | 扱うもの | 何が起きるか |
+| --- | --- | --- |
+| 入力 | <Term id="image">2D画像（Image）</Term> | 色・模様を持つ画像を受け取る。 |
+| 処理 | 画像の端の画素 | 水平または垂直方向に繰り返し、方向性のある模様を作る。 |
+| 出力 | 処理後の2D画像 | 後段の合成や別の画像処理へ渡す。 |
 
-入力分類: **image**。 出力分類: **image**。 この分類はdata domainを読むためのものです。Fusion 21.1のexactな端子名・端子数を未確認の場合、ここでは推測して固定しません。
+このImage分類はCOLLECTANEAの既存Node catalogに基づきます。21.1の正確な入力端子名・数、Effect Maskの有無やAlphaの更新方式までは確認できていません。画像そのものの仕組みは[画像（Image）](../../learn/02-data/image)を参照してください。
 
-## 使うときの判断
+## 主な用途
 
-KrokodoveはImage、Shape、3D、Regionが同じchapterに並ぶため、まずOutput domainで候補を絞ります。
+**背景の模様を一定方向へ続ける。** 画面端に模様がある画像で、その画素を横または縦へ繰り返した表現を試せます。画像の縦横比やキャンバスが自動的に拡大するという意味ではありません。
 
-同じ目的を別Familyでも作れる場合は、後段で必要なdata domainと、Graph上で責任をどこに置きたいかで選びます。
+**ロゴや線の端から帯状のグラフィックを作る。** はっきりした色の境界を持つ素材では、端の画素が続くことで筋や帯のように見える可能性があります。どの位置の画素が反復されるかは実際の出力で判断します。
 
-## 最小構成
+**伸ばす処理と複製する処理を選び分ける。** 1枚の画像を丸ごと何枚も配置したい場合と、端の画素だけを利用して見た目を伸ばしたい場合では、必要な処理が異なります。Extendが扱うのは後者のピクセル表現です。
 
-    Image / Source → Extend → Result
+これらは公式の短い機能説明から考えた利用例で、特定のInspector設定や完成結果を保証するものではありません。
 
-これは接続関係を理解するための最小構成案です。公式Manualのexactな作例として確認していない構成は、実制作前にViewerで中間結果を確認します。
+## 実際に試す：画像の端から反復模様を作る
 
-## 確認ポイント
+    模様のある画像（MediaIn） → Extend ──→ Merge（Foreground） → MediaOut
+                                                  ↑
+    背景（Background / MediaIn） ───────────────────┘
 
-- 入力dataのdomainが合っているか。
-- この項目のoutputを受け取れる後段Nodeへ接続しているか。
-- 同じ役割を前段 / 後段で二重に処理していないか。
-- source-limited pageでは、未確認のControl名・default・rangeを名前から推測していないか。
+1. 端に色の違いが分かりやすい画像を用意します。細い縞模様や、明暗のはっきりした図形が比較しやすい素材です。
+2. Extendの前後をそれぞれViewerに表示し、**画像のどの端の画素が、どちらの方向へ続くか**を確認します。画面全体を複製した結果なのか、端の画素を反復した結果なのかを見分けます。
+3. 水平・垂直の両方向を試せる場合は結果を比較します。Inspectorの正確な項目名と設定可能範囲は未検証なので、ここでは特定のボタンや数値を指定しません。
+4. [Merge](../compositing/merge)で別の背景に重ね、模様の見え方を確認します。RGBだけでなくAlphaも必要に応じてViewerで見て、透明な場所が実際に表示されるかを確かめます。
 
-## Family内での位置づけ
+この接続図は2D画像を合成するための**構成例**です。Extendの実機ポート位置、レンダリング結果や操作手順を検証した図ではありません。効果がどこまで及ぶかは元画像の有効領域やAlphaによって見え方が変わる可能性があるため、結果を確認してから後段へ渡してください。
 
-Krokodoveノードの全体像と近いNodeの選び分けは[Family Overview](./)を参照してください。
+## 似たツールとの違い
 
-## 出典と確認範囲
+| ツール | 主な処理 | 選び分け |
+| --- | --- | --- |
+| **Extend** | 端の画素を横または縦へ繰り返す | 端の画素を使った方向性のある反復模様が欲しい。 |
+| [Grow Color](./grow-color) | 端の色を透明部分へ引き伸ばす | 反復模様より、透明領域へ色を延長したい。 |
+| [Grow](./grow) | 1つ以上の起点から画像を現したり消したりする | 画像が現れる場所や消える過程を扱いたい。 |
+| [Fragments](./fragments) | 画像を断片に分け、Rangeで表示を変える | 断片ごとの出現・消失を扱いたい。 |
 
-このページの役割・data domain・系譜は、既存COLLECTANEA catalogとBlackmagic Design公式資料で確認された範囲をreader-first形式へ整理しています。
+特に**ExtendとGrow Colorは同じ「伸ばす」でも目的が違います**。Extendは端の画素の繰り返しが中心で、Grow Colorは透明部分へ端の色を広げる処理として説明されています。どちらも「Alphaを必ず広げる」「画像サイズを自動変更する」とは確認できていません。[KrokodoveのFamily Overview](./)から、ほかの画像ツールも比較できます。
 
-Fusion 21.1 Reference Manualで個別のInspector項目・default・rangeまで確認できていない項目は、**source-limited**としてその詳細を断定していません。verification: partial はその未確認範囲を含みます。runtime REGIDや現在のEffects Library表示は別のruntime verificationで確定します。
+## バージョン・出典・未確認事項
+
+**直接確認した公式資料：** Blackmagic Design『DaVinci Resolve 21 New Features Guide』（April 2026）、p.108、Fusion「Krokodove Toolset」内のImage Tools「Extend」。端の画素を水平または垂直方向へ反復してピクセル模様を作ると説明されています。
+
+**21.1での掲載情報：** このリポジトリの既存Krokodove索引は、Blackmagic Design『DaVinci Resolve 21.1 Reference Manual』（September 2026）、Chapter 105、p.2434を該当項目の出典として記録しています。ただし今回、同PDFの該当ページを直接再取得できなかったため、本文の確定記述は上記の公式New Features Guideで裏付けられる範囲に限定しています。
+
+**未確認：** 21.1での正式な端子名・端子数、Inspectorの各項目・初期値・値域、反復の単位と距離、処理範囲の決まり方、RGBとAlphaの挙動、Edition差、REGID、実機のレンダリング結果。したがって `verification: partial` を維持します。

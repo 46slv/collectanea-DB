@@ -1,61 +1,91 @@
 ---
-title: "Grow"
-description: "seed locatorから画像をgrow/disappear。"
+title: Grow
+description: 画像を1つ以上の起点から現したり消したりするKrokodoveの画像処理ツール。
 doc_type: node
-term_id: "grow"
-term_short: "Growは、seed locatorから画像をgrow/disappear。Krokodove固有のtool。"
+term_id: grow
+term_short: 画像内に指定した起点から、画像が広がるように現れたり消えたりする表現を作るツール。
 verification: partial
-aliases: ["Grow"]
-concepts: ["image-data"]
-nodes: ["Grow"]
-node_family: "krokodove"
-inputs: ["image"]
-outputs: ["image"]
-tasks: ["motion-graphics"]
+aliases: [Grow]
+concepts: [image-data]
+nodes: [Grow]
+node_family: krokodove
+inputs: [image]
+outputs: [image]
+tasks: [motion-graphics]
 product_scope: fusion
-suite_surfaces: ["fusion"]
-updated: "2026-10-05"
+suite_surfaces: [fusion]
+updated: '2026-10-17'
 ---
 
 # Grow
 
-Growは、seed locatorから画像をgrow/disappear。Krokodove固有のtoolです。名前だけで2D Image Nodeと判断せず、Input / Output domainとFamily Overviewを先に確認します。
+Growは、**画像が指定した場所を起点に広がって現れる、または消えていく**表現に使うKrokodoveのツールです。画面全体を均一にフェードさせるのではなく、変化の始まる場所を意識した演出を作りたいときに候補になります。
 
-## 役割
+たとえば、ロゴの一部分を起点に表示範囲が広がる演出や、複数の場所から絵柄が現れる演出を考えられます。ただし、どのような形・速さで広がるか、画像の明るさや透明度が進行に関与するかは、21.1 Manualの短い説明からは確定できません。
 
-seed locatorから画像をgrow/disappear。このページでは、名前だけで選ばず、**何を受け取り、何が変わり、どのdomainへ返すか**を先に整理します。
+## 「起点」（seed locator）とは
 
-この項目で確認できている中心的な役割は「seed locatorから画像をgrow/disappear」です。exactなInspector項目が未確認の場合は、役割とdata domainを先に使って候補を絞ります。
+**seed locator**は、画像が現れたり消えたりする変化を**どこから始めるか**を示す位置です。ここでのseedは「乱数の種」という意味ではなく、変化の開始位置を指します。
 
-## 入力と出力
+Manualには「1つ以上のseed locatorsから開始できる」とあります。
 
-入力分類: **image**。 出力分類: **image**。 この分類はdata domainを読むためのものです。Fusion 21.1のexactな端子名・端子数を未確認の場合、ここでは推測して固定しません。
+- **起点が1つ**：画像上のある場所から変化を始める構成を考えられます。
+- **起点が複数**：異なる場所から始まる変化を同じ画像に使えることが示されています。
 
-## 使うときの判断
+これは機能を理解するための説明です。起点の追加・移動操作、複数起点の合成方法、形状の広がり方については実機のInspector・Viewerで確認する必要があります。
 
-KrokodoveはImage、Shape、3D、Regionが同じchapterに並ぶため、まずOutput domainで候補を絞ります。
+## 入力・出力
 
-同じ目的を別Familyでも作れる場合は、後段で必要なdata domainと、Graph上で責任をどこに置きたいかで選びます。
+| 段階 | 役割 |
+| --- | --- |
+| 入力 | 変化を加えたい2D画像。写真・映像・透過ロゴなどを想定できます。 |
+| 処理 | 1つ以上の起点を基準に、画像が現れる／消える変化を作ります。 |
+| 出力 | Growの処理結果である2D画像。後段の画像合成へ渡します。 |
 
-## 最小構成
+この入出力のデータ分類は既存のNode catalogを参照しています。21.1 Manualの該当表には**正式な端子名・端子数・Effect Maskの有無**は掲載されていないため、ここでは固定しません。
 
-    Image / Source → Grow → Result
+処理対象は[Imageの基本](../../learn/02-data/image)で説明する画素の画像です。3Dのオブジェクトが物理的に成長するツールや、Shapeの輪郭を編集するツールとしては扱いません。
 
-これは接続関係を理解するための最小構成案です。公式Manualのexactな作例として確認していない構成は、実制作前にViewerで中間結果を確認します。
+## 主な用途
 
-## 確認ポイント
+- **ロゴの登場**：一部分からロゴの表示が広がるような画面切り替えを試す。
+- **図柄の消失**：画像全体を同時に薄くする代わりに、指定した場所から消えていく効果を試す。
+- **複数起点の表現**：画面の離れた場所から変化が始まる構成を試す。
 
-- 入力dataのdomainが合っているか。
-- この項目のoutputを受け取れる後段Nodeへ接続しているか。
-- 同じ役割を前段 / 後段で二重に処理していないか。
-- source-limited pageでは、未確認のControl名・default・rangeを名前から推測していないか。
+これらはManualに記載された「起点からgrow / disappear」という機能に基づく**使用案**です。特定のワイプ形状、プリセット、速度曲線、キーフレーム可能なパラメータの存在を保証するものではありません。
 
-## Family内での位置づけ
+## ロゴを背景の上で確認する例
 
-Krokodoveノードの全体像と近いNodeの選び分けは[Family Overview](./)を参照してください。
+Growの前後で画像の見え方を比較し、背景と合成する構成案です。
 
-## 出典と確認範囲
+```text
+ロゴ画像（MediaIn） → Grow ────────────→ Merge（前景）→ MediaOut
+                                            ↑
+背景画像（MediaInまたはBackground） ───→ Merge（背景）
+```
 
-このページの役割・data domain・系譜は、既存COLLECTANEA catalogとBlackmagic Design公式資料で確認された範囲をreader-first形式へ整理しています。
+1. 透過部分のあるロゴを用意し、Growの前後をそれぞれViewerに表示します。まず、元画像に対してどこが変わるかを確認します。
+2. 起点を1か所にした状態で、表示・消失に関係する設定を実機で探します。**Manualは設定名や値域を示していない**ため、未確認のControl名を前提に操作しません。
+3. 起点を複数にできるか、複数指定時に結果がどう変わるかを比較します。
+4. 結果を[Merge](../compositing/merge)の前景に接続して背景と合わせます。時間変化のアニメーションに使う場合は、実際のInspectorでキーフレーム対応を確認します。
 
-Fusion 21.1 Reference Manualで個別のInspector項目・default・rangeまで確認できていない項目は、**source-limited**としてその詳細を断定していません。verification: partial はその未確認範囲を含みます。runtime REGIDや現在のEffects Library表示は別のruntime verificationで確定します。
+上の図は画像の流れを説明するもので、Grow固有のポート配置を示していません。各段階でViewerを見ながら確認すると、「Growの処理」と「Mergeでの重ね合わせ」を区別できます。
+
+## 似たツールとの違い
+
+| ツール | 何を変えるか | 選ぶ基準 |
+| --- | --- | --- |
+| **Grow** | 1つ以上の起点から画像を現したり消したりする | 変化の**開始位置**を意識したい |
+| [Fragments](./fragments) | 画像を断片に分け、`Range`で断片をフェードさせる | 分割された**部分ごとの表示**を変えたい |
+| [Grow Color](./grow-color) | 画像の端の色を透明な領域へ引き伸ばす | 透明な余白を**周囲の色で埋めたい** |
+| [Transform](../transform/transform) | 画像全体を移動・回転・拡大縮小する | 画像をひとまとまりのまま動かしたい |
+
+**GrowとGrow Colorは名前が似ていますが別の用途です。** Growは画像が現れる・消える効果、Grow Colorは画像の端の色を透明領域へ延長する処理です。「画像を大きくする」という意味で両者を混同しないでください。
+
+Krokodove全体の分類は[Family Overview](./)を参照してください。
+
+## バージョン・出典・未確認事項
+
+**一次資料**：Blackmagic Design『DaVinci Resolve 21.1 Reference Manual』（September 2026）、Chapter 105「Krokodove Nodes」、p.2434「Image Tools / Grow」。公式記載で確認できるのは、画像が**1つ以上のseed locatorsからgrowまたはdisappearする**という機能です。同ページにはGrow Color・Fragmentsの説明も掲載されています。
+
+**未確認**：21.1での正式な入出力端子名と本数、InspectorのControl名・既定値・値域、起点の操作UI、表示・消失の切替方法、起点間の影響範囲、処理アルゴリズム、キーフレーム対応、Resolve Free / Studio差、REGID、実機レンダリング結果。verification: partialはこれらを含む状態です。

@@ -167,10 +167,10 @@ Mask ───────↑
 
 1920×1080の背景映像へ、960×540の透過ロゴを重ねるとします。MergeのBackgroundに背景、Foregroundにロゴを接続します。Foregroundを中央に置いたまま、**背景の座標で**右へ48px移動させる例です。
 
-1. MergeをViewerへ表示し、Centerを`(0.5, 0.5)`に戻します。Reference Sizeが無効なら、これが正規化値としての中央です。
-2. `Reference Size`でWidthを`1920`、Heightを`1080`に指定します。Center欄が`(960, 540)`と表示されることを確認します。
+1. MergeをViewerへ表示し、`Use Frame Format Settings`をオフにして、Reference Width / Heightを1920 / 1080に設定します。
+2. Centerを`(960, 540)`にしてForegroundを中央に置きます。内部の正規化値では`(0.5, 0.5)`です。
 3. Center Xを`1008`、Yを`540`にします。内部座標では`(0.525, 0.5)`になり、背景の横幅を基準に48px右へ移動します。
-4. Reference Sizeの表示を通常の正規化値へ戻しても、画像が移動しないことを確認します。
+4. Reference Width / Heightを3840 / 2160に変更します。Center欄が`(2016, 1080)`と表示される一方、Backgroundの解像度もForegroundの画面上の位置も変わらないことを確認します。
 
 この例の48pxは**背景1920px幅を基準にした距離**です。Backgroundを3840×2160へ替えて内部Centerを`0.525`のままにすると、横方向の移動は96px相当になります。同じ48pxを保ちたいなら`48 ÷ 3840 = 0.0125`なので、Xは`0.5125`です。固定ピクセル余白と相対位置を両立する式は[解像度を跨ぐ配置](../../patterns/transform/resolution-aware-positioning)で説明しています。
 
