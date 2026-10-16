@@ -1,8 +1,9 @@
 ---
 title: dMerge
-description: Background Deep Imageへ複数Foreground Deep streamを追加し、各pixelのdepth sampleを奥行き順で統合するDeep compositing Node。
+description: "複数のDeep Imageの奥行きサンプルを統合するNode。複数Foreground入力、2D素材の扱い、合成例と注意点を解説。"
 doc_type: node
 term_id: d-merge
+term_short: 複数のDeep Imageに記録された奥行きごとのサンプルを、Deepデータのまま1つに統合するNode。
 verification: partial
 aliases: [dMerge, Deep Merge, dMg]
 concepts: [deep-image, compositing, depth]
@@ -14,66 +15,103 @@ tasks: [deep, composite, merge]
 level: advanced
 product_scope: fusion
 suite_surfaces: [fusion]
-updated: "2026-10-04"
+updated: "2026-10-16"
 ---
 
 # dMerge
 
-dMergeは、複数の<Term id="deep-image">Deep Image</Term>を、各pixel内のdepth sampleを保ったまま1つへ統合するNodeです。
+**dMerge [dMg]は、複数のDeep Imageに記録された奥行きごとのサンプルを、1つのDeep Imageへ統合するNodeです。** たとえば、建物と、その前後を流れる煙を別々にレンダリングしたとき、それぞれの奥行き情報を残したまままとめられます。
 
-通常MergeのForeground / Background alpha合成ではなく、sampleの奥行き関係を使ってDeep compositeを作ります。
+通常の2D画像は、基本的に1画素に1組の色とAlphaを持ちます。一方、<Term id="deep-image">Deep Image</Term>には、同じ画素で重なっている手前・奥の複数サンプルを記録できます。dMergeは**各画素の奥行きサンプルを統合する**もので、通常の2D Mergeのように画像を平らにして重ねるNodeではありません。
 
-## 入力
+dMergeの出力もDeep Imageです。合成後に[dCrop](./dcrop.md)で奥行き範囲を選んだり、[dColorCorrector](./dcolorcorrector.md)で色補正を続けたりできます。最終的に通常の2D画像が必要になったら、[Deep to Image](./deep-to-image.md)でフラット化します。
 
-### Background
+## 入力と出力
 
-オレンジ色のDeep background inputです。
+| 端子 | データ | 何を接続するか |
+| --- | --- | --- |
+| **Background（オレンジ）** | Deep Image | 統合の基準となるDeep素材。建物のDeep EXRなど。 |
+| **Foreground（白）** | Deep Image | 追加したいDeep素材。煙や別レンダーのDeep EXRなど。 |
+| **出力** | Deep Image | 追加した素材の奥行きサンプルを統合したデータ。 |
 
-### Foreground
+**Foregroundは複数接続できます。** 新しいDeep素材からdMergeへ接続線をドラッグすると、Foreground入力を追加できます。1つのdMergeに2つ以上のForegroundを集められる点は、21.1 Reference Manualに記載されています。
 
-白色のDeep foreground inputです。
+~~~text
+建物のDeep EXR ───── Background ┐
+煙のDeep EXR ─────── Foreground ├─ dMerge → Deep to Image → 2D画像
+追加のDeep EXR ───── Foreground ┘
+~~~
 
-追加接続するとForeground inputが増え、複数Deep sourceを1つのdMergeへまとめられます。
+Foreground入力は、白黒のEffect Mask入力ではありません。追加する**Deep画像そのもの**を受け取ります。また、端子の名前だけで最終画像の前後関係が決まるわけではありません。各素材に記録された奥行きデータが重要です。
 
-```text
-Deep Background ──┐
-Deep Foreground A ─┼─ dMerge → Deep to Image
-Deep Foreground B ─┘
-```
+## 通常のMergeと何が違うか
 
-## 出力
+たとえば1画素の位置で、手前に薄い煙、中央に建物、奥にも煙があるとします。2D画像に変換してから重ねた場合、元のDeep画像に含まれていた個々の奥行き層は復元できません。
 
-統合後もDeep Imageのままです。
+dMergeはそれぞれの素材に含まれるDeepサンプルを統合するため、**合成した後でも奥行き範囲による選別やDeep用の色補正を行える**のが特徴です。
 
-後段でdColorCorrector、dTransform、dCrop等を続けられます。
+ただし、異なるカメラや異なる奥行きの基準で出力したレンダーが、dMergeに接続するだけで自動的に位置合わせされるわけではありません。同じ構図に合成する素材では、画面サイズ、カメラ、Z値の前提を先に揃えるか、必要な位置調整を行います。
 
-## Inspector
+## 実例：建物、煙、2Dタイトルを合成する
 
-21.1 ManualではdMerge固有のControls tabは記載されず、主な役割はdepth sample streamの統合です。
+建物と煙は別々のDeep EXR、タイトルは通常の透明付き2D画像として用意した例です。
 
-「設定が少ない = 通常Mergeと同じ」ではなく、data model自体が違います。
+1. 建物と煙のDeep EXRをLoaderまたはMediaInで読み込みます。通常のRGBAだけではなく、Deepサンプルを含む素材か確認します。
+2. 建物を**Background**、煙を**Foreground**に接続します。さらにDeep素材を追加する場合は、Foreground接続を増やします。
+3. dMergeの後ろへ**Deep to Image**を置きます。2D画像へ変換してViewerで見れば、前後関係や煙の透け方を確認できます。
+4. タイトルをDeep合成の奥行き関係に参加させたいなら、[Image to Deep](./image-to-deep.md)の**Specify Z**などで配置するZを指定し、dMergeの追加Foregroundへ接続します。
+5. タイトルを常に完成画の最前面へ置くだけなら、Deep to Imageの後に通常のMergeで重ねる方法もあります。すべての2D素材をDeep化する必要はありません。
+6. Deepの合成を**Linear colorspace**で行い、必要な表示・納品用の色変換は後段で行います。
 
-## 2D Image input
+~~~text
+建物（Deep EXR） ─────────────────────────┐
+                                         ├─ dMerge → Deep to Image → 2D仕上げ
+煙（Deep EXR） ───────────────────────────┤
+2Dタイトル → Image to Deep（Z指定） ────────┘
+~~~
 
-Chapter 95では、Image to Deep / Deep to Imageを除くDeep compositing toolが2D Image inputを自動Deep変換できると説明されています。
+これは21.1 Manualで確認できるNodeの機能を組み合わせた**運用例**です。ここに挙げた個別素材による21.1実機レンダーは未検証です。
 
-ただし2D sourceのdepth位置を明示したい場合は[Image to Deep](./image-to-deep)でZを設定してからdMergeへ入れる方が意図を読みやすくなります。
+## 2D画像を直接入力できるか
 
-## Mergeとの違い
+21.1 Manualは、**Image to DeepとDeep to Imageを除くDeep合成Nodeが2D画像入力を自動Deep変換できる**と説明しています。したがって、dMergeのすべての2D入力に、必ず明示的なImage to Deepが必要というわけではありません。
 
-- **Merge** — 2D ImageのRGBA / Alpha合成
-- **dMerge** — Deep sampleのdepth-aware統合
+ただし、**自動変換された2D素材を奥行きのどこへ置くか**は、dMergeの説明だけでは確定できません。看板やタイトルを手前・奥の特定位置へ配置したい場合は、Image to Deepの**Specify Z / Z Offset**を使う方が、意図が明確になります。
 
-dMergeを「高品質なMerge」と考えるのではなく、別domainのcombinerとして扱います。
+自動Deep変換は、元の2D画像に写っていなかった物体の裏側や、複数の奥行き層を自動生成するものではありません。
 
-## linear colorspace
+## Inspectorと似たNodeの違い
 
-Deep compositingはlinear colorspaceで行う必要があります。
+21.1 ManualのdMerge節には、**dMerge固有のControls項目は列挙されていません**。入力とDeepサンプルの統合、各Deep Nodeに共通するSettings tabの説明が中心です。ほかのNodeにあるZ OffsetやCenterを、dMergeにも存在する設定として扱わないでください。
 
-合成後にDeep to Imageでflattenし、必要に応じてdisplay / delivery spaceへ変換します。
+| Node | 役割 | 選ぶ場面 |
+| --- | --- | --- |
+| **dMerge** | 複数のDeepサンプルを統合する | 別レンダーのDeep素材をまとめる。 |
+| [dHoldout](./dholdout.md) | Foregroundの奥行きでBackgroundを遮る | 手前の物体で奥の煙を隠す。 |
+| [dCrop](./dcrop.md) | 指定したZ範囲でサンプルを選ぶ | 深度範囲を取り出す。 |
+| [dTransform](./dtransform.md) | Deep画像のXY位置とZ値を調整する | 統合前後に位置を合わせる。 |
+| [Image to Deep](./image-to-deep.md) | 2D画像へ奥行き情報を与える | 2D素材を指定したZに配置する。 |
+| [Deep to Image](./deep-to-image.md) | Deepから2D画像を作る | 通常のMergeやBlurへ渡す。 |
 
-## 出典と確認範囲
+**dHoldoutはdMergeの別名ではありません。** dMergeはサンプルの統合、dHoldoutは別のDeep素材を使った背景の遮蔽に使います。最終画に物体を追加したいのか、物体を遮蔽物として利用したいのかを区別します。
 
-DaVinci Resolve 21.1 Reference Manual Chapter 95 pp.2227、2246–2247で、Deep toolset、Background + multiple Foreground inputs、sample mergeを確認しました。
+## 期待した結果にならないとき
 
-Studio限定Deep toolsetです。
+- **前後関係がおかしい**：各素材のZ値、カメラ、XY位置を確認します。Foregroundに挿しただけで「必ず手前」とは考えません。
+- **2Dタイトルが意図したZ位置にない**：自動Deep変換に頼らず、Image to Deepで奥行きを指定して結果を比較します。
+- **通常のMergeやBlurにつなげたい**：Deep to Imageを挟みます。2D化した後に元のDeepサンプルを取り出すことはできません。
+- **煙の透け方や色が不自然**：Alpha、Linear colorspace、Deep to ImageのVolumetric Compositionを確認します。
+- **計算が重い**：21.1 ManualはDeep合成用の**Cache to Disk**を案内しています。Nodeを右クリックして保存先を選び、ディスク容量も確保します。
+- **dMergeが見つからない**：21.1 ManualではDeep Image Compositing Toolsetは**Studio Version Only**です。Editionを確認します。
+
+## バージョン・出典・未確認範囲
+
+一次資料はBlackmagic Design『**DaVinci Resolve 21.1 Reference Manual**』（2026年9月）、Chapter 95「Deep Image Nodes」です。
+
+- **pp.2246–2247**：dMerge [dMg]、Background（オレンジ）、複数Foreground（白）、Deepサンプルの統合、共通Settings tab。
+- **p.2227**：複数の奥行きサンプル、Deep EXR入出力、2D入力の自動Deep変換、Linear colorspace要件、Cache to Disk、Studio限定。
+- **pp.2238–2240、2252–2253**：Deep to Imageへの変換とImage to DeepのZ位置指定。
+
+**未確認**：21.1実機でのREGID、端子の実表示順、複数Foreground接続数の上限、2D自動変換時のZ配置、半透明サンプルの内部演算順序と式、個々の素材での描画結果。未検証値を補わず、`verification: partial`を維持しています。
+
+関連：[Deep Imageの基本](../../learn/02-data/deep-image.md) / [補助チャンネルとAOV](../../learn/02-data/auxiliary-channels.md)。
