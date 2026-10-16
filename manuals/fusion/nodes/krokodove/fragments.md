@@ -1,61 +1,85 @@
 ---
-title: "Fragments"
-description: "画像を断片化。Range等でfade。"
+title: Fragments
+description: 画像を複数の断片に分け、Rangeで断片の現れ方・消え方を調整するKrokodoveの画像処理ツール。
 doc_type: node
-term_id: "fragments"
-term_short: "Fragmentsは、画像を断片化。Range等でfade。Krokodove固有のtool。"
+term_id: fragments
+term_short: 画像をいくつかの断片に分け、Rangeによって断片をフェードイン・フェードアウトさせるツール。
 verification: partial
-aliases: ["Fragments"]
-concepts: ["image-data"]
-nodes: ["Fragments"]
-node_family: "krokodove"
-inputs: ["image"]
-outputs: ["image"]
-tasks: ["motion-graphics"]
+aliases: [Fragments]
+concepts: [image-data]
+nodes: [Fragments]
+node_family: krokodove
+inputs: [image]
+outputs: [image]
+tasks: [motion-graphics]
 product_scope: fusion
-suite_surfaces: ["fusion"]
-updated: "2026-10-05"
+suite_surfaces: [fusion]
+updated: '2026-10-17'
 ---
 
 # Fragments
 
-Fragmentsは、画像を断片化。Range等でfade。Krokodove固有のtoolです。名前だけで2D Image Nodeと判断せず、Input / Output domainとFamily Overviewを先に確認します。
+Fragmentsは、1枚の画像を複数の部分に分け、その部分を徐々に現したり消したりできるKrokodoveの画像処理ツールです。画面全体を一度に薄くする通常のフェードとは異なり、**分割された部分を使って画像の見え方を変える**ことができます。
 
-## 役割
+たとえばロゴの表示を切り替えるとき、ロゴ全体をまとめて透明にする代わりに、分かれた部分が現れるような演出を検討できます。ただし、分割数、断片の形、出現順序をどこまで指定できるかは、21.1 Manualの短い説明だけでは分かりません。
 
-画像を断片化。Range等でfade。このページでは、名前だけで選ばず、**何を受け取り、何が変わり、どのdomainへ返すか**を先に整理します。
+## 役割と入力・出力
 
-この項目で確認できている中心的な役割は「画像を断片化。Range等でfade」です。exactなInspector項目が未確認の場合は、役割とdata domainを先に使って候補を絞ります。
+- **入力**：加工したい2D画像。写真、映像、ロゴなどを元画像として考えられます。
+- **処理**：画像を複数の断片に分け、`Range`の選択肢で断片のフェードイン・フェードアウトを扱います。
+- **出力**：断片化の処理が反映された画像。通常の画像合成で使うためのデータであり、3Dの破片やShapeの輪郭を出力するという説明はManualにはありません。
 
-## 入力と出力
+ここでいう**断片**は、元画像から分けられた部分のことです。物理的な破片が飛び散るシミュレーションを意味しません。画像そのものについては[Imageの基本](../../learn/02-data/image)も参照してください。
 
-入力分類: **image**。 出力分類: **image**。 この分類はdata domainを読むためのものです。Fusion 21.1のexactな端子名・端子数を未確認の場合、ここでは推測して固定しません。
+入力・出力の分類は既存のNode catalogに基づきます。正式な端子名、本数、Effect Maskの有無は21.1 Manualの該当表では確認できていません。
 
-## 使うときの判断
+## 確認できている設定
 
-KrokodoveはImage、Shape、3D、Regionが同じchapterに並ぶため、まずOutput domainで候補を絞ります。
+| 項目 | 何が変わるか | 確認範囲 |
+| --- | --- | --- |
+| `Range` options | 分割された部分をフェードイン・フェードアウトさせる | 21.1 Manual、Chapter 105、p.2434で機能を確認 |
 
-同じ目的を別Familyでも作れる場合は、後段で必要なdata domainと、Graph上で責任をどこに置きたいかで選びます。
+`Range`が表す数値範囲、断片の選択順、時間に応じた変化の設定方法は、同ページに記載されていません。Inspectorにあると推測したスライダー名や既定値をここで列挙することは避けます。
 
-## 最小構成
+## 主な用途
 
-    Image / Source → Fragments → Result
+- **ロゴの登場・退場**：ロゴ全体の不透明度を変えるだけでなく、分割された部分が見えたり消えたりする表現を試したいとき。
+- **写真や映像の切り替え**：素材を複数の部分として扱い、画面の見える範囲を段階的に変化させたいとき。
+- **グラフィックの分解表現**：文字や図形がひとまとまりで消えるのではなく、部分ごとに変化する印象を作りたいとき。
 
-これは接続関係を理解するための最小構成案です。公式Manualのexactな作例として確認していない構成は、実制作前にViewerで中間結果を確認します。
+これらはManualが示す分割・フェード機能から考えられる使用例であり、特定のプリセットや分割形状が備わっていることを保証するものではありません。
 
-## 確認ポイント
+## 画像に重ねて確認する例
 
-- 入力dataのdomainが合っているか。
-- この項目のoutputを受け取れる後段Nodeへ接続しているか。
-- 同じ役割を前段 / 後段で二重に処理していないか。
-- source-limited pageでは、未確認のControl名・default・rangeを名前から推測していないか。
+ロゴ画像を素材として、背景の上でFragmentsの結果を確認する構成例です。
 
-## Family内での位置づけ
+```text
+ロゴ画像（MediaIn） → Fragments ────→ Merge（前景）→ MediaOut
+                                       ↑
+背景画像（MediaInまたはBackground） ───→ Merge（背景）
+```
 
-Krokodoveノードの全体像と近いNodeの選び分けは[Family Overview](./)を参照してください。
+これは2D画像のデータの流れを示した構成案で、Fragments固有の正確な端子配置を再現した図ではありません。
 
-## 出典と確認範囲
+1. 透明部分のあるロゴ画像を用意し、Fragmentsの前後をそれぞれViewerで比較します。まず、分割された部分がどのように表示されるかを観察します。
+2. `Range`に関係する設定を変更し、どの部分が見え、どの部分が消えるかを確認します。複数の値を一度に変えず、結果の違いが分かるようにします。
+3. 前景として[Merge](../compositing/merge)へ渡し、背景と合成します。フェードを時間変化として使う場合は、対象の設定がキーフレーム化できるか、実機のInspectorで確かめます。
 
-このページの役割・data domain・系譜は、既存COLLECTANEA catalogとBlackmagic Design公式資料で確認された範囲をreader-first形式へ整理しています。
+分割結果の確認では、**断片の形が変わったのか、断片の表示状態が変わったのか**を分けて観察すると挙動を把握しやすくなります。
 
-Fusion 21.1 Reference Manualで個別のInspector項目・default・rangeまで確認できていない項目は、**source-limited**としてその詳細を断定していません。verification: partial はその未確認範囲を含みます。runtime REGIDや現在のEffects Library表示は別のruntime verificationで確定します。
+## 似たツールとの違い
+
+| ツール | 主な役割 | 選ぶ基準 |
+| --- | --- | --- |
+| **Fragments** | 画像を分割し、その部分を`Range`でフェードさせる | 部分ごとの出現・消失を使いたい |
+| [Grow](./grow) | 指定した起点から画像を成長・消失させる | ある場所から広がるような表示変化を試したい |
+| [Dither](./dither) | ノイズの模様によって陰影の見え方を変える | 分割した部分の表示ではなく、画素の模様や質感を変えたい |
+| [Transform](../transform/transform) | 画像全体の位置・回転・拡大縮小を変える | 画像を部分に分けず、ひとまとまりで移動させたい |
+
+Krokodoveの画像用ツールを含む分類は[Family Overview](./)で確認できます。
+
+## バージョンと確認範囲
+
+**一次資料**：Blackmagic Design『DaVinci Resolve 21.1 Reference Manual』（September 2026）、Chapter 105「Krokodove Nodes」、p.2434「Image Tools / Fragments」。画像を分割することと、`Range` optionsで断片をフェードイン・フェードアウトできることを確認しました。
+
+**未確認**：正式な入出力端子名と本数、分割の形状・個数・順序の設定、`Range`の値域・既定値・キーフレーム対応、アニメーション例の実機結果、Resolve Free / Studioの差、内部REGID。上の接続図と用途は機能を理解するための構成案であり、21.1実機で確認した作例ではありません。
