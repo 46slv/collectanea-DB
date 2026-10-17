@@ -26,9 +26,9 @@ FusionではuLoader、uShape、uCamera、uMerge、uRenderer等の`u*` Nodeが<Te
 USD fileを読む場合:
 
 ```text
-uLoader        ──────┐
-uCamera        ──────┼─ uMerge → uRenderer → 2D Image / AOV
-uDistant Light ──────┘
+uLoader ───────────┐
+uCamera ───────────┼→ uMerge → uRenderer → 2D Image / AOV
+uDistant Light ────┘
 ```
 
 primitiveをFusion内で作る場合:
@@ -36,6 +36,10 @@ primitiveをFusion内で作る場合:
 ```text
 uShape → uMerge → uRenderer
 ```
+
+ここで使う[uDistant Light](../../nodes/usd/udistant-light)は、太陽光のように一定方向からシーンを照らすUSDライトです。uCameraは撮影視点を決め、uDistant Lightは照明を加えます。両方ともuMergeで同じUSDシーンにまとめ、uRendererで2D画像にします。配置したライトをレンダリングに使う場合は、uRendererの**Lighting: Scene**を確認します。
+
+壁や立体に**2D画像を投影**したい場合は、照明用のuDistant Lightではなく[uProjector](../../nodes/usd/uprojector)を使います。uProjectorは画像を光として投影するLightモードと、uCatcherを使って表面テクスチャとして扱うTextureモードを持ちます。
 
 ## uLoader
 
@@ -117,6 +121,7 @@ Classic 3DのGeometryをそのままuMergeへ接続できると仮定せず、�
 - Transform / visibility / variant: uTransform / uVisibility / uVariant
 - Duplicate / switch: uDuplicate / uSwitch
 - Camera / projection: uCamera / uProjector / uCatcher
+- Lighting: uDistant Light / uDome Light / uDisk Lightなど
 - Material: uMaterialX / uTexture / uNormalMap / uTextureTransform / uShader / uReplaceMaterial
 - Render: uRenderer
 
@@ -126,11 +131,13 @@ Classic 3DのGeometryをそのままuMergeへ接続できると仮定せず、�
 - [uLoader](../../nodes/usd/uloader)
 - [uMerge](../../nodes/usd/u-merge)
 - [uRenderer](../../nodes/usd/u-renderer)
+- [uDistant Light](../../nodes/usd/udistant-light)
+- [uProjector](../../nodes/usd/uprojector)
 - [uTransform](../../nodes/usd/utransform)
 - [uVisibility](../../nodes/usd/uvisibility)
 
 ## 出典と確認範囲
 
-DaVinci Resolve 21.1 Reference Manual、September 2026、Chapter 121 pp.2887–2888（USD読み込み・Scene Tree）、pp.2923–2924（uTransform）、pp.2927–2928（uVisibility）を中心に、USD file、Prim Selection、u* toolset、material / lighting / render flowを整理しています。
+DaVinci Resolve 21.1 Reference Manual、September 2026、Chapter 121 pp.2887–2888（USD読み込み・Scene Tree）、pp.2923–2924（uTransform）、pp.2927–2928（uVisibility）、pp.2933–2934（uDistant Light）を中心に、USD file、Prim Selection、u* toolset、material / lighting / render flowを整理しています。
 
 USD SDK内部仕様、Hydra内部実装、runtime REGID、external USD asset互換性は別途実機確認が必要です。
