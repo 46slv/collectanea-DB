@@ -11,7 +11,7 @@ tasks: [read-graph, composite, debug]
 prerequisites: [typed-connections]
 level: foundation
 product_scope: fusion
-updated: "2026-10-12"
+updated: "2026-10-17"
 ---
 
 # 画像（Image）
@@ -126,6 +126,16 @@ MediaInやLoaderは通常RGBAを扱えますが、実際に透明情報を持つ
 上の外枠はフレームの大きさ、内側の矩形は文字のデータがあると扱う範囲の一例です。**DoDはAlphaの輪郭そのものではなく、データを含む範囲の四角い境界**です。画像の端が欠ける問題では、Transformで外へ移動しただけなのか、Cropなどで画素が切り落とされたのかを分けて確認します。
 
 また、Viewerの**RoI（Region of Interest）**はプレビューで計算を要求する範囲で、DoDとは別です。詳しくは[有効領域（Domain of Definition）](../03-space/domain-of-definition.md)と[解像度 / アスペクト比](../03-space/resolution-aspect.md)を参照してください。
+
+## DoDをViewerで確認する
+
+Imageが1920×1080でも、データがある範囲（DoD）が必ず画面全体とは限りません。たとえば透明な背景に小さなText+を置いた場合、文字の周辺だけがDoDになることがあります。逆に、Editページから渡したMediaInは、実際には透明な部分があっても、通常は元のフレーム全体をDoDとして持ちます。
+
+1. Text+などの出力をViewerに表示し、Viewerを右クリックして **Region → Show DoD** を選びます。表示される矩形はAlphaの形を囲む手描きのMaskではなく、そのNodeが画像データを持つと扱う範囲です。
+2. Text+の後段にTransformをつないで位置を変え、Transformの出力もViewerで表示します。DoDが移動・拡張しても、ImageのWidth / HeightやViewerの表示枠まで自動で変わるとは限りません。画面外へ出た画素が必ずその場で消去されるわけでもありません。
+3. DoDの表示が見つからないときは、Node EditorでNodeにカーソルを合わせます。DoDがフレームサイズと異なる場合、ツールチップからも確認できます。
+
+OpenEXRをLoaderで読み込む場合は、ファイルの**data window**がDoDへ反映されることがあります。入力がMediaInなのかLoaderなのかも区別してください。RoIは「Viewerが計算を要求する範囲」で、DoDとは別です。詳しい設定とAuto Domainの用途は[有効領域（Domain of Definition）](../03-space/domain-of-definition.md)を参照してください。
 
 ## Image以外のデータと混同しない
 
