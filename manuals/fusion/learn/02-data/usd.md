@@ -28,7 +28,7 @@ USD fileを読む場合:
 ```text
 uLoader ────┐
 uCamera ────┼─ uMerge → uRenderer → 2D Image / AOV
-uLight ─────┘
+uDistant Light ─┘
 ```
 
 primitiveをFusion内で作る場合:
