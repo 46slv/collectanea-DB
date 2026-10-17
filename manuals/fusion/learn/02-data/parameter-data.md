@@ -11,7 +11,7 @@ tasks: [animate, automate, link-values, debug]
 prerequisites: [typed-connections]
 level: foundation
 product_scope: fusion
-updated: "2026-10-12"
+updated: "2026-10-17"
 ---
 
 # パラメータ / Data
@@ -106,6 +106,29 @@ Center全体にはPointが必要なので`Point(...)`を返しています。最
 
 Manualでは、この方法による共有は双方向に操作できると説明されています。一方、SimpleExpressionは**参照先から設定先へ結果を渡す一方向の関係**です。「基準値より0.1小さくする」などの計算を加えるなら、共有だけでなく式を使います。
 
+### 実例4：2つ目の合成を5フレーム遅らせる
+
+たとえば、1つ目のタイトルが現れてから、5フレーム遅れて2つ目のタイトルが現れる構成を作ります。2つのMergeの**Blend**を個別にキーフレーム設定する代わりに、後段のBlendが前段のアニメーションを参照するようにします。
+
+```text
+Background ──→ Merge1［Background］ ──→ Merge2［Background］ ──→ MediaOut
+Text+ A ─────→ Merge1［Foreground］       ↑ Foreground
+Text+ B ────────────────────────────────┘
+```
+
+1. Merge1のBlendにKeyframeを設定し、1つ目のタイトルが徐々に見えるようにします。
+2. Merge2のBlendの数値欄で`=`を入力してReturnを押し、表示されたSimpleExpression欄へ次の式を設定します。
+
+   ```lua
+   Merge1:GetValue("Blend", time-5)
+   ```
+
+3. 再生して、Text+ BがText+ Aより5フレーム遅れて現れるか確認します。`time`は現在のフレーム番号で、`GetValue`の第2引数に`time-5`を渡すと、**Merge1のBlendを現在より5フレーム前の時点で評価した値**を返します。単位は秒ではありません。
+
+式を付けたMerge2のBlendは、Merge1側のBlendが変わると追従します。一方、Merge1の値をMerge2から逆方向に変更する仕組みではありません。`Merge1.Blend`は「今の値」を参照し、`Merge1:GetValue("Blend", time-5)`は「過去の指定フレームの値」を参照する、という違いがあります。アニメーション開始直後は参照時刻が開始位置より前になる場合があるため、その前の値も意図どおりか確認してください。
+
+詳しくは[式（Expressions）](../05-time/expressions.md)と[Modifier / Parameter Sources](../05-time/modifier-parameter-sources.md)を参照してください。
+
 ## Inspectorで値の供給元を追う
 
 Inspectorの`Tools`パネルはNode自身の設定、`Modifiers`パネルはパラメータに追加した処理を表示します。ModifierがあるNodeではModifiersタブが強調されます。
@@ -127,7 +150,7 @@ Inspectorの`Tools`パネルはNode自身の設定、`Modifiers`パネルはパ�
 | 別のNodeの値も同時に変わる | Publish / Connect To、Expression、Instanceによる共有がないか |
 | Centerに式を書いても期待どおりにならない | Center全体にPointが必要か、X・Yの参照先が正しいか |
 | 式の値が毎フレーム変わる | `time`やアニメーションする別Parameterを参照していないか |
-| 5フレーム前の値と一致しない | `GetValue("Blend", time-5)`の対象Node・対象フレームを確認する |
+| 5フレーム前の値と一致しない | `Merge1:GetValue("Blend", time-5)`のように、対象Nodeと評価フレームを明示しているか確認する |
 | Modifierの候補が出ない | その型に使えるものが`Modify With`にあるか |
 | 画像は出るが移動しない | 接続線だけでなく、TransformのCenterを動かしているか |
 
