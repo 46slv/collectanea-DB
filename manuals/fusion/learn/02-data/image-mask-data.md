@@ -13,7 +13,7 @@ prerequisites: [node-graph]
 level: foundation
 product_scope: fusion
 suite_surfaces: [fusion]
-updated: "2026-10-12"
+updated: "2026-10-17"
 ---
 
 # Image / Mask / Dataを分ける
@@ -118,6 +118,26 @@ Node Editorで入力端子にカーソルを置くと、その端子の名前を
 
 また、1つのNodeの出力を分岐させても、片方だけ自動的にAlpha、もう片方だけRGBを渡す構造にはなりません。必要なチャンネルを選び直すには、それを扱うNodeを使います。
 
+## 実例4：白黒画像の明るさをEffect Maskとして使う
+
+円やPolygonを描かなくても、**別の画像の明暗を処理範囲へ利用**できます。たとえば夜景の明るい看板だけ色を強めたいときは、元映像と、看板が白・周囲が黒になった輝度マップを別々に用意します。
+
+```text
+MediaIn A（色補正する夜景） ──→ Color Corrector ──→ MediaOut
+                                     ↑ Effect Mask
+MediaIn B（白黒の輝度マップ） ─────────┘
+```
+
+1. **A**はColor CorrectorのImage入力へ、**B**はEffect Mask入力へ接続します。Bは前景として重なる画像ではなく、補正をかける範囲を指定するための画像です。
+2. Color Corrector側の**Common Settings**で、Maskに使う画像チャンネルとして**Luminance**を選びます。Bの白い部分は補正が強く、黒い部分は元の映像が残り、灰色の部分では補正が部分的に適用されます。
+3. Color Correctorで彩度などを変え、Bの接続を外した場合と比較します。看板以外まで変わるときは、Bのチャンネル選択と白黒の値を確認します。
+
+ここでは、**通常の2D ImageをEffect Maskへ直接接続**しています。これはMask Nodeが出す単一チャンネルのMaskとは異なる経路ですが、FusionのEffect Mask入力では利用できます。**Bitmap Maskが必須というわけではありません**。
+
+一方、マップの明るさを閾値で切り分けたり、輪郭を調整したり、別のMaskと合成したいなら、`MediaIn B → Bitmap Mask［Channel: Luminance］→ Color Corrector［Effect Mask］`という経路を選べます。Bに不透明な黒が描かれている場合、**Alphaを選ぶと黒い部分も不透明として扱われ得る**ため、Luminanceとの違いに注意してください。Effect Mask以外のGarbage MatteやPre-Maskなどの専用入力ではBitmap Maskが必要な場合もあります。
+
+関連：[Maskの基本](./mask.md) ／ [Bitmap Mask](../../nodes/masks/bitmap-mask.md) ／ [接続互換性](./connection-compatibility.md)
+
 ## Shapeなど、3つ以外のデータもある
 
 通常の2D Image / Mask / パラメータ以外にも、Fusionは図形や粒子、3Dシーンなどの専用データを扱います。
@@ -154,6 +174,7 @@ Node Editorで入力端子にカーソルを置くと、その端子の名前を
 - 同Chapter 66「Working in the Node Editor」pp.1394–1397：入出力端子、入力名の確認、本体への自動接続、Mask Nodeの既定の接続先。
 - 同Chapter 79「Rotoscoping with Masks」pp.1725–1726：Maskが単一チャンネルの画像であること、Mask Nodeの用途。
 - 同Chapter 94「Merge Nodes」：MergeのBackground / Foreground、Alphaによる合成とEffect Maskの挙動。
+- 同Chapter 108「Bitmap Mask」p.2463：2D ImageをEffect Maskへ直接使う場合のチャンネル選択、Bitmap Maskで追加できる操作、Garbage Matte等の例外。
 - Shape・Particle・3D・USD・Deepの個別出力については、同21.1 Manualの各Node Referenceと[接続互換性](./connection-compatibility.md)の出典を参照してください。
 
 ここで説明したのは、Graphの読み方と代表的な接続例です。**全Nodeの入出力型、Inspectorの初期値・数値範囲、21.1の実機動作とEdition差を網羅的に検証したものではありません**。そのため`verification: partial`を維持します。
