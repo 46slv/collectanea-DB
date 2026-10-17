@@ -1,61 +1,118 @@
 ---
-title: "Invert"
-description: "color/luminance/hueをinvert。"
+title: Invert
+description: Krokodove Invertで色・明るさ・色相を反転する考え方と、使い分け、実制作での確認手順を説明。
 doc_type: node
-term_id: "invert"
-term_short: "Invertは、color/luminance/hueをinvert。Krokodove固有のtool。"
+term_id: invert
+term_short: 画像の色・輝度・色相を反転するKrokodoveの画像ツール。反転対象によって見た目の変化が異なる。
 verification: partial
-aliases: ["Invert"]
-concepts: ["image-data"]
-nodes: ["Invert"]
-node_family: "krokodove"
-inputs: ["image"]
-outputs: ["image"]
-tasks: ["motion-graphics"]
+aliases: [Invert]
+concepts: [image-data]
+nodes: [Invert]
+node_family: krokodove
+inputs: [image]
+outputs: [image]
+tasks: [motion-graphics]
 product_scope: fusion
-suite_surfaces: ["fusion"]
-updated: "2026-10-05"
+suite_surfaces: [fusion]
+updated: '2026-10-18'
 ---
 
 # Invert
 
-Invertは、color/luminance/hueをinvert。Krokodove固有のtoolです。名前だけで2D Image Nodeと判断せず、Input / Output domainとFamily Overviewを先に確認します。
+Invertは、画像の**色・輝度（明るさ）・色相**を反転させるKrokodoveのツールです。DaVinci Resolve 21.1 Reference Manualでは、Chapter 105の「Image Color Tools」に分類されています。
 
-## 役割
+「反転」と聞くと写真のネガのような表示を思い浮かべますが、色の反転と明るさの反転は同じ処理ではありません。たとえば、明暗を逆にしても元の色合いをどう扱うかは別の問題です。また、色相を反転させる処理は、赤や青といった色の種類を変えるもので、必ずしも暗部と明部の関係をひっくり返すとは限りません。
 
-color/luminance/hueをinvert。このページでは、名前だけで選ばず、**何を受け取り、何が変わり、どのdomainへ返すか**を先に整理します。
+このページでは、3つの言葉の意味と、制作中にどれを確認すべきかを分けて説明します。**21.1 Manualが確定しているのは「色・輝度・色相を反転する」という役割まで**です。各モードの計算式やInspector上の切替方法は、後述のとおり未確認です。
 
-この項目で確認できている中心的な役割は「color/luminance/hueをinvert」です。exactなInspector項目が未確認の場合は、役割とdata domainを先に使って候補を絞ります。
+## 何が反転するのか
+
+| 観点 | どういう変化を考えるか | 混同しやすい点 |
+| --- | --- | --- |
+| **色（color）** | 元の色とは反対側に見える色へ変える。写真のネガに似た見た目を作る用途が考えられる | RGBの各チャンネルを単純に `1 - 値` する方式かどうかは未確認 |
+| **輝度（luminance）** | 明るい領域と暗い領域の関係を変えることに注目する | 明るさだけを変えて色相・彩度を厳密に保持するかは未確認 |
+| **色相（hue）** | 赤・緑・青など「何色に見えるか」の関係を変えることに注目する | 色相環で正確に180度回転する処理だとは確認できない |
+
+ここでいう**輝度**は画素がどの程度明るく見えるかに関係する量で、**色相**はその色を赤系・青系などとして区別する性質です。同じ明るさでも赤と青はあり得ますし、同じ赤系でも暗い赤と明るい赤があります。この違いを分けて考えると、どの反転を試すべきか判断しやすくなります。
+
+いずれも「画像を上下左右に裏返す」という意味ではありません。配置や向きを変えたい場合は、画像の位置・回転・反転を扱うTransform系の処理を使います。
 
 ## 入力と出力
 
-入力分類: **image**。 出力分類: **image**。 この分類はdata domainを読むためのものです。Fusion 21.1のexactな端子名・端子数を未確認の場合、ここでは推測して固定しません。
+| 段階 | データ分類 | 役割 |
+| --- | --- | --- |
+| 入力 | 2D Image | 色を変えたい映像・写真・グラフィック |
+| 処理 | 画像の色・輝度・色相の反転 | 各画素の見た目に変化を与える |
+| 出力 | 2D Image | 反転後の画像をViewerや後段の画像処理へ渡す |
 
-## 使うときの判断
+この表の `inputs: [image]` / `outputs: [image]` は、**何の種類のデータを扱うか**を示す分類です。実際のFusion Flowで表示される正式な端子名・端子数を保証するものではありません。KrokodoveにはShapeやRegionを扱う別種のノードもありますが、InvertはManual上では画像の色を扱う分類です。[Krokodoveの全体像](./)も参照してください。
 
-KrokodoveはImage、Shape、3D、Regionが同じchapterに並ぶため、まずOutput domainで候補を絞ります。
+## 主な用途
 
-同じ目的を別Familyでも作れる場合は、後段で必要なdata domainと、Graph上で責任をどこに置きたいかで選びます。
+### 写真や映像のネガ調の質感
 
-## 最小構成
+一度、画像全体の色を大きく反転させた見た目を作り、グラフィックの一部として使う方法です。写真のネガのような質感を試したいとき、まず色の反転に相当する処理が候補になります。
 
-    Image / Source → Invert → Result
+ただし、写真フィルムの色ネガは色の反転だけで再現できるわけではありません。フィルムの色特性や現像処理まで模倣する機能だとは考えないでください。
 
-これは接続関係を理解するための最小構成案です。公式Manualのexactな作例として確認していない構成は、実制作前にViewerで中間結果を確認します。
+### 明部と暗部の関係を入れ替えたパターン
 
-## 確認ポイント
+文字・図形・グラデーションなど、明暗の差が大きいグラフィックを用意し、明るさの反転を試します。白地に暗い図形がある構成を、暗地に明るい図形の構成へ変更したい場合の発想です。
 
-- 入力dataのdomainが合っているか。
-- この項目のoutputを受け取れる後段Nodeへ接続しているか。
-- 同じ役割を前段 / 後段で二重に処理していないか。
-- source-limited pageでは、未確認のControl名・default・rangeを名前から推測していないか。
+**元の色が厳密に維持されるか、Alphaが変化するかは未確認**です。単に背景を黒へ変えたいだけなら、背景色や合成方法を直接変更した方が狙いを管理しやすい場合もあります。
 
-## Family内での位置づけ
+### 配色の対比を試す
 
-Krokodoveノードの全体像と近いNodeの選び分けは[Family Overview](./)を参照してください。
+同じ図形の位置や輪郭を保ったまま、色の印象を大きく変える試作に使います。色相の反転に注目すると、元の明暗構造をできるだけ意識しながら別の色合いを検討する切り口になります。
 
-## 出典と確認範囲
+ただし、実際に明るさや彩度が保存されると断定できないため、仕上げ段階では元画像と出力を比較してください。
 
-このページの役割・data domain・系譜は、既存COLLECTANEA catalogとBlackmagic Design公式資料で確認された範囲をreader-first形式へ整理しています。
+## 制作例：タイトル用グラフィックの反転案を比較する
 
-Fusion 21.1 Reference Manualで個別のInspector項目・default・rangeまで確認できていない項目は、**source-limited**としてその詳細を断定していません。verification: partial はその未確認範囲を含みます。runtime REGIDや現在のEffects Library表示は別のruntime verificationで確定します。
+まず、明るい背景に色の異なる文字や図形を配置した画像を用意します。複雑な映像より、変わった部分を見分けやすくなります。
+
+```text
+Background / Text+ などで作った画像
+                ↓
+              Invert
+                ↓
+             MediaOut
+```
+
+これは**接続関係を理解するための構成案**であり、21.1 Manualに掲載された配線図ではありません。
+
+1. 入力画像とInvertの出力を別々のViewerに表示します。色だけでなく、背景の明暗と文字の読みやすさも比較します。
+2. 実機のInspectorで色・輝度・色相それぞれに対応する操作があるか確認し、利用可能な範囲で結果を切り替えて比較します。**操作名やスイッチの構成は資料から確定していない**ため、表示に従ってください。
+3. 赤系と青系の図形、白・黒・中間グレーを含む画像を試し、色が変わるのか、明暗が変わるのか、その両方なのかを観察します。
+4. 透明な文字や半透明の形がある場合は、Alphaの表示も確認します。RGBの見た目が反転しても、透明度まで同じ規則で反転するとは限りません。
+5. 元画像の上へ部分的に重ねたい場合は、[Merge](../compositing/merge)などで合成する方法を検討します。Invert自体が元画像とのMixや専用Mask入力を持つかどうかは未確認です。
+
+制作結果を使う前に、背景・文字・透過部分を含むフレームを表示して、どこが読みやすくなり、どこが読みにくくなったかを確認します。色相を変えただけのつもりでも、明暗や彩度が変わっている場合は、別の色補正を組み合わせる必要があります。
+
+## 似たツールとの使い分け
+
+| ツール | 主な目的 | 選ぶときの考え方 |
+| --- | --- | --- |
+| **Invert（Krokodove）** | 色・輝度・色相を反転する | 画像全体の色の関係を逆転させた見た目を試す |
+| [Recolor（Krokodove）](./recolor) | 指定した元の色を別の色へ置き換える | ある色を狙って別の色にしたい |
+| [Replace Color（Krokodove）](./replace-color) | 指定した元の色に補正を加える | 特定色を対象に修正したい |
+| [Match Color（Krokodove）](./match-color) | 暗部・中間調・明部などを選び、色を置き換える | 明るさの領域ごとに色を設計したい |
+| [Threshold（Krokodove）](./threshold) | チャンネルの値が特定の狭い範囲にある画素を分離する | 変える色を選ぶ前に、値の範囲を抽出したい |
+
+Invertは「色の関係を反転する」ことから考えるツールです。一方、特定の被写体の赤だけを青に変えたい場合は、Recolorなどの**元の色を指定する**ツールを先に検討します。Invertに被写体認識や色の自動選択機能があるとは確認できません。
+
+## 注意点と未確認事項
+
+- **反転方式**：RGB各成分、ガンマ補正後の値、輝度、色相などをどのような数式や色空間で計算するかは未確認です。特定の補色計算・180度回転・`1 - x` 処理と断定しません。
+- **Inspector**：色・輝度・色相の選択方法、実際のControl名、初期値、数値範囲、Animation対応を確認していません。
+- **Alpha**：透明度が保持されるか、変換されるか、非premultiplied部分のRGBがどうなるかは未確認です。
+- **端子**：正式な端子名・数、Mask入力の有無は未確認です。
+- **色管理**：scene-linear / display-referred、HDR域外の値、色域境界での処理結果は実機で確かめる必要があります。
+- **製品差**：Resolve Free / Studio / Fusion Studioにおける使用可否、Effects Libraryでの表示、REGIDは実機未確認です。
+
+## バージョンと出典
+
+- **一次資料**：Blackmagic Design『DaVinci Resolve 21.1 Reference Manual』（September 2026）、Chapter 105「Krokodove Nodes」、p.2435「Image Color Tools / Invert」。**色・輝度・色相を反転する**という機能概要を確認しました。
+- **関連**：[Krokodove Family Overview](./)、[Recolor](./recolor)、[Match Color](./match-color)、[Threshold](./threshold)、[Merge](../compositing/merge)。
+
+Manualの記述は1行の概要であり、内部アルゴリズムやInspectorの詳細まで示していません。したがって、この記事では反転の対象を理解するための説明と制作例を提示し、**未検証の処理式・設定名・製品差を確定仕様として書いていません**。`verification: partial`を維持します。
