@@ -26,9 +26,9 @@ FusionではuLoader、uShape、uCamera、uMerge、uRenderer等の`u*` Nodeが<Te
 USD fileを読む場合:
 
 ```text
-uLoader ────┐
-uCamera ────┼─ uMerge → uRenderer → 2D Image / AOV
-uDistant Light ─┘
+uLoader        ──────┐
+uCamera        ──────┼─ uMerge → uRenderer → 2D Image / AOV
+uDistant Light ──────┘
 ```
 
 primitiveをFusion内で作る場合:
