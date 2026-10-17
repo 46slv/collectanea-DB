@@ -1,60 +1,99 @@
 ---
-title: "Lines"
-description: "繰り返しline setを生成。"
+title: Lines
+description: Krokodove Linesで複数の線の組を繰り返して模様を作る考え方、ほかのパターン生成ツールとの違い、合成時の確認点。
 doc_type: node
-term_id: "lines"
-term_short: "Linesは、繰り返しline setを生成。Krokodove固有のtool。"
+term_id: lines
+term_short: 複数の線の組を繰り返し配置して、段階のある線模様を作るKrokodoveの画像ツール。
 verification: partial
-aliases: ["Lines"]
-concepts: ["image-data"]
-nodes: ["Lines"]
-node_family: "krokodove"
-outputs: ["image"]
-tasks: ["motion-graphics"]
+aliases: [Lines]
+concepts: [image-data]
+nodes: [Lines]
+node_family: krokodove
+outputs: [image]
+tasks: [motion-graphics]
 product_scope: fusion
-suite_surfaces: ["fusion"]
-updated: "2026-10-05"
+suite_surfaces: [fusion]
+updated: '2026-10-18'
 ---
 
 # Lines
 
-Linesは、繰り返しline setを生成。Krokodove固有のtoolです。名前だけで2D Image Nodeと判断せず、Input / Output domainとFamily Overviewを先に確認します。
+**Linesは、線を何度も繰り返して模様を作る**Krokodoveのツールです。DaVinci Resolve 21.1 Reference Manualでは、1組または複数組の線からパターンを作り、繰り返しの段階を複数設けられるツールとして紹介されています。
 
-## 役割
+たとえば、画面に一定の間隔で線が並んでいれば、それが一つの線のパターンです。間隔や構成の異なる線の組が複数重なれば、より複雑な模様になります。ただし、これは**線の組を理解するための例**です。線の方向、間隔、太さ、重ね方をInspectorのどの項目で指定できるかまでは、Manualの掲載文から確認できません。
 
-繰り返しline setを生成。このページでは、名前だけで選ばず、**何を受け取り、何が変わり、どのdomainへ返すか**を先に整理します。
+## 何を作るノードなのか
 
-この項目で確認できている中心的な役割は「繰り返しline setを生成」です。exactなInspector項目が未確認の場合は、役割とdata domainを先に使って候補を絞ります。
+Linesは、21.1 Manualの「Image Create Tools」に分類されています。入力された映像の明るさから線を抽出するツールとは説明されていません。用途を考える際は、**元画像の輪郭を検出する処理**と、**繰り返す線模様そのものを作る処理**を区別してください。
+
+「複数のレベル（multiple levels）」も、Fusionの3Dレイヤーやタイムラインのトラックを指すとは限りません。Manualは *multiple levels of repeating lines* と説明していますが、個々のレベルの組み合わせ方法や制御項目は明示していません。
 
 ## 入力と出力
 
-出力分類: **image**。 この分類はdata domainを読むためのものです。Fusion 21.1のexactな端子名・端子数を未確認の場合、ここでは推測して固定しません。
+| 項目 | 現時点で言えること |
+| --- | --- |
+| 入力 | **未確定**。21.1 Manualの短い説明は、必須の画像入力、補助入力、マスク入力の有無を示していません。 |
+| 生成結果 | 繰り返された線のパターン。1組または複数組の線を使えると説明されています。 |
+| 出力 | 既存のCOLLECTANEAカタログでは **2D Image** に分類されています。ただし、正式な出力端子名・数は実機未確認です。 |
 
-## 使うときの判断
+<Term id="image">Image</Term>は、画面の画素を持つ画像データです。輪郭を扱うShapeデータとは異なります。Linesという名前だけで「線の形状データを出力する」と判断せず、後段へつなぐ前にViewerと接続可能な端子を確認します。
 
-KrokodoveはImage、Shape、3D、Regionが同じchapterに並ぶため、まずOutput domainで候補を絞ります。
+なお、frontmatterの `outputs: [image]` は記事を探すための**データ分類**であり、端子の厳密なAPI仕様を保証するものではありません。確認できない入力を `inputs` に推測で追加していません。
 
-同じ目的を別Familyでも作れる場合は、後段で必要なdata domainと、Graph上で責任をどこに置きたいかで選びます。
+## 主な用途
 
-## 最小構成
+### タイトルや情報画面の背景に規則的な線を置く
 
-    Image / Source → Lines → Result
+細い線が繰り返される模様は、文字を置く余白の背景や、情報を区切るグラフィックの候補になります。線が目立ちすぎる場合は、元の映像と合成する段階で見え方を調整します。Lines自体に不透明度やブレンドの設定があると仮定する必要はありません。
 
-これは接続関係を理解するための最小構成案です。公式Manualのexactな作例として確認していない構成は、実制作前にViewerで中間結果を確認します。
+### 異なる密度の線模様を比較する
 
-## 確認ポイント
+「一本の線を複製する」と「複数の線の組で模様を作る」は同じではありません。まず単純なパターンの出力を確認し、複数レベルを制御できる項目が実機にあれば、変更前後をViewerで比較します。設定名・最大レベル数・配置アルゴリズムは未確認なので、具体的な値はここでは指定しません。
 
-- 入力dataのdomainが合っているか。
-- この項目のoutputを受け取れる後段Nodeへ接続しているか。
-- 同じ役割を前段 / 後段で二重に処理していないか。
-- source-limited pageでは、未確認のControl名・default・rangeを名前から推測していないか。
+### ループするモーショングラフィックの素材を検討する
 
-## Family内での位置づけ
+繰り返す線の模様は、移動する背景や切り替え演出の視覚要素になり得ます。ただし、**Lines単体にアニメーション機能やシームレスループ機能があるとは確認していません**。動かす場合は、出力した画像を標準のTransformなどで移動する構成を先に検討します。
 
-Krokodoveノードの全体像と近いNodeの選び分けは[Family Overview](./)を参照してください。
+## 制作例：線模様を映像に重ねる
 
-## 出典と確認範囲
+次は標準Fusionノードを使った**構成案**です。Linesの正式な入出力端子図ではありません。
 
-このページの役割・data domain・系譜は、既存COLLECTANEA catalogとBlackmagic Design公式資料で確認された範囲をreader-first形式へ整理しています。
+```text
+Lines ─────────────→ Merge（Foreground）
+                           ↓
+MediaIn ───────────→ Merge（Background）→ MediaOut
+```
 
-Fusion 21.1 Reference Manualで個別のInspector項目・default・rangeまで確認できていない項目は、**source-limited**としてその詳細を断定していません。verification: partial はその未確認範囲を含みます。runtime REGIDや現在のEffects Library表示は別のruntime verificationで確定します。
+1. Linesを追加してViewerへ表示し、線模様がどのように生成されるかを先に確認します。必要な入力がある場合は、実際の接続口を確認してから接続します。
+2. MediaInに重ね先の映像を用意します。映像のほうをMergeの**Background**へ接続すると、合成画面の基準になります。
+3. Linesの結果が2D Imageとして取り出せることを確認し、Mergeの**Foreground**へ接続します。
+4. 重ねた結果が画面全体を覆うときは、Lines側のAlpha（透明度）をViewerで確認します。**線以外が透明になるとは限りません。** 必要に応じてMergeのApply ModeやBlendを使い、元の映像と線模様の組み合わせを調整します。
+5. 出力を確認して、文字の読みやすさや背景との干渉を判断します。処理を増やす前に、Lines単体とMerge後を見比べると原因を切り分けられます。
+
+MergeのForeground / Background / Blendは**標準[Merge](../compositing/merge)側の操作**です。LinesのInspectorに同名の設定があることを意味しません。
+
+## 似たツールとの違い
+
+| ツール | 21.1 Manualで確認できる役割 | 向いている模様 |
+| --- | --- | --- |
+| **Lines** | 1組または複数組の線による繰り返しパターン | 線を中心にした規則的な背景 |
+| [Pattern](./pattern) | 敷き詰めた図形で画面全体のパターンを作る | タイル状に連なる図形 |
+| [Shapes](./shapes) | 四角形や円など、同心状の図形を複数段階で作る | 内側と外側に重なる円や四角形 |
+| [Blobs](./blobs) | 指定した点に円形を作る | 点の位置を基準にした円形 |
+| [Rasterize](./rasterize) | 入力画像を点・四角・ひし形などに変換するフィルター | 写真などを網点調に変える |
+
+「線を繰り返して**新しい模様を作る**」ならLines、「**元の画像を別の粒や図形で描き直す**」ならRasterizeを先に検討します。PatternやShapesも生成する図形の規則が違うため、同じものとして扱いません。
+
+## 注意点と確認範囲
+
+- **端子と入力条件**：必須入力、入力の型、Mask端子の有無、出力端子名・数は21.1実機で未確認です。
+- **Inspector**：線の方向、幅、間隔、色、繰り返し回数、レベル数に対応する正確な設定名・初期値・範囲は確認していません。
+- **Alpha・合成**：線の背景が透明か不透明か、色・明度・Alphaをどう出力するかは未確認です。映像へ重ねる前に単体結果を確認します。
+- **アニメーション**：時間変化やループを自動生成できるかは未確認です。
+- **製品・バージョン差**：Resolve Free / Studio / Fusion Studio間の使用条件や内部REGIDを実機で確認したわけではありません。
+
+## 出典と関連ページ
+
+**一次資料**：Blackmagic Design『DaVinci Resolve 21.1 Reference Manual』（September 2026）、Chapter 105「Krokodove Nodes」、p.2435「Image Create Tools / Lines」。1組または複数組の線のパターンを生成し、繰り返しの段階が複数ある、という基本的な役割を確認しました。同ページにはPattern、Shapes、Blobsが掲載され、Rasterizeは「Image Tools」に掲載されています。
+
+[Krokodoveの全体像](./)と[画像（Image）](../../learn/02-data/image)も参照してください。Inspectorの詳細、入出力端子、Alpha、Edition差を裏付ける資料は未取得のため、`verification: partial`を維持しています。
