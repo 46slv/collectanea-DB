@@ -15,7 +15,7 @@ outputs: ["parameter"]
 tasks: ["drive-parameter"]
 product_scope: fusion
 suite_surfaces: ["fusion"]
-updated: "2026-10-06"
+updated: "2026-10-13"
 ---
 
 # Probe
@@ -175,6 +175,32 @@ Keyframeを手で打たなくても、Image内の明暗変化をParameterのAnim
 たとえば画面内の発光領域を測定するなら、矩形を対象へ合わせ、Averageで領域全体の値を1つへまとめられます。Minimum / Maximumを選べば、その範囲の最暗部または最明部を基準にできます。
 
 この場合、`Position`は矩形の位置、`Width / Height`は測定範囲、`Evaluation`は複数pixelをどう1値へまとめるかを担当します。
+
+## 読み取る場所と返す数値を別々に調整する
+
+Probeの結果が意図と違うときは、まず**測定した値そのもの**が期待どおりか、その次に**測定値をParameterへ対応させる設定**が適切かを分けて考えます。
+
+- **どこを読むか** — `Image to Probe`で元Imageを選び、`Position X / Y`で測定位置を決めます。1 pixelでは値が変わりやすい場合、`Probe Rectangle`を有効にして`Width / Height`を調整し、`Evaluation: Average`で領域全体の平均を使います。
+- **何を読むか** — `Channel`でRed / Green / Blue / Alpha / Lumaから選びます。色の明るさに反応させる目的でAlphaを選んでも、Alphaが一定の画像では期待する変化を取り出せません。
+- **どの値を返すか** — `Value` tabの`Scale Input`で反応させる測定値の範囲を決め、`Black Value`と`White Value`でその両端を対象Parameterのどの値へ対応させるか設定します。
+
+たとえばライトが暗くなっても効果をゼロにせず、明るいときだけ強めたい場合は、最初に測定位置とLumaを決め、次にBlack / White Valueで効果の最小・最大を調整します。**測定範囲を広げる操作と、出力値の幅を広げる操作は別**です。前者は`Probe Rectangle`、後者は`Value` tabで行います。
+
+## 測定値が意図どおりにならない場合
+
+| 症状 | 確認する項目と対処 |
+| --- | --- |
+| 対象Parameterが動かない | Probeを付けた先がnumeric Parameterか確認します。`Image to Probe`に測定元のImageを持つNodeが指定されているかも見直します。 |
+| 映像は点滅するのに値が変わらない | `Position X / Y`が実際の点滅箇所を指しているか、`Channel`がLumaや変化する色Channelになっているか確認します。Alphaだけが一定の場合もあります。 |
+| 値の変化が細かく不安定 | 1 pixelを測っているなら`Probe Rectangle`を有効にし、変化を代表できる領域で`Average`を試します。これは**空間的な平均**であり、時間方向の平滑化を保証する機能ではありません。 |
+| 小さな明るい点の変化を拾えない | 広い矩形の`Average`では周囲の暗いpixelと平均されます。矩形を絞るか、最も明るい値を使う`Maximum`と比較します。 |
+| 暗い場所の変化を重視したい | 矩形内の最も小さい値を使う`Minimum`と、平均する`Average`で結果を比較します。 |
+| すぐに上限・下限へ寄ってしまう | まず選んだ`Channel`と測定領域を確認し、その後`Scale Input`で反応させる入力範囲を調整します。`Black Value / White Value`は出力側の対応値です。 |
+| 明るいほど効果を弱くしたい | 対象Parameterで許容される範囲内で、`Black Value`を大きく、`White Value`を小さくする対応を試します。 |
+| 画面外で予想と違う値になる | `Out of Image Value`を確認します。矩形測定の場合、**矩形の一部が画面外へ出ただけでは切り替わらず、矩形全体が画面外になったとき**に適用されます。 |
+| `Connect To`で色ごとの値を再利用したい | ProbeがComposition内にあることを確認し、`Result / Red / Green / Blue / Alpha`の個別outputを探します。`Channel`にあるLumaと、公開される個別outputの一覧を混同しないようにします。 |
+
+この切り分けはDaVinci Resolve 21.1 Reference Manual Chapter 124 pp.3022–3024に記載されたControls / Value tabの仕様に基づきます。値の時間方向のフィルタリング、内部Parameter ID、editionごとの差は、このManualの説明だけでは確定しません。
 
 ## From Imageとの違い
 

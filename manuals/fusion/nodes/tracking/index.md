@@ -20,6 +20,7 @@ FusionのTrackingには、**特徴点を追うPoint Tracking、平面のperspect
 | --- | --- | --- |
 | 1点または複数の特徴点 | [Tracker](./tracker) | Position / Angle / Size等のtracking data、Match Move / Stabilize |
 | 看板・壁・画面など平面 | [Planar Tracker](./planar-tracker) | 平面のperspective distortionを含むtrack |
+| しわの寄る布・伸縮する肌など柔らかい面 | [Surface Tracker](./surface-tracker) | 面内のメッシュ変形を追い、Overlay合成・安定化・再変形に利用 |
 | Planar trackをImage / Maskへ再利用 | [Planar Transform](./planar-transform) | Planar Trackerの動きを別要素へ適用 |
 | 実写cameraの3D movementを復元 | [Camera Tracker](./camera-tracker) | 3D CameraとPoint Cloudを含むscene data |
 
@@ -36,6 +37,12 @@ Planar Trackerは、1点ではなく平面領域の見え方全体を追いま�
 license plate、看板、壁、screenなど、camera movementによってperspectiveが変わる面へgraphicを貼る場合に向きます。
 
 Track / Steady / Corner Pin / Stabilizeの4 Operation Modeを持ちます。
+
+## Surface Tracker
+
+Surface Trackerは、布や皮膚のように**面の内部が曲がる・伸びる対象**をメッシュで追います。たとえばシャツの動画と透明ロゴを入力し、胸の表面のしわに合わせてロゴを変形・合成できます。手前の腕を追跡から除外するOcclusion Maskと、結果の適用範囲を決めるEffect Maskは別の入力です。
+
+一枚の平面の動きだけならPlanar Trackerを選び、追跡した面を一度固定してPaint等で修正したいときはSurface TrackerのStabilize-Warp → Rewarpを使います。詳しい手順は[Surface Tracker](./surface-tracker)を参照してください。
 
 ## Planar Transform
 

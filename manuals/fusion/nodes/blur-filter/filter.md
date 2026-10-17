@@ -1,6 +1,6 @@
 ---
 title: Filter
-description: Relief・Emboss・Noise・Defocus・Sobel・Laplacian・Grain等の標準filterをmenuから選び、edge matteやstylizeを作るmulti-purpose Node。
+description: 輪郭抽出、エンボス、ノイズ、グレイン、簡易的なぼかしを1つのノードから選ぶ方法と実際の接続例。
 doc_type: node
 term_id: filter
 verification: partial
@@ -14,74 +14,108 @@ outputs: [image]
 tasks: [filter, edge-detect, stylize, grain]
 product_scope: fusion
 suite_surfaces: [fusion]
-updated: "2026-10-04"
+updated: "2026-10-13"
 ---
 
 # Filter
 
-Filterは、複数の標準image filterを1 Nodeから選ぶmulti-purpose Filter Nodeです。
+Filterは、入力画像に対して複数の画像処理から1種類を選んで適用するノードです。輪郭を検出するSobel / Laplacian、凹凸を表現するRelief / Emboss Over、CG画像へ質感を足すNoise / Grainなど、用途の違う処理が**Filter Type**にまとまっています。
 
-edge detection、emboss、noise / grain、defocus等、目的の異なるalgorithmがFilter Typeにまとめられています。
+名前が似ていますが、[Blur](./blur)ノードの「ぼかし方を選ぶFilter」とは別です。Filterノードは輪郭抽出やノイズ生成にも使います。
 
-## 入力
+## 入力と出力
 
-2D Imageと任意Effect Maskを受けます。
+- **Input（橙）**：処理する2D Image。映像、静止画、Renderer 3Dの画像出力などを接続します。
+- **Effect Mask（青、任意）**：Filterの適用範囲を制限します。[Ellipseなどで作るマスク](../../learn/02-data/mask)や別ノードの画像を接続できます。Manualによると、Effect Maskはフィルター処理の**後**に適用されます。
+- **Output**：選択したFilter Typeで処理された2D Image。映像として出力するほか、Sobel等の結果を別ノードのEffect Maskへ渡すこともできます。
 
-## Filter Type
+    MediaIn → Filter → MediaOut
+                  ↑
+             任意のEffect Mask
 
-21.1 Manualで説明される代表例:
+Effect Maskは「ノードがどの画素を調べるか」の設定ではなく、処理結果の適用範囲を決める入力です。範囲を指定しても、処理自体を範囲内だけに限定できると断定しないでください。
 
-- **Relief** — metalへ押し込んだようなrelief
-- **Emboss Over** — 元Imageへembossを重ねる
-- **Noise** — uniform noise
-- **Defocus** — blur
-- **Sobel** — edge detection
-- **Laplacian** — Sobelより細かいedge detection
-- **Grain** — film grain風noise
-- **Median** — neighborhood rankを使うmedian系processing
+## Filter Typeの選び方
 
-Sobel / Laplacianはedge matte作成に使えます。
+| Filter Type | 画像がどう変わるか | 使いどころ |
+| --- | --- | --- |
+| **Relief** | 画像を灰色の金属面へ押し込んだような陰影にする | 硬貨やレリーフ状の質感 |
+| **Emboss Over** | 元画像を残しつつ、明暗による浮き彫りを重ねる | ロゴやテクスチャーの立体感 |
+| **Noise** | 均一なノイズを加える | CGの均質な面へ細かな変化を加える |
+| **Defocus** | 画像をぼかす | 簡易的なぼかし。絞り形状まで扱う場合は[Defocusノード](./defocus) |
+| **Sobel** | 輪郭を抽出する | 輪郭だけの発光、エッジを使うマスク素材 |
+| **Laplacian** | Sobelより細かい輪郭を抽出する | 小さなディテールを拾う輪郭マスク |
+| **Grain** | 主に中間調へフィルム粒子に似たノイズを加える | CGと実写を合成する際の質感合わせ |
 
-## Power
+この表は21.1 ManualのFilter Type一覧に明示された項目です。**Median**は次節のInspector説明に登場しますが、同じManualのFilter Type一覧には列挙されていません。実機で選択可能か未確認のため、一覧へ無条件に追加していません。
 
-filter effectの強さです。
+SobelとLaplacianは被写体の意味を理解して切り抜くキーヤーではありません。明暗や色の変化がある場所を検出するため、必要ないテクスチャーの輪郭も出ます。結果をそのまま完成したアルファマットとみなさず、使うチャンネルと明るさを確認します。
 
-Sobel / Laplacianには適用されないとManualに記載されています。
+## Inspector：主な操作
 
-## Angle
+### Color Channels（RGBA）
 
-Relief / Embossのlight / direction感を45° stepで変更します。
+R・G・B・Aのチェックで、処理対象のチャンネルを選びます。たとえばRGBにだけ効果を加え、元のAlphaを保ちたいときはAを外します。透過画像の境界まで加工したい場合は、Alphaの扱いが結果に影響するため、RGBだけのプレビューで判断しないようにします。
 
-## Median
+### Power
 
-Median typeで選択rankを調整します。
+選択したFilterの効果量です。**1〜10**の範囲で設定します。Manualでは**SobelとLaplacianには適用されない**と明記されています。輪郭が弱い場合にPowerを上げ続けるのではなく、元画像のコントラストや後段の処理を検討します。
 
-0.5がtrue median、0がminimum、1がmaximumです。
+### Angle
 
-## Seed / Animated
+**Relief / Emboss Over**の陰影方向を変更します。範囲は**0〜315度、45度刻み**です。ロゴの浮き彫りなら、光が当たっているように見せたい方向に合わせて調整します。その他のFilter Typeへ共通する回転パラメータではありません。
 
-Noise / Grain typeでrandom patternを制御します。
+### Median
 
-Animatedを有効にするとframeごとにpatternを変え、無効にするとstatic noiseになります。
+21.1 Manualは、**Median設定時のみ**現れるパラメータとして説明しています。値が**0.0なら最小値、0.5なら中央値、1.0なら最大値**を選びます。ただし、前述のとおりFilter Type一覧と記載が一致しません。操作画面にMedianがなければ、このスライダーの存在を前提にせず、近傍画素の順位を明示的に操作できる[Rank Filter](./rank-filter)を確認してください。
 
-## 運用例
+### Seed / Animated
 
-keyed foregroundのedgeだけをglowさせる場合:
+どちらも**Noise / Grain**を選んだ場合だけ表示されます。
 
-```text
-Foreground → Filter (Sobel) → edge matte
-                           ↓
-                       Glow Mask
-```
+- **Seed**：乱数パターンの起点。同じSeed値なら同じ条件下で再現可能なパターンを得ます。
+- **Animated**：オンでフレームごとに模様が変わり、オフで静止した模様になります。
 
-Image本体へFilter結果を直接使わず、edge detectionを別EffectのMask sourceにする構成です。
+ManualはNoise / Grainについてフレーム番号を乱数の種として使うとも記載していますが、Animatedをオフにしたときの内部的な優先関係までは説明していません。固定テクスチャーにしたい場合は、実際に数フレームを比較して確認します。
 
-## Custom Filterとの違い
+## 実際の使い方
 
-Filterはpreset algorithmを選びます。
+### 1. 抜いた人物の輪郭だけに光を足す
 
-kernel weightを自分で設計する必要がある場合は[Custom Filter](./custom-filter)を使います。
+人物をキーイングして得たForeground画像を2系統に分けます。一方はGlowの**画像入力**へ、もう一方はFilterへ接続して**Sobel**を選び、輪郭画像を作ります。その出力をGlowの**Effect Mask**に使うと、発光の適用範囲を輪郭へ寄せられます。
+
+    キーイング済みForeground ─────────→ Glow（画像）→ Merge
+                   └→ Filter（Sobel）→ Glow（Effect Mask）
+    Background ────────────────────────────────→ Merge
+
+Filter結果を画像本体と置き換えるのではなく、**元画像を残したまま輪郭をマスク素材として再利用**する構成です。Glowが出す光の幅とSobelの輪郭の太さは同じものではありません。細かな髪や服の模様まで光る場合は、元画像やマスクを見直します。
+
+### 2. CG素材のノイズを実写へ近づける
+
+CGレンダリング済みの2D画像をFilterに入れ、まず**Grain**を選びます。強度を小さく始め、背景の実写と並べて中間調の粒子感を比較します。時間方向に粒が変化する素材ならAnimatedをオンにし、静止したグラフィックの質感だけを変えたい場合はオフも試します。
+
+Grainはフィルム粒子風、Noiseは均一なノイズというManual上の違いがあります。ただし、**Filterだけで実写の粒状感を完全に再現できるわけではありません**。粒子のサイズや色分布まで合わせる必要があれば、別のノイズ処理やFilm Grainも比較します。
+
+### 3. ロゴに浮き彫りの陰影を加える
+
+ロゴの画像をFilterへ接続し、**Emboss Over**を選びます。Angleを45度刻みで変え、Powerで強さを調整します。元画像の配色を生かしたいときは、色とAlphaがどう変わったかを確認し、必要ならマスクや後段のMergeで元画像と組み合わせます。
+
+## 他のノードとの使い分け
+
+- [Blur](./blur) / [Defocus](./defocus)：ぼかしを主目的にする。レンズのピント外れや絞り形状を再現したいならDefocusが候補です。
+- [Rank Filter](./rank-filter)：近傍画素の順位を使って点状ノイズを除去したり、水彩画風の表面にしたりする処理に向きます。
+- [Custom Filter](./custom-filter)：用意された種類を選ぶのではなく、周辺画素へ適用する係数（カーネル）を自分で設定します。
+- [Glow](./glow)：FilterのSobel / Laplacianで得た輪郭画像をEffect Maskとして利用できます。
+
+## うまくいかないとき
+
+- **Sobel / LaplacianでPowerを変えても変化しない**：仕様上、Powerは両Filter Typeへ作用しません。
+- **Noise / Grainが毎フレームちらつく**：Animatedの状態を確認します。固定したい場合はオフにして前後フレームを比較します。
+- **輪郭が細かすぎる**：LaplacianはSobelより細かい輪郭を拾います。輪郭抽出を明暗差の検出として捉え、元画像と後段マスクを確認します。
+- **マスクをつないでも想定外の部分が変わる**：青いEffect Mask入力と橙の画像入力を取り違えていないか、マスクの白黒やAlpha、どの画像を表示しているかを確認します。
+- **Medianが見当たらない**：21.1 Manual内でFilter Type一覧とMedianパラメータ説明が一致していません。存在や表示条件を推測せず、[Rank Filter](./rank-filter)を代替候補として確認します。
 
 ## 出典と確認範囲
 
-DaVinci Resolve 21.1 Reference Manual Chapter 99 pp.2338–2341で、Image / Effect Mask、Filter Type、RGBA、Power、Angle、Median、Seed、Animatedを確認しました。
+- Blackmagic Design『DaVinci Resolve 21.1 Reference Manual』（September 2026）、Chapter 99「Filter Nodes」、pp.2339–2341。入力、各Filter Type、InspectorのColor Channels / Power / Angle / Median / Seed / AnimatedとSobelの接続例を確認。
+- Medianのメニュー上の有無、各Filterの内部演算式、正確なチャンネル変換、21.1実機での初期値・Edition差は未検証です。本記事の接続例はManualの基本接続を基に説明しています。

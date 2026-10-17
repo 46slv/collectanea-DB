@@ -3,6 +3,7 @@ title: CoordTransform Position
 description: 3D hierarchyの途中で変形されたobjectについて、元のPositionではなく指定したscene段階での現在位置を計算してParameterへ返すModifier。
 doc_type: node
 term_id: coord-transform-position
+term_short: "CoordTransform Positionは、Classic 3Dシーン内で変形されたオブジェクトの位置を計算し、XYZ座標パラメータへ渡すModifier。"
 verification: partial
 aliases: [CoordTransform Position, Coordinate Transform]
 concepts: [classic-3d, coordinate-space, modifiers]
@@ -13,7 +14,7 @@ outputs: [parameter]
 tasks: [3d-position, coordinate-convert, modifier]
 product_scope: fusion
 suite_surfaces: [fusion]
-updated: "2026-10-07"
+updated: "2026-10-13"
 ---
 
 # CoordTransform Position
@@ -128,6 +129,50 @@ Transform 3D ────────────────┐
 
 この例はControlの役割を理解するための構成案です。特定Nodeの組み合わせに対するcurrent runtimeの動作確認を示すものではありません。
 
+## 操作例：別の3Dオブジェクトを変形後の位置へ合わせる
+
+たとえば、ある3DオブジェクトAを後段のTransform 3Dで移動させ、その**移動後の場所**に別の3DオブジェクトBを置きたいとします。A自身の元のPositionだけをBへ接続しても、Aの後ろにあるTransform 3Dで加えた移動は反映されません。
+
+```text
+オブジェクトA（元の位置）
+        ↓
+Transform 3D（移動・回転・拡大縮小）
+        ↓
+Transform 3D（さらに変形） ← Scene Inputに指定する地点
+
+オブジェクトA ─────────┐
+                        ├─ CoordTransform Position ─→ オブジェクトBのXYZ位置
+最後のTransform 3D ────┘
+   （Scene Input）
+```
+
+1. Aを含むClassic 3Dの接続を作り、追跡したい変形の終点となる3D Nodeを決める。
+2. B側で、位置を受け取りたい**XYZ座標Control**へ`Modify With > CoordTransform Position`を追加する。3D SceneそのものにModifierを挿入する操作ではない。
+3. Modifiers tabの`Target Object`へ、変形前から存在するAの3D Nodeを指定する。
+4. `Scene Input`へ、Aが目的の変形をすべて通過した段階の3D Nodeを指定する。
+5. Aの上流Positionではなく、参照したscene段階で計算された位置がBのXYZ Controlへ渡ることを確認する。Aの後段Transformを変え、B側の位置が更新されるかを観察する。
+
+Manualにある「元の位置`(1, 2, 1)`、下流の変形後`(10, 20, 5)`」という数字は**違いを説明する例**で、どのNodeも自動的にその値になるわけではありません。この手順はManualが説明するTarget ObjectとScene Inputの参照関係を具体的な配置にしたもので、実機でその接続を確認した記録ではありません。
+
+参照するsceneは、**B自身の出力から作った下流sceneではなく、位置を求めたいAの状態が得られる地点**を選びます。Bを動かすためにB自身の結果を参照するような依存関係は避け、まずAの経路だけで参照位置を確かめると切り分けやすくなります。
+
+## 期待した位置にならないとき
+
+| 症状 | 確認する箇所 |
+| --- | --- |
+| 元のPositionと同じ値に見える | `Scene Input`が変形前のNodeを指していないか。位置を求めたいTransform 3Dまで到達したsceneを指定しているか。 |
+| 途中の変形までは追従するが、最後の移動が反映されない | 最後のTransform 3Dより上流を`Scene Input`にしていないか。 |
+| 別の3Dオブジェクトを参照している | `Target Object`が実際に追跡したい元オブジェクトか。指定したオブジェクトが参照sceneに含まれるか。 |
+| Text 3Dの文字／Duplicate 3Dの複製を個別に扱えない | 対象geometryが`SubID`で要素を指定できるか。番号の対応を未確認のまま決め打ちしていないか。 |
+| 2DのTransformやMaskのCenterが動いてほしい | このModifierが扱うのはClassic 3D scene内の位置。2D位置のアニメーション編集なら[Path](./path)や[XY Path](./xy-path)を確認する。 |
+| 参照先を変えると結果が大きく変わる | scene hierarchyのどの段階を指定したかを比較する。複数のTransformをまたぐと、元の局所的なPositionとは異なる座標になる。 |
+
+### XY Pathとの違い
+
+[XY Path](./xy-path)は、**2Dの位置をX・Yそれぞれの時間曲線としてアニメーションするModifier**です。一方のCoordTransform Positionは、**Classic 3Dのscene hierarchyを通った後のXYZ位置を別の座標Controlへ渡す**ために使います。
+
+つまり「画面上の2Dグラフィックの軌跡を編集したい」ならPath / XY Path、「3DのオブジェクトがTransformを重ねたあと、どこにあるかを別のパラメータで参照したい」ならCoordTransform Positionが候補です。2Dの画面座標へ3D位置を投影する機能として扱わないでください。
+
 ## Transform 3Dとの違い
 
 [Transform 3D](../3d/transform-3d)は、Classic 3Dのobjectやsceneへ位置・回転・scaleの変形を**加えるNode**です。
@@ -156,6 +201,6 @@ SubIDは、Text 3Dの文字やDuplicate 3Dのcopyのように個別要素を持�
 
 DaVinci Resolve 21.1 Reference Manual（September 2026）Chapter 124「Modifiers」pp.2999–3000を基準にしています。同章で、3D hierarchy内の現在位置の計算、`Modify With > CoordTransform Position`、Target Object、SubID、Scene Inputを確認しています。
 
-同Manual Chapter 88 pp.2017–2018にもCoordinate Transform 3Dとして同じ役割とControlの説明があります。
+同Manual Chapter 88 pp.2017–2018にもCoordinate Transform 3Dとして同じ役割とControlの説明があります。上記の操作例と診断表は、両章の記載をもとに本記事で組み立てた説明であり、実機の再現結果ではありません。
 
 このページではManualで確認できる役割・Control名・接続方法を記載しています。current runtimeのREGID、内部Parameter ID、SubIDの全対応geometryと番号体系、Manualに記載されていないdefault / range、edition差は別のruntime verification対象です。

@@ -1,9 +1,9 @@
 ---
 title: pMerge
-description: 2つのParticle streamを1つへ統合し、各particleのSet情報を保持したまま後段へ渡すParticle Combiner。
+description: 2本のParticle streamを統合し、Setを保持したまま共通のForceやpRenderへ渡すノード。統合の前後で処理を分ける方法を解説する。
 doc_type: node
 term_id: pmerge
-term_short: pMergeは、2つのParticle streamを1つへまとめるNode。
+term_short: pMergeは、2本のParticle streamを1本にまとめるノード。
 verification: partial
 aliases: [pMerge, pMg]
 concepts: [particle-data]
@@ -14,70 +14,140 @@ outputs: [particle]
 tasks: [particles, merge-particles]
 product_scope: fusion
 suite_surfaces: [fusion]
-updated: "2026-10-04"
+updated: "2026-10-13"
 ---
 
 # pMerge
 
-pMergeは、2つの<Term id="particle-data">Particle stream</Term>を1つにまとめるNodeです。
+**pMerge [pMg]は、別々に作った2本のParticle stream（粒子の流れ）を1本にまとめるノード**です。たとえば火花と煙を別々のpEmitterで発生させ、1つのpRenderで表示したい場合に使います。
 
-通常のMergeのように2D Imageを重ねるのではなく、2つのParticle setを1つのParticle setへ統合します。
+Fusionでいう<Term id="particle-data">Particle stream</Term>は、粒子の位置・速度・寿命・色などの情報を渡すデータで、まだ2D画像ではありません。pMergeは画像を重ねるのではなく、**2つの粒子の集合を統合**します。基礎から確認したい場合は[パーティクル（Particle）](../../learn/02-data/particle)を参照してください。
 
-## 入力
+## 入力と出力
 
-Particle 1とParticle 2の2入力を持ち、どちらもParticle Nodeの出力だけを受け取ります。
+| 接続 | データ | 役割 |
+| --- | --- | --- |
+| Particle 1（橙） | Particle | 1本目のParticle streamを受け取る |
+| Particle 2（緑） | Particle | 2本目のParticle streamを受け取る |
+| Output | Particle | 両方を含む1本のParticle streamを後段へ渡す |
 
-```text
+**2つの入力はどちらもParticle用**です。端子色は橙と緑ですが、通常の2D MergeにあるForeground／Backgroundのような違いはありません。[pEmitter](./p-emitter)や、Forceなどを通したParticle出力を接続します。2D Imageを直接重ねる端子ではありません。
+
+~~~text
 pEmitter A ─┐
-            ├─ pMerge → pRender
+            ├→ pMerge → pRender
 pEmitter B ─┘
-```
+~~~
 
-## 出力
+後段のParticleノードは、AとBがまとまった1本のstreamを受け取ります。pMerge自身は粒子を新しく生成せず、色や動きを変えるInspector Controlも持ちません。**pMerge固有の設定項目はありません。**
 
-統合後のParticle setを出力します。
+出力は引き続きParticleデータです。表示するには[pRender](./p-render)へ渡して2D Imageまたは3D側の出力へ変換します。
 
-後段のForce / Behavior / pRenderからは1つのstreamとして扱われます。
+## 統合前と統合後で処理が変わる
 
-## Control
+pMergeをどこに置くかで、特定の流れだけを処理するのか、両方へ同じ処理をするのかが変わります。
 
-pMerge固有のInspector Controlはありません。
+### 統合前：それぞれ異なる動きを付ける
 
-役割はstreamの統合だけです。
+~~~text
+pEmitter A → pTurbulence ─┐
+                          ├→ pMerge → pRender
+pEmitter B → pFriction ───┘
+~~~
 
-## Particle Setは保持される
+Aの粒子には[pTurbulence](./pturbulence)で不規則な動きを加え、Bには[pFriction](./pfriction)で速度の減衰を加えます。これらは**pMergeより前の流れだけ**に作用します。統合後は、別々に調整した粒子をまとめて描画できます。
 
-各Emitter等で割り当てたSet番号はpMerge後も保持されます。
+### 統合後：同じForceを共有する
 
-たとえばEmitter AをSet 1、Emitter BをSet 2にしておけば、pMerge後のpDirectionalForceをSet 1だけへ適用する、といった分岐ができます。
-
-## 最小構成
-
-```text
+~~~text
 pEmitter A ─┐
-            ├─ pMerge → pRender (2D) → Merge
+            ├→ pMerge → pDirectionalForce → pRender
 pEmitter B ─┘
-```
+~~~
 
-「異なる見た目のparticleを同じforce fieldへ入れたい」「複数Emitterを1つのpRenderでrenderしたい」場合に使います。
+[pDirectionalForce](./pdirectionalforce)は統合済みの粒子を受け取ります。条件で絞らなければ、AとBの両方が同じ方向の力を受けます。別々の粒子を同じ風や重力で動かしたいときの構成です。
 
-## 通常のMergeとの違い
+3本以上のstreamをまとめる場合は、2入力のpMergeを複数段つなぎます。
 
-- **pMerge** — Particle set + Particle set → Particle set
-- **Merge** — 2D Image + 2D Image → 2D Image
-- **Merge 3D** — Classic 3D sceneをまとめる
+~~~text
+pEmitter A ─┐
+            ├→ pMerge 1 ─┐
+pEmitter B ─┘             ├→ pMerge 2 → pRender
+pEmitter C ───────────────┘
+~~~
 
-名前は似ていますがdata domainが違います。
+## 制作例1：火花と煙を一緒に表示する
 
-## 関連Node
+火花と煙を異なる見た目・速度で発生させ、1枚の2D映像として背景へ重ねる例です。
 
-- [pEmitter](./p-emitter)
-- [pRender](./p-render)
-- [Merge](../compositing/merge)
-- Merge 3D
+~~~text
+pEmitter（火花）─┐
+                 ├→ pMerge → pRender（2D）─┐
+pEmitter（煙）───┘                         ├→ Merge → MediaOut
+背景映像（MediaIn）──────────────────────┘
+~~~
+
+1. 2つの[pEmitter](./p-emitter)を作ります。火花側は短い寿命と速い初速、煙側は長い寿命と遅い動きなど、異なる設定にします。
+2. それぞれのParticle出力をpMergeのParticle 1／2へ接続します。発生量や見た目は各pEmitterで調整します。
+3. pMergeの出力をpRenderへ接続し、**Output Modeを2D**にします。ここで両方の粒子が画像として描画されます。
+4. pRenderの画像を通常の[Merge](../compositing/merge)のForegroundへ、背景映像をBackgroundへ接続します。
+
+火花だけを減速したい場合は火花側のpEmitterとpMergeの間にpFrictionを挿入します。両方に同じ風を加えたい場合は、pMergeの後ろにpDirectionalForceを置きます。**どの粒子に処理を適用するか**が配置の判断基準です。
+
+## 制作例2：統合後もSetで処理を分ける
+
+pMergeは、粒子が作られたときに割り当てられた**Set情報を保持**します。Setは粒子をグループとして識別する番号で、見た目を示すStyleとは別です。統合後でも、後段ノードの**Conditions**で対象Setを指定できます。
+
+~~~text
+pEmitter A（Set 1）─┐
+                    ├→ pMerge → pDirectionalForce（Set 2のみ）→ pRender
+pEmitter B（Set 2）─┘
+~~~
+
+1. AのEmitterにSet 1、BにSet 2を割り当てます。
+2. 両方をpMergeへ接続します。2つのSetが同じstreamに入っても、**Set番号は保持されます**。
+3. 後段のpDirectionalForceの**Conditions**で、Set Modeを**Affect Specified Sets**、Set #を**2**にします。
+4. pRenderで動きを比べます。Forceの向きと強さを明確にすると、Set 2だけに作用しているか確認しやすくなります。
+
+**pMergeがSet番号を自動で振り直すわけではありません。** AとBが同じSetなら、統合後にその番号だけで発生元を区別できません。区別したいときはEmitterで異なるSetを割り当てます。途中でSetを変更したい場合は[pChangeStyle](./pchangestyle)も使えます。
+
+## 制作例3：3Dシーンへ組み込む
+
+Particleを3Dシーンの物体と組み合わせる場合も、pMergeの出力はまだParticleです。
+
+~~~text
+pEmitter A ─┐
+            ├→ pMerge → pRender（3D）─┐
+pEmitter B ─┘                        ├→ Merge 3D → Renderer 3D → Merge（2D）
+Shape 3D ────────────────────────────┘
+~~~
+
+pRenderの**3D出力**で粒子をClassic 3Dシーン側のデータへ変換し、[Merge 3D](../3d/merge-3d)でShape 3Dなどとまとめます。[Renderer 3D](../3d/renderer-3d)を通して初めて2D画像として合成できます。
+
+pMergeとMerge 3Dは名前が似ていますが、入力するデータが異なります。pMergeのParticle出力をそのまま2D MergeやMerge 3Dへ渡すものではありません。
+
+## 似たノードとの違い
+
+| ノード | 入力 | 出力 | 用途 |
+| --- | --- | --- | --- |
+| **pMerge** | Particle × 2 | Particle | 異なるEmitterの粒子を後段でまとめて処理・描画する |
+| [Merge](../compositing/merge) | 2D Image | 2D Image | 前景と背景の画像を合成する |
+| [Merge 3D](../3d/merge-3d) | Classic 3Dの物体・シーン | Classic 3Dシーン | 物体・カメラ・ライトを3D空間へ集める |
+
+pMergeは**粒子を統合する段階**、pRenderは**粒子を描画可能な結果へ変換する段階**、通常のMergeは**描画済み画像を重ねる段階**です。
+
+## うまく動かないとき
+
+- **片方の粒子が見えない**：2本ともParticle入力に接続したか、各pEmitterで発生しているか確認します。片方ずつpRenderへ直結して表示を比べると、原因を切り分けられます。
+- **両方の粒子が同じ動きになる**：ForceをpMergeの後ろへ置くと統合済みの両方に作用します。片方だけなら統合前へ移すか、後段のConditionsでSetを限定します。
+- **Setを指定しても分かれない**：Emitter側のSet割り当てと、後段のSet Mode／Set #を確認します。
+- **Viewerに出ない／2D Mergeへつながらない**：pMergeはImageを出しません。pRenderを接続し、2D合成ならOutput Modeを2Dにします。
+- **再生位置によって状態が違う**：Particleは前フレームの状態に依存します。[pRender](./p-render)のPre-Rollなどを確認し、連続再生でも再現するか切り分けます。
 
 ## 出典と確認範囲
 
-DaVinci Resolve 21.1 Reference Manual Chapter 114 p.2676で、2 Particle入力、Controlなし、Set保持を確認しました。
+- **DaVinci Resolve 21.1 Reference Manual**（September 2026）、Chapter 114「Particle Nodes」、**p.2676**：Particle 1／2の端子色・データ型、Controlなし、Set保持、後段への接続。
+- 同マニュアル Chapter 86「Particle Systems」、**pp.1891–1897**：複数Emitterの統合、Force、pRenderを使った描画。
+- 同マニュアル Chapter 114「Conditions」、**pp.2697–2699**：Setを利用した処理対象の限定。
 
-実機性能は未確認のため `verification: partial` としています。
+本文の火花・煙などの例は、公式の接続仕様を基にした**構成例**であり、実機で同じ見た目を再現した検証記録ではありません。現在のResolve 21.1での性能やEdition差は未確認のため、verificationはpartialです。

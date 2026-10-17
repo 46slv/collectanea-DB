@@ -1,9 +1,9 @@
 ---
 title: User Controlsで公開interfaceを作る
-description: Graph内部の実装パラメータと、操作する人へ見せるcontrolを分離する。
+description: FusionのInspectorに操作項目を追加・変更し、実際のパラメータへ結び付ける。
 doc_type: concept
 term_id: user-controls
-term_short: Graph内部のparameterから操作用の公開interfaceを作る仕組み。
+term_short: ノードのInspectorへ追加・変更・非表示にできる独自の操作項目。
 verification: partial
 aliases: [User Controls, Edit Control, custom controls]
 concepts: [user-controls, interface-design, parameter-ownership]
@@ -12,98 +12,131 @@ prerequisites: [parameter-data, expressions]
 level: intermediate
 product_scope: fusion
 suite_surfaces: [fusion]
+updated: "2026-10-16"
 ---
+
 # User Controlsで公開インターフェースを作る
 
-## このページで分かること
+Fusionでは通常、Inspectorの既存パラメータを操作してノードの効果を調整します。しかし、そのままでは利用者に分かりにくい場合や、複数の値を一緒に動かしたい場合があります。**User Controls**は、ノードのInspectorへ新しい操作項目を加えたり、既存項目の名前や表示方法を変えたりする機能です。
 
-複雑なGraphを再利用するとき、内部Nodeをすべて見せずに必要なcontrolだけを公開する方法を説明します。
+たとえばDirectional Blurの「Length（ぼかしの長さ）」と「Angle（方向）」を別々に調整する代わりに、Viewer上の1点を動かして長さと方向を決める操作へ変更できます。**画像処理は元のノードが実行し、User Controlsは操作する側のインターフェースを変えます。**
 
-## 基本の考え方
+## User ControlsとMacroの違い
 
-User Controlは、**実装のパラメータと、利用者へ公開するインターフェースを分ける**ための層として考えます。
+| 機能 | 役割 |
+| --- | --- |
+| User Controls | **個々のノード**のInspectorに新規・変更・非表示のControlを設ける |
+| Expression / Connect To | 追加したControlの値を、実際に画像を処理するパラメータへ渡す |
+| [Macro](./macros-templates)のExport | **複数ノードをまとめたMacro**の外から使える端子とControlを選ぶ |
+| [Group](./groups) | ノード群を整理し、内部Graphを編集可能なまままとめる |
 
-```text
-internal nodes / parameters
-        ↓
-relation / expression
-        ↓
-public user controls
-        ↓
-operator edits intent
-```
+**Controlを追加するだけでは画像は変化しません。** 値を内部パラメータへ接続・参照させる必要があります。反対に、Controlを非表示にしても元の処理は動き続けます。
 
-「どの値を触るか」ではなく、「利用者は何を決めるべきか」をインターフェースとして定義します。
+21.1 Manualによれば、変更したUser Controlsは**そのノードのインスタンス**に保存されます。コピー／ペースト、Settingとしての保存、BinsやFavoritesへの追加でも引き継げます。同じ種類のすべてのノードの初期UIを書き換える機能ではありません。
 
-Blackmagic DesignのFusion 20 Manualでは、User Controlsで既存controlの変更・非表示、新しいcontrolの追加、typeや範囲の定義ができ、変更はNode instance自体に保存されると説明されています。21.1での正確なダイアログ項目は再確認対象です。
+## Edit Controlを開く
 
-## 最小例
+1. Fusionページで対象ノードを選び、Inspectorに表示します。
+2. **Inspectorのヘッダーにあるノード名を右クリック**します。数値欄を右クリックして開くメニューとは違います。
+3. **Edit Control**を選び、既存Controlを選択するか新規Controlを定義します。
+4. 名前・型・表示タブや入力UIを設定し、必要な内部パラメータへ値を結び付けます。
 
-内部で複数パラメータが連動しているGraphに、1つの意味controlを用意します。
+21.1 Manual Chapter 69にあるダイアログの主な区分は次のとおりです。
 
-```text
-User Control: "Spacing"
-   ├─ element A offset
-   ├─ element B offset
-   └─ element C offset
-```
+- **Input attributes**：既存Controlの選択、新しいControlの追加、名称、型、配置するタブ。
+- **Type attributes**：入力UIの種類、初期値・範囲、Viewer上の操作UIの有無。
+- **Input Ctrl attributes**：選択した入力UI固有の設定。
+- **View Ctrl attributes**：Viewer上の操作UI固有の設定（該当する場合）。
 
-利用者はSpacingだけを変更し、内部の計算式や個別offsetを直接触らない構成にします。
+数値だけでなく**Point**、**CheckboxControl**、**MultiButtonControl**などの形を選べる例が載っています。すべての項目が全Controlで利用できるわけではありません。
 
-## 共通ルール
+### IDは内部の参照名、Nameは画面の表示名
 
-- public controlはdesign intentを表す。
-- 内部パラメータ名をそのまま公開する必要はない。
-- 1つの意味を複数の独立controlで二重管理しない。
-- 範囲や初期値を公開する場合は、Graphが成立する範囲を意識する。
-- User Controlを増やすほど使いやすくなるとは限らない。
+既存Controlの**ID**はExpressionなどで参照する識別子です。**Name**はInspectorに表示する文字列です。両者を区別します。
 
-## 1つずつ変えて確認する
+21.1 Manualの作例では、既存のIDを選んだとき**Replace / Hide / Change ID**から選択します。
 
-内部パラメータを1つ直接触る代わりに、同じ結果をUser Control経由で変更します。
+- **Replace**：元のIDを保ちながら、名前や操作UIを作り直します。
+- **Hide**：元のControlをInspectorから隠します。
+- **Change ID**：識別子を変更します。式が元のIDを使っているなら参照先を確認します。
 
-どちらがGraphの意図を保ちやすいか、変更責任がどこにあるかを比較します。
+表示名だけ変えたい場合にIDを変更する必要はありません。既存のExpressionを保ちたいときは特に重要です。
 
-## 他のNodeにも応用する
+## 具体例：Directional Blurを1点から操作する
 
-### Macro / Template
+公式Manualのpp.1516–1517では、Directional Blurの**Length**と**Angle**を、**Center**の位置から計算する方法が示されています。
 
-再利用可能な<Term id="macros-templates">Macro</Term>やTemplateでは、公開controlの選択そのものがインターフェース設計になります。
+~~~text
+入力画像 → Directional Blur → ぼかし済み画像
+                  ↑
+             Blur Vector
+                  │
+             ┌────┴────┐
+             ↓         ↓
+           Length     Angle
+          （式で算出）（式で算出）
+~~~
 
-### Expressions
+1. 元の**Length**と**Angle**へCenterの座標を参照するExpressionを設定します。Centerを動かして、ぼかしの長さと方向が連動するか先に確認します。
+2. Edit Controlで既存の**Center**を選び、**Replace**を指定します。
+3. 公式作例どおり**NameをBlur Vector、TypeをPoint、PageをControls**とします。**IDはCenterのまま**にして、Expressionの参照を保ちます。
+4. 元の**Length**と**Angle**を**Hide**にします。
+5. ViewerでBlur Vectorを移動し、入力画像に対するぼかしの変化を確認します。
 
-User Controlを基準となる値にし、複数パラメータを<Term id="expressions">Expression</Term>で派生させられます。
+LengthとAngleに用いる公式の式では、画像の縦横比と座標スケールも考慮します。完全な式は**21.1 Manual p.1516**を参照してください。単に「X座標をAngleへ代入する」だけでは同じ動作になりません。
 
-### Repeated graphics
+Blur Vectorは画像端子ではなく、**入力画像のぼかし方を決める操作値**です。この変更でノードの画像入力や出力の種類が変わるわけではありません。
 
-brand color、margin、stroke widthのような意味パラメータを公開し、内部Node構造を隠す設計へ応用できます。
+### LinearとCenteredの2択を作る
 
-## 初見のNodeを読む
+同じ作例では、Directional BlurのTypeを2択にする方法も紹介しています。
 
-新しい再利用Graphを作るとき、次を先に決められます。
+新しいID **Centered**のControlを追加し、Typeを**Number**、Input Ctrlを**CheckboxControl**にします。元のTypeへ次のSimpleExpressionを設定します。
 
-1. 利用者が変更すべき意味は何か。
-2. 内部に隠すべきパラメータは何か。
-3. どの値をmasterにするか。
-4. invalidな組み合わせをどう避けるか。
+~~~text
+iif(Centered==1, 2, 0)
+~~~
 
-## よくある誤解
+チェックが入るとTypeへ2、外れると0を渡します。**チェックボックスを作成しただけでは既存のTypeは切り替わりません。** 式で連動させた後、元のTypeを隠します。
 
-**Inspectorを短くするためだけにUser Controlを作ること。**
+21.1 Manual p.1517には、**MultiButtonControl**でLinearとCenteredだけを表示する方法もあります。ここでの0と2はDirectional Blurの作例の値なので、別のノードの選択肢へそのまま使い回さないでください。
 
-目的は見た目の整理だけではなく、Graphの内部実装と利用者の意思決定を分けることです。
+## 複数ノードの調整を一つにまとめたい場合
 
-## 関連パターン
+3つの図形を等間隔に並べたタイトルで、利用者に**Spacing**だけを操作させたいとします。
+
+~~~text
+Spacing
+  ├─ 図形Aの位置を計算する式
+  ├─ 図形Bの位置を計算する式
+  └─ 図形Cの位置を計算する式
+               ↓
+      3つの図形の間隔が変わる
+~~~
+
+SpacingというUser Controlを追加したノードから、各図形の位置パラメータがその値を参照する構成です。必要な式は基準位置や図形数によって変わります。User Controlが別のノードを自動的に操作するわけではありません。
+
+一式を別のCompositionで使うなら、[Macro / Template](./macros-templates)として保存し、**Macro Editorで公開するControlと入出力端子をExport**します。User Controlsを追加したことと、Macroの公開設定が終わったことは同義ではありません。作成から配布までの流れは[Resolveで再利用する手順](../../resolve-integration/reusable-fusion-assets)を参照してください。
+
+## 確認とトラブルシューティング
+
+- **操作項目は動くのに映像が変わらない**：内部パラメータへのExpression・接続を確認します。
+- **名称を変えたら式が動かない**：NameだけでなくIDを変えていないか調べます。
+- **必要なパラメータが見えない**：HideしたControlを確認します。式を作ってから非表示にすると原因を追いやすくなります。
+- **新しく追加した同種ノードにControlがない**：User Controlsは元のインスタンスに保存されます。変更済みノードをコピーしたのか区別します。
+- **Macroの外から操作できない**：Macro EditorのExport設定を確認します。
+
+公開する項目は多ければよいわけではありません。「利用者が何を変えるか」と「どのパラメータに反映されるか」を対応させます。また非表示にするだけでは、内部の値を保護したり、無効な組み合わせを防いだりすることにはなりません。
+
+## 関連記事
 
 - [Expressionで値の関係を保つ](../../patterns/automation/link-values-with-expression)
+- [Macro / Templateで再利用単位を作る](./macros-templates)
+- [GroupでGraphをまとめる](./groups)
+- [Fusion assetをResolveで再利用する](../../resolve-integration/reusable-fusion-assets)
 
-## 関連Node
+## バージョンと出典
 
-User ControlsはNode固有Referenceではなく、Inspector / authoring機構として扱います。
+**Blackmagic Design『DaVinci Resolve 21.1 Reference Manual』（September 2026）Chapter 69「Editing Parameters in the Inspector」pp.1515–1517**を参照しました。p.1515にEdit Controlの呼び出し、p.1516に属性とDirectional Blurの式、p.1517にReplace / Hide、Blur Vector、CheckboxControl、MultiButtonControlの例があります。
 
-## 次に読む
-
-→ [GroupでGraphをまとめる](./groups)
-
----
-検証メモ: User Controlsの追加・変更・非表示とNode instanceへの保存はBlackmagic Design公式Fusion 20 Manualで確認。Fusion 21.1の正確なダイアログ項目は未確認です。
+公式記載の仕様・操作は21.1に基づきますが、全OS・Editionでの実機動作や、複数図形の応用例は未検証のため、verificationはpartialとしています。

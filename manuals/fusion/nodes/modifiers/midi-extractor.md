@@ -15,7 +15,7 @@ outputs: ["parameter"]
 tasks: ["drive-parameter", "midi-driven-animation"]
 product_scope: fusion
 suite_surfaces: ["fusion"]
-updated: "2026-10-07"
+updated: "2026-10-13"
 ---
 
 # MIDI Extractor
@@ -108,6 +108,8 @@ Beat Modeでpulseを作る間隔をquarter note単位で指定します。
 
 `1.0`ならquarter noteごとにBeatが発生します。MIDIファイル内のtempo mapを基準にするため、曲中でtempoが変わるデータにも追従します。
 
+**Beat Modeは、実際に演奏されたkickやsnareのNoteを検出するModeではありません。** MIDIファイルの拍子・tempoに従って一定間隔でpulseを発生させます。特定のドラムの打点へ合わせたい場合は`Mode: Note`に切り替え、`Channels`と`Note Range`でそのNote eventを絞ります。
+
 ### Note Range
 
 Note / Poly AfterTouch Modeで、反応させるnote番号の範囲を絞ります。
@@ -116,9 +118,12 @@ Note / Poly AfterTouch Modeで、反応させるnote番号の範囲を絞りま�
 
 ### Pitch Scale / Velocity Scale
 
-Note Modeで、pitchとvelocityを結果へどの程度反映するかを決めます。
+Note Modeで、note番号（pitch）と打鍵の強さ（velocity）を数値へ変換する際の寄与を調整します。
 
-`Pitch Scale`はnoteの高さ、`Velocity Scale`は演奏強度に相当する値を結果へ加えます。ManualではScaleが`1.0`の場合、それぞれの入力範囲を0〜1の変化として使うと説明されています。
+- `Pitch Scale` — 高いnoteほど結果を変えるための倍率。21.1 Manualでは`1.0`の場合、pitchの範囲を0〜1の変化として利用すると説明されています。
+- `Velocity Scale` — 強く演奏されたnoteほど結果を変えるための倍率。同じく`1.0`でvelocityの範囲を0〜1の変化として利用します。
+
+**21.1 Manualでは、Velocity Scaleによる値はPitch Scaleの結果へ加算されます。** 二者択一の入力切り替えではありません。たとえばkickの強弱だけでText Sizeを変えたいなら、pitch由来の寄与を抑え、velocity由来の寄与を使う構成から調整します。最終的なSizeの範囲は`Result Scale` / `Result Offset`で合わせます。個別設定の既定値や出力の上限は、実機で未確認のためここでは断定しません。
 
 ### Control Number
 
@@ -143,13 +148,14 @@ Note Modeで和音を扱う場合や、複数Channelを有効にした場合に�
 
 ## Envelope
 
-Note / Beat Modeでは、eventの前後へEnvelopeを付けられます。
+Note / Beat Modeでは、eventの前後に時間的な変化を付けられます。瞬間的なMIDI eventを、そのまま数値の段差にするのではなく、立ち上がりと余韻を持つ動きへ変換する設定です。
 
-Pre-Attack、Attack、Decay、Sustain、Releaseを使い、eventが来た瞬間に値を切り替えるだけでなく、立ち上がりや減衰を持つAnimationへ変換できます。
+- **Pre-Attack Time** — eventの発生より前から、指定したPre-Attack Levelへ向けて値を上げ始める時間。画面上の動きを打点より少し先行させたい場合に使います。
+- **Attack** — eventが発生してからAttack Levelへ向かう立ち上がり。
+- **Decay / Sustain** — Attack後の減衰と、Noteが押され続けている間の維持。Sustain段階はNote向けです。
+- **Release** — eventの終了後に値を下げる時間。Beatは継続時間のあるNoteと違い、発生後すぐにReleaseへ移るため、Releaseが短すぎると画面上ではほとんど見えない場合があります。
 
-Beatはevent自体のdurationを持たないため、21.1 ManualではBeatとして見える変化を作るにはReleaseへ時間を持たせる必要があると説明されています。
-
-MIDI Extractor内のEnvelopeで使う時間値は秒単位です。
+21.1 Manualは**MIDI Extractorの時間値を秒単位**としています。Fusionのフレーム単位の操作と取り違えないようにします。なお、実際の音声より早めに動かすことと、単に変化を長く残すことは別です。先行させる場合はPre-Attack、余韻を延ばす場合はReleaseを調整します。
 
 ## Channels tab
 
@@ -168,10 +174,11 @@ ManualのGM drum例を、motion graphicsへ当てはめると次のように組�
 3. `Mode`をNoteにする。
 4. drumが入っているChannelだけを有効にする。
 5. `Note Range`をkickに対応する`35–36`へ絞る。
-6. 必要なら`Velocity Scale`で強弱を反映し、Result Scale / OffsetでSize向けの値域へ合わせる。
-7. Attack / Releaseなどで、反応の立ち上がりと戻り方を整える。
+6. 同じkick番号の演奏の強弱だけを使いたい場合は、`Pitch Scale`の寄与を抑え、`Velocity Scale`でvelocityを反映させる。両者は加算されるので、意図しない変化があれば分けて確認する。
+7. `Result Scale` / `Result Offset`でText Sizeに適した範囲へ合わせる。
+8. Attack / Releaseなどで、反応の立ち上がりと戻り方を整える。
 
-この構成では、すべてのnoteへ反応するのではなく、kick eventだけをmotionのtriggerとして使えます。
+この構成では、すべてのnoteへ反応するのではなく、kick eventだけをmotionのtriggerとして使えます。`Beat`へ切り替えるとtempo map由来の一定間隔のpulseになり、実際のkick演奏位置とは必ずしも一致しません。
 
 ## 運用例2: MIDI CCでEffect量を動かす
 
@@ -197,6 +204,23 @@ Effectのnumeric Parameter
 - **Fairlight Animator** — Timeline / Media Poolのaudioを解析した値を使う
 
 演奏情報やMIDI controllerの値そのものを利用したいならMIDI Extractor、実際の音声のlevelや周波数帯へ反応させたいならFairlight Animatorを確認します。
+
+## 期待した動きにならないとき
+
+| 症状 | 確認すること |
+| --- | --- |
+| 何も反応しない | `MIDI File`が意図したファイルかを確認し、`Mode`、`Channels`、Noteなら`Note Range`、CCなら`Control Number`の条件を順に緩める。フィルター外のeventでは値は作られない。 |
+| kickに合わせたいのに一定間隔で動く | `Mode: Beat`はtempo mapから拍を生成する。実際のkickのNote Onを使うなら`Mode: Note`とし、対象Channel・note番号を選ぶ。GM drumの場合、Manualの例は35〜36。 |
+| snareや別の楽器にも反応する | `Channels`で楽器のChannelを絞り、Noteなら`Note Range`を絞る。曲のMIDIデータがGM準拠かどうかはファイル側で確認する。 |
+| NoteのたびにSizeが想定以上に変わる | `Pitch Scale`と`Velocity Scale`の結果は加算される。noteの高さとvelocityのどちらを使うかを整理し、`Result Scale` / `Result Offset`を調整する。 |
+| Beatの反応がほとんど見えない | Beat eventは瞬間的なため、Envelopeの`Release`に十分な時間を与えて確認する。時間値の単位はフレームではなく秒。 |
+| MIDIの進行速度が映像と合わない | `Time Scale`を確認する。`1.0`が通常速度、`2.0`が2倍速。Beatの場合はMIDIのtempo mapに変更があるかも調べる。 |
+| 曲全体に対して反応が前後にずれる | `Time Offset`でMIDIとFusionの開始位置を調整する。Scaleによる再生速度の不一致と、Offsetによる同期位置の不一致を分けて確認する。 |
+| 和音で値が急に変わる | `Combine Events`の合成方法（最新event、最大値、合計、平均など）を確認する。複数Channelが選択されている場合も同時eventが増える。 |
+| MIDI CCに反応しない | `Mode: Control Change`と`Control Number`、`Channels`を確認する。指定した番号のCC eventがMIDIファイルに含まれているかも調べる。 |
+| 中間の強弱だけ不自然 | `Result Curve`は中間値の応答を変える。まず`Result Scale` / `Result Offset`で全体の範囲を決め、必要な場合に曲線を調整する。 |
+
+ここでの診断は21.1 Manualに記載された各Controlの働きに基づくもので、実機の特定バージョンで同一MIDIファイルを動作検証した結果ではありません。
 
 ## 注意点
 

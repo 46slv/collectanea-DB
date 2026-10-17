@@ -5,7 +5,7 @@ doc_type: index
 verification: partial
 product_scope: fusion
 tasks: [lookup-node, inspect-controls]
-updated: '2026-10-05'
+updated: '2026-10-10'
 ---
 
 # ノードリファレンス（Node Reference）
@@ -44,7 +44,7 @@ reader-first本文passは完了しています。
 - [Colorノード](./color/) — tone・channel・white balance・color management
 - [Matte / Keying](./matte-keying/) — key・matte・Alpha cleanup
 - [Trackingノード](./tracking/) — Point / Planar / Camera tracking
-- [Optical Flow / Motion](./optical-flow/overview) — motion vector解析とframe生成
+- [Optical Flow / Motion](./optical-flow/) — motion vector解析とframe生成
 - [Generatorノード](./generators/) — Background・noise・text等のsource
 - [Shapeノード](./shapes/) — vector Shapeの生成・加工・render
 - [Particleノード](./particles/) — emit・force・behavior・pRender
@@ -53,11 +53,12 @@ reader-first本文passは完了しています。
 - [USDノード](./usd/) — load・prim編集・material・light・render
 - [Deep / Auxiliary Channelノード](./deep/) — true Deep ImageとAOV post-process
 - [Warp / Distort](./warp/) — displacement・grid・lens・vector warp
-- [Paint](./paint/overview) — Paint Nodeと内部Stroke / Clone要素
+- [Paint](./paint/) — Paint Nodeと内部Stroke / Clone要素
 - [Modifier](./modifiers/) — Parameterを式・Spline・Path等で駆動
 - [Time / Metadata / Utility](./time-metadata/) — retime・metadata・DoD・bit depth
 - [Utility / I/O](./utility-io/) — Loader / Saver / MediaIn / MediaOut / routing
-- [Stereo 3D](./stereo/) — stereo pair・disparity・depth
+- [Stereo 3D](./stereo/) — 左右眼の位置合わせ・視差・深度変換・立体視形式
+- [Position / World Position](./position/) — 各画素のXYZ位置・Volume Fog・Volume Mask（記事のURLは維持）
 - [Immersive / 360°](./immersive/) — lat-long・spherical処理
 - [LUT](./lut/) — LUT適用・生成・解析
 - [Krokodove](./krokodove/) — Image / Shape / 3D / Regionをdomain別に案内

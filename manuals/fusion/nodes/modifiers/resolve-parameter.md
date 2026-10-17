@@ -13,7 +13,7 @@ outputs: [parameter]
 tasks: [transition-template, modifier, edit-page]
 product_scope: fusion
 suite_surfaces: [fusion, edit, cut]
-updated: "2026-10-06"
+updated: "2026-10-13"
 ---
 
 # Resolve Parameter
@@ -76,7 +76,29 @@ Macroへ名前を付け、ResolveのFusion Transition用template folderへ保存
 
 保存後にDaVinci Resolveを再起動すると、Edit pageのEffects Libraryにある`Video Transitions > Fusion Transitions`からcustom transitionを選べるようになります。
 
-ManualにはmacOS / Windowsそれぞれのtransition template folderも記載されています。保存場所はResolveのtemplate構成や使用範囲によって変わるため、このページではManual記載のpath変数を実在する固定pathへ展開せず、transition template folderとして扱います。
+21.1 ManualのChapter 124では保存先をtemplate folderの変数で示しています。Chapter 67にはuser別の保存先も記載されています。以下は**Manual上の例示path**であり、実機のfolderを探索して得たpathではありません。個人名を表す`username`は使用するOSのユーザー名に読み替えます。
+
+| OS | Transition template folder（Manual記載） |
+| --- | --- |
+| Windows | `C:\Users\username\AppData\Roaming\Blackmagic Design\DaVinci Resolve\Support\Fusion\Templates\Edit\Transitions` |
+| macOS | `/Users/username/Library/Application Support/Blackmagic Design/DaVinci Resolve/Fusion/Templates/Edit/Transitions` |
+| Linux | `/home/username/.local/share/DaVinciResolve/Fusion/Templates/Edit/Transitions` |
+
+`Edit/Transitions`の下へ保存することが重要です。保存後はResolveを終了・再起動し、Edit pageの`Video Transitions > Fusion Transitions`から確認します。
+
+## 既存のFusion Transitionを編集して作る方法
+
+21.1 ManualのChapter 67は、上の「Fusion CompositionからDissolveをMacro化する」例とは別に、**既存のFusion Transitionを編集する作り方**を説明しています。
+
+1. Edit pageでcutへ既存の`Fusion Transitions > Cross Dissolve`を配置します。
+2. Timeline上のtransitionを右クリックし、`Open in Fusion Page`を選びます。
+3. Fusion pageにはtransition用のNode treeが開きます。`MediaIn 1`は切り替え前の映像、`MediaIn 2`は切り替え後の映像です。二つの映像をどう合成するかを、DissolveやMerge / TransformなどのNodeで設計します。
+4. 尺に追従させたいControlには、固定のKeyframeだけで済ませずResolve Parameterを追加します。変更を現在のTimeline上のtransitionへ反映するだけなら、Edit pageへ戻って結果を確認します。
+5. **別の編集点でも再利用したい**場合はMacroとして保存します。Chapter 67の手順では、二つのMediaInとMediaOutも含めて必要なNodeを選択してから`Macro > Create Macro`を実行します。
+
+二つの手順を混同しないでください。Chapter 124の作例は**Dissolve NodeのBackground / Foreground / Outputを公開するMacro**、Chapter 67の作例は**既存transitionのNode treeを編集し、MediaIn / MediaOutを含めてMacro化する方法**です。どちらも編集点の前後二つの映像を受け、一つの結果を返すtransitionを作る目的は共通ですが、選択・公開するNodeの構成が異なります。
+
+Macro Editorでチェックする項目は、Edit pageのInspectorから編集できるControlにも関係します。Durationだけ変更できればよいtransitionと、ユーザーに独自の調整項目を公開するtransitionとでは、公開対象を分けます。
 
 ## transitionをtrimすると何が変わるか
 
@@ -85,6 +107,8 @@ Resolve Parameterの役割は、固定frame数のAnimationを作ることでは�
 たとえばEdit pageでtransitionを長くした場合、そのParameterの変化も新しい長さへ合わせて進みます。短くした場合も同様です。
 
 そのため、編集段階でtransition durationを何度も調整する可能性があるtemplateでは、固定frame位置へKeyframeを置くだけの場合より扱いやすくなります。
+
+Chapter 67は、transitionの進行を作る際に、単純なKeyframeの代わりとしてResolve Parameterの`Scale`と`Offset`を使うことも案内しています。これはEdit pageの尺を直接数値入力する欄ではなく、Modifier側の進行を調整するControlです。Manualの該当説明には全Control共通の推奨数値や計算式は示されていないため、出力先のParameterで変化の始点・終点と、尺を変更したときの挙動を確認しながら調整します。
 
 ## Anim Curvesとの違い
 
@@ -125,6 +149,19 @@ Resolve Parameterが向いているのは、次の条件がそろう場合です
 
 通常のFusion Composition内でParameter同士を連動させたいだけなら、Publish、Expression、Calculationなど別のModifierを選びます。
 
+## 期待どおり動かない場合
+
+| 症状 | 最初に確認すること |
+| --- | --- |
+| Edit / Cut pageでtransitionを伸ばしても、効果が途中で止まる | アニメーションさせているControlにResolve Parameterが付いているか。固定frameのKeyframeだけで組んでいないか。 |
+| Effects Libraryに保存したtransitionが表示されない | Macroを`Templates/Edit/Transitions`相当のfolderへ保存したか。保存後にResolveを終了・再起動したか。 |
+| Transitionは見つかるが映像の切り替えにならない | Macroの**二つの入力と一つの出力**が正しく構成されているか。Chapter 124のDissolve作例ではBackground / Foreground / Outputの選択を確認する。 |
+| 既存transitionを編集しても、別の編集点で同じ効果を選べない | Edit pageへ戻るだけでは現在のtransitionが更新される。Effects Libraryで再利用するには、新しいMacroをTransitions folderへ保存する。 |
+| Edit pageのInspectorに調整項目がない | Macro Editorで公開したControlを確認する。Chapter 67では調整項目を公開せずDurationだけ変更できるtransitionも作れる。 |
+| Fusion Studioで同じ手順を完結できない | Chapter 67のMediaIn / MediaOutを含む既存Edit page transitionの保存手順は、DaVinci Resolve内のFusion pageで行うと明記されている。 |
+
+この表はManual記載の作成・保存条件から絞り込んだ確認順序であり、すべての症状を実機で再現・検証した結果ではありません。
+
 ## 注意点
 
 Resolve Parameterは、21.1 Manualでは**DaVinci ResolveのEdit / Cut pageで使うtransition template用**として説明されています。通常のFusion compにおける汎用的なtime remapやParameter linkとして扱わない方が分かりやすくなります。
@@ -142,6 +179,6 @@ Resolve Parameterは、21.1 Manualでは**DaVinci ResolveのEdit / Cut pageで�
 
 ## バージョンと出典
 
-DaVinci Resolve 21.1 Reference Manual（September 2026）Chapter 124「Modifiers」p.3025を基準にしています。
+DaVinci Resolve 21.1 Reference Manual（September 2026）Chapter 124「Modifiers」p.3025、およびChapter 67「Node Groups, Macros, and Fusion Templates」pp.1438–1441を基準にしています。
 
-21.1 Manualで、Resolve ParameterがFusion transition template用のModifierであること、対象Controlをtransition durationへ自動連動させること、Dissolveの`Background/Foreground`へ適用する例、Macroで2 input / 1 outputを公開する手順、保存後にEdit pageのFusion Transitionsから使用する流れを確認しています。
+21.1 Manualで、Resolve ParameterがFusion transition template用のModifierであること、対象Controlをtransition durationへ自動連動させること、Dissolveの`Background/Foreground`へ適用する例、Macroで2 input / 1 outputを公開する手順、保存後にEdit pageのFusion Transitionsから使用する流れを確認しています。Chapter 67の既存Fusion Transitionを`Open in Fusion Page`で編集する手順、MediaIn / MediaOutの役割、MacroのControl公開、OS別template folder、Scale / Offsetへの言及を追加で照合しました。

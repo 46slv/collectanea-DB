@@ -14,14 +14,14 @@ outputs: [parameter]
 tasks: [audio-reactive, modifier, motion-graphics]
 product_scope: fusion
 suite_surfaces: [fusion, fairlight]
-updated: "2026-10-07"
+updated: "2026-10-13"
 ---
 
 # Fairlight Animator
 
 Fairlight Animatorは、**Timeline上のclipやMedia PoolにあるaudioをFairlightのaudio engineで解析し、その結果でFusionの数値Parameterを動かすModifier**です。
 
-Imageを直接処理するNodeではありません。Size、Glowの強さ、位置量など、動かしたい数値Parameterへ追加して使います。手作業で音に合わせてkeyframeを打つ代わりに、audioの変化をParameterの値へ変換できます。
+Imageを直接処理するNodeではありません。Size、Glowの強さ、回転角度など、動かしたい数値Parameterへ追加して使います。手作業で音に合わせてkeyframeを打つ代わりに、audioの変化をParameterの値へ変換できます。
 
 ~~~text
 Timeline / Media Poolのaudio
@@ -45,11 +45,11 @@ ModifierはParameterの種類によって利用できるものが異なります
 
 ## 入力元と出力先
 
-### audio source
+### 音声の参照元
 
 21.1 Manualでは、Fairlight AnimatorはTimeline clipまたはMedia Pool sourceのaudioを処理すると説明されています。
 
-`Clip Name`には現在のclip名が表示されます。ただし、21.1 ManualのFairlight Animator節にはsourceをどの操作で割り当てるかまでは記載されていないため、このページでは未確認の選択手順を補いません。
+`Clip Name`には現在参照しているclip名が表示されます。これは音声ファイルを選ぶボタンの説明ではありません。21.1 Manualの該当節には、音声をどの操作で割り当てるかまでは書かれていないため、ここでは選択手順を推測しません。反応がないときは、まず参照しているclipが意図した音声か確認します。
 
 ### 対象Parameter
 
@@ -124,6 +124,25 @@ audioを参照する開始位置を時間方向へずらします。
 
 `Time Scale`が時間の進み方、`Time Offset`が開始位置のずれを調整するもの、と分けて考えると使い分けやすくなります。
 
+## 低音を選ぶことと、小さい音を無視することは別
+
+High Pass / Low Pass Filterが選別するのは**音の周波数帯**です。たとえばLow Passを調整すると、高い周波数を抑え、低い音を中心に解析できます。しかし、低音のうち「小さい音量だけを無視する」設定ではありません。
+
+この違いは、音に合わせてText SizeやGlowを動かすときに重要です。
+
+- **低音だけに反応させたい** — Low Passで高域を抑える。低域も不要ならHigh Passと組み合わせて帯域を狭める。
+- **動きが大きすぎる／小さすぎる** — `Scale`で解析結果から対象Parameterへ渡す変化量を調整する。
+- **基準の値が合わない** — `Offset`で出力の基準位置を調整する。
+- **静かな音では動かしたくない** — 周波数Filterだけでは目的が違う。解析結果の大きさに対するしきい値処理を別途検討する。
+
+21.1 ManualのFairlight Animator節には「一定の音量以下を0にする」専用Controlは記載されていません。たとえば数値`x`に対して`max(0, x - しきい値)`を適用するのは、**値の変換方法の考え方**です。これをFairlight AnimatorのInspectorへ直接入力できるという意味ではありません。別の式・値変換を使う際は、対象Parameterへ接続できる構成を実機で確認してください。
+
+## 数値Parameterかどうかを先に確かめる
+
+Fairlight Animatorは、解析結果を**1つの数値**として返すModifierです。Transformの`Center`のようにX/Yを持つPoint型Controlを、単一の数値Controlと同じものとして扱わないでください。
+
+位置を音で動かしたい場合も、まず利用可能な数値Controlを特定し、その数値が最終的な位置へどう影響するかを分けて確認します。21.1 Manualで示されているのはnumeric controlの駆動であり、Point型全体へ同じ手順で取り付けられるという保証ではありません。
+
 ## 運用例: bassに合わせてText Sizeを動かす
 
 Text+のSizeを低域へ反応させる場合は、次のように組めます。
@@ -138,6 +157,24 @@ Text+のSizeを低域へ反応させる場合は、次のように組めます�
 
 この構成では、曲全体の音量変化へ無差別に反応させるのではなく、周波数filterで低域へ対象を絞ってからmotionへ変換できます。
 
+## うまく動かないときの確認
+
+以下は21.1 Manualに記載されたControlの役割をもとにした切り分けです。特定の音声素材・OS・editionでの動作を実測した結果ではありません。
+
+| 症状 | 最初に確かめること |
+| --- | --- |
+| 何も反応しない | 音声を含むclipを参照しているか`Clip Name`を確認し、`Analysis`の選択とModifierを追加した数値Parameterを見直す。 |
+| 値が変化しているのに映像が変わらない | 変更先が見た目に影響する数値Controlかを、Modifierを外した状態の手動操作でも確かめる。 |
+| 音楽全体の音に反応してしまう | 低域だけを狙うなら`Low Pass Filter`で高域を減らす。逆に高域だけを狙うなら`High Pass Filter`を調整する。 |
+| bassへの反応が弱い | `High Pass Filter`で必要な低域まで除外していないか、`Low Pass Filter`が狙った帯域を通す設定かを確認する。 |
+| 静かな部分でも細かく動く | 周波数Filterは音量のしきい値ではない。`Scale`で変化幅を確認した上で、必要なら別の数値処理を検討する。 |
+| 動きが小さすぎる／大きすぎる | `Scale`を見直す。`Offset`は変化の中心をずらす役割なので、振れ幅との調整を分ける。 |
+| 動きの基準位置が合わない | `Offset`を確認し、対象Control自体に元の値やAnimationが残っていないかも見直す。 |
+| 音と映像の反応タイミングがずれる | 一定のずれなら`Time Offset`、音声を読む時間の進み方が違うなら`Time Scale`を確認する。Offsetの正負による移動方向は短いテストで確かめる。 |
+| Point型Controlに追加できない | Fairlight Animatorが数値Parameter用であることを確認する。Point全体へ同じ方式で付くとは扱わない。 |
+
+切り分けでは、最初にFilterの範囲を広くして反応の有無を確かめ、次に`Scale / Offset`、最後に時間の調整を行うと、周波数の選択と数値の変換を混同しにくくなります。これは調整の手順例であり、21.1 Manualが指定した必須順序ではありません。
+
 ## MIDI Extractorとの違い
 
 [MIDI Extractor](./midi-extractor)も外部の時間変化からParameterを動かしますが、読み取るdataが異なります。
@@ -151,12 +188,14 @@ Text+のSizeを低域へ反応させる場合は、次のように組めます�
 
 Fairlight Animatorはaudio-reactive animationを作るModifierであり、Fairlight pageでaudioを編集するEffectそのものではありません。Fusion側では、解析結果を数値Parameterへ渡す役割を持ちます。
 
-21.1 ManualのFairlight Animator節で確認できるのは`Clip Name`、`Analysis`、`Scale`、`Offset`、High / Low Pass Filter、`Time Scale`、`Time Offset`です。Analysis menuの具体的な選択肢、audio sourceを割り当てる詳細UI、current runtimeのREGID、内部Parameter ID、Manualに記載されていないdefault / range、edition差はこのページでは確定しません。
+21.1 ManualのFairlight Animator節で確認できるのは`Clip Name`、`Analysis`、`Scale`、`Offset`、High / Low Pass Filter、`Time Scale`、`Time Offset`です。周波数選別と音量しきい値の区別、症状別の確認方法は、これらのControlの説明から組み立てた実務上の判断であり、実機で確認済みの追加仕様ではありません。Analysis menuの具体的な選択肢、audio sourceを割り当てる詳細UI、current runtimeのREGID、内部Parameter ID、Manualに記載されていないdefault / range、edition差はこのページでは確定しません。
 
 ## 関連ページ
 
 - [Modifier Family Overview](./)
 - [MIDI Extractor](./midi-extractor)
+- [Calculation](./calculation)
+- [Expression Modifier](./expression)
 - [Modifier / Parameter Sources](../../learn/05-time/modifier-parameter-sources)
 
 ## バージョンと出典

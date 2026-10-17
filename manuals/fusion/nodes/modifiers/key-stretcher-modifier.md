@@ -15,7 +15,7 @@ outputs: [parameter]
 tasks: [template, retime-animation, modifier]
 product_scope: fusion
 suite_surfaces: [fusion, edit, cut]
-updated: "2026-10-07"
+updated: "2026-10-12"
 ---
 
 # Key Stretcher Modifier
@@ -98,6 +98,32 @@ Source rangeの中で、**どの区間をstretch / squashするか**を指定し
 ~~~
 
 titleの出現Animationと退場Animationの速度を固定し、画面上に留まる時間だけを編集時に自由に変えたい場合の典型的な使い方です。
+
+## 1つのパラメータで使う手順
+
+例として、文字を合成するMergeの`Blend`だけを対象にします。`Blend = 0`では前景が表示されず、`Blend = 1`では前景が表示されます。文字の出入りに使う値を動かし、別のNodeの動きには影響させない構成です。
+
+1. Text+をMergeの前景に接続し、背景と合成します。Mergeの出力をMediaOutへ送ります。
+2. Mergeの`Blend`に、冒頭で`0 → 1`、終盤で`1 → 0`となるKeyframeを設定します。例えばframe 0・10・40・50にキーを置き、その間は`1`を保ちます。
+3. Inspectorで**MergeのBlendの値**を右クリックし、`Modify With > KeyStretcher`を選択します。Merge Nodeの入出力へKeyframe Stretcher Nodeを挿入する操作ではありません。
+4. 元のキー範囲が0〜50なら、`Source Start = 0`、`Source End = 50`、`Stretch Start = 11`、`Stretch End = 39`を指定します。これは21.1 Manualにある50→75 frameの例と同じ範囲です。
+5. Fusionで作成したものをEdit / Cutで長さを変えられるTitle templateとして使い、Timeline上のクリップを長くします。まず冒頭・末尾のフェードにかかる時間を比較し、中央の表示時間が増えているか確かめます。
+6. 次にSpline Editorで元のキーの位置も確認します。**キーが横に移動して見えなくても**、Timeline上での再生結果が伸縮していればModifierは働いています。
+
+この例で伸縮するのはMergeの`Blend`に設定したアニメーションです。Text+の位置や大きさなど、**別パラメータに付けたキーまで一括で伸縮するわけではありません**。それらも同時に伸縮したいなら、個別に適用するか、後段の[Keyframe Stretcher](../time-metadata/keyframe-stretcher)を検討します。
+
+## 期待した長さにならないとき
+
+| 症状 | 確認すること |
+| --- | --- |
+| クリップを長くしても中央の表示時間が変わらない | Edit / Cutの**Title templateクリップ**を伸ばしたか。FusionのRender Rangeだけを変更していないか |
+| 退場アニメーションまでゆっくりになる | `Stretch End`が退場側のキーへ入り込んでいないか。固定したい後半のキーはStretch範囲の外側へ置く |
+| 中央ではなく両端が伸びる | `Stretch Edges Instead`を有効にしていないか |
+| Blendは追従するがText+の位置は追従しない | Modifierを付けた対象は`Blend`だけ。位置は別パラメータであり、影響範囲が異なる |
+| Spline Editor上でキーが移動しない | 21.1 Manualでは元のキー表示を保持する仕様。Viewerで実際の出入りの長さを確認する |
+| 想定した冒頭・末尾がずれる | 元のキー位置と`Source Start / End`を比べ、伸縮しない区間が`Stretch Start / End`の外側にあるか確認する |
+
+手順の「50→75 frame」は21.1 Manualの説明例です。自分のテンプレートでは実際のキー位置を使い、極端に短いクリップでも同じ結果になると決めつけずに動作を確認してください。
 
 ## Keyframe Stretcher Nodeとの違い
 

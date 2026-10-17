@@ -12,7 +12,7 @@ tasks: [usd, understand-domain, build-usd-scene]
 level: advanced
 product_scope: fusion
 suite_surfaces: [fusion]
-updated: "2026-10-04"
+updated: "2026-10-18"
 ---
 
 # USD scene
@@ -45,18 +45,36 @@ animationを含むUSDではTrim、Time Scale、Frame Offset、Reverse、Loopを�
 
 ## Scene Tree / Prim Selection
 
-USD sceneは多数のprimをhierarchyとして持てます。
-
-uTransform、uVisibility、uVariant、uReplaceMaterial、uCamera、USD Light等ではPickからScene Treeを開き、特定primだけを対象にできます。
+USD scene内の個々の構成要素を**prim（プリム）**と呼びます。建物、車、Cameraなどを親子関係で並べたものがScene Treeです。たとえば、次は説明用に簡略化した階層です。実際のprim名とパスは読み込むUSD fileによって異なります。
 
 ```text
-USD scene
- ├─ /World/Building
- ├─ /World/Car
- └─ /World/Camera
+/World
+ ├─ Building
+ ├─ Car
+ └─ Camera
 ```
 
-「scene全体を変える」のか「一部primだけを変える」のかをPrim Selectionで分けます。
+`/World/Car`はこの例の車を指す**prim path**です。画像の座標やMaskの範囲ではなく、scene内のどの要素を操作するかを指定します。
+
+uVisibility、uTransform、uVariant、uReplaceMaterialなどのInspectorでは、**Prim SelectionのPick**からScene Treeを開いて対象を選べます。Scene Treeでは要素の種類を確認し、複数のprimを選択することもできます。
+
+### 例：読み込んだ車だけを非表示にする
+
+```text
+uLoader → uVisibility → uMerge → uRenderer → MediaOut
+```
+
+1. uLoaderで建物と車を含むUSD fileを読み込み、uVisibilityのScene Inputへ接続します。必要なCameraやLightはuMergeに追加します。
+2. uVisibilityのInspectorで**Pick**を押し、Scene Treeから車のprimを選びます。上の例なら`/World/Car`です。**Selected Prims**に選択対象が表示されたことを確認します。
+3. **Visible**をオフにします。uVisibilityの出力をuRendererまでつなぐと、車を隠した状態でsceneを描画できます。建物は選択していないため、この操作の対象になりません。
+
+**Invert Prim Selection**をオンにすると、選択したprimとそれ以外のprimの扱いを反転できます。大量の要素から「この車以外」を対象にしたい場合に使います。VisibleとInvert Prim Selectionは、21.1 Manualではキーフレームでアニメーションできる項目として説明されています。
+
+### 例：車だけを移動する
+
+車を消さずに位置だけ変えたいときは、`uLoader → uTransform → uMerge → uRenderer`とつなぎます。uTransformの**Pick**で車のprimを選び、**Translation**で位置を変更します。uTransformは入力scene内の選択した要素に変形を追加するため、建物を含むscene全体を動かすuMergeのTransformとは目的が異なります。
+
+Prim Selectionは「何を対象にするか」、uVisibilityやuTransformは「選んだ対象に何をするか」を決める機能です。
 
 ## uMerge
 
@@ -109,9 +127,10 @@ Classic 3DのGeometryをそのままuMergeへ接続できると仮定せず、�
 - [uMerge](../../nodes/usd/u-merge)
 - [uRenderer](../../nodes/usd/u-renderer)
 - [uTransform](../../nodes/usd/utransform)
+- [uVisibility](../../nodes/usd/uvisibility)
 
 ## 出典と確認範囲
 
-DaVinci Resolve 21.1 Reference Manual、September 2026、Chapter 121 pp.2886–2946を基に、USD file、Scene Tree、u* toolset、material / lighting / render flowを整理しています。
+DaVinci Resolve 21.1 Reference Manual、September 2026、Chapter 121 pp.2887–2888（USD読み込み・Scene Tree）、pp.2923–2924（uTransform）、pp.2927–2928（uVisibility）を中心に、USD file、Prim Selection、u* toolset、material / lighting / render flowを整理しています。
 
 USD SDK内部仕様、Hydra内部実装、runtime REGID、external USD asset互換性は別途実機確認が必要です。

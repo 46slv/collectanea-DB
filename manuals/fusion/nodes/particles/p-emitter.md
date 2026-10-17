@@ -14,7 +14,7 @@ tasks: [particles, emit, procedural-motion]
 level: intermediate
 product_scope: fusion
 suite_surfaces: [fusion]
-updated: "2026-10-04"
+updated: "2026-10-13"
 ---
 
 # pEmitter
@@ -154,6 +154,135 @@ pEmitter → pRender
 - **pImage Emitter** — source Imageのpixel grid自体をparticle generationへ使う
 
 Imageの輪郭やpixel位置をparticle化したい場合はpImage Emitterを検討します。
+
+## 発生数と寿命を設計する
+
+pEmitterの**Number**は「いま画面にある粒子の総数」ではなく、**1フレームで新しく生む粒子数**です。Lifespanは一粒が何フレーム存在するかを決めます。この二つを別々に調整します。
+
+たとえばフレーム0〜4でNumberを5、フレーム5以降を0にすると、合計25粒だけを発生させる構成です。すでに生まれた粒子がすぐ消えるわけではなく、各粒子はLifespanが終わるまで残ります。pEmitterのNumberだけを後から0へ変更しても、既存粒子を削除する命令にはなりません。
+
+Number Varianceは毎フレームの発生数にばらつきを付けます。21.1マニュアルではNumber 10、Number Variance 2を9〜11粒／フレームの例として説明しています。Lifespanの既定値は100フレームで、Lifespan 100、Lifespan Variance 20は90〜110フレームの寿命のばらつきとして説明されています。
+
+Size Over LifeやColor Over Lifeは、実時間ではなく**各粒子の寿命に対する割合**を基準に変化します。したがってLifespanを短くすれば、同じ曲線でも色やサイズの変化はフレーム上で速く進みます。負荷が大きいときは、発生数と寿命の両方を確認します。
+
+## Temporal Distributionとサブフレーム
+
+高速で移動する粒子を毎フレームの境界でまとめて生むと、等間隔の点列や断続的な筋に見える場合があります。**Temporal Distribution**は、一つのフレーム内で各粒子をいつ誕生させるかを決めます。
+
+| 設定 | どのように発生するか |
+| --- | --- |
+| **At The Same Time** | フレームの境界でまとめて発生。マニュアル記載の既定 |
+| **Randomly Distributed** | フレーム内のランダムな時刻へ分散 |
+| **Evenly Distributed** | フレーム内の等間隔な時刻へ分散 |
+
+たとえば1フレームで10粒発生させる場合、Evenly Distributedでは各粒子の誕生時刻が約0.1フレームずつずれます。ランダムな位置に飛び散らせる設定ではなく、**発生する時刻を変える**設定です。
+
+結果は[pRender](./p-render)の**Sub-Frame Calculation Accuracy**にも影響されます。精度を上げればフレーム間の粒子計算は細かくなりますが、処理時間は長くなるため、動きの見え方を比較して調整します。
+
+## 動く発生源：VelocityとInheritを分ける
+
+**Velocity**は、誕生時に粒子自身へ与える初速です。**Inherit**は、動いているEmitter Regionの移動速度を、誕生した粒子へどの程度引き継ぐかを指定します。
+
+21.1マニュアルではInheritが1なら発生源の速度と同程度、2ならそれ以上、負の値なら発生源と逆向きの移動を作る例が示されています。画面内を移動する物体から火花を出す場合、発生位置を動かすだけの状態とInheritを1にした状態とでは、軌道が変わります。
+
+**Angle / Angle Variance**はXY方向の初速の角度とばらつき、**Angle Z / Angle Z Variance**はZ方向の角度とばらつきを指定します。Velocityが0の状態では角度だけ変えても初速による移動は発生しません。発生後に粒子を加速したい場合は、後段の[pDirectionalForce](./pdirectionalforce)などで力を加えます。
+
+## Region：どこから粒子が生まれるか
+
+pEmitterのRegionは、**粒子を生み出す場所**です。ForceノードのRegionが「力を適用する場所」を決めるのとは役割が違います。外部画像の形を使う場合は**Bitmap**、3D Meshを使う場合は**Mesh**を選択し、追加されたRegion入力へ接続します。Style Bitmap Inputは一粒の絵柄なので、このRegion入力と混同しません。
+
+21.1マニュアルのRegion Modeの説明には「seven types」と書かれていますが、列挙されている名称は次の**8種類**です。数の食い違いはそのまま明記します。
+
+| Region Mode | 粒子を発生させる場所 |
+| --- | --- |
+| **All** | 2Dなら画像範囲内、3Dなら1×1×1単位の立方体内 |
+| **Bézier** | 描いたポリラインに基づく領域。輪郭の作成は2Dで行う |
+| **Bitmap** | 2D画像の指定チャンネルによる領域 |
+| **Cube** | 幅・高さ・奥行きを指定できる3D立方体 |
+| **Line** | 二つの端点を結ぶ線。PathやTrackerにも接続可能 |
+| **Mesh** | 外部の3D Meshに基づく領域 |
+| **Rectangle** | Z方向に厚みのない長方形。Z空間内で移動・回転可能 |
+| **Sphere** | 球形の3D領域。マニュアル記載のpEmitter既定 |
+
+**Position Variance**はRegionの境界の少し外側にも粒子を発生させる設定です。既定の0なら指定領域に制限され、値を上げると境界が不規則になります。画像そのものにBlurを掛ける機能ではありません。
+
+**Color**のUse Color From Regionは、Bitmap Regionに指定した画像の色を粒子へ引き継ぐ設定です。Bitmap以外のRegionで選ぶと、マニュアルでは粒子が白く表示されると説明されています。Styleタブで決めた色を使うならUse Style Colorを選びます。
+
+Mesh Regionでは、表面から生むか内部の体積から生むかをRegion Typeで指定できます。閉じていないMeshでは内外の判定が難しくなるため、Winding RuleとWinding Ray Directionの設定も関係します。
+
+## Style：一粒の見た目と時間変化
+
+Regionで発生場所を決めたら、**Style**で粒子一個の絵柄を決めます。21.1マニュアルにある主な種類は次のとおりです。
+
+| Style | 見た目 |
+| --- | --- |
+| **Point** | 1ピクセルの点。Sizeは調整できない |
+| **Point Cluster** | 複数の小さな点をひとまとまりにする |
+| **Bitmap** | 別の2D Imageを一粒の絵柄にする |
+| **Brush** | Brushesディレクトリ内の画像を使用する |
+| **Blob** | 柔らかい球状。Noiseで質感を変えられる |
+| **Line** | 線状。Fadeで線の長さに沿う減衰を調整する |
+
+Bitmap Styleを選択すると、Style Bitmap Inputへ小さな画像を接続できます。画像が大量に複製されるため、マニュアルは256×256ピクセル程度を例に挙げます。ただし、拡大して描く粒子に小さすぎる画像を使うと画質が低下するため、粒子数と最終的な表示サイズの両方を考慮します。
+
+### Bitmapに動画を使う場合
+
+動画や画像シーケンスを一粒の絵柄にする場合は、次の時間参照を使い分けます。
+
+- **Over Time**：すべての粒子がCompositionの現在フレームに対応する画像を共有します。
+- **Particle Age**：それぞれの粒子が誕生した時点から元画像の先頭を再生します。
+- **Particle Birth Time**：誕生時刻に対応する画像のフレームを、その粒子の寿命中は固定して使います。
+
+たとえば炎の短いアニメーションをBitmapとして入力し、Particle Ageを選ぶと、各粒子の炎が誕生後に個別のタイミングで動きます。Over Timeでは全粒子の絵柄が同時に切り替わります。
+
+**Color Over Life**は誕生から寿命終了までの色をGradientで設定します。**Size Over Life**は寿命に対する割合でサイズを変えます。**Fade In / Fade Out**は寿命の開始・終了部分でAlphaを変える設定です。Lifespan 100フレーム、Fade In 0.1なら、最初の10フレームで徐々に出現する例になります。なお、Styleの一部のMerge・Blur制御は2D描画でのみ作用します。
+
+## RotationとSpinの違い
+
+**Rotation Mode**のAbsolute Rotationでは粒子の向きを速度から独立して指定します。Rotation Relative To Motionなら移動方向を基準に向きを決められます。**Rotation X/Y/Z**は粒子の向き、**Spin X/Y/Z**は誕生後の回転速度です。Varianceを使うと粒子ごとに回転角や速度を散らせます。
+
+たとえば葉のBitmapを進行方向へ向けるにはRotation Relative To Motionを検討し、落下しながら葉を回転させたいならSpinを調整します。丸い粒子では向きが変わっても見分けにくいため、最初は非対称な画像を使って確認します。
+
+## 実際の組み立て例
+
+### 透過ロゴの形から発光点を放出する
+
+~~~text
+透過ロゴ画像 ──→ pEmitter［Region: Bitmap］
+小さな光点画像 ──→ pEmitter［Style: Bitmap］→ pTurbulence → pRender［2D］→ Merge
+~~~
+
+ロゴ画像のAlphaをRegionに使って**発生する位置**を指定し、小さな光点をStyle Bitmapに使って**一粒の形**を決めます。ColorをUse Color From Regionにすれば、ロゴ画像の色を粒子へ引き継げます。Position Varianceで輪郭の外にも少し散らし、後段のpTurbulenceで動きを不規則にできます。
+
+これはロゴの形の中からランダムに粒子を放出する構成です。ロゴの全ピクセルを規則的に粒子へ置き換えたい場合は[pImage Emitter](./pimageemitter)を使います。
+
+### 移動する線から火花を出す
+
+~~~text
+pEmitter［Region: Line］→ pDirectionalForce → pRender［2D］→ Merge
+~~~
+
+Line Regionの始点と終点を、動く物体の位置へ合わせてアニメーションします。Numberで発生数を、VelocityとAngleで飛び出す速さと方向を決めます。Inheritを0と1で比較すれば、発生源の移動が粒子にどれだけ伝わるかを確認できます。発生時刻が揃いすぎて見える場合はTemporal DistributionとpRenderのサブフレーム精度を調整し、pDirectionalForceで落下する動きを付けます。
+
+### Setごとに違う力を適用する
+
+~~~text
+pEmitter A［Set 1］─┐
+                    ├─ pMerge → pDirectionalForce［Set 1だけ］→ pRender
+pEmitter B［Set 2］─┘
+~~~
+
+pEmitterではSetsタブからSet 1〜32のグループを指定でき、**一つのEmitterを複数Setに所属**させることもできます。二つのEmitterを[pMerge](./pmerge)でまとめてもSetは保持されるため、後段のForceノードのConditionsでSet 1だけを対象にできます。セットは粒子の描画順ではなく、処理対象を区別するための情報です。
+
+## うまく動かないとき
+
+- **粒子が見えない**：NumberとLifespan、pRenderの接続と2D／3D Output Modeを確認します。
+- **粒子が多すぎる**：Numberは毎フレームの発生数です。LifespanとNumber Varianceも確認します。
+- **Angleを変えても動かない**：Velocityが0なら初速による移動は発生しません。
+- **動く発生源からの飛び方がおかしい**：VelocityとInherit、Regionの位置のアニメーションを分けて確認します。
+- **Bitmapを入れたのに形が変わらない**：Region入力とStyle Bitmap Inputを取り違えていないか確認します。
+- **Styleの色が白くなる**：Use Color From Regionを選んでいるのにBitmap Regionを使っていない可能性があります。
+- **Pointのサイズが変わらない**：Pointは1ピクセル固定です。別のStyleを使います。
 
 ## 関連する考え方
 

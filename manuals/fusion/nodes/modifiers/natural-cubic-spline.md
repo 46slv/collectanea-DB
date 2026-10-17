@@ -14,7 +14,7 @@ outputs: ["parameter"]
 tasks: ["drive-parameter", "animate"]
 product_scope: fusion
 suite_surfaces: ["fusion"]
-updated: "2026-10-07"
+updated: "2026-10-13"
 ---
 
 # Natural Cubic Spline
@@ -64,7 +64,8 @@ Animationの結果は**Spline Editor**に表示され、そこでcontrol point�
 Natural Cubic Splineが扱う中心的なdataは**数値ParameterのAnimation**です。
 
 - 対象: 主にnumerical value
-- 出力: 対象Parameterへ返す時間ごとの数値
+- 入力として考えるもの: 各control pointの時刻と数値。画像Input端子は使わない
+- 出力: 対象Parameterへ返す、frameごとの数値
 - 編集場所: Spline Editor
 - Image input / output: なし
 
@@ -83,6 +84,41 @@ Natural Cubic Splineが候補になるのは、数値Parameterを複数のcontro
 
 逆に、Positionを画面上の軌道として動かしたい場合はPath / XY Path、式や他Parameterから値を計算したい場合はExpression / Calculationの方が目的に合います。
 
+## 操作例: 4つのKeyframeでサイズを変化させる
+
+ここでは、TransformのSizeを数値でAnimationして、Natural Cubic Splineが自動的にcurveをつなぐ様子を確認します。数値は操作例であり、21.1 Manualにあるpresetではありません。
+
+1. MediaInやBackgroundなどの画像をTransformへ入力し、Viewerへ表示します。
+2. TransformのInspectorでSizeを右クリックし、Modify With > Natural Cubic Splineを選びます。
+3. frame 0でSizeを1.00、frame 12で1.20、frame 24で1.05、frame 36で1.00に設定し、4つのcontrol pointを作ります。
+4. Spline Editorで該当するSizeのcurveを表示します。設定した時刻の値を通りながら、区間が滑らかにつながることを確認します。
+5. frame 12の値を1.20から1.30へ変えます。前後のcurveとtangent（曲線の傾き）がどのように再計算されたかを比較します。
+
+ここで編集するのはSizeの時間変化であり、Transform Nodeそのものの接続ではありません。別の数値Parameterでも考え方は同じですが、対象Controlの有効な数値範囲はそれぞれ異なります。
+
+## Cubic Splineと比較したときの違い
+
+両者はcontrol pointを通る滑らかなcurveを自動計算し、Bézierのようなhandleを表示しません。違いは、**1つのcontrol pointを動かしたとき、周囲のcurveの傾きへ影響する範囲**です。
+
+- Cubic Spline: 広い範囲の滑らかさを考慮してcurveをつなぐ方式。
+- Natural Cubic Spline: 21.1 Manual Chapter 71では、あるcontrol pointを変更しても、**隣のcontrol pointより先にあるtangentには影響しない**と説明されています。
+
+たとえば上の4点の例でframe 12の値を変えたとき、Natural Cubicは近くの区間を調整する一方、離れた点のtangentへ影響が及びにくい設計です。ただし、「離れた画面上の見た目が一切変わらない」「隣の区間以外のすべての数値が不変」とまで断定するものではありません。Manualが明示するのはtangentへの影響範囲です。
+
+曲線を少し変えたときに他の区間まで変化して困るならNatural Cubicを比較します。特定のKeyframe前後の傾きを厳密に調整したいなら[Bézier Spline](./bezier-spline)が向いています。
+
+## 期待どおりにならないとき
+
+| 症状 | 最初に確認すること |
+| --- | --- |
+| Keyframeの前後にhandleが出ない | Natural Cubicでは正常です。handleが必要ならBézier Splineを使います。 |
+| Sizeを変更してもSplineが増えない | Natural Cubicを付けた対象Controlを操作しているか、playheadを別frameへ移動して値を変更したか、Spline Editorで正しいcurveを表示しているか確認します。 |
+| 1つのKeyframeを直したら近くの区間の傾きも変わった | control point間を自動補間するため、隣接区間も再計算されます。値だけでなく前後のcurveを確認します。 |
+| Cubic Splineとの違いが分からない | 2点のみの例より、複数pointの中間値を変えて周囲のtangentを比較すると性質を確認しやすくなります。 |
+| Viewerで位置の軌跡を編集したい | このModifierは主に数値Control用です。Centerなど2D Positionの経路ならPath / XY Pathを検討します。 |
+
+この表は21.1 Manualの操作説明とSplineの性質をもとにした確認順序であり、各症状を実機で再現した記録ではありません。
+
 ## Cubic Splineとの関係
 
 COLLECTANEAには[Cubic Spline](./cubic-spline)も別項目としてあります。
@@ -96,6 +132,7 @@ COLLECTANEAには[Cubic Spline](./cubic-spline)も別項目としてあります
 - [Modifier Family Overview](./)
 - [Cubic Spline](./cubic-spline)
 - [Bezier Spline](./bezier-spline)
+- [B-Spline Modifier](./b-spline-modifier)
 - [Path](./path)
 - [XY Path](./xy-path)
 - [Calculation](./calculation)
@@ -103,8 +140,8 @@ COLLECTANEAには[Cubic Spline](./cubic-spline)も別項目としてあります
 
 ## バージョンと出典
 
-DaVinci Resolve 21.1 Reference Manual（September 2026）Chapter 124「Modifiers」p.3015を基準にしています。
+DaVinci Resolve 21.1 Reference Manual（September 2026）Chapter 71「Animating in Fusion’s Spline Editor」pp.1544–1545とChapter 124「Modifiers」p.3015を基準にしています。
 
-同Manualで、Natural Cubic Splineが主に数値Controlへ適用されるAnimation Modifierであること、`Modify With > Natural Cubic Spline`から追加すること、control handleを持たずcontrol point間に滑らかなcurveを自動生成すること、専用Controls tabを持たずSpline Editorで結果を編集することを確認しています。
+同Manualで、Natural Cubic Splineが主に数値Controlへ適用されるAnimation Modifierであること、Modify With > Natural Cubic Splineから追加すること、control handleを持たずcontrol pointを通る滑らかなcurveを自動生成すること、専用Controls tabを持たずSpline Editorで結果を編集することを確認しています。Chapter 71のCubicとの比較を根拠に、control point変更時のtangentへの影響範囲も説明しました。
 
 current runtimeのREGID、内部Parameter ID、edition差、およびManual内のCubic Splineとの厳密なruntime上の違いはこのrunでは確定していません。

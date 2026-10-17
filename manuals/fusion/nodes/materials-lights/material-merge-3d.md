@@ -15,7 +15,7 @@ outputs: ["material"]
 tasks: ["shade-3d"]
 product_scope: fusion
 suite_surfaces: ["fusion"]
-updated: "2026-10-08"
+updated: "2026-10-16"
 ---
 
 # Material Merge 3D
@@ -40,15 +40,29 @@ Background側へ混ぜるもう1つのMaterialを接続します。3D Material�
 
 出力は混合後の**単一の3D Material**です。入力に2D Imageを使っても、出力は2D Imageや3D sceneにはなりません。
 
-出力をShape 3Dなどの3D ObjectのMaterial inputへ接続し、そのObjectをRenderer 3Dで描画すると、表面の変化を2D Imageとして確認できます。
+出力をShape 3Dなどの3D ObjectのMaterial inputへ渡します。Shape 3DをMerge 3DでCamera・Lightとまとめ、Renderer 3Dで描画すると結果を確認できます。公式Manualが示す「3D sceneやgeometryのmaterial input」は、Merge 3DのScene inputとは別の接続先です。
 
 ```text
 Blinn ──────(Background)─┐
-                         ├─ Material Merge 3D → Shape 3D [Material] → Renderer 3D → 2D Image
-BumpMap ────(Foreground)─┘
+                         ├─ Material Merge 3D → Shape 3D [Material] ─┐
+BumpMap ────(Foreground)─┘                                             ├─ Merge 3D → Renderer 3D → 2D Image
+Camera 3D ─────────────────────────────────────────────────────────────┤
+Light（必要に応じて）───────────────────────────────────────────────────┘
 ```
 
 これは接続関係を示す構成例です。BumpMapには必要に応じて凹凸用の画像を前段から渡します。
+
+## MaterialとSceneの合成は別の操作
+
+Material Merge 3DのBlendは、**材質・テクスチャの寄与率**を調整します。完成映像の2つの画像を半透明に重ねたり、別々の3D Objectを同じ空間へ集めたりするものではありません。
+
+| 入力・目的 | 扱い |
+| --- | --- |
+| Blinn・Cook Torrance・Wardなど | 3D Material同士を混ぜて、1つのMaterialにする |
+| 2D Image | Material入力へ接続できる。特にForegroundに接続した画像は、基本シェーディングモデルのDiffuse（表面色）テクスチャとして扱われる |
+| Object・Camera・Lightを3D sceneへまとめる | [Merge 3D](../3d/merge-3d.md)を使う |
+
+たとえばBlinnとCook Torranceを2入力へ接続し、Blendを動かして質感の差を比較できます。一方、Redだけ加算してAlphaを維持するような**チャンネル別の演算**はBlendでは指定できません。その場合は[Channel Boolean（3D Material）](./channel-boolean-material.md)を使います。2D Imageの画素同士を混ぜたい場合は2DのMergeやDissolveを使います。
 
 ## Inspectorの主な設定
 
@@ -80,7 +94,7 @@ BlinnをBackgroundに、BumpMapをForegroundに接続します。BumpMapは、�
 
 ### 2D Imageを材質へ組み込む
 
-Material入力へ2D Imageを接続すれば、画像を表面色のテクスチャとして利用できます。もう一方へ別の3D Materialを接続し、Blendで混合具合を調整します。
+Foreground Materialへ2D Imageをつなぐと、その画像は基本シェーディングモデルのDiffuse texture map（表面色の画像）として扱われます。Backgroundに別のMaterialをつなぎ、Blendで寄与率を調整します。これはObjectを描画する前の材質構成であり、描画済みの映像を重ねる処理とは異なります。
 
 これは画像を板状の3D Objectとして配置するImage Plane 3Dとは違います。Material Merge 3Dは**Objectへ割り当てる材質を作る**Nodeです。
 
@@ -90,11 +104,20 @@ Material入力へ2D Imageを接続すれば、画像を表面色のテクスチ�
 
 ## 似たNodeとの違い
 
+- **[Channel Boolean（3D Material）](./channel-boolean-material.md)** — RGBAごとに値を選択・加減算できる。Material Merge 3DのBlendは材質全体を混合する。
+
 - **[Replace Material 3D](../3d/replace-material-3d.md)** — 既存scene内のObjectに割り当てられたMaterialを別のMaterialへ差し替える。2つのMaterialそのものを混ぜる役割ではありません。
 - **[Merge 3D](../3d/merge-3d.md)** — Object・Camera・Lightを3D sceneへまとめる。Materialの出力をMerge 3DのScene inputへ直接つなぐ構成とは異なります。
 - **[Renderer 3D](../3d/renderer-3d.md)** — 3D sceneを2D Imageとして描画する。MatID補助チャンネルの出力もここで有効にします。
 
-Material Merge 3Dの後段へは、まずMaterial inputを持つ3D Objectを接続します。3D sceneへ直接つなぐのではありません。
+Material Merge 3Dの出力はMaterialです。Objectや対応するscene Nodeの**Material input**へ渡します。Merge 3Dの**Scene input**へ直接つなぐものではありません。
+
+## 結果が分かりにくいとき
+
+- **片方の入力が空** — Background・Foregroundの両方が必要です。Dissolveと違い、片方だけでは使えません。
+- **2D Imageを入れても画面全体へ表示されない** — 2D映像として合成しているのではなく、材質へ画像を渡しています。Imageを表示したいのか、物体の表面色に使いたいのかを確認します。
+- **Blendを変更しても差が小さい** — 比較用に2つのMaterialへ異なる色・光沢を設定し、ObjectからCamera・Light・Renderer 3Dまでの経路を確認します。
+- **MatIDが出力されない** — Material IDだけでなく、Renderer 3D側のMatID補助チャンネル出力を有効にします。
 
 ## 関連する考え方・Node
 
@@ -104,6 +127,6 @@ Material Merge 3Dの後段へは、まずMaterial inputを持つ3D Objectを接�
 
 ## 出典と確認範囲
 
-DaVinci Resolve 21.1 Reference Manual（September 2026）、Chapter 90「3D Material Nodes」、**Material Merge 3D [3MM]（pp.2059–2060）**に基づき、2つの入力、各入力が受け取る型、両入力必須、Material出力、Blend、Material ID、MatID出力条件を確認しました。
+DaVinci Resolve 21.1 Reference Manual（September 2026）、Chapter 90「3D Material Nodes」、**Material Merge 3D [3MM]（pp.2059–2060）**に基づき、2つの入力、各入力が受け取る型、両入力必須、Material出力、Blend、Material ID、MatID出力条件、およびMaterial inputとScene inputの区別を確認しました。
 
 Blendの正確な初期値・数値範囲、runtime REGID、Edition差、実機レンダリング結果は未確認のため、`verification: partial`を維持します。

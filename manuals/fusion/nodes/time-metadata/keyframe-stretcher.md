@@ -15,7 +15,7 @@ outputs: [image]
 tasks: [retime-animation, template, keyframe-stretch]
 product_scope: fusion
 suite_surfaces: [fusion]
-updated: "2026-10-07"
+updated: "2026-10-12"
 ---
 
 # Keyframe Stretcher
@@ -106,6 +106,47 @@ source rangeのうち、duration変更に合わせて伸ばしたり縮めたり
              ↑ ここが主にstretchされる
 ~~~
 
+## Time Stretchとの違い：元のキーを動かすか、再生時に合わせるか
+
+Fusionには、名前が似ていても操作対象が違う時間調整機能があります。**一度だけアニメーションを編集する**のか、**編集ページでクリップの長さが変わるたびに追従させる**のかで選びます。
+
+| やりたいこと | 使う機能 | キーフレームへの影響 |
+| --- | --- | --- |
+| いま作っているアニメーションを全体的に長く／短くする | **Keyframes EditorのTime Stretch** | 選択したキーの時刻を比例的に変更する |
+| 値の曲線を見ながらキーの間隔をまとめて変える | **Spline EditorのTime Stretching** | 選択したキーの時刻を比例的に変更する |
+| 長さを変えられるTitleで、出入りの速度を維持する | **Keyframe Stretcher Node** | 元のキー位置は保持し、変更後のクリップ長に合わせて評価する |
+| 複数Nodeではなく1つのパラメータだけを追従させる | [**Key Stretcher Modifier**](../modifiers/key-stretcher-modifier.md) | そのパラメータに対して伸縮評価を適用する |
+| 映像素材をスロー／停止／逆再生する | [**Time Stretcher**](./time-stretcher.md) | キーをまとめて移動するのではなく、参照する素材フレームを変える |
+
+**Keyframes Editor**では対象のキーを選び、左下のTime Stretchを有効にして表示された枠を横へ伸縮します。**Spline Editor**ではキーを選び、グラフの右クリックから`Modes > Time Stretching`を選ぶかツールバーのTime Stretchを押し、現れる2本の縦線をドラッグします。どちらも、その場でキーの時間配置を編集する操作です。
+
+対してKeyframe Stretcher Nodeは、元のキーを編集せず、編集側でTitleの長さが変わった際の見え方を合わせる仕組みです。「Spline Editorでキーが移動していない」という観察だけで無効と判断しないでください。[キーフレーム / スプライン / 時間](../../learn/05-time/keyframes-spline-time.md)には、キーを直接移動・補間する方法をまとめています。
+
+## 50→75 frameのTitleを確かめる操作
+
+前述の50 frameの例を実際に試す場合は、次の順序で確認します。
+
+1. FusionでTitleの出現が冒頭、退場が末尾にあるアニメーションを作ります。マニュアルの例では冒頭側のキーが`10`、末尾側のキーが`40`にあります。
+2. アニメーションするNodeをMergeなどでまとめ、**その後段**にKeyframe Stretcherを置き、MediaOutへ接続します。
+3. Keyframesタブで`Source Start = 0`、`Source End = 50`、`Stretch Start = 11`、`Stretch End = 39`に設定し、中央を伸ばす場合は`Stretch Edges Instead`を無効にします。
+4. Edit / Cutページで、適用したTitleクリップを50 frame相当の長さから75 frame相当へ伸ばして、Viewerで冒頭と末尾の動きにかかる時間を比較します。
+5. Spline Editorも開き、**元のキーの位置が変わっていないこと**を確認します。見た目の動作時間と元のキー配置の両方を見ると、Time Stretchとの違いが分かります。
+
+ここに示すframe番号は、21.1 Manualの50→75 frame例の値です。自分のCompositionで番号が異なる場合は、Source範囲と、固定したい出入りの位置を実際のキーに合わせて設定します。
+
+## 思ったように伸縮しないとき
+
+| 症状 | 先に確かめること |
+| --- | --- |
+| Titleを長くしても変化が見えない | Edit / Cutで**Titleクリップ自体の長さ**を変えたか。FusionのRender Rangeだけを変えて比較していないか |
+| 冒頭と末尾の動きまで間延びする | `Stretch Start / End`の外側に、固定したい出入りのアニメーションが収まっているか |
+| 中央ではなく端の動きが伸びる | `Stretch Edges Instead`が有効になっていないか |
+| 複数の文字のうち一部だけ追従しない | その文字を動かすNodeがKeyframe Stretcherより**前段**の接続経路に含まれているか |
+| 元のキーがSpline Editorで動かない | 正常な場合があります。出力されたTitleの動きで効果を確認します |
+| 想定した時間で出入りしない | `Source Start / End`が元のキー範囲と合っているか、`Stretch Start / End`が固定区間に入り込んでいないか |
+
+これらの切り分けは、Manualに記載された入力位置、範囲指定、Editor上のキー表示に基づくものです。短すぎるクリップなど極端な長さ変更時の動作は、実際のテンプレートで別途確認してください。
+
 ## 主な用途
 
 ### 長さを変えられるFusion Titleを作る
@@ -171,6 +212,8 @@ Keyframe Stretcherは、input clipのsource timeを読み替えるためのNode�
 ## バージョンと出典
 
 DaVinci Resolve 21.1 Reference Manual、Chapter 111「Miscellaneous Nodes」の`Keyframe Stretcher [KFS]`（pp.2597–2599）を基準にしています。
+
+Chapter 70「Animating in Fusion's Keyframes Editor」p.1526とChapter 71「Animating in Fusion's Spline Editor」p.1560で、選択キーフレームのTime Stretch操作と、直接時間配置を変更する方法を確認しました。
 
 pp.2597–2598で、single orange 2D Image input、MediaOut / Saver直前へ置く基本構成、50 frameから75 frameへ伸ばす例、Spline Editor上の元keyframe位置を変更しないことを確認しています。p.2599で`Source Start / Source End`、`Stretch Start / Stretch End`、`Stretch Edges Instead`の役割を確認しています。
 
