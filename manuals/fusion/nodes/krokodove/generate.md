@@ -1,60 +1,85 @@
 ---
-title: "Generate"
-description: "randomized grayscale texture/noise。"
+title: Generate
+description: 入力素材へグレースケールのノイズ模様を加えるKrokodoveの画像ツール。Fast NoiseやNoiseとの違い、接続例、確認事項を説明。
 doc_type: node
-term_id: "generate"
-term_short: "Generateは、randomized grayscale texture/noise。Krokodove固有のtool。"
+term_id: generate
+term_short: 入力素材に濃淡のあるノイズ模様を加え、グレースケール画像を生成するKrokodoveのツール。
 verification: partial
-aliases: ["Generate"]
-concepts: ["image-data"]
-nodes: ["Generate"]
-node_family: "krokodove"
-outputs: ["image"]
-tasks: ["motion-graphics"]
+aliases: [Generate]
+concepts: [image-data]
+nodes: [Generate]
+node_family: krokodove
+outputs: [image]
+tasks: [motion-graphics]
 product_scope: fusion
-suite_surfaces: ["fusion"]
-updated: "2026-10-05"
+suite_surfaces: [fusion]
+updated: '2026-10-17'
 ---
 
 # Generate
 
-Generateは、randomized grayscale texture/noise。Krokodove固有のtoolです。名前だけで2D Image Nodeと判断せず、Input / Output domainとFamily Overviewを先に確認します。
+Generateは、**入力された素材に細かな濃淡の模様（ノイズ）を加える**Krokodoveのツールです。DaVinci Resolve 21.1 Reference Manualでは「Image Create Tools」に分類され、元の入力へテクスチャーを加え、ランダムに見えるグレースケールのノイズパターンを生成すると説明されています。
 
-## 役割
+「ノイズ」とは、画面の明るさが場所ごとに不規則に変わる模様のことです。ここでのグレースケールは、色相の異なる粒ではなく、暗い値から明るい値までの濃淡を使うという意味です。**粒の大きさ、分布、動き、元画像との混ざり方まではManualの短い説明だけでは分かりません。**
 
-randomized grayscale texture/noise。このページでは、名前だけで選ばず、**何を受け取り、何が変わり、どのdomainへ返すか**を先に整理します。
+## 何をするツールか
 
-この項目で確認できている中心的な役割は「randomized grayscale texture/noise」です。exactなInspector項目が未確認の場合は、役割とdata domainを先に使って候補を絞ります。
+単色の画像を思い浮かべると、Generateの用途を捉えやすくなります。全面が均一な灰色なら、すべての場所がほぼ同じ明るさです。そこへノイズが加わると、場所によって明るい部分と暗い部分が現れ、均一だった面に細かな変化が生まれます。実際の模様が滑らかか、粒状か、どれほど不規則かはViewerで確認します。
+
+Manualの説明には「source inputへテクスチャーを追加する」という記述があります。このため、入力画像に作用するツールとして考える根拠はあります。ただし、**入力画像を内部でどのように処理するか**、元画像をそのまま残して上に重ねるのか、出力がノイズ画像へ置き換わるのかは明示されていません。画像がどのように変わるかを作例の結果として断定しないようにします。
+
+このGenerateは、プログラミングで一般に使う「生成」という言葉でも、Fusionの標準Generator全体の名前でもありません。Krokodoveというツール群に含まれる個別のノード名です。
 
 ## 入力と出力
 
-出力分類: **image**。 この分類はdata domainを読むためのものです。Fusion 21.1のexactな端子名・端子数を未確認の場合、ここでは推測して固定しません。
+| 段階 | 内容 | 根拠と確認範囲 |
+| --- | --- | --- |
+| 入力 | テクスチャーを加える元の素材（source input） | 21.1 Manualにsource inputへの言及があります。端子の正式名称、個数、必須かどうか、受け付ける正確な型は未確認です。 |
+| 処理 | グレースケールの、ランダムに見えるノイズ模様を作る | Chapter 105、p.2435のGenerate説明に記載されています。 |
+| 出力 | 2Dの<Term id="image">Image</Term>として扱う | Manual上のImage Create分類と既存COLLECTANEAカタログに基づきます。Alpha、画像サイズ、正式な出力端子名は未確認です。 |
 
-## 使うときの判断
+Imageは、画面を構成する画素の情報です。Fusionの<Term id="shape-data">Shapeデータ</Term>は図形の輪郭などの情報を描画前の形で保持するため、両者は同じではありません。Generateのノイズは画像を扱う用途として整理しており、Shapeを複製する機能としては説明されていません。
 
-KrokodoveはImage、Shape、3D、Regionが同じchapterに並ぶため、まずOutput domainで候補を絞ります。
+## 主な用途
 
-同じ目的を別Familyでも作れる場合は、後段で必要なdata domainと、Graph上で責任をどこに置きたいかで選びます。
+**背景に質感を付けたい場合**は、均一な色の画像に濃淡を加える素材として使えます。ポスター風のタイトル背景や、幾何学模様の上にわずかな明暗の変化を置きたいときの候補になります。
 
-## 最小構成
+**別の映像と合成したい場合**は、生成されたノイズ画像を別のレイヤーとして扱う構成が考えられます。ただし、ノイズ画像が透明部分を持つとは確認できていません。背景を透かして重ねる必要があれば、後段の合成で表示量を調整します。
 
-    Image / Source → Generate → Result
+これらはManualが説明する「ノイズ模様を作る」という役割から導いた制作例です。フィルムグレインの物理特性の再現、時間的なランダム性、特定の質感プリセットが備わっているとまでは確認できません。
 
-これは接続関係を理解するための最小構成案です。公式Manualのexactな作例として確認していない構成は、実制作前にViewerで中間結果を確認します。
+## 制作例：単色の背景に濃淡を加え、映像へ薄く重ねる
 
-## 確認ポイント
+1. Fusionで標準のBackgroundを用意し、単色画像を作ります。
+2. KrokodoveのGenerateを追加します。まずGenerateをViewerへ表示し、入力を必要とする場合は端子と受け付けるデータを確認します。Manualのsource inputの説明に沿い、接続できる画像入力があればBackgroundの出力を渡します。
+3. Generateの前後をViewerで見比べ、均一な面にどのような濃淡が加わるかを確かめます。ノイズの形、明暗、色、Alphaが期待どおりかを確認してください。
+4. 生成結果を映像の上に重ねたい場合は、標準の[Merge](../compositing/merge)を使います。元の映像をBackground（BG）、Generateから得た画像をForeground（FG）へつなぎます。
 
-- 入力dataのdomainが合っているか。
-- この項目のoutputを受け取れる後段Nodeへ接続しているか。
-- 同じ役割を前段 / 後段で二重に処理していないか。
-- source-limited pageでは、未確認のControl名・default・rangeを名前から推測していないか。
+    Background（単色） → Generate ─┐
+                                   Merge → MediaOut
+    MediaIn（映像） ───────────────┘
 
-## Family内での位置づけ
+5. Generateが不透明な画像を出して背景を隠す場合、MergeのBlendを下げるとForegroundの合成量を減らせます。ノイズがどの程度見えるかは出力の明暗・Alphaによって異なります。
 
-Krokodoveノードの全体像と近いNodeの選び分けは[Family Overview](./)を参照してください。
+この配線は、**画像として受け渡せることを確認してから試す構成案**です。Generateの端子数・内部合成方式を示す公式の配線図ではありません。実機では最初に単体出力と接続できる入力を確認します。
 
-## 出典と確認範囲
+## Fast Noise・Noiseとの違い
 
-このページの役割・data domain・系譜は、既存COLLECTANEA catalogとBlackmagic Design公式資料で確認された範囲をreader-first形式へ整理しています。
+| ツール | 21.1 Manualで確認できる役割 | 選ぶときの目安 |
+| --- | --- | --- |
+| **Generate** | source inputへテクスチャーを加え、グレースケールのノイズ模様を作る | 入力素材に濃淡の変化を加える処理を調べたいとき |
+| [Fast Noise](../generators/fast-noise) | Perlin Noiseを生成する標準Generator。雲・霧などに使い、別ノードへノイズ画像を渡せる | 素材入力なしにノイズ画像を生成し、DetailやScaleなどの制御を使いたいとき |
+| [Noise（Krokodove）](./noise) | ピクセル状の模様を作り、色をランダム生成または選択できる | グレースケール以外の色やピクセル状の模様を検討するとき |
+| [Pattern](./pattern) | 図形をタイル状に敷き詰めた模様を作る | 不規則な濃淡よりも規則的な図形の配置が必要なとき |
 
-Fusion 21.1 Reference Manualで個別のInspector項目・default・rangeまで確認できていない項目は、**source-limited**としてその詳細を断定していません。verification: partial はその未確認範囲を含みます。runtime REGIDや現在のEffects Library表示は別のruntime verificationで確定します。
+Fast Noiseは標準のGeneratorで、ManualのChapter 103に詳しい入力とInspectorの解説があります。一方、KrokodoveのGenerateにはChapter 105の短い一覧説明しかありません。**Fast NoiseのDetail、Scale、SeetheなどがGenerateにもあるとは推測しません。** また、Generateの模様がFast Noiseと同じPerlin Noise方式で作られるとも確認できていません。
+
+## バージョン・出典・未確認事項
+
+- **一次資料**：Blackmagic Design『DaVinci Resolve 21.1 Reference Manual』（September 2026）、Chapter 105「Krokodove Nodes」、p.2435（Image Create Tools／Generate）。source inputに質感を加え、グレースケールのランダム風ノイズを作るという概要を確認しました。
+- **比較資料**：同Manual、Chapter 103「Generator Nodes」、pp.2363–2364（Fast Noise）、Chapter 105、p.2436（Krokodove Noise）。Fast NoiseはPerlin Noise Generatorで、Noiseは色を選べるピクセル状のパターンとして説明されています。
+- **関連資料**：[Krokodove Family Overview](./)にはImage、Shape、3D、Regionの区別を掲載しています。
+
+**未確認**：Generateの正式な入出力端子名・個数・型、入力の必須性、元画像との合成方式、ノイズ生成アルゴリズム、Inspectorの項目名・初期値・範囲、RGB・Alphaの処理、解像度、時間変化とキーフレーム対応、Resolve Free / StudioやFusion StudioのEdition差、21.1実機の描画結果。
+
+このページのverificationはpartialです。Manualで確認した役割と、実機での検証を必要とする仕様を分けています。
