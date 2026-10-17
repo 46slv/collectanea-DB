@@ -11,7 +11,7 @@ tasks: [mask, isolate-effect, debug]
 prerequisites: [image-data, typed-connections]
 level: foundation
 product_scope: fusion
-updated: "2026-10-04"
+updated: "2026-10-17"
 ---
 
 # マスク（Mask）
@@ -63,6 +63,31 @@ Image AlphaはRGBA Image自身の透明度channelです。
 Effect Maskは別branchからNodeへ入り、「そのNodeの処理をどこへ効かせるか」を制御します。
 
 Maskを接続しただけで、元ImageのAlpha channelが常に直接書き換わるとは考えません。
+
+## ShapeからMaskの適用範囲を作る
+
+Shapeノードで作った円や文字を、別の映像にかけるエフェクトの範囲指定にも利用できます。ただし、[sEllipse](../../nodes/shapes/s-ellipse)などが出力する**Shapeデータは、Mask入力に渡す単一チャンネルのMaskとは別の種類**です。Shapeを作っただけで青いEffect Maskへつなぐのではなく、画像化した結果からマスクを取り出します。
+
+たとえば、円の内側だけ背景映像をぼかしたい場合、次のように接続します。
+
+```text
+MediaIn（ぼかす映像） ─────────────────────→ Blur ─→ MediaOut
+                                             ↑ Effect Mask（青）
+sEllipse → sRender → Bitmap Mask ────────────┘
+                        Channel: Alpha
+```
+
+1. sEllipseで円のShapeを作り、[sRender](../../nodes/shapes/s-render)で2D Imageへ変換します。
+2. sRenderの出力を[Bitmap Mask](../../nodes/masks/bitmap-mask)の**Input（オレンジ）**へ接続し、**ChannelをAlpha**にします。円の内側と外側が意図した透明度になっているか、まずsRenderのAlphaをViewerで確認してください。
+3. Bitmap Maskの出力をBlurの**Effect Mask（青）**へ接続します。BlurのImage入力にはぼかしたいMediaInを渡すため、sEllipseの図形を映像へ重ねるのではなく、**その形でぼかしの範囲を指定**する構成になります。
+
+円の形で範囲を指定するだけなら、[Ellipse Mask](../../nodes/masks/ellipse-mask)をBlurへ直接つなぐ方が短い構成です。ShapeのままsGridで複製した模様や、sBooleanでくり抜いた形を再利用したいときに、Shape → sRender → Bitmap Maskという経路が役立ちます。
+
+### Imageを直接Effect Maskへ使う場合
+
+**Bitmap Maskは、すべてのEffect Mask接続に必須ではありません。** 21.1 Manualでは、2D ImageをEffect Mask入力へ直接接続でき、受け取るNodeのCommon Settingsで使用チャンネルを選べると説明されています。一方、入力ImageのAlphaを明示して取り出す、ThresholdやSoft Edgeで調整する、別Maskと合成する場合にはBitmap Maskを挟むと操作が分かりやすくなります。Garbage MatteやPre-Maskなど、Effect Mask以外の入力ではBitmap Maskが必要になる場合もあります。
+
+不透明な黒い図形は、**Alphaでは高い値、Luminanceでは低い値**になり得ます。「黒く見えるからMaskでも黒」と判断せず、どのチャンネルを選択しているか確認してください。
 
 ## Maskを作る方法
 
@@ -146,6 +171,6 @@ Maskを実際のEffectへ使う方法:
 
 ## 出典と確認範囲
 
-DaVinci Resolve 21.1 Reference Manual、September 2026、Chapter 108とFusion Fundamentals Chapter 79で、Maskが単一channel画像として処理範囲を定義すること、Mask Nodeの種類、Effect Mask入力、Level / Paint Mode / Invertの基本を確認しました。
+DaVinci Resolve 21.1 Reference Manual（September 2026）Chapter 108（p.2463）でBitmap Maskの2D Image入力、Channel、Effect MaskへのImage直接接続とその例外を、Chapter 117（pp.2759–2760）でsRenderのShape入力・2D Image出力を確認しました。Chapter 79ではMaskの単一チャンネル画像としての役割を参照しています。
 
 Node固有のMask処理順は各Referenceを優先します。
