@@ -15,7 +15,7 @@ outputs: [usd]
 tasks: [usd, projection, texture, lighting]
 product_scope: fusion
 suite_surfaces: [fusion]
-updated: "2026-10-15"
+updated: "2026-10-18"
 ---
 
 # uProjector
@@ -46,6 +46,14 @@ uProjectorの出力は<Term id="usd-scene">USDシーン</Term>です。投影後
 **Light**では、投影画像の色がDiffuse / Specularの光として働き、表面の向きや反射に影響されます。表示にはライティングの有効化が必要です。投影が重なると光の寄与は加算され、画像のAlphaだけでは壁を透明にできません。
 
 **Texture**では、uProjector単独では受け手の物体へテクスチャが付くとは限りません。形状に**uCatcher**を接続し、Projectorと受け手を同じUSDシーンへまとめます。投影画像のAlphaとuCatcherによる合成については[uCatcherの記事](./ucatcher)を参照してください。
+
+## 反射の強さへ画像を投影したいとき
+
+**Lightモードで鏡面ハイライトが生じることと、画像をSpecular Textureへ割り当てることは別です。** Lightでは投影光が表面法線に応じてDiffuse / Specularの照明として働きます。一方、Textureでは、画像を照明の色として加算するのでなく、uCatcherを介して材質側のテクスチャとして使えます。
+
+たとえば、看板の一部だけ反射を強くしたい場合は、その分布を表す白黒画像を**ProjectiveImage**へ入力し、**Projection ModeをTexture**にします。反射用テクスチャを受け取れるUSD MaterialにuCatcherを組み合わせれば、画像の明暗を表面の反射量の分布として利用する構成になります。21.1 ManualはBlinnなどの**Specular Texture**入力やReflection Mapへの応用を挙げています。ただし、個別のUSD Materialの具体的な配線とレンダリング結果は実機で未確認です。
+
+なお、同ManualのuCatcher節はLight投影のRGBを**Diffuse textureへ加算**すると説明し、uProjector節は**Diffuse / Specular light**として扱うと説明しています。これは異なる節での記述であり、LightがSpecular Texture入力を直接書き換えるという意味には読み替えません（21.1 Manual pp.2892–2893、2907、2910）。
 
 ## 制作例1：壁に画像を光として当てる
 
