@@ -9,14 +9,14 @@ aliases: [uRenderer, USD Renderer, uRn]
 concepts: [usd-scene, rendering, aov, image-data]
 nodes: [uRenderer]
 node_family: usd
-controls: [Camera, Renderer Type, Output AOVs As Layers, AOV, Lighting, Enable Sky Dome, Complexity, Aux Channel Z, Film Back Fit, Max Iterations, Process Mode, Width, Height, Pixel Aspect, Auto Resolution, Depth, Domain Overscan, Overscan, Render Color Space, Source Color Space, Source Gamma Space]
+controls: [Camera, Renderer Type, Output AOVs As Layers, AOV, Lighting, Enable Sky Dome, Complexity, Aux Channel Z, Film Back Fit, Max Iterations, Process Mode, Width, Height, Pixel Aspect, Auto Resolution, Depth, Domain Overscan, Overscan, Render Color Space, Source Color Space, Source Gamma Space, Pre-Divide/Post-Multiply]
 inputs: [usd, mask]
 outputs: [image]
 tasks: [usd, render-3d, convert-domain, aov]
 level: advanced
 product_scope: fusion
 suite_surfaces: [fusion]
-updated: "2026-10-14"
+updated: "2026-10-18"
 ---
 
 # uRenderer
@@ -142,6 +142,19 @@ USDライト ────────┘                   └─ AOV / Zの確�
 - **Source Gamma Space**：Auto / Space / Log / Remove Curveなどでガンマ情報・曲線の扱いを設定します。**Remove Curve**は該当する曲線を取り除いてLinearへ変換する動作として説明されています。
 
 **Render Color SpaceとSource Color Spaceを同じ操作として扱わない**でください。見た目が変わらないメタデータ指定と、画素値の変化を伴う処理を分けて考えます。Source Color Space / Gammaの説明には画像ノード共通の文言が含まれるため、USDシーンの各テクスチャへ一括変換が起こるなどとは推測しません。
+
+### 実写に重ねたときのAlphaの縁を確認する
+
+uRendererのColor出力を実写へ重ねる際は、色空間だけでなく**RGBとAlphaの関係**も確認します。Alphaは画素がどの程度合成に寄与するかを示しますが、半透明の画素に保存されているRGB値は、画像の扱い方によって異なります。
+
+- **Straight Alpha（乗算前）**：RGBは物体の色を保持し、Alphaは別に持ちます。
+- **Premultiplied Alpha（乗算済み）**：RGBにはAlphaが掛けられています。例えば線形RGBの赤 `(1, 0, 0)`、Alpha `0.5` の画素なら、乗算済みRGBは `(0.5, 0, 0)` です。
+
+合成や色変換の途中でこの2方式を取り違えると、物体の半透明な縁が暗くなったり、明るい縁が残ったりすることがあります。**uRendererの2D出力をMergeのForegroundへ接続**したら、まず実写の暗部と明部の両方に重ねて縁を確認します。問題があるときは、レンダリングしたColorのAlpha、後段で行った色変換、Mergeへの接続順を一つずつ切り分けます。
+
+21.1 Reference Manualの**uRenderer節 p.2914**には、Source Gamma Spaceに関連する **Pre-Divide/Post-Multiply** の説明もあります。ただし当該ページは `Pre-Divide/Post-Mujltiply` と印刷されており、ほかの章では `Pre-Divide/Post-Multiply` と表記されています。ManualはStraight AlphaとPremultiplied Alphaの扱いに関わる操作だと説明していますが、**21.1実機での表示名・既定値・どの条件で必要になるかまでは本記事では確認していません**。縁に問題がない画像へ無条件に適用する設定として扱わず、実際の合成結果を比較して判断してください。
+
+具体的な実写合成全体の流れは[uCamera](./ucamera)の記事と併せて確認できます。
 
 ## うまく表示されないとき
 
