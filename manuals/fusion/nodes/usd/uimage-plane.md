@@ -135,6 +135,6 @@ uProjectorの**Light**モードでは、画像は光として働き、Alphaが�
 
 ## バージョン・出典と確認範囲
 
-**一次資料**：Blackmagic Design『DaVinci Resolve 21.1 Reference Manual』（September 2026）、Chapter 121「USD Nodes」、**uImage Plane [uIm]（pp.2901–2902）**。画像の入力、入力画像のaspectを平面へ反映すること、Filename、Size、共通Transform / Settingsを照合しました。
+**一次資料**：Blackmagic Design『DaVinci Resolve 21.1 Reference Manual』（September 2026）、Chapter 121「USD Nodes」、**uImage Plane [uIm]（pp.2901–2902）**。画像の入力、入力画像のaspectを平面へ反映すること、Filename、Size、共通Transform / Settingsを照合しました。 **投影方式の比較**は同章のuCamera（pp.2889–2892）、uCatcher（pp.2892–2894）、uProjector（pp.2906–2907）を参照しました。
 
 制作例はManualで確認できる機能を組み合わせた説明です。動画入力の実機更新挙動、FilenameとImage Inputを同時に指定した場合の優先順位、非正方形ピクセルでの比率、内部REGID、正確な既定値・数値範囲、Edition差、実機レンダリング結果は未確認です。このため**verification: partial**を維持しています。
