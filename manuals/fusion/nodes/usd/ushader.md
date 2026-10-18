@@ -15,7 +15,7 @@ outputs: [usd-material]
 tasks: [usd, material, shader, lookdev]
 product_scope: fusion
 suite_surfaces: [fusion]
-updated: "2026-10-14"
+updated: "2026-10-18"
 ---
 
 # uShader
@@ -79,11 +79,28 @@ Inspectorの**Shader Model**では、**USD**または**MaterialX**のツール�
 | --- | --- | --- |
 | Fusionで車体の塗装色やRoughnessを調整する | **uShader / Shader Model = USD**。必要ならuTextureを個別の材質プロパティに接続する | uShaderの材質出力を[uReplaceMaterial](./ureplacematerial)のMaterial Inputへ |
 | Fusion内でMaterialX系の材質設定を使う | **uShader / Shader Model = MaterialX**。USDモードとは異なるInspectorを使う | uShaderの材質出力をuReplaceMaterialへ |
-| 別の制作ソフトから受け取った`.mtlx`を使う | **[uMaterialX](./umaterialx) / Material File**で外部ファイルを読み込む | uMaterialXの材質出力をuReplaceMaterialのMaterial Inputへ渡し、**Type = MaterialX**で使用する材質を選ぶ |
+| 別の制作ソフトから受け取った`.mtlx`を使う | **uReplaceMaterial / Type = MaterialX**で直接ファイルを指定するか、**[uMaterialX](./umaterialx) / Material File**で読み込む | 直接指定なら追加ノードは不要。uMaterialXを使う場合は材質出力をuReplaceMaterialのMaterial Inputへ渡す |
 
-例えば、同じ車のUSDモデルを使って**Fusion内で塗装案を作る**なら、uShaderのUSDモードで色とRoughnessを設定し、uReplaceMaterialのPrim Selectionでボディだけを指定します。外部で仕上げた**`.mtlx`材質を受け取って比較する**なら、モデルを読み込み直すのではなく、uMaterialXから材質を渡して適用先のPrimを選びます。両者を同じカメラ・照明で描画すると、材質の差を比較できます。
+### 外部`.mtlx`を使う2つの経路
 
-**混同しやすい3つの設定**は、uShaderの**Shader Model**（材質の作成方式）、uMaterialXの**Material File**（外部ファイルの読み込み）、uReplaceMaterialの**Type**（シーンへ割り当てる材質の方式）です。同じ「MaterialX」という文字が表示されても、作用する段階が違います。
+21.1のuReplaceMaterialでは、**Type = MaterialX**にすると、`.mtlx`ファイルをそのノードから直接選ぶ方法と、**Material Input（緑の入力）へ接続した材質から選ぶ方法**が使えます。**外部MaterialXを使うためにuMaterialXが必須というわけではありません**（21.1 Reference Manual p.2916）。
+
+~~~text
+直接指定:
+uLoader（USD scene）→ uReplaceMaterial（Type = MaterialX、.mtlxを指定）→ uRenderer
+
+ノード経由:
+uMaterialX（.mtlx） ─────────────┐ Material Input
+                               ▼
+uLoader（USD scene） → uReplaceMaterial → uRenderer
+                        Scene Input
+~~~
+
+どちらも**Prim Selectionで適用対象を選ぶ**操作は別途必要です。外部ファイルを一つのオブジェクトへ使うだけなら直接指定で済みます。材質の読み込みを独立させたい場合はuMaterialXを使います。また、**uShaderのShader Model = MaterialXは、外部ファイルを読み込む設定ではありません**。uReplaceMaterialでType = MaterialXを選ぶと、ほかの材質設定欄は隠れます。設定を見失った場合は、まずTypeを確認してください。
+
+例えば、同じ車のUSDモデルを使って**Fusion内で塗装案を作る**なら、uShaderのUSDモードで色とRoughnessを設定し、uReplaceMaterialのPrim Selectionでボディだけを指定します。外部で仕上げた**`.mtlx`材質を受け取って比較する**なら、uReplaceMaterialからファイルを直接指定するか、uMaterialXから材質を渡して適用先のPrimを選びます。両者を同じカメラ・照明で描画すると、材質の差を比較できます。
+
+**混同しやすい3つの設定**は、uShaderの**Shader Model**（材質の作成方式）、uMaterialXの**Material File**（外部ファイルの読み込み）、uReplaceMaterialの**Type**（材質の指定方式。MaterialXなら直接ファイル指定／入力から選択）です。同じ「MaterialX」という文字が表示されても、作用する段階が違います。
 
 21.1 Manualでは、USDモードのDiffuse、Workflow Mode、Roughnessなどの項目が列挙されています。一方、MaterialXモードについては概要とInspectorの例示が中心です。**MaterialXモードで使える全パラメータ、既定値、入力候補、外部`.mtlx`との完全な互換性は、この資料だけでは確定しません。** 他ソフトとの見た目の一致が必要なら、実際のシーンとレンダー結果で確認してください。
 
@@ -134,7 +151,7 @@ uTextureの**File Name**から静止画像を指定する方法とは違い、**
 | 法線マップの凹凸が不自然 | uNormalMap経由か、uTextureがLinearとして読んでいるかを確認します。 |
 | 動画が静止している | uTextureのFile Nameだけでなく、時間変化する画像をImage Inputへ流しているか確認します。 |
 | Roughnessを変えても差が小さい | Workflow ModeとRoughness / Clearcoatの違い、ライトやuRendererの設定を確認します。 |
-| MaterialXが期待どおり動かない | uShaderのMaterialXモードと、外部`.mtlx`を読むuMaterialXを区別し、実際の描画で確認します。 |
+| MaterialXが期待どおり動かない | uShaderのMaterialXモード、uReplaceMaterialのType = MaterialXによる直接指定、uMaterialXのMaterial Input経由を区別し、選択中の材質と描画結果を確認します。 |
 
 ## 関連ノード
 
@@ -148,6 +165,6 @@ uTextureの**File Name**から静止画像を指定する方法とは違い、**
 
 ## バージョン・出典・未確認事項
 
-**Blackmagic Design『DaVinci Resolve 21.1 Reference Manual』（September 2026）、Chapter 121「USD Nodes」、pp.2940–2945**を基準に、可変入力とChannel / Scale / Bias、USD / MaterialX切り替え、USDモードのInspector、uTexture・uNormalMap・uTextureTransformの役割を照合しました。uReplaceMaterialの入力・Prim Selectionは同Chapter **pp.2915–2917**を参照しています。
+**Blackmagic Design『DaVinci Resolve 21.1 Reference Manual』（September 2026）、Chapter 121「USD Nodes」、pp.2940–2945**を基準に、可変入力とChannel / Scale / Bias、USD / MaterialX切り替え、USDモードのInspector、uTexture・uNormalMap・uTextureTransformの役割を照合しました。uReplaceMaterialの入力・Prim Selection、およびType = MaterialXの直接ファイル指定とMaterial Input経由の選択は同Chapter **pp.2915–2917**を参照しています。
 
 制作例はManualで確認できる仕様を組み合わせた説明です。**全プロパティの入力候補、数値範囲と既定値、MaterialXの互換性、Edition差、21.1実機でのレンダリング結果は未確認**です。そのため`verification: partial`を維持します。
