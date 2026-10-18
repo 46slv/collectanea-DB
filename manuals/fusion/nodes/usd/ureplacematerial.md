@@ -62,13 +62,30 @@ Inspectorの**Type**で、材質の指定方法を選びます。21.1 Manualで�
 | --- | --- | --- |
 | **Color** | Inspectorで指定する単色 | パーツの色をまず確認したいとき |
 | **Texture** | 画像ファイルを表面に使う | 静止画の模様を貼りたいとき |
-| **MaterialX** | MaterialXファイル、またはMaterial Inputに接続した材質から選択 | uMaterialXやuShaderで用意した材質を使いたいとき |
+| **MaterialX** | `.mtlx`ファイルをこのノードで直接指定するか、Material Inputに接続した材質から選択 | 外部ファイルを直接指定する場合、またはuMaterialX・uShaderなどから材質を受け取る場合 |
 
 Material InputへuShaderを接続した場合、**その材質を受け取る線**と、**実際に使う材質を選ぶInspector操作**を分けて確認します。接続しただけでどのTypeや対象マテリアルが自動選択されるかまでは、Manualの記述から断定しません。
 
 **Type = MaterialXを選ぶと、Inspectorのほかの材質設定は隠れます。** これは21.1 Manual p.2916に明記された表示動作です。接続したuShaderのRoughnessや色を調整したい場合は、uReplaceMaterialに数値欄を探すのではなく、材質の作成元で変更し、uRendererの結果を確認します。
 
-外部の`.mtlx`定義ファイルを読むなら[uMaterialX](./umaterialx)、Fusion内で色・テクスチャ・反射を組み立てるなら[uShader](./ushader)を使います。uReplaceMaterialはそれらを**USDシーンのどこへ割り当てるか**を担当します。
+### 外部MaterialX材質を読み込む2つの経路
+
+21.1 Reference Manual（p.2916）によると、**Type = MaterialX**では、**uReplaceMaterial自身からMaterialXファイルを指定する方法**と、**Material Inputに接続した材質から選ぶ方法**が用意されています。外部の`.mtlx`ファイルを使うために、必ずuMaterialXを追加する必要はありません。
+
+```text
+直接読み込む:
+uLoader（USD scene） → uReplaceMaterial（Type = MaterialX、.mtlxを選択） → uRenderer
+
+別ノードから渡す:
+uMaterialX（.mtlx） ──────────┐ Material Input
+                             ▼
+uLoader（USD scene） ──→ uReplaceMaterial → uRenderer
+                         Scene Input
+```
+
+一つのオブジェクトへ外部材質を割り当てるだけなら、**uReplaceMaterialから直接ファイルを選ぶ**とノードを減らせます。ファイルの読み込みを独立したノードとして管理したい場合は、[uMaterialX](./umaterialx)からMaterial Inputへ渡します。Fusion内で色・粗さ・テクスチャを組み立てる場合は、[uShader](./ushader)が別の選択肢です。
+
+どの経路でも、**材質の指定**と**Prim Selectionで適用対象を選ぶこと**は別の操作です。外部ファイルの互換性、接続時の自動選択やInspectorの細かな表示条件は、21.1実機で確認してください。
 
 ## Image Input：動画や合成画像を直接貼る
 
@@ -122,8 +139,8 @@ Typeなどの選択によって表示項目が変わります。21.1 ManualのCo
 ## 制作例2：外部マテリアルを適用する
 
 1. uLoaderをScene Inputへ接続します。
-2. [uMaterialX](./umaterialx)で`.mtlx`を読み込むか、[uShader](./ushader)で材質を作ります。
-3. その出力を**Material Input**へ接続し、Inspectorで使う材質を選びます。
+2. [uMaterialX](./umaterialx)で`.mtlx`を読み込むか、[uShader](./ushader)で材質を作ります。単に外部`.mtlx`を指定するだけなら、uReplaceMaterialの**Type = MaterialX**から直接ファイルを選ぶ経路もあります。
+3. 別ノードから材質を渡す場合は、その出力を**Material Input**へ接続し、Inspectorで使う材質を選びます。
 4. Prim Selectionで適用対象を絞ってからuRendererで確認します。
 
 uMaterialXが読み込めても、外部で作ったすべてのMaterialX表現が完全に対応するとは限りません。複雑な素材は実際にレンダリングして確認する必要があります。

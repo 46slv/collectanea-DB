@@ -14,7 +14,7 @@ outputs: [usd-material]
 tasks: [usd, material, materialx, load-material]
 product_scope: fusion
 suite_surfaces: [fusion]
-updated: "2026-10-14"
+updated: "2026-10-18"
 ---
 
 # uMaterialX
@@ -79,7 +79,19 @@ uMaterialXは、Inspector内で色やRoughnessを一から編集するための�
 
 **uShaderの「Shader Model = MaterialX」とuMaterialXは同じ操作ではありません。** 前者はuShader内で使うシェーダーモデルの選択、後者は外部`.mtlx`の読み込みです。MaterialXを採用していても、どのノードで材質を用意したかによって操作が違います。
 
-また、[uLoader](./uloader)から読み込んだUSDシーン内にも材質が含まれる場合があります。**外部のMaterialXファイルを新たに読む**必要がある場合にuMaterialXを使い、元のシーンにある材質をそのまま使う場合は必須ではありません。
+また、[uLoader](./uloader)から読み込んだUSDシーン内にも材質が含まれる場合があります。**外部のMaterialXファイルを新たに読む**方法には、uMaterialXを独立させる方法と、uReplaceMaterialのType = MaterialXでファイルを直接指定する方法があります。元のシーンにある材質をそのまま使う場合は、どちらも必須ではありません。
+
+## uReplaceMaterialだけで直接読み込む場合
+
+**外部の`.mtlx`を使うたびにuMaterialXが必要なわけではありません。** 21.1 Reference Manual（p.2916）では、uReplaceMaterialの**Type = MaterialX**からファイルを直接指定する方法と、Material Inputに接続した材質から選ぶ方法の両方が説明されています。
+
+```text
+直接指定: uLoader（USD scene） → uReplaceMaterial（Type = MaterialX、.mtlxを選択） → uRenderer
+ノード経由: uMaterialX（.mtlx） → uReplaceMaterial（Material Input）
+            uLoader（USD scene） → uReplaceMaterial（Scene Input） → uRenderer
+```
+
+単に一つのモデルの材質を置き換えるなら、**uReplaceMaterialから直接指定するほうが短い構成**です。材質ファイルの読み込みを独立して示したい場合や、材質データの供給元を後段の処理と分けたい場合にuMaterialXを使います。どちらの場合も、uReplaceMaterialで対象Primを選ぶ必要があります。
 
 ## 用途と運用上の注意
 
@@ -111,6 +123,6 @@ uMaterialXは、Inspector内で色やRoughnessを一から編集するための�
 
 ## バージョン・出典・未確認範囲
 
-**Blackmagic Design『DaVinci Resolve 21.1 Reference Manual』（September 2026）、Chapter 121「USD Nodes」、pp.2904–2905**で、入力なし、`.mtlx`から材質だけを含むUSDデータを作ること、Material File、uReplaceMaterialへの接続を確認しました。**pp.2915–2917**でuReplaceMaterialのMaterial Input、Type = MaterialX、Prim Selectionを確認しています。
+**Blackmagic Design『DaVinci Resolve 21.1 Reference Manual』（September 2026）、Chapter 121「USD Nodes」、pp.2904–2905**で、入力なし、`.mtlx`から材質だけを含むUSDデータを作ること、Material File、uReplaceMaterialへの接続を確認しました。**pp.2915–2917**でuReplaceMaterialのMaterial Input、Type = MaterialX、直接ファイル選択と入力経由の選択、Prim Selectionを確認しています。
 
 接続例とトラブル対処は、これらの仕様を基に組み立てた運用例です。**対応MaterialXバージョン、全ノードの互換性、外部テクスチャの解決方法、実機の表示順・既定値・Edition差は未検証**です。`verification: partial`を維持します。
