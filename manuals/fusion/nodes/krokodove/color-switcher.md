@@ -1,61 +1,116 @@
 ---
-title: "Color Switcher"
-description: "palette switch/rotate。RGBA channel routing。"
+title: Color Switcher
+description: 複数の配色セットを切り替え、セット内の色を循環させるKrokodove Modifierの役割とRGBA接続を説明。
 doc_type: node
-term_id: "color-switcher"
-term_short: "Color Switcherは、palette switch/rotate。RGBA channel routing。Krokodove固有のtool。"
+term_id: color-switcher
+term_short: 複数のカラーパレットの切り替えや、パレット内の色の循環を扱うKrokodoveのModifier。
 verification: partial
-aliases: ["Color Switcher"]
-concepts: ["parameter-data"]
-nodes: ["Color Switcher"]
-node_family: "krokodove"
-inputs: ["parameter"]
-outputs: ["parameter"]
-tasks: ["motion-graphics"]
+aliases: [Color Switcher]
+concepts: [parameter-data]
+nodes: [Color Switcher]
+node_family: krokodove
+inputs: [parameter]
+outputs: [parameter]
+tasks: [motion-graphics]
 product_scope: fusion
-suite_surfaces: ["fusion"]
-updated: "2026-10-05"
+suite_surfaces: [fusion]
+updated: '2026-10-19'
 ---
 
 # Color Switcher
 
-Color Switcherは、palette switch/rotate。RGBA channel routing。Krokodove固有のtoolです。名前だけで2D Image Nodeと判断せず、Input / Output domainとFamily Overviewを先に確認します。
+**Color Switcher**は、複数の**カラーパレット（配色セット）**を切り替えたり、同じパレット内で色を循環させたりするための、Krokodoveの**Modifier**です。DaVinci Resolve 21.1 Reference Manualでは、異なるパレットへの切り替えと、パレット内での色のローテーションという二つの使い方が説明されています。
 
-## 役割
+たとえば、タイトルを赤、飾り線を青にする配色と、タイトルを黄色、飾り線を紫にする配色を用意し、デザイン全体の色を変える場面を考えます。色を一か所ずつ手作業で直す代わりに、複数の色をひとまとまりとして扱うのが、このModifierを検討する理由です。ただし、**一つの操作で任意のNodeの色をすべて自動変更できる**という意味ではありません。対象となる色の出力を、それぞれ適切に接続する必要があります。
 
-palette switch/rotate。RGBA channel routing。このページでは、名前だけで選ばず、**何を受け取り、何が変わり、どのdomainへ返すか**を先に整理します。
+## パレットの切り替えと色の循環
 
-この項目で確認できている中心的な役割は「palette switch/rotate。RGBA channel routing」です。exactなInspector項目が未確認の場合は、役割とdata domainを先に使って候補を絞ります。
+**パレット**は、作品で一緒に使う色の組です。たとえば「背景は黒、見出しは白、アクセントは赤」という組み合わせを一つのパレットとして考えられます。
 
-## 入力と出力
+- **パレットの切り替え**：配色セットAをセットBに変更することです。例として、黒・白・赤の組み合わせから、紺・クリーム・水色の組み合わせへ変える場面があります。
+- **パレット内での色の循環（rotate）**：同じセットに入っている色を別の役割へ回して使うことです。赤・青・黄色の3色を別の要素へ順番に割り当て直す、といった表現が考えられます。
 
-入力分類: **parameter**。 出力分類: **parameter**。 この分類はdata domainを読むためのものです。Fusion 21.1のexactな端子名・端子数を未確認の場合、ここでは推測して固定しません。
+二つ目の「rotate」は、一般的な色相環の**Hueを回転させる処理**と同じだと決めつけないでください。Manualはパレット内の色をrotateできると説明していますが、何色ずつ進めるか、色の並び順をどう定義するか、切り替え時に補間されるかまでは記載していません。
 
-## 使うときの判断
+## 入力と出力：画像ではなく色の値を扱う
 
-KrokodoveはImage、Shape、3D、Regionが同じchapterに並ぶため、まずOutput domainで候補を絞ります。
+Color Switcherは、画像そのものの画素を処理する通常のImage Nodeではなく、**色を決めるパラメータ側に働くModifier**です。この区別は、<Term id="parameter-data">パラメータデータ</Term>と[Modifierの役割](../../learn/05-time/modifier-parameter-sources)の解説を先に読むと理解しやすくなります。
 
-同じ目的を別Familyでも作れる場合は、後段で必要なdata domainと、Graph上で責任をどこに置きたいかで選びます。
+21.1 Manualには、**個々のRGBAチャンネルを異なる出力へ接続してセットアップする必要がある**と書かれています。RGBAは次の成分を指します。
 
-## 最小構成
+| 成分 | 意味 | 接続時に確認すること |
+| --- | --- | --- |
+| R | 赤の成分 | 目的の色パラメータのRed成分を制御できるか |
+| G | 緑の成分 | Green成分の接続先があるか |
+| B | 青の成分 | Blue成分の接続先があるか |
+| A | Alpha（不透明度に関係する成分） | 色の透明度まで変えたいのか、元の値を維持したいのか |
 
-    Parameter / Data → Color Switcher → consumer
+RGBAは「4色のパレット」ではありません。**一つの色を構成する四つの成分**です。たとえば黄色を作る場合も、黄という専用チャンネルを接続するのではなく、その色のR・G・Bの組み合わせを扱います。AlphaはRGBと独立した意味を持つため、接続先によっては色だけでなく透明度も変わり得ます。
 
-これは接続関係を理解するための最小構成案です。公式Manualのexactな作例として確認していない構成は、実制作前にViewerで中間結果を確認します。
+~~~text
+配色候補 A / 配色候補 B
+             ↓
+      Color Switcher
+        （Modifier）
+             ↓
+各色のRGBA成分を対応する出力へ割り当てる
+             ↓
+   色パラメータを持つ要素に反映
+~~~
 
-## 確認ポイント
+上は**データの流れを示した概念図**です。Flow上で「画像 → Color Switcher → 画像」とつなぐという意味ではありません。既存カタログの `inputs: [parameter]` / `outputs: [parameter]` はデータ分類であり、21.1実機の正式な端子名や入出力数を表していません。Manualにある「異なる出力」がUIでどう表示されるかも未確認です。
 
-- 入力dataのdomainが合っているか。
-- この項目のoutputを受け取れる後段Nodeへ接続しているか。
-- 同じ役割を前段 / 後段で二重に処理していないか。
-- source-limited pageでは、未確認のControl名・default・rangeを名前から推測していないか。
+## 主な用途
 
-## Family内での位置づけ
+### タイトルと装飾の配色案を比較する
 
-Krokodoveノードの全体像と近いNodeの選び分けは[Family Overview](./)を参照してください。
+オープニングで、文字色と装飾線の色の組み合わせをいくつか試したい場合に向きます。タイトルと装飾をそれぞれ別の色として扱えば、色同士の関係を維持しながら配色を比較できます。**両方の色を同時に変更できるかは、対応する出力を接続できることが前提**です。
 
-## 出典と確認範囲
+### ロゴや図形の色を順番に入れ替える
 
-このページの役割・data domain・系譜は、既存COLLECTANEA catalogとBlackmagic Design公式資料で確認された範囲をreader-first形式へ整理しています。
+ロゴを構成する複数の図形に別々の色を与え、その役割を循環させる表現が考えられます。同じ3色を使い続けても、どの要素にどの色を置くかで印象は変わります。これはManualが挙げる「パレット内で色をrotateする」用途をデザインに置き換えた例であり、循環の方向やアニメーション方法を示す実機検証ではありません。
 
-Fusion 21.1 Reference Manualで個別のInspector項目・default・rangeまで確認できていない項目は、**source-limited**としてその詳細を断定していません。verification: partial はその未確認範囲を含みます。runtime REGIDや現在のEffects Library表示は別のruntime verificationで確定します。
+### 複数のカラーバリエーションを検討する
+
+モーショングラフィックスの背景やラベルを、場面ごとに異なるブランドカラーへ変更したいときにも候補になります。ただし、Color Switcherが映像から代表色を自動抽出することや、画面内のすべての色を検出して置き換えることは、Manualでは説明されていません。
+
+## 制作例：文字とアクセントの2色を切り替える
+
+以下は**21.1 Manualに記載された役割を使って考えた検証用の作例**です。KrokodoveのColor Switcherを実機で操作して確認したチュートリアルではありません。
+
+1. FusionでText+などの文字要素と、アクセント用の色付き図形を用意します。まず通常の色設定だけで、二つの色が独立して変更できる状態にします。
+2. パレットAを「文字＝白、アクセント＝赤」、パレットBを「文字＝水色、アクセント＝黄色」のように、紙やメモに決めます。ここでの色指定は**説明用の例**であり、Color Switcherにこの名前のスロットがあるという意味ではありません。
+3. 21.1実機でColor SwitcherのModifierとしての追加方法と、パレットを登録・選択するUIを確認します。標準のFusion ModifierにはInspectorの「Modify With」から追加する方式がありますが、**Color Switcherが同じメニューで追加できるかは未確認**です。
+4. Manualの記述に従い、RGBAの個別チャンネルと対応する出力を接続できるか確認します。文字色・アクセント色の**どの入力が受け付けるか**は実機で確かめます。色全体を一本のImage端子へつなぐ操作と混同しないでください。
+5. パレットの切り替えを試し、文字とアクセントの両方が意図した色へ変わるか、各色のR/G/B/Aを確認します。Alphaまで動いた場合は、透明度の変化が意図どおりかを見ます。
+6. パレット内の色の循環を試し、各要素への割り当てがどう変わるか観察します。途中のフレームも確認し、色が瞬時に切り替わるのか、時間をかけて変化するのかを区別します。
+
+この確認手順は、**パレットとRGBA出力の関係を把握すること**が目的です。存在を確認していないInspectorの項目名、スロット数、キーフレーム対応、出力の並び方を操作手順として固定していません。
+
+## 似たノード・Modifierとの違い
+
+| 対象 | 役割 | 使い分け |
+| --- | --- | --- |
+| **Color Switcher** | 複数パレットの切り替えと、パレット内の色の循環 | 複数の色パラメータの配色を変えたい |
+| [Color Map](./color-map) | 入力画像のテクスチャを一色以上の均一な色へ対応づける | 画像の画素を別の色面として見せたい |
+| [Recolor](./recolor) | 指定した元の色を別の色へ置き換える | 画像の特定色を加工したい |
+| [Random](./random) | パラメータへランダムな値を供給する | 不規則な値の変化を作りたい |
+| [Beat](./beat) | 拍を基準に値の変化を制御する | テンポに合わせて値を動かしたい |
+
+Color Switcherは、**配色をどのように選び、各出力へ渡すか**を考えるModifierです。Color MapやRecolorのように、画像の画素を直接処理するツールと区別します。詳しい分類は[Krokodove一覧](./)も参照してください。
+
+## 注意点・未確認の仕様
+
+- **RGBAの接続**：Manualは個別チャンネルの接続が必要と説明していますが、正式な入力・出力名、端子数、接続先として許されるパラメータ型は未確認です。
+- **切り替え方法**：パレット数の上限、選択用Control名、アニメーションの設定方法は未確認です。
+- **色の循環**：順序、刻み幅、方向、補間方式、切り替えフレームでの挙動は未確認です。
+- **Alpha**：透明度が保持・変更される条件や、値の扱いは接続先を含めて実機確認が必要です。
+- **導入・版の違い**：21.1 Manualへの掲載は確認できますが、Resolve Free / Studio / Fusion Studioそれぞれでの動作、内部REGID、Inspectorの正確なラベル・初期値・範囲は確認していません。
+
+## バージョン・出典
+
+- **一次資料**：Blackmagic Design『DaVinci Resolve 21.1 Reference Manual』（September 2026）、Chapter 105「Krokodove Nodes」、p.2438「Modifiers / Color Switcher」。複数パレットの切り替え、パレット内の色の循環、RGBAの個別チャンネルを異なる出力へ接続する必要があることを確認。
+- **関連概念**：[パラメータデータ](../../learn/02-data/parameter-data)、[Modifierの値の供給元](../../learn/05-time/modifier-parameter-sources)。
+- **関連ノード**：[Krokodove一覧](./)。
+
+機能の概要は21.1 Manualで確認済みですが、個別端子とInspectorの仕様を実機照合していないため、`verification: partial` を維持します。
