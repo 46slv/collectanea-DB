@@ -15,7 +15,7 @@ outputs: [usd]
 tasks: [usd, image-card, set-extension]
 product_scope: fusion
 suite_surfaces: [fusion]
-updated: "2026-10-14"
+updated: "2026-10-18"
 ---
 
 # uImage Plane
@@ -85,6 +85,22 @@ uImage Planeは、**入力画像の縦横比を平面の形に反映**します�
 
 この例は、画像入力を3Dカードに貼る基本仕様を動画へ応用したものです。**動画の更新挙動やレンダリング結果をResolve 21.1の実機で確認済みという意味ではありません**。静止して見える場合は、入力MediaInのフレーム、Image Inputの接続、レンダリングしたフレームを順に確認します。
 
+## uImage Planeと画像投影の違い
+
+同じ2D画像をUSDシーンで使う場合でも、**平面を作る**のか、**既存の形状へ画像を投影する**のかで選ぶノードが変わります。
+
+| ノード | 画像の扱い | 向いている場面 |
+| --- | --- | --- |
+| **uImage Plane** | 画像の縦横比に合わせた平面を新しく作り、その表面へ画像を貼る | 背景カード、映像を表示するスクリーン、立体空間に浮かぶ写真 |
+| [uProjector](./uprojector) | 画像を指定方向から既存のUSD形状へ投影する | 壁と床をまたぐ映像投影、照明の模様、既存モデルへのテクスチャ投影 |
+| [uCamera](./ucamera)の投影機能 | 実写カメラの視野に合わせる投影に向くとManualに記載される | 撮影時の視点から建物などへ画像を対応させたい場合 |
+
+たとえば、建物の前に動画の看板を1枚置くなら、MediaInの映像をuImage Planeへ入力し、Transformで建物の前に配置します。画像を貼るための独立した平面が必要な作業です。一方、壁から床へ連続する模様を投影したいときは、壁・床の形状を用意した上で、[uProjector](./uprojector)の**ProjectiveImage**へ画像を入力します。こちらは画像のための平面を増やさず、既存の表面へ作用させる操作です。
+
+uProjectorの**Light**モードでは、画像は光として働き、Alphaが透明でも投影先の形状を切り抜きません。画像を表面のテクスチャとして受け取り、Alphaで抜けを作りたい場合は**Texture**モードと[uCatcher](./ucatcher)を組み合わせます。これはuImage Planeに画像を貼る操作とも異なります。投影元と物体の相対位置が変わると模様が表面を滑ることがあるため、動かす場合は両者の位置関係も確認します。
+
+**uCameraによる画像投影の具体的な入力口・Inspector操作は、このManualのuCamera節だけでは確定できません。** 21.1 Manualはカメラに一致する投影向けと説明していますが、uProjectorと同じProjectiveImage入力があるとは断定しません。実写の**画角にCGを合わせて描画する**だけなら、[uCamera](./ucamera)と[uRenderer](./u-renderer)による通常のカメラ設定・レンダリング手順を使います。
+
 ## uShape / Image Plane 3Dとの使い分け
 
 | ノード | 出力の種類 | 主な用途 |
@@ -119,6 +135,6 @@ uImage Planeは、**入力画像の縦横比を平面の形に反映**します�
 
 ## バージョン・出典と確認範囲
 
-**一次資料**：Blackmagic Design『DaVinci Resolve 21.1 Reference Manual』（September 2026）、Chapter 121「USD Nodes」、**uImage Plane [uIm]（pp.2901–2902）**。画像の入力、入力画像のaspectを平面へ反映すること、Filename、Size、共通Transform / Settingsを照合しました。
+**一次資料**：Blackmagic Design『DaVinci Resolve 21.1 Reference Manual』（September 2026）、Chapter 121「USD Nodes」、**uImage Plane [uIm]（pp.2901–2902）**。画像の入力、入力画像のaspectを平面へ反映すること、Filename、Size、共通Transform / Settingsを照合しました。 **投影方式の比較**は同章のuCamera（pp.2889–2892）、uCatcher（pp.2892–2894）、uProjector（pp.2906–2907）を参照しました。
 
 制作例はManualで確認できる機能を組み合わせた説明です。動画入力の実機更新挙動、FilenameとImage Inputを同時に指定した場合の優先順位、非正方形ピクセルでの比率、内部REGID、正確な既定値・数値範囲、Edition差、実機レンダリング結果は未確認です。このため**verification: partial**を維持しています。
