@@ -91,6 +91,32 @@ uMerge ─→ uExport ⇒ USDファイル
 
 uLoaderの**Trim / Time Scale / Frame Offset / Reverse / Loop**は、読み込んだUSD内のアニメーションを映像の時間へ合わせる項目です。**uExport**では**Format**を指定し、**Export Stage**で保存先を選びます。Manualではジオメトリ・材質・アニメーション・照明の書き出しが説明されています。ただし、保存したファイルの外部参照や材質が別のソフトでも完全に解決されるという保証ではありません。
 
+## USDを再出力する：画像と3Dシーンを別々に検証する
+
+外部で作ったUSDのモデルをFusion内で配置し直し、さらにUSDとして別の工程へ渡す場合は、**映像への描画**と**3Dシーンの書き出し**を分けて確認します。uRendererは2D画像を作り、uExportはUSDシーンをファイルに保存します。同じ結果に見えても、出力されるデータが異なります。
+
+~~~text
+uLoader（外部の車.usdc） ──┐
+uShape（追加した床） ────────┼→ uMerge ─┬→ uRenderer → 2D画像
+uCamera（必要なら） ────────┘          └→ uExport ⇒ shot.usdc
+~~~
+
+1. [uLoader](../../nodes/usd/uloader)で車のUSDを読み込み、必要なら[uTransform](../../nodes/usd/utransform)で車の位置を調整します。
+2. [uShape](../../nodes/usd/ushape)で床を加え、uCameraなどとともにuMergeへ接続します。**uMergeの入力に入れるのはUSDシーン**です。
+3. uMergeの出力を[uRenderer](../../nodes/usd/u-renderer)で描画し、車と床の位置関係を確認します。これは**見た目の確認**であり、USDファイルの保存確認ではありません。
+4. 同じuMergeのUSD出力を[uExport](../../nodes/usd/uexport)へつなぎ、Inspectorの**Format**で保存形式（たとえば**USD binary / .usdc**）を選択します。**Export Stage**でファイルの保存先を指定します。
+5. 書き出したファイルを**別のuLoader**で開き直し、形状と階層、カメラ・ライト、材質、アニメーションの必要な部分を調べます。別ソフトへ納品する場合は、そのソフトでも同じ点を確認します。
+
+**アニメーションの時間には注意が必要です。** uLoaderの**Trim / Time Scale / Frame Offset / Reverse / Loop**は、読み込んだUSDの再生範囲・タイミングを調整する項目です。21.1 ManualのuExport節はアニメーションを含むシーンの書き出しに触れていますが、**uLoaderで調整した再生範囲や速度が出力ファイルの時間サンプルへどのように反映されるか**までは明記していません。納品時刻の一致が重要なら、書き出し前後の開始・中間・終了フレームを比較します。
+
+また、**USDZを選べば外部画像や別ファイルへの参照がすべて自動で解決する**とは断定できません。テクスチャやMaterialXを使う場合は、書き出したファイルを実際の受け渡し環境で開き、必要な依存ファイルが参照できるか確かめます。
+
+### Classic 3DをそのままUSDにできる？
+
+**FBX Mesh 3D / Merge 3Dの出力と、uExportが受け取るUSDシーンは別のデータ系統**です。21.1 Manualで確認できる書き出し経路は、Classic 3D側が**FBX Exporter 3D（FBX / 3DS / DAE / DXF / OBJ）**、USD側が**uExport（USD / USDA / USDC / USDZ）**です。少なくともこれらの記載から、Merge 3DをuExportへ直接接続する手順や自動変換機能は導けません。
+
+たとえばClassic 3Dで立体タイトルを組み、外部ソフトでUSDとして再利用したい場合は、まずFBX Exporter 3Dで対応形式に書き出し、**別のUSD対応ソフト側で変換できるか**を確認します。このときFBX Exporter 3Dは**材質とテクスチャを書き出せない**ため、外観を同じまま受け渡すには別途調整が必要です。必要なのが映像への重ね合わせだけなら、次節のように両方をそれぞれ2Dへ描画します。
+
 ## Classic 3DとUSDは直接つながるのか
 
 Classic 3D用の**Merge 3D / Renderer 3D**と、USD用の**uMerge / uRenderer**は別のデータ系統です。FBX Mesh 3Dの出力をuMergeへ直接接続する手順は確認できません。
@@ -104,6 +130,27 @@ USD scene  → uRenderer ────┘
 ~~~
 
 この方法では、別々の3Dシーンの間で**影・反射・遮蔽を3Dとして相互計算しません**。立体同士を本当に同じ空間へ置く必要がある場合は、制作するシーン系統を選び、必要なら外部3Dソフトで対応形式へ整えてから読み込みます。ただし**Classic 3D出力をUSDへ直接変換する標準ノードや、変換時にすべての情報を保持できる方法は、参照した21.1 Manualには確認できません**。[接続互換性](./connection-compatibility)も参照してください。
+
+## 材質とアニメーションは、読み込みと再出力で扱いが違う
+
+モデルがFusionで表示できても、そのまま別ソフトへ書き戻せるとは限りません。特に**元の動きが読み込まれたか**、**Fusionで設定した表面の見た目がファイルへ保存されるか**は、別々に確認する必要があります。
+
+| 経路 | アニメーション | 材質・テクスチャ | 再出力時の判断 |
+| --- | --- | --- | --- |
+| **FBX Mesh 3Dを単体で読み込む** | 元ファイルのアニメーションは無視される | 最初に適用されたテクスチャは、存在すれば読み込まれる場合がある | [FBX Exporter 3D](../../nodes/3d/fbx-exporter-3d)で元の動きが自動復元されるわけではない。材質・テクスチャは書き出せない |
+| **FBX Scene Import** | オブジェクトごとの動きを取り込める | 読み込み側と書き出し側の対応範囲は異なる | FBX Exporter 3Dはアニメーションを書き出せるが、**File Per Frame (No Animation)**ではフレーム別ファイルになる。書き出し形式と再生結果を確認する |
+| **Alembic Scene Import** | ベイク済みの形状変化やTransformを扱う。**Resample Rate**を確認する | 読み込み時にMaterial・Lightなどは対応外。必要ならFusion側で設定する | FBX Exporter 3DでClassic 3Dを出力することはできるが、**元のAlembicの頂点変形が同等に保存されるかは、この資料からは確定できない** |
+| **uLoader → uExport** | USDアニメーションを扱い、uLoaderで再生範囲・速度などを調整できる | USDシーンの材質を扱い、[uReplaceMaterial](../../nodes/usd/ureplacematerial)で変更できる | uExportはUSDの材質・アニメーションを書き出す。ただし**再生時間の変更、MaterialXや外部参照が期待どおり保持されるか**は書き出したファイルで検証する |
+
+### 例：動く車のFBXを別の3Dソフトへ返す
+
+車体とタイヤが別々に動くFBXを受け取り、Fusionで塗装を変更して返す場合、まず**FBX Scene Import**を使います。FBX Mesh 3Dを単体で置くだけでは、元のオブジェクトアニメーションが無視されるためです。タイヤの回転が必要なフレームで再生されることを確認し、車体へ[Replace Material 3D](../../nodes/3d/replace-material-3d)などで材質を設定します。
+
+その後、FBX Exporter 3Dでジオメトリとアニメーションを書き出しても、**Fusionで設定した塗装材質はファイルに含まれません**。別ソフトで編集を続けるなら、画像素材や材質の指定を別途渡し、受け取り側で再設定します。Fusionの見た目そのものが納品物なら、Renderer 3Dで映像として書き出す方が目的に合う場合があります。
+
+USDで渡す場合も「uExportが材質・アニメーションに対応する」ことと「個別のマテリアルや時間変更が完全に再現される」ことは別です。[uLoader](../../nodes/usd/uloader)で保存済みUSDを読み直し、納品先でも材質と開始・中間・終了フレームを比べます。
+
+**資料の根拠：** DaVinci Resolve 21.1 Reference Manual、p.1861（FBXテクスチャの読込・書出制限）、pp.1945–1949（FBXのアニメーションとExporter）、p.1914（Alembic Import）、p.2900（uExport）、pp.2902–2903（uLoader）。Alembic→FBXの頂点変形保持と、uLoaderの時間調整をuExportがどのように記録するかは実機未確認です。
 
 ## 受け渡し後に確認すること
 
