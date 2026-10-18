@@ -15,7 +15,7 @@ outputs: []
 tasks: ["build-3d-scene"]
 product_scope: fusion
 suite_surfaces: ["fusion"]
-updated: "2026-10-09"
+updated: "2026-10-19"
 ---
 
 # FBX Exporter 3D
@@ -75,12 +75,15 @@ Spot Light ───┘             └→ FBX Exporter 3D → 外部ファイ�
 
 **TextureとMaterialはFBX Exporter 3Dで書き出せません。** これは21.1 ManualのFusion Fundamentalsに明記された制限です。形状が読み込めても、Fusion内で貼った画像や材質まで同じ見た目で復元されるとは限りません。必要なテクスチャ素材は別に渡し、受け取り側でMaterialを組み直します。
 
+この点は**FBX Mesh 3Dで読み込む場合とは非対称**です。21.1 Manualは、FBX読み込み時にはメッシュに最初に付いているテクスチャを取り込める場合があると説明しています（p.1861）。しかし、FusionからFBX Exporter 3Dで保存するときは材質・テクスチャが出力されません。たとえば外部から読んだテクスチャ付きモデルをFusionで移動させてFBXに書き戻す場合、**表面画像を別途渡し、受け取り側で設定し直す**必要があります。
+
 書き出されたオブジェクト・ライト・カメラには、作成元のFusion Nodeの名前が使われます。外部ソフトで判別しやすくするには、書き出し前にNode名を整理すると便利です。
 
 動きを保持するかどうかは出力形式とFile Per Frameの設定次第です。OBJへ出す場合やフレームごとにファイルを分ける場合、アニメーション付き単一FBXと同じ使い方にはなりません。
 
 ## 関連Nodeと選び分け
 
+- **[3Dファイルの受け渡し：FBX・Alembic・USD](../../learn/02-data/3d-file-interchange.md)**：形式別の受け渡し範囲と失われる情報を比較。
 - **[FBX Mesh 3D](./fbx-mesh-3d.md)**：FBXやOBJなどの外部モデルを**Fusionへ読み込む**Node。データの向きが逆です。
 - **[Alembic Mesh 3D](./alembic-mesh-3d.md)**：外部のAlembicファイルから、変形アニメーションを含むメッシュを読み込む場合の候補。
 - **[Renderer 3D](./renderer-3d.md)**：Classic 3Dシーンを**2D画像へ変換する**Node。外部シーン形式の書き出しには使いません。
