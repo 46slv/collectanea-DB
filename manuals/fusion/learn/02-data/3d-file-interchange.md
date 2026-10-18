@@ -39,6 +39,8 @@ Fusionには[Classic 3D scene](./classic-3d)と[USD scene](./usd)という別の
 
 一方、別々に回る歯車とそれを撮影するカメラを受け取りたいなら、**Fusion > Import > FBX Scene**を使用します。メッシュ、ライト、カメラに対応した個別のノードが作られ、オブジェクトのアニメーションも扱えます。単体FBX Mesh 3Dへ読み込んでから同じ構成へ自動的に切り替わるわけではありません。
 
+**テクスチャは、読み込みと書き出しで扱いが違います。** 21.1 Manual（p.1861）では、FBX読み込み時にメッシュへ最初に適用されたテクスチャを、存在すれば取り込むと説明しています。一方、**FBX Exporter 3Dは材質とテクスチャを書き出せません**。Fusionで加工したモデルを再度FBXへ保存しても、元の表面設定が残るとは限りません。外部ソフトとの往復では画像ファイルも別途管理し、再読込後に見た目を確認します。
+
 ~~~text
 静止したモデル：
 FBX Mesh 3D ─┐
@@ -111,6 +113,6 @@ USD scene  → uRenderer ────┘
 
 ## 出典と確認範囲
 
-Blackmagic Design『DaVinci Resolve 21.1 Reference Manual』（2026年9月）、**Chapter 84 p.1861**（FBX Exporterと材質・テクスチャの制限）、**Chapter 88 pp.1913–1916**（Alembic Mesh 3DとImport）、**pp.1945–1949**（FBX Exporter / FBX Mesh 3D）、**Chapter 121 pp.2887–2888**（USDの読み込み）、**p.2900**（uExport）、**pp.2902–2903**（uLoader）。公式資料は[Blackmagic Design Support](https://www.blackmagicdesign.com/support/)から入手できます。
+Blackmagic Design『DaVinci Resolve 21.1 Reference Manual』（2026年9月）、**Chapter 84 p.1861**（FBX読み込み時の最初のテクスチャ／FBX Exporterの材質・テクスチャ制限）、**Chapter 88 pp.1913–1916**（Alembic Mesh 3DとImport）、**pp.1945–1949**（FBX Exporter / FBX Mesh 3D）、**Chapter 121 pp.2887–2888**（USDの読み込み）、**p.2900**（uExport）、**pp.2902–2903**（uLoader）。公式資料は[Blackmagic Design Support](https://www.blackmagicdesign.com/support/)から入手できます。
 
 本文の制作例はManualの仕様を組み合わせた説明であり、実機でのアプリ間互換性テストではありません。外部形式の完全なデータ保持、Classic 3DとUSDの直接変換、各Edition差は未確認として扱います。

@@ -15,7 +15,7 @@ outputs: ["classic-3d"]
 tasks: ["build-3d-scene"]
 product_scope: fusion
 suite_surfaces: ["fusion"]
-updated: "2026-10-08"
+updated: "2026-10-19"
 ---
 
 # Alembic Mesh 3D
@@ -84,7 +84,7 @@ Visibility、Lighting、Matte、Blend Mode、Normals/Tangents、Object IDなど�
 | **Points** | 3D点の位置情報を読み込みます。 | 点として書き出されたParticle等に使えますが、元の向きや進行方向は保持されません。 |
 | **Meshes** | 3Dメッシュを読み込みます。有効時にUVとNormalの読み込み項目も表示されます。 | 表面のテクスチャや陰影が必要ならUV・Normalを確認します。 |
 
-**Resample Rate**は、書き出し時のフレームレートとFusion側の読み取り間隔を合わせる項目です。通常はAlembicファイルから検出された値を基準にします。値を変えると再生速度を変えられますが、まず元のアニメーションと同じタイミングで再生されることを確認します。
+**Resample Rate**は、書き出し時のフレームレートとFusion側の読み取り間隔を合わせる項目です。通常はAlembicファイルから検出した値が入りますが、**同じcomp内で以前この値を変更していた場合は、その設定が維持されます**。ファイルを読み直しても速度が合わなければ、上部のDetected Sampling RatesとResample Rateを比較してください。値を変えるとスローモーションにもできますが、まず元の動きと同じタイミングで再生できることを確認します。
 
 ## 運用例：Blenderの変形アニメーションを合成する
 
@@ -113,6 +113,7 @@ Visibility、Lighting、Matte、Blend Mode、Normals/Tangents、Object IDなど�
 
 ## 関連
 
+- [3Dファイルの受け渡し：FBX・Alembic・USD](../../learn/02-data/3d-file-interchange.md)：ベイクした形状と材質・カメラの受け渡しを形式別に比較。
 - [Classic 3Dノードの概要](./index.md)：Geometry・Camera・Lightを組み合わせる仕組み。
 - [Classic 3D scene](../../learn/02-data/classic-3d.md)：2D Imageと3D sceneの違い。
 - [FBX Mesh 3D](./fbx-mesh-3d.md)：別形式で読み込むときの選択肢。
