@@ -15,7 +15,7 @@ outputs: [usd]
 tasks: [usd, camera, frame-scene]
 product_scope: fusion
 suite_surfaces: [fusion]
-updated: "2026-10-14"
+updated: "2026-10-18"
 ---
 
 # uCamera
@@ -71,6 +71,26 @@ uCamera（カメラ） ────────────┘
 Manualが示す画角の関係式は **画角 = 2 × atan(開口寸法 ÷ (2 × 焦点距離))** です。横の画角にはHorizontal Aperture、縦の画角にはVertical Apertureを用います。単位をそろえて計算します。
 
 実写素材へCGを合わせるときは、焦点距離の数値だけを入力して終わりにせず、**Film Backの寸法、カメラの向き、撮影位置、画像の縦横比**を別々に確かめます。焦点距離が同じでもFilm Backが異なれば写る範囲は変わります。
+
+### 制作例：実写映像にUSDの看板を合成する
+
+撮影した街並みの映像に、USDで作った看板を加える例です。**実写の画角を設定するuCameraと、実際の映像を読み込むMediaInは別**です。uCameraへ映像そのものを差し込むのではなく、CGを[uRenderer](./u-renderer)で2D画像にしてから合成します。
+
+~~~text
+uShape（看板） ──┐
+                 ├→ uMerge → uRenderer（CG）──┐
+uCamera ─────────┘                            ├→ Merge → MediaOut
+MediaIn（実写映像） ──────────────────────────┘
+~~~
+
+1. **MediaIn**で実写映像を読み込み、通常の2D **Merge**のBackground側へつなぎます。
+2. [uShape](./ushape)などで看板を用意し、uCameraと一緒に**uMerge**へ接続します。uCameraを**Perspective**にし、分かっている撮影条件から**Focal Length**と**Horizontal / Vertical Aperture**を設定します。
+3. uRendererで使用する**Camera**に、そのuCameraを指定します。出力解像度と**Film Back Fit**を確認し、uRendererの2D出力をMergeのForeground側へ接続します。
+4. 最終映像を見ながら看板の位置・向き・大きさを調整します。CGだけを確認したい場合は、uRendererを別Viewerに表示します。合成時はCGの**Alpha**と実写・CGの色空間も確認します。
+
+例えば撮影に使われた水平の有効撮像幅が**36 mm**、焦点距離が**35 mm**なら、水平画角は前述の式から**約54.4°**です。ただしこれは計算例で、uCameraの既定値ではありません。実際の映像がセンサーの一部をクロップしていれば、その**有効撮像幅**を使います。センサー寸法や撮影時のクロップ率が不明なら、焦点距離の数値だけで一致したと判断せず、建物の直線や奥行きの見え方も比較してください。
+
+この手順で一致させるのは、まず**仮想カメラの透視投影とフレーミング**です。実写レンズ固有の歪曲収差や、実写内の物体がCGを隠す前後関係まで、uCameraが自動的に再現するわけではありません。必要なら別途レンズ歪みの補正やマスク・深度情報を扱います。
 
 ### Viewerの枠と最終レンダーの範囲
 
@@ -162,6 +182,6 @@ Depth計算の精度はNearとFarの範囲にも影響されます。遠方の�
 
 ## バージョン・出典と確認範囲
 
-**一次資料**：Blackmagic Design『DaVinci Resolve 21.1 Reference Manual』（September 2026）、Chapter 121 **uCamera [uCa] pp.2889–2892**。入力／出力、uMergeとの接続、Viewerでのカメラ選択とFrame Aspect、Projection Type、Adaptive Near/Far Clip、Focal Length、Film Back、Focal Distance、F Stop、Shutter、Control Visibilityを照合しました。カメラ投影とuProjectorの使い分けは同章 **uProjector pp.2906–2907**、Texture投影は **uCatcher p.2892** を参照しています。公式資料の入手先：[Blackmagic Design Support](https://www.blackmagicdesign.com/support/)。
+**一次資料**：Blackmagic Design『DaVinci Resolve 21.1 Reference Manual』（September 2026）、Chapter 121 **uCamera [uCa] pp.2889–2892**。入力／出力、uMergeとの接続、Viewerでのカメラ選択とFrame Aspect、Projection Type、Adaptive Near/Far Clip、Focal Length、Film Back、Focal Distance、F Stop、Shutter、Control Visibilityを照合しました。カメラ投影とuProjectorの使い分けは同章 **uProjector pp.2906–2907**、Texture投影は **uCatcher p.2892**、実写との2D合成例に使うレンダラーは **uRenderer pp.2911–2914** を参照しています。公式資料の入手先：[Blackmagic Design Support](https://www.blackmagicdesign.com/support/)。
 
 接続図・比較例・トラブル診断は上記仕様から組み立てた操作案です。**Resolve/Fusion 21.1の実機動作、個別Inspectorの全既定値・数値範囲、画像投影のuCamera側UIと入力口、Edition差、内部REGIDは未検証**です。見出しに不整合がある箇所は断定せず、`verification: partial`を維持します。
