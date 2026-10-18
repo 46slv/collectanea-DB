@@ -15,7 +15,7 @@ outputs: [usd]
 tasks: [usd, replace-material, lookdev]
 product_scope: fusion
 suite_surfaces: [fusion]
-updated: "2026-10-14"
+updated: "2026-10-18"
 ---
 
 # uReplaceMaterial
@@ -66,6 +66,8 @@ Inspectorの**Type**で、材質の指定方法を選びます。21.1 Manualで�
 
 Material InputへuShaderを接続した場合、**その材質を受け取る線**と、**実際に使う材質を選ぶInspector操作**を分けて確認します。接続しただけでどのTypeや対象マテリアルが自動選択されるかまでは、Manualの記述から断定しません。
 
+**Type = MaterialXを選ぶと、Inspectorのほかの材質設定は隠れます。** これは21.1 Manual p.2916に明記された表示動作です。接続したuShaderのRoughnessや色を調整したい場合は、uReplaceMaterialに数値欄を探すのではなく、材質の作成元で変更し、uRendererの結果を確認します。
+
 外部の`.mtlx`定義ファイルを読むなら[uMaterialX](./umaterialx)、Fusion内で色・テクスチャ・反射を組み立てるなら[uShader](./ushader)を使います。uReplaceMaterialはそれらを**USDシーンのどこへ割り当てるか**を担当します。
 
 ## Image Input：動画や合成画像を直接貼る
@@ -93,6 +95,20 @@ Typeなどの選択によって表示項目が変わります。21.1 ManualのCo
 | **Matte（Is Matte）** | 背景を隠したり、Alphaの抜きを作ったりする用途で使う |
 
 **Roughness**は反射の見え方、**Opacity**は透明度です。また、**Matte**は半透明なガラスを作るOpacityと目的が異なり、背後を隠す・Alphaを抜くために利用します。最終的なAlphaの出力はuRendererで確認してください。
+
+## 画像を使う3つの経路：Diffuse・材質プロパティ・投影
+
+画像を読み込む方法が複数あっても、**画像がどの情報を変えるか**は同じではありません。画面に動画を表示する、表面の反射を明暗で制御する、カメラ方向から建物の写真を投影する場合では、適切な接続先が変わります。
+
+| 目的 | 入力と接続 | 結果・使い分け |
+| --- | --- | --- |
+| 選んだ部品へ動画・合成画像を貼る | `MediaIn → uReplaceMaterial（Image Input）`、別途 `uLoader → Scene Input` | 選択したPrimの**Diffuse Texture（表面の色）**に2D画像を使う。粗さや法線を個別に制御する経路ではない |
+| 色以外の材質プロパティも画像で制御する | `MediaIn → uTexture → uShader → uReplaceMaterial（Material Input）` | uShaderへ接続するときに用途に合う可変入力を選ぶ。たとえば明暗画像をRoughnessへ割り当て、部分ごとに反射の広がりを変える |
+| 既存の立体へ一定方向から画像を投影する | `MediaIn → uProjector（ProjectiveImage / Textureモード）` と `uLoader → uCatcher → uMerge` | 投影方向から届いた画像を対象形状が受け取る。画像のAlphaで透過部分を作る場合にも使う |
+
+**動画を再生するモニター**なら、表示面が独立したPrimであることを確かめ、Image Inputで動画フレームを渡す構成から始められます。ただし表面のどこに表示されるかはモデルのUVにも依存します。**塗装の粗さを画像で変える**なら、uTextureからuShaderのRoughness用入力へ渡す経路を検討します。uReplaceMaterialのImage Inputに同じ白黒画像をつなぐだけでは、粗さの制御になりません。
+
+**壁と床へ一枚の写真を投影する**なら、[uProjector](./uprojector)のTextureモードと[uCatcher](./ucatcher)を使います。uCatcherは**USD形状を受け取り、投影を反映したUSDシーンを出す**ノードです。uShaderへ任意のテクスチャ出力を直接渡せると仮定してつなぐのではなく、それぞれのデータの種類を確認してください。投影しない固定の表面画像なら、[uTexture](./utexture)やuReplaceMaterialのImage Inputのほうが構成を単純にできます。
 
 ## 制作例1：車体だけ単色へ変更する
 
