@@ -47,13 +47,31 @@ uProjectorの出力は<Term id="usd-scene">USDシーン</Term>です。投影後
 
 **Texture**では、uProjector単独では受け手の物体へテクスチャが付くとは限りません。形状に**uCatcher**を接続し、Projectorと受け手を同じUSDシーンへまとめます。投影画像のAlphaとuCatcherによる合成については[uCatcherの記事](./ucatcher)を参照してください。
 
-## 反射の強さへ画像を投影したいとき
+## 反射の模様を画像で変えたいとき
 
-**Lightモードで鏡面ハイライトが生じることと、画像をSpecular Textureへ割り当てることは別です。** Lightでは投影光が表面法線に応じてDiffuse / Specularの照明として働きます。一方、Textureでは、画像を照明の色として加算するのでなく、uCatcherを介して材質側のテクスチャとして使えます。
+**投影光が鏡面ハイライトを作ること**と、**画像で材質の反射特性を制御すること**は別です。uProjectorの**Light**モードでは、投影した色がDiffuseとSpecularの照明に寄与します。物体表面の反射量を表すテクスチャ入力へ、画像が直接書き込まれるわけではありません。
 
-たとえば、看板の一部だけ反射を強くしたい場合は、その分布を表す白黒画像を**ProjectiveImage**へ入力し、**Projection ModeをTexture**にします。反射用テクスチャを受け取れるUSD MaterialにuCatcherを組み合わせれば、画像の明暗を表面の反射量の分布として利用する構成になります。21.1 ManualはBlinnなどの**Specular Texture**入力やReflection Mapへの応用を挙げています。ただし、個別のUSD Materialの具体的な配線とレンダリング結果は実機で未確認です。
+**Texture**モードと[uCatcher](./ucatcher)を組み合わせると、光として加算せず、投影方向に応じて画像を表面テクスチャとして受け取れます。21.1 Manual（p.2910）はBlinnなどの**Specular Texture**やReflection Mapへの使用例を挙げています。ただし、同ManualのuCatcher節は入力を**USD形状／シーン**と説明し、uShader節は[uTexture](./utexture)を受ける**可変入力**を説明しています。この2つの入出力を同一視して、uCatcherのUSD出力をuShaderの任意のテクスチャ端子へ直接つなげる手順は確定できません。**USD材質での具体的な接続は21.1実機での確認が必要**です。
 
-なお、同ManualのuCatcher節はLight投影のRGBを**Diffuse textureへ加算**すると説明し、uProjector節は**Diffuse / Specular light**として扱うと説明しています。これは異なる節での記述であり、LightがSpecular Texture入力を直接書き換えるという意味には読み替えません（21.1 Manual pp.2892–2893、2907、2910）。
+### USD材質の反射特性を画像で制御する別経路
+
+投影方向よりも、モデルのUVに沿った反射模様を作ることが目的なら、21.1 Manual（pp.2940–2943）に記載されたUSD Materialの経路を使えます。
+
+~~~text
+MediaIn（反射模様の画像） → uTexture → uShader ───┐ Material Input
+uLoader（USDアセット） ─────────────────────────┤ Scene Input
+                                               ▼
+                                        uReplaceMaterial
+                                               ↓
+                                    uMerge → uRenderer
+~~~
+
+1. MediaInなどで明暗のある画像を用意し、uTextureの**Image Input**へ接続します。
+2. uTextureをuShaderにつなぐとき、表示される入力先メニューで目的の材質プロパティを選びます。**Roughness**や**Specular Color**など、実際に使いたい項目に対応する入力が表示されるかはInspectorで確認してください。すべての項目が画像入力に対応するとは断定しません。
+3. uShaderをuReplaceMaterialの**Material Input**へ、対象USDを**Scene Input**へ渡し、**Prim Selection**で画像を適用する部分を選びます。
+4. 必要なカメラ・ライトとともにuMergeからuRendererへ進め、明るい箇所と暗い箇所で反射の見え方が変わるか確認します。画像の模様がずれる場合は、投影方向ではなくモデルのUVと[uTextureTransform](./utexturetransform)を確認します。
+
+**使い分け：** 複数の面に同じ方向から映像を投影したいならuProjector + uCatcher、特定のUSD材質の性質を画像で制御したいならuTexture + uShader + uReplaceMaterialです。後者は投影座標ではなく、基本的に材質側のテクスチャ座標に依存します。
 
 ## 制作例1：壁に画像を光として当てる
 
@@ -170,6 +188,6 @@ Manualでは照射範囲を「Cone」と呼ぶ箇所がありますが、幾何�
 
 ## 出典・検証範囲
 
-**一次資料**：Blackmagic Design『DaVinci Resolve 21.1 Reference Manual』（2026年9月）、Chapter 121 **uProjector [uPj] pp.2906–2911**。入力・出力、Projection Mode、Fit Method 5種、Inspector、SceneInputのTransform影響、uCameraとの違いを確認。Textureの受け手とAlphaは**uCatcher pp.2892–2894**でも照合しました。
+**一次資料**：Blackmagic Design『DaVinci Resolve 21.1 Reference Manual』（2026年9月）、Chapter 121 **uProjector [uPj] pp.2906–2911**。入力・出力、Projection Mode、Fit Method 5種、Inspector、SceneInputのTransform影響、uCameraとの違いを確認。Textureの受け手とAlphaは**uCatcher pp.2892–2894**、USD材質の代替経路は**uShader / USD Material pp.2940–2943**でも照合しました。
 
 接続図と制作例はManualに記された仕様を組み合わせた説明です。**Resolve 21.1実機での動作、全Inspector既定値・選択肢、内部REGID、Edition差は未確認**です。したがってverification: partialを維持します。
