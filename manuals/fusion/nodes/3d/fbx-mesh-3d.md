@@ -15,7 +15,7 @@ outputs: ["classic-3d"]
 tasks: ["build-3d-scene"]
 product_scope: fusion
 suite_surfaces: ["fusion"]
-updated: "2026-10-08"
+updated: "2026-10-19"
 ---
 
 # FBX Mesh 3D
@@ -41,6 +41,14 @@ FBX Mesh 3Dはファイルから形状を作るため、**ほかのNodeからの
 - **出力（Classic 3Dシーン）**：読み込んだメッシュとSceneInputから受け取った3D要素を出力します。通常の2D Mergeへ直接つなぐ画像出力ではありません。
 
 ここでいうMaterialは、3Dの表面をどの色・質感で描くかを決めるデータです。**Material Inputへ2D画像を入れても、その画像から3Dの形を生成するわけではありません。** 形はFBXなどのファイルから、見た目はMaterialから受け取ります。
+
+### FBXファイルに付いているテクスチャは読み込まれる？
+
+21.1 Manualの「3D Compositing Basics」では、**メッシュに最初に適用されたテクスチャが存在すれば、FBXの読み込み時に取り込まれる**と説明されています（p.1861）。Material Inputへ画像を手動でつながなくても、元モデルの表面画像が表示される場合があります。
+
+ただし、**複数の材質・テクスチャや外部画像の参照がすべて再現される**という保証ではありません。Blenderで色分けした小道具を読み込んだら各面の見た目を確認し、欠けた画像や質感はFusion側のMaterial設定で補います。
+
+逆方向の[FBX Exporter 3D](./fbx-exporter-3d.md)では材質・テクスチャを出力できません。**FBXの読み込みと書き出しは対称ではない**ため、往復させて元の表面設定が残るとは考えないでください。
 
 ## Inspectorの主な設定
 
@@ -97,6 +105,7 @@ Light ───────┘
 - [Alembic Mesh 3D](./alembic-mesh-3d.md)：ベイク済みの頂点変形など、形状が時間とともに変わるデータを受け取る場合の候補。FBXのシーンImportとは目的が異なります。
 - [Shape 3D](./shape-3d.md)：外部モデルを使わず、球・箱・平面などの基本形状をFusion内で作ります。
 - [FBX Exporter 3D](./fbx-exporter-3d.md)：Fusionの3Dシーンを外部ファイルに書き出すNode。読み込み用のFBX Mesh 3Dとは逆方向の役割です。
+- [3Dファイルの受け渡し：FBX・Alembic・USD](../../learn/02-data/3d-file-interchange.md)：形式別に保持される情報を比較。
 - [Classic 3Dノード一覧](./index.md)：ほかの形状生成・加工・レンダリングNodeを選ぶ入口。
 - [Classic 3D sceneの基礎](../../learn/02-data/classic-3d.md)：3Dの形状・カメラ・ライトと、2D画像の違い。
 
@@ -104,6 +113,6 @@ Light ───────┘
 
 一次資料：Blackmagic Design『**DaVinci Resolve 21.1 Reference Manual**』（September 2026）、Chapter 88「3D Nodes」、**FBX Mesh 3D [FBX]（pp.1947–1949）**。
 
-対応形式、単体NodeとFBX Scene Importの違い、SceneInput／Material Input、Size／FBX File／Object Name／Take Name／Wireframe、およびOpenGL Rendererの制約はこの節に基づきます。上の建物合成は、確認された機能から構成した**運用例**であり、Manualに掲載された作例の再現ではありません。
+対応形式、単体NodeとFBX Scene Importの違い、SceneInput／Material Input、Size／FBX File／Object Name／Take Name／Wireframe、およびOpenGL Rendererの制約はこの節に基づきます。最初のテクスチャの読み込み、およびFBX書き出し時の材質・テクスチャの制限は同ManualのChapter 84（p.1861）に基づきます。上の建物合成は、確認された機能から構成した**運用例**であり、Manualに掲載された作例の再現ではありません。
 
 現在のResolve 21.1実機での個別ファイル互換性、内部REGID、詳細な初期値・数値範囲、Free／Studioの差は未検証です。これらを確定済みとして扱わず、`verification: partial`を維持しています。
