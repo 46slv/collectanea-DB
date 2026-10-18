@@ -71,13 +71,21 @@ uTexture（法線）──→ uNormalMap ─────────┘
 
 ## Shader Model：USDとMaterialXの違い
 
-Inspectorの**Shader Model**で、**USD**または**MaterialX**のツールセットを選びます。
+Inspectorの**Shader Model**では、**USD**または**MaterialX**のツールセットを選びます。これはuShaderの材質の組み立て方を切り替える設定で、外部の`.mtlx`ファイルを読み込む操作ではありません。
 
-**USDモード**では、次の基本的な材質プロパティをInspectorから編集できます。**MaterialXモード**は、複数の制作ソフト間で材質の記述を共有するためのMaterialX系ツールセットです。両モードのInspectorが完全に同じとは限りません。
+**MaterialX**は、制作ソフト間で材質と見た目の設定を交換するためのオープンな規格です。21.1 ManualはuShaderのMaterialXモードを紹介していますが、MaterialXで定義できるすべての材質表現がFusionで同じ結果になると保証しているわけではありません。
 
-外部の`.mtlx`ファイルを使いたいなら、[uMaterialX](./umaterialx)という別ノードで読み込み、uReplaceMaterialのMaterial Inputへ渡す方法があります。**uShaderでMaterialXモードを選ぶこと**と**uMaterialXで外部ファイルを開くこと**は異なります。
+| やりたいこと | 材質を用意する場所 | 次に渡すもの |
+| --- | --- | --- |
+| Fusionで車体の塗装色やRoughnessを調整する | **uShader / Shader Model = USD**。必要ならuTextureを個別の材質プロパティに接続する | uShaderの材質出力を[uReplaceMaterial](./ureplacematerial)のMaterial Inputへ |
+| Fusion内でMaterialX系の材質設定を使う | **uShader / Shader Model = MaterialX**。USDモードとは異なるInspectorを使う | uShaderの材質出力をuReplaceMaterialへ |
+| 別の制作ソフトから受け取った`.mtlx`を使う | **[uMaterialX](./umaterialx) / Material File**で外部ファイルを読み込む | uMaterialXの材質出力をuReplaceMaterialのMaterial Inputへ渡し、**Type = MaterialX**で使用する材質を選ぶ |
 
-公式ManualのuShader節はMaterialXモードの概要を示していますが、対応するMaterialXの全機能やアセット互換性を保証していません。
+例えば、同じ車のUSDモデルを使って**Fusion内で塗装案を作る**なら、uShaderのUSDモードで色とRoughnessを設定し、uReplaceMaterialのPrim Selectionでボディだけを指定します。外部で仕上げた**`.mtlx`材質を受け取って比較する**なら、モデルを読み込み直すのではなく、uMaterialXから材質を渡して適用先のPrimを選びます。両者を同じカメラ・照明で描画すると、材質の差を比較できます。
+
+**混同しやすい3つの設定**は、uShaderの**Shader Model**（材質の作成方式）、uMaterialXの**Material File**（外部ファイルの読み込み）、uReplaceMaterialの**Type**（シーンへ割り当てる材質の方式）です。同じ「MaterialX」という文字が表示されても、作用する段階が違います。
+
+21.1 Manualでは、USDモードのDiffuse、Workflow Mode、Roughnessなどの項目が列挙されています。一方、MaterialXモードについては概要とInspectorの例示が中心です。**MaterialXモードで使える全パラメータ、既定値、入力候補、外部`.mtlx`との完全な互換性は、この資料だけでは確定しません。** 他ソフトとの見た目の一致が必要なら、実際のシーンとレンダー結果で確認してください。
 
 ## USDモードの主な設定
 
