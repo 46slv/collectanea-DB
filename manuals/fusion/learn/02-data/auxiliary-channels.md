@@ -1,6 +1,6 @@
 ---
 title: 補助Channel / AOV
-description: 3D画像のZ・Normal・UV・Object IDなどを2D合成で使う方法。Renderer 3Dからマスク、被写界深度、AO、診断までを接続例で説明。
+description: 3D画像のZ・Normal・UV・IDを2D合成で使う方法。Classic 3DのRenderer 3DとUSDのuRendererの出力差も解説。
 doc_type: concept
 term_id: auxiliary-channels
 term_short: 色や透明度とは別に、距離・表面方向・物体IDなどを画像の各画素へ保持する補助データ。
@@ -12,7 +12,7 @@ tasks: [aov, post-process, depth, relight]
 level: advanced
 product_scope: fusion
 suite_surfaces: [fusion]
-updated: "2026-10-10"
+updated: "2026-10-19"
 ---
 
 # 補助Channel / AOV
@@ -60,6 +60,31 @@ Light ───────┘                          │
 4. レンダリング結果を2Dノードへ接続します。多くの処理はRGBAと補助チャンネルを同じ入力画像から読みます。
 
 必要のないAOVまで有効にすると、メモリと描画時間が増えます。使用する処理から逆算して出力を選びます。
+
+## USDシーンから補助情報を作る（uRenderer）
+
+ここまでの例はFusionの**Classic 3D**（Merge 3D → Renderer 3D）を使っています。USDのシーンは別のデータ形式なので、[uMerge](../../nodes/usd/u-merge.md)でまとめ、[uRenderer](../../nodes/usd/u-renderer.md)で2D画像に変換します。Renderer 3DのOutput ChannelsをそのままUSD用の設定名として探さないでください。
+
+~~~text
+uLoader / uShape ──┐
+uCamera ───────────┼→ uMerge → uRenderer → 2Dの合成処理
+USDライト ────────┘
+~~~
+
+uRenderer（Resolve 21.1）の出力設定は、次のように役割が分かれます。
+
+| 設定 | 出力と判断基準 |
+| --- | --- |
+| **AOV: Color** | テクスチャと照明を含む通常のカラー画像。まず描画が成立しているか確認する。 |
+| **AOV: Depth** | **各フレーム内で正規化された**白黒の深度マップ。フレームをまたいで同じ明るさを同じ距離とみなさない。 |
+| **AOV: PrimID** | USDのPrim（シーン内の要素）を表す数値。Classic 3DのObjectIDと同じ入力仕様・番号規則だとは扱わない。 |
+| **AOV: Camera Depth** | カメラとの距離を表す32-bit float画像。通常の画像表示で黒く見えても、値が欠落したとは限らない。 |
+| **Aux Channel Z** | Camera Depthを**画像の補助Zチャンネル**へ出力する。Zを読む後段ノードへ渡す場合に確認する。 |
+| **Output AOVs As Layers** | 既存AOVを個別の**画像レイヤー**として出力する。補助Zチャンネルへ入れる操作とは区別する。 |
+
+例えばUSDの車を背景映像へ合成するなら、まず**Color**で車の見え方を確認し、次に**Depth**で前後関係を調べます。距離の数値を使う処理が必要なら**Camera Depth**を確認し、補助Zを受け取る後段には**Aux Channel Z**を有効にして接続します。複数のAOVをレイヤーで扱いたい場合は**Output AOVs As Layers**を試し、後段で実際に参照できるレイヤーを確認します。
+
+**レイヤー、補助チャンネル、独立した白黒画像は同じ出力形式ではありません。** uRendererでPrimIDを選んだからといって、上のClassic 3DのBitmap Mask **Use Object**がそのまま使えるとは限りません。また、[uExport](../../nodes/usd/uexport.md)はUSDシーンをファイルへ保存する別のノードであり、uRendererのAOV画像を書き出す操作ではありません。
 
 ## 例1：球だけ色を変える（ObjectID → Bitmap Mask）
 
@@ -149,6 +174,7 @@ Renderer 3D ──┬───────────────────�
 ## 関連Node・概念
 
 - [Renderer 3D](../../nodes/3d/renderer-3d.md) — Classic 3Dから必要な補助チャンネルを出力する
+- [uRenderer](../../nodes/usd/u-renderer.md) — USDシーンからColor・Depth・PrimID・Camera Depthや補助Zを出力する
 - [Bitmap Mask](../../nodes/masks/bitmap-mask.md) — ObjectID / MaterialIDをマスクに変換する
 - [Copy Aux](../../nodes/color/copy-aux.md) — 補助チャンネルをRGBAへ取り出し、確認・加工する
 - [Channel Booleans](../../nodes/color/channel-boolean.md) — RGBAと補助チャンネルの構成を変更する
@@ -162,5 +188,6 @@ Renderer 3D ──┬───────────────────�
 - Chapter 93「Copy Aux」、pp.2182–2185：Aux to Color / Color to Aux、浮動小数点値の表示、固定Remapping、Kill Aux Channels。
 - Chapter 96「Deep Pixel Nodes」、pp.2255–2261：Ambient OcclusionのZ・Normal・Camera入力、AOのHiQ案内と透明・半透明素材への制約、Depth BlurのZ・Focal Point・Depth of Field。
 - Chapter 108「Bitmap Mask」、pp.2463–2467：ImageからのMask生成、Use Object / Use Material、Threshold、Soft Edge。
+- Chapter 121「USD Nodes」、pp.2911–2914：uRendererのAOV、Aux Channel Z、Output AOVs As Layers、2D画像への変換。
 
 この記事の接続例はこれらの仕様を組み合わせたものです。Resolve 21.1実機での各レンダラー・GPU・外部EXRによる差、およびノード間での全チャンネル保持の動作は未検証のため、**verification: partial**としています。
