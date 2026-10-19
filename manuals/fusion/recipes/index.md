@@ -33,6 +33,7 @@ slug: /fusion/recipes
 ## アニメーション
 
 - [TransformをKeyframeで動かす](./recipes/animation/animate-transform-center)
+- [OpenEXRのMotion Vectorで車の動きにブラーを加える](./recipes/animation/exr-motion-vector-blur)
 
 ## 自動化
 
@@ -71,7 +72,7 @@ slug: /fusion/recipes
 
 - [Deep 合成を2Dへ戻す](./recipes/deep/deep-merge-to-image)
 
-現在 **18 Recipe** です。
+現在 **19 Recipe** です。
 
 ## 検証待ち
 
