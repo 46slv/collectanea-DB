@@ -19,6 +19,7 @@ slug: /fusion/recipes
 ## マスク（Masking）
 
 - [Mergeの適用範囲をMaskで限定する](./recipes/masking/limit-merge-with-mask)
+- [OpenEXRのObject IDで車体だけ色補正する](./recipes/masking/exr-object-id-selective-grade)
 
 ## Text / Graphics
 
@@ -70,7 +71,7 @@ slug: /fusion/recipes
 
 - [Deep 合成を2Dへ戻す](./recipes/deep/deep-merge-to-image)
 
-現在 **17 Recipe** です。
+現在 **18 Recipe** です。
 
 ## 検証待ち
 
