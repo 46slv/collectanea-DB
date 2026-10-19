@@ -31,6 +31,12 @@ updated: "2026-10-20"
 
 どちらも画素単位の移動を表し、負の値を取る場合があります。**色として表示された赤・緑と、実際の数値は同じものではありません。** 値を調べたり後段へ渡したりするときは、floatの精度とチャンネルの対応を確認します。
 
+### 先頭・末尾フレームとProxyの扱い
+
+前後のベクトルは**隣り合う1フレーム間**の移動量です。例えばA・B・Cの3フレームなら、BのVectorにはB→C、Back VectorにはB→Aの移動が入ります。前のフレームが存在しないAではBack Vector、次のフレームが存在しないCではVectorが**0で埋められます**。書き出したEXRの先頭・末尾だけで値を確認すると、正常なベクトルを「消失した」と誤認することがあります。LoaderのGlobal Rangeを狭めた場合も、参照できない隣接フレームに注意してください。
+
+Fusionの光学フローは**元画像の解像度を基準にしたピクセル移動量**です。Proxy / AutoProxyでViewer画像を縮小しても、補助チャンネルの値はフル解像度に対応します。縮小表示した画素数と値が一致しないときは、元画像のWidth / HeightとProxyのWidth / Heightを区別して確認します。表示サイズだけを根拠に、EXR内のベクトル値を変更しないでください。
+
 ## 1. Optical Flowを一度だけ計算して保存する
 
 ~~~text
@@ -83,7 +89,25 @@ Loader（RGBA + Vector / Back Vector）
        └─ MediaOut
 ~~~
 
-**重要：** 21.1マニュアルは、Time Speed / Time Stretcherが必要とする前後ベクトルのレイヤー順と、Optical Flow側の生成順に違いがあり、直接接続時に追加解析が必要になる場合があると説明しています。Loaderでベクトルが読めたことだけをもって「再解析なしでFlow補間できた」と判断しないでください。実機では処理時間とベクトルの選択・並びを確認します。
+### Flow補間が要求する前後ベクトルの順序
+
+21.1マニュアル（Chapter 112 p.2618）は、**Time Speed / Time Stretcherの期待順**と、**Optical Flowが処理時に生成する順**を次のように区別しています。
+
+| 処理 | マニュアルに記載されたレイヤー表記と順番 |
+| --- | --- |
+| Time Speed / Time Stretcherが要求するもの | `A. FwdVec` → `B. BackVec` |
+| Optical Flowが処理時に生成するもの | `A. BackVec` → `A. FwdVec` |
+
+同マニュアルは、この違いによってOptical FlowからTime Speed / Time Stretcherへ直接接続すると**解析が2回必要になる**と説明しています。一方、上の`A`・`B`表記はマニュアル中のレイヤーの説明であり、**すべてのOpenEXRで同じファイル内チャンネル名が使われるという意味ではありません**。LoaderのFormatに表示される名前や順序は、実際に保存されたEXRを読んで判断します。
+
+再利用できているかは、次の順番で確認します。
+
+1. **保存前のOptical Flow**と**再読込したLoader**を、同じ中間フレームで比較します。Copy AuxでVectorとBack Vectorをそれぞれ見て、動いている領域のX・Yを照合します。
+2. 先頭・末尾だけで判断せず、前後に元フレームが存在する場所で確認します。0の値は、フレーム境界である可能性もあります。
+3. LoaderからTime SpeedまたはTime Stretcherへ接続し、**Interpolate Mode = Flow**で補間結果と計算時間を確認します。元のOptical Flowをつないだ場合と比較し、追加解析が発生していないか調べます。
+4. **レイヤーの順序が異なるだけ**と決めつけてチャンネルを入れ替えず、Forward / Backの向きとX / Yの対応も確認します。21.1実機で自動対応されるか、手動配置が必要かは未確認です。
+
+このため、**EXRにベクトルが保存され、Copy Auxで数値を読めたこと**と、**Time Speed / Time Stretcherが再解析なしでそれを利用したこと**は別の検証項目です。
 
 またTime Speed / Time Stretcherは、補間に使ったVector / Back Vectorを**出力時に破棄**します。速度変更後の映像にもベクトルが必要なら、後段でOptical Flowを作り直すなど、出力側の時間に合わせて新たに解析します。
 
@@ -96,6 +120,8 @@ Loader（RGBA + Vector / Back Vector）
 | ベクトルの負値が消える | Out Color Depth、RGBAの整数化、表示用Remappingを本線に混ぜていないか |
 | 再生が依然として重い | Flowが追加解析していないか、保存前後のチャンネル構成と処理範囲 |
 | 途中からフレームがずれる | 元素材とEXRの開始番号、LoaderのTrim / Globalと尺 |
+| EXRの先頭・末尾だけベクトルが0 | その方向の隣接フレームが存在するか。存在しない側は仕様上0になる |
+| Proxy表示とベクトル値の桁が合わない | Motion Vectorが元解像度のピクセル移動量であること。Proxy倍率とOriginal Width / Height |
 | 速度変更後の別ノードがベクトルを使えない | Time Speed / Time Stretcherの出力でベクトルが破棄される仕様 |
 
 ## 関連記事・出典
@@ -104,7 +130,7 @@ Loader（RGBA + Vector / Back Vector）
 - [補助チャンネル / AOV](../../learn/02-data/auxiliary-channels.md) — RGBA、補助チャンネル、レイヤーの区別。
 - [Optical Flow](../../nodes/optical-flow/optical-flow.md)、[Copy Aux](../../nodes/color/copy-aux.md)、[Loader](../../nodes/utility-io/loader.md)、[Saver](../../nodes/utility-io/saver.md) — 各ノードの入力・設定。
 
-一次資料：Blackmagic Design『DaVinci Resolve 21.1 Reference Manual』（2026年9月）、**Chapter 87 pp.1901–1903**（Vector / Back VectorとEXR再利用）、**Chapter 64 pp.1345–1346, 1354**（EXRのLoader / SaverとFormat）、**Chapter 93 pp.2182–2185**（Copy AuxのMode、精度、Remapping）、**Chapter 111 p.2607**（Time SpeedのFlowと補助チャンネルの破棄）、**Chapter 112 p.2618**（Optical Flowの入出力とViewer）。
+一次資料：Blackmagic Design『DaVinci Resolve 21.1 Reference Manual』（2026年9月）、**Chapter 87 pp.1901–1903, 1909–1910**（Vector / Back Vector、隣接フレーム、ProxyとEXR再利用）、**Chapter 64 pp.1345–1346, 1354**（EXRのLoader / SaverとFormat）、**Chapter 93 pp.2182–2185**（Copy AuxのMode、精度、Remapping）、**Chapter 111 p.2607**（Time SpeedのFlowと補助チャンネルの破棄）、**Chapter 112 p.2618**（Optical Flowの入出力、Viewer、Flow補間のレイヤー順）。
 
 [Blackmagic Design公式Reference Manual](https://documents.blackmagicdesign.com/UserManuals/DaVinci_Resolve_21.1_Reference_Manual.pdf)
 
