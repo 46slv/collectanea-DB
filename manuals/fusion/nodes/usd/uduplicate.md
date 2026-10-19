@@ -15,7 +15,7 @@ outputs: [usd]
 tasks: [usd, duplicate, array, scatter]
 product_scope: fusion
 suite_surfaces: [fusion]
-updated: "2026-10-14"
+updated: "2026-10-19"
 ---
 
 # uDuplicate
@@ -89,6 +89,33 @@ uDistant Light ─────────────────────�
 静止したモデルをただ並べる場合には、Time Offsetを変えても見た目の差が出ないことがあります。歩行動作を持つ複数のキャラクター、回転するオブジェクト、時間とともに変わるテクスチャ付き平面など、**元に時間変化がある**ときに役立ちます。
 
 ManualではControlsとJitterの両方にTime Offsetの説明が登場します。両欄の値の合成方法や、特定の接続・アニメーション方式での評価順序までは、この節だけでは確定できません。
+
+### uLoaderと組み合わせる：全体の再生時刻とコピーごとの時間差
+
+外部USDのアニメーションを時間差で並べたい場合は、[uLoader](./uloader)で**元のアニメーションをいつ・どの速さで読むか**を決め、uDuplicateで**コピーごとの参照時刻の差**を付けます。名前が似ていますが、uLoaderの**Frame Offset**とuDuplicateの**Time Offset**は作用する範囲が違います。
+
+| 設定 | 影響する対象 | 使う場面 |
+| --- | --- | --- |
+| **uLoader：Trim** | 入力USDから使うアニメーションの区間 | 長い歩行アニメーションの一部分だけを利用する |
+| **uLoader：Time Scale** | 読み込んだUSDアニメーションの再生速度 | すべてのコピーに使う元の歩行速度を変える |
+| **uLoader：Frame Offset** | 読み込んだUSDアニメーションの開始位置 | ショット内で動き始めるタイミングを合わせる |
+| **uDuplicate：Time Offset** | その入力から作る**各コピーの参照時刻** | 隣り合うコピーのポーズを1フレームずつずらす |
+
+例えば、歩行アニメーションを持つ1体のキャラクターを道路沿いに4体並べるとします。全員が同時に同じポーズになる状態から、時間差のある列へ変える例です。
+
+~~~text
+uLoader（歩行アニメーション入りUSD、Trim / Time Scale / Frame Offset）
+  → uDuplicate（Copies [0, 3]、X Offsetで間隔、Time Offsetで時間差）
+  → uMerge（必要に応じてカメラ・ライトを追加）
+  → uRenderer → MediaOut
+~~~
+
+1. まず**Time Offset = 0**で4体を並べ、同じフレームでのポーズを見ます。元のUSDにアニメーションがなければ、時間をずらしてもポーズは変わりません。
+2. uDuplicateの**Time Offset = -1.0**を試します。Manualの回転する立方体の例では、後続のコピーほど1フレームずつ前のアニメーションを参照します。キャラクターでも同じ考え方でポーズの時間差を確認します。
+3. 全員の動きが速すぎる場合はuLoaderの**Time Scale**、列全体の開始タイミングが合わない場合はuLoaderの**Frame Offset**を調整します。コピー間の差だけを変えるならuDuplicateのTime Offsetを使います。
+4. Trimの区間端やLoopの切れ目付近では、最初と最後のコピーを含めて複数フレームを確認します。区間外の評価方法、uLoaderとuDuplicateの複合時間計算順序、Controls/Jitter両方に表示されるTime Offsetの関係は、Manualだけでは確定できません。
+
+**確認範囲：** 21.1 Reference Manual、uDuplicateのTime Offset（pp.2896、2898）とuLoaderのTrim / Time Scale / Frame Offset / Loop（p.2903）。上の歩行キャラクターはこれらの記載から組み立てた運用例であり、実機での評価順序・個々のUSDファイルとの互換性は未検証です。
 
 ### USD Instancing：同じデータを共有する
 
@@ -191,6 +218,6 @@ uMergeは接続された**別々の入力を統合**し、uDuplicateは**1つの
 
 ## バージョン・出典と確認範囲
 
-**一次資料：** Blackmagic Design『DaVinci Resolve 21.1 Reference Manual』（2026年9月）、Chapter 121「USD Nodes」、**pp.2895–2899**。Inputs、Controls、Copies、Transform Method / Order、Time Offset、USD Instancing、Jitter、Region Mode / Region、Limit by Object IDを照合しています。公式資料の配布元：[Blackmagic Design Support](https://www.blackmagicdesign.com/support/)。
+**一次資料：** Blackmagic Design『DaVinci Resolve 21.1 Reference Manual』（2026年9月）、Chapter 121「USD Nodes」、**pp.2895–2899**。Inputs、Controls、Copies、Transform Method / Order、Time Offset、USD Instancing、Jitter、Region Mode / Region、Limit by Object IDを照合しています。uLoaderとの時間制御の比較には**p.2903**も参照しています。公式資料の配布元：[Blackmagic Design Support](https://www.blackmagicdesign.com/support/)。
 
 制作例とトラブル対処はManualに記載された機能から組み立てた説明です。**出力端子の厳密な表示名、Mesh Inputが受け取る全データ形式、内部Instancingの共有範囲、Time Offsetの重複表示の評価関係、Region境界の厳密な判定、Edition差は21.1実機で未確認**です。未確認事項を確認済み仕様として扱わないため、**verification: partial**を維持しています。
