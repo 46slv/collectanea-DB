@@ -15,7 +15,7 @@ outputs: [usd]
 tasks: [usd, variant, switch-asset]
 product_scope: fusion
 suite_surfaces: [fusion]
-updated: "2026-10-14"
+updated: "2026-10-19"
 ---
 
 # uVariant
@@ -80,6 +80,22 @@ Scene Treeの**Pick**はノードの配線先を選ぶ操作ではありませ�
 4. 別のVariantを選び、輪郭、反射、影、ほかのパーツとの干渉などを見比べます。
 
 変わる内容はUSD側のVariant定義に依存します。「材質だけ」「形状ごと」「複数の要素をまとめて」など、あらゆるアセットに同じ差分が用意されているわけではありません。外観の差を比較する場合は**同じカメラと照明で描画**すると判断しやすくなります。
+
+## 選んだVariantをUSDファイルで引き渡す場合
+
+同じUSDアセットを別の3Dソフトへ渡すなら、[uExport](./uexport)で書き出す方法があります。たとえば屋根のVariantを `closed` にして車を渡す場合、**保存後も屋根が閉じて見えること**と、**受け取り側で `open` / `closed` を再選択できること**は別の確認事項です。
+
+~~~text
+uLoader（屋根のVariantが定義済みの車）
+  → uVariant（roof / closedを選択）
+  → uExport ⇒ shot.usdc
+~~~
+
+1. 書き出す前に、uVariantの**Selected Prims、Variant Set、Variant**を確認し、[uRenderer](./u-renderer)で選択結果を描画します。
+2. uExportで保存し、ファイルを**別のuLoader**から読み直します。同じカメラ・照明でレンダリングして、屋根の見た目を比較します。
+3. 後から仕様を変える必要があるなら、読み直したシーンを**別のuVariant**につなぎ、元のVariant Setと両方の候補が残っているか調べます。
+
+Resolve 21.1 Reference ManualのuVariant節（pp.2925–2926）にはVariantの選択操作、uExport節（p.2900）にはUSDシーンの書き出しが説明されています。ただし、**選択したVariantだけが保存されるのか、Variant Setと未選択の候補も保存されるのか**は、これらの節からは確定できません。上の手順は保持条件を確かめるためのものであり、実機での結果は未検証です。
 
 ### VariantがないUSDではどうする？
 

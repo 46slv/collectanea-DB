@@ -15,7 +15,7 @@ outputs: [usd]
 tasks: [usd, visibility, isolate-object]
 product_scope: fusion
 suite_surfaces: [fusion]
-updated: "2026-10-14"
+updated: "2026-10-19"
 ---
 
 # uVisibility
@@ -88,6 +88,22 @@ Scene Treeは親子関係を持つので、部品を1つ選ぶ場合と、建物
 これは**表示／非表示の切り替え**です。透明度が少しずつ変わるフェードとは異なります。なめらかな出現演出が必要なら、レンダリング後の2D合成など別の方法を検討します。キーフレーム間の評価タイミングや補間の細部は21.1実機で確認してください。
 
 なお、**Invert Prim Selectionもキーフレーム対応**です。こちらを動かすと「対象がどちら側か」自体が変わるため、単に1つの小道具を出し入れしたい場合は通常Visibleだけを動かす方が意図を確認しやすくなります。
+
+## 非表示にしたUSDを別のソフトへ渡す場合
+
+**uRendererで看板が見えなくなったこと**と、**[uExport](./uexport)で保存したUSDに看板のPrimや表示アニメーションがどう残るか**は、別の問題です。画面に映さないだけならuRendererで2D画像にできますが、3Dシーンとして渡す場合は保存結果を確認します。
+
+~~~text
+uLoader（看板を含むUSD）
+  → uVisibility（看板のPrimを選択、Visibleをオフ）
+  → uExport ⇒ shot.usdc
+~~~
+
+1. uVisibilityの**Selected Prims**が看板を指し、**Invert Prim Selection**がオフであることを確認します。uExportの手前のUSDシーンを[uRenderer](./u-renderer)へ渡して、看板が消えているか見ます。
+2. uExportで書き出したファイルを**新しい[uLoader](./uloader)**から読み直し、同じカメラと照明で描画します。さらにScene Treeで、非表示の看板Primがファイルに残っているかを調べます。
+3. **Visibleをアニメーションした場合**は、切り替え前・切り替え直後・後半のフレームをそれぞれ比較します。1フレームで隠れて見えるだけでは、時間変化を保持した確認になりません。
+
+21.1 Reference Manual（pp.2927–2928）はuVisibilityの表示制御とVisibleのキーフレーム対応を説明し、p.2900はuExportによるUSD保存を説明しています。しかし、**非表示のPrimが書き出し先に保持される条件**や、**Visibleのキーフレームがどの形で保存されるか**は明記していません。「納品先でも再表示できること」が必要なら、レンダリング結果だけでなくPrimの存在と表示変更の再現を確かめてください。これらの書き出し結果は21.1実機未検証です。
 
 ## 似たノードとの使い分け
 
