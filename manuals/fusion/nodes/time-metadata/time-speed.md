@@ -14,7 +14,7 @@ outputs: ["image"]
 tasks: ["retime"]
 product_scope: fusion
 suite_surfaces: ["fusion"]
-updated: "2026-10-07"
+updated: "2026-10-20"
 ---
 
 # Time Speed
@@ -112,11 +112,28 @@ frame補間によって画面端に透明な隙間が出る場合、`Clamp Edges
 
 ### Optical Flowを使ったretime
 
-    MediaIn → Optical Flow → Time Speed → Result
+    MediaIn → Optical Flow → Time Speed（Flow） → Result
 
-Time Speedの`Interpolate Mode`を`Flow`にし、前段で生成したForward / BackVector channelを使って中間frameを作ります。
+`Interpolate Mode = Flow`では、現在frameから次frameへの`Vector`と、前frameへの`BackVector`を使って中間frameを作ります。Time Speed自身はベクトルを解析しません。前段でOptical Flowを生成するか、保存済みのベクトルを入力します。
 
-Time Speedはaux channelを補間して保持するNodeではなく、ManualではVector / BackVectorを含むaux channelを処理後に破棄すると説明されています。**リタイム後の映像に再びmotion vectorが必要なら、Time Speedの後段でOptical Flowを再生成します。**
+#### 直結しただけでは、解析が1回で済むとは限らない
+
+21.1 Reference ManualのOptical Flow節（p.2618）は、Optical FlowをTime Speedへ直結すると**Optical Flowが2回レンダーされる**と説明しています。Time Speedが要求するレイヤー順は`A. FwdVec → B. BackVec`で、Optical Flowが処理時に生成する順序は`A. BackVec → A. FwdVec`と記載されています。前段にOptical Flowがあるだけで、余分な解析を避けられるとは限りません。
+
+同じ解析を繰り返し使いたい場合は、Optical Flowの出力をSaverでOpenEXR連番へ保存し、Loaderから読み直す方法があります。
+
+    MediaIn → Optical Flow → Saver（OpenEXR連番）
+    Loader（OpenEXR連番） → Time Speed（Flow） → MediaOut
+
+ただし、**EXRを保存しただけでは、Flow補間で再解析が不要になる保証はありません**。保存したベクトルが読めることと、Time Speedが再解析せずに使えたことを別々に確認します。
+
+1. LoaderのFormatで保存されたチャンネルを確認し、`Vector`と`BackVector`の両方を割り当てます。Copy Auxを確認専用の枝に接続すればX/YをRGBAへコピーして数値を比較できます。レイヤー表記だけからチャンネル名や符号を推測しないでください。
+2. 前後のframeがある区間でベクトル値を確かめます。最初のframeに前のframeがない場合は`BackVector`、最後のframeに次のframeがない場合は`Vector`が0になります。Proxy表示中でもベクトル値は**元の解像度を基準にしたピクセル移動量**です（Chapter 87、pp.1909–1910）。
+3. 直結構成とEXR再読込構成で同じ区間の結果と処理時間を比較します。EXRにベクトルが保持されていても、追加の解析が消えたと断定しないでください。
+
+詳しい保存・再読込・Copy Auxでの確認手順は[Optical FlowをEXRに保存・再利用するレシピ](../../recipes/animation/optical-flow-exr-roundtrip.md)にまとめています。
+
+Time Speedはaux channelを補間して保持せず、処理後にVector / BackVectorを破棄します。**リタイム後にもmotion vectorが必要なら、Time Speedの後段でOptical Flowを再生成します。**
 
 ## Time Stretcherとの使い分け
 
@@ -143,10 +160,11 @@ Time Speedを選ぶ基準は「一定の速度」です。
 
 - [Time / Metadata / Utility Family Overview](./)
 - [Time Stretcher](./time-stretcher.md)
+- [Optical FlowをEXRに保存・再利用するレシピ](../../recipes/animation/optical-flow-exr-roundtrip.md)
 
 ## 出典と確認範囲
 
-DaVinci Resolve 21.1 Reference Manual、Chapter 111「Miscellaneous Nodes」の`Time Speed [TSpd]`（pp.2607–2609）を基準に、入力、Speed / Delay、Interpolation、Flow関連Control、Freeze Frame、aux channelの扱いを確認しています。
+DaVinci Resolve 21.1 Reference Manual、Chapter 111「Miscellaneous Nodes」の`Time Speed [TSpd]`（pp.2607–2609）を基準に、入力、Speed / Delay、Interpolation、Flow関連Control、Freeze Frame、aux channelの扱いを確認しています。レイヤー順と二重レンダーの注意はChapter 112「Optical Flow」（p.2618）、前後ベクトルの時間方向・frame境界・Proxy時の単位はChapter 87「Optical Flow and Stereoscopic Nodes」（pp.1909–1910）で確認しています。
 
 network render時の注意はChapter 65「Rendering Using Saver Nodes」のTime Stretching節で確認しています。
 
