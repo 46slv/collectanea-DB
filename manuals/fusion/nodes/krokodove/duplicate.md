@@ -1,61 +1,120 @@
 ---
-title: "Duplicate"
-description: "pattern/shapeに沿ってimage duplicate。"
+title: Duplicate（Krokodove）
+description: 入力画像をパターンや図形に沿って複製するKrokodove Duplicateの仕組み、用途と3D系Duplicateとの違い。
 doc_type: node
-term_id: "krokodove-duplicate"
-term_short: "Duplicateは、pattern/shapeに沿ってimage duplicate。Krokodove固有のtool。"
+term_id: krokodove-duplicate
+term_short: 入力した2D画像を選択したパターンや形状に沿って繰り返し配置するKrokodoveの画像ツール。
 verification: partial
-aliases: ["Duplicate"]
-concepts: ["image-data"]
-nodes: ["Duplicate"]
-node_family: "krokodove"
-inputs: ["image"]
-outputs: ["image"]
-tasks: ["motion-graphics"]
+aliases: [Duplicate]
+concepts: [image-data]
+nodes: [Duplicate]
+node_family: krokodove
+inputs: [image]
+outputs: [image]
+tasks: [motion-graphics]
 product_scope: fusion
-suite_surfaces: ["fusion"]
-updated: "2026-10-05"
+suite_surfaces: [fusion]
+updated: '2026-10-20'
 ---
 
-# Duplicate
+# Duplicate（Krokodove）
 
-Duplicateは、pattern/shapeに沿ってimage duplicate。Krokodove固有のtoolです。名前だけで2D Image Nodeと判断せず、Input / Output domainとFamily Overviewを先に確認します。
+**Duplicate**は、入力された画像を複数に複製し、選んだパターンや形状に沿って配置するKrokodoveの画像ツールです。DaVinci Resolve 21.1 Reference Manualでは、Chapter 105の「Image Pixel Tools」に掲載されています。
 
-## 役割
+たとえば、一つの小さなロゴを同じ画面に何度も表示したいとします。個別にコピーした画像を手動で並べるのではなく、**一つの元画像と、コピーを並べる規則**を用意して繰り返し配置するのが、このツールの基本的な考え方です。
 
-pattern/shapeに沿ってimage duplicate。このページでは、名前だけで選ばず、**何を受け取り、何が変わり、どのdomainへ返すか**を先に整理します。
-
-この項目で確認できている中心的な役割は「pattern/shapeに沿ってimage duplicate」です。exactなInspector項目が未確認の場合は、役割とdata domainを先に使って候補を絞ります。
+ここでいう**パターン**とは、複製がどのように並ぶかを表す配置の規則です。**形状に沿う**とは、図形を位置関係の手がかりにして並べるという意味であり、元画像を別の図形に描き直すことではありません。ただし、選べるパターンの種類、形状の指定方法、コピー数、間隔などの詳細は、21.1 Manualの短い説明には書かれていません。後述の制作例は、実際のInspectorを確認しながら試すための案です。
 
 ## 入力と出力
 
-入力分類: **image**。 出力分類: **image**。 この分類はdata domainを読むためのものです。Fusion 21.1のexactな端子名・端子数を未確認の場合、ここでは推測して固定しません。
+| 段階 | データ | 役割 |
+| --- | --- | --- |
+| 入力 | 2D <Term id="image">Image</Term> | 複製する元画像。ロゴ、図形、写真など。 |
+| 処理 | Duplicate | パターンや形状に沿って入力画像を繰り返し配置する。 |
+| 出力 | 2D Image | 配置された複数のコピーを画像として後段に渡す。 |
 
-## 使うときの判断
+これはManualの機能説明と「Image Pixel Tools」分類に基づく**データの種類**の整理です。実機に表示される入力端子の正式名称・本数、外部から形状を渡せる入力の有無、Effect Maskの有無は確認していません。「入力がImage」と書いてあることは、Image以外の補助入力がないという意味ではありません。
 
-KrokodoveはImage、Shape、3D、Regionが同じchapterに並ぶため、まずOutput domainで候補を絞ります。
+Krokodoveには[Pattern](./pattern)と[Shapes](./shapes)という別のツールもあります。ただし、Manual中の「pattern/shape of choice」という表現だけでは、これらの出力をDuplicateの専用端子へ接続できるとは分かりません。**別ツールの名前**と、**配置方法を表す言葉**は分けて理解します。
 
-同じ目的を別Familyでも作れる場合は、後段で必要なdata domainと、Graph上で責任をどこに置きたいかで選びます。
+## 画面では何が変わるか
 
-## 最小構成
+元画像を、透明な背景に白い四角を一つ描いたものとします。Duplicateがその画像を複数の場所へ配置すると、結果の画面には同じ白い四角が繰り返し現れます。このとき、四角一つが大きくなる「拡大」と、同じ四角が増える「複製」は別の処理です。
 
-    Image / Source → Duplicate → Result
+規則的な配置では、隣り合う図形の位置関係そのものがデザイン要素になります。一方、元画像に背景や余白が含まれていると、それも複製対象に含まれる可能性があります。ロゴだけを反復させたい場合、まず透明部分のある素材を入力候補にします。透明部分やコピー同士の重なりを内部でどう計算するかは、Manualから確定できません。
 
-これは接続関係を理解するための最小構成案です。公式Manualのexactな作例として確認していない構成は、実制作前にViewerで中間結果を確認します。
+「形状に沿う」という説明は、任意のSplineに接続できる、円周上へ必ず配置できる、といった特定の機能を保証するものではありません。**元画像を選択したパターン／形状に沿って複製する**ところまでが、21.1 Manualの当該項目から確認できる範囲です。
 
-## 確認ポイント
+## 主な用途
 
-- 入力dataのdomainが合っているか。
-- この項目のoutputを受け取れる後段Nodeへ接続しているか。
-- 同じ役割を前段 / 後段で二重に処理していないか。
-- source-limited pageでは、未確認のControl名・default・rangeを名前から推測していないか。
+### ロゴや記号を繰り返す背景
 
-## Family内での位置づけ
+一つのロゴを複数配置して、タイトルの背景やモーショングラフィックスの装飾を作る用途です。パターンと元画像を分けて考えることで、記号の形を変えても同じ反復表現を保つ、といった制作方法を検討できます。
 
-Krokodoveノードの全体像と近いNodeの選び分けは[Family Overview](./)を参照してください。
+ただし、配置間隔の数値指定や個別コピーの変形に関する正式な設定は未確認です。「等間隔で10個並べる」などの具体的な指定が可能かどうかは、実際のInspectorで確認してください。
+
+### 画面の一部分に繰り返しを置く
+
+テロップの横に同じアイコンを並べたり、映像の一角に模様を重ねたりする制作案です。複製結果をそのまま使うか、後段の合成で表示範囲を整えるかは、求める見た目に応じて判断します。
+
+テキストを並べたい場合は、まずText+などで文字を画像として作り、その結果を複製する構成が考えられます。ただし、文字数・行間・字間を精密に設計する「文字組み」自体は別の作業です。装飾的な反復と、読むためのテキスト配置は目的を分けます。
+
+### 動く素材を反復する
+
+動きのある画像を入力すれば、その結果がどう複製されるかを試せます。位置や配置規則をアニメーションできる場合は、模様が動く演出も検討できます。
+
+**各コピーを個別に動かす機能、コピー間の時間差、ランダムな位置ずれ**がKrokodove Duplicateにあるかは未確認です。標準Duplicate 3Dの機能やInspector項目を、そのままこのツールに読み替えないようにします。
+
+## 運用例：一つのロゴから反復模様を作る
+
+以下は**検証用の接続案**です。21.1 Manualに掲載されたノードグラフではなく、接続先の実際の端子構成は実機で確認します。
+
+    ロゴの2D Image → Duplicate → Merge（Foreground）→ MediaOut
+                                    ↑
+    背景映像 ─────────────────────────┘（Background）
+
+1. 透明な背景に小さな白い四角、または単純なロゴを一つ描いた画像を用意します。初めは複製した結果を見分けやすい形にします。
+2. その画像をDuplicateへ渡し、Duplicate単体の出力をViewerで見ます。複数のコピーが出ているか、どの位置へ並んでいるかを確認します。
+3. Inspectorに配置方法を選ぶ項目があれば、実際に表示された選択肢を一つずつ試します。ここではControl名や数値を作って指定しません。
+4. Duplicateの結果を[Merge](../compositing/merge)のForegroundに接続し、背景映像をBackgroundへ渡します。合成後の画面で、元のロゴの形と透明部分を確かめます。
+5. 完成サイズで、模様の密集度・コピー同士の重なり・画面端での切れ方を確認します。文字と組み合わせる場合は、読みやすさも見ます。
+
+背景を重ねる必要がなければ、Mergeは省略できます。Duplicateに背景映像の入力が必須であるという意味ではありません。
+
+### 結果が予想と違う場合
+
+複製前の画像、Duplicateの出力、Mergeの出力を**同じフレームで順に比較**すると、どこで見た目が変わったかを判断しやすくなります。
+
+- **複製が見えない：** まず入力が透明になっていないか、Viewerの表示範囲外に出ていないかを確認します。
+- **模様が詰まりすぎる：** 元画像の大きさと複製後の並び方を比べます。間隔を変える設定が実在する場合だけ、その設定を試します。
+- **背景まで繰り返される：** 元画像に背景が描かれていないかを確認し、ロゴ単体の透過画像を試します。
+- **輪郭や色が不自然：** 元画像のAlpha、Duplicate後のAlpha、Mergeの合成設定を別々に確認します。Duplicate内部のAlpha演算方式は未確認です。
+
+## 関連ノードとの違い
+
+| ノード | 扱うデータ | 選び分け |
+| --- | --- | --- |
+| **Duplicate（Krokodove）** | 2D Image | 画像を選択したパターンや形状に沿って複製する。 |
+| [Mapped Duplicate 3D](./mapped-duplicate-3d) | Classic 3D scene／制御用Image | 3DオブジェクトをX・Y・Zの格子へ並べ、画像によって複製の位置・回転・大きさ・時間などを制御する。 |
+| [Duplicate 3D](../3d/duplicate-3d) | Classic 3D scene | 3Dオブジェクトを複製し、それぞれに変形を加える。2D映像にするにはRenderer 3Dが必要。 |
+| [Pattern](./pattern) | 2D Imageを生成 | 敷き詰めた図形から画面全体のパターンを作る。元の画像を繰り返し並べるDuplicateとは目的が異なる。 |
+| [Fragments](./fragments) | 2D Image | 画像を複数の断片に分割し、Rangeで表示・消失を制御する。画像の複製とは違う。 |
+
+「Duplicate」と呼ばれるツールが複数あるため、まず後段で**2D Imageが必要なのか、Classic 3D sceneが必要なのか**を判断します。Duplicate 3Dに存在するCopies、Time Offset、Transform Methodなどの設定がKrokodove Duplicateにも存在するとは限りません。
+
+## 注意点・未確認事項
+
+- **配置方法：** 利用できるパターン、形状の種類、コピー数、配置順、間隔のControl名・初期値・値域は未確認。
+- **接続：** 正式な入力／出力端子名、補助入力、外部Shape入力、Effect Maskの有無は未確認。
+- **透明部分：** コピー同士の重なりやAlphaの演算方式は未確認。実際のViewerで確認が必要。
+- **動作と対応製品：** REGID、再生時の負荷、DaVinci Resolve Free／Studio／Fusion Studio間のEdition差は未確認。
+
+このページの用途やグラフ例は、公式に確認できた基本的な働きを**制作へ応用する場合の提案**です。実機で再現・検証済みの手順としては扱いません。
 
 ## 出典と確認範囲
 
-このページの役割・data domain・系譜は、既存COLLECTANEA catalogとBlackmagic Design公式資料で確認された範囲をreader-first形式へ整理しています。
+**一次資料：** Blackmagic Design『DaVinci Resolve 21.1 Reference Manual』（September 2026）、Chapter 105「Krokodove Nodes」、**p.2436「Image Pixel Tools — Duplicate」**。入力画像を選択したパターン／形状に沿って複製するという説明に基づきます。[Blackmagic Design公式サポート](https://www.blackmagicdesign.com/jp/support/)から現行資料を確認できます。
 
-Fusion 21.1 Reference Manualで個別のInspector項目・default・rangeまで確認できていない項目は、**source-limited**としてその詳細を断定していません。verification: partial はその未確認範囲を含みます。runtime REGIDや現在のEffects Library表示は別のruntime verificationで確定します。
+同Chapterのp.2434にはMapped Duplicate 3Dが別項目として掲載されています。標準Duplicate 3Dの動作・Controlは、このKrokodoveツールの仕様とは区別します。
+
+正式なInspector項目、入力端子名、個別コピーの制御、製品間差は今回の一次資料で確認できないため、`verification: partial`のままとしています。[Krokodoveファミリー概要](./)と[Imageの基本](../../learn/02-data/image)も参照してください。
