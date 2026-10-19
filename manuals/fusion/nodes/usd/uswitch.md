@@ -15,7 +15,7 @@ outputs: [usd]
 tasks: [usd, switch-source, variant-workflow]
 product_scope: fusion
 suite_surfaces: [fusion]
-updated: "2026-10-14"
+updated: "2026-10-19"
 ---
 
 # uSwitch
@@ -85,6 +85,28 @@ SettingsはUSDノード間に共通する項目です。uSwitch固有のソー�
 ### シーン全体を切り替えるとき
 
 背景やカメラ・照明まで含むUSDを入力すると、uSwitchは**それらを含むシーン**ごと選びます。モデルだけを切り替えてカメラと照明を共通にしたければ、uSwitchにはモデル側のソースだけを接続し、共通要素は**後段でuMergeに合流**させます。
+
+## 選んだUSDを3Dシーンのまま書き出す
+
+車Aと車Bを比較して、採用したモデルを別の3Dソフトへ渡す場合は、uSwitchで選んだUSDを[uExport](./uexport)へ送ります。**uRendererは2D映像を描画するノード、uExportはUSDシーンをファイルに保存するノード**なので、用途に応じて出力経路を分けます。
+
+~~~text
+uLoader（車A） ─┐
+               ├→ uSwitch ─┐
+uLoader（車B） ─┘            ├→ uMerge ─┬→ uRenderer → MediaOut
+uCamera ────────────────────┤          └→ uExport ⇒ selected.usdc
+uDistant Light ─────────────┘
+~~~
+
+この例では、uSwitchが車A/Bのうち1つを選び、共通のカメラと照明をuMergeで加えています。元のUSDにカメラや照明が含まれている場合は、二重に追加せず、引き渡したいシーンの範囲に合わせて配線を調整します。
+
+1. uSwitchの**Source**で採用する車を選び、uRendererで構図・配置・材質の見え方を確認します。
+2. その選択状態のまま、uMergeのUSDシーンをuExportへ渡し、**Format**を指定して**Export Stage**から保存します。
+3. 保存ファイルを別の[uLoader](./uloader)で読み込み、必要なPrim（USD内の個々の要素）・カメラ・照明・アニメーションが残っているか確認します。納品先が別のソフトなら、そちらでも開いて検査します。
+
+**uSwitchに接続した全候補が、保存先でも選び直せるとは限りません。** 後段へ進むのはSourceで選択した1入力です。納品先で車A/Bの両方が必要なら、各候補を別ファイルとして渡すか、USDの制作側でVariant Setを用意するなど、候補を残す方法を別途設計します。[uVariant](./uvariant)は既存のVariant Setを選ぶノードで、独立したUSD入力からVariant Setを自動生成するものではありません。
+
+21.1 Manual（pp.2921–2922、p.2900）はuSwitchの入力選択とuExportの書き出し操作を説明していますが、**非選択入力の保持、Sourceの時間変化を伴う書き出し、元ファイルへの参照の保持条件**までは、この組み合わせの仕様として確定できません。時間変化や後工程での再編集が必要なら、保存ファイルを読み直し、複数フレームとPrim階層を個別に確認してください。
 
 ## uVariantなどとの違い
 
