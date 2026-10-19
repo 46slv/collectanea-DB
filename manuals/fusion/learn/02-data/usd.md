@@ -6,13 +6,13 @@ term_id: usd-scene
 term_short: uLoaderやuShapeなどのu* Nodeが扱い、uRendererで2D Image / AOVへrenderするUSD scene data。
 verification: partial
 aliases: [USD, USD scene, Universal Scene Description]
-concepts: [data-domain, scene-graph, material, rendering]
-nodes: [uLoader, uMerge, uRenderer, uShape, uCamera]
+concepts: [data-domain, scene-graph, material, rendering, time]
+nodes: [uLoader, uMerge, uRenderer, uShape, uCamera, uSwitch, uVariant, uVisibility, uExport]
 tasks: [usd, understand-domain, build-usd-scene]
 level: advanced
 product_scope: fusion
 suite_surfaces: [fusion]
-updated: "2026-10-18"
+updated: "2026-10-19"
 ---
 
 # USD scene
@@ -91,6 +91,38 @@ inputは動的に増え、uMerge自身のTransformは接続したobject全体へ
 USD sceneを2D Imageへrenderするdomain boundaryです。
 
 ColorだけでなくDepth、PrimID、Camera Depth等のAOVを出せます。Output AOVs As Layersを有効にすると、1つのuRendererから複数AOVをlayerとして扱えます。
+
+## アニメーションを扱うとき：時間・切り替え・保存を分ける
+
+USDシーンの動きには、**元ファイルの時間をどう再生するか**、**どのモデル・Primを見せるか**、**別ファイルに何を保存するか**という別々の操作があります。画面で動いて見えることだけでは、書き出したUSDでも同じ時間変化が残るとは限りません。
+
+| 操作 | ノードと設定 | 何を変えるか／何を変えないか |
+| --- | --- | --- |
+| 読み込んだ動きの区間・速度・開始時刻 | [uLoader](../../nodes/usd/uloader)の**Trim / Time Scale / Frame Offset** | USD内にあるアニメーションの再生範囲・速さ・開始位置を調整する。編集ページ上のクリップ長や、ほかのノードの時間までは変更しない |
+| 逆再生・繰り返し | uLoaderの**Reverse / Loop** | 読み込んだ動きを逆向き・反復で評価する。元のファイルに新たな動きを作る機能ではない |
+| 複数のUSD入力から採用モデルを選ぶ | [uSwitch](../../nodes/usd/uswitch)の**Source** | 後段に渡す入力を1つ選ぶ。21.1 Manualは**Sourceのキーフレーム可否**を明記していない |
+| 1つのUSDに用意された仕様を選ぶ | [uVariant](../../nodes/usd/uvariant)の**Variant Set / Variant** | 元のUSD内に存在する候補から選ぶ。**Variant選択そのもののアニメーション可否**は同節からは確定しない |
+| 一部のPrimを出し入れする | [uVisibility](../../nodes/usd/uvisibility)の**Visible** | 選んだPrimの表示・非表示を変える。21.1 Manualは**VisibleとInvert Prim Selectionのキーフレーム対応**を明記している。透明度を連続的にフェードする設定ではない |
+| 別ソフトへ3Dデータを渡す | [uExport](../../nodes/usd/uexport)の**Export Stage / Format** | USDシーンをファイルに保存する。アニメーションの書き出しには対応するが、上記の時間操作や切り替えの**保存後の評価・保持条件**まではManualに書かれていない |
+
+### 制作例：動く車と看板の表示をショットに合わせる
+
+外部ソフトから、走行アニメーションと道路沿いの看板を含むUSDを受け取ったとします。車の動き出しをショットの途中に合わせ、指定のタイミングで看板を隠す例です。
+
+~~~text
+uLoader（車・看板のUSD、Trim / Time Scale / Frame Offset）
+  → uVisibility（看板Prim、Visibleをキーフレーム）
+  → uMerge（必要なカメラ・照明を追加）
+       ├→ uRenderer → MediaOut（映像を確認）
+       └→ uExport ⇒ shot.usdc（USDを保存する場合）
+~~~
+
+1. uLoaderで元のUSDを読み、**Trim**で使用区間を選びます。**Time Scale**で速度を調整し、**Frame Offset**で動き始めを合わせます。ショットのクリップ自体を短くする操作とは分けて考えます。
+2. uVisibilityの**Pick**で看板のPrimを選びます。**Visible**を動かして表示状態を変える場合は、切り替え前後にキーフレームを置き、uRenderer側で実際のフレームを確認します。看板が徐々に透ける演出を作る操作ではありません。
+3. 車のモデル自体を別候補に替える場合はuSwitch、同じアセット内で屋根の仕様などを選ぶ場合はuVariantが候補です。**いずれもSource / Variantを時間で自動切替できるとManualだけからは断定しません**。
+4. 映像だけが必要ならuRendererの結果を使います。USDを受け渡すならuExportで保存し、**新しいuLoaderで再読込**して、開始・中間・終了と表示切り替え前後のフレームを比較します。元の車の動き、看板Primの存在、表示状態の時間変化を別々に検査してください。
+
+**確認範囲：** Blackmagic Design『DaVinci Resolve 21.1 Reference Manual』（2026年9月）、Chapter 121、p.2900（uExport）、pp.2902–2903（uLoader）、pp.2921–2922（uSwitch）、pp.2925–2926（uVariant）、pp.2927–2928（uVisibility）。各設定の機能と明記されたキーフレーム対応を根拠にした説明です。**uLoaderの複合時間評価順序、uSwitch Source・uVariant Variant選択のアニメーション、uExportによる時間サンプル・Variant候補・表示アニメーションの保持は実機未検証**です。ファイル形式をまたぐ確認手順は[3Dファイルの受け渡し](./3d-file-interchange)も参照してください。
 
 ## Material
 
