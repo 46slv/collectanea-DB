@@ -124,11 +124,33 @@ uLoader（車・看板のUSD、Trim / Time Scale / Frame Offset）
 
 **確認範囲：** Blackmagic Design『DaVinci Resolve 21.1 Reference Manual』（2026年9月）、Chapter 121、p.2900（uExport）、pp.2902–2903（uLoader）、pp.2921–2922（uSwitch）、pp.2925–2926（uVariant）、pp.2927–2928（uVisibility）。各設定の機能と明記されたキーフレーム対応を根拠にした説明です。**uLoaderの複合時間評価順序、uSwitch Source・uVariant Variant選択のアニメーション、uExportによる時間サンプル・Variant候補・表示アニメーションの保持は実機未検証**です。ファイル形式をまたぐ確認手順は[3Dファイルの受け渡し](./3d-file-interchange)も参照してください。
 
-## Material
+## 材質を変える：USDシーンと材質の入力を分ける
 
-USD material workflowでは、uTexture → uNormalMap / uTextureTransform → uShader → uReplaceMaterialという構成を作れます。
+**材質（Material）**は、物体の表面を何色に描くか、光をどの程度反射させるかなどを決める情報です。車の形・位置・カメラを含む**USDシーン**とは役割が異なります。Fusionでは、変更したいモデルを[uLoader](../../nodes/usd/uloader)から、適用する材質を[uShader](../../nodes/usd/ushader)や[uMaterialX](../../nodes/usd/umaterialx)から用意し、[uReplaceMaterial](../../nodes/usd/ureplacematerial)で組み合わせます。
 
-MaterialX fileをそのまま使う場合はuMaterialXからuReplaceMaterialへ渡します。
+### 例：読み込んだ車のボディだけ塗装を替える
+
+~~~text
+MediaIn / 画像ファイル → uTexture → uShader ─┐ Material Input
+                                           ↓
+uLoader（車のUSD） ───────────────→ uReplaceMaterial → uMerge → uRenderer
+                                  Scene Input                ↑
+                                                uCamera・USDライト（必要なら）
+~~~
+
+1. **uLoader**で車のUSDを読み込み、uReplaceMaterialの**Scene Input**へつなぎます。車体・タイヤ・窓が個別のPrim（USDシーン内の要素）になっていれば、変更する部品を選び分けられます。
+2. 画像を塗装に使う場合は、[uTexture](../../nodes/usd/utexture)で読み込みます。静止画像なら**File Name**でファイルを選び、動画やFusion内で生成した画像なら**Image Input**にMediaInなどを接続します。Image InputをつなぐとFile Nameの画像より優先され、アニメーションするテクスチャにもできます。uTextureを**uShader**の目的の材質項目につなぎ、接続時の入力候補を確認します。凹凸の法線マップなら[uNormalMap](../../nodes/usd/unormalmap)を挟み、uTextureの**Source Color Space**も確認します。
+3. **uShaderの出力**をuReplaceMaterialの**Material Input**へつなぎます。uReplaceMaterialでは、Inspectorで使う材質の種類・参照先も確認します。材質の線を接続しただけで、必ず意図した材質が自動選択されるとは限りません。
+4. **Prim Selection → Pick**で車体のPrimを選びます。タイヤやガラスを変えたくなければ、選択範囲と**Invert Prim Selection**の状態を確認してください。**材質の用意**と**適用先の選択**は別の操作です。
+5. 必要に応じて**uMerge**でカメラやUSDライトを加え、**uRenderer**で2D画像として確認します。車体が変わらない場合は、まずMaterial Input、材質の選択、Prim Selectionを切り分けて確認します。
+
+### 外部のMaterialXを使う場合
+
+別の3Dソフトで作った`.mtlx`ファイルを使うなら、**uMaterialX**の**Material File**で読み込み、その出力をuReplaceMaterialのMaterial Inputへ渡せます。uMaterialXにはシーンをつなぐ入力はなく、**材質だけを含むUSDデータ**を用意する役割です。モデルは引き続きuLoaderからScene Inputへ渡します。もう一つの方法として、uReplaceMaterial自身の**Type = MaterialX**から`.mtlx`ファイルを直接指定することもできます。
+
+画像・動画をFusionのノードから直接材質へ渡したい場合は、uReplaceMaterialの**Image Input**も利用できます。21.1 Manualでは、Image Inputに接続した画像が**Diffuse Texture**に使われ、ファイル選択欄の画像より優先されると説明されています。これは**USDシーンを2D画像へ変換する入力**ではなく、物体の表面へ貼る画像の入力です。
+
+**出典・確認範囲：** Blackmagic Design『DaVinci Resolve 21.1 Reference Manual』Chapter 121、p.2904（uMaterialX）、pp.2915–2916（uReplaceMaterialの入力・Type・Prim Selection）、pp.2940–2941（uNormalMap・uShader）、p.2944（uTextureのFile Name / Image Input）。説明中の車体の塗装交換は各ノードの機能を組み合わせた例で、特定のUSDアセットにおける材質互換性・描画結果は実機未検証です。
 
 ## Classic 3Dとの違い
 
