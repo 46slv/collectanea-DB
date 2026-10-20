@@ -10,7 +10,7 @@ nodes: [Planar Tracker]
 node_family: tracking
 controls: [Operation Mode, Reference Time, Tracker, Motion Type, Track Channel, Output, Tracking Controls, Create Planar Transform, Steady Time, Invert Steady Transform, Clipping Mode]
 inputs: [image, image, mask, mask]
-outputs: [image, tracking]
+outputs: [image]
 tasks: [track, planar-track, screen-replace, stabilize]
 level: intermediate
 product_scope: fusion
@@ -46,7 +46,7 @@ Maskが白い領域を解析対象から除外します。tracked planeの手前
 
 **Occlusion Maskは白い部分を追跡計算から除外**し、**Effect Maskはノードの最終出力の適用範囲を制限**します。例えば看板の前を人物が横切る場合、人物を追跡計算から外すのはOcclusion Maskです。人物を貼り付けた文字の手前に表示する合成処理は別に作ります。
 
-**出力端子は2D Imageです。** 追跡結果は内部のTrack splineに保存され、別の画像やマスクへ渡すときはCreate Planar Transformを使います。
+**物理的な出力端子は2D Imageだけです。** TrackモードのInspectorにあるOutput設定は、元映像・前処理後の映像・Patternのマスク表示を切り替えるもので、追跡データ専用の出力端子を追加する設定ではありません。追跡結果は内部の**Track spline**（フレームごとの平面変形データ）に保存されます。別の画像やマスクへその動きを適用する場合は、追跡後に**Create Planar Transform**で適用用ノードを作成します。
 
 ## 基本workflow
 
