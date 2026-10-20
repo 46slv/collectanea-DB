@@ -9,13 +9,13 @@ aliases: [Camera Tracker, CTra]
 concepts: [tracking-data, classic-3d]
 nodes: [Camera Tracker]
 node_family: tracking
-controls: [Auto Track, Preview AutoTrack Locations, Detection Threshold, Minimum Feature Separation, Track Channel, Track Range, Bidirectional Tracking, Gutter Size, Focal Length, Film Gate, Resolution Gate Fit, Average Solve Error, Accept Solve Error, Clean Tracks by Filter, Auto Select Seed Frames, Refine Focal Length, Enable Lens Parameters, 3D Scene Transform, Export, Update Previous Export]
+controls: [Auto Track, Preview AutoTrack Locations, Detection Threshold, Minimum Feature Separation, Track Channel, Track Range, Bidirectional Tracking, Gutter Size, New Track Defaults, Close Tracks When Track Error Exceeds, Solve Weight, Focal Length, Film Gate, Resolution Gate Fit, Average Solve Error, Accept Solve Error, Clean Tracks by Filter, Auto Select Seed Frames, Refine Focal Length, Enable Lens Parameters, 3D Scene Transform, Export, Update Previous Export]
 inputs: [image, mask]
 outputs: [image, 3d-scene]
 tasks: [track-motion, camera-track, solve-camera, 3d-match-move]
 product_scope: fusion
 suite_surfaces: [fusion]
-updated: "2026-10-14"
+updated: "2026-10-21"
 ---
 
 # Camera Tracker
@@ -75,11 +75,17 @@ Track → Camera設定 → Solve → 3D Scene Transform → Export
 | `Track Channel` | Red / Green / Blue / Luminanceから解析に使うチャンネルを選択。模様や境界が最も見分けやすいものを選びます。 |
 | `Track Range` | Global（タイムライン全体）、Render（レンダー範囲）、Valid（元素材の有効範囲）、Custom（指定範囲）のどこを追うかを選択します。 |
 | `Bidirectional Tracking` | 最初に前方向へ追った点を、後ろ方向へも延長します。後ろ向き処理では新しい点を増やさず、既存の追跡を長くします。 |
-| `Gutter Size` | 画像端で追跡パターンが欠けて誤認しやすい領域を指定。端へ入った追跡を終了させます。 |
+| `Gutter Size` | 画像端に近づいた追跡点を終了させる余白。値は追跡パターンの大きさに対する割合で、既定は100%です。パターンサイズが0.04なら余白も0.04になります。 |
 
 点数を増やすこと自体は目的ではありません。**長く安定して追える、実際の景色に固定された点**を広く確保する方が重要です。追跡途中で被写体に隠れる点や、反射の動きを追った点は見直します。
 
 `Reset`は追跡データとSolve結果の**両方**を削除します。Solve結果だけをやり直したい場合は、Solveタブの`Delete`を使ってください。
+
+### 自動追跡点の初期設定（New Track Defaults）
+
+`New Track Defaults`では、新しく作る追跡点の追跡方式と終了条件を設定します。Camera TrackerはまずOptical Flowで特徴点を追い、Fusion TrackerまたはPlanar Trackerを使って位置をさらに精密化します。Planar方式では追跡パターンの変形モデルを選べます。標準の`TRS`（移動・回転・拡大縮小）を基本とし、`Affine`や`Perspective`は、変形を捉えるのに十分な大きさのパターンがある場合に検討します。モデルを複雑にすれば、細かい模様でも必ず追えるというわけではありません。
+
+`Close Tracks When Track Error Exceeds`は、参照フレームのパターンと現在フレームのパターンの不一致が閾値を超えたとき、その追跡点を終了させます。閾値を高くすると追跡を長く続けられる一方、誤った位置まで追ってしまう可能性も高くなります。たとえば床の目地が途中から別の線へ乗り移る場合は、単に閾値を上げるのではなく、その点がずれ始めるフレームとパターンの選び方を確認します。`Solve Weight`は新規追跡点がカメラのSolveへ与える重みで、通常は均等のまま使用します。
 
 ## Camera：撮影カメラの条件を与える
 
@@ -167,6 +173,6 @@ Renderer 3Dの結果を元映像へ重ねる場合は、Export設定のカメラ
 
 ## バージョンと確認範囲
 
-DaVinci Resolve **21.1 Reference Manual（September 2026）** のChapter 119 pp.2804–2819で入力、Track / Camera / Solve / Export / Options、Solve誤差、追跡点の整理、3D Scene Transform、Export Optionsを確認しました。Fusion Fundamentals Chapter 85 pp.1872–1889で**2D・3Dの2出力**と、3Dシーンへ立体を配置する手順を確認しました。
+DaVinci Resolve **21.1 Reference Manual（September 2026）** のChapter 119 pp.2804–2819で入力、Track / New Track Defaults / Camera / Solve / Export / Options、Solve誤差、追跡点の整理、3D Scene Transform、Export Optionsを確認しました。Fusion Fundamentals Chapter 85 pp.1872–1889で**2D・3Dの2出力**と、3Dシーンへ立体を配置する手順を確認しました。
 
 記事内のInspector名と説明はこれらの一次資料に基づきます。運用例は記載された動作を組み合わせた手順であり、実機での成功を保証する検証記録ではありません。ショットごとのSolve精度、実行速度、製品Edition差は未検証のため、`verification: partial`としています。

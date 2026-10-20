@@ -14,7 +14,7 @@ outputs: [image]
 tasks: [surface-track, texture-attach, stabilize-surface]
 product_scope: fusion
 suite_surfaces: [fusion]
-updated: "2026-10-14"
+updated: "2026-10-20"
 ---
 
 # Surface Tracker
@@ -137,13 +137,14 @@ Trackが終わったらResultタブで出力を決めます。**Output**は6種�
 動く頬の一部を直接フレームごとに修正する代わりに、**動きを止めて修正し、再び動かす**方法です。
 
 ~~~text
-人物の映像 → Surface Tracker A（Stabilize-Warp Input 1）
-          → 修正ノード（Paintなど）
-          → Surface Tracker B（Rewarp Stabilized Clip）
-          → MediaOut
+元映像 ─→ A（Stabilize-Warp）→ Paint ─→ B：Overlay（緑）
+   └─────────────────────────→ B：Input（黄）
+B（Rewarp Stabilized Clip）→ MediaOut
 ~~~
 
-Aで頬の安定した面を追跡し、Bには**同じ追跡設定・データを持つコピー**を使用します。間に置いた修正ノードは、静止したように見える顔の表面に対して処理します。BでRewarpすると元の顔の動きへ戻ります。Bを新規に追加して別々に追跡すると、二つの変形が一致しない原因になります。
+Aは元映像を黄のInputへ受け取り、頬を追跡してResultのOutputを**Stabilize-Warp Input 1**にします。安定化した画像をPaintなどへ接続すると、動く頬の一部を基準フレームの位置で修正できます。
+
+Bには**Aを追跡設定・データごと複製したノード**を使い、Outputを**Rewarp Stabilized Clip**に切り替えます。Bの黄の**Inputには元映像を直接分岐して接続**し、緑の**OverlayにはPaint後の画像を接続**します。Bの**Overlay/Alpha SourceはEach Frame**にして、修正した各フレームを元の顔の動きへ戻します。Aの出力だけを直列にBのInputへ入れる構成では、Bが合成先として必要とする元映像を渡せません。Bを新規作成して別々に追跡することも、二つの変形が一致しなくなる原因になります。
 
 ### 動く布へ映像を貼る
 
@@ -172,6 +173,6 @@ Aで頬の安定した面を追跡し、Bには**同じ追跡設定・データ�
 
 ## 出典と確認範囲
 
-Blackmagic Design『DaVinci Resolve 21.1 Reference Manual』（2026年9月）、**Chapter 119「Tracking Nodes」、pp.2830–2838**。4入力の色と働き、Bounds・Mesh・Track・Result、6種類のOutput、Overlay/Alpha Source、Overlay Placement、Contract/Expand、Motion Blur、合成設定、フレームレート差による注意を照合しています。[Blackmagic Design公式サポート](https://www.blackmagicdesign.com/jp/support/)。
+Blackmagic Design『DaVinci Resolve 21.1 Reference Manual』（2026年9月）、**Chapter 119「Tracking Nodes」、pp.2830–2838**。4入力の色と働き、Bounds・Mesh・Track・Result、6種類のOutput、Overlay/Alpha Source、Overlay Placement、Contract/Expand、Motion Blur、合成設定、フレームレート差による注意を照合しています。 安定化した面の修正と再ワープを組み合わせる際の2入力の接続は、同Manualの**Chapter 168「Resolve FX Transform」、pp.3719–3720**にある元映像・修正後映像を分けた実例とも照合しています（同例はColorページのResolve FX構成）。[Blackmagic Design公式サポート](https://www.blackmagicdesign.com/jp/support/)。
 
 制作例と症状別の判断手順は、確認した機能から組み立てた運用上の例です。Resolve/Fusion 21.1の実機での追跡精度、Inspectorの内部ID、パラメータの厳密な数値範囲、Free / Studioの差は検証していないため、verificationはpartialです。

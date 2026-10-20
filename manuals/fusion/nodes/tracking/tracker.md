@@ -10,12 +10,12 @@ nodes: [Tracker]
 node_family: tracking
 controls: [IntelliTrack, Point, Tracker List, Pattern Rectangle, Search Rectangle, Track Buttons, Frames Per Point, Adaptive, Path Center, Operation, Merge, Pivot Type, Reference Time, Filter Method, Edges]
 inputs: [image, image, mask]
-outputs: [image, tracking]
+outputs: [image]
 tasks: [track, point-track, match-move, stabilize]
 level: intermediate
 product_scope: fusion
 suite_surfaces: [fusion]
-updated: "2026-10-14"
+updated: "2026-10-21"
 ---
 
 # Tracker
@@ -38,7 +38,11 @@ Planar Trackerが面全体のperspective変化を扱うのに対し、Trackerは
 
 青色の任意入力です。解析対象の範囲を限定します。Foreground画像の透明部分を定義するAlphaとは別の役割です。
 
-Trackerの画像出力は処理後の2D Imageです。これに加えて、追跡した座標などの値を別NodeのControlへ公開できます。後者を使うだけならTrackerの画像出力を別Nodeへ接続する必要はありません。
+## 出力と追跡データ
+
+Trackerの物理的な出力端子は、処理後の2D Imageを渡すImage出力です。追跡した位置・角度・拡大率などはNode内の値として公開され、別Nodeのパラメーターから **Connect To** で参照できます。追跡データ専用の出力端子があるわけではありません。
+
+位置を参照するだけなら、Trackerの画像出力を合成先のNodeへ配線する必要はありません。映像自体を安定化・合成したいときには画像出力を後段につなぎます。
 
 ## IntelliTrackとPoint
 
@@ -76,9 +80,9 @@ Tracker Listでは各patternを選択・renameし、Enabled / Suspended / Disabl
 
 ## 結果の使い方
 
-Trackerは解析結果をNode内部のMatch Moveへ使うだけでなく、別NodeのControlへ公開できます。
+Trackerは解析結果をNode内部のMatch Moveへ使うだけでなく、別NodeのControlへ公開できます。以下の「出力」はNodeの画像端子ではなく、**Connect Toから選べる追跡値**です。
 
-代表的な出力:
+代表的な公開値:
 
 - **Offset Position** — 元のmotion path
 - **Steady Position** — movementを打ち消すposition
@@ -86,8 +90,9 @@ Trackerは解析結果をNode内部のMatch Moveへ使うだけでなく、別No
 - **Steady Angle / Size** — rotation / scale変化を打ち消す値
 
 ```text
-Footage → Tracker
-            └─ Offset Position → Transform Center
+Footage → Tracker（追跡用。画像出力は未接続でも可）
+Graphic → Transform → Merge（画像の配線）
+Tracker.Offset Position -- Connect To --> Transform.Center（値の接続）
 ```
 
 ## Operation / Reference Time
@@ -183,6 +188,6 @@ Modifierは1 patternだけを扱う簡易用途向けで、複数patternを使�
 
 ## 出典と確認範囲
 
-DaVinci Resolve 21.1 Reference Manual（September 2026）、Chapter 119 pp.2839–2857とFusion Fundamentals Chapter 81で、3入力、IntelliTrack既定、Point tracker、Pattern / Search Rectangle、Tracker Listの状態、Adaptive、Path Center、公開Control、4種類のOperation、Merge、Reference Time、Filter Method、Edgesを確認しました。制作例は各Controlの公式説明を踏まえた応用です。
+DaVinci Resolve 21.1 Reference Manual（September 2026）、Chapter 119 pp.2839–2857とFusion Fundamentals Chapter 81 pp.1793–1795で、3入力、画像出力と公開追跡値の違い、IntelliTrack既定、Point tracker、Pattern / Search Rectangle、Tracker Listの状態、Adaptive、Path Center、公開Control、4種類のOperation、Merge、Reference Time、Filter Method、Edgesを確認しました.制作例は各Controlの公式説明を踏まえた応用です。
 
 tracking algorithmの内部仕様、全Controlの数値範囲、実機精度・性能は未確認のため `verification: partial` としています。
