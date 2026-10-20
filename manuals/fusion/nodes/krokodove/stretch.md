@@ -106,7 +106,7 @@ Text+（タイトル） ──────────────────�
 
 ## バージョンと出典
 
-一次資料：Blackmagic Design『**DaVinci Resolve 21.1 Reference Manual**』（September 2026）、Chapter 105「Krokodove Nodes」、**p.2437「Image Warp Tools / Stretch」**。同ページのDirectional Scale・Shear・Warped Transform、p.2436のRestと比較しています。
+一次資料：Blackmagic Design『**DaVinci Resolve 21.1 Reference Manual**』（September 2026）、Chapter 105「Krokodove Nodes」、**p.2437「Image Warp Tools / Stretch」**。p.2437のShear・Warped Transform、p.2436のDirectional Scale・Restと比較しています。
 
 **資料から直接確認したこと**は、「指定した線に沿った画素の引き伸ばし」という役割とImage Warp Toolsへの分類です。入力・出力の2D Image分類には既存COLLECTANEAカタログも併用しています。格子・ストライプ・タイトルを使った例は、確認された役割から考えた検証・制作案です。端子・Inspector・画素境界・Edition差が未確認のため、`verification: partial` を維持しています。
 
