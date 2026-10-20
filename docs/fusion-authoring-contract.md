@@ -296,6 +296,8 @@ Manualに端子名・Control名・例があるなら、`partial`だからとい�
 
 すべてを全ページへ義務化しない。自前の実機captureや検証用素材を優先し、公式Manualの画像をそのまま転載することを標準手段にしない。
 
+撮影対象の優先順位、実機画像の作成条件、Codexへの引継ぎは [Fusionスクリーンショット計画](./fusion-screenshot-capture-plan.md) と [撮影候補JSON](./fusion-screenshot-candidates.json) を参照する。候補を撮影済みとして表示しない。
+
 ## Recipe template
 
 Path:
