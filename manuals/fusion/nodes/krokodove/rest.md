@@ -1,61 +1,105 @@
 ---
-title: "Rest"
-description: "pixelをlineへ寄せ、top/bottomをpathに沿ってwarp。"
+title: Rest（Krokodove）
+description: 画素を一本の線へ寄せ、画像の上側・下側を経路に沿って変形するRestの役割、入出力、使い方。
 doc_type: node
-term_id: "rest"
-term_short: "Restは、pixelをlineへ寄せ、top/bottomをpathに沿ってwarp。Krokodove固有のtool。"
+term_id: rest
+term_short: 画像の画素を一本の線へ寄せ、上側または下側を経路に沿って歪ませるKrokodoveの画像処理ツール。
 verification: partial
-aliases: ["Rest"]
-concepts: ["image-data"]
-nodes: ["Rest"]
-node_family: "krokodove"
-inputs: ["image"]
-outputs: ["image"]
-tasks: ["motion-graphics"]
+aliases: [Rest]
+concepts: [image-data]
+nodes: [Rest]
+node_family: krokodove
+inputs: [image]
+outputs: [image]
+tasks: [motion-graphics]
 product_scope: fusion
-suite_surfaces: ["fusion"]
-updated: "2026-10-05"
+suite_surfaces: [fusion]
+updated: '2026-10-20'
 ---
 
-# Rest
+# Rest（Krokodove）
 
-Restは、pixelをlineへ寄せ、top/bottomをpathに沿ってwarp。Krokodove固有のtoolです。名前だけで2D Image Nodeと判断せず、Input / Output domainとFamily Overviewを先に確認します。
+**Restは、画像の画素を一本の線へ寄せ、画像の上側または下側を経路に沿って歪ませるKrokodoveのツール**です。DaVinci Resolve 21.1 Reference Manualでは「Image Pixel Tools」に分類されています。
 
-## 役割
+処理するのは、画像の中の個別のオブジェクトではなく、画像を構成する**画素（ピクセル）の配置**です。格子の入った画像を変形すると、格子を構成する線や色の帯の見え方が変わります。格子を編集可能な図形として並べ替える操作ではありません。
 
-pixelをlineへ寄せ、top/bottomをpathに沿ってwarp。このページでは、名前だけで選ばず、**何を受け取り、何が変わり、どのdomainへ返すか**を先に整理します。
+## 「一本の線に寄せる」とは
 
-この項目で確認できている中心的な役割は「pixelをlineへ寄せ、top/bottomをpathに沿ってwarp」です。exactなInspector項目が未確認の場合は、役割とdata domainを先に使って候補を絞ります。
+Restの説明には、意味の異なる二つの要素があります。
+
+- **一本の線へ画素を寄せる：** 画像の画素を、線を基準に再配置することです。単に画像全体を上下へ平行移動させるという意味ではありません。
+- **上側または下側を経路に沿って歪ませる：** 画像の上側・下側に関わる部分が、経路（path）の形に応じて変形することを示しています。ここでいう経路は、動画の再生時間に沿った移動経路とは限りません。
+
+普通の移動なら、画像内の直線は形を保って別の位置へ移ります。一方、Restでは画素を線へ寄せたり、画像の上側・下側の見え方を経路に沿って変えたりする処理が目的です。どの画素がどの方向へ動くか、経路をどう指定するかまでは、21.1 Manualの短い一覧説明から特定できません。
+
+「線へ寄せる」と「その線で画像を切り抜く」ことも別です。Restがマスクを自動生成したり、線の片側を透明にしたりするとは確認していません。
 
 ## 入力と出力
 
-入力分類: **image**。 出力分類: **image**。 この分類はdata domainを読むためのものです。Fusion 21.1のexactな端子名・端子数を未確認の場合、ここでは推測して固定しません。
+| 段階 | データ | 役割 |
+| --- | --- | --- |
+| 入力 | 2D <Term id="image">Image</Term> | 写真、動画、格子、画像になった文字など、変形したい画素の集まり。 |
+| 処理 | Rest | 画素を一本の線へ寄せ、画像の上側または下側を経路に沿って歪ませる。 |
+| 出力 | 2D Image | 変形後の画像を後段の合成・画像処理へ渡す。 |
 
-## 使うときの判断
+入出力のImage分類は、公式マニュアルの「Image Pixel Tools」と既存COLLECTANEAのノード分類に基づきます。**端子の正式名称・本数、線や経路のための追加入力の有無を確定したものではありません。** ImageはRGB・Alphaなどを持つ2D画像データです。輪郭そのものを編集可能なデータとして扱うShapeの操作とは区別します。
 
-KrokodoveはImage、Shape、3D、Regionが同じchapterに並ぶため、まずOutput domainで候補を絞ります。
+## 主な用途
 
-同じ目的を別Familyでも作れる場合は、後段で必要なdata domainと、Graph上で責任をどこに置きたいかで選びます。
+### 横線や格子を使った抽象背景
 
-## 最小構成
+等間隔の線や格子なら、画素がどこへ寄るか、どこで線が曲がるかを比較しやすくなります。変形の特徴をつかんだ後、タイトル背景やMVのグラフィックへ応用できます。特定の曲線を必ず作れると確認したものではありません。
 
-    Image / Source → Rest → Result
+### 風景の境界を使った歪み
 
-これは接続関係を理解するための最小構成案です。公式Manualのexactな作例として確認していない構成は、実制作前にViewerで中間結果を確認します。
+水平線、屋根の縁、道路の白線などがはっきりした画像は、上側・下側の変形を調べる素材になります。最初から人物の顔など複雑な素材を使うより、境界の分かる素材で変化する範囲を確認した方が判断しやすくなります。Restが被写体や輪郭を自動認識するという意味ではありません。
 
-## 確認ポイント
+### 背景だけを変形して文字を残す
 
-- 入力dataのdomainが合っているか。
-- この項目のoutputを受け取れる後段Nodeへ接続しているか。
-- 同じ役割を前段 / 後段で二重に処理していないか。
-- source-limited pageでは、未確認のControl名・default・rangeを名前から推測していないか。
+背景をRestで加工した後にText+を重ねれば、文字はRestの入力に含まれません。逆にText+を先に背景へ合成してからRestへ渡せば、文字も画像の画素として変形の対象になります。文字の可読性を残したいか、文字そのものを歪ませたいかで接続順を分けます。
 
-## Family内での位置づけ
+## 制作例：横線の背景を変形してタイトルを重ねる
 
-Krokodoveノードの全体像と近いNodeの選び分けは[Family Overview](./)を参照してください。
+以下は**出力の特徴を観察するための構成案**であり、公式マニュアルに記載されたInspectorの設定値を再現する作例ではありません。
 
-## 出典と確認範囲
+~~~text
+MediaIn（横線・格子画像） → Rest → Merge（Background） → MediaOut
+Text+（タイトル） ───────────────→ Merge（Foreground）
+~~~
 
-このページの役割・data domain・系譜は、既存COLLECTANEA catalogとBlackmagic Design公式資料で確認された範囲をreader-first形式へ整理しています。
+1. 横線・格子がはっきりした画像を用意し、MediaInからRestへ接続します。縦線と横線が交差する格子なら、移動・湾曲する位置を区別しやすくなります。
+2. Restの出力をViewerへ表示し、MediaInの元画像と切り替えて比べます。線が寄る場所、上側・下側の変化、画面端の形を観察します。
+3. Inspectorに**実際に表示された項目**を一つずつ変えて、変形範囲と方向を確認します。「Path」「Top」「Bottom」が正式な設定項目名として存在するとは断定しません。別のPathやMaskを追加端子へつなぐ手順も、端子を確認するまでは想定しません。
+4. Restの出力をMergeのBackgroundへ、Text+をForegroundへ接続します。背景だけを変形し、タイトルの形を維持できます。
+5. 動画素材なら再生して、細い線のちらつき、画面端の欠け、透明部分、文字との重なりを確認します。
 
-Fusion 21.1 Reference Manualで個別のInspector項目・default・rangeまで確認できていない項目は、**source-limited**としてその詳細を断定していません。verification: partial はその未確認範囲を含みます。runtime REGIDや現在のEffects Library表示は別のruntime verificationで確定します。
+文字も加工したい場合は、MediaInとText+を先にMergeで合成し、その**Mergeの出力をRestへ接続**して違いを確認します。
+
+## 近いノードとの違い
+
+| ノード | 21.1 Manualで確認できる役割 | 選び分け |
+| --- | --- | --- |
+| **Rest** | 画素を一本の線へ寄せ、画像の上側・下側を経路に沿って歪ませる。 | 線へ画素を集めることや、上下の境界の変形を調べたいとき。 |
+| [Stretch](./stretch) | 指定した線に沿って画素を引き伸ばす。 | 線に沿って画像を**伸ばす**効果を試したいとき。 |
+| [Directional Scale](./directional-scale) | 指定した方向へ画像を伸縮・変形する。 | 一本の線よりも、変形の**方向**を中心に考えたいとき。 |
+| [Warped Transform](./warped-transform) | 画像を伸ばす・押し縮める・回す。 | 伸縮と回転などをまとめて試したいとき。 |
+| [Positioner](./positioner) | 元の位置と移動先を設定するコーナーピン変形。 | 四隅の対応関係を使って画像を合わせたいとき。 |
+
+**RestとStretchは同じ「線」を用いた説明でも、処理の目的が異なります。** Stretchは線に沿って画素を引き伸ばし、Restは線へ画素を寄せて上側・下側を経路に沿って歪ませます。同じ結果になる、同じ端子やInspectorを持つとは限りません。
+
+単に画像を移動・回転・拡大縮小したいだけなら、[標準Transform](../transform/transform)で足りるかを先に比較してください。
+
+## 注意点と未確認事項
+
+- **線と経路の指定方法：** 画面上のハンドル、数値、補助入力のどれで設定するのかは未確認です。「path」という説明語だけからPath ModifierやShape入力が必要とは判断しません。
+- **上側・下側の制御：** 切り替えの有無、両側を同時に処理できるか、どこを上・下とみなすかは未確認です。
+- **画素・透明度の処理：** 補間方式、画像端、Alpha、premultiply、出力解像度への影響は短い公式説明からは特定できません。
+- **製品差と実機：** 21.1 Reference Manualへの掲載は確認済みですが、Resolve Free / Studio / Fusion Studioでの利用可否、内部REGID、Inspector項目の正式名称や値域は未検証です。
+
+## バージョンと出典
+
+一次資料：Blackmagic Design『**DaVinci Resolve 21.1 Reference Manual**』（September 2026）、Chapter 105「Krokodove Nodes」、**p.2436「Image Pixel Tools / Rest」**。同ページのPositioner・Directional Scale、p.2437のStretch・Warped Transformと比較しました。
+
+資料から直接確認できたのは、一本の線へ画素を寄せて画像の上側または下側を経路に沿って歪ませる役割と、Image Pixel Toolsへの分類です。入出力の2D Image分類は既存COLLECTANEAの記録も併用しています。格子・風景・タイトルを使う制作例は用途を見極めるための提案で、実機での動作検証結果ではありません。端子、Inspector、画素演算、エディション差は未確認のため、verificationはpartialのままです。
+
+[Krokodoveの全体像](./)と[画像（Image）の基礎](../../learn/02-data/image)も参照してください。
