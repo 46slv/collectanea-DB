@@ -10,8 +10,8 @@ concepts: [image-data, auxiliary-channels, motion-vectors, warp]
 nodes: [Vector Warp]
 node_family: warp
 controls: [Set Frame, Reference Frame, Operation, Generate Warp, Generate Warp + Map, Apply Warp Map, UnWarp, Smooth UV, Grid Overlay, Merge Warp over BG]
-inputs: [image, texture, vector]
-outputs: [image, vector]
+inputs: [image, texture]
+outputs: [image]
 tasks: [warp-image, track-texture]
 product_scope: fusion-studio
 suite_surfaces: [fusion]
@@ -58,7 +58,7 @@ reference frameで作ったlogo、修正patch、skin textureなどをsource clip
 
 ## 出力
 
-RGBA Imageを出力します。
+出力端子は**Imageが1つ**です。RGBA Imageを出力し、必要に応じて補助チャンネルも持たせられます。
 
 21.1 Manualでは、出力にforward / backward tracking informationとしてVx / Vy / BVx / BVyなどの追加motion vector channelが含まれる場合があり、後段Nodeで利用できると説明されています。
 

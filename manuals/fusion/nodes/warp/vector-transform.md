@@ -10,8 +10,8 @@ concepts: [image-data, auxiliary-channels, motion-vectors, transform]
 nodes: [Vector Transform]
 node_family: warp
 controls: [Smooth UV, Smooth Vector, Attenuate UV, Attenuate Vector, Center X, Center Y, Size X, Size Y, Use Size and Aspect, Size, Aspect, Angle]
-inputs: [image, vector, mask]
-outputs: [image, vector]
+inputs: [image, mask]
+outputs: [image]
 tasks: [warp-image, transform-vector]
 product_scope: fusion-studio
 suite_surfaces: [fusion]
@@ -43,6 +43,8 @@ Optical Flowが生成したVector / Back Vector channelを受け取り、そのv
 Vector Transformは両者を同じものとして扱うわけではありません。Inspectorの **Smooth UV / Attenuate UV / Center / Size / Angle** は主にUV channel、**Smooth Vector / Attenuate Vector** はmotion vectorを対象に説明されています。どのチャンネルを入力が持っているかで、調整できる内容が変わります。
 
 ## 入力
+
+入力端子は2つで、**Input（Image）**と**Attenuate Mask**です。Vector / Back VectorはImageが持つ補助チャンネルで、別の接続端子ではありません。
 
 ### Input
 
