@@ -15,7 +15,7 @@ outputs: [image, vector]
 tasks: [analyze-motion, motion-vectors, retime, motion-blur]
 product_scope: fusion
 suite_surfaces: [fusion]
-updated: "2026-10-05"
+updated: "2026-10-20"
 ---
 
 # Optical Flow
@@ -52,6 +52,18 @@ vector channelはViewerでChannel > Vectorsを選び、Normalize Color Rangeを�
 
 21.1では **Output Vectors as Layers** を使い、motion vectorをmultilayer pipelineの独立layerとして渡すこともできます。
 
+## ベクトルの時間方向と単位
+
+- **Vector（前方）**：現在のframeから**次のframe**へ、各画素がどれだけ移動するかを表します。
+- **BackVector（後方）**：現在のframeから**前のframe**への移動を表します。
+
+これらは画像全体のカメラ移動を表す1本の値ではなく、画素ごとに異なるX・Yの移動量です。値は正規化座標ではなく**ピクセル単位**です。Proxy / AutoProxyで画像を縮小しても、補助チャンネルは**元のフル解像度を基準にした値**を保持します。縮小表示上の画素位置と比較するときは、表示解像度と元解像度の比率で換算してください。
+
+最初のframeにアクセス可能な前frameがなければBackVectorが0、最後のframeに次frameがなければVectorが0になります。素材ファイル自体に隣接frameが存在していても、LoaderのGlobal Rangeなどでアクセスが制限されている場合は同じです。Time Speed / Time Stretcherは**隣接する1frame間のベクトル**を前提とするため、離れたframe同士の移動量をそのまま入れないでください。
+
+出典：DaVinci Resolve 21.1 Reference Manual、Chapter 87 pp.1909–1910。
+
+
 ## Motion Vectorを使うNode
 
 代表的な接続先は次のとおりです。
@@ -63,7 +75,9 @@ vector channelはViewerでChannel > Vectorsを選び、Normalize Color Rangeを�
 - Vector Warp — clipの動きに合わせて別Imageをwarpする
 - Vector Motion Blur — pixelごとの動きに沿ってmotion blurを作る
 
-Time Speed / Time Stretcherへ直接つなぐ場合、Manualは必要なForward / Back Vector layerの並びとOptical Flowの生成順が異なるため、解析が2回必要になる場合があると説明しています。重い処理ではEXRへvectorを保存して再利用する方が扱いやすいことがあります。
+DaVinci Resolve 21.1 Reference Manual（p.2618）は、Optical FlowをTime Speed / Time Stretcherへ直結すると**Optical Flowが2回レンダーされる**と記載しています。受け手が要求するレイヤー順は`A. FwdVec → B. BackVec`、Optical Flow側が処理時に生成する順は`A. BackVec → A. FwdVec`です。これはマニュアルにあるレイヤー配置の表記で、あらゆるOpenEXRの実チャンネル名を保証するものではありません。単に「解析が必ず2回」という説明へ置き換えず、実機でレンダー回数と解析コストを分けて確認します。
+
+高解像度・長尺のshotでは、[Optical FlowをEXRに保存して再利用するレシピ](../../recipes/animation/optical-flow-exr-roundtrip.md)に従い、SaverでOpenEXR連番へ保存してLoaderから再読込する方法があります。保存できたことだけで解析負荷が消えたと判断せず、前後ベクトルの値とFlow補間の処理時間を別々に確認してください。
 
 ## 主な設定項目
 
@@ -108,7 +122,7 @@ Catmull-Rom filteringは高品質側ですが計算時間が増えます。
 - Vector Motion Blurへpixel単位の移動方向を渡す
 - Vector Warpで衣服・肌・看板などの動きへ別素材を追従させる
 - Smooth MotionやVector Denoiseの前段としてvectorを用意する
-- motion vectorをEXRへ保存し、重い解析を後続Compで再計算しないようにする
+- 前後motion vectorをOpenEXRへ保存し、Loaderで値を検証して後続のretime処理へ再利用する（実際に再解析を回避できたかは別途確認する）
 
 ## 最小構成
 
@@ -143,9 +157,12 @@ vectorだけを確認したい場合はOptical FlowをViewerへ表示し、Vecto
 - [Repair Frame](./repair-frame)
 - [Vector Denoise](./vector-denoise)
 - [Vector Motion Blur](../blur-filter/vector-motion-blur)
+- [Optical FlowをEXRに保存して再利用する](../../recipes/animation/optical-flow-exr-roundtrip.md)
 
 ## 出典と確認範囲
 
 DaVinci Resolve 21.1 Reference Manual、September 2026、Chapter 112 pp.2617–2621およびFusion Fundamentals Chapter 87 pp.1901–1904で、Input、Vector / Back Vector、Viewer確認、Advanced / Classic、Warp Count、Iteration Count、Smoothness、Half Resolution、Output Vectors as Layers、EXR保存、主要な後段用途を確認しました。
+
+ベクトルの時間方向・フレーム境界・Proxy時の単位は同ManualのChapter 87 pp.1909–1910、Time Speed / Time Stretcherへの直結時の二重レンダーとレイヤー順はChapter 112 p.2618で確認しました。EXR再読込後の自動割り当て・実際の解析回避は21.1実機で未確認です。
 
 全Inspector既定値・数値範囲、実機性能、内部REGIDは未確認のため `verification: partial` としています。

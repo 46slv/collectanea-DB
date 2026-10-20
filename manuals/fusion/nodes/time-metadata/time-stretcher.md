@@ -14,7 +14,7 @@ outputs: ["image"]
 tasks: ["retime"]
 product_scope: fusion
 suite_surfaces: ["fusion"]
-updated: "2026-10-07"
+updated: "2026-10-20"
 ---
 
 # Time Stretcher
@@ -130,6 +130,23 @@ Paint chapterでは、Planar Trackerでtrackしたclipからclean plateを作る
 
 Time Stretcherはaux channelを補間して保持するNodeではなく、ManualではVector / BackVectorを含むaux channelを処理後に消費するとされています。**retime後にもmotion vectorが必要なら、Time Stretcherの後段でOptical Flowを作り直します。**
 
+### Optical FlowをOpenEXRへ保存して使う
+
+長い素材で速度カーブを何度も試すときは、Optical Flowの解析結果をOpenEXR連番として保存し、Time Stretcherへ読み直す構成も選べます。21.1 Manual（p.2618）は、Optical FlowからTime Stretcher / Time Speedへ直接接続した場合、**Optical Flowが2回レンダーされる**と説明しています。Time Stretcher側が要求するレイヤー順は`A. FwdVec → B. BackVec`、Optical Flowが処理時に生成する順序は`A. BackVec → A. FwdVec`と記載されています。
+
+    MediaIn → Optical Flow → Saver（OpenEXR連番）
+    Loader（保存したEXR） → Time Stretcher（Flow） → MediaOut
+                         └→ Copy Aux（確認専用） → Viewer
+
+1. Optical Flowの結果をSaverからOpenEXR連番へ書き出します。画像が保存できただけで、前後ベクトルまで記録されたとは判断しません。
+2. LoaderのFormatで実際のEXRチャンネルを確認し、`Vector`（次frame方向）と`Back Vector`（前frame方向）に対応付けます。`A. FwdVec`等の表記が、すべてのEXRに共通するチャンネル名という意味ではありません。
+3. Loaderから確認用の枝を作り、[Copy Aux](../color/copy-aux.md)で`Aux to Color`を使って前後ベクトルのX・Yを調べます。負値を失わないよう`Out Color Depth = Force Float32`とし、数値比較時は`Enable Remapping`を無効にします。
+4. 本線のTime Stretcherで`Interpolate Mode = Flow`を選び、`Source Time`のSplineで速度カーブを作ります。直結構成とEXR再読込構成について、補間結果とレンダー時間を別々に比較します。
+
+Motion Vectorは、各frameから**隣接する1frame**への移動を表します。前のframeを読めない先頭では`Back Vector`、次のframeを読めない末尾では`Vector`が0になります。Proxyで画面を縮小していても、値は元画像の解像度を基準にしたピクセル移動量です。確認する区間・解像度を揃えて比較してください（Chapter 87、pp.1909–1910）。
+
+**EXRからベクトルの数値を読み戻せたことと、Flow補間で追加解析を回避できたことは別です。** レイヤーの自動対応や、解析が何回走ったかは21.1実機での検証が必要です。詳しいSaver / Loaderの設定と検証手順は[Optical FlowのEXR保存・再利用レシピ](../../recipes/animation/optical-flow-exr-roundtrip.md)を参照してください。
+
 ## Time Speedとの使い分け
 
 [Time Speed](./time-speed.md)は、素材全体へ一定の速度比率を適用する場合に向いています。
@@ -165,6 +182,6 @@ Time Stretcherは、source time自体をSplineで動かしたい場合に使い�
 
 DaVinci Resolve 21.1 Reference Manual、Chapter 111「Miscellaneous Nodes」の`Time Stretcher [TST]`（pp.2610–2613）を基準に、入力、`Source Time`、Interpolation、Flow関連Control、100 frameから25 frameへのretime例を確認しています。
 
-freezeを使ったclean plateの例はChapter 80「Paint」（pp.1768–1769）、network render時のI/O注意はChapter 65「Rendering Using Saver Nodes」（p.1376）を参照しています。
+freezeを使ったclean plateの例はChapter 80「Paint」（pp.1768–1769）、network render時のI/O注意はChapter 65「Rendering Using Saver Nodes」（p.1376）を参照しています。前後ベクトルの定義・frame境界・Proxy時の単位はChapter 87「Optical Flow and Stereoscopic Nodes」（pp.1909–1910）、二重レンダーとレイヤー順序の注意はChapter 112「Optical Flow」（p.2618）によります。
 
 `verification: partial`は、本文で扱っていないcommon Settings controls、runtime REGID、Effects Library上のcurrent表示、host / edition差を別verification対象として残しているためです。
