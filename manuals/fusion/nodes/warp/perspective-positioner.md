@@ -15,14 +15,14 @@ outputs: ["image"]
 tasks: ["warp-image", "screen-replace", "paint"]
 product_scope: fusion
 suite_surfaces: ["fusion"]
-updated: "2026-10-05"
+updated: "2026-10-20"
 ---
 
 # Perspective Positioner
 
-Perspective Positionerは、遠近の付いた平面領域を4点で指定し、その部分を正面向きへ展開するNodeです。Blackmagic DesignのManualでは、[Corner Positioner](./corner-positioner)と対になるNodeとして説明されています。
+Perspective Positionerは、斜めから撮影された看板や画面などの平面を4隅で指定し、その部分を正面から見たように展開するNodeです。この操作を**unpin**と呼びます。斜めに写った文字や模様を、一度平らな画像として扱ってから修正するときに使います。
 
-画面や看板を一度平らにしてからPaintや修正を行いたいときに使います。この処理は**unpin**と呼ばれ、Corner Positionerが平らなImageを遠近の付いた面へはめ込むのとは逆方向です。
+[Corner Positioner](./corner-positioner)は逆に、平らな画像を遠近の付いた四辺形へはめ込むNodeです。2つを組み合わせると、撮影された面をunpinして編集し、元の遠近へ戻せます。
 
 ## 入力と出力
 
@@ -32,11 +32,13 @@ Perspective Positionerは、遠近の付いた平面領域を4点で指定し、
 
 ### Effect Mask
 
-青色のEffect MaskへMaskを接続すると、Perspective Positionerの結果を必要な領域だけに限定できます。21.1 Manualでは、Effect MaskはNodeの処理後に適用されると説明されています。
+青色のEffect MaskへMaskを接続すると、変形の効果を適用する画素を限定できます。21.1 Manualによると、このMaskはNodeの処理後に適用されます。
+
+**Effect Maskは4隅を指定するための入力ではありません。** 平面の位置と遠近はCornersで決め、Maskは処理をどこに効かせるかを決めます。両者の違いは[Maskの基礎](../../learn/02-data/mask)を参照してください。
 
 ### Output
 
-4点で囲んだ領域のperspectiveを取り除き、正面向きへ展開した2D Imageを出力します。
+4点の位置に基づいて遠近を取り除いた2D Imageを出力します。後段へ[Paint](../paint/paint)を接続して平らな状態で修正できます。ただし、これだけで撮影画像の元の遠近へ戻るわけではありません。戻す場合は後段にCorner Positionerを使います。
 
 ## 主な設定項目
 
@@ -53,7 +55,7 @@ Perspective Positionerは、遠近の付いた平面領域を4点で指定し、
 
 遠近を取り除きたい平面の4隅へcontrol pointを合わせます。Viewer上で直接ドラッグできます。
 
-InspectorではTop、Bottom、Left、Rightの各controlを使って位置を細かく調整できます。
+InspectorではTop、Bottom、Left、Rightの各controlを使って位置を細かく調整できます。たとえば看板を直すなら、看板の外枠の4角を目印に合わせます。異なる奥行きにある点を混ぜず、1枚の平面として扱いたい四辺形を指定するのが基本です。
 
 ## 主な用途
 
@@ -62,23 +64,29 @@ InspectorではTop、Bottom、Left、Rightの各controlを使って位置を細�
 - 4点をanimationし、平面を揺らす・歪ませる表現を作る
 - Corner Positionerと組み合わせ、unpin → edit → pinの流れを作る
 
-## Paintして元の面へ戻す
+## 運用例：斜めに写った看板を修正して戻す
 
-21.1 Manualでは、遠近の付いた領域をPerspective Positionerで平らにし、その状態でPaintした後、Corner Positionerで元の位置へ戻す例が示されています。
+21.1 Manualには、Perspective Positionerで平らにした画像をPaintで編集し、Corner Positionerで元の遠近へ戻す構成が示されています。
 
 ```text
-Footage
+MediaIn（斜めから撮った看板）
   ↓
-Perspective Positioner
+Perspective Positioner（unpin）
   ↓
-Paint
+Paint（汚れや文字を修正）
   ↓
-Corner Positioner
+Corner Positioner（元の面へpin）
   ↓
-Result
+MediaOut
 ```
 
-たとえば斜めから撮影された看板の汚れを消す場合、まず看板面を正面向きへ展開してから[Paint](../paint/paint)で修正し、最後にCorner Positionerで元の遠近へ戻せます。
+1. 看板が写っている素材をPerspective PositionerのInputへ接続します。
+2. Viewerで看板の4角にCornersの点を合わせます。Mapping Typeは、遠近のある面を扱うため**Perspective**を選びます。
+3. 展開された結果をViewerで確認します。文字や枠が想定外の形なら、4点が同じ平面の角を指しているか見直します。
+4. 後段のPaintで汚れを消す、欠けた文字を直すなどの修正を行います。この段階は平らになった画像に対する作業です。
+5. Corner Positionerで修正した画像を元の四辺形へ合わせ直します。必要なら元の撮影素材との合成結果を比較します。
+
+これは**平面の編集手順**であり、動いている看板を自動追跡する仕組みではありません。撮影中に四隅の位置が変わる場合は、フレームごとの位置合わせや別途トラッキングが必要です。
 
 ## Corner Positionerとの違い
 
@@ -86,6 +94,12 @@ Result
 - **Corner Positioner** — 平らなImageを遠近の付いた領域へはめ込む
 
 この2つは逆向きの処理に見えますが、21.1 Manualでは**両Nodeはconcatenateされない**と説明されています。往復させると多少softnessが加わるため、画質が重要な処理では不要な往復を増やさない方が安全です。
+
+## 動く画像で使う場合
+
+Perspective Positionerの4点は時間方向にアニメーションできます。21.1 Manualでは、4点を動かして画像を揺らす・歪ませる表現にも使えるとされています。
+
+実写の動く面を正面向きへ保ちたい場合は、単に4点を置くだけでは別フレームへ追従しません。[Planar Tracker](../tracking/planar-tracker)などで平面の動きを調べる工程と、unpin後の編集・再配置を区別してください。自動追従の接続方式と結果は、素材と作業構成に合わせて検証する必要があります。
 
 ## 関連Node
 
