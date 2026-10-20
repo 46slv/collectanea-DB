@@ -10,26 +10,27 @@ concepts: [image-data, auxiliary-channels, motion-vectors]
 nodes: [Vector Distortion]
 node_family: warp
 controls: [X Channel, Y Channel, Flip Channel X, Flip Channel Y, Lock Scale X/Y, Scale, Lock Bias X/Y, Center Bias, Edges, Glow]
-inputs: [image, vector, mask]
+inputs: [image, image, mask]
 outputs: [image]
 tasks: [warp-image]
 product_scope: fusion
 suite_surfaces: [fusion]
-updated: "2026-10-05"
+updated: "2026-10-20"
 ---
 
 # Vector Distortion
 
-Vector Distortionは、Imageに含まれるvector channelをX方向とY方向の変位量として読み、pixelをそのvectorに沿って移動させるNodeです。
+Vector Distortionは、Imageに含まれるvector channelをX方向とY方向の変位量として読み、画素の参照位置をずらして画像を歪ませるNodeです。ここでのvector channelはImageの補助チャンネルであり、独立した「Vector入力端子」ではありません。[補助チャンネル / AOV](../../learn/02-data/auxiliary-channels)でデータの持ち方を確認できます。
 
 vector dataは変形したいImage自身から使うことも、別のImageをDistort入力へつないで参照することもできます。Optical Flowで作ったmotion vectorを使って、別素材へ動き由来の歪みを与える構成も作れます。
 
 ## 役割
 
 ```text
-Guide clip → Optical Flow ───────────────┐
-                                         ├→ Vector Distortion → Image
-Image to warp ───────────────────────────┘
+動きの参照動画 → Optical Flow → Distort（緑・Image）─┐
+                                                   ├→ Vector Distortion → 変形後Image
+変形したい画像 ───────────────→ Input（橙・Image）──┘
+必要な範囲のMask ───────────→ Effect Mask（青）
 ```
 
 Vector Distortionが行うのは、vector fieldを生成することではなく、既に存在するchannel値を「Xへどれだけ、Yへどれだけ動かすか」という変位として使うことです。
@@ -40,13 +41,13 @@ Vector Distortionが行うのは、vector fieldを生成することではなく
 
 ### Input
 
-オレンジ色のInputへ、実際に歪ませたい2D Imageを接続します。
+オレンジ色のInputへ、実際に歪ませたい2D Imageを接続します。この入力は必須です。
 
-このImage自身がvector channelを持っている場合、Distort入力を使わなくてもそのchannelを変形へ利用できます。
+このImage自身がvector channelを持っている場合、Distort入力を使わなくてもそのchannelを変形へ利用できます。反対にDistortへ別の画像をつないだときは、どちらの画像からベクトルを読むかを明示的に確認してください。
 
 ### Distort
 
-緑色のDistort inputへ、変位の元になるvector channelを持つImageを接続します。
+緑色のDistort入力には、変位の元になるvector channelを持つ**2D Image**を接続します。Vector値だけを渡す独立端子ではありません。この入力は任意で、未接続ならInput側のvector channelを参照します。
 
 21.1 Manualでは、Optical Flowで生成したvector channelをここへ渡し、別のImageを変形する構成が示されています。Distortを接続すると、main Input側にあるvector channelよりこちらが優先されます。
 
@@ -58,7 +59,7 @@ MaskはNodeの処理後に適用されます。
 
 ## 出力
 
-vectorによって座標が変形された2D Imageを出力します。
+出力端子はImageが1つです。選択したX/Yチャンネルの値に従って変形された2D Imageを出力します。
 
 後段では通常のImageとしてMergeやColor、Blurなどへ接続できます。
 
@@ -114,7 +115,7 @@ Guide clip → Optical Flow → Distort
 Image to warp ─────────→ Vector Distortion → MediaOut
 ```
 
-まずOptical Flowの出力に必要なvector channelがあることを確認し、次にVector DistortionのX Channel / Y ChannelとScaleを調整します。
+まずOptical Flowの出力ImageがX/Yのvector channelを保持しているか確認します。次にVector Distortionで**X ChannelとY Channelをそれぞれ選び**、Scaleを小さく動かして変形方向を確かめます。画像が動かないときはDistortの接続だけでなく、参照先のchannel選択も確認します。
 
 ## 運用例
 
@@ -140,13 +141,13 @@ Image to warp ─────────→ Vector Distortion → MediaOut
 
 Vector Distortion自身はmotion vectorを推定しません。Optical Flowなど、必要なvector channelを作る前段が別途必要です。
 
-Distortを接続した場合はそのvector channelがmain Input側より優先されるため、「どのImageのvectorを使っているか」を確認してからScaleやFlipを調整します。
+Distortを接続した場合はそのvector channelがmain Input側より優先されます。別のImageへ変形を転用するときは、**変形されるのはInput側の画像、動かし方を指定するのはDistort側の画像**と分けて考えてください。Vector channelのX/Y成分を取り違えると意図しない方向へ歪むため、ScaleやFlipの前にX Channel / Y Channelの割り当てを確かめます。
 
 EdgesをDuplicateにすると外周pixelを引き伸ばして空きを埋めるため、edge付近ではsmearが見える場合があります。
 
 ## 関連Node
 
-- [Optical Flow](../optical-flow/optical-flow.md)
+- [Optical Flow](../optical-flow/optical-flow)
 - [Vector Transform](./vector-transform)
 - [Vector Warp](./vector-warp)
 - [Vector Motion Blur](../blur-filter/vector-motion-blur)
