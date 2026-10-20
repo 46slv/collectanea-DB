@@ -98,13 +98,15 @@ Loader（RGBA + Vector / Back Vector）
 | Time Speed / Time Stretcherが要求するもの | `A. FwdVec` → `B. BackVec` |
 | Optical Flowが処理時に生成するもの | `A. BackVec` → `A. FwdVec` |
 
-同マニュアルは、この違いによってOptical FlowからTime Speed / Time Stretcherへ直接接続すると**解析が2回必要になる**と説明しています。一方、上の`A`・`B`表記はマニュアル中のレイヤーの説明であり、**すべてのOpenEXRで同じファイル内チャンネル名が使われるという意味ではありません**。LoaderのFormatに表示される名前や順序は、実際に保存されたEXRを読んで判断します。
+同マニュアルの記述は、Optical FlowからTime Speed / Time Stretcherへ直結すると**Optical Flowが2回レンダーされる**というものです。これを「独立した解析計算が必ず2回実行される」と言い換えることはできません。マニュアルはレンダー回数を示していますが、解析処理の回数やキャッシュの働きまでは特定していません。
+
+上の`A`・`B`表記はマニュアル中のレイヤーの説明であり、**すべてのOpenEXRで同じファイル内チャンネル名が使われるという意味ではありません**。LoaderのFormatに表示される名前や順序は、実際に保存されたEXRを読んで判断します。
 
 再利用できているかは、次の順番で確認します。
 
 1. **保存前のOptical Flow**と**再読込したLoader**を、同じ中間フレームで比較します。Copy AuxでVectorとBack Vectorをそれぞれ見て、動いている領域のX・Yを照合します。
 2. 先頭・末尾だけで判断せず、前後に元フレームが存在する場所で確認します。0の値は、フレーム境界である可能性もあります。
-3. LoaderからTime SpeedまたはTime Stretcherへ接続し、**Interpolate Mode = Flow**で補間結果と計算時間を確認します。元のOptical Flowをつないだ場合と比較し、追加解析が発生していないか調べます。
+3. LoaderからTime SpeedまたはTime Stretcherへ接続し、**Interpolate Mode = Flow**で補間結果とレンダー時間を確認します。元のOptical Flowを直結した場合と同じ範囲・設定で比較します。処理時間が短くなっても、そこから解析回数まで断定しないでください。
 4. **レイヤーの順序が異なるだけ**と決めつけてチャンネルを入れ替えず、Forward / Backの向きとX / Yの対応も確認します。21.1実機で自動対応されるか、手動配置が必要かは未確認です。
 
 このため、**EXRにベクトルが保存され、Copy Auxで数値を読めたこと**と、**Time Speed / Time Stretcherが再解析なしでそれを利用したこと**は別の検証項目です。
@@ -118,7 +120,7 @@ Loader（RGBA + Vector / Back Vector）
 | EXRは読めるがFlow補間できない | Loader Formatの補助チャンネル割り当て、Vector / Back Vectorの両方、レイヤー構成と並び |
 | Copy Auxで値が出ない | Aux Channel名、Channel Missing、ファイル側の保存データ |
 | ベクトルの負値が消える | Out Color Depth、RGBAの整数化、表示用Remappingを本線に混ぜていないか |
-| 再生が依然として重い | Flowが追加解析していないか、保存前後のチャンネル構成と処理範囲 |
+| 再生が依然として重い | Flow補間そのものの計算負荷とOptical Flowの再評価を区別する。保存前後のチャンネル構成、同じフレーム範囲でのレンダー時間を確認 |
 | 途中からフレームがずれる | 元素材とEXRの開始番号、LoaderのTrim / Globalと尺 |
 | EXRの先頭・末尾だけベクトルが0 | その方向の隣接フレームが存在するか。存在しない側は仕様上0になる |
 | Proxy表示とベクトル値の桁が合わない | Motion Vectorが元解像度のピクセル移動量であること。Proxy倍率とOriginal Width / Height |
