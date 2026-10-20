@@ -1,61 +1,89 @@
 ---
-title: "Connect"
-description: "複数waypointを連続線で接続。"
+title: Connect
+description: 個別に配置した点を一本の連続線で結ぶKrokodoveツール。WormやConnect 3Dとの違い、使い方の考え方と確認範囲。
 doc_type: node
-term_id: "connect"
-term_short: "Connectは、複数waypointを連続線で接続。Krokodove固有のtool。"
+term_id: connect
+term_short: 個別に位置を指定した点を、一本の連続した線でつなぐKrokodoveの画像用ツール。
 verification: partial
-aliases: ["Connect"]
-concepts: ["image-data"]
-nodes: ["Connect"]
-node_family: "krokodove"
-inputs: ["image"]
-outputs: ["image"]
-tasks: ["motion-graphics"]
+aliases: [Connect]
+concepts: [image-data]
+nodes: [Connect]
+node_family: krokodove
+outputs: [image]
+tasks: [motion-graphics]
 product_scope: fusion
-suite_surfaces: ["fusion"]
-updated: "2026-10-05"
+suite_surfaces: [fusion]
+updated: '2026-10-21'
 ---
 
 # Connect
 
-Connectは、複数waypointを連続線で接続。Krokodove固有のtoolです。名前だけで2D Image Nodeと判断せず、Input / Output domainとFamily Overviewを先に確認します。
+**Connectは、画面内に指定した複数の点を、一本の連続した線でつなぐ**Krokodoveのツールです。Blackmagic DesignのDaVinci Resolve 21.1 Reference Manualでは、点の位置を個別に決められると説明されています。点は線が通る位置を示す目印で、英語では *waypoint*（経由点）と呼ばれます。
 
-## 役割
+たとえば「画面左下から中央を通り、右上へ向かう線」を描きたいとき、始点・中央付近・終点に相当する位置を考えます。Connectは、そうした点を使ってつながった線を作るための候補です。一方で、**点の接続順、線の曲がり方、点の追加操作までがManualで説明されているわけではありません。** 一般的なペンツールと同じ操作ができるとは限りません。
 
-複数waypointを連続線で接続。このページでは、名前だけで選ばず、**何を受け取り、何が変わり、どのdomainへ返すか**を先に整理します。
+## どのような線を作るのか
 
-この項目で確認できている中心的な役割は「複数waypointを連続線で接続」です。exactなInspector項目が未確認の場合は、役割とdata domainを先に使って候補を絞ります。
+重要なのは、点を一つずつ独立した印として描くのではなく、点と点の間がつながった**連続線**を作ることです。途中の位置を変えることで線の通り道を考えられるため、単純な直線だけでは表現しにくい経路の図柄に向いています。
+
+これは「映像内の人物や物体を追跡して自動的に経路を描く」という意味ではありません。Manualが述べているのは、点の位置を個別に指定できることと、それらを線で結ぶことです。追跡機能、画像の輪郭検出、線が伸びていくアニメーションは確認できていません。
 
 ## 入力と出力
 
-入力分類: **image**。 出力分類: **image**。 この分類はdata domainを読むためのものです。Fusion 21.1のexactな端子名・端子数を未確認の場合、ここでは推測して固定しません。
+Connectは21.1 Manualの**Image Tools**に分類されています。ただし、カテゴリ名から物理的な接続端子の数や必須入力まで確定することはできません。
 
-## 使うときの判断
+| 項目 | 確認できること | 未確認のこと |
+| --- | --- | --- |
+| 形を決める情報 | 個別に位置を指定した点（waypoint）を使い、連続線を描く。 | 点の追加・削除操作、順番、最大数、座標指定の正式なUI。 |
+| 入力 | 公式ManualではImage Toolsに分類される。 | 画像入力が必須かどうか、Effect Maskなどの補助入力の有無、端子の名称・数。 |
+| 生成するもの | 点を結んだ一本の連続線。 | 線幅・色・線端・曲線化・透明度をConnect単体で調整できるか。 |
+| 出力 | COLLECTANEAの既存カタログでは`image`出力に分類されている。 | 21.1実機の正式な端子名・本数、Alphaと画像範囲の具体的な挙動。 |
 
-KrokodoveはImage、Shape、3D、Regionが同じchapterに並ぶため、まずOutput domainで候補を絞ります。
+<Term id="image">Image</Term>は色や透明度を持つ2Dの画素データです。<Term id="shape-data">Shape</Term>は、描画する前の輪郭などを扱う別のデータです。ConnectはImage Toolsの項目であり、「点を結ぶ」という説明だけでShape出力と判断しないでください。
 
-同じ目的を別Familyでも作れる場合は、後段で必要なdata domainと、Graph上で責任をどこに置きたいかで選びます。
+旧記事にあった`inputs: [image]`は、画像入力の存在を確認した記録がないため削除しました。`outputs: [image]`は従来のカタログ分類として残していますが、実機で端子を検証したことを意味しません。
 
-## 最小構成
+## 主な用途
 
-    Image / Source → Connect → Result
+### 地図・案内図の経路線
 
-これは接続関係を理解するための最小構成案です。公式Manualのexactな作例として確認していない構成は、実制作前にViewerで中間結果を確認します。
+地図画像の上に、通過する場所をいくつか示して一本の線で結ぶ表現です。道の曲がり方を正確に再現する地図ソフトではないため、実際の道路に沿わせたい場合は点の調整方法や描画結果を先に確認します。
 
-## 確認ポイント
+### 画面内の要素をつなぐ説明グラフィック
 
-- 入力dataのdomainが合っているか。
-- この項目のoutputを受け取れる後段Nodeへ接続しているか。
-- 同じ役割を前段 / 後段で二重に処理していないか。
-- source-limited pageでは、未確認のControl名・default・rangeを名前から推測していないか。
+複数の図形やラベルを一続きの線で関連づけたい場合にも候補になります。たとえば、三つの説明箇所をたどる線を背景の上に重ねます。Connect自身がラベルを認識したり、位置の変化に自動追従したりする機能は確認できていません。
 
-## Family内での位置づけ
+## 制作例：背景画像へ経路線を重ねる
 
-Krokodoveノードの全体像と近いNodeの選び分けは[Family Overview](./)を参照してください。
+次は**Connectが2D Imageとして出力できることをViewerと接続口で確認できた場合**の合成例です。Connect固有の端子配置やInspector操作を保証する図ではありません。
 
-## 出典と確認範囲
+```text
+Connectの結果 ─────────→ Merge（Foreground）
+                             ↓
+背景画像 ───────────────→ Merge（Background）→ MediaOut
+```
 
-このページの役割・data domain・系譜は、既存COLLECTANEA catalogとBlackmagic Design公式資料で確認された範囲をreader-first形式へ整理しています。
+1. まずConnectを単独でViewerへ表示し、点を配置・変更する操作が利用できるか確認します。少数の点から始め、線がどのようにつながるかを見ます。
+2. Connectの結果が2D Imageとして接続できる場合、[Merge](../compositing/merge)のForegroundへつなぎ、背景画像をBackgroundへ入れます。
+3. 線以外の部分まで背景を隠すなら、Connectの出力Alphaを確認します。背景が最初から透明になるとは限りません。必要に応じてマット処理や合成側のBlendを使ってください。
+4. 線の色や太さが合わない場合は、Connectの実際の設定項目を確認します。対応する設定が見当たらなければ、後段の画像処理で見た目を調整する方法を検討します。
+5. 線の先端が伸びる動きを付けたい場合は、まず静止した線を完成させてから別途アニメーション方法を選びます。ConnectにWrite Onの機能があると仮定しません。
 
-Fusion 21.1 Reference Manualで個別のInspector項目・default・rangeまで確認できていない項目は、**source-limited**としてその詳細を断定していません。verification: partial はその未確認範囲を含みます。runtime REGIDや現在のEffects Library表示は別のruntime verificationで確定します。
+## 関連ツールと選び分け
+
+| ツール | 21.1 Manualなどで確認できる役割 | 選択の目安 |
+| --- | --- | --- |
+| **Connect** | 個別に配置した点を一本の連続線でつなぐ。 | 点を通る経路を一続きの線で示す。 |
+| [Worm](./worm) | 指定点を使い、直線と曲線を組み合わせる。 | 線の直線部分・曲線部分の見え方に注目する。 |
+| [Lines](./lines) | 一組または複数組の線を繰り返し、線模様を作る。 | 通過点より、繰り返すパターンを作りたい。 |
+| [Connect 3D](./connect-3d) | 3D側の頂点を接続する別項目。 | 2Dの経路線と3Dの接続を混同しない。 |
+
+ConnectとWormは「点を使う」という点では似ています。しかし、Connectの説明で強調されるのは**点を一本の連続線でつなぐこと**、Wormは**直線と曲線の組み合わせ**です。両者で同じ点編集UIや線の補間方法が使えるかは未確認です。
+
+## 確認範囲・出典
+
+**確認済み（Manual）**：ConnectはKrokodoveのImage Toolsに掲載され、位置を個別に指定した点同士を連続線で結ぶ。
+
+**未確認（実機）**：REGID、全入力・出力端子、必須画像入力、Inspectorの正式項目名・既定値・範囲、点の編集UIと接続順、線色・線幅・Alpha、アニメーション機能、DaVinci Resolve Free / StudioとFusion Studioの差。これらを確定していないため、`verification: partial`のままにしています。
+
+**一次資料**：Blackmagic Design『DaVinci Resolve 21.1 Reference Manual』（September 2026）、Chapter 105「Krokodove Nodes」、p.2434「Image Tools / Connect」。比較対象のWormとLinesは同章p.2435。Connect 3Dは[Krokodove全体の案内](./)で、2D項目とは分けて扱っています。
