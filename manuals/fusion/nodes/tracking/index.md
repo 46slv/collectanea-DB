@@ -5,7 +5,7 @@ doc_type: index
 verification: partial
 product_scope: fusion
 tasks: [lookup-node, track, match-move, stabilize, camera-track]
-updated: "2026-10-04"
+updated: "2026-10-21"
 ---
 
 # Trackingノード
@@ -58,19 +58,20 @@ Camera Trackerは、画面内の固定featureを多数追跡し、実写camera�
 
 ## 「Track」と「適用」を分ける
 
-Trackingの問題は、追跡そのものと、追跡結果を別要素へ適用する処理を分けると原因を確認しやすくなります。
+追跡が正しいかと、追跡結果が画像・マスクへ正しく適用されているかは別々に確認します。**追跡データが、画像ケーブルで次のノードへ送られるとは限りません。** たとえばPlanar Trackerの物理的な出力は2D Imageです。平面の動きは内部の**Track spline**（フレームごとの遠近変形データ）に記録され、Inspectorの**Create Planar Transform**から作成したPlanar TransformがそのSplineを参照します。
+
+看板へロゴを貼る場合の接続例です。「Create Planar Transform」はノード作成と追跡データの共有を示し、画像同士を結ぶケーブルではありません。
 
 ```text
-Footage
-  ↓
-Track / Solve
-  ↓
-tracking data
-  ↓
-Apply
-  ↓
-Graphic / Mask / 3D scene
+【追跡】看板映像 → Planar Tracker（Track実行）
+                      └─ Create Planar Transform（Track splineを共有）
+
+【合成】透過ロゴ → Transform（基準フレームで位置合わせ）
+                → Planar Transform → Merge（Foreground） ┐
+        看板映像 ────────────────────→ Merge（Background） ┴→ MediaOut
 ```
+
+**Point Tracker**の追跡位置などを別ノードのパラメーターへ使う場合も、単に画像出力をつなぐのではなく、対象のパラメーターから**Connect To**で追跡値を参照します。**Camera Tracker**ではTrack / Solve後のExportで3Dカメラや点群を使うため、Planar Transformとは受け渡し方が異なります。個別の手順は[Planar Transform](./planar-transform)、[Tracker](./tracker)、[Camera Tracker](./camera-tracker)を参照してください。
 
 → [Trackを解いてから適用先を分ける](../../patterns/tracking/solve-then-apply-track)
 
