@@ -1,0 +1,440 @@
+{
+  "schema_version": 1,
+  "created": "2026-10-20",
+  "scope": "Fusion node reference, 21.1",
+  "status_note": "撮影候補のみ。2026-10-20時点では実機撮影・実描画を検証していない。",
+  "asset_directory_template": "static/img/fusion/captures/{id}/{shot.slug}.png",
+  "capture_manifest_name": "capture.json",
+  "candidates": [
+    {
+      "id": "S01",
+      "priority": "P0",
+      "article": "manuals/fusion/nodes/shapes/sgrid.md",
+      "manual": {
+        "version": "21.1",
+        "chapter": 117,
+        "printed_pages": "2743–2744"
+      },
+      "goal": "小さい円を行・列で反復し、個数と間隔の違いを示す",
+      "suggested_graph": "sEllipse → sGrid → sRender → MediaOut",
+      "status": "candidate",
+      "shots": [
+        {
+          "slug": "node",
+          "kind": "node-tile",
+          "target": "sGridの端子と入力方向が読める状態"
+        },
+        {
+          "slug": "graph",
+          "kind": "node-graph",
+          "target": "Shape作成→複製→画像化までを1画面に表示"
+        },
+        {
+          "slug": "inspector",
+          "kind": "inspector",
+          "target": "Grid Cells X/YとX/Y Offsetを表示"
+        },
+        {
+          "slug": "result",
+          "kind": "output",
+          "target": "重ならないドット配列。行・列の数は画面の実測値と一致させる"
+        }
+      ]
+    },
+    {
+      "id": "S02",
+      "priority": "P0",
+      "article": "manuals/fusion/nodes/compositing/merge.md",
+      "manual": {
+        "version": "21.1",
+        "chapter": 94,
+        "printed_pages": "2211–2219"
+      },
+      "goal": "背景にタイトルを載せ、入力端子の役割を区別する",
+      "suggested_graph": "Background + Text+ → Merge → MediaOut",
+      "status": "candidate",
+      "shots": [
+        {
+          "slug": "node",
+          "kind": "node-tile",
+          "target": "Background、Foreground、Effect Maskの位置と色"
+        },
+        {
+          "slug": "graph",
+          "kind": "node-graph",
+          "target": "2入力がMergeに入る最小構成"
+        },
+        {
+          "slug": "inspector",
+          "kind": "inspector",
+          "target": "Center/Size/Blendおよび必要な合成設定"
+        },
+        {
+          "slug": "result",
+          "kind": "output",
+          "target": "タイトルが背景の上に載った結果。Foreground/Backgroundを判別できる"
+        }
+      ]
+    },
+    {
+      "id": "S03",
+      "priority": "P0",
+      "article": "manuals/fusion/nodes/blur-filter/glow.md",
+      "manual": {
+        "version": "21.1",
+        "chapter": 92,
+        "printed_pages": "2116–2119"
+      },
+      "goal": "文字の周辺に発光を作り、Glow SizeとGlowの違いを示す",
+      "suggested_graph": "Text+ → Glow → MediaOut",
+      "status": "candidate",
+      "shots": [
+        {
+          "slug": "graph",
+          "kind": "node-graph",
+          "target": "入力とGlowの接続"
+        },
+        {
+          "slug": "inspector",
+          "kind": "inspector",
+          "target": "Glow Size、Glow、Apply Modeを表示"
+        },
+        {
+          "slug": "compare",
+          "kind": "comparison",
+          "target": "Glowなし／ありを同一素材・同一フレームで比較"
+        },
+        {
+          "slug": "masks",
+          "kind": "comparison",
+          "target": "必要に応じGlow MaskとEffect Maskの差を比較"
+        }
+      ]
+    },
+    {
+      "id": "S04",
+      "priority": "P1",
+      "article": "manuals/fusion/nodes/shapes/s-render.md",
+      "manual": {
+        "version": "21.1",
+        "chapter": 117,
+        "printed_pages": "2759–2761"
+      },
+      "goal": "Shapeが2D Imageへ変わる境界を示す",
+      "suggested_graph": "sEllipse → sRender → MediaOut",
+      "status": "candidate",
+      "shots": [
+        {
+          "slug": "graph",
+          "kind": "node-graph",
+          "target": "sRenderの前後でdata domainが変わる構成"
+        },
+        {
+          "slug": "inspector",
+          "kind": "inspector",
+          "target": "Auto Resolution、Width/Height、Depthの表示"
+        },
+        {
+          "slug": "result",
+          "kind": "output",
+          "target": "画像化された楕円の実結果"
+        }
+      ]
+    },
+    {
+      "id": "S05",
+      "priority": "P1",
+      "article": "manuals/fusion/nodes/shapes/sboolean.md",
+      "manual": {
+        "version": "21.1",
+        "chapter": 117,
+        "printed_pages": "2729–2732"
+      },
+      "goal": "2形状のUnion／Subtract／Intersectionを見せる",
+      "suggested_graph": "sEllipse + sStar → sBoolean → sRender → MediaOut",
+      "status": "candidate",
+      "shots": [
+        {
+          "slug": "graph",
+          "kind": "node-graph",
+          "target": "2つのShape入力とrenderer"
+        },
+        {
+          "slug": "inspector",
+          "kind": "inspector",
+          "target": "Operationを切り替える箇所"
+        },
+        {
+          "slug": "compare",
+          "kind": "comparison",
+          "target": "少なくともUnionとSubtractの結果を同じ形状・位置で比較"
+        }
+      ]
+    },
+    {
+      "id": "S06",
+      "priority": "P1",
+      "article": "manuals/fusion/nodes/transform/transform.md",
+      "manual": {
+        "version": "21.1",
+        "chapter": 120,
+        "printed_pages": "2879–2883"
+      },
+      "goal": "位置・大きさ・回転と画面外の扱いを示す",
+      "suggested_graph": "Background（検証用グリッド）→ Transform → MediaOut",
+      "status": "candidate",
+      "shots": [
+        {
+          "slug": "graph",
+          "kind": "node-graph",
+          "target": "1入力1出力の最小構成"
+        },
+        {
+          "slug": "inspector",
+          "kind": "inspector",
+          "target": "Center、Pivot、Size、Angleの主要設定"
+        },
+        {
+          "slug": "compare",
+          "kind": "comparison",
+          "target": "元画像と移動・拡大後を比較。四隅がわかるグリッドを使用"
+        }
+      ]
+    },
+    {
+      "id": "S07",
+      "priority": "P1",
+      "article": "manuals/fusion/nodes/masks/ellipse-mask.md",
+      "manual": {
+        "version": "21.1",
+        "chapter": 108,
+        "printed_pages": "2472–2474"
+      },
+      "goal": "Effect Maskが処理する領域を限定する例を示す",
+      "suggested_graph": "Background → Blur → MediaOut ／ Ellipse Mask → Blur Effect Mask",
+      "status": "candidate",
+      "shots": [
+        {
+          "slug": "graph",
+          "kind": "node-graph",
+          "target": "青いEffect Mask入力へEllipseを接続"
+        },
+        {
+          "slug": "inspector",
+          "kind": "inspector",
+          "target": "Center、Width/Height、Soft Edge、Invert"
+        },
+        {
+          "slug": "compare",
+          "kind": "comparison",
+          "target": "マスクなし／あり。処理境界が読み取れる"
+        }
+      ]
+    },
+    {
+      "id": "S08",
+      "priority": "P1",
+      "article": "manuals/fusion/nodes/generators/text-plus.md",
+      "manual": {
+        "version": "21.1",
+        "chapter": 103,
+        "printed_pages": "2380–2400"
+      },
+      "goal": "2D文字、Inspectorタブ、文字装飾による変化を示す",
+      "suggested_graph": "Text+ → MediaOut",
+      "status": "candidate",
+      "shots": [
+        {
+          "slug": "node",
+          "kind": "node-tile",
+          "target": "2D Imageを生成するノード外観"
+        },
+        {
+          "slug": "inspector",
+          "kind": "inspector",
+          "target": "TextタブのStyled Text、Font、Sizeなど"
+        },
+        {
+          "slug": "shading",
+          "kind": "inspector",
+          "target": "Shadingタブの要点"
+        },
+        {
+          "slug": "result",
+          "kind": "output",
+          "target": "2行タイトルに塗りとアウトラインを適用"
+        }
+      ]
+    },
+    {
+      "id": "S09",
+      "priority": "P1",
+      "article": "manuals/fusion/nodes/particles/p-emitter.md",
+      "manual": {
+        "version": "21.1",
+        "chapter": 114,
+        "printed_pages": "2660–2664"
+      },
+      "goal": "粒子の生成→描画と時間変化を示す",
+      "suggested_graph": "pEmitter → pRender（2D）→ MediaOut",
+      "status": "candidate",
+      "shots": [
+        {
+          "slug": "graph",
+          "kind": "node-graph",
+          "target": "Particle domainから2D出力への変換"
+        },
+        {
+          "slug": "inspector",
+          "kind": "inspector",
+          "target": "pEmitterのNumber、Lifespan、Velocity、Region"
+        },
+        {
+          "slug": "result",
+          "kind": "output",
+          "target": "評価フレームを固定し粒子が明瞭に表示された結果"
+        }
+      ]
+    },
+    {
+      "id": "S10",
+      "priority": "P1",
+      "article": "manuals/fusion/nodes/tracking/planar-tracker.md",
+      "manual": {
+        "version": "21.1",
+        "chapter": 119,
+        "printed_pages": "2819–2828"
+      },
+      "goal": "平面追跡の指定範囲・解析結果・合成例を示す",
+      "suggested_graph": "移動するテストプレート → Planar Tracker → Planar Transform → graphic合成",
+      "status": "candidate",
+      "shots": [
+        {
+          "slug": "region",
+          "kind": "ui-screenshot",
+          "target": "追跡面と解析対象が視覚的に分かるViewer"
+        },
+        {
+          "slug": "inspector",
+          "kind": "inspector",
+          "target": "Operation Mode、Motion Type等、採用した状態"
+        },
+        {
+          "slug": "result",
+          "kind": "output",
+          "target": "動きに追従したグラフィックの結果。代表時刻を併記"
+        }
+      ]
+    },
+    {
+      "id": "S11",
+      "priority": "P2",
+      "article": "manuals/fusion/nodes/3d/renderer-3d.md",
+      "manual": {
+        "version": "21.1",
+        "chapter": 88,
+        "printed_pages": "1970–1978"
+      },
+      "goal": "Classic 3DのViewと描画画像が別であることを示す",
+      "suggested_graph": "Shape 3D + Camera 3D + Light → Merge 3D → Renderer 3D → MediaOut",
+      "status": "candidate",
+      "shots": [
+        {
+          "slug": "graph",
+          "kind": "node-graph",
+          "target": "3D sceneから2D Imageへの変換境界"
+        },
+        {
+          "slug": "inspector",
+          "kind": "inspector",
+          "target": "Renderer Type、Camera、Lighting等"
+        },
+        {
+          "slug": "compare",
+          "kind": "comparison",
+          "target": "3D ViewerとRenderer 3D結果を区別して比較"
+        }
+      ]
+    },
+    {
+      "id": "S12",
+      "priority": "P2",
+      "article": "manuals/fusion/nodes/usd/u-renderer.md",
+      "manual": {
+        "version": "21.1",
+        "chapter": 121,
+        "printed_pages": "2911–2914"
+      },
+      "goal": "USDをStormで画像化しAOVを確認する",
+      "suggested_graph": "uShapeまたは利用可能なUSD fixture → uMerge → uRenderer → MediaOut",
+      "status": "candidate",
+      "shots": [
+        {
+          "slug": "graph",
+          "kind": "node-graph",
+          "target": "USD node treeからuRendererへの入力"
+        },
+        {
+          "slug": "inspector",
+          "kind": "inspector",
+          "target": "Camera、Renderer Type、AOVと解像度設定"
+        },
+        {
+          "slug": "result",
+          "kind": "output",
+          "target": "レンダリングしたUSDシーン。対応実機環境で確認できた場合のみ"
+        }
+      ]
+    },
+    {
+      "id": "S13",
+      "priority": "P1",
+      "article": "manuals/fusion/nodes/blur-filter/blur.md",
+      "manual": {
+        "version": "21.1",
+        "chapter": 92,
+        "printed_pages": "2109–2111"
+      },
+      "goal": "ぼけ量が変わると細部がどう変化するかを示す",
+      "suggested_graph": "高コントラスト検証チャート → Blur → MediaOut",
+      "status": "candidate",
+      "shots": [
+        {
+          "slug": "inspector",
+          "kind": "inspector",
+          "target": "Blur SizeとFilter/Clipping関連設定"
+        },
+        {
+          "slug": "compare",
+          "kind": "comparison",
+          "target": "同一フレームでBlurなしとBlurありの細部を比較"
+        }
+      ]
+    },
+    {
+      "id": "S14",
+      "priority": "P2",
+      "article": "manuals/fusion/nodes/color/color-corrector.md",
+      "manual": {
+        "version": "21.1",
+        "chapter": 93,
+        "printed_pages": "2157–2167"
+      },
+      "goal": "色の補正量とRGB/階調変化を示す",
+      "suggested_graph": "検証用カラーチャート → Color Corrector → MediaOut",
+      "status": "candidate",
+      "shots": [
+        {
+          "slug": "inspector",
+          "kind": "inspector",
+          "target": "ColorsとLevels等の代表タブをそれぞれ見せる"
+        },
+        {
+          "slug": "compare",
+          "kind": "comparison",
+          "target": "変更前／後の色を同じカラーマネジメント条件で比較"
+        }
+      ]
+    }
+  ]
+}
