@@ -1,61 +1,113 @@
 ---
-title: "Stretch"
-description: "axis/line沿いのpixel stretch。"
+title: Stretch（Krokodove）
+description: 指定した線に沿って画像の画素を引き伸ばすStretchの意味、入出力、試し方、似た変形ノードとの使い分け。
 doc_type: node
-term_id: "stretch"
-term_short: "Stretchは、axis/line沿いのpixel stretch。Krokodove固有のtool。"
+term_id: stretch
+term_short: 指定した線に沿って画像の画素を引き伸ばす、Krokodoveの画像変形ツール。
 verification: partial
-aliases: ["Stretch"]
-concepts: ["image-data"]
-nodes: ["Stretch"]
-node_family: "krokodove"
-inputs: ["image"]
-outputs: ["image"]
-tasks: ["motion-graphics"]
+aliases: [Stretch]
+concepts: [image-data]
+nodes: [Stretch]
+node_family: krokodove
+inputs: [image]
+outputs: [image]
+tasks: [motion-graphics]
 product_scope: fusion
-suite_surfaces: ["fusion"]
-updated: "2026-10-05"
+suite_surfaces: [fusion]
+updated: '2026-10-20'
 ---
 
-# Stretch
+# Stretch（Krokodove）
 
-Stretchは、axis/line沿いのpixel stretch。Krokodove固有のtoolです。名前だけで2D Image Nodeと判断せず、Input / Output domainとFamily Overviewを先に確認します。
+**Stretchは、指定した線に沿って画像の画素を引き伸ばすKrokodoveの画像変形ツール**です。DaVinci Resolve 21.1 Reference Manualでは「Image Warp Tools」に含まれ、「指定した線に沿ったピクセルの引き伸ばし」と説明されています。
 
-## 役割
+ここでの「画素（ピクセル）」は画像を構成する小さな色の点、「引き伸ばし」はその点でできた模様や輪郭が、元の画像とは異なる広がり方で見える処理を指します。文字や図形を個別のオブジェクトとして長くする操作ではなく、**すでに画像になっているものの見え方を変える**処理です。
 
-axis/line沿いのpixel stretch。このページでは、名前だけで選ばず、**何を受け取り、何が変わり、どのdomainへ返すか**を先に整理します。
+## どんな変形なのか
 
-この項目で確認できている中心的な役割は「axis/line沿いのpixel stretch」です。exactなInspector項目が未確認の場合は、役割とdata domainを先に使って候補を絞ります。
+### 画像全体を拡大するのとは違う
+
+標準のTransformで画像を横方向へ拡大すると、画像全体の横幅や、そこに写っている被写体の比率が変わります。Stretchの説明で特徴的なのは、単に拡大方向を指定するのではなく、**「線」を基準に画素を引き伸ばす**ことです。
+
+たとえば縦線・横線の入った格子画像なら、どの部分の線が長く見えるか、格子の間隔や境界がどう変わるかを観察すると、普通の拡大縮小との差を理解しやすくなります。これは検証用素材の提案であり、特定の格子が必ず特定方向へ伸びるという意味ではありません。
+
+公式マニュアルの当該一覧は短く、線が画面のどこに置かれるのか、線の両側のどちらを引き伸ばすのか、線上の色を繰り返すのか、どのような補間が使われるのかまでは示していません。そのため「クリックした地点の色を画面端まで伸ばす」といった細かな効果を、確認済みの仕様として説明することはできません。
+
+### 「指定した線」とは何か
+
+線は、画面の変形を考えるための基準です。しかし、この言葉だけでは**Inspectorで端点を動かすのか、角度と位置を数値で指定するのか、外部のMaskやPathを入力するのか**は確定しません。
+
+まずStretchの出力をViewerで確認し、現行バージョンのInspectorに表示される実際のコントロールを見て操作してください。未確認の「Line Start」「Line End」「Length」などを実在するパラメータ名としてここには記載していません。
 
 ## 入力と出力
 
-入力分類: **image**。 出力分類: **image**。 この分類はdata domainを読むためのものです。Fusion 21.1のexactな端子名・端子数を未確認の場合、ここでは推測して固定しません。
+| 段階 | データ | 役割 |
+| --- | --- | --- |
+| 入力 | 2D <Term id="image">Image</Term> | 写真、動画、描画済みのテキストや模様など、変形したい画像。 |
+| 処理 | Stretch | 指定した線に沿って画素を引き伸ばす。 |
+| 出力 | 2D Image | 画像として後段の合成・色処理・変形へ渡す。 |
 
-## 使うときの判断
+FusionのImageは、色と透明度を持つ画素で構成されるデータです。Stretchはこの画像を加工する分類で、図形の輪郭を編集可能なまま保持する<Term id="shape-data">Shape</Term>ノードや、空間内にオブジェクトを配置する3Dノードとは異なります。
 
-KrokodoveはImage、Shape、3D、Regionが同じchapterに並ぶため、まずOutput domainで候補を絞ります。
+上の分類とfrontmatterの `inputs: [image]`、`outputs: [image]` は、21.1 Manualの「Image Warp Tools」と既存COLLECTANEAカタログに基づくものです。**実際の入力端子の正式名・端子数・補助入力の有無を示すものではありません。**
 
-同じ目的を別Familyでも作れる場合は、後段で必要なdata domainと、Graph上で責任をどこに置きたいかで選びます。
+## 主な用途
 
-## 最小構成
+### 線や模様を引き伸ばすグラフィック
 
-    Image / Source → Stretch → Result
+縦横のストライプ、格子、色の帯などを元画像にすると、Stretchでどこが変形されるかが分かりやすくなります。元の線が残る部分と、長く見える部分の対比を、タイトル背景や抽象的な映像表現に応用できます。どの部分を狙って変形できるかは、実際の出力を確かめてから判断します。
 
-これは接続関係を理解するための最小構成案です。公式Manualのexactな作例として確認していない構成は、実制作前にViewerで中間結果を確認します。
+### 写真の輪郭を使った歪み
 
-## 確認ポイント
+建物の窓枠、電柱、道路の白線など、直線が見える写真も比較用の候補です。被写体が読み取れる範囲と、線に沿って変化する範囲を見比べながら、通常の拡大縮小では得られない形の崩れを探せます。特定の被写体を自動認識する機能があるという意味ではありません。
 
-- 入力dataのdomainが合っているか。
-- この項目のoutputを受け取れる後段Nodeへ接続しているか。
-- 同じ役割を前段 / 後段で二重に処理していないか。
-- source-limited pageでは、未確認のControl名・default・rangeを名前から推測していないか。
+### 文字を加工するか、残すかを分ける
 
-## Family内での位置づけ
+Text+をStretchの前で画像に合成すると、文字を含む画像全体が変形対象になります。一方、Stretchを背景へ適用してから文字を重ねれば、文字の形を保って背景だけを加工できます。タイポグラフィの可読性を維持したい場合は後者が扱いやすい構成です。
 
-Krokodoveノードの全体像と近いNodeの選び分けは[Family Overview](./)を参照してください。
+## 制作例：格子画像を変形し、後からタイトルを重ねる
 
-## 出典と確認範囲
+以下は**接続関係と効果を見極めるための実践案**です。Blackmagic Designが公開したInspectorの設定値を再現する手順ではありません。
 
-このページの役割・data domain・系譜は、既存COLLECTANEA catalogとBlackmagic Design公式資料で確認された範囲をreader-first形式へ整理しています。
+```text
+MediaIn（格子・ストライプ画像） → Stretch → Merge（Background） → MediaOut
+Text+（タイトル） ──────────────────────→ Merge（Foreground）
+```
 
-Fusion 21.1 Reference Manualで個別のInspector項目・default・rangeまで確認できていない項目は、**source-limited**としてその詳細を断定していません。verification: partial はその未確認範囲を含みます。runtime REGIDや現在のEffects Library表示は別のruntime verificationで確定します。
+1. 格子やストライプなど、線がはっきりした画像を用意し、MediaInからStretchへ接続します。最初は人物や複雑な写真より、規則的な模様が適しています。
+2. Stretchの結果をViewerに表示し、元のMediaInと切り替えて比較します。線のどこが伸びたように見えるか、画面のどこに変化が集中するかを観察します。
+3. Inspectorに表示された**実在する設定項目だけ**を少しずつ動かし、元画像に対してどのような差が出るか確かめます。線の位置・方向・長さを直接変更できるとは、このマニュアルの説明だけでは断定できません。
+4. Stretchの出力をMergeのBackgroundへ、Text+の出力をForegroundへ接続します。これにより、タイトルはStretchの変形を受けずに表示されます。
+5. 動画で利用する場合は、静止フレームだけでなく再生し、細線のちらつき、画面端、透明部分、後段との合成結果を確認します。
+
+文字自体を変形させたいときは、Text+を先にMergeで画像へ合成し、そのMergeの**出力**をStretchへ通す構成を比較してください。「文字単位の編集」と「文字を含む画像の画素変形」は別の工程です。
+
+## 関連ノードとの違い
+
+| ノード | 21.1 Manualに記載された役割 | 使い分けの目安 |
+| --- | --- | --- |
+| **Stretch** | 指定した線に沿ったピクセルの引き伸ばし | 線を基準に画像が伸びる表現を調べる。 |
+| [Directional Scale](./directional-scale) | 指定した方向へ画像を伸縮・歪ませる | 線よりも、変形する**方向**が中心のとき。 |
+| [Rest](./rest) | 画素を一本の線へ寄せ、画像の上側または下側をパスに沿って歪ませる | 画素を線へ集める、上端・下端を変える目的のとき。 |
+| [Warped Transform](./warped-transform) | 画像を伸ばす・押し縮める・回す操作 | 伸縮と回転などをまとめて試すとき。 |
+| [Shear](./shear) | 角度を伴うせん断変形。強さを決める追加入力がある | 斜めにずらす変形を使いたいとき。 |
+
+特にStretchとDirectional Scaleは、どちらも「伸ばす」という言葉を使います。ただし、マニュアルでは前者が**line（線）**、後者が**direction（方向）**を基準に説明されています。操作項目や結果が同じとまでは確認できません。
+
+また、[標準Transform](../transform/transform)は画像の移動・回転・拡大縮小に使えます。単に縦長・横長に表示したい場合は、まずTransformで足りるか確認すると、特殊な画像変形を使う必要があるか判断しやすくなります。
+
+## 注意点と未確認事項
+
+- **線の指定方法：** 線の位置・向き・長さ・端点をどの項目で設定するか、外部のMaskやPathを利用できるかは未確認です。
+- **引き伸ばし方：** 伸びる側、色の複製・補間方法、画面外や線の端での扱いは、当該一覧では説明されていません。
+- **透明度と解像度：** Alpha、premultiply、画像の境界、出力解像度への影響を確定できる資料は未確認です。透過素材は合成した状態でも確認してください。
+- **時間変化：** 動画を入力できる分類であっても、Stretch専用の動きやランダム化機能があるとは限りません。Inspectorのアニメーション可能項目も実機で確認が必要です。
+- **バージョン・製品差：** 21.1 Reference Manualへの掲載は確認済みです。一方、Resolve Free / Studio / Fusion Studio間の提供差、内部REGID、現在の正確な端子構成や設定範囲は検証していません。
+
+## バージョンと出典
+
+一次資料：Blackmagic Design『**DaVinci Resolve 21.1 Reference Manual**』（September 2026）、Chapter 105「Krokodove Nodes」、**p.2437「Image Warp Tools / Stretch」**。同ページのDirectional Scale・Shear・Warped Transform、p.2436のRestと比較しています。
+
+**資料から直接確認したこと**は、「指定した線に沿った画素の引き伸ばし」という役割とImage Warp Toolsへの分類です。入力・出力の2D Image分類には既存COLLECTANEAカタログも併用しています。格子・ストライプ・タイトルを使った例は、確認された役割から考えた検証・制作案です。端子・Inspector・画素境界・Edition差が未確認のため、`verification: partial` を維持しています。
+
+[Krokodoveの全体像](./)と[Imageの基礎](../../learn/02-data/image)、[Shapeの基礎](../../learn/02-data/shape)も参照してください。
