@@ -15,7 +15,7 @@ outputs: ["image"]
 tasks: ["warp-image", "screen-replace"]
 product_scope: fusion
 suite_surfaces: ["fusion"]
-updated: "2026-10-05"
+updated: "2026-10-20"
 ---
 
 # Corner Positioner
@@ -64,17 +64,29 @@ Corner Positionerは、入力Imageの4隅をViewer上で動かし、別の四辺
 - 4点をanimationして、四辺形の形が変わるwarpを作る
 - tracking済みの平面へreplacement Imageを追従させる
 
-## Planar Trackerと組み合わせる
+## 動く平面への配置：Planar Trackerと組み合わせる
 
-背景側の平面が動く場合、21.1 Manualでは[Planar Tracker](../tracking/planar-tracker)で背景をtrackし、そこから作成した[Planar Transform](../tracking/planar-transform)でCorner Positionerの結果を背景の動きへ追従させる例が示されています。
+Corner Positionerは指定した4点へ素材を変形しますが、**撮影映像の動きは解析しません**。動く看板へロゴを貼る場合は、[Planar Tracker](../tracking/planar-tracker)で背景の看板を解析し、作成した[Planar Transform](../tracking/planar-transform)にその動きを適用させます。Corner Positionerで行うのは、**基準フレームでの四隅の形合わせ**です。
 
-```text
-Replacement Image → Corner Positioner → Planar Transform → 合成側へ
-                                ↑
-                   背景をPlanar Trackerで解析
-```
+~~~text
+看板映像 → Planar Tracker（Trackで解析 → Create Planar Transform）
+                 ※解析結果をPlanar Transformへ渡す。画像を結線する意味ではない
 
-Planar Transformを作成した後、そのtracking dataを他に使わない場合はPlanar TrackerをGraphから外せます。
+ロゴ画像 → Corner Positioner → Planar Transform → Merge（Foreground）─┐
+看板映像 ─────────────────────────────── Merge（Background）─┴→ MediaOut
+~~~
+
+1. 看板が大きく写り、手前の遮蔽物が少ないフレームを選びます。看板映像をPlanar TrackerのBackgroundへ入力し、看板上の模様を囲んでそのフレームをReferenceに設定します。**追跡するPatternと、ロゴを貼る四隅は別の範囲**です。
+2. 必要区間を前後へTrackし、Steadyモードで看板面が止まって見えるか確認します。追跡が滑る場合は、先にPattern、遮蔽物、Motion Type、レンズ歪みを見直します。
+3. Planar TrackerのTrackモードで**Create Planar Transform**を押します。これで解析した平面の変形を適用するノードが作成されます。Planar TrackerとPlanar Transformをワイヤーで直接つなぐ必要はありません。
+4. 参照フレームに戻り、透明背景のロゴ画像をCorner PositionerのInputへ入れます。**Mapping TypeをPerspective**にして四隅を看板の貼り付け位置へ合わせ、その出力をPlanar TransformのImage Inputへ渡します。
+5. Planar Transformの出力を[Merge](../compositing/merge)のForegroundへ、元の看板映像をBackgroundへ接続します。フレームを動かし、看板の向きや遠近が変わってもロゴが滑らないか確認します。
+
+**位置が最初からずれる**場合は、Corner Positionerの4点を合わせたフレームとPlanar TransformのReference Timeが一致しているか確かめます。**途中からずれる**場合は、元のPlanar Trackerで追跡した面とフレーム範囲、特に斜めから写ったフレームの精度を確認します。基準フレームでの形合わせと、その後の追従精度は分けて調整します。
+
+看板の元の文字を消す処理や、看板の手前を通る人物をロゴより前に合成する処理は別に必要です。Corner Positionerの**Effect Maskは変形処理の範囲を制限する入力**で、Planar Trackerの**Occlusion Maskは追跡計算から手前の物体を除外する入力**です。どちらも人物を自動で手前に切り抜いて合成する機能ではありません。
+
+Planar Transformの作成後は、追跡結果の再解析が不要ならPlanar TrackerをGraphから外す構成も可能です。追跡精度を調整する予定があるなら、解析用ブランチとして残しておくと作業を続けやすくなります。
 
 ## Perspective Positionerとの違い
 
@@ -92,6 +104,6 @@ Planar Transformを作成した後、そのtracking dataを他に使わない場
 
 ## 出典と確認範囲
 
-DaVinci Resolve 21.1 Reference Manual、September 2026、Chapter 123 pp.2963–2964で、Input / Effect Mask、Basic Node Setup、Mapping Type、Corners X / Y、Offset X / Yを確認しました。
+DaVinci Resolve 21.1 Reference Manual、September 2026、Chapter 123 pp.2963–2964で、Input / Effect Mask、Basic Node Setup、Mapping Type、Corners X / Y、Offset X / Yを確認しました。動く看板への追従手順はChapter 82 pp.1810–1813およびChapter 119 pp.2820–2825のPlanar Tracker / Planar Transformの説明に基づきます。
 
 全既定値・数値範囲、内部REGID、実機performanceは未確認です。
