@@ -3,7 +3,7 @@ title: Sony FX3
 description: Sony FX3の記録方式、動画設定、Log / Cine EIを中心にした機種別操作ガイド。
 doc_type: model
 verification: partial
-updated: 2026-10-13
+updated: 2026-10-21
 tags: [camera, Sony, FX3, XAVC, S-Log3, Cine-EI]
 tasks: [choose-recording-format, shoot-log]
 product_scope: camera
@@ -35,8 +35,8 @@ FX3の動画記録では、記録方式を先に選び、その後でフレー�
 
 操作:
 
-1. `MENU → 撮影 → 画質 → 動画設定 → 記録フレームレート`
-2. `MENU → 撮影 → 画質 → 動画設定 → 記録設定`
+1. `MENU → 撮影 → 画質/記録 → 動画設定 → 記録フレームレート`
+2. `MENU → 撮影 → 画質/記録 → 動画設定 → 記録設定`
 
 画面に表示される `200M 4:2:2 10bit` のような表記は、ビットレート、カラーサンプリング、ビット深度を組み合わせたものです。
 
@@ -44,10 +44,10 @@ FX3の動画記録では、記録方式を先に選び、その後でフレー�
 
 | 記録方式 | フレームレート | 記録設定 | 圧縮 |
 | --- | ---: | --- | --- |
-| XAVC HS 4K | 60p | 200M 4:2:2 10bit | Long GOP |
-| XAVC S 4K | 60p | 200M 4:2:2 10bit | Long GOP |
-| XAVC S-I 4K | 60p | 600M 4:2:2 10bit | Intra |
-| XAVC S-I 4K | 24p | 240M 4:2:2 10bit | Intra |
+| XAVC HS 4K | 59.94p | 200M 4:2:2 10bit | Long GOP |
+| XAVC S 4K | 59.94p | 200M 4:2:2 10bit | Long GOP |
+| XAVC S-I 4K | 59.94p | 600M 4:2:2 10bit | Intra |
+| XAVC S-I 4K | 23.98p | 240M 4:2:2 10bit | Intra |
 
 NTSC / PAL設定や記録方式によって選択肢は変わります。全組み合わせはSony公式ヘルプガイドの表を参照してください。
 
@@ -107,4 +107,4 @@ AF、ホワイトバランス、XLRハンドル、S&Q、タイムコード、HDM
 - Sony ILME-FX3 Ver.2以降 ヘルプガイド: https://helpguide.sony.net/ilc/2210/v1/ja/print.pdf
 - Sony ILME-FX3 製品仕様: https://www.sony.jp/pro-cam/products/ILME-FX3/spec.html
 
-確認日: 2026-10-13
+確認日: 2026-10-21
