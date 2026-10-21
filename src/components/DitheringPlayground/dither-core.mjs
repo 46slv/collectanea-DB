@@ -51,6 +51,8 @@ export function toPreviewBytes(values) {
 }
 
 function bayerMatrix(size) {
+  // Recursive matrix construction bottoms out at 1×1; public sizes remain 2, 4, 8.
+  if (size === 1) return bayerMatrices.get(1);
   if (![2, 4, 8].includes(size)) throw new RangeError('行列サイズは2、4、8だけです。');
   if (bayerMatrices.has(size)) return bayerMatrices.get(size);
   const half = bayerMatrix(size / 2);
