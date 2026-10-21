@@ -3,7 +3,7 @@ title: 記録方式・圧縮・4:2:2 / 10bit
 description: 記録方式を選ぶときに分けて考える、圧縮方式・ビットレート・カラーサンプリング・ビット深度。
 doc_type: concept
 verification: partial
-updated: 2026-10-13
+updated: 2026-10-21
 tags: [camera, codec, recording, 10bit, 4:2:2]
 tasks: [choose-recording-format, compositing, color-grading]
 product_scope: camera
@@ -46,7 +46,7 @@ Sonyのヘルプガイドも、4:2:2 10bitをコンピューターでの編集�
 | Intra系 | XAVC S-I 4K / HD | ALL-Intra、Apple ProRes |
 | 4:2:2 10bit | 対応 | 対応 |
 | 外付けSSD直接記録 | このページでは対応を確認していない | USB接続SSDへ直接記録対応 |
-| 高データレート記録 | XAVC S-I 4K 60pで600Mbpsの設定例 | ProRes 422 HQ最大1.9Gbps、4:2:2 10bit ALL-Intra最大800Mbps |
+| 高データレート記録 | XAVC S-I 4K 59.94pで600Mbpsの設定例 | ProRes 422 HQ最大1.9Gbps、4:2:2 10bit ALL-Intra最大800Mbps |
 
 S5IIXの数値はPanasonicが公開している対応条件の最大値です。実際に選べる組み合わせは解像度・フレームレート・記録先などに依存します。
 
@@ -60,4 +60,4 @@ S5IIXの数値はPanasonicが公開している対応条件の最大値です。
 - Sony ILME-FX3 Ver.2以降 ヘルプガイド: https://helpguide.sony.net/ilc/2210/v1/ja/print.pdf
 - Panasonic S5II / S5IIX「クリエイターの期待に応える映像表現」: https://panasonic.jp/dc/feature/S5M2-S5M2X/expression.html
 
-確認日: 2026-10-13
+確認日: 2026-10-21
