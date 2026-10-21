@@ -1,4 +1,5 @@
 ---
+slug: /fusion/nodes/optical-flow/optical-flow
 title: Optical Flow
 description: 連続frameを解析してForward / Back Vectorを生成し、retime・motion blur・vector warpなどの後段処理へ渡すNode。
 doc_type: node
