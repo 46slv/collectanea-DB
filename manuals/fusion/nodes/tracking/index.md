@@ -5,7 +5,7 @@ doc_type: index
 verification: partial
 product_scope: fusion
 tasks: [lookup-node, track, surface-track, match-move, stabilize, camera-track]
-updated: "2026-10-21"
+updated: "2026-10-22"
 ---
 
 # Trackingノード
@@ -38,7 +38,7 @@ FusionのTrackingには、**画像内の特徴点を追うTracker、平面の動
 | **動く服の一部分だけ色補正する** | Surface TrackerのメッシュまたはPolygonから追従アルファを作り、元映像を補正するColor CorrectorのEffect Maskへ渡す。 | [追従マスクを色補正へ使う](../../recipes/tracking/surface-track-alpha-effect-mask) |
 | **実写の床へ3Dオブジェクトを置く** | Camera Trackerでカメラの動きと3Dの点群を求め、ExportしたCamera 3Dを使ってCGをレンダリングし実写と合成する。 | [Camera Trackerから3Dオブジェクトを合成](../../recipes/3d/camera-track-3d-object) |
 
-追跡点や平面が滑る場合は[追跡がずれる原因の切り分け](../../troubleshooting/tracking/track-drifts)、3DカメラのSolveに失敗する場合は[Camera TrackerのSolveと3D合成の診断](../../troubleshooting/tracking/camera-solve-or-3d-composite-fails)へ進んでください。
+追跡点や平面が滑る場合は[追跡がずれる原因の切り分け](../../troubleshooting/tracking/track-drifts)、**Point Trackerの模様が隠れたり画面外へ出たりする場合**は[追跡パスの復旧](../../troubleshooting/tracking/point-tracker-pattern-lost)、3DカメラのSolveに失敗する場合は[Camera TrackerのSolveと3D合成の診断](../../troubleshooting/tracking/camera-solve-or-3d-composite-fails)へ進んでください。
 
 ## Tracker
 
