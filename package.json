@@ -9,9 +9,10 @@
     "serve": "docusaurus serve",
     "clear": "docusaurus clear",
     "deploy": "docusaurus deploy",
-    "capture": "node scripts/capture-ui.mjs",
+    "capture": "node scripts/capture-ui.mjs && npm run test:visual-reference",
     "test:regressions": "node --test tests/catalog.test.cjs",
-    "test:content": "node scripts/content-integration.mjs"
+    "test:content": "node scripts/content-integration.mjs",
+    "test:visual-reference": "node scripts/visual-processing-smoke.mjs"
   },
   "dependencies": {
     "@docusaurus/core": "3.10.2",
