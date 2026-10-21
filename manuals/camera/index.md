@@ -6,7 +6,7 @@ description: 撮影の共通知識と、カメラごとの具体的な操作を�
 domain: Camera
 tags: [camera, shooting, video]
 verification: partial
-updated: 2026-10-13
+updated: 2026-10-21
 slug: /camera
 hide_title: true
 hide_table_of_contents: true
