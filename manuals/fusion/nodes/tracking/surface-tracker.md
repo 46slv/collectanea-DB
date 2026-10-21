@@ -14,7 +14,7 @@ outputs: [image]
 tasks: [surface-track, texture-attach, stabilize-surface]
 product_scope: fusion
 suite_surfaces: [fusion]
-updated: "2026-10-20"
+updated: "2026-10-21"
 ---
 
 # Surface Tracker
@@ -40,6 +40,8 @@ Surface Trackerは、シャツのしわや肌の伸び縮みなど、**形を変
 ~~~
 
 Occlusion Maskは「どの画素を追跡の手掛かりにしないか」、Effect Maskは「処理済み画像のどこを使うか」を決めます。同じマスクを接続しても意味が異なります。[Maskの基礎](../../learn/02-data/mask)も参照してください。
+
+**Occlusion Maskは、腕などをロゴの手前に描画する機能ではありません。** 追跡から除外した腕を最終画でもロゴの前に表示するには、腕の切り抜きと前景合成を別途行います。
 
 ## 作業順序：Bounds → Mesh → Track → Result
 
@@ -90,6 +92,12 @@ Trackタブの方向ボタンで前後へ解析します。前方向・後方向
 
 **BoundsやMeshの配置を変えると既存の追跡データはリセット**されます。追跡後に点を増減する場合も再追跡が必要です。全タブに表示される**Tracked Range**で、データがあるフレーム範囲を確認してください。
 
+#### 腕に隠れて追跡が途切れた区間をつなぐ
+
+たとえば胸の追跡が150フレームまで正しく、腕で隠れる151〜157フレームに失敗する場合は、誤った区間のTracking Dataを削除します。胸が再び見える158フレームへ移動し、**Track From Last Known Match**を使って最後に正しく追えたフレームと現在のフレームを対応付けます。動きが大きく自動で合わなければ、先にMeshの点をおおよその位置へ戻してから再実行します。
+
+これにより、隠れていた区間を一度ずつ無理に追うのではなく、前後の追跡値の間を補間できます。ただし補間が実際の布の動きに合っているかはViewerで確認し、必要なフレームだけ点を手動修正してください。
+
 またSurface Trackerは元クリップの各フレームに追跡データを作ります。元クリップとタイムラインのフレームレートが違う場合、追跡が飛んで見えることがあります。21.1マニュアルでは、必要に応じてEditページのRender In Placeでリタイミング結果をフレームとして確定させる方法が挙げられています。採用する場合は元素材との対応を確認してください。
 
 ### 4. Result：追跡をどう使うか選ぶ
@@ -112,7 +120,7 @@ Trackが終わったらResultタブで出力を決めます。**Output**は6種�
 **Overlay/Alpha Source**はOverlayやアルファのどのフレームを使うかを決めます。
 
 - **First Frame**：最初のフレームを静止テクスチャーとして使う。
-- **Reference Frame**：追跡面の配置を決めた基準フレームを使う。
+- **Reference Frame**：Overlayの使用開始位置を、フレーム0ではなく、下のOverlay Placementで指定した基準フレームに合わせる。単に同じ静止画を使う選択ではなく、素材の時間上の開始位置が変わる。
 - **Each Frame**：動画の各フレームを順番に変形する。動くOverlayや安定化した映像をRewarpする場合はこちらを使う。
 
 **Overlay Placement**では、**Set to Current**で基準フレームを決め、**Go To Reference**でそこへ移動できます。最初の貼り付け位置は**Positioning**のSliders（位置・拡大縮小・回転など）、Interactive Canvas（画面上の変形グリッド）、Interactive Pins（最大4点でコーナーや遠近を調整）から設定します。基準フレームでは面が大きく、歪みが少ないことが重要です。
@@ -166,6 +174,7 @@ Bには**Aを追跡設定・データごと複製したノード**を使い、Ou
 ## 関連ノード・基礎
 
 - [Trackingノードの選び方](./index)：点・平面・柔らかい面・3Dカメラの違い。
+- [シャツへロゴを追従させるレシピ](../../recipes/tracking/surface-track-shirt-logo)：素材の接続から追跡・貼り付け・前景処理までの再現手順。
 - [Planar Tracker](./planar-tracker)：一枚の平面として追える面の追跡。
 - [Planar Transform](./planar-transform)：平面の追跡データを別画像やマスクへ適用。
 - [Mask](../../learn/02-data/mask)：Occlusion MaskとEffect Maskで扱うデータ。
