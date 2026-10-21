@@ -154,6 +154,22 @@ try {
     await expect(page.locator('.theme-doc-markdown h1')).toHaveText('ディザリング（Dithering）');
     const widget = page.locator('[data-vp-dither="ready"]');
     await expect(widget).toBeVisible();
+    // Preview and readout must precede parameter controls in DOM, visual and keyboard order.
+    const assertResultsBeforeControls = async () => {
+      const layout = await widget.evaluate((section) => {
+        const results = section.querySelector('.vp-dither__previews');
+        const controls = section.querySelector('.vp-dither__controls');
+        const reset = section.querySelector('.vp-dither__reset');
+        return {
+          domOrder: Boolean(results.compareDocumentPosition(controls) & Node.DOCUMENT_POSITION_FOLLOWING),
+          visualOrder: results.getBoundingClientRect().bottom < controls.getBoundingClientRect().top,
+          resetBelow: controls.getBoundingClientRect().bottom <= reset.getBoundingClientRect().top,
+        };
+      });
+      assert.ok(layout.domOrder && layout.visualOrder && layout.resetBelow,
+        'Results must appear above all parameter controls: ' + JSON.stringify(layout));
+    };
+    await assertResultsBeforeControls();
     const preview = (kind) => widget.locator('[data-vp-preview="' + kind + '"] canvas');
     const picture = (kind) => preview(kind).evaluate((canvas) => canvas.toDataURL());
     await expect.poll(() => preview('original').evaluate((canvas) => canvas.getContext('2d')
@@ -202,6 +218,7 @@ try {
       await page.setViewportSize({width, height: 844});
       await go('/reference/visual-processing/dithering');
       await expect(page.locator('[data-vp-dither="ready"]')).toBeVisible();
+      await assertResultsBeforeControls();
       await noOverflow();
       if (width === 390) {
         await page.locator('.vp-dither__previews').scrollIntoViewIfNeeded();
