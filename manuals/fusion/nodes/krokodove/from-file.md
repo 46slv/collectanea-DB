@@ -1,61 +1,133 @@
 ---
-title: "From File"
-description: "txt/manual sourceをline-by-line fixed/custom durationで表示。"
+title: From File
+description: テキストファイルまたは手入力した文章を、1行ずつ一定時間または行ごとに指定した時間で表示するKrokodoveの文字用Modifier。
 doc_type: node
-term_id: "from-file"
-term_short: "From Fileは、txt/manual sourceをline-by-line fixed/custom durationで表示。Krokodove固有のtool。"
+term_id: from-file
+term_short: テキストファイルや手入力の文章を、行単位で時間に応じて切り替える文字用Modifier。
 verification: partial
-aliases: ["From File"]
-concepts: ["parameter-data"]
-nodes: ["From File"]
-node_family: "krokodove"
-inputs: ["parameter"]
-outputs: ["parameter"]
-tasks: ["motion-graphics"]
+aliases: [From File]
+concepts: [parameter-data]
+nodes: [From File]
+node_family: krokodove
+inputs: [parameter]
+outputs: [parameter]
+tasks: [motion-graphics]
 product_scope: fusion
-suite_surfaces: ["fusion"]
-updated: "2026-10-05"
+suite_surfaces: [fusion]
+updated: '2026-10-21'
 ---
 
-# From File
+# From File（Krokodove）
 
-From Fileは、txt/manual sourceをline-by-line fixed/custom durationで表示。Krokodove固有のtoolです。名前だけで2D Image Nodeと判断せず、Input / Output domainとFamily Overviewを先に確認します。
+**From Fileは、テキストファイル（.txt）から読み込んだ文章、または手入力した文章を、時間に合わせて1行ずつ表示するKrokodoveの文字用Modifierです。** DaVinci Resolve 21.1の公式マニュアルでは、各行を同じ長さで表示する方法と、表示時間を個別に指定する方法が紹介されています。
 
-## 役割
+例えば映像内に「準備中」「接続中」「完了」という状態表示を作る場合、3つのText+を切り替える代わりに、表示する文章を行単位で管理する用途が考えられます。これは文字の形を変形する効果ではなく、**その時刻に表示する文章を選ぶための仕組み**です。
 
-txt/manual sourceをline-by-line fixed/custom durationで表示。このページでは、名前だけで選ばず、**何を受け取り、何が変わり、どのdomainへ返すか**を先に整理します。
+## 役割：文章を行ごとに切り替える
 
-この項目で確認できている中心的な役割は「txt/manual sourceをline-by-line fixed/custom durationで表示」です。exactなInspector項目が未確認の場合は、役割とdata domainを先に使って候補を絞ります。
+次のような文章を用意したとします。
 
-## 入力と出力
+    準備中
+    接続中
+    完了
 
-入力分類: **parameter**。 出力分類: **parameter**。 この分類はdata domainを読むためのものです。Fusion 21.1のexactな端子名・端子数を未確認の場合、ここでは推測して固定しません。
+From Fileでは、この3行を最初から全部表示するのではなく、時間の進行に合わせて1行ずつ表示できます。読み込み元としてテキストファイルを選ぶほか、文章を直接入力する方法も公式資料に記載されています。
 
-## 使うときの判断
+「各行を2秒ずつ表示する」「最初の行は短く、最後の行は長めに表示する」は、固定時間方式と個別時間方式を使い分ける**制作上の目標例**です。実際の時間の単位、入力方法、切り替えの境界条件は公式の短い説明では示されていないため、使用中のInspectorで確認する必要があります。
 
-KrokodoveはImage、Shape、3D、Regionが同じchapterに並ぶため、まずOutput domainで候補を絞ります。
+From Fileは「1行ずつ表示する」Modifierです。前の行に次の行を追加して文章を積み上げる機能、歌詞の単語単位のハイライト、改行を保ったまま全文を表示する機能まで確認されているわけではありません。
 
-同じ目的を別Familyでも作れる場合は、後段で必要なdata domainと、Graph上で責任をどこに置きたいかで選びます。
+## 文字用Modifierと入力・出力
 
-## 最小構成
+FusionのText+は文字列・フォント・サイズなどをもとに文字の画像を作ります。これに対して**Modifier（モディファイア）は、ノードの設定値を別の仕組みから決めるもの**です。From Fileは21.1 Manualの「Text Modifiers」に分類されています。
 
-    Parameter / Data → From File → consumer
+文字の内容と画像のつながりを分けると、構成を理解しやすくなります。
 
-これは接続関係を理解するための最小構成案です。公式Manualのexactな作例として確認していない構成は、実制作前にViewerで中間結果を確認します。
+    .txtファイル または 手入力した複数行の文章
+                     ↓
+             From File（行を選ぶ）
+                     ↓
+        Text+の文字列に反映する想定
+                     ↓
+        Text+の画像出力 → Merge → MediaOut
+                              ↑
+                            背景映像
 
-## 確認ポイント
+上段は**文字列を設定する処理の概念図**であり、From Fileに画像入力端子や画像出力端子があるという意味ではありません。Text+のStyled Text欄への適用は、一般的な文字用Modifierの扱いに基づく確認方法です。Krokodove From File固有の適用先・メニュー名は実機未確認です。
 
-- 入力dataのdomainが合っているか。
-- この項目のoutputを受け取れる後段Nodeへ接続しているか。
-- 同じ役割を前段 / 後段で二重に処理していないか。
-- source-limited pageでは、未確認のControl名・default・rangeを名前から推測していないか。
+| 対象 | このページで確認できること | 未確認のこと |
+| --- | --- | --- |
+| 入力元 | .txtファイル、または文章の手入力 | ファイルの文字コード、改行形式、パス指定方法 |
+| 文字の処理 | 行ごとに表示内容を切り替える | 空行、複数行の同時表示、行数上限 |
+| 時間の処理 | 固定時間と個別の表示時間を使える | 設定項目名、時間単位、切り替え時の補間 |
+| 結果の利用 | 文字列を変化させるModifierとして紹介されている | 正式な入出力端子名・端子数、利用できる文字ノードの範囲 |
 
-## Family内での位置づけ
+Frontmatterの inputs / outputs にある parameter は、**画像ではなく設定値を扱う分類**です。From FileがFlow上で独立した画像ノードとして接続できる、という意味ではありません。値の種類については[パラメータとデータ](../../learn/02-data/parameter-data)、Modifierの考え方は[値の供給元](../../learn/05-time/modifier-parameter-sources)を参照してください。
 
-Krokodoveノードの全体像と近いNodeの選び分けは[Family Overview](./)を参照してください。
+## 主な設定の考え方
 
-## 出典と確認範囲
+### テキストの入力元
 
-このページの役割・data domain・系譜は、既存COLLECTANEA catalogとBlackmagic Design公式資料で確認された範囲をreader-first形式へ整理しています。
+21.1 Manualに明記されているのは「.txtファイルを読み込む」方法と「文章を手入力する」方法です。ファイルからの読み込みは、台詞、短いメッセージ、繰り返し使う文章などを、映像の文字装飾とは別に管理したい場合に向きます。
 
-Fusion 21.1 Reference Manualで個別のInspector項目・default・rangeまで確認できていない項目は、**source-limited**としてその詳細を断定していません。verification: partial はその未確認範囲を含みます。runtime REGIDや現在のEffects Library表示は別のruntime verificationで確定します。
+ただし、ファイル更新時の自動再読み込み、相対パス、文字コードの自動判定、改行の解釈はマニュアルの該当箇所には書かれていません。日本語を含むファイルでは表示結果を実際に確認します。
+
+### 行を表示する時間
+
+公式資料は、各行の表示を「固定時間」または「任意の時間」にできると説明しています。固定時間は等間隔の案内表示、個別時間は長い文章と短い文章で見せる長さを変えたい場合に適しています。
+
+例えば、読み上げに合わせる場合は短い「開始」を短く、長い説明文を長く表示する計画が考えられます。ただし、各行の秒数をどこに記述するか、時間をフレーム数・秒数のどちらで指定するか、開始時刻を別途指定できるかは未確認です。「個別時間を設定できる」という機能と、具体的な書式・操作方法は分けて扱います。
+
+## 主な用途
+
+### 機器の状態を順番に見せる
+
+接続状況や処理状況を映像内で見せる際、「初期化中」「確認中」「完了」を同じ位置へ順番に表示する用途です。行ごとの見せ方を管理し、文字の色や大きさはText+側で整えると、内容とデザインの調整を分離できます。
+
+### MV・歌詞映像の短いフレーズを切り替える
+
+歌詞を一節ずつ表示する場面で候補になります。行単位の切り替えと曲の進行を合わせられるかを確認する用途であり、音声解析や歌詞の自動同期をFrom Fileが行うわけではありません。語単位のアニメーションが必要なら別の方法を検討します。
+
+### 説明映像や展示サイン
+
+画面の同じ場所に「工程1」「工程2」「工程3」と案内を順次出す構成です。ファイル側で文章をまとめて管理できれば、長い説明を1つのテキストとして整理できます。一方、各工程で文字の位置や書体を大きく変える場合は、Text+を分けた方が調整しやすいこともあります。
+
+## 運用例：3行の進行状況を切り替える
+
+以下は、公式マニュアルの機能説明から組み立てた**実機確認用の構成案**です。Inspectorの未確認項目を実在する設定名として指定していません。
+
+1. まずText+で短い文字を表示し、文字色、フォント、表示位置を固定します。背景へ重ねる場合は、Text+の画像出力をMergeの前景（Foreground）、背景映像を背景（Background）に送ります。
+2. From Fileに渡す文章として、3行の短いテキストを用意します。最初は日本語や特殊記号を避けた「START」「WAIT」「DONE」でも構いません。ファイル読み込みと手入力のどちらが使用環境で利用できるか確認します。
+3. Text+のStyled Text欄を右クリックし、使用中の環境でFrom FileをModifierとして追加できるか調べます。一般的なText+ Modifierはここから追加し、InspectorのModifiersタブで編集することが21.1 Manualに記載されています。ただし、From Fileの実際の表示名・登録位置は未確認です。
+4. まず固定時間による表示を試し、時間を前へ進めたときに表示内容が1行目から2行目、3行目へ切り替わるか確かめます。1行ずつにならない場合は、入力した改行の扱いと現在の表示方法を確認します。
+5. 次に個別の表示時間を設定できる画面があるかを調べ、1行目と2行目で長さを変えて比較します。設定の単位や書式が確認できたら、その値と結果を記録します。
+6. 最後に日本語、句読点、空行を含む文章に差し替え、意図しない欠落や文字化けがないか確認します。表示の変化とText+のレイアウト変更を一度に行わないと原因を追いやすくなります。
+
+この検証では、Text+の文字を描く処理が正常なのか、From Fileが行を切り替える処理が正常なのかを分けて見ます。文字がまったく出ない場合、まずModifierを使わずText+だけで表示できるか確かめます。
+
+## 似た機能との違い
+
+| 機能 | 役割 | 選ぶときの目安 |
+| --- | --- | --- |
+| **From File** | ファイルか手入力の文章を行ごとに時間で切り替える | 状態表示、短い台詞、字幕風の一節切り替え |
+| [Write](./write) | 入力中のように文字を順次現し、カーソルや常時表示の接頭文字列も扱う | タイプ入力風の演出 |
+| [Juggle](./juggle) | 文字の並びをランダムに混ぜる | ランダムな文字の変化 |
+| [Text+](../generators/text-plus) | 文字の画像、位置、書体、塗りを設定する | 表示する文字そのもののデザイン |
+
+From Fileは**どの行を表示するか**、Writeは**文字列が打たれていくように見せること**が主な違いです。複数のModifierを同じStyled Text欄へ組み合わせられるか、適用順序を指定できるかは確認していません。文字内容、配置、見た目、動きを分けて考える方法は[テキストの役割分担](../../patterns/text-motion/separate-content-layout-style)でも説明しています。
+
+## 注意点と未確認事項
+
+- **ファイルの互換性**：.txtが読み込めることは確認済みですが、UTF-8、Shift_JIS、BOM、改行コード、ファイルパスの仕様は未確認です。
+- **時間制御の詳細**：固定時間・個別時間という区別は確認済みです。秒数・フレーム数・キーフレームの正式な項目名や、最後の行を表示した後の動作は未確認です。
+- **文字の振る舞い**：一度に1行という役割は確認済みですが、空行、全角文字、改行だけの行、長文の折り返し処理は未確認です。
+- **実機での提供形態**：21.1 Manualには掲載されていますが、Resolve Free / Studio、Fusion Studioそれぞれの表示位置、利用条件、内部REGIDは確認していません。
+- **更新と共有**：参照ファイルの移動や別PCへの受け渡し時に同じ表示を維持できるかは未確認です。完成素材を引き渡す前に、元ファイルの所在と再表示を確認します。
+
+## バージョンと出典
+
+一次資料：Blackmagic Design『DaVinci Resolve 21.1 Reference Manual』（September 2026）、**Chapter 105「Krokodove Nodes」p.2438「Text Modifiers / From File」**。ここから、文字用Modifierであること、.txtの読み込み・手入力、行単位の固定時間・任意時間表示を確認しました。
+
+Text+での一般的なModifierの追加手順とModifiersタブの位置は、同Manualの**Chapter 103「Generator Nodes」p.2395「Text+ Modifiers」**を参照しています。これはFrom File固有のInspectorや端子の実機検証を意味しません。
+
+本記事の verification: partial は、**公式資料に記載された機能は確認済み、詳細なUI操作・入出力の名称・時間設定の書式・製品ごとの利用条件は未確認**という意味です。その他のKrokodove機能は[カテゴリ概要](./)から探せます。
