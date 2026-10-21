@@ -5,6 +5,8 @@ description: 色・階調・ぼかし・光学表現・合成・変形・時間�
 tags: [image-processing, visual-effects, video, reference]
 ---
 
+import '@site/src/css/visual-processing.css';
+
 # 映像表現と画像処理
 
 映像の仕上がりを見て「これは何という処理か」「どの値を変えると、この見た目になるか」を探すための索引です。静止画の画像処理、動画固有の時間処理、撮影・レンズ由来の表現を横断します。
