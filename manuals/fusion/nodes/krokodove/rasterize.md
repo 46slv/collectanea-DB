@@ -1,9 +1,9 @@
 ---
 title: "Rasterize"
-description: "画像をdots/squares/diamonds等のhalftoneへ。"
+description: "入力画像を点・四角・ひし形などの反復模様で表現し、網点印刷のような見た目へ変えるKrokodoveのフィルター。"
 doc_type: node
 term_id: "rasterize"
-term_short: "Rasterizeは、画像をdots/squares/diamonds等のhalftoneへ。Krokodove固有のtool。"
+term_short: "Rasterizeは、画像を点や四角などの図形が並んだハーフトーン調の画像へ変換するKrokodoveのフィルター。"
 verification: partial
 aliases: ["Rasterize"]
 concepts: ["image-data"]
@@ -14,48 +14,86 @@ outputs: ["image"]
 tasks: ["motion-graphics"]
 product_scope: fusion
 suite_surfaces: ["fusion"]
-updated: "2026-10-05"
+updated: "2026-10-22"
 ---
 
 # Rasterize
 
-Rasterizeは、画像をdots/squares/diamonds等のhalftoneへ。Krokodove固有のtoolです。名前だけで2D Image Nodeと判断せず、Input / Output domainとFamily Overviewを先に確認します。
+Rasterizeは、写真や映像の見た目を**点・四角・ひし形など、繰り返し並ぶ小さな図形**で表現するKrokodoveのフィルターです。離れて見ると元画像の明暗や輪郭が残り、近くで見ると図形の集まりに見える、網点印刷（ハーフトーン）に近い画を作るときに使います。
 
-## 役割
+## 役割：画像を図形状の模様へ置き換える
 
-画像をdots/squares/diamonds等のhalftoneへ。このページでは、名前だけで選ばず、**何を受け取り、何が変わり、どのdomainへ返すか**を先に整理します。
+元の画像をそのまま表示するのではなく、小さな形を規則的に並べたグラフィックとして見せます。例えば、人物写真をドット柄のポスター風にしたり、映像の一部を細かな四角で構成された質感に変えたりするときの候補です。
 
-この項目で確認できている中心的な役割は「画像をdots/squares/diamonds等のhalftoneへ」です。exactなInspector項目が未確認の場合は、役割とdata domainを先に使って候補を絞ります。
+ここでいう「図形」は**画像の中に描かれる模様**を指します。Fusionの独立した<Term id="shape-data">Shapeデータ</Term>（後段で図形一つずつを幾何学的に加工するデータ形式）が生成される、という意味ではありません。
+
+一般的なCG用語の「ラスタライズ」はベクターや3D形状を画素へ変換する処理も指しますが、**このRasterizeは画像を図形状のハーフトーンへ加工するフィルター**として説明されています。名前だけでShapeの描画ノードと混同しないようにします。
 
 ## 入力と出力
 
-入力分類: **image**。 出力分類: **image**。 この分類はdata domainを読むためのものです。Fusion 21.1のexactな端子名・端子数を未確認の場合、ここでは推測して固定しません。
+- **入力：Image（画像）。** 既存のCOLLECTANEAノード台帳では、画像を受け取る処理に分類されています。素材となる写真、映像、生成画像などが入力候補です。
+- **出力：Image（画像）。** 加工後も<Term id="image">画像データ</Term>として後続の合成処理に渡します。図形一つずつのShapeデータや3D形状を出力するノードではありません。
 
-## 使うときの判断
+今回確認できたKrokodoveの機能概要はRasterizeの働きを簡潔に説明していますが、**入力端子の正式名・個数、追加入力、接続必須条件は確認できていません**。実際の端子構成は使用するFusionで確認してください。
 
-KrokodoveはImage、Shape、3D、Regionが同じchapterに並ぶため、まずOutput domainで候補を絞ります。
+## どんな見た目を作るか
 
-同じ目的を別Familyでも作れる場合は、後段で必要なdata domainと、Graph上で責任をどこに置きたいかで選びます。
+| 元画像・ねらい | Rasterizeで目指す見た目 |
+| --- | --- |
+| 明暗差のある人物写真 | 肌や背景の階調を小さな形の集合として見せる、印刷物風の肖像 |
+| グラデーションや光の帯 | 連続した色面を、点や四角が並ぶパターンとして見せる抽象背景 |
+| タイトルの後ろに置く映像 | 実写の情報量を抑え、幾何学的な質感を持たせた背景 |
 
-## 最小構成
+これらは**制作上の使用案**です。実際の形の配置、明暗との対応、色の保持方法は、選択した設定と素材をViewerで比較して判断します。正確な階調変換式を確認できているわけではありません。
 
-    Image / Source → Rasterize → Result
+## 最小構成：加工前と後を比べる
 
-これは接続関係を理解するための最小構成案です。公式Manualのexactな作例として確認していない構成は、実制作前にViewerで中間結果を確認します。
+```text
+MediaIn（明暗のある写真・映像） → Rasterize → MediaOut
+```
 
-## 確認ポイント
+1. まず明部・暗部の違いが分かりやすい画像を`MediaIn`などから用意します。単色だけだと、どのように階調が置き換わるかを比較しにくくなります。
+2. Rasterizeを追加し、Viewerで処理前と処理後を見比べます。接続する端子は実際のノード表示に従ってください。
+3. Inspectorで点・四角・ひし形などを選択できる場合は、**形の種類を一つだけ変えて**輪郭・濃淡・模様の密度がどう見えるかを比較します。ここではInspectorの正確なラベルや選択肢数は断定しません。
+4. 必要に応じて入力側の明暗を調整し、画像のどの部分が模様として残るか確認します。調整前後は同じViewer倍率で比較します。
+5. 実際に使う解像度で細い模様を確認します。Viewerの拡大表示だけで仕上がりを判断しないでください。
 
-- 入力dataのdomainが合っているか。
-- この項目のoutputを受け取れる後段Nodeへ接続しているか。
-- 同じ役割を前段 / 後段で二重に処理していないか。
-- source-limited pageでは、未確認のControl名・default・rangeを名前から推測していないか。
+これは**Manual掲載の配線図ではなく、機能を確認するための構成案**です。
 
-## Family内での位置づけ
+## 運用例：人物を網点ポスター風にする
 
-Krokodoveノードの全体像と近いNodeの選び分けは[Family Overview](./)を参照してください。
+人物の顔が見える静止画を用意し、Rasterizeを通した結果を単色背景に重ねます。実写の階調をそのまま見せるのではなく、顔の輪郭や陰影が小さな模様で読める状態を目指します。
 
-## 出典と確認範囲
+```text
+MediaIn（人物） ─────→ Rasterize ─────→ Merge（前景） → MediaOut
+Background（背景色） ─────────────────→ Merge（背景）
+```
 
-このページの役割・data domain・系譜は、既存COLLECTANEA catalogとBlackmagic Design公式資料で確認された範囲をreader-first形式へ整理しています。
+最初にRasterize単独の出力をViewerへ表示し、**Alpha（透明度）が残るか、不要な部分まで模様になるか**を確認します。素材全体を加工してから合成するか、先に対象部分を切り出すかは、その結果に応じて決めます。特定のAlpha保持動作やマスク端子の存在を前提にはしません。
 
-Fusion 21.1 Reference Manualで個別のInspector項目・default・rangeまで確認できていない項目は、**source-limited**としてその詳細を断定していません。verification: partial はその未確認範囲を含みます。runtime REGIDや現在のEffects Library表示は別のruntime verificationで確定します。
+## 似たノードとの違い
+
+| ノード | 選択の目安 |
+| --- | --- |
+| [Dither](./dither) | 限られた階調でも濃淡を感じさせるため、ノイズ状の模様を加える。明確な点・四角の図形表現とは目的が違う。 |
+| [Pattern](./pattern) | 元画像を別の形へ読み替えるよりも、図形を敷き詰めた反復模様そのものを作る。 |
+| [Shapes](./shapes) | 円や四角などを同心状に重ねた図形パターンを作る。 |
+| [Pack](./pack) | 指定した色チャンネル内に、形が重なったような模様を作る。 |
+
+**RasterizeとShape系は別物です。** Shapeを後段で個別に変形したい場合は、まず[Shapeデータの考え方](../../learn/02-data/shape)を確認してください。Rasterizeを通した出力をShapeの入力へそのまま渡せる、と解釈しないでください。
+
+## 挙動と注意点
+
+- **細かい模様と解像度：** 点や細線が小さくなるほど、縮小表示・配信エンコード・再書き出しで見た目が変わることがあります。これは一般的な画像処理上の注意であり、Rasterize固有の画質仕様を示すものではありません。
+- **階調と形の関係：** 原画像の明るさ・色が図形の大きさ、間隔、濃さへどう反映されるかは、実際の設定と出力で確認します。Manualの短い紹介から特定の計算方式を推定しません。
+- **InspectorとEdition：** 図形の選択方法、設定名、初期値、値域、処理速度、Free / Studio差は未確認です。21.1での実機表示を確認するまで断定しません。
+- **Ditherとの重ねがけ：** 両者を併用すると模様が増える可能性があるため、どちらを先に置くかを変え、各ノード直後の画像を比較してください。これは制作上の確認手順です。
+
+## バージョンと出典
+
+- **対象：** DaVinci Resolve / Fusion 21.1のKrokodoveに関する記事。
+- **機能説明の照合範囲：** DaVinci Resolve 21系Reference ManualのChapter 105「Krokodove Nodes」にある **Image Tools — Rasterize** の転記資料と、既存COLLECTANEA台帳。入力画像をdots / squares / diamondsなどの形状でハーフトーン調にするという概要を確認しました。*DaVinci Resolve 21.1 Reference Manual*（Blackmagic Design、2026年9月版）原本は今回直接取得できず、21.1での記述同一性は未照合です。
+- **公式配布案内：** [Blackmagic Design Support](https://www.blackmagicdesign.com/support/)（2026-09-08掲載のDaVinci Resolve 21.1 Manual）。
+- **未確認：** 正確な端子・Inspectorの名称、初期値、設定範囲、形と階調の計算方式、Alpha挙動、Edition差、21.1実機描画。これらを確認できるまでは`verification: partial`を維持します。
+
+ほかのKrokodoveノードは[カテゴリ索引](./)で探せます。
