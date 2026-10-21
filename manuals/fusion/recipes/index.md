@@ -64,6 +64,7 @@ slug: /fusion/recipes
 ## Classic 3D
 
 - [Classic 3D sceneを2Dへrenderする](./recipes/3d/basic-classic-3d-render)
+- [Camera Trackerで実写に3Dオブジェクトを固定する](./recipes/3d/camera-track-3d-object)
 
 ## USD
 
@@ -73,7 +74,7 @@ slug: /fusion/recipes
 
 - [Deep 合成を2Dへ戻す](./recipes/deep/deep-merge-to-image)
 
-現在 **20 Recipe** です。
+現在 **21 Recipe** です。
 
 ## 検証待ち
 
