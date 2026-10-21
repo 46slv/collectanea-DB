@@ -161,6 +161,7 @@ try {
     const original = await picture('original');
     const plain = await picture('plain');
     await expect.poll(() => picture('processed')).not.toBe(plain);
+    await widget.locator('.vp-dither__previews').scrollIntoViewIfNeeded();
     await shot('dithering-desktop');
 
     const method = widget.getByRole('combobox', {name: '処理方式'});
@@ -202,7 +203,10 @@ try {
       await go('/reference/visual-processing/dithering');
       await expect(page.locator('[data-vp-dither="ready"]')).toBeVisible();
       await noOverflow();
-      if (width === 390) await shot('dithering-mobile');
+      if (width === 390) {
+        await page.locator('.vp-dither__previews').scrollIntoViewIfNeeded();
+        await shot('dithering-mobile');
+      }
     }
   });
   await check('no-runtime-or-resource-errors', async () => {
