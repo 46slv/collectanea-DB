@@ -15,14 +15,14 @@ tasks: [track, apply-track, attach-graphics, roto]
 level: intermediate
 product_scope: fusion
 suite_surfaces: [fusion]
-updated: "2026-10-14"
+updated: "2026-10-21"
 ---
 
 # Planar Transform
 
 **Planar Transformは、Planar Trackerで解析した平面の動きを、別の画像やマスクに適用するノード**です。看板に新しいロゴを貼ったり、被写体を囲むマスクをおおまかな動きに追従させたりするときに使います。
 
-看板・壁・スマートフォンの画面など、1枚の面として扱える領域は、カメラの移動によって位置・角度・大きさだけでなく見かけの台形の形も変わります。[Planar Tracker](./planar-tracker)がその変化を解析し、Planar Transformが**別の素材へ追跡結果を渡す**役割を担当します。Planar Transform自体には追跡点を解析する機能はありません。
+看板・壁・スマートフォンの画面など、1枚の面として扱える領域は、カメラの移動によって位置・角度・大きさだけでなく見かけの台形の形も変わります。[Planar Tracker](./planar-tracker)がその変化を解析し、Planar Transformが**別の素材へ追跡結果を渡す**役割を担当します。Planar Transform自体には追跡点を解析する機能はありません。Planar Trackerと画像ケーブルで直列につなぐのではなく、生成時に共有された**Track spline（フレームごとの変形データ）**を使い、Image Inputに接続した素材を動かします。
 
 ## 入力・出力
 
@@ -36,15 +36,21 @@ updated: "2026-10-14"
 
 グラフィックを背景映像へ重ねるには、Planar Transformの出力を[Merge](../compositing/merge)へ接続します。追跡結果を適用するだけでは、背景との合成や元の文字の除去は完了しません。
 
+## 使い分け：切り抜いた素材と画面全体
+
+看板に載せる透明ロゴや、被写体に沿わせるPolygonなど、**一部分を切り抜いて扱う素材**にはPlanar Transformが向いています。Planar Trackerの解析映像とは別の枝で素材を変形できるため、ロゴだけを差し替える際に追跡をやり直す必要はありません。
+
+一方、**画面全体の無マスク画像**を扱う場合、21.1マニュアルはPlanar Tracker自身のSteady・Corner Pin・Stabilizeモードを使う方法も案内しています。元映像を安定化したいのか、別画像を平面に貼りたいのか、マスクを追従させたいのかで使い分けます。Planar Transformは変形の適用を担当し、元映像との合成や不要物の除去は行いません。
+
 ## 作成手順
 
 1. 撮影素材をPlanar Trackerへ接続します。
 2. 対象の面が大きく見えるフレームを基準にして、追跡する領域を囲みます。
 3. 必要なフレーム範囲をTrackし、ずれがないか確認します。
-4. Planar TrackerのInspectorにある **Create Planar Transform** を押します。
+4. Planar Trackerを**Track**モードに戻し、Inspectorの **Create Planar Transform** を押します。追跡データを使う新しいノードが画像ケーブルから切り離された状態で作成されます。
 5. 作成されたPlanar TransformのImage Inputへ、動かしたい画像またはマスクを接続します。
 
-Planar Transformは、作成元のPlanar Trackerが生成した**Track spline**を共有します。Track splineにはフレームごとの透視変形が保存され、両ノードが同じSplineを参照している場合は元のTrackerで修正した結果がPlanar Transformにも反映されます。
+Planar Transformは、作成元のPlanar Trackerが生成した**Track spline**を共有します。Track splineにはフレームごとの透視変形が保存され、両ノードが同じSplineを参照している場合は元のTrackerで修正した結果がPlanar Transformにも反映されます。**追跡データの共有と画像の配線は別**なので、Planar Trackerの画像出力をPlanar Transformへ接続する必要はありません。
 
 21.1マニュアルによると、作成されたPlanar Transformは別のCompositionにコピーできます。結果を適用する段階でPlanar Trackerをノードツリーから外す構成も可能です。ただし再解析する可能性がある作業中は、Trackerを残しておくと修正しやすくなります。
 
@@ -81,7 +87,7 @@ SettingsタブにはTransform系ノードと共通する設定もありますが
 4. Transformの後にPlanar Transformを接続し、その出力をMergeのForegroundへ渡します。元映像はBackgroundに接続します。
 5. ショットを通して文字が看板に沿うか、特に傾きが変わるフレームで確認します。
 
-文字だけ差し替える場合は同じ追跡結果を再利用でき、デザインの配置と追跡データの修正を分けられます。**元の看板の文字を消す処理や、前を横切る人物を手前に合成する処理は別途必要**です。Planar Transformが自動で隠れた領域を復元するわけではありません。
+文字だけ差し替える場合は同じ追跡結果を再利用でき、デザインの配置と追跡データの修正を分けられます。**元の看板の文字を消す処理や、前を横切る人物を手前に合成する処理は別途必要**です。Planar Transformが自動で隠れた領域を復元するわけではありません。解析の準備から試す場合は、[平面追跡で看板にロゴを貼る](../../recipes/tracking/planar-track-graphic)を参照してください。
 
 ## 制作例2：動く服のマスクを追従させる
 
@@ -121,6 +127,7 @@ Polygon Mask → Planar Transform → 後段ノードのEffect Mask
 | **最初から位置がずれる** | Reference Timeと、画像やマスクを位置合わせしたフレームが対応しているか確認する |
 | **角度が変わると滑る** | Planar Trackerの解析精度と、対象が平面として扱えるかを確認する |
 | **Polygonが追従しない** | PolygonをオレンジのImage Inputへ接続しているか確認する |
+| **追跡できているのに素材が動かない** | 追跡後に作成したPlanar Transformか、Track splineの接続が残っているか、Image Inputへ素材を接続したか確認する |
 | **出力が一部分しか見えない** | Planar Transform自身の青いEffect Maskに接続がないか確認する |
 | **服の輪郭が合わない** | 平面として表せない曲げ・伸びを、Polygonの追加調整で補う |
 
@@ -128,6 +135,6 @@ Polygon Mask → Planar Transform → 後段ノードのEffect Mask
 
 ## バージョン・出典と確認範囲
 
-**一次資料：** Blackmagic Design『DaVinci Resolve 21.1 Reference Manual』（September 2026）、Chapter 120「Transform Nodes」、**pp.2871–2872**。Planar Transformの用途、2入力、Create Planar Transform、Polygonを入力するロトスコープ手順、Reference Time、Track splineの共有と4×4行列、Spline Editor、別Compositionへのコピーを確認しました。入手先：[Blackmagic Design Support](https://www.blackmagicdesign.com/support/)。
+**一次資料：** Blackmagic Design『DaVinci Resolve 21.1 Reference Manual』（September 2026）、Chapter 120「Transform Nodes」、**pp.2871–2872**。Planar Transformの用途、2入力、Polygonを入力するロトスコープ手順、Reference Time、Track splineの共有と4×4行列、Spline Editor、別Compositionへのコピーを確認しました。Chapter 119「Tracking Nodes」**p.2825**でCreate Planar Transformと全面画像との使い分け、Fusion Fundamentals Chapter 80「Paint」**p.1771**で生成直後のノードが画像ケーブルへ未接続であることを確認しました。入手先：[Blackmagic Design Support](https://www.blackmagicdesign.com/support/)。
 
 Planar Trackerの解析手順は同マニュアルChapter 119「Tracking Nodes」を前提とします。上記制作例は仕様に基づく構成例です。**実機での位置合わせ挙動、追跡エンジンの内部仕様、処理性能、Edition差は未検証**のため、verification: partialを維持します。
