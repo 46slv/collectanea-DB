@@ -19,6 +19,19 @@ Krokodoveは、画像の加工・生成からベクトル状のShape、3D、3D�
 
 Image（画素）、[Shape](../../learn/02-data/shape)（輪郭）、3Dシーン、Region（作用範囲）、Modifier（値や文字の制御）は**別のデータ**です。Shapeは通常[sRender](../shapes/s-render)で画像にします。Regionを扱うツールは、対応するRegion入力へ接続します。
 
+## 制作目的から選ぶ
+
+ノードの名前が分からない場合は、まず**画像の何を変えるか**で候補を絞ります。下の組み合わせは機能の比較であり、ひとつのノードだけで同じ結果になるという意味ではありません。
+
+| 目的 | 最初に確認するツールと違い |
+| --- | --- |
+| 色を置き換える | [Color Map](./color-map)は画像の模様を複数の単色へ対応付け、[Recolor](./recolor)は指定した色を別の色へ置換。[Match Color](./match-color)は暗部・中間調・明部などのトーンを対象にし、[Threshold](./threshold)は色や明るさの狭い範囲を抽出する。 |
+| 画像の一部や境界を見つける | [Contour](./contour)は境界を検出し、[Bounding Box](./bounding-box)は選択したチャンネルに応じた矩形を描く。[Fragments](./fragments)は画像を断片に分けて出現・消失を制御する。 |
+| 模様や質感を作る | [Dither](./dither)はノイズの並びで陰影を表し、[Rasterize](./rasterize)は点・四角形などの模様に変換。[Shapes](./shapes)は同心円・同心四角形を作り、標準のShapeデータとは区別する。 |
+| 画像を歪ませる | [Directional Scale](./directional-scale)は指定方向への伸縮、[Segment Transform](./segment-transform)は区画ごとの変形、[Relative Transform](./relative-transform)は第2入力と画素位置を利用する変形。 |
+| 時間方向の見た目を変える | [Average](./average)は連続フレームを平均し、[Time Mapper](./time-mapper)は外部の画像マップに応じて異なる時刻の映像を組み合わせる。 |
+| 文字や数値を制御する | [Write](./write)は文字を順に見せ、[From File](./from-file)は外部テキストを行単位で表示する。[Beat](./beat)や[Random](./random)は数値を変化させるModifierで、映像へ直接差し込む画像ノードとは異なる。 |
+
 ## 画像の加工・輪郭（Image Tools）
 
 画像の画素や輪郭を加工するツール。
@@ -55,7 +68,7 @@ Image（画素）、[Shape](../../learn/02-data/shape)（輪郭）、3Dシーン
 | ノード・個別解説 | できること | AEで近い機能・方法 |
 | --- | --- | --- |
 | [Blobs](./blobs) | 複数の指定点に円形を生成する | 楕円シェイプ＋Repeater |
-| [Generate](./generate) | ランダムな濃淡のテクスチャを作る | フラクタルノイズ |
+| [Generate](./generate) | 元画像にランダムに見えるグレースケール模様を加える | Fractal Noise＋画像合成（近似） |
 | [Lines](./lines) | 線を規則的に繰り返した模様を作る | Grid／シェイプRepeater |
 | [Pattern](./pattern) | 幾何図形を敷き詰める | Repeater／Motion Tile |
 | [Shapes](./shapes) | 同心円・同心四角形を生成する | シェイプ＋Repeater |
@@ -71,7 +84,7 @@ Image（画素）、[Shape](../../learn/02-data/shape)（輪郭）、3Dシーン
 | [Deflicker](./deflicker) | 時間方向の明滅を抑える | 時間平均／CC Wide Time（近似） |
 | [Duplicate](./duplicate) | 画像を図形やパターンに沿って複製する | Repeater／Motion Tile |
 | [Extrude](./extrude) | 画像の縁を加工して擬似的な厚みを作る | 積層・長い影（2D近似） |
-| [Noise](./noise) | 粒状・ピクセル状のノイズ模様を作る | Noise／Fractal Noise |
+| [Noise](./noise) | ピクセル状のノイズ模様を作る。色はランダム生成または指定できる | Noise／Fractal Noise |
 | [Plastic](./plastic) | プラスチック風の光沢と縁取りを加える | CC Glass＋Bevel Alpha（近似） |
 | [Positioner](./positioner) | 四隅の位置を指定して画像をはめ込む | CC Power Pin／Corner Pin |
 | [Push](./push) | 二つの画像を押し出すように切り替える | スライドトランジション |
@@ -84,24 +97,24 @@ Image（画素）、[Shape](../../learn/02-data/shape)（輪郭）、3Dシーン
 
 | ノード・個別解説 | できること | AEで近い機能・方法 |
 | --- | --- | --- |
-| [Contour](./contour) | 画像の勾配から繰り返す等高線状の輪郭を作る | Find Edges＋輪郭反復（近似） |
+| [Contour](./contour) | 画像の境界を検出する | Find Edges（近似） |
 | [Vector Visualisation](./vector-visualisation) | モーションベクトルの向きと速さを重ねて表示する | ベクトル可視化（標準に直接相当なし） |
 
 ## 画像の幾何変形（Image Warp）
 
 | ノード・個別解説 | できること | AEで近い機能・方法 |
 | --- | --- | --- |
-| [Bend](./bend) | 3点の曲線を使って画像を曲げる | CC Bend It／Bezier Warp |
-| [Directional Scale](./directional-scale) | 指定角度に沿って片側を伸縮する | Transform＋回転と軸別スケール（近似） |
+| [Bend](./bend) | 放射状のワープで画像を曲げる | CC Bend Itなどのワープ（近似） |
+| [Directional Scale](./directional-scale) | 指定方向に沿って画像を伸縮・変形する | Transform＋回転と軸別スケール（近似） |
 | [Kaleidoscope](./kaleidoscope) | 放射状の鏡像を繰り返す | CC Kaleida |
 | [Mirror](./mirror) | 指定した軸を中心に画像を反射する | Mirror |
-| [Offset](./offset-krokodove) | 別画像で水平・垂直方向のずれを制御する | Displacement Map |
-| [Radial](./radial) | 中心に向かう／外へ向かう放射状の歪みを作る | Bulge／Liquify |
+| [Offset](./offset-krokodove) | 画像を水平方向・垂直方向へずらし、歪ませる | Transformの位置調整／Displacement Map（近似） |
+| [Radial](./radial) | へこみ状の変形を加える。Warp Mask入力の記載あり | Bulge／Liquify（近似） |
 | [Relative Transform](./relative-transform) | 別入力を参照して位置・回転・拡大率を変形する | Transform＋Expression（近似） |
 | [Segment Transform](./segment-transform) | タイルごとに回転・拡大率を変える | タイル分割＋個別Transform |
 | [Shear](./shear) | 指定方向へ斜めに押し流す | TransformのSkew |
 | [Shuffle](./shuffle) | 細分化した画面の位置を入れ替える | タイル分割＋Expression |
-| [Spherize](./spherize) | 球面・円筒状に丸く歪める | Spherize |
+| [Spherize](./spherize) | 指定した形の範囲でへこみ状に歪ませ、拡大鏡に似た見た目を作る | Spherize（近似） |
 | [Stretch](./stretch) | 指定した軸や線に沿って画素を引き延ばす | Mesh Warp／Liquify |
 | [Warped Transform](./warped-transform) | 画像を引き伸ばし・押し縮め・回転させる | Transform＋Mesh Warp（近似） |
 
