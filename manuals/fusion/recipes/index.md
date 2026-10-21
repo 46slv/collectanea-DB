@@ -53,6 +53,7 @@ slug: /fusion/recipes
 
 - [Trackerで車の動きにテキストを追従させる](./recipes/tracking/point-track-text-callout)
 - [平面をtrackしてgraphicへ適用する](./recipes/tracking/planar-track-graphic)
+- [Planar Trackerで壁の汚れを固定・補修して元の動きへ戻す](./recipes/tracking/planar-steady-paint-rewarp)
 - [看板のロゴを通行人の背後に隠す](./recipes/tracking/planar-foreground-occlusion)
 - [Surface Trackerでシャツのロゴを追従させる](./recipes/tracking/surface-track-shirt-logo)
 - [Surface Trackerで動く肌を修正して元の動きへ戻す](./recipes/tracking/surface-track-stabilize-rewarp-skin-fix)
@@ -79,7 +80,7 @@ slug: /fusion/recipes
 
 - [Deep 合成を2Dへ戻す](./recipes/deep/deep-merge-to-image)
 
-現在 **26 Recipe** です。
+現在 **27 Recipe** です。
 
 ## 検証待ち
 
