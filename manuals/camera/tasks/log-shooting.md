@@ -3,7 +3,7 @@ title: Logで撮影する
 description: Log撮影で共通して確認する項目と、FX3 / S5IIXでの違い。
 doc_type: task
 verification: partial
-updated: 2026-10-13
+updated: 2026-10-21
 tags: [camera, log, exposure, lut]
 tasks: [shoot-log, expose-log, monitor-log]
 product_scope: camera
@@ -48,4 +48,4 @@ S5IIXはV-Log / V-Gamutに対応します。PanasonicはV-Logで14+ストップ�
 - Sony ILME-FX3 Ver.2以降 ヘルプガイド「Log撮影設定」「Exposure Index」: https://helpguide.sony.net/ilc/2210/v1/ja/print.pdf
 - Panasonic S5II / S5IIX「V-Log / V-Gamut撮影機能」: https://panasonic.jp/dc/feature/S5M2-S5M2X/expression.html
 
-確認日: 2026-10-13
+確認日: 2026-10-21
