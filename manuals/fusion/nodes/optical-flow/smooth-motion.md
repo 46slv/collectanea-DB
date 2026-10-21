@@ -28,7 +28,7 @@ Smooth Motionは、**前後フレームの動きに沿って、指定した画�
 
 **物理的な入力端子はオレンジ色のImageが1つ**です。入力には2D画像の連番と、あらかじめ計算済みの**Vector（次フレーム方向）/ Back Vector（前フレーム方向）**が必要です。ベクトル専用の別入力端子はなく、これらはRGBAと一緒にImageへ付随する補助チャンネルです。
 
-- **入力**：画像と、両方向のVector / Back Vector。通常は[Optical Flow](./optical-flow)の出力、またはベクトルを保存したOpenEXR連番を接続します。
+- **入力**：画像と、両方向のVector / Back Vector。通常は[Optical Flow](./optical-flow.md)の出力、またはベクトルを保存したOpenEXR連番を接続します。
 - **出力**：Controlsで選んだチャンネルを時間方向に平滑化した2D画像。後段で必要とする補助チャンネルが残っているかは別途確認します。
 
 ~~~text
