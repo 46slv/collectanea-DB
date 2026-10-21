@@ -1,61 +1,116 @@
 ---
-title: "Juggle"
-description: "文字をrandomize/juggle。"
+title: Juggle
+description: 文字をランダムに混ぜるKrokodoveのText Modifier。Text+との役割分担、検証方法、用途、21.1で確認できる範囲を解説。
 doc_type: node
-term_id: "juggle"
-term_short: "Juggleは、文字をrandomize/juggle。Krokodove固有のtool。"
+term_id: juggle
+term_short: 文字をランダムに混ぜるKrokodoveの文字用Modifier。画像を変形するノードではない。
 verification: partial
-aliases: ["Juggle"]
-concepts: ["parameter-data"]
-nodes: ["Juggle"]
-node_family: "krokodove"
-inputs: ["parameter"]
-outputs: ["parameter"]
-tasks: ["motion-graphics"]
+aliases: [Juggle]
+concepts: [parameter-data]
+nodes: [Juggle]
+node_family: krokodove
+inputs: [parameter]
+outputs: [parameter]
+tasks: [motion-graphics]
 product_scope: fusion
-suite_surfaces: ["fusion"]
-updated: "2026-10-05"
+suite_surfaces: [fusion]
+updated: '2026-10-21'
 ---
 
-# Juggle
+# Juggle（Krokodove）
 
-Juggleは、文字をrandomize/juggle。Krokodove固有のtoolです。名前だけで2D Image Nodeと判断せず、Input / Output domainとFamily Overviewを先に確認します。
+**Juggleは、文字をランダムに混ぜるKrokodoveのText Modifier（文字用モディファイア）です。** DaVinci Resolve 21.1 Reference Manualでは、個別の画像エフェクトではなく「Text Modifiers」に分類されています。
 
-## 役割
+例えば、タイトルが確定する前に文字列を不規則に変化させたい場面や、デジタル表示を模した演出の候補になります。ただし、**文字の順番を入れ替えるのか、別の文字へ置き換えるのか、時間とともに自動で変化するのか**は、マニュアルの短い説明だけでは特定できません。以下では確認済みの役割と、実機で確かめるべき動作を分けます。
 
-文字をrandomize/juggle。このページでは、名前だけで選ばず、**何を受け取り、何が変わり、どのdomainへ返すか**を先に整理します。
+## 何をするものか
 
-この項目で確認できている中心的な役割は「文字をrandomize/juggle」です。exactなInspector項目が未確認の場合は、役割とdata domainを先に使って候補を絞ります。
+「文字をランダムに混ぜる」とは、入力した文字列がそのまま表示されるのではなく、文字の組み合わせに不規則な変化を加えることを指します。21.1 Manualが明記するのはここまでです。
 
-## 入力と出力
+例えば「ABCDE」を入力した場合、考えられる動きには次のような違いがあります。
 
-入力分類: **parameter**。 出力分類: **parameter**。 この分類はdata domainを読むためのものです。Fusion 21.1のexactな端子名・端子数を未確認の場合、ここでは推測して固定しません。
+| 確認したい動作 | 観察例 | 21.1 Manualでの確認 |
+| --- | --- | --- |
+| 文字の並び替え | 「CABDE」のように、元の文字を別の順序で表示する | 未確認 |
+| 文字の置き換え | 「AXQDE」のように、元の文字以外が混ざる | 未確認 |
+| 時間による変化 | 再生位置が進むにつれて文字列が変わる | 未確認 |
 
-## 使うときの判断
+表の文字列は**動作の違いを説明するための架空の例**であり、Juggleの実際の出力を再現したものではありません。「ランダム」という言葉だけで、文字集合、文字数、変更される位置、乱数の更新間隔まで決めつけないことが重要です。
 
-KrokodoveはImage、Shape、3D、Regionが同じchapterに並ぶため、まずOutput domainで候補を絞ります。
+## Text Modifierと入力・出力
 
-同じ目的を別Familyでも作れる場合は、後段で必要なdata domainと、Graph上で責任をどこに置きたいかで選びます。
+Fusionでは、Text+が文字列・書体・サイズ・配置をもとに文字の画像を生成します。これに対してModifierは、ノードの**設定項目へ渡す値**を決めたり、変化させたりする仕組みです。Juggleは文字を扱うModifierで、映像のピクセルを直接加工する通常のImage Nodeとは役割が異なります。
 
-## 最小構成
+基本的な関係は次のように考えられます。
 
-    Parameter / Data → Juggle → consumer
+    Text+ の Styled Text（文字列の設定項目）
+      └─ Juggle：文字をランダムに混ぜる
+    Text+ の画像出力 → Merge（Foreground）→ MediaOut
+    背景映像 ──────────→ Merge（Background）
 
-これは接続関係を理解するための最小構成案です。公式Manualのexactな作例として確認していない構成は、実制作前にViewerで中間結果を確認します。
+この図の上段は、**文字の設定項目に作用するModifierの概念図**です。「MediaIn → Juggle → MediaOut」のように画像端子をつなぐ手順を意味しません。
 
-## 確認ポイント
+| 対象 | 分かっていること | 未確認のこと |
+| --- | --- | --- |
+| 処理の種類 | 文字をランダムに混ぜるText Modifier | 並び替えか置き換えか、両方か |
+| 入力側 | 文字列の設定値を扱う種類の機能 | Juggle固有の入力名、対象にできる文字ノード |
+| 出力側 | 変化した文字を文字生成側で表示する使い方を想定 | 正式な出力名・データ型、他Modifierとの連鎖 |
+| 時間制御 | Manualの個別説明には記載がない | 開始・終了、変化速度、更新周期、seed、停止方法 |
 
-- 入力dataのdomainが合っているか。
-- この項目のoutputを受け取れる後段Nodeへ接続しているか。
-- 同じ役割を前段 / 後段で二重に処理していないか。
-- source-limited pageでは、未確認のControl名・default・rangeを名前から推測していないか。
+Frontmatterの inputs / outputs にある parameter は、**画像ではなく設定値を扱う機能としての分類**です。Juggleの実際の端子名や数を示すものではありません。詳しくは[パラメータとデータ](../../learn/02-data/parameter-data)と[値の供給元](../../learn/05-time/modifier-parameter-sources)を参照してください。
 
-## Family内での位置づけ
+## 使う場面
 
-Krokodoveノードの全体像と近いNodeの選び分けは[Family Overview](./)を参照してください。
+### タイトルの文字を不規則に見せる
 
-## 出典と確認範囲
+MVやタイトル映像で、文字が一瞬だけ判読しにくくなる演出を考えるときの候補です。Juggleが時間で変化するか、途中から元の文字列へ戻せるかは未確認なので、**完成したタイトルへの切り替えまでJuggle単体でできるとは限りません**。必要なら、確定した文字列を別のText+で用意して編集・合成側で切り替える方法もあります。
 
-このページの役割・data domain・系譜は、既存COLLECTANEA catalogとBlackmagic Design公式資料で確認された範囲をreader-first形式へ整理しています。
+### 機器表示・架空UIの文字演出
 
-Fusion 21.1 Reference Manualで個別のInspector項目・default・rangeまで確認できていない項目は、**source-limited**としてその詳細を断定していません。verification: partial はその未確認範囲を含みます。runtime REGIDや現在のEffects Library表示は別のruntime verificationで確定します。
+画面内のステータス欄に、読めない文字が混じる表現を作りたい場合です。テキストの位置や色、フォントはText+側で作り、文字の変化にJuggleを使えるか調べます。記号や数字を混ぜられるか、文字数を維持するかによって見た目が変わるため、短い試験用文字列での確認が先です。
+
+### モーショングラフィックスの試作
+
+同じレイアウトのまま文字の表示内容だけを変える試作に向きます。文字がランダムに変化する処理と、文字自体の移動・拡大・ぼかしは別の役割です。最終的な読みやすさや停止状態は、Juggleの機能が判明してから設計します。
+
+## 運用例：文字の変わり方を判別する
+
+以下は、**公式の機能説明から作った実機検証手順**です。Juggle固有のInspector項目名や既定値を指定した公式チュートリアルではありません。
+
+1. Text+を置き、最初は「ABCDE」のように重複しない短い半角文字列を入力して表示します。フォントや配置は途中で変えません。
+2. DaVinci Resolve 21.1 Manualに記載された一般的なText+ Modifierの操作として、Styled Text欄を右クリックしてModifierを選択し、InspectorのModifiersタブで調整します。**Krokodove Juggleの実際のメニュー位置・選択名は未確認**なので、使用環境で見つかるか確かめます。
+3. Juggleを適用できたら、同じフレームで適用前後の文字列を比較します。文字の順番だけが変わるのか、別の文字が現れるのか、文字数が変わるのかを記録します。
+4. タイムラインを進め、同じ文字列が表示され続けるか、フレームに応じて変化するかを見ます。変化しない場合に、**速度や時間設定が必ずあるとは推測しません**。実際に表示された設定項目と変化の有無を記録します。
+5. 入力を「AABBC」「12345」「あいうえお」へ順に変えます。繰り返し文字、数字、日本語で何が起こるか比較すると、ランダム化の対象や文字単位を見極めやすくなります。
+6. 文字の結果を確認してから、Text+の画像をMergeのForegroundへ接続して背景に重ねます。文字列の処理と画像の合成を別々に確認します。
+
+結果を判別しやすくするには、同じ短い文字列と同じフレームで**Juggleの有無だけ**を比較します。毎回異なる文字数やフォントで試すと、並び替えなのかレイアウト変化なのかを区別しにくくなります。
+
+## 似た機能との違い
+
+| 機能 | 21.1 Manualで確認できる役割 | 用途の違い |
+| --- | --- | --- |
+| **Juggle** | 文字をランダムに混ぜる | 不規則な文字表示 |
+| [Write](./write) | 文字をタイプ入力風に出し、カーソルや常時表示のPrefixも扱う | 順番に入力されるような表示 |
+| [From File](./from-file) | ファイルまたは手入力から、文章を1行ずつ時間で切り替える | 決まったメッセージの切り替え |
+| [Text+](../generators/text-plus)と標準Follower | 文字ごとのアニメーションを順番に適用する | 位置・変形・シェーディングなどの時間差演出 |
+
+Juggleは「**表示する文字にランダムな変化を与える**」点で、WriteやFrom Fileとは異なります。標準Followerは文字の動きや見た目を時間差で操作するもので、文字列自体をランダム化する機能として紹介されているわけではありません。
+
+同じStyled Text項目で複数のModifierを重ねられるか、順序を指定できるかは未確認です。組み合わせを前提とする構成は、実機で確かめてから採用します。
+
+## 注意点と確認状況
+
+- **ランダム化の仕様**：文字の並び替え、置き換え、文字数の維持、対象文字集合、乱数の再現性（seed）は個別説明では確認できません。
+- **時間とアニメーション**：自動更新の有無、周期、開始・終了、確定した文字へ戻す操作、アニメーション可能な項目は未確認です。
+- **文字種**：日本語、全角記号、結合文字、改行、絵文字が1文字として処理されるかは未確認です。英数字で確認後、日本語を試します。
+- **UI・接続**：Text+にModifierを追加する一般的な手順は確認済みですが、Juggle固有の操作位置、正式な入力・出力名、他の文字ノードへの対応は未確認です。
+- **製品差**：21.1 Manualへの掲載は確認済みです。Resolve Free / Studio / Fusion Studioそれぞれの利用条件と内部REGIDは実機未確認です。
+
+## バージョンと出典
+
+一次資料：Blackmagic Design『DaVinci Resolve 21.1 Reference Manual』（September 2026）、**Chapter 105「Krokodove Nodes」p.2438「Text Modifiers / Juggle」**。確認できる個別機能の記載は、文字をランダムに混ぜるModifierという説明です。
+
+Text+での一般的なModifier追加とInspectorのModifiersタブは、同Manualの**Chapter 103「Generator Nodes」p.2395「Text+ Modifiers」**で確認しました。標準Followerの役割はp.2396によります。Juggle固有の操作や設定の実機検証は未実施のため、verification: partialを維持します。
+
+ほかのKrokodoveツールは[カテゴリ概要](./)から参照できます。
