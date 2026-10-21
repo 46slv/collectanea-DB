@@ -30,7 +30,8 @@ test('impulse diffuses symmetrically and wider sigma lowers its peak', () => {
   assert.ok(sample(c, c) > 0 && sample(c, c) < 255);
   assert.equal(sample(c - 1, c), sample(c + 1, c));
   assert.equal(sample(c, c - 1), sample(c, c + 1));
-  // The final 8-bit rounding loses some low-valued tails of the Gaussian.\n  assert.ok(Math.abs(output.reduce((a, b) => a + b, 0) - 255) < 30);
+  // The final 8-bit rounding loses some low-valued tails of the Gaussian.
+  assert.ok(Math.abs(output.reduce((a, b) => a + b, 0) - 255) < 30);
   assert.ok(gaussianBlurGrayscale(input, w, w, 4)[c * w + c] < sample(c, c));
 });
 
