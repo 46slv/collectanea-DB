@@ -46,7 +46,7 @@ Camera Trackerを2D Viewerへ表示し、**Preview AutoTrack Locations**で追�
 
 ### 2. Solve：カメラを復元できる素材か
 
-**視差**とは、カメラが移動したとき手前と奥の物体が画面上で異なる量だけ動くことです。固定カメラや三脚で向きを変えるだけのパンでは、奥行きを十分に推定できません。追跡点を増やしても解決しない場合があるため、実際のカメラ移動を確認します。平面への画像貼り付けだけが目的なら[Planar Trackerを使う手順](../../recipes/3d/camera-track-3d-object)の説明するCamera Tracker方式ではなく、[平面追跡のRecipe](../../recipes/tracking/planar-track-graphic)も検討します。
+**視差**とは、カメラが移動したとき手前と奥の物体が画面上で異なる量だけ動くことです。固定カメラや三脚で向きを変えるだけのパンでは、奥行きを十分に推定できません。追跡点を増やしても解決しない場合があるため、実際のカメラ移動を確認します。平面への画像貼り付けだけが目的なら、3Dカメラを復元するより[平面追跡のRecipe](../../recipes/tracking/planar-track-graphic)を検討します。
 
 視差があるのにSolveが破綻する場合は、Cameraタブの**Focal Length**（焦点距離）と**Film Gate**（撮像面サイズ）を撮影情報と照合します。Film Gateが不正確だと焦点距離の推定も難しくなります。既に歪み補正した映像へLens Parametersで歪みを重ねていないかも確認します。
 
