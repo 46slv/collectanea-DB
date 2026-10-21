@@ -12,7 +12,7 @@
   align-items: flex-start;
   justify-content: space-between;
   gap: 14px;
-  margin-bottom: 20px;
+  margin-bottom: 10px;
 }
 .vp-dither .vp-dither__heading h3 {
   margin: 0 0 6px;
@@ -36,8 +36,14 @@
   display: grid;
   grid-template-columns: repeat(2, minmax(0, 1fr));
   gap: 14px;
-  padding-bottom: 20px;
-  border-bottom: 1px solid var(--cc-line);
+  margin-top: 20px;
+  padding-top: 18px;
+  border-top: 1px solid var(--cc-line);
+}
+.vp-dither__actions {
+  display: flex;
+  justify-content: flex-end;
+  margin-top: 12px;
 }
 .vp-dither__control {
   display: flex;
@@ -74,7 +80,7 @@
   cursor: pointer;
 }
 .vp-dither .vp-dither__explanation {
-  padding: 14px 0 6px;
+  padding: 0 0 14px;
   margin: 0;
   min-height: 3.7em;
   color: var(--cc-secondary);
