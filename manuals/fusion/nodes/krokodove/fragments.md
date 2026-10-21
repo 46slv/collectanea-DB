@@ -1,9 +1,9 @@
 ---
-title: "Fragments"
-description: "画像を断片化。Range等でfade。"
+title: "Fragments（Krokodove）"
+description: "画像を複数の断片に分け、Rangeで出現・消失を制御するFragmentsの仕組みと使い方。"
 doc_type: node
 term_id: "fragments"
-term_short: "Fragmentsは、画像を断片化。Range等でfade。Krokodove固有のtool。"
+term_short: "画像を断片に分割し、Rangeの設定で断片を徐々に表示・非表示にできるKrokodoveの画像ツール。"
 verification: partial
 aliases: ["Fragments"]
 concepts: ["image-data"]
@@ -14,48 +14,91 @@ outputs: ["image"]
 tasks: ["motion-graphics"]
 product_scope: fusion
 suite_surfaces: ["fusion"]
-updated: "2026-10-05"
+updated: "2026-10-21"
 ---
 
-# Fragments
+# Fragments（Krokodove）
 
-Fragmentsは、画像を断片化。Range等でfade。Krokodove固有のtoolです。名前だけで2D Image Nodeと判断せず、Input / Output domainとFamily Overviewを先に確認します。
+**Fragmentsは、一枚の画像をいくつもの断片に分け、その断片が現れたり消えたりする見え方を作るツール**です。DaVinci Resolve 21.1 Reference Manualでは、分割された部分を「Range options」を使ってフェードイン・フェードアウトできると説明されています。
 
-## 役割
+たとえば、ロゴや写真が一度に切り替わるのではなく、断片ごとに姿を現すようなグラフィックを考えるときに候補になります。ここでの「断片」は、元画像が複数の部分に分かれて見えるという意味です。個々の断片を独立した3D物体に変換したり、物理シミュレーションで飛ばしたりする機能がある、という意味ではありません。
 
-画像を断片化。Range等でfade。このページでは、名前だけで選ばず、**何を受け取り、何が変わり、どのdomainへ返すか**を先に整理します。
+## 断片化とフェードは別の働き
 
-この項目で確認できている中心的な役割は「画像を断片化。Range等でfade」です。exactなInspector項目が未確認の場合は、役割とdata domainを先に使って候補を絞ります。
+このツールを理解するには、二つの処理を分けて考えます。
+
+**断片化**は、元画像のどの部分をひとまとまりとして扱うかに関係する処理です。画像上の模様や文字の形を手掛かりに、分割後の見た目を確認できます。ただし、21.1 Manualの概要には断片の形・数・境界の決め方は記載されていません。四角形に分割される、画像の輪郭を自動認識する、といった細部は確定していません。
+
+**フェード**は、見えている部分を徐々に現したり消したりすることです。公式資料では、断片をフェードイン・フェードアウトするために「Range options」を使うことが示されています。一方、Rangeのどの項目をどう動かすか、断片の順序がどのように決まるか、設定値が時間にどう対応するかは、この一覧だけでは分かりません。
+
+つまり、Fragmentsを「画像をばらばらに見せ、断片の表示量を変えて見せるもの」と理解するところまでは資料で裏付けられますが、「左から順番に消える」「ランダムな方向へ飛ぶ」といった動きは確認済みの仕様ではありません。
 
 ## 入力と出力
 
-入力分類: **image**。 出力分類: **image**。 この分類はdata domainを読むためのものです。Fusion 21.1のexactな端子名・端子数を未確認の場合、ここでは推測して固定しません。
+| 段階 | 扱うもの | 意味 |
+| --- | --- | --- |
+| 主入力 | 2D <Term id="image">Image</Term> | 断片化したい写真、グラフィック、画像化した文字など。 |
+| 処理 | Fragments | 画像を分割し、Rangeの設定で断片のフェードを制御する。 |
+| 出力 | 2D Image | 合成や後段の色処理へ渡す、処理後の画像。 |
 
-## 使うときの判断
+この入出力分類は、公式マニュアルの画像ツールとしての説明と既存COLLECTANEAカタログに基づきます。**端子の正式名・数・追加入力の有無を確定するものではありません。** 断片が独立したShapeデータや3Dシーンとして出力されることも、確認できていません。
 
-KrokodoveはImage、Shape、3D、Regionが同じchapterに並ぶため、まずOutput domainで候補を絞ります。
+## 主な用途
 
-同じ目的を別Familyでも作れる場合は、後段で必要なdata domainと、Graph上で責任をどこに置きたいかで選びます。
+### ロゴやタイトルの出現
 
-## 最小構成
+白黒のロゴや大きな文字を画像として入力し、元画像とFragmentsの結果を比較します。全体を一度に表示するより、部分ごとに現れる見せ方が適しているか判断できます。
 
-    Image / Source → Fragments → Result
+文字をあとで変更する必要がある場合は、Text+をそのまま保持し、変形する枝と編集用の文字を分けておくと扱いやすくなります。Fragmentsが文字を一文字ずつ認識するという意味ではありません。
 
-これは接続関係を理解するための最小構成案です。公式Manualのexactな作例として確認していない構成は、実制作前にViewerで中間結果を確認します。
+### 写真の切り替えに断片の動きを加える
 
-## 確認ポイント
+写真AにFragmentsを適用し、別の写真Bの上へ合成する構成が考えられます。Aの断片が消える過程でBが見えると、単純な全面クロスディゾルブとは異なる切り替わり方を試せます。ただし、フェード順序や分割形状の選択肢は現行UIで確認が必要です。
 
-- 入力dataのdomainが合っているか。
-- この項目のoutputを受け取れる後段Nodeへ接続しているか。
-- 同じ役割を前段 / 後段で二重に処理していないか。
-- source-limited pageでは、未確認のControl名・default・rangeを名前から推測していないか。
+### MVの抽象背景
 
-## Family内での位置づけ
+コントラストの大きい図柄、ストライプ、幾何学模様を入力すると、断片化によって変わる部分を観察しやすくなります。背景だけをFragmentsへ通し、文字や人物の合成はその後に行えば、読みやすい要素を加工対象から外せます。
 
-Krokodoveノードの全体像と近いNodeの選び分けは[Family Overview](./)を参照してください。
+## 制作例：断片的に現れる画像を背景へ重ねる
 
-## 出典と確認範囲
+次は**構成を確かめるための作例**です。Blackmagic Designが設定値を指定した公式チュートリアルではありません。
 
-このページの役割・data domain・系譜は、既存COLLECTANEA catalogとBlackmagic Design公式資料で確認された範囲をreader-first形式へ整理しています。
+~~~text
+MediaIn（ロゴや模様の画像） → Fragments → Merge（Foreground） → MediaOut
+Background（背景画像） ─────────────→ Merge（Background）
+~~~
 
-Fusion 21.1 Reference Manualで個別のInspector項目・default・rangeまで確認できていない項目は、**source-limited**としてその詳細を断定していません。verification: partial はその未確認範囲を含みます。runtime REGIDや現在のEffects Library表示は別のruntime verificationで確定します。
+1. まず、白黒で輪郭のはっきりした画像を用意します。MediaInをFragmentsにつなぎ、処理前後をViewerで切り替えて比較します。
+2. 実際のInspectorにあるRange関連の設定を確認します。値を変えたとき、画像のどの部分が残るか、どこから見えなくなるかを調べます。未確認の正式パラメータ名や推奨数値は指定しません。
+3. フェードインとフェードアウトの両方を試し、断片の分割と表示の変化を分けて観察します。必要な時間変化は、現行UIでアニメーションできる項目を確認してから設定します。
+4. Fragmentsの結果をMergeのForegroundへつなぎ、別の背景をBackgroundへ渡します。画像が消えていく途中で、背後の画がどのように見えるかを確かめます。
+5. 動画では境界のちらつき、細い線、透明部分、処理前後の画面端を再生して確認します。Alphaの計算方式や境界の補間方法は、この一次資料だけでは確定できません。
+
+**文字や人物を加工したくない場合は、Fragmentsの後で合成します。** 先に文字を画像へ合成してからFragmentsに通すと、その文字も入力画像の一部になります。
+
+## 近いツールとの使い分け
+
+| ツール | 主な違い |
+| --- | --- |
+| **Fragments** | 画像を断片に分け、Rangeで断片をフェードイン・フェードアウトする。 |
+| [Grow](./grow) | ひとつ以上の起点（seed locator）から画像が現れる・消える動きを扱う。 |
+| [Extend](./extend) | 画像端の画素を水平・垂直方向に引き延ばし、繰り返すような見た目を作る。 |
+| [Rasterize](./rasterize) | 画像を点や図形状の模様に置き換える。分割した断片のフェードとは別の効果。 |
+| [Dither](./dither) | ノイズのパターンによって階調を表す。画像が分割されて消える処理ではない。 |
+
+「画像を部分ごとに見せたい」という目的でも、どこから現れるかを重視するならGrow、断片として現れたり消えたりする見え方ならFragmentsが候補になります。どちらも同じ操作・同じ結果になるという意味ではありません。
+
+## 確認しておきたいこと
+
+- **Rangeの詳細**：21.1 Manualの一覧は「Range options」としか述べていません。正式な各パラメータ名、範囲、既定値、分割数との関係は未確認です。
+- **分割の規則**：断片の形状・数・順序、ランダム化の有無やseed、画面外の扱いは未確認です。
+- **画像と透明度**：Alpha、画像の大きさ、premultiply、境界の補間・描画品質は実機で検証が必要です。
+- **バージョン・Edition**：21.1 Manualへの掲載は確認していますが、Resolve Free／Studio／Fusion Studioごとの提供差、内部REGID、正確な端子構成は確認していません。
+
+## バージョンと出典
+
+一次資料：Blackmagic Design『DaVinci Resolve 21.1 Reference Manual』（2026年9月）、**Chapter 105「Krokodove Nodes」、p.2434「Image Tools / Fragments」**。掲載内容は、画像を別々の断片に分け、Rangeの設定でフェードイン・フェードアウトできるという説明です。入出力の2D Image分類には既存COLLECTANEAカタログも参照しています。
+
+上記の接続例と制作用途は、確認できた役割に基づく**検証・応用例**です。Inspectorの詳細や実際の描画結果を確認したものではないため、frontmatterの `verification: partial` は維持しています。
+
+[Krokodoveのツール一覧](./)に戻る。

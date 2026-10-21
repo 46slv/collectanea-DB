@@ -1,9 +1,9 @@
 ---
-title: "Microwaves"
-description: "中心から放射するhighlight/beam。shape control。"
+title: "Microwaves（Krokodove）"
+description: "中心から放射する光の筋を作るMicrowavesの役割、使いどころ、確認手順と関連ノードを解説。"
 doc_type: node
 term_id: "microwaves"
-term_short: "Microwavesは、中心から放射するhighlight/beam。shape control。Krokodove固有のtool。"
+term_short: "中心点から外側へ広がる光の筋を描き、全体の形も調整できるKrokodoveの画像ツール。"
 verification: partial
 aliases: ["Microwaves"]
 concepts: ["image-data"]
@@ -14,48 +14,84 @@ outputs: ["image"]
 tasks: ["motion-graphics"]
 product_scope: fusion
 suite_surfaces: ["fusion"]
-updated: "2026-10-05"
+updated: "2026-10-21"
 ---
 
-# Microwaves
+# Microwaves（Krokodove）
 
-Microwavesは、中心から放射するhighlight/beam。shape control。Krokodove固有のtoolです。名前だけで2D Image Nodeと判断せず、Input / Output domainとFamily Overviewを先に確認します。
+**Microwavesは、ある中心から外側へ向かって伸びる光の筋を作るツール**です。DaVinci Resolve 21.1 Reference Manualでは、中心点から放射状のハイライトを生成し、光線のような見た目を表現でき、全体の形を変える追加の調整機能を持つと説明されています。
 
-## 役割
+「放射状」とは、車輪のスポークのように、一つの中心から複数の方向へ線が伸びる配置です。ここでいう光の筋は**画面に描く画像効果**を指します。実際に光源から3D空間を通る光を計算するレイトレーシングや、空気中の霧に光が散乱する物理シミュレーションを確認したものではありません。
 
-中心から放射するhighlight/beam。shape control。このページでは、名前だけで選ばず、**何を受け取り、何が変わり、どのdomainへ返すか**を先に整理します。
+名称の *Microwaves* は電磁波の種類を表す英単語ですが、このFusionツールが作るのは、公式資料にあるとおり**画面上の放射状のハイライト**です。映像へマイクロ波を計算・照射するツールではありません。
 
-この項目で確認できている中心的な役割は「中心から放射するhighlight/beam。shape control」です。exactなInspector項目が未確認の場合は、役割とdata domainを先に使って候補を絞ります。
+## 何を受け取り、何を出すか
 
-## 入力と出力
+| 段階 | データ分類 | 読み方 |
+| --- | --- | --- |
+| 入力 | 2D <Term id="image">Image</Term>（既存カタログ上の分類） | 効果をかける写真、文字画像、明暗のある図柄など。 |
+| 処理 | Microwaves | 中心から伸びる光の筋を作り、全体の形を変える。 |
+| 出力 | 2D Image（既存カタログ上の分類） | 後段の画像処理や合成で扱う結果。 |
 
-入力分類: **image**。 出力分類: **image**。 この分類はdata domainを読むためのものです。Fusion 21.1のexactな端子名・端子数を未確認の場合、ここでは推測して固定しません。
+これはCOLLECTANEAの既存カタログと公式Manualの「Image Tools」分類を合わせた**データの種類**の案内です。21.1 Manualの短い概要だけでは、実際の入力端子の正式名、端子数、追加入力の有無、Alphaの扱いは確定できません。Shapeデータや3D Sceneの出力を持つと断定するものでもありません。
 
-## 使うときの判断
+## 向いている見た目
 
-KrokodoveはImage、Shape、3D、Regionが同じchapterに並ぶため、まずOutput domainで候補を絞ります。
+### タイトルやロゴの背後に光の広がりを足す
 
-同じ目的を別Familyでも作れる場合は、後段で必要なdata domainと、Graph上で責任をどこに置きたいかで選びます。
+明るい文字や図柄に、中心から外へ広がる線状のハイライトを合わせる用途です。文字そのものを読みやすく残したい場合は、文字を加工する経路と光を作る経路を分け、後段で合成する構成を考えます。
 
-## 最小構成
+### MVやライブ映像の抽象的な背景
 
-    Image / Source → Microwaves → Result
+線の集まる中心を視線の集まる場所として使えば、画面内の動きや奥行き感を強めるグラフィックの材料になります。光の形状がどこまで変えられるかは、実際のInspectorで確認します。中心位置を時間で動かせるか、どの設定にキーフレームを設定できるかは、今回確認したManualの説明範囲外です。
 
-これは接続関係を理解するための最小構成案です。公式Manualのexactな作例として確認していない構成は、実制作前にViewerで中間結果を確認します。
+### 光源に合わせた演出候補として比べる
 
-## 確認ポイント
+ステージライト、太陽、ヘッドライトなどに光の筋を足したいとき、Microwavesと[Glow](../blur-filter/glow)、[Rays](../effects-film/rays)、[Hot Spot](../effects-film/hot-spot)を同じ素材で比較すると、目的に近い処理を選びやすくなります。特定の光源を自動認識・追跡する機能がMicrowavesにあるという意味ではありません。
 
-- 入力dataのdomainが合っているか。
-- この項目のoutputを受け取れる後段Nodeへ接続しているか。
-- 同じ役割を前段 / 後段で二重に処理していないか。
-- source-limited pageでは、未確認のControl名・default・rangeを名前から推測していないか。
+## 最小の確認手順
 
-## Family内での位置づけ
+次は**効果の性質を調べるための構成案**です。公式Manualに記載された接続図やパラメータ値ではありません。
 
-Krokodoveノードの全体像と近いNodeの選び分けは[Family Overview](./)を参照してください。
+~~~text
+MediaIn（試験用画像） → Microwaves → MediaOut
+~~~
 
-## 出典と確認範囲
+1. 暗い背景に白い点、または小さな明るい図形がある画像を用意します。まずは変化を見分けやすい単純な素材から試します。
+2. Microwavesを通す前と後の画像をViewerで比較し、線が広がる中心、伸びる方向、元画像のどこを参照しているように見えるかを確認します。
+3. Inspectorに表示される設定を実機で確認し、**全体の形を変える項目**を一つずつ変更します。設定名や数値は、確認していないものをここで指定しません。
+4. 明るい図形を画像の中央から端へ移した別素材でも試します。放射中心が素材に追従するのか、別途設定するのかを観察します。
+5. 結果を別の映像に重ねたい場合は、MergeのForegroundへ接続し、元映像をBackgroundへ接続する方法を試します。Alphaと合成モードによって見え方が変わるため、透明部分の有無をViewerで確かめます。
 
-このページの役割・data domain・系譜は、既存COLLECTANEA catalogとBlackmagic Design公式資料で確認された範囲をreader-first形式へ整理しています。
+~~~text
+試験用画像 → Microwaves ──→ Merge（Foreground）→ MediaOut
+元映像 ─────────────────→ Merge（Background）
+~~~
 
-Fusion 21.1 Reference Manualで個別のInspector項目・default・rangeまで確認できていない項目は、**source-limited**としてその詳細を断定していません。verification: partial はその未確認範囲を含みます。runtime REGIDや現在のEffects Library表示は別のruntime verificationで確定します。
+**入力画像がそのまま見えるか、光の部分だけが出るかは実機確認事項**です。必ずしもこの接続だけで意図した加算発光になるわけではありません。元映像に重ねる場合は、処理結果のAlphaや合成方式を確認します。
+
+## Glow、Rays、Hot Spotとの違い
+
+| ツール | 確認できている中心的な役割 | 選ぶときの目安 |
+| --- | --- | --- |
+| **Microwaves** | 中心から放射状のハイライトを作り、全体の形を変える。 | 放射する線状の光の模様が目的。 |
+| [Glow](../blur-filter/glow) | 入力画像から広がる柔らかな発光の輪郭を作る。 | 文字や明部の周辺を光らせたい。 |
+| [Rays](../effects-film/rays) | 入力の形や明るさと指定中心の位置関係から光条を伸ばす。 | 元画像の形を手がかりに長い筋を作りたい。 |
+| [Hot Spot](../effects-film/hot-spot) | 指定位置の光源、レンズ内反射、遮蔽物による光の見え隠れを扱う。 | ヘッドライトなどの位置・反射・遮蔽を重視する。 |
+
+これらは結果の比較であり、MicrowavesにRaysと同じCenterやThresholdがある、Hot Spotと同じOcclusion入力がある、という説明ではありません。設定名や接続仕様をほかのノードから流用しないようにします。
+
+## 未確認の範囲
+
+- **Inspector**：各パラメータの正式名、初期値、数値範囲、放射中心の指定方法、形状設定の種類。
+- **接続と描画**：正式な端子名・数、追加のMaskやImage入力の有無、Alphaや色の処理、HDRでの振る舞い。
+- **アニメーション**：何をキーフレーム化できるか、時間とともに光の筋をどう変えられるか。
+- **提供条件**：Resolve Free／Studio／Fusion Studioの差、内部REGID、Effects Libraryでの配置。
+
+## バージョンと出典
+
+Blackmagic Design『DaVinci Resolve 21.1 Reference Manual』（2026年9月）、**Chapter 105「Krokodove Nodes」、p.2434「Image Tools / Microwaves」**。確認できる仕様は、中心点から放射するハイライトの生成、光線のような表現、全体形状を変える追加の調整機能です。
+
+入出力のImage分類は既存COLLECTANEAカタログを補助根拠とし、制作例は公式機能説明から組み立てた**確認用の提案**です。21.1実機の結果や全設定の同定は未完了のため、`verification: partial` を維持しています。
+
+[Krokodoveノード一覧](./)へ戻る。
