@@ -1,9 +1,9 @@
 ---
 title: "Noise"
-description: "pixelated pattern。random/selected color。"
+description: "画面にピクセル状の色模様を作るKrokodoveのNoise。色の扱い、入出力、制作例、Generate・rNoiseとの違いを整理。"
 doc_type: node
 term_id: "noise"
-term_short: "Noiseは、pixelated pattern。random/selected color。Krokodove固有のtool。"
+term_short: "ピクセル状のノイズ模様を作るKrokodoveの画像処理ツール。模様の色はランダム生成または指定できる。"
 verification: partial
 aliases: ["Noise"]
 concepts: ["image-data"]
@@ -14,48 +14,77 @@ outputs: ["image"]
 tasks: ["motion-graphics"]
 product_scope: fusion
 suite_surfaces: ["fusion"]
-updated: "2026-10-05"
+updated: "2026-10-22"
 ---
 
 # Noise
 
-Noiseは、pixelated pattern。random/selected color。Krokodove固有のtoolです。名前だけで2D Image Nodeと判断せず、Input / Output domainとFamily Overviewを先に確認します。
+**Noiseは、画面にピクセル状の色模様を作るKrokodoveの画像処理ツール**です。細かな色の区画が集まったような、デジタルなノイズ表現を作りたいときに候補になります。DaVinci Resolve 21.1の公式マニュアルでは、模様の色をランダムに生成する方法と、色を指定する方法が紹介されています。
 
-## 役割
+## 何をするノードか
 
-pixelated pattern。random/selected color。このページでは、名前だけで選ばず、**何を受け取り、何が変わり、どのdomainへ返すか**を先に整理します。
+「ノイズ」は映像ではさまざまな意味を持ちます。例えば、フィルムの粒子に似せた細かいざらつき、明るさが不規則に変化するテクスチャ、画面が色のブロックに分かれたようなデジタル表現です。**KrokodoveのNoiseが公式資料で説明されているのは、最後のようなピクセル状のパターン生成**です。
 
-procedural patternを作る / 使う系統です。見せるImageなのか、Mask / displacement / control sourceなのかを分けます。
+これは、入力映像の解像度を下げる処理や、カメラの撮像ノイズを物理的に再現する処理と同じだと断定できるものではありません。また、模様に使う色を指定できることは確認できますが、**どの領域に何色が配置されるか、元画像の色がどの程度残るか**は短いマニュアルの説明だけでは確定しません。
+
+このページでいう「画像」は、色と明るさを持った画素の集まりです。Fusionの<Term id="image">Imageデータ</Term>として扱うもので、輪郭を個別に編集するShapeデータや、効果の作用範囲を伝えるRegionとは区別します。
 
 ## 入力と出力
 
-入力分類: **image**。 出力分類: **image**。 この分類はdata domainを読むためのものです。Fusion 21.1のexactな端子名・端子数を未確認の場合、ここでは推測して固定しません。
+| 項目 | 確認できること | 未確認のこと |
+| --- | --- | --- |
+| 入力 | 既存COLLECTANEAのノード分類は **Image** | 正式な入力端子名・本数、接続が必須かどうか |
+| 処理 | ピクセル状の模様を作る。色はランダム生成または指定が可能 | 色指定の操作方法、模様の大きさ・配置を変える正式な設定 |
+| 出力 | 既存COLLECTANEAのノード分類は **Image** | Alphaの扱い、画素値の計算方式、追加出力の有無 |
 
-## 使うときの判断
+**Imageという記述はデータの種類**を指します。公式マニュアルのKrokodove一覧には、このNoiseの全端子やInspector項目は掲載されていません。表に書かれた分類だけで、ノードの入力・出力コネクタの名前を確定したものではありません。
 
-KrokodoveはImage、Shape、3D、Regionが同じchapterに並ぶため、まずOutput domainで候補を絞ります。
+## どういう制作に使うか
 
-同じ目的を別Familyでも作れる場合は、後段で必要なdata domainと、Graph上で責任をどこに置きたいかで選びます。
+- **デジタルな背景模様：** タイトルの背後に、細かな色の区画が不規則に並ぶテクスチャを置く。
+- **グリッチ調の演出：** 映像の一部だけにピクセル状の色模様を重ね、電子画面の乱れを連想させる見た目にする。
+- **色数を絞ったグラフィック：** 指定した色を使い、作品の配色に合わせたノイズ背景を試す。
 
-## 最小構成
+これらは確認済みの「ピクセル状の模様」「ランダムまたは指定した色」という性質から考えた**制作上の使用案**です。矩形単位の選択、マスク入力、時間変化、色数の指定といった機能が必ずあるという意味ではありません。
 
-    Image / Source → Noise → Result
+## 具体例：タイトル背景用の模様を作る
 
-これは接続関係を理解するための最小構成案です。公式Manualのexactな作例として確認していない構成は、実制作前にViewerで中間結果を確認します。
+1. まずFusionでNoiseを追加し、**Noise単体の出力をViewerへ表示**します。入力を求める端子がある場合は実際の表示に従って画像を接続し、入力前後で結果を比較します。
+2. Inspectorに色の生成・指定に関する項目が表示されたら、まずランダム色と指定色の結果を見比べます。どのラベル・操作で切り替えるかは実機の画面で確認してください。
+3. 模様の大きさや密度を変えられる項目があるか確認し、存在する場合だけ一つずつ変更します。細部が小さすぎると最終的な動画サイズでつぶれるため、**最終出力に近いViewer倍率**でも確認します。
+4. ほかの映像・タイトルと組み合わせる場合は、Noiseの結果を一度別系統の画像として扱い、`Merge`などで合成する方法を検討します。完全不透明な出力なら前景が背景を隠す可能性があるため、Alphaや合成方法をViewerで確かめます。
 
-## 確認ポイント
+```text
+Noise（出力を確認） ──→ Merge（前景として試す） ──→ MediaOut
+Backgroundなど ────→ Merge（背景）
+```
 
-- 入力dataのdomainが合っているか。
-- この項目のoutputを受け取れる後段Nodeへ接続しているか。
-- 同じ役割を前段 / 後段で二重に処理していないか。
-- source-limited pageでは、未確認のControl名・default・rangeを名前から推測していないか。
+この図は**画像として出力できた場合の合成例**です。公式の接続図でも、入力端子の有無やAlpha動作を検証済みの構成でもありません。
 
-## Family内での位置づけ
+## 似たノードとの使い分け
 
-Krokodoveノードの全体像と近いNodeの選び分けは[Family Overview](./)を参照してください。
+| ノード | 違い・選ぶ目安 |
+| --- | --- |
+| **Noise** | ピクセル状の色模様。ランダム色と指定色の使い分けが特徴。 |
+| [Generate](./generate) | 元の入力へ加える、ランダムに見える**グレースケール**のテクスチャ。色付きピクセル模様とは目的が異なる。 |
+| [Dither](./dither) | ノイズ状の配置によって、限られた階調でも濃淡を感じさせる表現。自由な色模様の生成とは目的が異なる。 |
+| [Rasterize](./rasterize) | 画像を点・四角・ひし形などの小さな図形の集まりとして表す、網点印刷風の加工。 |
+| [rNoise](./rnoise) | **Regionデータ**を作り、Region入力を持つ効果へ作用範囲を渡す。通常のノイズ画像を作るためのノードではない。 |
 
-## 出典と確認範囲
+特に**NoiseとrNoiseは別の種類の出力**です。名前が似ていても、rNoiseのRegionを通常の2D画像入力へつなぐ前提で考えないでください。Krokodove全体のデータ分類は[ノード索引](./)で確認できます。
 
-このページの役割・data domain・系譜は、既存COLLECTANEA catalogとBlackmagic Design公式資料で確認された範囲をreader-first形式へ整理しています。
+## 使用時の注意
 
-Fusion 21.1 Reference Manualで個別のInspector項目・default・rangeまで確認できていない項目は、**source-limited**としてその詳細を断定していません。verification: partial はその未確認範囲を含みます。runtime REGIDや現在のEffects Library表示は別のruntime verificationで確定します。
+- **グリッチの動き：** 静止画と動画で模様がどう変化するかは未確認です。自動でちらつく・時間とともに変わるとは断定せず、複数フレームを確認してください。
+- **色と階調：** 色を選べることは、任意のパレット数や各色の出現率を指定できることの証明ではありません。マニュアルの記述範囲を超える制御は実機で確認します。
+- **合成・画質：** 細かな高コントラスト模様は縮小・圧縮で見た目が変わることがあります。これは一般的な画像処理の注意で、Noise固有の内部アルゴリズムを示すものではありません。
+- **Edition差：** Resolve Free / Studio / Fusion Studio間の提供差、Inspectorの正式名称・初期値・数値範囲は未確認です。
+
+## バージョン・出典・確認範囲
+
+- **一次資料：** Blackmagic Design『*DaVinci Resolve 21.1 Reference Manual*』（2026年9月）、Chapter 105「Krokodove Nodes」、**p.2436のImage Pixel Tools / Noise**。ピクセル状のパターン生成と、ランダム色・指定色を使える点を確認。
+- **比較の根拠：** 同章p.2435のGenerate、p.2434のDither、p.2435のRasterize、p.2438のrNoise。各機能の目的とデータの違いを参照。
+- **ノード分類：** 入出力をImageとする記述は既存COLLECTANEAのカタログによるもの。21.1マニュアルが端子仕様を明示したという意味ではありません。
+- **未確認：** 実機での接続、Inspectorの設定名と値域、Alpha挙動、時間変化、色パターンの計算方法、Edition差。したがって`verification: partial`を維持します。
+
+ほかのノードは[Krokodoveのカテゴリ索引](./)から探せます。
