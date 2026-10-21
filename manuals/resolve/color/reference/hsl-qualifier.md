@@ -138,4 +138,4 @@ QualifierにはHSL以外のモードもあります。使用目的が違う場�
 - **資料で確認した範囲**：上記の機能・UI名称・操作方法。2つの操作例は公式仕様から組み立てた学習用シナリオです。
 - **未確認**：Resolve 21.1実機でのクリック位置や表示差、OS・入力装置ごとのショートカット、特定素材に最適なHSL数値、Free／Studioの機能境界。ここでは固定プリセット値や実機確認済みという記述は置いていません。
 
-関連：[Primaries](./primaries-color-wheels)／[Color Node Graph](../learn/color-node-graph)／[Scopes](./scopes)／[Colorページ索引](../index)
+関連：[Primaries](./primaries-color-wheels)／[Color Node Graph](../learn/color-node-graph)／[Scopes](./scopes)／[Colorページ索引](../)

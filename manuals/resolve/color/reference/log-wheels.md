@@ -81,4 +81,4 @@ Logクリップ
 
 **検証状態：partial。** 公式21.1文書を確認済みですが、Resolve実機での操作結果、OS別のショートカット、Free／Studio差、正確なRange初期値は未検証です。ここでは推奨数値を創作しません。
 
-関連：[Primaries](./primaries-color-wheels)／[Scopes](./scopes)／[Colorページ索引](../index)
+関連：[Primaries](./primaries-color-wheels)／[Scopes](./scopes)／[Colorページ索引](../)

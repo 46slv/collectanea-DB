@@ -35,10 +35,11 @@ Colorページは、素材の明るさや色の偏りを整え、複数ショッ
 - [HDRパレット](./reference/hdr-palette) — Global、6つの明暗ゾーン、Range／Falloff
 - [Custom Curves](./reference/custom-curves) — YRGBとチャンネル別カーブ、階調の形の調整
 - [HSL Qualifier](./reference/hsl-qualifier) — 色相・彩度・輝度による抽出とMatte Finesse
+- [Power Windows](./reference/power-windows) — 形・位置による局所補正、Qualifierとの併用と追跡時の注意
 
 ## 次に整備する領域
 
-機能固有の操作、使い分け、実践的な手順を、公式21.1マニュアルと実機確認を基に段階的に追加します。候補はHue系Curves、Power Window、Tracker、Key、Gallery／Stills、Color Management、Shot Matching、Noise Reductionなどです。
+機能固有の操作、使い分け、実践的な手順を、公式21.1マニュアルと実機確認を基に段階的に追加します。候補はHue系Curves、Tracker、Key、Gallery／Stills、Color Management、Shot Matching、Noise Reductionなどです。
 
 ## Fusionとの差
 
