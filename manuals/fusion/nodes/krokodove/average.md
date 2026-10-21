@@ -85,9 +85,20 @@ updated: '2026-10-20'
 
 ## 似たツールとの違い
 
+### 標準のFrame Averageとの違い
+
+Fusionには、名前も処理の目的も似た[Frame Average](../time-metadata/frame-average)という**標準ノード**があります。KrokodoveのAverageと同じものではありません。どちらも時間の異なるフレームを平均しますが、**Inspectorで何を指定できるかは分けて読む**必要があります。
+
+- **Krokodove Average**：21.1 ManualのChapter 105、p.2435では、連続する複数フレームを平均してframe blendingを作ると説明されています。参照方向・フレーム数・欠損フレームの設定名は、この項目には記載されていません。
+- **標準Frame Average**：Chapter 111、pp.2596–2597では、単一の2D Image入力に加え、**Sample Direction**（Forward / Both / Backward）、**Frames**、**Missing Frames**を説明しています。前後のどの時刻を読むか、必要なフレームが存在しないときにどう扱うかを指定できます。
+
+たとえば「動く物体の**過去の位置だけ**を残したい」という目的で、Sample DirectionのBackwardを使う手順は**標準Frame Averageについて確認できる操作**です。同じ名前の項目をKrokodove AverageのInspectorで探す手順にはしません。Krokodove版では、実際のノード表示と時間方向の結果を確認してから設定を決めます。
+
+
 | ツール | 21.1 Manualなどで確認できる中心的な働き | 使い分け |
 | --- | --- | --- |
 | **Average** | 連続する複数フレームを平均し、frame blendingを作る。 | 異なる時刻の像を重ねる表現を試す。 |
+| [Frame Average（標準Fusion）](../time-metadata/frame-average) | 複数フレームを平均。Sample Direction・Frames・Missing Framesを21.1 Manualで確認できる。 | 参照する時間方向や欠損フレームの扱いを明示して設定したい。 |
 | [Deflicker](./deflicker) | 連続フレーム間の局所的・全体的なちらつきを取り除く。 | 明るさなどの時間変動の補正が主目的。 |
 | [Time Mapper](./time-mapper) | 外部の画像マップによってシーケンス中の異なる時刻を組み合わせる。 | 画像内の場所に応じた時間の操作を検討する。 |
 | [Seamless Loop](./seamless-loop) | コンポジションの時間を調整し、ループするシーケンスを作る。 | 動画の始点と終点をつなぐことが目的。 |
@@ -97,6 +108,7 @@ updated: '2026-10-20'
 ## 制作時に確認すること
 
 - **前後のフレーム：** どの範囲の時刻を参照するか、クリップの先頭・末尾でどのように処理するかはManualの短い説明だけでは分かりません。
+- **似た名前の設定：** 標準Frame AverageのSample Direction / Frames / Missing Framesを、Krokodove Averageの設定として流用しないでください。Chapter 105にはその対応関係が示されていません。
 - **Alphaと合成：** 透明なグラフィックを混ぜたときのRGBとAlphaの処理方法は未確認です。背景に重ねる場合はMerge後まで確認してください。
 - **動くエッジ：** 多重像は狙いによって長所にも欠点にもなります。人物の顔、細かい文字、輪郭の強い図形では特に見比べます。
 - **パフォーマンス：** 複数時刻の画像を扱うため処理負荷を確認する価値はありますが、内部キャッシュの方式や具体的な負荷は未計測です。
@@ -104,7 +116,7 @@ updated: '2026-10-20'
 
 ## 出典と確認範囲
 
-**一次資料：** Blackmagic Design『DaVinci Resolve 21.1 Reference Manual』（September 2026）、Chapter 105「Krokodove Nodes」、**p.2435、Image Pixel Tools — Average**。同ページの表では、複数の連続フレームを平均し、frame blendingの効果を作るツールとして説明されています。比較対象のDeflickerは同Chapterのp.2436、Time MapperとSeamless Loopも同Chapterに掲載されています。
+**一次資料：** Blackmagic Design『DaVinci Resolve 21.1 Reference Manual』（September 2026）、Chapter 105「Krokodove Nodes」、**p.2435、Image Pixel Tools — Average**。同ページの表では、複数の連続フレームを平均し、frame blendingの効果を作るツールとして説明されています。比較対象のDeflickerは同Chapterのp.2436、Time MapperとSeamless Loopも同Chapterに掲載されています。**標準Frame Average**は同Manual Chapter 111、pp.2596–2597で入力とInspectorの設定を確認しました。
 
 公式資料の入口：[Blackmagic Design サポート](https://www.blackmagicdesign.com/jp/support/)。
 
