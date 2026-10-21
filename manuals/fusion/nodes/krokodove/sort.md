@@ -1,61 +1,104 @@
 ---
-title: "Sort"
-description: "color value等でpixel sort。"
+title: Sort（Krokodove）
+description: 色の値に基づいて画素を並べ替えるSortの役割、入力・出力、観察方法と似たツールとの違い。
 doc_type: node
-term_id: "sort"
-term_short: "Sortは、color value等でpixel sort。Krokodove固有のtool。"
+term_id: sort
+term_short: 色の値を基準に画素の並びを変える、Krokodoveの画像加工ツール。
 verification: partial
-aliases: ["Sort"]
-concepts: ["image-data"]
-nodes: ["Sort"]
-node_family: "krokodove"
-inputs: ["image"]
-outputs: ["image"]
-tasks: ["motion-graphics"]
+aliases: [Sort]
+concepts: [image-data]
+nodes: [Sort]
+node_family: krokodove
+inputs: [image]
+outputs: [image]
+tasks: [motion-graphics]
 product_scope: fusion
-suite_surfaces: ["fusion"]
-updated: "2026-10-05"
+suite_surfaces: [fusion]
+updated: '2026-10-21'
 ---
 
-# Sort
+# Sort（Krokodove）
 
-Sortは、color value等でpixel sort。Krokodove固有のtoolです。名前だけで2D Image Nodeと判断せず、Input / Output domainとFamily Overviewを先に確認します。
+**Sortは、画像を構成する画素（ピクセル）を、色の値に基づいて並べ替えるKrokodoveのツール**です。DaVinci Resolve 21.1 Reference Manualでは「Image Pixel Tools」に分類されています。
 
-## 役割
+写真や動画は、小さな色の点を並べて作られています。Sortでは、もともとの画像に含まれる画素を材料として、**その並び方を変える**処理を行います。単に全体を明るくしたり、赤みを強めたりする色補正とは異なります。輪郭や色のまとまりが変わる抽象的な画像表現を試すときに候補になります。
 
-color value等でpixel sort。このページでは、名前だけで選ばず、**何を受け取り、何が変わり、どのdomainへ返すか**を先に整理します。
+## 並べ替えるとはどういうことか
 
-この項目で確認できている中心的な役割は「color value等でpixel sort」です。exactなInspector項目が未確認の場合は、役割とdata domainを先に使って候補を絞ります。
+色の違う小さな四角を、不規則に並べた画像を想像してください。色の値を比較して画素を並べ替えると、元の四角の形や配置が変わる可能性があります。「赤い四角」という図形オブジェクトを動かすのではなく、**その四角を描いていた画素の配置を加工する**点が重要です。
+
+公式Manualで確認できるSortの説明は「色の値に基づいて画素を並べ替える」という一行です。色のどの成分を比較するか、昇順・降順、水平・垂直といった方向、並べ替えの範囲・単位は記載されていません。「明るい点が必ず画面右端へ集まる」「必ず横長の筋になる」といった結果は断定できません。
 
 ## 入力と出力
 
-入力分類: **image**。 出力分類: **image**。 この分類はdata domainを読むためのものです。Fusion 21.1のexactな端子名・端子数を未確認の場合、ここでは推測して固定しません。
+| 段階 | データ | 役割 |
+| --- | --- | --- |
+| 入力 | 2D <Term id="image">Image</Term> | 写真、動画、文字や図形を画像として描画したもの。 |
+| 処理 | Sort | 色の値に基づいて画素を並べ替える。 |
+| 出力 | 2D Image | 加工後の画像をViewerで見たり、ほかの画像処理や合成へ渡したりする。 |
 
-## 使うときの判断
+Imageは、各画素の色や透明度などを持つ2D画像データです。SortはShapeの輪郭情報や3Dの形状を直接編集するノードではありません。
 
-KrokodoveはImage、Shape、3D、Regionが同じchapterに並ぶため、まずOutput domainで候補を絞ります。
+入出力の**画像という分類**は、21.1 Manualの「Image Pixel Tools」とCOLLECTANEAの既存カタログに基づきます。**正式な端子名・端子数、補助入力やEffect Maskの有無は未確認**です。主入力をImageとして説明していても、端子が一つしかないと確認したわけではありません。
 
-同じ目的を別Familyでも作れる場合は、後段で必要なdata domainと、Graph上で責任をどこに置きたいかで選びます。
+## 主な用途
 
-## 最小構成
+### 抽象的な色のパターンを作る
 
-    Image / Source → Sort → Result
+色の帯、格子、模様を入力し、画素の並びが変わった結果をグラフィックとして使う制作案です。元画像と加工後を見比べやすいよう、最初は少ない色数で試すとよいでしょう。
 
-これは接続関係を理解するための最小構成案です。公式Manualのexactな作例として確認していない構成は、実制作前にViewerで中間結果を確認します。
+### 映像の見た目を崩す
 
-## 確認ポイント
+風景や人物の映像をSortに通し、輪郭や色のまとまりがどう変わるかを確認する方法です。作品の一部分だけへ適用したい場合は、元映像と加工済みの画像を別の合成処理で組み合わせる方法も考えられます。特定のグリッチや筋状の効果を保証するものではありません。
 
-- 入力dataのdomainが合っているか。
-- この項目のoutputを受け取れる後段Nodeへ接続しているか。
-- 同じ役割を前段 / 後段で二重に処理していないか。
-- source-limited pageでは、未確認のControl名・default・rangeを名前から推測していないか。
+### 文字の表示を加工する
 
-## Family内での位置づけ
+Text+で作ったタイトルを画像として渡し、Sort前後の形を比較します。文字を読ませたい場面では、加工後に輪郭と読みやすさが残るかを確認します。切り替え演出では加工前後の画像を別のノードで切り替えることもできますが、これはSort自体の時間制御機能を確認したという意味ではありません。
 
-Krokodoveノードの全体像と近いNodeの選び分けは[Family Overview](./)を参照してください。
+以上は公式作例ではなく、Sortの基本的な働きから考えた**制作・検証案**です。
+
+## 最小構成と確認手順
+
+まず、画像をSortに渡し、元の画像と処理結果を同じフレームで比べます。
+
+```text
+MediaIn → Sort → MediaOut
+```
+
+これは画像処理の接続案です。実機で確認した正式なポート構成ではありません。
+
+1. 白・黒・中間の灰色などの小さなブロックを、不規則な位置へ配置した検証画像を用意します。どの画素が動いたか追いやすくなります。
+2. Sortの前後を別々のViewerに出し、色の位置・輪郭・画面端の変化を観察します。
+3. 現行Inspectorに実際に表示される項目を確認し、一度に一つだけ変更します。方向・範囲・色成分などのControlが必ず存在すると仮定しないでください。
+4. グラデーションや写真へ入力を替え、色の分布によって結果が変わるか試します。
+5. 透明な文字や図形でも試し、Alphaの扱いと、Mergeで背景へ重ねた後の見た目を確認します。
+
+入力画像の色や配置を変えると観察できる差が増える場合があります。現行Inspectorを未確認のため、設定項目の名前や推奨値はここでは示しません。
+
+## 似たツールとの使い分け
+
+| ツール | 21.1 Manualで確認できる主な働き | 選ぶ目安 |
+| --- | --- | --- |
+| **Sort** | 色の値に基づいて画素を並べ替える。 | 元画像の画素の並びを加工する。 |
+| [Channel Shifter](./channel-shifter) | RGBA成分をずらす・ぼかす・拡大縮小する。 | 色成分をずらして色にじみを作る。 |
+| [Rest](./rest) | 画素を一本の線に寄せ、画像を経路に沿って歪ませる。 | 線や経路を基準にした変形を試す。 |
+| [Stretch](./stretch) | 指定した線に沿って画素を引き伸ばす。 | 画素を線の方向へ伸ばす。 |
+| [Noise](./noise) | ランダム、または指定された色による画素状のパターンを作る。 | 画素を並べ替えるより、模様を生成する。 |
+
+Sortの特徴は**色の値に基づく並べ替え**です。「画素が移動して見える」という結果だけで、RestやStretchと同じ操作だと判断しないようにします。
+
+## 挙動と注意点
+
+- **並べ替えの基準：** 明るさ・RGB・色相など、どの数値を比較するかは未確認です。「色の値」は正式なInspector項目名を意味しません。
+- **方向・範囲：** 画像全体、行・列、一定の領域など、どこを単位に並べるかは確認できていません。
+- **透明部分：** Alphaや透明画素をどう扱うかは未確認です。透明素材は後段のMerge結果まで調べます。
+- **動画・負荷：** フレーム間の処理方式、パラメータのアニメーション可否、処理速度は未検証です。
+- **製品差：** DaVinci Resolve Free／Studio、Fusion Studio間の差、Node内部ID、正式なControl名・初期値・範囲は未確認です。
 
 ## 出典と確認範囲
 
-このページの役割・data domain・系譜は、既存COLLECTANEA catalogとBlackmagic Design公式資料で確認された範囲をreader-first形式へ整理しています。
+**一次資料：** Blackmagic Design『DaVinci Resolve 21.1 Reference Manual』（September 2026）、Chapter 105「Krokodove Nodes」、**p.2436「Image Pixel Tools — Sort」**。同項目は、色の値に基づいて画素を並べ替えるという役割を記しています。
 
-Fusion 21.1 Reference Manualで個別のInspector項目・default・rangeまで確認できていない項目は、**source-limited**としてその詳細を断定していません。verification: partial はその未確認範囲を含みます。runtime REGIDや現在のEffects Library表示は別のruntime verificationで確定します。
+公式資料の入口：[Blackmagic Design サポート](https://www.blackmagicdesign.com/jp/support/)。
+
+上記の接続図・作例・検証方法は**実機未検証の提案**です。21.1 Manualの一覧だけでは正確な端子名やInspector設定を確定できないため、`verification: partial`を維持しています。画像データの基本は[画像（Image）](../../learn/02-data/image)、同系統の一覧は[Krokodoveの概要](./)を参照してください。
