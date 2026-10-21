@@ -38,7 +38,7 @@ Perspective Positionerは、斜めから撮影された看板や画面などの�
 
 ### Output
 
-4点の位置に基づいて遠近を取り除いた2D Imageを出力します。後段へ[Paint](../paint/paint)を接続して平らな状態で修正できます。ただし、これだけで撮影画像の元の遠近へ戻るわけではありません。戻す場合は後段にCorner Positionerを使います。
+4点の位置に基づいて遠近を取り除いた2D Imageを出力します。後段へ[Paint](../paint/paint.md)を接続して平らな状態で修正できます。ただし、これだけで撮影画像の元の遠近へ戻るわけではありません。戻す場合は後段にCorner Positionerを使います。
 
 ## 主な設定項目
 
@@ -104,7 +104,7 @@ Perspective Positionerの4点は時間方向にアニメーションできます
 ## 関連Node
 
 - [Corner Positioner](./corner-positioner)
-- [Paint](../paint/paint)
+- [Paint](../paint/paint.md)
 - [Planar Tracker](../tracking/planar-tracker)
 - [Planar Transform](../tracking/planar-transform)
 

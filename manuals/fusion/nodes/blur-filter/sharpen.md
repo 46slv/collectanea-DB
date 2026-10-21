@@ -132,7 +132,7 @@ SharpenはUnsharp Maskより必ず劣るという意味ではありません。�
 
 ## 関連項目と根拠
 
-- [Blur / Filterノード](./index)：ぼかしと輪郭強調の選び分け。
+- [Blur / Filterノード](./index.md)：ぼかしと輪郭強調の選び分け。
 - [マスク（Mask）](../../learn/02-data/mask)：Effect Maskの役割。
 - [DoDの確認手順](../../learn/07-debugging/resolution-domain-of-definition)：境界が不自然な場合の調べ方。
 

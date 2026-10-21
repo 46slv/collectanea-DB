@@ -51,7 +51,7 @@ Warp系ノードは、2D画像の**どの位置の画素を参照して出力を
 
 [Vector Distortion](./vector-distortion)はVector channelを画像のX/Y方向の変位に使います。元画像自身にVector channelがあればそれを読み、別のDistort入力にベクトル入り画像を接続すれば、そちらの情報を使用します。
 
-[Vector Warp](./vector-warp)は用途が異なります。たとえば、服のしわが動く動画に、ある1フレームで描いた模様を貼る場合です。[Optical Flow](../optical-flow/optical-flow)などが作成したVector / Back Vectorを持つ**連続フレーム**と、模様を描いた**基準フレームの静止画像**を渡します。[Vector Transform](./vector-transform)は、その前後でベクトルやUV情報の大きさ・位置・滑らかさを調整する役割です。
+[Vector Warp](./vector-warp)は用途が異なります。たとえば、服のしわが動く動画に、ある1フレームで描いた模様を貼る場合です。[Optical Flow](../optical-flow/optical-flow.md)などが作成したVector / Back Vectorを持つ**連続フレーム**と、模様を描いた**基準フレームの静止画像**を渡します。[Vector Transform](./vector-transform)は、その前後でベクトルやUV情報の大きさ・位置・滑らかさを調整する役割です。
 
 Vector WarpとVector Transformは、21.1マニュアルのChapter 112「Vector Warping Toolset (Studio Version Only)」に含まれます。通常のWarp一覧にあるVector Distortionと、Edition条件まで同一と考えないでください。
 

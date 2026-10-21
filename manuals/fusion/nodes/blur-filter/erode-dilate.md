@@ -136,7 +136,7 @@ Erode Dilateではマットの境界位置を変え、Blurでは境界を柔ら�
 
 ## 関連ノード
 
-[Luma Keyer](../matte-keying/luma-keyer)は輝度からキーを作り、[Matte Control](../matte-keying/matte-control)はマットの取り扱いと合成を補助します。[Blur](./blur)は柔らかい境界を作るためのノードです。フィルターの一覧は[Blur / Filterノード](./index)にまとめています。
+[Luma Keyer](../matte-keying/luma-keyer)は輝度からキーを作り、[Matte Control](../matte-keying/matte-control)はマットの取り扱いと合成を補助します。[Blur](./blur)は柔らかい境界を作るためのノードです。フィルターの一覧は[Blur / Filterノード](./index.md)にまとめています。
 
 ## バージョンと根拠
 

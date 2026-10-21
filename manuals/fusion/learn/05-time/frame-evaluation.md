@@ -157,7 +157,7 @@ Viewerでフレームを飛ばして移動したり、キャッシュ済みの�
 
 ### Optical Flow：別の時刻の画像を補う
 
-[Optical Flow](../../nodes/optical-flow/optical-flow)は連続フレームの動きを解析し、Vector / BackVectorを生成します。Time StretcherやTime Speedを`Flow`補間で使う場合、次のように前段へ接続します。
+[Optical Flow](../../nodes/optical-flow/optical-flow.md)は連続フレームの動きを解析し、Vector / BackVectorを生成します。Time StretcherやTime Speedを`Flow`補間で使う場合、次のように前段へ接続します。
 
 ```text
 MediaIn → Optical Flow → Time Stretcher → MediaOut
@@ -209,7 +209,7 @@ MergeのBlendをキーフレームで変えると、同じ入力でも合成の�
 
 - [Time Stretcher](../../nodes/time-metadata/time-stretcher)
 - [Time Speed](../../nodes/time-metadata/time-speed)
-- [Optical Flow](../../nodes/optical-flow/optical-flow)
+- [Optical Flow](../../nodes/optical-flow/optical-flow.md)
 
 ## 次に読む
 

@@ -127,7 +127,7 @@ uTextureTransformでScaleやPositionを変えた結果、画像の端が表面�
 ## 関連する考え方・ノード
 
 - [USDシーンの基礎](../../learn/02-data/usd)：オブジェクトと材質を分けて扱う理由。
-- [USDノード一覧](./index)：読み込み・材質・描画までの全体像。
+- [USDノード一覧](./index.md)：読み込み・材質・描画までの全体像。
 - [uTexture](./utexture)：画像の読み込みとU/V Address Mode。
 - [uShader](./ushader)：画像をどの材質項目に使うかを決める。
 - [uReplaceMaterial](./ureplacematerial)：材質を適用するオブジェクトを選ぶ。

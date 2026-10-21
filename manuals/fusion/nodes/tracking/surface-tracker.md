@@ -165,7 +165,7 @@ Bには**Aを追跡設定・データごと複製したノード**を使い、Ou
 
 ## 関連ノード・基礎
 
-- [Trackingノードの選び方](./index)：点・平面・柔らかい面・3Dカメラの違い。
+- [Trackingノードの選び方](./index.md)：点・平面・柔らかい面・3Dカメラの違い。
 - [Planar Tracker](./planar-tracker)：一枚の平面として追える面の追跡。
 - [Planar Transform](./planar-transform)：平面の追跡データを別画像やマスクへ適用。
 - [Mask](../../learn/02-data/mask)：Occlusion MaskとEffect Maskで扱うデータ。

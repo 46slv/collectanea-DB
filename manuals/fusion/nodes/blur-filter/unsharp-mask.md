@@ -96,7 +96,7 @@ MediaIn ───→ Unsharp Mask → MediaOut
 
 ## 関連項目
 
-- [Blur / Filterカテゴリ](./index)：ぼかしと輪郭強調の選び分け。
+- [Blur / Filterカテゴリ](./index.md)：ぼかしと輪郭強調の選び分け。
 - [Sharpen](./sharpen)：単純なconvolution sharpen。
 - [Erode Dilate](./erode-dilate)：マットや形状を縮小・拡張する。
 - [マスク（Mask）](../../learn/02-data/mask)：Effect Maskの役割。

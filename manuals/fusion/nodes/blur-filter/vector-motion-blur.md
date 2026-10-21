@@ -21,7 +21,7 @@ updated: "2026-10-14"
 
 Vector Motion Blurは、**画像の各画素がどの方向へどれだけ移動したか**を示すデータを使い、動きに応じたぼかしを加えるノードです。車のボディー、回転するタイヤ、静止した建物が同じ画面にあっても、場所ごとに異なる方向・長さのブラーを作れます。
 
-入力するのは、ぼかしたい2D画像と、移動方向・距離を記録した**モーションベクトル（Motion Vector）**です。ベクトルは3DソフトでレンダリングしたAOV（完成画像とは別に出力する情報）や、Fusionの[Optical Flow](../optical-flow/optical-flow)による解析結果から用意します。
+入力するのは、ぼかしたい2D画像と、移動方向・距離を記録した**モーションベクトル（Motion Vector）**です。ベクトルは3DソフトでレンダリングしたAOV（完成画像とは別に出力する情報）や、Fusionの[Optical Flow](../optical-flow/optical-flow.md)による解析結果から用意します。
 
 ## 何を変えるノードか
 
@@ -71,7 +71,7 @@ Scaleは移動ベクトルに掛ける倍率です。**Scale 1が特定のシャ
 
 Settingsタブの**Blend**は、元画像と処理後の画像を混ぜる共通設定です。0では元画像、値を上げるとブラー後の結果が強くなります。RGB / Alphaのチャンネル選択では、効果を適用する出力チャンネルを限定できます。
 
-これらは**移動ベクトルのX/Y Channel指定とは別**です。SettingsでRedを無効にしても、X ChannelをRedにしたベクトルの読み取り先を変更する操作にはなりません。共通設定は[Blur / Filterノード](./index)でも扱います。
+これらは**移動ベクトルのX/Y Channel指定とは別**です。SettingsでRedを無効にしても、X ChannelをRedにしたベクトルの読み取り先を変更する操作にはなりません。共通設定は[Blur / Filterノード](./index.md)でも扱います。
 
 ## 接続例1：3Dレンダーの独立したMotion Vectorパスを使う
 
@@ -112,7 +112,7 @@ Loader（Vector RG）────→ Channel Booleans（Foreground）
 
 ## 接続例3：Optical Flowで映像から移動を推定する
 
-3DソフトのAOVを持たない通常の動画でも、[Optical Flow](../optical-flow/optical-flow)で連続フレームを解析して移動ベクトルを生成できます。
+3DソフトのAOVを持たない通常の動画でも、[Optical Flow](../optical-flow/optical-flow.md)で連続フレームを解析して移動ベクトルを生成できます。
 
 1. 元動画をOptical Flowへ送り、動く領域の**Forward / Back Vector**が生成されているか確認します。
 2. 解析結果を、必要なベクトルチャンネルを保持したEXRとして保存するか、補助チャンネルを維持できる経路でVector Motion Blurへ送ります。
@@ -133,12 +133,12 @@ Optical Flowは画像の変化から移動を**推定**します。遮蔽、細�
 | 輪郭から不自然な色が伸びる | Vector MaskとEffect Maskの違い、ベクトルパスとBeautyの位置合わせ、ベクトルの境界を確認する。 |
 | Optical Flowの結果が破綻する | 元の連続フレームを確認し、遮蔽や高速移動付近の推定ベクトルを先に検査する。 |
 
-赤緑の「カラフルな画像」に見えても、チャンネルに格納された数値や符号が正しいとは限りません。ベクトルの表示方法は[Optical Flow](../optical-flow/optical-flow)と[補助チャンネル / AOV](../../learn/02-data/auxiliary-channels)を参照してください。
+赤緑の「カラフルな画像」に見えても、チャンネルに格納された数値や符号が正しいとは限りません。ベクトルの表示方法は[Optical Flow](../optical-flow/optical-flow.md)と[補助チャンネル / AOV](../../learn/02-data/auxiliary-channels)を参照してください。
 
 ## 関連ノード
 
 - [Directional Blur](./directional-blur)：ベクトルパスがなく、一定の方向や中心から流す場合。
-- [Optical Flow](../optical-flow/optical-flow)：撮影素材の連続フレームから移動ベクトルを推定する場合。
+- [Optical Flow](../optical-flow/optical-flow.md)：撮影素材の連続フレームから移動ベクトルを推定する場合。
 - [Channel Booleans](../color/channel-boolean)：RGBのベクトルパスを補助チャンネルへ割り当てる場合。
 - [Vari Blur](./variblur)：別画像で**場所ごとのぼかし量**を指示する。移動の方向・長さをベクトルで与える本ノードとは異なる。
 - [Mask](../../learn/02-data/mask)：Vector Mask / Effect Maskの考え方。

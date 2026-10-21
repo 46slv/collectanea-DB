@@ -159,7 +159,7 @@ Alphaのあるロゴ画像をGlowへ入力し、出力をMergeで背景と合成
 
 ## Glow・Soft Glow・Blurの使い分け
 
-[Glow](./glow)はFilterやApply Modeを使い、明確なhaloやグラフィックな発光を組み立てる場合に向きます。[Soft Glow](./soft-glow)は追加処理による柔らかく自然な発光が必要な場合に向き、ThresholdとGainで発光元と強さを調整します。[Blur](./blur)は元画像をぼかすNodeで、Glowのように光の成分を元画像へ重ねる目的ではありません。[Blur / Filterノード一覧](./index)も参照してください。
+[Glow](./glow)はFilterやApply Modeを使い、明確なhaloやグラフィックな発光を組み立てる場合に向きます。[Soft Glow](./soft-glow)は追加処理による柔らかく自然な発光が必要な場合に向き、ThresholdとGainで発光元と強さを調整します。[Blur](./blur)は元画像をぼかすNodeで、Glowのように光の成分を元画像へ重ねる目的ではありません。[Blur / Filterノード一覧](./index.md)も参照してください。
 
 ## 出典と確認範囲
 

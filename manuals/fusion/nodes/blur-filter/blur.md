@@ -144,7 +144,7 @@ Blurは光を加算するノードではありません。ネオンのように�
 - [Defocus](./defocus) — レンズのピント外れや光点の形状を作る。
 - [Directional Blur](./directional-blur) — 指定した方向・中心に沿って像を流す。
 - [Vector Motion Blur](./vector-motion-blur) — Motion Vectorに沿ったブラーを作る。
-- [Blur / Filterカテゴリ](./index) — ぼかし・発光・輪郭処理の選択基準。
+- [Blur / Filterカテゴリ](./index.md) — ぼかし・発光・輪郭処理の選択基準。
 
 ## 出典・確認範囲
 

@@ -66,7 +66,7 @@ Blur ImageのRed・Green・Blue・Alpha・Luminanceのどれを使うかは、In
 
 ### 動きの情報でぼかしを変える：Vector Motion Blur
 
-[Vector Motion Blur](./vector-motion-blur)は、映像とは別に各画素の左右・上下の移動量を読み取ります。3Dソフトから書き出したMotion Vectorパスや、[Optical Flow](../optical-flow/optical-flow)で推定した移動情報を利用する方法があります。
+[Vector Motion Blur](./vector-motion-blur)は、映像とは別に各画素の左右・上下の移動量を読み取ります。3Dソフトから書き出したMotion Vectorパスや、[Optical Flow](../optical-flow/optical-flow.md)で推定した移動情報を利用する方法があります。
 
 ~~~text
 CGの完成画像 ────────→ Vector Motion Blur ──→ MediaOut

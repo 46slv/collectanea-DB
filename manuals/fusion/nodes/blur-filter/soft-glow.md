@@ -106,7 +106,7 @@ Text+の明るい文字をSoft Glowへ入力し、OutputをMergeのForegroundへ
 
 ## Glow・Blurとの使い分け
 
-[Glow](./glow)は明確なhaloやApply Modeの使い分けに向きます。Soft GlowはThresholdで選んだ明部から自然で滑らかなにじみを作る目的に向きます。[Blur](./blur)は発光を合成するのではなく、元画像自体をぼかします。[Blur / Filterノード一覧](./index)も参照してください。
+[Glow](./glow)は明確なhaloやApply Modeの使い分けに向きます。Soft GlowはThresholdで選んだ明部から自然で滑らかなにじみを作る目的に向きます。[Blur](./blur)は発光を合成するのではなく、元画像自体をぼかします。[Blur / Filterノード一覧](./index.md)も参照してください。
 
 ## 出典と確認範囲
 
