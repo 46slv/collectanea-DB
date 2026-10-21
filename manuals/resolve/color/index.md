@@ -26,6 +26,7 @@ Colorページは、素材の明るさや色の偏りを整え、複数ショッ
 
 - [最初のグレーディング](./learn/first-grade) — 撮影素材の条件、補正順、比較の基礎
 - [ColorページのNode Graph](./learn/color-node-graph) — シリアルノードと処理順の基本
+- [カラーマネージメントの基礎](./learn/color-management-basics) — Input／Timeline／OutputとRCM／CSTの使い分け
 
 ## 機能を引く（Reference）
 
@@ -34,12 +35,15 @@ Colorページは、素材の明るさや色の偏りを整え、複数ショッ
 - [Log Wheels](./reference/log-wheels) — LogホイールのShadows／Midtones／Highlightsとレンジ設定
 - [HDRパレット](./reference/hdr-palette) — Global、6つの明暗ゾーン、Range／Falloff
 - [Custom Curves](./reference/custom-curves) — YRGBとチャンネル別カーブ、階調の形の調整
+- [HSL Curves](./reference/hsl-curves) — 色相・彩度・輝度を条件にした6種類のカーブ
 - [HSL Qualifier](./reference/hsl-qualifier) — 色相・彩度・輝度による抽出とMatte Finesse
 - [Power Windows](./reference/power-windows) — 形・位置による局所補正、Qualifierとの併用と追跡時の注意
+- [Color Tracker](./reference/color-tracker) — 動く被写体へのWindow追従
+- [KeyパレットとMatte](./reference/key-matte) — 選択範囲と補正強度の分離
 
 ## 次に整備する領域
 
-機能固有の操作、使い分け、実践的な手順を、公式21.1マニュアルと実機確認を基に段階的に追加します。候補はHue系Curves、Tracker、Key、Gallery／Stills、Color Management、Shot Matching、Noise Reductionなどです。
+機能固有の操作、使い分け、実践的な手順を、公式21.1マニュアルと実機確認を基に段階的に追加します。候補はGallery／Stills、Shot Matching、Noise Reductionなどです。
 
 ## Fusionとの差
 
