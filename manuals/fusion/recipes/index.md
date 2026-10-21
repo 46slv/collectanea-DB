@@ -52,6 +52,7 @@ slug: /fusion/recipes
 ## トラッキング
 
 - [平面をtrackしてgraphicへ適用する](./recipes/tracking/planar-track-graphic)
+- [Surface Trackerでシャツのロゴを追従させる](./recipes/tracking/surface-track-shirt-logo)
 
 ## Particles
 
@@ -74,7 +75,7 @@ slug: /fusion/recipes
 
 - [Deep 合成を2Dへ戻す](./recipes/deep/deep-merge-to-image)
 
-現在 **21 Recipe** です。
+現在 **22 Recipe** です。
 
 ## 検証待ち
 

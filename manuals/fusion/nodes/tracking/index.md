@@ -1,16 +1,16 @@
 ---
 title: Trackingノード
-description: Point・Planar・3D Cameraの追跡方法と、得たtracking dataを別要素へ適用するNodeを目的から選ぶ入口。
+description: Point・Planar・Surface・3D Cameraの追跡方法と、得たtracking dataを別要素へ適用するNodeを目的から選ぶ入口。
 doc_type: index
 verification: partial
 product_scope: fusion
-tasks: [lookup-node, track, match-move, stabilize, camera-track]
+tasks: [lookup-node, track, surface-track, match-move, stabilize, camera-track]
 updated: "2026-10-21"
 ---
 
 # Trackingノード
 
-FusionのTrackingには、**特徴点を追うPoint Tracking、平面のperspective変化を追うPlanar Tracking、2D footageから3D camera motionを復元するCamera Tracking**があります。
+FusionのTrackingには、**画像内の特徴点を追うTracker、平面の動きを追うPlanar Tracker、布などの変形する面を追うSurface Tracker、実写映像から3Dカメラの動きを復元するCamera Tracker**があります。
 
 どのTrackerを使うかは、「画面の何を追うか」と「結果を何へ使うか」で決めます。
 
