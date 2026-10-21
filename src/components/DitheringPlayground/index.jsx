@@ -69,8 +69,15 @@ export default function DitheringPlayground() {
         <h3 id={id + '-title'}>ディザリングを試す</h3>
         <p>元画像 → 単純な量子化 → ディザ処理。同じ階調数のまま見え方が変わります。</p>
       </div>
-      <button type="button" className="vp-dither__reset" onClick={reset}>初期値に戻す</button>
     </div>
+
+    <p className="vp-dither__explanation" role="status">{descriptions[method]}</p>
+    <div className="vp-dither__previews">
+      <CanvasPreview kind="original" label="01 / 元画像" detail="滑らかな入力" pixels={originalBytes} zoom={zoom} />
+      <CanvasPreview kind="plain" label="02 / 量子化のみ" detail={String(levels) + ' 階調・ディザなし'} pixels={plain} zoom={zoom} />
+      <CanvasPreview kind="processed" label="03 / 処理結果" detail={method === 'none' ? '02と同じ' : method === 'ordered' ? '規則的な画素の模様' : '誤差を周囲に拡散'} pixels={processed} zoom={zoom} />
+    </div>
+    <p className="vp-dither__hint">拡大時は各画像を横方向にスクロールして画素を観察できます。3枚は同じ元画像と階調数を使用しています。</p>
 
     <div className="vp-dither__controls">
       <label className="vp-dither__control">
@@ -111,13 +118,8 @@ export default function DitheringPlayground() {
         </select>
       </label>
     </div>
-
-    <p className="vp-dither__explanation" role="status">{descriptions[method]}</p>
-    <div className="vp-dither__previews">
-      <CanvasPreview kind="original" label="01 / 元画像" detail="滑らかな入力" pixels={originalBytes} zoom={zoom} />
-      <CanvasPreview kind="plain" label="02 / 量子化のみ" detail={String(levels) + ' 階調・ディザなし'} pixels={plain} zoom={zoom} />
-      <CanvasPreview kind="processed" label="03 / 処理結果" detail={method === 'none' ? '02と同じ' : method === 'ordered' ? '規則的な画素の模様' : '誤差を周囲に拡散'} pixels={processed} zoom={zoom} />
+    <div className="vp-dither__actions">
+      <button type="button" className="vp-dither__reset" onClick={reset}>初期値に戻す</button>
     </div>
-    <p className="vp-dither__hint">拡大時は各画像を横方向にスクロールして画素を観察できます。3枚は同じ元画像と階調数を使用しています。</p>
   </section>;
 }
