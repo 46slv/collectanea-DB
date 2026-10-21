@@ -209,6 +209,30 @@ try {
       }
     }
   });
+  await check('quantization-article-and-mobile', async () => {
+    await page.setViewportSize({width: 1440, height: 1000});
+    await go(route);
+    await page.getByRole('link', {name: '仕組みと4階調の操作実験'}).click();
+    await expect(page).toHaveURL(/\\/reference\\/visual-processing\\/quantization\\/?$/);
+    await expect(page.locator('.theme-doc-markdown h1')).toHaveText('量子化（Quantization）');
+    const widget = page.locator('[data-vp-dither="ready"]');
+    await expect(widget).toBeVisible();
+    const plain = widget.locator('[data-vp-preview="plain"] canvas');
+    const result = widget.locator('[data-vp-preview="processed"] canvas');
+    const image = (canvas) => canvas.evaluate((element) => element.toDataURL());
+    const fourLevels = await image(plain);
+    const levels = widget.getByRole('slider', {name: '階調数'});
+    await levels.focus();
+    await levels.press('Home');
+    await expect(levels).toHaveValue('2');
+    await expect.poll(() => image(plain)).not.toBe(fourLevels);
+    await widget.getByRole('combobox', {name: '処理方式'}).selectOption('none');
+    await expect.poll(() => image(result)).toBe(await image(plain));
+    await page.setViewportSize({width: 390, height: 844});
+    await go('/reference/visual-processing/quantization');
+    await noOverflow();
+    await shot('quantization-mobile');
+  });
   await check('no-runtime-or-resource-errors', async () => {
     assert.deepEqual(report.pageErrors, []);
     assert.deepEqual(report.resourceErrors, []);
