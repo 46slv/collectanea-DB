@@ -108,12 +108,28 @@ Trackが終わったらResultタブで出力を決めます。**Output**は6種�
 | --- | --- |
 | **Warp Input 2 Onto 1** | 緑のOverlayをメッシュに沿って変形し、黄の元映像の上に合成する。シャツへのロゴ貼り付けに使う。 |
 | **Warp Input 2 Onto Blank** | Overlayだけを変形し、アルファを保持した画像として出す。別のMergeや色処理を挟んで合成したいときに使う。 |
-| **Warp Input 1's Alpha** | 追跡結果をEffect Mask入力へ適用する方式。Alphaの用途と接続を確認しながら使う。 |
-| **Create Mesh Alpha Mask** | メッシュ外形を追従させたアルファを生成する。ほかの入力画像・アルファは無視される。 |
+| **Warp Input 1's Alpha** | 青のEffect Maskへ接続した既存のマスクを、メッシュの追跡結果に沿って変形する。マスクを新たに描く方式ではない。 |
+| **Create Mesh Alpha Mask** | 追跡したメッシュの外形に従うアルファを生成する。この出力では外部の入力画像・アルファの内容は使わない。 |
 | **Stabilize-Warp Input 1** | 追跡面を基準フレームの形へ逆変形して止める。動く肌や布の一部を固定した状態で修正する。 |
 | **Rewarp Stabilized Clip** | 安定化した画像に施した修正を、追跡した元の動きへ戻して合成する。前段のStabilize-Warpと組み合わせる。 |
 
 「アルファ」とは画像の透明度を表す成分です。**Create Mesh Alpha Mask**は追跡結果からマスクを作る出力であり、**Warp Input 2 Onto Blank**はOverlayの画素とアルファを変形して出す方式です。同じではありません。
+
+### 描いたマスクを追従させるか、メッシュの輪郭から作るか
+
+**Warp Input 1's Alpha**は、外部で描いたマスクの形を追跡した面に合わせて動かす方式です。たとえば動く袖のワッペン部分だけを後で補正したい場合、基準となるフレームでPolygonを描き、青い**Effect Mask**へ接続します。袖の元映像は黄色のInputへ渡し、Bounds → Mesh → Trackで追跡した後、このOutputを選びます。Polygonのアルファが追跡結果に従って変形するため、同じ形を毎フレーム描き直す必要がありません。
+
+~~~text
+袖の映像 ─────→ Input（黄）      ┐
+Polygonマスク → Effect Mask（青）├ Surface Tracker
+                                  └→ Result：Warp Input 1's Alpha
+~~~
+
+ここでの素材は**青い端子に接続したマスク**です。緑のOverlayへ貼り付け画像を入れて合成する`Warp Input 2 Onto 1`とは目的が違います。21.1マニュアルのFusion章はEffect Mask入力への適用を説明し、同マニュアルのResolve FX章は、入力した図形やキーのアルファを最初のフレームから後続フレームへ変形できることを補足しています。
+
+**Create Mesh Alpha Mask**は、Polygonなどを別途描かず、**追跡したメッシュの外周**をアルファにする方式です。たとえばシャツの胸の面全体を後段の処理範囲として利用したい場合、元映像からBoundsとMeshを作ってTrackし、このOutputへ切り替えます。生成されるのはメッシュの輪郭に従う範囲であり、胸のプリントの文字や柄だけを自動で切り抜くものではありません。マニュアルの「入力画像・アルファを無視する」とは**出力マスクの形を外部入力の画素から作らない**という意味で、追跡データを作る元映像まで不要になるわけではありません。
+
+選び方は、**自分で指定した形を追わせる**ならWarp Input 1's Alpha、**追跡した面の外周を使う**ならCreate Mesh Alpha Maskです。どちらもロゴを映像へ合成する機能ではありません。後段で使う際はViewerで出力のアルファを確認し、接続先が必要とするマスク形式に合わせてください。
 
 ### Overlayの配置と合成
 
@@ -182,6 +198,6 @@ Bには**Aを追跡設定・データごと複製したノード**を使い、Ou
 
 ## 出典と確認範囲
 
-Blackmagic Design『DaVinci Resolve 21.1 Reference Manual』（2026年9月）、**Chapter 119「Tracking Nodes」、pp.2830–2838**。4入力の色と働き、Bounds・Mesh・Track・Result、6種類のOutput、Overlay/Alpha Source、Overlay Placement、Contract/Expand、Motion Blur、合成設定、フレームレート差による注意を照合しています。 安定化した面の修正と再ワープを組み合わせる際の2入力の接続は、同Manualの**Chapter 168「Resolve FX Transform」、pp.3719–3720**にある元映像・修正後映像を分けた実例とも照合しています（同例はColorページのResolve FX構成）。[Blackmagic Design公式サポート](https://www.blackmagicdesign.com/jp/support/)。
+Blackmagic Design『DaVinci Resolve 21.1 Reference Manual』（2026年9月）、**Chapter 119「Tracking Nodes」、pp.2830–2838**。4入力の色と働き、Bounds・Mesh・Track・Result、6種類のOutput、Overlay/Alpha Source、Overlay Placement、Contract/Expand、Motion Blur、合成設定、フレームレート差による注意を照合しています。 安定化した面の修正と再ワープを組み合わせる際の2入力の接続は、同Manualの**Chapter 168「Resolve FX Transform」、p.3711のマスク出力の説明およびpp.3719–3720の元映像・修正後映像を分けた実例**にある元映像・修正後映像を分けた実例とも照合しています（同例はColorページのResolve FX構成）。[Blackmagic Design公式サポート](https://www.blackmagicdesign.com/jp/support/)。
 
 制作例と症状別の判断手順は、確認した機能から組み立てた運用上の例です。Resolve/Fusion 21.1の実機での追跡精度、Inspectorの内部ID、パラメータの厳密な数値範囲、Free / Studioの差は検証していないため、verificationはpartialです。
