@@ -1,9 +1,9 @@
 ---
 title: "Mirror"
-description: "任意axis反射。"
+description: "指定した線に沿って2D画像を反射させるKrokodoveノード。単純な反転や万華鏡状の繰り返しとの違いも説明する。"
 doc_type: node
 term_id: "mirror"
-term_short: "Mirrorは、任意axis反射。Krokodove固有のtool。"
+term_short: "Mirrorは、指定した線に沿って画像を反射させるKrokodoveのImage Warpノード。"
 verification: partial
 aliases: ["Mirror"]
 concepts: ["image-data"]
@@ -14,48 +14,59 @@ outputs: ["image"]
 tasks: ["motion-graphics"]
 product_scope: fusion
 suite_surfaces: ["fusion"]
-updated: "2026-10-05"
+updated: "2026-10-21"
 ---
 
 # Mirror
 
-Mirrorは、任意axis反射。Krokodove固有のtoolです。名前だけで2D Image Nodeと判断せず、Input / Output domainとFamily Overviewを先に確認します。
+Mirrorは、画像を**指定した線に沿って鏡に映したように反転**させるKrokodoveの画像変形ノードです。写真の人物や物体、文字、模様などを反射させ、画面の対称性を試したいときに候補になります。
 
-## 役割
+ここでいう「線」は、画像をどう反射させるかを決める基準です。単純に画像全体の向きを入れ替えることと、指定した場所を基準に反射させることは、同じ見え方になるとは限りません。反射線の指定方法や線のどちら側を採用するかは、実際のInspectorとViewerで確認してください。
 
-任意axis反射。このページでは、名前だけで選ばず、**何を受け取り、何が変わり、どのdomainへ返すか**を先に整理します。
+## 何を入力し、何が出るか
 
-この項目で確認できている中心的な役割は「任意axis反射」です。exactなInspector項目が未確認の場合は、役割とdata domainを先に使って候補を絞ります。
+- **入力**：変形する2D画像。写真、テキストを描画した画像、パターンなどを素材にできます。
+- **出力**：反射処理後の2D画像。下流の画像合成ノードへつないで利用します。
 
-## 入力と出力
+これはImage Warp Toolsという分類と既存カタログに基づくデータの種類の説明です。**端子の正式名称、すべての端子数、マスク入力の有無、Alphaの補間方法**は、参照した21.1 Manualの一覧には書かれていません。接続時はFlowに表示された端子を確認します。
 
-入力分類: **image**。 出力分類: **image**。 この分類はdata domainを読むためのものです。Fusion 21.1のexactな端子名・端子数を未確認の場合、ここでは推測して固定しません。
+## どんな場面で使うか
 
-## 使うときの判断
+画面の左右または上下に対称性を持たせるグラフィック、鏡像を使ったタイトル、実写素材に不自然な左右対称を加える演出などに向きます。
 
-KrokodoveはImage、Shape、3D、Regionが同じchapterに並ぶため、まずOutput domainで候補を絞ります。
+例えば背景に建物があるカットで、窓や壁の線が反射線を境にどう変わるかを観察できます。幾何学的な背景パターンなら、対称になった部分と継ぎ目の位置が分かりやすくなります。
 
-同じ目的を別Familyでも作れる場合は、後段で必要なdata domainと、Graph上で責任をどこに置きたいかで選びます。
+反射した画像を元画像に重ねるときは、[Merge](../compositing/merge)で2つの結果を合成できます。ただし、Mirror自体が元画像と反射画像を同時に保持・合成するかは、このManual記述だけでは判断できません。必要ならFlow上で原画像を別の枝に残します。
 
-## 最小構成
+## まず試す：反射の基準線を見つける
 
-    Image / Source → Mirror → Result
+1. 格子や非対称の模様が描かれた画像、あるいは左右で形の違う写真を読み込みます。最初から左右対称の素材や単色画像を使うと変化が判別しにくくなります。
+2. Flowで `画像素材 → Mirror` と接続し、素材とMirrorの出力をそれぞれViewerに表示して比較します。
+3. Inspectorで反射線に関係する設定を探し、変更前後で、**位置・向き・継ぎ目**がどう変わるかを記録します。この記事では未確認の正式なパラメータ名や数値を指定しません。
+4. 同じ素材で[Transform](../transform/transform)で位置や回転を変えた場合と比べ、画像全体の配置を変えたいだけなのか、線を基準とした反射が必要なのかを選びます。
+5. 透明なロゴや文字を使う場合は、端の画素やAlphaの見え方をViewerで確認してから背景に合成します。
 
-これは接続関係を理解するための最小構成案です。公式Manualのexactな作例として確認していない構成は、実制作前にViewerで中間結果を確認します。
+これは効果の選定手順であり、21.1実機で特定のInspector設定や結果を保証した完成レシピではありません。
 
-## 確認ポイント
+## 似たノードとの違い
 
-- 入力dataのdomainが合っているか。
-- この項目のoutputを受け取れる後段Nodeへ接続しているか。
-- 同じ役割を前段 / 後段で二重に処理していないか。
-- source-limited pageでは、未確認のControl名・default・rangeを名前から推測していないか。
+| ノード | 選ぶ理由 |
+| --- | --- |
+| **Mirror** | 指定した線に沿った反射を試したい。 |
+| [Kaleidoscope](./kaleidoscope) | 放射状に反射を繰り返し、万華鏡のような模様を作りたい。 |
+| [Shuffle](./shuffle) | 反射ではなく、分割した画面の区画を配置し直したい。 |
+| [Transform](../transform/transform) | 通常の位置・回転・サイズ変更で十分な場合。 |
 
-## Family内での位置づけ
+Kaleidoscopeも反射を使いますが、21.1 Manualでは**放射状の鏡映の繰り返し**として説明されています。Mirrorは**指定した線に沿った反転**です。似た見た目になることがあっても、使う目的を分けて考えます。
 
-Krokodoveノードの全体像と近いNodeの選び分けは[Family Overview](./)を参照してください。
+## 確認が必要な点
 
-## 出典と確認範囲
+公式Reference ManualのImage Warp Tools一覧はMirrorの役割を短く説明していますが、反射線の設定項目、座標系、境界の処理、フィルタリング、Alpha処理、エディション別の利用条件までは列挙していません。この記事では、それらを確定値として書いていません。
 
-このページの役割・data domain・系譜は、既存COLLECTANEA catalogとBlackmagic Design公式資料で確認された範囲をreader-first形式へ整理しています。
+Fusionの通常の2D画像と、輪郭や頂点を別データとして保持するShapeは異なります。図形の輪郭そのものを鏡映・変形したい場合は、最終的にどの形式で編集したいかを先に決めてください。関連するKrokodoveの画像変形は[ノード索引](./index)にまとめています。
 
-Fusion 21.1 Reference Manualで個別のInspector項目・default・rangeまで確認できていない項目は、**source-limited**としてその詳細を断定していません。verification: partial はその未確認範囲を含みます。runtime REGIDや現在のEffects Library表示は別のruntime verificationで確定します。
+## バージョンと出典
+
+- 対象：DaVinci Resolve / Fusion 21.1、Krokodoveの**Image Warp Tools**。
+- 一次資料：Blackmagic Design『DaVinci Resolve 21.1 Reference Manual』、Chapter 105「Krokodove Nodes」、p.2436。Mirrorの説明は「指定した線に沿った画像の反転」の範囲で確認しました。
+- 検証状態：`partial`。端子の完全な一覧、Inspectorの正式名称・既定値・範囲、実機での結果は未検証です。
