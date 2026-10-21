@@ -111,7 +111,17 @@ try {
         await page.evaluate((value) => document.documentElement.setAttribute('data-theme', value), theme);
         await expect(page.locator('.theme-doc-markdown h1')).toBeInViewport();
         const widths = await noOverflow();
-        const tables = await page.locator('.theme-doc-markdown table').evaluateAll((els) => els.map((el) => ({client: el.clientWidth, scroll: el.scrollWidth})));
+        const tables = await page.locator('.theme-doc-markdown table').evaluateAll((els) => els.map((el) => {
+          const cells = el.querySelector('tbody tr').cells;
+          return {client: el.clientWidth, scroll: el.scrollWidth, termWidth: cells[0].getBoundingClientRect().width, descriptionWidth: cells[1].getBoundingClientRect().width};
+        }));
+        if (width <= 996) {
+          for (const table of tables) {
+            assert.ok(table.scroll <= table.client + 1, 'Compact tables must not hide text in horizontal overflow');
+            assert.ok(table.descriptionWidth >= table.client * 0.58,
+              `Mobile definitions must not collapse into a narrow strip: ${JSON.stringify(table)}`);
+          }
+        }
         report.layouts.push({width, theme, ...widths, tables});
         if ([1440, 390].includes(width)) await shot(`${width}-${theme}`);
       }
@@ -126,6 +136,10 @@ try {
     await expect(page.locator('.theme-doc-markdown h2[id="tones"]')).toBeInViewport();
     await noOverflow();
     await shot('mobile-terms');
+    await page.setViewportSize({width: 320, height: 844});
+    await page.locator('.theme-doc-markdown h2[id="tones"]').scrollIntoViewIfNeeded();
+    await shot('320-terms');
+    await page.setViewportSize({width: 390, height: 844});
     await go(route);
     await page.locator('.navbar__toggle').click();
     await expect(page.locator('.navbar-sidebar')).toBeVisible();
