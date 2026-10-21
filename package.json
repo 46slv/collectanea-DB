@@ -10,7 +10,7 @@
     "clear": "docusaurus clear",
     "deploy": "docusaurus deploy",
     "capture": "node scripts/capture-ui.mjs && npm run test:visual-reference",
-    "test:regressions": "node --test tests/catalog.test.cjs",
+    "test:regressions": "node --test tests/catalog.test.cjs tests/dithering.test.mjs",
     "test:content": "node scripts/content-integration.mjs",
     "test:visual-reference": "node scripts/visual-processing-smoke.mjs"
   },
@@ -24,6 +24,10 @@
     "react": "19.2.3",
     "react-dom": "19.2.3"
   },
-  "devDependencies": {"@playwright/test": "1.56.0"},
-  "engines": {"node": ">=20.0"}
+  "devDependencies": {
+    "@playwright/test": "1.56.0"
+  },
+  "engines": {
+    "node": ">=20.0"
+  }
 }

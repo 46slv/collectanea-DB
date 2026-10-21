@@ -66,7 +66,7 @@ try {
     const renderedTerms = await page.locator('.theme-doc-markdown tbody tr td:first-child').allTextContents();
     assert.deepEqual(renderedTerms.map((term) => term.trim()), terms, 'Every source term must render, in order');
     await expect(page.locator('.theme-doc-sidebar-container').getByRole('link', {name: title, exact: true})).toBeVisible();
-    await expect(page.locator('.theme-doc-markdown')).toContainText('現時点で操作できる実験はこの索引にはありません');
+    await expect(page.locator('.theme-doc-markdown')).toContainText('最初の操作できる実験');
     const unresolved = await page.locator('.theme-doc-markdown a[href^="#"]').evaluateAll((links) => links
       .map((link) => link.getAttribute('href')).filter((href) => !document.getElementById(decodeURIComponent(href.slice(1)))));
     assert.deepEqual(unresolved, [], 'All article fragment links must have real targets');
@@ -145,6 +145,69 @@ try {
     await expect(page.locator('.navbar-sidebar')).toBeVisible();
     await expect(page.locator('.navbar-sidebar').getByRole('link', {name: title, exact: true})).toBeVisible();
     await shot('mobile-sidebar');
+  });
+  await check('dithering-interaction-and-mobile', async () => {
+    await page.setViewportSize({width: 1440, height: 1000});
+    await go(route);
+    await page.getByRole('link', {name: 'ディザリングの詳細記事と操作デモ'}).click();
+    await expect(page).toHaveURL(/\/reference\/visual-processing\/dithering\/?$/);
+    await expect(page.locator('.theme-doc-markdown h1')).toHaveText('ディザリング（Dithering）');
+    const widget = page.locator('[data-vp-dither="ready"]');
+    await expect(widget).toBeVisible();
+    const preview = (kind) => widget.locator('[data-vp-preview="' + kind + '"] canvas');
+    const picture = (kind) => preview(kind).evaluate((canvas) => canvas.toDataURL());
+    await expect.poll(() => preview('original').evaluate((canvas) => canvas.getContext('2d')
+      .getImageData(canvas.width - 1, 0, 1, 1).data[0])).toBe(255);
+    const original = await picture('original');
+    const plain = await picture('plain');
+    await expect.poll(() => picture('processed')).not.toBe(plain);
+    await widget.locator('.vp-dither__previews').scrollIntoViewIfNeeded();
+    await shot('dithering-desktop');
+
+    const method = widget.getByRole('combobox', {name: '処理方式'});
+    await method.selectOption('none');
+    await expect(widget).toHaveAttribute('data-vp-method', 'none');
+    await expect.poll(() => picture('processed')).toBe(plain);
+
+    await method.selectOption('error-diffusion');
+    await expect.poll(() => picture('processed')).not.toBe(plain);
+    const levels = widget.getByRole('slider', {name: '階調数'});
+    await levels.focus();
+    await levels.press('Home');
+    await expect(levels).toHaveValue('2');
+    await expect(widget).toHaveAttribute('data-vp-levels', '2');
+    await expect.poll(() => picture('plain')).not.toBe(plain);
+
+    await method.selectOption('ordered');
+    const matrix = widget.getByRole('combobox', {name: 'パターンの大きさ'});
+    await matrix.selectOption('2');
+    const small = await picture('processed');
+    await matrix.selectOption('8');
+    await expect.poll(() => picture('processed')).not.toBe(small);
+
+    await widget.getByRole('combobox', {name: '元画像'}).selectOption('radial');
+    await expect.poll(() => picture('original')).not.toBe(original);
+    await widget.getByRole('combobox', {name: '表示倍率'}).selectOption('4');
+    await expect.poll(() => preview('processed').evaluate((canvas) =>
+      canvas.getBoundingClientRect().width / canvas.parentElement.getBoundingClientRect().width))
+      .toBeGreaterThan(3.9);
+
+    await widget.getByRole('button', {name: '初期値に戻す'}).click();
+    await expect(widget).toHaveAttribute('data-vp-levels', '4');
+    await expect(widget).toHaveAttribute('data-vp-method', 'ordered');
+    await expect(widget.getByRole('combobox', {name: '元画像'})).toHaveValue('ramp');
+    await expect(widget.getByRole('combobox', {name: '表示倍率'})).toHaveValue('1');
+
+    for (const width of [390, 320]) {
+      await page.setViewportSize({width, height: 844});
+      await go('/reference/visual-processing/dithering');
+      await expect(page.locator('[data-vp-dither="ready"]')).toBeVisible();
+      await noOverflow();
+      if (width === 390) {
+        await page.locator('.vp-dither__previews').scrollIntoViewIfNeeded();
+        await shot('dithering-mobile');
+      }
+    }
   });
   await check('no-runtime-or-resource-errors', async () => {
     assert.deepEqual(report.pageErrors, []);
