@@ -51,6 +51,7 @@ slug: /fusion/recipes
 
 ## トラッキング
 
+- [Trackerで車の動きにテキストを追従させる](./recipes/tracking/point-track-text-callout)
 - [平面をtrackしてgraphicへ適用する](./recipes/tracking/planar-track-graphic)
 - [看板のロゴを通行人の背後に隠す](./recipes/tracking/planar-foreground-occlusion)
 - [Surface Trackerでシャツのロゴを追従させる](./recipes/tracking/surface-track-shirt-logo)
@@ -78,7 +79,7 @@ slug: /fusion/recipes
 
 - [Deep 合成を2Dへ戻す](./recipes/deep/deep-merge-to-image)
 
-現在 **25 Recipe** です。
+現在 **26 Recipe** です。
 
 ## 検証待ち
 

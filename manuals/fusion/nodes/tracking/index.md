@@ -30,6 +30,7 @@ FusionのTrackingには、**画像内の特徴点を追うTracker、平面の動
 
 | 作りたい結果 | 入力から出力まで | 手順 |
 | --- | --- | --- |
+| **車のドアノブに説明ラベルを追従させる** | 車の映像をTrackerで1点追い、Connect ToでText+のTransformへ位置を渡してから、Mergeで元映像へ重ねる。 | [Trackerで文字を追従させる](../../recipes/tracking/point-track-text-callout) |
 | **動く看板へロゴを貼る** | 看板の実写をPlanar Trackerで解析し、別入力の透明ロゴをPlanar Transformで動かしてMergeで合成する。 | [平面追跡で看板にロゴを貼る](../../recipes/tracking/planar-track-graphic) |
 | **看板のロゴを通行人の背後へ隠す** | Planar Trackerでロゴを追従させた後、人物を切り抜いた元映像を別のMergeで前景へ戻す。追跡除外用マスクだけでは前後関係は作れない。 | [平面追跡したロゴの前景遮蔽](../../recipes/tracking/planar-foreground-occlusion) |
 | **シャツのしわにロゴをなじませる** | シャツの映像と透明ロゴをSurface Trackerへ入力し、布のメッシュ変形に沿ってロゴを変形・合成する。 | [Surface Trackerでシャツへロゴを貼る](../../recipes/tracking/surface-track-shirt-logo) |
