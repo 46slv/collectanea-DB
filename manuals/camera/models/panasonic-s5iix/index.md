@@ -3,7 +3,7 @@ title: Panasonic S5IIX
 description: Panasonic S5IIXの動画記録、V-Log、ALL-Intra、外付けSSD、RAW出力の機種別リファレンス。
 doc_type: model
 verification: partial
-updated: 2026-10-13
+updated: 2026-10-21
 tags: [camera, Panasonic, LUMIX, S5IIX, V-Log, ProRes, SSD]
 tasks: [choose-recording-format, shoot-log, record-to-ssd]
 product_scope: camera
@@ -61,4 +61,4 @@ S5IIXはHDMIから動画RAWデータを出力し、対応する外部レコー�
 - Panasonic DC-S5M2 / S5M2X「クリエイターの期待に応える映像表現」: https://panasonic.jp/dc/feature/S5M2-S5M2X/expression.html
 - Panasonic DC-S5M2X 仕様: https://panasonic.jp/dc/products/s_series/s5m2_s5m2x/spec_s5m2x.html
 
-確認日: 2026-10-13
+確認日: 2026-10-21
