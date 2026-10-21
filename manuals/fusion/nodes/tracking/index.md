@@ -33,6 +33,7 @@ FusionのTrackingには、**画像内の特徴点を追うTracker、平面の動
 | **車のドアノブに説明ラベルを追従させる** | 車の映像をTrackerで1点追い、Connect ToでText+のTransformへ位置を渡してから、Mergeで元映像へ重ねる。 | [Trackerで文字を追従させる](../../recipes/tracking/point-track-text-callout) |
 | **動く看板へロゴを貼る** | 看板の実写をPlanar Trackerで解析し、別入力の透明ロゴをPlanar Transformで動かしてMergeで合成する。 | [平面追跡で看板にロゴを貼る](../../recipes/tracking/planar-track-graphic) |
 | **カメラが動く映像の壁の汚れを消す** | 壁をPlanar Trackerで追跡・固定し、透明レイヤーのPaintで補修してから、同じ追跡データで逆変形し元の動きへ戻す。 | [Planar Trackerで固定・Paint・逆変形](../../recipes/tracking/planar-steady-paint-rewarp) |
+| **動く額の小さな傷を1フレームの補修で隠す** | Time Stretcherで固定したフレームをPaintで修正し、Planar TransformでPolygonの切り出し範囲を追従させ、Mergeで元映像へ重ねる。 | [Clean Plateを固定・マスク追従](../../recipes/tracking/planar-clean-plate-freeze-track) |
 | **看板のロゴを通行人の背後へ隠す** | Planar Trackerでロゴを追従させた後、人物を切り抜いた元映像を別のMergeで前景へ戻す。追跡除外用マスクだけでは前後関係は作れない。 | [平面追跡したロゴの前景遮蔽](../../recipes/tracking/planar-foreground-occlusion) |
 | **シャツのしわにロゴをなじませる** | シャツの映像と透明ロゴをSurface Trackerへ入力し、布のメッシュ変形に沿ってロゴを変形・合成する。 | [Surface Trackerでシャツへロゴを貼る](../../recipes/tracking/surface-track-shirt-logo) |
 | **動く肌の小さな傷を直す** | 肌をSurface Trackerで固定した映像にPaintで修正を加え、同じ追跡データで再変形して元の動きへ戻す。 | [Surface Trackerで固定・修正・再変形](../../recipes/tracking/surface-track-stabilize-rewarp-skin-fix) |
