@@ -51,6 +51,8 @@ Colorページは、素材の明るさや色の偏りを整え、複数ショッ
 - [Noise Reduction](./reference/noise-reduction) — Temporal／SpatialとLuma／Chromaの調整、細部を残す判断
 - [Camera RAW](./reference/camera-raw) — RAWの現像解釈、WB・露出・ハイライトとColorノードの役割分担
 - [Group Pre-Clip／Clip／Post-Clip](./reference/group-grading) — 共通補正とショット別補正を分ける
+- [Shared Node](./reference/shared-nodes) — 複数クリップで共通Lookを共有し、個別補正と分ける
+- [Color Space Transform（CST）](./reference/color-space-transform) — 入出力の色域・GammaとRCMとの役割分担
 - [Blur／Sharpen](./reference/blur-sharpen) — ぼかしと輪郭調整、Window・Noise Reductionとの使い分け
 - [Timelineグレーディング](./reference/timeline-grading) — 全編共通のLookと納品前QCの適用範囲
 
@@ -63,10 +65,11 @@ Colorページは、素材の明るさや色の偏りを整え、複数ショッ
 ## トラブルシューティング（Troubleshooting）
 
 - [二次補正がちらつく・範囲が揺れるとき](./troubleshooting/secondary-matte-flicker) — Qualifier、Window、Tracker、Keyの原因を分ける
+- [書き出し後に色や明るさが違うとき](./troubleshooting/export-color-mismatch) — 出力変換、色タグ、Levels、再生環境を切り分ける
 
 ## 次に整備する領域
 
-機能固有の操作、使い分け、実践的な手順を、公式21.1マニュアルと実機確認を基に段階的に追加します。次の候補はShared NodeのReference、Color Space TransformのReference、書き出し後の色ズレのTroubleshootingです。
+機能固有の操作、使い分け、実践的な手順を、公式21.1マニュアルと実機確認を基に段階的に追加します。次の候補はLUTの適用位置と管理方法のReference、外部映像モニタリングと表示環境の確認手順です。
 
 ## Fusionとの差
 
