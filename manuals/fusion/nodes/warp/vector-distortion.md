@@ -15,7 +15,7 @@ outputs: [image]
 tasks: [warp-image]
 product_scope: fusion
 suite_surfaces: [fusion]
-updated: "2026-10-20"
+updated: "2026-10-22"
 ---
 
 # Vector Distortion
@@ -117,18 +117,32 @@ Image to warp ─────────→ Vector Distortion → MediaOut
 
 まずOptical Flowの出力ImageがX/Yのvector channelを保持しているか確認します。次にVector Distortionで**X ChannelとY Channelをそれぞれ選び**、Scaleを小さく動かして変形方向を確かめます。画像が動かないときはDistortの接続だけでなく、参照先のchannel選択も確認します。
 
-## 運用例
+## 運用例：布の動きで別のグラフィックを歪ませる
 
-動いている布のclipから動きだけを取り出し、別のgraphicsへ同じ方向の揺れを与える場合:
+撮影した布の動きから得たベクトルを、別に作ったグラフィックへ適用する例です。**布の映像は動かし方を決める側**、**グラフィックは実際に変形される側**として分けます。単に2枚を重ねる合成でも、グラフィックそのものを追跡する処理でもありません。
 
-1. 布のclipをOptical Flowへ通してvector channelを生成します。
-2. Optical Flowの出力をVector DistortionのDistortへ接続します。
-3. graphicsをInputへ接続します。
-4. X Channel / Y Channelで使用するvector channelを選びます。
-5. Scaleで変形量を調整します。
-6. 必要ならEffect Maskで歪ませる範囲を限定します。
+1. 布が動く映像を**Optical Flow**へ接続し、出力Imageに前後のフレームの動きを表すvector channelを生成します。布の模様が激しく変わる部分や画面外へ出る部分は、ベクトルの推定結果が不安定になる場合があります。
+2. Optical Flowの出力をVector Distortionの**Distort（緑）**へ接続します。この枝は変形量の参照元です。
+3. 変形したいグラフィックを**Input（オレンジ）**へ接続します。Distortへ布の映像をつないでも、出力で変形されるのはInput側です。
+4. Inspectorの**X Channel / Y Channel**で、Distort側Imageに実際に入っている横方向・縦方向のvector channelをそれぞれ選びます。チャンネル名や並びを推測で指定せず、入力素材に含まれるデータを確認します。
+5. **Scale**を小さく調整し、変形量と方向を確かめます。横方向だけ逆に見える場合は**Flip Channel X**、縦方向だけなら**Flip Channel Y**を比較します。**Center Bias**は方向別のずれを加える操作であり、vector fieldそのものを生成し直す機能ではありません。
+6. 布の動きが必要な領域にだけ適用したいときは、**Effect Mask（青）**へMaskを接続します。Maskは処理結果の適用範囲を制限しますが、Distort側のvector channelを作り替えるわけではありません。
+7. 最後に**Edges**を確認します。Canvasは露出した端をcanvas color（通常は透明または黒）で扱い、Duplicateは端の画素を引き延ばすため、周辺ににじみが出ることがあります。背景へ載せたい場合は、後段のMergeで合成結果を見ながら選びます。
 
-これは21.1 ManualのBasic Node SetupとControlの役割から再構成した運用例です。特定shotでの見た目は実機確認していません。
+布の映像とグラフィックで画角・位置・フレームの対応が違うと、ベクトルの大きな部分と歪ませたい場所が一致しないことがあります。Vector Distortionが自動で両素材を位置合わせするとは考えず、入力枝ごとに対象領域と時間の対応を確認してください。
+
+## うまく変形しないとき
+
+| 症状 | 順に確認すること |
+| --- | --- |
+| 画像がほとんど変形しない | Distort側またはInput側に**vector channel**が存在するか、X/Y Channelでそのデータを選んでいるか、Scaleが小さすぎないかを確認する。普通のRGB画像をDistortへつないだだけでは、必要なベクトルが生成されるわけではない。 |
+| 意図した画像とは違うものが歪む | **Inputが変形対象、Distortがvector参照元**になっているか接続を見直す。DistortをつなぐとInput自身のvector channelより優先される。 |
+| 横／縦の動きが逆になる | X ChannelとY Channelの割り当てを先に確認し、必要な軸だけFlip Channel X/Yを比較する。 |
+| XとYが同じように動いてしまう | 選択名だけでなく、2つのchannelに入っている値が独立した横・縦成分なのか確認する。両軸へ同じデータを指定していないかも見る。 |
+| 画面端が黒い・透明になる／端が伸びる | EdgesのCanvasとDuplicateを比較する。どちらも元画像の外に本来の画素を復元する機能ではないため、Scaleや合成時の画角も確認する。 |
+| Maskを動かしても渦や歪みの方向が変わらない | Effect Maskは**処理後の効果範囲**を決める。変位方向はX/Y Channel、Flip、Scale、Biasと入力vectorで調整する。 |
+
+これらは21.1 Manualに記載された端子・Controlの働きから組み立てた診断手順です。布やグラフィックを使った同一構成を21.1実機でレンダリング検証した結果ではありません。
 
 ## Vector Warpとの違い
 
