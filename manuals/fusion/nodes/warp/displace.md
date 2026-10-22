@@ -15,7 +15,7 @@ outputs: [image]
 tasks: [warp-image]
 product_scope: fusion
 suite_surfaces: [fusion]
-updated: "2026-10-05"
+updated: "2026-10-22"
 ---
 
 # Displace
@@ -90,11 +90,23 @@ Fast Noise ───→ Foreground Image
 
 Fast NoiseをForeground Imageへ接続し、Refraction Strengthを小さく動かして変位方向を確認します。Fast Noiseを時間変化させると、歪みも動きます。
 
-## 運用例
+## 運用例：熱気で背景の直線を揺らす
 
-背景へ熱気の揺らぎを加える場合、背景clipをInput、Fast NoiseをForeground Imageへ接続します。X/Y modeなら横方向と縦方向のchannel・強さを別々に調整できます。必要ならEffect Maskで熱気を出したい範囲だけに限定します。
+撮影素材の建物や道路の直線が、熱い空気を通して見たときのようにゆっくり揺れる構成です。**元の映像を変形する入力**と、**変形量を指示する入力**を分けて組みます。
 
-21.1 ManualでもFast NoiseをDisplace mapへ使うBasic Node Setupが示されています。
+1. 撮影素材のMediaInをDisplaceの**Input（オレンジ）**へつなぎ、Displaceの出力をViewerで確認します。
+2. Fast Noiseを追加し、Displaceの**Foreground Image（緑）**へつなぎます。Fast Noiseは背景へ重ねるのではなく、画面の場所ごとに画素の参照位置を変えるためのマップです。
+3. まずDisplaceの**TypeをX/Y**にします。X RefractionとY Refractionの強さを別々に変え、窓枠などの直線がどの向きに歪むか確かめます。大きな変位で形が崩れる場合は、強さを抑えます。
+4. **Refraction Channel**で、Fast Noiseのどのチャンネルを横方向・縦方向に使うか選びます。同じ白黒模様が複数チャンネルへ入っている場合、XとYでチャンネル名だけを変えても独立した動きにはなりません。異なる模様を使いたいときはマップ側のチャンネル内容を用意します。
+5. Fast Noiseの**Seethe Rate**を調整し、マップの時間変化に合わせて歪みが動くことを確認します。これは21.1 Manualにも示されている構成です。
+6. 揺らしたい範囲が画面の一部だけなら、Ellipseなどで作ったマスクをDisplaceの**Effect Mask（青）**へつなぎます。マスクは効果の場所を決め、Fast Noiseはその内部での歪み方を決めます。
+7. 必要な場合だけ**Light Power / Light Angle**を調整します。これは変位マップの起伏に応じた明暗を加える設定なので、まずは光の演出なしで輪郭の変化を判断します。
+
+## 運用例：横と縦の変位を分けて確認する
+
+X/Yモードでどの設定がどの方向に効くか分からなくなったら、動きの少ない素材に窓枠や格子などの直線を含めて確認します。X Refractionだけを強めた状態と、Y Refractionだけを強めた状態を見比べると、横方向と縦方向の変形を切り分けられます。
+
+さらに、X側とY側のRefraction Channelを変え、マップに異なるチャンネル情報がある場合だけ、方向ごとに別の模様を使った変形が得られるか確認します。**Radialモードへ切り替えると、Centerを基準に内外方向へ変位する**ため、X/Yモードと同じ見た目にはなりません。
 
 ## Grid Warp / Vector Distortionとの違い
 
@@ -106,7 +118,14 @@ noiseやgrayscale mapから歪みを作るならDisplace、手で形を合わせ
 
 ## 挙動と注意点
 
-Foreground Imageは変位量を決めるcontrol sourceです。map側のcontrastやchannel内容を変えると、同じStrengthでも歪み方が変わります。
+Foreground Imageは変位量を決めるための入力です。マップの明暗やチャンネル内容を変えると、同じRefraction Strengthでも歪み方が変わります。Light Power / Light Angleは変位量の調整とは分けて扱います。
+
+| 症状 | 先に確認すること |
+| --- | --- |
+| 何も歪まない | InputとForeground Imageが両方つながっているか、参照したチャンネルに明暗差があるか、Refractionの強さとEffect Maskを確認します。 |
+| XとYを別々に設定しても同じように揺れる | Fast Noiseなどのマップで、選んだチャンネルが実際には同じ模様になっていないか確認します。 |
+| 画面全体が激しく歪む | Refractionの強さを抑え、必要な範囲をEffect Maskで限定します。 |
+| 意図しない明暗が出る | Light Power / Light Angle / Light Channelを確認し、まず変位だけの結果と比較します。 |
 
 ## 関連Node
 
@@ -118,5 +137,7 @@ Foreground Imageは変位量を決めるcontrol sourceです。map側のcontrast
 ## 出典と確認範囲
 
 DaVinci Resolve 21.1 Reference Manual、September 2026、Chapter 123 pp.2967–2969で、3入力、Radial / X/Y、Center、Refraction Channel、Refraction Strength、X/Y Refraction、Light Power / Angle、Spread、Light Channel、Fast Noiseを使うBasic Node Setupを確認しました。
+
+上記の熱気・X/Y切り分け手順は、ManualのFast Noise例と各Controlsの説明を基にした実用構成です。個々の素材での見た目や最適な数値を実機検証したものではありません。
 
 全既定値・数値範囲、内部REGID、実機performanceは未確認です。
