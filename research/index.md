@@ -15,3 +15,7 @@ title: Research
 - **Open** — 未確認・残っている疑問
 
 Researchで十分に確立した内容は、ManualやReferenceへ整理して反映します。
+
+## 映像VFX表現
+
+[定番VFX表現73件の調査](./fusion-vfx-expressions/) — 検証待ち候補と参照資料。

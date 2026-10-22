@@ -39,7 +39,11 @@ jobs:
           node-version: 24
           cache: npm
       - name: Check candidate identity
-        run: test "$(git rev-parse HEAD)" = "$CC_HEAD_SHA"
+        run: |
+          # Checkout's temporary HOME does not cover later container shell steps.
+          # Trust only this ephemeral, explicitly checked-out repository, never '*'.
+          git config --global --add safe.directory "$GITHUB_WORKSPACE"
+          test "$(git rev-parse HEAD)" = "$CC_HEAD_SHA"
       - run: npm ci --no-audit --no-fund
       - name: Verify bundled browser and package match
         timeout-minutes: 2
