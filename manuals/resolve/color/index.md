@@ -41,6 +41,12 @@ Colorページは、素材の明るさや色の偏りを整え、複数ショッ
 - [Color Tracker](./reference/color-tracker) — 動く被写体へのWindow追従
 - [KeyパレットとMatte](./reference/key-matte) — 選択範囲と補正強度の分離
 - [Gallery／Stills](./reference/gallery-stills) — グレードの保存、比較、ショット間での再利用
+- [Versions／グレード比較](./reference/versions-and-grade-comparison) — 1ショットの複数案を管理して比較する
+- [RGB Mixer](./reference/rgb-mixer) — 色チャンネルの混合とモノクロの階調設計
+
+## 実践する（Recipes）
+
+- [3カメラのインタビューをショットマッチングする](./recipes/matching-multicamera-interview) — 基準StillとScopesを使ってカット間の色を整える
 
 ## トラブルシューティング（Troubleshooting）
 
@@ -48,7 +54,7 @@ Colorページは、素材の明るさや色の偏りを整え、複数ショッ
 
 ## 次に整備する領域
 
-機能固有の操作、使い分け、実践的な手順を、公式21.1マニュアルと実機確認を基に段階的に追加します。候補はShot Matching、Noise Reductionなどです。
+機能固有の操作、使い分け、実践的な手順を、公式21.1マニュアルと実機確認を基に段階的に追加します。候補はColor Warper、Noise Reductionなどです。
 
 ## Fusionとの差
 
