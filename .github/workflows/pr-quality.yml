@@ -1,9 +1,10 @@
 name: Collectanea PR Quality
-# Heavy browser/content validation is intentionally manual.
-# Routine direct-main iteration is validated locally; run this once when a
-# large change or PR needs the full evidence packet.
+# Full checks run once per frozen integration candidate, not on every writer push.
 on:
   workflow_dispatch:
+  pull_request:
+    branches: [main]
+    types: [opened, synchronize, reopened, ready_for_review]
 permissions:
   contents: read
 concurrency:
@@ -11,6 +12,11 @@ concurrency:
   cancel-in-progress: true
 jobs:
   quality:
+    if: >-
+      github.event_name == 'workflow_dispatch' ||
+      (github.event.pull_request.head.repo.full_name == github.repository &&
+       !github.event.pull_request.draft &&
+       startsWith(github.event.pull_request.head.ref, 'integration/'))
     runs-on: ubuntu-latest
     timeout-minutes: 20
     env:
@@ -18,14 +24,21 @@ jobs:
     steps:
       - uses: actions/checkout@v4
         with:
+          ref: ${{ github.event.pull_request.head.sha || github.sha }}
           fetch-depth: 0
+          persist-credentials: false
       - uses: actions/setup-node@v4
         with:
           node-version: 24
           cache: npm
+      - name: Check candidate identity
+        run: test "$(git rev-parse HEAD)" = "$CC_HEAD_SHA"
       - run: npm ci --no-audit --no-fund
-      - name: Catalog model regressions
-        run: npm run test:regressions
+      - name: Script syntax
+        run: |
+          for script in scripts/*.mjs; do node --check "$script"; done
+      - name: Catalog and playground regressions
+        run: node --test tests/*.test.cjs tests/*.test.mjs
       - name: Production build
         id: build
         run: npm run build
@@ -55,6 +68,8 @@ jobs:
         run: |
           mkdir -p artifacts/visual
           git status --porcelain > artifacts/visual/source-status-after.txt
+          git diff --exit-code
+          git diff --cached --exit-code
       - uses: actions/upload-artifact@v4
         if: always()
         with:
