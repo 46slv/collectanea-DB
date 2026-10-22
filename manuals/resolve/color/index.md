@@ -47,6 +47,8 @@ Colorページは、素材の明るさや色の偏りを整え、複数ショッ
 - [Serial／Parallel／Layerノード](./reference/serial-parallel-layer-nodes) — 補正の入力と合成順序を使い分ける
 - [Color Sizing](./reference/color-sizing) — Edit／Input／Output／Node／Referenceの適用範囲
 - [Keyframes](./reference/color-keyframes) — 色補正を時間とともに変化させる
+- [Color Match／Color Chart](./reference/color-match-chart) — カラーチャートを基準にした補正とShot Matchとの使い分け
+- [Noise Reduction](./reference/noise-reduction) — Temporal／SpatialとLuma／Chromaの調整、細部を残す判断
 
 ## 実践する（Recipes）
 
@@ -58,7 +60,7 @@ Colorページは、素材の明るさや色の偏りを整え、複数ショッ
 
 ## 次に整備する領域
 
-機能固有の操作、使い分け、実践的な手順を、公式21.1マニュアルと実機確認を基に段階的に追加します。候補はNoise Reduction、Color Match／Color Chartなどです。
+機能固有の操作、使い分け、実践的な手順を、公式21.1マニュアルと実機確認を基に段階的に追加します。候補はCamera RAW、Group Pre-Clip／Clip／Post-Clip、Timelineレベルのグレーディングなどです。
 
 ## Fusionとの差
 
