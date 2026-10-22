@@ -15,7 +15,7 @@ outputs: ["image"]
 tasks: ["warp-image", "screen-replace", "paint"]
 product_scope: fusion
 suite_surfaces: ["fusion"]
-updated: "2026-10-20"
+updated: "2026-10-22"
 ---
 
 # Perspective Positioner
@@ -95,11 +95,25 @@ MediaOut
 
 この2つは逆向きの処理に見えますが、21.1 Manualでは**両Nodeはconcatenateされない**と説明されています。往復させると多少softnessが加わるため、画質が重要な処理では不要な往復を増やさない方が安全です。
 
-## 動く画像で使う場合
+## 動く看板を修正する：Steadyで固定して戻す
 
-Perspective Positionerの4点は時間方向にアニメーションできます。21.1 Manualでは、4点を動かして画像を揺らす・歪ませる表現にも使えるとされています。
+Perspective Positionerの4点はアニメーションできますが、**自動追跡する機能はありません**。1フレームで看板を正面に展開しても、撮影中に面が動けば次のフレームでは角の位置を合わせ直す必要があります。
 
-実写の動く面を正面向きへ保ちたい場合は、単に4点を置くだけでは別フレームへ追従しません。[Planar Tracker](../tracking/planar-tracker)などで平面の動きを調べる工程と、unpin後の編集・再配置を区別してください。自動追従の接続方式と結果は、素材と作業構成に合わせて検証する必要があります。
+**動く面の傷や汚れを消す**場合は、[Planar Tracker](../tracking/planar-tracker)で面を追い、Steadyで一時的に静止させてPaintし、逆変形で撮影時の動きに戻す方法があります。21.1マニュアルでは、移動する車のナンバープレートを修正する例にこの方式を使っています。これはPerspective Positionerを自動追従させる方法とは別です。
+
+~~~text
+撮影素材 → Planar Tracker（Track後にSteady）→ Paint
+         → Planar Tracker（同じ追跡に対応した逆Steady）→ 出力
+~~~
+
+1. 撮影素材をPlanar Trackerへ接続し、看板の模様を囲んで基準フレーム（Reference Time）を決め、必要な区間を前後にTrackします。
+2. **Steady**に切り替え、Viewerで看板がほぼ動かなくなるか確認します。平面が流れる場合は、修正前に追跡範囲や精度を見直します。
+3. **Steady Time**は基準フレームに合わせ、**Clipping ModeをDomain**にします。固定中に画面外へ押し出された画素を保持しておくためです。
+4. 後段のPaintで傷や文字を修正します。対象の面が固定されているため、同じ位置を使って作業できます。
+5. 2つ目のPlanar Trackerで、対応する追跡結果を使って**Invert Steady Transform**を有効にします。使用する追跡データと基準時刻が両側で一致しているか確認します。
+6. 再生し、修正した部分が元の看板へ戻るか、画面端に欠けがないかを元映像と比較します。
+
+固定と逆変形で**画像の再サンプリングが2回**発生し、細い文字や線が少しぼやける場合があります。必要に応じて修正範囲だけをマスクで取り出して元映像へ重ね、背景全体を再処理しない構成にします。新しい画像を貼るだけなら、[Planar Tracker](../tracking/planar-tracker)のCorner Pinか、[Planar Transform](../tracking/planar-transform)と[Corner Positioner](./corner-positioner)による配置を優先します。これらは**追跡して別素材を配置する**作業で、看板自体の画素を平らにして修正する作業とは異なります。
 
 ## 関連Node
 
@@ -110,6 +124,6 @@ Perspective Positionerの4点は時間方向にアニメーションできます
 
 ## 出典と確認範囲
 
-DaVinci Resolve 21.1 Reference Manual、September 2026、Chapter 123 pp.2982–2983で、Input / Effect Mask、unpinの役割、Basic Node Setup、Mapping Type、Corners X / Y、Top / Bottom / Left / Right、Corner Positionerと往復した際のsoftnessを確認しました。
+DaVinci Resolve 21.1 Reference Manual、September 2026、Chapter 123 pp.2982–2983で、Input / Effect Mask、unpinの役割、Basic Node Setup、Mapping Type、Corners X / Y、Top / Bottom / Left / Right、Corner Positionerと往復した際のsoftnessを確認しました。動く面のSteady→Paint→逆Steady、Steady Time、Invert Steady Transform、Domainによる画面外画素の保持、2回の再サンプリングについてはChapter 119 pp.2826–2827を参照しています。
 
 全既定値・数値範囲、内部REGID、実機performanceは未確認です。
