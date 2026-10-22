@@ -34,6 +34,8 @@ Colorページは、素材の明るさや色の偏りを整え、複数ショッ
 - [Scopes](./reference/scopes) — Waveform / Parade / Vectorscopeを補正判断に使う
 - [Log Wheels](./reference/log-wheels) — LogホイールのShadows／Midtones／Highlightsとレンジ設定
 - [HDRパレット](./reference/hdr-palette) — Global、6つの明暗ゾーン、Range／Falloff
+- [Printer Lights](./reference/printer-lights) — Printer Pointsでショット間の明暗と色を微調整する
+- [Soft Clip](./reference/soft-clip) — ハイライトとシャドウの階調端を緩やかに整える
 - [Custom Curves](./reference/custom-curves) — YRGBとチャンネル別カーブ、階調の形の調整
 - [HSL Curves](./reference/hsl-curves) — 色相・彩度・輝度を条件にした6種類のカーブ
 - [HSL Qualifier](./reference/hsl-qualifier) — 色相・彩度・輝度による抽出とMatte Finesse
@@ -41,6 +43,7 @@ Colorページは、素材の明るさや色の偏りを整え、複数ショッ
 - [Color Tracker](./reference/color-tracker) — 動く被写体へのWindow追従
 - [KeyパレットとMatte](./reference/key-matte) — 選択範囲と補正強度の分離
 - [Gallery／Stills](./reference/gallery-stills) — グレードの保存、比較、ショット間での再利用
+- [グレードのコピーと追記](./reference/grade-copy-and-append) — Apply GradeとAppend Node Graphを使い分ける
 - [Versions／グレード比較](./reference/versions-and-grade-comparison) — 1ショットの複数案を管理して比較する
 - [RGB Mixer](./reference/rgb-mixer) — 色チャンネルの混合とモノクロの階調設計
 - [Color Warper](./reference/color-warper) — 色相・彩度のグリッドで色の関係を調整
@@ -53,6 +56,8 @@ Colorページは、素材の明るさや色の偏りを整え、複数ショッ
 - [Group Pre-Clip／Clip／Post-Clip](./reference/group-grading) — 共通補正とショット別補正を分ける
 - [Shared Node](./reference/shared-nodes) — 複数クリップで共通Lookを共有し、個別補正と分ける
 - [Color Space Transform（CST）](./reference/color-space-transform) — 入出力の色域・GammaとRCMとの役割分担
+- [LUTの適用位置と管理](./reference/luts) — 技術変換とLook、二重変換を区別する
+- [外部モニタリングと表示環境](./reference/external-monitoring) — Viewer・外部出力・モニターの差を切り分ける
 - [Blur／Sharpen](./reference/blur-sharpen) — ぼかしと輪郭調整、Window・Noise Reductionとの使い分け
 - [Timelineグレーディング](./reference/timeline-grading) — 全編共通のLookと納品前QCの適用範囲
 
@@ -66,10 +71,12 @@ Colorページは、素材の明るさや色の偏りを整え、複数ショッ
 
 - [二次補正がちらつく・範囲が揺れるとき](./troubleshooting/secondary-matte-flicker) — Qualifier、Window、Tracker、Keyの原因を分ける
 - [書き出し後に色や明るさが違うとき](./troubleshooting/export-color-mismatch) — 出力変換、色タグ、Levels、再生環境を切り分ける
+- [ノード無効化とグレードバイパス](./troubleshooting/node-bypass-diagnostics) — 調整がどこで変化したかを診断する
+- [白飛び・黒つぶれの診断](./troubleshooting/highlight-shadow-clipping) — Scopesとノード比較から原因を分ける
 
 ## 次に整備する領域
 
-機能固有の操作、使い分け、実践的な手順を、公式21.1マニュアルと実機確認を基に段階的に追加します。次の候補はLUTの適用位置と管理方法のReference、外部映像モニタリングと表示環境の確認手順です。
+機能固有の操作、使い分け、実践的な手順を、公式21.1マニュアルと実機確認を基に段階的に追加します。次の候補はSplit Screenによるショット比較、Lightboxによるシーン全体の色調確認です。
 
 ## Fusionとの差
 
