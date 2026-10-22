@@ -1,61 +1,104 @@
 ---
-title: "Average"
-description: "連続frameをaverage。"
+title: Average
+description: 連続する映像フレームを平均して、動く被写体の重なりや時間方向のぼかしを作るKrokodoveノード。使い方と注意点を解説。
 doc_type: node
-term_id: "average"
-term_short: "Averageは、連続frameをaverage。Krokodove固有のtool。"
+term_id: average
+term_short: 時間的に連続する複数フレームを平均し、フレーム間の変化を混ぜる画像処理ツール。
 verification: partial
-aliases: ["Average"]
-concepts: ["image-data"]
-nodes: ["Average"]
-node_family: "krokodove"
-inputs: ["image"]
-outputs: ["image"]
-tasks: ["motion-graphics"]
+aliases: [Average]
+concepts: [image-data]
+nodes: [Average]
+node_family: krokodove
+inputs: [image]
+outputs: [image]
+tasks: [motion-graphics]
 product_scope: fusion
-suite_surfaces: ["fusion"]
-updated: "2026-10-05"
+suite_surfaces: [fusion]
+updated: '2026-10-22'
 ---
 
 # Average
 
-Averageは、連続frameをaverage。Krokodove固有のtoolです。名前だけで2D Image Nodeと判断せず、Input / Output domainとFamily Overviewを先に確認します。
+**Averageは、連続する複数フレームの画像を平均して、時間の異なる映像を1枚に重ねたような結果を作る**Krokodoveのノードです。DaVinci Resolve 21.1の公式マニュアルでは「Image Pixel Tools」に分類され、連続フレームの平均によるフレームブレンド効果と説明されています。
 
-## 役割
+ここで平均するのは、**画面内の隣り合う画素ではなく、時間の異なるフレーム**です。画面内をぼかす通常のBlurと混同しないことが、使い方を考える出発点になります。
 
-連続frameをaverage。このページでは、名前だけで選ばず、**何を受け取り、何が変わり、どのdomainへ返すか**を先に整理します。
+## 何が起きるか
 
-この項目で確認できている中心的な役割は「連続frameをaverage」です。exactなInspector項目が未確認の場合は、役割とdata domainを先に使って候補を絞ります。
+例えば、同じ場所を映した3つのフレームに被写体が左・中央・右と移動していた場合、それらの画像を平均すると、異なる位置の被写体が薄く重なって見えることがあります。動きが大きい部分には残像のような見た目が生じ、変化の少ない背景は比較的そのまま残ります。
+
+次の図は「フレームを平均する」という考え方の例です。
+
+```text
+時刻 A：被写体が左       ┐
+時刻 B：被写体が中央     ├─→ 時間方向に画像を平均 → 重なった像
+時刻 C：被写体が右       ┘
+```
+
+実際にAverageが何フレームを参照するか、過去・未来のどちらを使うか、等しい重みで計算するかは、21.1マニュアルの短い説明からは分かりません。上の「3フレーム」は**仕組みを理解するための模式例**であり、初期設定を示すものではありません。
 
 ## 入力と出力
 
-入力分類: **image**。 出力分類: **image**。 この分類はdata domainを読むためのものです。Fusion 21.1のexactな端子名・端子数を未確認の場合、ここでは推測して固定しません。
+| 項目 | 確認できること | まだ確認できていないこと |
+| --- | --- | --- |
+| 入力 | 既存COLLECTANEAの分類では<Term id="image">Imageデータ</Term>。連続する映像フレームを扱う | 正式な入力端子名・数、必須入力、静止画を渡した場合の動作 |
+| 処理 | 公式Manualでは「連続する複数フレームの平均」によるフレームブレンド | 参照フレーム数・方向、重み付け、境界フレーム、各設定項目 |
+| 出力 | 既存COLLECTANEAの分類ではImageデータ | Alphaの混合方法、追加出力の有無、内部の色計算方式 |
 
-## 使うときの判断
+画像の入出力分類はリポジトリの既存カタログに基づきます。**正式な端子名やInspectorのパラメータ一覧を21.1マニュアルで確認したという意味ではありません。**
 
-KrokodoveはImage、Shape、3D、Regionが同じchapterに並ぶため、まずOutput domainで候補を絞ります。
+## 主な用途
 
-同じ目的を別Familyでも作れる場合は、後段で必要なdata domainと、Graph上で責任をどこに置きたいかで選びます。
+### 動きに残像を持たせる
 
-## 最小構成
+手や人物、文字などの動きが速い場面では、複数時刻の像が重なり、動いた軌跡を感じさせる演出を試せます。通常のモーションブラーと似た見た目になる可能性はありますが、Averageがカメラのシャッター時間や動きベクトルを物理的に再現するわけではありません。
 
-    Image / Source → Average → Result
+### 時間方向の変化をなじませる
 
-これは接続関係を理解するための最小構成案です。公式Manualのexactな作例として確認していない構成は、実制作前にViewerで中間結果を確認します。
+連続フレームを混ぜるため、フレームごとに変化する細部が平均されることがあります。固定された背景と動く被写体が共存する映像では、**背景と被写体で平均の見え方が異なる**点に注意します。ちらつきの補正だけが目的なら[Deflicker](./deflicker)と比較します。
 
-## 確認ポイント
+### 抽象的な多重露光の質感
 
-- 入力dataのdomainが合っているか。
-- この項目のoutputを受け取れる後段Nodeへ接続しているか。
-- 同じ役割を前段 / 後段で二重に処理していないか。
-- source-limited pageでは、未確認のControl名・default・rangeを名前から推測していないか。
+被写体が少しずつ位置を変える素材では、複数の輪郭が共存するグラフィック表現を検討できます。どれだけ輪郭が残るかは元映像と実際の設定次第です。
 
-## Family内での位置づけ
+## 具体例：動く被写体の軌跡を確認する
 
-Krokodoveノードの全体像と近いNodeの選び分けは[Family Overview](./)を参照してください。
+1. 動くものと動かない背景の両方が映る短いクリップをFusionで開きます。まず元の映像を数フレーム再生し、動きが分かりやすい区間を選びます。
+2. Image処理の候補としてAverageを挿入し、単体の結果をViewerで表示します。標準的な画像の流れに接続できるかを先に確認します。
+3. 同じフレームで処理前と処理後を見比べます。動く部分に重なりが増えたか、静止背景がどの程度変わったかを別々に観察します。
+4. Inspectorに参照範囲などの設定が実際にある場合のみ、それらを一つずつ変え、結果を比較します。**設定名・数値範囲は未確認**です。
+5. 見た目が強すぎる場合は、後段の一般的な画像合成で元映像と処理結果を混ぜる方法を検討します。Average自体に混合率の設定があるとは断定しません。
 
-## 出典と確認範囲
+```text
+MediaIn → Average → MediaOut
+```
 
-このページの役割・data domain・系譜は、既存COLLECTANEA catalogとBlackmagic Design公式資料で確認された範囲をreader-first形式へ整理しています。
+これは**Image入出力が実機で接続できる場合の最小確認案**であり、公式の接続作例でも実機検証済みの配線でもありません。再生範囲の始端・終端付近、カットの直前直後では参照フレームの扱いが分からないため、Viewerで実際の結果を確かめてください。
 
-Fusion 21.1 Reference Manualで個別のInspector項目・default・rangeまで確認できていない項目は、**source-limited**としてその詳細を断定していません。verification: partial はその未確認範囲を含みます。runtime REGIDや現在のEffects Library表示は別のruntime verificationで確定します。
+## 似たノード・機能との違い
+
+| ツール | 選ぶ目安 |
+| --- | --- |
+| **Average** | 異なる時刻の画像を平均してフレームブレンドする。 |
+| [Deflicker](./deflicker) | 連続フレームの局所的または全体的な明滅を抑える。**明滅の補正**が目的ならこちらも比較する。 |
+| [Time Mapper](./time-mapper) | 外部の画像マップによって、画面の場所ごとに異なる時刻の映像を組み合わせる。平均化とは異なり、**時刻の割り当て**が中心。 |
+| 一般的なBlur | 同一フレーム内の周囲の画素を使う空間的なぼかし。時間方向の平均とは別の処理。 |
+
+After EffectsではEchoやフレームブレンドが発想として近いですが、**フレームの選び方、合成式、残像の減衰が同じという意味ではありません**。
+
+## 注意点
+
+- **動体の二重像：** 時間方向に平均すると動く被写体の輪郭が複数見える場合があります。輪郭をはっきり保ちたい素材では結果を確認してください。
+- **編集点：** カット直後や素材の最初・最後で、どのフレームを参照するかは不明です。隣のショットが混ざる・混ざらないなどの挙動は実機で検証します。
+- **Alpha・HDR：** 半透明画素やシーンリニア値を内部でどう平均するかは未確認です。合成境界やハイライトを含む素材では結果を確認します。
+- **パフォーマンス：** 参照フレーム数、キャッシュ、GPU処理などは未確認です。複数フレームを扱う一般的な処理として、長尺素材では再生負荷にも注意します。
+- **Edition差：** Resolve Free / Studio、Fusion Studioでの提供差、Inspectorの正式名称・既定値・範囲は実機未確認です。
+
+## バージョンと出典
+
+- **公式一次資料：** Blackmagic Design『*DaVinci Resolve 21.1 Reference Manual*』（2026年9月）、Chapter 105「Krokodove Nodes」、p.2435、Image Pixel Tools / Average。**複数の連続フレームを平均し、フレームブレンド効果を作る**点を確認。
+- **比較資料：** 同書p.2436のDeflicker、およびp.2435のTime Mapper。用途の違いを確認。
+- **既存分類：** Image入力・Image出力とするメタデータはCOLLECTANEAの従来の分類を引き継いでいます。
+- **未確認：** 正式な端子、参照フレーム範囲、Inspector項目、Alpha・HDR計算、版・Editionによる差。したがって `verification: partial` を維持します。
+
+関連するKrokodoveツールは[ノード索引](./)から確認できます。
