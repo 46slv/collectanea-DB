@@ -1,0 +1,25 @@
+.vp-bloom {margin:24px 0 32px; padding:clamp(14px,2.5vw,24px); border:1px solid var(--cc-line); border-radius:var(--cc-radius); background:var(--cc-surface); color:var(--cc-text); font:14px/1.65 var(--cc-body-font);}
+.vp-bloom__heading {margin-bottom:16px;}
+.vp-bloom .vp-bloom__heading h3 {margin:0 0 6px; font-size:19px;}
+.vp-bloom .vp-bloom__heading p, .vp-bloom .vp-bloom__hint {margin:0; color:var(--cc-secondary); font-size:12px;}
+.vp-bloom__previews {display:grid; grid-template-columns:repeat(3,minmax(0,1fr)); gap:10px;}
+.vp-bloom__preview {min-width:0; margin:0; border:1px solid var(--cc-line); border-radius:var(--cc-radius); overflow:hidden;}
+.vp-bloom__preview figcaption {display:flex; flex-direction:column; min-height:60px; gap:3px; padding:10px; line-height:1.4;}
+.vp-bloom__preview figcaption strong {font-size:13px;}
+.vp-bloom__preview figcaption span {font-size:11px; color:var(--cc-secondary);}
+.vp-bloom__preview canvas {display:block; width:100%; height:auto; background:#000;}
+.vp-bloom .vp-bloom__hint {margin-top:12px;}
+.vp-bloom__controls {display:grid; grid-template-columns:repeat(2,minmax(0,1fr)); gap:16px; margin-top:20px; padding-top:18px; border-top:1px solid var(--cc-line);}
+.vp-bloom__control {display:flex; flex-direction:column; min-width:0; gap:6px; font-size:12px; color:var(--cc-secondary);}
+.vp-bloom__control > span {display:flex; flex-wrap:wrap; justify-content:space-between; gap:4px 8px;}
+.vp-bloom__control output {font-weight:600; color:var(--cc-text); font-variant-numeric:tabular-nums;}
+.vp-bloom__control select {min-width:0; width:100%; min-height:44px; padding:9px 10px; border:1px solid var(--cc-control-line); border-radius:var(--cc-radius); background:var(--cc-canvas); color:var(--cc-text); font-size:13px;}
+.vp-bloom__control input[type='range'] {width:100%; min-height:44px; margin:0; accent-color:var(--cc-text);}
+.vp-bloom__actions {display:flex; justify-content:flex-end; margin-top:12px;}
+.vp-bloom__actions button {min-height:44px; padding:8px 12px; border:1px solid var(--cc-control-line); border-radius:var(--cc-radius); background:var(--cc-surface); color:var(--cc-text); font-size:12px;}
+@media (max-width:700px) {.vp-bloom__previews,.vp-bloom__controls {grid-template-columns:minmax(0,1fr);} .vp-bloom__preview figcaption {min-height:0;}}
+
+.vp-bloom__fallback {margin:8px 10px; font-size:12px; color:var(--cc-secondary);}
+
+.vp-bloom__metric {font-size:12px; margin:8px 0 0; color:var(--cc-secondary);}
+.vp-bloom__metric strong {color:var(--cc-text); font-variant-numeric:tabular-nums;}
