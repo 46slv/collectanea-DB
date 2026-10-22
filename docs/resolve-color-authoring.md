@@ -1,60 +1,49 @@
 # DaVinci Resolve Color Manual — Authoring Scope
 
-Updated: 2026-10-21
+Updated: 2026-10-23
 Status: Active authoring lane / draft delivery
 Repository: [46slv/collectanea-DB](https://github.com/46slv/collectanea-DB)
-Authority: user requested a separate Color page manual, with the same incremental Writer A / Writer B / Integrator method as Fusion (2026-10-21 JST).
+Authority: separate Color-page manual requested 2026-10-21; worker-operation repair and verified main integration authorized 2026-10-23.
 
 ## Scope / ownership
 
-- **Color manual** owns `manuals/resolve/color/**`: Color page color grading, node workflow, primary/secondary grading, scopes, HDR wheels, color management, stills, tracking, Color-page-specific debugging.
-- **Suite landing** `manuals/resolve/index.md` is shared navigation; Integrator owns future modifications after this seed.
-- **Fusion manual** owns `manuals/fusion/**` (including its *Fusion Color Nodes*). Color writers never edit or reword Fusion articles merely to fill this manual.
-- **COLLECTANEA interactive dictionary** owns `reference/visual-processing/**` and separate experiment/Canvas code. Color writers do not edit its own source.
-- Shared `docusaurus.config.js`, `sidebars*.js`, `plugins/`, `src/`, root `manuals/index.md`, cross-app architecture and search are **integration-only**, never Writer A/B territory without a fresh explicit scope transfer.
-- Public website `main` and Pages Deploy are distinct from private draft work. Writers only publish draft branches/PRs.
+- **Color manual** owns `manuals/resolve/color/**`: Color-page color grading, node workflow, primary/secondary grading, scopes, HDR wheels, color management, stills, tracking and troubleshooting.
+- **Color Writer A** owns individual `reference/**` articles; **Color Writer B** owns individual `learn/**`, `recipes/**`, `troubleshooting/**` articles. Shared indexes are excluded from both writer scopes.
+- **Collectanea Integrator** owns shared indexes, `manuals/resolve/index.md`, shared configuration, candidate validation and main publication across all article lanes. There is no separate Color main-writing integrator.
+- **Fusion manual** owns `manuals/fusion/**`, including Fusion Color Nodes. Color writers do not edit these articles.
+- **Interactive dictionary** owns `reference/visual-processing/**` and its Canvas experiments. Color writers do not edit that source.
+- Shared `docusaurus.config.js`, `sidebars*.js`, `plugins/`, `src/`, root `manuals/index.md`, cross-app architecture and search remain integration-only.
+- Writers deliver branches and PRs; they do not update public `main` directly.
+
+The current scheduling, one-WIP-PR limit, candidate freeze, CI and merge protocol are defined in [article-worker-operations.md](article-worker-operations.md). That document supersedes the former stacked-PR cadence without changing these content-quality requirements.
 
 ## Writing structure
 
-Follow the principles of `docs/fusion-authoring-contract.md`, adapted to the **Color page** (not Fusion Node input/output):
+Follow `docs/fusion-authoring-contract.md`, adapted to the **Color page** rather than Fusion Node input/output:
 
 | Reader goal | Destination |
 | --- | --- |
 | Understand color processing | `learn/` |
 | Look up a palette/control | `reference/` |
-| Reuse a grading approach | `patterns/` (when a real reusable pattern exists) |
-| Finish a concrete grade | `recipes/` (when the procedure is source-verified) |
-| Diagnose a symptom | `troubleshooting/` (when justified) |
-| Find what to read | `index.md` (navigation only) |
+| Reuse a verified grading pattern | `patterns/`, after explicit ownership assignment |
+| Finish a concrete grade | `recipes/` |
+| Diagnose a symptom | `troubleshooting/` |
+| Find what to read | `index.md`, managed by Integrator |
 
-Every new page must answer the reader's practical question with clear Japanese, actual use, **observed effect or source-grounded expected effect**, explicit version/source/verification state, and relevant links. No mass-generated one-line placeholders, fabricated Inspector names/defaults, copied manual passages, or nonexistent links.
+Every new page answers a practical question in clear Japanese with actual use, an observed or source-grounded expected effect, version/source/verification status and relevant links. Do not mass-generate placeholders, invent controls/defaults, copy long manual passages, or add nonexistent links.
 
 ## Source and validation
 
-- Primary: [Blackmagic Design DaVinci Resolve 21.1 Reference Manual, 2026-09-08](https://www.blackmagicdesign.com/support) and [official Color product page](https://www.blackmagicdesign.com/products/davinciresolve/color).
-- If the current version's controls or exact procedures cannot be confirmed, mark them *unverified / to verify* without inventing details.
-- Source-grounded text is not equal to Resolve host acceptance. Keep `verification: partial` where necessary.
-- Before writing, check current `main`, Color cumulative stack, current PRs, and other Color writer's target paths. One file = one active writer.
-- Each bounded batch: write or repair substantive article(s), validate source claims, links/frontmatter and relevant `npm run test:content` / `npm run build` when a runtime is available; use PR CI if available. Avoid full test repetition for unchanged candidates.
-- Use the current repository PR convention (stacked Draft PR, batch/fan-in, clean integration branch). Do not independently merge Writer PRs into main or force push.
-- Since published site is a public surface, Integrator must verify exact candidate, CI, conflicts, release/publishing authority and the repo's latest rule before advancing main. If ambiguous, leave an audited integration PR rather than assuming publishing permission.
+- Primary sources: Blackmagic Design DaVinci Resolve 21.1 Reference Manual, available from the [support center](https://www.blackmagicdesign.com/support), and the [official Color page](https://www.blackmagicdesign.com/products/davinciresolve/color).
+- Consult the supplied 21.1 Manual's relevant chapter when specifying controls or exact procedures. If unavailable or unconfirmed, identify the gap without inventing details.
+- Source-grounded text is not Resolve host acceptance. Keep `verification: partial` where host/runtime behavior remains unchecked.
+- Before writing, inspect current main, all relevant open PRs and current ownership. One file has one active writer.
+- Each writer maintains at most one unintegrated PR. Finish or repair that batch before starting another. New batches begin on fresh main, not another writer's unmerged branch.
+- Validate changed claims, frontmatter, links and relevant focused tests. A completed remote head is marked READY and frozen for integration; do not append more articles while it is being validated.
+- Integrator reconciles current main and shared navigation, runs the necessary checks on the exact frozen candidate, and verifies mergeability before advancing main. Current user authorization covers this verified merge and the existing Pages deployment; it does not turn unverified behavior into confirmed fact.
 
-## Initial concrete material
+## Topic selection
 
-- `manuals/resolve/index.md` — Resolve suite landing with a real Color link.
-- `manuals/resolve/color/index.md` — Manual root and current links.
-- `learn/first-grade.md` — First-grade procedure and guardrails.
-- `learn/color-node-graph.md` — Color node serial order and processing responsibility.
-- `reference/primaries-color-wheels.md` — Lift/Gamma/Gain/Offset.
-- `reference/scopes.md` — Waveform/Parade/Vectorscope.
+Choose the next substantive gap from the live published articles and current writer PRs rather than this document's historical seed list. Prefer missing user-facing explanation, concrete grading examples and source verification over metadata expansion. Existing topics may include Primaries, Log/HDR Wheels, Curves, Qualifier/Window/Tracker, RCM/CST, Gallery/Stills, Group/Timeline grading and delivery troubleshooting.
 
-## Next writer subjects (choose one bounded slice at a time)
-
-1. Separate Log Wheels and HDR Wheels; compare their tonal range models without conflating them.
-2. Custom Curves and Hue-related Curves, with observed examples.
-3. Qualifier, Power Window, Tracker: *selection → movement tracking → color correction*.
-4. Color Management: Input / Timeline / Output, RCM vs manual CST, display vs processing transforms.
-5. Gallery / Stills, grade matching and copy/paste workflows.
-6. Further references, recipes, troubleshooting, own captured example images after verified scope permits.
-
-Prioritize missing user-facing explanation over metadata expansion. Do not count a page's existence as visual/host verification. Update this list only when it materially changes; current task progress belongs in Git PR and project Notion state.
+Own captures and host-specific recipes are added after the relevant scope and evidence are available. A page's existence is not proof of visual or host verification. Current progress belongs in GitHub and the project Notion state, not a duplicated static checklist here.
