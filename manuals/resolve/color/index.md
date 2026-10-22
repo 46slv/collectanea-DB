@@ -82,4 +82,4 @@ Colorページは、素材の明るさや色の偏りを整え、複数ショッ
 - [Blackmagic Design：Colorページの機能紹介](https://www.blackmagicdesign.com/products/davinciresolve/color)
 - [DaVinci Resolve 21.1 Reference Manual（公式サポート）](https://www.blackmagicdesign.com/support)
 
-現段階は公式機能紹介と21.1 Reference Manualを基にした記事群です。全Control、初期値、Free／Studio差、21.1実機画面の網羅は未検証であり、**全記事完成や実機受入を意味しません**。
+記事群はBlackmagic DesignのColor機能紹介や公式教材を参照しています。21.1 Reference Manualの該当章との直接照合状況は記事ごとに異なり、未照合の範囲は各記事に記載しています。全Control、初期値、Free／Studio差、21.1実機画面の網羅は未検証であり、**全記事完成や実機受入を意味しません**。
