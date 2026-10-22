@@ -40,10 +40,15 @@ Colorページは、素材の明るさや色の偏りを整え、複数ショッ
 - [Power Windows](./reference/power-windows) — 形・位置による局所補正、Qualifierとの併用と追跡時の注意
 - [Color Tracker](./reference/color-tracker) — 動く被写体へのWindow追従
 - [KeyパレットとMatte](./reference/key-matte) — 選択範囲と補正強度の分離
+- [Gallery／Stills](./reference/gallery-stills) — グレードの保存、比較、ショット間での再利用
+
+## トラブルシューティング（Troubleshooting）
+
+- [二次補正がちらつく・範囲が揺れるとき](./troubleshooting/secondary-matte-flicker) — Qualifier、Window、Tracker、Keyの原因を分ける
 
 ## 次に整備する領域
 
-機能固有の操作、使い分け、実践的な手順を、公式21.1マニュアルと実機確認を基に段階的に追加します。候補はGallery／Stills、Shot Matching、Noise Reductionなどです。
+機能固有の操作、使い分け、実践的な手順を、公式21.1マニュアルと実機確認を基に段階的に追加します。候補はShot Matching、Noise Reductionなどです。
 
 ## Fusionとの差
 
