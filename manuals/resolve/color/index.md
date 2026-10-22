@@ -43,6 +43,10 @@ Colorページは、素材の明るさや色の偏りを整え、複数ショッ
 - [Gallery／Stills](./reference/gallery-stills) — グレードの保存、比較、ショット間での再利用
 - [Versions／グレード比較](./reference/versions-and-grade-comparison) — 1ショットの複数案を管理して比較する
 - [RGB Mixer](./reference/rgb-mixer) — 色チャンネルの混合とモノクロの階調設計
+- [Color Warper](./reference/color-warper) — 色相・彩度のグリッドで色の関係を調整
+- [Serial／Parallel／Layerノード](./reference/serial-parallel-layer-nodes) — 補正の入力と合成順序を使い分ける
+- [Color Sizing](./reference/color-sizing) — Edit／Input／Output／Node／Referenceの適用範囲
+- [Keyframes](./reference/color-keyframes) — 色補正を時間とともに変化させる
 
 ## 実践する（Recipes）
 
@@ -54,7 +58,7 @@ Colorページは、素材の明るさや色の偏りを整え、複数ショッ
 
 ## 次に整備する領域
 
-機能固有の操作、使い分け、実践的な手順を、公式21.1マニュアルと実機確認を基に段階的に追加します。候補はColor Warper、Noise Reductionなどです。
+機能固有の操作、使い分け、実践的な手順を、公式21.1マニュアルと実機確認を基に段階的に追加します。候補はNoise Reduction、Color Match／Color Chartなどです。
 
 ## Fusionとの差
 
