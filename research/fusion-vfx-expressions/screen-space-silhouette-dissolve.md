@@ -107,7 +107,7 @@ updated: "2026-10-23"
 
 ## 参照先
 
-- [全73候補の索引](./index)
+- [全73候補の索引](./)
 - [実機検証計画](./verification-plan)
 - [外部・公式資料の出典一覧](./sources)
 - [COLLECTANEA: pImage Emitter](https://46slv.github.io/collectanea-DB/manuals/fusion/nodes/particles/pimageemitter/)
