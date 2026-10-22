@@ -18,9 +18,16 @@ jobs:
        !github.event.pull_request.draft &&
        startsWith(github.event.pull_request.head.ref, 'integration/'))
     runs-on: ubuntu-latest
+    container:
+      image: mcr.microsoft.com/playwright:v1.56.0-noble
+      options: --shm-size=1g
     timeout-minutes: 20
+    defaults:
+      run:
+        shell: bash
     env:
       CC_HEAD_SHA: ${{ github.event.pull_request.head.sha || github.sha }}
+      CI: 'true'
     steps:
       - uses: actions/checkout@v4
         with:
@@ -34,6 +41,10 @@ jobs:
       - name: Check candidate identity
         run: test "$(git rev-parse HEAD)" = "$CC_HEAD_SHA"
       - run: npm ci --no-audit --no-fund
+      - name: Verify bundled browser and package match
+        timeout-minutes: 2
+        run: |
+          node -e 'const assert=require("node:assert/strict");assert.equal(require("@playwright/test/package.json").version,"1.56.0","Update the workflow image and this version together with Playwright");require("@playwright/test").chromium.launch().then(b=>b.close()).catch(e=>{console.error(e);process.exit(1)})'
       - name: Script syntax
         run: |
           for script in scripts/*.mjs; do node --check "$script"; done
@@ -42,14 +53,13 @@ jobs:
       - name: Production build
         id: build
         run: npm run build
-      - name: Install locked browser
-        run: npx playwright install --with-deps chromium
       - name: Record exact candidate
         run: |
           mkdir -p artifacts/visual
-          node -e 'const fs=require("fs"),cp=require("child_process");fs.writeFileSync("artifacts/visual/candidate.json",JSON.stringify({head:process.env.CC_HEAD_SHA,tested:cp.execFileSync("git",["rev-parse","HEAD"],{encoding:"utf8"}).trim(),dirty:cp.execFileSync("git",["status","--porcelain"],{encoding:"utf8"}),node:process.version},null,2))'
+          node -e 'const fs=require("fs"),cp=require("child_process");fs.writeFileSync("artifacts/visual/candidate.json",JSON.stringify({head:process.env.CC_HEAD_SHA,tested:cp.execFileSync("git",["rev-parse","HEAD"],{encoding:"utf8"}).trim(),dirty:cp.execFileSync("git",["status","--porcelain"],{encoding:"utf8"}),node:process.version,browserImage:"mcr.microsoft.com/playwright:v1.56.0-noble"},null,2))'
           git archive --format=tar.gz HEAD > artifacts/source-snapshot.tar.gz
       - name: Serve production and verify real UI states
+        timeout-minutes: 5
         run: |
           npm run serve -- --host 127.0.0.1 --port 3000 --no-open > artifacts/visual/server.log 2>&1 &
           SERVER_PID=$!
