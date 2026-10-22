@@ -72,4 +72,4 @@ updated: "2026-10-23"
 - [Manual / Recipes](https://46slv.github.io/collectanea-DB/manuals/fusion/recipes/): 実機で確認した完成結果と具体的手順。
 - [Manual / Node Reference](https://46slv.github.io/collectanea-DB/manuals/fusion/nodes/): 各Nodeの役割・入力・出力・Inspectorの正確な仕様。
 
-同じ手順・解説を複数ページへ全文複製せず、関連ページからリンクします。詳細な実行状況は対象リポジトリのGitHub Issue/PRで追跡し、確定結果を成果物へ反映します。
+同じ手順・解説を複数ページへ全文複製せず、関連ページからリンクします。詳細な実行状況は [GitHub Issue #48：定番VFX表現73件の再現検証](https://github.com/46slv/collectanea-DB/issues/48) で追跡し、確定結果を成果物へ反映します。
