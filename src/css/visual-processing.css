@@ -1,0 +1,20 @@
+/* Use the existing mobile breakpoint and this document's generated identity.
+   Other Reference pages and Fusion tables keep their current layout. */
+@media (max-width: 996px) {
+  html.plugin-id-reference[class~='docs-doc-id-visual-processing/index'] .theme-doc-markdown table {
+    display: table;
+    table-layout: fixed;
+    width: 100%;
+  }
+
+  html.plugin-id-reference[class~='docs-doc-id-visual-processing/index'] .theme-doc-markdown :is(th, td) {
+    padding: 8px;
+    text-align: left;
+    vertical-align: top;
+    overflow-wrap: anywhere;
+  }
+
+  html.plugin-id-reference[class~='docs-doc-id-visual-processing/index'] .theme-doc-markdown :is(th, td):first-child {
+    width: 38%;
+  }
+}

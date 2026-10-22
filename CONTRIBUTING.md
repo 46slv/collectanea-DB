@@ -35,22 +35,24 @@ term_short: Imageが合成へどの程度寄与するかを表すalpha channel�
 ## Build
 
 ```bash
-npm install
+npm ci --no-audit --no-fund
+npm run test:regressions
 npm run build
 ```
 
-Pull Requestでは、少なくともproduction buildが成功する状態を維持してください。
+Pull Requestでは、少なくともproduction buildが成功する状態を維持してください。個別のPlaygroundを変更した場合は対応する `tests/*.test.mjs` も実行します。
 
 ## Development workflow
 
-COLLECTANEAでは、実装が最低限buildでき、実際に触って検証できる状態になった時点でmainへ統合し、その後のVisual Acceptanceや細かな調整はmain上で行うのを基本とします。
+COLLECTANEAでは、実装が最低限buildでき、実際に触って検証できる状態になった時点でmainへ統合し、その後のVisual Acceptanceや細かな調整を進めます。
 
 - 実装途中の大きな変更: task branch / PR
-- 検証可能になった変更: mainへ統合
-- 日常のUI調整・記事追加・軽微な修正: main上で作業してよい
+- 検証可能になった変更: 必要な確認後にmainへ統合
+- 人間による日常のUI調整・記事追加・軽微な修正: 必要な最小確認後にmain上で作業してよい
 - 大規模refactor・routing/content model変更・dependency大更新: branch / PRへ戻す
-- Heavy Quality workflow: manual-only
+- 定期記事Writer: 独立branch / 1 Writerあたり未統合PR最大1本。mainへの直接writeはしない
+- 定期運用のmain更新: Collectanea Integratorへ一本化
+- Heavy Quality: 同一repoのReadyな `integration/*` PRからmainへの提出時に自動実行。manual dispatchも利用可能。通常のWriter pushで重複起動しない
 - 公開サイトへ影響するmain pushのみPages deploy
 
-mainへpushする前に、対象変更に必要な最小限のbuild / preview確認を行ってください。
-
+定期運用の所有範囲、候補凍結、CIと配信確認、復旧手順は [記事ワーカーの継続運用](docs/article-worker-operations.md) を正本とします。

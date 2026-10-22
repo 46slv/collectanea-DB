@@ -1,0 +1,8 @@
+{
+  "label": "カメラ / 撮影",
+  "position": 2,
+  "link": {
+    "type": "doc",
+    "id": "camera/index"
+  }
+}

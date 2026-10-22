@@ -76,6 +76,13 @@ slug: /fusion/recipes
 
 現在 **21 Recipe** です。
 
+## 表現の収集（実機検証待ち）
+
+- [定番VFX表現73件の調査](https://46slv.github.io/collectanea-DB/research/fusion-vfx-expressions/) — 粒子化・文字・遷移・グリッチ・光学・実写合成・時間・3Dを、完成映像から探す候補集です。
+- [スクリーンスペース・シルエット粒子化](https://46slv.github.io/collectanea-DB/research/fusion-vfx-expressions/screen-space-silhouette-dissolve/) — UE5の記事の方式とFusionの近似案を区別しています。
+
+これらは調査中の候補であり、ここにある17件のRecipeと違って**実機再現済みの手順ではありません**。確認できた表現を順にRecipeへ追加します。
+
 ## 検証待ち
 
 Fusion 21.1 Reference Manual / 実機で操作名と挙動を確認してから個別Recipeへ昇格する候補:
