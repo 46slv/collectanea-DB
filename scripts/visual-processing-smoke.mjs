@@ -213,7 +213,7 @@ try {
     await page.setViewportSize({width: 1440, height: 1000});
     await go(route);
     await page.getByRole('link', {name: '仕組みと4階調の操作実験'}).click();
-    await expect(page).toHaveURL(/\\/reference\\/visual-processing\\/quantization\\/?$/);
+    await expect(page).toHaveURL(/\/reference\/visual-processing\/quantization\/?$/);
     await expect(page.locator('.theme-doc-markdown h1')).toHaveText('量子化（Quantization）');
     const widget = page.locator('[data-vp-dither="ready"]');
     await expect(widget).toBeVisible();
