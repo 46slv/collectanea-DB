@@ -59,6 +59,16 @@ import DitheringPlayground from '@site/src/components/DitheringPlayground';
 
 **保存精度との違い**：「4階調」を選ぶことと、ファイルを2-bit形式で保存することは同義ではありません。この実験では少数の候補に丸めた後、Canvasへ表示するために0〜255の8-bit値へ変換しています。画素に使う値の種類数と、ファイル形式のビット深度を区別してください。
 
+## 方式の違いと参考資料
+
+この教材は、各画素の表示用グレースケール値を**黒から白まで等間隔の候補へ丸める**方式です。入力画像に合う代表色を自動で探す「適応型の色量子化」とは異なります。例えばImageMagickの `-colors` は画像の色分布に応じて出力色を選び、`-posterize` はチャンネルごとの階調を均等に減らせます。どちらも本教材のグレースケール4階調と同じ出力になるとは限りません。
+
+- [ImageMagick — Color Quantization and Dithering](https://usage.imagemagick.org/quantize/)：適応型の `-colors`、等間隔の `-posterize`、ディザ有無の見た目を比較できる実例。
+- [ImageMagick — Color Reduction Utilizing Adaptive Spatial Subdivision](https://imagemagick.org/quantize/)：画像内の色分布から代表色を求める、適応型色量子化の仕組み。
+- [MDN — ImageData.data](https://developer.mozilla.org/en-US/docs/Web/API/ImageData/data)：Canvasの `rgba-unorm8` 画素配列が8-bit整数のRGBA値を扱う仕様。Canvasには別の画素形式もあるため、この教材の実装範囲として8-bitと記す。
+
+参考資料の確認日：2026年10月23日。上記は処理方式・表示データ形式の説明に用いた資料であり、After EffectsやDaVinci Resolveとの画素単位の一致を検証したものではありません。
+
 ## この実験の範囲
 
 白黒の静止テスト画像を、ブラウザの表示用にエンコードされた値で処理する簡易教材です。色付き画像の色量子化、作業色空間、ガンマ、HDRや広色域の精度は扱いません。After EffectsやDaVinci Resolveの内部処理・表示結果と一致する保証はありません。最終出力では、画面サイズ、拡大縮小、圧縮によって段差の見え方が変わる場合があります。
