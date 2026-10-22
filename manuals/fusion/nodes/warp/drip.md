@@ -15,7 +15,7 @@ outputs: ["image"]
 tasks: ["warp-image"]
 product_scope: fusion
 suite_surfaces: ["fusion"]
-updated: "2026-10-05"
+updated: "2026-10-22"
 ---
 
 # Drip
@@ -43,15 +43,19 @@ Dripは、中心から広がる波紋の形で2D Imageを歪ませるNodeです�
 
 ### Center / Aspect
 
-Centerで波紋の発生位置を決めます。AspectはShapeの縦横比を変えます。
+Centerで波紋の発生位置を決めます。AspectはShapeの縦横比を変えます。**1.0なら対称**で、小さくすると縦長、大きくすると横長になります。
 
 ### Amplitude / Dampening
 
-Amplitudeは歪みの強さ、Dampeningは中心から離れるにつれてAmplitudeをどの程度弱めるかを調整します。
+**Amplitude**は波紋の変形量を決めます。**0.0では波紋による変形がなくなります**。値を上げるほど元画像の画素を大きくずらします。
+
+**Dampening**は中心から離れるにつれてAmplitudeを弱める設定です。遠くまで歪みが広がる場合に見直します。効果を特定の範囲へ明確に限定したいときの**Effect Mask**とは役割が異なります。
 
 ### Frequency / Phase
 
-Frequencyはrippleの数・密度を調整します。Phaseはpatternの位相をずらし、animationすると波紋が中心から外側へ進むように見えます。
+**Frequency**は中心から広がる波紋の数を調整します。**0.0では波紋がなくなります**。Frequencyを大きくすると、より細かい波が並びます。
+
+**Phase**は波の山・谷の位置をずらす設定です。Phaseを時間とともに変えると、波紋が中心から外側へ進むように見えます。Amplitudeは変形の強さ、Frequencyは波の密度、Phaseは波の進行と分けて調整します。
 
 ## 主な用途
 
@@ -65,6 +69,18 @@ Frequencyはrippleの数・密度を調整します。Phaseはpatternの位相�
     MediaIn → Drip → MediaOut
 
 Circularを選び、Centerを波紋の発生位置へ合わせます。Amplitudeを小さく設定し、Frequencyで波の密度を決め、Phaseをanimationして動きを確認します。
+
+## 運用例：水面に落ちた滴から波紋を広げる
+
+池の水面を撮影した動画へ、滴が落ちた場所を中心に波が伝わるような**画素の変形**を加える例です。波紋の画像を重ねるのではなく、元映像に写る反射や模様の参照位置を動かします。
+
+1. 水面の動画を**MediaIn → Drip → MediaOut**へ接続し、Dripの**ShapeをCircular**にします。
+2. **Center X/Y**を滴が落ちた場所へ合わせます。**Aspect = 1.0**から始め、映像上の波が楕円形に見える場合だけ縦横比を変えます。
+3. **Amplitude**を小さくした状態で**Frequency**を調整し、反射の線が何本の波で曲がるか確認します。Amplitudeが0、Frequencyが0の場合は波紋が見えません。
+4. **Dampening**で中心から離れた部分の変形を抑えます。水面以外の岸や人物まで歪む場合は、必要に応じて**EllipseなどのMask**をDripの青いEffect Maskへ接続し、効果範囲を限定します。
+5. 波紋が発生してから広がる区間で**Phaseをキーフレーム**にし、数フレーム進めて水面の模様が中心から外側へ動いて見えるか確認します。
+
+Dripが生成するのは画像の歪みです。滴の飛沫、立体的な水面、反射の物理挙動を自動生成するものではありません。必要なら別素材の合成と組み合わせます。
 
 ## Coordinate Spaceと組み合わせる
 
@@ -80,6 +96,15 @@ Circularを選び、Centerを波紋の発生位置へ合わせます。Amplitude
 - **Dent** — 中心の周囲を単発の膨らみ・凹みとして変形する
 - **Vortex** — 中心の周囲を渦状に回転させる
 
+## うまく変形しないとき
+
+| 症状 | 確認すること |
+| --- | --- |
+| Phaseを動かしても波が見えない | **AmplitudeとFrequencyが0になっていないか**、Effect Maskが全黒ではないかを確認する。 |
+| 画面全体が揺れてしまう | **Dampening**で中心から離れた領域を抑え、必要なら**Effect Mask**で範囲を限定する。 |
+| 波紋が縦長・横長すぎる | **Aspect**を1.0へ戻し、必要な比率へ調整する。 |
+| 動かしたい場所と中心が合わない | **Center X/Y**の位置を確認する。これは動きを自動追跡する設定ではない。 |
+
 ## 関連Node
 
 - [Coordinate Space](./coordinate-space)
@@ -88,6 +113,6 @@ Circularを選び、Centerを波紋の発生位置へ合わせます。Amplitude
 
 ## 出典と確認範囲
 
-DaVinci Resolve 21.1 Reference Manual、September 2026、Chapter 123 pp.2969–2971で、Input / Effect Mask、8種類のShape、Center、Aspect、Amplitude、Dampening、Frequency、Phase、MediaInを使うBasic Node Setupを確認しました。Coordinate Spaceとの組み合わせは同章p.2962で確認しています。
+DaVinci Resolve 21.1 Reference Manual、September 2026、Chapter 123 pp.2969–2971で、Input / Effect Mask、8種類のShape、Center、Aspect（1.0で対称）、Amplitude（0.0で変形なし）、Dampening、Frequency（0.0で波紋なし）、Phase、MediaInを使うBasic Node Setupを確認しました。Coordinate Spaceとの組み合わせは同章p.2962で確認しています。
 
 全既定値・内部REGID・実機performanceは未確認です。
