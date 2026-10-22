@@ -6,7 +6,7 @@ verification: partial
 product_scope: color
 suite_surfaces: [color]
 tasks: [grade, color-correct, color-management, match-shots]
-updated: "2026-10-22"
+updated: "2026-10-23"
 ---
 
 # Colorページ
@@ -43,6 +43,8 @@ Colorページは、素材の明るさや色の偏りを整え、複数ショッ
 - [Color Tracker](./reference/color-tracker) — 動く被写体へのWindow追従
 - [KeyパレットとMatte](./reference/key-matte) — 選択範囲と補正強度の分離
 - [Gallery／Stills](./reference/gallery-stills) — グレードの保存、比較、ショット間での再利用
+- [Split Screen](./reference/split-screen-comparison) — 複数ショットやVersionを同時表示して比較
+- [Lightbox](./reference/lightbox) — タイムライン全体の色調と補正漏れを点検
 - [グレードのコピーと追記](./reference/grade-copy-and-append) — Apply GradeとAppend Node Graphを使い分ける
 - [Versions／グレード比較](./reference/versions-and-grade-comparison) — 1ショットの複数案を管理して比較する
 - [RGB Mixer](./reference/rgb-mixer) — 色チャンネルの混合とモノクロの階調設計
@@ -64,6 +66,7 @@ Colorページは、素材の明るさや色の偏りを整え、複数ショッ
 ## 実践する（Recipes）
 
 - [3カメラのインタビューをショットマッチングする](./recipes/matching-multicamera-interview) — 基準StillとScopesを使ってカット間の色を整える
+- [Power Windowで局所ハイライト補正](./recipes/window-highlight-isolation) — 逆光の窓を分離して人物を保護
 - [肌の色を整える：Qualifier・Power Window・Scopes](./recipes/skin-tone-secondary-grading) — 肌の必要な領域だけを抽出して自然な補正にする
 - [納品前のColor QC](./recipes/pre-delivery-color-qc) — Lightbox、Scopes、Stills、再生で補正漏れと副作用を点検する
 
@@ -76,7 +79,7 @@ Colorページは、素材の明るさや色の偏りを整え、複数ショッ
 
 ## 次に整備する領域
 
-機能固有の操作、使い分け、実践的な手順を、公式21.1マニュアルと実機確認を基に段階的に追加します。次の候補はSplit Screenによるショット比較、Lightboxによるシーン全体の色調確認です。
+機能固有の操作、使い分け、実践的な手順を、公式21.1マニュアルと実機確認を基に段階的に追加します。次の候補はImage Wipeによる2画像の比較と、Layer Mixerによる人物の保護です。
 
 ## Fusionとの差
 
