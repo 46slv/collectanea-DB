@@ -9,7 +9,7 @@ updated: "2026-10-23"
 
 # 映像VFX表現の実機検証計画
 
-[定番VFX表現73件の索引](./index) を、後で一つずつ試すための手順と記録項目です。**現在は未着手の検証計画**であり、再現・性能・Free/Studio差を確認したという記録ではありません。
+[定番VFX表現73件の索引](./) を、後で一つずつ試すための手順と記録項目です。**現在は未着手の検証計画**であり、再現・性能・Free/Studio差を確認したという記録ではありません。
 
 ## 目的と完了条件
 
@@ -67,7 +67,7 @@ updated: "2026-10-23"
 
 ## 発表先の分担
 
-- [Research / 候補索引](./index): 未検証含む表現の棚卸し・参照情報・状態。
+- [Research / 候補索引](./): 未検証含む表現の棚卸し・参照情報・状態。
 - [Research / 個別調査](./screen-space-silhouette-dissolve): 手法比較、できる／できないの境界、未確認事項。
 - [Manual / Recipes](https://46slv.github.io/collectanea-DB/manuals/fusion/recipes/): 実機で確認した完成結果と具体的手順。
 - [Manual / Node Reference](https://46slv.github.io/collectanea-DB/manuals/fusion/nodes/): 各Nodeの役割・入力・出力・Inspectorの正確な仕様。
