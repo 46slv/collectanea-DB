@@ -56,6 +56,10 @@ TARGETS['S62']='Sharpen1';LEFT['S62']='Loader1';RIGHT['S62']='Sharpen1'
 TARGETS['S63']='UnsharpMask1';LEFT['S63']='Loader1';RIGHT['S63']='UnsharpMask1'
 TARGETS['S64']='ErodeDilate1';LEFT['S64']='Loader1';RIGHT['S64']='ErodeDilate1'
 TARGETS['S65']='RankFilter1';LEFT['S65']='Loader1';RIGHT['S65']='RankFilter1'
+TARGETS['S66']='Filter1';LEFT['S66']='Loader1';RIGHT['S66']='Filter1'
+TARGETS['S67']='SoftGlow1';LEFT['S67']='Loader1';RIGHT['S67']='SoftGlow1'
+TARGETS['S68']='CreateBumpMap1';LEFT['S68']='Loader1';RIGHT['S68']='CreateBumpMap1'
+TARGETS['S69']='CustomFilter1';LEFT['S69']='Loader1';RIGHT['S69']='CustomFilter1'
 r=d.scriptapp('Resolve')
 assert r, 'Resolve scripting unavailable; do not change preferences automatically'
 pm=r.GetProjectManager(); p=pm.GetCurrentProject()
@@ -64,7 +68,7 @@ assert r.GetCurrentPage(), 'Resolve has a modal dialog; reconcile the GUI first'
 case=sys.argv[1]; action=sys.argv[2] if len(sys.argv)>2 else 'readback'
 save_export=action!='preview'
 detail_view=action=='detail'
-if detail_view:assert case in ['S62','S63'];action='show'
+if detail_view:assert case in ['S62','S63','S69'];action='show'
 requested_frame=int(sys.argv[3]) if action=='frame' else 24 if case in ['S40','S42'] else 0
 if action=='preview':
  assert case=='S49';requested_frame=int(sys.argv[3]) if len(sys.argv)>3 else 0;assert requested_frame in [0,24];action='show'
@@ -187,6 +191,7 @@ def select(target,left=None):
  layouts['S50']={'Loader1':(0,0),'AutoDomain1':(1.5,0),'MediaOut1':(3,0)}
  layouts['S54']={'Loader1':(0,0),'Letterbox1':(1.5,0),'MediaOut1':(3,0)}
  for cid in ['S58','S59','S60','S61']:layouts[cid]={'Loader1':(0,0),TARGETS[cid]:(1.5,0),'MediaOut1':(3,0)}
+ for cid in ['S66','S67','S68','S69']:layouts[cid]={'Loader1':(0,0),TARGETS[cid]:(1.5,0),'MediaOut1':(3,0)}
  for cid in ['S62','S63','S64','S65']:layouts[cid]={'Loader1':(0,0),TARGETS[cid]:(1.5,0),'MediaOut1':(3,0)}
  if case in ['S62','S63'] and 'BlurSource1' in tools:layouts[case]={'Loader1':(0,0),'BlurSource1':(1.5,0),TARGETS[case]:(3,0),'MediaOut1':(4.5,0)}
  layouts['S57']={'Loader1':(0,0),'CustomTool1':(1.5,0),'MediaOut1':(3,0)}
@@ -245,6 +250,11 @@ if action=='build':
   rb=add('sRender','RenderBase1',4,-1);connect(rb,'Input',base)
   target=add('sTransform','Transform1',2,1);connect(target,'Input',base)
   rr=add('sRender','RenderChanged1',4,1);connect(rr,'Input',target);connect(mo,'Input',rr)
+ # S69 build creates the scaffold; finish matrix edits by native double-click, typing and Return; UIA text alone did not commit the FilterTable.
+ elif case in ['S66','S67','S68','S69']:
+  loader=add('Loader','Loader1',0,0,Clip=str(REPO/'static/img/fusion/captures/_fixtures/chart.png'))
+  reg={'S66':'Filter','S67':'SoftGlow','S68':'CreateBumpMap','S69':'CustomFilter'}[case]
+  target=add(reg,TARGETS[case],1.5,0);connect(target,'Input',loader);connect(mo,'Input',target)
  elif case in ['S62','S63','S64','S65']:
   loader=add('Loader','Loader1',0,0,Clip=str(REPO/'static/img/fusion/captures/_fixtures/chart.png'))
   reg={'S62':'Sharpen','S63':'UnsharpMask','S64':'ErodeDilate','S65':'RankFilter'}[case]

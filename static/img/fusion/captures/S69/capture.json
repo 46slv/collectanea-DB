@@ -1,0 +1,222 @@
+{
+  "schema_version": 1,
+  "case": "S69",
+  "article": "manuals/fusion/nodes/blur-filter/custom-filter.md",
+  "manual": {
+    "version": "21.1",
+    "chapter": 99,
+    "printed_pages": "2332–2336"
+  },
+  "runtime": {
+    "version": "21.1.0.14",
+    "edition": "Studio",
+    "os": "Windows-11-10.0.26200-SP0",
+    "ui_language": "ja-JP (some Shape controls remain English)"
+  },
+  "captured_at": "2026-10-23T23:26:39.165794+00:00",
+  "project": "Collectanea_Captures_20261023_Sol",
+  "timeline": "S69_capture",
+  "frame": 0.0,
+  "resolution": [
+    1920,
+    1080
+  ],
+  "color_management": {
+    "colorScienceMode": "davinciYRGB",
+    "colorSpaceTimeline": "Rec.709 (Scene)",
+    "colorSpaceTimelineGamma": "",
+    "colorSpaceOutput": "Rec.709 (Scene)",
+    "colorSpaceOutputGamma": "ACEScc",
+    "separateColorSpaceAndGamma": "0",
+    "isAutoColorManage": "0",
+    "timelineResolutionWidth": "1920",
+    "timelineResolutionHeight": "1080",
+    "timelineFrameRate": 24.0,
+    "timelinePlaybackFrameRate": "30"
+  },
+  "viewer": {
+    "zoom_percent": 40,
+    "channel": "Color",
+    "background": "checkerboard for transparent pixels",
+    "note": "Viewer screenshots are display evidence, not colorimetric exports."
+  },
+  "graph": "fixture.comp",
+  "settings": "readback.json",
+  "source": {
+    "file": "screen.png",
+    "size": [
+      3352,
+      1910
+    ],
+    "sha256": "a09809879d985e8988216838bbe32d39cd654c48305c4a6f788821f08283d4bf"
+  },
+  "shots": [
+    {
+      "file": "graph.png",
+      "source": "screen.png",
+      "source_sha256": "a09809879d985e8988216838bbe32d39cd654c48305c4a6f788821f08283d4bf",
+      "frame": 0.0,
+      "crop_xyxy": [
+        480,
+        1300,
+        2380,
+        1450
+      ],
+      "resampled": false,
+      "sha256": "e63f700e501130cb0376e065ae06d418ade4ad1fae7203163e774678b91a9f25",
+      "viewer_zoom_percent": 40
+    },
+    {
+      "file": "inspector.png",
+      "source": "screen.png",
+      "source_sha256": "a09809879d985e8988216838bbe32d39cd654c48305c4a6f788821f08283d4bf",
+      "frame": 0.0,
+      "crop_xyxy": [
+        2830,
+        120,
+        3352,
+        535
+      ],
+      "resampled": false,
+      "sha256": "98f1fabe69b6432e7dc3dce9312262380320d73e24aba88fce7a4c74602ee5b6",
+      "viewer_zoom_percent": 40
+    },
+    {
+      "file": "compare.png",
+      "source": "screen.png",
+      "source_sha256": "a09809879d985e8988216838bbe32d39cd654c48305c4a6f788821f08283d4bf",
+      "frame": 0.0,
+      "crop_xyxy": [
+        1146,
+        65,
+        2830,
+        725
+      ],
+      "resampled": false,
+      "sha256": "a83f51293f8634b496d00e57f62434b71e784f0e4453b5ebde12aa32210451c4",
+      "viewer_zoom_percent": 40
+    },
+    {
+      "file": "floor025-inspector.png",
+      "source": "screen-floor025.png",
+      "source_sha256": "0b5f376b95e7b493c97d3c60249bf32d080bb45303bb4aa637aa9e16cd66fc41",
+      "frame": 0.0,
+      "crop_xyxy": [
+        2830,
+        120,
+        3352,
+        535
+      ],
+      "resampled": false,
+      "sha256": "152d93c6721ac8a51e28bf2361e029ee34bfaecfb42cf664426afd59c8d852f3",
+      "viewer_zoom_percent": 40
+    },
+    {
+      "file": "floor025.png",
+      "source": "screen-floor025.png",
+      "source_sha256": "0b5f376b95e7b493c97d3c60249bf32d080bb45303bb4aa637aa9e16cd66fc41",
+      "frame": 0.0,
+      "crop_xyxy": [
+        1146,
+        65,
+        2830,
+        725
+      ],
+      "resampled": false,
+      "sha256": "f5e5ff84240924e556404ef1baee1a43a9a87f13ae4c1fbd4e2c629d8d001e14",
+      "viewer_zoom_percent": 40
+    },
+    {
+      "file": "normalize05-inspector.png",
+      "source": "screen-normalize05.png",
+      "source_sha256": "cb370b89c77ce92014283e718bbf14c3f8a32e8b04792ea67b18459d6c71cb0d",
+      "frame": 0.0,
+      "crop_xyxy": [
+        2830,
+        120,
+        3352,
+        535
+      ],
+      "resampled": false,
+      "sha256": "e206e528bf1af7d4b6c628dc7981356691c69625f1a0e11cb9bdccb50812bd8f",
+      "viewer_zoom_percent": 40
+    },
+    {
+      "file": "normalize05.png",
+      "source": "screen-normalize05.png",
+      "source_sha256": "cb370b89c77ce92014283e718bbf14c3f8a32e8b04792ea67b18459d6c71cb0d",
+      "frame": 0.0,
+      "crop_xyxy": [
+        1146,
+        65,
+        2830,
+        725
+      ],
+      "resampled": false,
+      "sha256": "7346792c33fa4101334198eab56ca5642a523aeae21f4df9feee1e8c2e5bd96b",
+      "viewer_zoom_percent": 40
+    },
+    {
+      "file": "detail.png",
+      "source": "screen-detail.png",
+      "source_sha256": "60a1089d769b527e138d7ccb1c16e52c9af44ad86cf95d21b968ea374ca23678",
+      "frame": 0.0,
+      "crop_xyxy": [
+        1146,
+        65,
+        2830,
+        725
+      ],
+      "resampled": false,
+      "sha256": "5d719ca4c9a8aa86d95fbe4048b83d61802b489e6293bc0b9121fbb456a55dc5",
+      "viewer_zoom_percent": 100
+    }
+  ],
+  "acceptance": {
+    "gui": "PASS: owner visually inspected node connections, selected Inspector, and output",
+    "article_display": "PASS: local production build;1440px/390px decode/Alt/native links/hash/overflow"
+  },
+  "unverified": [
+    "Free edition and other platforms",
+    "All parameter ranges and performance",
+    "負係数Emboss/Relief、5×5/7×7、Update Lock/プリセット、Alpha/Mask/内部式/性能",
+    "Exported portable composition reimport"
+  ],
+  "restoration": "PASS: owned scratch saved;frame0/both Color40%;primary settings restored,DoD/RoI off,no popup.",
+  "parameter_readback_scope": "Number/Text/Point/FuID/Clip only;no Image/Mask/3D/ScriptVal payload evaluation.",
+  "state_variants": {
+    "screen.png": "3×3 center1/eight neighbors0,Normalize0/Floor0,40%",
+    "screen-detail.png": "same identity matrix,both native Viewers100%",
+    "screen-floor025.png": "identity/Normalize0/Floor.25",
+    "screen-normalize05.png": "identity/Normalize.5/Floor0"
+  },
+  "matrix_evidence": {
+    "size": "3×3",
+    "active": [
+      [
+        0,
+        0,
+        0
+      ],
+      [
+        0,
+        1,
+        0
+      ],
+      [
+        0,
+        0,
+        0
+      ]
+    ],
+    "verification": "Native Inspector and exported FilterTable;not GetInput payload",
+    "input_method": "double-click cell/type/Return then verify Graph;UIA SetValue changed text only;one missed cell corrected from fresh state",
+    "rejected": "initial Fit,intermediate matrix and all emboss-named files excluded;negative input not established"
+  },
+  "reproduction": {
+    "fixture_sha256": "a88d3cdf6edacb3c2981927d6a957e0ef4e034be68ce658197d983d1cd60f271",
+    "readback_sha256": "f0a72e64433e309ff4ad2381e9fe457a80c9dd3384bc4dba5618b9ec4c0efb45",
+    "paths": "Comp:/../_fixtures/ for bundled synthetic fixtures",
+    "reimport": "NOT_RUN: accepted GUI evidence precedes export path normalization"
+  }
+}

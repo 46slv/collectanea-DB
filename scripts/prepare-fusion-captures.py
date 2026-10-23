@@ -70,6 +70,10 @@ CONFIG={
  'S63':{'graph': (480, 1300, 2380, 1450), 'inspector': (2830, 120, 3352, 390), 'compare': (1146, 65, 2830, 725), 'detail0': (1146, 65, 2830, 725), 'threshold02-inspector': (2830, 120, 3352, 390), 'threshold02': (1146, 65, 2830, 725), 'detail02': (1146, 65, 2830, 725)},
  'S64':{'graph': (480, 1300, 2380, 1450), 'inspector': (2830, 120, 3352, 385), 'compare': (1146, 65, 2830, 725), 'negative-inspector': (2830, 120, 3352, 385), 'negative': (1146, 65, 2830, 725), 'zero-inspector': (2830, 120, 3352, 385), 'zero': (1146, 65, 2830, 725)},
  'S65':{'graph': (480, 1300, 2380, 1450), 'inspector': (2830, 120, 3352, 310), 'compare': (1146, 65, 2830, 725), 'rank0-inspector': (2830, 120, 3352, 310), 'rank0': (1146, 65, 2830, 725), 'rank1-inspector': (2830, 120, 3352, 310), 'rank1': (1146, 65, 2830, 725)},
+ 'S66':{'graph': (480, 1300, 2380, 1450), 'inspector': (2830, 120, 3352, 330), 'compare': (1146, 65, 2830, 725), 'alpha1-inspector': (2830, 120, 3352, 330), 'alpha1': (1146, 65, 2830, 725), 'laplacian-inspector': (2830, 120, 3352, 330), 'laplacian': (1146, 65, 2830, 725), 'filter-menu': (0, 0, 271, 164)},
+ 'S67':{'graph': (480, 1300, 2380, 1450), 'inspector': (2830, 120, 3352, 465), 'compare': (1146, 65, 2830, 725), 'threshold09-inspector': (2830, 120, 3352, 465), 'threshold09': (1146, 65, 2830, 725), 'blend0-inspector': (2830, 120, 3352, 465), 'blend0': (1146, 65, 2830, 725), 'default-inspector': (2830, 120, 3352, 465)},
+ 'S68':{'graph': (480, 1300, 2380, 1450), 'inspector': (2830, 120, 3352, 390), 'compare': (1146, 65, 2830, 725), 'height5-inspector': (2830, 120, 3352, 390), 'height5': (1146, 65, 2830, 725), 'height-low-inspector': (2830, 120, 3352, 390), 'height-low': (1146, 65, 2830, 725)},
+ 'S69':{'graph': (480, 1300, 2380, 1450), 'inspector': (2830, 120, 3352, 535), 'compare': (1146, 65, 2830, 725), 'floor025-inspector': (2830, 120, 3352, 535), 'floor025': (1146, 65, 2830, 725), 'normalize05-inspector': (2830, 120, 3352, 535), 'normalize05': (1146, 65, 2830, 725), 'detail': (1146, 65, 2830, 725)},
 }
 def sha(p):return hashlib.sha256(p.read_bytes()).hexdigest()
 candidates=json.loads((ROOT/'docs/fusion-screenshot-candidates.json').read_text(encoding='utf-8'))
@@ -139,6 +143,10 @@ for case in args.cases:
   if case=='S63':extra.update({('S63', 'detail0'): 'screen-detail0.png', ('S63', 'threshold02-inspector'): 'screen-threshold02.png', ('S63', 'threshold02'): 'screen-threshold02.png', ('S63', 'detail02'): 'screen-detail02.png'})
   if case=='S64':extra.update({('S64', 'negative-inspector'): 'screen-negative.png', ('S64', 'negative'): 'screen-negative.png', ('S64', 'zero-inspector'): 'screen-zero.png', ('S64', 'zero'): 'screen-zero.png'})
   if case=='S65':extra.update({('S65', 'rank0-inspector'): 'screen-rank0.png', ('S65', 'rank0'): 'screen-rank0.png', ('S65', 'rank1-inspector'): 'screen-rank1.png', ('S65', 'rank1'): 'screen-rank1.png'})
+  if case=='S66':extra.update({('S66', 'alpha1-inspector'): 'screen-alpha1.png', ('S66', 'alpha1'): 'screen-alpha1.png', ('S66', 'laplacian-inspector'): 'screen-laplacian.png', ('S66', 'laplacian'): 'screen-laplacian.png', ('S66', 'filter-menu'): 'screen-menu.png'})
+  if case=='S67':extra.update({('S67', 'threshold09-inspector'): 'screen-threshold09.png', ('S67', 'threshold09'): 'screen-threshold09.png', ('S67', 'blend0-inspector'): 'screen-blend0.png', ('S67', 'blend0'): 'screen-blend0.png', ('S67', 'default-inspector'): 'screen-default.png'})
+  if case=='S68':extra.update({('S68', 'height5-inspector'): 'screen-height5.png', ('S68', 'height5'): 'screen-height5.png', ('S68', 'height-low-inspector'): 'screen-height-low.png', ('S68', 'height-low'): 'screen-height-low.png'})
+  if case=='S69':extra.update({('S69', 'floor025-inspector'): 'screen-floor025.png', ('S69', 'floor025'): 'screen-floor025.png', ('S69', 'normalize05-inspector'): 'screen-normalize05.png', ('S69', 'normalize05'): 'screen-normalize05.png', ('S69', 'detail'): 'screen-detail.png'})
   src=folder/extra.get((case,slug),variants.get((case,slug),'screen.png'))
   assert 0<=box[0]<box[2]<=im.width and 0<=box[1]<box[3]<=im.height, (case,slug,box)
   path=folder/(slug+'.png');Image.open(src).crop(box).save(path)
@@ -153,6 +161,7 @@ for case in args.cases:
   if case=='S56' and slug.startswith(('frame24','square24')):frame=24
   shots.append({'file':path.name,'source':src.name,'source_sha256':sha(src),'frame':frame,'crop_xyxy':box,'resampled':False,'sha256':sha(path)})
   if case in ['S62','S63']:shots[-1]['viewer_zoom_percent']=100 if 'detail' in slug or slug=='strong-inspector' else 40
+  if case=='S69':shots[-1]['viewer_zoom_percent']=100 if slug=='detail' else 40
   if case=='S54':shots[-1]['viewer_channels']='Left Color / Right Alpha' if slug=='alpha' else 'Color'
   if case in ['S25','S28','S31']:shots[-1]['viewer_channels']='Alpha' if slug=='alpha' else 'Color'
  candidate=next(x for x in candidates['candidates'] if x['id']==case)

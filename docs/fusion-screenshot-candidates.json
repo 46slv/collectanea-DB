@@ -2,7 +2,7 @@
   "schema_version": 1,
   "created": "2026-10-20",
   "scope": "All Fusion pages, DaVinci Resolve 21.1",
-  "status_note": "2026-10-24:125 pages377 crops650 placements public PASS through PR91;984 assets verified. S62–S65/R103–R106 add29 native crops and12 reuse placements,local5 distinct pages49 images PASS. Cumulative129 pages406 crops691 placements;batch17 public NOT_RUN. Whole587-page Fusion and remaining_views incomplete.",
+  "status_note": "2026-10-24:129 pages406 crops691 placements public PASS through PR93,1039 assets. S66–S69/R107–R110 local5 distinct pages55 images PASS;31 native crops+4 index comparisons. Cumulative133 pages437 crops726 placements. Whole587-page Fusion,422 capture-needed pages and remaining_views incomplete.",
   "asset_directory_template": "static/img/fusion/captures/{id}/{shot.slug}.png",
   "capture_manifest_name": "capture.json",
   "candidates": [
@@ -3249,7 +3249,7 @@
         "printed_pages": "2119–2121"
       },
       "goal": "Compare sharpening amount at100% and Blend0",
-      "status": "captured-local-display-verified",
+      "status": "published-display-verified",
       "shots": [
         {
           "slug": "graph",
@@ -3300,7 +3300,8 @@
           "status": "native-observed"
         }
       ],
-      "capture_manifest": "static/img/fusion/captures/S62/capture.json"
+      "capture_manifest": "static/img/fusion/captures/S62/capture.json",
+      "published_batch": "fusion-native-20261024-17"
     },
     {
       "id": "S63",
@@ -3312,7 +3313,7 @@
         "printed_pages": "2124–2126"
       },
       "goal": "Compare Unsharp threshold at100%",
-      "status": "captured-local-display-verified",
+      "status": "published-display-verified",
       "shots": [
         {
           "slug": "graph",
@@ -3357,7 +3358,8 @@
           "status": "native-observed"
         }
       ],
-      "capture_manifest": "static/img/fusion/captures/S63/capture.json"
+      "capture_manifest": "static/img/fusion/captures/S63/capture.json",
+      "published_batch": "fusion-native-20261024-17"
     },
     {
       "id": "S64",
@@ -3369,7 +3371,7 @@
         "printed_pages": "2337–2338"
       },
       "goal": "Compare positive/negative/zero image morphology",
-      "status": "captured-local-display-verified",
+      "status": "published-display-verified",
       "shots": [
         {
           "slug": "graph",
@@ -3414,7 +3416,8 @@
           "status": "native-observed"
         }
       ],
-      "capture_manifest": "static/img/fusion/captures/S64/capture.json"
+      "capture_manifest": "static/img/fusion/captures/S64/capture.json",
+      "published_batch": "fusion-native-20261024-17"
     },
     {
       "id": "S65",
@@ -3426,7 +3429,7 @@
         "printed_pages": "2341–2343"
       },
       "goal": "Compare Rank0/.5/1 atSize7",
-      "status": "captured-local-display-verified",
+      "status": "published-display-verified",
       "shots": [
         {
           "slug": "graph",
@@ -3471,7 +3474,254 @@
           "status": "native-observed"
         }
       ],
-      "capture_manifest": "static/img/fusion/captures/S65/capture.json"
+      "capture_manifest": "static/img/fusion/captures/S65/capture.json",
+      "published_batch": "fusion-native-20261024-17"
+    },
+    {
+      "id": "S66",
+      "priority": "P1",
+      "article": "manuals/fusion/nodes/blur-filter/filter.md",
+      "manual": {
+        "version": "21.1",
+        "chapter": 99,
+        "printed_pages": "2339–2341"
+      },
+      "goal": "Compare Sobel/Laplacian, Alpha processing and actual filter menu",
+      "status": "captured-local-display-verified",
+      "shots": [
+        {
+          "slug": "graph",
+          "kind": "node-graph",
+          "target": "filter",
+          "status": "native-observed"
+        },
+        {
+          "slug": "inspector",
+          "kind": "inspector",
+          "target": "filter",
+          "status": "native-observed"
+        },
+        {
+          "slug": "compare",
+          "kind": "output",
+          "target": "filter",
+          "status": "native-observed"
+        },
+        {
+          "slug": "alpha1-inspector",
+          "kind": "inspector",
+          "target": "filter",
+          "status": "native-observed"
+        },
+        {
+          "slug": "alpha1",
+          "kind": "output",
+          "target": "filter",
+          "status": "native-observed"
+        },
+        {
+          "slug": "laplacian-inspector",
+          "kind": "inspector",
+          "target": "filter",
+          "status": "native-observed"
+        },
+        {
+          "slug": "laplacian",
+          "kind": "output",
+          "target": "filter",
+          "status": "native-observed"
+        },
+        {
+          "slug": "filter-menu",
+          "kind": "inspector",
+          "target": "filter",
+          "status": "native-observed"
+        }
+      ],
+      "capture_manifest": "static/img/fusion/captures/S66/capture.json"
+    },
+    {
+      "id": "S67",
+      "priority": "P1",
+      "article": "manuals/fusion/nodes/blur-filter/soft-glow.md",
+      "manual": {
+        "version": "21.1",
+        "chapter": 92,
+        "printed_pages": "2121–2124"
+      },
+      "goal": "Compare threshold and Blend with native Fast Gaussian",
+      "status": "captured-local-display-verified",
+      "shots": [
+        {
+          "slug": "graph",
+          "kind": "node-graph",
+          "target": "soft-glow",
+          "status": "native-observed"
+        },
+        {
+          "slug": "inspector",
+          "kind": "inspector",
+          "target": "soft-glow",
+          "status": "native-observed"
+        },
+        {
+          "slug": "compare",
+          "kind": "output",
+          "target": "soft-glow",
+          "status": "native-observed"
+        },
+        {
+          "slug": "threshold09-inspector",
+          "kind": "inspector",
+          "target": "soft-glow",
+          "status": "native-observed"
+        },
+        {
+          "slug": "threshold09",
+          "kind": "output",
+          "target": "soft-glow",
+          "status": "native-observed"
+        },
+        {
+          "slug": "blend0-inspector",
+          "kind": "inspector",
+          "target": "soft-glow",
+          "status": "native-observed"
+        },
+        {
+          "slug": "blend0",
+          "kind": "output",
+          "target": "soft-glow",
+          "status": "native-observed"
+        },
+        {
+          "slug": "default-inspector",
+          "kind": "inspector",
+          "target": "soft-glow",
+          "status": "native-observed"
+        }
+      ],
+      "capture_manifest": "static/img/fusion/captures/S67/capture.json"
+    },
+    {
+      "id": "S68",
+      "priority": "P1",
+      "article": "manuals/fusion/nodes/blur-filter/create-bumpmap.md",
+      "manual": {
+        "version": "21.1",
+        "chapter": 99,
+        "printed_pages": "2328–2330"
+      },
+      "goal": "Compare height scale in RGB bump-vector display",
+      "status": "captured-local-display-verified",
+      "shots": [
+        {
+          "slug": "graph",
+          "kind": "node-graph",
+          "target": "create-bumpmap",
+          "status": "native-observed"
+        },
+        {
+          "slug": "inspector",
+          "kind": "inspector",
+          "target": "create-bumpmap",
+          "status": "native-observed"
+        },
+        {
+          "slug": "compare",
+          "kind": "output",
+          "target": "create-bumpmap",
+          "status": "native-observed"
+        },
+        {
+          "slug": "height5-inspector",
+          "kind": "inspector",
+          "target": "create-bumpmap",
+          "status": "native-observed"
+        },
+        {
+          "slug": "height5",
+          "kind": "output",
+          "target": "create-bumpmap",
+          "status": "native-observed"
+        },
+        {
+          "slug": "height-low-inspector",
+          "kind": "inspector",
+          "target": "create-bumpmap",
+          "status": "native-observed"
+        },
+        {
+          "slug": "height-low",
+          "kind": "output",
+          "target": "create-bumpmap",
+          "status": "native-observed"
+        }
+      ],
+      "capture_manifest": "static/img/fusion/captures/S68/capture.json"
+    },
+    {
+      "id": "S69",
+      "priority": "P1",
+      "article": "manuals/fusion/nodes/blur-filter/custom-filter.md",
+      "manual": {
+        "version": "21.1",
+        "chapter": 99,
+        "printed_pages": "2332–2336"
+      },
+      "goal": "Native identity matrix and independent Floor/Normalize comparisons",
+      "status": "captured-local-display-verified",
+      "shots": [
+        {
+          "slug": "graph",
+          "kind": "node-graph",
+          "target": "custom-filter",
+          "status": "native-observed"
+        },
+        {
+          "slug": "inspector",
+          "kind": "inspector",
+          "target": "custom-filter",
+          "status": "native-observed"
+        },
+        {
+          "slug": "compare",
+          "kind": "output",
+          "target": "custom-filter",
+          "status": "native-observed"
+        },
+        {
+          "slug": "floor025-inspector",
+          "kind": "inspector",
+          "target": "custom-filter",
+          "status": "native-observed"
+        },
+        {
+          "slug": "floor025",
+          "kind": "output",
+          "target": "custom-filter",
+          "status": "native-observed"
+        },
+        {
+          "slug": "normalize05-inspector",
+          "kind": "inspector",
+          "target": "custom-filter",
+          "status": "native-observed"
+        },
+        {
+          "slug": "normalize05",
+          "kind": "output",
+          "target": "custom-filter",
+          "status": "native-observed"
+        },
+        {
+          "slug": "detail",
+          "kind": "output",
+          "target": "custom-filter",
+          "status": "native-observed"
+        }
+      ],
+      "capture_manifest": "static/img/fusion/captures/S69/capture.json"
     }
   ],
   "publication_batches": [
@@ -4024,27 +4274,60 @@
         "artifacts/fusion-captures/public-batch16-assets.json"
       ],
       "limitations": "Whole587-page Fusion and remaining_views continue. S62–S65 local display accepted, not yet published."
+    },
+    {
+      "id": "fusion-native-20261024-17",
+      "cases": [
+        "S62",
+        "S63",
+        "S64",
+        "S65"
+      ],
+      "reuses": [
+        "R103",
+        "R104",
+        "R105",
+        "R106"
+      ],
+      "pr": "https://github.com/46slv/collectanea-DB/pull/93",
+      "candidate": "eaf5229a2fc0ec5f23e061504111206eee2e207c",
+      "main": "70a1430e22c0d6f86c5489e0ec8553fb2dcd34bd",
+      "tree": "90b62bfde97025e20389d47fcef3b73c1f7acac1",
+      "quality_run": "https://github.com/46slv/collectanea-DB/actions/runs/40038102581",
+      "pages_run": "https://github.com/46slv/collectanea-DB/actions/runs/40039132014",
+      "merge_owner": "Sol producer; expected-head squash after exact-head full Quality, fresh main/reviews/comments",
+      "public_pages": 5,
+      "public_images": 49,
+      "new_placements": 41,
+      "new_native_crops": 29,
+      "public_asset_hashes": 1039,
+      "result": "PASS",
+      "evidence": [
+        "artifacts/fusion-captures/public-batch17-display-report.json",
+        "artifacts/fusion-captures/public-batch17-assets.json"
+      ],
+      "limitations": "One existing S36 asset returned503; scoped read-only recheck passed and prior failure retained. Whole587-page Fusion and remaining_views continue. S66–S69 native accepted/adopted; article display pending."
     }
   ],
   "coverage_inventory": {
-    "checked_at": "2026-10-23T23:08:51.077905+00:00",
+    "checked_at": "2026-10-23T23:31:40.701797+00:00",
     "scope": "All manuals/fusion Markdown and MDX pages; review necessity before adding images.",
     "completion_rule": "Every page has an explicit image decision; necessary images are native-observed, embedded, saved to GitHub and public-display-verified. A native example does not verify all article controls.",
     "summary": {
       "total_pages": 587,
-      "with_images": 129,
-      "with_native_examples": 129,
+      "with_images": 133,
+      "with_native_examples": 133,
       "states": {
         "reviewed-no-standalone-image": 26,
         "no-standalone-image-needed": 6,
         "illustrated-reused-example": 66,
-        "capture-planned": 426,
-        "illustrated-native-example": 63
+        "capture-planned": 422,
+        "illustrated-native-example": 67
       },
       "decisions": {
         "no-standalone-image-needed": 32,
-        "image-required": 129,
-        "capture-needed": 426
+        "image-required": 133,
+        "capture-needed": 422
       }
     },
     "pages": [
@@ -6080,13 +6363,18 @@
         "article": "manuals/fusion/nodes/blur-filter/create-bumpmap.md",
         "title": "Create Bump Map",
         "kind": "node",
-        "image_count": 0,
-        "native_cases": [],
+        "image_count": 7,
+        "native_cases": [
+          "S68"
+        ],
         "reused_cases": [],
         "planned_cases": [],
-        "state": "capture-planned",
-        "decision": "capture-needed",
+        "state": "illustrated-native-example",
+        "decision": "image-required",
         "reason": "本文の対象機能: Create Bump Mapは、白黒の高さ画像から凹凸の方向データを作り、2D RGB画像として出力するFilter Node。。白黒mapとRGB bumpは異なり、S11の未加工球では材質効果を示せない。",
+        "remaining_views": [
+          "3D材質/法線数値、Mask/Filter Size/Wrap/Depth/性能"
+        ],
         "required_views": [
           "対象Node名と実際の配線が読めるGraph",
           "対象Nodeを選択した固有Inspector（本文で示すControlを含む）",
@@ -6111,19 +6399,25 @@
             "section": "制作例1：石目模様を3Dの壁に反映する",
             "role": "入力と結果を示す箇所"
           }
-        ]
+        ],
+        "audit_note": "S66–S69 fixed native example; raw/crops/Graph/scalar readback. Partial retained."
       },
       {
         "article": "manuals/fusion/nodes/blur-filter/custom-filter.md",
         "title": "Custom Filter",
         "kind": "node",
-        "image_count": 0,
-        "native_cases": [],
+        "image_count": 8,
+        "native_cases": [
+          "S69"
+        ],
         "reused_cases": [],
         "planned_cases": [],
-        "state": "capture-planned",
-        "decision": "capture-needed",
+        "state": "illustrated-native-example",
+        "decision": "image-required",
         "reason": "本文の対象機能: 3×3・5×5・7×7の係数表で画像のぼかし・輪郭強調・浮き彫りを作るFusionノード。入力、Normalize、Floor Level、制作例を説明する。。S13のBlur、S03のGlow、S14のColor Correctorは別NodeのUIと演算であり、似た見た目でも代用不可。",
+        "remaining_views": [
+          "負係数Emboss/Relief、5×5/7×7、Update Lock/プリセット、Alpha/Mask/内部式/性能"
+        ],
         "required_views": [
           "対象Node名と実際の配線が読めるGraph",
           "対象Nodeを選択した固有Inspector（本文で示すControlを含む）",
@@ -6152,7 +6446,8 @@
             "section": "実際の制作例",
             "role": "入力と結果を示す箇所"
           }
-        ]
+        ],
+        "audit_note": "S66–S69 fixed native example; raw/crops/Graph/scalar readback. Partial retained."
       },
       {
         "article": "manuals/fusion/nodes/blur-filter/defocus.md",
@@ -6284,13 +6579,18 @@
         "article": "manuals/fusion/nodes/blur-filter/filter.md",
         "title": "Filter",
         "kind": "node",
-        "image_count": 0,
-        "native_cases": [],
+        "image_count": 8,
+        "native_cases": [
+          "S66"
+        ],
         "reused_cases": [],
         "planned_cases": [],
-        "state": "capture-planned",
-        "decision": "capture-needed",
+        "state": "illustrated-native-example",
+        "decision": "image-required",
         "reason": "本文の対象機能: 輪郭抽出、エンボス、ノイズ、グレイン、簡易的なぼかしを1つのノードから選ぶ方法と実際の接続例。。S13のBlur、S03のGlow、S14のColor Correctorは別NodeのUIと演算であり、似た見た目でも代用不可。",
+        "remaining_views": [
+          "Mask、Noise/Grainの時間変化、他Filter、画素演算/性能"
+        ],
         "required_views": [
           "対象Node名と実際の配線が読めるGraph",
           "対象Nodeを選択した固有Inspector（本文で示すControlを含む）",
@@ -6309,7 +6609,8 @@
             "section": "入力と出力",
             "role": "入力と結果を示す箇所"
           }
-        ]
+        ],
+        "audit_note": "S66–S69 fixed native example; raw/crops/Graph/scalar readback. Partial retained."
       },
       {
         "article": "manuals/fusion/nodes/blur-filter/glow.md",
@@ -6329,7 +6630,7 @@
         "article": "manuals/fusion/nodes/blur-filter/index.md",
         "title": "Blur / Filterノード",
         "kind": "index",
-        "image_count": 20,
+        "image_count": 24,
         "native_cases": [],
         "reused_cases": [
           "S13",
@@ -6338,7 +6639,11 @@
           "S62",
           "S63",
           "S64",
-          "S65"
+          "S65",
+          "S66",
+          "S67",
+          "S68",
+          "S69"
         ],
         "planned_cases": [],
         "state": "illustrated-reused-example",
@@ -6436,13 +6741,18 @@
         "article": "manuals/fusion/nodes/blur-filter/soft-glow.md",
         "title": "Soft Glow",
         "kind": "node",
-        "image_count": 0,
-        "native_cases": [],
+        "image_count": 8,
+        "native_cases": [
+          "S67"
+        ],
         "reused_cases": [],
         "planned_cases": [],
-        "state": "capture-planned",
-        "decision": "capture-needed",
+        "state": "illustrated-native-example",
+        "decision": "image-required",
         "reason": "本文の対象機能: 明るい画素から柔らかな光のにじみを作るNode。入力Maskの違い、Inspector設定、制作例を解説。。S13のBlur、S03のGlow、S14のColor Correctorは別NodeのUIと演算であり、似た見た目でも代用不可。",
+        "remaining_views": [
+          "Glow Mask/Effect Mask比較、他Filter/Color Scale/Alpha/実写/Clipping/性能"
+        ],
         "required_views": [
           "対象Node名と実際の配線が読めるGraph",
           "対象Nodeを選択した固有Inspector（本文で示すControlを含む）",
@@ -6461,7 +6771,8 @@
             "section": "制作例",
             "role": "入力と結果を示す箇所"
           }
-        ]
+        ],
+        "audit_note": "S66–S69 fixed native example; raw/crops/Graph/scalar readback. Partial retained."
       },
       {
         "article": "manuals/fusion/nodes/blur-filter/unsharp-mask.md",
@@ -23010,8 +23321,9 @@
         "inspector.png",
         "compare.png"
       ],
-      "status": "embedded-local-display-verified",
-      "scope": "Native fixed chart example; broader controls, Mask, Alpha, real-image quality and performance unverified."
+      "status": "published-display-verified",
+      "scope": "Native fixed chart example; broader controls, Mask, Alpha, real-image quality and performance unverified.",
+      "published_batch": "fusion-native-20261024-17"
     },
     {
       "id": "R104",
@@ -23022,8 +23334,9 @@
         "inspector.png",
         "compare.png"
       ],
-      "status": "embedded-local-display-verified",
-      "scope": "Native fixed chart example; broader controls, Mask, Alpha, real-image quality and performance unverified."
+      "status": "published-display-verified",
+      "scope": "Native fixed chart example; broader controls, Mask, Alpha, real-image quality and performance unverified.",
+      "published_batch": "fusion-native-20261024-17"
     },
     {
       "id": "R105",
@@ -23034,8 +23347,9 @@
         "inspector.png",
         "compare.png"
       ],
-      "status": "embedded-local-display-verified",
-      "scope": "Native fixed chart example; broader controls, Mask, Alpha, real-image quality and performance unverified."
+      "status": "published-display-verified",
+      "scope": "Native fixed chart example; broader controls, Mask, Alpha, real-image quality and performance unverified.",
+      "published_batch": "fusion-native-20261024-17"
     },
     {
       "id": "R106",
@@ -23046,8 +23360,49 @@
         "inspector.png",
         "compare.png"
       ],
+      "status": "published-display-verified",
+      "scope": "Native fixed chart example; broader controls, Mask, Alpha, real-image quality and performance unverified.",
+      "published_batch": "fusion-native-20261024-17"
+    },
+    {
+      "id": "R107",
+      "article": "manuals/fusion/nodes/blur-filter/index.md",
+      "source_case": "S66",
+      "images": [
+        "compare.png"
+      ],
       "status": "embedded-local-display-verified",
-      "scope": "Native fixed chart example; broader controls, Mask, Alpha, real-image quality and performance unverified."
+      "scope": "One output comparison and specific link to node article; graph/Inspector details stay in node article."
+    },
+    {
+      "id": "R108",
+      "article": "manuals/fusion/nodes/blur-filter/index.md",
+      "source_case": "S67",
+      "images": [
+        "compare.png"
+      ],
+      "status": "embedded-local-display-verified",
+      "scope": "One output comparison and specific link to node article; graph/Inspector details stay in node article."
+    },
+    {
+      "id": "R109",
+      "article": "manuals/fusion/nodes/blur-filter/index.md",
+      "source_case": "S68",
+      "images": [
+        "compare.png"
+      ],
+      "status": "embedded-local-display-verified",
+      "scope": "One output comparison and specific link to node article; graph/Inspector details stay in node article."
+    },
+    {
+      "id": "R110",
+      "article": "manuals/fusion/nodes/blur-filter/index.md",
+      "source_case": "S69",
+      "images": [
+        "compare.png"
+      ],
+      "status": "embedded-local-display-verified",
+      "scope": "One output comparison and specific link to node article; graph/Inspector details stay in node article."
     }
   ]
 }

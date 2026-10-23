@@ -217,6 +217,46 @@ Size7／Rank0.5で細い格子や文字が減った固定例です。個別記�
 
 Resolve Studio21.1.0.14／Windows、両Viewer Color／40%。全Control、Mask、Alpha、実写の画質と性能は未確認。 [再現用Graph](/img/fusion/captures/S65/fixture.comp) · [撮影条件と確認範囲](/img/fusion/captures/S65/capture.json)
 
+### 実機の参考例：Sobelで輪郭を取り出す
+
+<!-- capture-reuse:R107 -->
+
+左は入力、右は処理結果です。[Sobelで輪郭を取り出すの接続・Inspector・比較条件](./filter)は個別記事に掲載しています。
+
+[![左の入力チャートに対し、右は不透明な黒地へSobelの輪郭が出る](/img/fusion/captures/S66/compare.png)](/img/fusion/captures/S66/compare.png)
+
+Resolve Studio21.1.0.14／Windows、Color／40%。個別記事に記載した範囲だけを確認しています。
+
+### 実機の参考例：Thresholdで発光元を選ぶ
+
+<!-- capture-reuse:R108 -->
+
+左は入力、右は処理結果です。[Thresholdで発光元を選ぶの接続・Inspector・比較条件](./soft-glow)は個別記事に掲載しています。
+
+[![Threshold0.6では右の白いパネルや枠を中心に柔らかなにじみが広がる](/img/fusion/captures/S67/compare.png)](/img/fusion/captures/S67/compare.png)
+
+Resolve Studio21.1.0.14／Windows、Color／40%。個別記事に記載した範囲だけを確認しています。
+
+### 実機の参考例：輝度からRGBの方向データを作る
+
+<!-- capture-reuse:R109 -->
+
+左は入力、右は処理結果です。[輝度からRGBの方向データを作るの接続・Inspector・比較条件](./create-bumpmap)は個別記事に掲載しています。
+
+[![左のチャートの明暗から、右に青紫のRGB方向データが表示される](/img/fusion/captures/S68/compare.png)](/img/fusion/captures/S68/compare.png)
+
+Resolve Studio21.1.0.14／Windows、Color／40%。個別記事に記載した範囲だけを確認しています。
+
+### 実機の参考例：中央だけ1の行列から比較する
+
+<!-- capture-reuse:R110 -->
+
+左は入力、右は処理結果です。[中央だけ1の行列から比較するの接続・Inspector・比較条件](./custom-filter)は個別記事に掲載しています。
+
+[![中央だけ1の行列では40%の左右Viewerに同じチャートが見える](/img/fusion/captures/S69/compare.png)](/img/fusion/captures/S69/compare.png)
+
+Resolve Studio21.1.0.14／Windows、Color／40%。個別記事に記載した範囲だけを確認しています。
+
 ## 出典と確認範囲
 
 一次資料はBlackmagic Design『DaVinci Resolve 21.1 Reference Manual』（2026年9月）、**Chapter 92「Blur Nodes」pp.2108–2131**、**Chapter 99「Filter Nodes」pp.2327以降**です。正確な入出力・設定とその根拠ページは各ノードの記事で説明しています。[公式マニュアル](https://documents.blackmagicdesign.com/UserManuals/DaVinci_Resolve_21.1_Reference_Manual.pdf)。

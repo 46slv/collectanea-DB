@@ -108,8 +108,40 @@ Text+の明るい文字をSoft Glowへ入力し、OutputをMergeのForegroundへ
 
 [Glow](./glow)は明確なhaloやApply Modeの使い分けに向きます。Soft GlowはThresholdで選んだ明部から自然で滑らかなにじみを作る目的に向きます。[Blur](./blur)は発光を合成するのではなく、元画像自体をぼかします。[Blur / Filterノード一覧](./index.md)も参照してください。
 
+## 実機例：ThresholdとBlendを比較する
+
+<!-- capture-case:S67 -->
+
+Resolve Studio21.1.0.14／WindowsのFusionページで、1920×1080の固定チャートを接続しました。通常の比較は両Viewer Color／40%です。内部REGIDは`SoftGlow`でした。左は入力、右は発光後の画像です。
+
+[![LoaderからSoftGlow1、MediaOut1へ接続した実機Node Editor](/img/fusion/captures/S67/graph.png)](/img/fusion/captures/S67/graph.png)
+
+[![Soft GlowのFast Gaussian、Threshold0.6、Gain1、Glow Size20のInspector](/img/fusion/captures/S67/inspector.png)](/img/fusion/captures/S67/inspector.png)
+
+[![Threshold0.6では右の白いパネルや枠を中心に柔らかなにじみが広がる](/img/fusion/captures/S67/compare.png)](/img/fusion/captures/S67/compare.png)
+
+Gain1、Glow Size20、Lock X/Yオンに固定し、Thresholdを0.6から0.9へ上げました。色パッチからのにじみが減り、白いパネルや枠の光が残ります。
+
+[![同じGainとSizeでThresholdだけ0.9へ上げたInspector](/img/fusion/captures/S67/threshold09-inspector.png)](/img/fusion/captures/S67/threshold09-inspector.png)
+
+[![Threshold0.9では右の色パッチからのにじみが減り、白いパネルや枠の光が残る](/img/fusion/captures/S67/threshold09.png)](/img/fusion/captures/S67/threshold09.png)
+
+Threshold0.6へ戻し、Blendだけを0にすると入力と同じ表示へ戻ります。最後はThreshold0.6／Gain1／Size20／Blend1へ復元して保存しました。
+
+[![Threshold0.6を保ちBlend0にしたInspector](/img/fusion/captures/S67/blend0-inspector.png)](/img/fusion/captures/S67/blend0-inspector.png)
+
+[![Blend0では左右に同じ入力チャートが表示される](/img/fusion/captures/S67/blend0.png)](/img/fusion/captures/S67/blend0.png)
+
+この新規ノードの初期Filter表示はFast Gaussianでした。ManualのGaussianという記載と区別して記録します。下は撮影時の初期Inspectorです。すべての環境の初期値を保証するものではありません。
+
+[![この新規Soft Glowで表示されたFast Gaussian、Threshold0、Gain2、Glow Size10](/img/fusion/captures/S67/default-inspector.png)](/img/fusion/captures/S67/default-inspector.png)
+
+Glow MaskとEffect Maskの比較、他Filter、Color Scale、Alpha境界、実写の肌や惑星、Clippingと性能は未確認です。
+
+[再現用Graph](/img/fusion/captures/S67/fixture.comp) · [撮影条件と確認範囲](/img/fusion/captures/S67/capture.json)
+
 ## 出典と確認範囲
 
 Blackmagic Design『DaVinci Resolve 21.1 Reference Manual』（2026年9月）Chapter 92「Blur Nodes」pp.2121–2124を確認しました。入力3種類、Filter、Color Channels、Threshold、Gain、Lock X/Y、Glow Size、Num Passes、Clipping Mode、Blend、Color Scaleの名前と基本動作は一次資料に基づきます。
 
-肌・惑星・文字の制作例は確認した仕様から構成した手順であり、同一素材を使った21.1実機レンダリング検証ではありません。内部REGID、数値範囲、Edition差、GPU性能は未確認のため `verification: partial` のままです。
+肌・惑星・文字の制作例は確認した仕様から構成した手順であり、同一素材を使った21.1実機レンダリング検証ではありません。S67の内部REGIDと固定チャートのThreshold／Blend比較は確認済みです。数値の全範囲、Edition差、GPU性能は未確認のため `verification: partial` のままです。
