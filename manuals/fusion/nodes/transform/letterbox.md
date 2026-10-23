@@ -95,6 +95,42 @@ MediaIn（2048×858） → Letterbox（1920×1080） → MediaOut
 
 同じ正方形ピクセルの前提なら、倍率`1080 / 858 ≒ 1.259`となり、変換後の入力映像は幅約2578pxです。1920pxの枠では約658pxぶんが左右合計で画面外になります。映像全体を保持したい場合はPan-and-ScanでなくLetterbox/Envelopeを選びます。
 
+## 実機でEnvelopeとPan-and-Scanを比べる
+
+Resolve Studio 21.1.0.14、Windows、日本語UIで、1920×1080のチャートを1080×1080へ収めました。出力フレーム0、両ViewerはColor／40%、Auto Resolutionはオフ、Pixel Aspectは1／1、FilterはLinearです。以下の出力比較ではMediaOutを選択し、Centerの操作ガイドを外しています。
+
+[![LoaderからLetterbox1、MediaOut1へ接続した実機Graph](/img/fusion/captures/S54/graph.png)](/img/fusion/captures/S54/graph.png)
+
+[![Letterboxの1080×1080、Auto Resolutionオフ、Center0.5/0.5、Envelope、Filter Linearを示すInspector](/img/fusion/captures/S54/inspector.png)](/img/fusion/captures/S54/inspector.png)
+
+[![左1920×1080の全チャートが、右1080×1080では縮小され上下に透明チェッカーの余白を持つ](/img/fusion/captures/S54/compare.png)](/img/fusion/captures/S54/compare.png)
+
+Envelopeではチャート全体が縮小され、上下に余白ができました。この環境のColor Viewerでは、余白に透明チェッカーが見えます。runtime REGIDは`Letterbox`です。
+
+[![左はColor、右はAlpha表示。Envelopeの上下の余白は黒、中央の画像部分は白](/img/fusion/captures/S54/alpha.png)](/img/fusion/captures/S54/alpha.png)
+
+右ViewerだけをAlphaへ切り替えると、余白は黒、画像部分は白でした。この固定例の余白を、不透明な黒帯を合成した結果としては扱いません。黒を必ず残したい納品では、背景との合成と書き出し結果を別途確認します。
+
+[![同じ1080×1080でPan-and-Scanへ切り替え、Center0.5/0.5を示すInspector](/img/fusion/captures/S54/pan-inspector.png)](/img/fusion/captures/S54/pan-inspector.png)
+
+[![Pan-and-Scanでは上下の余白がなくなり、チャートの左右が切れる](/img/fusion/captures/S54/pan.png)](/img/fusion/captures/S54/pan.png)
+
+[![Pan-and-ScanのCenter Xを0.65、Yを0.5にしたInspector](/img/fusion/captures/S54/pan-offset-inspector.png)](/img/fusion/captures/S54/pan-offset-inspector.png)
+
+[![Center X0.65では右Viewerに見える範囲が変わり、右端のTRやBRが入る](/img/fusion/captures/S54/pan-offset.png)](/img/fusion/captures/S54/pan-offset.png)
+
+GUIでPan-and-Scanへ切り替えると、上下の余白がなくなり、左右が切れました。Center Xを0.5から0.65へ変えると、右Viewerに入る範囲も変わります。出力寸法はいずれも1080×1080です。
+
+[![EnvelopeのままCenter Xを0.65へ変えたInspector](/img/fusion/captures/S54/envelope-offset-inspector.png)](/img/fusion/captures/S54/envelope-offset-inspector.png)
+
+[![EnvelopeではCenter X0.65でも全チャートの位置と上下の余白が変わらない](/img/fusion/captures/S54/envelope-offset.png)](/img/fusion/captures/S54/envelope-offset.png)
+
+EnvelopeではCenter Xを0.65にしても画像は動きませんでした。操作ガイドを外した2枚の原画について、右Viewer内の同じ領域をRGBで比較し、画素が一致することも確認しています。
+
+最後はEnvelope、Center0.5／0.5、両Viewer Colorへ戻して保存しました。Auto Resolution、Pixel Aspect変更、他のFilter、後段Merge、帯の不透明合成・書き出し、アニメーションと性能、Free editionや他OSは未確認です。
+
+[再現用Graph](/img/fusion/captures/S54/fixture.comp) · [撮影条件と確認範囲](/img/fusion/captures/S54/capture.json)
+
 ## Resize / Crop / Transformとの違い
 
 - [Resize](./resize): 指定したWidth / Heightへ画像全体を再サンプリングします。縦横比の扱いはKeep Frame Aspectなどの設定で調整します。
@@ -108,8 +144,8 @@ MediaIn（2048×858） → Letterbox（1920×1080） → MediaOut
 
 Letterboxは出力の物理解像度を変えるため、21.1 Manualは**解像度Controlのアニメーションを推奨していません**。パンして見せる目的ではModeをPan-and-ScanにしたうえでCenterを動かします。合成途中の画像幅・高さを変える場合は、後段にあるMergeのBackgroundサイズや正規化座標へも影響する点に注意します。
 
-`Auto Resolution`による設定と、手動指定したWidth / Heightを混同しないでください。実機での具体的なFilterの描画結果、RGB/Alphaの帯色変更方法、内部REGID、Edition別制約は今回の資料だけでは確認できていません。
+`Auto Resolution`による設定と、手動指定したWidth / Heightを混同しないでください。S54で確認した余白のAlphaは撮影環境の固定例です。他のFilter、帯色の変更方法、後段合成・書き出し、Edition別制約は未確認です。
 
 ## 出典と確認範囲
 
-Blackmagic Design『DaVinci Resolve 21.1 Reference Manual』（September 2026）、Chapter 120「Transform Nodes」、pp.2868–2870。入出力、Width / Height、Auto Resolution、Pixel Aspect X / Y、Center、Mode、Filter Method、Window Method、解像度変更とアニメーション注意点を確認しました。上記のピクセル数は公式記述をもとに計算した説明例であり、実機検証ではありません。このため`verification: partial`としています。
+Blackmagic Design『DaVinci Resolve 21.1 Reference Manual』（September 2026）、Chapter 120「Transform Nodes」、pp.2868–2870。入出力、Width / Height、Auto Resolution、Pixel Aspect X / Y、Center、Mode、Filter Method、Window Method、解像度変更とアニメーション注意点を確認しました。2048×858を扱う上記のピクセル数は、公式記述をもとに計算した説明例です。S54は別の1920×1080→1080×1080の固定実機例で、Envelope／Pan-and-Scan、Center、出力寸法、余白のAlphaを確認しました。全設定・合成・書き出し・性能・版別の差は未確認のため`verification: partial`を維持します。

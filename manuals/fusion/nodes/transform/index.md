@@ -97,6 +97,36 @@ S53ではKeep Centeredオン、Size1080×1080で、1920×1080の中央を切り�
 
 Resolve Studio21.1.0.14／Windows、両Viewer Color／40%。固定Crop例。Auto Crop、Pixel Aspect、Merge後の寸法は未確認。 [再現用Graph](/img/fusion/captures/S53/fixture.comp) · [撮影条件と確認範囲](/img/fusion/captures/S53/capture.json)
 
+### 実機の参考例：全体表示と切り出しを選ぶ
+
+<!-- capture-reuse:R94 -->
+
+S54は1920×1080のチャートを1080×1080へ収める例です。Envelopeでは全体と透明な上下余白、Pan-and-Scanでは左右の切り出しを確認できます。
+
+[![LoaderからLetterbox1、MediaOut1へ接続した実機Graph](/img/fusion/captures/S54/graph.png)](/img/fusion/captures/S54/graph.png)
+
+[![Letterboxの1080×1080、Auto Resolutionオフ、Center0.5/0.5、Envelope、Filter Linearを示すInspector](/img/fusion/captures/S54/inspector.png)](/img/fusion/captures/S54/inspector.png)
+
+[![左1920×1080の全チャートが、右1080×1080では縮小され上下に透明チェッカーの余白を持つ](/img/fusion/captures/S54/compare.png)](/img/fusion/captures/S54/compare.png)
+
+[![Pan-and-Scanでは上下の余白がなくなり、チャートの左右が切れる](/img/fusion/captures/S54/pan.png)](/img/fusion/captures/S54/pan.png)
+
+Resolve Studio21.1.0.14／Windows、両Viewer Color／40%。透明余白の固定例。不透明黒帯の合成、書き出し、他Filterは未確認。 [再現用Graph](/img/fusion/captures/S54/fixture.comp) · [撮影条件と確認範囲](/img/fusion/captures/S54/capture.json)
+
+### 実機の参考例：2D画像を遠近変形する
+
+<!-- capture-reuse:R95 -->
+
+S55ではX回転15／Y25、Z Move1.4、Perspective1を設定しました。2Dの3 Node経路で、寸法1920×1080を保ちながら四辺形へ変形しています。
+
+[![2DチャートをLoaderからDVE1、MediaOut1へ接続。3D Rendererは使わない実機Graph](/img/fusion/captures/S55/graph.png)](/img/fusion/captures/S55/graph.png)
+
+[![DVEのX回転15、Y回転25、Z回転0、Z Move1.4、Perspective1を示すInspector](/img/fusion/captures/S55/inspector.png)](/img/fusion/captures/S55/inspector.png)
+
+[![左右とも1920×1080。右ではチャートが遠近感のある四辺形へ変形し、周囲が透明になる](/img/fusion/captures/S55/compare.png)](/img/fusion/captures/S55/compare.png)
+
+Resolve Studio21.1.0.14／Windows、両Viewer Color／40%。静止DVE例。Masks、Alpha、後段Merge、アニメーションは未確認。 [再現用Graph](/img/fusion/captures/S55/fixture.comp) · [撮影条件と確認範囲](/img/fusion/captures/S55/capture.json)
+
 ## 解像度と座標の注意点
 
 [Merge](../compositing/merge)ではBackgroundの解像度が合成出力の基準です。Resize・Scale・Crop・LetterboxをBackgroundの前へ置いた場合は、後段の出力サイズも変化し得ます。
