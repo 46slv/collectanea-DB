@@ -2,7 +2,7 @@
   "schema_version": 1,
   "created": "2026-10-20",
   "scope": "All Fusion pages, DaVinci Resolve 21.1",
-  "status_note": "2026-10-24:112 pages268 crops489 placements public PASS through PR85. S50/S51/R85–R88 add26 native crops and12 reuse placements;local5 distinct pages65 images PASS. Cumulative115 pages294 crops527 placements;batch12 public NOT_RUN. Whole587-page Fusion and remaining_views incomplete.",
+  "status_note": "2026-10-24:115 pages294 crops527 placements public PASS through PR86. S52/S53/R89–R93 add21 native crops and12 reuse placements;local7 pages55 images PASS. Cumulative117 pages315 crops560 placements;batch13 public NOT_RUN. Whole587-page Fusion and remaining_views incomplete.",
   "asset_directory_template": "static/img/fusion/captures/{id}/{shot.slug}.png",
   "capture_manifest_name": "capture.json",
   "candidates": [
@@ -2403,7 +2403,7 @@
         "printed_pages": "2580–2582; ch68 pp1479–1480"
       },
       "goal": "Compare image dimensions, detected DoD and actual border directions",
-      "status": "captured-local-display-verified",
+      "status": "published-display-verified",
       "shots": [
         {
           "slug": "graph",
@@ -2472,7 +2472,8 @@
           "status": "native-observed"
         }
       ],
-      "capture_manifest": "static/img/fusion/captures/S50/capture.json"
+      "capture_manifest": "static/img/fusion/captures/S50/capture.json",
+      "published_batch": "fusion-native-20261024-12"
     },
     {
       "id": "S51",
@@ -2484,7 +2485,7 @@
         "printed_pages": "2602–2604; ch68 pp1479–1480"
       },
       "goal": "Compare image dimensions, detected DoD and actual border directions",
-      "status": "captured-local-display-verified",
+      "status": "published-display-verified",
       "shots": [
         {
           "slug": "graph",
@@ -2577,7 +2578,164 @@
           "status": "native-observed"
         }
       ],
-      "capture_manifest": "static/img/fusion/captures/S51/capture.json"
+      "capture_manifest": "static/img/fusion/captures/S51/capture.json",
+      "published_batch": "fusion-native-20261024-12"
+    },
+    {
+      "id": "S52",
+      "priority": "P1",
+      "article": "manuals/fusion/nodes/color/set-canvas-color.md",
+      "manual": {
+        "version": "21.1",
+        "chapter": 93,
+        "printed_pages": "2198–2199"
+      },
+      "goal": "Compare canvas RGB/Alpha and explicit canvas reference",
+      "status": "captured-local-display-verified",
+      "shots": [
+        {
+          "slug": "graph",
+          "kind": "node-graph",
+          "target": "SetCanvasColor",
+          "status": "native-observed"
+        },
+        {
+          "slug": "inspector",
+          "kind": "inspector",
+          "target": "SetCanvasColor",
+          "status": "native-observed"
+        },
+        {
+          "slug": "compare",
+          "kind": "output",
+          "target": "SetCanvasColor",
+          "status": "native-observed"
+        },
+        {
+          "slug": "default-inspector",
+          "kind": "inspector",
+          "target": "SetCanvasColor",
+          "status": "native-observed"
+        },
+        {
+          "slug": "default",
+          "kind": "output",
+          "target": "SetCanvasColor",
+          "status": "native-observed"
+        },
+        {
+          "slug": "alpha0-inspector",
+          "kind": "inspector",
+          "target": "SetCanvasColor",
+          "status": "native-observed"
+        },
+        {
+          "slug": "alpha0",
+          "kind": "output",
+          "target": "SetCanvasColor",
+          "status": "native-observed"
+        },
+        {
+          "slug": "dod",
+          "kind": "output",
+          "target": "SetCanvasColor",
+          "status": "native-observed"
+        },
+        {
+          "slug": "reference-graph",
+          "kind": "node-graph",
+          "target": "SetCanvasColor",
+          "status": "native-observed"
+        },
+        {
+          "slug": "reference-inspector",
+          "kind": "inspector",
+          "target": "SetCanvasColor",
+          "status": "native-observed"
+        },
+        {
+          "slug": "reference",
+          "kind": "output",
+          "target": "SetCanvasColor",
+          "status": "native-observed"
+        },
+        {
+          "slug": "source-inspector",
+          "kind": "inspector",
+          "target": "SetCanvasColor",
+          "status": "native-observed"
+        }
+      ],
+      "capture_manifest": "static/img/fusion/captures/S52/capture.json"
+    },
+    {
+      "id": "S53",
+      "priority": "P1",
+      "article": "manuals/fusion/nodes/transform/crop.md",
+      "manual": {
+        "version": "21.1",
+        "chapter": 120,
+        "printed_pages": "2862–2864"
+      },
+      "goal": "Compare physical image dimensions and centered versus left crop",
+      "status": "captured-local-display-verified",
+      "shots": [
+        {
+          "slug": "graph",
+          "kind": "node-graph",
+          "target": "Crop",
+          "status": "native-observed"
+        },
+        {
+          "slug": "inspector",
+          "kind": "inspector",
+          "target": "Crop",
+          "status": "native-observed"
+        },
+        {
+          "slug": "compare",
+          "kind": "output",
+          "target": "Crop",
+          "status": "native-observed"
+        },
+        {
+          "slug": "before-inspector",
+          "kind": "inspector",
+          "target": "Crop",
+          "status": "native-observed"
+        },
+        {
+          "slug": "before",
+          "kind": "output",
+          "target": "Crop",
+          "status": "native-observed"
+        },
+        {
+          "slug": "left-inspector",
+          "kind": "inspector",
+          "target": "Crop",
+          "status": "native-observed"
+        },
+        {
+          "slug": "left",
+          "kind": "output",
+          "target": "Crop",
+          "status": "native-observed"
+        },
+        {
+          "slug": "reset-inspector",
+          "kind": "inspector",
+          "target": "Crop",
+          "status": "native-observed"
+        },
+        {
+          "slug": "reset",
+          "kind": "output",
+          "target": "Crop",
+          "status": "native-observed"
+        }
+      ],
+      "capture_manifest": "static/img/fusion/captures/S53/capture.json"
     }
   ],
   "publication_batches": [
@@ -2964,27 +3122,57 @@
         "artifacts/fusion-captures/public-batch11-assets.json"
       ],
       "limitations": "Whole587-page Fusion and remaining_views continue. S50/S51 native work stage only; public NOT_RUN."
+    },
+    {
+      "id": "fusion-native-20261024-12",
+      "cases": [
+        "S50",
+        "S51"
+      ],
+      "reuses": [
+        "R85",
+        "R86",
+        "R87",
+        "R88"
+      ],
+      "pr": "https://github.com/46slv/collectanea-DB/pull/86",
+      "candidate": "6d4b7115f63f9301929daf5edf2580f9c439add5",
+      "main": "494e693dfe90abed6faf2bf256948ea85552fb51",
+      "tree": "65b8289f6d28a1c5a9d05d6d2fc7e5cafaa7be39",
+      "quality_run": "https://github.com/46slv/collectanea-DB/actions/runs/40025730154",
+      "pages_run": "https://github.com/46slv/collectanea-DB/actions/runs/40026813036",
+      "public_pages": 5,
+      "public_images": 65,
+      "new_placements": 38,
+      "new_native_crops": 26,
+      "public_asset_hashes": 821,
+      "result": "PASS",
+      "evidence": [
+        "artifacts/fusion-captures/public-batch12-display-report.json",
+        "artifacts/fusion-captures/public-batch12-assets.json"
+      ],
+      "limitations": "Whole587-page Fusion and remaining_views continue. S52/S53 native accepted and embedded; local display/public pending."
     }
   ],
   "coverage_inventory": {
-    "checked_at": "2026-10-23T21:16:26.535535+00:00",
+    "checked_at": "2026-10-23T21:34:46.085636+00:00",
     "scope": "All manuals/fusion Markdown and MDX pages; review necessity before adding images.",
     "completion_rule": "Every page has an explicit image decision; necessary images are native-observed, embedded, saved to GitHub and public-display-verified. A native example does not verify all article controls.",
     "summary": {
       "total_pages": 587,
-      "with_images": 115,
-      "with_native_examples": 115,
+      "with_images": 117,
+      "with_native_examples": 117,
       "states": {
         "reviewed-no-standalone-image": 26,
         "no-standalone-image-needed": 6,
         "illustrated-reused-example": 66,
-        "capture-planned": 440,
-        "illustrated-native-example": 49
+        "capture-planned": 438,
+        "illustrated-native-example": 51
       },
       "decisions": {
         "no-standalone-image-needed": 32,
-        "image-required": 115,
-        "capture-needed": 440
+        "image-required": 117,
+        "capture-needed": 438
       }
     },
     "pages": [
@@ -3593,22 +3781,23 @@
         "article": "manuals/fusion/learn/03-space/domain-of-definition.md",
         "title": "有効領域（Domain of Definition）",
         "kind": "concept",
-        "image_count": 9,
+        "image_count": 11,
         "native_cases": [
           "S26"
         ],
         "reused_cases": [
           "S50",
-          "S51"
+          "S51",
+          "S52"
         ],
         "planned_cases": [],
         "state": "illustrated-native-example",
         "decision": "image-required",
         "reason": "Show DoDの矩形とframe外枠、RoI設定・解除の実画面。",
         "remaining_views": [
-          "Blur/Cropの境界、Canvas color、動的素材と性能"
+          "Blur境界、Crop Clipping、動的素材と性能"
         ],
-        "audit_note": "S50/S51固定例とManualとの差を掲載。全control/性能はpartial維持。"
+        "audit_note": "S52/S53の固定実機例を掲載。全control/性能と区別しpartial維持。"
       },
       {
         "article": "manuals/fusion/learn/03-space/normalized-coordinates.md",
@@ -3635,15 +3824,21 @@
         "article": "manuals/fusion/learn/03-space/resolution-aspect.md",
         "title": "解像度 / アスペクト比（Resolution / Aspect）",
         "kind": "concept",
-        "image_count": 5,
+        "image_count": 7,
         "native_cases": [
           "S24"
         ],
-        "reused_cases": [],
+        "reused_cases": [
+          "S53"
+        ],
         "planned_cases": [],
         "state": "illustrated-native-example",
         "decision": "image-required",
-        "reason": "FHDからTransform Size 0.5／Scale Size 0.5／Resize 960×540の寸法付き比較。"
+        "reason": "FHDからTransform Size 0.5／Scale Size 0.5／Resize 960×540の寸法付き比較。",
+        "remaining_views": [
+          "Pixel Aspectと後段Mergeの実比較"
+        ],
+        "audit_note": "S52/S53の固定実機例を掲載。全control/性能と区別しpartial維持。"
       },
       {
         "article": "manuals/fusion/learn/04-compositing/alpha.md",
@@ -3959,19 +4154,20 @@
         "article": "manuals/fusion/learn/07-debugging/resolution-domain-of-definition.md",
         "title": "Resolution / Domain of Definitionを確認する",
         "kind": "concept",
-        "image_count": 4,
+        "image_count": 6,
         "native_cases": [],
         "reused_cases": [
-          "S51"
+          "S51",
+          "S53"
         ],
         "planned_cases": [],
         "state": "illustrated-reused-example",
         "decision": "image-required",
         "reason": "Transformで外へ移動して戻す枝と、中間Cropで失う枝、DoDと寸法の比較。",
         "remaining_views": [
-          "Transform往復とCrop/Blurの実出力"
+          "Transform往復、Crop Clipping/Blurの境界"
         ],
-        "audit_note": "S50/S51固定例とManualとの差を掲載。全control/性能はpartial維持。"
+        "audit_note": "S52/S53の固定実機例を掲載。全control/性能と区別しpartial維持。"
       },
       {
         "article": "manuals/fusion/learn/07-debugging/trace-data-domain.md",
@@ -6038,10 +6234,11 @@
         "article": "manuals/fusion/nodes/color/index.md",
         "title": "Colorノード",
         "kind": "index",
-        "image_count": 2,
+        "image_count": 5,
         "native_cases": [],
         "reused_cases": [
-          "S14"
+          "S14",
+          "S52"
         ],
         "planned_cases": [],
         "state": "illustrated-reused-example",
@@ -6049,7 +6246,11 @@
         "reason": "基本色補正のInspectorと比較。色管理変換やChannel操作には流用しない。",
         "reuse_candidates": [
           "S14"
-        ]
+        ],
+        "remaining_views": [
+          "各Color Space/Curve/Channel Nodeの自身のUIと結果"
+        ],
+        "audit_note": "S52/S53の固定実機例を掲載。全control/性能と区別しpartial維持。"
       },
       {
         "article": "manuals/fusion/nodes/color/ocio-cdl-transform.md",
@@ -6212,13 +6413,18 @@
         "article": "manuals/fusion/nodes/color/set-canvas-color.md",
         "title": "Set Canvas Color",
         "kind": "node",
-        "image_count": 0,
-        "native_cases": [],
+        "image_count": 12,
+        "native_cases": [
+          "S52"
+        ],
         "reused_cases": [],
         "planned_cases": [],
-        "state": "capture-planned",
-        "decision": "capture-needed",
+        "state": "illustrated-native-example",
+        "decision": "image-required",
         "reason": "本文の対象機能: DoDの外側にあるcanvasの色とAlphaを指定するNode。。Color Corrector画像ではCurve/Matrix/Boolean等の固有Controlやchannel操作を示せない。",
+        "remaining_views": [
+          "任意画像のsampling、Mask反転、後段合成、exportの色と性能"
+        ],
         "required_views": [
           "対象Node名と実際の配線が読めるGraph",
           "対象Nodeを選択した固有Inspector（本文で示すControlを含む）",
@@ -6242,7 +6448,8 @@
             "section": "入力・出力",
             "role": "入力と結果を示す箇所"
           }
-        ]
+        ],
+        "audit_note": "S52/S53の固定実機例を掲載。全control/性能と区別しpartial維持。"
       },
       {
         "article": "manuals/fusion/nodes/color/swizzler.md",
@@ -17186,13 +17393,18 @@
         "article": "manuals/fusion/nodes/transform/crop.md",
         "title": "Crop",
         "kind": "node",
-        "image_count": 0,
-        "native_cases": [],
+        "image_count": 9,
+        "native_cases": [
+          "S53"
+        ],
         "reused_cases": [],
         "planned_cases": [],
-        "state": "capture-planned",
-        "decision": "capture-needed",
+        "state": "illustrated-native-example",
+        "decision": "image-required",
         "reason": "本文の対象機能: Cropは、Imageの切り出しやキャンバス寸法変更を行い、出力解像度を変えるNode。。S06全体Transformはcrop寸法/policy/遠近/時間揺れを示せない。",
+        "remaining_views": [
+          "Auto Crop、Keep Aspect、Pixel Aspect、Box Selection、Clipping Mode、後段Mergeと性能"
+        ],
         "required_views": [
           "対象名と実接続が読めるGraph",
           "対象自身を選択したInspectorの該当Control",
@@ -17217,7 +17429,8 @@
             "role": "入力/結果または実UIの具体箇所"
           }
         ],
-        "hold_conditions": []
+        "hold_conditions": [],
+        "audit_note": "S52/S53の固定実機例を掲載。全control/性能と区別しpartial維持。"
       },
       {
         "article": "manuals/fusion/nodes/transform/dve.md",
@@ -17260,10 +17473,11 @@
         "article": "manuals/fusion/nodes/transform/index.md",
         "title": "Transform / Formatノード",
         "kind": "index",
-        "image_count": 2,
+        "image_count": 5,
         "native_cases": [],
         "reused_cases": [
-          "S06"
+          "S06",
+          "S53"
         ],
         "planned_cases": [],
         "state": "illustrated-reused-example",
@@ -17271,7 +17485,12 @@
         "reason": "同寸法canvas内の配置。ResizeやScaleとの寸法比較とは区別する。",
         "reuse_candidates": [
           "S06"
-        ]
+        ],
+        "remaining_views": [
+          "DVE/Letterbox等の自身のUIと出力",
+          "Crop Auto Crop/Pixel Aspect/Clippingと後段Merge"
+        ],
+        "audit_note": "S52/S53の固定実機例を掲載。全control/性能と区別しpartial維持。"
       },
       {
         "article": "manuals/fusion/nodes/transform/letterbox.md",
@@ -21601,8 +21820,9 @@
         "inspector.png",
         "compare.png"
       ],
-      "status": "embedded-local-display-verified",
-      "scope": "静止PNGのみ。動く素材、Canvas color、Mask、性能は未確認。"
+      "status": "published-display-verified",
+      "scope": "静止PNGのみ。動く素材、Canvas color、Mask、性能は未確認。",
+      "published_batch": "fusion-native-20261024-12"
     },
     {
       "id": "R86",
@@ -21613,8 +21833,9 @@
         "set-half-inspector.png",
         "set-half.png"
       ],
-      "status": "embedded-local-display-verified",
-      "scope": "Set Domainの固定例。Transformで戻せるか、BlurやCropでの境界は未確認。"
+      "status": "published-display-verified",
+      "scope": "Set Domainの固定例。Transformで戻せるか、BlurやCropでの境界は未確認。",
+      "published_batch": "fusion-native-20261024-12"
     },
     {
       "id": "R87",
@@ -21626,8 +21847,9 @@
         "set-half-inspector.png",
         "set-half.png"
       ],
-      "status": "embedded-local-display-verified",
-      "scope": "Set Domainの固定例。Transformの往復やCrop、後段Filterの挙動を証明する画像ではありません。"
+      "status": "published-display-verified",
+      "scope": "Set Domainの固定例。Transformの往復やCrop、後段Filterの挙動を証明する画像ではありません。",
+      "published_batch": "fusion-native-20261024-12"
     },
     {
       "id": "R88",
@@ -21638,8 +21860,66 @@
         "inspector.png",
         "compare.png"
       ],
+      "status": "published-display-verified",
+      "scope": "透明PNGの固定例。Canvas color、Mask、動く素材、性能は未確認。",
+      "published_batch": "fusion-native-20261024-12"
+    },
+    {
+      "id": "R89",
+      "article": "manuals/fusion/learn/03-space/domain-of-definition.md",
+      "source_case": "S52",
+      "images": [
+        "inspector.png",
+        "dod.png"
+      ],
       "status": "embedded-local-display-verified",
-      "scope": "透明PNGの固定例。Canvas color、Mask、動く素材、性能は未確認。"
+      "scope": "固定チャートのColor表示。後段合成、Mask反転、書き出しの色は未確認。"
+    },
+    {
+      "id": "R90",
+      "article": "manuals/fusion/learn/07-debugging/resolution-domain-of-definition.md",
+      "source_case": "S53",
+      "images": [
+        "inspector.png",
+        "compare.png"
+      ],
+      "status": "embedded-local-display-verified",
+      "scope": "Cropの寸法比較。Transform往復、Clipping ModeやBlurの境界は未確認。"
+    },
+    {
+      "id": "R91",
+      "article": "manuals/fusion/nodes/color/index.md",
+      "source_case": "S52",
+      "images": [
+        "graph.png",
+        "inspector.png",
+        "compare.png"
+      ],
+      "status": "embedded-local-display-verified",
+      "scope": "固定チャートの手入力例。後段合成や書き出しの色は未確認。"
+    },
+    {
+      "id": "R92",
+      "article": "manuals/fusion/nodes/transform/index.md",
+      "source_case": "S53",
+      "images": [
+        "graph.png",
+        "inspector.png",
+        "compare.png"
+      ],
+      "status": "embedded-local-display-verified",
+      "scope": "固定Crop例。Auto Crop、Pixel Aspect、Merge後の寸法は未確認。"
+    },
+    {
+      "id": "R93",
+      "article": "manuals/fusion/learn/03-space/resolution-aspect.md",
+      "source_case": "S53",
+      "images": [
+        "inspector.png",
+        "compare.png"
+      ],
+      "status": "embedded-local-display-verified",
+      "scope": "固定チャートのCrop例。Pixel Aspect、Auto Crop、後段Mergeは未確認。"
     }
   ]
 }

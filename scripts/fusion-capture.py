@@ -42,6 +42,8 @@ TARGETS['S48']='ChangeDepth1';LEFT['S48']='Gradient1';RIGHT['S48']='ChangeDepth1
 TARGETS['S49']='Displace1';LEFT['S49']='Loader1';RIGHT['S49']='Displace1'
 TARGETS['S50']='AutoDomain1';LEFT['S50']='Loader1';RIGHT['S50']='AutoDomain1'
 TARGETS['S51']='SetDomain1';LEFT['S51']='AutoDomain1';RIGHT['S51']='SetDomain1'
+TARGETS['S52']='SetCanvasColor1';LEFT['S52']='Transform1';RIGHT['S52']='SetCanvasColor1'
+TARGETS['S53']='Crop1';LEFT['S53']='Loader1';RIGHT['S53']='Crop1'
 r=d.scriptapp('Resolve')
 assert r, 'Resolve scripting unavailable; do not change preferences automatically'
 pm=r.GetProjectManager(); p=pm.GetCurrentProject()
@@ -75,6 +77,8 @@ if action=='mask_inspector':
  assert case=='S49';TARGETS[case]='Ellipse1';action='show'
 if action=='image':
  assert case in ['S50','S51'];TARGETS[case]='MediaOut1';action='show'
+if action=='canvas_source':
+ assert case=='S52';TARGETS[case]='GoldCanvas1';action='show'
 if action=='map':
  assert case in ['S30','S49'];TARGETS[case]='NoiseMap1';LEFT[case]='NoiseMap1';action='show'
 timelines={p.GetTimelineByIndex(i).GetName().split('_')[0]:p.GetTimelineByIndex(i) for i in range(1,p.GetTimelineCount()+1)}
@@ -167,6 +171,8 @@ def select(target,left=None):
  layouts['S37']={'Base1':(0,0),'Rectangle1':(0,-2),'Red1':(1.5,-2),'Ellipse1':(1.5,2),'Gold1':(3,2),'MergeMaster':(3,-1),'MergeDerived':(4.5,1),'MediaOut1':(6,1)}
  layouts['S38']={'Loader1':(0,0),'TransformReference':(1.5,0),'MediaOut1':(3,0)}
  layouts['S50']={'Loader1':(0,0),'AutoDomain1':(1.5,0),'MediaOut1':(3,0)}
+ layouts['S53']={'Loader1':(0,0),'Crop1':(1.5,0),'MediaOut1':(3,0)}
+ layouts['S52']={'Loader1':(0,1),'Transform1':(1.5,1),'Gold1':(0,-1),'GoldCanvas1':(1.5,-1),'SetCanvasColor1':(3,1),'MediaOut1':(4.5,1)}
  layouts['S51']={'Loader1':(0,0),'AutoDomain1':(1.5,0),'SetDomain1':(3,0),'MediaOut1':(4.5,0)}
  layouts['S49']={'Loader1':(0,1),'NoiseMap1':(0,-1),'Ellipse1':(2,-2),'Displace1':(2,1),'MediaOut1':(4,1)}
  layouts['S48']={'Gradient1':(0,0),'ChangeDepth1':(1.5,0),'MediaOut1':(3,0)}
@@ -218,6 +224,14 @@ if action=='build':
   rb=add('sRender','RenderBase1',4,-1);connect(rb,'Input',base)
   target=add('sTransform','Transform1',2,1);connect(target,'Input',base)
   rr=add('sRender','RenderChanged1',4,1);connect(rr,'Input',target);connect(mo,'Input',rr)
+ elif case=='S53':
+  loader=add('Loader','Loader1',0,0,Clip=str(REPO/'static/img/fusion/captures/_fixtures/chart.png'))
+  target=add('Crop','Crop1',1.5,0);connect(target,'Input',loader);connect(mo,'Input',target)
+ elif case=='S52':
+  loader=add('Loader','Loader1',0,1,Clip=str(REPO/'static/img/fusion/captures/_fixtures/chart.png'))
+  xf=add('Transform','Transform1',1.5,1,Size=.5);connect(xf,'Input',loader)
+  add('Background','Gold1',1.5,-1,TopLeftRed=.85,TopLeftGreen=.42,TopLeftBlue=.03)
+  target=add('SetCanvasColor','SetCanvasColor1',3,1);connect(target,'Input',xf);connect(mo,'Input',target)
  elif case in ['S50','S51']:
   loader=add('Loader','Loader1',0,0,Clip=str(ROOT/'static/img/fusion/captures/_fixtures/domain-rectangle.png'))
   auto=add('AutoDomain','AutoDomain1',1.5,0);connect(auto,'Input',loader)
@@ -392,9 +406,23 @@ if action=='build':
  else: raise ValueError('No fixture defined: '+case)
  c.CurrentFrame.FlowView.SetPos(mo,9,1 if case=='S02' else 0)
  assert pm.SaveProject()
-elif action in ('show','readback','set','masked'):
+elif action in ('show','readback','set','masked','canvas_fg','canvas_manual','canvas_reference'):
  target=tools.get(TARGETS.get(case,''))
 assert target
+if action in ['canvas_fg','canvas_manual','canvas_reference']:
+ assert case=='S52'
+ ins={z.GetAttrs()['INPS_ID']:z for z in target.GetInputList().values()}
+ previous=ins['Foreground'].GetConnectedOutput()
+ if previous:assert previous.GetTool().GetAttrs()['TOOLS_Name'] in ['Gold1','GoldCanvas1']
+ if action=='canvas_reference':
+  assert not previous and 'GoldCanvas1' not in tools, 'Reference probe already exists; reconcile before repeat'
+  gold_canvas=add('SetCanvasColor','GoldCanvas1',1.5,-1,Red=.85,Green=.42,Blue=.03,Alpha=1)
+  connect(gold_canvas,'Input',tools['Gold1']);connect(target,'Foreground',gold_canvas)
+ if action=='canvas_fg' and not previous:connect(target,'Foreground',tools.get('GoldCanvas1') or tools['Gold1'])
+ if action=='canvas_manual' and previous:assert target.ConnectInput('Foreground',None)
+ result=ins['Foreground'].GetConnectedOutput()
+ assert (result is not None)==(action!='canvas_manual')
+ action='show'
 if action=='masked':
  assert case=='S49'
  ins={z.GetAttrs()['INPS_ID']:z for z in target.GetInputList().values()}

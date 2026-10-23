@@ -1,0 +1,206 @@
+{
+  "schema_version": 1,
+  "case": "S53",
+  "article": "manuals/fusion/nodes/transform/crop.md",
+  "manual": {
+    "version": "21.1",
+    "chapter": 120,
+    "printed_pages": "2862–2864"
+  },
+  "runtime": {
+    "version": "21.1.0.14",
+    "edition": "Studio",
+    "os": "Windows-11-10.0.26200-SP0",
+    "ui_language": "ja-JP (some Shape controls remain English)"
+  },
+  "captured_at": "2026-10-23T21:29:24.114719+00:00",
+  "project": "Collectanea_Captures_20261023_Sol",
+  "timeline": "S53_capture",
+  "frame": 0.0,
+  "resolution": [
+    1920,
+    1080
+  ],
+  "color_management": {
+    "colorScienceMode": "davinciYRGB",
+    "colorSpaceTimeline": "Rec.709 (Scene)",
+    "colorSpaceTimelineGamma": "",
+    "colorSpaceOutput": "Rec.709 (Scene)",
+    "colorSpaceOutputGamma": "ACEScc",
+    "separateColorSpaceAndGamma": "0",
+    "isAutoColorManage": "0",
+    "timelineResolutionWidth": "1920",
+    "timelineResolutionHeight": "1080",
+    "timelineFrameRate": 24.0,
+    "timelinePlaybackFrameRate": "30"
+  },
+  "viewer": {
+    "zoom_percent": 40,
+    "channel": "Color",
+    "background": "checkerboard for transparent pixels",
+    "note": "Viewer screenshots are display evidence, not colorimetric exports."
+  },
+  "graph": "fixture.comp",
+  "settings": "readback.json",
+  "source": {
+    "file": "screen.png",
+    "size": [
+      3352,
+      1910
+    ],
+    "sha256": "cbe8c8c86d26f6ec0562b334148773e6dd7d4499fc72cc714fcb82bc1a1a87e9"
+  },
+  "shots": [
+    {
+      "file": "graph.png",
+      "source": "screen.png",
+      "source_sha256": "cbe8c8c86d26f6ec0562b334148773e6dd7d4499fc72cc714fcb82bc1a1a87e9",
+      "frame": 0.0,
+      "crop_xyxy": [
+        480,
+        1300,
+        2380,
+        1450
+      ],
+      "resampled": false,
+      "sha256": "d02ffa1aa61754f3e474fc210a0d8411fc63f61b20b6af52f85c6c142f799566"
+    },
+    {
+      "file": "inspector.png",
+      "source": "screen.png",
+      "source_sha256": "cbe8c8c86d26f6ec0562b334148773e6dd7d4499fc72cc714fcb82bc1a1a87e9",
+      "frame": 0.0,
+      "crop_xyxy": [
+        2830,
+        120,
+        3352,
+        465
+      ],
+      "resampled": false,
+      "sha256": "b706ae9df16fe38ce2d3fa243aee19e42e3bf8b619128800e353638e3a257f57"
+    },
+    {
+      "file": "compare.png",
+      "source": "screen.png",
+      "source_sha256": "cbe8c8c86d26f6ec0562b334148773e6dd7d4499fc72cc714fcb82bc1a1a87e9",
+      "frame": 0.0,
+      "crop_xyxy": [
+        1146,
+        65,
+        2830,
+        705
+      ],
+      "resampled": false,
+      "sha256": "cd94e05b9eb65935cb7f8183b505f4beef1ddc734d820f2f23f978bba8bd840d"
+    },
+    {
+      "file": "before-inspector.png",
+      "source": "screen-before.png",
+      "source_sha256": "47842dcd181d211871e47815de53d22cdd884e7adbae75fe61262ec6a411eb2c",
+      "frame": 0.0,
+      "crop_xyxy": [
+        2830,
+        120,
+        3352,
+        465
+      ],
+      "resampled": false,
+      "sha256": "cc34b44dd4f95619b797c66a35972707c74e0b4af7881b82d41a3ebce85e44d1"
+    },
+    {
+      "file": "before.png",
+      "source": "screen-before.png",
+      "source_sha256": "47842dcd181d211871e47815de53d22cdd884e7adbae75fe61262ec6a411eb2c",
+      "frame": 0.0,
+      "crop_xyxy": [
+        1146,
+        65,
+        2830,
+        705
+      ],
+      "resampled": false,
+      "sha256": "7e252da6c98efc4843ca624284beef47b92e64af6db19be68f9854a1580241fc"
+    },
+    {
+      "file": "left-inspector.png",
+      "source": "screen-left.png",
+      "source_sha256": "61bc0b89144f88d29984a5ce30a152d4cf2531465146b38c8d01baca9ae73f39",
+      "frame": 0.0,
+      "crop_xyxy": [
+        2830,
+        120,
+        3352,
+        465
+      ],
+      "resampled": false,
+      "sha256": "2225893f051c086c9d91083f0ac3a4a379e5d46c2afce9dceeee3aa4cfac1cc9"
+    },
+    {
+      "file": "left.png",
+      "source": "screen-left.png",
+      "source_sha256": "61bc0b89144f88d29984a5ce30a152d4cf2531465146b38c8d01baca9ae73f39",
+      "frame": 0.0,
+      "crop_xyxy": [
+        1146,
+        65,
+        2830,
+        705
+      ],
+      "resampled": false,
+      "sha256": "dbcbaf9080fb1ff5d59c71f440740664322e4d217150e95c5bcf641adff034d2"
+    },
+    {
+      "file": "reset-inspector.png",
+      "source": "screen-reset.png",
+      "source_sha256": "57b105d38ed800fbb9d8b8c46a5773eb7423a3c2b8fe2a0fe8294dfac63b43ee",
+      "frame": 0.0,
+      "crop_xyxy": [
+        2830,
+        120,
+        3352,
+        465
+      ],
+      "resampled": false,
+      "sha256": "cc34b44dd4f95619b797c66a35972707c74e0b4af7881b82d41a3ebce85e44d1"
+    },
+    {
+      "file": "reset.png",
+      "source": "screen-reset.png",
+      "source_sha256": "57b105d38ed800fbb9d8b8c46a5773eb7423a3c2b8fe2a0fe8294dfac63b43ee",
+      "frame": 0.0,
+      "crop_xyxy": [
+        1146,
+        65,
+        2830,
+        705
+      ],
+      "resampled": false,
+      "sha256": "9c67b4cfaeb5c03711712d2487499aa1b8f40935d20102a3778d15dfc1cc3445"
+    }
+  ],
+  "acceptance": {
+    "gui": "PASS: owner visually inspected node connections, selected Inspector, and output",
+    "article_display": "PASS: local production build;1440px/390px decode/Alt/native links/hash/overflow"
+  },
+  "unverified": [
+    "Free edition and other platforms",
+    "All parameter ranges and performance",
+    "Auto Crop, KeepAspect on, PixelAspect, Viewer Box Selection, clipping-mode boundaries, downstream Merge and performance",
+    "Exported portable composition reimport"
+  ],
+  "state_variants": {
+    "screen.png": "final Size1080x1080 KeepCentered1 KeepAspect0 XOffset420 Y0 Frame",
+    "screen-before.png": "initial Size1920x1080 Offset0 KeepCentered0 KeepAspect0 Frame",
+    "screen-left.png": "Size1080x1080 KeepCentered0 Offset0 Frame; left portion retained",
+    "screen-reset.png": "native GUI Reset Size; Size1920x1080 Offset0, full chart restored"
+  },
+  "restoration": "PASS: owned scratch saved, frame0/both Color40%, DoD/RoI off, popup none; Size1080x1080 KeepCentered1 KeepAspect0 XOffset420 Y0 Frame",
+  "parameter_readback_scope": "Number/Text/Point/FuID/Clip only; no Image/Mask/3D/ScriptVal payload evaluation.",
+  "manual_runtime_difference": "Manual120 p2864 lists Frame/Domain/None; native21.1.0.14 Crop tab displayed None/Frame. Frame retained; Domain and mode comparison NOT_RUN.",
+  "reproduction": {
+    "fixture_sha256": "14423fc7b774adc394ded1bddc885b6daa52fc739a2178a170b2b6edf4f58c6d",
+    "readback_sha256": "cabc11043383b89e03d6ff10ae438e78696ba0afcea331c99e263f075f60860b",
+    "paths": "Comp:/../_fixtures/ for bundled synthetic fixtures",
+    "reimport": "NOT_RUN: accepted GUI evidence precedes export path normalization"
+  }
+}

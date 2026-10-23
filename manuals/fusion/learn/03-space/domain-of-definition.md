@@ -163,6 +163,18 @@ S51ではAdjustの四辺0で入力を保ち、Setの右・上0.5でDoDを0,0か�
 
 Resolve Studio21.1.0.14／Windows、両Viewer Color／40%。Set Domainの固定例。Transformで戻せるか、BlurやCropでの境界は未確認。 [再現用Graph](/img/fusion/captures/S51/fixture.comp) · [撮影条件と確認範囲](/img/fusion/captures/S51/capture.json)
 
+### 実機の参考例：DoD外の色を変える
+
+<!-- capture-reuse:R89 -->
+
+S52では縮小チャートのDoDを保ったまま、外側のCanvas colorを紺色・Alpha1へ変えました。点線枠は左右とも479,269から1441,811です。
+
+[![Set Canvas ColorのRGBを0.03、0.12、0.3、Alphaを1にした実機Inspector](/img/fusion/captures/S52/inspector.png)](/img/fusion/captures/S52/inspector.png)
+
+[![DoDの点線は左右とも479,269から1441,811のまま、右のDoD外だけ紺色になっている](/img/fusion/captures/S52/dod.png)](/img/fusion/captures/S52/dod.png)
+
+Resolve Studio21.1.0.14／Windows、両Viewer Color／40%。固定チャートのColor表示。後段合成、Mask反転、書き出しの色は未確認。 [再現用Graph](/img/fusion/captures/S52/fixture.comp) · [撮影条件と確認範囲](/img/fusion/captures/S52/capture.json)
+
 ## DoDを調整するNode
 
 通常は自動計算を使いますが、素材の状態によってはDoDを明示的に扱うNodeが有効です。
