@@ -80,6 +80,24 @@ Transform.Center（位置パラメータ）
 
 通常の1次元Slider（Blur Strengthなど）へ、同じ意味のmotion pathを追加することはできません。これは数値の時間変化をSpline Editorで編集できないという意味ではなく、2D/3D位置用の経路とは別の仕組みです。
 
+## 実機の参考例
+
+<!-- capture-reuse:R66 -->
+
+TransformのCenterをキーフレーム化して作ったS35のPath1です。Centerはフレーム0の(0.25, 0.5)から48の(0.75, 0.5)へ進みます。Node Editorには画像処理の3Nodeが並び、Path1はTransformのModifiersタブに表示されています。
+
+[![S35の実機撮影。画像の接続Graph](/img/fusion/captures/S35/graph.png)](/img/fusion/captures/S35/graph.png)
+
+[![S35の実機撮影。フレーム0の入力と移動結果](/img/fusion/captures/S35/frame0.png)](/img/fusion/captures/S35/frame0.png)
+
+[![S35の実機撮影。フレーム48の入力と移動結果](/img/fusion/captures/S35/compare.png)](/img/fusion/captures/S35/compare.png)
+
+[![S35の実機撮影。Path1のModifiersタブとDisplacement1](/img/fusion/captures/S35/modifiers.png)](/img/fusion/captures/S35/modifiers.png)
+
+[![S35の実機撮影。Path1のDisplacement曲線0から1](/img/fusion/captures/S35/spline.png)](/img/fusion/captures/S35/spline.png)
+
+Resolve Studio 21.1.0.14／Windows、1920×1080、両Viewer 40%。緑の線と赤い軸は操作表示です。直線の2点経路とDisplacementを確認した最小例です。曲線経路、Path全体のSize/回転、Heading Offset、XY Pathとの比較は未確認です。 [撮影条件と確認範囲](/img/fusion/captures/S35/capture.json)
+
 ## 主なControl
 
 ### Center

@@ -2,7 +2,7 @@
   "schema_version": 1,
   "created": "2026-10-20",
   "scope": "All Fusion pages, DaVinci Resolve 21.1",
-  "status_note": "2026-10-24:81 pages publicly verified through PR71. Batch5 S27-S30/R56-R64 adds21 native crops and30 reference placements:12 changed pages;92 total pages/262 placements local PASS. All586 pages have image necessity decisions; whole Fusion publication remains incomplete.",
+  "status_note": "2026-10-24:92 pages public PASS through PR73. Batch6 S31-S35/R65-R66 adds26 native crops/37 placements across7 changed articles. All96 pages/299 placements local PASS. Full Fusion continues, retaining remaining_views and partial verification.",
   "asset_directory_template": "static/img/fusion/captures/{id}/{shot.slug}.png",
   "capture_manifest_name": "capture.json",
   "candidates": [
@@ -961,7 +961,7 @@
       },
       "goal": "Layer Listの有効状態と順序を実機出力へ対応させる",
       "suggested_graph": "Owned compositing fixture; fixture.comp and native variants",
-      "status": "captured-local-display-verified",
+      "status": "published-display-verified",
       "shots": [
         {
           "slug": "graph",
@@ -1006,7 +1006,8 @@
           "status": "native-observed"
         }
       ],
-      "capture_manifest": "static/img/fusion/captures/S27/capture.json"
+      "capture_manifest": "static/img/fusion/captures/S27/capture.json",
+      "published_batch": "fusion-native-20261024-05"
     },
     {
       "id": "S28",
@@ -1019,7 +1020,7 @@
       },
       "goal": "MergeのEffect Mask適用前後とAlphaを比較する",
       "suggested_graph": "Owned compositing fixture; fixture.comp and native variants",
-      "status": "captured-local-display-verified",
+      "status": "published-display-verified",
       "shots": [
         {
           "slug": "graph",
@@ -1046,7 +1047,8 @@
           "status": "native-observed"
         }
       ],
-      "capture_manifest": "static/img/fusion/captures/S28/capture.json"
+      "capture_manifest": "static/img/fusion/captures/S28/capture.json",
+      "published_batch": "fusion-native-20261024-05"
     },
     {
       "id": "S29",
@@ -1059,7 +1061,7 @@
       },
       "goal": "Dissolveの混合率0、0.5、1を比較する",
       "suggested_graph": "Owned compositing fixture; fixture.comp and native variants",
-      "status": "captured-local-display-verified",
+      "status": "published-display-verified",
       "shots": [
         {
           "slug": "graph",
@@ -1092,7 +1094,8 @@
           "status": "native-observed"
         }
       ],
-      "capture_manifest": "static/img/fusion/captures/S29/capture.json"
+      "capture_manifest": "static/img/fusion/captures/S29/capture.json",
+      "published_batch": "fusion-native-20261024-05"
     },
     {
       "id": "S30",
@@ -1105,7 +1108,7 @@
       },
       "goal": "Fast NoiseのmapとDisplaceのRadial変位を比較する",
       "suggested_graph": "Owned compositing fixture; fixture.comp and native variants",
-      "status": "captured-local-display-verified",
+      "status": "published-display-verified",
       "shots": [
         {
           "slug": "graph",
@@ -1138,7 +1141,244 @@
           "status": "native-observed"
         }
       ],
-      "capture_manifest": "static/img/fusion/captures/S30/capture.json"
+      "capture_manifest": "static/img/fusion/captures/S30/capture.json",
+      "published_batch": "fusion-native-20261024-05"
+    },
+    {
+      "id": "S31",
+      "priority": "P1",
+      "article": "manuals/fusion/learn/04-compositing/alpha.md",
+      "manual": {
+        "version": "21.1",
+        "chapter": 77,
+        "printed_pages": "1665–1669,1675–1681"
+      },
+      "goal": "前景単体とOver後のColor/Alphaを比べる",
+      "suggested_graph": "Owned alpha/space/time fixture; fixture.comp and native variants",
+      "status": "captured-local-display-verified",
+      "shots": [
+        {
+          "slug": "graph",
+          "kind": "node-graph",
+          "target": "前景単体とOver後のColor/Alphaを比べる",
+          "status": "native-observed"
+        },
+        {
+          "slug": "inspector",
+          "kind": "inspector",
+          "target": "前景単体とOver後のColor/Alphaを比べる",
+          "status": "native-observed"
+        },
+        {
+          "slug": "compare",
+          "kind": "output",
+          "target": "前景単体とOver後のColor/Alphaを比べる",
+          "status": "native-observed"
+        },
+        {
+          "slug": "alpha",
+          "kind": "output",
+          "target": "前景単体とOver後のColor/Alphaを比べる",
+          "status": "native-observed"
+        }
+      ],
+      "capture_manifest": "static/img/fusion/captures/S31/capture.json"
+    },
+    {
+      "id": "S32",
+      "priority": "P1",
+      "article": "manuals/fusion/learn/04-compositing/blend-operator.md",
+      "manual": {
+        "version": "21.1",
+        "chapter": 94,
+        "printed_pages": "2213–2217"
+      },
+      "goal": "Blend、Apply Mode、Operatorを基準から個別に変える",
+      "suggested_graph": "Owned alpha/space/time fixture; fixture.comp and native variants",
+      "status": "captured-local-display-verified",
+      "shots": [
+        {
+          "slug": "graph",
+          "kind": "node-graph",
+          "target": "Blend、Apply Mode、Operatorを基準から個別に変える",
+          "status": "native-observed"
+        },
+        {
+          "slug": "inspector",
+          "kind": "inspector",
+          "target": "Blend、Apply Mode、Operatorを基準から個別に変える",
+          "status": "native-observed"
+        },
+        {
+          "slug": "compare",
+          "kind": "output",
+          "target": "Blend、Apply Mode、Operatorを基準から個別に変える",
+          "status": "native-observed"
+        },
+        {
+          "slug": "blend-inspector",
+          "kind": "inspector",
+          "target": "Blend、Apply Mode、Operatorを基準から個別に変える",
+          "status": "native-observed"
+        },
+        {
+          "slug": "blend",
+          "kind": "output",
+          "target": "Blend、Apply Mode、Operatorを基準から個別に変える",
+          "status": "native-observed"
+        },
+        {
+          "slug": "multiply-inspector",
+          "kind": "inspector",
+          "target": "Blend、Apply Mode、Operatorを基準から個別に変える",
+          "status": "native-observed"
+        },
+        {
+          "slug": "multiply",
+          "kind": "output",
+          "target": "Blend、Apply Mode、Operatorを基準から個別に変える",
+          "status": "native-observed"
+        },
+        {
+          "slug": "in-inspector",
+          "kind": "inspector",
+          "target": "Blend、Apply Mode、Operatorを基準から個別に変える",
+          "status": "native-observed"
+        },
+        {
+          "slug": "in",
+          "kind": "output",
+          "target": "Blend、Apply Mode、Operatorを基準から個別に変える",
+          "status": "native-observed"
+        }
+      ],
+      "capture_manifest": "static/img/fusion/captures/S32/capture.json"
+    },
+    {
+      "id": "S33",
+      "priority": "P1",
+      "article": "manuals/fusion/learn/02-data/mask.md",
+      "manual": {
+        "version": "21.1",
+        "chapter": 79,
+        "printed_pages": "1730; common Paint Mode: ch108 p2465"
+      },
+      "goal": "RectangleからEllipseをSubtractした範囲を見る",
+      "suggested_graph": "Owned alpha/space/time fixture; fixture.comp and native variants",
+      "status": "captured-local-display-verified",
+      "shots": [
+        {
+          "slug": "graph",
+          "kind": "node-graph",
+          "target": "RectangleからEllipseをSubtractした範囲を見る",
+          "status": "native-observed"
+        },
+        {
+          "slug": "inspector",
+          "kind": "inspector",
+          "target": "RectangleからEllipseをSubtractした範囲を見る",
+          "status": "native-observed"
+        },
+        {
+          "slug": "compare",
+          "kind": "output",
+          "target": "RectangleからEllipseをSubtractした範囲を見る",
+          "status": "native-observed"
+        }
+      ],
+      "capture_manifest": "static/img/fusion/captures/S33/capture.json"
+    },
+    {
+      "id": "S34",
+      "priority": "P1",
+      "article": "manuals/fusion/learn/03-space/center-pivot-size-angle.md",
+      "manual": {
+        "version": "21.1",
+        "chapter": 120,
+        "printed_pages": "2879–2883"
+      },
+      "goal": "Angleを固定しPivot Xだけを変更する",
+      "suggested_graph": "Owned alpha/space/time fixture; fixture.comp and native variants",
+      "status": "captured-local-display-verified",
+      "shots": [
+        {
+          "slug": "graph",
+          "kind": "node-graph",
+          "target": "Angleを固定しPivot Xだけを変更する",
+          "status": "native-observed"
+        },
+        {
+          "slug": "inspector",
+          "kind": "inspector",
+          "target": "Angleを固定しPivot Xだけを変更する",
+          "status": "native-observed"
+        },
+        {
+          "slug": "compare",
+          "kind": "output",
+          "target": "Angleを固定しPivot Xだけを変更する",
+          "status": "native-observed"
+        }
+      ],
+      "capture_manifest": "static/img/fusion/captures/S34/capture.json"
+    },
+    {
+      "id": "S35",
+      "priority": "P1",
+      "article": "manuals/fusion/learn/05-time/keyframes-spline-time.md",
+      "manual": {
+        "version": "21.1",
+        "chapter": 72,
+        "printed_pages": "1566–1570"
+      },
+      "goal": "Centerの2KeyとPath Displacementを区別する",
+      "suggested_graph": "Owned alpha/space/time fixture; fixture.comp and native variants",
+      "status": "captured-local-display-verified",
+      "shots": [
+        {
+          "slug": "graph",
+          "kind": "node-graph",
+          "target": "Centerの2KeyとPath Displacementを区別する",
+          "status": "native-observed"
+        },
+        {
+          "slug": "inspector",
+          "kind": "inspector",
+          "target": "Centerの2KeyとPath Displacementを区別する",
+          "status": "native-observed"
+        },
+        {
+          "slug": "compare",
+          "kind": "output",
+          "target": "Centerの2KeyとPath Displacementを区別する",
+          "status": "native-observed"
+        },
+        {
+          "slug": "frame0-inspector",
+          "kind": "inspector",
+          "target": "Centerの2KeyとPath Displacementを区別する",
+          "status": "native-observed"
+        },
+        {
+          "slug": "frame0",
+          "kind": "output",
+          "target": "Centerの2KeyとPath Displacementを区別する",
+          "status": "native-observed"
+        },
+        {
+          "slug": "spline",
+          "kind": "output",
+          "target": "Centerの2KeyとPath Displacementを区別する",
+          "status": "native-observed"
+        },
+        {
+          "slug": "modifiers",
+          "kind": "inspector",
+          "target": "Path1のModifiers tab",
+          "status": "native-observed"
+        }
+      ],
+      "capture_manifest": "static/img/fusion/captures/S35/capture.json"
     }
   ],
   "publication_batches": [
@@ -1305,27 +1545,64 @@
         "artifacts/fusion-captures/public-batch4-assets.json"
       ],
       "limitations": "Fixed examples/reuse; full Fusion mission and remaining article views are incomplete."
+    },
+    {
+      "id": "fusion-native-20261024-05",
+      "cases": [
+        "S27",
+        "S28",
+        "S29",
+        "S30"
+      ],
+      "reuses": [
+        "R56",
+        "R57",
+        "R58",
+        "R59",
+        "R60",
+        "R61",
+        "R62",
+        "R63",
+        "R64"
+      ],
+      "pr": "https://github.com/46slv/collectanea-DB/pull/73",
+      "candidate": "33bb8fa3809ce976db31d818452ad9c1cc34fc5f",
+      "main": "78e7b7c9818448e56f7de0e76ae6abe70da0d0e6",
+      "tree": "8af36277de9c0da855ac6e1a6989f11f60a484a7",
+      "quality_run": "https://github.com/46slv/collectanea-DB/actions/runs/39989581911",
+      "pages_run": "https://github.com/46slv/collectanea-DB/actions/runs/39990995348",
+      "public_pages": 12,
+      "public_images": 53,
+      "new_placements": 51,
+      "new_native_crops": 21,
+      "public_asset_hashes": 371,
+      "result": "PASS",
+      "evidence": [
+        "artifacts/fusion-captures/public-batch5-display-report.json",
+        "artifacts/fusion-captures/public-batch5-assets.json"
+      ],
+      "limitations": "Full Fusion mission and remaining article views are incomplete."
     }
   ],
   "coverage_inventory": {
-    "checked_at": "2026-10-23T16:44:03.403071+00:00",
+    "checked_at": "2026-10-23T17:26:20.073443+00:00",
     "scope": "All manuals/fusion Markdown and MDX pages; review necessity before adding images.",
     "completion_rule": "Every page has an explicit image decision; necessary images are native-observed, embedded, saved to GitHub and public-display-verified. A native example does not verify all article controls.",
     "summary": {
       "total_pages": 586,
-      "with_images": 92,
-      "with_native_examples": 92,
+      "with_images": 96,
+      "with_native_examples": 96,
       "states": {
         "reviewed-no-standalone-image": 26,
         "no-standalone-image-needed": 6,
-        "illustrated-reused-example": 62,
-        "capture-planned": 462,
-        "illustrated-native-example": 30
+        "illustrated-reused-example": 61,
+        "capture-planned": 458,
+        "illustrated-native-example": 35
       },
       "decisions": {
         "no-standalone-image-needed": 32,
-        "image-required": 92,
-        "capture-needed": 462
+        "image-required": 96,
+        "capture-needed": 458
       }
     },
     "pages": [
@@ -1812,15 +2089,21 @@
         "article": "manuals/fusion/learn/02-data/mask.md",
         "title": "マスク（Mask）",
         "kind": "concept",
-        "image_count": 2,
-        "native_cases": [],
+        "image_count": 5,
+        "native_cases": [
+          "S33"
+        ],
         "reused_cases": [
           "S07"
         ],
         "planned_cases": [],
-        "state": "illustrated-reused-example",
+        "state": "illustrated-native-example",
         "decision": "image-required",
-        "reason": "本文の接続・設定・出力を、撮影済みの固定例で図示する。記事全体の検証とは区別する。"
+        "reason": "本文の接続・設定・出力を、撮影済みの固定例で図示する。記事全体の検証とは区別する。",
+        "remaining_views": [
+          "Subtract以外のPaint ModeとInvertの比較"
+        ],
+        "audit_note": "S31–S35のnative固定例を掲載。実機確認済みの比較と残る視点を分け、記事全体のverificationはpartialを維持。"
       },
       {
         "article": "manuals/fusion/learn/02-data/parameter-data.md",
@@ -1902,22 +2185,22 @@
         "article": "manuals/fusion/learn/03-space/center-pivot-size-angle.md",
         "title": "Center / Pivot / Size / Angle",
         "kind": "concept",
-        "image_count": 2,
-        "native_cases": [],
+        "image_count": 5,
+        "native_cases": [
+          "S34"
+        ],
         "reused_cases": [
           "S06"
         ],
         "planned_cases": [],
-        "state": "illustrated-reused-example",
+        "state": "illustrated-native-example",
         "decision": "image-required",
         "reason": "本文の接続・設定・出力を、撮影済みの固定例で図示する。記事全体の検証とは区別する。",
         "remaining_views": [
-          {
-            "anchor": "実例：タイトルを移動し、回転の支点を変える",
-            "view": "同じCenter/Angle/SizeでPivotだけ中央と左下へ変更したInspectorと出力を比較する。Angle 0で位置だけ動かす例とは分ける。",
-            "reason": "既存S06はCenter・Size・Angleを同時設定した固定例で、Pivotだけの比較ではない。"
-          }
-        ]
+          "Reference Sizeの正規化座標とピクセル表示",
+          "本文タイトル配置と連続回転の例"
+        ],
+        "audit_note": "S31–S35のnative固定例を掲載。実機確認済みの比較と残る視点を分け、記事全体のverificationはpartialを維持。"
       },
       {
         "article": "manuals/fusion/learn/03-space/domain-of-definition.md",
@@ -1972,13 +2255,15 @@
         "article": "manuals/fusion/learn/04-compositing/alpha.md",
         "title": "Alpha（アルファチャンネル）",
         "kind": "concept",
-        "image_count": 3,
-        "native_cases": [],
+        "image_count": 7,
+        "native_cases": [
+          "S31"
+        ],
         "reused_cases": [
           "S25"
         ],
         "planned_cases": [],
-        "state": "illustrated-reused-example",
+        "state": "illustrated-native-example",
         "decision": "image-required",
         "reason": "RGBとAlpha表示、Effect MaskとImage Alphaの違いはS25が直接適合する。",
         "reuse_candidates": [
@@ -1999,29 +2284,35 @@
           }
         ],
         "remaining_views": [
-          {
-            "anchor": "実例：前景のAlphaと合成結果のAlphaを見る",
-            "view": "前景の円形Alphaと、不透明背景へOver合成した後の全面白Alphaを同時刻で比較する。S25の全面白はBlur枝の出力でありMerge後のAlphaの証拠ではない。"
-          }
+          "Matte ControlによるAlpha作成",
+          "Straight/Premultipliedと素材Alpha Modeの実機比較"
         ],
-        "capture_group": "alpha-over-output"
+        "capture_group": "alpha-over-output",
+        "audit_note": "S31–S35のnative固定例を掲載。実機確認済みの比較と残る視点を分け、記事全体のverificationはpartialを維持。"
       },
       {
         "article": "manuals/fusion/learn/04-compositing/blend-operator.md",
         "title": "合成量と演算（Blend / Apply Mode / Operator）",
         "kind": "concept",
-        "image_count": 0,
-        "native_cases": [],
+        "image_count": 9,
+        "native_cases": [
+          "S32"
+        ],
         "reused_cases": [],
         "planned_cases": [],
-        "state": "capture-planned",
-        "decision": "capture-needed",
+        "state": "illustrated-native-example",
+        "decision": "image-required",
         "reason": "S02は固定のMerge例であり、量・RGB演算・Alpha演算を分けた比較を撮影していない。",
+        "remaining_views": [
+          "半透明BackgroundでのOperator比較",
+          "Multiply以外のApply ModeとSubtractive/Additiveの比較"
+        ],
         "required_views": [
           "同じForeground/BackgroundのMerge GraphとInspectorでNormal/Over/Blend 1を示す",
           "Blendだけ0.5、Apply ModeだけMultiply、Normalへ戻してOperatorだけIn等へ変更し、各結果を元状態と比較する"
         ],
-        "capture_group": "merge-mode-comparison"
+        "capture_group": "merge-mode-comparison",
+        "audit_note": "S31–S35のnative固定例を掲載。実機確認済みの比較と残る視点を分け、記事全体のverificationはpartialを維持。"
       },
       {
         "article": "manuals/fusion/learn/04-compositing/foreground-background-mask.md",
@@ -2094,19 +2385,27 @@
         "article": "manuals/fusion/learn/05-time/keyframes-spline-time.md",
         "title": "キーフレーム / スプライン / 時間（Keyframe / Spline / Time）",
         "kind": "concept",
-        "image_count": 0,
-        "native_cases": [],
+        "image_count": 7,
+        "native_cases": [
+          "S35"
+        ],
         "reused_cases": [],
         "planned_cases": [],
-        "state": "capture-planned",
-        "decision": "capture-needed",
+        "state": "illustrated-native-example",
+        "decision": "image-required",
         "reason": "既存固定Transform画面にはキー、補間、Editorが写っていない。",
+        "remaining_views": [
+          "Transform Sizeの0/12/24キーとKeyframes Editor",
+          "同時刻・同値のLinear/Smooth/Step比較",
+          "Global/Render Rangeの実UI"
+        ],
         "required_views": [
           "Transform Sizeの0/12/24キー、Inspectorのキーボタン、Keyframes Editorの同じ3キー",
           "同じ時刻・値を持つLinear/Smooth/StepのSpline比較と中間時刻の値",
           "CenterのMotion PathとDisplacement Splineの縦軸を数値Size Splineと区別する"
         ],
-        "capture_group": "keyframe-spline-basics"
+        "capture_group": "keyframe-spline-basics",
+        "audit_note": "S31–S35のnative固定例を掲載。実機確認済みの比較と残る視点を分け、記事全体のverificationはpartialを維持。"
       },
       {
         "article": "manuals/fusion/learn/05-time/modifier-parameter-sources.md",
@@ -11705,13 +12004,19 @@
         "article": "manuals/fusion/nodes/modifiers/path.md",
         "title": "Path",
         "kind": "node",
-        "image_count": 0,
+        "image_count": 5,
         "native_cases": [],
-        "reused_cases": [],
+        "reused_cases": [
+          "S35"
+        ],
         "planned_cases": [],
-        "state": "capture-planned",
-        "decision": "capture-needed",
+        "state": "illustrated-reused-example",
+        "decision": "image-required",
         "reason": "本文の対象機能: Pathは、Position Controlをmotion pathへ結び、経路の形と進行タイミングを別々に調整できるModifier。。固定Transformは経路/時間/軸独立制御を示さない。",
+        "remaining_views": [
+          "非対称曲線経路とPath全体のSize/Rotation",
+          "Heading OffsetとXY Path比較"
+        ],
         "required_views": [
           "適用先ParameterとModifier割当の実UI",
           "自身のModifiersタブとControls",
@@ -11742,7 +12047,8 @@
             "role": "入力/結果または実UIの具体箇所"
           }
         ],
-        "hold_conditions": []
+        "hold_conditions": [],
+        "audit_note": "S31–S35のnative固定例を掲載。実機確認済みの比較と残る視点を分け、記事全体のverificationはpartialを維持。"
       },
       {
         "article": "manuals/fusion/nodes/modifiers/perturb.md",
@@ -17924,13 +18230,20 @@
         "article": "manuals/fusion/recipes/animation/animate-transform-center.md",
         "title": "TransformをKeyframeで動かす",
         "kind": "recipe",
-        "image_count": 0,
+        "image_count": 6,
         "native_cases": [],
-        "reused_cases": [],
+        "reused_cases": [
+          "S35"
+        ],
         "planned_cases": [],
-        "state": "capture-planned",
-        "decision": "capture-needed",
-        "reason": "2フレームのCenterと出力、Spline/Keyframes Editor"
+        "state": "illustrated-reused-example",
+        "decision": "image-required",
+        "reason": "2フレームのCenterと出力、Spline/Keyframes Editor",
+        "remaining_views": [
+          "Spline補間を変更した中間フレーム比較",
+          "連続再生の動き"
+        ],
+        "audit_note": "S31–S35のnative固定例を掲載。実機確認済みの比較と残る視点を分け、記事全体のverificationはpartialを維持。"
       },
       {
         "article": "manuals/fusion/recipes/animation/exr-motion-vector-blur.md",
@@ -19341,8 +19654,9 @@
         "compare.png",
         "alpha.png"
       ],
-      "status": "embedded-local-display-verified",
-      "scope": "未確認の範囲：赤い円を青い背景へ重ねる本文のMerge例、Matte ControlによるAlpha作成、Premultiplicationや素材のAlpha Mode。"
+      "status": "published-display-verified",
+      "scope": "未確認の範囲：赤い円を青い背景へ重ねる本文のMerge例、Matte ControlによるAlpha作成、Premultiplicationや素材のAlpha Mode。",
+      "published_batch": "fusion-native-20261024-05"
     },
     {
       "id": "R57",
@@ -19352,8 +19666,9 @@
         "graph.png",
         "result.png"
       ],
-      "status": "embedded-local-display-verified",
-      "scope": "未確認の範囲：Deepのflattenと複数サンプル保持、Particle forceの順序差、renderer前後の情報喪失の全比較、全domainの再変換可能性。"
+      "status": "published-display-verified",
+      "scope": "未確認の範囲：Deepのflattenと複数サンプル保持、Particle forceの順序差、renderer前後の情報喪失の全比較、全domainの再変換可能性。",
+      "published_batch": "fusion-native-20261024-05"
     },
     {
       "id": "R58",
@@ -19364,8 +19679,9 @@
         "shading.png",
         "result.png"
       ],
-      "status": "embedded-local-display-verified",
-      "scope": "未確認の範囲：FollowerやWrite Onの時間変化、Macroの公開項目、フォント全般。"
+      "status": "published-display-verified",
+      "scope": "未確認の範囲：FollowerやWrite Onの時間変化、Macroの公開項目、フォント全般。",
+      "published_batch": "fusion-native-20261024-05"
     },
     {
       "id": "R59",
@@ -19377,8 +19693,9 @@
         "compare.png",
         "final.png"
       ],
-      "status": "embedded-local-display-verified",
-      "scope": "未確認の範囲：キーフレームやExpressionによるMotion、User ControlsやTemplate公開。"
+      "status": "published-display-verified",
+      "scope": "未確認の範囲：キーフレームやExpressionによるMotion、User ControlsやTemplate公開。",
+      "published_batch": "fusion-native-20261024-05"
     },
     {
       "id": "R60",
@@ -19391,8 +19708,9 @@
         "reference.png",
         "result.png"
       ],
-      "status": "embedded-local-display-verified",
-      "scope": "未確認の範囲：看板の実写、Perspective変形や遮蔽、Polygonマスクの追従、Steady/StabilizeとCompute Stabilization、Point TrackerのConnect To、追跡修正後のSpline共有の更新。"
+      "status": "published-display-verified",
+      "scope": "未確認の範囲：看板の実写、Perspective変形や遮蔽、Polygonマスクの追従、Steady/StabilizeとCompute Stabilization、Point TrackerのConnect To、追跡修正後のSpline共有の更新。",
+      "published_batch": "fusion-native-20261024-05"
     },
     {
       "id": "R61",
@@ -19405,8 +19723,9 @@
         "disabled.png",
         "order.png"
       ],
-      "status": "embedded-local-display-verified",
-      "scope": "Rename、素材差し替え、Split Here、順序のKeyframe化は含めていません。再現用Graphは最後のRed1が上の状態です。"
+      "status": "published-display-verified",
+      "scope": "Rename、素材差し替え、Split Here、順序のKeyframe化は含めていません。再現用Graphは最後のRed1が上の状態です。",
+      "published_batch": "fusion-native-20261024-05"
     },
     {
       "id": "R62",
@@ -19417,8 +19736,9 @@
         "compare.png",
         "map.png"
       ],
-      "status": "embedded-local-display-verified",
-      "scope": "通常の2D mapによるDisplaceだけの例です。4点配置、Grid Warp、Vector入力の変形は未確認です。"
+      "status": "published-display-verified",
+      "scope": "通常の2D mapによるDisplaceだけの例です。4点配置、Grid Warp、Vector入力の変形は未確認です。",
+      "published_batch": "fusion-native-20261024-05"
     },
     {
       "id": "R63",
@@ -19429,8 +19749,9 @@
         "inspector.png",
         "order.png"
       ],
-      "status": "embedded-local-display-verified",
-      "scope": "同じ素材を使った長いMerge chainとの全Control比較、Layer削除、順序のKeyframe化は含めていません。"
+      "status": "published-display-verified",
+      "scope": "同じ素材を使った長いMerge chainとの全Control比較、Layer削除、順序のKeyframe化は含めていません。",
+      "published_batch": "fusion-native-20261024-05"
     },
     {
       "id": "R64",
@@ -19440,8 +19761,38 @@
         "inspector.png",
         "order.png"
       ],
+      "status": "published-display-verified",
+      "scope": "2つのLayerを使う固定例です。Split HereやLayer順のアニメーションは未確認です。",
+      "published_batch": "fusion-native-20261024-05"
+    },
+    {
+      "id": "R65",
+      "article": "manuals/fusion/recipes/animation/animate-transform-center.md",
+      "source_case": "S35",
+      "images": [
+        "graph.png",
+        "frame0-inspector.png",
+        "frame0.png",
+        "inspector.png",
+        "compare.png",
+        "spline.png"
+      ],
       "status": "embedded-local-display-verified",
-      "scope": "2つのLayerを使う固定例です。Split HereやLayer順のアニメーションは未確認です。"
+      "scope": "2キーと中間フレーム24のCenter(0.5, 0.5)を確認した例です。再生の滑らかさや、Splineで補間を変更した比較は未確認です。"
+    },
+    {
+      "id": "R66",
+      "article": "manuals/fusion/nodes/modifiers/path.md",
+      "source_case": "S35",
+      "images": [
+        "graph.png",
+        "frame0.png",
+        "compare.png",
+        "modifiers.png",
+        "spline.png"
+      ],
+      "status": "embedded-local-display-verified",
+      "scope": "直線の2点経路とDisplacementを確認した最小例です。曲線経路、Path全体のSize/回転、Heading Offset、XY Pathとの比較は未確認です。"
     }
   ]
 }

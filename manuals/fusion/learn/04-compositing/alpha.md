@@ -67,7 +67,7 @@ Fusionでは、白黒で似た見た目の情報でも、接続先によって�
 
 [![S25の実機撮影。Alpha表示の比較](/img/fusion/captures/S25/alpha.png)](/img/fusion/captures/S25/alpha.png)
 
-Resolve Studio 21.1.0.14／Windowsで撮影したS25の参考例です。未確認の範囲：赤い円を青い背景へ重ねる本文のMerge例、Matte ControlによるAlpha作成、Premultiplicationや素材のAlpha Mode。 [撮影条件と確認範囲](/img/fusion/captures/S25/capture.json)
+Resolve Studio 21.1.0.14／Windowsで撮影したS25の参考例です。このS25はEffect Maskの比較例です。前景とMerge後のAlphaは次のS31で確認しています。Matte ControlによるAlpha作成、Premultiplicationや素材のAlpha Modeは未確認です。 [撮影条件と確認範囲](/img/fusion/captures/S25/capture.json)
 
 ## 実例：前景のAlphaと合成結果のAlphaを見る
 
@@ -90,6 +90,24 @@ Background（赤、Alpha 1） ──────────┘
 最後の違いが重要です。**前景の透明な部分から背景が見えることと、合成後の画像に透明な部分が残ることは同じではありません。** 不透明な背景へ重ねた結果は、見た目に前景の切り抜きが残っていても、出力Alphaでは全面不透明になり得ます。
 
 この例で使ったMaskは、赤いBackgroundが円形のAlphaを持つImageを出すために利用しています。Ellipse MaskそのものをMergeのForegroundへ画像として重ねているわけではありません。各入力の働きは[Merge](../../nodes/compositing/merge.md)と[Background](../../nodes/generators/background.md)で確認できます。
+
+### 実機で前景とOver後のAlphaを比べる
+
+上の説明と同じ接続で、赤い楕円の前景と青い不透明背景を作りました。Resolve Studio 21.1.0.14、Windows、日本語UIで撮影しています。Ellipse1はWidth 0.4、Height 0.55、Soft Edge 0.02です。
+
+[![Ellipse1を赤いCutout1のEffect Maskへ、Cutout1をMerge1のForegroundへ、青いBase1をBackgroundへ接続した実機Graph](/img/fusion/captures/S31/graph.png)](/img/fusion/captures/S31/graph.png)
+
+[![Merge1 Inspector。適用モードNormal、Operator Over、Blend 1で前景を合成](/img/fusion/captures/S31/inspector.png)](/img/fusion/captures/S31/inspector.png)
+
+[![Color表示。左のCutout1は赤い楕円の外が市松模様、右のMerge1はその範囲に青い背景が見える](/img/fusion/captures/S31/compare.png)](/img/fusion/captures/S31/compare.png)
+
+左はMergeへ入れる前のCutout1、右はOver合成後です。Color表示では、前景の透明部分から背景が見えています。
+
+[![Alpha表示。左は楕円の内側が白で外側が黒、右のMerge出力は全面白](/img/fusion/captures/S31/alpha.png)](/img/fusion/captures/S31/alpha.png)
+
+同じ2出力をAlpha表示にすると、左には楕円の形が残り、右は全面白になります。背景が不透明なため、合成結果全体が不透明になった例です。1920×1080、フレーム0、両Viewer 40%。緑の線と赤い軸は操作表示です。撮影後はColorへ戻しました。Matte Controlや素材のAlpha Mode、Straight/Premultipliedの比較は別の確認事項です。
+
+[再現用Graph](/img/fusion/captures/S31/fixture.comp) · [撮影条件と確認範囲](/img/fusion/captures/S31/capture.json)
 
 ## 半透明の画素はどう重なるか
 
