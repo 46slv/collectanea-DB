@@ -71,6 +71,18 @@ Shape系Nodeの出力を普通の2D Imageと同じだと仮定せず、最終的
 
 Shape streamと2D Imageを分離して読みます。
 
+#### 実機の参考例
+
+<!-- capture-reuse:R25 -->
+
+sEllipse1のShapeをsRender1で2D Imageへ変換し、MediaOut1へ送っています。sRenderを境にShapeの処理と画像出力を区別して読みます。
+
+[![S04の実機撮影例。Node Editorの接続](/img/fusion/captures/S04/graph.png)](/img/fusion/captures/S04/graph.png)
+
+[![S04の実機撮影例。Viewerの出力結果](/img/fusion/captures/S04/result.png)](/img/fusion/captures/S04/result.png)
+
+Resolve Studio 21.1.0.14／Windowsで撮影済みのS04を再利用した参考例です。正常な変換例です。誤接続の拒否画面や、ほかの全データ型の境界は別の撮影対象です。 [元の撮影条件と確認範囲](/img/fusion/captures/S04/capture.json)
+
 ### 3D
 
 Classic 3D sceneと2D Imageの境界をRendererで意識します。

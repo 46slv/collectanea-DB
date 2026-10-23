@@ -14,7 +14,7 @@ controls: ["Points", "Depth", "Solid", "Border Width", "Border Style", "Cap Styl
 tasks: ["build-shape", "procedural-graphics"]
 product_scope: fusion
 suite_surfaces: ["fusion"]
-updated: "2026-10-11"
+updated: "2026-10-24"
 ---
 
 # sStar
@@ -114,6 +114,22 @@ sStarのStyleタブでAlphaを0.5程度にし、`sDuplicate` で少しずつ位�
 
 これは21.1 Manualが説明するAlphaの重複動作に基づく構成例であり、実機レンダリングでの見た目までは検証していません。
 
+## 実機でPointsとDepthを変更する
+
+DaVinci Resolve Studio 21.1.0.14、Windows、日本語UIで撮影しました。同じWidth 0.35／Height 0.35の星形を2系統で画像化しています。
+
+[![2つのsStarをそれぞれsRenderへ接続し、下段からMediaOut1へ送る実機Node Editor](/img/fusion/captures/S21/graph.png)](/img/fusion/captures/S21/graph.png)
+
+ShapeBase1はPoints 5／Depth 0.5、ShapeChanged1はPoints 8／Depth 0.25です。両方ともSolidをオンにしました。
+
+[![sStar Inspector。Points 8、Depth 0.25、Solidオン、WidthとHeightはともに0.35](/img/fusion/captures/S21/inspector.png)](/img/fusion/captures/S21/inspector.png)
+
+[![40%の左右Viewer。左は5つの突起を持つ白い星、右は8つの細い突起を持つ白い星](/img/fusion/captures/S21/compare.png)](/img/fusion/captures/S21/compare.png)
+
+1920×1080、フレーム0の静止画です。この例はPointsとDepthを同時に変えています。各項目の違いだけを比べるときは、一方を同じ値にそろえます。市松模様は透明部分、緑色の円と軸は操作表示です。輪郭のアニメーション、Allow Combiningの重なり比較は含めていません。
+
+[再現用Graph](/img/fusion/captures/S21/fixture.comp) · [撮影条件と確認範囲](/img/fusion/captures/S21/capture.json)
+
 ## 関連ノードと注意点
 
 - [sNGon](./sngon)は正多角形、sStarは突起と谷を持つ星形に向きます。突起の数と凹みを調整したいならsStarを選びます。
@@ -128,4 +144,4 @@ Shape系全体の使い分けは[Shapeノード一覧](./)を参照してくだ�
 
 **Blackmagic Design『DaVinci Resolve 21.1 Reference Manual』（September 2026）、Chapter 117「Shape Nodes」、pp.2762–2765**に基づき、外部入力なし・Shape出力・Controls/Styleの各設定と `sRender` / `sDuplicate` / `sGrid` の基本的な接続を確認しました。
 
-内部REGID、Edition差、端子の表示名・色、実機での描画結果、設定のデフォルト値は確認していません。このため `verification: partial` を維持しています。
+上記の実機例ではREGID `sStar`、掲載したPoints・Depth・寸法、sRenderへの接続と描画を確認しました。Edition差、全初期値・数値範囲、輪郭アニメーションやAllow Combiningは未確認のため、`verification: partial`を維持しています。

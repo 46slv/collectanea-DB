@@ -11,7 +11,7 @@ tasks: [connect-nodes, debug, read-graph]
 prerequisites: [image-data, mask-data, parameter-data]
 level: foundation
 product_scope: fusion
-updated: "2026-10-17"
+updated: "2026-10-24"
 ---
 # 接続できるdata / 接続できないdata
 
@@ -66,6 +66,18 @@ sEllipse → sRender → Bitmap Mask ─────────┘
 sRenderが出す**2D Image**から、[Bitmap Mask](../../nodes/masks/bitmap-mask)で**Alpha**を取り出し、単一チャンネルのMaskとしてBlurの青いEffect Mask入力へ渡します。MediaInはBlurのImage入力へ入れるため、出力は「円を表示した画像」ではなく「円形の内側だけぼかされた映像」です。sRenderのAlphaに意図した形があるか、Viewerで確認してください。
 
 単純な円なら**Ellipse Mask → Blur［Effect Mask］**の方が短い構成です。一方、sGridで並べた図形やsBooleanで加工したShapeを選択範囲に使う場合は、この変換経路が役立ちます。詳しくは[Shapeの基本](./shape)と[Maskの基本](./mask)を参照してください。
+
+### 実機の参考例
+
+<!-- capture-reuse:R16 -->
+
+sEllipse1 → sRender1 → MediaOut1の実機接続です。Width 0.5／Height 0.28のShapeをsRenderで1920×1080の画像にしています。
+
+[![S04の実機撮影例。Node Editorの接続](/img/fusion/captures/S04/graph.png)](/img/fusion/captures/S04/graph.png)
+
+[![S04の実機撮影例。Viewerの出力結果](/img/fusion/captures/S04/result.png)](/img/fusion/captures/S04/result.png)
+
+Resolve Studio 21.1.0.14／Windowsで撮影済みのS04を再利用した参考例です。ShapeからImageへの変換例です。Merge合成や、ほかの全データ型の互換性は含めていません。 [元の撮影条件と確認範囲](/img/fusion/captures/S04/capture.json)
 
 ## 共通ルール
 

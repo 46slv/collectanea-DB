@@ -5,7 +5,7 @@ doc_type: index
 verification: partial
 product_scope: fusion
 tasks: [lookup-node, generate-image, text, procedural-texture]
-updated: "2026-10-15"
+updated: "2026-10-24"
 ---
 
 # Generatorノード
@@ -70,6 +70,18 @@ Maskをつなぐと、生成したImageのうちMask範囲だけを残せます�
 Backgroundは単色だけでなく、Horizontal / Vertical / Four Corner / Gradientを生成できます。
 
 自由GradientではLinear / Reflect / Square / Cross / Radial / Angleなどの形を選べるため、単純な背景からMask source、lighting mapまで広く使えます。
+
+### 実機の参考例
+
+<!-- capture-reuse:R30 -->
+
+画像入力なしでBackgroundを生成した例です。左は単色のSolid1、右は暗い青からオレンジへ変わるGradient1で、TypeはHorizontalです。
+
+[![S15の実機撮影例。Node Editorの接続](/img/fusion/captures/S15/graph.png)](/img/fusion/captures/S15/graph.png)
+
+[![S15の実機撮影例。左右Viewerの比較](/img/fusion/captures/S15/compare.png)](/img/fusion/captures/S15/compare.png)
+
+Resolve Studio 21.1.0.14／Windowsで撮影済みのS15を再利用した参考例です。1920×1080、フレーム0、Viewer 40%。Day SkyやText+など、ほかのGeneratorの設定を示す画像ではありません。 [元の撮影条件と確認範囲](/img/fusion/captures/S15/capture.json)
 
 ## Fast Noise
 

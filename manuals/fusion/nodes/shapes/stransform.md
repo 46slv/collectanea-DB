@@ -15,7 +15,7 @@ controls: ["X Offset", "Y Offset", "X Size", "Y Size", "Rotation", "X Pivot", "Y
 tasks: ["build-shape", "procedural-graphics"]
 product_scope: fusion
 suite_surfaces: ["fusion"]
-updated: "2026-10-11"
+updated: "2026-10-24"
 ---
 
 # sTransform
@@ -118,6 +118,22 @@ sEllipse → sTransform → sGrid → sRender
 
 上は行列に並べた後でまとまり全体を動かす構成です。下は並べる前の図形に変形を加える構成です。図形1個の形と配置を変えたいのか、出来上がったパターンを画面内で動かしたいのかで順序を選びます。
 
+## 実機でShapeの配置と形を変更する
+
+DaVinci Resolve Studio 21.1.0.14、Windows、日本語UIで撮影しました。Width／Heightがともに0.22、Points 5のsStarを、元のまま画像化する枝とsTransformを通す枝へ分けています。
+
+[![sStarを上段のsRenderと、下段のsTransformからsRenderへ分岐させた実機Node Editor](/img/fusion/captures/S22/graph.png)](/img/fusion/captures/S22/graph.png)
+
+Transform1はX Offset 0.2／Y Offset 0.05、X Size 1.3／Y Size 0.8、Rotation 25°、Pivot 0／0です。Transform Axisはオンのままです。
+
+[![sTransform Inspector。Offset 0.2・0.05、Size 1.3・0.8、Rotation 25、Pivot 0・0、Transform Axisオン](/img/fusion/captures/S22/inspector.png)](/img/fusion/captures/S22/inspector.png)
+
+[![左右とも40%のViewer。左は元の白い星、右は移動・縦横別倍率・回転を加えた白い星](/img/fusion/captures/S22/compare.png)](/img/fusion/captures/S22/compare.png)
+
+1920×1080、フレーム0で、sRenderの前に置いたsTransformの結果を確認しました。市松模様は透明部分、緑色の線と軸は操作表示です。固定した複数の値を使った例で、各項目単独の比較、階層アニメーション、Transform Axisのオン／オフ比較は含めていません。
+
+[再現用Graph](/img/fusion/captures/S22/fixture.comp) · [撮影条件と確認範囲](/img/fusion/captures/S22/capture.json)
+
 ## 似たノードとの違い・注意点
 
 - [sDuplicate](./sduplicate)はShapeを**増やしてコピーごとに変化**を付けるノードです。sTransform自体はコピーを増やす役割ではありません。
@@ -134,4 +150,4 @@ Shapeノード全体の説明は[Shapeノード一覧](./index.md)から確認�
 
 公式資料：[Blackmagic Design サポートセンター](https://www.blackmagicdesign.com/support)。
 
-端子の内部REGID、Inspectorのデフォルト値・範囲、Edition差、`Transform Axis`の詳細な計算、実機での描画結果は未確認です。そのため`verification: partial`を維持しています。
+上記の実機例ではREGID `sTransform`、Shape入力、掲載したOffset・Size・Rotation・Pivotと描画結果を確認しました。全初期値・数値範囲、Edition差、`Transform Axis`の詳細な計算や階層アニメーションは未確認のため、`verification: partial`を維持しています。

@@ -13,7 +13,7 @@ prerequisites: [normalized-coordinates]
 level: foundation
 product_scope: fusion
 suite_surfaces: [fusion]
-updated: "2026-10-16"
+updated: "2026-10-24"
 ---
 
 # Center / Pivot / Size / Angle
@@ -86,6 +86,18 @@ Sizeは画像の**表示倍率**です。`Size = 1` が等倍の基準で、`Siz
 AngleはPivotを中心として画像を回転させます。21.1 Manualでは、値を増やす方向が**反時計回り**、減らす方向が**時計回り**です。
 
 同じCenter・Angleでも、Pivotを中央からずらすと画像が通る軌道は変わります。画像そのものがどちらの方向へ動いたかを確かめるため、Viewerでは**Pivotを変える前後でほかのControlを固定**します。
+
+### 実機の参考例
+
+<!-- capture-reuse:R21 -->
+
+Center 0.65／0.55、Pivot 0.5／0.5、Size 1.25、Angle 12°を同時に設定した例です。左Viewerの入力に対し、右では移動・拡大・回転した出力を確認できます。
+
+[![S06の実機撮影例。Inspectorの設定値](/img/fusion/captures/S06/inspector.png)](/img/fusion/captures/S06/inspector.png)
+
+[![S06の実機撮影例。左右Viewerの比較](/img/fusion/captures/S06/compare.png)](/img/fusion/captures/S06/compare.png)
+
+Resolve Studio 21.1.0.14／Windowsで撮影済みのS06を再利用した参考例です。複数の固定値を使った状態です。各ControlやPivotだけを変えた前後比較ではありません。 [元の撮影条件と確認範囲](/img/fusion/captures/S06/capture.json)
 
 ## 実例：タイトルを移動し、回転の支点を変える
 

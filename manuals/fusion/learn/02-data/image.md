@@ -11,7 +11,7 @@ tasks: [read-graph, composite, debug]
 prerequisites: [typed-connections]
 level: foundation
 product_scope: fusion
-updated: "2026-10-17"
+updated: "2026-10-24"
 ---
 
 # 画像（Image）
@@ -46,6 +46,18 @@ RGBの値は色を、<Term id="alpha">Alpha</Term>は合成時にどの程度不
 - **Premultiplied（プリマルチプライ済み）**：RGBへAlphaが乗算された状態です。
 
 両者を間違えてMergeすると、半透明の輪郭が明るくなったり暗くなったりします。これはMaskを足すだけでは直りません。詳しくは[プリマルチプライ（Premultiplication）](../04-compositing/premultiplication.md)で扱います。
+
+### 実機の参考例
+
+<!-- capture-reuse:R18 -->
+
+Rectangle1をBackground1のEffect Maskへつなぎ、角丸の色付き画像を作っています。Width 0.6／Height 0.25、Corner Radius 0.15、Soft Edge 0.015です。
+
+[![S17の実機撮影例。Node Editorの接続](/img/fusion/captures/S17/graph.png)](/img/fusion/captures/S17/graph.png)
+
+[![S17の実機撮影例。Viewerの出力結果](/img/fusion/captures/S17/result.png)](/img/fusion/captures/S17/result.png)
+
+Resolve Studio 21.1.0.14／Windowsで撮影済みのS17を再利用した参考例です。本文の円形とは異なる参考例です。外側の市松模様は透明部分ですが、Alpha単独表示やStraight／Premultipliedの比較ではありません。 [元の撮影条件と確認範囲](/img/fusion/captures/S17/capture.json)
 
 ## 1本の接続で複数チャンネルを運べる
 

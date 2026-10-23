@@ -5,7 +5,7 @@ doc_type: index
 verification: partial
 product_scope: fusion
 tasks: [lookup-node, create-mask, isolate-effect, roto]
-updated: "2026-10-11"
+updated: "2026-10-24"
 ---
 
 # Maskノード
@@ -40,6 +40,18 @@ Maskそのものの考え方は[マスク（Mask）](../../learn/02-data/mask)�
 Ellipse / Rectangle / Triangleは、形を数値とViewer controlで作る基本Maskです。
 
 EllipseならCenter、Width、Height、Angleを調整し、Soft Edgeで境界をぼかせます。まず単純な範囲指定をしたい場合は、この系統から選ぶと構成を読みやすくできます。
+
+### 実機の参考例
+
+<!-- capture-reuse:R31 -->
+
+テストチャートに同じBlurをかけ、右だけEllipse Maskで適用範囲を限定した例です。MaskはBlur1の青いEffect Mask入力へ接続しています。
+
+[![S07の実機撮影例。Node Editorの接続](/img/fusion/captures/S07/graph.png)](/img/fusion/captures/S07/graph.png)
+
+[![S07の実機撮影例。左右Viewerの比較](/img/fusion/captures/S07/compare.png)](/img/fusion/captures/S07/compare.png)
+
+Resolve Studio 21.1.0.14／Windowsで撮影済みのS07を再利用した参考例です。Primitive Maskの参考例です。複数MaskのSubtract、Mask Paintや人物追従は含めていません。 [元の撮影条件と確認範囲](/img/fusion/captures/S07/capture.json)
 
 ## Polygon / B-Spline / MultiPoly
 

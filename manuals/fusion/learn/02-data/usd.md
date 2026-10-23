@@ -12,7 +12,7 @@ tasks: [usd, understand-domain, build-usd-scene]
 level: advanced
 product_scope: fusion
 suite_surfaces: [fusion]
-updated: "2026-10-19"
+updated: "2026-10-24"
 ---
 
 # USD scene
@@ -40,6 +40,18 @@ uShape → uMerge → uRenderer
 ここで使う[uDistant Light](../../nodes/usd/udistant-light)は、太陽光のように一定方向からシーンを照らすUSDライトです。uCameraは撮影視点を決め、uDistant Lightは照明を加えます。両方ともuMergeで同じUSDシーンにまとめ、uRendererで2D画像にします。配置したライトをレンダリングに使う場合は、uRendererの**Lighting: Scene**を確認します。
 
 壁や立体に**2D画像を投影**したい場合は、照明用のuDistant Lightではなく[uProjector](../../nodes/usd/uprojector)を使います。uProjectorは画像を光として投影するLightモードと、uCatcherを使って表面テクスチャとして扱うTextureモードを持ちます。
+
+### 実機の参考例
+
+<!-- capture-reuse:R20 -->
+
+外部ファイルを使わず、uShape1 → uMerge1 → uRenderer1 → MediaOut1で描画しました。uRendererはStorm、Output AOVはColor、出力は1920×1080です。
+
+[![S12の実機撮影例。Node Editorの接続](/img/fusion/captures/S12/graph.png)](/img/fusion/captures/S12/graph.png)
+
+[![S12の実機撮影例。Viewerの出力結果](/img/fusion/captures/S12/result.png)](/img/fusion/captures/S12/result.png)
+
+Resolve Studio 21.1.0.14／Windowsで撮影済みのS12を再利用した参考例です。プリミティブのColor出力例です。uLoader、Scene Tree、Prim Selection、保存後の再読込、非Color AOVは別の撮影対象です。 [元の撮影条件と確認範囲](/img/fusion/captures/S12/capture.json)
 
 ## uLoader
 

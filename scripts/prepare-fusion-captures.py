@@ -23,6 +23,10 @@ CONFIG={
  'S16':{'graph':(900,1190,1940,1555),'inspector':(2830,120,3352,600),'compare':(1146,65,2830,705)},
  'S17':{'graph':(900,1190,1940,1555),'inspector':(2830,120,3352,560),'result':(2048,193,2816,625)},
  'S18':{'graph':(580,1190,2280,1555),'inspector':(2830,120,3352,540),'compare':(1146,65,2830,705)},
+ 'S19':{'graph':(580,1190,2280,1555),'inspector':(2830,120,3352,520),'compare':(1146,65,2830,705)},
+ 'S20':{'graph':(580,1190,2280,1555),'inspector':(2830,120,3352,520),'compare':(1146,65,2830,705)},
+ 'S21':{'graph':(580,1190,2280,1555),'inspector':(2830,120,3352,540),'compare':(1146,65,2830,705)},
+ 'S22':{'graph':(240,1190,2600,1555),'inspector':(2830,120,3352,450),'compare':(1146,65,2830,705)},
 }
 def sha(p):return hashlib.sha256(p.read_bytes()).hexdigest()
 candidates=json.loads((ROOT/'docs/fusion-screenshot-candidates.json').read_text(encoding='utf-8'))

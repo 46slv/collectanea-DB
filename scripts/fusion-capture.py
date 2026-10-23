@@ -12,6 +12,9 @@ PROJECT='Collectanea_Captures_20261023_Sol'
 TARGETS={'S01':'sGrid1','S02':'Merge1','S03':'Glow1','S04':'sRender1','S05':'sBoolean1','S06':'Transform1','S07':'Ellipse1','S08':'Text1','S09':'pEmitter1','S10':'PlanarTracker1','S11':'Renderer3D1','S12':'uRenderer1','S13':'Blur1','S14':'ColorCorrector1','S15':'Gradient1','S16':'NoiseDetail1','S17':'Rectangle1','S18':'EllipseArc1'}
 RIGHT={'S01':'sRender1','S05':'sRender1','S07':'Blur1','S09':'pRender1','S10':'Composite1','S15':'Gradient1','S16':'NoiseDetail1','S17':'Background1','S18':'RenderArc1'}
 LEFT={'S03':'Text1','S05':'UnionRender1','S06':'Loader1','S07':'BlurFull','S11':'Merge3D1','S13':'Loader1','S14':'Loader1','S15':'Solid1','S16':'NoiseDefault1','S18':'RenderSolid1'}
+TARGETS.update({'S19':'ShapeChanged1','S20':'ShapeChanged1','S21':'ShapeChanged1','S22':'Transform1'})
+RIGHT.update({key:'RenderChanged1' for key in ['S19','S20','S21','S22']})
+LEFT.update({key:'RenderBase1' for key in ['S19','S20','S21','S22']})
 r=d.scriptapp('Resolve')
 assert r, 'Resolve scripting unavailable; do not change preferences automatically'
 pm=r.GetProjectManager(); p=pm.GetCurrentProject()
@@ -84,6 +87,9 @@ def select(target,left=None):
  'S16':{'NoiseDefault1':(0,-1),'NoiseDetail1':(0,1),'MediaOut1':(2,1)},
  'S17':{'Rectangle1':(0,-1),'Background1':(0,1),'MediaOut1':(2,1)},
  'S18':{'EllipseSolid1':(0,-1),'RenderSolid1':(2,-1),'EllipseArc1':(0,1),'RenderArc1':(2,1),'MediaOut1':(4,1)}}
+ for key in ['S19','S20','S21']:
+  layouts[key]={'ShapeBase1':(0,-1),'RenderBase1':(2,-1),'ShapeChanged1':(0,1),'RenderChanged1':(2,1),'MediaOut1':(4,1)}
+ layouts['S22']={'ShapeBase1':(0,-1),'RenderBase1':(4,-1),'Transform1':(2,1),'RenderChanged1':(4,1),'MediaOut1':(6,1)}
  for n,pos in layouts.get(case,{}).items():
   if n in tools:flow.SetPos(tools[n],*pos)
  flow.FrameAll()
@@ -108,6 +114,17 @@ if action=='build':
   tx=text('Text1',0,0,'GLOW',.17)
   g=add('Glow','Glow1',3,0,XGlowSize=30,Glow=.18,Blend=1)
   connect(g,'Input',tx); connect(mo,'Input',g);target=g
+ elif case in ('S19','S20','S21'):
+  reg={'S19':'sRectangle','S20':'sNGon','S21':'sStar'}[case]
+  base=add(reg,'ShapeBase1',0,-1)
+  rb=add('sRender','RenderBase1',2,-1);connect(rb,'Input',base)
+  target=add(reg,'ShapeChanged1',0,1)
+  rr=add('sRender','RenderChanged1',2,1);connect(rr,'Input',target);connect(mo,'Input',rr)
+ elif case=='S22':
+  base=add('sStar','ShapeBase1',0,-1)
+  rb=add('sRender','RenderBase1',4,-1);connect(rb,'Input',base)
+  target=add('sTransform','Transform1',2,1);connect(target,'Input',base)
+  rr=add('sRender','RenderChanged1',4,1);connect(rr,'Input',target);connect(mo,'Input',rr)
  elif case=='S15':
   add('Background','Solid1',0,-1,TopLeftRed=.025,TopLeftGreen=.075,TopLeftBlue=.13)
   target=add('Background','Gradient1',0,1,TopLeftRed=.025,TopLeftGreen=.075,TopLeftBlue=.13,TopRightRed=1,TopRightGreen=.35,TopRightBlue=.06)

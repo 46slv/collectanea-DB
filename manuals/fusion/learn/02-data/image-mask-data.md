@@ -13,7 +13,7 @@ prerequisites: [node-graph]
 level: foundation
 product_scope: fusion
 suite_surfaces: [fusion]
-updated: "2026-10-17"
+updated: "2026-10-24"
 ---
 
 # Image / Mask / Dataを分ける
@@ -94,6 +94,18 @@ Maskの外側には、原則として元の画像が残ります。**Maskをつ�
 この違いを確かめるには、Blurの直後のImageをViewerへ表示し、Ellipseの接続を一度外して比較します。さらにViewerでAlphaチャンネルを表示し、ぼかしの範囲が変わってもAlphaが変わっていないか確認します。
 
 関連：[Maskで処理範囲を限定する](../../patterns/masking/limit-effect-with-mask.md)
+
+### 実機の参考例
+
+<!-- capture-reuse:R17 -->
+
+人物映像の代わりにテストチャートを使いました。左は全体をぼかすBlurFull、右はEllipse1をEffect Maskへ接続したBlur1です。右では楕円の外側に元の模様が残ります。
+
+[![S07の実機撮影例。Node Editorの接続](/img/fusion/captures/S07/graph.png)](/img/fusion/captures/S07/graph.png)
+
+[![S07の実機撮影例。左右Viewerの比較](/img/fusion/captures/S07/compare.png)](/img/fusion/captures/S07/compare.png)
+
+Resolve Studio 21.1.0.14／Windowsで撮影済みのS07を再利用した参考例です。EllipseはWidth 0.55／Height 0.5／Soft Edge 0.02。Color表示の比較で、人物追従やAlpha単独表示は含めていません。 [元の撮影条件と確認範囲](/img/fusion/captures/S07/capture.json)
 
 ## 実例3：画像とパラメータを別々に変える
 

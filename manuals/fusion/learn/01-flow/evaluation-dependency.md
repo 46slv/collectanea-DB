@@ -40,6 +40,18 @@ Nodeの画面位置や作成順より、connectionとrender requestが重要で�
 
 「Flowに存在する」ことと「現在のOutput計算に必要」ということを分けます。
 
+### 実機の参考例
+
+<!-- capture-reuse:R14 -->
+
+Solid1はMediaOut1へ接続せず、Gradient1だけを接続しています。左ViewerにSolid1、右にGradient1を表示しました。出力線のないNodeもViewerの確認対象にできます。
+
+[![S15の実機撮影例。Node Editorの接続](/img/fusion/captures/S15/graph.png)](/img/fusion/captures/S15/graph.png)
+
+[![S15の実機撮影例。左右Viewerの比較](/img/fusion/captures/S15/compare.png)](/img/fusion/captures/S15/compare.png)
+
+Resolve Studio 21.1.0.14／Windowsで撮影済みのS15を再利用した参考例です。MediaOutへの依存とViewer対象を読む例です。枝の計算回数や性能は測定していません。 [元の撮影条件と確認範囲](/img/fusion/captures/S15/capture.json)
+
 ## 共通ルール
 
 - connectionがdependencyを作る。

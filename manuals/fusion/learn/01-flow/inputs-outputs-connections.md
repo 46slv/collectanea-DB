@@ -60,6 +60,18 @@ MediaIn → Transform → MediaOut
 
 Image → Effect → Imageという直列依存として読めます。
 
+#### 実機の参考例
+
+<!-- capture-reuse:R15 -->
+
+Loader1 → Transform1 → MediaOut1の画像接続です。左Viewerが入力、右がCenter 0.65／0.55、Size 1.25、Angle 12°の出力です。
+
+[![S06の実機撮影例。Node Editorの接続](/img/fusion/captures/S06/graph.png)](/img/fusion/captures/S06/graph.png)
+
+[![S06の実機撮影例。左右Viewerの比較](/img/fusion/captures/S06/compare.png)](/img/fusion/captures/S06/compare.png)
+
+Resolve Studio 21.1.0.14／Windowsで撮影済みのS06を再利用した参考例です。本文のMediaInに相当する入力をLoaderで用意した参考例です。全端子の互換性を試したものではありません。 [元の撮影条件と確認範囲](/img/fusion/captures/S06/capture.json)
+
 ### Merge
 
 複数Inputの役割をBackground / Foreground / Effect Maskへ分けて読みます。

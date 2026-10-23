@@ -15,7 +15,7 @@ outputs: [image]
 tasks: [generate-image, procedural-texture, noise, mask-source, displacement-source]
 product_scope: fusion
 suite_surfaces: [fusion]
-updated: "2026-10-04"
+updated: "2026-10-24"
 ---
 
 # Fast Noise

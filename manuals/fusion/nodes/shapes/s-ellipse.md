@@ -15,7 +15,7 @@ tasks: ["build-shape", "ellipse", "procedural-graphics"]
 level: intermediate
 product_scope: fusion
 suite_surfaces: ["fusion"]
-updated: "2026-10-12"
+updated: "2026-10-24"
 ---
 
 # sEllipse

@@ -13,7 +13,7 @@ prerequisites: [image-data, parameter-data]
 level: foundation
 product_scope: fusion
 suite_surfaces: [fusion]
-updated: "2026-10-16"
+updated: "2026-10-24"
 ---
 
 # 正規化座標（Normalized Coordinates）
@@ -59,6 +59,18 @@ Y = 0.50 × 1080 = 540
 | Yを`+0.05` | 54px相当 |
 
 これは**指定した幅・高さを基準にした換算**です。実際の画面で見える輪郭位置は、画像内の余白、Pivot、拡大縮小、合成するフレームの大きさなどにも左右されます。文字列の両端やロゴの輪郭を揃える場合、Center同士が等間隔でも見た目の余白は均等になりません。
+
+### 実機の参考例
+
+<!-- capture-reuse:R22 -->
+
+1920×1080の画像に対し、CenterをX 0.65／Y 0.55にしています。Viewerは40%表示なので、画面上の移動量をそのまま素材内のピクセル数として測りません。
+
+[![S06の実機撮影例。Inspectorの設定値](/img/fusion/captures/S06/inspector.png)](/img/fusion/captures/S06/inspector.png)
+
+[![S06の実機撮影例。左右Viewerの比較](/img/fusion/captures/S06/compare.png)](/img/fusion/captures/S06/compare.png)
+
+Resolve Studio 21.1.0.14／Windowsで撮影済みのS06を再利用した参考例です。Size 1.25とAngle 12°も設定しています。Centerだけの比較やReference Sizeの表示切り替えは含めていません。 [元の撮影条件と確認範囲](/img/fusion/captures/S06/capture.json)
 
 ## TransformのReference Sizeは何を変えるか
 

@@ -5,7 +5,7 @@ doc_type: index
 verification: partial
 product_scope: fusion
 tasks: [lookup-node, build-3d-scene, render-3d]
-updated: "2026-10-10"
+updated: "2026-10-24"
 ---
 
 # Classic 3Dノード
@@ -35,6 +35,18 @@ Shape 3DやText 3Dは、平面のピクセル画像ではなく**形状や位置
 | 2D Merge / Blur | 2D画像を入力 | 出力したCGを実写と合成・補正する |
 
 Renderer 3Dの**SceneInput**（オレンジ）は3Dシーンの必須入力、**EffectMask**（青）は出力を制限するための任意の2Dマスク入力です。EffectMaskへ3Dの形状を追加することはできません。
+
+### 実機の参考例
+
+<!-- capture-reuse:R26 -->
+
+Shape3D・Camera3D・PointLightをMerge3Dでまとめ、Renderer3Dで画像化した例です。左はMerge3Dの操作用3D表示、右はCamera経由のSoftware Renderer出力です。
+
+[![S11の実機撮影例。Node Editorの接続](/img/fusion/captures/S11/graph.png)](/img/fusion/captures/S11/graph.png)
+
+[![S11の実機撮影例。左右Viewerの比較](/img/fusion/captures/S11/compare.png)](/img/fusion/captures/S11/compare.png)
+
+Resolve Studio 21.1.0.14／Windowsで撮影済みのS11を再利用した参考例です。左右は同じカメラの前後比較ではありません。球面カメラや全Renderer設定は含めていません。 [元の撮影条件と確認範囲](/img/fusion/captures/S11/capture.json)
 
 ## 作る
 

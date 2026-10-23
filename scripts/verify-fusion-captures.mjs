@@ -20,7 +20,7 @@ try {
   const candidate=entries.find(c=>c.id===id);
   assert.ok(candidate,id+' is not an embedded capture or reuse entry');
   const sourceCase=candidate.source_case||id;
-  const route=candidate.article.replace(/\.mdx?$/,'');
+  const route=candidate.article.replace(/\.mdx?$/,'').replace(/\/index$/,'');
   const response=await page.goto(`${report.origin}/collectanea-DB/${route}`,{waitUntil:'networkidle'});
   assert.equal(response.status(),200,route);
   const shots=page.locator('article img');

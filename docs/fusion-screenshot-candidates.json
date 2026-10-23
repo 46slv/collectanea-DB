@@ -2,7 +2,7 @@
   "schema_version": 1,
   "created": "2026-10-20",
   "scope": "All Fusion pages, DaVinci Resolve 21.1",
-  "status_note": "2026-10-23: S01-S14 / 14 articles / 50 images published through PR63, main b5862def; Quality, Pages and public desktop/mobile checks PASS. Full Fusion coverage continues; other pages are not complete.",
+  "status_note": "2026-10-24: S01-S18 and R01-R12 published through PR63/67; 30 pages,62 native crops,85 image placements. Quality,Pages,public UI/hash checks PASS. Full Fusion mission continues; S19-S22 and R13-R36 are local work, not published.",
   "asset_directory_template": "static/img/fusion/captures/{id}/{shot.slug}.png",
   "capture_manifest_name": "capture.json",
   "candidates": [
@@ -519,7 +519,7 @@
       },
       "goal": "単色とHorizontal gradientのColor設定と出力を示す",
       "suggested_graph": "Background → MediaOut",
-      "status": "captured-local-display-verified",
+      "status": "published-display-verified",
       "shots": [
         {
           "slug": "graph",
@@ -539,7 +539,8 @@
           "target": "実機で確認した固定例",
           "status": "native-observed"
         }
-      ]
+      ],
+      "published_batch": "fusion-native-20261024-02"
     },
     {
       "id": "S16",
@@ -552,7 +553,7 @@
       },
       "goal": "同じフレームのFast NoiseでDetailとContrastの違いを示す",
       "suggested_graph": "Fast Noise → MediaOut",
-      "status": "captured-local-display-verified",
+      "status": "published-display-verified",
       "shots": [
         {
           "slug": "graph",
@@ -572,7 +573,8 @@
           "target": "実機で確認した固定例",
           "status": "native-observed"
         }
-      ]
+      ],
+      "published_batch": "fusion-native-20261024-02"
     },
     {
       "id": "S17",
@@ -585,7 +587,7 @@
       },
       "goal": "角丸矩形でBackgroundを切り出し、Corner RadiusとSoft Edgeを示す",
       "suggested_graph": "Rectangle Mask → Background → MediaOut",
-      "status": "captured-local-display-verified",
+      "status": "published-display-verified",
       "shots": [
         {
           "slug": "graph",
@@ -605,7 +607,8 @@
           "target": "実機で確認した固定例",
           "status": "native-observed"
         }
-      ]
+      ],
+      "published_batch": "fusion-native-20261024-02"
     },
     {
       "id": "S18",
@@ -618,6 +621,139 @@
       },
       "goal": "塗りつぶした楕円と開いた円弧をsRenderの出力で比べる",
       "suggested_graph": "sEllipse → sRender → MediaOut",
+      "status": "published-display-verified",
+      "shots": [
+        {
+          "slug": "graph",
+          "kind": "node-graph",
+          "target": "実機で確認した固定例",
+          "status": "native-observed"
+        },
+        {
+          "slug": "inspector",
+          "kind": "inspector",
+          "target": "実機で確認した固定例",
+          "status": "native-observed"
+        },
+        {
+          "slug": "compare",
+          "kind": "output",
+          "target": "実機で確認した固定例",
+          "status": "native-observed"
+        }
+      ],
+      "published_batch": "fusion-native-20261024-02"
+    },
+    {
+      "id": "S19",
+      "priority": "P1",
+      "article": "manuals/fusion/nodes/shapes/srectangle.md",
+      "manual": {
+        "version": "21.1",
+        "chapter": 117,
+        "printed_pages": "2756–2759"
+      },
+      "goal": "Corner Radiusを0と0.65で比べる",
+      "suggested_graph": "Shape → sRender → MediaOut; comparison branch",
+      "status": "captured-local-display-verified",
+      "shots": [
+        {
+          "slug": "graph",
+          "kind": "node-graph",
+          "target": "実機で確認した固定例",
+          "status": "native-observed"
+        },
+        {
+          "slug": "inspector",
+          "kind": "inspector",
+          "target": "実機で確認した固定例",
+          "status": "native-observed"
+        },
+        {
+          "slug": "compare",
+          "kind": "output",
+          "target": "実機で確認した固定例",
+          "status": "native-observed"
+        }
+      ]
+    },
+    {
+      "id": "S20",
+      "priority": "P1",
+      "article": "manuals/fusion/nodes/shapes/sngon.md",
+      "manual": {
+        "version": "21.1",
+        "chapter": 117,
+        "printed_pages": "2747–2750"
+      },
+      "goal": "Sides 6と8の多角形を比較する",
+      "suggested_graph": "Shape → sRender → MediaOut; comparison branch",
+      "status": "captured-local-display-verified",
+      "shots": [
+        {
+          "slug": "graph",
+          "kind": "node-graph",
+          "target": "実機で確認した固定例",
+          "status": "native-observed"
+        },
+        {
+          "slug": "inspector",
+          "kind": "inspector",
+          "target": "実機で確認した固定例",
+          "status": "native-observed"
+        },
+        {
+          "slug": "compare",
+          "kind": "output",
+          "target": "実機で確認した固定例",
+          "status": "native-observed"
+        }
+      ]
+    },
+    {
+      "id": "S21",
+      "priority": "P1",
+      "article": "manuals/fusion/nodes/shapes/sstar.md",
+      "manual": {
+        "version": "21.1",
+        "chapter": 117,
+        "printed_pages": "2762–2765"
+      },
+      "goal": "PointsとDepthを変えた星形を比べる",
+      "suggested_graph": "Shape → sRender → MediaOut; comparison branch",
+      "status": "captured-local-display-verified",
+      "shots": [
+        {
+          "slug": "graph",
+          "kind": "node-graph",
+          "target": "実機で確認した固定例",
+          "status": "native-observed"
+        },
+        {
+          "slug": "inspector",
+          "kind": "inspector",
+          "target": "実機で確認した固定例",
+          "status": "native-observed"
+        },
+        {
+          "slug": "compare",
+          "kind": "output",
+          "target": "実機で確認した固定例",
+          "status": "native-observed"
+        }
+      ]
+    },
+    {
+      "id": "S22",
+      "priority": "P1",
+      "article": "manuals/fusion/nodes/shapes/stransform.md",
+      "manual": {
+        "version": "21.1",
+        "chapter": 117,
+        "printed_pages": "2766–2767"
+      },
+      "goal": "ShapeのOffset・Size・Rotationを固定値で確認する",
+      "suggested_graph": "Shape → sRender → MediaOut; comparison branch",
       "status": "captured-local-display-verified",
       "shots": [
         {
@@ -669,30 +805,67 @@
       "public_asset_hashes": 232,
       "result": "PASS",
       "limitations": "Existing partial and NOT_RUN limitations retained."
+    },
+    {
+      "id": "fusion-native-20261024-02",
+      "cases": [
+        "S15",
+        "S16",
+        "S17",
+        "S18"
+      ],
+      "reuses": [
+        "R01",
+        "R02",
+        "R03",
+        "R04",
+        "R05",
+        "R06",
+        "R07",
+        "R08",
+        "R09",
+        "R10",
+        "R11",
+        "R12"
+      ],
+      "pr": "https://github.com/46slv/collectanea-DB/pull/67",
+      "candidate": "68d79b64e374f7585038e25ea1c0fd3c5f1bed8e",
+      "main": "004012af9640926cd00be646f78d5bfc51b6a0d5",
+      "tree": "3c39843e24950ccd50e988e5051b5884b62371ce",
+      "quality_run": "https://github.com/46slv/collectanea-DB/actions/runs/39974309205",
+      "pages_run": "https://github.com/46slv/collectanea-DB/actions/runs/39975568150",
+      "public_pages": 16,
+      "public_images": 35,
+      "new_native_crops": 12,
+      "public_asset_hashes": 260,
+      "result": "PASS",
+      "evidence": [
+        "artifacts/fusion-captures/public-batch2-display-report.json",
+        "artifacts/fusion-captures/public-batch2-assets.json"
+      ],
+      "limitations": "Fixed examples and reuse only. Existing article partial verification and NOT_RUN scopes retained."
     }
   ],
   "coverage_inventory": {
-    "checked_at": "2026-10-23T14:57:56.951389+00:00",
+    "checked_at": "2026-10-23T15:23:57.516661+00:00",
     "scope": "All manuals/fusion Markdown and MDX pages; review necessity before adding images.",
     "completion_rule": "Every page has an explicit image decision; necessary images are native-observed, embedded, saved to GitHub and public-display-verified. A native example does not verify all article controls.",
     "summary": {
       "total_pages": 586,
-      "with_images": 30,
-      "with_native_examples": 30,
+      "with_images": 58,
+      "with_native_examples": 58,
       "states": {
         "reviewed-no-standalone-image": 14,
-        "needs-review": 516,
-        "illustrated-reused-example": 12,
-        "reuse-planned": 11,
-        "illustrated-native-example": 18,
-        "capture-planned": 15
+        "needs-review": 490,
+        "illustrated-reused-example": 36,
+        "capture-planned": 24,
+        "illustrated-native-example": 22
       },
       "decisions": {
         "no-standalone-image-needed": 14,
-        "needs-review": 516,
-        "image-required": 30,
-        "reuse-candidate": 11,
-        "capture-needed": 15
+        "needs-review": 490,
+        "image-required": 58,
+        "capture-needed": 24
       }
     },
     "pages": [
@@ -972,11 +1145,15 @@
         "article": "manuals/fusion/learn/01-flow/evaluation-dependency.md",
         "title": "Graphが評価される依存関係",
         "kind": "concept",
-        "image_count": 0,
+        "image_count": 2,
         "native_cases": [],
-        "reused_cases": [],
+        "reused_cases": [
+          "S15"
+        ],
         "planned_cases": [],
-        "state": "needs-review"
+        "state": "illustrated-reused-example",
+        "decision": "image-required",
+        "reason": "本文の接続・設定・出力を、撮影済みの固定例で図示する。記事全体の検証とは区別する。"
       },
       {
         "article": "manuals/fusion/learn/01-flow/graph-as-flow.md",
@@ -996,11 +1173,15 @@
         "article": "manuals/fusion/learn/01-flow/inputs-outputs-connections.md",
         "title": "Input / Output / Connection",
         "kind": "concept",
-        "image_count": 0,
+        "image_count": 2,
         "native_cases": [],
-        "reused_cases": [],
+        "reused_cases": [
+          "S06"
+        ],
         "planned_cases": [],
-        "state": "needs-review"
+        "state": "illustrated-reused-example",
+        "decision": "image-required",
+        "reason": "本文の接続・設定・出力を、撮影済みの固定例で図示する。記事全体の検証とは区別する。"
       },
       {
         "article": "manuals/fusion/learn/01-flow/intermediate-results-viewer.md",
@@ -1024,7 +1205,9 @@
         "native_cases": [],
         "reused_cases": [],
         "planned_cases": [],
-        "state": "needs-review"
+        "state": "capture-planned",
+        "decision": "capture-needed",
+        "reason": "owned USD fixtureのuLoader→uExport→新uLoader再読込と、sceneと画像の独立確認。"
       },
       {
         "article": "manuals/fusion/learn/02-data/auxiliary-channels.md",
@@ -1034,7 +1217,9 @@
         "native_cases": [],
         "reused_cases": [],
         "planned_cases": [],
-        "state": "needs-review"
+        "state": "capture-planned",
+        "decision": "capture-needed",
+        "reason": "Renderer3DのObjectID/Z有効化、該当Viewer channelと後段の利用。"
       },
       {
         "article": "manuals/fusion/learn/02-data/classic-3d.md",
@@ -1054,11 +1239,15 @@
         "article": "manuals/fusion/learn/02-data/connection-compatibility.md",
         "title": "接続できるdata / 接続できないdata",
         "kind": "concept",
-        "image_count": 0,
+        "image_count": 2,
         "native_cases": [],
-        "reused_cases": [],
+        "reused_cases": [
+          "S04"
+        ],
         "planned_cases": [],
-        "state": "needs-review"
+        "state": "illustrated-reused-example",
+        "decision": "image-required",
+        "reason": "本文の接続・設定・出力を、撮影済みの固定例で図示する。記事全体の検証とは区別する。"
       },
       {
         "article": "manuals/fusion/learn/02-data/deep-image.md",
@@ -1068,27 +1257,37 @@
         "native_cases": [],
         "reused_cases": [],
         "planned_cases": [],
-        "state": "needs-review"
+        "state": "capture-planned",
+        "decision": "capture-needed",
+        "reason": "2D fixture→Image to Deep→dMerge→Deep to Image、Specify Zと奥行きの結果。true Deep EXRは別fixture。"
       },
       {
         "article": "manuals/fusion/learn/02-data/image-mask-data.md",
         "title": "Image / Mask / Dataを分ける",
         "kind": "concept",
-        "image_count": 0,
+        "image_count": 2,
         "native_cases": [],
-        "reused_cases": [],
+        "reused_cases": [
+          "S07"
+        ],
         "planned_cases": [],
-        "state": "needs-review"
+        "state": "illustrated-reused-example",
+        "decision": "image-required",
+        "reason": "本文の接続・設定・出力を、撮影済みの固定例で図示する。記事全体の検証とは区別する。"
       },
       {
         "article": "manuals/fusion/learn/02-data/image.md",
         "title": "画像（Image）",
         "kind": "concept",
-        "image_count": 0,
+        "image_count": 2,
         "native_cases": [],
-        "reused_cases": [],
+        "reused_cases": [
+          "S17"
+        ],
         "planned_cases": [],
-        "state": "needs-review"
+        "state": "illustrated-reused-example",
+        "decision": "image-required",
+        "reason": "本文の接続・設定・出力を、撮影済みの固定例で図示する。記事全体の検証とは区別する。"
       },
       {
         "article": "manuals/fusion/learn/02-data/mask.md",
@@ -1108,11 +1307,18 @@
         "article": "manuals/fusion/learn/02-data/parameter-data.md",
         "title": "パラメータ / データ（Parameter / Data）",
         "kind": "concept",
-        "image_count": 0,
+        "image_count": 2,
         "native_cases": [],
-        "reused_cases": [],
+        "reused_cases": [
+          "S06"
+        ],
         "planned_cases": [],
-        "state": "needs-review"
+        "state": "illustrated-reused-example",
+        "decision": "image-required",
+        "reason": "本文の接続・設定・出力を、撮影済みの固定例で図示する。記事全体の検証とは区別する。",
+        "remaining_views": [
+          "Keyframe/Expression/Modifier/Publish/Connect Toの供給元追跡"
+        ]
       },
       {
         "article": "manuals/fusion/learn/02-data/particle.md",
@@ -1146,11 +1352,20 @@
         "article": "manuals/fusion/learn/02-data/usd.md",
         "title": "USD scene",
         "kind": "concept",
-        "image_count": 0,
+        "image_count": 2,
         "native_cases": [],
-        "reused_cases": [],
+        "reused_cases": [
+          "S12"
+        ],
         "planned_cases": [],
-        "state": "needs-review"
+        "state": "illustrated-reused-example",
+        "decision": "image-required",
+        "reason": "本文の接続・設定・出力を、撮影済みの固定例で図示する。記事全体の検証とは区別する。",
+        "remaining_views": [
+          "Scene Tree/Prim Selection",
+          "uLoader/uExportの保存・再読込",
+          "非Color AOV"
+        ]
       },
       {
         "article": "manuals/fusion/learn/02-data/volume.md",
@@ -1160,17 +1375,23 @@
         "native_cases": [],
         "reused_cases": [],
         "planned_cases": [],
-        "state": "needs-review"
+        "state": "capture-planned",
+        "decision": "capture-needed",
+        "reason": "利用権を確認できるVDB→uVolume、Field/DensityとuRendererの煙出力。"
       },
       {
         "article": "manuals/fusion/learn/03-space/center-pivot-size-angle.md",
         "title": "Center / Pivot / Size / Angle",
         "kind": "concept",
-        "image_count": 0,
+        "image_count": 2,
         "native_cases": [],
-        "reused_cases": [],
+        "reused_cases": [
+          "S06"
+        ],
         "planned_cases": [],
-        "state": "needs-review"
+        "state": "illustrated-reused-example",
+        "decision": "image-required",
+        "reason": "本文の接続・設定・出力を、撮影済みの固定例で図示する。記事全体の検証とは区別する。"
       },
       {
         "article": "manuals/fusion/learn/03-space/domain-of-definition.md",
@@ -1180,17 +1401,23 @@
         "native_cases": [],
         "reused_cases": [],
         "planned_cases": [],
-        "state": "needs-review"
+        "state": "capture-planned",
+        "decision": "capture-needed",
+        "reason": "Show DoDの矩形とframe外枠、RoI設定・解除の実画面。"
       },
       {
         "article": "manuals/fusion/learn/03-space/normalized-coordinates.md",
         "title": "正規化座標（Normalized Coordinates）",
         "kind": "concept",
-        "image_count": 0,
+        "image_count": 2,
         "native_cases": [],
-        "reused_cases": [],
+        "reused_cases": [
+          "S06"
+        ],
         "planned_cases": [],
-        "state": "needs-review"
+        "state": "illustrated-reused-example",
+        "decision": "image-required",
+        "reason": "本文の接続・設定・出力を、撮影済みの固定例で図示する。記事全体の検証とは区別する。"
       },
       {
         "article": "manuals/fusion/learn/03-space/resolution-aspect.md",
@@ -1200,7 +1427,9 @@
         "native_cases": [],
         "reused_cases": [],
         "planned_cases": [],
-        "state": "needs-review"
+        "state": "capture-planned",
+        "decision": "capture-needed",
+        "reason": "FHDからTransform Size 0.5／Scale Size 0.5／Resize 960×540の寸法付き比較。"
       },
       {
         "article": "manuals/fusion/learn/04-compositing/alpha.md",
@@ -1334,27 +1563,37 @@
         "native_cases": [],
         "reused_cases": [],
         "planned_cases": [],
-        "state": "needs-review"
+        "state": "capture-planned",
+        "decision": "capture-needed",
+        "reason": "同素材のColorとAlpha、画像Alphaの作成とEffect Maskの処理制限。"
       },
       {
         "article": "manuals/fusion/learn/07-debugging/diagnose-graph-not-symptom.md",
         "title": "症状ではなくGraphを診断する",
         "kind": "concept",
-        "image_count": 0,
+        "image_count": 2,
         "native_cases": [],
-        "reused_cases": [],
+        "reused_cases": [
+          "S02"
+        ],
         "planned_cases": [],
-        "state": "needs-review"
+        "state": "illustrated-reused-example",
+        "decision": "image-required",
+        "reason": "本文の接続・設定・出力を、撮影済みの固定例で図示する。記事全体の検証とは区別する。"
       },
       {
         "article": "manuals/fusion/learn/07-debugging/isolate-branches.md",
         "title": "分岐を分離して原因範囲を狭める",
         "kind": "concept",
-        "image_count": 0,
+        "image_count": 2,
         "native_cases": [],
-        "reused_cases": [],
+        "reused_cases": [
+          "S07"
+        ],
         "planned_cases": [],
-        "state": "needs-review"
+        "state": "illustrated-reused-example",
+        "decision": "image-required",
+        "reason": "本文の接続・設定・出力を、撮影済みの固定例で図示する。記事全体の検証とは区別する。"
       },
       {
         "article": "manuals/fusion/learn/07-debugging/resolution-domain-of-definition.md",
@@ -1364,17 +1603,23 @@
         "native_cases": [],
         "reused_cases": [],
         "planned_cases": [],
-        "state": "needs-review"
+        "state": "capture-planned",
+        "decision": "capture-needed",
+        "reason": "Transformで外へ移動して戻す枝と、中間Cropで失う枝、DoDと寸法の比較。"
       },
       {
         "article": "manuals/fusion/learn/07-debugging/trace-data-domain.md",
         "title": "Data domainを辿って診断する",
         "kind": "concept",
-        "image_count": 0,
+        "image_count": 2,
         "native_cases": [],
-        "reused_cases": [],
+        "reused_cases": [
+          "S04"
+        ],
         "planned_cases": [],
-        "state": "needs-review"
+        "state": "illustrated-reused-example",
+        "decision": "image-required",
+        "reason": "本文の接続・設定・出力を、撮影済みの固定例で図示する。記事全体の検証とは区別する。"
       },
       {
         "article": "manuals/fusion/learn/index.md",
@@ -1512,12 +1757,14 @@
         "article": "manuals/fusion/nodes/3d/index.md",
         "title": "Classic 3Dノード",
         "kind": "index",
-        "image_count": 0,
+        "image_count": 2,
         "native_cases": [],
-        "reused_cases": [],
+        "reused_cases": [
+          "S11"
+        ],
         "planned_cases": [],
-        "state": "reuse-planned",
-        "decision": "reuse-candidate",
+        "state": "illustrated-reused-example",
+        "decision": "image-required",
         "reason": "3D sceneから2D画像へ戻す境界。球面撮影の証拠としては使わない。",
         "reuse_candidates": [
           "S11"
@@ -1789,12 +2036,14 @@
         "article": "manuals/fusion/nodes/blur-filter/index.md",
         "title": "Blur / Filterノード",
         "kind": "index",
-        "image_count": 0,
+        "image_count": 2,
         "native_cases": [],
-        "reused_cases": [],
+        "reused_cases": [
+          "S13"
+        ],
         "planned_cases": [],
-        "state": "reuse-planned",
-        "decision": "reuse-candidate",
+        "state": "illustrated-reused-example",
+        "decision": "image-required",
         "reason": "Blurの画像入出力と前後差。Vari BlurやVectorの検証とは区別する。",
         "reuse_candidates": [
           "S13"
@@ -2038,12 +2287,14 @@
         "article": "manuals/fusion/nodes/color/index.md",
         "title": "Colorノード",
         "kind": "index",
-        "image_count": 0,
+        "image_count": 2,
         "native_cases": [],
-        "reused_cases": [],
+        "reused_cases": [
+          "S14"
+        ],
         "planned_cases": [],
-        "state": "reuse-planned",
-        "decision": "reuse-candidate",
+        "state": "illustrated-reused-example",
+        "decision": "image-required",
         "reason": "基本色補正のInspectorと比較。色管理変換やChannel操作には流用しない。",
         "reuse_candidates": [
           "S14"
@@ -2133,12 +2384,14 @@
         "article": "manuals/fusion/nodes/compositing/index.md",
         "title": "合成ノード（Compositing）",
         "kind": "index",
-        "image_count": 0,
+        "image_count": 2,
         "native_cases": [],
-        "reused_cases": [],
+        "reused_cases": [
+          "S02"
+        ],
         "planned_cases": [],
-        "state": "reuse-planned",
-        "decision": "reuse-candidate",
+        "state": "illustrated-reused-example",
+        "decision": "image-required",
         "reason": "Mergeの入力役割と合成結果。MultiMergeのLayer Listは別途撮影する。",
         "reuse_candidates": [
           "S02"
@@ -2534,12 +2787,14 @@
         "article": "manuals/fusion/nodes/generators/index.md",
         "title": "Generatorノード",
         "kind": "index",
-        "image_count": 0,
+        "image_count": 2,
         "native_cases": [],
-        "reused_cases": [],
+        "reused_cases": [
+          "S15"
+        ],
         "planned_cases": [],
-        "state": "reuse-planned",
-        "decision": "reuse-candidate",
+        "state": "illustrated-reused-example",
+        "decision": "image-required",
         "reason": "Text+が画像を生成する代表例。BackgroundとFast Noiseも別caseで示せる。",
         "reuse_candidates": [
           "S08"
@@ -3667,12 +3922,14 @@
         "article": "manuals/fusion/nodes/masks/index.md",
         "title": "Maskノード",
         "kind": "index",
-        "image_count": 0,
+        "image_count": 2,
         "native_cases": [],
-        "reused_cases": [],
+        "reused_cases": [
+          "S07"
+        ],
         "planned_cases": [],
-        "state": "reuse-planned",
-        "decision": "reuse-candidate",
+        "state": "illustrated-reused-example",
+        "decision": "image-required",
         "reason": "Primitive MaskでEffect Maskの範囲を限定する例。SubtractやPaintの結果とは区別する。",
         "reuse_candidates": [
           "S07"
@@ -4606,12 +4863,14 @@
         "article": "manuals/fusion/nodes/particles/index.md",
         "title": "Particleノード",
         "kind": "index",
-        "image_count": 0,
+        "image_count": 3,
         "native_cases": [],
-        "reused_cases": [],
+        "reused_cases": [
+          "S09"
+        ],
         "planned_cases": [],
-        "state": "reuse-planned",
-        "decision": "reuse-candidate",
+        "state": "illustrated-reused-example",
+        "decision": "image-required",
         "reason": "pEmitterからpRenderへの境界とフレーム蓄積。Forceや3D出力は含めない。",
         "reuse_candidates": [
           "S09"
@@ -4837,12 +5096,14 @@
         "article": "manuals/fusion/nodes/shapes/index.md",
         "title": "Shapeノード",
         "kind": "index",
-        "image_count": 0,
+        "image_count": 2,
         "native_cases": [],
-        "reused_cases": [],
+        "reused_cases": [
+          "S04"
+        ],
         "planned_cases": [],
-        "state": "reuse-planned",
-        "decision": "reuse-candidate",
+        "state": "illustrated-reused-example",
+        "decision": "image-required",
         "reason": "ShapeからsRenderを経てImageへ戻す境界。リング構成は別例。",
         "reuse_candidates": [
           "S04"
@@ -4968,11 +5229,15 @@
         "article": "manuals/fusion/nodes/shapes/sngon.md",
         "title": "sNGon",
         "kind": "node",
-        "image_count": 0,
-        "native_cases": [],
+        "image_count": 3,
+        "native_cases": [
+          "S20"
+        ],
         "reused_cases": [],
         "planned_cases": [],
-        "state": "needs-review"
+        "state": "illustrated-native-example",
+        "decision": "image-required",
+        "reason": "本文の接続・設定・出力を、撮影済みの固定例で図示する。記事全体の検証とは区別する。"
       },
       {
         "article": "manuals/fusion/nodes/shapes/soffset.md",
@@ -5008,21 +5273,29 @@
         "article": "manuals/fusion/nodes/shapes/srectangle.md",
         "title": "sRectangle",
         "kind": "node",
-        "image_count": 0,
-        "native_cases": [],
+        "image_count": 3,
+        "native_cases": [
+          "S19"
+        ],
         "reused_cases": [],
         "planned_cases": [],
-        "state": "needs-review"
+        "state": "illustrated-native-example",
+        "decision": "image-required",
+        "reason": "本文の接続・設定・出力を、撮影済みの固定例で図示する。記事全体の検証とは区別する。"
       },
       {
         "article": "manuals/fusion/nodes/shapes/sstar.md",
         "title": "sStar",
         "kind": "node",
-        "image_count": 0,
-        "native_cases": [],
+        "image_count": 3,
+        "native_cases": [
+          "S21"
+        ],
         "reused_cases": [],
         "planned_cases": [],
-        "state": "needs-review"
+        "state": "illustrated-native-example",
+        "decision": "image-required",
+        "reason": "本文の接続・設定・出力を、撮影済みの固定例で図示する。記事全体の検証とは区別する。"
       },
       {
         "article": "manuals/fusion/nodes/shapes/stext.md",
@@ -5038,11 +5311,15 @@
         "article": "manuals/fusion/nodes/shapes/stransform.md",
         "title": "sTransform",
         "kind": "node",
-        "image_count": 0,
-        "native_cases": [],
+        "image_count": 3,
+        "native_cases": [
+          "S22"
+        ],
         "reused_cases": [],
         "planned_cases": [],
-        "state": "needs-review"
+        "state": "illustrated-native-example",
+        "decision": "image-required",
+        "reason": "本文の接続・設定・出力を、撮影済みの固定例で図示する。記事全体の検証とは区別する。"
       },
       {
         "article": "manuals/fusion/nodes/stereo/anaglyph.md",
@@ -5362,12 +5639,14 @@
         "article": "manuals/fusion/nodes/tracking/index.md",
         "title": "Trackingノード",
         "kind": "index",
-        "image_count": 0,
+        "image_count": 2,
         "native_cases": [],
-        "reused_cases": [],
+        "reused_cases": [
+          "S10"
+        ],
         "planned_cases": [],
-        "state": "reuse-planned",
-        "decision": "reuse-candidate",
+        "state": "illustrated-reused-example",
+        "decision": "image-required",
         "reason": "Planarの解析と適用の分離。Point・Surface・Cameraには流用しない。",
         "reuse_candidates": [
           "S10"
@@ -5451,12 +5730,14 @@
         "article": "manuals/fusion/nodes/transform/index.md",
         "title": "Transform / Formatノード",
         "kind": "index",
-        "image_count": 0,
+        "image_count": 2,
         "native_cases": [],
-        "reused_cases": [],
+        "reused_cases": [
+          "S06"
+        ],
         "planned_cases": [],
-        "state": "reuse-planned",
-        "decision": "reuse-candidate",
+        "state": "illustrated-reused-example",
+        "decision": "image-required",
         "reason": "同寸法canvas内の配置。ResizeやScaleとの寸法比較とは区別する。",
         "reuse_candidates": [
           "S06"
@@ -5510,12 +5791,14 @@
         "article": "manuals/fusion/nodes/usd/index.md",
         "title": "USDノード",
         "kind": "index",
-        "image_count": 0,
+        "image_count": 2,
         "native_cases": [],
-        "reused_cases": [],
+        "reused_cases": [
+          "S12"
+        ],
         "planned_cases": [],
-        "state": "reuse-planned",
-        "decision": "reuse-candidate",
+        "state": "illustrated-reused-example",
+        "decision": "image-required",
         "reason": "USD sceneをuRendererで画像化する接続。非Color AOVの正確性は含めない。",
         "reuse_candidates": [
           "S12"
@@ -6599,7 +6882,9 @@
         "native_cases": [],
         "reused_cases": [],
         "planned_cases": [],
-        "state": "needs-review"
+        "state": "capture-planned",
+        "decision": "capture-needed",
+        "reason": "本文と同じSource A/B→Transform→Merge→MediaOutのGraph・Inspector・各結果。"
       },
       {
         "article": "manuals/fusion/start/index.md",
@@ -6617,11 +6902,15 @@
         "article": "manuals/fusion/start/read-a-node.md",
         "title": "Nodeを読む",
         "kind": "start",
-        "image_count": 0,
+        "image_count": 3,
         "native_cases": [],
-        "reused_cases": [],
+        "reused_cases": [
+          "S06"
+        ],
         "planned_cases": [],
-        "state": "needs-review"
+        "state": "illustrated-reused-example",
+        "decision": "image-required",
+        "reason": "本文の接続・設定・出力を、撮影済みの固定例で図示する。記事全体の検証とは区別する。"
       },
       {
         "article": "manuals/fusion/troubleshooting/animation-automation/animation-does-not-move.md",
@@ -6801,7 +7090,8 @@
         "result.png"
       ],
       "scope": "Illustration of the accepted fixed source example; not a full native replay of this article.",
-      "status": "embedded-local-display-verified"
+      "status": "published-display-verified",
+      "published_batch": "fusion-native-20261024-02"
     },
     {
       "id": "R02",
@@ -6812,7 +7102,8 @@
         "result.png"
       ],
       "scope": "Illustration of the accepted fixed source example; not a full native replay of this article.",
-      "status": "embedded-local-display-verified"
+      "status": "published-display-verified",
+      "published_batch": "fusion-native-20261024-02"
     },
     {
       "id": "R03",
@@ -6823,7 +7114,8 @@
         "compare.png"
       ],
       "scope": "Illustration of the accepted fixed source example; not a full native replay of this article.",
-      "status": "embedded-local-display-verified"
+      "status": "published-display-verified",
+      "published_batch": "fusion-native-20261024-02"
     },
     {
       "id": "R04",
@@ -6834,7 +7126,8 @@
         "compare.png"
       ],
       "scope": "Illustration of the accepted fixed source example; not a full native replay of this article.",
-      "status": "embedded-local-display-verified"
+      "status": "published-display-verified",
+      "published_batch": "fusion-native-20261024-02"
     },
     {
       "id": "R05",
@@ -6845,7 +7138,8 @@
         "graph.png"
       ],
       "scope": "Illustration of the accepted fixed source example; not a full native replay of this article.",
-      "status": "embedded-local-display-verified"
+      "status": "published-display-verified",
+      "published_batch": "fusion-native-20261024-02"
     },
     {
       "id": "R06",
@@ -6856,7 +7150,8 @@
         "result.png"
       ],
       "scope": "Illustration of the accepted fixed source example; not a full native replay of this article.",
-      "status": "embedded-local-display-verified"
+      "status": "published-display-verified",
+      "published_batch": "fusion-native-20261024-02"
     },
     {
       "id": "R07",
@@ -6866,7 +7161,8 @@
         "graph.png"
       ],
       "scope": "Illustration of the accepted fixed source example; not a full native replay of this article.",
-      "status": "embedded-local-display-verified"
+      "status": "published-display-verified",
+      "published_batch": "fusion-native-20261024-02"
     },
     {
       "id": "R08",
@@ -6876,7 +7172,8 @@
         "compare.png"
       ],
       "scope": "Illustration of the accepted fixed source example; not a full native replay of this article.",
-      "status": "embedded-local-display-verified"
+      "status": "published-display-verified",
+      "published_batch": "fusion-native-20261024-02"
     },
     {
       "id": "R09",
@@ -6887,7 +7184,8 @@
         "compare.png"
       ],
       "scope": "Illustration of the accepted fixed source example; not a full native replay of this article.",
-      "status": "embedded-local-display-verified"
+      "status": "published-display-verified",
+      "published_batch": "fusion-native-20261024-02"
     },
     {
       "id": "R10",
@@ -6898,7 +7196,8 @@
         "result.png"
       ],
       "scope": "Illustration of the accepted fixed source example; not a full native replay of this article.",
-      "status": "embedded-local-display-verified"
+      "status": "published-display-verified",
+      "published_batch": "fusion-native-20261024-02"
     },
     {
       "id": "R11",
@@ -6910,7 +7209,8 @@
         "result.png"
       ],
       "scope": "Illustration of the accepted fixed source example; not a full native replay of this article.",
-      "status": "embedded-local-display-verified"
+      "status": "published-display-verified",
+      "published_batch": "fusion-native-20261024-02"
     },
     {
       "id": "R12",
@@ -6921,7 +7221,274 @@
         "result.png"
       ],
       "scope": "Illustration of the accepted fixed source example; not a full native replay of this article.",
-      "status": "embedded-local-display-verified"
+      "status": "published-display-verified",
+      "published_batch": "fusion-native-20261024-02"
+    },
+    {
+      "id": "R13",
+      "article": "manuals/fusion/start/read-a-node.md",
+      "source_case": "S06",
+      "images": [
+        "graph.png",
+        "inspector.png",
+        "compare.png"
+      ],
+      "status": "embedded-local-display-verified",
+      "scope": "固定値のControlを読む例です。ExpressionやModifierの供給元は別の撮影対象です。"
+    },
+    {
+      "id": "R14",
+      "article": "manuals/fusion/learn/01-flow/evaluation-dependency.md",
+      "source_case": "S15",
+      "images": [
+        "graph.png",
+        "compare.png"
+      ],
+      "status": "embedded-local-display-verified",
+      "scope": "MediaOutへの依存とViewer対象を読む例です。枝の計算回数や性能は測定していません。"
+    },
+    {
+      "id": "R15",
+      "article": "manuals/fusion/learn/01-flow/inputs-outputs-connections.md",
+      "source_case": "S06",
+      "images": [
+        "graph.png",
+        "compare.png"
+      ],
+      "status": "embedded-local-display-verified",
+      "scope": "本文のMediaInに相当する入力をLoaderで用意した参考例です。全端子の互換性を試したものではありません。"
+    },
+    {
+      "id": "R16",
+      "article": "manuals/fusion/learn/02-data/connection-compatibility.md",
+      "source_case": "S04",
+      "images": [
+        "graph.png",
+        "result.png"
+      ],
+      "status": "embedded-local-display-verified",
+      "scope": "ShapeからImageへの変換例です。Merge合成や、ほかの全データ型の互換性は含めていません。"
+    },
+    {
+      "id": "R17",
+      "article": "manuals/fusion/learn/02-data/image-mask-data.md",
+      "source_case": "S07",
+      "images": [
+        "graph.png",
+        "compare.png"
+      ],
+      "status": "embedded-local-display-verified",
+      "scope": "EllipseはWidth 0.55／Height 0.5／Soft Edge 0.02。Color表示の比較で、人物追従やAlpha単独表示は含めていません。"
+    },
+    {
+      "id": "R18",
+      "article": "manuals/fusion/learn/02-data/image.md",
+      "source_case": "S17",
+      "images": [
+        "graph.png",
+        "result.png"
+      ],
+      "status": "embedded-local-display-verified",
+      "scope": "本文の円形とは異なる参考例です。外側の市松模様は透明部分ですが、Alpha単独表示やStraight／Premultipliedの比較ではありません。"
+    },
+    {
+      "id": "R19",
+      "article": "manuals/fusion/learn/02-data/parameter-data.md",
+      "source_case": "S06",
+      "images": [
+        "graph.png",
+        "inspector.png"
+      ],
+      "status": "embedded-local-display-verified",
+      "scope": "画像接続とパラメータの場所を区別する例です。Keyframe・Expression・Modifier・Publish/Connect Toの供給元追跡は追加撮影の対象です。"
+    },
+    {
+      "id": "R20",
+      "article": "manuals/fusion/learn/02-data/usd.md",
+      "source_case": "S12",
+      "images": [
+        "graph.png",
+        "result.png"
+      ],
+      "status": "embedded-local-display-verified",
+      "scope": "プリミティブのColor出力例です。uLoader、Scene Tree、Prim Selection、保存後の再読込、非Color AOVは別の撮影対象です。"
+    },
+    {
+      "id": "R21",
+      "article": "manuals/fusion/learn/03-space/center-pivot-size-angle.md",
+      "source_case": "S06",
+      "images": [
+        "inspector.png",
+        "compare.png"
+      ],
+      "status": "embedded-local-display-verified",
+      "scope": "複数の固定値を使った状態です。各ControlやPivotだけを変えた前後比較ではありません。"
+    },
+    {
+      "id": "R22",
+      "article": "manuals/fusion/learn/03-space/normalized-coordinates.md",
+      "source_case": "S06",
+      "images": [
+        "inspector.png",
+        "compare.png"
+      ],
+      "status": "embedded-local-display-verified",
+      "scope": "Size 1.25とAngle 12°も設定しています。Centerだけの比較やReference Sizeの表示切り替えは含めていません。"
+    },
+    {
+      "id": "R23",
+      "article": "manuals/fusion/learn/07-debugging/diagnose-graph-not-symptom.md",
+      "source_case": "S02",
+      "images": [
+        "graph.png",
+        "result.png"
+      ],
+      "status": "embedded-local-display-verified",
+      "scope": "正常な接続先を読むための例です。本文の不具合を再現・修復した記録ではありません。"
+    },
+    {
+      "id": "R24",
+      "article": "manuals/fusion/learn/07-debugging/isolate-branches.md",
+      "source_case": "S07",
+      "images": [
+        "graph.png",
+        "compare.png"
+      ],
+      "status": "embedded-local-display-verified",
+      "scope": "接続先とViewer対象を対応させる例です。bypassによる故障切り分けやGroup内部の診断は含めていません。"
+    },
+    {
+      "id": "R25",
+      "article": "manuals/fusion/learn/07-debugging/trace-data-domain.md",
+      "source_case": "S04",
+      "images": [
+        "graph.png",
+        "result.png"
+      ],
+      "status": "embedded-local-display-verified",
+      "scope": "正常な変換例です。誤接続の拒否画面や、ほかの全データ型の境界は別の撮影対象です。"
+    },
+    {
+      "id": "R26",
+      "article": "manuals/fusion/nodes/3d/index.md",
+      "source_case": "S11",
+      "images": [
+        "graph.png",
+        "compare.png"
+      ],
+      "status": "embedded-local-display-verified",
+      "scope": "左右は同じカメラの前後比較ではありません。球面カメラや全Renderer設定は含めていません。"
+    },
+    {
+      "id": "R27",
+      "article": "manuals/fusion/nodes/blur-filter/index.md",
+      "source_case": "S13",
+      "images": [
+        "graph.png",
+        "compare.png"
+      ],
+      "status": "embedded-local-display-verified",
+      "scope": "通常のBlurの参考例です。Vari Blur、Vector、Bump Mapの実機結果としては使いません。"
+    },
+    {
+      "id": "R28",
+      "article": "manuals/fusion/nodes/color/index.md",
+      "source_case": "S14",
+      "images": [
+        "inspector.png",
+        "compare.png"
+      ],
+      "status": "embedded-local-display-verified",
+      "scope": "色管理の変換、Channel操作や全Controlの検証は含めていません。"
+    },
+    {
+      "id": "R29",
+      "article": "manuals/fusion/nodes/compositing/index.md",
+      "source_case": "S02",
+      "images": [
+        "graph.png",
+        "result.png"
+      ],
+      "status": "embedded-local-display-verified",
+      "scope": "Mergeの固定例です。MultiMergeのLayer ListやDissolveの解像度挙動は別途確認します。"
+    },
+    {
+      "id": "R30",
+      "article": "manuals/fusion/nodes/generators/index.md",
+      "source_case": "S15",
+      "images": [
+        "graph.png",
+        "compare.png"
+      ],
+      "status": "embedded-local-display-verified",
+      "scope": "1920×1080、フレーム0、Viewer 40%。Day SkyやText+など、ほかのGeneratorの設定を示す画像ではありません。"
+    },
+    {
+      "id": "R31",
+      "article": "manuals/fusion/nodes/masks/index.md",
+      "source_case": "S07",
+      "images": [
+        "graph.png",
+        "compare.png"
+      ],
+      "status": "embedded-local-display-verified",
+      "scope": "Primitive Maskの参考例です。複数MaskのSubtract、Mask Paintや人物追従は含めていません。"
+    },
+    {
+      "id": "R32",
+      "article": "manuals/fusion/nodes/particles/index.md",
+      "source_case": "S09",
+      "images": [
+        "graph.png",
+        "frame0.png",
+        "result.png"
+      ],
+      "status": "embedded-local-display-verified",
+      "scope": "StyleはBlob、Size 3。Force・Set・3D出力や全時間設定の検証は含めていません。赤い表示はViewerの操作ハンドルです。"
+    },
+    {
+      "id": "R33",
+      "article": "manuals/fusion/nodes/shapes/index.md",
+      "source_case": "S04",
+      "images": [
+        "graph.png",
+        "result.png"
+      ],
+      "status": "embedded-local-display-verified",
+      "scope": "単一楕円の固定例です。本文のリング構成や全Shape処理の確認を意味しません。"
+    },
+    {
+      "id": "R34",
+      "article": "manuals/fusion/nodes/tracking/index.md",
+      "source_case": "S10",
+      "images": [
+        "graph.png",
+        "result.png"
+      ],
+      "status": "embedded-local-display-verified",
+      "scope": "既知の右移動3px/frameで確認したPlanarの例です。Point・Surface・Cameraの追跡精度には流用しません。"
+    },
+    {
+      "id": "R35",
+      "article": "manuals/fusion/nodes/transform/index.md",
+      "source_case": "S06",
+      "images": [
+        "graph.png",
+        "compare.png"
+      ],
+      "status": "embedded-local-display-verified",
+      "scope": "通常のTransformの例です。ResizeやScaleによる出力寸法の比較は別途撮影します。"
+    },
+    {
+      "id": "R36",
+      "article": "manuals/fusion/nodes/usd/index.md",
+      "source_case": "S12",
+      "images": [
+        "graph.png",
+        "result.png"
+      ],
+      "status": "embedded-local-display-verified",
+      "scope": "外部USD、Prim Selectionや非Color AOVの忠実度は、この例の確認範囲に含めていません。"
     }
   ]
 }
