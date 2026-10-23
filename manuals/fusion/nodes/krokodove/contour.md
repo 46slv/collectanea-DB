@@ -1,61 +1,105 @@
 ---
-title: "Contour"
-description: "gradientに沿うoutline/repeating line。"
+title: Contour（Krokodove）
+description: 画像の境目を検出するContourの役割、確認しやすい素材での試し方、類似ノードとの違いを説明。
 doc_type: node
-term_id: "contour"
-term_short: "Contourは、gradientに沿うoutline/repeating line。Krokodove固有のtool。"
+term_id: contour
+term_short: 画像内の境目（エッジ）を検出するKrokodoveの画像処理ツール。
 verification: partial
-aliases: ["Contour"]
-concepts: ["image-data"]
-nodes: ["Contour"]
-node_family: "krokodove"
-inputs: ["image"]
-outputs: ["image"]
-tasks: ["motion-graphics"]
+aliases: [Contour]
+concepts: [image-data]
+nodes: [Contour]
+node_family: krokodove
+outputs: [image]
+tasks: [motion-graphics]
 product_scope: fusion
-suite_surfaces: ["fusion"]
-updated: "2026-10-05"
+suite_surfaces: [fusion]
+updated: '2026-10-21'
 ---
 
-# Contour
+# Contour（Krokodove）
 
-Contourは、gradientに沿うoutline/repeating line。Krokodove固有のtoolです。名前だけで2D Image Nodeと判断せず、Input / Output domainとFamily Overviewを先に確認します。
+**Contourは、画像の境目を見つけるエッジ検出（edge detection）のためのツール**です。たとえば、明るい背景に暗い四角形がある画像なら、背景と四角形の間に境界があります。エッジ検出では、このような境目を手がかりに、画面の形や線を捉えます。
 
-## 役割
+Blackmagic DesignのDaVinci Resolve 21.1 Reference Manualは、ContourをKrokodoveの「Image Position Tools」に分類し、エッジ検出エフェクトと説明しています。ただし、何のチャンネルを調べ、境界をどのような色・太さで出力するかまでは記載していません。このページでは、**マニュアルで確認できる役割**と、**制作時に試す構成案**を分けて説明します。
 
-gradientに沿うoutline/repeating line。このページでは、名前だけで選ばず、**何を受け取り、何が変わり、どのdomainへ返すか**を先に整理します。
+## 役割：画像の「境目」を見る
 
-この項目で確認できている中心的な役割は「gradientに沿うoutline/repeating line」です。exactなInspector項目が未確認の場合は、役割とdata domainを先に使って候補を絞ります。
+画像は小さな画素（ピクセル）の集まりです。一般にエッジとは、隣り合う場所で色や明るさなどが変化する部分を指します。たとえば次のような場所が、境界を考える手掛かりになります。
+
+- 白い紙に描かれた黒い文字の縁
+- 背景と色が大きく異なる図形の外周
+- 明るい壁を背にした人物の輪郭や、衣服の模様の境目
+
+境目を検出することと、元画像を透明に切り抜くことは別です。また、対象物の外周だけを必ず選ぶわけではありません。背景の模様や被写体内部の濃淡にも境界があるため、**人物だけを自動で取り出せるツール**として扱わないでください。
+
+これはエッジ検出という処理を理解するための一般的な説明です。Contourが実際に輝度差・色差・Alphaのどれを計算するか、細かな模様やノイズをどう処理するかは、21.1 Manualの一行からは確定できません。
+
+旧記事にあった「gradientに沿うoutline/repeating line」という説明は、21.1 ManualのContourの記述とは一致しません。**グラデーションに沿って等高線状の線を何本も作る機能や、線を繰り返し配置する機能**は確認されていないため、このページではContourの仕様として紹介しません。
 
 ## 入力と出力
 
-入力分類: **image**。 出力分類: **image**。 この分類はdata domainを読むためのものです。Fusion 21.1のexactな端子名・端子数を未確認の場合、ここでは推測して固定しません。
+| 段階 | このページで説明できること | 未確認のこと |
+| --- | --- | --- |
+| 入力する素材 | 写真や図形など、境目が分かる2D画像を使った確認が候補になる。 | 必須の画像入力、補助入力、Mask入力の有無と正式な端子名・数。 |
+| 処理 | 公式21.1 Manualでは「エッジ検出エフェクト」とされている。 | 輝度・色・Alphaの選択、検出方法、閾値や線幅などの設定の有無。 |
+| 結果 | 既存COLLECTANEAカタログでは、後段で画像として扱う `image` に分類されている。 | 境界以外の部分が透明・黒・元画像のどれになるか、Alphaをどう扱うか、正式な出力端子名・数。 |
 
-## 使うときの判断
+<Term id="image">Image</Term>は、各画素に色などの情報を持つ2D画像です。FusionのShapeは、描画前の図形の輪郭などを保持する別のデータです。ContourはKrokodoveの画像系ツールとして掲載されていますが、「輪郭」という名前だけでShapeデータを生成すると判断しないでください。
 
-KrokodoveはImage、Shape、3D、Regionが同じchapterに並ぶため、まずOutput domainで候補を絞ります。
+Frontmatterの `outputs: [image]` は既存カタログの**データ分類**であり、実機で確認した端子仕様ではありません。画像入力が必須であることも21.1 Manualだけでは確定できないため、旧記事の `inputs: [image]` は削除しています。
 
-同じ目的を別Familyでも作れる場合は、後段で必要なdata domainと、Graph上で責任をどこに置きたいかで選びます。
+## 主な用途
 
-## 最小構成
+### 図形や文字の境界を調べる
 
-    Image / Source → Contour → Result
+白地に黒い四角形や大きな文字を置いた画像は、どこが境目として扱われるかを観察するために使えます。背景と図形の内側は比較的均一で、境界だけが明瞭です。最初から複雑な映像を使うより、想定と違う線が出たときに原因を考えやすくなります。
 
-これは接続関係を理解するための最小構成案です。公式Manualのexactな作例として確認していない構成は、実制作前にViewerで中間結果を確認します。
+### 実写の輪郭をグラフィックに利用する
 
-## 確認ポイント
+被写体と背景の明暗差があるカットなら、エッジ検出の結果を線画風の見た目に利用できるか検討できます。ただし、Contour単体で特定の描画スタイルに変換できることは確認していません。取り出された結果の色やAlphaをViewerで見てから、追加の処理が必要か判断します。
 
-- 入力dataのdomainが合っているか。
-- この項目のoutputを受け取れる後段Nodeへ接続しているか。
-- 同じ役割を前段 / 後段で二重に処理していないか。
-- source-limited pageでは、未確認のControl名・default・rangeを名前から推測していないか。
+### 動画内の境界がどう変わるかを観察する
 
-## Family内での位置づけ
+被写体やカメラが動くと、画面内の境目も移動します。輪郭を利用したモーショングラフィックを考えるときは、静止画だけでなく数秒の動画でも結果を見ます。ちらつきや細かな線が出る場合でも、Contourに専用のノイズ除去設定があると決めつけず、まず入力素材と出力を比較します。
 
-Krokodoveノードの全体像と近いNodeの選び分けは[Family Overview](./)を参照してください。
+## 最小構成と確認例
 
-## 出典と確認範囲
+次は**接続可能な画像入力・出力を実機で確認した場合の構成案**です。公式Manualに記載された配線図や操作手順ではありません。
 
-このページの役割・data domain・系譜は、既存COLLECTANEA catalogとBlackmagic Design公式資料で確認された範囲をreader-first形式へ整理しています。
+```text
+MediaIn → Contour → MediaOut
+```
 
-Fusion 21.1 Reference Manualで個別のInspector項目・default・rangeまで確認できていない項目は、**source-limited**としてその詳細を断定していません。verification: partial はその未確認範囲を含みます。runtime REGIDや現在のEffects Library表示は別のruntime verificationで確定します。
+1. 白い背景に大きな黒い四角形を置いたテスト画像を用意し、MediaInなどから読み込みます。
+2. Contourを追加し、入力端子が画像を受け付ける場合にテスト画像を接続します。接続口と端子の型は実際のノードを見て確認します。
+3. 元画像とContourの結果を別々のViewerで見比べます。四角形の内側、外側、境目がどう表示されるか確認します。
+4. 四角形を細かな文字や模様のある画像に替え、境界以外にも線が出るか観察します。
+5. 動画でも試す場合は、数フレームではなく時間の流れで見て、線の変化と映像の動きの関係を確認します。
+
+エッジ部分を元映像に重ねたい場合は、Contourの結果が2D画像として扱えることを確かめてから、[Merge](../compositing/merge)の前景（Foreground）と背景（Background）を使う方法を検討できます。ただし、**Contourの非エッジ部分が透明になるとは未確認**です。前景に置くだけで自動的に線だけが重なるとは限らず、実際の結果に合わせてマット処理や合成方法を選びます。
+
+## 似たノードとの違い
+
+| ノード | 確認できる役割 | 使い分け |
+| --- | --- | --- |
+| **Contour** | 画像のエッジを検出する。 | もとの画像にある境目を調べたい。 |
+| [Clean Edges](./clean-edges) | フレームの端にある画素を、複製や単色で補う。 | 画像の四辺の不要な線や画素を直したい。 |
+| [Lines](./lines) | 一組または複数組の線を繰り返して模様を作る。 | 元画像の境界ではなく、新しい線模様を作りたい。 |
+| [Threshold](./threshold) | 指定チャンネルの色・明るさから、狭い値の範囲を分離する。 | 境界の位置より、一定範囲の画素値を選びたい。 |
+
+**Clean Edgesの「Edges」はフレームの外周**を指します。Contourのエッジ検出と名前が似ていますが、目的は異なります。また、Thresholdの値の選別とContourのエッジ検出を同じ処理として扱うこともできません。
+
+## 挙動と注意点
+
+- **検出基準は未確認**：輝度・色差・Alphaのどれを使うか、微細な境界を無視するか、輪郭の太さや色を変えられるかは不明です。Inspectorの正式な項目名・初期値・数値範囲を推測していません。
+- **背景・透明度は未確認**：結果を合成やMaskへ直接使えるとは限りません。Viewerで結果のRGBとAlphaを確認してから接続方法を決めます。
+- **ノイズや複数の輪郭**：撮影素材には対象物以外にも細かな境界があります。特定の被写体だけの線を得られると保証しません。
+- **実機・版の差は未確認**：内部REGID、入力・出力端子、Resolve Free / StudioとFusion Studioの差、21.1実機の具体的な画面表示は確認していません。
+
+## バージョンと出典
+
+**一次資料**：Blackmagic Design『DaVinci Resolve 21.1 Reference Manual』（September 2026）、Chapter 105「Krokodove Nodes」、p.2436「Image Position Tools / Contour」。同項目で確認できる固有仕様は、Contourが**エッジ検出エフェクト**であることです。入出力端子やInspectorの一覧はこの項目にありません。
+
+**比較に使った同章の記述**：p.2435「Image Create Tools / Lines」「Image Color Tools / Threshold」「Image Pixel Tools / Clean Edges」。上表の比較は、これらのノードが担う役割の違いを説明しています。
+
+関連：[Krokodove全体](./)／[Imageデータ](../../learn/02-data/image)／[Merge](../compositing/merge)。役割は公式資料と照合しましたが、端子・表示・動作の詳細には未確認事項があるため、`verification: partial`を維持しています。

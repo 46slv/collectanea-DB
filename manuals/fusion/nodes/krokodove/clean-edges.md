@@ -1,61 +1,115 @@
 ---
-title: "Clean Edges"
-description: "edge pixelをremove/replace。"
+title: Clean Edges（Krokodove）
+description: フレーム端の不要な画素を複製または単色で補うClean Edgesの役割、具体的な確認手順、Extendとの違いを説明。
 doc_type: node
-term_id: "clean-edges"
-term_short: "Clean Edgesは、edge pixelをremove/replace。Krokodove固有のtool。"
+term_id: clean-edges
+term_short: 画像の外周にある不要な画素を、画素の複製または単色で補うKrokodoveの画像処理ツール。
 verification: partial
-aliases: ["Clean Edges"]
-concepts: ["image-data"]
-nodes: ["Clean Edges"]
-node_family: "krokodove"
-inputs: ["image"]
-outputs: ["image"]
-tasks: ["motion-graphics"]
+aliases: [Clean Edges]
+concepts: [image-data]
+nodes: [Clean Edges]
+node_family: krokodove
+inputs: [image]
+outputs: [image]
+tasks: [motion-graphics]
 product_scope: fusion
-suite_surfaces: ["fusion"]
-updated: "2026-10-05"
+suite_surfaces: [fusion]
+updated: '2026-10-19'
 ---
 
-# Clean Edges
+# Clean Edges（Krokodove）
 
-Clean Edgesは、edge pixelをremove/replace。Krokodove固有のtoolです。名前だけで2D Image Nodeと判断せず、Input / Output domainとFamily Overviewを先に確認します。
+**Clean Edges**は、画像の**フレーム端にある画素**を、画素の複製または単色を使って補うKrokodoveのツールです。たとえば映像の端に細い黒線や不要な色の帯が入っているとき、元画像の縁をそのまま表示する代わりに補正する方法として検討できます。
 
-## 役割
+DaVinci Resolve 21.1 Reference Manualでは、Clean Edgesを「Image Pixel Tools」に分類し、フレーム端の画素を複製または単色で処理する機能として紹介しています。ただし、**補正範囲の指定方法、複製元、正式なInspector項目は示されていません**。以下の制作例は、公式の再現手順ではなく、処理結果を観察するための提案です。
 
-edge pixelをremove/replace。このページでは、名前だけで選ばず、**何を受け取り、何が変わり、どのdomainへ返すか**を先に整理します。
+## 何を「Clean」するのか
 
-この項目で確認できている中心的な役割は「edge pixelをremove/replace」です。exactなInspector項目が未確認の場合は、役割とdata domainを先に使って候補を絞ります。
+ここでいう**フレーム端**は、映像や静止画を囲む長方形の上・下・左・右の縁です。人物やロゴなど、画面内のあらゆる物体の輪郭を自動検出して整えるという意味ではありません。
+
+例えば、画面の右端に1本の細い黒線がある画像を考えます。この画像を別の背景へ重ねたり少し拡大したりすると、端の黒線が目立つことがあります。
+
+Clean Edgesの公式説明には、端の画素を補う方法として**複製**と**単色**の二つが挙がっています。
+
+| 考え方 | 見た目がどう変わるか | 向いていそうな素材 |
+| --- | --- | --- |
+| 画素を複製して補う | 不要な端の代わりに、別の位置から複製した画素を使う。 | 空や壁など、周辺の絵柄の変化が少ない素材。 |
+| 単色で補う | 不要な端を一定の色で置き換える。 | 黒背景や単色のグラフィックなど、置換色が周囲と近い素材。 |
+
+これはそれぞれの**処理方法を理解するための説明**です。Clean Edgesが正確にどの画素を複製するのか、どの色をどう選ぶのか、どの方向へ処理するのかは、Manualの一行から確定できません。
+
+画素を補うことは、失われた撮影情報を復元することとも異なります。端に顔や文字の一部があれば、それを元どおりに再構成できるとは限りません。
 
 ## 入力と出力
 
-入力分類: **image**。 出力分類: **image**。 この分類はdata domainを読むためのものです。Fusion 21.1のexactな端子名・端子数を未確認の場合、ここでは推測して固定しません。
+| 段階 | データ | 接続・結果 |
+| --- | --- | --- |
+| 入力 | 2D Image | MediaInなどから、外周を確認したい画像を渡す。 |
+| 処理 | 画像端の画素の補正 | 画素の複製、または単色を使って縁を補う。 |
+| 出力 | 2D Image | 加工後の画像をViewerで確認し、合成・出力へ渡す。 |
 
-## 使うときの判断
+ここでいう<Term id="image">Image</Term>は、画素で構成された画像です。Clean Edgesは21.1 Manualの「Image Pixel Tools」に分類され、既存のCOLLECTANEAカタログでも入力・出力がimageと整理されています。Shapeの輪郭データや3D Sceneを直接扱うノードとしては説明されていません。
 
-KrokodoveはImage、Shape、3D、Regionが同じchapterに並ぶため、まずOutput domainで候補を絞ります。
+この表は**データの種類と役割**を示すものです。正式な入力・出力端子名、端子数、マスクなどの補助入力の有無は未確認です。
 
-同じ目的を別Familyでも作れる場合は、後段で必要なdata domainと、Graph上で責任をどこに置きたいかで選びます。
+## 主な用途と判断
 
-## 最小構成
+### 映像の四辺に細い線がある
 
-    Image / Source → Clean Edges → Result
+素材に一辺だけ不自然な線や色の帯が入っている場合、外周の一部を補う処理を試せます。実際には端を少し切り落とすだけで済むこともあるため、元の構図が許すならトリミングとも比較します。
 
-これは接続関係を理解するための最小構成案です。公式Manualのexactな作例として確認していない構成は、実制作前にViewerで中間結果を確認します。
+### 背景を合成したときに素材の枠が見える
 
-## 確認ポイント
+単色の背景へ別素材を重ねると、素材の外周にだけ違う色が残って四角い枠に見えることがあります。Clean Edgesで補う方式が適するか、背景色を切り替えて確かめます。
 
-- 入力dataのdomainが合っているか。
-- この項目のoutputを受け取れる後段Nodeへ接続しているか。
-- 同じ役割を前段 / 後段で二重に処理していないか。
-- source-limited pageでは、未確認のControl名・default・rangeを名前から推測していないか。
+ただし、被写体そのものの切り抜きや、画像全体のキーイングを行うためのツールと同一視しません。Clean Edgesの説明対象はあくまで**フレーム端**です。
 
-## Family内での位置づけ
+### 変形の前後で不自然な縁が現れる
 
-Krokodoveノードの全体像と近いNodeの選び分けは[Family Overview](./)を参照してください。
+元画像の縁が気になる場合と、Transformなどの操作によって画面外に空白が生じた場合は原因が違います。Clean Edgesが**すべての画面外領域を自動的に埋める**とは資料で確認されていません。まず、問題の線が元画像に存在するかを確かめます。
 
-## 出典と確認範囲
+## 最小構成：黒い縁を補えるか調べる
 
-このページの役割・data domain・系譜は、既存COLLECTANEA catalogとBlackmagic Design公式資料で確認された範囲をreader-first形式へ整理しています。
+次は**確認用の接続例**です。Manualに掲載された専用ノードグラフではありません。
 
-Fusion 21.1 Reference Manualで個別のInspector項目・default・rangeまで確認できていない項目は、**source-limited**としてその詳細を断定していません。verification: partial はその未確認範囲を含みます。runtime REGIDや現在のEffects Library表示は別のruntime verificationで確定します。
+```text
+MediaIn（端に線のある素材） → Clean Edges → MediaOut
+             │                     │
+          加工前Viewer          加工後Viewer
+```
+
+1. 右端・左端・上端・下端のどこに線があるか分かる素材を用意します。Viewerの表示倍率を調整し、画像の四辺が切れていない状態で確認します。
+2. **加工前の画像にもその線があるか**確認します。Viewerの表示枠や別のエフェクトが原因なら、画像端の画素を補うだけでは解決しない可能性があります。
+3. Clean EdgesのInspectorを開き、**実際に表示される**複製・単色に関する操作を確認します。この記事は未確認のスイッチ名や入力値を指定しません。
+4. 一度に一つの操作を変え、加工前後のViewerを比較します。線が見えなくなっても、補正した領域の**すぐ内側に別の線が現れていないか**確認します。
+5. 空や壁など単純な背景だけでなく、細い模様の近くでも結果を見ます。動く映像なら、問題のフレームだけでなく前後数フレームも再生します。
+6. ほかの映像に重ねる場合は、暗い背景と明るい背景で縁の見え方を比較し、透明度も確認します。
+
+処理範囲の幅、縁の方向、複製元の選択、単色の指定方法を自由に調整できるかは未確認です。Inspectorの実際の項目に応じて、この手順のどこまで可能か判断してください。
+
+## ExtendやSeamlessとの違い
+
+| ツール・方法 | 確認できる役割 | 選ぶ目安 |
+| --- | --- | --- |
+| **Clean Edges** | フレーム端の画素を、複製または単色で補う。 | 外周にある不要な画素を目立たなくしたい。 |
+| [Extend](./extend) | 画像端の画素を水平または垂直方向へ複製し、繰り返す画素の表現を作る。 | 一方向へ端の絵柄を伸ばす効果を試したい。 |
+| [Seamless](./seamless) | 反対側の端を鏡映しにして元画像と混ぜる。 | 画像を並べたときの継ぎ目を検討したい。 |
+| トリミング・Crop | 画像の不要な周辺部分を表示範囲から外す。 | 補う必要がなく、端を切り落としても構図を維持できる。 |
+
+Clean EdgesとExtendは、ともに画像端の画素を扱いますが、**不要な端を補う**ことと、**端の画素を方向を持って反復させる**ことは同じではありません。Seamlessの説明には「反対側の端の反転と合成」が含まれますが、Clean Edgesに同じ処理があるとは記載されていません。
+
+## 仕上がりで確認すること
+
+- **境界が移動して見える場合**：外周の線が消えても、その内側に補正領域との境界が生まれることがあります。拡大表示だけでなく通常倍率でも確認します。
+- **繰り返し模様**：画素を複製する補正では、伸びた模様や同じ画素の反復が目立つ可能性があります。これは制作上の一般的な注意点で、Clean Edgesの正確な補間方式を確認した結果ではありません。
+- **Alphaと合成**：色の縁が自然でも、透明度の縁が不自然な場合があります。Clean EdgesがAlphaをどう処理するかは未確認なので、背景を変えて確かめます。
+- **時間方向は別**：Clean EdgesのManualの説明は空間的なフレーム端です。映像のちらつきや再生の先頭・末尾のつながりを直すツールとしては確認されていません。
+- **実機未確認の範囲**：正式なポート、Inspectorの項目・初期値・値域、補正領域、内部REGID、Resolve Free / Studio / Fusion Studioの差は、Manualの短い紹介文だけでは分かりません。
+
+## バージョンと出典
+
+**一次資料：** Blackmagic Design『DaVinci Resolve 21.1 Reference Manual』（September 2026）、Chapter 105「Krokodove Nodes」、**p.2435、Image Pixel Tools — Clean Edges**。フレーム端の画素を複製または単色で補うという役割を確認できます。原文末尾に「Frame border.」との記述がありますが、これをInspectorの正式な項目名とは断定しません。
+
+**比較資料：** 同Manual Chapter 105、p.2434「Extend」、p.2436「Seamless」。
+
+制作例と観察方法は、確認できた用途から組み立てた**操作案**です。実機でのInspector、入出力端子、細かな処理方式やEdition差は未検証のため、本文の確認状態はpartialのままです。

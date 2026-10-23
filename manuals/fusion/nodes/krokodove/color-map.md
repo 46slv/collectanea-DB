@@ -1,61 +1,112 @@
 ---
-title: "Color Map"
-description: "textureを1つ以上のflat colorへmap。色はmanual/auto検出。"
+title: Color Map
+description: Krokodove Color Mapでテクスチャを均一な色へ対応づける仕組みと、Recolorなどとの使い分けを説明。
 doc_type: node
-term_id: "color-map"
-term_short: "Color Mapは、textureを1つ以上のflat colorへmap。色はmanual/auto検出。Krokodove固有のtool。"
+term_id: color-map
+term_short: 画像の色や質感を、手動指定または自動検出した1色以上の均一な色へ対応づけるKrokodoveの画像ツール。
 verification: partial
-aliases: ["Color Map"]
-concepts: ["image-data"]
-nodes: ["Color Map"]
-node_family: "krokodove"
-inputs: ["image"]
-outputs: ["image"]
-tasks: ["motion-graphics"]
+aliases: [Color Map]
+concepts: [image-data]
+nodes: [Color Map]
+node_family: krokodove
+inputs: [image]
+outputs: [image]
+tasks: [motion-graphics]
 product_scope: fusion
-suite_surfaces: ["fusion"]
-updated: "2026-10-05"
+suite_surfaces: [fusion]
+updated: '2026-10-17'
 ---
 
 # Color Map
 
-Color Mapは、textureを1つ以上のflat colorへmap。色はmanual/auto検出。Krokodove固有のtoolです。名前だけで2D Image Nodeと判断せず、Input / Output domainとFamily Overviewを先に確認します。
+Color Mapは、**画像の色や質感を、1色以上の均一な色へ対応づける**Krokodoveの画像ツールです。写真や細かな模様を持つ素材を、ベタ塗りの面で構成されたグラフィックのように見せたいときの候補になります。
 
-## 役割
+DaVinci Resolve 21.1 Reference Manualでは、テクスチャを1色以上の *flat color* にマッピングし、その色を手動で指定するか自動検出できると説明されています。ただし、**どの部分をどの色へ割り当てるか**という計算方法までは記載されていません。以下では、Manualで確認できた役割と、そこから考えられる制作方法を区別します。
 
-textureを1つ以上のflat colorへmap。色はmanual/auto検出。このページでは、名前だけで選ばず、**何を受け取り、何が変わり、どのdomainへ返すか**を先に整理します。
+## テクスチャとflat color
 
-この項目で確認できている中心的な役割は「textureを1つ以上のflat colorへmap。色はmanual/auto検出」です。exactなInspector項目が未確認の場合は、役割とdata domainを先に使って候補を絞ります。
+ここでいう**テクスチャ**は、画像の中にある色や明暗の細かな変化、模様を指します。たとえばコンクリートの壁を撮影すると、光の当たり方や表面の凹凸によって、同じ壁でも画素ごとに色が少しずつ変わります。
+
+**flat color**は、細かな濃淡や模様のない、均一な塗り色です。写真の明るい部分をクリーム色、暗い部分を紺色に置き換えると、少ない色で描いたポスターのように見えます。これは目指す表現の一例であり、Color Mapが必ず明部と暗部をこの方法で分類するという意味ではありません。
+
+*Map* は「入力画像の情報と出力の色を対応づける」という意味です。画像を3Dモデルの表面に貼るUVマッピングや、位置を移動させるTransformとは異なります。
 
 ## 入力と出力
 
-入力分類: **image**。 出力分類: **image**。 この分類はdata domainを読むためのものです。Fusion 21.1のexactな端子名・端子数を未確認の場合、ここでは推測して固定しません。
+| 段階 | 扱うデータ | 確認できること |
+| --- | --- | --- |
+| 入力 | テクスチャを含む2D Image | 21.1 Manualの「Image Tools」に掲載。正式な入力端子名・補助端子の数は未確認です。 |
+| 処理 | 画像と1色以上の均一な色との対応づけ | 色を手動指定する方法と自動検出する方法があると説明されています。 |
+| 出力 | 色の対応づけを反映した画像 | 画像ツールとして扱います。正式な出力端子名、Alpha・解像度の変化は未確認です。 |
 
-## 使うときの判断
+ここで扱うのは画素でできた<Term id="image">Image</Term>であり、図形の輪郭などを描画前のデータとして扱う<Term id="shape-data">Shapeデータ</Term>ではありません。Frontmatterのinputs / outputsは**データ分類**であり、ノードに表示される端子名や端子数を保証しません。
 
-KrokodoveはImage、Shape、3D、Regionが同じchapterに並ぶため、まずOutput domainで候補を絞ります。
+## 色の指定方法
 
-同じ目的を別Familyでも作れる場合は、後段で必要なdata domainと、Graph上で責任をどこに置きたいかで選びます。
+### 手動指定
 
-## 最小構成
+作品の配色が決まっているときは、必要な色を先に決める方法が考えられます。たとえばMVの背景を黒・白・赤にまとめたい場合、色を指定した後で、元の明暗や輪郭がどう見えるかをViewerで比較します。
 
-    Image / Source → Color Map → Result
+Manualは色を手動で指定できることを説明していますが、正確なInspector項目名、指定可能な色数、色同士の対応関係を設定する方法は未確認です。スポイトや色見本など、存在を確認していないUIの操作は手順に含めません。
 
-これは接続関係を理解するための最小構成案です。公式Manualのexactな作例として確認していない構成は、実制作前にViewerで中間結果を確認します。
+### 自動検出
 
-## 確認ポイント
+Manualは色の自動検出にも言及しています。元画像の色をもとに配色を考えたい場合の候補です。ただし、何を基準に検出するのか、出力色を何色まで設定できるのか、検出結果がフレームごとに変わるのかは未確認です。「代表色を必ず抽出する機能」とは断定しません。
 
-- 入力dataのdomainが合っているか。
-- この項目のoutputを受け取れる後段Nodeへ接続しているか。
-- 同じ役割を前段 / 後段で二重に処理していないか。
-- source-limited pageでは、未確認のControl名・default・rangeを名前から推測していないか。
+## 主な用途
 
-## Family内での位置づけ
+### 写真を少ない塗り色のグラフィックにする
 
-Krokodoveノードの全体像と近いNodeの選び分けは[Family Overview](./)を参照してください。
+街並みや人物の背景など、細かな色の変化が多い映像を、色面が目立つ表現に寄せたいときに検討できます。色の切り替わり方はManualだけでは確定できないため、画像の輪郭や暗部がどう変化するかをViewerで確認します。
 
-## 出典と確認範囲
+### タイトルと背景の配色をそろえる
 
-このページの役割・data domain・系譜は、既存COLLECTANEA catalogとBlackmagic Design公式資料で確認された範囲をreader-first形式へ整理しています。
+作品のメインカラーに合わせて背景を処理し、タイトルや図形と同じ色調へ寄せる用途が考えられます。思った色にならない場合は、Color Mapの結果へ後段の標準色調整ノードを接続する方法もあります。
 
-Fusion 21.1 Reference Manualで個別のInspector項目・default・rangeまで確認できていない項目は、**source-limited**としてその詳細を断定していません。verification: partial はその未確認範囲を含みます。runtime REGIDや現在のEffects Library表示は別のruntime verificationで確定します。
+### 原画と加工結果を混ぜる
+
+Color Mapをかけた画像を原画へ重ねれば、加工を強くかけた部分と元の質感を残す部分を比較しやすくなります。Color Map自身のAlpha処理を決めつけず、標準のMergeで混合する構成です。
+
+## 制作例：街の映像をポスター風に処理する
+
+次は**標準のFusionノードを組み合わせた構成案**です。Krokodove Color Mapの正式なInspector操作を示す公式チュートリアルではありません。
+
+    MediaIn（元映像） ─────────────────→ Merge（BG） ─→ MediaOut
+             └────────→ Color Map ───→ Merge（FG）
+
+1. MediaInをColor Mapへ接続し、その出力をViewerで確認します。どの部分が均一な色になり、どの部分の模様が残っているかを見ます。
+2. 目的の配色がある場合は、21.1実機で手動指定に関する設定を確認します。色数や色の選択方法は実機で確かめてください。
+3. 元映像を分岐させてMergeのBackground（BG）へ、Color Mapの結果をForeground（FG）へ接続します。
+4. MergeのBlendで原画と加工結果の混合量を調整します。これはMergeの機能であり、Color Map固有の強度パラメータではありません。
+5. 画面の一部だけを加工したい場合はMergeのEffect Maskを利用します。Color Mapに専用のマスク端子があるという意味ではありません。
+
+自動検出を使う場合、映像の冒頭だけでなく複数フレームを確認します。色の検出結果が時間的に安定するかどうかは、公式の短い説明からは分かりません。
+
+## 似たノードとの違い
+
+| ノード | 21.1 Manualで確認できる役割 | 選ぶ目安 |
+| --- | --- | --- |
+| **Color Map（Krokodove）** | テクスチャを1色以上の均一な色へ対応づける。色の手動指定・自動検出が可能 | 画像の色や模様を、まとまった塗り色として見せたい |
+| [Recolor（Krokodove）](./recolor) | 1色以上の元の色を指定し、新しい色に置き換える | 変更する元の色が分かっている |
+| [Replace Color（Krokodove）](./replace-color) | 元の色を指定し、補正に置き換える | 特定色への補正を試したい |
+| [Match Color（Krokodove）](./match-color) | シャドウ・中間調・ハイライトなどの階調を選び、色を置き換える | 明るさの帯域に着目して色を変えたい |
+| [Threshold（Krokodove）](./threshold) | 特定チャンネルの色・明るさの狭い範囲を取り出す | まず対象範囲を選別したい |
+| [Rasterize（Krokodove）](./rasterize) | 画像を点・四角形・菱形などの図形の集まりに変える | 網点やハーフトーン風の模様を作りたい |
+
+Color Mapは**元画像を均一な色へ対応づけること**、RecolorやReplace Colorは**指定した色の変更**に重点があります。目的が似ていても、効果の範囲や見え方をViewerで比較して選びます。
+
+## 注意点・確認が必要な仕様
+
+- **色の自動検出**：検出対象、計算方式、色数の上限は未確認です。
+- **境界と階調**：色の切り替わりが硬い境界になるか、元画像のグラデーションが残るかは未確認です。
+- **透明部分**：Alphaを保持するか、透明領域をどう扱うかは実機で確認します。
+- **時間変化**：自動検出や色の割り当てがフレームごとに変わるかは未確認です。
+- **InspectorとEdition**：設定名・初期値・範囲、正式な入出力端子、REGID、Free / Studio / Fusion Studioでの差は未確認です。
+
+## バージョン・出典
+
+- **一次資料**：Blackmagic Design『DaVinci Resolve 21.1 Reference Manual』（September 2026）、Chapter 105「Krokodove Nodes」、p.2434「Image Tools / Color Map」。均一な色への対応づけ、手動指定・自動検出の記載。
+- **比較対象**：同Manual p.2435「Image Color Tools / Match Color・Recolor・Replace Color・Threshold」「Image Tools / Rasterize」。
+- **関連**：[Krokodoveの画像・Shape・3D・Region](./)。
+
+基本的な役割は21.1 Manualで確認済みですが、入出力端子とInspectorの正確な仕様を実機で照合していないため、verification: partialを維持します。

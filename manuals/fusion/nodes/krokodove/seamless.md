@@ -1,61 +1,113 @@
 ---
-title: "Seamless"
-description: "opposite edgeをmirrorしてblend。"
+title: Seamless
+description: KrokodoveのSeamlessが画像の反対側の端を反転して混ぜる仕組みと、繰り返し模様の継ぎ目を確認する方法を説明。
 doc_type: node
-term_id: "seamless"
-term_short: "Seamlessは、opposite edgeをmirrorしてblend。Krokodove固有のtool。"
+term_id: seamless
+term_short: 画像の反対側の端を鏡映しにして元画像と混ぜる、Krokodoveの画像用ツール。
 verification: partial
-aliases: ["Seamless"]
-concepts: ["image-data"]
-nodes: ["Seamless"]
-node_family: "krokodove"
-inputs: ["image"]
-outputs: ["image"]
-tasks: ["motion-graphics"]
+aliases: [Seamless]
+concepts: [image-data]
+nodes: [Seamless]
+node_family: krokodove
+inputs: [image]
+outputs: [image]
+tasks: [motion-graphics]
 product_scope: fusion
-suite_surfaces: ["fusion"]
-updated: "2026-10-05"
+suite_surfaces: [fusion]
+updated: '2026-10-18'
 ---
 
 # Seamless
 
-Seamlessは、opposite edgeをmirrorしてblend。Krokodove固有のtoolです。名前だけで2D Image Nodeと判断せず、Input / Output domainとFamily Overviewを先に確認します。
+**Seamlessは、画像の反対側の端を鏡映しにし、元の画像と混ぜるKrokodoveのツール**です。DaVinci Resolve 21.1 Reference Manualでは、Image Pixel Toolsの一つとして紹介されています。
 
-## 役割
+たとえば壁の写真を横に二枚並べたとき、右端と次の写真の左端で模様や明るさが急に変わることがあります。Seamlessは、このような**画像の端のつながり**を考えるときに使う候補です。ただし、Manualが説明しているのは「反対側の端の反転」と「元画像との合成」という役割までで、どの方向の端をどの範囲で処理するか、必ず継ぎ目のない画像になるかは明記されていません。
 
-opposite edgeをmirrorしてblend。このページでは、名前だけで選ばず、**何を受け取り、何が変わり、どのdomainへ返すか**を先に整理します。
+## 「画像の端をつなぐ」とは
 
-この項目で確認できている中心的な役割は「opposite edgeをmirrorしてblend」です。exactなInspector項目が未確認の場合は、役割とdata domainを先に使って候補を絞ります。
+一枚の画像を繰り返して並べると、隣り合う画像の境界では**右端と左端**、または**下端と上端**が接します。この二つの端の色や模様が違うと、繰り返しの境界が線のように見えます。
+
+```text
+一枚の画像:        [ 左端 ──── 模様 ──── 右端 ]
+横に繰り返す場合:  [ 左端 ──── 右端 ][ 左端 ──── 右端 ]
+                                     ↑
+                              ここが接する境界
+```
+
+*Mirror（鏡映し）* は、元の模様を鏡に映したように反転して使うことです。Seamlessは反対側の端から得た反転画像を元画像と混ぜるものとして記載されています。反転だけなら同じ絵柄を裏返して置くことになりますが、**混ぜる処理**も行う点が、このツールの説明で重要です。
+
+もっとも、反転の中心位置、合成する帯の幅、混合比率、処理される縦横の方向はManualの短い記述だけでは分かりません。「端が必ず一致する」「四辺を同時に修復する」といった動作は断定しません。
 
 ## 入力と出力
 
-入力分類: **image**。 出力分類: **image**。 この分類はdata domainを読むためのものです。Fusion 21.1のexactな端子名・端子数を未確認の場合、ここでは推測して固定しません。
+| 項目 | 扱う内容 | 確認範囲 |
+| --- | --- | --- |
+| 入力 | 2D Image | 21.1 ManualでImage Pixel Toolsに分類。正式な入力端子名・端子数は未確認。 |
+| 処理 | 反対側の端の鏡映しと元画像への合成 | Manualに記載された役割。合成方法や対象領域の設定は未確認。 |
+| 出力 | 加工された2D Image | 既存カタログの画像データ分類。正式な出力端子名、Alphaなどの扱いは未確認。 |
 
-## 使うときの判断
+ここで扱う<Term id="image">Image</Term>は、画素でできた画像です。図形の輪郭情報を保持するShapeデータや、効果の作用範囲を渡すRegionデータを直接加工するツールとしては説明されていません。ページ先頭の `inputs: [image]` と `outputs: [image]` は**データ分類**であり、ノード上の正確な接続端子を示すものではありません。
 
-KrokodoveはImage、Shape、3D、Regionが同じchapterに並ぶため、まずOutput domainで候補を絞ります。
+## 主な用途
 
-同じ目的を別Familyでも作れる場合は、後段で必要なdata domainと、Graph上で責任をどこに置きたいかで選びます。
+### 繰り返して並べるテクスチャの端を整える
 
-## 最小構成
+紙、布、木目、壁の汚れなどの画像を背景いっぱいに敷き詰めると、元の画像一枚ごとの四角い境界が目立つ場合があります。Seamlessで端の見え方を調整し、**同じ画像を複数枚並べた結果**を確認する方法が考えられます。
 
-    Image / Source → Seamless → Result
+端を混ぜることで境界が目立ちにくくなっても、同じ模様が規則正しく繰り返されること自体は残り得ます。境界の違和感と模様の繰り返し感は、別々に評価します。
 
-これは接続関係を理解するための最小構成案です。公式Manualのexactな作例として確認していない構成は、実制作前にViewerで中間結果を確認します。
+### 横へ流れる背景の素材を準備する
 
-## 確認ポイント
+タイトルの背後でテクスチャを横へスクロールさせる場合、画像の右端が次の左端へつながる瞬間に継ぎ目が現れます。Seamlessは、その**空間的な端のつながり**を整える工程で検討できます。
 
-- 入力dataのdomainが合っているか。
-- この項目のoutputを受け取れる後段Nodeへ接続しているか。
-- 同じ役割を前段 / 後段で二重に処理していないか。
-- source-limited pageでは、未確認のControl名・default・rangeを名前から推測していないか。
+ただし、Seamless自体がスクロールや時間のループを作ると確認されたわけではありません。移動と反復は別の工程で構成し、完成した動きを再生して境界を確認します。
 
-## Family内での位置づけ
+### 合成前の背景素材を確認する
 
-Krokodoveノードの全体像と近いNodeの選び分けは[Family Overview](./)を参照してください。
+背景の模様を繰り返し使う作品では、タイトルや被写体を重ねる前に、繰り返し境界が目につかないか確認すると修正箇所を特定しやすくなります。元画像の中央部まで大きく変化していないかも比較します。
 
-## 出典と確認範囲
+## 制作例：壁の画像を繰り返し背景に使う
 
-このページの役割・data domain・系譜は、既存COLLECTANEA catalogとBlackmagic Design公式資料で確認された範囲をreader-first形式へ整理しています。
+以下は**処理順序を理解するための構成案**です。Seamless固有の端子接続図やInspector操作を公式Manualから再現したものではありません。
 
-Fusion 21.1 Reference Manualで個別のInspector項目・default・rangeまで確認できていない項目は、**source-limited**としてその詳細を断定していません。verification: partial はその未確認範囲を含みます。runtime REGIDや現在のEffects Library表示は別のruntime verificationで確定します。
+```text
+MediaIn（壁の画像） → Seamless → MediaOut
+                         │
+                     Viewerで確認
+```
+
+1. 模様と明暗が分かる壁の画像を用意します。まず元画像を左右に並べたとき、境界の色や模様がどう食い違うかを確認します。
+2. Fusionで画像をSeamlessへ渡し、加工前と加工後をViewerで比較します。**画像全体を反転するだけの結果**と取り違えないように、左右端や四隅を確認します。
+3. 加工結果を別工程で横に二枚、できれば縦にも二枚並べます。単体のViewer表示で自然に見えても、実際に並べると境界が分かることがあります。
+4. 境界が残る場合は、元の画像の選び方や並べる方向を見直します。Seamlessに存在を確認していない「縦横切替」「ブレンド幅」などの設定名を前提にはしません。
+5. スクロール素材として使うときは、移動中に境界が画面の中央を通過する場面も確認します。静止状態では気にならない模様の繰り返しが、動きによって目立つ場合があります。
+
+**確認の要点は、加工後の画像一枚ではなく、繰り返して配置したときの境界を見ること**です。とくに方向別の処理仕様が未確認なので、横方向の結果から縦方向も同じようにつながるとは判断しません。
+
+## 似たノードとの違い
+
+| ノード | 21.1 Manualで確認できる役割 | 使い分け |
+| --- | --- | --- |
+| **Seamless** | 反対側の端を鏡映しにして元画像と混ぜる | 画像を並べたときの端の見え方を整えたい |
+| [Mirror](./mirror) | 指定した線に沿って画像を反転する | 画面内の反転表現を作りたい |
+| [Kaleidoscope](./kaleidoscope) | 放射状に反転して万華鏡状の効果を作る | 対称的な模様そのものを作りたい |
+| [Offset](./offset-krokodove) | 水平・垂直方向へ画像を移動・変形する | 画像の位置をずらしたい。端の合成とは役割が異なる |
+| [Seamless Loop](./seamless-loop) | コンポジションの時間を調整してループを作る | 再生の**最後と最初**のつながりを調整したい |
+
+Seamlessで扱うのは**画像内の位置のつながり**です。一方、Seamless Loopが扱うのは**再生時間のつながり**です。横スクロールする背景を何周も再生する場合は、この二つの問題を別々に考えます。
+
+## 注意点・未確認の仕様
+
+- **タイル状の繰り返しを保証しない**：Manualの記述だけで、出力の左右端・上下端が数値的に完全一致するとまでは言えません。実際に並べて確認します。
+- **反転部分の繰り返し**：境界が滑らかになっても、左右対称に近い模様が目立つ可能性があります。これは制作上の確認点です。
+- **透明度と周辺画素**：Alpha、キャンバスの外側、画像端の補間処理、解像度への影響は確認できていません。
+- **Inspectorと製品差**：正式な端子名・数、設定項目、初期値、範囲、内部REGID、Resolve Free / Studio / Fusion Studioごとの可用性は未確認です。
+- **時間方向は別処理**：静止画像の端を整えても、動画の最終フレームと先頭フレームがつながるとは限りません。
+
+## バージョン・出典
+
+- **一次資料**：Blackmagic Design『DaVinci Resolve 21.1 Reference Manual』（September 2026）、Chapter 105「Krokodove Nodes」、p.2436「Image Pixel Tools / Seamless」。確認できたのは、反対側の端を鏡映しにして元画像と混ぜるという役割です。
+- **関連する公式記述**：同ページの「Seamless Loop」「Mirror」「Kaleidoscope」「Offset」。用途の違いは各項目の説明に基づきます。
+- **関連ガイド**：[Krokodoveの画像・Shape・3D・Region](./)。
+
+画像の入出力分類は既存COLLECTANEAカタログに基づき、制作例と検査方法はその役割を理解するための提案です。Inspectorや正確な入出力仕様を実機で確認していないため、`verification: partial` を維持します。

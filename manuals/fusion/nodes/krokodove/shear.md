@@ -1,61 +1,106 @@
 ---
-title: "Shear"
-description: "angular shear。2nd inputでintensity。"
+title: Shear
+description: Krokodove Shearによる斜め方向の画像変形と、変形の強さを指定する第2入力の役割を説明。
 doc_type: node
-term_id: "shear"
-term_short: "Shearは、angular shear。2nd inputでintensity。Krokodove固有のtool。"
+term_id: shear
+term_short: 画像の形を斜めにずらすように変形し、追加の入力で変形の強さを指定できるKrokodoveの画像ツール。
 verification: partial
-aliases: ["Shear"]
-concepts: ["image-data"]
-nodes: ["Shear"]
-node_family: "krokodove"
-inputs: ["image"]
-outputs: ["image"]
-tasks: ["motion-graphics"]
+aliases: [Shear]
+concepts: [image-data]
+nodes: [Shear]
+node_family: krokodove
+inputs: [image]
+outputs: [image]
+tasks: [motion-graphics]
 product_scope: fusion
-suite_surfaces: ["fusion"]
-updated: "2026-10-05"
+suite_surfaces: [fusion]
+updated: '2026-10-20'
 ---
 
 # Shear
 
-Shearは、angular shear。2nd inputでintensity。Krokodove固有のtoolです。名前だけで2D Image Nodeと判断せず、Input / Output domainとFamily Overviewを先に確認します。
+**Shearは、画像に斜め方向のずれを生む変形を加えるKrokodoveの画像ツール**です。DaVinci Resolve 21.1 Reference Manualでは「Image Warp Tools」に分類され、角度を伴うシアー変形（angular shear）と、**変形の強さを決める追加入力**が説明されています。
 
-## 役割
+例えば、長方形を斜めに傾いた平行四辺形のように見せたり、格子模様の縦線が斜めに走るような表現を検討したりするときの候補になります。ただし、この見た目はシアー変形を理解するための一般例です。Krokodove Shearの正確な変換式や、画像のどこを基準に変形するかまでは、マニュアルの一覧から確定できません。
 
-angular shear。2nd inputでintensity。このページでは、名前だけで選ばず、**何を受け取り、何が変わり、どのdomainへ返すか**を先に整理します。
+## 「シアー変形」は回転とどう違うか
 
-この項目で確認できている中心的な役割は「angular shear。2nd inputでintensity」です。exactなInspector項目が未確認の場合は、役割とdata domainを先に使って候補を絞ります。
+紙に描かれた長方形を思い浮かべてください。紙全体を回す「回転」では、長方形の直角は保たれます。一方、上側を横にずらして下側を固定するような「シアー変形」では、長方形は斜めに傾いた四角形に見えます。**上と下でずれる量が違う**ことが、単に全体を同じ方向へ移動する操作との違いです。
 
-## 入力と出力
+この説明は、画像変形の種類を理解するためのたとえです。ShearのInspectorに「上側を動かす」「下側を固定する」という設定があることを意味しません。また、変形後の四辺が必ず直線になるとも限りません。21.1 Manualではangular shearという効果の名称までを確認できます。
 
-入力分類: **image**。 出力分類: **image**。 この分類はdata domainを読むためのものです。Fusion 21.1のexactな端子名・端子数を未確認の場合、ここでは推測して固定しません。
+Fusionでここで扱うのは、輪郭データを編集する<Term id="shape-data">Shape</Term>ではなく、画素からできた<Term id="image">Image</Term>です。写真、動画、文字を一度画像化した結果などに適用する画像変形として考えます。
 
-## 使うときの判断
+## 入力・出力と第2入力
 
-KrokodoveはImage、Shape、3D、Regionが同じchapterに並ぶため、まずOutput domainで候補を絞ります。
+| 区分 | 役割 | 根拠・確認範囲 |
+| --- | --- | --- |
+| 主入力 | **2D Image**。変形したい元画像 | 21.1 Manualの「Image Warp Tools」分類と既存カタログのImage分類 |
+| 追加入力 | **シアー変形の強さを決めるための入力** | 21.1 Manualに「Additional input to determine the shear intensity」と明記 |
+| 出力 | 変形後の**2D Image** | 画像変形ツールとしてのデータ分類 |
+| 未確認 | 各端子の正式名称・色・データ型、追加入力の値の解釈、Inspector項目・既定値・値域 | 同Manualの一覧には詳細なし |
 
-同じ目的を別Familyでも作れる場合は、後段で必要なdata domainと、Graph上で責任をどこに置きたいかで選びます。
+**第2入力があることと、その入力が何を受け取るかは別の情報です。** マニュアルは「変形の強さを決める」と説明していますが、それが画像の明るさ、マスク、数値、特定の別データのどれを受け取るかまでは、このページの出典では特定できません。通常の画像入力と同じ端子だと仮定して、無理にImageやMaskを接続しないでください。
 
-## 最小構成
+また「強さ」とは変形をどれだけ目立たせるかに関係する意味合いであり、入力値と変形角度が比例するなどの計算式を保証するものではありません。第2入力が未接続でも動作するか、単独のInspector設定とどう組み合わされるかも未確認です。
 
-    Image / Source → Shear → Result
+先頭メタデータの `inputs: [image]` と `outputs: [image]` は、元画像と結果の**主なデータ分類**です。正式なポート数を1入力・1出力と断定する情報ではありません。
 
-これは接続関係を理解するための最小構成案です。公式Manualのexactな作例として確認していない構成は、実制作前にViewerで中間結果を確認します。
+## 何に使うか
 
-## 確認ポイント
+### ストライプや格子を斜めに崩す
 
-- 入力dataのdomainが合っているか。
-- この項目のoutputを受け取れる後段Nodeへ接続しているか。
-- 同じ役割を前段 / 後段で二重に処理していないか。
-- source-limited pageでは、未確認のControl名・default・rangeを名前から推測していないか。
+垂直線と水平線が規則的に並んだ背景は、シアー変形の前後を観察しやすい素材です。縦線の傾きや四角いマス目の形を比較すれば、単純な回転や拡大縮小とは違う変化が出ているか確認できます。MVの抽象背景やタイトルの背面グラフィックを作る際に使い分ける候補になります。
 
-## Family内での位置づけ
+### 文字の背景だけを変形する
 
-Krokodoveノードの全体像と近いNodeの選び分けは[Family Overview](./)を参照してください。
+例えば、四角いブロックや線を含む背景画像をShearで加工し、その後でText+をMergeすれば、**背景だけに変形を加え、文字は元の形のまま**配置できます。文字そのものを傾けたいときはText+の変形や標準の画像変形も候補になりますが、Shearと同じ数値・結果になるとは限りません。
 
-## 出典と確認範囲
+### 別入力に応じた強さの変化を調べる
 
-このページの役割・data domain・系譜は、既存COLLECTANEA catalogとBlackmagic Design公式資料で確認された範囲をreader-first形式へ整理しています。
+第2入力を利用できる環境であれば、一定の強さと変化する強さで結果を比較する検証が考えられます。ただし、**どのデータを接続できるかが未確定**なので、実機で端子の種類を調べるまでは具体的な接続先や自動アニメーション手順を固定しません。
 
-Fusion 21.1 Reference Manualで個別のInspector項目・default・rangeまで確認できていない項目は、**source-limited**としてその詳細を断定していません。verification: partial はその未確認範囲を含みます。runtime REGIDや現在のEffects Library表示は別のruntime verificationで確定します。
+## 制作例：格子背景を傾けて、読みやすいタイトルを重ねる
+
+次は、Krokodove Shearが何を変えるか確認するための**構成例**です。Blackmagic Designが公開した設定値付きの手順ではありません。
+
+~~~text
+MediaIn（格子・縦線の画像） → Shear → Merge（Background） → MediaOut
+Text+（タイトル） ─────────────────────→ Merge（Foreground）
+~~~
+
+1. 格子や縦線のある画像を用意し、MediaInからShearの画像用入力へ渡します。Shearの結果だけをViewerへ表示し、元の線と比べます。
+2. Inspectorで実際に存在する項目を確認し、画像の傾きや各位置のずれ方を調べます。ここでは未確認の「Angle」「Amount」「Center」などを正式な設定名として指定しません。
+3. **追加入力は別途確認**します。第2入力に何を接続できるか、接続前後で結果がどう変わるかを実機の端子情報とViewerで確認し、型が不明なまま接続しません。
+4. Shearの出力をMergeのBackgroundへ、Text+をForegroundへつなぎます。タイトルはShearを通らないため、背景とは別に可読性を調整できます。
+5. 動画で使用する場合は、画面端、細線、斜めになった輪郭、透明部分の見え方を再生して確認します。特に端の画素がどう補われるかは、公式の一覧から確定できません。
+
+既に文字を含めて一枚の画像になった素材をShearへ入力すると、文字もその画像の一部として扱われます。タイトルを変形させたいかどうかで、**ShearとMergeの順序**を変えます。
+
+## 関連ノードと選び分け
+
+| ノード | 21.1 Manualで確認できる主な役割 | 比較するときの視点 |
+| --- | --- | --- |
+| **Shear** | 角度を伴うシアー変形。強さを指定する追加入力あり | 画像の一部が位置に応じて斜めにずれる見え方と第2入力 |
+| [Segment Transform](./segment-transform) | 画像を正方形の区画へ分け、区画ごとに角度・スケールの歪みを加える | 画像全体を一続きに傾けるか、区画ごとに変えるか |
+| [Warped Transform](./warped-transform) | 画像を伸ばす・押し縮める・回す | シアー以外を含む変形をまとめて比較したいか |
+| [Bend](./bend) | 放射状に画像を曲げる | 傾きより曲線状の歪みを重視するか |
+| [Spherize](./spherize) | 特定の形状領域内にへこみ・虫眼鏡風の変形を加える | 画面の一部分へレンズ風の変化を加えるか |
+
+標準のTransformで扱う移動・回転・拡大縮小も比較対象です。ただし、**標準TransformのInspector項目をShearへそのまま読み替えることはできません**。名前に「Transform」が含まれる関連ノードとも、端子やパラメータは別途確認が必要です。
+
+## 注意点と確認範囲
+
+- **第2入力の型**：21.1 Manualには「変形の強さを決める追加入力」とだけあります。画像・Mask・数値などの正確なデータ型、未接続時の挙動は確認していません。
+- **Inspector**：角度や強さの正式ラベル、中心・方向・補間を選べるか、値域や既定値は未確認です。一般的なシアーの数式をKrokodove実装の仕様として使わないでください。
+- **境界とAlpha**：画像端の補完方法、透明画素、premultiplied Alphaの扱いは出典から分かりません。透明なロゴやテキストを加工するときは、合成後も確認します。
+- **時間変化**：動画入力を加工することと、Shear自身に専用アニメーション操作があることは別です。第2入力の時間的な評価方法も未確認です。
+- **製品・Edition差**：21.1 Manualに掲載されていることは確認していますが、Resolve Free / Studio / Fusion Studioごとの提供条件、内部REGID、実際のノードUIは未確認です。
+
+## バージョンと出典
+
+一次資料：Blackmagic Design『**DaVinci Resolve 21.1 Reference Manual**』（September 2026）、Chapter 105「Krokodove Nodes」、**p.2437「Image Warp Tools / Shear」**。同じページのSegment Transform、Spherize、Warped Transformと併せて照合しました。
+
+「angular shear」と**強さを決める第2入力があること**は一次資料で確認した内容です。シアー変形の一般的な説明、格子・タイトルの構成例、関連ノードの使い分けは理解と検証のための説明であり、実機のInspector値や内部アルゴリズムの証明ではありません。未確認範囲が残るため、`verification: partial`を維持しています。
+
+[Krokodoveノードの一覧](./)も参照してください。

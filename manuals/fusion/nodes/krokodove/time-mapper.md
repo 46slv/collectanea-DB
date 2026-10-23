@@ -1,61 +1,105 @@
 ---
-title: "Time Mapper"
-description: "外部image mapでsequence timeを組み合わせる。"
+title: Time Mapper
+description: 外部の画像を使って映像の異なる時刻を組み合わせるKrokodoveツール。入力と時間制御の考え方、確認方法、Time Stretcherとの違いを説明。
 doc_type: node
-term_id: "time-mapper"
-term_short: "Time Mapperは、外部image mapでsequence timeを組み合わせる。Krokodove固有のtool。"
+term_id: time-mapper
+term_short: 映像の異なる時刻を、外部画像マップで制御して組み合わせるツール。
 verification: partial
-aliases: ["Time Mapper"]
-concepts: ["image-data"]
-nodes: ["Time Mapper"]
-node_family: "krokodove"
-inputs: ["image"]
-outputs: ["image"]
-tasks: ["motion-graphics"]
+aliases: [Time Mapper]
+concepts: [image-data]
+nodes: [Time Mapper]
+node_family: krokodove
+inputs: [image]
+outputs: [image]
+tasks: [motion-graphics]
 product_scope: fusion
-suite_surfaces: ["fusion"]
-updated: "2026-10-05"
+suite_surfaces: [fusion]
+updated: '2026-10-21'
 ---
 
 # Time Mapper
 
-Time Mapperは、外部image mapでsequence timeを組み合わせる。Krokodove固有のtoolです。名前だけで2D Image Nodeと判断せず、Input / Output domainとFamily Overviewを先に確認します。
+**Time Mapper**は、映像の異なる時刻を外部の画像によって制御し、組み合わせるKrokodoveのツールです。画面全体を一定速度で再生し直すのではなく、**時間の扱いに画像を参加させる**ことが特徴です。
 
-## 役割
+DaVinci Resolve 21.1 Reference Manualは、Time Mapperを「Image Tools」に分類し、外部画像マップを使ってシーケンスの異なる時刻を組み合わせると説明しています。ただし、**画像の色や明るさをどの時刻へ対応させるか**、どのように複数時刻を合成するかまでは記載していません。
 
-外部image mapでsequence timeを組み合わせる。このページでは、名前だけで選ばず、**何を受け取り、何が変わり、どのdomainへ返すか**を先に整理します。
+## 何が起こるのか
 
-同じframeの画素処理ではなく、どのsource timeをcurrent frameへ対応させるかを確認します。
+動画は複数の画像が時間順に並んだものです。通常の再生では、現在時刻に対応するフレームを表示します。Time Mapperは、出力を作るときに**元映像の異なる時間位置を利用する**ためのツールです。その時間の組み合わせを外部画像マップで制御できるとManualに記されています。
+
+ここでいう**画像マップ**は、背景の上へ重ねる写真ではありません。画像に含まれる情報を、別の処理の制御に利用するという意味です。たとえば明暗を持つ図形を制御側へ渡し、出力がどう変化するか比較する方法が考えられます。
+
+ただし「白い部分は未来、黒い部分は過去」「画面の位置ごとに別時刻を表示する」といった具体的な規則は、資料の短い説明だけでは確認できません。そのような効果を想定して制作を始める前に、実機でマップと時間の対応を調べる必要があります。
 
 ## 入力と出力
 
-入力分類: **image**。 出力分類: **image**。 この分類はdata domainを読むためのものです。Fusion 21.1のexactな端子名・端子数を未確認の場合、ここでは推測して固定しません。
+| 材料・結果 | 役割 | 根拠と未確認範囲 |
+| --- | --- | --- |
+| 元になる画像シーケンス | 時間とともに内容が変わる映像 | 21.1 Manualはシーケンスの異なる時刻を組み合わせると記載。 |
+| 外部画像マップ | 時間の組み合わせを制御する材料 | 外部画像を利用することは確認済み。正式な端子名・本数・対応チャンネルは未確認。 |
+| 処理結果 | 時間を組み合わせた画像 | 既存カタログではImage出力に分類。具体的な端子名・Alphaの扱いは未確認。 |
 
-## 使うときの判断
+<Term id="image">Image（画像データ）</Term>は、色や透明度などの値を持つ画素の集まりです。Frontmatterの `inputs: [image]` と `outputs: [image]` は扱うデータの**種類**であり、入力端子が1本しかないという意味ではありません。
 
-KrokodoveはImage、Shape、3D、Regionが同じchapterに並ぶため、まずOutput domainで候補を絞ります。
+元映像と外部画像マップは役割が違います。前者は時間ごとに変化する素材であり、後者は時間の処理を制御する情報です。画像をそのまま重ねるMergeとは区別してください。
 
-同じ目的を別Familyでも作れる場合は、後段で必要なdata domainと、Graph上で責任をどこに置きたいかで選びます。
+## 主な用途
 
-## 最小構成
+### 異なる瞬間を利用するモーショングラフィックス
 
-    Image / Source → Time Mapper → Result
+動く線、回転する図形、数字が切り替わる映像などを使い、異なる時刻を組み合わせた表現を検討できます。どんな形で同時表示されるかは未検証なので、最初は数字付きの検証動画を使い、出力がどの元フレームに由来するか調べると判断しやすくなります。
 
-これは接続関係を理解するための最小構成案です。公式Manualのexactな作例として確認していない構成は、実制作前にViewerで中間結果を確認します。
+### 画像によって時間変化を制御する試作
 
-## 確認ポイント
+均一な画像、濃淡が分かれた画像、帯状のグラデーションなどを制御マップの候補として比較し、マップの変更が結果に及ぼす影響を観察します。これらは**検証用素材の提案**であり、白黒値や各チャンネルが特定の時間へ変換されることを保証しません。
 
-- 入力dataのdomainが合っているか。
-- この項目のoutputを受け取れる後段Nodeへ接続しているか。
-- 同じ役割を前段 / 後段で二重に処理していないか。
-- source-limited pageでは、未確認のControl名・default・rangeを名前から推測していないか。
+### 一般的なリタイムとの使い分け
 
-## Family内での位置づけ
+素材全体を半速・倍速にするなら[Time Speed](../time-metadata/time-speed)、再生位置をキーとSplineで変えたいなら[Time Stretcher](../time-metadata/time-stretcher)が直接的です。外部画像を時間処理に関わらせたい場合に、Time Mapperを候補にします。
 
-Krokodoveノードの全体像と近いNodeの選び分けは[Family Overview](./)を参照してください。
+## 実機での確認例：数字が変わる映像を使う
 
-## 出典と確認範囲
+次の手順は、21.1 Manualの短い機能紹介から作った**確認案**です。正式なポート接続やInspector操作の検証済みレシピではありません。
 
-このページの役割・data domain・系譜は、既存COLLECTANEA catalogとBlackmagic Design公式資料で確認された範囲をreader-first形式へ整理しています。
+1. フレームごとに数字が変わる短い動画を用意します。どの時刻の内容が使われたかを見分けやすい素材です。
+2. FusionでTime Mapperを追加し、Inspectorとノードの入力・出力を確認します。元映像と外部画像マップをどこへ渡せるか、表示される端子から特定します。
+3. マップの入力方法が確認できた場合、まず均一な画像を使い、Time Mapperの前後をViewerで比較します。
+4. 次に濃淡の異なる画像へ切り替え、**マップ以外の条件を固定**して結果を比較します。
+5. 時間を前後に動かし、どの元フレームが使われているか観察します。クリップ先頭・末尾の扱いは不明なので、まず中央付近で試します。
 
-Fusion 21.1 Reference Manualで個別のInspector項目・default・rangeまで確認できていない項目は、**source-limited**としてその詳細を断定していません。verification: partial はその未確認範囲を含みます。runtime REGIDや現在のEffects Library表示は別のruntime verificationで確定します。
+材料の関係は次のように考えます。
+
+~~~text
+時間変化のある映像 ─┐
+                    ├─→ Time Mapper ─→ 処理後の画像
+制御用の画像マップ ─┘
+~~~
+
+**これは材料と結果の概念図であり、正式な端子配置を表す配線図ではありません。** 画像マップを変えても出力に差が出ない場合は、入力方法、Inspectorの有効条件、対象の時間位置などを確認します。未確認の制御式や端子名を前提に作業を進めないでください。
+
+## 関連ノードとの違い
+
+| ノード | 時間をどう扱うか | 選ぶ基準 |
+| --- | --- | --- |
+| **Time Mapper** | 外部画像を使ってシーケンスの異なる時刻を組み合わせる | 画像による時間制御を試す |
+| [Time Speed](../time-metadata/time-speed) | 一定の速度倍率や時間オフセットを指定する | 全体を一定速度で早送り・減速・逆再生する |
+| [Time Stretcher](../time-metadata/time-stretcher) | Source Timeで読む元の時刻を指定する | 加速・停止・逆再生を時間に沿って組み立てる |
+
+Time MapperをTime Stretcherの「画像入力版」と断定することはできません。Time Mapperの補間方式、時間範囲、マップの評価規則が同じである根拠は、21.1 ManualのKrokodove項目にはありません。
+
+## 注意点と確認が必要な仕様
+
+- **端子**：元映像と外部マップの端子名、本数、必須条件、出力端子の正式名称は未確認です。
+- **Inspector**：時間範囲、補間、ブレンド、参照チャンネル、マップの向き、初期値と値域は未確認です。項目が存在するとも断定しません。
+- **画像と時間の対応**：画素値や位置をどの時刻へ変換するか、複数時刻をどう組み合わせるかは未確認です。
+- **素材の範囲外**：元映像の先頭より前・末尾より後を参照した場合の結果は未確認です。
+- **性能と画質**：フレームキャッシュ、フレーム補間、Motion Vector対応、Alphaや補助チャンネルの扱いは未確認です。
+- **バージョン・エディション**：内部REGID、Resolve Free／Studio／Fusion Studioの提供差、21.1実機での動作は未確認です。
+
+## バージョンと出典
+
+**一次資料：** Blackmagic Design『DaVinci Resolve 21.1 Reference Manual』（September 2026）、Chapter 105「Krokodove Nodes」、p.2435「Image Tools — Time Mapper」。外部画像マップでシーケンスの異なる時刻を組み合わせる役割を確認しました。
+
+Time SpeedとTime Stretcherの機能差は同ManualのChapter 111「Miscellaneous Nodes」（pp.2607–2613）および各ノードの個別記事を参照しています。Fusionのデータ領域は[画像（Image）](../../learn/02-data/image)、関連するKrokodoveのツールは[ファミリー概要](./)を参照してください。
+
+この項目には正式なポート一覧やInspectorの説明がないため、資料で確認した役割と実機確認の手順案を分け、`verification: partial`を維持しています。
