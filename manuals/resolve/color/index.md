@@ -6,7 +6,7 @@ verification: partial
 product_scope: color
 suite_surfaces: [color]
 tasks: [grade, color-correct, color-management, match-shots]
-updated: "2026-10-23"
+updated: "2026-10-24"
 ---
 
 # Colorページ
@@ -68,6 +68,7 @@ Colorページは、素材の明るさや色の偏りを整え、複数ショッ
 - [3カメラのインタビューをショットマッチングする](./recipes/matching-multicamera-interview) — 基準StillとScopesを使ってカット間の色を整える
 - [Power Windowで局所ハイライト補正](./recipes/window-highlight-isolation) — 逆光の窓を分離して人物を保護
 - [肌の色を整える：Qualifier・Power Window・Scopes](./recipes/skin-tone-secondary-grading) — 肌の必要な領域だけを抽出して自然な補正にする
+- [背景のLookから人物を守る：Layer Mixer](./recipes/layer-mixer-subject-protection) — 同じベースの分岐で背景と人物を調整し、優先順とMatteを確認する
 - [納品前のColor QC](./recipes/pre-delivery-color-qc) — Lightbox、Scopes、Stills、再生で補正漏れと副作用を点検する
 
 ## トラブルシューティング（Troubleshooting）
@@ -79,7 +80,7 @@ Colorページは、素材の明るさや色の偏りを整え、複数ショッ
 
 ## 次に整備する領域
 
-機能固有の操作、使い分け、実践的な手順を、公式21.1マニュアルと実機確認を基に段階的に追加します。次の候補はImage Wipeによる2画像の比較と、Layer Mixerによる人物の保護です。
+機能固有の操作、使い分け、実践的な手順を、公式21.1マニュアルと実機確認を基に段階的に追加します。次の候補はImage Wipeによる2画像の比較と、既存Layer Mixerレシピの実機検証です。
 
 ## Fusionとの差
 
