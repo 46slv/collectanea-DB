@@ -1,0 +1,175 @@
+{
+  "schema_version": 1,
+  "case": "S37",
+  "article": "manuals/fusion/learn/05-time/expressions.md",
+  "manual": {
+    "version": "21.1",
+    "chapter": 73,
+    "printed_pages": "1583–1588"
+  },
+  "runtime": {
+    "version": "21.1.0.14",
+    "edition": "Studio",
+    "os": "Windows-11-10.0.26200-SP0",
+    "ui_language": "ja-JP (some Shape controls remain English)"
+  },
+  "captured_at": "2026-10-23T17:54:52.417743+00:00",
+  "project": "Collectanea_Captures_20261023_Sol",
+  "timeline": "S37_capture",
+  "frame": 0.0,
+  "resolution": [
+    1920,
+    1080
+  ],
+  "color_management": {
+    "colorScienceMode": "davinciYRGB",
+    "colorSpaceTimeline": "Rec.709 (Scene)",
+    "colorSpaceTimelineGamma": "",
+    "colorSpaceOutput": "Rec.709 (Scene)",
+    "colorSpaceOutputGamma": "ACEScc",
+    "separateColorSpaceAndGamma": "0",
+    "isAutoColorManage": "0",
+    "timelineResolutionWidth": "1920",
+    "timelineResolutionHeight": "1080",
+    "timelineFrameRate": 24.0,
+    "timelinePlaybackFrameRate": "30"
+  },
+  "viewer": {
+    "zoom_percent": 40,
+    "channel": "Color",
+    "background": "checkerboard for transparent pixels",
+    "note": "Viewer screenshots are display evidence, not colorimetric exports."
+  },
+  "graph": "fixture.comp",
+  "settings": "readback.json",
+  "source": {
+    "file": "screen.png",
+    "size": [
+      3352,
+      1910
+    ],
+    "sha256": "7437a7bbc82718040046423f2faa67b72d79504946eda0e227532e96c3f4d02c"
+  },
+  "shots": [
+    {
+      "file": "graph.png",
+      "source": "screen.png",
+      "source_sha256": "7437a7bbc82718040046423f2faa67b72d79504946eda0e227532e96c3f4d02c",
+      "frame": 0.0,
+      "crop_xyxy": [
+        240,
+        1060,
+        2600,
+        1660
+      ],
+      "resampled": false,
+      "sha256": "e643d16a2cb6b9bf70eeae1b89561bf80af45db9b95b652a220e2eaeb1e65db7"
+    },
+    {
+      "file": "master-inspector.png",
+      "source": "screen-master.png",
+      "source_sha256": "67595b26ebf8dba312d3b7f6f8591ea4a03032c2f3523603d78fc36a14211634",
+      "frame": 0.0,
+      "crop_xyxy": [
+        2830,
+        120,
+        3352,
+        710
+      ],
+      "resampled": false,
+      "sha256": "7afe989c2ed8b8849ece2be7307f5e1f4aa189dab3c616c8e34deba2db2a80de"
+    },
+    {
+      "file": "inspector.png",
+      "source": "screen.png",
+      "source_sha256": "7437a7bbc82718040046423f2faa67b72d79504946eda0e227532e96c3f4d02c",
+      "frame": 0.0,
+      "crop_xyxy": [
+        2830,
+        120,
+        3352,
+        740
+      ],
+      "resampled": false,
+      "sha256": "4a12c61e6146d99db6cede5d79e793b339edf130e2dc459129e0e41561c69fe5"
+    },
+    {
+      "file": "compare.png",
+      "source": "screen.png",
+      "source_sha256": "7437a7bbc82718040046423f2faa67b72d79504946eda0e227532e96c3f4d02c",
+      "frame": 0.0,
+      "crop_xyxy": [
+        1146,
+        65,
+        2830,
+        705
+      ],
+      "resampled": false,
+      "sha256": "65090c6d21088c17591e1647be78babc04f440ee26e3e1e4de27b16434fe4b7c"
+    },
+    {
+      "file": "master-low-inspector.png",
+      "source": "screen-master-low.png",
+      "source_sha256": "907b318eaff605d1c67ddc14b1265be412d6e2ea6547319ed598cb81bfb3c76e",
+      "frame": 0.0,
+      "crop_xyxy": [
+        2830,
+        120,
+        3352,
+        710
+      ],
+      "resampled": false,
+      "sha256": "d1268e72b0d7b68b2e5a000f3def323aa50d29c27ada032a119c04d76edd5b89"
+    },
+    {
+      "file": "low-inspector.png",
+      "source": "screen-low.png",
+      "source_sha256": "f465d50aa702d0db17d64f24f7a2e68d0f3d15970ceb6f0c0623b4844581e2bb",
+      "frame": 0.0,
+      "crop_xyxy": [
+        2830,
+        120,
+        3352,
+        740
+      ],
+      "resampled": false,
+      "sha256": "44eedb355a99ed08e6eeb0ea642edd8c6646dddd9d13ee9f2af0a63082d1bce1"
+    },
+    {
+      "file": "low.png",
+      "source": "screen-low.png",
+      "source_sha256": "f465d50aa702d0db17d64f24f7a2e68d0f3d15970ceb6f0c0623b4844581e2bb",
+      "frame": 0.0,
+      "crop_xyxy": [
+        1146,
+        65,
+        2830,
+        705
+      ],
+      "resampled": false,
+      "sha256": "23c593413c8f3b16f927ab365696e167640716a60019addf07ab3e72acfe4f48"
+    }
+  ],
+  "acceptance": {
+    "gui": "PASS: owner visually inspected node connections, selected Inspector, and output",
+    "article_display": "PASS: local production build;1440px/390px,decode/Alt/native links/hash/overflow"
+  },
+  "unverified": [
+    "Free edition and other platforms",
+    "All parameter ranges and performance",
+    "Exported portable composition reimport"
+  ],
+  "state_variants": {
+    "screen.png": "master/derived0.8; expression MergeMaster.Blend; restored fixture",
+    "screen-master.png": "master Inspector0.8",
+    "screen-low.png": "master/derived0.3; expression retained",
+    "screen-master-low.png": "master Inspector0.3"
+  },
+  "restoration": "PASS: master Blend restored0.8; derived follows0.8 and expression retained",
+  "reproduction": {
+    "fixture_sha256": "9c950915b3a212d7ecddd96e5800193109f1946ffa3f66c8b1151bcc9557b547",
+    "readback_sha256": "7d6136e46b3ce5865484345d1d1643ada70999a0ba0878245c7237bbadf82b14",
+    "paths": "Comp:/../_fixtures/ for bundled synthetic fixtures",
+    "reimport": "NOT_RUN: accepted GUI evidence precedes export path normalization"
+  }
+}

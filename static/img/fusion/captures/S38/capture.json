@@ -1,0 +1,175 @@
+{
+  "schema_version": 1,
+  "case": "S38",
+  "article": "manuals/fusion/learn/03-space/center-pivot-size-angle.md",
+  "manual": {
+    "version": "21.1",
+    "chapter": 120,
+    "printed_pages": "2882–2883"
+  },
+  "runtime": {
+    "version": "21.1.0.14",
+    "edition": "Studio",
+    "os": "Windows-11-10.0.26200-SP0",
+    "ui_language": "ja-JP (some Shape controls remain English)"
+  },
+  "captured_at": "2026-10-23T18:01:50.276476+00:00",
+  "project": "Collectanea_Captures_20261023_Sol",
+  "timeline": "S38_capture",
+  "frame": 0.0,
+  "resolution": [
+    1920,
+    1080
+  ],
+  "color_management": {
+    "colorScienceMode": "davinciYRGB",
+    "colorSpaceTimeline": "Rec.709 (Scene)",
+    "colorSpaceTimelineGamma": "",
+    "colorSpaceOutput": "Rec.709 (Scene)",
+    "colorSpaceOutputGamma": "ACEScc",
+    "separateColorSpaceAndGamma": "0",
+    "isAutoColorManage": "0",
+    "timelineResolutionWidth": "1920",
+    "timelineResolutionHeight": "1080",
+    "timelineFrameRate": 24.0,
+    "timelinePlaybackFrameRate": "30"
+  },
+  "viewer": {
+    "zoom_percent": 40,
+    "channel": "Color",
+    "background": "checkerboard for transparent pixels",
+    "note": "Viewer screenshots are display evidence, not colorimetric exports."
+  },
+  "graph": "fixture.comp",
+  "settings": "readback.json",
+  "source": {
+    "file": "screen.png",
+    "size": [
+      3352,
+      1910
+    ],
+    "sha256": "39d15838287aebc7ffcb7fe806ae9ace506fbf88c29b39c393527c408de786c6"
+  },
+  "shots": [
+    {
+      "file": "graph.png",
+      "source": "screen.png",
+      "source_sha256": "39d15838287aebc7ffcb7fe806ae9ace506fbf88c29b39c393527c408de786c6",
+      "frame": 0.0,
+      "crop_xyxy": [
+        580,
+        1300,
+        2280,
+        1450
+      ],
+      "resampled": false,
+      "sha256": "6049a8670a29182e0c43d68a3a523af5721917e535cd62441a87b7db61ed577c"
+    },
+    {
+      "file": "normalized-inspector.png",
+      "source": "screen-normalized.png",
+      "source_sha256": "53e91da3e81ad2630ff3e2782126e0811b48bc19ee8a671945e09071c0965b91",
+      "frame": 0.0,
+      "crop_xyxy": [
+        2830,
+        120,
+        3352,
+        660
+      ],
+      "resampled": false,
+      "sha256": "25728b199e3365993b53f778d0d8d8a6ce6f847ae9785764bfcafefaed3eaf75"
+    },
+    {
+      "file": "inspector.png",
+      "source": "screen.png",
+      "source_sha256": "39d15838287aebc7ffcb7fe806ae9ace506fbf88c29b39c393527c408de786c6",
+      "frame": 0.0,
+      "crop_xyxy": [
+        2830,
+        120,
+        3352,
+        660
+      ],
+      "resampled": false,
+      "sha256": "6a8502d5b6d91deec114f5b8831788e30e1c8cb6c2e83ec5ef1007622cfd8917"
+    },
+    {
+      "file": "large-inspector.png",
+      "source": "screen-3840.png",
+      "source_sha256": "98d968a61245129a91719de4d54b3035167bbc509af70c075592c0312e1c06db",
+      "frame": 0.0,
+      "crop_xyxy": [
+        2830,
+        120,
+        3352,
+        660
+      ],
+      "resampled": false,
+      "sha256": "6579b3511684922aafe42725d49da9a8ac40bbeef16211a4ae8750ba014f0c98"
+    },
+    {
+      "file": "auto-inspector.png",
+      "source": "screen-auto.png",
+      "source_sha256": "e912504b74a50fa5d9192b476bc545ae5309bd5567e56a1f81cd109278af848a",
+      "frame": 0.0,
+      "crop_xyxy": [
+        2830,
+        120,
+        3352,
+        660
+      ],
+      "resampled": false,
+      "sha256": "b29ec084593187918d1f781692cdfad7e6e1deb0288c982531a7fdcec6bcce00"
+    },
+    {
+      "file": "compare.png",
+      "source": "screen.png",
+      "source_sha256": "39d15838287aebc7ffcb7fe806ae9ace506fbf88c29b39c393527c408de786c6",
+      "frame": 0.0,
+      "crop_xyxy": [
+        1146,
+        65,
+        2830,
+        705
+      ],
+      "resampled": false,
+      "sha256": "472fba35ecb150b5420674028a00935d51c62734f7dda488198e5b026d986ec5"
+    }
+  ],
+  "acceptance": {
+    "gui": "PASS: owner visually inspected node connections, selected Inspector, and output",
+    "article_display": "PASS: local production build;1440px/390px,decode/Alt/native links/hash/overflow"
+  },
+  "unverified": [
+    "Free edition and other platforms",
+    "All parameter ranges and performance",
+    "Exported portable composition reimport"
+  ],
+  "state_variants": {
+    "screen.png": "manual Reference1920x1080, Center display1008/540, internal0.525/0.5; restored fixture",
+    "screen-normalized.png": "Reference1x1, Center display0.525/0.5",
+    "screen-3840.png": "Reference3840x2160, Center display2016/1080, internal0.525/0.5",
+    "screen-auto.png": "Auto Resolution on, Timeline1920x1080, Center display1008/540"
+  },
+  "viewer_comparison": {
+    "sources": [
+      "screen.png",
+      "screen-3840.png"
+    ],
+    "crop_xyxy": [
+      2048,
+      193,
+      2816,
+      625
+    ],
+    "result": "PASS: identical native Viewer pixels for Reference1920/3840",
+    "scope": "Display evidence, not render export or colorimetry"
+  },
+  "restoration": "PASS: Auto Resolution off, Reference1920x1080, Center internal0.525/0.5, Viewer Color40%",
+  "reproduction": {
+    "fixture_sha256": "890fef72f95b03e2356bd4023bb9fc381bd113ad62780956a7847faa07ec8ba7",
+    "readback_sha256": "e2a5dc16d6a05ccb1b60a159cc6621834273632c0aae9c437829cb7e9c5161c5",
+    "paths": "Comp:/../_fixtures/ for bundled synthetic fixtures",
+    "reimport": "NOT_RUN: accepted GUI evidence precedes export path normalization"
+  }
+}

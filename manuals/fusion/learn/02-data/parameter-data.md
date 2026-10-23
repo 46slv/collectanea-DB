@@ -51,7 +51,7 @@ MediaIn1からTransform1に渡るImageには、画素の色・Alpha・画像サ�
 
 [![S06の実機撮影例。Inspectorの設定値](/img/fusion/captures/S06/inspector.png)](/img/fusion/captures/S06/inspector.png)
 
-Resolve Studio 21.1.0.14／Windowsで撮影済みのS06を再利用した参考例です。画像接続とパラメータの場所を区別する例です。Keyframe・Expression・Modifier・Publish/Connect Toの供給元追跡は追加撮影の対象です。 [元の撮影条件と確認範囲](/img/fusion/captures/S06/capture.json)
+Resolve Studio 21.1.0.14／Windowsで撮影済みのS06を再利用した参考例です。画像接続とパラメータの場所を区別する例です。KeyframeとSimpleExpressionの実例は後段へ掲載しました。Modifier・Publish/Connect Toと別フレームの供給元追跡は追加撮影の対象です。 [元の撮影条件と確認範囲](/img/fusion/captures/S06/capture.json)
 
 ## パラメータには型がある
 
@@ -153,6 +153,30 @@ Inspectorの`Tools`パネルはNode自身の設定、`Modifiers`パネルはパ�
 6. **参照先をさらに追う。** 1段目のModifierや式も別の値から計算されていないか確認する。
 
 元のAnimationを壊さないよう、設定を外す前に値・参照先・再生位置を控えます。固定値との差を比べたいときは、検証用に複製したNodeで試すと安全です。
+
+### 実機の参考例
+
+<!-- capture-reuse:R69 -->
+
+S37のMergeDerivedでは、Blend欄の下に供給元の式MergeMaster.Blendが見えます。Masterを0.8から0.3へ変えると、式を残したままDerivedの値も0.3へ変わります。
+
+[![S37の実機撮影。MergeDerivedのBlendと参照式MergeMaster.Blend](/img/fusion/captures/S37/inspector.png)](/img/fusion/captures/S37/inspector.png)
+
+[![S37の実機撮影。式を残したまま0.3へ追従した派生Blend](/img/fusion/captures/S37/low-inspector.png)](/img/fusion/captures/S37/low-inspector.png)
+
+Resolve Studio 21.1.0.14／Windows、両Viewer 40%。Number型のSimpleExpressionの例です。ModifierやPublish/Connect To、別フレームの参照は未確認です。 [撮影条件と確認範囲](/img/fusion/captures/S37/capture.json)
+
+### 実機の参考例
+
+<!-- capture-reuse:R70 -->
+
+S36のTransformSmoothはSizeをKeyframeから供給しています。フレーム12のInspectorではSize 1.1と現在キーを表示し、Keyframes Editorでは0・12・24の3キーを確認できます。
+
+[![S36の実機撮影。フレーム12のSize 1.1と現在のキーフレーム](/img/fusion/captures/S36/peak-inspector.png)](/img/fusion/captures/S36/peak-inspector.png)
+
+[![S36の実機撮影。Keyframes Editorに並んだSizeの0、12、24の3キー](/img/fusion/captures/S36/keyframes.png)](/img/fusion/captures/S36/keyframes.png)
+
+Resolve Studio 21.1.0.14／Windows、両Viewer 40%。SizeのNumberアニメーションの例です。Point/Text型の供給元や、Publish/Connect Toの操作は未確認です。 [撮影条件と確認範囲](/img/fusion/captures/S36/capture.json)
 
 ## 症状別の切り分け
 

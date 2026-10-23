@@ -101,6 +101,54 @@ Bezier Splineでは、キーを選択すると前後に曲線の向きを決め�
 
 **Smooth・Linear・Stepは「キーの位置」ではなく「キー間の値の変化」に関する選択**です。どのキーを選び、どちらの区間へ適用したかも確認します。
 
+## 実機でSizeの3キーと補間を比べる
+
+Resolve Studio 21.1.0.14、Windows、日本語UIで、同じText+を3つのTransformへ分岐させました。ここで使ったSizeはフレーム0で0.7、12で1.1、24で1.0です。本文の操作例とは数値を分けています。
+
+[![同じText1をTransformLinear、TransformSmooth、TransformStepへ分岐した実機Graph。MediaOutはSmoothの枝へ接続](/img/fusion/captures/S36/graph.png)](/img/fusion/captures/S36/graph.png)
+
+[![フレーム12のTransformSmooth Inspector。Size 1.1と現在キーの赤い菱形を表示](/img/fusion/captures/S36/peak-inspector.png)](/img/fusion/captures/S36/peak-inspector.png)
+
+[![Keyframes EditorでTransformSmoothのSizeを展開。フレーム0、12、24の3つのキーが並ぶ](/img/fusion/captures/S36/keyframes.png)](/img/fusion/captures/S36/keyframes.png)
+
+### 同じ時刻でも途中の値が変わる
+
+[![フレーム3の滑らかな補間。TransformSmoothのSizeは0.7625で、キー間の値を表示](/img/fusion/captures/S36/inspector.png)](/img/fusion/captures/S36/inspector.png)
+
+[![フレーム3で左はLinearのSize 0.8、右は水平ハンドルを使った滑らかな補間の0.7625。右の文字が少し小さい](/img/fusion/captures/S36/compare.png)](/img/fusion/captures/S36/compare.png)
+
+左はLinear、右は水平なBezierハンドルを使った滑らかな曲線です。キーの時刻と値は同じですが、フレーム3の値が違います。Smoothボタンを押したときの既定ハンドルを比較したものではありません。
+
+[![同じフレーム3のTransformStep Inspector。Step Inでは直前キーのSize 0.7を保持する](/img/fusion/captures/S36/step-inspector.png)](/img/fusion/captures/S36/step-inspector.png)
+
+[![フレーム3で左はLinearのSize 0.8、右はStep Inの0.7。右の文字がさらに小さく表示される](/img/fusion/captures/S36/step.png)](/img/fusion/captures/S36/step.png)
+
+右をStep Inの枝へ切り替えると、フレーム3では開始キーの0.7が保たれます。読み戻した値は次のとおりです。
+
+| フレーム | Linear | 水平ハンドルの曲線 | Step In |
+| --- | ---: | ---: | ---: |
+| 0 | 0.7 | 0.7 | 0.7 |
+| 3 | 0.8 | 0.7625 | 0.7 |
+| 6 | 0.9 | 0.9 | 0.7 |
+| 9 | 1.0 | 1.0375 | 0.7 |
+| 12 | 1.1 | 1.1 | 1.1 |
+| 18 | 1.05 | 1.05 | 1.1 |
+| 24 | 1.0 | 1.0 | 1.0 |
+
+中間で同じ値になる時刻もあります。1フレームだけの一致で、補間が同じだと判断しないようにします。
+
+### Spline Editorの曲線を見る
+
+[![Spline EditorでTransformLinearのSizeだけを有効に表示。3キーの間が直線で結ばれる](/img/fusion/captures/S36/linear-spline.png)](/img/fusion/captures/S36/linear-spline.png)
+
+[![Spline EditorでTransformSmoothのSizeだけを有効に表示。0.7から1.1へなめらかに上がり、1へ戻る](/img/fusion/captures/S36/smooth-spline.png)](/img/fusion/captures/S36/smooth-spline.png)
+
+[![Spline EditorでTransformStepのSizeだけを表示。次のキーまで値を保持し、12と24で切り替わる](/img/fusion/captures/S36/step-spline.png)](/img/fusion/captures/S36/step-spline.png)
+
+各画像の左のリストで対象を確認できます。Viewerの表示先とSplineで表示するParameterは別々に選べるため、SplineにあるNode名も合わせて読んでください。1920×1080、両Viewer 40%の例です。最後はSplineとKeyframes Editorを閉じ、フレーム3のLinear対滑らかな補間へ戻しました。Step Out、Easeの数値、区間の伸縮や連続再生の滑らかさはこの比較に含めていません。
+
+[再現用Graph](/img/fusion/captures/S36/fixture.comp) · [撮影条件と確認範囲](/img/fusion/captures/S36/capture.json)
+
 ## タイミングを変える：12フレームと24フレームの違い
 
 同じSize値でも、フレーム12のキーをフレーム18へ移動すると、最初の拡大には18フレームかかります。逆にフレーム6へ近づけると6フレームで拡大します。
@@ -228,4 +276,4 @@ Splineに表示したのは「センター(Path1)」の「ディスプレイス�
 - Chapter 72「Animating with Motion Paths」pp.1566–1570：Polyline PathとDisplacement 0〜1の関係。
 - 公式配布元：[Blackmagic Design Support Center](https://www.blackmagicdesign.com/support)。
 
-説明中のフレーム番号・Size値は操作例です。掲載したCenterの2キー、Path1とDisplacementの表示は21.1.0.14で確認済みです。Sizeの本文例、補間方式の全比較、全ホスト／Editionの差は未検証なので、`verification: partial`を維持しています。
+説明中のフレーム番号・Size値は操作例です。掲載したCenterの2キー、Path1とDisplacementの表示は21.1.0.14で確認済みです。Sizeの本文例とS36の値は異なります。Step OutやEaseの全比較、全ホスト／Editionの差は未検証なので、`verification: partial`を維持しています。

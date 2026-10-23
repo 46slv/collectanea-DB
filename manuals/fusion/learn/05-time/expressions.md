@@ -95,6 +95,34 @@ Node名.Parameter名
 
 Node Editorの接続線とは別に、**ParameterからParameterへ一方向の値の関係**を作っていると考えると理解しやすくなります。
 
+## 実機でBlendの連動を確認する
+
+Resolve Studio 21.1.0.14、Windows、日本語UIで、2つのMergeへ別々の前景を接続しました。MergeMasterは赤い長方形、MergeDerivedはオレンジの楕円を、同じ青い背景へ重ねています。
+
+[![赤い長方形をMergeMaster、オレンジの楕円をMergeDerivedへ渡す実機Graph。2つのMergeの出力同士は画像線で接続していない](/img/fusion/captures/S37/graph.png)](/img/fusion/captures/S37/graph.png)
+
+[![基準側MergeMaster Inspector。Blendを固定値0.8にしている](/img/fusion/captures/S37/master-inspector.png)](/img/fusion/captures/S37/master-inspector.png)
+
+[![派生側MergeDerived Inspector。Blend 0.8の下に式MergeMaster.Blendを表示](/img/fusion/captures/S37/inspector.png)](/img/fusion/captures/S37/inspector.png)
+
+派生側のBlendへ`MergeMaster.Blend`を設定しました。この例のNode名はMerge1 / Merge2ではなくMergeMaster / MergeDerivedです。
+
+[![Blendが両方0.8の出力。左は赤い長方形、右はオレンジの楕円で、同じ値でも形と色は違う](/img/fusion/captures/S37/compare.png)](/img/fusion/captures/S37/compare.png)
+
+次に、基準側のBlendだけを0.3へ変えます。
+
+[![MergeMasterのBlendだけを0.3へ変更したInspector](/img/fusion/captures/S37/master-low-inspector.png)](/img/fusion/captures/S37/master-low-inspector.png)
+
+[![MergeDerivedの式はMergeMaster.Blendのまま、計算されたBlend値が0.3へ追従したInspector](/img/fusion/captures/S37/low-inspector.png)](/img/fusion/captures/S37/low-inspector.png)
+
+[![両方のBlendが0.3へ下がり、長方形と楕円のどちらも青い背景へ弱く重なる出力](/img/fusion/captures/S37/low.png)](/img/fusion/captures/S37/low.png)
+
+派生側を手入力し直さなくても、値が0.3へ追従しました。式と元・派生の値は読み戻しでも一致しています。画像の配線とParameterの参照が別にあること、同じBlendでも出力画像そのものは一致しないことを確認できます。
+
+1920×1080、フレーム0、両Viewer 40%。緑の線と赤い軸は操作表示です。最後は基準を0.8へ戻しました。Pick Whip操作、時間参照、PointやTextの式、Expression Modifierの比較は含めていません。
+
+[再現用Graph](/img/fusion/captures/S37/fixture.comp) · [撮影条件と確認範囲](/img/fusion/captures/S37/capture.json)
+
 ## 共通ルール
 
 ### `time`は現在frameを返す

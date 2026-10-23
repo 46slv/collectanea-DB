@@ -1,0 +1,243 @@
+{
+  "schema_version": 1,
+  "case": "S39",
+  "article": "manuals/fusion/learn/05-time/frame-evaluation.md",
+  "manual": {
+    "version": "21.1",
+    "chapter": 111,
+    "printed_pages": "2610–2613"
+  },
+  "runtime": {
+    "version": "21.1.0.14",
+    "edition": "Studio",
+    "os": "Windows-11-10.0.26200-SP0",
+    "ui_language": "ja-JP (some Shape controls remain English)"
+  },
+  "captured_at": "2026-10-23T18:13:41.456785+00:00",
+  "project": "Collectanea_Captures_20261023_Sol",
+  "timeline": "S39_capture",
+  "frame": 12.0,
+  "resolution": [
+    1920,
+    1080
+  ],
+  "color_management": {
+    "colorScienceMode": "davinciYRGB",
+    "colorSpaceTimeline": "Rec.709 (Scene)",
+    "colorSpaceTimelineGamma": "",
+    "colorSpaceOutput": "Rec.709 (Scene)",
+    "colorSpaceOutputGamma": "ACEScc",
+    "separateColorSpaceAndGamma": "0",
+    "isAutoColorManage": "0",
+    "timelineResolutionWidth": "1920",
+    "timelineResolutionHeight": "1080",
+    "timelineFrameRate": 24.0,
+    "timelinePlaybackFrameRate": "30"
+  },
+  "viewer": {
+    "zoom_percent": 40,
+    "channel": "Color",
+    "background": "checkerboard for transparent pixels",
+    "note": "Viewer screenshots are display evidence, not colorimetric exports."
+  },
+  "graph": "fixture.comp",
+  "settings": "readback.json",
+  "source": {
+    "file": "screen.png",
+    "size": [
+      3352,
+      1910
+    ],
+    "sha256": "33855e6a79aa2db2ec780e9414efd0714d73f4f68a97b6478f181dd31aa0df06"
+  },
+  "shots": [
+    {
+      "file": "graph.png",
+      "source": "screen.png",
+      "source_sha256": "33855e6a79aa2db2ec780e9414efd0714d73f4f68a97b6478f181dd31aa0df06",
+      "frame": 12,
+      "crop_xyxy": [
+        580,
+        1060,
+        2280,
+        1660
+      ],
+      "resampled": false,
+      "sha256": "543e342d0a9c5e72a2bf5385f9da6127fa74d56e5db215dbd7e091230e3fe2dd"
+    },
+    {
+      "file": "inspector.png",
+      "source": "screen.png",
+      "source_sha256": "33855e6a79aa2db2ec780e9414efd0714d73f4f68a97b6478f181dd31aa0df06",
+      "frame": 12,
+      "crop_xyxy": [
+        2830,
+        120,
+        3352,
+        340
+      ],
+      "resampled": false,
+      "sha256": "183e0d9b89f3e8e7eb56a18e6464c99ab63dbc0e89f3b8d4ec673d43c125b7ad"
+    },
+    {
+      "file": "compare.png",
+      "source": "screen.png",
+      "source_sha256": "33855e6a79aa2db2ec780e9414efd0714d73f4f68a97b6478f181dd31aa0df06",
+      "frame": 12,
+      "crop_xyxy": [
+        1146,
+        65,
+        2830,
+        815
+      ],
+      "resampled": false,
+      "sha256": "18bb455427983b3affa47d793bd6985ba03368c28292b0bb6880920661ef3733"
+    },
+    {
+      "file": "frame0.png",
+      "source": "screen-frame0.png",
+      "source_sha256": "396bf9e35b0901b5552b5563798df494cf3647a21ba7b301f9fdab1a2960ad16",
+      "frame": 0,
+      "crop_xyxy": [
+        1146,
+        65,
+        2830,
+        815
+      ],
+      "resampled": false,
+      "sha256": "4aa0d39d6b1981912d65556dfdbf1270bf9465fd521f7e4000ded80c73fed4cb"
+    },
+    {
+      "file": "frame24.png",
+      "source": "screen-frame24.png",
+      "source_sha256": "80e4bbf7ea1224706fcbd9a92af6a8fa2c3bf69bc339b3ff308c325e445d04e4",
+      "frame": 24,
+      "crop_xyxy": [
+        1146,
+        65,
+        2830,
+        815
+      ],
+      "resampled": false,
+      "sha256": "698fd3a4be79c2902d884ca2f21a8ebfd6623162bb30a4dfa8cd0b8a9ab1bdf9"
+    },
+    {
+      "file": "spline.png",
+      "source": "screen-spline.png",
+      "source_sha256": "639d2c27fe0926b5a7b14dd55974506e7764a1514e05716acff633df1a1212a5",
+      "frame": 12,
+      "crop_xyxy": [
+        1410,
+        850,
+        2830,
+        1840
+      ],
+      "resampled": false,
+      "sha256": "110538e7ca4e2e997ef16c157c90911b303f961e52fe6aebc810cb6d79c1ffaf"
+    },
+    {
+      "file": "hold-inspector.png",
+      "source": "screen-held-source.png",
+      "source_sha256": "6604b32c8f86b552db7b7647a1c0e3a7f509df6ae402c0a323a24ba5ad5285ab",
+      "frame": 0,
+      "crop_xyxy": [
+        2830,
+        120,
+        3352,
+        340
+      ],
+      "resampled": false,
+      "sha256": "30fc51aec88b0bca5bf555ae5b87c2586fa32054fbb6079755897132ab5197ce"
+    },
+    {
+      "file": "hold0-inspector.png",
+      "source": "screen-hold0.png",
+      "source_sha256": "e51b72f9ad0031ae8f1139a2db7abe1802d5dd87b9078ecfb13088dbfae6b3f0",
+      "frame": 0,
+      "crop_xyxy": [
+        2830,
+        120,
+        3352,
+        570
+      ],
+      "resampled": false,
+      "sha256": "703933312681d161b009b7188a47a4ba156bd3ad74c90465c43f7ed1ec4d9ad6"
+    },
+    {
+      "file": "hold0.png",
+      "source": "screen-hold0.png",
+      "source_sha256": "e51b72f9ad0031ae8f1139a2db7abe1802d5dd87b9078ecfb13088dbfae6b3f0",
+      "frame": 0,
+      "crop_xyxy": [
+        1146,
+        65,
+        2830,
+        815
+      ],
+      "resampled": false,
+      "sha256": "0225ad454c0dc6461318e887ea0cc0f10db94f6373f4903577ed902a402e9133"
+    },
+    {
+      "file": "hold24-inspector.png",
+      "source": "screen-hold24.png",
+      "source_sha256": "778866e9006586b96f75fa50fdfeebbaf3a6ac5a0d06debfde005f53dd1ea461",
+      "frame": 24,
+      "crop_xyxy": [
+        2830,
+        120,
+        3352,
+        570
+      ],
+      "resampled": false,
+      "sha256": "6c33aae71809d443c6b38aaf3c77cda44367d0b1323b3c9c2d54654279f883c8"
+    },
+    {
+      "file": "hold24.png",
+      "source": "screen-hold24.png",
+      "source_sha256": "778866e9006586b96f75fa50fdfeebbaf3a6ac5a0d06debfde005f53dd1ea461",
+      "frame": 24,
+      "crop_xyxy": [
+        1146,
+        65,
+        2830,
+        815
+      ],
+      "resampled": false,
+      "sha256": "094ef35dc6fab00ccd58262994a2866d8b07fe78c4823a22f9aae2b619015cb1"
+    }
+  ],
+  "acceptance": {
+    "gui": "PASS: owner visually inspected node connections, selected Inspector, and output",
+    "article_display": "PASS: local production build;1440px/390px,decode/Alt/native links/hash/overflow"
+  },
+  "unverified": [
+    "Free edition and other platforms",
+    "All parameter ranges and performance",
+    "Nearest versus Flow quality",
+    "Optical Flow/EXR reuse",
+    "Internal evaluation order, cache, network rendering and export fidelity",
+    "Exported portable composition reimport"
+  ],
+  "state_variants": {
+    "screen.png": "frame12: Loader12 vs Dynamic49.5, Blend",
+    "screen-frame0.png": "frame0: Loader0 vs Dynamic0",
+    "screen-frame24.png": "frame24: Loader24 vs Dynamic99",
+    "screen-spline.png": "frame12, only TimeDynamic Source Time checked, Linear0→99 at0→24",
+    "screen-held-source.png": "frame0, TimeHold Source Time12, one key at0",
+    "screen-hold0.png": "frame0, held SOURCE012, downstream Size0.8",
+    "screen-hold24.png": "frame24, held SOURCE012, downstream Size1.2"
+  },
+  "input_fixture": {
+    "generator": "scripts/create-fusion-time-fixture.py",
+    "path": "../_fixtures/timeplate/frame0000.png",
+    "frames": 100,
+    "labels": "SOURCE 000 through SOURCE 099; own synthetic input, not simulated UI"
+  },
+  "restoration": "PASS: S39_capture/frame12, left Loader/right TimeDynamic, Inspector SourceTime49.5, both Color40%, Spline/Keyframes closed; scratch saved",
+  "reproduction": {
+    "fixture_sha256": "8415ebd31f016a5230a9b2d14a8d45ea5e8e65ff5022c80edfc3b31546d525f3",
+    "readback_sha256": "25edad82dba9a06b1be693fd61af51bd15762225b8d3527340f47da5c66da41e",
+    "paths": "Comp:/../_fixtures/ for bundled synthetic fixtures",
+    "reimport": "NOT_RUN: accepted GUI evidence precedes export path normalization"
+  }
+}
