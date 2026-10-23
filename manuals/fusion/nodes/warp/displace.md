@@ -147,6 +147,24 @@ Radial、Refraction ChannelはLuminance、Refraction Strengthは0.06です。Lig
 
 [再現用Graph](/img/fusion/captures/S30/fixture.comp) · [撮影条件と確認範囲](/img/fusion/captures/S30/capture.json)
 
+### 実機の参考例：横揺れと局所Mask
+
+<!-- capture-reuse:R84 -->
+
+S49はX/Yモードの横揺れを、静止チャートとEllipse Maskで確認した例です。Fast NoiseのSeethe Rate0.4により出力0と24で歪み方が変わり、マスクの外周は直線を保ちます。
+
+[![静止チャートをDisplaceの橙Input、Fast Noiseを緑Foreground、Ellipseを青Effect Maskへ接続した最終Graph](/img/fusion/captures/S49/graph.png)](/img/fusion/captures/S49/graph.png)
+
+[![DisplaceのX/Yモード。X/Yとも輝度、X Refraction0.015、Y Refraction0、Light Power0](/img/fusion/captures/S49/inspector.png)](/img/fusion/captures/S49/inspector.png)
+
+[![マスク接続後の出力0。左は静止チャート、右は中央が横に歪み、外周の白枠は直線を保つ](/img/fusion/captures/S49/compare.png)](/img/fusion/captures/S49/compare.png)
+
+[![マスク接続後の出力24。外周を保ちながら中央の横揺れが出力0から変わる](/img/fusion/captures/S49/masked24.png)](/img/fusion/captures/S49/masked24.png)
+
+[![Fast NoiseのDetail4、Contrast1.4、Scale8、Seethe Rate0.4を示すInspector](/img/fusion/captures/S49/map-inspector.png)](/img/fusion/captures/S49/map-inspector.png)
+
+Resolve Studio21.1.0.14／Windows、両Viewer Color／40%。X/Yの両ChannelはLuminance、X Refraction0.015/Y0。Polygon、実写、縦変位、連続再生性能は未確認。 [再現用Graph](/img/fusion/captures/S49/fixture.comp) · [撮影条件と確認範囲](/img/fusion/captures/S49/capture.json)
+
 ## 関連Node
 
 - [Fast Noise](../generators/fast-noise)

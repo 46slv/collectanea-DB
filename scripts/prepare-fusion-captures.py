@@ -52,6 +52,10 @@ CONFIG={
  'S45':{'graph': (580, 1300, 2280, 1450), 'inspector': (2830, 120, 3352, 390), 'compare': (1146, 65, 2830, 815), 'metadata': (2034, 96, 2830, 190), 'frame24': (1146, 65, 2830, 815), 'fps25-inspector': (2830, 120, 3352, 390), 'fps25': (1146, 65, 2830, 815), 'zero-metadata': (2034, 96, 2830, 190)},
  'S46':{'graph': (240, 1060, 2600, 1660), 'inspector': (2830, 120, 3352, 300), 'compare': (1146, 65, 2830, 705), 'gold-inspector': (2830, 120, 3352, 300), 'gold': (1146, 65, 2830, 705), 'config-inspector': (2830, 120, 3352, 330)},
  'S47':{'graph': (240, 1300, 2600, 1450), 'inspector': (2830, 120, 3352, 300), 'compare': (1146, 65, 2830, 705), 'updated': (1146, 65, 2830, 705)},
+ 'S48':{'graph': (580, 1300, 2280, 1450), 'inspector': (2830, 120, 3352, 310), 'compare': (1146, 65, 2830, 705), 'depth-menu': (0, 0, 271, 120), 'int8-inspector': (2830, 120, 3352, 310), 'int8': (1146, 65, 2830, 705), 'keep-inspector': (2830, 120, 3352, 310), 'keep': (1146, 65, 2830, 705), 'error-inspector': (2830, 120, 3352, 310), 'noise-inspector': (2830, 120, 3352, 310)},
+ 'S49':{'graph': (240, 1060, 2600, 1660), 'inspector': (2830, 120, 3352, 515), 'compare': (1146, 65, 2830, 815), 'unmasked0': (1146, 65, 2830, 815), 'unmasked24': (1146, 65, 2830, 815), 'masked24': (1146, 65, 2830, 815), 'map-inspector': (2830, 120, 3352, 600), 'map': (1146, 65, 2830, 705), 'mask-inspector': (2830, 120, 3352, 515)},
+ 'S50':{'graph': (480, 1300, 2380, 1450), 'inspector': (2830, 120, 3352, 330), 'compare': (1146, 65, 2830, 705), 'right-plus-inspector': (2830, 120, 3352, 330), 'right-plus': (1146, 65, 2830, 705), 'right-minus-inspector': (2830, 120, 3352, 330), 'right-minus': (1146, 65, 2830, 705), 'top-plus-inspector': (2830, 120, 3352, 330), 'top-plus': (1146, 65, 2830, 705), 'top-minus-inspector': (2830, 120, 3352, 330), 'top-minus': (1146, 65, 2830, 705)},
+ 'S51':{'graph': (480, 1300, 2380, 1450), 'inspector': (2830, 120, 3352, 390), 'compare': (1146, 65, 2830, 705), 'adjust-plus-inspector': (2830, 120, 3352, 390), 'adjust-plus': (1146, 65, 2830, 705), 'adjust-minus-inspector': (2830, 120, 3352, 390), 'adjust-minus': (1146, 65, 2830, 705), 'left-bottom-plus-inspector': (2830, 120, 3352, 390), 'left-bottom-plus': (1146, 65, 2830, 705), 'left-bottom-minus-inspector': (2830, 120, 3352, 390), 'left-bottom-minus': (1146, 65, 2830, 705), 'set-full-inspector': (2830, 120, 3352, 390), 'set-full': (1146, 65, 2830, 705), 'set-half-inspector': (2830, 120, 3352, 390), 'set-half': (1146, 65, 2830, 705)},
 }
 def sha(p):return hashlib.sha256(p.read_bytes()).hexdigest()
 candidates=json.loads((ROOT/'docs/fusion-screenshot-candidates.json').read_text(encoding='utf-8'))
@@ -100,6 +104,13 @@ for case in args.cases:
   if case=='S45':extra.update({(case,'frame24'):'screen-frame24.png',(case,'fps25-inspector'):'screen-fps25.png',(case,'fps25'):'screen-fps25.png',(case,'zero-metadata'):'screen-zero.png'})
   if case=='S46':extra.update({(case,'gold-inspector'):'screen-gold.png',(case,'gold'):'screen-gold.png',(case,'config-inspector'):'screen-config.png'})
   if case=='S47':extra[(case,'updated')]='screen-updated.png'
+  if case=='S48':
+   for variant in ['int8','keep']:
+    for suffix in ['', '-inspector']:extra[(case,variant+suffix)]='screen-'+variant+'.png'
+   extra.update({(case,'depth-menu'):'screen-menu.png',(case,'error-inspector'):'screen-error.png',(case,'noise-inspector'):'screen-noise.png'})
+  if case=='S49':extra.update({(case,'unmasked0'):'screen-unmasked0.png',(case,'unmasked24'):'screen-unmasked24.png',(case,'masked24'):'screen-masked24.png',(case,'map-inspector'):'screen-map.png',(case,'map'):'screen-map.png',(case,'mask-inspector'):'screen-mask.png'})
+  if case=='S50':extra.update({('S50', 'right-plus-inspector'): 'screen-right-plus.png', ('S50', 'right-plus'): 'screen-right-plus.png', ('S50', 'right-minus-inspector'): 'screen-right-minus.png', ('S50', 'right-minus'): 'screen-right-minus.png', ('S50', 'top-plus-inspector'): 'screen-top-plus.png', ('S50', 'top-plus'): 'screen-top-plus.png', ('S50', 'top-minus-inspector'): 'screen-top-minus.png', ('S50', 'top-minus'): 'screen-top-minus.png'})
+  if case=='S51':extra.update({('S51', 'adjust-plus-inspector'): 'screen-adjust-plus.png', ('S51', 'adjust-plus'): 'screen-adjust-plus.png', ('S51', 'adjust-minus-inspector'): 'screen-adjust-minus.png', ('S51', 'adjust-minus'): 'screen-adjust-minus.png', ('S51', 'left-bottom-plus-inspector'): 'screen-left-bottom-plus.png', ('S51', 'left-bottom-plus'): 'screen-left-bottom-plus.png', ('S51', 'left-bottom-minus-inspector'): 'screen-left-bottom-minus.png', ('S51', 'left-bottom-minus'): 'screen-left-bottom-minus.png', ('S51', 'set-full-inspector'): 'screen-set-full.png', ('S51', 'set-full'): 'screen-set-full-image.png', ('S51', 'set-half-inspector'): 'screen-set-half.png', ('S51', 'set-half'): 'screen-set-half-image.png'})
   src=folder/extra.get((case,slug),variants.get((case,slug),'screen.png'))
   assert 0<=box[0]<box[2]<=im.width and 0<=box[1]<box[3]<=im.height, (case,slug,box)
   path=folder/(slug+'.png');Image.open(src).crop(box).save(path)
@@ -110,6 +121,7 @@ for case in args.cases:
   if case=='S40':frame=0 if slug in ['freeze0','reverse0'] else 24
   if case=='S42':frame=0 if slug.startswith('edge-') else 12 if slug=='frame12' else 24
   if case=='S45':frame=24 if slug in ['frame24','fps25-inspector','fps25'] else 0
+  if case=='S49':frame=24 if slug in ['unmasked24','masked24'] else 0
   shots.append({'file':path.name,'source':src.name,'source_sha256':sha(src),'frame':frame,'crop_xyxy':box,'resampled':False,'sha256':sha(path)})
   if case in ['S25','S28','S31']:shots[-1]['viewer_channels']='Alpha' if slug=='alpha' else 'Color'
  candidate=next(x for x in candidates['candidates'] if x['id']==case)

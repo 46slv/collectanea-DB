@@ -137,6 +137,32 @@ DaVinci Resolve Studio 21.1.0.14、Windows、日本語UIで、Text+の文字だ�
 
 [再現用Graph](/img/fusion/captures/S26/fixture.comp) · [撮影条件と確認範囲](/img/fusion/captures/S26/capture.json)
 
+### 実機の参考例：自動検出でフレーム全体と内容の範囲を分ける
+
+<!-- capture-reuse:R85 -->
+
+S50は透明PNGの固定例です。左のLoaderではフレーム全体、右のAuto Domainでは中央の矩形がDoDになります。画像寸法は両方1920×1080のままです。
+
+[![Auto Domainの左・下・右・上がすべて0の実機Inspector](/img/fusion/captures/S50/inspector.png)](/img/fusion/captures/S50/inspector.png)
+
+[![左LoaderのDoDは0,0から1920,1080、右Auto Domainは640,360から1280,720。画像寸法は両方1920×1080](/img/fusion/captures/S50/compare.png)](/img/fusion/captures/S50/compare.png)
+
+Resolve Studio21.1.0.14／Windows、両Viewer Color／40%。静止PNGのみ。動く素材、Canvas color、Mask、性能は未確認。 [再現用Graph](/img/fusion/captures/S50/fixture.comp) · [撮影条件と確認範囲](/img/fusion/captures/S50/capture.json)
+
+### 実機の参考例：DoDを狭めたときの内容欠落
+
+<!-- capture-reuse:R86 -->
+
+S51ではAdjustの四辺0で入力を保ち、Setの右・上0.5でDoDを0,0から960,540へ変えました。寸法が同じでも内容が欠ける例です。
+
+[![Set DomainのAdjust、四辺0、結合モードCopyを示すInspector](/img/fusion/captures/S51/inspector.png)](/img/fusion/captures/S51/inspector.png)
+
+[![Set DomainのSetで左と下0、右と上0.5を示すInspector](/img/fusion/captures/S51/set-half-inspector.png)](/img/fusion/captures/S51/set-half-inspector.png)
+
+[![Setの右・上0.5ではDoDが0,0から960,540となり矩形が欠ける。画像寸法は1920×1080のまま](/img/fusion/captures/S51/set-half.png)](/img/fusion/captures/S51/set-half.png)
+
+Resolve Studio21.1.0.14／Windows、両Viewer Color／40%。Set Domainの固定例。Transformで戻せるか、BlurやCropでの境界は未確認。 [再現用Graph](/img/fusion/captures/S51/fixture.comp) · [撮影条件と確認範囲](/img/fusion/captures/S51/capture.json)
+
 ## DoDを調整するNode
 
 通常は自動計算を使いますが、素材の状態によってはDoDを明示的に扱うNodeが有効です。

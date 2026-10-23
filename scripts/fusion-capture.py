@@ -38,15 +38,22 @@ TARGETS['S44']='CopyMetadata1';LEFT['S44']='MetaFGExtra';RIGHT['S44']='CopyMetad
 TARGETS['S45']='SetTimecode1';LEFT['S45']='Background1';RIGHT['S45']='SetTimecode1'
 TARGETS['S46']='Switch1';LEFT['S46']='Blue1';RIGHT['S46']='Switch1'
 TARGETS['S47']='Wireless1';LEFT['S47']='Text1';RIGHT['S47']='Wireless1'
+TARGETS['S48']='ChangeDepth1';LEFT['S48']='Gradient1';RIGHT['S48']='ChangeDepth1'
+TARGETS['S49']='Displace1';LEFT['S49']='Loader1';RIGHT['S49']='Displace1'
+TARGETS['S50']='AutoDomain1';LEFT['S50']='Loader1';RIGHT['S50']='AutoDomain1'
+TARGETS['S51']='SetDomain1';LEFT['S51']='AutoDomain1';RIGHT['S51']='SetDomain1'
 r=d.scriptapp('Resolve')
 assert r, 'Resolve scripting unavailable; do not change preferences automatically'
 pm=r.GetProjectManager(); p=pm.GetCurrentProject()
 assert p and p.GetName()==PROJECT, 'Refusing to mutate a foreign project'
 assert r.GetCurrentPage(), 'Resolve has a modal dialog; reconcile the GUI first'
 case=sys.argv[1]; action=sys.argv[2] if len(sys.argv)>2 else 'readback'
+save_export=action!='preview'
 requested_frame=int(sys.argv[3]) if action=='frame' else 24 if case in ['S40','S42'] else 0
+if action=='preview':
+ assert case=='S49';requested_frame=int(sys.argv[3]) if len(sys.argv)>3 else 0;assert requested_frame in [0,24];action='show'
 if action=='frame':
- assert case in ['S35','S36','S39','S40','S42','S45'] and requested_frame in ([0,48] if case=='S35' else [0,3,6,9,12,18,24]);action='show'
+ assert case in ['S35','S36','S39','S40','S42','S45','S49'] and requested_frame in ([0,48] if case=='S35' else [0,3,6,9,12,18,24]);action='show'
 if action=='hold':
  assert case=='S39';requested_frame=int(sys.argv[3]);assert requested_frame in [0,24]
  TARGETS[case]='TransformHold';LEFT[case]='TimeHold';RIGHT[case]='TransformHold';action='show'
@@ -64,8 +71,12 @@ if action=='final':
  assert case=='S23';RIGHT[case]='Merge1';LEFT[case]='SourceA';action='show'
 if action=='scale':
  assert case=='S24';TARGETS[case]='Scale1';LEFT[case]='Scale1';action='show'
+if action=='mask_inspector':
+ assert case=='S49';TARGETS[case]='Ellipse1';action='show'
+if action=='image':
+ assert case in ['S50','S51'];TARGETS[case]='MediaOut1';action='show'
 if action=='map':
- assert case=='S30';TARGETS[case]='NoiseMap1';LEFT[case]='NoiseMap1';action='show'
+ assert case in ['S30','S49'];TARGETS[case]='NoiseMap1';LEFT[case]='NoiseMap1';action='show'
 timelines={p.GetTimelineByIndex(i).GetName().split('_')[0]:p.GetTimelineByIndex(i) for i in range(1,p.GetTimelineCount()+1)}
 if case not in timelines:
  assert action=='build'
@@ -88,8 +99,8 @@ for _ in range(50):
  time.sleep(.1)
 else:raise RuntimeError('Requested composition did not become the active GUI composition')
 t.SetCurrentTimecode('01:00:02:00' if case=='S09' else '01:00:00:00')
-c.CurrentTime=requested_frame if case in ['S35','S36','S39','S40','S42','S45'] else 48 if case=='S09' else 0
-if case in ['S36','S39','S40','S42','S45']:t.SetCurrentTimecode(f'01:00:{requested_frame//24:02d}:{requested_frame%24:02d}')
+c.CurrentTime=requested_frame if case in ['S35','S36','S39','S40','S42','S45','S49'] else 48 if case=='S09' else 0
+if case in ['S36','S39','S40','S42','S45','S49']:t.SetCurrentTimecode(f'01:00:{requested_frame//24:02d}:{requested_frame%24:02d}')
 if case=='S35':t.SetCurrentTimecode('01:00:02:00' if requested_frame==48 else '01:00:00:00')
 time.sleep(.3)
 tools={x.GetAttrs()['TOOLS_Name']:x for x in c.GetToolList().values()}
@@ -155,6 +166,10 @@ def select(target,left=None):
  layouts['S36']={'Text1':(0,0),'TransformLinear':(1.5,-2),'TransformSmooth':(1.5,0),'TransformStep':(1.5,2),'MediaOut1':(3,0)}
  layouts['S37']={'Base1':(0,0),'Rectangle1':(0,-2),'Red1':(1.5,-2),'Ellipse1':(1.5,2),'Gold1':(3,2),'MergeMaster':(3,-1),'MergeDerived':(4.5,1),'MediaOut1':(6,1)}
  layouts['S38']={'Loader1':(0,0),'TransformReference':(1.5,0),'MediaOut1':(3,0)}
+ layouts['S50']={'Loader1':(0,0),'AutoDomain1':(1.5,0),'MediaOut1':(3,0)}
+ layouts['S51']={'Loader1':(0,0),'AutoDomain1':(1.5,0),'SetDomain1':(3,0),'MediaOut1':(4.5,0)}
+ layouts['S49']={'Loader1':(0,1),'NoiseMap1':(0,-1),'Ellipse1':(2,-2),'Displace1':(2,1),'MediaOut1':(4,1)}
+ layouts['S48']={'Gradient1':(0,0),'ChangeDepth1':(1.5,0),'MediaOut1':(3,0)}
  layouts['S47']={'Text1':(0,0),'Wireless1':(3,0),'MediaOut1':(4.5,0)}
  layouts['S46']={'Blue1':(0,-1.5),'Gold1':(0,1.5),'Switch1':(2,0),'MediaOut1':(4,0)}
  layouts['S45']={'Background1':(0,0),'SetTimecode1':(1.5,0),'MediaOut1':(3,0)}
@@ -203,6 +218,22 @@ if action=='build':
   rb=add('sRender','RenderBase1',4,-1);connect(rb,'Input',base)
   target=add('sTransform','Transform1',2,1);connect(target,'Input',base)
   rr=add('sRender','RenderChanged1',4,1);connect(rr,'Input',target);connect(mo,'Input',rr)
+ elif case in ['S50','S51']:
+  loader=add('Loader','Loader1',0,0,Clip=str(ROOT/'static/img/fusion/captures/_fixtures/domain-rectangle.png'))
+  auto=add('AutoDomain','AutoDomain1',1.5,0);connect(auto,'Input',loader)
+  target=auto
+  if case=='S51':
+   target=add('SetDomain','SetDomain1',3,0);connect(target,'Input',auto)
+  connect(mo,'Input',target)
+ elif case=='S49':
+  loader=add('Loader','Loader1',0,1,Clip=str(REPO/'static/img/fusion/captures/_fixtures/chart.png'))
+  noise=add('FastNoise','NoiseMap1',0,-1,Detail=4,Contrast=1.4,XScale=8,YScale=8,SeetheRate=.4)
+  add('EllipseMask','Ellipse1',2,-2,Width=.45,Height=.6,SoftEdge=.04)
+  target=add('Displace','Displace1',2,1,Type=1,XChannel=4,YChannel=4,XRefraction=.015,YRefraction=0)
+  connect(target,'Input',loader);connect(target,'Foreground',noise);connect(mo,'Input',target)
+ elif case=='S48':
+  bg=add('Background','Gradient1',0,0,Type='Horizontal',TopLeftRed=0,TopLeftGreen=0,TopLeftBlue=0,TopRightRed=1,TopRightGreen=1,TopRightBlue=1)
+  target=add('ChangeDepth','ChangeDepth1',1.5,0);connect(target,'Input',bg);connect(mo,'Input',target)
  # S47 build creates the scaffold; finish Wireless Input node reference in the native GUI.
  elif case=='S47':
   text('Text1',0,0,'WIRELESS',.12)
@@ -361,9 +392,16 @@ if action=='build':
  else: raise ValueError('No fixture defined: '+case)
  c.CurrentFrame.FlowView.SetPos(mo,9,1 if case=='S02' else 0)
  assert pm.SaveProject()
-elif action in ('show','readback','set'):
+elif action in ('show','readback','set','masked'):
  target=tools.get(TARGETS.get(case,''))
 assert target
+if action=='masked':
+ assert case=='S49'
+ ins={z.GetAttrs()['INPS_ID']:z for z in target.GetInputList().values()}
+ previous=ins['EffectMask'].GetConnectedOutput()
+ if previous:assert previous.GetTool().GetAttrs()['TOOLS_Name']=='Ellipse1'
+ else:connect(target,'EffectMask',tools['Ellipse1'])
+ action='show'
 if action=='set':
  for name,values in json.loads(sys.argv[3]).items():
   assert name in tools
@@ -374,17 +412,21 @@ if action=='set':
 if action in ('build','show'):
  select(target,tools.get('Text1') if case=='S03' else None)
  folder=ROOT/'static/img/fusion/captures'/case;folder.mkdir(parents=True,exist_ok=True)
- c.Save(str(folder/'fixture.comp'))
- fixture=folder/'fixture.comp'
- # Exported compositions can inherit unrelated last-file/cache paths. Strip only
- # these export metadata lines; never modify Resolve's saved preferences.
- fixture.write_text(re.sub(r'^.*(?:\["ResolveCaches:"\]|LastFile =).*$\n?', '', fixture.read_text(encoding='utf-8'), flags=re.M),encoding='utf-8')
- pm.SaveProject()
+ if save_export:
+  c.Save(str(folder/'fixture.comp'))
+  fixture=folder/'fixture.comp'
+  # Strip only export metadata; never modify saved preferences.
+  fixture.write_text(re.sub(r'^.*(?:\["ResolveCaches:"\]|LastFile =).*$\n?', '', fixture.read_text(encoding='utf-8'), flags=re.M),encoding='utf-8')
+  pm.SaveProject()
 inputs={}
 for n,a in tools.items():
  inputs[n]={'regid':a.GetAttrs()['TOOLS_RegID'],'inputs':{}}
  for z in a.GetInputList().values():
-  k=z.GetAttrs()['INPS_ID'];v=a.GetInput(k,c.CurrentTime)
+  attrs=z.GetAttrs()
+  # Read parameter values, never request Image/Mask/3D payload evaluation.
+  # Graph export and native GUI establish connections and output evidence.
+  if attrs.get('INPS_DataType') not in ['Number','Text','Point','FuID','Clip']:continue
+  k=attrs['INPS_ID'];v=a.GetInput(k,c.CurrentTime)
   if isinstance(v,(str,int,float,bool,dict)) and not k.endswith('Script'):
    inputs[n]['inputs'][k]=v
 keep=['colorScienceMode','colorSpaceTimeline','colorSpaceTimelineGamma','colorSpaceOutput','colorSpaceOutputGamma','separateColorSpaceAndGamma','isAutoColorManage','timelineResolutionWidth','timelineResolutionHeight','timelineFrameRate','timelinePlaybackFrameRate']
