@@ -1,96 +1,128 @@
 ---
 title: Blur / Filterノード
-description: 2D Imageをぼかす・レンズのピント外れを再現する・方向や中心を持つブラーを作るNodeを、目的から選ぶ入口。
+description: Fusionのぼかし・発光・輪郭強調・画素の選別・凹凸画像生成に使う14ノードを、入力と仕上がりから選ぶための案内。
 doc_type: index
 verification: partial
 product_scope: fusion
-tasks: [lookup-node, blur, soften, defocus, motion-blur]
-updated: "2026-10-04"
+tasks: [lookup-node, blur, soften, defocus, motion-blur, sharpen, filtering, bump-map]
+updated: "2026-10-14"
 ---
 
 # Blur / Filterノード
 
-このFamilyでは、2D <Term id="image">Image</Term>の近傍pixelを参照して、ぼかし・ピント外れ・方向性のあるsmearなどを作るNodeを扱います。
+このカテゴリには、2D <Term id="image">Image</Term>をぼかすだけでなく、輪郭を強調する、近くの画素から別の値を選ぶ、白黒の高さ画像を凹凸情報へ変換するといったノードも含まれます。ほとんどは**画像を入力し、加工後も2D画像を出力する**ノードです。
 
-最初に「均一にぼかす」のか、「レンズのピント外れを再現したい」のか、「方向や中心を持つブラーにしたい」のかを分けると選びやすくなります。
+最初に決めるのは「どんな見た目にしたいか」です。ぼかしを使う場合はさらに、画面全体を同じ量でぼかすのか、場所・方向・動きに応じて変えるのかを分けます。
 
-## まず選ぶ
+## 目的から選ぶ
 
-| やりたいこと | Node | 特徴 |
+| 目的 | ノード | 入力した画像がどう変わるか |
 | --- | --- | --- |
-| 画像全体を標準的にぼかす | [Blur](./blur) | X/Yのblur量とfilterを直接調整 |
-| ピント外れ・bokeh・bloomを作る | [Defocus](./defocus) | Gaussian / Lens。Lensでは絞り形状を調整 |
-| 直線・放射・zoom方向へ流す | [Directional Blur](./directional-blur) | Linear / Radial / Centered / Zoom |
-| 明るい部分へ光のにじみを加える | [Glow](./glow) / [Soft Glow](./soft-glow) | blurした光成分を元Imageへ合成 |
-| Detailを強くする | [Sharpen](./sharpen) / [Unsharp Mask](./unsharp-mask) | blurとは逆方向のdetail強調 |
-| Mapで場所ごとにblur量を変える | [Vari Blur](./variblur) | 別Imageのchannelでblur量を制御 |
-| Motion Vectorからmotion blurを作る | [Vector Motion Blur](./vector-motion-blur) | vector map / AOVを利用 |
+| 全体を同じ設定で柔らかくする | [Blur](./blur) | 周囲の画素を参照して輪郭を広げる。X方向とY方向のぼかし量も調整できる。 |
+| ピントが外れたような光点を作る | [Defocus](./defocus) | レンズのぼけに似た広がりを作り、Lens方式では光点の形も調整できる。 |
+| 一定方向や中心に向かって像を流す | [Directional Blur](./directional-blur) | 直線、回転方向、ズーム方向など、設定した方向に像を引き延ばす。 |
+| 画面内の場所ごとにぼかし量を変える | [Vari Blur](./variblur) | 別の画像の明暗やAlphaを読み、場所ごとのぼかし量を決める。 |
+| 被写体の動きに応じてぼかす | [Vector Motion Blur](./vector-motion-blur) | 左右・上下の移動量を記録したベクトル情報に従い、画素ごとのブラーを作る。 |
+| 明るい部分に光のにじみを加える | [Glow](./glow) | 発光成分を広げ、元の画像へ合成する。 |
+| より柔らかな発光を重ねる | [Soft Glow](./soft-glow) | 光をなだらかに広げ、人物や光源、文字の輝きを調整する。 |
+| 輪郭を少ない項目で強調する | [Sharpen](./sharpen) | 周囲との明暗差を強め、元からある輪郭を目立たせる。 |
+| 輪郭の幅・強さ・弱い差の扱いを分ける | [Unsharp Mask](./unsharp-mask) | ぼかした画像との差を利用し、弱いコントラストの部分を除外しながら輪郭を強調する。 |
+| 白いマットや図形を太らせる／細くする | [Erode Dilate](./erode-dilate) | 明るい領域と暗い領域の境界を移し、輪郭の幅を変える。 |
+| 孤立した点を抑える、面を単純化する | [Rank Filter](./rank-filter) | 周辺画素を値の順に並べ、指定した順位の画素で置き換える。 |
+| 輪郭抽出・ノイズ・エンボスなどから選ぶ | [Filter](./filter) | Sobel、Laplacian、Grainなど、用意された画像処理を切り替える。 |
+| 周辺画素の計算方法を自分で指定する | [Custom Filter](./custom-filter) | 3×3などの行列に係数を入力し、近隣画素の組み合わせ方を指定する。 |
+| 白黒の高さ模様から凹凸用画像を作る | [Create Bump Map](./create-bumpmap) | 明暗の変化を凹凸の向きに変換し、方向情報をRGBへ格納した2D画像を出力する。 |
 
-## Blur
+**Blurは全体のぼかし量、Vari Blurは場所ごとのぼかし量、Vector Motion Blurは各画素の移動方向と距離**を主に扱います。「ブラー」という名前だけで同じ種類の入力が必要だと考えないことが重要です。
 
-```text
-Image → Blur → Output
-          ↑
-       optional Mask
-```
+## 入力と出力を理解する
 
-Blurは最も基本的なぼかしです。Filterを選び、Blur Sizeを増やします。X/Yをlock解除すると、横方向と縦方向で別のblur量にできます。
+一般的な画像処理ノードでは、元画像をオレンジ色の入力へ渡し、出力を次の画像処理やMediaOutへ接続します。
 
-## Defocus
+~~~text
+MediaIn ──→ Blur ──→ MediaOut
+~~~
 
-Defocusは単にpixelを平均化するだけでなく、camera lensのピント外れを想定した見た目を作ります。
+多くのノードには、青色の **Effect Mask** 入力もあります。これは元画像とは別に、**処理後の効果を使う範囲**を決めるものです。EllipseやPolygonなどで作ったマスクを接続します。
 
-Gaussianは速く単純、Lensはよりlens-likeですが重くなります。Lens modeではLens Type / Angle / Sides / Shapeでbokeh形状を調整できます。
+~~~text
+MediaIn ──→ Blur ──→ MediaOut
+               ↑ 青：Effect Mask
+             Ellipse
+~~~
 
-## Directional Blur
+Chapter 92・99の該当ノードでは、Effect Maskはフィルターの計算**後**に適用されると説明されています。効果を限定するマスクと、「どこをどれだけぼかすか」を決める別の画像入力は同じではありません。[Maskの基礎](../../learn/02-data/mask)と[Imageの基礎](../../learn/02-data/image)も参照してください。
 
-Directional Blurは方向や中心を持つブラーです。
+### 別の画像でぼかし量を変える：Vari Blur
 
-- Linear — 一方向へ流す
-- Centered — 元の位置の両側へ均等に流す
-- Radial — 中心から放射状
-- Zoom — zoom streakのような放射
+[Vari Blur](./variblur)では、ぼかしたい映像に加えて**Blur Image（緑の入力）**が必要です。例えば左から右へ明るくなるグラデーションを入力し、その明暗に応じて、画面の一方を強くぼかす表現を作れます。
 
-移動感、speed streak、light ray風の表現を作りたい場合に使います。
+~~~text
+MediaIn ────────────────→ Vari Blur ──→ MediaOut
+Background（グラデーション）→ Blur Image（緑）
+~~~
 
-## Effect Mask
+Blur ImageのRed・Green・Blue・Alpha・Luminanceのどれを使うかは、InspectorのBlur Channelで選びます。これは**画像の値を使った演出的な奥行き表現**であり、実際のレンズの焦点や被写体の距離を自動計算するものではありません。黒いマップの厳密な挙動には21.1マニュアル内で解釈しにくい記述があるため、[個別記事](./variblur)に掲載した確認方法を参照してください。
 
-Blur系の多くは青色のEffect Mask入力を持ちます。
+### 動きの情報でぼかしを変える：Vector Motion Blur
 
-Maskはblurを作る処理そのものを変えるのではなく、最終的にどの範囲へEffectを適用するかを制限します。
+[Vector Motion Blur](./vector-motion-blur)は、映像とは別に各画素の左右・上下の移動量を読み取ります。3Dソフトから書き出したMotion Vectorパスや、[Optical Flow](../optical-flow/optical-flow.md)で推定した移動情報を利用する方法があります。
 
-```text
-Image → Blur → Output
-          ↑
-       Ellipse
-```
+~~~text
+CGの完成画像 ────────→ Vector Motion Blur ──→ MediaOut
+Motion Vectorパス ──→ Vectors入力
+~~~
 
-Maskの考え方は[マスク（Mask）](../../learn/02-data/mask)を参照してください。
+ベクトルのチャンネル配置、符号、単位は元データの仕様に合わせます。背景を止めたまま走行中の車だけを流したい場合には、画面全体へ一定方向のブラーを掛けるより、画素ごとの動きを生かせます。
 
-## DoD / Clipping Mode
+## 仕上がりに応じた使い分け
 
-Blurは周囲のpixelを参照するため、<Term id="domain-of-definition">Domain of Definition</Term>の境界が見た目へ影響することがあります。
+### 光を広げたい場合
 
-21.1 ManualではBlur / Defocus等にFrame / Domain / NoneのClipping Modeがあり、特に大きなfilterでedge clippingが見える場合の確認項目になります。
+夜の街灯やネオンの周囲に光を足したいなら、[Glow](./glow)か[Soft Glow](./soft-glow)を選びます。これらは光の成分を広げて元画像へ重ねるためのノードです。画像全体を読みにくくするぼかしとは用途が異なります。
 
-端だけ不自然な場合は、Blur Sizeだけを調整せず、DoDとClipping Modeも確認します。
+人物を残して背景だけを柔らかくする場合は、BlurまたはDefocusとEffect Maskの組み合わせから考えます。点光源がピント外れになったときの形を見せたいなら、[Defocus](./defocus)のLens方式を比較します。
 
-## Filterの違い
+### 輪郭を強調するか、マットを細くするか
 
-Blur系ではBox、Bartlett、Multi-box、Gaussianなど複数のfilterが使われます。
+髪や衣装、文字の輪郭をくっきり見せたいなら[Sharpen](./sharpen)か[Unsharp Mask](./unsharp-mask)です。どちらも既存の明暗差を強調するもので、失われたピント情報を復元するわけではありません。
 
-速度と見た目のtradeoffがあり、Gaussianはfloat-depth画像の極端な条件でringingを生むことがあるため、Manualはその場合にMulti-boxを候補として挙げています。
+キー抜き後の人物の白いマットを少し内側へ寄せたいなら、[Erode Dilate](./erode-dilate)でAlphaを処理する方法を検討します。Amountを小さな負の値へ調整すると、白い領域を縮める方向に働きます。ただし、マットの幅を調整しても、元映像に残った背景色が自動で除去されるわけではありません。
 
-filter名を単純な「品質順位」と考えず、素材・blur量・速度・edge挙動で選びます。
+### 点状ノイズを抑えるか、輪郭を抽出するか
 
-## 関連する考え方
+一様な壁に孤立した明るい点や暗い点があるなら、[Rank Filter](./rank-filter)で近くの画素を順位に従って選び直す方法が候補です。髪や細い線まで変わり得るため、元画像との比較が必要です。
 
-- [有効領域（Domain of Definition）](../../learn/03-space/domain-of-definition)
-- [Resolution / Domain of Definitionを確認する](../../learn/07-debugging/resolution-domain-of-definition)
-- [マスク（Mask）](../../learn/02-data/mask)
+輪郭画像を作ってGlowのマスクなどへ渡したいなら、[Filter](./filter)のSobelなどが候補です。周辺画素の計算係数を自分で定義してエンボスや独自の輪郭表現を作る場合は[Custom Filter](./custom-filter)を使います。これらは被写体を意味で認識して切り抜く機能ではありません。
+
+## 凹凸情報を3D材質へ渡す場合
+
+[Create Bump Map](./create-bumpmap)は白黒の高さ画像から**凹凸の向きをRGBに記録した2D画像**を作ります。3Dの材質や形状を直接出力するノードではありません。
+
+~~~text
+白黒の高さ画像
+    ↓
+Create Bump Map（RGBの凹凸画像）
+    ↓
+Bump Map（3D Materialへ変換）
+    ↓
+Blinnなどの材質 ──→ 3Dオブジェクト ──→ Renderer 3D
+~~~
+
+石の壁の細かな起伏を表したいなら、高さの模様をCreate Bump Mapへ渡し、出力を[Bump Map](../materials-lights/bumpmap)経由で材質へつなぎます。模様に応じて光の当たり方は変わりますが、これだけではメッシュや物体の輪郭は盛り上がりません。2D画像と3D材質の違いは[Classic 3Dの基礎](../../learn/02-data/classic-3d)を参照してください。
+
+## 透明部分や画面の端が不自然なとき
+
+周辺画素を参照するフィルターは、入力画像の有効領域（<Term id="domain-of-definition">Domain of Definition / DoD</Term>）に影響されます。Blurなどで透明な文字の外側や画面の端が不自然なら、Clipping Modeも確認してください。
+
+- **Frame**：フレーム全体を有効領域として扱い、元の有効領域の外側は黒・透明として扱う。
+- **Domain**：前段の有効領域を尊重する。大きなぼかしでは境界で結果が切れる場合がある。
+- **None**：元画像のクリッピングを行わず、必要な参照先が有効領域の外なら黒・透明として扱う。
+
+これらの選択肢がすべてのノードにあるわけではありません。個別記事とInspectorで確認してください。[DoDの基礎](../../learn/03-space/domain-of-definition)と[有効領域の確認手順](../../learn/07-debugging/resolution-domain-of-definition)も参照してください。
 
 ## 出典と確認範囲
 
-DaVinci Resolve 21.1 Reference Manual、September 2026、Chapter 92、pp.2108–2130を基に整理しています。
+一次資料はBlackmagic Design『DaVinci Resolve 21.1 Reference Manual』（2026年9月）、**Chapter 92「Blur Nodes」pp.2108–2131**、**Chapter 99「Filter Nodes」pp.2327以降**です。正確な入出力・設定とその根拠ページは各ノードの記事で説明しています。[公式マニュアル](https://documents.blackmagicdesign.com/UserManuals/DaVinci_Resolve_21.1_Reference_Manual.pdf)。
 
-このFamily OverviewはNodeの選び分けを担当します。各filterの全数式、内部REGID、GPU性能、Edition差は個別Node Reference / runtime確認へ分けます。
+このページの接続例はマニュアルの仕様から組み立てた説明です。21.1実機でのすべての経路、内部計算、初期値・数値範囲、Free / Studio差を一括検証したものではないため、検証状況はpartialとしています。

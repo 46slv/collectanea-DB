@@ -1,86 +1,159 @@
 ---
-title: Alpha
-description: RGBとは別に、Imageがどの程度寄与するかを持つalpha channelの役割を理解する。
+title: Alpha（アルファチャンネル）
+description: FusionのAlphaをRGB・Effect Mask・Premultiplicationと区別し、合成とViewerの実例で確認する。
 doc_type: concept
 term_id: alpha
-term_short: Imageが合成へどの程度寄与するかを表すalpha channel。
+term_short: 2D Imageに含まれる透明度のチャンネル。通常、0は透明、1は不透明。
 verification: partial
 aliases: [alpha channel, transparency]
 concepts: [alpha, rgba, compositing]
-nodes: [Merge, Background]
+nodes: [Merge, Background, Matte Control, Alpha Divide, Alpha Multiply]
 tasks: [composite, transparency, debug]
 prerequisites: [image-data, foreground-background]
 level: foundation
 product_scope: fusion
 suite_surfaces: [fusion]
+updated: "2026-10-12"
 ---
 
-# Alpha
+# Alpha（アルファチャンネル）
 
-## このページで分かること
+Alphaは、画像を別の画像へ重ねるとき、その画素をどの程度不透明として扱うかを表す情報です。映像に写っている色を示すRGBとは別に、通常は4番目のチャンネルとして2D Imageに含まれます。
 
-合成でAlphaが何を表しているかを整理します。
+例えば人物の切り抜き画像では、人物の内側を不透明、人物以外を透明にし、髪の毛や輪郭には中間の透明度を残せます。透明度が正しく見えない場合は、Alphaそのものの問題なのか、合成方法の問題なのか、<Term id="mask">Mask</Term>の接続先の問題なのかを分けて調べます。
 
-## 基本の考え方
+## Alphaの値とRGBの違い
 
-2D Imageを単なるRGBではなく、**RGB + Alpha** として読みます。
+一般的なAlphaの読み方は次のとおりです。
 
-AlphaはImageが合成へどの程度寄与するかを表すchannelで、Merge等の合成結果へ影響します。
+| Alphaの値 | 意味 | 別の画像へ重ねると |
+| --- | --- | --- |
+| 0 | 完全に透明 | その画素では下の画像が見える |
+| 0.5 | 半透明 | 上下の画像が混ざる |
+| 1 | 完全に不透明 | その画素では上の画像が見える |
 
-ただしEffect MaskはAlpha channelそのものではありません。
+Alphaは白黒画像としても確認できます。白が不透明、黒が透明、灰色が半透明です。ただし、これはAlphaチャンネルの表示方法です。RGBの赤・緑・青の数値まで同時に白黒へ変えているわけではありません。
 
-## 最小例
+**Alphaが0だからといって、RGBも必ず0とは限りません。** RGBに色を残したままAlphaだけ0にするデータ形式もあります。反対に、RGBへあらかじめAlphaを掛けて保持する形式もあります。この違いをStraight / Premultiplied Alphaと呼びます。
 
-前景画像（Foreground Image）をMergeへ入れ、Alphaを持つ素材と持たない素材で、エッジ（Edge）や背景（Background）の見え方を比較します。
+画像全体のAlphaが1なら、元画像に切り抜きのつもりで黒い背景を描いてあっても、その黒い領域は不透明な色として重なります。「黒く見える」と「透明である」は別です。
 
-## 共通ルール
+## Image AlphaとEffect Maskを区別する
 
-- RGBとAlphaを別channelとして考える。
-- Effect MaskとImage Alphaを同一視しない。
-- Mergeの見た目だけで参照元 alphaを推測しない。
-- 透明エッジ（transparent edge）の問題では<Term id="premultiplication">premultiplication</Term>も確認する。
+Fusionでは、白黒で似た見た目の情報でも、接続先によって意味が変わります。
 
-## 1つずつ変えて確認する
+| データ | どこにあるか | 主な役割 |
+| --- | --- | --- |
+| **Image Alpha** | RGBと一緒に2D Imageが持つチャンネル | 合成時の不透明度を表す |
+| **Mask** | Ellipse・PolygonなどのMask Nodeが出力する単一チャンネルのデータ | 領域を指定し、接続先Nodeに利用させる |
+| **Effect Mask入力** | 多くの画像処理Nodeにある青い入力 | そのNodeの効果をどこへ適用するか制限する |
+| **Garbage / Solid Matte入力** | Matte Controlや一部Keyerなどの専用入力 | 入力の役割に応じてMatteやAlphaを調整する |
 
-Maskは外したまま、前景（Foreground）の参照元でAlphaだけが違う2素材を比較します。
+**Effect Maskを接続しただけで、すべてのNodeのImage Alphaが切り抜かれるわけではありません。** 例えばColor CorrectorにMaskをつなぐ場合、その範囲だけを色補正し、範囲外の元画像を残す使い方ができます。
 
-## 他のNodeにも応用する
+一方、Matte ControlはMaskを使ってImage Alphaを作成・修正できます。つまり「MaskがAlphaにならない」という決まりでもありません。**接続先の入力が何をするものか**が判断基準です。
 
-### Merge
+接続の基礎は[画像（Image）](../02-data/image.md)と[Mask](../02-data/mask.md)、症状別の切り分けは[AlphaとMaskを分けて診断する](../07-debugging/alpha-vs-mask.md)を参照してください。
 
-前景（Foreground）/ 背景（Background）の役割とAlphaの関係を別々に読みます。
+## 実例：前景のAlphaと合成結果のAlphaを見る
 
-### Background
+赤い円を青い背景へ重ね、2つのImageのAlphaがどう違うかを観察します。
 
-ColorのAlphaを含むImage 参照元として考えます。
+~~~text
+Background（青、Alpha 1） ──────────→ Merge［Background］→ MediaOut
+                                     ↑［Foreground］
+Background（赤、Alpha 1） ──────────┘
+        ↑［Effect Mask］
+     Ellipse Mask
+~~~
 
-### Key / Matte
+1. 2つのBackgroundを作り、青と赤にします。どちらもColorのAlphaは1にします。
+2. Ellipse Maskを赤いBackgroundのEffect Mask入力へつなぎ、赤を円の範囲に限定します。
+3. 青いBackgroundをMergeのBackground（オレンジ）、赤いBackgroundをForeground（緑）につなぎます。
+4. まず赤いBackgroundの出力をViewerに表示し、ColorドロップダウンからAlphaを選びます。円の内側と外側でAlphaが違うことを確認します。
+5. 次にMergeの出力のAlphaを表示します。青い背景が全面不透明なら、完成画像のAlphaは原則として全面1になります。
 
-matte生成とeffect maskを別責任にします。
+最後の違いが重要です。**前景の透明な部分から背景が見えることと、合成後の画像に透明な部分が残ることは同じではありません。** 不透明な背景へ重ねた結果は、見た目に前景の切り抜きが残っていても、出力Alphaでは全面不透明になり得ます。
 
-## 初見のNodeを読む
+この例で使ったMaskは、赤いBackgroundが円形のAlphaを持つImageを出すために利用しています。Ellipse MaskそのものをMergeのForegroundへ画像として重ねているわけではありません。各入力の働きは[Merge](../../nodes/compositing/merge.md)と[Background](../../nodes/generators/background.md)で確認できます。
 
-透明問題で「素材alpha」「合成」「Mask」のどこを先に見るか決められます。
+## 半透明の画素はどう重なるか
 
-## よくある誤解
+標準的なOver合成を簡略化すると、前景のAlphaが0.25なら、前景の色が25%、背景の色が75%の割合で結果に現れます。赤い前景を青い不透明背景へ重ねる例を考えます。
 
-**Alpha = Effect Mask** と考えること。
+~~~text
+前景：赤 RGB = (1, 0, 0)、Alpha = 0.25
+背景：青 RGB = (0, 0, 1)、Alpha = 1
+出力：RGB = (0.25, 0, 0.75)、Alpha = 1
+~~~
 
-MaskはNodeのeffect適用範囲、AlphaはImage channelです。
+これはStraight RGBから計算する概念的な例です。実際の合成でRGBをどう扱うかは、色空間やPremultiplicationの状態にも依存します。Alphaは単に画像を隠すスイッチではなく、半透明の境界を自然に重ねるための数値です。
 
-## 関連パターン
+## Straight AlphaとPremultiplied Alpha
 
-- [Maskで処理範囲を限定する](../../patterns/masking/limit-effect-with-mask)
+透明な部分のRGBをどう保持するかには、主に2つの方式があります。
 
-## 関連Node
+- **Straight（Unpremultiplied）**：RGBはAlphaで乗算されていません。Alphaが0でもRGBに元の色を保持できます。
+- **Premultiplied**：RGBの各値をAlphaで乗算した状態です。Alpha自体を乗算するのではありません。
 
-- [Merge](../../nodes/compositing/merge)
-- [Background](../../nodes/generators/background)
+例えば赤い画素のRGBが(1, 0, 0)、Alphaが0.25なら、StraightではRGBが(1, 0, 0)のままで、Premultipliedでは(0.25, 0, 0)になります。Alphaはどちらも0.25です。
 
-## 次に読む
+この差は輪郭で目立ちます。Fusionの標準的なMergeはPremultipliedの前景を想定した合成を行うため、Straightをそのまま入れると半透明の縁が明るくなり得ます。逆にPremultipliedの画像へもう一度Alphaを掛けると、縁が暗くなり得ます。
 
-→ [プリマルチプライ（Premultiplication）](./premultiplication)
+色補正でも問題が起こります。PremultipliedのRGBだけを強く明るくすると、Alphaとの関係が崩れ、合成後の輪郭や背景が意図せず明るく見える場合があります。
 
----
+## 色補正するときの扱い
 
-検証メモ: Image AlphaとEffect Maskの役割分離はFusion 21系semantic baselineで確認。
+Premultipliedの素材へ色補正する場合は、RGBをいったんAlphaで割り、色補正後に再びAlphaを掛けるのが基本的な考え方です。
+
+~~~text
+Premultiplied RGBA
+   → Alpha Divide
+   → 色補正
+   → Alpha Multiply
+   → Merge
+~~~
+
+ただし、これをすべて手動で組む必要はありません。Resolve 21.1のBrightness Contrast、Color Curves、Color Correctorには、同様の処理を行うPre-Divide / Post-Multiplyの設定があります。**Node自身の設定を使う場合は、外側へさらにAlpha Divide / Alpha Multiplyを重ねない**ようにします。
+
+複数の色処理を続けて行う場合や、外部OFXがAlphaをどう処理するか確認したい場合は、Alpha DivideとAlpha Multiplyで処理列全体を挟む方法が役立ちます。詳しくは[プリマルチプライ（Premultiplication）](./premultiplication.md)を参照してください。
+
+## 読み込んだ素材のAlphaを確認する
+
+透明な素材のはずなのに全面不透明に見える場合は、Mergeより前を調べます。
+
+1. MediaInまたはLoaderの出力を、ほかのNodeを通さずViewerへ表示します。
+2. ViewerのColorドロップダウンからAlphaを選びます。切り抜きたい部分と周囲が白黒で区別されているか確認します。
+3. MediaInの場合は、素材の**Clip AttributesにあるAlpha Mode**を確認します。無視・反転・Straight / Premultipliedとしての解釈が原因になっていないかを見ます。
+4. Fusion StudioのLoaderでは、Inspectorの**Import**タブにあるAlpha関連の設定を確認します。透明度を無視する設定、Invert、RGBのPost-Multiplyなどが対象です。
+5. Alphaが正しければ、Keyer・Matte Control・Mergeなど後段のNodeを順番に確認します。
+
+MediaInとLoaderの設定面は同一ではありません。片方にあるControl名を、そのままもう片方のInspectorへ当てはめないようにします。
+
+## 症状別の確認表
+
+| 症状 | 確認すること |
+| --- | --- |
+| 前景を置くと背景全体が隠れる | 前景ImageのAlphaが全面1になっていないか。RGBだけに黒背景を描いていないか |
+| 切り抜いた輪郭が白く／明るくなる | Straightの前景をPremultiplied前提のMergeへ渡していないか |
+| 輪郭が黒く／暗くなる | Alphaが二重に掛かっていないか |
+| 色補正後だけ縁が光る | Premultiplied RGBへ直接強い補正をしていないか |
+| Maskで囲んでも人物が切り抜けない | Effect Maskで処理範囲を制限しているだけではないか。Image Alphaを変更する入力・Nodeが必要か |
+| 前景には透明な部分があるのにMerge出力のAlphaが全面白 | 背景Imageが全面不透明なら、その結果は正常な場合がある |
+| 読み込んだ素材のAlphaが全面白 | ファイルのAlpha有無とMediaInのAlpha Mode／LoaderのImport設定を確認する |
+
+検証するときは、同じNodeのRGBとAlphaを切り替え、次に直前・直後のNodeを比較します。画像の見た目だけでAlphaが正しく流れていると決めつけないことが重要です。
+
+## 関連ページ
+
+- [画像（Image）](../02-data/image.md)：RGB・Alpha・サイズ・DoDを持つデータとしてImageを読む。
+- [Mask](../02-data/mask.md)：Image Alphaとは別の単一チャンネル入力を理解する。
+- [プリマルチプライ（Premultiplication）](./premultiplication.md)：透明境界のRGBとAlphaの保存関係を深く扱う。
+- [AlphaとMaskを分けて診断する](../07-debugging/alpha-vs-mask.md)：透明にならない場合の切り分け。
+- [Maskで処理範囲を限定する](../../patterns/masking/limit-effect-with-mask.md)：Effect Maskを使う基本パターン。
+
+## 出典と確認範囲
+
+- **Blackmagic Design, DaVinci Resolve 21.1 Reference Manual**（September 2026）、Fusion Fundamentals Chapter 77「Understanding Image Channels」pp.1665–1669：RGB・Alpha・単一チャンネルMask・Auxiliary Channel、ViewerのColor表示、入力端子の役割。
+- 同Chapter 77 pp.1675–1681：Mergeのチャンネル、Straight / Premultiplied Alpha、色補正の前後の処理、二重乗算、MediaIn / LoaderのAlpha設定、Alpha Divide / Alpha Multiply。
+- 各Node固有のControl、Edition差、全素材形式での解釈は一律に検証していません。記事内の合成式・数値例は考え方を示すもので、実際の画素処理条件が一致することを保証するものではありません。実機での全操作を確認していないため、verificationはpartialとしています。

@@ -15,7 +15,7 @@ outputs: ["parameter"]
 tasks: ["drive-parameter", "animate"]
 product_scope: fusion
 suite_surfaces: ["fusion"]
-updated: "2026-10-06"
+updated: "2026-10-13"
 ---
 
 # Vector
@@ -166,6 +166,35 @@ Pivotを使ったRotationでは、対象そのものの向きも回転処理の�
 - [XY Path](./xy-path) — X / Yを別々のSplineとして編集したい
 
 Orbit、radial layout、動く中心に追従する周回など、**基準点との関係そのものをAnimationしたいとき**はVectorが候補になります。
+
+## Viewer上の操作を切り分ける
+
+Vectorを使い始めたら、まず**対象の位置を決める3つの値が、別々の仕事をしている**ことを確かめます。ここではMergeのCenterにVectorを追加し、Textを前景、Backgroundを背景へ接続した状態を想定します。
+
+| 変更する値 | Viewerで起きること | 変更されないもの |
+| --- | --- | --- |
+| `Origin` | 周回の中心となる点が移動し、DistanceとAngleを維持した対象位置も一緒に移動する | 中心からの距離と方向 |
+| `Distance` | Originから対象が遠ざかる、または近づく | Originの位置、対象の向き |
+| `Angle` | Originの周囲で対象位置が変わる | Originの位置、対象自身のRotation |
+
+最初はAnimationを付けず、Originを固定してDistanceだけ、次にAngleだけを動かすと違いが分かります。ViewerではVectorの距離・角度用のonscreen controlとOriginのcrosshairを区別して操作します。動く中心を作りたくなった段階で、Originへ[Path](./path)を追加します。
+
+### Manualの100-frame作例を再現するとき
+
+公式Manualの作例には、「100-frameのCompositionを作る」と書かれている一方、操作手順では**frame 0とframe 100**を使用しています。開始を0、末尾を99とした100フレームの範囲ではframe 100は含まれません。
+
+実際に試す場合は、最初にFusionの時間範囲を確認してください。frame 100まで含める設定にするか、最終キーフレームを現在の範囲の末尾へ置きます。Manualの例の数値をそのまま入力しただけで、範囲外のアニメーションが再生されるとは限りません。
+
+## 意図した動きにならないとき
+
+| 症状 | 確認する箇所 |
+| --- | --- |
+| Angleを動かしてもTextが自転しない | 正常な挙動です。VectorのAngleは**位置の方向**を変えます。対象自身を回転させたい場合は、そのNodeのRotationを別に調整します。 |
+| Distanceを変えても移動が分かりにくい | Vectorを付けたのが目的の位置Controlか、Viewerに対象のMerge結果が表示されているか、Originと対象位置の関係が見える状態かを確認します。 |
+| Originを移動すると周回全体がずれる | Originは固定された画面中心ではなく、Vectorの**基準点**です。中心を固定したい場合はOriginのAnimationを外します。 |
+| 丸く周回させたつもりが楕円に見える | Image AspectとCompositionのFrame Formatを確認します。21.1 ManualのImage Aspectの式と縦長画像の数値例は一致していないため、式を推測して補正値を決めず、Viewerで結果を確認します。 |
+| `Modify With > Vector`が見つからない | MergeのCenterなど、**位置を表すControl**を右クリックしたか確認します。Modifierの候補はParameterの種類で変わります。 |
+| Animationの終端が見えない、途中で止まる | AngleとOriginそれぞれのKeyframe位置、およびCompositionの再生・描画範囲を確認します。Origin側のPathとVector側のAngleは別々にAnimationされます。 |
 
 ## 注意点
 

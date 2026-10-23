@@ -15,7 +15,7 @@ outputs: ["parameter"]
 tasks: ["retime-animation", "template", "modifier"]
 product_scope: fusion
 suite_surfaces: ["fusion"]
-updated: "2026-10-07"
+updated: "2026-10-12"
 ---
 
 # Anim Curves
@@ -205,7 +205,7 @@ Transform2 Size ← Anim Curves
 
 手順の中心は次のとおりです。
 
-1. Edit pageでCross DissolveをFusion Cross Dissolveへ変換する。
+1. Edit pageでCross Dissolveを右クリックして`Convert to Fusion Cross Dissolve`を選び、再び右クリックして`Open in Fusion page`で開く。
 2. Fusion pageでMediaIn1 / MediaIn2の両方へTransformを追加する。
 3. MediaIn2側のSizeへAnim Curvesを追加する。
 4. MediaIn1側のSizeにもAnim Curvesを追加し、Invertを有効にする。
@@ -232,7 +232,21 @@ Path
 4. CurveをEasingにし、OutをBounceにする。
 5. 必要に応じてScaleとTime Scaleを調整する。
 
-Manualの作例ではScaleを0.05、Time Scaleを2.0へ変更しています。これらは作例上の値であり、一般的な推奨defaultとして扱うものではありません。
+Manualの作例ではScaleを0.05、Time Scaleを2.0へ変更しています。これらは作例上の値であり、一般的な推奨defaultとして扱うものではありません。到達位置はScaleだけで決めつけず、ViewerでPathとDisplacementの出力を確認して調整します。
+
+## 時間の調整方法を選び分ける
+
+「アニメーションを長くする」といっても、**クリップ全体に合わせて動きの進行を伸ばす**場合と、**出入りの速さを保って中央だけ長くする**場合では、使う機能が異なります。
+
+| 方法 | 調整対象 | 適した用途 |
+| --- | --- | --- |
+| **Anim Curves** | 適用した数値パラメータへ供給する曲線と進行 | TitleやTransition全体の長さに合わせて、移動・拡大のタイミングを伸縮する |
+| [Key Stretcher Modifier](./key-stretcher-modifier) | 一つのパラメータの既存キーに対する評価時刻 | 出現と退場の速度を保ち、中央の表示時間だけを伸ばす |
+| [Keyframe Stretcher Node](../time-metadata/keyframe-stretcher) | Nodeを通る画像フローに含まれるアニメーション範囲 | 複数の動きを含むTitle / Effectの時間調整 |
+| [Bézier Spline](./bezier-spline)とKeyframes / Spline EditorのTime Stretch | キーの時刻・補間曲線 | 固定のフレーム位置に合わせて直接キーを変更する |
+| [Time Stretcher](../time-metadata/time-stretcher) | `Source Time`による素材の読み出し位置 | 映像素材をフリーズ、スロー再生、リタイムする |
+
+例えば48フレームのTitleを72フレームへ伸ばしたとき、**拡大が終わるタイミングもクリップの相対時間へ追従させたい**なら`Source = Duration`のAnim Curvesが候補です。一方、最初と最後の10フレームの出入りはそのままにして**中央だけ24フレーム長くしたい**ならKey Stretcher系を選びます。
 
 ## Bézier Splineとの違い
 
@@ -248,6 +262,28 @@ Anim Curvesは、Edit / Cut側のdurationやCustom Inputを時間基準にし、
 [Path](./path)はPosition Controlをmotion pathへ結び、Viewer上の経路とSpline Editor上のDisplacementを分けて扱うModifierです。
 
 Anim CurvesをDisplacementへ挿入すると、Pathの形は維持したまま、経路上の進み方へEasingやBounce、Time Scaleなどを追加できます。
+
+## Duration追従を検証する
+
+以下は48フレームのTitleを72フレームへ延ばす比較例です。数値は説明用で、21.1のdefaultを表しません。
+
+1. Fusionで`Text+ → Transform → MediaOut`をつなぎ、Transformの**Size**へ`Modify With > Anim Curves`を追加します。
+2. InspectorのModifiersタブで`Source = Duration`、`Curve = Linear`を設定します。`Scale / Offset`は値域、`Time Scale / Time Offset`は進行の速度・開始位置へ作用するため、現在値を控えます。
+3. Fusion Titleのtemplateとして保存し、Editページへ置きます。Titleが48フレームのときの開始・中間・終了のSizeと映像を確認します。
+4. 同じTitleを72フレームへ延ばして比較します。Durationに沿って進む場合、絶対的なフレーム番号ではなく**クリップ全体に対する進行割合**が維持されるかを見ます。
+5. 動きが違う場合は`Scale / Offset`と`Time Scale / Time Offset`を一緒に変えず、値域と時間のどちらの問題か切り分けます。
+
+### Spline Editorで曲線を確認する
+
+21.1 Manual（Chapter 124 p.2994）では、Spline Editorのheaderで対象パラメータ名を選ぶと、Anim Curvesの変更が反映された曲線を表示できると説明しています。Viewer上での見た目だけで判断せず、**Modifierを付けた同じパラメータ**を表示して確認します。
+
+| 症状 | 先に確認すること |
+| --- | --- |
+| Titleを長くしても動きが追従しない | Edit / Cut側のTitleをtrimしたか、`Source = Duration`か、`Custom`のInputを固定していないか |
+| Transitionに追従しない | EditのtransitionからFusion Transitionへ変換したか、`Source = Transition`か |
+| 動きが早く終わる・開始が遅い | `Time Scale / Time Offset`とMirror |
+| 動きの大きさが想定と異なる | `Scale / Offset`、`Clip Low / High`、適用先のパラメータ |
+| Pathの終点へ到達しない | Path自体ではなくDisplacementに入れたAnim Curvesの出力 |
 
 ## 注意点
 
@@ -267,7 +303,7 @@ SourceのTransition / Durationは、Edit page側でどの種類のCompositionか
 
 ## バージョンと出典
 
-DaVinci Resolve 21.1 Reference Manual（September 2026）Chapter 124「Modifiers」pp.2991–2994を基準にしています。
+DaVinci Resolve 21.1 Reference Manual（September 2026）Chapter 67「Node Groups, Macros, and Fusion Templates」p.1446およびChapter 124「Modifiers」pp.2991–2994を基準にしています。
 
 同Manualで、Anim Curvesの役割、SourceのTransition / Duration / Custom、Custom時のInput、CurveのLinear / Easing / Custom、Mirror、Invert、Scale、Offset、Clip Low / High、Time Scale / Time Offsetを確認しています。
 

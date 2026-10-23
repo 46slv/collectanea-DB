@@ -19,6 +19,7 @@ slug: /fusion/recipes
 ## マスク（Masking）
 
 - [Mergeの適用範囲をMaskで限定する](./recipes/masking/limit-merge-with-mask)
+- [OpenEXRのObject IDで車体だけ色補正する](./recipes/masking/exr-object-id-selective-grade)
 
 ## Text / Graphics
 
@@ -32,6 +33,8 @@ slug: /fusion/recipes
 ## アニメーション
 
 - [TransformをKeyframeで動かす](./recipes/animation/animate-transform-center)
+- [OpenEXRのMotion Vectorで車の動きにブラーを加える](./recipes/animation/exr-motion-vector-blur)
+- [Optical FlowのベクトルをOpenEXRへ保存・再利用する](./recipes/animation/optical-flow-exr-roundtrip)
 
 ## 自動化
 
@@ -48,7 +51,14 @@ slug: /fusion/recipes
 
 ## トラッキング
 
+- [Trackerで車の動きにテキストを追従させる](./recipes/tracking/point-track-text-callout)
 - [平面をtrackしてgraphicへ適用する](./recipes/tracking/planar-track-graphic)
+- [Planar Trackerで壁の汚れを固定・補修して元の動きへ戻す](./recipes/tracking/planar-steady-paint-rewarp)
+- [Planar TrackerとTime Stretcherで1フレームの補修を追従させる](./recipes/tracking/planar-clean-plate-freeze-track)
+- [看板のロゴを通行人の背後に隠す](./recipes/tracking/planar-foreground-occlusion)
+- [Surface Trackerでシャツのロゴを追従させる](./recipes/tracking/surface-track-shirt-logo)
+- [Surface Trackerで動く肌を修正して元の動きへ戻す](./recipes/tracking/surface-track-stabilize-rewarp-skin-fix)
+- [Surface Trackerの追従マスクを色補正へ渡す](./recipes/tracking/surface-track-alpha-effect-mask)
 
 ## Particles
 
@@ -61,6 +71,7 @@ slug: /fusion/recipes
 ## Classic 3D
 
 - [Classic 3D sceneを2Dへrenderする](./recipes/3d/basic-classic-3d-render)
+- [Camera Trackerで実写に3Dオブジェクトを固定する](./recipes/3d/camera-track-3d-object)
 
 ## USD
 
@@ -70,7 +81,7 @@ slug: /fusion/recipes
 
 - [Deep 合成を2Dへ戻す](./recipes/deep/deep-merge-to-image)
 
-現在 **17 Recipe** です。
+現在 **28 Recipe** です。
 
 ## 表現の収集（実機検証待ち）
 

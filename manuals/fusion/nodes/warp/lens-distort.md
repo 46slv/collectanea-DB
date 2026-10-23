@@ -15,7 +15,7 @@ outputs: [image]
 tasks: [warp-image]
 product_scope: fusion
 suite_surfaces: [fusion]
-updated: "2026-10-05"
+updated: "2026-10-22"
 ---
 
 # Lens Distort
@@ -89,15 +89,19 @@ Camera 3Dと同系統のcamera settingsを持ち、手動入力だけでなく�
 
 Fusion Division RadialまたはFusion Radialを選ぶとCalibration tabが現れ、checkerboard等から歪みを解析できます。
 
-### Supersampling
+### Supersampling [HiQ] / Supersampling Mode [HiQ]
 
-強いlens distortionでは画面端のsampling差が見えやすくなります。Supersamplingを上げると品質を上げられる代わりにrender時間も増えます。ModeはNearest / Bi-Linearを選べます。
+Supersamplingは、出力1画素を求める際のサンプル数です。21.1 Manualでは、通常の**1×1 Bilinear**で足りることが多い一方、強い歪みが出るレンズの画面端では、より多いサンプルとの差が見えると説明されています。サンプル数を増やすとrender時間も増えます。
+
+Supersampling Modeはサンプルの取り方です。**Nearest**は輪郭がシャープですがaliasingが出やすく、**Bi-Linear**は比較的滑らかですがぼけが増えます。画面端の文字・建築物の線を見ながら、必要なshotでだけ品質を上げます。
 
 ### Load Distortion Data / Calibration
 
 3D Equalizer等で作成したLens Distortion profileを読み込めます。
 
-CalibrationではCalibrate TypeをCheckerboard / Lines、Calibrate ModeをAuto / Manualから選べます。lens parameterがないshotでは、checkerboardや本来直線であるべき線を基準に歪みを推定できます。
+CalibrationではCalibrate Typeを**Checkerboard / Lines**、Calibrate Modeを**Auto / Manual**から選べます。Checkerboardは格子状のチャートがある撮影素材向けです。LinesはViewer上で本来直線のはずの線を指定し、その線が直線になるようにcalibrationを行います。Linesでは、現在の推定値を次の初期値として再解析するため、**Start Calibration**を繰り返すと結果が改善する場合があります。
+
+Autoは現在の入力を基に自動追跡し、Manualは解析に使うフレームを選びます。Calibrationタブを使うには、Lens Distortion Modelで**Fusion Division RadialまたはFusion Radial**を選ぶ必要があります。
 
 ## 主な用途
 
@@ -127,6 +131,26 @@ MediaOut
 実写の壁へCG signを合成する場合、まず実写をUndistortし、平坦化したImage上でtracking・3D・Mergeを行います。合成結果の後段へ同設定のLens Distortを置いてDistortへ戻し、特に画面端で元実写と同じ曲がりになっているか確認します。
 
 21.1 Manualでも、live-action layerをUndistortして3D elementsを合成し、最後に同設定をDistort modeで再適用する構成が示されています。
+
+## 運用例：レンズデータがない撮影素材を合わせる
+
+1. 撮影レンズの歪みを示す既存profileがあれば、まず**Load Distortion Data**で読み込みます。3D Equalizerなどで作成したデータを使う方法です。
+2. profileがなく、撮影時のcheckerboardがあるなら、Lens Distortion ModelをFusion Division RadialまたはFusion Radialにして、Calibrationタブの**Checkerboard**を使います。
+3. 格子チャートがなくても、建物の壁など本来直線のはずの線が明瞭なら、**Lines**を使って歪みを見積もる方法があります。歪んで見える線が直線になるか確認しながら調整します。
+4. これらのデータが使えない場合は、**3DE Classic LD Model**の調整スライダーで手動の近似を試します。公式マニュアルも手動調整にはこのモデルが向く可能性を示しています。
+5. 推定結果をUndistortで確認し、同じレンズ設定の別NodeをDistortにして往復させます。画面端の直線・切れ・CGとの位置関係を比較し、誤差が残れば設定を見直します。
+
+キャリブレーションは「撮影レンズの真の光学情報」を自動復元する保証ではありません。素材内の参照線や格子が不十分な場合は、近似結果として扱います。
+
+## うまくいかないとき
+
+| 症状 | 確認すること |
+| --- | --- |
+| UndistortからDistortへ戻すと画面端が欠ける | **Clipping Mode**がFrameで画素を破棄していないか。Domainとの違いを確認する。 |
+| CGの直線と背景の曲がりが合わない | 前後のLens Distortで**Camera Settings / Lens Distortion Model**が一致し、Modeだけを切り替えているか。 |
+| Calibrationタブが見つからない | Lens Distortion Modelが**Fusion Division Radial / Fusion Radial**か。 |
+| 解析後も線が曲がる | 参照している線が本当に直線か、Linesの指定位置・Checkerboardの写り・使用フレームを見直す。 |
+| 画面端がギザギザ／ぼける | **Supersampling [HiQ]**のサンプル数とNearest / Bi-Linearの違いを比較する。 |
 
 ## Grid Warp / Displaceとの違い
 

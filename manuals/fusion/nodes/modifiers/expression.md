@@ -16,7 +16,7 @@ tasks: ["drive-parameter", "link-values", "derive-values", "procedural-animation
 level: intermediate
 product_scope: fusion
 suite_surfaces: ["fusion"]
-updated: "2026-10-06"
+updated: "2026-10-13"
 ---
 
 # Expression
@@ -89,6 +89,42 @@ Configタブでは、9個ずつ用意されたNumber / Point入力について�
 
 例えば`Number 1`を`Amplitude`、`Number 2`を`Speed`のように変更すると、後から見たときに何のための値か分かりやすくなります。再利用するExpressionでは、未使用Controlを隠し、入力名を用途に合わせて変更しておくと読みやすくなります。
 
+## 運用例：別のTransformの動きを少し右へずらして再利用する
+
+たとえば2つのText+を別々のTransformで動かし、片方の文字がもう片方の少し右を追いかける動きを作れます。**Expressionで制御するのはTransformのCenterの値**であり、文字画像そのものをExpressionへ入力するわけではありません。
+
+1. 2つのText+をそれぞれ`Transform1`、`Transform2`へ通し、Mergeで重ねます。
+2. `Transform1.Center`にKeyframeを打ち、左側の文字の動きを作ります。
+3. `Transform2.Center`を右クリックし、`Modify With > Expression`を選びます。
+4. ExpressionのControlsタブにある`Point In 1`へ、`Transform1.Center`を接続します。
+5. Point Outタブの上側（X）へ`p1x + 0.1`、下側（Y）へ`p1y`を入力します。
+
+```text
+Transform1.Center ──→ Point In 1
+                          │
+                      Expression
+                     X: p1x + 0.1
+                     Y: p1y
+                          ↓
+                    Transform2.Center
+```
+
+これでTransform1のCenterが動くと、Transform2のCenterも同じ軌道をたどります。ただしX座標には常に0.1が加わります。Centerが正規化座標である通常の2D構成では、同じ画面幅を基準にした右方向へのずれです。2つの枝の画像サイズや座標系が違う場合は、表示上の間隔が変わるため、まず両方のTransformの入力画像とViewer上の座標を確認してください。
+
+**Point Outは2つの式欄**です。`(p1x + 0.1, p1y)`を1つの欄に入れるのではなく、XとYを個別に記述します。逆に、`Size`のような数値ParameterにはNumber Outを使います。
+
+## 運用例：小さい入力値を無視して数値を動かす
+
+たとえば音声解析などで得た数値を`Number In 1`へ接続し、その値が小さい間は別の数値Parameterを動かしたくないとします。Number Outへ次の式を入れます。
+
+```text
+max(0, n1 - 0.2)
+```
+
+`n1`が0.1なら結果は0、0.5なら0.3です。入力の0.2以下を0にし、それを超えた分だけを出力します。`0.2`は例示用のしきい値であり、入力の実際の値域に合わせて調整します。これは**取得済みの数値を整形する計算**で、音声の周波数成分を選び出すフィルターではありません。
+
+入力値をそのまま複数箇所へ配るだけなら[Publish](./publish)、時間をずらして値を使うなら[Calculation](./calculation)と比べて選びます。
+
 ## Random Seed
 
 `rand(x, y)`はx〜yのrandom値を生成し、frameごとに新しい値を返します。Random Seedはそのrandom系列の開始値を決めます。
@@ -146,6 +182,16 @@ Expressionが期待どおり動かない場合は、式全体を一度に直す�
 3. `n1`や`p1x`など、1入力だけをそのまま返して接続を確認する。
 4. 計算を1項ずつ追加する。
 5. 時間差が必要ならExpression Modifierの範囲外ではないか確認する。
+
+## 症状から確認する
+
+| 症状 | 最初に確認する点 |
+| --- | --- |
+| 式を入れたのに見た目が変わらない | 数値ParameterならNumber Out、Centerのような位置ParameterならPoint Outを編集しているか。 |
+| 追従先が動いても位置が変わらない | Controlsの`Point In 1`が元のCenterを参照しているか。まずX欄を`p1x`、Y欄を`p1y`だけにして接続を切り分ける。 |
+| 位置は動くが画面上の間隔が想定と違う | 正規化座標と、2つの画像の解像度・縦横比が一致しているか。値の差と画面上の距離を混同しない。 |
+| 数値を小さくしても完全に0にならない | `max(0, n1 - 0.2)`のように0へ切り上げる式を使っているか。逆に最大値を制限したいときは`min`で上限を指定する。 |
+| Random Seedを固定しても値が毎frame変わる | `rand(x, y)`はframeごとに値を変える仕様。同じframeの再現性と、連続するframeで値を固定することは別。滑らかな変化が目的なら`noise`系の式を検討する。 |
 
 ## 関連ページ
 

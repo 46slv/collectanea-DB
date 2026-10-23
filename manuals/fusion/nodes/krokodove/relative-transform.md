@@ -1,61 +1,95 @@
 ---
 title: "Relative Transform"
-description: "2nd inputのposition/rotation/scale等でwarp。pixel dataからpivot。"
+description: "2つ目の画像入力を使い、位置・回転・拡大縮小による変形を行うKrokodoveツール。画面全体の中心と画像内容を基準にした変形中心の違いも説明。"
 doc_type: node
 term_id: "relative-transform"
-term_short: "Relative Transformは、2nd inputのposition/rotation/scale等でwarp。pixel dataからpivot。Krokodove固有のtool。"
+term_short: "別の画像入力を利用して2D画像を変形し、画像内容を基準に変形の中心を調整できるKrokodoveツール。"
 verification: partial
 aliases: ["Relative Transform"]
 concepts: ["image-data", "transform"]
 nodes: ["Relative Transform"]
 node_family: "krokodove"
-inputs: ["image"]
+inputs: ["image", "image"]
 outputs: ["image"]
-tasks: ["motion-graphics"]
+tasks: ["motion-graphics", "warp"]
 product_scope: fusion
 suite_surfaces: ["fusion"]
-updated: "2026-10-05"
+updated: "2026-10-16"
 ---
 
 # Relative Transform
 
-Relative Transformは、2nd inputのposition/rotation/scale等でwarp。pixel dataからpivot。Krokodove固有のtoolです。名前だけで2D Image Nodeと判断せず、Input / Output domainとFamily Overviewを先に確認します。
+**Relative Transformは、位置・回転・拡大縮小を使って画像を変形するKrokodoveのツールです。** 通常の画像変形と異なる特徴として、**2つ目の入力を利用すること**と、**入力画像に実際に存在する画素を基準に変形の中心を設定できること**が21.1 Reference Manualに説明されています。
 
-## 役割
-
-2nd inputのposition/rotation/scale等でwarp。pixel dataからpivot。このページでは、名前だけで選ばず、**何を受け取り、何が変わり、どのdomainへ返すか**を先に整理します。
-
-位置・回転・scale等を変える系統です。見た目だけを変えるのか、data自体のdomain / resolutionを変えるのかを確認します。
+例えば、透明な余白が大きいロゴ画像を回転させるとき、画像全体の中央とロゴが描かれた場所の中央は一致しない場合があります。Relative Transformの変形中心は、こうした「キャンバスの位置」と「画像の中身の位置」を区別して考えるための機能です。ただし、どの画素を基準に中心を検出するかという**具体的な計算方法**は、Manualの記述だけでは確定できません。
 
 ## 入力と出力
 
-入力分類: **image**。 出力分類: **image**。 この分類はdata domainを読むためのものです。Fusion 21.1のexactな端子名・端子数を未確認の場合、ここでは推測して固定しません。
+扱うデータは<Term id="image">2D画像</Term>です。<Term id="shape-data">Shape</Term>やClassic 3Dのシーンを出力するツールではありません。
 
-## 使うときの判断
+| 接続 | 何に使うか | 確認状況 |
+| --- | --- | --- |
+| **画像入力** | 変形の対象となる画像を渡す | Image Warp系ツールとしての役割はManualに記載 |
+| **2つ目の入力** | 画像を変形させる処理で利用する | Manualに「second input」と明記。ただし正式な端子名・入力画像の評価方法は未記載 |
+| **出力** | 変形後の2D画像を後段へ渡す | KrokodoveのImage Warp分類に基づく |
 
-KrokodoveはImage、Shape、3D、Regionが同じchapterに並ぶため、まずOutput domainで候補を絞ります。
+21.1 Manualは**2番目の入力の存在**を明記していますが、オレンジ・緑といった端子色、内部ID、各入力画像が結果へどう作用するかは詳述していません。ここでは役割が未確定の入力を「変形マップ」「マスク」などの別名に置き換えません。
 
-同じ目的を別Familyでも作れる場合は、後段で必要なdata domainと、Graph上で責任をどこに置きたいかで選びます。
+~~~text
+画像A ──┐
+        ├→ Relative Transform → 2D画像 → Mergeなど
+画像B ──┘
+~~~
 
-## 最小構成
+この図は**2系統の画像を受けるという構造**を示すもので、どちらをどの端子へつなぐかを確定した実機配線図ではありません。入力ごとの効果はViewerで切り分けます。
 
-    Image / Source → Relative Transform → Result
+## 位置・回転・拡大縮小と変形中心
 
-これは接続関係を理解するための最小構成案です。公式Manualのexactな作例として確認していない構成は、実制作前にViewerで中間結果を確認します。
+21.1 Manualは、位置（position）、回転（rotation）、拡大縮小（scale）を使って**warp / distort（画像の形や位置を変える処理）**を行うと説明しています。
 
-## 確認ポイント
+- **位置**：画像内容をどの方向へ動かすかに関わります。
+- **回転**：選んだ中心の周りで向きを変える操作です。中心が違えば、同じ角度でも画面内での動き方が変わります。
+- **拡大縮小**：画像内容を大きく、または小さくする操作です。中心の設定は、拡大時にどこを基準として動くかに影響します。
+- **変形中心（pivot）**：回転・拡大縮小の基準となる位置です。Manualは入力画像から検出され、**実際の画素データに対して相対的に設定できる**と説明しています。
 
-- 入力dataのdomainが合っているか。
-- この項目のoutputを受け取れる後段Nodeへ接続しているか。
-- 同じ役割を前段 / 後段で二重に処理していないか。
-- source-limited pageでは、未確認のControl名・default・rangeを名前から推測していないか。
+ここでいう「中心」は必ずしも**画面の幅・高さのちょうど半分**ではありません。画像内にある図形の位置を意識して調整する点が特徴です。
 
-## Family内での位置づけ
+一方、Manualには、Inspector上での各設定の**正式なラベル、数値の単位・初期値・範囲、pivot検出時のAlphaの扱い**は示されていません。「透明でない画素の重心を計算する」など、未確認のアルゴリズムは断定しません。
 
-Krokodoveノードの全体像と近いNodeの選び分けは[Family Overview](./)を参照してください。
+## 運用例：余白の多いロゴの回転を調べる
 
-## 出典と確認範囲
+1920×1080の透明な画像の右寄りに、小さなロゴだけが描かれているケースを考えます。ロゴをその場に近い位置で回転させたいのに、画像全体の中心を基準にすると、回転と同時にロゴが大きく移動して見えることがあります。
 
-このページの役割・data domain・系譜は、既存COLLECTANEA catalogとBlackmagic Design公式資料で確認された範囲をreader-first形式へ整理しています。
+1. 透明部分を含むロゴの2D画像と、比較用の別画像を用意します。Relative Transformに接続する2つの入力は、実機の端子表示とViewerの変化を見ながら区別します。
+2. まず**回転だけ**を小さく変更し、ロゴがどの点を中心に動くかを観察します。位置・拡大縮小は同時に変えません。
+3. 次に変形中心に関わる設定を変え、ロゴの画面上の移動量がどう変わるか比較します。画像を中央に置いたときと、右寄りに置いたときの両方を見ると、キャンバスと画素内容の違いを判断しやすくなります。
+4. 2つ目の入力を接続した場合と外した場合も比較します。これにより、その画像が変形処理へどう寄与するかを実際の結果から確かめられます。
+5. 必要な変形ができたら、通常の[Merge](../compositing/merge.md)で背景映像に重ねます。
 
-Fusion 21.1 Reference Manualで個別のInspector項目・default・rangeまで確認できていない項目は、**source-limited**としてその詳細を断定していません。verification: partial はその未確認範囲を含みます。runtime REGIDや現在のEffects Library表示は別のruntime verificationで確定します。
+これは**Manualにある機能の確認方法として組み立てた例**であり、2つ目の入力がロゴを制御する方式や、特定のpivot値で期待どおりの結果になることを保証する作例ではありません。
+
+## 似たNodeとの違い
+
+| Node | 主に考えること |
+| --- | --- |
+| **Relative Transform** | 2つ目の画像入力と、実画素を基準に調整できる変形中心を利用した画像変形 |
+| [Transform](../transform/transform.md) | 一般的な2D画像の位置・回転・大きさなどを調整する |
+| [Warped Transform](./warped-transform.md) | Krokodoveの別の画像変形ツール。Manualは画像を伸ばす・押しつぶす・回す操作を挙げている |
+| [Grid Warp](../warp/grid-warp.md) | 格子状の制御点を動かし、画像の一部分を局所的に変形する |
+
+ロゴ全体を単純に移動・回転するだけなら、まず通常のTransformで目的を満たせるか確認できます。**画像内容に応じた中心設定や2つ目の入力が必要**になったとき、Relative Transformを比較候補にします。両者の補間方法や処理品質が同じだとは限りません。
+
+## うまくいかないとき
+
+- **回転時にロゴが遠くへ移動する**：画像全体の中心と実際に描かれた画素の位置を区別し、変形中心の設定を確認します。
+- **2つ目の入力を接続しても変化が分からない**：同じ画像を両方へつなぐのではなく、内容が明らかに異なる画像を使い、ほかの設定を固定して比較します。変化がない原因を未確認の端子機能から推測しません。
+- **画像が変形されない／想定と違う**：<Term id="image">2D Image</Term>を使っているか、後段まで結果がつながっているか、Viewerにどの出力を表示しているかを確認します。
+- **Shapeや3Dの接続を考えている**：このNodeはManualの**Image Warp Tools**分類です。KrokodoveにはShape・3D・Regionの別系統もあるため、[Family Overview](./index.md)でデータ形式を見直します。
+
+## バージョンと出典
+
+一次資料：**Blackmagic Design『DaVinci Resolve 21.1 Reference Manual』**（2026年9月）、**Chapter 105「Krokodove Nodes」p.2436、Image Warp Tools / Relative Transform**。
+
+Manualから確認できるのは、Image Warp分類、2つ目の入力、位置・回転・拡大縮小を利用した変形、入力画像の実画素を基準に調整できる変形中心です。**正確な端子名・接続の評価順・Inspector項目の表記や初期値・範囲・pixel dataからpivotを検出する式・Edition差は未確認**です。
+
+具体例は仕様から考えた観察手順で、Resolve / Fusion 21.1実機の結果を示すものではありません。そのため `verification: partial` を維持します。

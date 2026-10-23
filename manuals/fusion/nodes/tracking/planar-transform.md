@@ -1,6 +1,6 @@
 ---
 title: Planar Transform
-description: Planar Trackerの解析結果をImageやMaskへ適用し、graphicやroto shapeを平面の動きへ合わせるNode。
+description: Planar Trackerの解析結果を画像やマスクへ適用するPlanar Transformの接続・設定・合成例を解説する。
 doc_type: node
 term_id: planar-transform
 verification: partial
@@ -15,85 +15,126 @@ tasks: [track, apply-track, attach-graphics, roto]
 level: intermediate
 product_scope: fusion
 suite_surfaces: [fusion]
-updated: "2026-10-04"
+updated: "2026-10-21"
 ---
 
 # Planar Transform
 
-Planar Transformは、[Planar Tracker](./planar-tracker)で解析した平面の動きを、別の2D <Term id="image">Image</Term>や<Term id="mask">Mask</Term>へ適用するNodeです。
+**Planar Transformは、Planar Trackerで解析した平面の動きを、別の画像やマスクに適用するノード**です。看板に新しいロゴを貼ったり、被写体を囲むマスクをおおまかな動きに追従させたりするときに使います。
 
-Planar Trackerが解析を担当し、Planar Transformがその結果の再利用を担当します。
+看板・壁・スマートフォンの画面など、1枚の面として扱える領域は、カメラの移動によって位置・角度・大きさだけでなく見かけの台形の形も変わります。[Planar Tracker](./planar-tracker)がその変化を解析し、Planar Transformが**別の素材へ追跡結果を渡す**役割を担当します。Planar Transform自体には追跡点を解析する機能はありません。Planar Trackerと画像ケーブルで直列につなぐのではなく、生成時に共有された**Track spline（フレームごとの変形データ）**を使い、Image Inputに接続した素材を動かします。
 
-## 作成方法
+## 入力・出力
 
-Planar Trackerで解析した後、Inspectorの **Create Planar Transform** を押します。
+| 接続 | データ | 用途 |
+| --- | --- | --- |
+| **Image Input**（オレンジ） | 2D画像、Polygonなどのマスク | 追跡に合わせて変形したい画像・マスクを入力する |
+| **Effect Mask**（青、任意） | マスク | Planar Transformの出力を適用する範囲を制限する |
+| **Output** | 変形後の画像・マスク | MergeのForegroundや、別ノードのEffect Maskへ渡す |
 
-作成されたPlanar TransformはPlanar TrackerのTrack splineを共有します。元のtrackを変更すると、Planar Transformにも反映されます。
+**動かしたいマスクはオレンジのImage Inputへ接続します。** 青いEffect Maskに接続するマスクは、Planar Transform自体の出力を制限するためのもので、目的が異なります。この違いは、マスクを追従させるロトスコープ作業で特に重要です。
 
-## 入力
+グラフィックを背景映像へ重ねるには、Planar Transformの出力を[Merge](../compositing/merge)へ接続します。追跡結果を適用するだけでは、背景との合成や元の文字の除去は完了しません。
 
-### Image Input
+## 使い分け：切り抜いた素材と画面全体
 
-オレンジ色の入力です。平面の動きを適用したい2D Imageを接続します。
+看板に載せる透明ロゴや、被写体に沿わせるPolygonなど、**一部分を切り抜いて扱う素材**にはPlanar Transformが向いています。Planar Trackerの解析映像とは別の枝で素材を変形できるため、ロゴだけを差し替える際に追跡をやり直す必要はありません。
 
-### Effect Mask
+一方、**画面全体の無マスク画像**を扱う場合、21.1マニュアルはPlanar Tracker自身のSteady・Corner Pin・Stabilizeモードを使う方法も案内しています。元映像を安定化したいのか、別画像を平面に貼りたいのか、マスクを追従させたいのかで使い分けます。Planar Transformは変形の適用を担当し、元映像との合成や不要物の除去は行いません。
 
-青色の任意入力です。Planar Transformのoutputを適用する範囲を限定します。
+## 作成手順
 
-## 出力
+1. 撮影素材をPlanar Trackerへ接続します。
+2. 対象の面が大きく見えるフレームを基準にして、追跡する領域を囲みます。
+3. 必要なフレーム範囲をTrackし、ずれがないか確認します。
+4. Planar Trackerを**Track**モードに戻し、Inspectorの **Create Planar Transform** を押します。追跡データを使う新しいノードが画像ケーブルから切り離された状態で作成されます。
+5. 作成されたPlanar TransformのImage Inputへ、動かしたい画像またはマスクを接続します。
 
-Planar Trackerで得たperspective変化が適用された2D Imageを出力します。
+Planar Transformは、作成元のPlanar Trackerが生成した**Track spline**を共有します。Track splineにはフレームごとの透視変形が保存され、両ノードが同じSplineを参照している場合は元のTrackerで修正した結果がPlanar Transformにも反映されます。**追跡データの共有と画像の配線は別**なので、Planar Trackerの画像出力をPlanar Transformへ接続する必要はありません。
 
-## 主な設定項目
+21.1マニュアルによると、作成されたPlanar Transformは別のCompositionにコピーできます。結果を適用する段階でPlanar Trackerをノードツリーから外す構成も可能です。ただし再解析する可能性がある作業中は、Trackerを残しておくと修正しやすくなります。
+
+## Inspectorの主な項目
 
 ### Reference Time
 
-Planar Trackerでpatternを取得した基準frameです。
+Planar Trackerで追跡対象のパターンを取得した**基準時刻**です。ロゴやマスクの位置合わせを行うときは、そのフレームを基準に確認します。Reference Timeは、追跡を何フレーム実行するかを設定する項目ではありません。
 
-### Track Spline
+### Right-Click Here for Track Spline
 
-Planar Trackerが作ったperspective変化のdataです。Spline Editorでtracked frameの範囲を確認できます。
+Planar Trackerから共有されたTrack splineの接続欄です。21.1マニュアルは、透視変形のデータが**4×4行列**として記録されると説明しています。
 
-## Graphicへ使う
+[Spline Editor](../../learn/05-time/keyframes-spline-time)でTrackデータが存在するフレーム範囲を確認できます。素材が途中から追従しない場合、まず解析がそのフレームまで完了しているかを調べます。
 
-```text
-Footage → Planar Tracker
-               ↓ Create Planar Transform
+SettingsタブにはTransform系ノードと共通する設定もありますが、ここではPlanar Transform固有の項目に絞ります。
 
-Graphic → Planar Transform → Merge
-```
+## 制作例1：動く看板へ新しい文字を貼る
 
-Graphic固有の位置・大きさ調整と、平面のmovementを別段階にできます。
+入力する素材は、動く看板のFootageと、透明背景の新しい文字画像です。狙う結果は、**文字が看板の遠近変化に沿って動く映像**です。
 
-## Mask / Rotoへ使う
+~~~text
+看板のFootage → Planar Tracker（解析用）
 
-Polygon等のMaskへPlanar Transformを適用し、roughなmovementを先に合わせることもできます。
+文字画像 → Transform（基準フレームで位置合わせ）
+         → Planar Transform（追跡結果を適用）
+         → MergeのForeground ──┐
+看板のFootage → MergeのBackground ┴→ MediaOut
+~~~
 
-```text
-Polygon Mask → Planar Transform → Effect Mask
-```
+1. Planar Trackerで看板の面を囲み、必要区間を解析します。
+2. Create Planar Transformで追跡結果の適用用ノードを作ります。
+3. 文字画像を[Transform](../transform/transform)で、基準フレームの看板上の位置・大きさに合わせます。
+4. Transformの後にPlanar Transformを接続し、その出力をMergeのForegroundへ渡します。元映像はBackgroundに接続します。
+5. ショットを通して文字が看板に沿うか、特に傾きが変わるフレームで確認します。
 
-対象が完全な平面でない場合は、Planar Transformだけで輪郭が完全に合うとは限りません。Manualでは、まずplanar movementを適用し、ずれるframeでpolylineを修正するworkflowが説明されています。
+文字だけ差し替える場合は同じ追跡結果を再利用でき、デザインの配置と追跡データの修正を分けられます。**元の看板の文字を消す処理や、前を横切る人物を手前に合成する処理は別途必要**です。Planar Transformが自動で隠れた領域を復元するわけではありません。解析の準備から試す場合は、[平面追跡で看板にロゴを貼る](../../recipes/tracking/planar-track-graphic)を参照してください。
 
-## Transformとの違い
+## 制作例2：動く服のマスクを追従させる
 
-- **Transform** — Center / Size / Angle等を手動またはanimationで指定
-- **Planar Transform** — Planar Trackerの解析結果を使ってperspective変化を適用
+ロトスコープは被写体の輪郭をマスクで囲んで映像処理の範囲を分ける作業です。平面追跡を利用すれば、マスク全体の動きを先に合わせ、細部だけを補正できます。
 
-## 関連する考え方
+~~~text
+服のFootage → Planar Tracker（解析用）
 
-- [Trackを解いてから適用先を分ける](../../patterns/tracking/solve-then-apply-track)
-- [トラッキング結果がずれる / driftする](../../troubleshooting/tracking/track-drifts)
+Polygon Mask → Planar Transform → 後段ノードのEffect Mask
+服のFootage ───────────────────→ 後段ノードのImage Input
+~~~
 
-## 関連Node
+1. 服の柄や縫い目など、特徴が追いやすい面をPlanar Trackerで解析します。
+2. Create Planar Transformを押して追跡データを取り出します。
+3. 解析済みのフレームを1つ選び、[Polygon Mask](../masks/polygon-mask)をPlanar Transformの**オレンジのImage Input**へ接続します。
+4. Planar TransformをViewerで見ながら、そのフレームでPolygonの輪郭を服に合わせます。
+5. フレームを動かし、ずれたところだけPolygonの頂点を調整します。
+6. できたマスクを、補正したい映像処理ノードのEffect Maskへ渡します。
 
-- [Planar Tracker](./planar-tracker)
-- [Tracker](./tracker)
-- [Transform](../transform/transform)
-- [Polygon Mask](../masks/polygon-mask)
+1枚の平面として扱える動きなら効率化できますが、**しわ・伸縮・袖の折れ曲がり**まで完全には追えません。輪郭の手動修正が必要な場合があります。柔らかい面の内部変形を扱うなら、[Surface Tracker](./surface-tracker)も選択肢です。
 
-## 出典と確認範囲
+## 他のノードとの違い
 
-DaVinci Resolve 21.1 Reference Manual、September 2026、Chapter 120 pp.2870–2872とFusion Fundamentals Chapter 80 / 82で、Image / Effect Mask入力、Create Planar Transform、Reference Time、共有Track spline、Image / Maskへの適用を確認しました。
+| ノード | 主な役割 |
+| --- | --- |
+| [Planar Tracker](./planar-tracker) | 元映像の平面の動きを解析する |
+| **Planar Transform** | 解析済みの動きを別の画像・マスクへ適用する |
+| [Transform](../transform/transform) | Center・Size・Angleなどを手動やキーフレームで設定する |
+| [Tracker](./tracker) | 特徴点を追跡し、位置などの動きを取得する |
+| [Surface Tracker](./surface-tracker) | 柔らかい面の内部変形を追跡する |
 
-solver内部仕様、実機性能は未確認のため `verification: partial` としています。
+## うまくいかないとき
+
+| 症状 | 確認すること |
+| --- | --- |
+| **途中から動かなくなる** | Spline Editorで必要なフレームにTrackキーがあるか確認する |
+| **最初から位置がずれる** | Reference Timeと、画像やマスクを位置合わせしたフレームが対応しているか確認する |
+| **角度が変わると滑る** | Planar Trackerの解析精度と、対象が平面として扱えるかを確認する |
+| **Polygonが追従しない** | PolygonをオレンジのImage Inputへ接続しているか確認する |
+| **追跡できているのに素材が動かない** | 追跡後に作成したPlanar Transformか、Track splineの接続が残っているか、Image Inputへ素材を接続したか確認する |
+| **出力が一部分しか見えない** | Planar Transform自身の青いEffect Maskに接続がないか確認する |
+| **服の輪郭が合わない** | 平面として表せない曲げ・伸びを、Polygonの追加調整で補う |
+
+追跡が不安定なときは、[トラッキング結果のずれ](../../troubleshooting/tracking/track-drifts)と[解析・適用を分ける考え方](../../patterns/tracking/solve-then-apply-track)を参照してください。
+
+## バージョン・出典と確認範囲
+
+**一次資料：** Blackmagic Design『DaVinci Resolve 21.1 Reference Manual』（September 2026）、Chapter 120「Transform Nodes」、**pp.2871–2872**。Planar Transformの用途、2入力、Polygonを入力するロトスコープ手順、Reference Time、Track splineの共有と4×4行列、Spline Editor、別Compositionへのコピーを確認しました。Chapter 119「Tracking Nodes」**p.2825**でCreate Planar Transformと全面画像との使い分け、Fusion Fundamentals Chapter 80「Paint」**p.1771**で生成直後のノードが画像ケーブルへ未接続であることを確認しました。入手先：[Blackmagic Design Support](https://www.blackmagicdesign.com/support/)。
+
+Planar Trackerの解析手順は同マニュアルChapter 119「Tracking Nodes」を前提とします。上記制作例は仕様に基づく構成例です。**実機での位置合わせ挙動、追跡エンジンの内部仕様、処理性能、Edition差は未検証**のため、verification: partialを維持します。

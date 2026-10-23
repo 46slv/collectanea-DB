@@ -15,7 +15,7 @@ outputs: [image]
 tasks: [transform-image, crop, resolution, format]
 product_scope: fusion
 suite_surfaces: [fusion]
-updated: "2026-10-04"
+updated: "2026-10-17"
 ---
 
 # Crop
@@ -81,29 +81,32 @@ Crop後の出力Width / Heightをピクセル単位で指定します。
 
 有効にすると、出力ImageのPixel Aspectを変更できます。
 
-### Clipping Mode
+### Clipping Mode — 出力範囲とDoDを混同しない
 
-Domain of Definition（DoD）をどう扱うかを選びます。
+Domain of Definition（DoD）は、Imageの幅・高さとは別に、画像データが存在する範囲を表す情報です。`Clipping Mode`はDoDを使った処理で、画像の端やDoDの外側をどう扱うかを指定します。`Size X / Y`で切り出し範囲を決める操作とは別です。
 
-- **Frame**: full frameをDoDとして扱う既定動作。upstream DoD外はblack / transparentとして扱う
-- **Domain**: upstream DoDを尊重する
-- **None**: source image clippingを行わない
+- **Frame（既定）**: 現在のDoDを無視して、画像フレーム全体をDoDとして扱います。上流のDoDがフレームより小さいとき、残る部分は黒／透明として扱われます。
+- **Domain**: 上流から渡されたDoDを尊重します。大きくぼかすFilterなどでは、必要な周辺画素が対象範囲から外れ、端が不自然に切れる場合があります。
+- **None**: 入力画像に対するClippingを実行しません。ただし、上流DoDの外に必要なサンプルは黒／透明として扱われます。存在しない画素を復元する設定ではありません。
 
-Blurなど、現在のDoD外側のpixelを参照する処理と組み合わせた場合に違いが出ます。
+たとえば、透明なロゴをCropした後にBlurで輪郭を広げたい場合、端だけ急に切れていないかをViewerで確認します。問題が出るときは、CropのSize / Offsetだけでなく、後段のFilterとDoDの関係も確認してください。[DoDの基礎](../../learn/03-space/domain-of-definition)を参照できます。
 
-### Auto Crop
+### Auto Crop — 余白を画像から判定する
 
-Auto Cropタブでは、選んだRGBA channelを分析して背景色を推定し、背景と異なる最初のpixelまで各辺をCropします。
+`Auto Crop`タブの`RGBA Color Channels`で、背景判定に使うR / G / B / Aチャンネルを選びます。オフにしたチャンネルは判定対象から除外されます。たとえば背景に青いグラデーションがある画像では、チャンネルの選び方でCrop結果が変わり得ます。
 
-結果はCropタブのSize / Offsetへ反映されます。
+`Auto Crop`を実行すると、選択チャンネルの値から背景色を推定し、各辺で背景と異なる最初の画素まで範囲を詰めます。計算結果は**CropタブのSize / Offset**へ反映されます。Auto Crop後も手動で微調整できます。
 
-透明背景や単色背景の周囲を自動的に詰めたい場合の候補です。素材によって背景判定結果が変わるため、自動結果を確認して使います。
+透明なロゴ画像の余白を取り除くときは、Alphaを判定に使う方法を検討します。一方、背景と被写体の色が近い場合やグラデーションがある場合は、思った範囲より内側へ切れる可能性があります。実行後にViewerで四辺を確認してください。背景推定の厳密なアルゴリズムや許容差はManualからは確定できません。
 
-## ViewerからCropする
+## Viewerで矩形を選んでCropする
 
-21.1 Manualでは、CropをViewerへ表示した状態でAllow Box Selectionを有効にし、Viewer上で矩形をドラッグしてCrop範囲を指定できると説明されています。
+1. Cropを選択してViewerへ表示します。
+2. Viewerの**左上**にある`Allow Box Selection`を有効にします。
+3. Viewer上で残したい範囲を囲む矩形をドラッグします。
+4. InspectorのSize X / YとOffset X / Y、Viewerの切り出し結果を確認します。
 
-数値だけでなく、画面を見ながら切り出したい場合に使えます。
+21.1 Manualに記載されたViewer上の操作です。ドラッグ後に細かい位置を揃える場合は、数値欄で調整します。
 
 ## 最小構成
 
@@ -113,16 +116,21 @@ MediaIn → Crop → MergeのBackground
 
 Crop前後のWidth / Heightを確認すると、Maskとの違いを理解しやすくなります。
 
-## 運用例
+## 運用例：1920×1080から中央の1080×1080を切り出す
 
-1920×1080のImageから中央の正方形だけを切り出したい場合:
+横長の映像から中央の正方形だけを取り出し、後段へ**1080×1080のImage**として渡す例です。
 
-1. Keep Centeredを有効にします。
-2. Size X / Yを同じ値にします。
-3. Viewerで残したい範囲を確認します。
-4. 必要ならKeep Centeredを外し、Offset X / Yで位置を調整します。
+```text
+MediaIn（1920×1080） → Crop（1080×1080） → MergeのBackground
+```
 
-正確な値は元素材と目的の解像度に合わせます。
+1. 1920×1080のMediaInをCropへ接続します。
+2. `Keep Aspect`をオフにします。元の16:9を保持したままでは、正方形の出力寸法にできません。
+3. `Keep Centered`をオンにし、`Size X=1080`、`Size Y=1080`を設定します。
+4. 1920−1080＝840pxなので、左右の切り落とし量は中央基準で**420pxずつ**です。Viewerで意図した被写体が残っているか確認します。
+5. 被写体が中央からずれている場合は`Keep Centered`を外し、`Offset X / Y`で切り出す位置を調整します。
+
+この操作はフレーム全体を1080×1080へ押し縮める**Resize**とは違い、元画像の一部を残す操作です。Crop出力をMergeのBackgroundへ接続すると、そのMerge出力も1080×1080を基準に合成されます。
 
 ## Maskとの違い
 

@@ -1,9 +1,9 @@
 ---
 title: 解像度 / アスペクト比（Resolution / Aspect）
-description: ImageのWidth・Height、フレーム比、Pixel Aspect、正規化座標を分け、TransformとResize/Scale/Cropの違いを理解する。
+description: Fusionで画像のピクセル寸法・表示比率・Pixel Aspect・配置上の倍率を区別し、Transform、Resize、Scale、Crop、Mergeを使い分ける。
 doc_type: concept
 term_id: resolution-aspect
-term_short: Imageのピクセル寸法、フレーム比、Pixel Aspect、相対位置を別の値として扱う考え方。
+term_short: Imageのピクセル寸法、フレームの縦横比、Pixel Aspect、配置の倍率を区別する考え方。
 verification: partial
 aliases: [resolution, aspect ratio, pixel aspect]
 concepts: [resolution, aspect-ratio, normalized-coordinates]
@@ -13,138 +13,182 @@ prerequisites: [normalized-coordinates]
 level: foundation
 product_scope: fusion
 suite_surfaces: [fusion]
-updated: "2026-10-04"
+updated: "2026-10-16"
 ---
 
 # 解像度 / アスペクト比（Resolution / Aspect）
 
-## このページで分かること
+Fusionで「映像を半分の大きさにする」と言うとき、二つの操作が考えられます。1920×1080のフレームを保ったまま被写体だけ小さく見せる操作と、1920×1080の画像データを960×540へ作り直す操作です。前者は主に**Transform**、後者は**Scale**や**Resize**で行います。
 
-「画像を小さくした」「縦横比を変えた」「解像度を変えた」を同じ操作として扱わず、Fusionで何が変わったのかを分けて考えます。
+画面を見ただけでは区別しにくいことがありますが、後段のMergeで使うキャンバスや、Editページへ戻る映像の有効解像度まで変わるため、先に何を変更したいのかを決めます。
 
-## 基本の考え方
+## まず四つの値を分ける
 
-少なくとも次の4つを分けます。
+| 項目 | 意味 | 例 |
+| --- | --- | --- |
+| **Width / Height（解像度）** | Imageが横・縦に持つピクセル数 | 1920×1080、960×540 |
+| **Frame Aspect（フレーム比）** | WidthとHeightの比 | 1920:1080＝16:9 |
+| **Pixel Aspect Ratio（PAR）** | 1ピクセルを表示するときの横幅と縦幅の比 | 正方形ピクセル、非正方形ピクセル |
+| **Normalized Coordinates（正規化座標）** | 幅・高さを基準にした相対的な位置 | Center＝(0.5, 0.5) |
 
-- **Width / Height** — Imageが持つピクセル寸法
-- **Frame Aspect** — WidthとHeightから決まる画面の縦横比
-- **Pixel Aspect** — 1 pixelを表示するときの縦横比
-- **Normalized Coordinates** — frame / reference sizeに対する相対位置
+1920×1080の**正方形ピクセル**画像なら、フレーム比と表示上の縦横比はともに16:9です。一方、非正方形ピクセルではWidth / Heightが同じでも表示上の形が変わり得ます。フレーム比はピクセル数から求める比であり、表示比はPARも考慮した結果です。
 
-数値が似ていても役割は別です。
+正規化座標は寸法や比率そのものではありません。たとえばX＝0.1の移動は、横幅1920pxを基準にすれば192px相当ですが、横幅960pxを基準にすれば96px相当です。詳しい換算は[正規化座標](./normalized-coordinates)で扱います。
 
-## Transformは解像度を変えない
+## 操作ごとに何が変わるか
 
-TransformのSizeでImageを0.5倍に見せても、出力Width / Heightは入力と同じです。
+| Node / 操作 | 出力ImageのWidth / Height | 映像の見え方 | 選ぶ場面 |
+| --- | --- | --- | --- |
+| **Transform / Size** | 原則として入力と同じ | 同じキャンバス内で拡大・縮小・移動する | 位置・倍率を動かす |
+| **Resize / Width・Height** | 指定したピクセル寸法へ変更 | 全体を新しい寸法へ再サンプリングする | HDなど決まった寸法に揃える |
+| **Scale / Size** | 入力寸法に倍率を掛けて変更 | 画像を倍率で再サンプリングする | 元サイズの半分・2倍にする |
+| **Crop / Size X・Y** | 指定したキャンバス寸法へ変更 | 画像の一部を切り出す、または余白を含む領域へ配置する | 一部分だけ残す・枠の大きさを変える |
+| **Merge** | Background入力の寸法を採用 | ForegroundをBackgroundへ合成する | 合成後のキャンバスを決める |
 
-```text
-1920×1080
-   ↓ Transform Size 0.5
-1920×1080
-```
+これは通常の2D Imageを扱う場合の整理です。Mask、Shape、Deep Image、3D Sceneはデータの種類が異なるため、この表のNodeをそのまま置き換えて使うことはできません。
 
-画面の中でImageが小さく見えるだけです。
+### Transform：大きさを変えても解像度は保持する
 
-## Resizeはピクセル寸法を直接指定する
+1920×1080の画像へTransformを置き、Inspectorの**Size＝0.5**にしても、Transformから出るImageは1920×1080のままです。
 
-ResizeではWidth / Heightをピクセル単位で決めます。
+~~~text
+1920×1080 Image
+  └─ Transform（Size 0.5）
+       └─ 1920×1080 Image
+          ※ 同じフレーム内で内容が小さく見える
+~~~
 
-```text
-3840×2160
-   ↓ Resize 1920×1080
-1920×1080
-```
+Transformの**Aspect**は画像を横・縦に伸縮して見せるControlですが、それだけでPixel Aspect RatioのメタデータやWidth / Heightを変更するものではありません。「画像が横長に見える」と「出力が横長のピクセル数になった」は別です。
 
-後段が受け取るImageの物理解像度が変わります。
+Transformは隣接する一部の変形をまとめて評価できるため、移動や拡大縮小のアニメーションに適しています。ただし、途中に別の画像処理が入る場合など、常に無劣化になるとまでは考えません。
 
-## Scaleは倍率で解像度を変える
+### Resize：出力するピクセル数を指定する
 
-Scaleは元のWidth / Heightに対する倍率で新しい解像度を決めます。
+4K UHDの3840×2160を1920×1080に変えるなら、Resizeの**Width＝1920、Height＝1080**とします。
 
-```text
-1920×1080
-   ↓ Scale 0.5
-960×540
-```
+~~~text
+3840×2160 Image
+  └─ Resize（Width 1920 / Height 1080）
+       └─ 1920×1080 Image
+~~~
 
-固定サイズへ揃えるならResize、元サイズに対する比率で処理するならScaleが読みやすくなります。
+**Keep Frame Aspect**は元画像の縦横比を保ちたい場合に使用します。**Auto Resolution**を有効にすると、DaVinci Resolve内のFusionではタイムライン解像度、Fusion StudioではFrame Formatに合わせてWidth / Heightが設定されます。素材自体のサイズを自動採用する機能とは区別してください。
 
-## Cropも解像度を変える
+Resizeは実際のピクセルを再サンプリングするため、後からTransformで大きくしても、Resizeで取り除いた元の細部が自動的に復元されるわけではありません。**Filter Method**は縮小・拡大時の補間方法を指定します。
 
-Cropは、入力Imageの一部を新しいWidth / Heightで出力します。
+### Scale：元の解像度に倍率を掛ける
 
-Maskで見える範囲を隠すことと、Imageそのものを小さいキャンバスへ切り出すことは別です。
+Scaleは**Lock X/Y**を有効にすると、単一の**Size**で縦横を同倍率にできます。1920×1080にSize＝0.5を適用すると、出力は960×540になります。
 
-## MergeではBackgroundが基準になる
+~~~text
+1920×1080 Image
+  └─ Scale（Size 0.5）
+       └─ 960×540 Image
+~~~
 
-21.1 Manualでは、MergeのBackground入力が出力解像度を決めます。
+元の解像度が異なる素材を「それぞれ半分のピクセル数にしたい」ならScale、どの素材も1920×1080に統一したいならResizeが適しています。**Lock X/Y**を解除するとX/Yを別倍率にできますが、その場合は出力の縦横比も変わります。
 
-そのため:
+ResizeとScaleはともに物理解像度を変えます。21.1 Manualは、解像度が時間とともに変化するため、これらのControlのアニメーションを推奨していません。映像の拡大縮小を動かす用途には、通常はTransformを選びます。
 
-```text
-Image → Resize / Scale / Crop → Merge Background
-```
+### Crop：画像を伸縮せず、出力範囲を変える
 
-のようにBackground前で解像度を変更すると、Merge全体の出力解像度も変わります。
+Cropの**Size X / Size Y**は出力のピクセル寸法、**Offset X / Offset Y**は内容を移動するピクセル単位の値です。Resizeのように元画像全体を新しい枠に縮小して収める操作とは異なります。
 
-Foreground側のTransform Sizeだけを変えても、MergeキャンバスのWidth / HeightはBackground基準のままです。
+たとえば1920×1080の映像から中央の1080×1080だけを残すなら、次のように設定します。
 
-## Pixel Aspect
+1. Cropを接続して、Inspectorで**Keep Aspect**を無効にします。元の16:9を維持したままでは正方形にできないためです。
+2. **Keep Centered**を有効にし、**Size X＝1080、Size Y＝1080**とします。
+3. Viewerで中央が残っていることを確認します。単純な中央切り出しでは、横方向は左右420pxずつ除かれます。
+4. 切り出し位置をずらしたい場合はKeep Centeredを解除し、Offset X / Yを調整します。
 
-Resize / Scale / CropではPixel Aspectを変更できる設定があります。
+~~~text
+1920×1080 Image
+  └─ Crop（Size X 1080 / Size Y 1080）
+       └─ 1080×1080 Image
+          ※ 元画像の縦横比を保って縮小したのではない
+~~~
 
-Width / Heightが同じでもPixel Aspectが違えば表示上の形は変わります。通常の正方形pixel素材では、不用意に変更せず入力・出力formatの要件を確認します。
+Cropは出力範囲を広げる用途にも使えます。単に透明な領域や効果範囲を制限する**Mask**とは異なり、Width / Heightそのものが変わります。切り出し後の端で効果が欠ける場合は[有効領域（DoD）](./domain-of-definition)とCropの**Clipping Mode**も確認します。
 
-## Normalized Coordinatesとの関係
+## Mergeに入れると、どちらの解像度が残るか
 
-TransformのCenterは正規化座標で保持されます。
+**MergeのBackground（オレンジ入力）が出力解像度を決めます。** Foreground（緑入力）に小さなImageを接続しても、その寸法へMergeの出力全体が縮むわけではありません。
 
-たとえばX = 0.5はframe中央を表しますが、「0.1移動すること」が常に同じpixel数を意味するわけではありません。Widthが変われば、同じ正規化距離に相当するpixel数も変わります。
+~~~text
+Background（1920×1080） ─┐
+                          Merge ─→ 1920×1080
+Foreground（960×540） ────┘
+~~~
 
-TransformのReference SizeはCenterの**表示値**をpixel表記へ変えますが、内部値そのものは正規化されたままです。
+逆に、Background側へ960×540のImageを入れると、Mergeの出力も960×540です。Foregroundが高解像度でも、出力の基準を自動的に拡張しません。
 
-## 1つずつ変えて確認する
+複数の異なる解像度の素材を合成するときは、最終出力と同じWidth / HeightのBackground Imageを用意し、MergeのBackgroundへ接続すると意図を明示できます。背景を透明にしたい場合も、目的の解像度を持つBackgroundを用意する考え方は同じです。
 
-次の3構成を比較します。
+## Pixel Aspectは「画像を何ピクセルにするか」ではない
 
-```text
-A: Image → Transform Size 0.5
-B: Image → Scale 0.5
-C: Image → Resize
-```
+非正方形ピクセルの映像では、同じWidth / Heightでも表示上の縦横比が変わります。21.1 Manualでは、DaVinci ResolveのProject Settings（Timeline Format）やClip AttributesでPARを扱うこと、Fusionの**Resize / Scale / Crop**に**Change Pixel Aspect**があることを説明しています。
 
-Viewer上の見た目だけでなく、それぞれの出力Width / Heightを確認します。
+ここで変更するのは各ピクセルの表示比率です。1920×1080から1280×720への**解像度変更**、TransformのAspectによる**見た目の引き伸ばし**、Pixel Aspectの**表示解釈**は混同しないでください。
 
-この比較で「見た目の大きさ」と「Imageデータの解像度」を分離できます。
+通常の正方形ピクセル素材で形が崩れている場合、すぐにChange Pixel Aspectを操作するのではなく、素材のClip Attributesとタイムライン設定、ResizeのKeep Frame Aspect、TransformのAspectを順に確認します。
 
-## よくある誤解
+## Resolveのタイムライン解像度との関係
 
-### 小さく見えれば解像度も小さい
+Fusionには、すべてのNodeに一律で適用される固定の「コンポジション解像度」があるわけではありません。**各Imageがどの解像度を持ち、最後のNodeから何を出すか**が重要です。
 
-Transformでは成立しません。
+DaVinci Resolve 21.1 Reference Manualでは、次の違いが説明されています。
 
-### AspectとPixel Aspectは同じ
+- タイムライン上の**通常のクリップ**をFusionで開く場合、基本的にはそのクリップのソース解像度がFusion側の処理解像度の基準です。タイムラインがHDでも、4KソースのFusion処理が必ずHDになるわけではありません。
+- 複数クリップをまとめた**Fusion Clip**は、基本的にタイムライン解像度が基準です。通常のクリップと同じ前提で解像度を推定しないでください。
+- FusionでCrop・Resize・Scaleを使う、あるいは異なる解像度のImageをMergeのBackgroundへ接続すると、**最後のNodeの出力解像度**がCut/Editページへ戻る際の有効なソース解像度になります。
+- Cut/Edit側のImage Scaling設定によって、Fusionから渡されたImageがタイムラインへどう収められるかも変わります。「Viewerでは合っているのにEditでは大きさが違う」場合は、この段階も調べます。
 
-Frame全体の縦横比と、1 pixelの表示比率は別です。
+Fusionページを使うと、Cut/Edit/Colorページだけで操作する場合とは解像度を保った変形の扱いが変わることがあります。特にResizeで一度小さな画像データにすると、後段で拡大しても元のディテールは取り戻せません。解像度を下げる操作を合成途中に置くか、最終段階まで保持するかは用途に応じて決めます。
 
-### 同じCenter値なら同じpixel位置
+## 実際に見比べる
 
-正規化座標なら、reference dimensionsが変わるとpixel距離も変わります。
+1920×1080の画像を一つ用意し、それぞれ別の枝で次の三つを比較します。三つを直列に置くのではなく、**同じ入力から分岐**させると違いを確かめやすくなります。
 
-## 関連Node
+~~~text
+             ┌─ Transform（Size 0.5）→ A
+1920×1080 ───┼─ Scale（Size 0.5）────→ B
+             └─ Resize（960×540）───→ C
+~~~
 
-- [Transform](../../nodes/transform/transform)
-- [Resize](../../nodes/transform/resize)
-- [Scale](../../nodes/transform/scale)
-- [Crop](../../nodes/transform/crop)
-- [Merge](../../nodes/compositing/merge)
+| 枝 | 出力のWidth / Height | 調べること |
+| --- | --- | --- |
+| A | 1920×1080 | 被写体は小さくなるがフレームの寸法は変わらない |
+| B | 960×540 | Imageのピクセル数が倍率で変わる |
+| C | 960×540 | Imageのピクセル数が指定寸法へ変わる |
 
-## 次に読む
+Viewerは画像ごとに表示倍率を自動調整することがあるため、見かけの大きさだけで判断しません。**各NodeをViewerに表示し、Viewer上部の解像度表示を確認**します。次にA・B・Cを個別に同じ1920×1080のMerge Backgroundへ重ね、前後の余白や鮮明さがどう変わるかも比較できます。
 
-→ [有効領域（Domain of Definition）](./domain-of-definition)
+最後に、上の三つの枝をすべて**MergeのForeground**として使う場合と、各枝を**MergeのBackground**へ入れる場合で、Mergeの出力寸法を比べます。これにより「素材の大きさ」と「合成結果のキャンバスの大きさ」を区別できます。
 
-## 出典と確認範囲
+## 解像度が変わる案件での判断
 
-DaVinci Resolve 21.1 Reference Manual、September 2026、Chapter 120、pp.2862–2883でCrop / Resize / Scale / Transformの解像度処理と主要Controlを確認しました。MergeのBackground基準解像度はChapter 94、p.2212で確認しています。
+同じレイアウトを1920×1080と3840×2160の両方で使うなら、配置比率を保つか、余白を同じピクセル数に保つかを先に決めます。前者は正規化座標でCenterを管理し、後者は基準解像度から位置のオフセットを計算します。
 
-特定formatのpixel aspect要件や、各filterの実機比較はこのConceptでは扱っていません。
+Transformの**Reference Size**はCenterのInspector表示をピクセル値へ変換する設定であり、ImageのWidth / Heightを変更しません。見えているCenterが960, 540でも、内部では(0.5, 0.5)として保持されている場合があります。詳しくは[正規化座標](./normalized-coordinates)と[解像度を跨ぐ配置](../../patterns/transform/resolution-aware-positioning)を参照してください。
+
+## 関連記事
+
+- [Transform](../../nodes/transform/transform)：キャンバス寸法を変えずに位置・倍率を調整
+- [Resize](../../nodes/transform/resize)：Width / Heightを指定した再サンプリング
+- [Scale](../../nodes/transform/scale)：元解像度に対する倍率で変更
+- [Crop](../../nodes/transform/crop)：出力範囲とキャンバス寸法を変更
+- [Merge](../../nodes/compositing/merge)：Backgroundが出力解像度を決める
+- [正規化座標](./normalized-coordinates)：位置を相対値とピクセル値で読み替える
+- [有効領域（DoD）](./domain-of-definition)：解像度と実際に有効な領域の違い
+
+## 出典と検証範囲
+
+一次資料：Blackmagic Design『**DaVinci Resolve 21.1 Reference Manual**』（2026年9月）。
+
+- Chapter 11「Image Sizing and Resolution Independence」pp.287–290：Pixel Aspect、通常クリップとFusion Clipの解像度、FusionからEditへ渡す有効解像度、TransformとResizeの違い。
+- Chapter 75「Controlling Image Processing and Resolution」pp.1643–1644：Fusionの解像度管理、Merge Background、Crop / Resize / Scale / Letterbox、Image Scalingとの関係。
+- Chapter 94「Composite Nodes」p.2212：MergeのBackgroundが出力解像度を決める仕様。
+- Chapter 120「Transform Nodes」pp.2862–2864、2873–2878、2879–2883：Crop、Resize、Scale、Transformの各Control、物理解像度とReference Size、Pixel Aspect。
+- Chapter 6「Project Settings」およびChapter 11 p.287：タイムラインとクリップのPixel Aspect設定。
+
+操作例と数値例は上記の仕様から構成しました。記載したNodeの働きとControl名は21.1 Manualで確認していますが、手順全体の21.1実機操作、素材固有のPAR挙動、フィルタの画質比較、Free / Studioの全差分は確認していません。そのため、検証状態は**partial**としています。

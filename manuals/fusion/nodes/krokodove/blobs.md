@@ -1,60 +1,83 @@
 ---
-title: "Blobs"
-description: "points上にcircular shapeを生成。"
+title: Blobs
+description: 指定した位置に円形の図形を作るKrokodoveの画像生成ツール。点の意味、用途、他の模様生成ツールとの違い、合成例を説明。
 doc_type: node
-term_id: "blobs"
-term_short: "Blobsは、points上にcircular shapeを生成。Krokodove固有のtool。"
+term_id: blobs
+term_short: 指定した点を基準に円形の図形を生成するKrokodoveの画像ツール。
 verification: partial
-aliases: ["Blobs"]
-concepts: ["image-data"]
-nodes: ["Blobs"]
-node_family: "krokodove"
-outputs: ["image"]
-tasks: ["motion-graphics"]
+aliases: [Blobs]
+concepts: [image-data]
+nodes: [Blobs]
+node_family: krokodove
+outputs: [image]
+tasks: [motion-graphics]
 product_scope: fusion
-suite_surfaces: ["fusion"]
-updated: "2026-10-05"
+suite_surfaces: [fusion]
+updated: '2026-10-17'
 ---
 
 # Blobs
 
-Blobsは、points上にcircular shapeを生成。Krokodove固有のtoolです。名前だけで2D Image Nodeと判断せず、Input / Output domainとFamily Overviewを先に確認します。
+Blobsは、**指定した点の位置に円形の図形を作る**Krokodoveの画像生成ツールです。DaVinci Resolve 21.1 Reference Manualの「Image Create Tools」に掲載されており、原文では「Blobs generates circular shapes at specified points」と説明されています。
 
-## 役割
+たとえば画面の左上と右下に点を指定した場合、その点を基準に円形の模様を配置する、という考え方です。ただし、ここでの位置指定がInspectorの座標欄なのか、Viewer上のハンドルなのか、外部入力によるものなのかはManualの一覧だけでは分かりません。**複数の点を同時に扱えるか、円を何個まで作れるか**も未確認です。
 
-points上にcircular shapeを生成。このページでは、名前だけで選ばず、**何を受け取り、何が変わり、どのdomainへ返すか**を先に整理します。
+## 「点」と「円形」の意味
 
-この項目で確認できている中心的な役割は「points上にcircular shapeを生成」です。exactなInspector項目が未確認の場合は、役割とdata domainを先に使って候補を絞ります。
+**点（point）**は、画面内で図形を置く位置の目印です。「点そのものを画面に描く」という意味ではありません。Blobsの説明では、その指定位置に**円形の図形**が作られます。点の位置を変えれば、円形の模様を置く場所が変わると考えられますが、位置をどの操作で変更するかは実機で確かめます。
+
+ここでいう「円形」は形の種類を示す言葉です。必ず輪郭のはっきりした真円になるのか、柔らかい縁や塗りつぶしにできるのか、半径や色を変更できるのかといった詳細は、公式の短い説明では確定できません。Blobsという名前から、液体の動き・粒子の物理演算・有機的な変形があるとも判断しません。
+
+KrokodoveのBlobsで作るのは、画像として見える円形の模様です。Fusion標準の<Term id="shape-data">Shapeデータ</Term>（図形の輪郭を描画前のデータとして扱う仕組み）や、Particleノードの粒子とは区別します。Shapeデータを画像にする場合は[sRender](../shapes/s-render)を使います。
 
 ## 入力と出力
 
-出力分類: **image**。 この分類はdata domainを読むためのものです。Fusion 21.1のexactな端子名・端子数を未確認の場合、ここでは推測して固定しません。
+| 段階 | 扱うもの | 確認できる範囲 |
+| --- | --- | --- |
+| 入力 | 外部画像・点データなどの必須入力は未確認 | 21.1 ManualのBlobsの項目には入力端子の種類・数が書かれていません。 |
+| 生成 | 指定した点を基準に円形の図形を作る | Chapter 105、p.2435で確認できます。 |
+| 出力 | 2Dの<Term id="image">Image</Term>として扱う分類 | Manualの「Image Create Tools」と既存カタログに基づきます。正式な端子名、Alpha、解像度は未確認です。 |
 
-## 使うときの判断
+「Image Create Tools」という分類だけでは、**入力なしで必ず動く**とは判断できません。まずBlobsをViewerに表示し、画像が出るかを確認します。入力が必要な場合は、その場で実際の接続口とデータ種別を調べます。旧記事の `Image / Source → Blobs → Result` は、未確認の画像入力を前提にしているため、確定した接続図としては使いません。
 
-KrokodoveはImage、Shape、3D、Regionが同じchapterに並ぶため、まずOutput domainで候補を絞ります。
+## 主な用途
 
-同じ目的を別Familyでも作れる場合は、後段で必要なdata domainと、Graph上で責任をどこに置きたいかで選びます。
+位置を指定して円形の模様を作るという役割から、タイトル周辺の丸いアクセント、背景の水玉状の装飾、位置関係を示すグラフィックなどへの利用が考えられます。これらは**機能説明から考えた制作案**で、公式のプリセットや実機で再現した作例ではありません。
 
-## 最小構成
+円が一定間隔で整列する模様を作りたいのか、個別に場所を決めて円を置きたいのかで、選ぶツールは変わります。Blobsを使う目安は後者です。ただし、点の個別指定の操作方法や個数制限は別途確認が必要です。
 
-    Image / Source → Blobs → Result
+## 制作例：映像に円形のアクセントを重ねる
 
-これは接続関係を理解するための最小構成案です。公式Manualのexactな作例として確認していない構成は、実制作前にViewerで中間結果を確認します。
+1. FusionでKrokodoveのBlobsを追加し、まず出力をViewerへ表示します。何も表示されない場合は、実際の入力端子や必要な設定を確認します。
+2. 円形の図形が出たら、位置・大きさ・色・縁の見え方を観察します。Inspectorに関連項目があれば一つずつ試します。**これらの語は観察する性質であり、確認済みのInspector項目名ではありません**。
+3. Blobsから2D画像が得られる場合、映像に重ねるには標準の[Merge](../compositing/merge)を使えます。映像をBackground（BG）、Blobsの画像をForeground（FG）へ接続する構成案です。
 
-## 確認ポイント
+```text
+映像・背景画像 ─────────────────→ Merge（BG） ─→ MediaOut
+Blobs（画像出力を確認後） ─────→ Merge（FG）
+```
 
-- 入力dataのdomainが合っているか。
-- この項目のoutputを受け取れる後段Nodeへ接続しているか。
-- 同じ役割を前段 / 後段で二重に処理していないか。
-- source-limited pageでは、未確認のControl名・default・rangeを名前から推測していないか。
+4. 円の外側も背景を覆ってしまう場合は、Blobsの出力Alpha（透明度）をViewerで確認します。透明な余白があるとは限りません。全体の模様を薄く重ねるだけなら、Mergeの`Blend`を下げる方法があります。
+5. 円の位置を時間に沿って変えたい場合は、21.1実機で対象の位置指定にキーフレームを使えるかを確かめます。Manualの一覧にアニメーション設定の記載はありません。
 
-## Family内での位置づけ
+この配線はFusionの標準合成を利用した**利用例**であり、Blobs固有の端子や位置制御を保証する公式作例ではありません。
 
-Krokodoveノードの全体像と近いNodeの選び分けは[Family Overview](./)を参照してください。
+## 似たツールとの違い
 
-## 出典と確認範囲
+| ツール | 何を作るか | 選ぶ目安 |
+| --- | --- | --- |
+| **Blobs** | 指定した点に円形の図形を作る | 点を基準に置かれる円形の模様が欲しい |
+| [Shapes](./shapes) | 同じ中心を共有する大小の円・四角形を何重にも作る | 同心円や入れ子状の図形を使いたい |
+| [Pattern](./pattern) | 図形を敷き詰めて画面全体の模様にする | 規則的に繰り返す背景が欲しい |
+| [Lines](./lines) | 線の組を繰り返した模様を作る | 円よりも線や縞を使いたい |
+| [Duplicate（Krokodove）](./duplicate) | 入力画像を指定した配置・形に沿って複製する | 既存のロゴや画像をそのまま増やしたい |
 
-このページの役割・data domain・系譜は、既存COLLECTANEA catalogとBlackmagic Design公式資料で確認された範囲をreader-first形式へ整理しています。
+特にBlobsとShapesは、どちらも円を作る可能性がありますが、**Blobsは指定した点、Shapesは中心を共有する何重もの図形**に着目したツールです。別のFamilyのParticle「Blob」スタイルとは名前が似ていても同一機能とは限りません。
 
-Fusion 21.1 Reference Manualで個別のInspector項目・default・rangeまで確認できていない項目は、**source-limited**としてその詳細を断定していません。verification: partial はその未確認範囲を含みます。runtime REGIDや現在のEffects Library表示は別のruntime verificationで確定します。
+## 出典・バージョン・未確認事項
+
+- **一次資料**：Blackmagic Design『DaVinci Resolve 21.1 Reference Manual』（September 2026）、Chapter 105「Krokodove Nodes」、p.2435（Image Create Tools／Blobs）。指定した点に円形の図形を生成するとの説明を確認しました。同ページにはGenerate、Lines、Pattern、Shapesも掲載されています。
+- **既存分類**：COLLECTANEAではBlobsの出力を2D Imageに分類しています。Krokodove内のImage / Shape / 3D / Regionの違いは[Family Overview](./)を参照してください。
+- **未確認**：必須入力、点を指定する方法・点数、端子名と端子数、Inspectorの項目名・初期値・範囲、円の輪郭・塗り・重なり方、Alphaと解像度、アニメーション可否、Free / StudioなどのEdition差、21.1実機での描画結果。
+
+`verification: partial`は、Manualと既存カタログで確認できる情報と、詳細資料・実機で未確認の仕様を分ける状態です。
