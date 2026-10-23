@@ -30,20 +30,24 @@ TARGETS['S36']='TransformSmooth';LEFT['S36']='TransformLinear';RIGHT['S36']='Tra
 TARGETS['S37']='MergeDerived';LEFT['S37']='MergeMaster';RIGHT['S37']='MergeDerived'
 TARGETS['S38']='TransformReference';LEFT['S38']='Loader1';RIGHT['S38']='TransformReference'
 TARGETS['S39']='TimeDynamic';LEFT['S39']='Loader1';RIGHT['S39']='TimeDynamic'
+TARGETS['S40']='TimeSpeed1';LEFT['S40']='Loader1';RIGHT['S40']='TimeSpeed1'
+TARGETS['S41']='TransformA';LEFT['S41']='TransformA';RIGHT['S41']='TransformB'
 r=d.scriptapp('Resolve')
 assert r, 'Resolve scripting unavailable; do not change preferences automatically'
 pm=r.GetProjectManager(); p=pm.GetCurrentProject()
 assert p and p.GetName()==PROJECT, 'Refusing to mutate a foreign project'
 assert r.GetCurrentPage(), 'Resolve has a modal dialog; reconcile the GUI first'
 case=sys.argv[1]; action=sys.argv[2] if len(sys.argv)>2 else 'readback'
-requested_frame=int(sys.argv[3]) if action=='frame' else 0
+requested_frame=int(sys.argv[3]) if action=='frame' else 24 if case=='S40' else 0
 if action=='frame':
- assert case in ['S35','S36','S39'] and requested_frame in ([0,48] if case=='S35' else [0,3,6,9,12,18,24]);action='show'
+ assert case in ['S35','S36','S39','S40'] and requested_frame in ([0,48] if case=='S35' else [0,3,6,9,12,18,24]);action='show'
 if action=='hold':
  assert case=='S39';requested_frame=int(sys.argv[3]);assert requested_frame in [0,24]
  TARGETS[case]='TransformHold';LEFT[case]='TimeHold';RIGHT[case]='TransformHold';action='show'
 if action=='hold_source':
  assert case=='S39';TARGETS[case]='TimeHold';LEFT[case]='TimeHold';RIGHT[case]='TransformHold';action='show'
+if action=='second':
+ assert case=='S41';TARGETS[case]='TransformB';action='show'
 if action=='master':
  assert case=='S37';TARGETS[case]='MergeMaster';action='show'
 if action=='step':
@@ -76,8 +80,8 @@ for _ in range(50):
  time.sleep(.1)
 else:raise RuntimeError('Requested composition did not become the active GUI composition')
 t.SetCurrentTimecode('01:00:02:00' if case=='S09' else '01:00:00:00')
-c.CurrentTime=requested_frame if case in ['S35','S36','S39'] else 48 if case=='S09' else 0
-if case in ['S36','S39']:t.SetCurrentTimecode(f'01:00:{requested_frame//24:02d}:{requested_frame%24:02d}')
+c.CurrentTime=requested_frame if case in ['S35','S36','S39','S40'] else 48 if case=='S09' else 0
+if case in ['S36','S39','S40']:t.SetCurrentTimecode(f'01:00:{requested_frame//24:02d}:{requested_frame%24:02d}')
 if case=='S35':t.SetCurrentTimecode('01:00:02:00' if requested_frame==48 else '01:00:00:00')
 time.sleep(.3)
 tools={x.GetAttrs()['TOOLS_Name']:x for x in c.GetToolList().values()}
@@ -143,6 +147,8 @@ def select(target,left=None):
  layouts['S36']={'Text1':(0,0),'TransformLinear':(1.5,-2),'TransformSmooth':(1.5,0),'TransformStep':(1.5,2),'MediaOut1':(3,0)}
  layouts['S37']={'Base1':(0,0),'Rectangle1':(0,-2),'Red1':(1.5,-2),'Ellipse1':(1.5,2),'Gold1':(3,2),'MergeMaster':(3,-1),'MergeDerived':(4.5,1),'MediaOut1':(6,1)}
  layouts['S38']={'Loader1':(0,0),'TransformReference':(1.5,0),'MediaOut1':(3,0)}
+ layouts['S41']={'TextA':(0,-1.5),'TransformA':(1.5,-1.5),'TextB':(0,1.5),'TransformB':(1.5,1.5),'MediaOut1':(3,1.5)}
+ layouts['S40']={'Loader1':(0,0),'TimeSpeed1':(1.5,0),'MediaOut1':(3,0)}
  layouts['S39']={'Loader1':(0,0),'TimeDynamic':(1.5,-1.5),'TimeHold':(1.5,1.5),'TransformHold':(3,1.5),'MediaOut1':(3,-1.5)}
  layouts['S35']={'Text1':(0,0),'TransformAnimated':(1.5,0),'MediaOut1':(3,0)}
  for n,pos in layouts.get(case,{}).items():
@@ -183,6 +189,14 @@ if action=='build':
   rb=add('sRender','RenderBase1',4,-1);connect(rb,'Input',base)
   target=add('sTransform','Transform1',2,1);connect(target,'Input',base)
   rr=add('sRender','RenderChanged1',4,1);connect(rr,'Input',target);connect(mo,'Input',rr)
+ # S41 build creates the scaffold; finish Publish/Connect To in the native GUI.
+ elif case=='S41':
+  a=text('TextA',0,-1.5,'PUBLISH A',.1);b=text('TextB',0,1.5,'PUBLISH B',.1)
+  target=add('Transform','TransformA',1.5,-1.5,Size=.5);connect(target,'Input',a)
+  second=add('Transform','TransformB',1.5,1.5,Size=1);connect(second,'Input',b);connect(mo,'Input',second)
+ elif case=='S40':
+  loader=add('Loader','Loader1',0,0,Clip=str(ROOT/'static/img/fusion/captures/_fixtures/timeplate/frame0000.png'))
+  target=add('TimeSpeed','TimeSpeed1',1.5,0,Speed=.5,Delay=0,InterpolateBetweenFrames=1);connect(target,'Input',loader);connect(mo,'Input',target)
  elif case=='S39':
   loader=add('Loader','Loader1',0,0,Clip=str(ROOT/'static/img/fusion/captures/_fixtures/timeplate/frame0000.png'))
   target=add('TimeStretcher','TimeDynamic',1.5,-1.5);connect(target,'Input',loader)

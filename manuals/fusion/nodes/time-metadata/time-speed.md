@@ -51,7 +51,7 @@ DaVinci Resolve 21.1 Reference Manualでは、Time Speedの`Speed`はanimation�
 
 ### Delay
 
-Image sequenceの時間位置をframe単位でずらします。Manualでは、負の値でtimeを後方へoffsetし、正の値で前方へadvanceすると説明されています。
+Image sequenceの時間位置をframe単位でずらします。21.1 Manualは負の値でtimeを後方へoffsetし、正の値で前方へadvanceすると表現しています。以下の実機例では、出力フレームを固定したときに実際に読む素材番号で向きを確認します。
 
 単純な「速度は変えず、映像だけ数frameずらしたい」場合にも使えます。
 
@@ -106,9 +106,64 @@ frame補間によって画面端に透明な隙間が出る場合、`Clamp Edges
 
 `Speed = 0.5`にすると、source sequenceを50%速度で読みます。まずNearest / Blendで結果を確認し、より滑らかな補間が必要ならOptical Flowを前段に追加してFlowへ切り替えます。
 
+### 実機で速度とDelayを比べる
+
+Resolve Studio 21.1.0.14、Windows、日本語UIで、S39と同じ番号入り100枚の連番を読み込みました。出力フレーム24を固定し、速度とDelayを別々に変更しています。補間はBlend、Sample Spreadは0、両ViewerはColor／40%です。
+
+[![番号入り連番LoaderからTimeSpeed1を経由してMediaOut1へ接続した実機Graph](/img/fusion/captures/S40/graph.png)](/img/fusion/captures/S40/graph.png)
+
+[![TimeSpeed1のSpeedは0.5、Delayは0、補間はBlend、Sample Spreadは0](/img/fusion/captures/S40/inspector.png)](/img/fusion/captures/S40/inspector.png)
+
+[![出力フレーム24、左の入力はSOURCE 024、右の半速出力はSOURCE 012](/img/fusion/captures/S40/compare.png)](/img/fusion/captures/S40/compare.png)
+
+[![Speedだけを2.0へ変更したTimeSpeed1のInspector。Delayは0](/img/fusion/captures/S40/fast-inspector.png)](/img/fusion/captures/S40/fast-inspector.png)
+
+[![出力フレーム24、左はSOURCE 024、右の2倍速出力はSOURCE 048](/img/fusion/captures/S40/fast.png)](/img/fusion/captures/S40/fast.png)
+
+Speed 0.5では素材12、Speed 2.0では素材48を表示しました。次はSpeedを1.0に戻し、Delayだけを変えています。
+
+[![Speed 1.0、Delay +6のInspector](/img/fusion/captures/S40/delay-inspector.png)](/img/fusion/captures/S40/delay-inspector.png)
+
+[![出力フレーム24、左はSOURCE 024、Delay +6の右出力はSOURCE 018](/img/fusion/captures/S40/delay.png)](/img/fusion/captures/S40/delay.png)
+
+[![Speed 1.0、Delay −6のInspector](/img/fusion/captures/S40/advance-inspector.png)](/img/fusion/captures/S40/advance-inspector.png)
+
+[![出力フレーム24、左はSOURCE 024、Delay −6の右出力はSOURCE 030](/img/fusion/captures/S40/advance.png)](/img/fusion/captures/S40/advance.png)
+
+| 出力フレーム | Speed | Delay | 右Viewerの素材番号 |
+| ---: | ---: | ---: | ---: |
+| 24 | 0.5 | 0 | 12 |
+| 24 | 2.0 | 0 | 48 |
+| 24 | 1.0 | +6 | 18 |
+| 24 | 1.0 | −6 | 30 |
+
+この条件では、正のDelayは同じ出力時刻で前の素材フレームを読み、負のDelayは先の素材フレームを読みました。「advance」という語だけで参照番号が増えると判断せず、入力と出力を同じ時刻で比較してください。
+
 ### 逆再生
 
 `Speed`へ負の値を指定するとreverse playbackになります。一定速度の逆再生ならTime Speedだけで完結します。
+
+### 実機で逆再生とFreeze Frameを確認する
+
+Speed −1.0、Delay −48のまま出力を0→24へ進めると、右の素材番号は52→28へ減りました。次の例はこの固定条件での観察です。速度が負の場合の参照位置の一般式や、範囲外の処理までは検証していません。
+
+[![逆再生のSpeed −1.0、Delay −48を指定したInspector](/img/fusion/captures/S40/reverse-inspector.png)](/img/fusion/captures/S40/reverse-inspector.png)
+
+[![逆再生で出力0を表示。左はSOURCE 000、右はSOURCE 052](/img/fusion/captures/S40/reverse0.png)](/img/fusion/captures/S40/reverse0.png)
+
+[![同じ逆再生設定で出力24を表示。左はSOURCE 024、右はSOURCE 028](/img/fusion/captures/S40/reverse24.png)](/img/fusion/captures/S40/reverse24.png)
+
+Freeze Frameは別に確認しました。出力24、Speed 1、Delay +6で素材18を表示している状態からボタンを押すと、Speed 0／Delay −24になり、素材24を表示しました。現在の右Viewerに出ている素材18を固定する動作と取り違えないでください。撮影した日本語UIでは、Inspector下部のこのボタンは「入力」と表示されています。
+
+[![出力24でFreeze Frameを押した後のInspector。Speed 0、Delay −24](/img/fusion/captures/S40/freeze-inspector.png)](/img/fusion/captures/S40/freeze-inspector.png)
+
+[![Freeze Frame直後の出力24。左入力と右出力がともにSOURCE 024](/img/fusion/captures/S40/freeze.png)](/img/fusion/captures/S40/freeze.png)
+
+[![出力を0へ移動しても右はSOURCE 024に固定。左の入力はSOURCE 000](/img/fusion/captures/S40/freeze0.png)](/img/fusion/captures/S40/freeze0.png)
+
+出力0へ移動しても右は素材24のままです。最後はSpeed 0.5、Delay 0、出力24へ戻しました。Nearest／Flowの画質、Optical FlowやEXR再利用、Free edition、書き出し性能は未確認です。
+
+[再現用Graph](/img/fusion/captures/S40/fixture.comp) · [撮影条件と確認範囲](/img/fusion/captures/S40/capture.json)
 
 ### Optical Flowを使ったretime
 

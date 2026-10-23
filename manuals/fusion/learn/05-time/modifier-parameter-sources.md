@@ -69,6 +69,22 @@ Blackmagic Designの21.1 Reference Manualは、TransformのCenterにKeyframeを�
 
 `Connect To`によるこの接続は、Manualで**双方向**と説明されています。片方から調整したときに、もう片方も変わる共有関係です。ただし、選べる接続先はパラメータの型に応じて絞られます。Centerのような位置と、Blendのような単一数値を、互換性を確認せずそのまま共有できるとは考えません。
 
+### 実機の参考例
+
+<!-- capture-reuse:R72 -->
+
+SizeをPublishしてConnect Toで共有したS41です。Modifiersタブの公開値1つに、画像配線が独立した2つのTransformがつながっています。Bを0.8へ編集するとAも0.8、Aを0.3へ編集するとBも0.3になりました。
+
+[![TextAからTransformA、TextBからTransformBへ独立に接続したGraph。画像の配線でSizeを共有する構成ではない](/img/fusion/captures/S41/graph.png)](/img/fusion/captures/S41/graph.png)
+
+[![ModifiersタブのTransformA:サイズ。公開値0.5が1つだけ表示される](/img/fusion/captures/S41/published-inspector.png)](/img/fusion/captures/S41/published-inspector.png)
+
+[![B側から0.8へ編集すると左右の文字が一緒に拡大する実機Viewer](/img/fusion/captures/S41/high.png)](/img/fusion/captures/S41/high.png)
+
+[![A側から0.3へ編集すると左右の文字が一緒に縮小する実機Viewer](/img/fusion/captures/S41/low.png)](/img/fusion/captures/S41/low.png)
+
+Resolve Studio 21.1.0.14／Windows、両Viewer Color／40%。Numberの共有だけを確認。Perturb、Modifierの連結、Point/Text型は未確認。 [撮影条件と確認範囲](/img/fusion/captures/S41/capture.json)
+
 ### SimpleExpressionとは何が違う？
 
 SimpleExpressionは、たとえば次のように一方の値を読んで結果を計算できます。
@@ -83,6 +99,18 @@ SimpleExpression欄の左にある`+`を参照先のパラメータへドラッ�
 
 → [Publish](../../nodes/modifiers/publish.md) / [式（Expressions）](./expressions.md)
 
+### 実機の参考例
+
+<!-- capture-reuse:R73 -->
+
+S37はBlendの供給元をSimpleExpressionにした例です。参照式MergeMaster.Blendを残したまま、Masterの変更に合わせてDerivedが0.8→0.3へ変わりました。
+
+[![MergeDerivedのBlendと参照式MergeMaster.Blend](/img/fusion/captures/S37/inspector.png)](/img/fusion/captures/S37/inspector.png)
+
+[![式を残したまま0.3へ変化した派生Blend](/img/fusion/captures/S37/low-inspector.png)](/img/fusion/captures/S37/low-inspector.png)
+
+Resolve Studio 21.1.0.14／Windows、両Viewer Color／40%。同じ時刻のNumber式。5フレーム前のGetValueとPick Whipは未確認。 [撮影条件と確認範囲](/img/fusion/captures/S37/capture.json)
+
 ## 実例3：今の値ではなく「5フレーム前の値」を使う
 
 SimpleExpressionは現在フレーム以外の値も参照できます。21.1 Manualには次の例があります。
@@ -96,6 +124,18 @@ Merge1:GetValue("Blend", time-5)
 同じ「Expression」という名前でも、**SimpleExpressionとExpression Modifierは別の機能**です。21.1 Manualでは、Expression Modifierは現在時刻以外のパラメータ値を直接参照できないと説明されています。過去フレームの値を読みたい場合、どの仕組みに式を置いているか確認してください。
 
 → [Expression Modifier](../../nodes/modifiers/expression.md) / [Calculation](../../nodes/modifiers/calculation.md)
+
+### 実機の参考例
+
+<!-- capture-reuse:R74 -->
+
+S36ではSizeの値をKeyframeから供給しています。フレーム12でSize 1.1、Keyframes Editorには0・12・24の3キーがあります。現在値だけでなく、供給元のキーも確認します。
+
+[![フレーム12のSize 1.1と現在のキー](/img/fusion/captures/S36/peak-inspector.png)](/img/fusion/captures/S36/peak-inspector.png)
+
+[![Keyframes EditorのSizeの0・12・24の3キー](/img/fusion/captures/S36/keyframes.png)](/img/fusion/captures/S36/keyframes.png)
+
+Resolve Studio 21.1.0.14／Windows、両Viewer Color／40%。SizeのNumberアニメーション。Perturbの重ね合わせとModifier連結は未確認。 [撮影条件と確認範囲](/img/fusion/captures/S36/capture.json)
 
 ## Modifierは連結できる
 

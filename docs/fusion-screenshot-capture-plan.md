@@ -1,6 +1,6 @@
 # Fusion 21.1 スクリーンショット計画
 
-更新: 2026-10-24。S01〜S35と再利用例を含む計96ページ・138原画crop・299掲載は公開確認済み。S36〜S39の34cropと22再利用掲載を8記事へ追加し、ローカル確認済み。公開前の候補として時間制御を統合中。Fusion全体は未完了。
+更新: 2026-10-24。S01〜S39と再利用例を含む計100ページ・172原画crop・355掲載は公開確認済み。S40 Time SpeedとS41 Publishへ継続中。Fusion全体は未完了。
 
 撮影候補は [fusion-screenshot-candidates.json](./fusion-screenshot-candidates.json) に記録する。記事の説明基準は [Fusion Authoring Contract](./fusion-authoring-contract.md)、技術出典はDaVinci Resolve 21.1 Reference Manual（2026年9月）。公式画像の転載ではなく、実機から独自に撮影する。
 
@@ -30,7 +30,7 @@
 
 - Mission: Fusion全体の、画像が必要な箇所を実機撮影・記事掲載・GitHub反映・公開確認まで完了する。ユーザーはこの制作元taskで全586ページへの継続と必要なGitHub操作を明示許可した。14記事でMissionを完了扱いにしない。
 - Owner: Sol、制作元Codex task `01a1683b-3067-7a40-892a-47a3b30d50b2`。設計・GUI・実装・統合・検証を継続担当。Dot intake writer `01a1689f-419e-7742-8058-b0d6a0aa302d` は安全な境界で停止し、親も再投入なしを確認済み。
-- Canonical edit checkout: `C:/Users/shiro/Documents/Codex/2026-10-23/task-19/collectanea-screenshot-integration`。現在branch `integration/fusion-time-native-20261024`、base `ba19663c28205eab8493b94852a71e5ef31f68bc`。旧producer checkoutと元の43MB配布ZIPは保全。branch作成時にorigin/mainがupstreamになるため、pushは必ず明示branchを指定する。
+- Canonical edit checkout: `C:/Users/shiro/Documents/Codex/2026-10-23/task-19/collectanea-screenshot-integration`。現在branch `integration/fusion-utility-native-20261024`、base `5083e5e61c70cc03c21c539e5b45a4115e706e0d`。旧producer checkoutと元の43MB配布ZIPは保全。branch作成時にorigin/mainがupstreamになるため、pushは必ず明示branchを指定する。
 - Published batch 1: S01–S14、14記事・50画像。[PR #63](https://github.com/46slv/collectanea-DB/pull/63)、main `b5862defc25d342381849d6afcc499597efc4745`。候補 `2176ab3572689cba26d83c8b4d494055f192c216` とmainのtree `a9aa538d22790ad862d1ba92158bce047d33f44c` は一致。
 - PASS: [exact-head Quality 39966534167](https://github.com/46slv/collectanea-DB/actions/runs/39966534167)、[Pages 39967626278](https://github.com/46slv/collectanea-DB/actions/runs/39967626278)、公開14ページ・50画像の1440px/390px表示・decode・Alt・原寸リンク・横overflow、公開232素材のHTTP200/SHA-256一致。公開証拠は `artifacts/fusion-captures/public-display-report.json`、`public-assets.json` と28画面。これらは既存ignore内に保存。
 - Public-check note: 長いS08–S10の末尾画像は遅延読込。撮影節の末尾までscrollして全画像を確認した。最初の未読込観測は公開レポートに保持。CIの初回URL形状assertion失敗は、Docusaurusの `assets/files/` 配布を実バイトhashで照合する修正後の新headで解消。
@@ -67,9 +67,17 @@
 - S37 native observed: MergeMaster.BlendへMergeDerived.BlendのSimpleExpressionを連動。元だけ0.8→0.3へ変え、双方の値と出力が追従し、式MergeMaster.Blendが残ることをInspector/semantic readbackで確認。高低両状態の元/派生Inspectorを別々に撮影。初回右Viewer Fitは不採用、両方40%の原画を採用した。最後は0.8へ復元。
 - S38 native observed: Center内部値0.525/0.5を固定し、Reference Size1×1/1920×1080/3840×2160のCenter表示0.525/0.5、1008/540、2016/1080を撮影。Auto ResolutionではTimeline1920×1080を使用。1920/3840の同じ右Viewer領域は画素一致。最後はAutoオフ、参照1920×1080へ復元。ピクセル欄からの位置入力や別入力解像度は未確認。
 - S39 native observed: own100枚の番号入りPNG→TimeDynamic SourceTime Linear0→99 at0→24。出力0/12/24で素材0/49.5/99を読み、Blend49.5では049/050の重なりを実機確認。別のTimeHoldはframe0=12の1キーで素材固定、後段Size0.8→1.2のみ変化。初回SourceTime setterが既定Bezier0を残したため不採用、既存curveだけを修正し0/12/24の値12を確認した。fixture再buildなし。
-- Current host: owned project Collectanea_Captures_20261023_Sol、PID8944/HWND1251932、S39_capture/frame12、左Loader・右TimeDynamic、Inspector SourceTime49.5/Blend。両Viewer Color/40%、Spline/Keyframes閉、RoI/DoD無効。Graph/readbackを書き出し、scratch保存済み。終了時はscratch保存→Project Managerへ戻す。
+- Batch 7 host receipt: owned project Collectanea_Captures_20261023_Sol、PID8944/HWND1251932、S39_capture/frame12、左Loader・右TimeDynamic、Inspector SourceTime49.5/Blend。両Viewer Color/40%、Spline/Keyframes閉、RoI/DoD無効。Graph/readbackを書き出し、scratch保存済み。終了時はscratch保存→Project Managerへ戻す。
 - Batch 7 local PASS: S36 Sizeの3キー/Linear・水平handle・Step In、S37 SimpleExpression高低2値、S38 Reference Size、S39時刻評価。34新規cropとR67–R71の22再利用掲載を8記事へ追加。production buildと変更8ページ73掲載の1440px/390px・decode/Alt/原寸リンク/hash/overflow PASS。累計100ページ・172原画crop・355掲載のうち、公開済みは96ページ138crop299掲載。S39の連番は入力fixtureであり模造UIではない。partialとremaining_viewsを維持。
-- Next action: batch7をcurrent mainへ追随させReady PR/exact-head Quality→main/Pages→変更8ページ73掲載と公開素材hashを確認する。その後454未図示ページと既存記事のremaining_viewsを同じSolで継続。Checkpointだけでは停止しない。
+- Batch 7 published PASS: [PR #78](https://github.com/46slv/collectanea-DB/pull/78)、candidate `7e3e70bec26c7395d9db2db32ba370e9eee03386`、main `5083e5e61c70cc03c21c539e5b45a4115e706e0d`、tree `e0925e9c1701221f41906c018131a64de03aa8f0`一致。[Quality 40002727211](https://github.com/46slv/collectanea-DB/actions/runs/40002727211)の全必要step成功。expected-head merge呼出時にはIntegratorによりmerged済みで、再mergeは行われていない。[Pages 40003974492](https://github.com/46slv/collectanea-DB/actions/runs/40003974492)成功。変更8記事73掲載の1440px/390px・decode/Alt/原寸リンク/overflow PASS。594公開素材HTTP200/SHA256一致。詳細public-batch7-display-report.json、public-batch7-assets.jsonと16画面。累計100ページ172crop355掲載。
+- Batch 8 native stage: work/fusion-utility-stage、helper work/fusion-capture-utility.py。S40 TimeSpeed、出力24固定でSpeed0.5→SOURCE012、2→048。Speed1でDelay+6→018、−6→030。Manualのadvance表現から符号を推測せず記事へ実測差分を明記する。Freeze buttonを出力24で実操作するとSpeed0/Delay−24、出力0へ動かしてもSOURCE024。逆再生Speed−1/Delay−48では出力0→SOURCE052、24→028を観察。最後はSpeed0.5/Delay0/frame24へ復元。Flow/Nearest画質、逆再生の一般式は未確認。
+- S41 native stage: TextA→TransformA、TextB→TransformB→MediaOut。Size0.5をPublishし、別のSizeをConnectTo→TransformA→Sizeで接続する実メニューとPublished Valueを撮影。PublishNumber1個、両Size0.5を実画面/readback確認。双方向の値変更も実機受入済み。UIA Menu Invokeはno-op、foreground pixelは実際に追加・接続したがpopup消滅後foreground_unavailableを返したため再試行せず本体で確認。Qt数値欄のUIA type_textは0.50.8と追記し、background Ctrl+Aも未成立。誤った入力は確定時に0.5へ戻り、両Size0.5のまま。これらの画像は採用しない。
+- S41 bidirectional PASS: Connect To後、実GUIでB.Sizeだけ0.8へ編集→A/B/Publish Valueが0.8。A.Sizeだけ0.3へ編集→3値0.3。両Inspectorと出力を撮影。最後は公開値0.5へ復元・scratch保存。Qt数値入力はpress_key(modifiers)ではCtrl+Aにならず不採用。実際に成立したのはhotkey keys=[ctrl,a]→type_text→Returnのforeground delivery。失敗probeと採用画面を区別し、user settings未変更。
+- Dot batch7 report delivered: fresh silvelプロフィールと空入力欄を確認し、PR78・公開100ページ172crop355掲載・594素材一致・残454ページを送信。会話表示と欄クリアを確認しdot-batch7-report.jpg保存。single writer継続。
+- Batch 8 local PASS: S40/S41の27cropとR72–R76の14再利用掲載を5記事へ追加。production buildと変更5ページ47掲載の1440px/390px・decode/Alt/原寸リンク/hash/overflow PASS。候補含む累計104ページ199crop396掲載。公開済み100ページとは区別する。全体未完了、remaining_viewsとpartial維持。
+- Batch 9 work stage S42: Manual ch111 pp2596–2597を参照。実機registryでFrame Average=Fuse.FrameAverageを確認して新規owned caseを作成。frame24、Frames0の単一画像からFrames12へ変え、Backward/Forwardの残像方向をGUIで観察。work/fusion-utility-stage/static/img/fusion/captures/S42、helper work/fusion-capture-utility.pyのみ。canonical helper/ledgerへはまだ追加していない。Cua session expiryではcaptureだけ拒否され、sessionを復旧して観測、build/setterは再実行していない。
+- Current host: owned project Collectanea_Captures_20261023_Sol、PID8944/HWND1251932、S42_capture/frame24、左Loader・右FrameAverage1、Frames12/SampleDirectionForward(2)/MissingFramesDuplicateOriginal(0)。両Color40%、Spline/Keyframes閉、RoI/DoD無効。scratch保存済み。次にBothと別時刻を観察する。
+- Next action: S40/S41候補をcurrent mainに追随し、Ready PR/exact-head Quality→Pages→変更5記事47掲載を公開確認。CI中はS42をwork stageで継続する。450未図示ページと掲載済みremaining_viewsは未完了。
 - KEEP: 同じSolが継続。Checkpoint保存や単一batch完了だけでは停止・Rolloverしない。文脈圧迫が必要になったときだけCOMPACT/ROLLOVERを判断する。
 
 ## 第1batchの撮影・統合メモ（履歴）
