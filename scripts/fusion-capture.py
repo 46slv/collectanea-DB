@@ -22,12 +22,19 @@ LEFT.update({'S23':'SourceB','S24':'Transform1','S25':'BlurMask','S26':'Text1'})
 TARGETS.update({'S27':'MultiMerge1','S28':'Ellipse1','S29':'Dissolve1','S30':'Displace1'})
 RIGHT.update({'S27':'MultiMerge1','S28':'MergeMasked','S29':'Dissolve1','S30':'Displace1'})
 LEFT.update({'S27':'Red1','S28':'MergeFull','S29':'Loader1','S30':'Loader1'})
+TARGETS.update({'S31':'Merge1','S32':'MergeChanged','S33':'EllipseSubtract','S34':'TransformPivot'})
+TARGETS['S35']='TransformAnimated';RIGHT['S35']='TransformAnimated';LEFT['S35']='Text1'
+RIGHT.update({'S31':'Merge1','S32':'MergeChanged','S33':'GoldSubtract','S34':'TransformPivot'})
+LEFT.update({'S31':'Cutout1','S32':'MergeBase','S33':'GoldBase','S34':'TransformBase'})
 r=d.scriptapp('Resolve')
 assert r, 'Resolve scripting unavailable; do not change preferences automatically'
 pm=r.GetProjectManager(); p=pm.GetCurrentProject()
 assert p and p.GetName()==PROJECT, 'Refusing to mutate a foreign project'
 assert r.GetCurrentPage(), 'Resolve has a modal dialog; reconcile the GUI first'
 case=sys.argv[1]; action=sys.argv[2] if len(sys.argv)>2 else 'readback'
+requested_frame=int(sys.argv[3]) if action=='frame' else 0
+if action=='frame':
+ assert case=='S35' and requested_frame in [0,48];action='show'
 if action=='final':
  assert case=='S23';RIGHT[case]='Merge1';LEFT[case]='SourceA';action='show'
 if action=='scale':
@@ -56,7 +63,8 @@ for _ in range(50):
  time.sleep(.1)
 else:raise RuntimeError('Requested composition did not become the active GUI composition')
 t.SetCurrentTimecode('01:00:02:00' if case=='S09' else '01:00:00:00')
-c.CurrentTime=48 if case=='S09' else 0
+c.CurrentTime=requested_frame if case=='S35' else 48 if case=='S09' else 0
+if case=='S35':t.SetCurrentTimecode('01:00:02:00' if requested_frame==48 else '01:00:00:00')
 time.sleep(.3)
 tools={x.GetAttrs()['TOOLS_Name']:x for x in c.GetToolList().values()}
 mo=next(x for x in tools.values() if x.GetAttrs()['TOOLS_RegID']=='MediaOut')
@@ -114,6 +122,11 @@ def select(target,left=None):
  layouts['S28']={'Base1':(0,2),'Red1':(0,0),'Ellipse1':(2,-2),'MergeFull':(2,3.5),'MergeMasked':(4,2),'MediaOut1':(6,2)}
  layouts['S29']={'Loader1':(0,0),'Gold1':(0,-2),'Dissolve1':(2,0),'MediaOut1':(4,0)}
  layouts['S30']={'Loader1':(0,0),'NoiseMap1':(0,-2),'Displace1':(2,0),'MediaOut1':(4,0)}
+ layouts['S31']={'Ellipse1':(0,-2),'Cutout1':(1.5,-2),'Base1':(0,1),'Merge1':(3,1),'MediaOut1':(4.5,1)}
+ layouts['S32']={'Loader1':(0,2),'Ellipse1':(0,-2),'Foreground1':(1.5,-2),'MergeBase':(3,3.5),'MergeChanged':(3,1),'MediaOut1':(4.5,1)}
+ layouts['S33']={'Rectangle1':(0,-1.5),'EllipseSubtract':(1.5,-1.5),'GoldBase':(1.5,1.5),'GoldSubtract':(3,0),'MediaOut1':(4.5,0)}
+ layouts['S34']={'Loader1':(0,0),'TransformBase':(1.5,-1),'TransformPivot':(1.5,1),'MediaOut1':(3,1)}
+ layouts['S35']={'Text1':(0,0),'TransformAnimated':(1.5,0),'MediaOut1':(3,0)}
  for n,pos in layouts.get(case,{}).items():
   if n in tools:flow.SetPos(tools[n],*pos)
  if case=='S27':flow.SetScale(1.0)
@@ -152,6 +165,29 @@ if action=='build':
   rb=add('sRender','RenderBase1',4,-1);connect(rb,'Input',base)
   target=add('sTransform','Transform1',2,1);connect(target,'Input',base)
   rr=add('sRender','RenderChanged1',4,1);connect(rr,'Input',target);connect(mo,'Input',rr)
+ elif case=='S35':
+  tx=text('Text1',0,0,'KEYFRAME',.09)
+  target=add('Transform','TransformAnimated',1.5,0,Center={1:.25,2:.5});connect(target,'Input',tx);connect(mo,'Input',target)
+ elif case=='S31':
+  mask=add('EllipseMask','Ellipse1',0,-2,Width=.4,Height=.55,SoftEdge=.02)
+  fg=add('Background','Cutout1',1.5,-2,TopLeftRed=.8,TopLeftGreen=.06,TopLeftBlue=.05);connect(fg,'EffectMask',mask)
+  bg=add('Background','Base1',0,1,TopLeftRed=.025,TopLeftGreen=.075,TopLeftBlue=.13)
+  target=add('Merge','Merge1',3,1);connect(target,'Background',bg);connect(target,'Foreground',fg);connect(mo,'Input',target)
+ elif case=='S32':
+  bg=add('Loader','Loader1',0,2,Clip=str(REPO/'static/img/fusion/captures/_fixtures/chart.png'))
+  mask=add('EllipseMask','Ellipse1',0,-2,Width=.5,Height=.55,SoftEdge=.02)
+  fg=add('Background','Foreground1',1.5,-2,TopLeftRed=.8,TopLeftGreen=.06,TopLeftBlue=.05);connect(fg,'EffectMask',mask)
+  base=add('Merge','MergeBase',3,3.5);connect(base,'Background',bg);connect(base,'Foreground',fg)
+  target=add('Merge','MergeChanged',3,1);connect(target,'Background',bg);connect(target,'Foreground',fg);connect(mo,'Input',target)
+ elif case=='S33':
+  rect=add('RectangleMask','Rectangle1',0,-1.5,Width=.6,Height=.35)
+  target=add('EllipseMask','EllipseSubtract',1.5,-1.5,Width=.25,Height=.5,Center={1:.6,2:.5},PaintMode='Subtract');connect(target,'EffectMask',rect)
+  base=add('Background','GoldBase',1.5,1.5,TopLeftRed=1,TopLeftGreen=.5,TopLeftBlue=.05);connect(base,'EffectMask',rect)
+  out=add('Background','GoldSubtract',3,0,TopLeftRed=1,TopLeftGreen=.5,TopLeftBlue=.05);connect(out,'EffectMask',target);connect(mo,'Input',out)
+ elif case=='S34':
+  loader=add('Loader','Loader1',0,0,Clip=str(REPO/'static/img/fusion/captures/_fixtures/chart.png'))
+  base=add('Transform','TransformBase',1.5,-1,Center={1:.5,2:.5},Pivot={1:.5,2:.5},Angle=30);connect(base,'Input',loader)
+  target=add('Transform','TransformPivot',1.5,1,Center={1:.5,2:.5},Pivot={1:.2,2:.5},Angle=30);connect(target,'Input',loader);connect(mo,'Input',target)
  elif case=='S27':
   bg=add('Background','Base1',0,2,TopLeftRed=.025,TopLeftGreen=.075,TopLeftBlue=.13)
   rect=add('RectangleMask','Rectangle1',0,-2,Width=.5,Height=.35,Center={1:.43,2:.5})
@@ -233,12 +269,14 @@ inputs={}
 for n,a in tools.items():
  inputs[n]={'regid':a.GetAttrs()['TOOLS_RegID'],'inputs':{}}
  for z in a.GetInputList().values():
-  k=z.GetAttrs()['INPS_ID'];v=a.GetInput(k,0)
+  k=z.GetAttrs()['INPS_ID'];v=a.GetInput(k,c.CurrentTime)
   if isinstance(v,(str,int,float,bool,dict)) and not k.endswith('Script'):
    inputs[n]['inputs'][k]=v
 keep=['colorScienceMode','colorSpaceTimeline','colorSpaceTimelineGamma','colorSpaceOutput','colorSpaceOutputGamma','separateColorSpaceAndGamma','isAutoColorManage','timelineResolutionWidth','timelineResolutionHeight','timelineFrameRate','timelinePlaybackFrameRate']
 settings=p.GetSetting()
-report={'project':p.GetName(),'timeline':t.GetName(),'resolve':r.GetVersionString(),'edition':r.GetProductName(),'os':platform.platform(),'time':datetime.datetime.now(datetime.timezone.utc).isoformat(),'frame':c.CurrentTime,'project_settings':{k:settings[k] for k in keep if k in settings},'tools':inputs}
+report={'project':p.GetName(),'timeline':t.GetName(),'resolve':r.GetVersionString(),'edition':r.GetProductName(),'os':platform.platform(),'time':datetime.datetime.now(datetime.timezone.utc).isoformat(),'frame':c.CurrentTime,'sampled_frame':c.CurrentTime,'project_settings':{k:settings[k] for k in keep if k in settings},'tools':inputs}
+if case=='S35':
+ report['animation_samples']=[{'frame':f,'Center':tools['TransformAnimated'].GetInput('Center',f)} for f in [0,24,48]]
 folder=ROOT/'static/img/fusion/captures'/case;folder.mkdir(parents=True,exist_ok=True)
 (folder/'readback.json').write_text(json.dumps(report,ensure_ascii=False,indent=2),encoding='utf-8')
 print(json.dumps({'case':case,'project':p.GetName(),'timeline':t.GetName(),'target':target.GetAttrs()['TOOLS_Name'],'tools':{k:v['regid'] for k,v in inputs.items()}},ensure_ascii=False))

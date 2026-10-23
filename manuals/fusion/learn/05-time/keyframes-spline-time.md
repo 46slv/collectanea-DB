@@ -164,6 +164,32 @@ Transformの<Term id="center-pivot-size-angle">Center</Term>のような2D位置
 
 Sizeの数値曲線とCenterの移動経路を同一視すると、「Splineが0から1なのにCenterの座標は0.5付近」といった混乱が起きます。先に**そのグラフの縦軸が何を表しているか**を確かめてください。
 
+## 実機でCenterの移動とPath Displacementを見る
+
+Resolve Studio 21.1.0.14、Windows、日本語UIでText+をTransformへ接続しました。本文のSizeの例とは別に、ここではCenterの位置をアニメーションさせています。
+
+[![Text1からTransformAnimatedを経由してMediaOut1へ接続した実機Node Editor](/img/fusion/captures/S35/graph.png)](/img/fusion/captures/S35/graph.png)
+
+[![フレーム0のTransform Inspector。Center X 0.25、Y 0.5で、Centerのキーフレームが赤い菱形で表示される](/img/fusion/captures/S35/frame0-inspector.png)](/img/fusion/captures/S35/frame0-inspector.png)
+
+[![フレーム0。左は中央の元のText+、右はCenter X 0.25へ移動したKEYFRAMEの文字](/img/fusion/captures/S35/frame0.png)](/img/fusion/captures/S35/frame0.png)
+
+[![フレーム48のTransform Inspector。Center X 0.75、Y 0.5で次のキーを表示](/img/fusion/captures/S35/inspector.png)](/img/fusion/captures/S35/inspector.png)
+
+[![フレーム48。左は元のText+、右はCenter X 0.75へ移動したKEYFRAMEの文字](/img/fusion/captures/S35/compare.png)](/img/fusion/captures/S35/compare.png)
+
+フレーム0でCenterを(0.25, 0.5)、48で(0.75, 0.5)にしました。Text+はArial Bold、Size 0.09、TransformのSizeは1、Angleは0です。読み戻した中間フレーム24のCenterは(0.5, 0.5)でした。
+
+[![Spline EditorでCenterのPath1にあるディスプレイスを有効にし、フレーム0の0から48の1へ上がる緑の曲線を表示](/img/fusion/captures/S35/spline.png)](/img/fusion/captures/S35/spline.png)
+
+[![TransformのModifiersタブでPath1を表示。Center 0.5と0.5、Size 1、回転0、Displacement 1](/img/fusion/captures/S35/modifiers.png)](/img/fusion/captures/S35/modifiers.png)
+
+Splineに表示したのは「センター(Path1)」の「ディスプレイス」です。縦軸の0〜1は経路上の進み具合を表し、Center Xの0.25〜0.75そのものではありません。この例では2つのキーの間が直線になり、48以降は1で水平です。
+
+1920×1080、両Viewer 40%で撮影しました。緑の線と赤い軸は操作表示です。撮影後はSplineを閉じ、フレーム48へ戻しました。SmoothやStep、Easeの比較、Keyframes Editorでの区間編集はこの例に含めていません。
+
+[再現用Graph](/img/fusion/captures/S35/fixture.comp) · [撮影条件と確認範囲](/img/fusion/captures/S35/capture.json)
+
 ## 期待した動きにならないとき
 
 | 症状 | 先に確認すること |
@@ -199,6 +225,7 @@ Sizeの数値曲線とCenterの移動経路を同一視すると、「Splineが0
 - Chapter 63「Exploring the Fusion Interface」pp.1293–1295：FusionページとFusion StudioのGlobal / Render Range、Edit / Cutとの関係、Auto Render Range。
 - Chapter 70「Animating in Fusion's Keyframes Editor」pp.1519–1526：Inspectorでのキー追加・削除、Keyframes Editor、MediaIn / Effect Nodeの区間編集。
 - Chapter 71「Animating in Fusion's Spline Editor」pp.1535–1546、1549–1551、1556–1562：Splineの定義と種類、補間、Motion PathのDisplacement、Time Stretch、Ease In/Out。
+- Chapter 72「Animating with Motion Paths」pp.1566–1570：Polyline PathとDisplacement 0〜1の関係。
 - 公式配布元：[Blackmagic Design Support Center](https://www.blackmagicdesign.com/support)。
 
-説明中のフレーム番号・Size値は操作例です。21.1実機でのUI表示、全ホスト／Editionの差、内部Modifier IDは未検証なので、`verification: partial`を維持しています。
+説明中のフレーム番号・Size値は操作例です。掲載したCenterの2キー、Path1とDisplacementの表示は21.1.0.14で確認済みです。Sizeの本文例、補間方式の全比較、全ホスト／Editionの差は未検証なので、`verification: partial`を維持しています。

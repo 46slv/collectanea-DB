@@ -128,6 +128,22 @@ Text1の出力は2D Imageで、Transform1も2D Imageを受け取り、変形後�
 | Centerが960、540などで表示される | Reference SizeによるInspectorのピクセル表示を確認する |
 | Sizeを変えても出力が1920×1080のまま | Transformの仕様。出力解像度を変えるならResize / Scaleを使う |
 
+## 実機でPivotだけを変える
+
+Resolve Studio 21.1.0.14、Windows、日本語UIで、同じチャートを2つのTransformへ分岐させました。どちらもCenter (0.5, 0.5)、Size 1、Angle 30です。
+
+[![同じチャートをTransformBaseとTransformPivotへ分岐し、Pivotだけを比較する実機Graph](/img/fusion/captures/S34/graph.png)](/img/fusion/captures/S34/graph.png)
+
+[![右のTransformPivot Inspector。Centerは0.5と0.5、PivotだけX 0.2、Y 0.5、Size 1、Angle 30](/img/fusion/captures/S34/inspector.png)](/img/fusion/captures/S34/inspector.png)
+
+[![左はPivot 0.5と0.5、右は0.2と0.5。同じ30度の回転でもチャートが見える位置が変わる](/img/fusion/captures/S34/compare.png)](/img/fusion/captures/S34/compare.png)
+
+左のPivotは(0.5, 0.5)、右は(0.2, 0.5)です。回転角とCenterが同じでも、支点が変わるため見える位置が変わっています。画像の外へはみ出した部分は1920×1080の表示枠で切れています。フレーム0、両Viewer 40%の静止比較です。緑の枠や赤い軸は操作表示です。
+
+これはチャートでPivotだけを変えた例です。本文のタイトル配置手順やReference Sizeのピクセル表示、連続した回転アニメーションは別の確認事項です。
+
+[再現用Graph](/img/fusion/captures/S34/fixture.comp) · [撮影条件と確認範囲](/img/fusion/captures/S34/capture.json)
+
 ## Mergeにも似たControlがある
 
 MergeのForeground Sizing Controlsにも**Center / Size / Angle**があります（21.1 Manual、Chapter 94、p.2213）。単純なタイトル・ロゴ配置だけなら、Merge内部で位置と大きさを調整できます。
@@ -146,7 +162,7 @@ MergeのForeground Sizing Controlsにも**Center / Size / Angle**があります
 
 ### Pivotを動かせばImageの位置も移動する
 
-Pivotは変形中心です。Image自体の配置はCenterが担当します。
+Pivotは変形中心で、配置を指定するCenterとは役割が違います。Angleが0、Sizeが1なら、Pivotだけを変えても見た目は変わりません。回転や拡大縮小がある場合は、上の比較のように支点の変更で見える位置も変わります。
 
 ### Size 0.5なら解像度も半分になる
 

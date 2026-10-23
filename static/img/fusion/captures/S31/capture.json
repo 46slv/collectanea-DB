@@ -1,0 +1,131 @@
+{
+  "schema_version": 1,
+  "case": "S31",
+  "article": "manuals/fusion/learn/04-compositing/alpha.md",
+  "manual": {
+    "version": "21.1",
+    "chapter": 77,
+    "printed_pages": "1665–1669,1675–1681"
+  },
+  "runtime": {
+    "version": "21.1.0.14",
+    "edition": "Studio",
+    "os": "Windows-11-10.0.26200-SP0",
+    "ui_language": "ja-JP (some Shape controls remain English)"
+  },
+  "captured_at": "2026-10-23T17:14:40.662203+00:00",
+  "project": "Collectanea_Captures_20261023_Sol",
+  "timeline": "S31_capture",
+  "frame": 0.0,
+  "resolution": [
+    1920,
+    1080
+  ],
+  "color_management": {
+    "colorScienceMode": "davinciYRGB",
+    "colorSpaceTimeline": "Rec.709 (Scene)",
+    "colorSpaceTimelineGamma": "",
+    "colorSpaceOutput": "Rec.709 (Scene)",
+    "colorSpaceOutputGamma": "ACEScc",
+    "separateColorSpaceAndGamma": "0",
+    "isAutoColorManage": "0",
+    "timelineResolutionWidth": "1920",
+    "timelineResolutionHeight": "1080",
+    "timelineFrameRate": 24.0,
+    "timelinePlaybackFrameRate": "30"
+  },
+  "viewer": {
+    "zoom_percent": 40,
+    "channel": "Color except alpha.png (both Alpha)",
+    "background": "checkerboard for transparent pixels",
+    "note": "Viewer screenshots are display evidence, not colorimetric exports."
+  },
+  "graph": "fixture.comp",
+  "settings": "readback.json",
+  "source": {
+    "file": "screen.png",
+    "size": [
+      3352,
+      1910
+    ],
+    "sha256": "e56de2dcf449a00090071b114120bb6a94874266555ec68894dce964d33a18da"
+  },
+  "shots": [
+    {
+      "file": "graph.png",
+      "source": "screen.png",
+      "source_sha256": "e56de2dcf449a00090071b114120bb6a94874266555ec68894dce964d33a18da",
+      "frame": 0.0,
+      "crop_xyxy": [
+        240,
+        1060,
+        2600,
+        1660
+      ],
+      "resampled": false,
+      "sha256": "efeb83b29fedcd27000f6ed6b966d7b48e4d652c028347ccca573528ccc4c20d",
+      "viewer_channels": "Color"
+    },
+    {
+      "file": "inspector.png",
+      "source": "screen.png",
+      "source_sha256": "e56de2dcf449a00090071b114120bb6a94874266555ec68894dce964d33a18da",
+      "frame": 0.0,
+      "crop_xyxy": [
+        2830,
+        120,
+        3352,
+        710
+      ],
+      "resampled": false,
+      "sha256": "b880be1edfbce0c2520dfe236de470afc7402b2f5d570f9fcb73b6c2641be978",
+      "viewer_channels": "Color"
+    },
+    {
+      "file": "compare.png",
+      "source": "screen.png",
+      "source_sha256": "e56de2dcf449a00090071b114120bb6a94874266555ec68894dce964d33a18da",
+      "frame": 0.0,
+      "crop_xyxy": [
+        1146,
+        65,
+        2830,
+        705
+      ],
+      "resampled": false,
+      "sha256": "5010a8c9466bb78df5d39d760900e7ef75ab4b8e332f3bf47520b9c24f4ab3c6",
+      "viewer_channels": "Color"
+    },
+    {
+      "file": "alpha.png",
+      "source": "screen-alpha.png",
+      "source_sha256": "c03d192e465105a1af73ce2ff7dcc7fb77f8587f527d460c571811ba53c1cf7a",
+      "frame": 0.0,
+      "crop_xyxy": [
+        1146,
+        65,
+        2830,
+        705
+      ],
+      "resampled": false,
+      "sha256": "3f4fcb3f309ddfdcf44f336cd37136a4146b7face1d10333e451a5347f3f4679",
+      "viewer_channels": "Alpha"
+    }
+  ],
+  "acceptance": {
+    "gui": "PASS: owner visually inspected node connections, selected Inspector, and output",
+    "article_display": "PASS: local production build;1440px/390px,decode/Alt/native links/hash/overflow"
+  },
+  "unverified": [
+    "Free edition and other platforms",
+    "All parameter ranges and performance",
+    "Exported portable composition reimport"
+  ],
+  "reproduction": {
+    "fixture_sha256": "d3b6edfc75daf7a13b454457de127b77018194cea49852b453704d569aa3ac23",
+    "readback_sha256": "4cd8b28d4f9aa1537f7274e8fd4be53d941f48b34eec73d812eba87d0fa1d2ac",
+    "paths": "Comp:/../_fixtures/ for bundled synthetic fixtures",
+    "reimport": "NOT_RUN: accepted GUI evidence precedes export path normalization"
+  },
+  "restoration": "PASS: both viewers returned to Color"
+}

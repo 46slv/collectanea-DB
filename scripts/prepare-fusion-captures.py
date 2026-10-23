@@ -35,6 +35,11 @@ CONFIG={
  'S28':{'graph':(240,1030,2600,1710),'inspector':(2830,120,3352,510),'compare':(1146,65,2830,705),'alpha':(1146,65,2830,705)},
  'S29':{'graph':(580,1190,2280,1555),'inspector':(2830,120,3352,300),'compare':(1146,65,2830,705),'background':(1146,65,2830,705),'foreground':(1146,65,2830,705)},
  'S30':{'graph':(580,1190,2280,1555),'inspector':(2830,120,3352,470),'compare':(1146,65,2830,705),'map-inspector':(2830,120,3352,590),'map':(1146,65,2830,705)},
+ 'S31':{'graph':(240,1060,2600,1660),'inspector':(2830,120,3352,710),'compare':(1146,65,2830,705),'alpha':(1146,65,2830,705)},
+ 'S32':{'graph':(240,980,2600,1730),'inspector':(2830,120,3352,710),'compare':(1146,65,2830,705),'blend-inspector':(2830,120,3352,710),'blend':(1146,65,2830,705),'multiply-inspector':(2830,120,3352,600),'multiply':(1146,65,2830,705),'in-inspector':(2830,120,3352,710),'in':(1146,65,2830,705)},
+ 'S33':{'graph':(240,1060,2600,1660),'inspector':(2830,120,3352,540),'compare':(1146,65,2830,705)},
+ 'S34':{'graph':(580,1190,2280,1555),'inspector':(2830,120,3352,570),'compare':(1146,65,2830,705)},
+ 'S35':{'graph':(580,1300,2280,1450),'inspector':(2830,120,3352,570),'compare':(1146,65,2830,705),'frame0-inspector':(2830,120,3352,570),'frame0':(1146,65,2830,705),'spline':(1410,850,2830,1840),'modifiers':(2830,90,3352,470)},
 }
 def sha(p):return hashlib.sha256(p.read_bytes()).hexdigest()
 candidates=json.loads((ROOT/'docs/fusion-screenshot-candidates.json').read_text(encoding='utf-8'))
@@ -58,12 +63,17 @@ for case in args.cases:
   variants={('S08','shading'):'screen-shading.png',('S09','region'):'screen-region.png',('S09','frame0'):'screen-frame0.png',('S10','region'):'screen-region.png',('S10','result'):'screen-result60.png'}
   variants.update({('S23','final'):'screen-final.png',('S24','scale-inspector'):'screen-scale.png',('S24','scale-compare'):'screen-scale.png',('S25','alpha'):'screen-alpha.png',('S26','inspector'):'screen-inspector.png',('S26','roi'):'screen-roi.png'})
   variants.update({('S27','disabled-inspector'):'screen-disabled.png',('S27','disabled'):'screen-disabled.png',('S27','order-inspector'):'screen-order.png',('S27','order'):'screen-order.png',('S28','alpha'):'screen-alpha.png',('S29','background'):'screen-background.png',('S29','foreground'):'screen-foreground.png',('S30','map-inspector'):'screen-map.png',('S30','map'):'screen-map.png'})
-  src=folder/variants.get((case,slug),'screen.png')
+  extra={('S31','alpha'):'screen-alpha.png',('S35','frame0'):'screen-frame0.png',('S35','frame0-inspector'):'screen-frame0.png',('S35','spline'):'screen-spline.png',('S35','modifiers'):'screen-modifiers.png'}
+  if case=='S32':
+   for variant in ['blend','multiply','in']:
+    for suffix in ['', '-inspector']:extra[(case,variant+suffix)]='screen-'+variant+'.png'
+  src=folder/extra.get((case,slug),variants.get((case,slug),'screen.png'))
   assert 0<=box[0]<box[2]<=im.width and 0<=box[1]<box[3]<=im.height, (case,slug,box)
   path=folder/(slug+'.png');Image.open(src).crop(box).save(path)
   frame=60 if (case,slug)==('S10','result') else 0 if (case,slug)==('S09','frame0') else readback['frame']
+  if case=='S35' and slug.startswith('frame0'):frame=0
   shots.append({'file':path.name,'source':src.name,'source_sha256':sha(src),'frame':frame,'crop_xyxy':box,'resampled':False,'sha256':sha(path)})
-  if case in ['S25','S28']:shots[-1]['viewer_channels']='Alpha' if slug=='alpha' else 'Color'
+  if case in ['S25','S28','S31']:shots[-1]['viewer_channels']='Alpha' if slug=='alpha' else 'Color'
  candidate=next(x for x in candidates['candidates'] if x['id']==case)
  manifest={'schema_version':1,'case':case,'article':candidate['article'],'manual':candidate['manual'],'runtime':{'version':readback['resolve'],'edition':'Studio','os':readback['os'],'ui_language':'ja-JP (some Shape controls remain English)'},'captured_at':datetime.datetime.fromtimestamp(source.stat().st_mtime,datetime.timezone.utc).isoformat(),'project':readback['project'],'timeline':readback['timeline'],'frame':readback['frame'],'resolution':[1920,1080],'color_management':readback['project_settings'],'viewer':{'zoom_percent':40,'channel':'Color','background':'checkerboard for transparent pixels','note':'Viewer screenshots are display evidence, not colorimetric exports.'},'graph':'fixture.comp','settings':'readback.json','source':{'file':'screen.png','size':im.size,'sha256':sha(source)},'shots':shots,'acceptance':{'gui':'PASS: owner visually inspected node connections, selected Inspector, and output','article_display':'NOT_RUN'},'unverified':['Free edition and other platforms','All parameter ranges and performance','S03 optional Glow Mask / Effect Mask comparison is deferred'] if case=='S03' else ['Free edition and other platforms','All parameter ranges and performance']}
  (folder/'capture.json').write_text(json.dumps(manifest,ensure_ascii=False,indent=2)+'\n',encoding='utf-8',newline='\n')

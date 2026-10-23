@@ -1,0 +1,202 @@
+{
+  "schema_version": 1,
+  "case": "S32",
+  "article": "manuals/fusion/learn/04-compositing/blend-operator.md",
+  "manual": {
+    "version": "21.1",
+    "chapter": 94,
+    "printed_pages": "2213–2217"
+  },
+  "runtime": {
+    "version": "21.1.0.14",
+    "edition": "Studio",
+    "os": "Windows-11-10.0.26200-SP0",
+    "ui_language": "ja-JP (some Shape controls remain English)"
+  },
+  "captured_at": "2026-10-23T17:14:40.681160+00:00",
+  "project": "Collectanea_Captures_20261023_Sol",
+  "timeline": "S32_capture",
+  "frame": 0.0,
+  "resolution": [
+    1920,
+    1080
+  ],
+  "color_management": {
+    "colorScienceMode": "davinciYRGB",
+    "colorSpaceTimeline": "Rec.709 (Scene)",
+    "colorSpaceTimelineGamma": "",
+    "colorSpaceOutput": "Rec.709 (Scene)",
+    "colorSpaceOutputGamma": "ACEScc",
+    "separateColorSpaceAndGamma": "0",
+    "isAutoColorManage": "0",
+    "timelineResolutionWidth": "1920",
+    "timelineResolutionHeight": "1080",
+    "timelineFrameRate": 24.0,
+    "timelinePlaybackFrameRate": "30"
+  },
+  "viewer": {
+    "zoom_percent": 40,
+    "channel": "Color",
+    "background": "checkerboard for transparent pixels",
+    "note": "Viewer screenshots are display evidence, not colorimetric exports."
+  },
+  "graph": "fixture.comp",
+  "settings": "readback.json",
+  "source": {
+    "file": "screen.png",
+    "size": [
+      3352,
+      1910
+    ],
+    "sha256": "5ecc995f37749d3a4bd915f0c0248a8d30e27f0893e372b97b8d86053e9930ad"
+  },
+  "shots": [
+    {
+      "file": "graph.png",
+      "source": "screen.png",
+      "source_sha256": "5ecc995f37749d3a4bd915f0c0248a8d30e27f0893e372b97b8d86053e9930ad",
+      "frame": 0.0,
+      "crop_xyxy": [
+        240,
+        980,
+        2600,
+        1730
+      ],
+      "resampled": false,
+      "sha256": "e23f5acd612ebe0a6deb29a24b0b462e31a26f88ded39cb7ca94fa5672b528f5"
+    },
+    {
+      "file": "inspector.png",
+      "source": "screen.png",
+      "source_sha256": "5ecc995f37749d3a4bd915f0c0248a8d30e27f0893e372b97b8d86053e9930ad",
+      "frame": 0.0,
+      "crop_xyxy": [
+        2830,
+        120,
+        3352,
+        710
+      ],
+      "resampled": false,
+      "sha256": "d997e907005295f3bb98bf349da5e8c450e12844fce7744b3d6ec8f85b7d3bbd"
+    },
+    {
+      "file": "compare.png",
+      "source": "screen.png",
+      "source_sha256": "5ecc995f37749d3a4bd915f0c0248a8d30e27f0893e372b97b8d86053e9930ad",
+      "frame": 0.0,
+      "crop_xyxy": [
+        1146,
+        65,
+        2830,
+        705
+      ],
+      "resampled": false,
+      "sha256": "52fb05d2643cac98dc45369057ef8172d80f019f4bdd31b8d77e34d1edcc0842"
+    },
+    {
+      "file": "blend-inspector.png",
+      "source": "screen-blend.png",
+      "source_sha256": "dbfb11d6b0a329fc16c5d16c21b85f20a554b23a5abbe55b754ea03049988d01",
+      "frame": 0.0,
+      "crop_xyxy": [
+        2830,
+        120,
+        3352,
+        710
+      ],
+      "resampled": false,
+      "sha256": "bb85b1a017c6157e5a7af0c5d74ec0a70a30b370ca7e3a9f43a95618475aa765"
+    },
+    {
+      "file": "blend.png",
+      "source": "screen-blend.png",
+      "source_sha256": "dbfb11d6b0a329fc16c5d16c21b85f20a554b23a5abbe55b754ea03049988d01",
+      "frame": 0.0,
+      "crop_xyxy": [
+        1146,
+        65,
+        2830,
+        705
+      ],
+      "resampled": false,
+      "sha256": "4ad4b45d7e91beec91df254774fad548030850c8bebd9e5e18c5ccf74acf93c4"
+    },
+    {
+      "file": "multiply-inspector.png",
+      "source": "screen-multiply.png",
+      "source_sha256": "0e0fedde248d6b8494537ab61e3284a654309025a650a094e07620c865da8d6a",
+      "frame": 0.0,
+      "crop_xyxy": [
+        2830,
+        120,
+        3352,
+        600
+      ],
+      "resampled": false,
+      "sha256": "3b5233e4ffacea56effef67fc8f071e5970097b73ad5cd0aa7a1953d87e145ff"
+    },
+    {
+      "file": "multiply.png",
+      "source": "screen-multiply.png",
+      "source_sha256": "0e0fedde248d6b8494537ab61e3284a654309025a650a094e07620c865da8d6a",
+      "frame": 0.0,
+      "crop_xyxy": [
+        1146,
+        65,
+        2830,
+        705
+      ],
+      "resampled": false,
+      "sha256": "f5c37af9eafe839ec84496bdc8abc81a9ea4f3a5fe73f3ec0c1085b43029d5aa"
+    },
+    {
+      "file": "in-inspector.png",
+      "source": "screen-in.png",
+      "source_sha256": "ac724520ab3a025b5ee4da436a81af2a02dd733a1fceca63eb6a235595417ee6",
+      "frame": 0.0,
+      "crop_xyxy": [
+        2830,
+        120,
+        3352,
+        710
+      ],
+      "resampled": false,
+      "sha256": "76a3e553498cd01c43903cecb8ce63301b2d586fed813db4e2b67164fec1d4b3"
+    },
+    {
+      "file": "in.png",
+      "source": "screen-in.png",
+      "source_sha256": "ac724520ab3a025b5ee4da436a81af2a02dd733a1fceca63eb6a235595417ee6",
+      "frame": 0.0,
+      "crop_xyxy": [
+        1146,
+        65,
+        2830,
+        705
+      ],
+      "resampled": false,
+      "sha256": "daeda05bc19051f001e055a3be9f3b7d8533c149dba7810fe4ff78a4ea357c90"
+    }
+  ],
+  "acceptance": {
+    "gui": "PASS: owner visually inspected node connections, selected Inspector, and output",
+    "article_display": "PASS: local production build;1440px/390px,decode/Alt/native links/hash/overflow"
+  },
+  "unverified": [
+    "Free edition and other platforms",
+    "All parameter ranges and performance",
+    "Exported portable composition reimport"
+  ],
+  "reproduction": {
+    "fixture_sha256": "c7b11f99fbf4f09d7bcbc4dd8dc8c88c5008ddcb63b6743e5d3aa05c395a2ddc",
+    "readback_sha256": "7a46480e7f470dd4bef2a09423713a213f05e57698a320ac332b8908f3fdc8d3",
+    "paths": "Comp:/../_fixtures/ for bundled synthetic fixtures",
+    "reimport": "NOT_RUN: accepted GUI evidence precedes export path normalization"
+  },
+  "state_variants": {
+    "screen.png": "Normal/Over/Blend1; exported fixture restored here",
+    "screen-blend.png": "Normal/Over/Blend0.5",
+    "screen-multiply.png": "Multiply/Blend1; Operator control hidden",
+    "screen-in.png": "Normal/In/Blend1"
+  }
+}

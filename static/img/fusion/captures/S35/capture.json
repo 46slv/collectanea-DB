@@ -1,0 +1,175 @@
+{
+  "schema_version": 1,
+  "case": "S35",
+  "article": "manuals/fusion/learn/05-time/keyframes-spline-time.md",
+  "manual": {
+    "version": "21.1",
+    "chapter": 72,
+    "printed_pages": "1566–1570"
+  },
+  "runtime": {
+    "version": "21.1.0.14",
+    "edition": "Studio",
+    "os": "Windows-11-10.0.26200-SP0",
+    "ui_language": "ja-JP (some Shape controls remain English)"
+  },
+  "captured_at": "2026-10-23T17:14:40.712493+00:00",
+  "project": "Collectanea_Captures_20261023_Sol",
+  "timeline": "S35_capture",
+  "frame": 48.0,
+  "resolution": [
+    1920,
+    1080
+  ],
+  "color_management": {
+    "colorScienceMode": "davinciYRGB",
+    "colorSpaceTimeline": "Rec.709 (Scene)",
+    "colorSpaceTimelineGamma": "",
+    "colorSpaceOutput": "Rec.709 (Scene)",
+    "colorSpaceOutputGamma": "ACEScc",
+    "separateColorSpaceAndGamma": "0",
+    "isAutoColorManage": "0",
+    "timelineResolutionWidth": "1920",
+    "timelineResolutionHeight": "1080",
+    "timelineFrameRate": 24.0,
+    "timelinePlaybackFrameRate": "30"
+  },
+  "viewer": {
+    "zoom_percent": 40,
+    "channel": "Color",
+    "background": "checkerboard for transparent pixels",
+    "note": "Viewer screenshots are display evidence, not colorimetric exports."
+  },
+  "graph": "fixture.comp",
+  "settings": "readback.json",
+  "source": {
+    "file": "screen.png",
+    "size": [
+      3352,
+      1910
+    ],
+    "sha256": "dd0517581b34fcc5750832f5ae4380a1d79fc4329445cd7cac2f2693d7fc910d"
+  },
+  "shots": [
+    {
+      "file": "graph.png",
+      "source": "screen.png",
+      "source_sha256": "dd0517581b34fcc5750832f5ae4380a1d79fc4329445cd7cac2f2693d7fc910d",
+      "frame": 48.0,
+      "crop_xyxy": [
+        580,
+        1300,
+        2280,
+        1450
+      ],
+      "resampled": false,
+      "sha256": "797c4b47b36e5adc6c65e0f361c59505f61fd6a94e0e5edceec44b5ff6e4934a"
+    },
+    {
+      "file": "inspector.png",
+      "source": "screen.png",
+      "source_sha256": "dd0517581b34fcc5750832f5ae4380a1d79fc4329445cd7cac2f2693d7fc910d",
+      "frame": 48.0,
+      "crop_xyxy": [
+        2830,
+        120,
+        3352,
+        570
+      ],
+      "resampled": false,
+      "sha256": "8e71b3ab47641d26edd6ae9d2560ac75cf1c3d834c51acbaad8ec265ca1c806b"
+    },
+    {
+      "file": "compare.png",
+      "source": "screen.png",
+      "source_sha256": "dd0517581b34fcc5750832f5ae4380a1d79fc4329445cd7cac2f2693d7fc910d",
+      "frame": 48.0,
+      "crop_xyxy": [
+        1146,
+        65,
+        2830,
+        705
+      ],
+      "resampled": false,
+      "sha256": "a3f4fdab8838ca40e17180f8253a5d43a023d3da941767a77a5f0b6753d9fa10"
+    },
+    {
+      "file": "frame0-inspector.png",
+      "source": "screen-frame0.png",
+      "source_sha256": "7455919ab90af9ae6f53140b49acc18f50b92967bf1cd70794070d15b4158db6",
+      "frame": 0,
+      "crop_xyxy": [
+        2830,
+        120,
+        3352,
+        570
+      ],
+      "resampled": false,
+      "sha256": "ef96a71c7af4584e817ef3dab724651bb853685f6bb081c88d9dffb70983f7a3"
+    },
+    {
+      "file": "frame0.png",
+      "source": "screen-frame0.png",
+      "source_sha256": "7455919ab90af9ae6f53140b49acc18f50b92967bf1cd70794070d15b4158db6",
+      "frame": 0,
+      "crop_xyxy": [
+        1146,
+        65,
+        2830,
+        705
+      ],
+      "resampled": false,
+      "sha256": "580f54263d3e3d9fef14d18cf21edd52459aec84ea6b9f01e840869c744b81c2"
+    },
+    {
+      "file": "spline.png",
+      "source": "screen-spline.png",
+      "source_sha256": "ab9d8b1fa499bf0334a9a5b208ee7910f674c892ea661a73e2bb9fa921a9d374",
+      "frame": 48.0,
+      "crop_xyxy": [
+        1410,
+        850,
+        2830,
+        1840
+      ],
+      "resampled": false,
+      "sha256": "7ea39dda7066b07f315a15d39f4677cc90786ba45d35fe8b1da8d0b6909138f1"
+    },
+    {
+      "file": "modifiers.png",
+      "source": "screen-modifiers.png",
+      "source_sha256": "219e4426f66ae0f3d6fe3c37db7b25a0b90498c99fc9b74e73a20e41aee421e5",
+      "frame": 48.0,
+      "crop_xyxy": [
+        2830,
+        90,
+        3352,
+        470
+      ],
+      "resampled": false,
+      "sha256": "b332fcee529559ee2d4b305dc82307f12bbbd1452ff75482c7379a6ccdfeeb4a"
+    }
+  ],
+  "acceptance": {
+    "gui": "PASS: owner visually inspected node connections, selected Inspector, and output",
+    "article_display": "PASS: local production build;1440px/390px,decode/Alt/native links/hash/overflow"
+  },
+  "unverified": [
+    "Free edition and other platforms",
+    "All parameter ranges and performance",
+    "Exported portable composition reimport"
+  ],
+  "state_variants": {
+    "screen.png": "frame48 Center0.75/0.5",
+    "screen-frame0.png": "frame0 Center0.25/0.5",
+    "screen-spline.png": "frame48 Path Displacement0→1",
+    "screen-modifiers.png": "frame48 Modifiers Path1 Displacement1; Text Size0.09 in all accepted sources"
+  },
+  "restoration": "PASS: Spline closed, frame48, Color40%; Modifiers tab selected after capture",
+  "reproduction": {
+    "fixture_sha256": "d30d230b53ab3da8889edc4158a50a479cdd74f122add69bb585c1d3512a6076",
+    "readback_sha256": "991a65c22a656cfee015c7437cd59a2248e16c1466dac0d9c58c51879d1b43e5",
+    "paths": "Comp:/../_fixtures/ for bundled synthetic fixtures",
+    "reimport": "NOT_RUN: accepted GUI evidence precedes export path normalization"
+  }
+}

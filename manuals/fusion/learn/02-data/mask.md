@@ -129,6 +129,20 @@ Ellipse ──────┐
 
 「接続したら常に足し算になる」と考えず、最終Maskを作るNodeのPaint Modeを確認します。
 
+### 実機でSubtractを確認する
+
+Rectangle1のMaskをEllipseSubtractの青い入力へつなぎ、EllipseSubtractのPaint ModeをSubtractにしました。Resolve Studio 21.1.0.14、Windows、日本語UIの例です。
+
+[![Rectangle1をEllipseSubtractへ接続し、元のRectangleと減算後のMaskを別々のオレンジBackgroundへ適用する実機Graph](/img/fusion/captures/S33/graph.png)](/img/fusion/captures/S33/graph.png)
+
+[![EllipseSubtract Inspector。Paint Modeは減算、Center 0.6と0.5、Width 0.25、Height 0.5](/img/fusion/captures/S33/inspector.png)](/img/fusion/captures/S33/inspector.png)
+
+[![左は元の長方形Mask、右は楕円と重なった部分を引いたMask。両方を同じオレンジ画像へ適用して比較](/img/fusion/captures/S33/compare.png)](/img/fusion/captures/S33/compare.png)
+
+左のGoldBaseは元の長方形、右のGoldSubtractは楕円を差し引いた範囲です。RectangleはWidth 0.6、Height 0.35で、2つのBackgroundは同じ色にしています。緑の楕円は選択中Maskの操作表示です。1920×1080、フレーム0、両Viewer 40%。ここで確認した組み合わせはSubtractで、他のPaint ModeやInvertの比較は含めていません。
+
+[再現用Graph](/img/fusion/captures/S33/fixture.comp) · [撮影条件と確認範囲](/img/fusion/captures/S33/capture.json)
+
 ## Invert
 
 Mask全体を反転するInvert checkboxと、Paint ModeのInvertは役割が違います。
@@ -182,6 +196,6 @@ Maskを実際のEffectへ使う方法:
 
 ## 出典と確認範囲
 
-DaVinci Resolve 21.1 Reference Manual（September 2026）Chapter 108（p.2463）でBitmap Maskの2D Image入力、Channel、Effect MaskへのImage直接接続とその例外を、Chapter 117（pp.2759–2760）でsRenderのShape入力・2D Image出力を確認しました。Chapter 79ではMaskの単一チャンネル画像としての役割を参照しています。
+DaVinci Resolve 21.1 Reference Manual（September 2026）Chapter 108（p.2463）でBitmap Maskの2D Image入力、Channel、Effect MaskへのImage直接接続とその例外を、Chapter 117（pp.2759–2760）でsRenderのShape入力・2D Image出力を確認しました。Chapter 79ではMaskの単一チャンネル画像としての役割とp.1730の複数Mask合成、Chapter 108 p.2465ではPaint ModeのSubtractを参照しています。
 
 Node固有のMask処理順は各Referenceを優先します。

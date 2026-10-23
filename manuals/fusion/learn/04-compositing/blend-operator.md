@@ -81,6 +81,44 @@ Mask、Stencil、Underなどもあります。
 
 これで「量」「色の演算」「Alphaの演算」を分離して観察できます。
 
+## 実機で3つのControlを個別に変える
+
+Resolve Studio 21.1.0.14、Windows、日本語UIで、同じチャートと赤い楕円を2つのMergeへ分岐させました。左のMergeBaseはNormal / Over / Blend 1で固定し、右のMergeChangedだけを変更します。
+
+[![チャートと赤い楕円の画像をMergeBaseとMergeChangedへ別々に接続した比較用の実機Graph](/img/fusion/captures/S32/graph.png)](/img/fusion/captures/S32/graph.png)
+
+[![変更前のMergeChanged Inspector。適用モードNormal、Operator Over、Blend 1](/img/fusion/captures/S32/inspector.png)](/img/fusion/captures/S32/inspector.png)
+
+[![比較の基準。左右ともNormal、Over、Blend 1で赤い楕円がチャートの上に重なる](/img/fusion/captures/S32/compare.png)](/img/fusion/captures/S32/compare.png)
+
+### Blendを0.5へ
+
+[![適用モードNormal、Operator Overを保ち、Blendだけを0.5にしたInspector](/img/fusion/captures/S32/blend-inspector.png)](/img/fusion/captures/S32/blend-inspector.png)
+
+[![左の基準に対し、右はBlend 0.5で楕円の内側にもチャートが透けて見える](/img/fusion/captures/S32/blend.png)](/img/fusion/captures/S32/blend.png)
+
+Blendだけを0.5にすると、右は楕円の内側にもBackgroundが戻ります。
+
+### Apply ModeをMultiplyへ
+
+[![Blendを1へ戻し、適用モードをMultiplyにしたInspector。この状態ではOperator欄が表示されない](/img/fusion/captures/S32/multiply-inspector.png)](/img/fusion/captures/S32/multiply-inspector.png)
+
+[![右のMultiplyでは楕円の範囲が暗くなり、チャートの線や色の違いが乗算結果として残る](/img/fusion/captures/S32/multiply.png)](/img/fusion/captures/S32/multiply.png)
+
+Blendを1へ戻してMultiplyを選ぶと、重なる部分の色の計算が変わります。このUI状態ではOperator欄が表示されません。
+
+### Normalへ戻してOperatorをInへ
+
+[![適用モードをNormalに戻し、Blend 1のままOperatorをInへ変えたInspector](/img/fusion/captures/S32/in-inspector.png)](/img/fusion/captures/S32/in-inspector.png)
+
+[![左はチャート上へのOver、右のInは赤い前景だけが残り、楕円の外は透明な市松模様になる](/img/fusion/captures/S32/in.png)](/img/fusion/captures/S32/in.png)
+
+最後はNormal / Blend 1へ戻したうえでOperatorだけをInにしました。BackgroundのAlphaが全面1なので、右には赤い前景の形が残ります。チャートのRGBを背景として残すOverとは違う結果です。
+
+各比較は基準から対象のControlだけを変えています。フレーム0、両Viewer 40%。書き出したGraphはNormal / Over / Blend 1へ復元した状態です。半透明背景や他のmode、Premultiplicationの違いはこの撮影に含めていません。
+
+[再現用Graph](/img/fusion/captures/S32/fixture.comp) · [撮影条件と確認範囲](/img/fusion/captures/S32/capture.json)
+
 ## Premultiplicationとの関係
 
 MergeにはSubtractive / Additiveもあり、Foregroundがpremultipliedかどうかで合成結果、特に透明Edgeが変わります。
