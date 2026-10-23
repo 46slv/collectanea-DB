@@ -15,6 +15,7 @@ slug: /fusion/recipes
 
 - [2つのImageを重ねる](./recipes/compositing/two-image-merge)
 - [複数ImageをMultiMergeでまとめる](./recipes/compositing/multi-merge-layers)
+- [Fast NoiseとDisplaceで熱気の揺らぎを作る](./recipes/compositing/heat-shimmer-with-fast-noise-displace)
 
 ## マスク（Masking）
 
@@ -81,14 +82,14 @@ slug: /fusion/recipes
 
 - [Deep 合成を2Dへ戻す](./recipes/deep/deep-merge-to-image)
 
-現在 **28 Recipe** です。
+現在 **29 Recipe** です。
 
 ## 表現の収集（実機検証待ち）
 
 - [定番VFX表現73件の調査](https://46slv.github.io/collectanea-DB/research/fusion-vfx-expressions/) — 粒子化・文字・遷移・グリッチ・光学・実写合成・時間・3Dを、完成映像から探す候補集です。
 - [スクリーンスペース・シルエット粒子化](https://46slv.github.io/collectanea-DB/research/fusion-vfx-expressions/screen-space-silhouette-dissolve/) — UE5の記事の方式とFusionの近似案を区別しています。
 
-これらは調査中の候補であり、ここにある17件のRecipeと違って**実機再現済みの手順ではありません**。確認できた表現を順にRecipeへ追加します。
+これらは調査中の候補であり、ここにある29件のRecipeと違って**実機再現済みの手順ではありません**。確認できた表現を順にRecipeへ追加します。
 
 ## 検証待ち
 
