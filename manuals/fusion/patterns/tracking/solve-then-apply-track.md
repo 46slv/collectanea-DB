@@ -42,6 +42,24 @@ Planar Transformのオレンジの**Image Input**に入れるのは、変形し�
 
 **Planar TrackerとPlanar Transformの間に、追跡データ専用の画像ケーブルを引くわけではありません。** Planar Transformは追跡結果を内部で参照し、Image Inputから入れたロゴを各フレームで変形して出力します。Mergeで初めて背景映像に重ねます。元の看板の文字の消去や、手前を横切る人物の遮蔽は別途処理します。
 
+### 実機の参考例
+
+<!-- capture-reuse:R60 -->
+
+S10は1フレームごとに右へ3px動く120フレームのチャートを解析し、Create Planar Transformで作成したNodeへ黄色いTRACKED文字を接続した例です。フレーム0と60を撮影し、60では文字も180px移動しています。解析経路と文字の画像経路は別です。
+
+[![S10の実機撮影。Node Editorの接続](/img/fusion/captures/S10/graph.png)](/img/fusion/captures/S10/graph.png)
+
+[![S10の実機撮影。Inspectorの設定](/img/fusion/captures/S10/inspector.png)](/img/fusion/captures/S10/inspector.png)
+
+[![S10の実機撮影。Planar Trackerの追跡領域](/img/fusion/captures/S10/region.png)](/img/fusion/captures/S10/region.png)
+
+[![S10の実機撮影。基準フレーム0の合成](/img/fusion/captures/S10/reference.png)](/img/fusion/captures/S10/reference.png)
+
+[![S10の実機撮影。Viewer出力](/img/fusion/captures/S10/result.png)](/img/fusion/captures/S10/result.png)
+
+Resolve Studio 21.1.0.14／Windowsで撮影したS10の参考例です。未確認の範囲：看板の実写、Perspective変形や遮蔽、Polygonマスクの追従、Steady/StabilizeとCompute Stabilization、Point TrackerのConnect To、追跡修正後のSpline共有の更新。 [撮影条件と確認範囲](/img/fusion/captures/S10/capture.json)
+
 ## 保つべき条件
 
 1. **最初に解析精度を確かめる。** Planar TrackerのSteadyで追跡した面を見ます。面が止まらず滑るなら、ロゴのTransformではなく、解析領域・遮蔽・Motion Typeを直します。Steadyは追跡精度を見るのに向くモードです。

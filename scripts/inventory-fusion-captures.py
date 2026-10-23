@@ -40,7 +40,8 @@ for path in sorted((root / 'manuals/fusion').rglob('*')):
     page = dict(article=article, title=field(text, 'title', path.stem), kind=kind,
                 image_count=images, native_cases=native, reused_cases=reused, planned_cases=[c['id'] for c in cases if c['id'] not in native],
                 state=state)
-    for key in ('decision', 'reason', 'reuse_candidates', 'priority', 'blocker', 'remaining_views'):
+    for key in ('decision', 'reason', 'reuse_candidates', 'priority', 'blocker', 'remaining_views',
+                'required_views', 'minimum_fixture', 'capture_group', 'capture_points', 'hold_conditions', 'audit_note'):
         if key in old:
             page[key] = old[key]
     if native or reused:

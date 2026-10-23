@@ -55,6 +55,20 @@ Fusionでは、白黒で似た見た目の情報でも、接続先によって�
 
 接続の基礎は[画像（Image）](../02-data/image.md)と[Mask](../02-data/mask.md)、症状別の切り分けは[AlphaとMaskを分けて診断する](../07-debugging/alpha-vs-mask.md)を参照してください。
 
+### 実機の参考例
+
+<!-- capture-reuse:R56 -->
+
+同じチャートとEllipseを使用したS25。BlurのEffect Maskでは楕円外の元画像が残り、Loaderへの直接Maskでは楕円外が透明になります。Color表示とAlpha表示を別々に撮影しています。
+
+[![S25の実機撮影。Node Editorの接続](/img/fusion/captures/S25/graph.png)](/img/fusion/captures/S25/graph.png)
+
+[![S25の実機撮影。左右Viewerの比較](/img/fusion/captures/S25/compare.png)](/img/fusion/captures/S25/compare.png)
+
+[![S25の実機撮影。Alpha表示の比較](/img/fusion/captures/S25/alpha.png)](/img/fusion/captures/S25/alpha.png)
+
+Resolve Studio 21.1.0.14／Windowsで撮影したS25の参考例です。未確認の範囲：赤い円を青い背景へ重ねる本文のMerge例、Matte ControlによるAlpha作成、Premultiplicationや素材のAlpha Mode。 [撮影条件と確認範囲](/img/fusion/captures/S25/capture.json)
+
 ## 実例：前景のAlphaと合成結果のAlphaを見る
 
 赤い円を青い背景へ重ね、2つのImageのAlphaがどう違うかを観察します。

@@ -60,6 +60,18 @@ Deep image   → Deep to Image → 2D Image
 
 ShapeをsRender直前までShape domainのまま扱います。
 
+#### 実機の参考例
+
+<!-- capture-reuse:R57 -->
+
+S01ではsEllipseのShapeをsGridで行列複製し、その後のsRenderで2D Imageにしています。sGridの処理を画像化より前へ置く構成の実例です。
+
+[![S01の実機撮影。Node Editorの接続](/img/fusion/captures/S01/graph.png)](/img/fusion/captures/S01/graph.png)
+
+[![S01の実機撮影。Viewer出力](/img/fusion/captures/S01/result.png)](/img/fusion/captures/S01/result.png)
+
+Resolve Studio 21.1.0.14／Windowsで撮影したS01の参考例です。未確認の範囲：Deepのflattenと複数サンプル保持、Particle forceの順序差、renderer前後の情報喪失の全比較、全domainの再変換可能性。 [撮影条件と確認範囲](/img/fusion/captures/S01/capture.json)
+
 ### Scene-first
 
 Classic 3D / USDはrendererまでscene domainを維持します。

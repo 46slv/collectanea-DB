@@ -116,6 +116,26 @@ Gradient Map ─↑
 
 ノイズで不規則に切り替えたい場合はGradient Wipeを選び、Fast Noise等をGradient Mapへ接続します。最初はSoftnessやBorderを触らず、Mapの明暗だけでどの部分から切り替わるか確認すると役割を分けやすくなります。
 
+## 実機で混合率0・0.5・1を比べる
+
+Resolve Studio 21.1.0.14、Windows、日本語UIで撮影しました。Backgroundへ1920×1080のテストチャート、Foregroundへ同じ寸法のオレンジ一色の画像を接続しています。
+
+[![chart.png LoaderをDissolve1のBackgroundへ、Gold1をForegroundへ接続してMediaOut1へ送る実機Graph](/img/fusion/captures/S29/graph.png)](/img/fusion/captures/S29/graph.png)
+
+[![Dissolve1 Inspector。処理はDissolve、背景/前景の値は0.5](/img/fusion/captures/S29/inspector.png)](/img/fusion/captures/S29/inspector.png)
+
+[![左は入力チャート、右はDissolveの混合率0.5でチャートとオレンジ色が混ざった結果](/img/fusion/captures/S29/compare.png)](/img/fusion/captures/S29/compare.png)
+
+処理をDissolveにし、Background / Foregroundを0.5にした状態です。左Viewerは入力チャートのまま、右だけが混合結果です。
+
+[![混合率0では右のDissolve出力が左のBackground入力チャートと同じになる](/img/fusion/captures/S29/background.png)](/img/fusion/captures/S29/background.png)
+
+[![混合率1では右のDissolve出力がForegroundのオレンジ一色になる](/img/fusion/captures/S29/foreground.png)](/img/fusion/captures/S29/foreground.png)
+
+0ではBackground、1ではForegroundが見えます。比較後は0.5へ戻しました。フレーム0、両Viewer 40%の静止比較です。時間変化を付けたtransitionや、他のOperation、異なる寸法の入力は確認していません。
+
+[再現用Graph](/img/fusion/captures/S29/fixture.comp) · [撮影条件と確認範囲](/img/fusion/captures/S29/capture.json)
+
 ## Mergeとの違い
 
 - **Merge**: ForegroundをBackgroundへ合成し、AlphaやApply Modeで重ね方を決める
@@ -137,4 +157,4 @@ Gradient Map ─↑
 
 DaVinci Resolve 21.1 Reference Manual、September 2026、Chapter 94、pp.2208–2210で、3つの任意入力、Background / Foreground control、7種類のOperation、Gradient Map、解像度処理、Wipe controlsを確認しました。
 
-内部REGID、各transitionの実機描画、GPU性能、Edition差は未確認のため `verification: partial` を維持します。
+掲載例以外のtransitionの実機描画、GPU性能、Edition差は未確認のため `verification: partial` を維持します。

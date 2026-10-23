@@ -1,6 +1,6 @@
 # Fusion 21.1 スクリーンショット計画
 
-更新: 2026-10-24。S01〜S22と既存画像を使った36記事、計58ページは公開確認済み。S23〜S26の基礎記事への掲載を継続中。Fusion全体は未完了。
+更新: 2026-10-24。S01〜S26と既存画像を使った55記事、計81ページは公開確認済み。S27〜S30の合成・変位の例を撮影し、掲載へ継続中。Fusion全体は未完了。
 
 撮影候補は [fusion-screenshot-candidates.json](./fusion-screenshot-candidates.json) に記録する。記事の説明基準は [Fusion Authoring Contract](./fusion-authoring-contract.md)、技術出典はDaVinci Resolve 21.1 Reference Manual（2026年9月）。公式画像の転載ではなく、実機から独自に撮影する。
 
@@ -30,7 +30,7 @@
 
 - Mission: Fusion全体の、画像が必要な箇所を実機撮影・記事掲載・GitHub反映・公開確認まで完了する。ユーザーはこの制作元taskで全586ページへの継続と必要なGitHub操作を明示許可した。14記事でMissionを完了扱いにしない。
 - Owner: Sol、制作元Codex task `01a1683b-3067-7a40-892a-47a3b30d50b2`。設計・GUI・実装・統合・検証を継続担当。Dot intake writer `01a1689f-419e-7742-8058-b0d6a0aa302d` は安全な境界で停止し、親も再投入なしを確認済み。
-- Canonical edit checkout: `C:/Users/shiro/Documents/Codex/2026-10-23/task-19/collectanea-screenshot-integration`。現在branch `integration/fusion-foundation-native-20261024`、base `22d20b5f304eb41531ab8eef342db470eff23ede`。旧producer checkoutと元の43MB配布ZIPは保全。branch作成時にorigin/mainがupstreamになるため、pushは必ず明示branchを指定する。
+- Canonical edit checkout: `C:/Users/shiro/Documents/Codex/2026-10-23/task-19/collectanea-screenshot-integration`。現在branch `integration/fusion-compositing-native-20261024`、base `c252a312148add3a64b72c279689f3e3fbcc447c`。旧producer checkoutと元の43MB配布ZIPは保全。branch作成時にorigin/mainがupstreamになるため、pushは必ず明示branchを指定する。
 - Published batch 1: S01–S14、14記事・50画像。[PR #63](https://github.com/46slv/collectanea-DB/pull/63)、main `b5862defc25d342381849d6afcc499597efc4745`。候補 `2176ab3572689cba26d83c8b4d494055f192c216` とmainのtree `a9aa538d22790ad862d1ba92158bce047d33f44c` は一致。
 - PASS: [exact-head Quality 39966534167](https://github.com/46slv/collectanea-DB/actions/runs/39966534167)、[Pages 39967626278](https://github.com/46slv/collectanea-DB/actions/runs/39967626278)、公開14ページ・50画像の1440px/390px表示・decode・Alt・原寸リンク・横overflow、公開232素材のHTTP200/SHA-256一致。公開証拠は `artifacts/fusion-captures/public-display-report.json`、`public-assets.json` と28画面。これらは既存ignore内に保存。
 - Public-check note: 長いS08–S10の末尾画像は遅延読込。撮影節の末尾までscrollして全画像を確認した。最初の未読込観測は公開レポートに保持。CIの初回URL形状assertion失敗は、Docusaurusの `assets/files/` 配布を実バイトhashで照合する修正後の新headで解消。
@@ -50,7 +50,13 @@
 - Viewer API reference: [official Fusion Scripting Guide pp.127–130](https://documents.blackmagicdesign.com/UserManuals/Fusion8_Scripting_Guide.pdf#page=127)のGLImageViewer.ShowDoD/ShowRoI/EnableRoI/DragRoIと、21.1 Manual ch68 pp.1479–1481を参照。21.1.0.14で見える結果を別途確認。RoI外のcached pixelsが残るため、ROIスクリーンショットを出力切り抜き・再計算時間の証拠にしない。
 - Batch 4 local PASS: S23–S26へ17cropを掲載し、Bridge・Recipe・Troubleshooting・Scale/Resizeの19記事へ47箇所を再利用。変更23記事64掲載、累計81ページ・91原画crop・211掲載。production build、regressions19、全81ページの1440px/390px・decode/Alt/原寸リンク/hash/overflow PASS。確認をbuild完了前に起動した一度の404は破棄し、build成功後の全件レポートを採用した。証拠 `artifacts/fusion-captures/display-report.json` と162画面。
 - Audit: 未判断のBridge/Recipe/Troubleshooting50記事を個別に確認。再利用17、独立撮影不要6、新規撮影27。現時点の再利用19件にはScale/Resizeの2Node記事を含む。Planarの実写Perspective、USDのEXR保存/非Color AOVなどは掲載後もremaining_viewsへ残す。全体未完了。
-- Next action: 最新mainのColor記事追加を保持して通常mergeで追随し、candidateを凍結してReady PRへ提出。exact-head Quality、main/Pages、変更23ページ64掲載の公開確認を完了する。並行して残る学習記事・Node記事の必要画像をread-only監査し、Solだけが次のowned native fixtureを撮影する。
+- Batch 4 published PASS: [PR #71](https://github.com/46slv/collectanea-DB/pull/71)、candidate `79e82c7cb2d8930578aeafc865f020c637043552`、main `c252a312148add3a64b72c279689f3e3fbcc447c`、tree `f3914ee207f16b9629b1833a14bd0643208b43b4`一致。[Quality 39984705688](https://github.com/46slv/collectanea-DB/actions/runs/39984705688)と[Pages 39986353596](https://github.com/46slv/collectanea-DB/actions/runs/39986353596)の全必要job成功。変更23ページ64掲載の1440px/390px・decode/Alt/原寸リンク/overflow PASS。公開328素材HTTP200/SHA256一致。詳細記録は `public-batch4-display-report.json`、`public-batch4-assets.json` と46画面。累計81ページ・91原画crop・211掲載。
+- Batch 5 native stage: same owned ProjectでS27 MultiMerge（Gold/Red Layerの有効・無効と順序変更）、S28 Merge Effect Maskなし/ありと出力Alpha、S29 Dissolve Mix0/0.5/1、S30 FastNoise→Displaceの前後とmapを撮影しfresh GUIで確認。原画とGraph/readbackは制作元workspace `work/fusion-compositing-stage`、`work/S27-*`〜`S30-*` に保全。canonicalへの採用・掲載は完了し、公開は未完了。現在S30_capture、両Viewer Color/40%、RoI無効。Production Projectや設定は変更していない。
+- Batch 5 method: MultiMerge Layer Orderのbackground dragはfresh UIAでno-opと確認、ScriptValへの直接SetInputもreadback不成立で不採用。その後同じCLI connectionのforeground dragで実際の順序と重なり変化を確認し、Graphを書き出した。CLIとMCPのsnapshot contextは共有されない。S30のFastNoise Scaleは実行ID XScale/YScaleなので、残ったLoader/Noise/MediaOutを読み戻し、Displaceだけを追加して修復し、既存caseを再buildしなかった。S28の初回Fit表示は不採用にし、選択後にもSetScaleを適用して両方40%のColor/Alphaを撮影し直した。
+- Full necessity audit complete: 全586ページへ画像要否を付与。先のIndex/基礎/Bridge監査に加え、未判断Node398件を200/198に分けて重複0で監査、Learn/Pattern25件と既存2記事の不足、残る索引・Resolve境界15件も確認。32ページは独立撮影不要。必要なGraph/Inspector/結果、最小fixture、搭載・素材条件、既存画像で代用できない理由をcoverage_inventoryへ保持。監査はread-onlyで、実機受入とは別。Krokodove85件等の搭載条件を未確認のまま成功にはしない。
+- Batch 5 local PASS: S27–S30の4記事へ21crop、8記事へ9source entries/30掲載を追加。12変更ページ・新規51掲載、全92ページ262掲載のproduction build/1440px/390px/decode/Alt/原寸リンク/hash/overflow PASS。先のregressions19 PASSを維持。1記事で複数source caseを説明できるようcheckerをarticle単位へ改善し、Text+のS08と配置のS23を同一記事で確認した。compositing indexも既存Mergeと新MultiMergeの両方を検査。新規cropは112原画cropまで増加したが、公開はまだ91crop/81ページの範囲。
+- Batch 4 report delivered: silvel宛先をfresh確認し、PR71・公開81ページ・全体監査と継続中範囲を送信。会話への表示と入力欄のクリア、画面保存を確認。GUI single writerはSolを継続。
+- Next action: current mainへ通常mergeで追随し、batch5 candidateを凍結。Ready PR/exact-head Quality→main/Pages→変更12ページ（既存画像を含む53掲載）の公開確認。残る462ページの新規撮影と、画像追加済み記事のremaining_viewsを、同じSolが継続する。Checkpoint作成や単一batch完了だけでは止めない。
 - KEEP: 同じSolが継続。Checkpoint保存や単一batch完了だけでは停止・Rolloverしない。文脈圧迫が必要になったときだけCOMPACT/ROLLOVERを判断する。
 
 ## 第1batchの撮影・統合メモ（履歴）

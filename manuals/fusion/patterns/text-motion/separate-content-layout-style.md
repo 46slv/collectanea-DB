@@ -61,9 +61,39 @@ Composite
 
 Text+だけで内容 / 見た目 / basic 配置を持ちます。
 
+#### 実機の参考例
+
+<!-- capture-reuse:R58 -->
+
+S08はText+のStyled TextとFontをTextタブで設定し、Shadingの別Elementで赤いアウトラインを追加した固定タイトルです。内容と見た目を別の設定面で扱っています。
+
+[![S08の実機撮影。Inspectorの設定](/img/fusion/captures/S08/inspector.png)](/img/fusion/captures/S08/inspector.png)
+
+[![S08の実機撮影。Text+のShading設定](/img/fusion/captures/S08/shading.png)](/img/fusion/captures/S08/shading.png)
+
+[![S08の実機撮影。Viewer出力](/img/fusion/captures/S08/result.png)](/img/fusion/captures/S08/result.png)
+
+Resolve Studio 21.1.0.14／Windowsで撮影したS08の参考例です。未確認の範囲：FollowerやWrite Onの時間変化、Macroの公開項目、フォント全般。 [撮影条件と確認範囲](/img/fusion/captures/S08/capture.json)
+
 ### Separate transform
 
 Text+は内容 / 見た目、Transformはposition / scale / rotationを持ちます。
+
+#### 実機の参考例
+
+<!-- capture-reuse:R59 -->
+
+S23ではText+のSourceBをTransform1で配置し、Merge1で青いSourceAへ重ねます。文字を作るNodeと位置を変えるNodeを分けた静止例です。
+
+[![S23の実機撮影。Node Editorの接続](/img/fusion/captures/S23/graph.png)](/img/fusion/captures/S23/graph.png)
+
+[![S23の実機撮影。Inspectorの設定](/img/fusion/captures/S23/inspector.png)](/img/fusion/captures/S23/inspector.png)
+
+[![S23の実機撮影。左右Viewerの比較](/img/fusion/captures/S23/compare.png)](/img/fusion/captures/S23/compare.png)
+
+[![S23の実機撮影。背景へ合成した結果](/img/fusion/captures/S23/final.png)](/img/fusion/captures/S23/final.png)
+
+Resolve Studio 21.1.0.14／Windowsで撮影したS23の参考例です。未確認の範囲：キーフレームやExpressionによるMotion、User ControlsやTemplate公開。 [撮影条件と確認範囲](/img/fusion/captures/S23/capture.json)
 
 ### Template-ready
 

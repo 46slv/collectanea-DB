@@ -1,0 +1,131 @@
+{
+  "schema_version": 1,
+  "case": "S28",
+  "article": "manuals/fusion/recipes/masking/limit-merge-with-mask.md",
+  "manual": {
+    "version": "21.1",
+    "chapter": 94,
+    "printed_pages": "2211–2217"
+  },
+  "runtime": {
+    "version": "21.1.0.14",
+    "edition": "Studio",
+    "os": "Windows-11-10.0.26200-SP0",
+    "ui_language": "ja-JP (some Shape controls remain English)"
+  },
+  "captured_at": "2026-10-23T16:30:57.041455+00:00",
+  "project": "Collectanea_Captures_20261023_Sol",
+  "timeline": "S28_capture",
+  "frame": 0.0,
+  "resolution": [
+    1920,
+    1080
+  ],
+  "color_management": {
+    "colorScienceMode": "davinciYRGB",
+    "colorSpaceTimeline": "Rec.709 (Scene)",
+    "colorSpaceTimelineGamma": "",
+    "colorSpaceOutput": "Rec.709 (Scene)",
+    "colorSpaceOutputGamma": "ACEScc",
+    "separateColorSpaceAndGamma": "0",
+    "isAutoColorManage": "0",
+    "timelineResolutionWidth": "1920",
+    "timelineResolutionHeight": "1080",
+    "timelineFrameRate": 24.0,
+    "timelinePlaybackFrameRate": "30"
+  },
+  "viewer": {
+    "zoom_percent": 40,
+    "channel": "Color except alpha.png (both Alpha)",
+    "background": "checkerboard for transparent pixels",
+    "note": "Viewer screenshots are display evidence, not colorimetric exports."
+  },
+  "graph": "fixture.comp",
+  "settings": "readback.json",
+  "source": {
+    "file": "screen.png",
+    "size": [
+      3352,
+      1910
+    ],
+    "sha256": "a94bd4c9a4f0566ddbf2e60437463d0565ae5f1e425c7469966060695add544f"
+  },
+  "shots": [
+    {
+      "file": "graph.png",
+      "source": "screen.png",
+      "source_sha256": "a94bd4c9a4f0566ddbf2e60437463d0565ae5f1e425c7469966060695add544f",
+      "frame": 0.0,
+      "crop_xyxy": [
+        240,
+        1030,
+        2600,
+        1710
+      ],
+      "resampled": false,
+      "sha256": "ed5f42f2617645e2c0579602539c1d213695293c86e1c89b925397925de12e15",
+      "viewer_channels": "Color"
+    },
+    {
+      "file": "inspector.png",
+      "source": "screen.png",
+      "source_sha256": "a94bd4c9a4f0566ddbf2e60437463d0565ae5f1e425c7469966060695add544f",
+      "frame": 0.0,
+      "crop_xyxy": [
+        2830,
+        120,
+        3352,
+        510
+      ],
+      "resampled": false,
+      "sha256": "b6032b14e2fbe5c455c238d6a6097a00bb9bbdbfdff9ca9d77aa4b6703fb2f99",
+      "viewer_channels": "Color"
+    },
+    {
+      "file": "compare.png",
+      "source": "screen.png",
+      "source_sha256": "a94bd4c9a4f0566ddbf2e60437463d0565ae5f1e425c7469966060695add544f",
+      "frame": 0.0,
+      "crop_xyxy": [
+        1146,
+        65,
+        2830,
+        705
+      ],
+      "resampled": false,
+      "sha256": "a508a94d87997c2c141b99c2e92904cab60617974825e12127370cab10d52d1e",
+      "viewer_channels": "Color"
+    },
+    {
+      "file": "alpha.png",
+      "source": "screen-alpha.png",
+      "source_sha256": "ae2e65845cd63876f78cc123d31fba329691a0107bbbee4dce94594c5870e079",
+      "frame": 0.0,
+      "crop_xyxy": [
+        1146,
+        65,
+        2830,
+        705
+      ],
+      "resampled": false,
+      "sha256": "f999d8b63110c6cf6610ba5fce6baa6eb89a0cfdfa4339c9138a3a88270637d2",
+      "viewer_channels": "Alpha"
+    }
+  ],
+  "acceptance": {
+    "gui": "PASS: owner visually inspected node connections, selected Inspector, and output",
+    "article_display": "PASS: local production build;1440px/390px,decode/Alt/native links/hash/overflow"
+  },
+  "unverified": [
+    "Free edition and other platforms",
+    "All parameter ranges and performance",
+    "Exported portable composition reimport"
+  ],
+  "restoration": "PASS: both viewers returned to Color in screen.png after Alpha capture",
+  "reproduction": {
+    "fixture_sha256": "c3d4c66b2b392ffdec404032f33267152e43f54332f23f2929dd66fc2aa3ce15",
+    "readback_sha256": "ce7ad87d6fc8f5f36757fa09e119250a08931a86ced94a58979a1588b3cfd879",
+    "paths": "Comp:/../_fixtures/ for bundled synthetic fixtures",
+    "reimport": "NOT_RUN: accepted GUI evidence precedes export path normalization"
+  }
+}

@@ -51,6 +51,24 @@ Layer Listでは、上にあるLayerほど前景側です。
 
 Node Graph上の上下位置ではなく、Layer Listの順番がMultiMerge内の重なり順になります。
 
+### 実機の参考例
+
+<!-- capture-reuse:R61 -->
+
+青いBase1の上へ、赤い長方形のRed1とオレンジの楕円のGold1を重ねた例です。最初はGold1が上で、無効にすると楕円だけが消えます。有効に戻してRed1を上へ並べ替えると、長方形が前に重なります。
+
+[![S27の実機撮影。Node Editorの接続](/img/fusion/captures/S27/graph.png)](/img/fusion/captures/S27/graph.png)
+
+[![S27の実機撮影。Inspectorの設定](/img/fusion/captures/S27/inspector.png)](/img/fusion/captures/S27/inspector.png)
+
+[![S27の実機撮影。左右Viewerの比較](/img/fusion/captures/S27/compare.png)](/img/fusion/captures/S27/compare.png)
+
+[![S27の実機撮影。Layer無効時の出力](/img/fusion/captures/S27/disabled.png)](/img/fusion/captures/S27/disabled.png)
+
+[![S27の実機撮影。Layer順を変えた出力](/img/fusion/captures/S27/order.png)](/img/fusion/captures/S27/order.png)
+
+Resolve Studio 21.1.0.14／Windowsで撮影したS27の参考例です。Rename、素材差し替え、Split Here、順序のKeyframe化は含めていません。再現用Graphは最後のRed1が上の状態です。 [撮影条件と確認範囲](/img/fusion/captures/S27/capture.json)
+
 ## 素材を差し替える
 
 入力pipeを外してもLayerは削除されず、Layer名に取り消し線が表示されます。

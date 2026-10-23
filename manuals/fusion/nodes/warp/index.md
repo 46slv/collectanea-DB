@@ -145,6 +145,20 @@ Settingsの**Motion Blur**はノードが推定した動きに基づくブラー
 | 細線や文字がぼやける | Corner / Perspectiveの往復や強い再サンプリング、格子変形の強さを見直す。 |
 | ベクトルをつないでも変形しない | Vector / Back Vectorが本当に保存されているか、接続先が要求するデータ型とチャンネルが合っているかを確認する。 |
 
+## 実機の参考例
+
+<!-- capture-reuse:R62 -->
+
+DisplaceのInputへチャート、ForegroundへFast Noiseを接続した例です。Radial、Luminance、Refraction Strength 0.06で、入力と歪み、次に変位mapと結果を比べています。
+
+[![S30の実機撮影。Node Editorの接続](/img/fusion/captures/S30/graph.png)](/img/fusion/captures/S30/graph.png)
+
+[![S30の実機撮影。左右Viewerの比較](/img/fusion/captures/S30/compare.png)](/img/fusion/captures/S30/compare.png)
+
+[![S30の実機撮影。変位mapと出力](/img/fusion/captures/S30/map.png)](/img/fusion/captures/S30/map.png)
+
+Resolve Studio 21.1.0.14／Windowsで撮影したS30の参考例です。通常の2D mapによるDisplaceだけの例です。4点配置、Grid Warp、Vector入力の変形は未確認です。 [撮影条件と確認範囲](/img/fusion/captures/S30/capture.json)
+
 ## 出典と確認範囲
 
 一次資料はBlackmagic Design『DaVinci Resolve 21.1 Reference Manual』（2026年9月）です。Chapter 123「Warp Nodes」pp.2960–2989（Coordinate Space、Corner Positioner、Dent、Displace、Drip、Grid Warp、Lens Distort、Perspective Positioner、Vector Distortion、Vortex）と、Chapter 112「Optical Flow」pp.2629–2633（Vector Warping Toolset、Vector Transform、Vector Warp）に基づき、分類・入力データ・利用例を整理しました。

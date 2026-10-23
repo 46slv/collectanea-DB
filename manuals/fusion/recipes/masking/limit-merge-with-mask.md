@@ -122,6 +122,24 @@ Ellipse1 ──→ Polygon1［Effect Mask入力］
 
 確認するときは、**MaskなしのMerge → Ellipse単体の白黒 → MaskありのMerge → Merge出力のAlpha**という順に見ると、画像の合成、範囲指定、透明度のどこに問題があるかを切り分けられます。
 
+## 実機でMaskなし・ありとAlphaを見る
+
+Resolve Studio 21.1.0.14、Windows、日本語UIで、青いBase1と不透明な赤いRed1を2つのMergeへ分岐させました。右のMergeMaskedだけにEllipse1をEffect Maskとして接続しています。
+
+[![同じBase1とRed1からMergeFullとMergeMaskedへ別々に分岐し、Ellipse1をMergeMaskedの青い入力だけへ接続した実機Graph](/img/fusion/captures/S28/graph.png)](/img/fusion/captures/S28/graph.png)
+
+[![Ellipse1 Inspector。Width 0.5、Height 0.55、Soft Edge 0.02、Center 0.5と0.5](/img/fusion/captures/S28/inspector.png)](/img/fusion/captures/S28/inspector.png)
+
+[![左ViewerのMaskなしMergeは全面赤、右のMaskありMergeは青い背景へ赤い楕円の範囲だけを合成](/img/fusion/captures/S28/compare.png)](/img/fusion/captures/S28/compare.png)
+
+両Viewerは40%です。左のMergeFullは赤いForegroundが全面を覆い、右のMergeMaskedは楕円の範囲だけ赤を重ねています。緑色の輪郭と赤い軸は選択中Maskの操作表示です。
+
+[![同じ左右MergeをAlpha表示すると、Maskの有無にかかわらず両出力が全面白になる](/img/fusion/captures/S28/alpha.png)](/img/fusion/captures/S28/alpha.png)
+
+Alpha表示では左右とも全面白です。この例は背景も前景も不透明なので、Effect Maskで前景の適用範囲を限定しても、合成結果に透明な穴はできません。1920×1080、フレーム0で撮影し、最後に両ViewerをColor表示へ戻しました。InvertやBlendの段階比較、半透明素材の解釈は含めていません。
+
+[再現用Graph](/img/fusion/captures/S28/fixture.comp) · [撮影条件と確認範囲](/img/fusion/captures/S28/capture.json)
+
 ## 関連ページ
 
 - [マスク（Mask）](../../learn/02-data/mask.md)：白黒の単一チャンネルデータとしてのMask。
