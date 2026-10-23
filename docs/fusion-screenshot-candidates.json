@@ -2,7 +2,7 @@
   "schema_version": 1,
   "created": "2026-10-20",
   "scope": "Fusion node reference, 21.1",
-  "status_note": "撮影候補のみ。2026-10-20時点では実機撮影・実描画を検証していない。",
+  "status_note": "2026-10-23: S01-S14 captured on Resolve Studio 21.1.0.14, embedded and locally display-verified. 14 pages / 50 shots. Public deployment not performed.",
   "asset_directory_template": "static/img/fusion/captures/{id}/{shot.slug}.png",
   "capture_manifest_name": "capture.json",
   "candidates": [
@@ -17,29 +17,34 @@
       },
       "goal": "小さい円を行・列で反復し、個数と間隔の違いを示す",
       "suggested_graph": "sEllipse → sGrid → sRender → MediaOut",
-      "status": "candidate",
+      "status": "captured-local-display-verified",
       "shots": [
         {
           "slug": "node",
           "kind": "node-tile",
-          "target": "sGridの端子と入力方向が読める状態"
+          "target": "sGridの端子と入力方向が読める状態",
+          "status": "captured"
         },
         {
           "slug": "graph",
           "kind": "node-graph",
-          "target": "Shape作成→複製→画像化までを1画面に表示"
+          "target": "Shape作成→複製→画像化までを1画面に表示",
+          "status": "captured"
         },
         {
           "slug": "inspector",
           "kind": "inspector",
-          "target": "Grid Cells X/YとX/Y Offsetを表示"
+          "target": "Grid Cells X/YとX/Y Offsetを表示",
+          "status": "captured"
         },
         {
           "slug": "result",
           "kind": "output",
-          "target": "重ならないドット配列。行・列の数は画面の実測値と一致させる"
+          "target": "重ならないドット配列。行・列の数は画面の実測値と一致させる",
+          "status": "captured"
         }
-      ]
+      ],
+      "capture_manifest": "static/img/fusion/captures/S01/capture.json"
     },
     {
       "id": "S02",
@@ -52,29 +57,34 @@
       },
       "goal": "背景にタイトルを載せ、入力端子の役割を区別する",
       "suggested_graph": "Background + Text+ → Merge → MediaOut",
-      "status": "candidate",
+      "status": "captured-local-display-verified",
       "shots": [
         {
           "slug": "node",
           "kind": "node-tile",
-          "target": "Background、Foreground、Effect Maskの位置と色"
+          "target": "Background、Foreground、Effect Maskの位置と色",
+          "status": "captured"
         },
         {
           "slug": "graph",
           "kind": "node-graph",
-          "target": "2入力がMergeに入る最小構成"
+          "target": "2入力がMergeに入る最小構成",
+          "status": "captured"
         },
         {
           "slug": "inspector",
           "kind": "inspector",
-          "target": "Center/Size/Blendおよび必要な合成設定"
+          "target": "Center/Size/Blendおよび必要な合成設定",
+          "status": "captured"
         },
         {
           "slug": "result",
           "kind": "output",
-          "target": "タイトルが背景の上に載った結果。Foreground/Backgroundを判別できる"
+          "target": "タイトルが背景の上に載った結果。Foreground/Backgroundを判別できる",
+          "status": "captured"
         }
-      ]
+      ],
+      "capture_manifest": "static/img/fusion/captures/S02/capture.json"
     },
     {
       "id": "S03",
@@ -87,29 +97,34 @@
       },
       "goal": "文字の周辺に発光を作り、Glow SizeとGlowの違いを示す",
       "suggested_graph": "Text+ → Glow → MediaOut",
-      "status": "candidate",
+      "status": "captured-local-display-verified",
       "shots": [
         {
           "slug": "graph",
           "kind": "node-graph",
-          "target": "入力とGlowの接続"
+          "target": "入力とGlowの接続",
+          "status": "captured"
         },
         {
           "slug": "inspector",
           "kind": "inspector",
-          "target": "Glow Size、Glow、Apply Modeを表示"
+          "target": "Glow Size、Glow、Apply Modeを表示",
+          "status": "captured"
         },
         {
           "slug": "compare",
           "kind": "comparison",
-          "target": "Glowなし／ありを同一素材・同一フレームで比較"
+          "target": "Glowなし／ありを同一素材・同一フレームで比較",
+          "status": "captured"
         },
         {
           "slug": "masks",
           "kind": "comparison",
-          "target": "必要に応じGlow MaskとEffect Maskの差を比較"
+          "target": "必要に応じGlow MaskとEffect Maskの差を比較",
+          "status": "deferred-optional"
         }
-      ]
+      ],
+      "capture_manifest": "static/img/fusion/captures/S03/capture.json"
     },
     {
       "id": "S04",
@@ -122,24 +137,28 @@
       },
       "goal": "Shapeが2D Imageへ変わる境界を示す",
       "suggested_graph": "sEllipse → sRender → MediaOut",
-      "status": "candidate",
+      "status": "captured-local-display-verified",
       "shots": [
         {
           "slug": "graph",
           "kind": "node-graph",
-          "target": "sRenderの前後でdata domainが変わる構成"
+          "target": "sRenderの前後でdata domainが変わる構成",
+          "status": "captured"
         },
         {
           "slug": "inspector",
           "kind": "inspector",
-          "target": "Auto Resolution、Width/Height、Depthの表示"
+          "target": "Auto Resolution、Width/Height、Depthの表示",
+          "status": "captured"
         },
         {
           "slug": "result",
           "kind": "output",
-          "target": "画像化された楕円の実結果"
+          "target": "画像化された楕円の実結果",
+          "status": "captured"
         }
-      ]
+      ],
+      "capture_manifest": "static/img/fusion/captures/S04/capture.json"
     },
     {
       "id": "S05",
@@ -152,24 +171,28 @@
       },
       "goal": "2形状のUnion／Subtract／Intersectionを見せる",
       "suggested_graph": "sEllipse + sStar → sBoolean → sRender → MediaOut",
-      "status": "candidate",
+      "status": "captured-local-display-verified",
       "shots": [
         {
           "slug": "graph",
           "kind": "node-graph",
-          "target": "2つのShape入力とrenderer"
+          "target": "2つのShape入力とrenderer",
+          "status": "captured"
         },
         {
           "slug": "inspector",
           "kind": "inspector",
-          "target": "Operationを切り替える箇所"
+          "target": "Operationを切り替える箇所",
+          "status": "captured"
         },
         {
           "slug": "compare",
           "kind": "comparison",
-          "target": "少なくともUnionとSubtractの結果を同じ形状・位置で比較"
+          "target": "少なくともUnionとSubtractの結果を同じ形状・位置で比較",
+          "status": "captured"
         }
-      ]
+      ],
+      "capture_manifest": "static/img/fusion/captures/S05/capture.json"
     },
     {
       "id": "S06",
@@ -182,24 +205,28 @@
       },
       "goal": "位置・大きさ・回転と画面外の扱いを示す",
       "suggested_graph": "Background（検証用グリッド）→ Transform → MediaOut",
-      "status": "candidate",
+      "status": "captured-local-display-verified",
       "shots": [
         {
           "slug": "graph",
           "kind": "node-graph",
-          "target": "1入力1出力の最小構成"
+          "target": "1入力1出力の最小構成",
+          "status": "captured"
         },
         {
           "slug": "inspector",
           "kind": "inspector",
-          "target": "Center、Pivot、Size、Angleの主要設定"
+          "target": "Center、Pivot、Size、Angleの主要設定",
+          "status": "captured"
         },
         {
           "slug": "compare",
           "kind": "comparison",
-          "target": "元画像と移動・拡大後を比較。四隅がわかるグリッドを使用"
+          "target": "元画像と移動・拡大後を比較。四隅がわかるグリッドを使用",
+          "status": "captured"
         }
-      ]
+      ],
+      "capture_manifest": "static/img/fusion/captures/S06/capture.json"
     },
     {
       "id": "S07",
@@ -212,24 +239,28 @@
       },
       "goal": "Effect Maskが処理する領域を限定する例を示す",
       "suggested_graph": "Background → Blur → MediaOut ／ Ellipse Mask → Blur Effect Mask",
-      "status": "candidate",
+      "status": "captured-local-display-verified",
       "shots": [
         {
           "slug": "graph",
           "kind": "node-graph",
-          "target": "青いEffect Mask入力へEllipseを接続"
+          "target": "青いEffect Mask入力へEllipseを接続",
+          "status": "captured"
         },
         {
           "slug": "inspector",
           "kind": "inspector",
-          "target": "Center、Width/Height、Soft Edge、Invert"
+          "target": "Center、Width/Height、Soft Edge、Invert",
+          "status": "captured"
         },
         {
           "slug": "compare",
           "kind": "comparison",
-          "target": "マスクなし／あり。処理境界が読み取れる"
+          "target": "マスクなし／あり。処理境界が読み取れる",
+          "status": "captured"
         }
-      ]
+      ],
+      "capture_manifest": "static/img/fusion/captures/S07/capture.json"
     },
     {
       "id": "S08",
@@ -242,29 +273,34 @@
       },
       "goal": "2D文字、Inspectorタブ、文字装飾による変化を示す",
       "suggested_graph": "Text+ → MediaOut",
-      "status": "candidate",
+      "status": "captured-local-display-verified",
       "shots": [
         {
           "slug": "node",
           "kind": "node-tile",
-          "target": "2D Imageを生成するノード外観"
+          "target": "2D Imageを生成するノード外観",
+          "status": "captured"
         },
         {
           "slug": "inspector",
           "kind": "inspector",
-          "target": "TextタブのStyled Text、Font、Sizeなど"
+          "target": "TextタブのStyled Text、Font、Sizeなど",
+          "status": "captured"
         },
         {
           "slug": "shading",
           "kind": "inspector",
-          "target": "Shadingタブの要点"
+          "target": "Shadingタブの要点",
+          "status": "captured"
         },
         {
           "slug": "result",
           "kind": "output",
-          "target": "2行タイトルに塗りとアウトラインを適用"
+          "target": "2行タイトルに塗りとアウトラインを適用",
+          "status": "captured"
         }
-      ]
+      ],
+      "capture_manifest": "static/img/fusion/captures/S08/capture.json"
     },
     {
       "id": "S09",
@@ -277,24 +313,28 @@
       },
       "goal": "粒子の生成→描画と時間変化を示す",
       "suggested_graph": "pEmitter → pRender（2D）→ MediaOut",
-      "status": "candidate",
+      "status": "captured-local-display-verified",
       "shots": [
         {
           "slug": "graph",
           "kind": "node-graph",
-          "target": "Particle domainから2D出力への変換"
+          "target": "Particle domainから2D出力への変換",
+          "status": "captured"
         },
         {
           "slug": "inspector",
           "kind": "inspector",
-          "target": "pEmitterのNumber、Lifespan、Velocity、Region"
+          "target": "pEmitterのNumber、Lifespan、Velocity、Region",
+          "status": "captured"
         },
         {
           "slug": "result",
           "kind": "output",
-          "target": "評価フレームを固定し粒子が明瞭に表示された結果"
+          "target": "評価フレームを固定し粒子が明瞭に表示された結果",
+          "status": "captured"
         }
-      ]
+      ],
+      "capture_manifest": "static/img/fusion/captures/S09/capture.json"
     },
     {
       "id": "S10",
@@ -307,24 +347,28 @@
       },
       "goal": "平面追跡の指定範囲・解析結果・合成例を示す",
       "suggested_graph": "移動するテストプレート → Planar Tracker → Planar Transform → graphic合成",
-      "status": "candidate",
+      "status": "captured-local-display-verified",
       "shots": [
         {
           "slug": "region",
           "kind": "ui-screenshot",
-          "target": "追跡面と解析対象が視覚的に分かるViewer"
+          "target": "追跡面と解析対象が視覚的に分かるViewer",
+          "status": "captured"
         },
         {
           "slug": "inspector",
           "kind": "inspector",
-          "target": "Operation Mode、Motion Type等、採用した状態"
+          "target": "Operation Mode、Motion Type等、採用した状態",
+          "status": "captured"
         },
         {
           "slug": "result",
           "kind": "output",
-          "target": "動きに追従したグラフィックの結果。代表時刻を併記"
+          "target": "動きに追従したグラフィックの結果。代表時刻を併記",
+          "status": "captured"
         }
-      ]
+      ],
+      "capture_manifest": "static/img/fusion/captures/S10/capture.json"
     },
     {
       "id": "S11",
@@ -337,24 +381,28 @@
       },
       "goal": "Classic 3DのViewと描画画像が別であることを示す",
       "suggested_graph": "Shape 3D + Camera 3D + Light → Merge 3D → Renderer 3D → MediaOut",
-      "status": "candidate",
+      "status": "captured-local-display-verified",
       "shots": [
         {
           "slug": "graph",
           "kind": "node-graph",
-          "target": "3D sceneから2D Imageへの変換境界"
+          "target": "3D sceneから2D Imageへの変換境界",
+          "status": "captured"
         },
         {
           "slug": "inspector",
           "kind": "inspector",
-          "target": "Renderer Type、Camera、Lighting等"
+          "target": "Renderer Type、Camera、Lighting等",
+          "status": "captured"
         },
         {
           "slug": "compare",
           "kind": "comparison",
-          "target": "3D ViewerとRenderer 3D結果を区別して比較"
+          "target": "3D ViewerとRenderer 3D結果を区別して比較",
+          "status": "captured"
         }
-      ]
+      ],
+      "capture_manifest": "static/img/fusion/captures/S11/capture.json"
     },
     {
       "id": "S12",
@@ -367,24 +415,28 @@
       },
       "goal": "USDをStormで画像化しAOVを確認する",
       "suggested_graph": "uShapeまたは利用可能なUSD fixture → uMerge → uRenderer → MediaOut",
-      "status": "candidate",
+      "status": "captured-local-display-verified",
       "shots": [
         {
           "slug": "graph",
           "kind": "node-graph",
-          "target": "USD node treeからuRendererへの入力"
+          "target": "USD node treeからuRendererへの入力",
+          "status": "captured"
         },
         {
           "slug": "inspector",
           "kind": "inspector",
-          "target": "Camera、Renderer Type、AOVと解像度設定"
+          "target": "Camera、Renderer Type、AOVと解像度設定",
+          "status": "captured"
         },
         {
           "slug": "result",
           "kind": "output",
-          "target": "レンダリングしたUSDシーン。対応実機環境で確認できた場合のみ"
+          "target": "レンダリングしたUSDシーン。対応実機環境で確認できた場合のみ",
+          "status": "captured"
         }
-      ]
+      ],
+      "capture_manifest": "static/img/fusion/captures/S12/capture.json"
     },
     {
       "id": "S13",
@@ -397,19 +449,22 @@
       },
       "goal": "ぼけ量が変わると細部がどう変化するかを示す",
       "suggested_graph": "高コントラスト検証チャート → Blur → MediaOut",
-      "status": "candidate",
+      "status": "captured-local-display-verified",
       "shots": [
         {
           "slug": "inspector",
           "kind": "inspector",
-          "target": "Blur SizeとFilter/Clipping関連設定"
+          "target": "Blur SizeとFilter/Clipping関連設定",
+          "status": "captured"
         },
         {
           "slug": "compare",
           "kind": "comparison",
-          "target": "同一フレームでBlurなしとBlurありの細部を比較"
+          "target": "同一フレームでBlurなしとBlurありの細部を比較",
+          "status": "captured"
         }
-      ]
+      ],
+      "capture_manifest": "static/img/fusion/captures/S13/capture.json"
     },
     {
       "id": "S14",
@@ -422,19 +477,22 @@
       },
       "goal": "色の補正量とRGB/階調変化を示す",
       "suggested_graph": "検証用カラーチャート → Color Corrector → MediaOut",
-      "status": "candidate",
+      "status": "captured-local-display-verified",
       "shots": [
         {
           "slug": "inspector",
           "kind": "inspector",
-          "target": "ColorsとLevels等の代表タブをそれぞれ見せる"
+          "target": "ColorsとLevels等の代表タブをそれぞれ見せる",
+          "status": "captured"
         },
         {
           "slug": "compare",
           "kind": "comparison",
-          "target": "変更前／後の色を同じカラーマネジメント条件で比較"
+          "target": "変更前／後の色を同じカラーマネジメント条件で比較",
+          "status": "captured"
         }
-      ]
+      ],
+      "capture_manifest": "static/img/fusion/captures/S14/capture.json"
     }
   ]
 }

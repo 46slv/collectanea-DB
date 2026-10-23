@@ -15,7 +15,7 @@ controls: ["Grid Cells X", "Grid Cells Y", "X Offset", "Y Offset"]
 tasks: ["build-shape", "procedural-graphics", "repeat-shape"]
 product_scope: fusion
 suite_surfaces: ["fusion"]
-updated: "2026-10-11"
+updated: "2026-10-23"
 ---
 
 # sGrid
@@ -130,10 +130,32 @@ sGridの前後に[sTransform](./stransform)を置くと、操作対象を分け�
 
 [Shapeノード一覧](./)には、生成・加工・複製・画像化の各ノードへの入口があります。
 
+## 実機で作るドット配列
+
+DaVinci Resolve Studio 21.1.0.14、Windows、日本語UIで撮影しました。画像を開くと原寸で端子や数値を読めます。
+
+[![sEllipse1からsGrid1、sRender1、MediaOut1へ接続した実機Node Editor](/img/fusion/captures/S01/graph.png)](/img/fusion/captures/S01/graph.png)
+
+1. `sEllipse` のWidth / Heightをともに0.055にします。
+2. `sGrid` を挟み、Grid Cells Xを5、Yを3にします。
+3. X Offsetを0.16、Y Offsetを0.18にし、`sRender` で画像化します。
+
+[![sGridのオレンジ入力と白い出力端子](/img/fusion/captures/S01/node.png)](/img/fusion/captures/S01/node.png)
+
+Shapeの接続を受ける端子です。Manualの表示名はInput1ですが、このbuildのScripting入力IDは `Input` でした。
+
+[![sGrid Inspector。Grid Cells Xは5、Yは3、X Offsetは0.16、Y Offsetは0.18](/img/fusion/captures/S01/inspector.png)](/img/fusion/captures/S01/inspector.png)
+
+[![フレーム0のsRender出力。白い円が5列3行、計15個並ぶ](/img/fusion/captures/S01/result.png)](/img/fusion/captures/S01/result.png)
+
+1920×1080、フレーム0、Viewer倍率40%で、5列×3行の15個を確認しました。市松模様は透明部分です。数を変えるのはGrid Cells、間隔を変えるのはOffsetです。
+
+[再現用Graph](/img/fusion/captures/S01/fixture.comp) · [撮影条件と確認範囲](/img/fusion/captures/S01/capture.json)
+
 ## バージョンと出典
 
 Blackmagic Design『DaVinci Resolve 21.1 Reference Manual』（September 2026）、Chapter 117「Shape Nodes」、**pp.2743–2744**を参照しました。Input1（オレンジ、必須）、単一・複合Shapeの入力、sRenderへの接続、Grid Cells X/Y、X/Y Offsetの役割は同Manualに基づきます。
 
-制作例のsJitterとの組み合わせは同Manual **pp.2744–2745**、sDuplicateとの使い分けは**pp.2735–2738**の記述と整合する構成として説明しています。記事の手順はManualの仕様から組み立てた例であり、個別の見た目やアニメーションを実機で検証した記録ではありません。
+制作例のsJitterとの組み合わせは同Manual **pp.2744–2745**、sDuplicateとの使い分けは**pp.2735–2738**の記述と整合する構成として説明しています。上記の実機ドット配列以外の手順はManualの仕様から組み立てた例であり、個別の見た目やアニメーションを実機で検証した記録ではありません。
 
-内部REGID、Offsetの正確な座標計算式・数値範囲、Edition差、21.1実機での描画結果は未確認です。そのため `verification: partial` を維持します。
+上記のドット配列ではREGID `sGrid`、入力接続、4つの主要Control、15個の描画を確認しました。Offsetの正確な座標計算式・数値範囲、Edition差、他の条件での描画結果・性能は未確認のため `verification: partial` を維持します。

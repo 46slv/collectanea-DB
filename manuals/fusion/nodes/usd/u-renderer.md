@@ -16,7 +16,7 @@ tasks: [usd, render-3d, convert-domain, aov]
 level: advanced
 product_scope: fusion
 suite_surfaces: [fusion]
-updated: "2026-10-18"
+updated: "2026-10-23"
 ---
 
 # uRenderer
@@ -179,8 +179,25 @@ uRendererのColor出力を実写へ重ねる際は、色空間だけでなく**R
 - [uShape](./ushape) / [uLoader](./uloader)：シーンの形状を作る、またはUSDファイルから読み込む。
 - **Renderer 3D（Classic 3D）**：Classic 3Dのシーンを2Dへ描画する別ノード。**USDのuRendererと接続するデータ形式が異なる**ため、名前の近さだけで置き換えません。
 
+<!-- capture:S12 -->
+## 実機でUSDのカプセルをStormで描画する
+
+DaVinci Resolve Studio 21.1.0.14、Windows、日本語UI。1920×1080、フレーム0で撮影しました。画像を開くと原寸で確認できます。
+
+[![uShape → uMerge → uRenderer → MediaOut](/img/fusion/captures/S12/graph.png)](/img/fusion/captures/S12/graph.png)
+
+uShapeのCapsuleをuMergeからuRendererへ渡し、Renderer TypeはStorm、CameraはDefault、LightingはCamera、AOVはcolorで確認しました。実機Viewerには陰影の付いたカプセルが表示されています。AOVメニューではcolor、primId、depth、cameraDepth、Neyeを観測しましたが、Depth等の出力内容と精度は今回の確認範囲に含めません。
+
+[![uRendererのStorm、Default Camera、color AOV、Camera Lighting](/img/fusion/captures/S12/inspector.png)](/img/fusion/captures/S12/inspector.png)
+
+[![Stormで描画したUSDカプセルのColor出力](/img/fusion/captures/S12/result.png)](/img/fusion/captures/S12/result.png)
+
+Viewer倍率は40%です。市松模様は透明部分を示します。
+
+[再現用Graph](/img/fusion/captures/S12/fixture.comp) · [撮影条件と確認範囲](/img/fusion/captures/S12/capture.json)
+
 ## バージョン・出典と確認範囲
 
 **一次資料**：Blackmagic Design『DaVinci Resolve 21.1 Reference Manual』（September 2026）、Chapter 121「USD Nodes」、**uRenderer [uRn] pp.2911–2914**。SceneInput / EffectMask、Camera、Renderer Type、AOV、Lighting、Complexity、Film Back Fit、Aux Channel Z、Imageタブ、Overscan、Render / Source Color Spaceを確認しました。公式資料の入手先：[Blackmagic Design Support](https://www.blackmagicdesign.com/support/)。
 
-接続図、運用例、診断表はこれらの仕様を使った説明です。**Resolve 21.1実機での描画結果、Inspectorの全選択肢と既定値、AOVを利用する個々の後段ノード、Edition差、性能・GPU依存の挙動は確認していません。** `verification: partial`を維持します。
+上記のCapsuleをStormで描く条件ではColor出力の実機Viewer結果を確認しました。その他の接続図、運用例、診断表は仕様を使った説明です。Inspectorの全選択肢と既定値、Color以外のAOV出力と個々の後段ノード、Edition差、性能・GPU依存の挙動は未確認のため `verification: partial`を維持します。

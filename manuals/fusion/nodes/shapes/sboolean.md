@@ -15,7 +15,7 @@ controls: ["Operation", "Style Mode", "Color", "Allow Combining"]
 tasks: ["build-shape"]
 product_scope: fusion
 suite_surfaces: ["fusion"]
-updated: "2026-10-11"
+updated: "2026-10-23"
 ---
 
 # sBoolean
@@ -143,8 +143,25 @@ ManualではUnionはsMergeの結果に似るとされています。ただし、
 
 関連する入口は[Shapeノード一覧](./index.md)です。変形には[sTransform](./stransform)、コピーごとに変化を与える場合は[sDuplicate](./sduplicate)を参照してください。
 
+<!-- capture:S05 -->
+## 実機で同じ2形状でUnionとSubtractを比べる
+
+DaVinci Resolve Studio 21.1.0.14、Windows、日本語UI。1920×1080、フレーム0で撮影しました。画像を開くと原寸で確認できます。
+
+[![sEllipse + sStar → sBoolean → sRender。上段Union、下段Subtract](/img/fusion/captures/S05/graph.png)](/img/fusion/captures/S05/graph.png)
+
+円のWidth / Heightは0.5、X Offsetは−0.10です。星は5点、Width / Heightは0.4、X Offsetは0.16にしました。同じ円と星を2つのsBooleanへ送り、左はUnion、右はSubtractで画像化しています。SubtractのInput1は円、Input2は星です。右では円と星が重なった部分が欠けています。Inspectorの「差集合」はSubtractに対応します。IntersectionとXorの出力比較は未確認です。
+
+[![sBooleanのエフェクトを差集合にしたInspector](/img/fusion/captures/S05/inspector.png)](/img/fusion/captures/S05/inspector.png)
+
+[![左はUnionで一体化した円と星、右はSubtractで星の部分を除いた円](/img/fusion/captures/S05/compare.png)](/img/fusion/captures/S05/compare.png)
+
+Viewer倍率は40%です。市松模様は透明部分を示します。
+
+[再現用Graph](/img/fusion/captures/S05/fixture.comp) · [撮影条件と確認範囲](/img/fusion/captures/S05/capture.json)
+
 ## バージョンと確認範囲
 
 **Blackmagic Design『DaVinci Resolve 21.1 Reference Manual』（September 2026）、Chapter 117「Shape Nodes」、pp.2729–2732**を参照しました。Input1・Input2、Operationの4種類、Style ModeのReplace、Color、Allow Combiningと、その上流設定に対する優先関係をManualで確認しています。
 
-内部REGID、各パラメータの初期値・設定範囲、Edition差、21.1実機での描画結果は未確認です。制作例は確認済み仕様に基づく構成案であり、実機検証済みではないため、`verification: partial`を維持しています。
+上記の円と星の条件では、UnionとSubtractの入力順序と実機Viewer結果を確認しました。Intersection・Xorの出力比較、各パラメータの初期値・設定範囲、Edition差、他の制作例の実機結果は未確認のため、`verification: partial`を維持しています。

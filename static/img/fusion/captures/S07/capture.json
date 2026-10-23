@@ -1,0 +1,115 @@
+{
+  "schema_version": 1,
+  "case": "S07",
+  "article": "manuals/fusion/nodes/masks/ellipse-mask.md",
+  "manual": {
+    "version": "21.1",
+    "chapter": 108,
+    "printed_pages": "2472–2474"
+  },
+  "runtime": {
+    "version": "21.1.0.14",
+    "edition": "Studio",
+    "os": "Windows-11-10.0.26200-SP0",
+    "ui_language": "ja-JP (some Shape controls remain English)"
+  },
+  "captured_at": "2026-10-23T10:41:19.722890+00:00",
+  "project": "Collectanea_Captures_20261023_Sol",
+  "timeline": "S07_capture",
+  "frame": 0.0,
+  "resolution": [
+    1920,
+    1080
+  ],
+  "color_management": {
+    "colorScienceMode": "davinciYRGB",
+    "colorSpaceTimeline": "Rec.709 (Scene)",
+    "colorSpaceTimelineGamma": "",
+    "colorSpaceOutput": "Rec.709 (Scene)",
+    "colorSpaceOutputGamma": "ACEScc",
+    "separateColorSpaceAndGamma": "0",
+    "isAutoColorManage": "0",
+    "timelineResolutionWidth": "1920",
+    "timelineResolutionHeight": "1080",
+    "timelineFrameRate": 24.0,
+    "timelinePlaybackFrameRate": "30"
+  },
+  "viewer": {
+    "zoom_percent": 40,
+    "channel": "Color",
+    "background": "checkerboard for transparent pixels",
+    "note": "Viewer screenshots are display evidence, not colorimetric exports."
+  },
+  "graph": "fixture.comp",
+  "settings": "readback.json",
+  "source": {
+    "file": "screen.png",
+    "size": [
+      3360,
+      1914
+    ],
+    "sha256": "638f1b9756fc18ca29ff68dfafb3cf2a507d9e7e4911d74ab0e6bd89905f083c"
+  },
+  "shots": [
+    {
+      "file": "graph.png",
+      "source": "screen.png",
+      "source_sha256": "638f1b9756fc18ca29ff68dfafb3cf2a507d9e7e4911d74ab0e6bd89905f083c",
+      "frame": 0.0,
+      "crop_xyxy": [
+        740,
+        1150,
+        2110,
+        1600
+      ],
+      "resampled": false,
+      "sha256": "5dc70461d140fa6bc7048912da0bf121918109b4cdab38692e90dc2968fc4d25"
+    },
+    {
+      "file": "inspector.png",
+      "source": "screen.png",
+      "source_sha256": "638f1b9756fc18ca29ff68dfafb3cf2a507d9e7e4911d74ab0e6bd89905f083c",
+      "frame": 0.0,
+      "crop_xyxy": [
+        2840,
+        90,
+        3360,
+        510
+      ],
+      "resampled": false,
+      "sha256": "73b6bd64e1b7c16246f0ddfcbc5366fb1013bdff8e7176aee04a2c35b085f7a6"
+    },
+    {
+      "file": "compare.png",
+      "source": "screen.png",
+      "source_sha256": "638f1b9756fc18ca29ff68dfafb3cf2a507d9e7e4911d74ab0e6bd89905f083c",
+      "frame": 0.0,
+      "crop_xyxy": [
+        1147,
+        65,
+        2840,
+        650
+      ],
+      "resampled": false,
+      "sha256": "973d0721460ed034f26388d96511f57029c5dfde7b4914c9474ab50380e7b606"
+    }
+  ],
+  "acceptance": {
+    "gui": "PASS: owner visually inspected node connections, selected Inspector, and output",
+    "article_display": "PASS: production build, 1440px/390px, all shot decode/Alt/native links, source/fixture/manifest hashes, no page errors or horizontal overflow; evidence artifacts/fusion-captures/display-report.json"
+  },
+  "unverified": [
+    "Free edition and other platforms",
+    "All parameter ranges and performance",
+    "Exported portable composition reimport"
+  ],
+  "reproduction": {
+    "fixture_sha256": "bbdca0da63105e66b51c3c7f65f7ae8583455be9a1f77ae20893a55db119feea",
+    "readback_sha256": "b9880353e5839088b2f8e822e3c76b22972ee0028afea59d1ec2d4c009cc63d4",
+    "paths": "Comp:/../_fixtures/ for bundled synthetic fixtures",
+    "reimport": "NOT_RUN: accepted GUI evidence precedes export path normalization",
+    "artifact_fixture_sha256": "60abec355fdb77b52013064bfd035e598cdd4d9c8668084eec2cc0aefe06cba3",
+    "artifact_readback_sha256": "bff58eb80aad238ab70e1171e719c771131ad76c44c5b2ccd7383f37b9649792",
+    "intake_normalization": "CRLF to LF; only trailing empty export lines removed from fixture.comp. Original artifact hashes retained; portable composition reimport remains NOT_RUN."
+  }
+}

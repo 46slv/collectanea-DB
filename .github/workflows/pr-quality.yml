@@ -74,6 +74,7 @@ jobs:
           done
           curl --fail --silent http://127.0.0.1:3000/collectanea-DB/ > /dev/null
           npm run capture
+          CAPTURE_ORIGIN=http://127.0.0.1:3000 CAPTURE_EVIDENCE_DIR=artifacts/visual/fusion-captures node scripts/verify-fusion-captures.mjs
       - name: Ordinary Markdown integration and cleanup
         if: ${{ !cancelled() && steps.build.outcome == 'success' }}
         run: npm run test:content

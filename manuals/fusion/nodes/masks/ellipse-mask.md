@@ -16,7 +16,7 @@ tasks: [mask, circle, ellipse, isolate-effect]
 level: foundation
 product_scope: fusion
 suite_surfaces: [fusion]
-updated: "2026-10-10"
+updated: "2026-10-23"
 ---
 
 # Ellipse Mask
@@ -136,8 +136,27 @@ Rectangle MaskをEllipse Maskの青い入力へ接続し、Ellipse Maskをロゴ
 - [マスクの基本](../../learn/02-data/mask)
 - [Maskで処理範囲を限定する](../../patterns/masking/limit-effect-with-mask)
 
+<!-- capture:S07 -->
+## 実機で楕円の内側だけをぼかす
+
+DaVinci Resolve Studio 21.1.0.14、Windows、日本語UI。1920×1080、フレーム0で撮影しました。画像を開くと原寸で確認できます。
+
+[![Loaderを2つのBlurへ分岐。Ellipseは右のBlurの青い入力へ接続](/img/fusion/captures/S07/graph.png)](/img/fusion/captures/S07/graph.png)
+
+チャートを2つのBlurへ送り、どちらもBlur Sizeを20、Blendを1にしました。右側のBlurだけ、青いEffect Mask入力へEllipseを接続します。EllipseのCenterは0.5 / 0.5、Widthは0.55、Heightは0.5、Soft Edgeは0.02です。左は全体がぼけ、右は楕円の外のグリッドと四隅が鮮明に残ります。緑の楕円は編集用の範囲表示です。Invertの出力比較は未確認です。
+
+[![EllipseのCenter、Width、Height、Soft Edge、InvertのInspector](/img/fusion/captures/S07/inspector.png)](/img/fusion/captures/S07/inspector.png)
+
+[![左はマスクなしのBlur、右はEllipse Maskで範囲を限定したBlur](/img/fusion/captures/S07/compare.png)](/img/fusion/captures/S07/compare.png)
+
+Viewer倍率は40%です。市松模様は透明部分を示します。
+
+[テストチャート](/img/fusion/captures/_fixtures/chart.png)をLoaderで読み込めます。GraphのLoaderは `Comp:/../_fixtures/chart.png` を参照します。
+
+[再現用Graph](/img/fusion/captures/S07/fixture.comp) · [撮影条件と確認範囲](/img/fusion/captures/S07/capture.json)
+
 ## バージョン・出典・未確認範囲
 
 Blackmagic Design『DaVinci Resolve 21.1 Reference Manual』（2026年9月）、Chapter 108「Mask Nodes」pp.2472–2475を基準にしています。Effect Mask入力、Ellipseの寸法と回転、境界のFilter、Paint Modeの各演算、Solid、Levelの注意点、Backgroundとの基本構成を確認しました。現行の21.1 Manualの配布元は[Blackmagic Design Support Center](https://www.blackmagicdesign.com/support)です。
 
-マニュアルの**[Elp]**はSelect Toolで使う略号で、内部REGIDと同一とは断定しません。実機での細かな設定範囲・全ショートカット・Free／Studio差は未確認のため、verificationはpartialのままです。
+マニュアルの**[Elp]**はSelect Toolで使う略号です。今回の実機例で観測したREGIDは `EllipseMask` でした。細かな設定範囲・全ショートカット・Free／Studio差は未確認のため、verificationはpartialのままです。

@@ -16,7 +16,7 @@ tasks: [shape, render, convert-domain]
 level: intermediate
 product_scope: fusion
 suite_surfaces: [fusion]
-updated: '2026-10-12'
+updated: "2026-10-23"
 ---
 
 # sRender
@@ -137,10 +137,27 @@ sGridは模様全体を作り、Effect Maskはどこを表示するかを決め�
 
 sRenderはShape用のRendererです。別種のRendererへShapeを接続できるという意味ではありません。必要なShape処理を続け、画像系の操作へ移る地点で変換する設計については[データ領域を保つ処理](../../patterns/data-domain/defer-domain-conversion)も参照してください。
 
+<!-- capture:S04 -->
+## 実機でShapeを画像へ変換する
+
+DaVinci Resolve Studio 21.1.0.14、Windows、日本語UI。1920×1080、フレーム0で撮影しました。画像を開くと原寸で確認できます。
+
+[![sEllipse → sRender → MediaOut](/img/fusion/captures/S04/graph.png)](/img/fusion/captures/S04/graph.png)
+
+sEllipseのWidthを0.5、Heightを0.28にし、sRenderへ接続しました。Inspectorの自動解像度を有効にした状態で1920×1080が表示され、右Viewerには横長の白い楕円が出ています。
+
+[![sRenderのImageタブ。1920×1080、自動解像度とDepthの表示](/img/fusion/captures/S04/inspector.png)](/img/fusion/captures/S04/inspector.png)
+
+[![sRenderによって画像化された白い楕円](/img/fusion/captures/S04/result.png)](/img/fusion/captures/S04/result.png)
+
+Viewer倍率は40%です。市松模様は透明部分を示します。
+
+[再現用Graph](/img/fusion/captures/S04/fixture.comp) · [撮影条件と確認範囲](/img/fusion/captures/S04/capture.json)
+
 ## 出典と確認範囲
 
 **出典：** Blackmagic Design『DaVinci Resolve 21.1 Reference Manual』（September 2026）、Chapter 117「Shape Nodes」、pp.2759–2762。
 
 Manualにより、Input1、Effect Mask、2D Image出力、Process Mode、Width・Height、Pixel Aspect、Auto Resolution、Depth、Source Color Space、Source Gamma Space、Remove Curveを確認しました。該当箇所には「Background node」「Creator node」という別ノードの名残と思われる表記がありますが、前後の図と説明を基にsRenderの項目として整理しています。
 
-接続例は確認済み仕様を基に組み立てた運用例で、21.1実機での描画結果、内部REGID、Edition差、Alpha合成の細部、全選択肢の既定値は未確認です。そのため`verification: partial`を維持します。
+上記の楕円の実機例ではREGID `sRender` とShapeの画像化を確認しました。その他の接続例は確認済み仕様を基に組み立てた運用例です。Edition差、Alpha合成の細部、全選択肢の既定値、他の条件での実機描画結果は未確認のため`verification: partial`を維持します。

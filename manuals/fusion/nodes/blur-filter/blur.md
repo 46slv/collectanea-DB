@@ -15,7 +15,7 @@ tasks: [blur, soften, filter]
 level: foundation
 product_scope: fusion
 suite_surfaces: [fusion]
-updated: "2026-10-14"
+updated: "2026-10-23"
 ---
 
 # Blur
@@ -145,6 +145,25 @@ Blurは光を加算するノードではありません。ネオンのように�
 - [Directional Blur](./directional-blur) — 指定した方向・中心に沿って像を流す。
 - [Vector Motion Blur](./vector-motion-blur) — Motion Vectorに沿ったブラーを作る。
 - [Blur / Filterカテゴリ](./index.md) — ぼかし・発光・輪郭処理の選択基準。
+
+<!-- capture:S13 -->
+## 実機で文字・細い線・ドットでBlurを比べる
+
+DaVinci Resolve Studio 21.1.0.14、Windows、日本語UI。1920×1080、フレーム0で撮影しました。画像を開くと原寸で確認できます。
+
+[![Loader → Blur → MediaOut](/img/fusion/captures/S13/graph.png)](/img/fusion/captures/S13/graph.png)
+
+同梱チャートを読み込み、Fast Gaussian、Lock X/Y有効、Blur Size 10、Blend 1で比較しました。左は入力、右はBlur後です。細いグリッドとドットの輪郭が弱まり、中央の文字が読みにくくなる一方、大きな色面は残っています。他FilterやClipping Modeの違いは未確認です。
+
+[![BlurのFast Gaussian、Blur Size 10、Clipping Mode、Blend 1](/img/fusion/captures/S13/inspector.png)](/img/fusion/captures/S13/inspector.png)
+
+[![同じテストチャートのBlur前とBlur Size 10の結果](/img/fusion/captures/S13/compare.png)](/img/fusion/captures/S13/compare.png)
+
+Viewer倍率は40%です。市松模様は透明部分を示します。
+
+[テストチャート](/img/fusion/captures/_fixtures/chart.png)をLoaderで読み込めます。GraphのLoaderは `Comp:/../_fixtures/chart.png` を参照します。
+
+[再現用Graph](/img/fusion/captures/S13/fixture.comp) · [撮影条件と確認範囲](/img/fusion/captures/S13/capture.json)
 
 ## 出典・確認範囲
 
