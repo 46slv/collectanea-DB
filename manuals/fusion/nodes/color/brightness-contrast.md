@@ -166,6 +166,34 @@ MediaIn → Brightness Contrast → Output
 - [マスク（Mask）](../../learn/02-data/mask)
 - [AlphaとMaskを分けて診断する](../../learn/07-debugging/alpha-vs-mask)
 
+## 実機例：明るさ・彩度・コントラストを一つずつ変える
+
+<!-- capture-case:S60 -->
+
+Resolve Studio21.1.0.14／Windowsで、1920×1080の固定チャートを接続しました。左が入力、右が処理後です。両ViewerはColor／40%で、書き出しや測色の比較ではありません。内部REGIDは`BrightnessContrast`です。
+
+[![LoaderからBrightnessContrast1とMediaOut1へ接続した実機Graph](/img/fusion/captures/S60/graph.png)](/img/fusion/captures/S60/graph.png)
+
+[![Brightness ContrastのGain1、Contrast0.3、Saturation1、Low0、High1を示すInspector](/img/fusion/captures/S60/inspector.png)](/img/fusion/captures/S60/inspector.png)
+
+[![左の元画像に対し、右ではContrast0.3で暗部と明部の差が強くなる](/img/fusion/captures/S60/compare.png)](/img/fusion/captures/S60/compare.png)
+
+上はGain1、Contrast0.3、Saturation1です。暗部と明部の差が強くなりました。次はContrast0へ戻し、Gainだけを0.5にした状態です。チャートの色を残したまま暗くなります。
+
+[![Contrast0とSaturation1のままGain0.5へ設定したInspector](/img/fusion/captures/S60/gain05-inspector.png)](/img/fusion/captures/S60/gain05-inspector.png)
+
+[![Gain0.5で右のチャートのRGBが暗くなった比較](/img/fusion/captures/S60/gain05.png)](/img/fusion/captures/S60/gain05.png)
+
+Gainを1へ戻し、Saturationだけを0にすると色パッチがグレーになります。Lift0、Gamma1、Brightness0、Low0／High1を保ち、Clip Black／WhiteとPre-Divide/Post-Multiplyはオフです。
+
+[![Gain1とContrast0のままSaturation0へ設定したInspector](/img/fusion/captures/S60/saturation0-inspector.png)](/img/fusion/captures/S60/saturation0-inspector.png)
+
+[![Saturation0で右の色パッチがグレーになった比較](/img/fusion/captures/S60/saturation0.png)](/img/fusion/captures/S60/saturation0.png)
+
+最後はGain1、Contrast0.3、Saturation1へ戻して保存しました。Mask、Alpha選択、半透明エッジ、Reverse、HDR／精度差、性能は未確認です。
+
+[再現用Graph](/img/fusion/captures/S60/fixture.comp) · [撮影条件と確認範囲](/img/fusion/captures/S60/capture.json)
+
 ## 似たNode・関連Node
 
 - [Color Corrector](./color-corrector)
@@ -177,4 +205,4 @@ MediaIn → Brightness Contrast → Output
 
 DaVinci Resolve 21.1 Reference Manual、September 2026、Chapter 93、pp.2150–2153で、Image / Effect Mask入力、Color Channels、Gain、Lift、Gamma、Contrast、Brightness、Saturation、Low / High、Direction、Clip Black / White、Pre-Divide / Post-Multiply、Control処理順を確認しました。
 
-内部REGID、32-bit float以外での精度差、実機性能、Edition差は未確認のため `verification: partial` としています。
+S60の内部REGIDと上記の固定値・出力表示は確認済みです。32-bit floatでの精度比較、半透明エッジ、全Control、実機性能、Edition差は未確認のため `verification: partial` を維持します。

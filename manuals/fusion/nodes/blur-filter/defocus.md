@@ -194,6 +194,34 @@ MediaIn ──┬──→ Defocus（背景用）───────→ Merge�
 - [Resolution / Domain of Definitionを確認する](../../learn/07-debugging/resolution-domain-of-definition)
 - [マスク（Mask）](../../learn/02-data/mask)
 
+## 実機例：ぼけとBloomを分けて見る
+
+<!-- capture-case:S59 -->
+
+Resolve Studio21.1.0.14／Windowsで、1920×1080の固定チャートを接続しました。左が入力、右が処理後です。両ViewerはColor／40%で、書き出しや測色の比較ではありません。内部REGIDは`Defocus`です。
+
+[![チャートのLoaderからDefocus1とMediaOut1へ接続した実機Graph](/img/fusion/captures/S59/graph.png)](/img/fusion/captures/S59/graph.png)
+
+[![DefocusのLens、Size12、Bloom0、Threshold0.75、Sides5を示すInspector](/img/fusion/captures/S59/inspector.png)](/img/fusion/captures/S59/inspector.png)
+
+[![左のチャートに対し、右はLensとSize12で文字や細線がぼけた出力](/img/fusion/captures/S59/compare.png)](/img/fusion/captures/S59/compare.png)
+
+Lock X/Yをオン、Sizeを12、Bloom Levelを0、Thresholdを0.75にしてLensを表示しました。Lens Typeは2番目の形状、Sides5、Shape0、Angle0です。同じSizeとBloomのままGaussianへ切り替えた画面も示します。どちらも文字や細線がぼけています。この縮小Viewerだけで、各方式のぼけ形状の優劣やLens kernelの厳密な形は判断しません。
+
+[![同じSize12とBloom0でGaussianを選んだInspector](/img/fusion/captures/S59/gaussian-inspector.png)](/img/fusion/captures/S59/gaussian-inspector.png)
+
+[![GaussianとSize12で文字やチャートがぼけた右Viewer](/img/fusion/captures/S59/gaussian.png)](/img/fusion/captures/S59/gaussian.png)
+
+Lensへ戻し、Bloom Levelだけを0.9へ上げると、白い点や外枠、白いパネルの周囲が強く明るくにじみました。ぼけ量とBloomの強さを別々に調整する例です。
+
+[![LensのBloom Levelを0.9、Thresholdを0.75へ設定したInspector](/img/fusion/captures/S59/bloom-inspector.png)](/img/fusion/captures/S59/bloom-inspector.png)
+
+[![Bloom0.9では白い点や枠と白いパネルの周囲が強く明るくにじむ](/img/fusion/captures/S59/bloom.png)](/img/fusion/captures/S59/bloom.png)
+
+最後はLens、Size12、Bloom0へ戻して保存しました。実写の光点、Lens形状の全比較、Mask、Alpha、DoD／Clipping、アニメーションと性能は未確認です。
+
+[再現用Graph](/img/fusion/captures/S59/fixture.comp) · [撮影条件と確認範囲](/img/fusion/captures/S59/capture.json)
+
 ## 似たNode・関連Node
 
 - [Blur](./blur) — 標準的なsoftening
@@ -206,4 +234,4 @@ Blackmagic Design『DaVinci Resolve 21.1 Reference Manual』（September 2026）
 
 背景分離やピント外れアニメーションの構成は、公式ManualのNode仕様から組み立てた**制作例**であり、マスク抽出品質・隠れた背景の復元・実機レンダリング結果まで検証した作例ではありません。
 
-内部REGID、Lens kernelの詳細、実機bokeh描画、GPU性能、Edition差は未確認のため `verification: partial` としています。
+S59の内部REGID、Gaussian／LensとBloom0／0.9の表示は確認済みです。Lens kernelの詳細、実写bokehの形状、全Control、GPU性能、Edition差は未確認のため `verification: partial` を維持します。

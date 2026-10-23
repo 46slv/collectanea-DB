@@ -127,6 +127,34 @@ BalanceやHueで「暗部だけ」「明部だけ」を調整しても、素材�
 - **色の境界が不自然** — Balance / Hueを使っているならRangesのSplineとSmooth / Simpleを確認します。
 - **半透明の縁に色が出る** — 入力のpremultiplied AlphaとPre-Divide/Post-Multiplyを確認します。
 
+## 実機例：赤のGain・Lift・Gammaを個別に変える
+
+<!-- capture-case:S61 -->
+
+Resolve Studio21.1.0.14／Windowsで、1920×1080の固定チャートを接続しました。左が入力、右が処理後です。両ViewerはColor／40%で、書き出しや測色の比較ではありません。内部REGIDは`ColorGain`です。
+
+[![LoaderからColorGain1とMediaOut1へ接続した実機Graph](/img/fusion/captures/S61/graph.png)](/img/fusion/captures/S61/graph.png)
+
+[![RGBロックオフで赤Gamma1.5、ほかのGain1、Lift0、Gamma1を示すInspector](/img/fusion/captures/S61/inspector.png)](/img/fusion/captures/S61/inspector.png)
+
+[![赤Gamma1.5だけを変えた右のチャートで中間調が赤くなる比較](/img/fusion/captures/S61/compare.png)](/img/fusion/captures/S61/compare.png)
+
+RGBのロックをオフにし、赤のGammaだけを1.5にした状態です。上の右Viewerでは中間調が赤く見えます。次はGammaを1へ戻し、赤のGainだけを0.5にしています。白やグレーがシアン寄りへ変わりました。
+
+[![RGBロックオフで赤Gain0.5、緑青とAlphaのGain1を示すInspector](/img/fusion/captures/S61/gainred05-inspector.png)](/img/fusion/captures/S61/gainred05-inspector.png)
+
+[![赤Gain0.5だけを変えた右の白やグレーがシアン寄りになる比較](/img/fusion/captures/S61/gainred05.png)](/img/fusion/captures/S61/gainred05.png)
+
+赤のGainを1へ戻してLiftだけを0.2にすると、暗い背景やグレーが赤く持ち上がります。それぞれ一つの赤Controlだけを変えた比較です。緑・青とAlphaはGain1／Lift0／Gamma1を保っています。
+
+[![Gainを1へ戻して赤Lift0.2だけを設定したInspector](/img/fusion/captures/S61/liftred02-inspector.png)](/img/fusion/captures/S61/liftred02-inspector.png)
+
+[![赤Lift0.2で右の暗い背景やグレーが赤く持ち上がった比較](/img/fusion/captures/S61/liftred02.png)](/img/fusion/captures/S61/liftred02.png)
+
+最後は赤のGain1／Lift0／Gamma1.5へ戻して保存しました。Saturation／Balance／Hue／Ranges、RGBロックをオンにした操作、Mask、半透明AlphaとPre-Divide/Post-Multiply、HDR／内部式、性能は未確認です。
+
+[再現用Graph](/img/fusion/captures/S61/fixture.comp) · [撮影条件と確認範囲](/img/fusion/captures/S61/capture.json)
+
 ## 関連Node
 
 - [Brightness Contrast](./brightness-contrast) — Gain / Lift / Gamma / Contrastなど基本的な明るさ調整に集中するとき。
@@ -138,4 +166,4 @@ BalanceやHueで「暗部だけ」「明部だけ」を調整しても、素材�
 
 **DaVinci Resolve 21.1 Reference Manual**（September 2026）、Chapter 93「Color Nodes」、**pp.2171–2175**の「Color Gain [Clr]」を一次資料として確認しました。入力とEffect Mask、Gain / Saturation / Balance / Hue / Ranges各タブ、Lock R/G/B、Pre-Divide/Post-Multiply、RGB Saturation、色相スライダーの方向と範囲、RangesのSpline / presetを確認しています。
 
-本文中の数値例は、確認できる乗算とマニュアルのLift例を基にした説明用です。正確な内部REGID、Gammaの実装式、HDR範囲外での演算、すべての初期値、Edition差や実機の描画性能までは確認していないため、`verification: partial`を維持しています。
+本文中の数値例は、確認できる乗算とマニュアルのLift例を基にした説明用です。S61の内部REGIDと赤のGain／Lift／Gammaを変えた出力表示は確認済みです。Gammaの実装式、HDR範囲外での演算、全Controlの初期値、Edition差や描画性能は未確認のため、`verification: partial`を維持します。
