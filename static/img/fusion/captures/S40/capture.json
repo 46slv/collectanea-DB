@@ -1,0 +1,293 @@
+{
+  "schema_version": 1,
+  "case": "S40",
+  "article": "manuals/fusion/nodes/time-metadata/time-speed.md",
+  "manual": {
+    "version": "21.1",
+    "chapter": 111,
+    "printed_pages": "2607–2609"
+  },
+  "runtime": {
+    "version": "21.1.0.14",
+    "edition": "Studio",
+    "os": "Windows-11-10.0.26200-SP0",
+    "ui_language": "ja-JP (some Shape controls remain English)"
+  },
+  "captured_at": "2026-10-23T18:47:44.101075+00:00",
+  "project": "Collectanea_Captures_20261023_Sol",
+  "timeline": "S40_capture",
+  "frame": 24.0,
+  "resolution": [
+    1920,
+    1080
+  ],
+  "color_management": {
+    "colorScienceMode": "davinciYRGB",
+    "colorSpaceTimeline": "Rec.709 (Scene)",
+    "colorSpaceTimelineGamma": "",
+    "colorSpaceOutput": "Rec.709 (Scene)",
+    "colorSpaceOutputGamma": "ACEScc",
+    "separateColorSpaceAndGamma": "0",
+    "isAutoColorManage": "0",
+    "timelineResolutionWidth": "1920",
+    "timelineResolutionHeight": "1080",
+    "timelineFrameRate": 24.0,
+    "timelinePlaybackFrameRate": "30"
+  },
+  "viewer": {
+    "zoom_percent": 40,
+    "channel": "Color",
+    "background": "checkerboard for transparent pixels",
+    "note": "Viewer screenshots are display evidence, not colorimetric exports."
+  },
+  "graph": "fixture.comp",
+  "settings": "readback.json",
+  "source": {
+    "file": "screen.png",
+    "size": [
+      3352,
+      1910
+    ],
+    "sha256": "abf3885fd0c4b4b20d907bedb111f68a8dc96f3d8c6a62d082bb14017ff5a39f"
+  },
+  "shots": [
+    {
+      "file": "graph.png",
+      "source": "screen.png",
+      "source_sha256": "abf3885fd0c4b4b20d907bedb111f68a8dc96f3d8c6a62d082bb14017ff5a39f",
+      "frame": 24,
+      "crop_xyxy": [
+        580,
+        1300,
+        2280,
+        1450
+      ],
+      "resampled": false,
+      "sha256": "7ca1402e128554a6bb5cb297e9f42dac564a79ba5e76fc564c0afe49af04eda2"
+    },
+    {
+      "file": "inspector.png",
+      "source": "screen.png",
+      "source_sha256": "abf3885fd0c4b4b20d907bedb111f68a8dc96f3d8c6a62d082bb14017ff5a39f",
+      "frame": 24,
+      "crop_xyxy": [
+        2830,
+        120,
+        3352,
+        365
+      ],
+      "resampled": false,
+      "sha256": "c71a0eae9e017b0d4fe28bd65ce9c20616f09b11bc19216d4ebb78757b2bbccd"
+    },
+    {
+      "file": "compare.png",
+      "source": "screen.png",
+      "source_sha256": "abf3885fd0c4b4b20d907bedb111f68a8dc96f3d8c6a62d082bb14017ff5a39f",
+      "frame": 24,
+      "crop_xyxy": [
+        1146,
+        65,
+        2830,
+        815
+      ],
+      "resampled": false,
+      "sha256": "1203008d420aa7e00af5b1674d38e92d599ea7f7eee9af9906a0cfe08f2394fc"
+    },
+    {
+      "file": "fast-inspector.png",
+      "source": "screen-fast.png",
+      "source_sha256": "b2f1506a44b7287a2f3e2372be0c6cf4e8fceb0de861132d23bd5cb6fc7abc6d",
+      "frame": 24,
+      "crop_xyxy": [
+        2830,
+        120,
+        3352,
+        365
+      ],
+      "resampled": false,
+      "sha256": "fcdea6d1508016f80aa9c3c49f4194cbc6130db57f082b887b2a65eabf2557c6"
+    },
+    {
+      "file": "fast.png",
+      "source": "screen-fast.png",
+      "source_sha256": "b2f1506a44b7287a2f3e2372be0c6cf4e8fceb0de861132d23bd5cb6fc7abc6d",
+      "frame": 24,
+      "crop_xyxy": [
+        1146,
+        65,
+        2830,
+        815
+      ],
+      "resampled": false,
+      "sha256": "43f7cfb81daf4a1a9f3f8c250e1e05e1ca9bff1f8120b075a1aeaf336da469df"
+    },
+    {
+      "file": "delay-inspector.png",
+      "source": "screen-delay.png",
+      "source_sha256": "363bb617ff466363367a09add00ab0a63f670fd5c44abcaa36bf0a1223f494c6",
+      "frame": 24,
+      "crop_xyxy": [
+        2830,
+        120,
+        3352,
+        365
+      ],
+      "resampled": false,
+      "sha256": "19c5eede3a909027573fe8ed2f224c7523f16f0eddd4e8be3d44bb39f9c9a436"
+    },
+    {
+      "file": "delay.png",
+      "source": "screen-delay.png",
+      "source_sha256": "363bb617ff466363367a09add00ab0a63f670fd5c44abcaa36bf0a1223f494c6",
+      "frame": 24,
+      "crop_xyxy": [
+        1146,
+        65,
+        2830,
+        815
+      ],
+      "resampled": false,
+      "sha256": "55a2ea5a568667d40a9bedff516641836537fe38815c015010861d21e7696a4c"
+    },
+    {
+      "file": "advance-inspector.png",
+      "source": "screen-advance.png",
+      "source_sha256": "e88605efb5bb9da88c87d2acc52d76683fa9555c44091904f7c08d2947709198",
+      "frame": 24,
+      "crop_xyxy": [
+        2830,
+        120,
+        3352,
+        365
+      ],
+      "resampled": false,
+      "sha256": "f00717a5ad7921dc45b5edf7b29ca9bd406ed927ac136d6d58cd765c5e08745a"
+    },
+    {
+      "file": "advance.png",
+      "source": "screen-advance.png",
+      "source_sha256": "e88605efb5bb9da88c87d2acc52d76683fa9555c44091904f7c08d2947709198",
+      "frame": 24,
+      "crop_xyxy": [
+        1146,
+        65,
+        2830,
+        815
+      ],
+      "resampled": false,
+      "sha256": "6229fe6b452ba62bb3907881de73968ff4af455027236e5780a51b4f48750663"
+    },
+    {
+      "file": "freeze-inspector.png",
+      "source": "screen-freeze.png",
+      "source_sha256": "e897ac64869808ce8481acdf3a5115df791a66893e3ffb6f7cc3b46ef7d99cbd",
+      "frame": 24,
+      "crop_xyxy": [
+        2830,
+        120,
+        3352,
+        365
+      ],
+      "resampled": false,
+      "sha256": "986724881c8c5c52d900497e34e75fd679a997f87c212aae94b499d42146021c"
+    },
+    {
+      "file": "freeze.png",
+      "source": "screen-freeze.png",
+      "source_sha256": "e897ac64869808ce8481acdf3a5115df791a66893e3ffb6f7cc3b46ef7d99cbd",
+      "frame": 24,
+      "crop_xyxy": [
+        1146,
+        65,
+        2830,
+        815
+      ],
+      "resampled": false,
+      "sha256": "ee889123c8ece7ece46138a09efafd839e5c88f335009d1357031f35f9306a8f"
+    },
+    {
+      "file": "freeze0.png",
+      "source": "screen-freeze0.png",
+      "source_sha256": "c8209e83f9c1dddce25d3f622dd9573fc4741ac3cf8fd9412d8aa7313986a98d",
+      "frame": 0,
+      "crop_xyxy": [
+        1146,
+        65,
+        2830,
+        815
+      ],
+      "resampled": false,
+      "sha256": "0ff3f902676d946c8533b7e3263203a462181861f874850ce6b37d03f20d3713"
+    },
+    {
+      "file": "reverse-inspector.png",
+      "source": "screen-reverse24.png",
+      "source_sha256": "3eb4f5252a4dc1cd266940a6011b387a0740e29ba5be35b2da866beb688e43de",
+      "frame": 24,
+      "crop_xyxy": [
+        2830,
+        120,
+        3352,
+        365
+      ],
+      "resampled": false,
+      "sha256": "a7355dc196392f44ede957277b1d9c10a995f36eee211d9acc640857124a1c2f"
+    },
+    {
+      "file": "reverse0.png",
+      "source": "screen-reverse0.png",
+      "source_sha256": "dace26a96646a4a43b585da3bc7edf33d940e5d27c6ef64c2ba63c6003bfa638",
+      "frame": 0,
+      "crop_xyxy": [
+        1146,
+        65,
+        2830,
+        815
+      ],
+      "resampled": false,
+      "sha256": "b88e0dd03cc34fd45cbcbd9cdf79abaf14820ec8414f39cb0904d6edf23613e7"
+    },
+    {
+      "file": "reverse24.png",
+      "source": "screen-reverse24.png",
+      "source_sha256": "3eb4f5252a4dc1cd266940a6011b387a0740e29ba5be35b2da866beb688e43de",
+      "frame": 24,
+      "crop_xyxy": [
+        1146,
+        65,
+        2830,
+        815
+      ],
+      "resampled": false,
+      "sha256": "a7517a53e86398bb0b9caca3ce7addedb8ef74dc1853114b2d48a961f70df1ae"
+    }
+  ],
+  "acceptance": {
+    "gui": "PASS: owner visually inspected node connections, selected Inspector, and output",
+    "article_display": "PASS: local production build;1440px/390px,decode/Alt/native links/hash/overflow"
+  },
+  "unverified": [
+    "Free edition and other platforms",
+    "All parameter ranges and performance",
+    "Nearest/Flow quality, OpticalFlow and EXR reuse",
+    "General negative-speed frame mapping and out-of-range handling",
+    "Exported portable composition reimport"
+  ],
+  "state_variants": {
+    "screen.png": "frame24 Speed0.5 Delay0 → SOURCE012",
+    "screen-fast.png": "frame24 Speed2 Delay0 → SOURCE048",
+    "screen-delay.png": "frame24 Speed1 Delay+6 → SOURCE018",
+    "screen-advance.png": "frame24 Speed1 Delay−6 → SOURCE030",
+    "screen-freeze.png": "frame24 after native Freeze button: Speed0 Delay−24 → SOURCE024",
+    "screen-freeze0.png": "frame0 same freeze → SOURCE024",
+    "screen-reverse0.png": "frame0 Speed−1 Delay−48 → SOURCE052",
+    "screen-reverse24.png": "frame24 same reverse → SOURCE028"
+  },
+  "restoration": "PASS: owned scratch saved, both Color40%, Spline/Keyframes closed; frame24 Speed0.5 Delay0",
+  "reproduction": {
+    "fixture_sha256": "4addb06c4566f21372a0c905ab5b7beefcf52ba9c0b12ae1442a81c14530110d",
+    "readback_sha256": "837d0a70758bd367c39eb50bee0b075229676624c927ace48bf7d50732804caa",
+    "paths": "Comp:/../_fixtures/ for bundled synthetic fixtures",
+    "reimport": "NOT_RUN: accepted GUI evidence precedes export path normalization"
+  }
+}

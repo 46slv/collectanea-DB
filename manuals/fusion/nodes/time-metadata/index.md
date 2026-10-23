@@ -59,6 +59,22 @@ MediaIn → Optical Flow → Time Stretcher → MediaOut
 
 [SpeedWarp](./speedwarp.md)はDaVinciのニューラルネットワークで動きを解析し、中間フレームを生成します。21.1 Manualの`Speed`、`Delay`、`Mode: Faster / Better`により、速度と品質・処理負荷の優先度を調整できます。普通の速度変更なのか、補間品質が必要なのかで使い分け、複雑な動きの結果はViewerで比較します。
 
+### 実機の参考例
+
+<!-- capture-reuse:R76 -->
+
+一定速度を変えたS40です。出力24を固定すると、Speed 0.5では素材12、Speed 2.0では素材48を表示します。Source TimeのSplineを作るTime Stretcherと、一定倍率を指定するTime Speedを区別できます。
+
+[![番号入り連番LoaderからTimeSpeed1を経由してMediaOut1へ接続した実機Graph](/img/fusion/captures/S40/graph.png)](/img/fusion/captures/S40/graph.png)
+
+[![TimeSpeed1のSpeedは0.5、Delayは0、補間はBlend、Sample Spreadは0](/img/fusion/captures/S40/inspector.png)](/img/fusion/captures/S40/inspector.png)
+
+[![出力フレーム24、左の入力はSOURCE 024、右の半速出力はSOURCE 012](/img/fusion/captures/S40/compare.png)](/img/fusion/captures/S40/compare.png)
+
+[![出力フレーム24、左はSOURCE 024、右の2倍速出力はSOURCE 048](/img/fusion/captures/S40/fast.png)](/img/fusion/captures/S40/fast.png)
+
+Resolve Studio 21.1.0.14／Windows、両Viewer Color／40%。番号入り連番のSpeedだけを図示。Flow/SpeedWarp/Frame AverageやMetadataの実UIは未確認。 [撮影条件と確認範囲](/img/fusion/captures/S40/capture.json)
+
 ### Frame Average / Fields / Keyframe Stretcher
 
 [Frame Average](./frame-average.md)は再生速度を変えません。過去・未来・前後の複数フレームから画素値を平均し、現在の1フレームを作ります。固定カメラの夜景でランダムなノイズを平均すると目立ちにくくなりますが、動いている車なども複数位置に重なり、残像になります。動体を追跡・補正してから平均する機能ではありません。

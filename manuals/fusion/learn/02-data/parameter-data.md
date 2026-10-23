@@ -178,6 +178,18 @@ S36のTransformSmoothはSizeをKeyframeから供給しています。フレー�
 
 Resolve Studio 21.1.0.14／Windows、両Viewer 40%。SizeのNumberアニメーションの例です。Point/Text型の供給元や、Publish/Connect Toの操作は未確認です。 [撮影条件と確認範囲](/img/fusion/captures/S36/capture.json)
 
+### 実機の参考例
+
+<!-- capture-reuse:R75 -->
+
+S41のModifiersタブにはSizeの公開値が表示されます。接続先TransformBのSizeを0.8へ編集すると、公開値とTransformAのSizeも0.8になりました。
+
+[![ModifiersタブのTransformA:サイズ。公開値0.5が1つだけ表示される](/img/fusion/captures/S41/published-inspector.png)](/img/fusion/captures/S41/published-inspector.png)
+
+[![接続先TransformBのSizeを実GUIから0.8へ編集した後のInspector](/img/fusion/captures/S41/b-high-inspector.png)](/img/fusion/captures/S41/b-high-inspector.png)
+
+Resolve Studio 21.1.0.14／Windows、両Viewer Color／40%。NumberのPublish/Connect To。別時刻の参照、Point/Text型、Modifier連結は未確認。 [撮影条件と確認範囲](/img/fusion/captures/S41/capture.json)
+
 ## 症状別の切り分け
 
 | 症状 | まず調べること |

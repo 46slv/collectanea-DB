@@ -2,7 +2,7 @@
   "schema_version": 1,
   "created": "2026-10-20",
   "scope": "All Fusion pages, DaVinci Resolve 21.1",
-  "status_note": "2026-10-24:96 pages/138 crops/299 placements public PASS through PR75. Batch7 S36-S39/R67-R71 adds34 native crops and22 reuse placements across8 changed articles; focused8 pages/73 total placements local PASS. Cumulative100 pages/172 crops/355 placements; batch7 public NOT_RUN. Full Fusion continues with remaining_views and partial verification.",
+  "status_note": "2026-10-24:100 pages/172 crops/355 placements public PASS through PR78. S40/S41 and R72-R76 add27 native crops/14 reused placements across5 articles. Focused5 pages/47 total images local PASS; cumulative104 pages/199 crops/396 placements. Batch8 public NOT_RUN. S42 FrameAverage work stage only; full mission remains incomplete.",
   "asset_directory_template": "static/img/fusion/captures/{id}/{shot.slug}.png",
   "capture_manifest_name": "capture.json",
   "candidates": [
@@ -1396,7 +1396,7 @@
       },
       "goal": "Sizeの3キー、Linear・水平handle・Step Inを比べる",
       "suggested_graph": "Owned time/parameter fixture; exported comp and native variants",
-      "status": "captured-local-display-verified",
+      "status": "published-display-verified",
       "shots": [
         {
           "slug": "graph",
@@ -1459,7 +1459,8 @@
           "status": "native-observed"
         }
       ],
-      "capture_manifest": "static/img/fusion/captures/S36/capture.json"
+      "capture_manifest": "static/img/fusion/captures/S36/capture.json",
+      "published_batch": "fusion-native-20261024-07"
     },
     {
       "id": "S37",
@@ -1472,7 +1473,7 @@
       },
       "goal": "画像配線と別にBlend値を式で連動させる",
       "suggested_graph": "Owned time/parameter fixture; exported comp and native variants",
-      "status": "captured-local-display-verified",
+      "status": "published-display-verified",
       "shots": [
         {
           "slug": "graph",
@@ -1517,7 +1518,8 @@
           "status": "native-observed"
         }
       ],
-      "capture_manifest": "static/img/fusion/captures/S37/capture.json"
+      "capture_manifest": "static/img/fusion/captures/S37/capture.json",
+      "published_batch": "fusion-native-20261024-07"
     },
     {
       "id": "S38",
@@ -1530,7 +1532,7 @@
       },
       "goal": "Reference Sizeの表示値と内部正規化値・出力位置を区別する",
       "suggested_graph": "Owned chart→TransformReference→MediaOut",
-      "status": "captured-local-display-verified",
+      "status": "published-display-verified",
       "shots": [
         {
           "slug": "graph",
@@ -1569,7 +1571,8 @@
           "status": "native-observed"
         }
       ],
-      "capture_manifest": "static/img/fusion/captures/S38/capture.json"
+      "capture_manifest": "static/img/fusion/captures/S38/capture.json",
+      "published_batch": "fusion-native-20261024-07"
     },
     {
       "id": "S39",
@@ -1582,7 +1585,7 @@
       },
       "goal": "出力0/12/24と参照時刻0/49.5/99、素材固定後のSize変化を区別する",
       "suggested_graph": "Numbered Loader→TimeDynamic→MediaOut; Loader→TimeHold12→TransformHold",
-      "status": "captured-local-display-verified",
+      "status": "published-display-verified",
       "shots": [
         {
           "slug": "graph",
@@ -1651,7 +1654,200 @@
           "status": "native-observed"
         }
       ],
-      "capture_manifest": "static/img/fusion/captures/S39/capture.json"
+      "capture_manifest": "static/img/fusion/captures/S39/capture.json",
+      "published_batch": "fusion-native-20261024-07"
+    },
+    {
+      "id": "S40",
+      "priority": "P1",
+      "article": "manuals/fusion/nodes/time-metadata/time-speed.md",
+      "manual": {
+        "version": "21.1",
+        "chapter": 111,
+        "printed_pages": "2607–2609"
+      },
+      "goal": "固定連番で速度・Delay・Freeze・reverseを区別する",
+      "status": "captured-local-display-verified",
+      "shots": [
+        {
+          "slug": "graph",
+          "kind": "node-graph",
+          "target": "Time Speed",
+          "status": "native-observed"
+        },
+        {
+          "slug": "inspector",
+          "kind": "inspector",
+          "target": "Time Speed",
+          "status": "native-observed"
+        },
+        {
+          "slug": "compare",
+          "kind": "output",
+          "target": "Time Speed",
+          "status": "native-observed"
+        },
+        {
+          "slug": "fast-inspector",
+          "kind": "inspector",
+          "target": "Time Speed",
+          "status": "native-observed"
+        },
+        {
+          "slug": "fast",
+          "kind": "output",
+          "target": "Time Speed",
+          "status": "native-observed"
+        },
+        {
+          "slug": "delay-inspector",
+          "kind": "inspector",
+          "target": "Time Speed",
+          "status": "native-observed"
+        },
+        {
+          "slug": "delay",
+          "kind": "output",
+          "target": "Time Speed",
+          "status": "native-observed"
+        },
+        {
+          "slug": "advance-inspector",
+          "kind": "inspector",
+          "target": "Time Speed",
+          "status": "native-observed"
+        },
+        {
+          "slug": "advance",
+          "kind": "output",
+          "target": "Time Speed",
+          "status": "native-observed"
+        },
+        {
+          "slug": "freeze-inspector",
+          "kind": "inspector",
+          "target": "Time Speed",
+          "status": "native-observed"
+        },
+        {
+          "slug": "freeze",
+          "kind": "output",
+          "target": "Time Speed",
+          "status": "native-observed"
+        },
+        {
+          "slug": "freeze0",
+          "kind": "output",
+          "target": "Time Speed",
+          "status": "native-observed"
+        },
+        {
+          "slug": "reverse-inspector",
+          "kind": "inspector",
+          "target": "Time Speed",
+          "status": "native-observed"
+        },
+        {
+          "slug": "reverse0",
+          "kind": "output",
+          "target": "Time Speed",
+          "status": "native-observed"
+        },
+        {
+          "slug": "reverse24",
+          "kind": "output",
+          "target": "Time Speed",
+          "status": "native-observed"
+        }
+      ],
+      "capture_manifest": "static/img/fusion/captures/S40/capture.json"
+    },
+    {
+      "id": "S41",
+      "priority": "P1",
+      "article": "manuals/fusion/nodes/modifiers/publish.md",
+      "manual": {
+        "version": "21.1",
+        "chapter": 124,
+        "printed_pages": "3024; ch69 pp1511–1512; ch73 pp1583–1585"
+      },
+      "goal": "Publish/Connect Toの実UIとSizeの双方向共有",
+      "status": "captured-local-display-verified",
+      "shots": [
+        {
+          "slug": "graph",
+          "kind": "node-graph",
+          "target": "Publish",
+          "status": "native-observed"
+        },
+        {
+          "slug": "inspector",
+          "kind": "inspector",
+          "target": "Publish",
+          "status": "native-observed"
+        },
+        {
+          "slug": "published-inspector",
+          "kind": "inspector",
+          "target": "Publish",
+          "status": "native-observed"
+        },
+        {
+          "slug": "before",
+          "kind": "output",
+          "target": "Publish",
+          "status": "native-observed"
+        },
+        {
+          "slug": "compare",
+          "kind": "output",
+          "target": "Publish",
+          "status": "native-observed"
+        },
+        {
+          "slug": "b-high-inspector",
+          "kind": "inspector",
+          "target": "Publish",
+          "status": "native-observed"
+        },
+        {
+          "slug": "a-high-inspector",
+          "kind": "inspector",
+          "target": "Publish",
+          "status": "native-observed"
+        },
+        {
+          "slug": "high",
+          "kind": "output",
+          "target": "Publish",
+          "status": "native-observed"
+        },
+        {
+          "slug": "a-low-inspector",
+          "kind": "inspector",
+          "target": "Publish",
+          "status": "native-observed"
+        },
+        {
+          "slug": "b-low-inspector",
+          "kind": "inspector",
+          "target": "Publish",
+          "status": "native-observed"
+        },
+        {
+          "slug": "low",
+          "kind": "output",
+          "target": "Publish",
+          "status": "native-observed"
+        },
+        {
+          "slug": "publish-menu",
+          "kind": "inspector",
+          "target": "Publish",
+          "status": "native-observed"
+        }
+      ],
+      "capture_manifest": "static/img/fusion/captures/S41/capture.json"
     }
   ],
   "publication_batches": [
@@ -1886,27 +2082,60 @@
         "artifacts/fusion-captures/public-batch6-assets.json"
       ],
       "limitations": "Full Fusion mission and article remaining_views continue."
+    },
+    {
+      "id": "fusion-native-20261024-07",
+      "cases": [
+        "S36",
+        "S37",
+        "S38",
+        "S39"
+      ],
+      "reuses": [
+        "R67",
+        "R68",
+        "R69",
+        "R70",
+        "R71"
+      ],
+      "pr": "https://github.com/46slv/collectanea-DB/pull/78",
+      "candidate": "7e3e70bec26c7395d9db2db32ba370e9eee03386",
+      "main": "5083e5e61c70cc03c21c539e5b45a4115e706e0d",
+      "tree": "e0925e9c1701221f41906c018131a64de03aa8f0",
+      "quality_run": "https://github.com/46slv/collectanea-DB/actions/runs/40002727211",
+      "pages_run": "https://github.com/46slv/collectanea-DB/actions/runs/40003974492",
+      "public_pages": 8,
+      "public_images": 73,
+      "new_placements": 56,
+      "new_native_crops": 34,
+      "public_asset_hashes": 594,
+      "result": "PASS",
+      "evidence": [
+        "artifacts/fusion-captures/public-batch7-display-report.json",
+        "artifacts/fusion-captures/public-batch7-assets.json"
+      ],
+      "limitations": "Full Fusion mission and article remaining_views continue."
     }
   ],
   "coverage_inventory": {
-    "checked_at": "2026-10-23T18:21:13.540878+00:00",
+    "checked_at": "2026-10-23T18:54:15.997619+00:00",
     "scope": "All manuals/fusion Markdown and MDX pages; review necessity before adding images.",
     "completion_rule": "Every page has an explicit image decision; necessary images are native-observed, embedded, saved to GitHub and public-display-verified. A native example does not verify all article controls.",
     "summary": {
       "total_pages": 586,
-      "with_images": 100,
-      "with_native_examples": 100,
+      "with_images": 104,
+      "with_native_examples": 104,
       "states": {
         "reviewed-no-standalone-image": 26,
         "no-standalone-image-needed": 6,
-        "illustrated-reused-example": 63,
-        "capture-planned": 454,
-        "illustrated-native-example": 37
+        "illustrated-reused-example": 65,
+        "capture-planned": 450,
+        "illustrated-native-example": 39
       },
       "decisions": {
         "no-standalone-image-needed": 32,
-        "image-required": 100,
-        "capture-needed": 454
+        "image-required": 104,
+        "capture-needed": 450
       }
     },
     "pages": [
@@ -2413,21 +2642,22 @@
         "article": "manuals/fusion/learn/02-data/parameter-data.md",
         "title": "パラメータ / データ（Parameter / Data）",
         "kind": "concept",
-        "image_count": 6,
+        "image_count": 8,
         "native_cases": [],
         "reused_cases": [
           "S06",
           "S37",
-          "S36"
+          "S36",
+          "S41"
         ],
         "planned_cases": [],
         "state": "illustrated-reused-example",
         "decision": "image-required",
         "reason": "本文の接続・設定・出力を、撮影済みの固定例で図示する。記事全体の検証とは区別する。",
         "remaining_views": [
-          "Modifier、Publish/Connect Toと別フレームの供給元追跡"
+          "Modifier連結、Point/Text型と別時刻の供給元追跡"
         ],
-        "audit_note": "S36/S37/S38の固定例を掲載。確認済みの差分と未確認操作を区別しpartial維持。"
+        "audit_note": "S40/S41と既存の実機例を掲載。Number共有と素材時刻の固定条件を確認し、残る機能はpartial。"
       },
       {
         "article": "manuals/fusion/learn/02-data/particle.md",
@@ -2732,19 +2962,28 @@
         "article": "manuals/fusion/learn/05-time/modifier-parameter-sources.md",
         "title": "Modifier / パラメータの供給元",
         "kind": "concept",
-        "image_count": 0,
+        "image_count": 8,
         "native_cases": [],
-        "reused_cases": [],
+        "reused_cases": [
+          "S41",
+          "S37",
+          "S36"
+        ],
         "planned_cases": [],
-        "state": "capture-planned",
-        "decision": "capture-needed",
+        "state": "illustrated-reused-example",
+        "decision": "image-required",
         "reason": "供給元を追うことが主題であり、単に現在値が写るS06では足りない。",
+        "remaining_views": [
+          "CenterキーへPerturbを重ねる操作とModifiers",
+          "Modifier連結、5フレーム前のGetValue、Point/Text型"
+        ],
         "required_views": [
           "Transform Centerのキーと、Modify Withから追加したPerturbのModifiersタブ",
           "固定値・SimpleExpression欄・Publish/Connect Toを識別できる各Inspector",
           "公開値の変更が接続先へ反映される2状態を、画像接続とは分けて表示する"
         ],
-        "capture_group": "parameter-source-and-publish"
+        "capture_group": "parameter-source-and-publish",
+        "audit_note": "S40/S41と既存の実機例を掲載。Number共有と素材時刻の固定条件を確認し、残る機能はpartial。"
       },
       {
         "article": "manuals/fusion/learn/06-reuse/groups.md",
@@ -12455,13 +12694,19 @@
         "article": "manuals/fusion/nodes/modifiers/publish.md",
         "title": "Publish",
         "kind": "node",
-        "image_count": 0,
-        "native_cases": [],
+        "image_count": 12,
+        "native_cases": [
+          "S41"
+        ],
         "reused_cases": [],
         "planned_cases": [],
-        "state": "capture-planned",
-        "decision": "capture-needed",
+        "state": "illustrated-native-example",
+        "decision": "image-required",
         "reason": "本文の対象機能: Publishは、静的ParameterをConnect Toから参照できるようにし、複数Parameterを同じ値へ双方向接続するModifier。。画像Nodeや静止TransformだけではModifier割当/供給値/型を示せない。",
+        "remaining_views": [
+          "Point/Text型とMotion Path共有",
+          "3つ以上の共有と切断操作"
+        ],
         "required_views": [
           "適用先ParameterとModifier割当の実UI",
           "自身のModifiersタブとControls",
@@ -12481,7 +12726,8 @@
             "role": "入力/結果または実UIの具体箇所"
           }
         ],
-        "hold_conditions": []
+        "hold_conditions": [],
+        "audit_note": "S40/S41と既存の実機例を掲載。Number共有と素材時刻の固定条件を確認し、残る機能はpartial。"
       },
       {
         "article": "manuals/fusion/nodes/modifiers/resolve-parameter.md",
@@ -15369,13 +15615,20 @@
         "article": "manuals/fusion/nodes/time-metadata/index.md",
         "title": "Time / Metadata / Utilityノード",
         "kind": "index",
-        "image_count": 0,
+        "image_count": 4,
         "native_cases": [],
-        "reused_cases": [],
+        "reused_cases": [
+          "S40"
+        ],
         "planned_cases": [],
-        "state": "capture-planned",
-        "decision": "capture-needed",
-        "reason": "Source Time、Keyframe評価、Metadata subviewやDoDの実画面を示す。"
+        "state": "illustrated-reused-example",
+        "decision": "image-required",
+        "reason": "Source Time、Keyframe評価、Metadata subviewやDoDの実画面を示す。",
+        "remaining_views": [
+          "Flow/SpeedWarp/Frame Average等の比較",
+          "Metadata/DoD/Bit depth/Switch/Wireless等の自身のUIと結果"
+        ],
+        "audit_note": "S40/S41と既存の実機例を掲載。Number共有と素材時刻の固定条件を確認し、残る機能はpartial。"
       },
       {
         "article": "manuals/fusion/nodes/time-metadata/keyframe-stretcher.md",
@@ -15650,13 +15903,19 @@
         "article": "manuals/fusion/nodes/time-metadata/time-speed.md",
         "title": "Time Speed",
         "kind": "node",
-        "image_count": 0,
-        "native_cases": [],
+        "image_count": 15,
+        "native_cases": [
+          "S40"
+        ],
         "reused_cases": [],
         "planned_cases": [],
-        "state": "capture-planned",
-        "decision": "capture-needed",
+        "state": "illustrated-native-example",
+        "decision": "image-required",
         "reason": "本文の対象機能: Time Speedは、一定の速度比率でImage sequenceを速く・遅く・逆再生し、必要に応じて時間オフセットや補間方式も指定するNode。。static/別Node UIは対象の時間参照/補間/平均を示せない。",
+        "remaining_views": [
+          "Nearest/Flow比較、Optical FlowとEXR再利用",
+          "逆再生の一般的な参照位置・範囲外処理"
+        ],
         "required_views": [
           "対象名と実接続が読めるGraph",
           "対象自身を選択したInspectorの該当Control",
@@ -15684,7 +15943,8 @@
         ],
         "hold_conditions": [
           "前後handlesを確認。Flow modeは必要vector/解析経路も確認。"
-        ]
+        ],
+        "audit_note": "S40/S41と既存の実機例を掲載。Number共有と素材時刻の固定条件を確認し、残る機能はpartial。"
       },
       {
         "article": "manuals/fusion/nodes/time-metadata/time-stretcher.md",
@@ -20149,8 +20409,9 @@
         "low-inspector.png",
         "low.png"
       ],
-      "status": "embedded-local-display-verified",
-      "scope": "同値を参照するNumber式の例です。比率の式、Point式、5フレーム前の参照、Pick Whipは未確認です。"
+      "status": "published-display-verified",
+      "scope": "同値を参照するNumber式の例です。比率の式、Point式、5フレーム前の参照、Pick Whipは未確認です。",
+      "published_batch": "fusion-native-20261024-07"
     },
     {
       "id": "R68",
@@ -20163,8 +20424,9 @@
         "large-inspector.png",
         "auto-inspector.png"
       ],
-      "status": "embedded-local-display-verified",
-      "scope": "同じ1920×1080入力での表示単位の比較です。本文のピクセル欄へ入力して位置を動かす操作、異なる入力解像度やTimeline解像度の比較は未確認です。"
+      "status": "published-display-verified",
+      "scope": "同じ1920×1080入力での表示単位の比較です。本文のピクセル欄へ入力して位置を動かす操作、異なる入力解像度やTimeline解像度の比較は未確認です。",
+      "published_batch": "fusion-native-20261024-07"
     },
     {
       "id": "R69",
@@ -20174,8 +20436,9 @@
         "inspector.png",
         "low-inspector.png"
       ],
-      "status": "embedded-local-display-verified",
-      "scope": "Number型のSimpleExpressionの例です。ModifierやPublish/Connect To、別フレームの参照は未確認です。"
+      "status": "published-display-verified",
+      "scope": "Number型のSimpleExpressionの例です。ModifierやPublish/Connect To、別フレームの参照は未確認です。",
+      "published_batch": "fusion-native-20261024-07"
     },
     {
       "id": "R70",
@@ -20185,8 +20448,9 @@
         "peak-inspector.png",
         "keyframes.png"
       ],
-      "status": "embedded-local-display-verified",
-      "scope": "SizeのNumberアニメーションの例です。Point/Text型の供給元や、Publish/Connect Toの操作は未確認です。"
+      "status": "published-display-verified",
+      "scope": "SizeのNumberアニメーションの例です。Point/Text型の供給元や、Publish/Connect Toの操作は未確認です。",
+      "published_batch": "fusion-native-20261024-07"
     },
     {
       "id": "R71",
@@ -20202,8 +20466,68 @@
         "hold0.png",
         "hold24.png"
       ],
+      "status": "published-display-verified",
+      "scope": "Source Time Linear0→99、Blend49.5、1キーで素材12固定と後段Size。Nearest/Flow等は未確認。",
+      "published_batch": "fusion-native-20261024-07"
+    },
+    {
+      "id": "R72",
+      "article": "manuals/fusion/learn/05-time/modifier-parameter-sources.md",
+      "source_case": "S41",
+      "images": [
+        "graph.png",
+        "published-inspector.png",
+        "high.png",
+        "low.png"
+      ],
       "status": "embedded-local-display-verified",
-      "scope": "Source Time Linear0→99、Blend49.5、1キーで素材12固定と後段Size。Nearest/Flow等は未確認。"
+      "scope": "Numberの共有だけを確認。Perturb、Modifierの連結、Point/Text型は未確認。"
+    },
+    {
+      "id": "R73",
+      "article": "manuals/fusion/learn/05-time/modifier-parameter-sources.md",
+      "source_case": "S37",
+      "images": [
+        "inspector.png",
+        "low-inspector.png"
+      ],
+      "status": "embedded-local-display-verified",
+      "scope": "同じ時刻のNumber式。5フレーム前のGetValueとPick Whipは未確認。"
+    },
+    {
+      "id": "R74",
+      "article": "manuals/fusion/learn/05-time/modifier-parameter-sources.md",
+      "source_case": "S36",
+      "images": [
+        "peak-inspector.png",
+        "keyframes.png"
+      ],
+      "status": "embedded-local-display-verified",
+      "scope": "SizeのNumberアニメーション。Perturbの重ね合わせとModifier連結は未確認。"
+    },
+    {
+      "id": "R75",
+      "article": "manuals/fusion/learn/02-data/parameter-data.md",
+      "source_case": "S41",
+      "images": [
+        "published-inspector.png",
+        "b-high-inspector.png"
+      ],
+      "status": "embedded-local-display-verified",
+      "scope": "NumberのPublish/Connect To。別時刻の参照、Point/Text型、Modifier連結は未確認。"
+    },
+    {
+      "id": "R76",
+      "article": "manuals/fusion/nodes/time-metadata/index.md",
+      "source_case": "S40",
+      "images": [
+        "graph.png",
+        "inspector.png",
+        "compare.png",
+        "fast.png"
+      ],
+      "status": "embedded-local-display-verified",
+      "scope": "番号入り連番のSpeedだけを図示。Flow/SpeedWarp/Frame AverageやMetadataの実UIは未確認。"
     }
   ]
 }

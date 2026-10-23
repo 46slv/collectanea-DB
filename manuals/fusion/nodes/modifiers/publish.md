@@ -93,6 +93,44 @@ Background2 → Transform2 → Viewer 2
 
 **同じSizeでも、見える画像が同じ大きさ・位置になるとは限りません。** Sizeが揃うのは拡大縮小率であり、入力画像の内容や解像度、Center / Pivotなどのほかの設定まで揃える機能ではありません。
 
+### 実機でSizeを双方向に共有する
+
+Resolve Studio 21.1.0.14、Windows、日本語UIで、別々のText+「PUBLISH A」「PUBLISH B」を2つのTransformへ接続しました。両ViewerはColor／40%、出力フレーム0です。
+
+[![TextAからTransformA、TextBからTransformBへ独立に接続したGraph。画像の配線でSizeを共有する構成ではない](/img/fusion/captures/S41/graph.png)](/img/fusion/captures/S41/graph.png)
+
+[![接続前は左TransformAのSize 0.5、右TransformBのSize 1で文字の大きさが異なる](/img/fusion/captures/S41/before.png)](/img/fusion/captures/S41/before.png)
+
+[![TransformAのSizeを右クリックした実機メニュー。パブリッシュと接続が並ぶ](/img/fusion/captures/S41/publish-menu.png)](/img/fusion/captures/S41/publish-menu.png)
+
+[![ModifiersタブのTransformA:サイズ。公開値0.5が1つだけ表示される](/img/fusion/captures/S41/published-inspector.png)](/img/fusion/captures/S41/published-inspector.png)
+
+[![公開元TransformAのSize 0.5。Size欄の供給元をPublishにした状態](/img/fusion/captures/S41/inspector.png)](/img/fusion/captures/S41/inspector.png)
+
+[![Connect Toで接続後、左右のTransformがSize 0.5を共有して同じ縮小率になる](/img/fusion/captures/S41/compare.png)](/img/fusion/captures/S41/compare.png)
+
+TransformAのSizeを右クリックして「パブリッシュ」を選びました。TransformBのSizeでは「接続 → TransformA → サイズ」を選ぶと、Aと同じ0.5になります。Modifiersタブの値は1つで、Node EditorにAからBへの画像配線を追加していません。
+
+接続先BのSizeを実際の数値欄から0.8へ編集すると、公開元Aも0.8になり、左右の文字が一緒に拡大しました。
+
+[![接続先TransformBのSizeを実GUIから0.8へ編集した後のInspector](/img/fusion/captures/S41/b-high-inspector.png)](/img/fusion/captures/S41/b-high-inspector.png)
+
+[![Bを0.8へ編集した後、公開元TransformAのSizeも0.8になったInspector](/img/fusion/captures/S41/a-high-inspector.png)](/img/fusion/captures/S41/a-high-inspector.png)
+
+[![B側から0.8へ編集すると左右の文字が一緒に拡大する実機Viewer](/img/fusion/captures/S41/high.png)](/img/fusion/captures/S41/high.png)
+
+次に公開元AのSizeを0.3へ編集すると、Bも0.3へ変わりました。読み戻したPublishのValueも、両状態で0.8／0.3と一致しています。
+
+[![公開元TransformAのSizeを実GUIから0.3へ編集した後のInspector](/img/fusion/captures/S41/a-low-inspector.png)](/img/fusion/captures/S41/a-low-inspector.png)
+
+[![Aを0.3へ編集した後、接続先TransformBのSizeも0.3になったInspector](/img/fusion/captures/S41/b-low-inspector.png)](/img/fusion/captures/S41/b-low-inspector.png)
+
+[![A側から0.3へ編集すると左右の文字が一緒に縮小する実機Viewer](/img/fusion/captures/S41/low.png)](/img/fusion/captures/S41/low.png)
+
+双方向に同じ値を共有するNumberの例です。最後は公開値を0.5へ戻しました。Point／Text型、3つ以上の接続、Motion Path共有、Free editionや他OSは未確認です。
+
+[再現用Graph](/img/fusion/captures/S41/fixture.comp) · [撮影条件と確認範囲](/img/fusion/captures/S41/capture.json)
+
 ## 期待どおりに共有されないとき
 
 | 症状 | まず確認すること |
@@ -171,4 +209,4 @@ DaVinci Resolve 21.1 Reference Manual（September 2026）Chapter 69「Editing Pa
 
 静的ParameterのPublish、AnimationされたControlの自動Publish、`Connect To`の型に応じた候補表示、Publish / Connect Toの双方向接続、1つのpublished valueを複数Parameterへ接続できること、Motion Path共有の例を21.1 Manualで確認しています。
 
-current runtime REGID、内部Parameter ID、edition差はこのページでは確認していません。
+実機例ではNumber型のPublish（runtime PublishNumber）のValueと、2つのSizeの共有を確認しました。Point／Text型、全Parameter ID、edition差は未確認です。
