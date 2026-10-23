@@ -127,6 +127,20 @@ S55ではX回転15／Y25、Z Move1.4、Perspective1を設定しました。2Dの
 
 Resolve Studio21.1.0.14／Windows、両Viewer Color／40%。静止DVE例。Masks、Alpha、後段Merge、アニメーションは未確認。 [再現用Graph](/img/fusion/captures/S55/fixture.comp) · [撮影条件と確認範囲](/img/fusion/captures/S55/capture.json)
 
+### 実機の参考例：静止画へ時間変化を加える
+
+<!-- capture-reuse:R97 -->
+
+S56では同じチャートへCamera Shakeをかけ、Sineのframe 0と24を比較しました。入力と出力の寸法は1920×1080のままで、右の位置と傾きが変わります。
+
+[![静止チャートのLoaderからCameraShake1、MediaOut1へ接続した実機Graph](/img/fusion/captures/S56/graph.png)](/img/fusion/captures/S56/graph.png)
+
+[![同じ静止チャートの入力が左、Sineのframe0で位置と傾きが変わった出力が右](/img/fusion/captures/S56/compare.png)](/img/fusion/captures/S56/compare.png)
+
+[![同じSine設定のframe24では右のチャートの位置と傾きがframe0から変わる](/img/fusion/captures/S56/frame24.png)](/img/fusion/captures/S56/frame24.png)
+
+Resolve Studio21.1.0.14／Windows、両Viewer Color／40%。固定2フレームの表示例。Mask、連続再生、後段合成と性能は未確認。 [再現用Graph](/img/fusion/captures/S56/fixture.comp) · [撮影条件と確認範囲](/img/fusion/captures/S56/capture.json)
+
 ## 解像度と座標の注意点
 
 [Merge](../compositing/merge)ではBackgroundの解像度が合成出力の基準です。Resize・Scale・Crop・LetterboxをBackgroundの前へ置いた場合は、後段の出力サイズも変化し得ます。

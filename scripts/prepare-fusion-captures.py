@@ -60,6 +60,8 @@ CONFIG={
  'S53':{'graph': (480, 1300, 2380, 1450), 'inspector': (2830, 120, 3352, 465), 'compare': (1146, 65, 2830, 705), 'before-inspector': (2830, 120, 3352, 465), 'before': (1146, 65, 2830, 705), 'left-inspector': (2830, 120, 3352, 465), 'left': (1146, 65, 2830, 705), 'reset-inspector': (2830, 120, 3352, 465), 'reset': (1146, 65, 2830, 705)},
  'S54':{'graph': (480, 1300, 2380, 1450), 'inspector': (2830, 120, 3352, 465), 'compare': (1146, 65, 2830, 705), 'pan-inspector': (2830, 120, 3352, 465), 'pan': (1146, 65, 2830, 705), 'pan-offset-inspector': (2830, 120, 3352, 465), 'pan-offset': (1146, 65, 2830, 705), 'envelope-offset-inspector': (2830, 120, 3352, 465), 'envelope-offset': (1146, 65, 2830, 705), 'alpha': (1146, 65, 2830, 705)},
  'S55':{'graph': (480, 1300, 2380, 1450), 'inspector': (2830, 120, 3352, 610), 'compare': (1146, 65, 2830, 705), 'perspective-inspector': (2830, 120, 3352, 610), 'perspective': (1146, 65, 2830, 705), 'zmove2-inspector': (2830, 120, 3352, 610), 'zmove2': (1146, 65, 2830, 705)},
+ 'S56':{'graph': (480, 1300, 2380, 1450), 'inspector': (2830, 120, 3352, 550), 'compare': (1146, 65, 2830, 805), 'frame24': (1146, 65, 2830, 805), 'square24-inspector': (2830, 120, 3352, 550), 'square24': (1146, 65, 2830, 805), 'strength0-inspector': (2830, 120, 3352, 550), 'strength0': (1146, 65, 2830, 805)},
+ 'S57':{'graph': (480, 1300, 2380, 1450), 'inspector': (2830, 120, 3352, 550), 'compare': (1146, 65, 2830, 805), 'setup': (2830, 120, 3352, 760), 'intermediate': (2830, 120, 3352, 760), 'channels': (2830, 120, 3352, 530), 'config': (2830, 120, 3352, 780), 'gain1-inspector': (2830, 120, 3352, 550), 'gain1': (1146, 65, 2830, 805)},
 }
 def sha(p):return hashlib.sha256(p.read_bytes()).hexdigest()
 candidates=json.loads((ROOT/'docs/fusion-screenshot-candidates.json').read_text(encoding='utf-8'))
@@ -119,6 +121,8 @@ for case in args.cases:
   if case=='S53':extra.update({('S53', 'before'): 'screen-before.png', ('S53', 'before-inspector'): 'screen-before.png', ('S53', 'left'): 'screen-left.png', ('S53', 'left-inspector'): 'screen-left.png', ('S53', 'reset'): 'screen-reset.png', ('S53', 'reset-inspector'): 'screen-reset.png'})
   if case=='S54':extra.update({('S54', 'compare'): 'screen-image.png', ('S54', 'pan-inspector'): 'screen-pan.png', ('S54', 'pan'): 'screen-pan-image.png', ('S54', 'pan-offset-inspector'): 'screen-pan-offset.png', ('S54', 'pan-offset'): 'screen-pan-offset-image.png', ('S54', 'envelope-offset-inspector'): 'screen-envelope-offset.png', ('S54', 'envelope-offset'): 'screen-envelope-offset-image.png', ('S54', 'alpha'): 'screen-alpha.png'})
   if case=='S55':extra.update({('S55', 'compare'): 'screen-image.png', ('S55', 'perspective-inspector'): 'screen-perspective.png', ('S55', 'perspective'): 'screen-perspective-image.png', ('S55', 'zmove2-inspector'): 'screen-zmove2.png', ('S55', 'zmove2'): 'screen-zmove2-image.png'})
+  if case=='S56':extra.update({('S56', 'frame24'): 'screen-frame24.png', ('S56', 'square24-inspector'): 'screen-square24.png', ('S56', 'square24'): 'screen-square24.png', ('S56', 'strength0-inspector'): 'screen-strength0.png', ('S56', 'strength0'): 'screen-strength0.png'})
+  if case=='S57':extra.update({('S57', 'setup'): 'screen-setup.png', ('S57', 'intermediate'): 'screen-intermediate.png', ('S57', 'channels'): 'screen-channels.png', ('S57', 'config'): 'screen-config.png', ('S57', 'gain1-inspector'): 'screen-gain1.png', ('S57', 'gain1'): 'screen-gain1.png'})
   src=folder/extra.get((case,slug),variants.get((case,slug),'screen.png'))
   assert 0<=box[0]<box[2]<=im.width and 0<=box[1]<box[3]<=im.height, (case,slug,box)
   path=folder/(slug+'.png');Image.open(src).crop(box).save(path)
@@ -130,6 +134,7 @@ for case in args.cases:
   if case=='S42':frame=0 if slug.startswith('edge-') else 12 if slug=='frame12' else 24
   if case=='S45':frame=24 if slug in ['frame24','fps25-inspector','fps25'] else 0
   if case=='S49':frame=24 if slug in ['unmasked24','masked24'] else 0
+  if case=='S56' and slug.startswith(('frame24','square24')):frame=24
   shots.append({'file':path.name,'source':src.name,'source_sha256':sha(src),'frame':frame,'crop_xyxy':box,'resampled':False,'sha256':sha(path)})
   if case=='S54':shots[-1]['viewer_channels']='Left Color / Right Alpha' if slug=='alpha' else 'Color'
   if case in ['S25','S28','S31']:shots[-1]['viewer_channels']='Alpha' if slug=='alpha' else 'Color'

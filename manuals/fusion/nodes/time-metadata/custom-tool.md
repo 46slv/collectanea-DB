@@ -71,9 +71,9 @@ Channels
 Output Image
 ~~~
 
-### Setup 1-4
+### Setup
 
-Setupには最大4本の式を置けます。
+21.1 ManualはSetup 1〜4を説明しています。今回のStudio21.1.0.14では、Setup 1〜8の欄が表示されました。下の実機例ではSetup 1だけを使います。
 
 Setup式は**1 frameにつき1回**だけ評価され、その結果は **s1〜s4** として後段の式から参照できます。
 
@@ -86,9 +86,9 @@ pixelごとに変わらない値をここへ置きます。たとえば次のよ
 
 x / yや現在pixelのRGBのようにpixelごとに変わる値をSetupへ置く用途ではありません。
 
-### Intermediate 1-4
+### Intermediate
 
-Intermediateには最大4本の式を置けます。
+21.1 ManualはIntermediate 1〜4を説明しています。今回のStudio21.1.0.14では、Intermediate 1〜8の欄が表示されました。下の実機例ではIntermediate 1だけを使います。
 
 Intermediate式は**各pixelにつき1回**、Setupの後、Channelsの前に評価されます。結果は **i1〜i4** としてChannel式から参照できます。
 
@@ -227,6 +227,48 @@ Custom Toolは自由度が高い一方、専用Nodeより意図を読み取り�
 
 既存Nodeで同じ処理が明確に表現できる場合は、Graphを読む人が目的を理解しやすい専用Nodeを優先した方が扱いやすいことがあります。
 
+## 実機例：Gainを式へ渡す
+
+<!-- capture-case:S57 -->
+
+Resolve Studio21.1.0.14／Windowsで、1920×1080のチャートをImage 1へ接続しました。内部REGIDは`Custom`です。左は元画像、右はCustom Toolの出力で、両ViewerはColor／40%です。
+
+[![LoaderのImageをCustomTool1のImage1へ接続しMediaOut1へ出した実機Graph](/img/fusion/captures/S57/graph.png)](/img/fusion/captures/S57/graph.png)
+
+[![ConfigでGainへ改名したNumber In1が0.5、Point表示を隠したControls](/img/fusion/captures/S57/inspector.png)](/img/fusion/captures/S57/inspector.png)
+
+[![元のチャートが左、RGBへGain0.5を掛けて暗くなったCustom Toolの結果が右](/img/fusion/captures/S57/compare.png)](/img/fusion/captures/S57/compare.png)
+
+ConfigでNumber In 1の表示名をGainに変え、値を0.5にしました。Point Controlはこの式で使わないため表示をオフにしています。式から参照する名前は、改名後も`n1`です。
+
+| 欄 | 入力した式 | この例での役割 |
+| --- | --- | --- |
+| Setup 1 | `n1` | Gainを`s1`として参照する |
+| Intermediate 1 | `r1*s1` | 入力のRedへGainを掛け、`i1`へ渡す |
+| Red | `i1` | Intermediate 1の結果を出力する |
+| Green / Blue | `g1*s1` / `b1*s1` | 残りのRGBにも同じGainを掛ける |
+| Alpha | `a1` | 入力のAlphaをそのまま渡す |
+
+[![Setup1にn1を入力し、Setup1から8までの欄を表示した実機Inspector](/img/fusion/captures/S57/setup.png)](/img/fusion/captures/S57/setup.png)
+
+[![Intermediate1にr1*s1を入力し、Intermediate1から8までの欄を表示したInspector](/img/fusion/captures/S57/intermediate.png)](/img/fusion/captures/S57/intermediate.png)
+
+[![Redにi1、Greenにg1*s1、Blueにb1*s1、Alphaにa1を入力したChannels](/img/fusion/captures/S57/channels.png)](/img/fusion/captures/S57/channels.png)
+
+[![ConfigのName for Number1をGainとし、ほかのNumber名と区別したInspector](/img/fusion/captures/S57/config.png)](/img/fusion/captures/S57/config.png)
+
+実機ではSetupとIntermediateの欄がそれぞれ1〜8まで表示されました。Manualが説明する4本との差を、この版の表示として記録しています。今回使ったのは各1番だけで、2〜8番の式実行は未確認です。
+
+同じ式のままGainを1にすると、右のチャートは左と同じ明るさに見えます。Gain0.5へ戻すとRGBが暗くなりました。Viewerの表示比較であり、書き出した画素値や測色結果の証明ではありません。
+
+[![同じ式のままGainを1へ変更したControls](/img/fusion/captures/S57/gain1-inspector.png)](/img/fusion/captures/S57/gain1-inspector.png)
+
+[![Gain1では右Custom Toolのチャートが左入力と同じ明るさに見える比較](/img/fusion/captures/S57/gain1.png)](/img/fusion/captures/S57/gain1.png)
+
+最後はControlsタブのGain0.5へ戻して保存しました。複数Image、Matte InputとEffect Mask、LUT、補助チャンネル、Pointやtimeを使う式、アニメーション、性能は未確認です。
+
+[再現用Graph](/img/fusion/captures/S57/fixture.comp) · [撮影条件と確認範囲](/img/fusion/captures/S57/capture.json)
+
 ## 注意点
 
 - Custom Toolはtime / metadata / DoDをまとめて操作する汎用Nodeではありません。中心はImage channelの式評価です。
@@ -251,4 +293,4 @@ DaVinci Resolve 21.1 Reference Manual（September 2026）、Chapter 111「Miscel
 
 Blackmagic Design Support Centerでは2026年9月8日公開のDaVinci Resolve 21.1 Manualが現行21.1 Reference Manualとして掲載されています。
 
-runtime REGID、Effects Library上のcurrent表示、edition差、全expression functionの網羅、実機上のperformanceは別verification対象として残しているため、verification: partialを維持しています。
+S57のruntime REGID、上記の式・改名・Gain切替と出力表示は確認済みです。Effects Library上の検索、edition差、全expression function、補助チャンネル、性能は未確認のため、verification: partialを維持しています。

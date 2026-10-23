@@ -46,6 +46,8 @@ TARGETS['S52']='SetCanvasColor1';LEFT['S52']='Transform1';RIGHT['S52']='SetCanva
 TARGETS['S53']='Crop1';LEFT['S53']='Loader1';RIGHT['S53']='Crop1'
 TARGETS['S54']='Letterbox1';LEFT['S54']='Loader1';RIGHT['S54']='Letterbox1'
 TARGETS['S55']='DVE1';LEFT['S55']='Loader1';RIGHT['S55']='DVE1'
+TARGETS['S56']='CameraShake1';LEFT['S56']='Loader1';RIGHT['S56']='CameraShake1'
+TARGETS['S57']='CustomTool1';LEFT['S57']='Loader1';RIGHT['S57']='CustomTool1'
 r=d.scriptapp('Resolve')
 assert r, 'Resolve scripting unavailable; do not change preferences automatically'
 pm=r.GetProjectManager(); p=pm.GetCurrentProject()
@@ -57,7 +59,7 @@ requested_frame=int(sys.argv[3]) if action=='frame' else 24 if case in ['S40','S
 if action=='preview':
  assert case=='S49';requested_frame=int(sys.argv[3]) if len(sys.argv)>3 else 0;assert requested_frame in [0,24];action='show'
 if action=='frame':
- assert case in ['S35','S36','S39','S40','S42','S45','S49'] and requested_frame in ([0,48] if case=='S35' else [0,3,6,9,12,18,24]);action='show'
+ assert case in ['S35','S36','S39','S40','S42','S45','S49','S56'] and requested_frame in ([0,48] if case=='S35' else [0,3,6,9,12,18,24]);action='show'
 if action=='hold':
  assert case=='S39';requested_frame=int(sys.argv[3]);assert requested_frame in [0,24]
  TARGETS[case]='TransformHold';LEFT[case]='TimeHold';RIGHT[case]='TransformHold';action='show'
@@ -78,7 +80,7 @@ if action=='scale':
 if action=='mask_inspector':
  assert case=='S49';TARGETS[case]='Ellipse1';action='show'
 if action=='image':
- assert case in ['S50','S51','S54','S55'];TARGETS[case]='MediaOut1';action='show'
+ assert case in ['S50','S51','S54','S55','S57'];TARGETS[case]='MediaOut1';action='show'
 if action=='canvas_source':
  assert case=='S52';TARGETS[case]='GoldCanvas1';action='show'
 if action=='map':
@@ -105,8 +107,8 @@ for _ in range(50):
  time.sleep(.1)
 else:raise RuntimeError('Requested composition did not become the active GUI composition')
 t.SetCurrentTimecode('01:00:02:00' if case=='S09' else '01:00:00:00')
-c.CurrentTime=requested_frame if case in ['S35','S36','S39','S40','S42','S45','S49'] else 48 if case=='S09' else 0
-if case in ['S36','S39','S40','S42','S45','S49']:t.SetCurrentTimecode(f'01:00:{requested_frame//24:02d}:{requested_frame%24:02d}')
+c.CurrentTime=requested_frame if case in ['S35','S36','S39','S40','S42','S45','S49','S56'] else 48 if case=='S09' else 0
+if case in ['S36','S39','S40','S42','S45','S49','S56']:t.SetCurrentTimecode(f'01:00:{requested_frame//24:02d}:{requested_frame%24:02d}')
 if case=='S35':t.SetCurrentTimecode('01:00:02:00' if requested_frame==48 else '01:00:00:00')
 time.sleep(.3)
 tools={x.GetAttrs()['TOOLS_Name']:x for x in c.GetToolList().values()}
@@ -174,6 +176,8 @@ def select(target,left=None):
  layouts['S38']={'Loader1':(0,0),'TransformReference':(1.5,0),'MediaOut1':(3,0)}
  layouts['S50']={'Loader1':(0,0),'AutoDomain1':(1.5,0),'MediaOut1':(3,0)}
  layouts['S54']={'Loader1':(0,0),'Letterbox1':(1.5,0),'MediaOut1':(3,0)}
+ layouts['S57']={'Loader1':(0,0),'CustomTool1':(1.5,0),'MediaOut1':(3,0)}
+ layouts['S56']={'Loader1':(0,0),'CameraShake1':(1.5,0),'MediaOut1':(3,0)}
  layouts['S55']={'Loader1':(0,0),'DVE1':(1.5,0),'MediaOut1':(3,0)}
  layouts['S53']={'Loader1':(0,0),'Crop1':(1.5,0),'MediaOut1':(3,0)}
  layouts['S52']={'Loader1':(0,1),'Transform1':(1.5,1),'Gold1':(0,-1),'GoldCanvas1':(1.5,-1),'SetCanvasColor1':(3,1),'MediaOut1':(4.5,1)}
@@ -228,6 +232,12 @@ if action=='build':
   rb=add('sRender','RenderBase1',4,-1);connect(rb,'Input',base)
   target=add('sTransform','Transform1',2,1);connect(target,'Input',base)
   rr=add('sRender','RenderChanged1',4,1);connect(rr,'Input',target);connect(mo,'Input',rr)
+ elif case=='S57':
+  loader=add('Loader','Loader1',0,0,Clip=str(REPO/'static/img/fusion/captures/_fixtures/chart.png'))
+  target=add('Custom','CustomTool1',1.5,0);connect(target,'Image1',loader);connect(mo,'Input',target)
+ elif case=='S56':
+  loader=add('Loader','Loader1',0,0,Clip=str(REPO/'static/img/fusion/captures/_fixtures/chart.png'))
+  target=add('CameraShake','CameraShake1',1.5,0);connect(target,'Input',loader);connect(mo,'Input',target)
  elif case in ['S54','S55']:
   loader=add('Loader','Loader1',0,0,Clip=str(REPO/'static/img/fusion/captures/_fixtures/chart.png'))
   reg='Letterbox' if case=='S54' else 'DVE'

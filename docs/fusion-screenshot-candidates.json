@@ -2,7 +2,7 @@
   "schema_version": 1,
   "created": "2026-10-20",
   "scope": "All Fusion pages, DaVinci Resolve 21.1",
-  "status_note": "2026-10-24:117 pages315 crops560 placements public PASS through PR87. S54/S55/R94–R96 add17 native crops and10 reuse placements;local4 distinct pages39 images PASS. Cumulative119 pages332 crops587 placements;batch14 public NOT_RUN. Whole587-page Fusion and remaining_views incomplete.",
+  "status_note": "2026-10-24:119 pages332 crops587 placements public PASS through PR88. S56/S57/R97–R98 add17 native crops and6 reuse placements;local4 pages61 images PASS. Cumulative121 pages349 crops610 placements;batch15 public NOT_RUN. Whole587-page Fusion and remaining_views incomplete.",
   "asset_directory_template": "static/img/fusion/captures/{id}/{shot.slug}.png",
   "capture_manifest_name": "capture.json",
   "candidates": [
@@ -2749,7 +2749,7 @@
         "printed_pages": "2868–2870"
       },
       "goal": "Compare Envelope/PanScan, Center and transparent bands",
-      "status": "captured-local-display-verified",
+      "status": "published-display-verified",
       "shots": [
         {
           "slug": "graph",
@@ -2812,7 +2812,8 @@
           "status": "native-observed"
         }
       ],
-      "capture_manifest": "static/img/fusion/captures/S54/capture.json"
+      "capture_manifest": "static/img/fusion/captures/S54/capture.json",
+      "published_batch": "fusion-native-20261024-14"
     },
     {
       "id": "S55",
@@ -2824,7 +2825,7 @@
         "printed_pages": "2865–2867"
       },
       "goal": "Compare 2D perspective and Z Move",
-      "status": "captured-local-display-verified",
+      "status": "published-display-verified",
       "shots": [
         {
           "slug": "graph",
@@ -2869,7 +2870,140 @@
           "status": "native-observed"
         }
       ],
-      "capture_manifest": "static/img/fusion/captures/S55/capture.json"
+      "capture_manifest": "static/img/fusion/captures/S55/capture.json",
+      "published_batch": "fusion-native-20261024-14"
+    },
+    {
+      "id": "S56",
+      "priority": "P1",
+      "article": "manuals/fusion/nodes/transform/camera-shake.md",
+      "manual": {
+        "version": "21.1",
+        "chapter": 120,
+        "printed_pages": "2859–2861"
+      },
+      "goal": "Compare temporal shake, wave shape and strength",
+      "status": "captured-local-display-verified",
+      "shots": [
+        {
+          "slug": "graph",
+          "kind": "node-graph",
+          "target": "Camera Shake",
+          "status": "native-observed"
+        },
+        {
+          "slug": "inspector",
+          "kind": "inspector",
+          "target": "Camera Shake",
+          "status": "native-observed"
+        },
+        {
+          "slug": "compare",
+          "kind": "output",
+          "target": "Camera Shake",
+          "status": "native-observed"
+        },
+        {
+          "slug": "frame24",
+          "kind": "output",
+          "target": "Camera Shake",
+          "status": "native-observed"
+        },
+        {
+          "slug": "square24-inspector",
+          "kind": "inspector",
+          "target": "Camera Shake",
+          "status": "native-observed"
+        },
+        {
+          "slug": "square24",
+          "kind": "output",
+          "target": "Camera Shake",
+          "status": "native-observed"
+        },
+        {
+          "slug": "strength0-inspector",
+          "kind": "inspector",
+          "target": "Camera Shake",
+          "status": "native-observed"
+        },
+        {
+          "slug": "strength0",
+          "kind": "output",
+          "target": "Camera Shake",
+          "status": "native-observed"
+        }
+      ],
+      "capture_manifest": "static/img/fusion/captures/S56/capture.json"
+    },
+    {
+      "id": "S57",
+      "priority": "P1",
+      "article": "manuals/fusion/nodes/time-metadata/custom-tool.md",
+      "manual": {
+        "version": "21.1",
+        "chapter": 111,
+        "printed_pages": "2583–2593"
+      },
+      "goal": "Expose gain through Number/Setup/Intermediate/channel expressions",
+      "status": "captured-local-display-verified",
+      "shots": [
+        {
+          "slug": "graph",
+          "kind": "node-graph",
+          "target": "Custom Tool",
+          "status": "native-observed"
+        },
+        {
+          "slug": "inspector",
+          "kind": "inspector",
+          "target": "Custom Tool",
+          "status": "native-observed"
+        },
+        {
+          "slug": "compare",
+          "kind": "output",
+          "target": "Custom Tool",
+          "status": "native-observed"
+        },
+        {
+          "slug": "setup",
+          "kind": "inspector",
+          "target": "Custom Tool",
+          "status": "native-observed"
+        },
+        {
+          "slug": "intermediate",
+          "kind": "inspector",
+          "target": "Custom Tool",
+          "status": "native-observed"
+        },
+        {
+          "slug": "channels",
+          "kind": "inspector",
+          "target": "Custom Tool",
+          "status": "native-observed"
+        },
+        {
+          "slug": "config",
+          "kind": "inspector",
+          "target": "Custom Tool",
+          "status": "native-observed"
+        },
+        {
+          "slug": "gain1-inspector",
+          "kind": "inspector",
+          "target": "Custom Tool",
+          "status": "native-observed"
+        },
+        {
+          "slug": "gain1",
+          "kind": "output",
+          "target": "Custom Tool",
+          "status": "native-observed"
+        }
+      ],
+      "capture_manifest": "static/img/fusion/captures/S57/capture.json"
     }
   ],
   "publication_batches": [
@@ -3321,27 +3455,56 @@
         "artifacts/fusion-captures/public-batch13-assets.json"
       ],
       "limitations": "Whole587-page Fusion and remaining_views continue. S54/S55 native accepted/saved, not yet embedded."
+    },
+    {
+      "id": "fusion-native-20261024-14",
+      "cases": [
+        "S54",
+        "S55"
+      ],
+      "reuses": [
+        "R94",
+        "R95",
+        "R96"
+      ],
+      "pr": "https://github.com/46slv/collectanea-DB/pull/88",
+      "candidate": "8dd8645e4a10a1762fa49917b7c3bd84820e09eb",
+      "main": "c3826a29affa77669d1a61d96510d20371f33112",
+      "tree": "807538c125363ae410806b6793813949c127a2e1",
+      "quality_run": "https://github.com/46slv/collectanea-DB/actions/runs/40031728924",
+      "pages_run": "https://github.com/46slv/collectanea-DB/actions/runs/40032607814",
+      "public_pages": 4,
+      "public_images": 39,
+      "new_placements": 27,
+      "new_native_crops": 17,
+      "public_asset_hashes": 896,
+      "result": "PASS",
+      "evidence": [
+        "artifacts/fusion-captures/public-batch14-display-report.json",
+        "artifacts/fusion-captures/public-batch14-assets.json"
+      ],
+      "limitations": "Whole587-page Fusion and remaining_views continue. S56/S57 native accepted/saved/adopted, not yet embedded."
     }
   ],
   "coverage_inventory": {
-    "checked_at": "2026-10-23T22:08:07.265246+00:00",
+    "checked_at": "2026-10-23T22:24:48.983933+00:00",
     "scope": "All manuals/fusion Markdown and MDX pages; review necessity before adding images.",
     "completion_rule": "Every page has an explicit image decision; necessary images are native-observed, embedded, saved to GitHub and public-display-verified. A native example does not verify all article controls.",
     "summary": {
       "total_pages": 587,
-      "with_images": 119,
-      "with_native_examples": 119,
+      "with_images": 121,
+      "with_native_examples": 121,
       "states": {
         "reviewed-no-standalone-image": 26,
         "no-standalone-image-needed": 6,
         "illustrated-reused-example": 66,
-        "capture-planned": 436,
-        "illustrated-native-example": 53
+        "capture-planned": 434,
+        "illustrated-native-example": 55
       },
       "decisions": {
         "no-standalone-image-needed": 32,
-        "image-required": 119,
-        "capture-needed": 436
+        "image-required": 121,
+        "capture-needed": 434
       }
     },
     "pages": [
@@ -16754,13 +16917,18 @@
         "article": "manuals/fusion/nodes/time-metadata/custom-tool.md",
         "title": "Custom Tool",
         "kind": "node",
-        "image_count": 0,
-        "native_cases": [],
+        "image_count": 9,
+        "native_cases": [
+          "S57"
+        ],
         "reused_cases": [],
         "planned_cases": [],
-        "state": "capture-planned",
-        "decision": "capture-needed",
+        "state": "illustrated-native-example",
+        "decision": "image-required",
         "reason": "本文の対象機能: Custom Toolは、3本の2D Image、matte、Effect Maskと式Controlを使い、pixel単位のchannel処理を自分で定義するNode。。別Color Tool/Formula Modifierではpixel式を示せない。",
+        "remaining_views": [
+          "複数Image、Matte/EffectMask、LUT、補助channel、Point/time式、Setup/Inter2〜8、animation/性能"
+        ],
         "required_views": [
           "対象名と実接続が読めるGraph",
           "対象自身を選択したInspectorの該当Control",
@@ -16790,7 +16958,8 @@
             "role": "入力/結果または実UIの具体箇所"
           }
         ],
-        "hold_conditions": []
+        "hold_conditions": [],
+        "audit_note": "S56/S57の固定実機例を掲載。全control/性能はpartial維持。"
       },
       {
         "article": "manuals/fusion/nodes/time-metadata/fields.md",
@@ -16878,7 +17047,7 @@
         "article": "manuals/fusion/nodes/time-metadata/index.md",
         "title": "Time / Metadata / Utilityノード",
         "kind": "index",
-        "image_count": 26,
+        "image_count": 29,
         "native_cases": [],
         "reused_cases": [
           "S40",
@@ -16889,7 +17058,8 @@
           "S46",
           "S47",
           "S48",
-          "S50"
+          "S50",
+          "S57"
         ],
         "planned_cases": [],
         "state": "illustrated-reused-example",
@@ -17526,13 +17696,18 @@
         "article": "manuals/fusion/nodes/transform/camera-shake.md",
         "title": "Camera Shake",
         "kind": "node",
-        "image_count": 0,
-        "native_cases": [],
+        "image_count": 8,
+        "native_cases": [
+          "S56"
+        ],
         "reused_cases": [],
         "planned_cases": [],
-        "state": "capture-planned",
-        "decision": "capture-needed",
+        "state": "illustrated-native-example",
+        "decision": "image-required",
         "reason": "本文の対象機能: Camera Shakeは、2D画像に手持ち撮影や機械振動のような揺れを加えるNode。。S06全体Transformはcrop寸法/policy/遠近/時間揺れを示せない。",
+        "remaining_views": [
+          "Effect Mask、Rectified Sine、Edges/Filters、後段合成、連続再生/性能/export"
+        ],
         "required_views": [
           "対象名と実接続が読めるGraph",
           "対象自身を選択したInspectorの該当Control",
@@ -17557,7 +17732,8 @@
             "role": "入力/結果または実UIの具体箇所"
           }
         ],
-        "hold_conditions": []
+        "hold_conditions": [],
+        "audit_note": "S56/S57の固定実機例を掲載。全control/性能はpartial維持。"
       },
       {
         "article": "manuals/fusion/nodes/transform/crop.md",
@@ -17649,13 +17825,14 @@
         "article": "manuals/fusion/nodes/transform/index.md",
         "title": "Transform / Formatノード",
         "kind": "index",
-        "image_count": 12,
+        "image_count": 15,
         "native_cases": [],
         "reused_cases": [
           "S06",
           "S53",
           "S54",
-          "S55"
+          "S55",
+          "S56"
         ],
         "planned_cases": [],
         "state": "illustrated-reused-example",
@@ -22120,8 +22297,9 @@
         "compare.png",
         "pan.png"
       ],
-      "status": "embedded-local-display-verified",
-      "scope": "透明余白の固定例。不透明黒帯の合成、書き出し、他Filterは未確認。"
+      "status": "published-display-verified",
+      "scope": "透明余白の固定例。不透明黒帯の合成、書き出し、他Filterは未確認。",
+      "published_batch": "fusion-native-20261024-14"
     },
     {
       "id": "R95",
@@ -22132,8 +22310,9 @@
         "inspector.png",
         "compare.png"
       ],
-      "status": "embedded-local-display-verified",
-      "scope": "静止DVE例。Masks、Alpha、後段Merge、アニメーションは未確認。"
+      "status": "published-display-verified",
+      "scope": "静止DVE例。Masks、Alpha、後段Merge、アニメーションは未確認。",
+      "published_batch": "fusion-native-20261024-14"
     },
     {
       "id": "R96",
@@ -22144,8 +22323,33 @@
         "compare.png",
         "pan.png"
       ],
+      "status": "published-display-verified",
+      "scope": "固定Letterbox例。Pixel Aspect、後段Merge、不透明黒帯の合成は未確認。",
+      "published_batch": "fusion-native-20261024-14"
+    },
+    {
+      "id": "R97",
+      "article": "manuals/fusion/nodes/transform/index.md",
+      "source_case": "S56",
+      "images": [
+        "graph.png",
+        "compare.png",
+        "frame24.png"
+      ],
       "status": "embedded-local-display-verified",
-      "scope": "固定Letterbox例。Pixel Aspect、後段Merge、不透明黒帯の合成は未確認。"
+      "scope": "固定2フレームの表示例。Mask、連続再生、後段合成と性能は未確認。"
+    },
+    {
+      "id": "R98",
+      "article": "manuals/fusion/nodes/time-metadata/index.md",
+      "source_case": "S57",
+      "images": [
+        "graph.png",
+        "channels.png",
+        "compare.png"
+      ],
+      "status": "embedded-local-display-verified",
+      "scope": "Custom Tool独自の画素式。SimpleExpressionの構文・評価対象とは区別する。Matte/Mask/LUT/他channel/性能は未確認。"
     }
   ]
 }
