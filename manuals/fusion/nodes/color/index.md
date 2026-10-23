@@ -82,6 +82,20 @@ Resolve Studio 21.1.0.14／Windowsで撮影済みのS14を再利用した参考�
 
 [Set Canvas Color](./set-canvas-color)はImageのDoD外へどのColor / Alphaを持たせるかを設定します。
 
+### 実機の参考例：Canvas colorの指定
+
+<!-- capture-reuse:R91 -->
+
+S52ではTransformの後でSet Canvas Colorを使い、DoD外を紺色・Alpha1へ変えました。チャート内部の色補正とは分けて確認できます。
+
+[![LoaderのチャートをTransformで0.5倍にしてSetCanvasColor1へ接続。上段は後で参照するGold1とGoldCanvas1で、緑入力は未接続](/img/fusion/captures/S52/graph.png)](/img/fusion/captures/S52/graph.png)
+
+[![Set Canvas ColorのRGBを0.03、0.12、0.3、Alphaを1にした実機Inspector](/img/fusion/captures/S52/inspector.png)](/img/fusion/captures/S52/inspector.png)
+
+[![左の縮小チャート周辺は透明、右は紺色で埋まる。チャートの内容と1920×1080の寸法は保たれる](/img/fusion/captures/S52/compare.png)](/img/fusion/captures/S52/compare.png)
+
+Resolve Studio21.1.0.14／Windows、両Viewer Color／40%。固定チャートの手入力例。後段合成や書き出しの色は未確認。 [再現用Graph](/img/fusion/captures/S52/fixture.comp) · [撮影条件と確認範囲](/img/fusion/captures/S52/capture.json)
+
 ## AlphaがあるImage
 
 premultiplied Alpha素材のColor補正では、対応NodeのPre-Divide / Post-Multiplyを確認します。

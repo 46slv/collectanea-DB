@@ -187,6 +187,18 @@ Loader1は画面上ではファイル名のchart.pngと表示されています�
 
 [再現用Graph](/img/fusion/captures/S24/fixture.comp) · [撮影条件と確認範囲](/img/fusion/captures/S24/capture.json)
 
+### 実機の参考例：Cropで変わる寸法
+
+<!-- capture-reuse:R93 -->
+
+S53では元画像を横につぶさず、左右を420pxずつ除いて1080×1080へ切り出しました。同じ40%表示なので、格子や文字の大きさを比べられます。
+
+[![CropのSize X/Y1080、Offset X420、Y0、Keep Centeredオン、Keep Aspectオフを示すInspector](/img/fusion/captures/S53/inspector.png)](/img/fusion/captures/S53/inspector.png)
+
+[![左1920×1080に対し、右は中央を切り出した1080×1080。文字や格子の大きさを保って左右が欠ける](/img/fusion/captures/S53/compare.png)](/img/fusion/captures/S53/compare.png)
+
+Resolve Studio21.1.0.14／Windows、両Viewer Color／40%。固定チャートのCrop例。Pixel Aspect、Auto Crop、後段Mergeは未確認。 [再現用Graph](/img/fusion/captures/S53/fixture.comp) · [撮影条件と確認範囲](/img/fusion/captures/S53/capture.json)
+
 ## 解像度が変わる案件での判断
 
 同じレイアウトを1920×1080と3840×2160の両方で使うなら、配置比率を保つか、余白を同じピクセル数に保つかを先に決めます。前者は正規化座標でCenterを管理し、後者は基準解像度から位置のオフセットを計算します。

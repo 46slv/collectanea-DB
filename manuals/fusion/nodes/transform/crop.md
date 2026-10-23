@@ -85,6 +85,8 @@ Crop後の出力Width / Heightをピクセル単位で指定します。
 
 Domain of Definition（DoD）は、Imageの幅・高さとは別に、画像データが存在する範囲を表す情報です。`Clipping Mode`はDoDを使った処理で、画像の端やDoDの外側をどう扱うかを指定します。`Size X / Y`で切り出し範囲を決める操作とは別です。
 
+以下の3項目はManualの記載です。撮影したStudio21.1.0.14のCropタブではNoneとFrameの2項目が表示され、Domainは選択肢として確認できませんでした。S53ではFrameを保っており、モード間の境界比較は未実施です。
+
 - **Frame（既定）**: 現在のDoDを無視して、画像フレーム全体をDoDとして扱います。上流のDoDがフレームより小さいとき、残る部分は黒／透明として扱われます。
 - **Domain**: 上流から渡されたDoDを尊重します。大きくぼかすFilterなどでは、必要な周辺画素が対象範囲から外れ、端が不自然に切れる場合があります。
 - **None**: 入力画像に対するClippingを実行しません。ただし、上流DoDの外に必要なサンプルは黒／透明として扱われます。存在しない画素を復元する設定ではありません。
@@ -132,6 +134,36 @@ MediaIn（1920×1080） → Crop（1080×1080） → MergeのBackground
 
 この操作はフレーム全体を1080×1080へ押し縮める**Resize**とは違い、元画像の一部を残す操作です。Crop出力をMergeのBackgroundへ接続すると、そのMerge出力も1080×1080を基準に合成されます。
 
+## 実機で中央と左端の切り出しを比べる
+
+Resolve Studio 21.1.0.14、Windows、日本語UIで、1920×1080の静止チャートを使いました。出力フレーム0、両ViewerはColor／40%です。
+
+[![1920×1080のチャートをLoader、Crop1、MediaOut1の順に接続した実機Graph](/img/fusion/captures/S53/graph.png)](/img/fusion/captures/S53/graph.png)
+
+[![Crop初期状態のSize1920×1080、Offset0、Keep CenteredとKeep Aspectがオフ](/img/fusion/captures/S53/before-inspector.png)](/img/fusion/captures/S53/before-inspector.png)
+
+[![Crop初期状態では左右ともチャート全体で1920×1080](/img/fusion/captures/S53/before.png)](/img/fusion/captures/S53/before.png)
+
+[![CropのSize X/Y1080、Offset X420、Y0、Keep Centeredオン、Keep Aspectオフを示すInspector](/img/fusion/captures/S53/inspector.png)](/img/fusion/captures/S53/inspector.png)
+
+[![左1920×1080に対し、右は中央を切り出した1080×1080。文字や格子の大きさを保って左右が欠ける](/img/fusion/captures/S53/compare.png)](/img/fusion/captures/S53/compare.png)
+
+初期状態はSize1920×1080、Offset0、Keep AspectとKeep Centeredはオフでした。Keep AspectをオフのままKeep Centeredをオンにし、Sizeを1080×1080へ変えると、Offset Xは420へ自動調整されました。右の画像情報も1080×1080に変わり、文字や格子の大きさを保って左右が切れます。runtime REGIDは`Crop`でした。
+
+[![Keep Centeredをオフ、Offset Xを0にした1080×1080のCrop設定](/img/fusion/captures/S53/left-inspector.png)](/img/fusion/captures/S53/left-inspector.png)
+
+[![Offset X0では元画像左端のTLとBLが残り、右側の文字やチャートが切れる](/img/fusion/captures/S53/left.png)](/img/fusion/captures/S53/left.png)
+
+Keep Centeredを外してOffset Xを0にすると、同じ1080×1080でも元画像の左端が残ります。TLとBLの表示、右側で切れる文字の位置から、中央切り出しとの違いを確認できます。
+
+[![GUIのサイズをリセット後、Size Xが1920、Size Yが1080へ戻ったInspector](/img/fusion/captures/S53/reset-inspector.png)](/img/fusion/captures/S53/reset-inspector.png)
+
+[![サイズをリセット後は右も1920×1080に戻り、チャート全体が表示される](/img/fusion/captures/S53/reset.png)](/img/fusion/captures/S53/reset.png)
+
+GUIで「サイズをリセット」を押すと、右も1920×1080へ戻りました。最後はKeep Centeredオン、Size1080×1080、Offset420／0、Clipping Mode Frameへ戻して保存しています。Auto Crop、Keep Aspectオン、Pixel Aspect、ViewerのBox Selection、Clipping Mode間の境界、後段Merge、性能、Free editionや他OSは未確認です。
+
+[再現用Graph](/img/fusion/captures/S53/fixture.comp) · [撮影条件と確認範囲](/img/fusion/captures/S53/capture.json)
+
 ## Maskとの違い
 
 - **Mask**: Nodeの効果や表示範囲を制限しても、元Imageの解像度自体は通常変えない
@@ -162,4 +194,4 @@ MediaIn（1920×1080） → Crop（1080×1080） → MergeのBackground
 
 DaVinci Resolve 21.1 Reference Manual、September 2026、Chapter 120、pp.2862–2864で、Input、物理解像度の変更、Offset X/Y、Size X/Y、Keep Aspect、Keep Centered、Reset Size / Offset、Change Pixel Aspect、Clipping Mode、Auto Crop、ViewerのBox Selectionを確認しました。
 
-内部REGID、Auto Cropの背景推定アルゴリズム、Edition差、実機結果は未確認のため `verification: partial` としています。
+S53でREGID、初期値、中央／左端の1080×1080切り出し、Keep CenteredのOffset調整、GUIのReset Sizeを確認しました。Auto Crop、Pixel Aspect、Box Selection、Clipping Mode間の境界、後段Merge、性能、Edition差は未確認のため `verification: partial` を維持します。

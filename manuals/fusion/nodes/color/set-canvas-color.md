@@ -88,6 +88,50 @@ MediaIn1 → Transform1 → Set Canvas Color1 → MediaOut1
 
 色が出ない場合は、まずDoDの外側が本当にラスター内にあるかを確認し、次にAlphaを確認します。
 
+## 実機でDoD外のRGBとAlphaを比べる
+
+Resolve Studio 21.1.0.14、Windows、日本語UIで、1920×1080のチャートをTransformで0.5倍にしました。出力フレーム0、両ViewerはColor／40%です。上段のGold1とGoldCanvas1は、後半で使う参照元です。
+
+[![LoaderのチャートをTransformで0.5倍にしてSetCanvasColor1へ接続。上段は後で参照するGold1とGoldCanvas1で、緑入力は未接続](/img/fusion/captures/S52/graph.png)](/img/fusion/captures/S52/graph.png)
+
+[![Set Canvas Colorの初期RGBとAlphaはすべて0](/img/fusion/captures/S52/default-inspector.png)](/img/fusion/captures/S52/default-inspector.png)
+
+[![初期値では左右ともチャートの周囲にチェッカーが見える](/img/fusion/captures/S52/default.png)](/img/fusion/captures/S52/default.png)
+
+[![Set Canvas ColorのRGBを0.03、0.12、0.3、Alphaを1にした実機Inspector](/img/fusion/captures/S52/inspector.png)](/img/fusion/captures/S52/inspector.png)
+
+[![左の縮小チャート周辺は透明、右は紺色で埋まる。チャートの内容と1920×1080の寸法は保たれる](/img/fusion/captures/S52/compare.png)](/img/fusion/captures/S52/compare.png)
+
+初期RGB／Alphaはすべて0でした。RGBを0.03／0.12／0.3、Alphaを1にすると、縮小チャートの外側が紺色になります。チャートそのものの色や大きさ、出力寸法1920×1080は保たれました。runtime REGIDは`SetCanvasColor`です。
+
+[![DoDの点線は左右とも479,269から1441,811のまま、右のDoD外だけ紺色になっている](/img/fusion/captures/S52/dod.png)](/img/fusion/captures/S52/dod.png)
+
+DoDを表示すると、左右とも479,269から1441,811の同じ枠でした。右の紺色は、このDoDの外側にあります。この値は撮影したTransform出力の枠で、Size0.5から単純計算した480,270から1440,810とは区別します。
+
+[![RGBは紺色の値のままAlphaだけを0にしたInspector](/img/fusion/captures/S52/alpha0-inspector.png)](/img/fusion/captures/S52/alpha0-inspector.png)
+
+[![Alpha0では右の周囲に青く色付いたチェッカーが見える](/img/fusion/captures/S52/alpha0.png)](/img/fusion/captures/S52/alpha0.png)
+
+RGBを保ったままAlphaだけ0にすると、右の周囲には青く色付いたチェッカーが見えました。このColor表示を「青が完全に消える」証拠にはしていません。後段Mergeでの合成や測色書き出しは、この例では試していません。
+
+### 明示的なCanvas colorを参照する
+
+参照元GoldCanvas1にもSet Canvas Colorを使い、RGB0.85／0.42／0.03、Alpha1を設定しました。GoldCanvas1を本体の緑Foregroundへ接続します。
+
+[![参照元GoldCanvas1のRGB0.85、0.42、0.03、Alpha1を示すInspector](/img/fusion/captures/S52/source-inspector.png)](/img/fusion/captures/S52/source-inspector.png)
+
+[![GoldCanvas1をSetCanvasColor1の緑Foregroundへ追加接続した実機Graph](/img/fusion/captures/S52/reference-graph.png)](/img/fusion/captures/S52/reference-graph.png)
+
+[![Foreground接続中はSetCanvasColor1のControlsタブが空になる](/img/fusion/captures/S52/reference-inspector.png)](/img/fusion/captures/S52/reference-inspector.png)
+
+[![明示的に金色のCanvas colorを持たせたGoldCanvas1の参照後、右の周辺が金色になる](/img/fusion/captures/S52/reference.png)](/img/fusion/captures/S52/reference.png)
+
+接続後は本体のControlsタブが空になり、チャート周辺が金色へ変わりました。これは、参照元のCanvas colorを明示した固定例です。任意の画像の画素からどこを採るかを確認したものではありません。通常のBackgroundを直接つないだ最初の試行では色の転送を確認できず、この例には採用していません。
+
+最後はForegroundを外し、本体RGB0.03／0.12／0.3、Alpha1、DoD表示とRoIは無効にして保存しました。Mask反転、任意画像のサンプリング、後段合成、書き出しの色、性能、Free editionや他OSは未確認です。
+
+[再現用Graph](/img/fusion/captures/S52/fixture.comp) · [撮影条件と確認範囲](/img/fusion/captures/S52/capture.json)
+
 ## 別の使い方
 
 ### Maskの反転で変わったcanvas値を明示する
@@ -125,4 +169,4 @@ Set Canvas Colorは**既存ImageのDoD外にある暗黙のcanvas値**を変え�
 ## 出典・確認範囲
 
 - **Blackmagic Design, DaVinci Resolve 21.1 Reference Manual**, Chapter 93「Color Nodes」pp.2198–2199：役割、DoDとRasterの関係、Input / Foreground、Controlsタブ、Color Picker、初期の黒・Alpha 0、Transform後の接続例、ステータスバーの記述を確認。
-- **対象**：DaVinci Resolve 21.1のFusionページ。Nodeの役割と記載されたUIはManualに基づきます。Foregroundからの正確なサンプリング方法、実機でのパラメータ既定値・Edition差はこの改稿では追加検証していません。
+- **実機確認**：S52で初期RGB／Alpha、手入力したCanvas color、DoDの枠、Foreground接続時の空のControlsタブ、明示的なCanvas colorの参照を確認しました。任意画像のサンプリング方法、後段合成、Mask反転、書き出し、性能、Edition差は未確認のためpartialを維持します。

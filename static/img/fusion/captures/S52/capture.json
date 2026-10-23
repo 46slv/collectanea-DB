@@ -1,0 +1,250 @@
+{
+  "schema_version": 1,
+  "case": "S52",
+  "article": "manuals/fusion/nodes/color/set-canvas-color.md",
+  "manual": {
+    "version": "21.1",
+    "chapter": 93,
+    "printed_pages": "2198–2199"
+  },
+  "runtime": {
+    "version": "21.1.0.14",
+    "edition": "Studio",
+    "os": "Windows-11-10.0.26200-SP0",
+    "ui_language": "ja-JP (some Shape controls remain English)"
+  },
+  "captured_at": "2026-10-23T21:29:24.105914+00:00",
+  "project": "Collectanea_Captures_20261023_Sol",
+  "timeline": "S52_capture",
+  "frame": 0.0,
+  "resolution": [
+    1920,
+    1080
+  ],
+  "color_management": {
+    "colorScienceMode": "davinciYRGB",
+    "colorSpaceTimeline": "Rec.709 (Scene)",
+    "colorSpaceTimelineGamma": "",
+    "colorSpaceOutput": "Rec.709 (Scene)",
+    "colorSpaceOutputGamma": "ACEScc",
+    "separateColorSpaceAndGamma": "0",
+    "isAutoColorManage": "0",
+    "timelineResolutionWidth": "1920",
+    "timelineResolutionHeight": "1080",
+    "timelineFrameRate": 24.0,
+    "timelinePlaybackFrameRate": "30"
+  },
+  "viewer": {
+    "zoom_percent": 40,
+    "channel": "Color",
+    "background": "checkerboard for transparent pixels",
+    "note": "Viewer screenshots are display evidence, not colorimetric exports."
+  },
+  "graph": "fixture.comp",
+  "settings": "readback.json",
+  "source": {
+    "file": "screen.png",
+    "size": [
+      3352,
+      1910
+    ],
+    "sha256": "6c97b14f2ad48b2636336f4c6dcea66dc5ee50e1909c4513148ecdbd79f54da3"
+  },
+  "shots": [
+    {
+      "file": "graph.png",
+      "source": "screen.png",
+      "source_sha256": "6c97b14f2ad48b2636336f4c6dcea66dc5ee50e1909c4513148ecdbd79f54da3",
+      "frame": 0.0,
+      "crop_xyxy": [
+        480,
+        1130,
+        2380,
+        1555
+      ],
+      "resampled": false,
+      "sha256": "d06663c732639355ad1a9ec6a9569c4bab9a8c09099a017b10402837b5898dd8"
+    },
+    {
+      "file": "inspector.png",
+      "source": "screen.png",
+      "source_sha256": "6c97b14f2ad48b2636336f4c6dcea66dc5ee50e1909c4513148ecdbd79f54da3",
+      "frame": 0.0,
+      "crop_xyxy": [
+        2830,
+        120,
+        3352,
+        390
+      ],
+      "resampled": false,
+      "sha256": "7f393cf31c1e72c28c030e789606dfd83cc8921dbd6504a10a1c602e524e9324"
+    },
+    {
+      "file": "compare.png",
+      "source": "screen.png",
+      "source_sha256": "6c97b14f2ad48b2636336f4c6dcea66dc5ee50e1909c4513148ecdbd79f54da3",
+      "frame": 0.0,
+      "crop_xyxy": [
+        1146,
+        65,
+        2830,
+        705
+      ],
+      "resampled": false,
+      "sha256": "5777b1d8f12cf231b5f093d5668d2dca6f85b91c3707920ce2b2f92a0764ca19"
+    },
+    {
+      "file": "default-inspector.png",
+      "source": "screen-default.png",
+      "source_sha256": "937f5cf237ca57189e4dd1870a0123947a8c2ed3698f399177093ff327a54f7d",
+      "frame": 0.0,
+      "crop_xyxy": [
+        2830,
+        120,
+        3352,
+        390
+      ],
+      "resampled": false,
+      "sha256": "12b66d370db0f5f481c8c11290f96ccf27df17922afc0e92dec2fc80048d5718"
+    },
+    {
+      "file": "default.png",
+      "source": "screen-default.png",
+      "source_sha256": "937f5cf237ca57189e4dd1870a0123947a8c2ed3698f399177093ff327a54f7d",
+      "frame": 0.0,
+      "crop_xyxy": [
+        1146,
+        65,
+        2830,
+        705
+      ],
+      "resampled": false,
+      "sha256": "e22ca39b3ed05422c0809c6693e4bf5e9f1888e88dac93957cd91fb53b8135ee"
+    },
+    {
+      "file": "alpha0-inspector.png",
+      "source": "screen-alpha0.png",
+      "source_sha256": "9db4f3d6051da7c0af6e66652d12e3e07be6a5041cca62da5c48ce389b5eaf0e",
+      "frame": 0.0,
+      "crop_xyxy": [
+        2830,
+        120,
+        3352,
+        390
+      ],
+      "resampled": false,
+      "sha256": "38d85a5a6e610c829aa2b72e669502fcf4e54f71b47e5540d6f62ce330bfc241"
+    },
+    {
+      "file": "alpha0.png",
+      "source": "screen-alpha0.png",
+      "source_sha256": "9db4f3d6051da7c0af6e66652d12e3e07be6a5041cca62da5c48ce389b5eaf0e",
+      "frame": 0.0,
+      "crop_xyxy": [
+        1146,
+        65,
+        2830,
+        705
+      ],
+      "resampled": false,
+      "sha256": "de7d7fbea0d4fd19a8dce50297df5c80e3ab6748fe69b1c24548a7bdfff62c05"
+    },
+    {
+      "file": "dod.png",
+      "source": "screen-dod.png",
+      "source_sha256": "8bed28c70c52bbcb4226959fe9439d89d4599afc33bcbc39ddc752c6cfbb16c9",
+      "frame": 0.0,
+      "crop_xyxy": [
+        1146,
+        65,
+        2830,
+        705
+      ],
+      "resampled": false,
+      "sha256": "3fef1a1ccca28710fed54f66da9ef34220d601508c84dff65eea910d4c87d8ab"
+    },
+    {
+      "file": "reference-graph.png",
+      "source": "screen-reference.png",
+      "source_sha256": "70732355bce175a7c2042118e0495084313c22db95e2b033a8e8ad41610d4f45",
+      "frame": 0.0,
+      "crop_xyxy": [
+        480,
+        1130,
+        2380,
+        1555
+      ],
+      "resampled": false,
+      "sha256": "48452ee04f3f0d9f505797ead830ce24d5d11955337502efc6853c43c43e9853"
+    },
+    {
+      "file": "reference-inspector.png",
+      "source": "screen-reference.png",
+      "source_sha256": "70732355bce175a7c2042118e0495084313c22db95e2b033a8e8ad41610d4f45",
+      "frame": 0.0,
+      "crop_xyxy": [
+        2830,
+        120,
+        3352,
+        390
+      ],
+      "resampled": false,
+      "sha256": "d540b5c586aade60557bf0de0c8074862b99d0ba3094f1d09442a68356cd6250"
+    },
+    {
+      "file": "reference.png",
+      "source": "screen-reference.png",
+      "source_sha256": "70732355bce175a7c2042118e0495084313c22db95e2b033a8e8ad41610d4f45",
+      "frame": 0.0,
+      "crop_xyxy": [
+        1146,
+        65,
+        2830,
+        705
+      ],
+      "resampled": false,
+      "sha256": "26a00db4b862d930089de55abf2e995eaf77bafdc775def6a19066dd7f472d69"
+    },
+    {
+      "file": "source-inspector.png",
+      "source": "screen-reference-source.png",
+      "source_sha256": "4e9b0b1073ce2899827a85998d8df75155617597f7198c4d47cee3d2d3e1a469",
+      "frame": 0.0,
+      "crop_xyxy": [
+        2830,
+        120,
+        3352,
+        390
+      ],
+      "resampled": false,
+      "sha256": "80006ca7729c35e1dfc739c6abf4995f84a6a16586cb683836b9158af3da7fcb"
+    }
+  ],
+  "acceptance": {
+    "gui": "PASS: owner visually inspected node connections, selected Inspector, and output",
+    "article_display": "PASS: local production build;1440px/390px decode/Alt/native links/hash/overflow"
+  },
+  "unverified": [
+    "Free edition and other platforms",
+    "All parameter ranges and performance",
+    "Arbitrary-image sampling, Mask inversion, downstream Merge, colorimetric export and performance",
+    "Exported portable composition reimport"
+  ],
+  "state_variants": {
+    "screen.png": "manual RGB.03/.12/.3 Alpha1; FG disconnected; final six-node graph",
+    "screen-default.png": "initial five-node graph; RGB/Alpha all0, transparent surrounding area",
+    "screen-alpha0.png": "RGB.03/.12/.3 Alpha0; blue-tinted checkerboard in Color Viewer",
+    "screen-dod.png": "manual blue Alpha1, both DoD479,269–1441,811; frame dimensions1920x1080",
+    "screen-reference.png": "GoldCanvas1 explicit RGB.85/.42/.03 Alpha1 connected to FG; target Controls empty, surrounding area gold",
+    "screen-reference-source.png": "same connected state, GoldCanvas1 Inspector selected"
+  },
+  "restoration": "PASS: owned scratch saved, frame0/both Color40%, DoD/RoI off, popup none; FG disconnected, RGB.03/.12/.3 Alpha1; six nodes retained including explicit canvas reference branch",
+  "parameter_readback_scope": "Number/Text/Point/FuID/Clip only; no Image/Mask/3D/ScriptVal payload evaluation.",
+  "reference_scope": "Direct Background foreground hid Controls but color transfer was not established; rejected as color proof. Accepted separate SetCanvasColor reference explicitly declares the gold Canvas color. No arbitrary-pixel sampling claim.",
+  "reproduction": {
+    "fixture_sha256": "4ec5afec94f3d1f653c91ba0fd13702d3154e8253c0638d9e1d25ad02e70492e",
+    "readback_sha256": "0b2f2c87e0edb01e150783728463d72dc7e62226c2ff57c39ef00272102b5313",
+    "paths": "Comp:/../_fixtures/ for bundled synthetic fixtures",
+    "reimport": "NOT_RUN: accepted GUI evidence precedes export path normalization"
+  }
+}

@@ -56,6 +56,18 @@ S51はAuto Domainで範囲を検出し、Set DomainのSetで右・上を0.5に�
 
 Resolve Studio21.1.0.14／Windows、両Viewer Color／40%。Set Domainの固定例。Transformの往復やCrop、後段Filterの挙動を証明する画像ではありません。 [再現用Graph](/img/fusion/captures/S51/fixture.comp) · [撮影条件と確認範囲](/img/fusion/captures/S51/capture.json)
 
+### 実機の参考例：Cropでは寸法も変わる
+
+<!-- capture-reuse:R90 -->
+
+S53は1920×1080の中央を1080×1080へ切り出す例です。Set Domainの固定例と異なり、右Viewerの画像情報そのものが1080×1080になります。
+
+[![CropのSize X/Y1080、Offset X420、Y0、Keep Centeredオン、Keep Aspectオフを示すInspector](/img/fusion/captures/S53/inspector.png)](/img/fusion/captures/S53/inspector.png)
+
+[![左1920×1080に対し、右は中央を切り出した1080×1080。文字や格子の大きさを保って左右が欠ける](/img/fusion/captures/S53/compare.png)](/img/fusion/captures/S53/compare.png)
+
+Resolve Studio21.1.0.14／Windows、両Viewer Color／40%。Cropの寸法比較。Transform往復、Clipping ModeやBlurの境界は未確認。 [再現用Graph](/img/fusion/captures/S53/fixture.comp) · [撮影条件と確認範囲](/img/fusion/captures/S53/capture.json)
+
 ## 共通ルール
 
 - フレーム sizeとDoDを同じだと決めない。

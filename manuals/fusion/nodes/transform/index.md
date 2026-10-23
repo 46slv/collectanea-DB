@@ -83,6 +83,20 @@ DVEのXYZ Rotation、Z Move、Perspectiveで、平面的な画面が傾いて手
 
 [Letterbox](./letterbox)では、映像全体を残して上下に帯を追加するLetterbox/Envelopeと、縦幅いっぱいに拡大して左右を切り出すPan-and-Scanを選べます。どちらも出力は指定した1920×1080です。[Resize](./resize)だけを使う場合は、縦横比をどう維持するかを別途確認してください。
 
+### 実機の参考例：中央を正方形へ切り出す
+
+<!-- capture-reuse:R92 -->
+
+S53ではKeep Centeredオン、Size1080×1080で、1920×1080の中央を切り出しました。Offset Xは420へ自動調整され、右の画像寸法も変わります。
+
+[![1920×1080のチャートをLoader、Crop1、MediaOut1の順に接続した実機Graph](/img/fusion/captures/S53/graph.png)](/img/fusion/captures/S53/graph.png)
+
+[![CropのSize X/Y1080、Offset X420、Y0、Keep Centeredオン、Keep Aspectオフを示すInspector](/img/fusion/captures/S53/inspector.png)](/img/fusion/captures/S53/inspector.png)
+
+[![左1920×1080に対し、右は中央を切り出した1080×1080。文字や格子の大きさを保って左右が欠ける](/img/fusion/captures/S53/compare.png)](/img/fusion/captures/S53/compare.png)
+
+Resolve Studio21.1.0.14／Windows、両Viewer Color／40%。固定Crop例。Auto Crop、Pixel Aspect、Merge後の寸法は未確認。 [再現用Graph](/img/fusion/captures/S53/fixture.comp) · [撮影条件と確認範囲](/img/fusion/captures/S53/capture.json)
+
 ## 解像度と座標の注意点
 
 [Merge](../compositing/merge)ではBackgroundの解像度が合成出力の基準です。Resize・Scale・Crop・LetterboxをBackgroundの前へ置いた場合は、後段の出力サイズも変化し得ます。
