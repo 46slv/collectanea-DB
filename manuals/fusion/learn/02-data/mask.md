@@ -11,7 +11,7 @@ tasks: [mask, isolate-effect, debug]
 prerequisites: [image-data, typed-connections]
 level: foundation
 product_scope: fusion
-updated: "2026-10-17"
+updated: "2026-10-23"
 ---
 
 # マスク（Mask）
@@ -55,6 +55,17 @@ Image → Blur → Output
 ```
 
 この場合、Blurの強さはBlur側、Blurをかける場所はEllipse Mask側が担当します。
+
+<!-- capture-reuse:R03 -->
+### 実機の参考例：効果と範囲の分担
+
+同じBlur Size 20でも、左は全体がぼけ、右はEllipse Maskを接続した楕円内だけにBlur結果が反映されます。
+
+[![S07の実機撮影：効果と範囲の分担の接続](/img/fusion/captures/S07/graph.png)](/img/fusion/captures/S07/graph.png)
+
+[![S07の実機撮影：効果と範囲の分担の表示結果](/img/fusion/captures/S07/compare.png)](/img/fusion/captures/S07/compare.png)
+
+Resolve Studio 21.1.0.14／Windowsで撮影したS07の固定例を再掲しています。[撮影条件と確認範囲](/img/fusion/captures/S07/capture.json)で元の設定を確認できます。
 
 ## Image Alphaとの違い
 

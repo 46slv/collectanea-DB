@@ -44,6 +44,17 @@ conversion node
 - USD scene → uRenderer
 - Deep image → Deep to Image
 
+<!-- capture-reuse:R12 -->
+### 実機の参考例：正常な変換境界
+
+Shapeの例ではsEllipseとMediaOutの間へsRenderを置き、画像化された楕円をViewerで確認します。
+
+[![S04の実機撮影：正常な変換境界の接続](/img/fusion/captures/S04/graph.png)](/img/fusion/captures/S04/graph.png)
+
+[![S04の実機撮影：正常な変換境界の表示結果](/img/fusion/captures/S04/result.png)](/img/fusion/captures/S04/result.png)
+
+Resolve Studio 21.1.0.14／Windowsで撮影したS04の固定例を再掲しています。[撮影条件と確認範囲](/img/fusion/captures/S04/capture.json)で元の設定を確認できます。
+
 ## 主な原因
 
 ### 特殊domainを2D Imageだと思っている

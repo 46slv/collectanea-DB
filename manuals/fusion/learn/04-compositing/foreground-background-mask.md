@@ -30,6 +30,17 @@ suite_surfaces: [fusion]
 
 DaVinci Resolve 21.1 Reference Manualでは、Mergeのオレンジ色inputがBackground、緑色inputがForeground、青色inputがEffect Maskとして説明されています。Maskは3枚目の見た目を足す入力ではなく、Foregroundを合成する範囲を制限します。
 
+<!-- capture-reuse:R05 -->
+### 実機の参考例：Mergeの入力を読む
+
+Text1は緑のForeground、Background1はオレンジのBackgroundへ入り、青いEffect Mask入力はこの例では未接続です。
+
+[![S02の実機撮影：Mergeの入力を読むの端子](/img/fusion/captures/S02/node.png)](/img/fusion/captures/S02/node.png)
+
+[![S02の実機撮影：Mergeの入力を読むの接続](/img/fusion/captures/S02/graph.png)](/img/fusion/captures/S02/graph.png)
+
+Resolve Studio 21.1.0.14／Windowsで撮影したS02の固定例を再掲しています。[撮影条件と確認範囲](/img/fusion/captures/S02/capture.json)で元の設定を確認できます。
+
 ## 最小例
 
 ```text

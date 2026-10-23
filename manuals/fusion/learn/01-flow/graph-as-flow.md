@@ -64,6 +64,15 @@ Nodeが変わっても、まず次を確認します。
 
 複数入力を持つNodeでは、単に「前のNode」ではなく、**それぞれの入力が何の役割か**を確認します。MergeではForegroundとBackgroundの役割が分かれます。
 
+<!-- capture-reuse:R07 -->
+#### 実機の参考例：配置と接続先を分ける
+
+Text1とBackground1の配置だけでなく、それぞれがMerge1のどの入力へつながっているかを読みます。
+
+[![S02の実機撮影：配置と接続先を分けるの接続](/img/fusion/captures/S02/graph.png)](/img/fusion/captures/S02/graph.png)
+
+Resolve Studio 21.1.0.14／Windowsで撮影したS02の固定例を再掲しています。[撮影条件と確認範囲](/img/fusion/captures/S02/capture.json)で元の設定を確認できます。
+
 ### Generator
 
 BackgroundのようなGeneratorは、必ずしも上流画像を必要とせず、Graphの途中から新しい画像を供給できます。

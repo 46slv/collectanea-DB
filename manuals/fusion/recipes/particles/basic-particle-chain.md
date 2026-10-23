@@ -10,7 +10,7 @@ tasks: [particles, emit, render]
 prerequisites: [data-domain]
 level: intermediate
 product_scope: fusion
-updated: "2026-10-04"
+updated: "2026-10-23"
 ---
 
 # 最小Particle chainを作る
@@ -39,6 +39,19 @@ pEmitter → pRender (2D) → Merge / Viewer
 pEmitterは2D ImageではなくParticle setを出力します。
 
 pRenderがParticle setをImageへ変換するため、pEmitterを直接BlurやMergeへつなぐ構成にはしません。
+
+<!-- capture-reuse:R11 -->
+### 実機の参考例：時間による粒子の蓄積
+
+Number 3、Lifespan 80の同じ構成で、フレーム0には3粒、フレーム48には蓄積した多数の粒子が見えます。この例はpRenderの2D出力です。
+
+[![S09の実機撮影：時間による粒子の蓄積の接続](/img/fusion/captures/S09/graph.png)](/img/fusion/captures/S09/graph.png)
+
+[![S09の実機撮影：時間による粒子の蓄積の表示結果](/img/fusion/captures/S09/frame0.png)](/img/fusion/captures/S09/frame0.png)
+
+[![S09の実機撮影：時間による粒子の蓄積の表示結果](/img/fusion/captures/S09/result.png)](/img/fusion/captures/S09/result.png)
+
+Resolve Studio 21.1.0.14／Windowsで撮影したS09の固定例を再掲しています。[撮影条件と確認範囲](/img/fusion/captures/S09/capture.json)で元の設定を確認できます。
 
 ## movementを追加する
 

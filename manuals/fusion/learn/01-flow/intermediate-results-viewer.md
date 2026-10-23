@@ -53,6 +53,15 @@ MediaIn → Transform → Blur → MediaOut
 
 問題Nodeの前後だけをViewerへ切り替え、パラメータは変えずに差を観察します。
 
+<!-- capture-reuse:R08 -->
+### 実機の参考例：入力と処理後を比べる
+
+左はLoader1の入力チャート、右はTransform1の出力です。同じフレームの移動・拡大・回転の差を比較しています。緑の線は編集用Controlです。
+
+[![S06の実機撮影：入力と処理後を比べるの表示結果](/img/fusion/captures/S06/compare.png)](/img/fusion/captures/S06/compare.png)
+
+Resolve Studio 21.1.0.14／Windowsで撮影したS06の固定例を再掲しています。[撮影条件と確認範囲](/img/fusion/captures/S06/capture.json)で元の設定を確認できます。
+
 ## 他のNodeにも応用する
 
 ### Merge chain

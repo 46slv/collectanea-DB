@@ -11,7 +11,7 @@ tasks: [composite, layer]
 prerequisites: [foreground-background]
 level: foundation
 product_scope: fusion
-updated: "2026-10-04"
+updated: "2026-10-23"
 ---
 
 # 2つのImageを重ねる
@@ -42,6 +42,17 @@ Background ─┘
 6. 一部だけ合成したい場合はMaskを青色Effect Mask入力へ接続します。
 
 最初はApply ModeをNormal、OperatorをOverの基本状態で確認すると、入力・配置・Maskの役割を分けやすくなります。
+
+<!-- capture-reuse:R06 -->
+### 実機の参考例：文字を背景へ重ねる
+
+Text+の白い文字をForeground、暗い青のBackgroundをBackgroundへ接続し、Mergeで重ねた結果です。
+
+[![S02の実機撮影：文字を背景へ重ねるの接続](/img/fusion/captures/S02/graph.png)](/img/fusion/captures/S02/graph.png)
+
+[![S02の実機撮影：文字を背景へ重ねるの表示結果](/img/fusion/captures/S02/result.png)](/img/fusion/captures/S02/result.png)
+
+Resolve Studio 21.1.0.14／Windowsで撮影したS02の固定例を再掲しています。[撮影条件と確認範囲](/img/fusion/captures/S02/capture.json)で元の設定を確認できます。
 
 ## 背景を先に決める理由
 
