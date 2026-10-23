@@ -38,6 +38,18 @@ Mask branch ───────┘
 
 次にMaskだけをViewerへ出し、範囲を確認してから接続します。
 
+### 実機の参考例
+
+<!-- capture-reuse:R48 -->
+
+同じチャートからMaskなしのBlurFullと、Ellipse1をEffect MaskへつないだBlur1へ分岐しています。左右で全体のぼかしと楕円内のぼかしを比べられます。
+
+[![S07の実機Node Editorの接続](/img/fusion/captures/S07/graph.png)](/img/fusion/captures/S07/graph.png)
+
+[![S07の左右Viewerの比較](/img/fusion/captures/S07/compare.png)](/img/fusion/captures/S07/compare.png)
+
+Resolve Studio 21.1.0.14／Windowsで撮影したS07の参考例です。正常な参照例です。Level 0、Invert、Paint Mode、Bitmap Channelの不具合を再現・修復したものではありません。 [撮影条件と確認範囲](/img/fusion/captures/S07/capture.json)
+
 ## 主な原因
 
 ### Effect Mask入力へ接続していない

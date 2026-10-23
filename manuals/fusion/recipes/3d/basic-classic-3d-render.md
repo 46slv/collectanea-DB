@@ -39,6 +39,20 @@ Camera ────┼─ Merge 3D → Renderer 3D → 2D Image
 Light ─────┘
 ```
 
+### 実機の参考例
+
+<!-- capture-reuse:R42 -->
+
+Shape3D、Camera3D、PointLightをMerge3Dへまとめ、Renderer3Dで画像化した例です。Software RendererでLightingを有効にし、CameraのZは7です。
+
+[![S11の実機Node Editorの接続](/img/fusion/captures/S11/graph.png)](/img/fusion/captures/S11/graph.png)
+
+[![S11の実機Inspectorの設定値](/img/fusion/captures/S11/inspector.png)](/img/fusion/captures/S11/inspector.png)
+
+[![S11の左右Viewerの比較](/img/fusion/captures/S11/compare.png)](/img/fusion/captures/S11/compare.png)
+
+Resolve Studio 21.1.0.14／Windowsで撮影したS11の参考例です。左は操作用3D Viewer、右はCameraからの2D出力です。同一視点の前後比較ではありません。OpenGL、影、全補助チャンネルは未確認です。 [撮影条件と確認範囲](/img/fusion/captures/S11/capture.json)
+
 ## この構成で動く理由
 
 Merge 3DはClassic 3D scene domainを維持し、Renderer 3Dが2D Imageへrasterizeします。

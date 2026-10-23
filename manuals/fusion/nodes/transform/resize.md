@@ -122,6 +122,20 @@ Resizeは、通常の非HiQレンダーで高速な`Nearest Neighbor`を使う�
 
 [正規化座標](../../learn/03-space/normalized-coordinates)で扱う相対位置と、実際のピクセル寸法は別の概念です。Resizeの後ろにTransformを置く場合、そのTransformの正規化座標はResize後のWidth / Heightが基準になります。また、[Domain of Definition（DoD）](../../learn/03-space/domain-of-definition)はピクセル寸法とは別に、画素データの有効領域を表す概念です。
 
+## 実機の参考例
+
+<!-- capture-reuse:R55 -->
+
+Resize1の幅960／高さ540を指定した例です。左はTransform Size 0.5の1920×1080、右はResize1の960×540です。同じ40%表示でフレームの寸法と余白を比べます。
+
+[![S24の実機Node Editorの接続](/img/fusion/captures/S24/graph.png)](/img/fusion/captures/S24/graph.png)
+
+[![S24の実機Inspectorの設定値](/img/fusion/captures/S24/inspector.png)](/img/fusion/captures/S24/inspector.png)
+
+[![S24の左右Viewerの比較](/img/fusion/captures/S24/compare.png)](/img/fusion/captures/S24/compare.png)
+
+Resolve Studio 21.1.0.14／Windowsで撮影したS24の参考例です。指定寸法の固定例です。非正方形Pixel Aspect、Keep Frame Aspect、各フィルタの画質比較は含みません。 [撮影条件と確認範囲](/img/fusion/captures/S24/capture.json)
+
 ## 出典と確認範囲
 
 DaVinci Resolve 21.1 Reference Manual（September 2026）、Chapter 120「Transform Nodes」、pp.2873–2875。Resizeの入力、出力解像度、Width / Height、Auto Resolution、Reset Size、Keep Frame Aspect、Only Use Filter in HiQ、Change Pixel Aspect、Filter Method、Window Method、Merge Backgroundとの接続例を確認しました。解像度の数値と運用例は、Manualに記載された動作を使って構成した計算例です。

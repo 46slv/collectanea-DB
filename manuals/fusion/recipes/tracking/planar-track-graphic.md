@@ -82,6 +82,20 @@ Planar TrackerとPlanar Transformは、**画像のケーブルで直結しませ
 
 ロゴ画像と撮影素材の解像度が異なる場合は、Transformでの位置合わせだけでなく、素材の**キャンバスサイズや基準位置**も確認します。追跡の誤差と、ロゴ素材の配置の誤差を混同しないことが重要です。
 
+#### 実機の参考例
+
+<!-- capture-reuse:R45 -->
+
+解析したPlanarTrackerから作ったPlanarTransformへ文字を渡して合成しました。既知の右移動3px/frameを使い、フレーム0と60の結果を比べています。フレーム60の移動量は約180pxです。
+
+[![S10の実機Node Editorの接続](/img/fusion/captures/S10/graph.png)](/img/fusion/captures/S10/graph.png)
+
+[![S10の基準フレーム0の合成](/img/fusion/captures/S10/reference.png)](/img/fusion/captures/S10/reference.png)
+
+[![S10のViewer出力](/img/fusion/captures/S10/result.png)](/img/fusion/captures/S10/result.png)
+
+Resolve Studio 21.1.0.14／Windowsで撮影したS10の参考例です。Translationの参考例です。本文の実写看板、Perspective、遮蔽、Steadyの確認は含みません。 [撮影条件と確認範囲](/img/fusion/captures/S10/capture.json)
+
 ## なぜこの構成で動くのか
 
 Planar Trackerは、看板の模様からフレームごとの移動・回転・拡大縮小・遠近変形を解析し、Track splineへ記録します。Create Planar Transformで作ったノードは、その変形を**別の画像**に適用します。Mergeは変形後のロゴと元映像を合成するだけで、追跡計算は担当しません。

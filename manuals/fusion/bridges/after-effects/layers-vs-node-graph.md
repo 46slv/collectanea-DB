@@ -38,6 +38,18 @@ Image B → XF ──┘
 
 Layerの上下だけではなく、どのOutputがどのInputへ入っているかを読みます。
 
+### 実機の参考例
+
+<!-- capture-reuse:R37 -->
+
+Background1とText1が別の枝からMerge1へ合流します。Text1をForeground、Background1をBackgroundへ接続しています。
+
+[![S02の実機Node Editorの接続](/img/fusion/captures/S02/graph.png)](/img/fusion/captures/S02/graph.png)
+
+[![S02のViewer出力](/img/fusion/captures/S02/result.png)](/img/fusion/captures/S02/result.png)
+
+Resolve Studio 21.1.0.14／Windowsで撮影したS02の参考例です。AE側の画面や全レイヤー機能との比較は含みません。 [撮影条件と確認範囲](/img/fusion/captures/S02/capture.json)
+
 ## 共通する考え方
 
 目的としては共通します。

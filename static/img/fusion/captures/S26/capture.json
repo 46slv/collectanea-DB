@@ -1,0 +1,146 @@
+{
+  "schema_version": 1,
+  "case": "S26",
+  "article": "manuals/fusion/learn/03-space/domain-of-definition.md",
+  "manual": {
+    "version": "21.1",
+    "chapter": 68,
+    "printed_pages": "1479–1481"
+  },
+  "runtime": {
+    "version": "21.1.0.14",
+    "edition": "Studio",
+    "os": "Windows-11-10.0.26200-SP0",
+    "ui_language": "ja-JP (some Shape controls remain English)"
+  },
+  "captured_at": "2026-10-23T16:00:26.953542+00:00",
+  "project": "Collectanea_Captures_20261023_Sol",
+  "timeline": "S26_capture",
+  "frame": 0.0,
+  "resolution": [
+    1920,
+    1080
+  ],
+  "color_management": {
+    "colorScienceMode": "davinciYRGB",
+    "colorSpaceTimeline": "Rec.709 (Scene)",
+    "colorSpaceTimelineGamma": "",
+    "colorSpaceOutput": "Rec.709 (Scene)",
+    "colorSpaceOutputGamma": "ACEScc",
+    "separateColorSpaceAndGamma": "0",
+    "isAutoColorManage": "0",
+    "timelineResolutionWidth": "1920",
+    "timelineResolutionHeight": "1080",
+    "timelineFrameRate": 24.0,
+    "timelinePlaybackFrameRate": "30"
+  },
+  "viewer": {
+    "zoom_percent": 40,
+    "channel": "Color",
+    "background": "checkerboard for transparent pixels",
+    "note": "DoD/RoI overlays only. Text1 selected for Inspector; MediaOut selected for image region overlays. Cached pixels outside RoI remain visible; no render performance or cropping claim."
+  },
+  "graph": "fixture.comp",
+  "settings": "readback.json",
+  "source": {
+    "file": "screen.png",
+    "size": [
+      3352,
+      1910
+    ],
+    "sha256": "248ae271f954f9f239ebc896be1fc031bd7ccbfe5329011929497fb483e9915d"
+  },
+  "shots": [
+    {
+      "file": "graph.png",
+      "source": "screen.png",
+      "source_sha256": "248ae271f954f9f239ebc896be1fc031bd7ccbfe5329011929497fb483e9915d",
+      "frame": 0.0,
+      "crop_xyxy": [
+        900,
+        1300,
+        1940,
+        1440
+      ],
+      "resampled": false,
+      "sha256": "8e6ce64674c0091390506a394e5e110f93a1b4070191f367f18478792841a33f"
+    },
+    {
+      "file": "inspector.png",
+      "source": "screen-inspector.png",
+      "source_sha256": "2b7c4c22dc43bde1c19b5e90b5199e7e81f7ff6adb0dc32dee91eb57de1469a0",
+      "frame": 0.0,
+      "crop_xyxy": [
+        2830,
+        120,
+        3352,
+        940
+      ],
+      "resampled": false,
+      "sha256": "5b57a9639ff06a80b733addc7e5abb64d37c8232a96095b4d2b14a150390ca5d"
+    },
+    {
+      "file": "dod.png",
+      "source": "screen.png",
+      "source_sha256": "248ae271f954f9f239ebc896be1fc031bd7ccbfe5329011929497fb483e9915d",
+      "frame": 0.0,
+      "crop_xyxy": [
+        1146,
+        65,
+        2830,
+        705
+      ],
+      "resampled": false,
+      "sha256": "1e9d6140175d5b7f27609ea3fcaadf1b8389975386c9af5cf2786f1194dbfe0f"
+    },
+    {
+      "file": "roi.png",
+      "source": "screen-roi.png",
+      "source_sha256": "b5734d278ec77cbb769100503885d7d61e614c19db75f1067709cfc429fb2e27",
+      "frame": 0.0,
+      "crop_xyxy": [
+        1146,
+        65,
+        2830,
+        705
+      ],
+      "resampled": false,
+      "sha256": "2bdd32e3c4fce3b7f10486e24f3f9327d4f9fb68c2b4c6eebd02b3f1dbe8d03d"
+    }
+  ],
+  "acceptance": {
+    "gui": "PASS: owner visually inspected node connections, selected Inspector, and output",
+    "article_display": "PASS: local production build; 1440px/390px,decode/Alt/native links/hash/overflow"
+  },
+  "unverified": [
+    "Free edition and other platforms",
+    "All parameter ranges and performance",
+    "RoI recomputation/performance",
+    "DoD propagation through Blur, Crop and Transform",
+    "Exported portable composition reimport"
+  ],
+  "restoration": {
+    "file": "screen-restored.png",
+    "result": "PASS: DoD/ShowRoI/EnableRoI off; visually checked"
+  },
+  "additional_sources": [
+    {
+      "file": "screen-inspector.png",
+      "purpose": "Reviewed native display variant"
+    },
+    {
+      "file": "screen-restored.png",
+      "purpose": "Reviewed native display variant"
+    },
+    {
+      "file": "screen-roi.png",
+      "purpose": "Reviewed native display variant"
+    }
+  ],
+  "reproduction": {
+    "fixture_sha256": "804c9a6a8242583366d49c8901e5c4173bd1d7142c10313e0816efb74f6cc30d",
+    "readback_sha256": "cfc4807153c165dbb29616485633bffb05ac4965a3a4fe22b149a25f2414112a",
+    "paths": "Comp:/../_fixtures/ for bundled synthetic fixtures",
+    "reimport": "NOT_RUN: accepted GUI evidence precedes export path normalization"
+  }
+}

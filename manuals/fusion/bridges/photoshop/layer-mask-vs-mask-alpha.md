@@ -41,6 +41,20 @@ Photoshop Layer Maskの経験は「処理範囲を別dataとして持つ」と�
 
 ただしFusionではEffect MaskとImage Alphaは別責任です。
 
+### 実機の参考例
+
+<!-- capture-reuse:R40 -->
+
+同じEllipseを、左はBlurのEffect Mask、右はLoaderへ直接つないだ例です。Color表示の処理範囲と、Alpha表示の透明度を別々に確認できます。
+
+[![S25の実機Node Editorの接続](/img/fusion/captures/S25/graph.png)](/img/fusion/captures/S25/graph.png)
+
+[![S25の左右Viewerの比較](/img/fusion/captures/S25/compare.png)](/img/fusion/captures/S25/compare.png)
+
+[![S25の両ViewerのAlpha表示](/img/fusion/captures/S25/alpha.png)](/img/fusion/captures/S25/alpha.png)
+
+Resolve Studio 21.1.0.14／Windowsで撮影したS25の参考例です。PhotoshopのLayer Maskと同一の機能だとする比較ではありません。Matte ControlやPremultiplicationは含みません。 [撮影条件と確認範囲](/img/fusion/captures/S25/capture.json)
+
 ## 共通する考え方
 
 - 元画像（Source Image）を直接破壊せず、範囲を別に持つ

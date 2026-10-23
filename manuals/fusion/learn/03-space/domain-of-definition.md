@@ -117,6 +117,26 @@ Aの出力がViewerに見えなくても、後段Bで戻せる場合がありま
 
 RoI外に以前のピクセルが残って見えることがあります。これは、その領域が新たに計算されていないことによる表示上の状態であり、元データの欠落を意味しません。特に画面サイズや色深度を変えた後は、RoI外がCanvas colorでリセットされる場合があります。
 
+## 実機でDoDとRoIの矩形を見る
+
+DaVinci Resolve Studio 21.1.0.14、Windows、日本語UIで、Text+の文字だけを表示して比較しました。
+
+[![Text1からMediaOut1へ直接接続した実機Node Editor](/img/fusion/captures/S26/graph.png)](/img/fusion/captures/S26/graph.png)
+
+[![Text1の日本語Inspector。文字列DoD、Arial Bold、Size 0.18](/img/fusion/captures/S26/inspector.png)](/img/fusion/captures/S26/inspector.png)
+
+[![左Viewerは文字DoDの通常表示、右Viewerは文字の周囲にDoDの点線矩形と座標を表示](/img/fusion/captures/S26/dod.png)](/img/fusion/captures/S26/dod.png)
+
+左右とも1920×1080、フレーム0、40%で同じText1を表示しています。右だけDoDを表示すると、フレーム全体より小さい文字周辺の矩形を確認できます。この撮影では矩形の座標が左下722,438、右上1203,621と表示されました。
+
+[![右Viewerに文字を囲むDoDの点線と、それと異なる範囲のRoIの白いハンドル付き矩形を同時表示](/img/fusion/captures/S26/roi.png)](/img/fusion/captures/S26/roi.png)
+
+次に右ViewerでRoIを描きました。白いハンドルの付いたRoIは505,287から1005,738、文字に沿う点線はDoDです。両者の範囲は一致していません。RoIの外にも以前の文字が見えているので、この画面を「RoI外のピクセルが消えた」結果としては扱いません。
+
+範囲表示の確認後はDoD表示とRoIを解除し、通常表示へ戻したことを確認しました。処理時間、RoI外の再計算、BlurやCropを通したDoDの変化はこの固定例には含めていません。
+
+[再現用Graph](/img/fusion/captures/S26/fixture.comp) · [撮影条件と確認範囲](/img/fusion/captures/S26/capture.json)
+
 ## DoDを調整するNode
 
 通常は自動計算を使いますが、素材の状態によってはDoDを明示的に扱うNodeが有効です。

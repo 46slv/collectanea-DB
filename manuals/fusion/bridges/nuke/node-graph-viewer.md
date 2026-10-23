@@ -35,6 +35,18 @@ source
 
 選択NodeをViewerへ送り、中間結果を観察する診断 habitはFusionでもそのまま役立ちます。
 
+### 実機の参考例
+
+<!-- capture-reuse:R39 -->
+
+Loader1の画像をTransform1へ渡し、左右Viewerで入力と変形後を表示しています。Viewer上部の対象名も接続と対応させて読みます。
+
+[![S06の実機Node Editorの接続](/img/fusion/captures/S06/graph.png)](/img/fusion/captures/S06/graph.png)
+
+[![S06の左右Viewerの比較](/img/fusion/captures/S06/compare.png)](/img/fusion/captures/S06/compare.png)
+
+Resolve Studio 21.1.0.14／Windowsで撮影したS06の参考例です。Nukeの画面・ショートカットやGroup内部の操作は含みません。 [撮影条件と確認範囲](/img/fusion/captures/S06/capture.json)
+
 ## 共通する考え方
 
 - 明示的なNode接続

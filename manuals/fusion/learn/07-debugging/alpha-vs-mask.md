@@ -123,6 +123,28 @@ Alphaの形が正しく、Maskを外しても境界の色だけがおかしい�
 
 輪郭の明暗だけを見て原因を断定することはできません。まず入力画像とMerge直前のRGB・Alphaを比較し、読み込み時のAlpha解釈、色補正、Merge設定を順に確認します。詳しくは[プリマルチプライ（Premultiplication）](../04-compositing/premultiplication.md)を参照してください。
 
+## 実機で同じMaskの接続先を比べる
+
+DaVinci Resolve Studio 21.1.0.14、Windows、日本語UIで、同じチャートとEllipseを使って比較しました。左の枝はBlurのEffect Maskへ、右の枝はLoaderへ直接Maskを接続しています。
+
+[![同じEllipse1をBlurMaskの青い入力と別のchart.png Loaderの青い入力へ接続した実機Node Editor](/img/fusion/captures/S25/graph.png)](/img/fusion/captures/S25/graph.png)
+
+2つのLoaderはどちらもchart.pngと表示されます。内部名は下段がLoaderOpaque、上段がLoaderCutoutです。BlurMaskのBlur Sizeは20にしています。
+
+[![Ellipse1 Inspector。Center 0.5と0.5、Width 0.55、Height 0.5、Soft Edge 0.02](/img/fusion/captures/S25/inspector.png)](/img/fusion/captures/S25/inspector.png)
+
+[![Color表示の左右Viewer。左は楕円内だけぼけた四角いチャート、右は楕円外が透明に切り抜かれたチャート](/img/fusion/captures/S25/compare.png)](/img/fusion/captures/S25/compare.png)
+
+Color表示では、左は楕円内だけがぼけ、楕円外にも元のチャートが残ります。右は楕円外が透明で、市松模様が見えます。緑色の楕円や赤い軸は選択中のMaskの操作表示です。
+
+[![同じ出力をAlpha表示にした左右Viewer。左はフレーム全面白、右は黒地に白い楕円と柔らかい境界](/img/fusion/captures/S25/alpha.png)](/img/fusion/captures/S25/alpha.png)
+
+同じ出力をAlpha表示へ切り替えると、左は全面白のまま、右は楕円の外が黒くなります。この例ではBlurのEffect Maskは処理範囲を限定し、Loaderへの直接Maskは透明度に反映されています。青い端子という色だけでなく、接続先と出力Alphaを確認します。
+
+1920×1080、フレーム0、両Viewer 40%で撮影し、確認後はColor表示へ戻しました。Matte Control、Glow Mask、Premultiplicationの各例を実行した証拠ではありません。
+
+[再現用Graph](/img/fusion/captures/S25/fixture.comp) · [撮影条件と確認範囲](/img/fusion/captures/S25/capture.json)
+
 ## 症状から確認箇所を決める
 
 | 症状 | 最初に見る場所 | 確認・修正の方向 |
