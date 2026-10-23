@@ -62,6 +62,18 @@ MultiMergeは、Foregroundを追加するたびに新しい入力とLayer List�
 
 各Layerは独立したMerge controlsを持つため、位置・大きさ・合成方法などをLayer単位で管理できます。
 
+### 実機の参考例
+
+<!-- capture-reuse:R64 -->
+
+MultiMergeではInspectorのLayer Listで重なり順を確認できます。掲載例はRed1をGold1より上にした状態で、右Viewerでは赤い長方形が楕円の前に重なります。
+
+[![S27の実機撮影。Inspectorの設定](/img/fusion/captures/S27/inspector.png)](/img/fusion/captures/S27/inspector.png)
+
+[![S27の実機撮影。Layer順を変えた出力](/img/fusion/captures/S27/order.png)](/img/fusion/captures/S27/order.png)
+
+Resolve Studio 21.1.0.14／Windowsで撮影したS27の参考例です。2つのLayerを使う固定例です。Split HereやLayer順のアニメーションは未確認です。 [撮影条件と確認範囲](/img/fusion/captures/S27/capture.json)
+
 ## Dissolve
 
 ```text

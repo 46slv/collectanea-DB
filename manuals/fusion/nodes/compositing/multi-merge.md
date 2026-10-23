@@ -134,6 +134,32 @@ MultiMergeが常にMerge chainより良いわけではありません。
 
 詳しくは[Merge chainとMultiMergeを選ぶ](../../patterns/compositing/choose-merge-vs-multimerge)を参照してください。
 
+## 実機でLayerの有効状態と順序を比べる
+
+Resolve Studio 21.1.0.14、Windows、日本語UIで撮影しました。青いBase1をBackgroundにし、赤い長方形のRed1とオレンジの楕円のGold1を別のForegroundへ接続しています。
+
+[![RectangleとEllipseで形を作った2つのBackground画像をMultiMergeの別Foregroundへ、Base1をBackgroundへ接続する実機Graph](/img/fusion/captures/S27/graph.png)](/img/fusion/captures/S27/graph.png)
+
+[![MultiMerge Inspector。Layer ListでGold1が上、Red1が下、両方のチェックがオン](/img/fusion/captures/S27/inspector.png)](/img/fusion/captures/S27/inspector.png)
+
+[![左はRed1だけの赤い長方形、右は青い背景上でGold1の楕円が長方形の前に重なるMultiMerge出力](/img/fusion/captures/S27/compare.png)](/img/fusion/captures/S27/compare.png)
+
+最初はLayer Listの上がGold1、下がRed1です。右Viewerでは楕円が長方形の前に見えます。左は接続元のRed1だけを表示しています。
+
+[![Layer ListにGold1を残したままチェックを外し、Red1だけを有効にしたInspector](/img/fusion/captures/S27/disabled-inspector.png)](/img/fusion/captures/S27/disabled-inspector.png)
+
+[![Gold1の接続を残して無効にした結果。右Viewerは青い背景と赤い長方形だけになる](/img/fusion/captures/S27/disabled.png)](/img/fusion/captures/S27/disabled.png)
+
+Gold1のチェックを外すと、Nodeや配線を削除せずに楕円だけを合成から外せます。
+
+[![両Layerを有効に戻し、Layer ListでRed1をGold1より上へ並べ替えたInspector](/img/fusion/captures/S27/order-inspector.png)](/img/fusion/captures/S27/order-inspector.png)
+
+[![Layer順を変えたMultiMerge出力。右Viewerでは赤い長方形がオレンジの楕円の前に重なる](/img/fusion/captures/S27/order.png)](/img/fusion/captures/S27/order.png)
+
+Gold1を有効に戻し、Red1を上へ並べ替えると、今度は長方形が前に重なります。Node Editorの配置と接続は同じです。1920×1080、フレーム0、両Viewer 40%で比較しました。緑の線や赤い軸は操作表示です。再現用Graphは最後のRed1が上の状態です。Rename、Split Here、Layer削除、順序のKeyframe化は確認していません。
+
+[再現用Graph](/img/fusion/captures/S27/fixture.comp) · [撮影条件と確認範囲](/img/fusion/captures/S27/capture.json)
+
 ## 関連する考え方
 
 - [Foreground / Background / Mask](../../learn/04-compositing/foreground-background-mask)
@@ -151,4 +177,4 @@ MultiMergeが常にMerge chainより良いわけではありません。
 
 DaVinci Resolve 21.1 Reference Manual、September 2026、Chapter 94、pp.2220–2223で、動的Foreground入力、Layer Listの順序、Layer選択、Split、Rename、Delete、Enable / Disable、未接続Layer保持、Layer Listのkeyframe、Layerごとの独立Merge controls、Background基準の出力解像度を確認しました。
 
-実用上扱える最大Layer数、内部REGID、Edition差、大規模Layer stackでの性能は未確認のため `verification: partial` を維持します。
+実用上扱える最大Layer数、Edition差、大規模Layer stackでの性能は未確認のため `verification: partial` を維持します。

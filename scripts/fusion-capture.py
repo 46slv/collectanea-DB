@@ -19,6 +19,9 @@ LEFT.update({key:'RenderBase1' for key in ['S19','S20','S21','S22']})
 TARGETS.update({'S23':'Transform1','S24':'Resize1','S25':'Ellipse1','S26':'Text1'})
 RIGHT.update({'S23':'Transform1','S24':'Resize1','S25':'LoaderCutout','S26':'Text1'})
 LEFT.update({'S23':'SourceB','S24':'Transform1','S25':'BlurMask','S26':'Text1'})
+TARGETS.update({'S27':'MultiMerge1','S28':'Ellipse1','S29':'Dissolve1','S30':'Displace1'})
+RIGHT.update({'S27':'MultiMerge1','S28':'MergeMasked','S29':'Dissolve1','S30':'Displace1'})
+LEFT.update({'S27':'Red1','S28':'MergeFull','S29':'Loader1','S30':'Loader1'})
 r=d.scriptapp('Resolve')
 assert r, 'Resolve scripting unavailable; do not change preferences automatically'
 pm=r.GetProjectManager(); p=pm.GetCurrentProject()
@@ -29,6 +32,8 @@ if action=='final':
  assert case=='S23';RIGHT[case]='Merge1';LEFT[case]='SourceA';action='show'
 if action=='scale':
  assert case=='S24';TARGETS[case]='Scale1';LEFT[case]='Scale1';action='show'
+if action=='map':
+ assert case=='S30';TARGETS[case]='NoiseMap1';LEFT[case]='NoiseMap1';action='show'
 timelines={p.GetTimelineByIndex(i).GetName().split('_')[0]:p.GetTimelineByIndex(i) for i in range(1,p.GetTimelineCount()+1)}
 if case not in timelines:
  assert action=='build'
@@ -105,10 +110,17 @@ def select(target,left=None):
  layouts['S24']={'Loader1':(0,0),'Transform1':(2,-2),'Scale1':(2,0),'Resize1':(2,2),'MediaOut1':(4,2)}
  layouts['S25']={'LoaderOpaque':(0,0),'BlurMask':(2,0),'Ellipse1':(2,-2),'LoaderCutout':(4,-2),'MediaOut1':(6,-2)}
  layouts['S26']={'Text1':(0,0),'MediaOut1':(2,0)}
+ layouts['S27']={'Base1':(0,2),'Rectangle1':(0,-2),'Red1':(1.5,-2),'Ellipse1':(1.5,0),'Gold1':(3,0),'MultiMerge1':(4.5,2),'MediaOut1':(6,2)}
+ layouts['S28']={'Base1':(0,2),'Red1':(0,0),'Ellipse1':(2,-2),'MergeFull':(2,3.5),'MergeMasked':(4,2),'MediaOut1':(6,2)}
+ layouts['S29']={'Loader1':(0,0),'Gold1':(0,-2),'Dissolve1':(2,0),'MediaOut1':(4,0)}
+ layouts['S30']={'Loader1':(0,0),'NoiseMap1':(0,-2),'Displace1':(2,0),'MediaOut1':(4,0)}
  for n,pos in layouts.get(case,{}).items():
   if n in tools:flow.SetPos(tools[n],*pos)
+ if case=='S27':flow.SetScale(1.0)
  flow.FrameAll()
  c.SetActiveTool(target)
+ # A newly rendered branch can return a Viewer to Fit after tool selection.
+ for name in ['LeftView','RightView']:previews[name].View.SetScale(.4)
 target=None
 if action=='build':
  assert case=='S01' or len(tools)==1, 'Refusing to rebuild an existing case'
@@ -140,6 +152,27 @@ if action=='build':
   rb=add('sRender','RenderBase1',4,-1);connect(rb,'Input',base)
   target=add('sTransform','Transform1',2,1);connect(target,'Input',base)
   rr=add('sRender','RenderChanged1',4,1);connect(rr,'Input',target);connect(mo,'Input',rr)
+ elif case=='S27':
+  bg=add('Background','Base1',0,2,TopLeftRed=.025,TopLeftGreen=.075,TopLeftBlue=.13)
+  rect=add('RectangleMask','Rectangle1',0,-2,Width=.5,Height=.35,Center={1:.43,2:.5})
+  red=add('Background','Red1',2,-2,TopLeftRed=.8,TopLeftGreen=.06,TopLeftBlue=.05);connect(red,'EffectMask',rect)
+  ell=add('EllipseMask','Ellipse1',2,0,Width=.35,Height=.5,Center={1:.6,2:.5})
+  gold=add('Background','Gold1',4,0,TopLeftRed=1,TopLeftGreen=.5,TopLeftBlue=.05);connect(gold,'EffectMask',ell)
+  target=add('MultiMerge','MultiMerge1',6,2);connect(target,'Background',bg);connect(target,'Layer1.Foreground',red);connect(target,'Layer2.Foreground',gold);connect(mo,'Input',target)
+ elif case=='S28':
+  bg=add('Background','Base1',0,2,TopLeftRed=.025,TopLeftGreen=.075,TopLeftBlue=.13)
+  red=add('Background','Red1',0,0,TopLeftRed=.8,TopLeftGreen=.06,TopLeftBlue=.05)
+  target=add('EllipseMask','Ellipse1',2,-2,Width=.5,Height=.55,SoftEdge=.02)
+  full=add('Merge','MergeFull',2,2);connect(full,'Background',bg);connect(full,'Foreground',red)
+  masked=add('Merge','MergeMasked',4,2);connect(masked,'Background',bg);connect(masked,'Foreground',red);connect(masked,'EffectMask',target);connect(mo,'Input',masked)
+ elif case=='S29':
+  loader=add('Loader','Loader1',0,0,Clip=str(REPO/'static/img/fusion/captures/_fixtures/chart.png'))
+  gold=add('Background','Gold1',0,-2,TopLeftRed=1,TopLeftGreen=.5,TopLeftBlue=.05)
+  target=add('Dissolve','Dissolve1',2,0,Mix=.5);connect(target,'Background',loader);connect(target,'Foreground',gold);connect(mo,'Input',target)
+ elif case=='S30':
+  loader=add('Loader','Loader1',0,0,Clip=str(REPO/'static/img/fusion/captures/_fixtures/chart.png'))
+  noise=add('FastNoise','NoiseMap1',0,-2,Detail=4,Contrast=2,XScale=6,YScale=6)
+  target=add('Displace','Displace1',2,0,RefractionStrength=.06);connect(target,'Input',loader);connect(target,'Foreground',noise);connect(mo,'Input',target)
  elif case=='S23':
   bg=add('Background','SourceA',0,2,TopLeftRed=.025,TopLeftGreen=.075,TopLeftBlue=.13)
   tx=text('SourceB',0,-2,'FUSION',.14)

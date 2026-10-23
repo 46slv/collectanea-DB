@@ -5,7 +5,9 @@ import assert from 'node:assert/strict';
 import {createHash} from 'node:crypto';
 const candidates=JSON.parse(await fs.readFile('docs/fusion-screenshot-candidates.json','utf8'));
 const entries=[...candidates.candidates.filter(c=>['captured-embedded-unverified','captured-local-display-verified','published-display-verified'].includes(c.status)),...(candidates.reuses||[]).filter(c=>c.status!=='planned')];
-const ids=process.argv.slice(2).length?process.argv.slice(2):entries.map(c=>c.id);
+// An article can explain several accepted cases. Verify its complete set once,
+// rather than treating each source entry as the article's entire image list.
+const ids=process.argv.slice(2).length?process.argv.slice(2):[...new Map(entries.map(c=>[c.article,c.id])).values()];
 const out=process.env.CAPTURE_EVIDENCE_DIR||'artifacts/fusion-captures';
 await fs.mkdir(out,{recursive:true});
 const channel=process.env.CAPTURE_BROWSER_CHANNEL||(process.platform==='win32'?'msedge':undefined);
@@ -19,15 +21,20 @@ try {
  for(const id of ids){
   const candidate=entries.find(c=>c.id===id);
   assert.ok(candidate,id+' is not an embedded capture or reuse entry');
-  const sourceCase=candidate.source_case||id;
+  const articleEntries=entries.filter(c=>c.article===candidate.article);
+  const sourceCases=[...new Set(articleEntries.map(c=>c.source_case||c.id))];
   const route=candidate.article.replace(/\.mdx?$/,'').replace(/\/index$/,'');
   const response=await page.goto(`${report.origin}/collectanea-DB/${route}`,{waitUntil:'networkidle'});
   assert.equal(response.status(),200,route);
   const shots=page.locator('article img');
-  const manifest=JSON.parse(await fs.readFile(`static/img/fusion/captures/${sourceCase}/capture.json`,'utf8'));
-  const expectedFiles=candidate.images||manifest.shots.map(s=>s.file);
+  const expectedFiles=[];
+  for(const entry of articleEntries){
+   const sourceCase=entry.source_case||entry.id;
+   const manifest=JSON.parse(await fs.readFile(`static/img/fusion/captures/${sourceCase}/capture.json`,'utf8'));
+   for(const file of entry.images||manifest.shots.map(s=>s.file))expectedFiles.push({sourceCase,file});
+  }
   assert.equal(await shots.count(),expectedFiles.length,id+' missing article shots');
-  const expectedCropHashes=new Set(await Promise.all(expectedFiles.map(async file=>digest(await fs.readFile(`static/img/fusion/captures/${sourceCase}/${file}`)))));
+  const expectedCropHashes=new Set(await Promise.all(expectedFiles.map(async ({sourceCase,file})=>digest(await fs.readFile(`static/img/fusion/captures/${sourceCase}/${file}`)))));
   const linkedCropHashes=new Set();
   const images=[];
   for(const img of await shots.all()){
@@ -55,12 +62,12 @@ try {
    await page.screenshot({path:path.join(out,`${id}-mobile.png`)});
   }
   await page.setViewportSize({width:1440,height:1000});
-  for(const filename of ['fixture.comp','capture.json','screen.png']){
+  for(const sourceCase of sourceCases)for(const filename of ['fixture.comp','capture.json','screen.png']){
    const asset=await context.request.get(`${report.origin}/collectanea-DB/img/fusion/captures/${sourceCase}/${filename}`);
    assert.equal(asset.status(),200,id+'/'+filename);
    assert.equal(digest(await asset.body()),digest(await fs.readFile(`static/img/fusion/captures/${sourceCase}/${filename}`)),id+'/'+filename+' must match final local source');
   }
-  report.checks.push({id,status:'PASS',route,images});
+  report.checks.push({id,ids:articleEntries.map(c=>c.id),status:'PASS',route,images});
  }
  assert.equal(report.errors.length,0);
 } catch(e){report.errors.push(String(e));process.exitCode=1;}

@@ -1,0 +1,145 @@
+{
+  "schema_version": 1,
+  "case": "S29",
+  "article": "manuals/fusion/nodes/compositing/dissolve.md",
+  "manual": {
+    "version": "21.1",
+    "chapter": 94,
+    "printed_pages": "2208–2210"
+  },
+  "runtime": {
+    "version": "21.1.0.14",
+    "edition": "Studio",
+    "os": "Windows-11-10.0.26200-SP0",
+    "ui_language": "ja-JP (some Shape controls remain English)"
+  },
+  "captured_at": "2026-10-23T16:30:57.047390+00:00",
+  "project": "Collectanea_Captures_20261023_Sol",
+  "timeline": "S29_capture",
+  "frame": 0.0,
+  "resolution": [
+    1920,
+    1080
+  ],
+  "color_management": {
+    "colorScienceMode": "davinciYRGB",
+    "colorSpaceTimeline": "Rec.709 (Scene)",
+    "colorSpaceTimelineGamma": "",
+    "colorSpaceOutput": "Rec.709 (Scene)",
+    "colorSpaceOutputGamma": "ACEScc",
+    "separateColorSpaceAndGamma": "0",
+    "isAutoColorManage": "0",
+    "timelineResolutionWidth": "1920",
+    "timelineResolutionHeight": "1080",
+    "timelineFrameRate": 24.0,
+    "timelinePlaybackFrameRate": "30"
+  },
+  "viewer": {
+    "zoom_percent": 40,
+    "channel": "Color",
+    "background": "checkerboard for transparent pixels",
+    "note": "Viewer screenshots are display evidence, not colorimetric exports."
+  },
+  "graph": "fixture.comp",
+  "settings": "readback.json",
+  "source": {
+    "file": "screen.png",
+    "size": [
+      3352,
+      1910
+    ],
+    "sha256": "90e26b2ac3a20a50e928666e3d6a1dbc94ee2217940b9df2bb293a361deb240d"
+  },
+  "shots": [
+    {
+      "file": "graph.png",
+      "source": "screen.png",
+      "source_sha256": "90e26b2ac3a20a50e928666e3d6a1dbc94ee2217940b9df2bb293a361deb240d",
+      "frame": 0.0,
+      "crop_xyxy": [
+        580,
+        1190,
+        2280,
+        1555
+      ],
+      "resampled": false,
+      "sha256": "649b9c6c15df4012ac63832f54cf637d41425a8bca698de597989a62e8d8358c"
+    },
+    {
+      "file": "inspector.png",
+      "source": "screen.png",
+      "source_sha256": "90e26b2ac3a20a50e928666e3d6a1dbc94ee2217940b9df2bb293a361deb240d",
+      "frame": 0.0,
+      "crop_xyxy": [
+        2830,
+        120,
+        3352,
+        300
+      ],
+      "resampled": false,
+      "sha256": "faa00d58632684e6f2bcd9eaff8d2285eb2b3067f35c05482e9025ad14b7055f"
+    },
+    {
+      "file": "compare.png",
+      "source": "screen.png",
+      "source_sha256": "90e26b2ac3a20a50e928666e3d6a1dbc94ee2217940b9df2bb293a361deb240d",
+      "frame": 0.0,
+      "crop_xyxy": [
+        1146,
+        65,
+        2830,
+        705
+      ],
+      "resampled": false,
+      "sha256": "6b4196cc99ad560437bd922a0f3b1aa5483acf8d12a66e013461b1cfc176421b"
+    },
+    {
+      "file": "background.png",
+      "source": "screen-background.png",
+      "source_sha256": "34cabc77c9843416c16c15ab778c70abc18c1f8a2fd9fb4145be94fe41ae059b",
+      "frame": 0.0,
+      "crop_xyxy": [
+        1146,
+        65,
+        2830,
+        705
+      ],
+      "resampled": false,
+      "sha256": "1f896ef27b45c921bceca65b42e3caf9edac6fe9063470a0dabefe065688897f"
+    },
+    {
+      "file": "foreground.png",
+      "source": "screen-foreground.png",
+      "source_sha256": "5e55a1acb78c0a1c016d4eacd7a1f8a8366afbd4ab3aac3615f1c657ce763f87",
+      "frame": 0.0,
+      "crop_xyxy": [
+        1146,
+        65,
+        2830,
+        705
+      ],
+      "resampled": false,
+      "sha256": "a70cf307a2c14b1678d556ea4fbe831ccc0956d7e64f85eb8803c8e56ea9a19a"
+    }
+  ],
+  "acceptance": {
+    "gui": "PASS: owner visually inspected node connections, selected Inspector, and output",
+    "article_display": "PASS: local production build;1440px/390px,decode/Alt/native links/hash/overflow"
+  },
+  "unverified": [
+    "Free edition and other platforms",
+    "All parameter ranges and performance",
+    "Exported portable composition reimport"
+  ],
+  "state_variants": {
+    "screen.png": "Mix0.5",
+    "screen-background.png": "Mix0",
+    "screen-foreground.png": "Mix1"
+  },
+  "reproduction": {
+    "fixture_sha256": "dbc531445b0c28f0513ae85e2a93533bba9ba85035b4f96dd4539934df627010",
+    "readback_sha256": "8b330ef56a698651cbc06e1fef187268610f062151ced6ace882ed36cc402e2d",
+    "paths": "Comp:/../_fixtures/ for bundled synthetic fixtures",
+    "reimport": "NOT_RUN: accepted GUI evidence precedes export path normalization"
+  }
+}

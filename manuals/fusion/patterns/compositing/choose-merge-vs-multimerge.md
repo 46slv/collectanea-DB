@@ -77,6 +77,20 @@ Element C ───┤
 - [複数ImageをMultiMergeでまとめる](../../recipes/compositing/multi-merge-layers)
 - [2つのImageを重ねる](../../recipes/compositing/two-image-merge)
 
+## 実機の参考例
+
+<!-- capture-reuse:R63 -->
+
+MultiMergeの2つのForegroundをLayer Listで扱う例です。Graphの配線を変えずに、Layer ListのRed1を上へ並べ替えて長方形を前に出しています。
+
+[![S27の実機撮影。Node Editorの接続](/img/fusion/captures/S27/graph.png)](/img/fusion/captures/S27/graph.png)
+
+[![S27の実機撮影。Inspectorの設定](/img/fusion/captures/S27/inspector.png)](/img/fusion/captures/S27/inspector.png)
+
+[![S27の実機撮影。Layer順を変えた出力](/img/fusion/captures/S27/order.png)](/img/fusion/captures/S27/order.png)
+
+Resolve Studio 21.1.0.14／Windowsで撮影したS27の参考例です。同じ素材を使った長いMerge chainとの全Control比較、Layer削除、順序のKeyframe化は含めていません。 [撮影条件と確認範囲](/img/fusion/captures/S27/capture.json)
+
 ## 関連Node
 
 - [合成ノード（Compositing）](../../nodes/compositing/)

@@ -127,6 +127,26 @@ Foreground Imageは変位量を決めるための入力です。マップの明�
 | 画面全体が激しく歪む | Refractionの強さを抑え、必要な範囲をEffect Maskで限定します。 |
 | 意図しない明暗が出る | Light Power / Light Angle / Light Channelを確認し、まず変位だけの結果と比較します。 |
 
+## 実機でmapと変位結果を比べる
+
+Resolve Studio 21.1.0.14、Windows、日本語UIで、テストチャートとFast Noiseを使って撮影しました。
+
+[![chart.pngをDisplace1のInputへ、NoiseMap1をForegroundへ接続した実機Node Editor](/img/fusion/captures/S30/graph.png)](/img/fusion/captures/S30/graph.png)
+
+[![Displace1 Inspector。種類は放射状、屈折チャンネルは輝度、屈折の強度0.06、ライトの強度0](/img/fusion/captures/S30/inspector.png)](/img/fusion/captures/S30/inspector.png)
+
+[![左はまっすぐな格子の入力チャート、右はDisplaceで格子や外枠が波打つ出力](/img/fusion/captures/S30/compare.png)](/img/fusion/captures/S30/compare.png)
+
+Radial、Refraction ChannelはLuminance、Refraction Strengthは0.06です。Light Powerは0にし、明暗を足す照明効果を使わずに変位を見ています。
+
+[![NoiseMap1のFast Noise Inspector。Detail 4、Contrast 2、X/YをロックしScale 6、Seethe 0](/img/fusion/captures/S30/map-inspector.png)](/img/fusion/captures/S30/map-inspector.png)
+
+[![左Viewerは変位mapの白黒ノイズ、右はその輝度を参照して歪んだチャート](/img/fusion/captures/S30/map.png)](/img/fusion/captures/S30/map.png)
+
+左をNoiseMap1へ切り替えると、変位に使った模様を確認できます。Color表示にはmapの透明部分を示す市松模様も重なります。この設定ではmapの輝度を参照しています。1920×1080、フレーム0、両Viewer 40%の静止例で、Seetheのアニメーション、X/Yの別チャンネル、Effect Mask、最適な強さや速度の比較は含めていません。
+
+[再現用Graph](/img/fusion/captures/S30/fixture.comp) · [撮影条件と確認範囲](/img/fusion/captures/S30/capture.json)
+
 ## 関連Node
 
 - [Fast Noise](../generators/fast-noise)
@@ -140,4 +160,4 @@ DaVinci Resolve 21.1 Reference Manual、September 2026、Chapter 123 pp.2967–2
 
 上記の熱気・X/Y切り分け手順は、ManualのFast Noise例と各Controlsの説明を基にした実用構成です。個々の素材での見た目や最適な数値を実機検証したものではありません。
 
-全既定値・数値範囲、内部REGID、実機performanceは未確認です。
+掲載例のREGID Displaceと配線・固定値の表示結果は確認しました。全既定値・数値範囲、性能は未確認です。
