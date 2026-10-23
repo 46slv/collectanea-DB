@@ -283,6 +283,54 @@ try {
       }
     }
   });
+  await check('median-filter-noise-controls-and-mobile', async () => {
+    for (const width of [1440, 390, 320]) {
+      await page.setViewportSize({width, height: width === 1440 ? 1000 : 844});
+      await go('/reference/visual-processing/filters/median-filter');
+      await expect(page.locator('.theme-doc-markdown h1')).toHaveText('Median Filter（中央値フィルタ）');
+      const widget = page.locator('[data-vp-median="ready"]');
+      await expect(widget).toBeVisible();
+      const order = await widget.evaluate((element) => {
+        const previews = element.querySelector('.vp-median__previews');
+        const controls = element.querySelector('.vp-median__controls');
+        return {
+          dom: Boolean(previews && controls && (previews.compareDocumentPosition(controls) & Node.DOCUMENT_POSITION_FOLLOWING)),
+          visual: Boolean(previews && controls && previews.getBoundingClientRect().bottom <= controls.getBoundingClientRect().top),
+          panels: element.querySelectorAll('[data-vp-median-preview]').length,
+        };
+      });
+      assert.ok(order.dom && order.visual && order.panels === 5,
+        'Five previews before controls: ' + width + ' ' + JSON.stringify(order));
+      const clean = widget.locator('[data-vp-median-preview="clean"] canvas');
+      await expect.poll(() => clean.evaluate((canvas) => canvas.getContext('2d')
+        .getImageData(0, 0, 1, 1).data[0])).toBe(45);
+      if (width === 1440) {
+        const noisy = widget.locator('[data-vp-median-preview="noisy"] canvas');
+        const initial = await noisy.evaluate((canvas) => canvas.toDataURL());
+        const slider = widget.getByRole('slider', {name: '塩胡椒ノイズ', exact: true});
+        await slider.focus();
+        await slider.press('Home');
+        await expect(slider).toHaveValue('0');
+        await expect.poll(() => noisy.evaluate((canvas) => canvas.toDataURL())).not.toBe(initial);
+        await widget.getByRole('combobox', {name: 'ノイズの方式'}).selectOption('gaussian');
+        await expect(widget).toHaveAttribute('data-vp-median-noise-mode', 'gaussian');
+        await widget.getByRole('combobox', {name: 'ノイズ配置（再現可能な乱数seed）'}).selectOption('2027');
+        await expect(widget).toHaveAttribute('data-vp-median-seed', '2027');
+        await widget.getByRole('combobox', {name: '誤差マップの対象'}).selectOption('gaussian');
+        await expect(widget).toHaveAttribute('data-vp-median-error-target', 'gaussian');
+        const radius = widget.getByRole('slider', {name: 'Medianの近傍半径'});
+        await radius.focus();
+        await radius.press('End');
+        await expect(widget).toHaveAttribute('data-vp-median-radius', '3');
+        await widget.getByRole('button', {name: '初期値に戻す'}).click();
+        await expect(widget).toHaveAttribute('data-vp-median-radius', '1');
+        await expect(widget).toHaveAttribute('data-vp-median-noise-mode', 'impulse');
+        await expect(widget).toHaveAttribute('data-vp-median-seed', '2026');
+      }
+      await noOverflow();
+      if (width === 390) await shot('median-filter-mobile');
+    }
+  });
   await check('no-runtime-or-resource-errors', async () => {
     assert.deepEqual(report.pageErrors, []);
     assert.deepEqual(report.resourceErrors, []);
