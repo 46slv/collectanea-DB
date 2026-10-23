@@ -314,7 +314,7 @@ try {
         await expect.poll(() => noisy.evaluate((canvas) => canvas.toDataURL())).not.toBe(initial);
         await widget.getByRole('combobox', {name: 'ノイズの方式'}).selectOption('gaussian');
         await expect(widget).toHaveAttribute('data-vp-median-noise-mode', 'gaussian');
-        await widget.getByRole('combobox', {name: 'ノイズ配置（再現可能な乱数seed）'}).selectOption('2027');
+        await widget.getByRole('combobox', {name: 'ノイズ配置', exact: true}).selectOption('2027');
         await expect(widget).toHaveAttribute('data-vp-median-seed', '2027');
         await widget.getByRole('combobox', {name: '誤差マップの対象'}).selectOption('gaussian');
         await expect(widget).toHaveAttribute('data-vp-median-error-target', 'gaussian');
