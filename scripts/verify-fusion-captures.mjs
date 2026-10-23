@@ -23,6 +23,8 @@ try {
   const shots=page.locator('article img');
   const manifest=JSON.parse(await fs.readFile(`static/img/fusion/captures/${id}/capture.json`,'utf8'));
   assert.equal(await shots.count(),manifest.shots.length,id+' missing article shots');
+  const expectedCropHashes=new Set(await Promise.all(manifest.shots.map(async shot=>digest(await fs.readFile(`static/img/fusion/captures/${id}/${shot.file}`)))));
+  const linkedCropHashes=new Set();
   const images=[];
   for(const img of await shots.all()){
    await img.scrollIntoViewIfNeeded();
@@ -33,11 +35,12 @@ try {
    assert.ok(original,'Every shot must open at native resolution');
    const originalAsset=await context.request.get(original);
    assert.equal(originalAsset.status(),200);
-   const originalPath=new URL(original).pathname;
-   assert.ok(originalPath.startsWith(`/collectanea-DB/img/fusion/captures/${id}/`));
-   const localPath='static'+originalPath.slice('/collectanea-DB'.length);
-   assert.equal(digest(await originalAsset.body()),digest(await fs.readFile(localPath)),id+' linked crop must match final source');
+   // Docusaurus can bundle these links as hashed assets or data URLs.
+   const originalHash=digest(await originalAsset.body());
+   assert.ok(expectedCropHashes.has(originalHash),id+' linked crop must match final source');
+   linkedCropHashes.add(originalHash);
   }
+  assert.deepEqual(linkedCropHashes,expectedCropHashes,id+' must link every accepted crop');
   assert.ok(await page.evaluate(()=>document.documentElement.scrollWidth<=document.documentElement.clientWidth+1));
   await shots.first().scrollIntoViewIfNeeded();
   await page.screenshot({path:path.join(out,`${id}-desktop.png`)});
