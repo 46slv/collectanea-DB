@@ -102,6 +102,34 @@ premultiplied Alpha素材のColor補正では、対応NodeのPre-Divide / Post-M
 
 詳しくは[プリマルチプライ（Premultiplication）](../../learn/04-compositing/premultiplication)を参照してください。
 
+### 実機の参考例：基本の明るさと彩度を調整する
+
+<!-- capture-reuse:R101 -->
+
+Brightness ContrastのGain、Contrast、Saturationを個別に変える固定例です。下はContrast0.3です。
+
+[![LoaderからBrightnessContrast1とMediaOut1へ接続した実機Graph](/img/fusion/captures/S60/graph.png)](/img/fusion/captures/S60/graph.png)
+
+[![Brightness ContrastのGain1、Contrast0.3、Saturation1、Low0、High1を示すInspector](/img/fusion/captures/S60/inspector.png)](/img/fusion/captures/S60/inspector.png)
+
+[![左の元画像に対し、右ではContrast0.3で暗部と明部の差が強くなる](/img/fusion/captures/S60/compare.png)](/img/fusion/captures/S60/compare.png)
+
+Resolve Studio21.1.0.14／Windows、両Viewer Color／40%。固定チャートでの表示確認です。全Control、Mask、Alpha、性能は未確認。 [再現用Graph](/img/fusion/captures/S60/fixture.comp) · [撮影条件と確認範囲](/img/fusion/captures/S60/capture.json)
+
+### 実機の参考例：RGBの一つの成分だけを調整する
+
+<!-- capture-reuse:R102 -->
+
+Color GainのRGBロックをオフにし、赤のGain／Lift／Gammaを個別に比較しました。下は赤Gamma1.5です。
+
+[![LoaderからColorGain1とMediaOut1へ接続した実機Graph](/img/fusion/captures/S61/graph.png)](/img/fusion/captures/S61/graph.png)
+
+[![RGBロックオフで赤Gamma1.5、ほかのGain1、Lift0、Gamma1を示すInspector](/img/fusion/captures/S61/inspector.png)](/img/fusion/captures/S61/inspector.png)
+
+[![赤Gamma1.5だけを変えた右のチャートで中間調が赤くなる比較](/img/fusion/captures/S61/compare.png)](/img/fusion/captures/S61/compare.png)
+
+Resolve Studio21.1.0.14／Windows、両Viewer Color／40%。固定チャートでの表示確認です。全Control、Mask、Alpha、性能は未確認。 [再現用Graph](/img/fusion/captures/S61/fixture.comp) · [撮影条件と確認範囲](/img/fusion/captures/S61/capture.json)
+
 ## 出典と確認範囲
 
 DaVinci Resolve 21.1 Reference Manual Chapter 93 pp.2133–2206とChapter 106 Swizzler pp.2445–2450を基に整理しています。

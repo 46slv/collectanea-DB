@@ -166,6 +166,34 @@ Lengthにキーフレームを打ち、`0 → 任意の値 → 0`と変化させ
 | 透明な文字の筋が切れる | Clipping Mode、上流DoD、Alphaを確認。 |
 | マスク境界が不自然 | Effect Maskは処理後に作用する。必要なら別レイヤー合成に変更。 |
 
+## 実機例：筋の向きと中心を変える
+
+<!-- capture-case:S58 -->
+
+Resolve Studio21.1.0.14／Windowsで、1920×1080の固定チャートを接続しました。左が入力、右が処理後です。両ViewerはColor／40%で、書き出しや測色の比較ではありません。内部REGIDは`DirectionalBlur`です。
+
+[![LoaderのチャートからDirectionalBlur1とMediaOut1へ接続したGraph](/img/fusion/captures/S58/graph.png)](/img/fusion/captures/S58/graph.png)
+
+[![Directional BlurのLinear、Length0.08、Angle30、Glow0、Frameを示すInspector](/img/fusion/captures/S58/inspector.png)](/img/fusion/captures/S58/inspector.png)
+
+[![左の元チャートに対し、右ではLinearのLength0.08、Angle30で斜め方向へ筋が伸びる](/img/fusion/captures/S58/compare.png)](/img/fusion/captures/S58/compare.png)
+
+LinearのLength0.08、Angle30、Glow0を基準に、Lengthだけを−0.08へ変えました。文字や白い点から伸びる筋が反対側へ変わります。
+
+[![LinearとAngle30のままLengthをマイナス0.08へ変えたInspector](/img/fusion/captures/S58/negative-inspector.png)](/img/fusion/captures/S58/negative-inspector.png)
+
+[![Lengthの符号を反転すると右のチャートから伸びる筋の向きが反対になる](/img/fusion/captures/S58/negative.png)](/img/fusion/captures/S58/negative.png)
+
+次にGUIでZoomへ切り替え、Centerを0.35／0.5、Lengthを0.15、Angleを0にしました。右の筋は、画面中央より左に置いた中心から外へ広がります。Inspectorを選択するとCenterの操作ガイドがViewerへ重なるため、出力比較はMediaOutを選んでガイドを外した原画を使っています。
+
+[![Zoom、Center0.35と0.5、Length0.15、Angle0を示すInspector](/img/fusion/captures/S58/zoom-inspector.png)](/img/fusion/captures/S58/zoom-inspector.png)
+
+[![Centerを左へ寄せたZoomで、右のチャートの筋が中心から外へ広がる](/img/fusion/captures/S58/zoom.png)](/img/fusion/captures/S58/zoom.png)
+
+最後はLinear、Length0.08、Angle30、Center0.5／0.5へ戻して保存しました。Radial／Centered、Glow、Effect Mask、Clipping Modeの切替、動画と性能は未確認です。
+
+[再現用Graph](/img/fusion/captures/S58/fixture.comp) · [撮影条件と確認範囲](/img/fusion/captures/S58/capture.json)
+
 ## 近いノードとの違い
 
 - [Blur](./blur)：方向性のない基本的なぼかし。
@@ -177,4 +205,4 @@ Lengthにキーフレームを打ち、`0 → 任意の値 → 0`と変化させ
 
 **DaVinci Resolve 21.1 Reference Manual**（Blackmagic Design、September 2026）、Chapter 92「Blur Nodes」、pp.2114–2115で、入力2種類、RGBA、Type、Center、Length、Angle、Glow、Clipping Modeを確認しました。SettingsタブのBlendは同章のCommon Controlsに属します。
 
-制作例はマニュアルに記載された機能を組み合わせた説明例です。内部REGID、各Typeの厳密なkernel、GPU性能、Edition差は今回実機検証していないため、`verification: partial`としています。
+制作例はManualに基づく説明です。S58では別の固定チャートで、Linearの正負LengthとZoomを実機確認しました。各Typeの厳密なkernel、全Control、GPU性能、Edition差は未確認のため、`verification: partial`を維持します。

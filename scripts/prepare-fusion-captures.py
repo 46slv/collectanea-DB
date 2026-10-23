@@ -62,6 +62,10 @@ CONFIG={
  'S55':{'graph': (480, 1300, 2380, 1450), 'inspector': (2830, 120, 3352, 610), 'compare': (1146, 65, 2830, 705), 'perspective-inspector': (2830, 120, 3352, 610), 'perspective': (1146, 65, 2830, 705), 'zmove2-inspector': (2830, 120, 3352, 610), 'zmove2': (1146, 65, 2830, 705)},
  'S56':{'graph': (480, 1300, 2380, 1450), 'inspector': (2830, 120, 3352, 550), 'compare': (1146, 65, 2830, 805), 'frame24': (1146, 65, 2830, 805), 'square24-inspector': (2830, 120, 3352, 550), 'square24': (1146, 65, 2830, 805), 'strength0-inspector': (2830, 120, 3352, 550), 'strength0': (1146, 65, 2830, 805)},
  'S57':{'graph': (480, 1300, 2380, 1450), 'inspector': (2830, 120, 3352, 550), 'compare': (1146, 65, 2830, 805), 'setup': (2830, 120, 3352, 760), 'intermediate': (2830, 120, 3352, 760), 'channels': (2830, 120, 3352, 530), 'config': (2830, 120, 3352, 780), 'gain1-inspector': (2830, 120, 3352, 550), 'gain1': (1146, 65, 2830, 805)},
+ 'S58':{'graph': (480, 1300, 2380, 1450), 'inspector': (2830, 120, 3352, 410), 'compare': (1146, 65, 2830, 705), 'negative-inspector': (2830, 120, 3352, 410), 'negative': (1146, 65, 2830, 705), 'zoom-inspector': (2830, 120, 3352, 410), 'zoom': (1146, 65, 2830, 705)},
+ 'S59':{'graph': (480, 1300, 2380, 1450), 'inspector': (2830, 120, 3352, 510), 'compare': (1146, 65, 2830, 705), 'gaussian-inspector': (2830, 120, 3352, 510), 'gaussian': (1146, 65, 2830, 705), 'bloom-inspector': (2830, 120, 3352, 510), 'bloom': (1146, 65, 2830, 705)},
+ 'S60':{'graph': (480, 1300, 2380, 1450), 'inspector': (2830, 120, 3352, 570), 'compare': (1146, 65, 2830, 705), 'gain05-inspector': (2830, 120, 3352, 570), 'gain05': (1146, 65, 2830, 705), 'saturation0-inspector': (2830, 120, 3352, 570), 'saturation0': (1146, 65, 2830, 705)},
+ 'S61':{'graph': (480, 1300, 2380, 1450), 'inspector': (2830, 120, 3352, 720), 'compare': (1146, 65, 2830, 705), 'gainred05-inspector': (2830, 120, 3352, 720), 'gainred05': (1146, 65, 2830, 705), 'liftred02-inspector': (2830, 120, 3352, 720), 'liftred02': (1146, 65, 2830, 705)},
 }
 def sha(p):return hashlib.sha256(p.read_bytes()).hexdigest()
 candidates=json.loads((ROOT/'docs/fusion-screenshot-candidates.json').read_text(encoding='utf-8'))
@@ -123,6 +127,10 @@ for case in args.cases:
   if case=='S55':extra.update({('S55', 'compare'): 'screen-image.png', ('S55', 'perspective-inspector'): 'screen-perspective.png', ('S55', 'perspective'): 'screen-perspective-image.png', ('S55', 'zmove2-inspector'): 'screen-zmove2.png', ('S55', 'zmove2'): 'screen-zmove2-image.png'})
   if case=='S56':extra.update({('S56', 'frame24'): 'screen-frame24.png', ('S56', 'square24-inspector'): 'screen-square24.png', ('S56', 'square24'): 'screen-square24.png', ('S56', 'strength0-inspector'): 'screen-strength0.png', ('S56', 'strength0'): 'screen-strength0.png'})
   if case=='S57':extra.update({('S57', 'setup'): 'screen-setup.png', ('S57', 'intermediate'): 'screen-intermediate.png', ('S57', 'channels'): 'screen-channels.png', ('S57', 'config'): 'screen-config.png', ('S57', 'gain1-inspector'): 'screen-gain1.png', ('S57', 'gain1'): 'screen-gain1.png'})
+  if case=='S58':extra.update({('S58', 'compare'): 'screen-image.png', ('S58', 'negative-inspector'): 'screen-negative.png', ('S58', 'negative'): 'screen-negative-image.png', ('S58', 'zoom-inspector'): 'screen-zoom.png', ('S58', 'zoom'): 'screen-zoom-image.png'})
+  if case=='S59':extra.update({('S59', 'gaussian-inspector'): 'screen-gaussian.png', ('S59', 'gaussian'): 'screen-gaussian.png', ('S59', 'bloom-inspector'): 'screen-bloom.png', ('S59', 'bloom'): 'screen-bloom.png'})
+  if case=='S60':extra.update({('S60', 'gain05-inspector'): 'screen-gain05.png', ('S60', 'gain05'): 'screen-gain05.png', ('S60', 'saturation0-inspector'): 'screen-saturation0.png', ('S60', 'saturation0'): 'screen-saturation0.png'})
+  if case=='S61':extra.update({('S61', 'gainred05-inspector'): 'screen-gainred05.png', ('S61', 'gainred05'): 'screen-gainred05.png', ('S61', 'liftred02-inspector'): 'screen-liftred02.png', ('S61', 'liftred02'): 'screen-liftred02.png'})
   src=folder/extra.get((case,slug),variants.get((case,slug),'screen.png'))
   assert 0<=box[0]<box[2]<=im.width and 0<=box[1]<box[3]<=im.height, (case,slug,box)
   path=folder/(slug+'.png');Image.open(src).crop(box).save(path)

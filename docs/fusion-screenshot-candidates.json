@@ -2,7 +2,7 @@
   "schema_version": 1,
   "created": "2026-10-20",
   "scope": "All Fusion pages, DaVinci Resolve 21.1",
-  "status_note": "2026-10-24:119 pages332 crops587 placements public PASS through PR88. S56/S57/R97–R98 add17 native crops and6 reuse placements;local4 pages61 images PASS. Cumulative121 pages349 crops610 placements;batch15 public NOT_RUN. Whole587-page Fusion and remaining_views incomplete.",
+  "status_note": "2026-10-24:121 pages349 crops610 placements public PASS through PR89. S58–S61/R99–R102 add28 native crops and12 reuse placements;local6 distinct pages47 images PASS. Cumulative125 pages377 crops650 placements;batch16 public NOT_RUN. Whole587-page Fusion and remaining_views incomplete.",
   "asset_directory_template": "static/img/fusion/captures/{id}/{shot.slug}.png",
   "capture_manifest_name": "capture.json",
   "candidates": [
@@ -2883,7 +2883,7 @@
         "printed_pages": "2859–2861"
       },
       "goal": "Compare temporal shake, wave shape and strength",
-      "status": "captured-local-display-verified",
+      "status": "published-display-verified",
       "shots": [
         {
           "slug": "graph",
@@ -2934,7 +2934,8 @@
           "status": "native-observed"
         }
       ],
-      "capture_manifest": "static/img/fusion/captures/S56/capture.json"
+      "capture_manifest": "static/img/fusion/captures/S56/capture.json",
+      "published_batch": "fusion-native-20261024-15"
     },
     {
       "id": "S57",
@@ -2946,7 +2947,7 @@
         "printed_pages": "2583–2593"
       },
       "goal": "Expose gain through Number/Setup/Intermediate/channel expressions",
-      "status": "captured-local-display-verified",
+      "status": "published-display-verified",
       "shots": [
         {
           "slug": "graph",
@@ -3003,7 +3004,236 @@
           "status": "native-observed"
         }
       ],
-      "capture_manifest": "static/img/fusion/captures/S57/capture.json"
+      "capture_manifest": "static/img/fusion/captures/S57/capture.json",
+      "published_batch": "fusion-native-20261024-15"
+    },
+    {
+      "id": "S58",
+      "priority": "P1",
+      "article": "manuals/fusion/nodes/blur-filter/directional-blur.md",
+      "manual": {
+        "version": "21.1",
+        "chapter": 92,
+        "printed_pages": "2114–2115"
+      },
+      "goal": "Compare signed Linear length and Zoom center",
+      "status": "captured-local-display-verified",
+      "shots": [
+        {
+          "slug": "graph",
+          "kind": "node-graph",
+          "target": "Directional Blur",
+          "status": "native-observed"
+        },
+        {
+          "slug": "inspector",
+          "kind": "inspector",
+          "target": "Directional Blur",
+          "status": "native-observed"
+        },
+        {
+          "slug": "compare",
+          "kind": "output",
+          "target": "Directional Blur",
+          "status": "native-observed"
+        },
+        {
+          "slug": "negative-inspector",
+          "kind": "inspector",
+          "target": "Directional Blur",
+          "status": "native-observed"
+        },
+        {
+          "slug": "negative",
+          "kind": "output",
+          "target": "Directional Blur",
+          "status": "native-observed"
+        },
+        {
+          "slug": "zoom-inspector",
+          "kind": "inspector",
+          "target": "Directional Blur",
+          "status": "native-observed"
+        },
+        {
+          "slug": "zoom",
+          "kind": "output",
+          "target": "Directional Blur",
+          "status": "native-observed"
+        }
+      ],
+      "capture_manifest": "static/img/fusion/captures/S58/capture.json"
+    },
+    {
+      "id": "S59",
+      "priority": "P1",
+      "article": "manuals/fusion/nodes/blur-filter/defocus.md",
+      "manual": {
+        "version": "21.1",
+        "chapter": 92,
+        "printed_pages": "2112–2113"
+      },
+      "goal": "Compare Gaussian/Lens and Bloom",
+      "status": "captured-local-display-verified",
+      "shots": [
+        {
+          "slug": "graph",
+          "kind": "node-graph",
+          "target": "Defocus",
+          "status": "native-observed"
+        },
+        {
+          "slug": "inspector",
+          "kind": "inspector",
+          "target": "Defocus",
+          "status": "native-observed"
+        },
+        {
+          "slug": "compare",
+          "kind": "output",
+          "target": "Defocus",
+          "status": "native-observed"
+        },
+        {
+          "slug": "gaussian-inspector",
+          "kind": "inspector",
+          "target": "Defocus",
+          "status": "native-observed"
+        },
+        {
+          "slug": "gaussian",
+          "kind": "output",
+          "target": "Defocus",
+          "status": "native-observed"
+        },
+        {
+          "slug": "bloom-inspector",
+          "kind": "inspector",
+          "target": "Defocus",
+          "status": "native-observed"
+        },
+        {
+          "slug": "bloom",
+          "kind": "output",
+          "target": "Defocus",
+          "status": "native-observed"
+        }
+      ],
+      "capture_manifest": "static/img/fusion/captures/S59/capture.json"
+    },
+    {
+      "id": "S60",
+      "priority": "P1",
+      "article": "manuals/fusion/nodes/color/brightness-contrast.md",
+      "manual": {
+        "version": "21.1",
+        "chapter": 93,
+        "printed_pages": "2150–2153"
+      },
+      "goal": "Compare Gain, Saturation and Contrast",
+      "status": "captured-local-display-verified",
+      "shots": [
+        {
+          "slug": "graph",
+          "kind": "node-graph",
+          "target": "Brightness Contrast",
+          "status": "native-observed"
+        },
+        {
+          "slug": "inspector",
+          "kind": "inspector",
+          "target": "Brightness Contrast",
+          "status": "native-observed"
+        },
+        {
+          "slug": "compare",
+          "kind": "output",
+          "target": "Brightness Contrast",
+          "status": "native-observed"
+        },
+        {
+          "slug": "gain05-inspector",
+          "kind": "inspector",
+          "target": "Brightness Contrast",
+          "status": "native-observed"
+        },
+        {
+          "slug": "gain05",
+          "kind": "output",
+          "target": "Brightness Contrast",
+          "status": "native-observed"
+        },
+        {
+          "slug": "saturation0-inspector",
+          "kind": "inspector",
+          "target": "Brightness Contrast",
+          "status": "native-observed"
+        },
+        {
+          "slug": "saturation0",
+          "kind": "output",
+          "target": "Brightness Contrast",
+          "status": "native-observed"
+        }
+      ],
+      "capture_manifest": "static/img/fusion/captures/S60/capture.json"
+    },
+    {
+      "id": "S61",
+      "priority": "P1",
+      "article": "manuals/fusion/nodes/color/color-gain.md",
+      "manual": {
+        "version": "21.1",
+        "chapter": 93,
+        "printed_pages": "2171–2175"
+      },
+      "goal": "Compare per-channel Gain/Lift/Gamma",
+      "status": "captured-local-display-verified",
+      "shots": [
+        {
+          "slug": "graph",
+          "kind": "node-graph",
+          "target": "Color Gain",
+          "status": "native-observed"
+        },
+        {
+          "slug": "inspector",
+          "kind": "inspector",
+          "target": "Color Gain",
+          "status": "native-observed"
+        },
+        {
+          "slug": "compare",
+          "kind": "output",
+          "target": "Color Gain",
+          "status": "native-observed"
+        },
+        {
+          "slug": "gainred05-inspector",
+          "kind": "inspector",
+          "target": "Color Gain",
+          "status": "native-observed"
+        },
+        {
+          "slug": "gainred05",
+          "kind": "output",
+          "target": "Color Gain",
+          "status": "native-observed"
+        },
+        {
+          "slug": "liftred02-inspector",
+          "kind": "inspector",
+          "target": "Color Gain",
+          "status": "native-observed"
+        },
+        {
+          "slug": "liftred02",
+          "kind": "output",
+          "target": "Color Gain",
+          "status": "native-observed"
+        }
+      ],
+      "capture_manifest": "static/img/fusion/captures/S61/capture.json"
     }
   ],
   "publication_batches": [
@@ -3484,27 +3714,56 @@
         "artifacts/fusion-captures/public-batch14-assets.json"
       ],
       "limitations": "Whole587-page Fusion and remaining_views continue. S56/S57 native accepted/saved/adopted, not yet embedded."
+    },
+    {
+      "id": "fusion-native-20261024-15",
+      "cases": [
+        "S56",
+        "S57"
+      ],
+      "reuses": [
+        "R97",
+        "R98"
+      ],
+      "pr": "https://github.com/46slv/collectanea-DB/pull/89",
+      "candidate": "b5119b57725419a4723e518adacc180a1d17488d",
+      "main": "c8bd7e0dea45fd036bbcff0dceb4af968e5317ae",
+      "tree": "99b5cdf056d58f03e95226b9416f29ab73238c07",
+      "quality_run": "https://github.com/46slv/collectanea-DB/actions/runs/40033579174",
+      "pages_run": "https://github.com/46slv/collectanea-DB/actions/runs/40034415824",
+      "merge_owner": "Existing Collectanea Integrator; producer verified exact candidate/main tree equality and did not merge twice",
+      "public_pages": 4,
+      "public_images": 61,
+      "new_placements": 23,
+      "new_native_crops": 17,
+      "public_asset_hashes": 929,
+      "result": "PASS",
+      "evidence": [
+        "artifacts/fusion-captures/public-batch15-display-report.json",
+        "artifacts/fusion-captures/public-batch15-assets.json"
+      ],
+      "limitations": "Whole587-page Fusion and remaining_views continue. S58–S61 native/local display accepted; publication not yet run."
     }
   ],
   "coverage_inventory": {
-    "checked_at": "2026-10-23T22:24:48.983933+00:00",
+    "checked_at": "2026-10-23T22:41:32.975154+00:00",
     "scope": "All manuals/fusion Markdown and MDX pages; review necessity before adding images.",
     "completion_rule": "Every page has an explicit image decision; necessary images are native-observed, embedded, saved to GitHub and public-display-verified. A native example does not verify all article controls.",
     "summary": {
       "total_pages": 587,
-      "with_images": 121,
-      "with_native_examples": 121,
+      "with_images": 125,
+      "with_native_examples": 125,
       "states": {
         "reviewed-no-standalone-image": 26,
         "no-standalone-image-needed": 6,
         "illustrated-reused-example": 66,
-        "capture-planned": 434,
-        "illustrated-native-example": 55
+        "capture-planned": 430,
+        "illustrated-native-example": 59
       },
       "decisions": {
         "no-standalone-image-needed": 32,
-        "image-required": 121,
-        "capture-needed": 434
+        "image-required": 125,
+        "capture-needed": 430
       }
     },
     "pages": [
@@ -5618,13 +5877,18 @@
         "article": "manuals/fusion/nodes/blur-filter/defocus.md",
         "title": "Defocus",
         "kind": "node",
-        "image_count": 0,
-        "native_cases": [],
+        "image_count": 7,
+        "native_cases": [
+          "S59"
+        ],
         "reused_cases": [],
         "planned_cases": [],
-        "state": "capture-planned",
-        "decision": "capture-needed",
+        "state": "illustrated-native-example",
+        "decision": "image-required",
         "reason": "本文の対象機能: Defocusは、camera lensのピント外れ・bloom・bokeh形状を再現するNode。。S13のBlur、S03のGlow、S14のColor Correctorは別NodeのUIと演算であり、似た見た目でも代用不可。",
+        "remaining_views": [
+          "実写bokehとLens形状全比較、Mask/Alpha/Clipping/DoD、animation/性能/export"
+        ],
         "required_views": [
           "対象Node名と実際の配線が読めるGraph",
           "対象Nodeを選択した固有Inspector（本文で示すControlを含む）",
@@ -5648,19 +5912,25 @@
             "section": "入力",
             "role": "入力と結果を示す箇所"
           }
-        ]
+        ],
+        "audit_note": "S58–S61の固定実機例を掲載。全control/性能はpartial維持。"
       },
       {
         "article": "manuals/fusion/nodes/blur-filter/directional-blur.md",
         "title": "Directional Blur",
         "kind": "node",
-        "image_count": 0,
-        "native_cases": [],
+        "image_count": 7,
+        "native_cases": [
+          "S58"
+        ],
         "reused_cases": [],
         "planned_cases": [],
-        "state": "capture-planned",
-        "decision": "capture-needed",
+        "state": "illustrated-native-example",
+        "decision": "image-required",
         "reason": "本文の対象機能: Directional Blurは、指定方向や中心を基準に2D画像を流して見せるブラー。。S13のBlur、S03のGlow、S14のColor Correctorは別NodeのUIと演算であり、似た見た目でも代用不可。",
+        "remaining_views": [
+          "Radial/Centered、Glow、Mask、Clipping/DoD、動画/性能/export"
+        ],
         "required_views": [
           "対象Node名と実際の配線が読めるGraph",
           "対象Nodeを選択した固有Inspector（本文で示すControlを含む）",
@@ -5689,7 +5959,8 @@
             "section": "具体的な制作例",
             "role": "入力と結果を示す箇所"
           }
-        ]
+        ],
+        "audit_note": "S58–S61の固定実機例を掲載。全control/性能はpartial維持。"
       },
       {
         "article": "manuals/fusion/nodes/blur-filter/erode-dilate.md",
@@ -5771,10 +6042,12 @@
         "article": "manuals/fusion/nodes/blur-filter/index.md",
         "title": "Blur / Filterノード",
         "kind": "index",
-        "image_count": 2,
+        "image_count": 8,
         "native_cases": [],
         "reused_cases": [
-          "S13"
+          "S13",
+          "S58",
+          "S59"
         ],
         "planned_cases": [],
         "state": "illustrated-reused-example",
@@ -6055,13 +6328,18 @@
         "article": "manuals/fusion/nodes/color/brightness-contrast.md",
         "title": "Brightness Contrast",
         "kind": "node",
-        "image_count": 0,
-        "native_cases": [],
+        "image_count": 7,
+        "native_cases": [
+          "S60"
+        ],
         "reused_cases": [],
         "planned_cases": [],
-        "state": "capture-planned",
-        "decision": "capture-needed",
+        "state": "illustrated-native-example",
+        "decision": "image-required",
         "reason": "本文の対象機能: 2D ImageのGain・Lift・Gamma・Contrast・Brightness・Saturation・Black/White pointを直接調整する基本Color Node。。Color Corrector画像ではCurve/Matrix/Boolean等の固有Controlやchannel操作を示せない。",
+        "remaining_views": [
+          "Mask/Alpha、半透明、Reverse、HDR/精度比較、性能"
+        ],
         "required_views": [
           "対象Node名と実際の配線が読めるGraph",
           "対象Nodeを選択した固有Inspector（本文で示すControlを含む）",
@@ -6085,7 +6363,8 @@
             "section": "入力",
             "role": "入力と結果を示す箇所"
           }
-        ]
+        ],
+        "audit_note": "S58–S61の固定実機例を掲載。全control/性能はpartial維持。"
       },
       {
         "article": "manuals/fusion/nodes/color/channel-boolean.md",
@@ -6246,13 +6525,18 @@
         "article": "manuals/fusion/nodes/color/color-gain.md",
         "title": "Color Gain",
         "kind": "node",
-        "image_count": 0,
-        "native_cases": [],
+        "image_count": 7,
+        "native_cases": [
+          "S61"
+        ],
         "reused_cases": [],
         "planned_cases": [],
-        "state": "capture-planned",
-        "decision": "capture-needed",
+        "state": "illustrated-native-example",
+        "decision": "image-required",
         "reason": "本文の対象機能: RGBAの明暗補正と、暗部・中間部・明部ごとの色かぶりや色相を調整するNode。。Color Corrector画像ではCurve/Matrix/Boolean等の固有Controlやchannel操作を示せない。",
+        "remaining_views": [
+          "Saturation/Balance/Hue/Ranges、RGBロックON、Mask/Alpha/Premult、HDR/内部式、性能"
+        ],
         "required_views": [
           "対象Node名と実際の配線が読めるGraph",
           "対象Nodeを選択した固有Inspector（本文で示すControlを含む）",
@@ -6271,7 +6555,8 @@
             "section": "運用例：CG素材の赤みを抑え、暗部を少し青くする",
             "role": "入力と結果を示す箇所"
           }
-        ]
+        ],
+        "audit_note": "S58–S61の固定実機例を掲載。全control/性能はpartial維持。"
       },
       {
         "article": "manuals/fusion/nodes/color/color-matrix.md",
@@ -6567,11 +6852,13 @@
         "article": "manuals/fusion/nodes/color/index.md",
         "title": "Colorノード",
         "kind": "index",
-        "image_count": 5,
+        "image_count": 11,
         "native_cases": [],
         "reused_cases": [
           "S14",
-          "S52"
+          "S52",
+          "S60",
+          "S61"
         ],
         "planned_cases": [],
         "state": "illustrated-reused-example",
@@ -22336,8 +22623,9 @@
         "compare.png",
         "frame24.png"
       ],
-      "status": "embedded-local-display-verified",
-      "scope": "固定2フレームの表示例。Mask、連続再生、後段合成と性能は未確認。"
+      "status": "published-display-verified",
+      "scope": "固定2フレームの表示例。Mask、連続再生、後段合成と性能は未確認。",
+      "published_batch": "fusion-native-20261024-15"
     },
     {
       "id": "R98",
@@ -22348,8 +22636,57 @@
         "channels.png",
         "compare.png"
       ],
+      "status": "published-display-verified",
+      "scope": "Custom Tool独自の画素式。SimpleExpressionの構文・評価対象とは区別する。Matte/Mask/LUT/他channel/性能は未確認。",
+      "published_batch": "fusion-native-20261024-15"
+    },
+    {
+      "id": "R99",
+      "article": "manuals/fusion/nodes/blur-filter/index.md",
+      "source_case": "S58",
+      "images": [
+        "graph.png",
+        "inspector.png",
+        "compare.png"
+      ],
       "status": "embedded-local-display-verified",
-      "scope": "Custom Tool独自の画素式。SimpleExpressionの構文・評価対象とは区別する。Matte/Mask/LUT/他channel/性能は未確認。"
+      "scope": "Native fixed chart example; broader controls, Mask, Alpha, exports and performance not verified."
+    },
+    {
+      "id": "R100",
+      "article": "manuals/fusion/nodes/blur-filter/index.md",
+      "source_case": "S59",
+      "images": [
+        "graph.png",
+        "inspector.png",
+        "compare.png"
+      ],
+      "status": "embedded-local-display-verified",
+      "scope": "Native fixed chart example; broader controls, Mask, Alpha, exports and performance not verified."
+    },
+    {
+      "id": "R101",
+      "article": "manuals/fusion/nodes/color/index.md",
+      "source_case": "S60",
+      "images": [
+        "graph.png",
+        "inspector.png",
+        "compare.png"
+      ],
+      "status": "embedded-local-display-verified",
+      "scope": "Native fixed chart example; broader controls, Mask, Alpha, exports and performance not verified."
+    },
+    {
+      "id": "R102",
+      "article": "manuals/fusion/nodes/color/index.md",
+      "source_case": "S61",
+      "images": [
+        "graph.png",
+        "inspector.png",
+        "compare.png"
+      ],
+      "status": "embedded-local-display-verified",
+      "scope": "Native fixed chart example; broader controls, Mask, Alpha, exports and performance not verified."
     }
   ]
 }

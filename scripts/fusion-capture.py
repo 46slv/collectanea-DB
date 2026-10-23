@@ -48,6 +48,10 @@ TARGETS['S54']='Letterbox1';LEFT['S54']='Loader1';RIGHT['S54']='Letterbox1'
 TARGETS['S55']='DVE1';LEFT['S55']='Loader1';RIGHT['S55']='DVE1'
 TARGETS['S56']='CameraShake1';LEFT['S56']='Loader1';RIGHT['S56']='CameraShake1'
 TARGETS['S57']='CustomTool1';LEFT['S57']='Loader1';RIGHT['S57']='CustomTool1'
+TARGETS['S58']='DirectionalBlur1';LEFT['S58']='Loader1';RIGHT['S58']='DirectionalBlur1'
+TARGETS['S59']='Defocus1';LEFT['S59']='Loader1';RIGHT['S59']='Defocus1'
+TARGETS['S60']='BrightnessContrast1';LEFT['S60']='Loader1';RIGHT['S60']='BrightnessContrast1'
+TARGETS['S61']='ColorGain1';LEFT['S61']='Loader1';RIGHT['S61']='ColorGain1'
 r=d.scriptapp('Resolve')
 assert r, 'Resolve scripting unavailable; do not change preferences automatically'
 pm=r.GetProjectManager(); p=pm.GetCurrentProject()
@@ -80,7 +84,7 @@ if action=='scale':
 if action=='mask_inspector':
  assert case=='S49';TARGETS[case]='Ellipse1';action='show'
 if action=='image':
- assert case in ['S50','S51','S54','S55','S57'];TARGETS[case]='MediaOut1';action='show'
+ assert case in ['S50','S51','S54','S55','S57','S58','S59','S60','S61'];TARGETS[case]='MediaOut1';action='show'
 if action=='canvas_source':
  assert case=='S52';TARGETS[case]='GoldCanvas1';action='show'
 if action=='map':
@@ -176,6 +180,7 @@ def select(target,left=None):
  layouts['S38']={'Loader1':(0,0),'TransformReference':(1.5,0),'MediaOut1':(3,0)}
  layouts['S50']={'Loader1':(0,0),'AutoDomain1':(1.5,0),'MediaOut1':(3,0)}
  layouts['S54']={'Loader1':(0,0),'Letterbox1':(1.5,0),'MediaOut1':(3,0)}
+ for cid in ['S58','S59','S60','S61']:layouts[cid]={'Loader1':(0,0),TARGETS[cid]:(1.5,0),'MediaOut1':(3,0)}
  layouts['S57']={'Loader1':(0,0),'CustomTool1':(1.5,0),'MediaOut1':(3,0)}
  layouts['S56']={'Loader1':(0,0),'CameraShake1':(1.5,0),'MediaOut1':(3,0)}
  layouts['S55']={'Loader1':(0,0),'DVE1':(1.5,0),'MediaOut1':(3,0)}
@@ -232,6 +237,10 @@ if action=='build':
   rb=add('sRender','RenderBase1',4,-1);connect(rb,'Input',base)
   target=add('sTransform','Transform1',2,1);connect(target,'Input',base)
   rr=add('sRender','RenderChanged1',4,1);connect(rr,'Input',target);connect(mo,'Input',rr)
+ elif case in ['S58','S59','S60','S61']:
+  loader=add('Loader','Loader1',0,0,Clip=str(REPO/'static/img/fusion/captures/_fixtures/chart.png'))
+  reg={'S58':'DirectionalBlur','S59':'Defocus','S60':'BrightnessContrast','S61':'ColorGain'}[case]
+  target=add(reg,TARGETS[case],1.5,0);connect(target,'Input',loader);connect(mo,'Input',target)
  elif case=='S57':
   loader=add('Loader','Loader1',0,0,Clip=str(REPO/'static/img/fusion/captures/_fixtures/chart.png'))
   target=add('Custom','CustomTool1',1.5,0);connect(target,'Image1',loader);connect(mo,'Input',target)

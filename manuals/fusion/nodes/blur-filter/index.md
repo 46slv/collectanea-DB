@@ -133,6 +133,34 @@ Blinnなどの材質 ──→ 3Dオブジェクト ──→ Renderer 3D
 
 これらの選択肢がすべてのノードにあるわけではありません。個別記事とInspectorで確認してください。[DoDの基礎](../../learn/03-space/domain-of-definition)と[有効領域の確認手順](../../learn/07-debugging/resolution-domain-of-definition)も参照してください。
 
+### 実機の参考例：方向と中心を指定する
+
+<!-- capture-reuse:R99 -->
+
+LinearのLength0.08／Angle30と、ZoomのCenter0.35／0.5を使う固定例です。
+
+[![LoaderのチャートからDirectionalBlur1とMediaOut1へ接続したGraph](/img/fusion/captures/S58/graph.png)](/img/fusion/captures/S58/graph.png)
+
+[![Directional BlurのLinear、Length0.08、Angle30、Glow0、Frameを示すInspector](/img/fusion/captures/S58/inspector.png)](/img/fusion/captures/S58/inspector.png)
+
+[![左の元チャートに対し、右ではLinearのLength0.08、Angle30で斜め方向へ筋が伸びる](/img/fusion/captures/S58/compare.png)](/img/fusion/captures/S58/compare.png)
+
+Resolve Studio21.1.0.14／Windows、両Viewer Color／40%。固定チャートでの表示確認です。全Control、Mask、Alpha、性能は未確認。 [再現用Graph](/img/fusion/captures/S58/fixture.comp) · [撮影条件と確認範囲](/img/fusion/captures/S58/capture.json)
+
+### 実機の参考例：ぼけと明るいにじみを分ける
+
+<!-- capture-reuse:R100 -->
+
+Lens／Size12では全体がぼけ、Bloom Levelを0から0.9へ上げると白い部分が明るくにじみます。
+
+[![チャートのLoaderからDefocus1とMediaOut1へ接続した実機Graph](/img/fusion/captures/S59/graph.png)](/img/fusion/captures/S59/graph.png)
+
+[![DefocusのLens、Size12、Bloom0、Threshold0.75、Sides5を示すInspector](/img/fusion/captures/S59/inspector.png)](/img/fusion/captures/S59/inspector.png)
+
+[![左のチャートに対し、右はLensとSize12で文字や細線がぼけた出力](/img/fusion/captures/S59/compare.png)](/img/fusion/captures/S59/compare.png)
+
+Resolve Studio21.1.0.14／Windows、両Viewer Color／40%。固定チャートでの表示確認です。全Control、Mask、Alpha、性能は未確認。 [再現用Graph](/img/fusion/captures/S59/fixture.comp) · [撮影条件と確認範囲](/img/fusion/captures/S59/capture.json)
+
 ## 出典と確認範囲
 
 一次資料はBlackmagic Design『DaVinci Resolve 21.1 Reference Manual』（2026年9月）、**Chapter 92「Blur Nodes」pp.2108–2131**、**Chapter 99「Filter Nodes」pp.2327以降**です。正確な入出力・設定とその根拠ページは各ノードの記事で説明しています。[公式マニュアル](https://documents.blackmagicdesign.com/UserManuals/DaVinci_Resolve_21.1_Reference_Manual.pdf)。
