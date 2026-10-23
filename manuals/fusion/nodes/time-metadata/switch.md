@@ -73,6 +73,30 @@ sEllipse ────┘
 
 名称を変えても、入力データの種類や画素そのものが変わるわけではありません。
 
+## 実機で2つの背景から1つを選ぶ
+
+Resolve Studio 21.1.0.14、Windows、日本語UIで、青いBlue1と金色のGold1をSwitchの2入力へ接続しました。SwitchからMediaOutへ渡す出力は1本です。出力フレーム0、両ViewerはColor／40%です。
+
+[![Blue1とGold1をSwitch1の2入力へ接続し、出力だけをMediaOut1へ渡す実機Graph](/img/fusion/captures/S46/graph.png)](/img/fusion/captures/S46/graph.png)
+
+[![SwitchのConfig。入力の数2、Name0 BLUE、Name1 GOLDを設定](/img/fusion/captures/S46/config-inspector.png)](/img/fusion/captures/S46/config-inspector.png)
+
+Configの「入力の数」は2です。名前を実際の入力欄でBLUE／GOLDへ変更すると、ControlsのSourceにもその名前が表示されました。
+
+[![SwitchのSourceはBLUE。Configで付けたBLUEとGOLDの2つの名前が並ぶ](/img/fusion/captures/S46/inspector.png)](/img/fusion/captures/S46/inspector.png)
+
+[![SourceでBLUEを選んだ実機Viewer。左Blue1と右Switch1が同じ青になる](/img/fusion/captures/S46/compare.png)](/img/fusion/captures/S46/compare.png)
+
+[![同じSwitchのSourceをGOLDへ切り替えたInspector](/img/fusion/captures/S46/gold-inspector.png)](/img/fusion/captures/S46/gold-inspector.png)
+
+[![SourceでGOLDを選ぶと右のSwitch出力が金色になる。左Blue1は青のまま](/img/fusion/captures/S46/gold.png)](/img/fusion/captures/S46/gold.png)
+
+SourceをBLUEからGOLDへ切り替えると、右Viewerだけが青から金色へ変わります。2つの色を混ぜた結果ではなく、選んだ入力の画像が通っています。最後はBLUEへ戻しました。
+
+この例のruntime REGIDは`Switch`で、入力IDは0から始まる`Input0`／`Input1`でした。Shape／3D、Sourceのキーフレーム、9本を超える入力、未接続入力の挙動、Free editionや他OSは未確認です。
+
+[再現用Graph](/img/fusion/captures/S46/fixture.comp) · [撮影条件と確認範囲](/img/fusion/captures/S46/capture.json)
+
 ## 運用例
 
 ### 1. 2種類の背景を同じタイトル演出へ渡す
@@ -134,4 +158,4 @@ Flowに置くSwitch NodeがImage・Shape・3Dなどの**データの通り道**�
 
 DaVinci Resolve 21.1 Reference Manual（September 2026）、Chapter 111「Miscellaneous Nodes」、**Switch [Swi]（pp.2606–2607）**を確認しました。複数入力から1本を選択する動作、Shapeと3Dを含む対応範囲、ControlsタブのSource、ConfigタブのNumber of InputsとName X、スライダーで9入力まで追加できること、Switch Modifierのメニュー経路が一次資料で確認できた内容です。
 
-Sourceのキーフレーム運用例はFusionの一般的なコントロール操作を前提にした使用例です。混在するデータ型の互換性、未接続入力時の挙動、runtime REGID、edition差、Sourceの既定値は未検証のため、`verification: partial`としています。
+Sourceのキーフレーム運用例はFusionの一般的なコントロール操作を前提にした使用例です。2D固定例以外のデータ型の互換性、未接続入力時の挙動、edition差、全既定値は未検証のため、`verification: partial`としています。

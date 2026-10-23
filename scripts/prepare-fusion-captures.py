@@ -49,6 +49,9 @@ CONFIG={
  'S42':{'graph': (580, 1300, 2280, 1450), 'inspector': (2830, 120, 3352, 350), 'compare': (1146, 65, 2830, 815), 'frame12': (1146, 65, 2830, 815), 'backward-inspector': (2830, 120, 3352, 350), 'backward': (1146, 65, 2830, 815), 'forward-inspector': (2830, 120, 3352, 350), 'forward': (1146, 65, 2830, 815), 'zero-inspector': (2830, 120, 3352, 350), 'zero': (1146, 65, 2830, 815), 'edge-duplicate-inspector': (2830, 120, 3352, 350), 'edge-duplicate': (1146, 65, 2830, 815), 'edge-blank-inspector': (2830, 120, 3352, 350), 'edge-blank': (1146, 65, 2830, 815)},
  'S43':{'graph': (580, 1300, 2280, 1450), 'inspector': (2830, 120, 3352, 300), 'compare': (1146, 65, 2830, 705), 'metadata': (2034, 96, 2830, 190), 'changed-inspector': (2830, 120, 3352, 300), 'changed-metadata': (2034, 96, 2830, 190)},
  'S44':{'graph': (240, 1060, 2600, 1660), 'inspector': (2830, 120, 3352, 300), 'compare': (1146, 65, 2830, 705), 'metadata': (2034, 96, 2830, 190), 'bg-inspector': (2830, 120, 3352, 300), 'fg-inspector': (2830, 120, 3352, 300), 'preserve-inspector': (2830, 120, 3352, 300), 'preserve-metadata': (2034, 96, 2830, 190), 'replace-inspector': (2830, 120, 3352, 300), 'replace-metadata': (2034, 96, 2830, 190), 'clear-inspector': (2830, 120, 3352, 300), 'clear-metadata': (2034, 96, 2830, 190)},
+ 'S45':{'graph': (580, 1300, 2280, 1450), 'inspector': (2830, 120, 3352, 390), 'compare': (1146, 65, 2830, 815), 'metadata': (2034, 96, 2830, 190), 'frame24': (1146, 65, 2830, 815), 'fps25-inspector': (2830, 120, 3352, 390), 'fps25': (1146, 65, 2830, 815), 'zero-metadata': (2034, 96, 2830, 190)},
+ 'S46':{'graph': (240, 1060, 2600, 1660), 'inspector': (2830, 120, 3352, 300), 'compare': (1146, 65, 2830, 705), 'gold-inspector': (2830, 120, 3352, 300), 'gold': (1146, 65, 2830, 705), 'config-inspector': (2830, 120, 3352, 330)},
+ 'S47':{'graph': (240, 1300, 2600, 1450), 'inspector': (2830, 120, 3352, 300), 'compare': (1146, 65, 2830, 705), 'updated': (1146, 65, 2830, 705)},
 }
 def sha(p):return hashlib.sha256(p.read_bytes()).hexdigest()
 candidates=json.loads((ROOT/'docs/fusion-screenshot-candidates.json').read_text(encoding='utf-8'))
@@ -94,6 +97,9 @@ for case in args.cases:
    for variant in ['preserve','replace','clear']:
     for suffix in ['-inspector','-metadata']:extra[(case,variant+suffix)]='screen-'+variant+'.png'
    extra.update({(case,'bg-inspector'):'screen-bg-source.png',(case,'fg-inspector'):'screen-fg-source.png'})
+  if case=='S45':extra.update({(case,'frame24'):'screen-frame24.png',(case,'fps25-inspector'):'screen-fps25.png',(case,'fps25'):'screen-fps25.png',(case,'zero-metadata'):'screen-zero.png'})
+  if case=='S46':extra.update({(case,'gold-inspector'):'screen-gold.png',(case,'gold'):'screen-gold.png',(case,'config-inspector'):'screen-config.png'})
+  if case=='S47':extra[(case,'updated')]='screen-updated.png'
   src=folder/extra.get((case,slug),variants.get((case,slug),'screen.png'))
   assert 0<=box[0]<box[2]<=im.width and 0<=box[1]<box[3]<=im.height, (case,slug,box)
   path=folder/(slug+'.png');Image.open(src).crop(box).save(path)
@@ -103,6 +109,7 @@ for case in args.cases:
   if case=='S39':frame=0 if slug in ['frame0','hold-inspector','hold0-inspector','hold0'] else 24 if slug in ['frame24','hold24-inspector','hold24'] else 12
   if case=='S40':frame=0 if slug in ['freeze0','reverse0'] else 24
   if case=='S42':frame=0 if slug.startswith('edge-') else 12 if slug=='frame12' else 24
+  if case=='S45':frame=24 if slug in ['frame24','fps25-inspector','fps25'] else 0
   shots.append({'file':path.name,'source':src.name,'source_sha256':sha(src),'frame':frame,'crop_xyxy':box,'resampled':False,'sha256':sha(path)})
   if case in ['S25','S28','S31']:shots[-1]['viewer_channels']='Alpha' if slug=='alpha' else 'Color'
  candidate=next(x for x in candidates['candidates'] if x['id']==case)

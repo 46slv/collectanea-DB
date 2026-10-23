@@ -77,6 +77,40 @@ compositionのstarting frameを基準に、timecodeへ加えるオフセット�
 
 設定したFPSとオフセットが意図したframe数になっているかを数値で確認したい場合に使えます。
 
+## 実機で時刻とFPSによる表示の違いを見る
+
+Resolve Studio 21.1.0.14、Windows、日本語UIで、青いBackgroundへタイムコードを追加しました。両ViewerはColor／40%です。右ViewerのMetadata subviewには、FrameRateとTimeCodeが表示されます。
+
+[![青いBackgroundからSetTimecode1を経由してMediaOut1へ接続した実機Graph](/img/fusion/captures/S45/graph.png)](/img/fusion/captures/S45/graph.png)
+
+[![開始オフセットを加える前のMetadata subview。FrameRate24、TimeCode00:00:00:00](/img/fusion/captures/S45/zero-metadata.png)](/img/fusion/captures/S45/zero-metadata.png)
+
+[![Set TimecodeのFPS24、Hours0、Minutes0、Seconds8、Frames15。Print to Consoleはオフ](/img/fusion/captures/S45/inspector.png)](/img/fusion/captures/S45/inspector.png)
+
+[![出力0で左右の青い画像は変わらず、右SubviewはFrameRate24とTimeCode00:00:08:15を表示](/img/fusion/captures/S45/compare.png)](/img/fusion/captures/S45/compare.png)
+
+[![Set TimecodeのMetadata subview。FrameRate24、TimeCode00:00:08:15](/img/fusion/captures/S45/metadata.png)](/img/fusion/captures/S45/metadata.png)
+
+FPSを24、開始オフセットをSeconds 8／Frames 15にすると、出力0のTimeCodeは00:00:08:15になりました。同じ設定のまま出力24へ進めると00:00:09:15です。
+
+[![同じFPS24と開始オフセットで出力24へ進めると、右のTimeCodeは00:00:09:15になる](/img/fusion/captures/S45/frame24.png)](/img/fusion/captures/S45/frame24.png)
+
+出力24と開始オフセットを保ったまま、実際のInspectorでFPSを25へ切り替えました。FrameRateは25、TimeCodeは00:00:09:14になり、出力画像は青のままです。撮影用Timelineの24fpsは変更していません。
+
+[![出力24でFPSだけ25へ切り替えたInspector。Seconds8、Frames15は同じ](/img/fusion/captures/S45/fps25-inspector.png)](/img/fusion/captures/S45/fps25-inspector.png)
+
+[![出力24、FPS25のMetadata subviewはFrameRate25とTimeCode00:00:09:14を表示](/img/fusion/captures/S45/fps25.png)](/img/fusion/captures/S45/fps25.png)
+
+| 出力フレーム | NodeのFPS | Seconds / Frames | MetadataのTimeCode |
+| ---: | ---: | --- | --- |
+| 0 | 24 | 8 / 15 | 00:00:08:15 |
+| 24 | 24 | 8 / 15 | 00:00:09:15 |
+| 24 | 25 | 8 / 15 | 00:00:09:14 |
+
+最後はFPS24、出力0、開始オフセット8秒15フレームへ戻しました。この環境のruntime REGIDは`Fuse.SetMetaDataTC`です。Print to Console、他のFPS、drop-frame、最終ファイルへの保持、Free editionや他OSは未確認です。
+
+[再現用Graph](/img/fusion/captures/S45/fixture.comp) · [撮影条件と確認範囲](/img/fusion/captures/S45/capture.json)
+
 ## 具体的な使い方
 
 ### composition内で独自の開始timecodeを持たせる
@@ -110,7 +144,7 @@ Set Timecodeは、この2つより目的が限定されており、**FPSとframe
 - Set Timecodeはretime Nodeではありません。映像の再生速度やsource frame mappingは変更しません。
 - timecodeとframe数の対応は`FPS`に依存します。意図したframe rateと一致しているか確認します。
 - Hours / Minutes / Seconds / Framesは、current compositionのstarting frameからのoffsetとして扱われます。
-- 21.1 ManualはSet TimecodeをFuseとして記載していますが、installed Fuseのpathやruntime上のREGIDはこのページでは未確定です。
+- 21.1 ManualはSet TimecodeをFuseとして記載していますが、実機例ではruntime REGIDを確認しました。installed Fuseのpathやcodeの編集は確認していません。
 - 最終fileへtimecodeがどの形式で保持されるかは、Set Timecodeだけでは保証されません。出力formatと書き出し経路を別途確認します。
 
 ## 関連Node
@@ -127,4 +161,4 @@ DaVinci Resolve 21.1 Reference Manual、Chapter 110「Metadata Nodes」の`Set T
 
 確認した項目は、single orange Background Input、Background Imageへtimecode metadataを追加して出力すること、`FPS`、Hours / Minutes / Seconds / Framesによるcomposition開始frameからのoffset、`Print to Console`、FPSに基づくTimecode / Frames変換、FuseとしてFPS選択肢を編集できることです。
 
-runtime REGID、Effects Library上のcurrent表示、edition差、各Controlのdefault / min / maxはこの確認範囲に含めていないため、`verification: partial`を維持しています。
+実機例で扱っていないFPSやdrop-frame、edition差、各Controlの全default / min / maxは確認範囲に含めていないため、`verification: partial`を維持しています。

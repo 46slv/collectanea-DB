@@ -1,6 +1,6 @@
 # Fusion 21.1 スクリーンショット計画
 
-更新: 2026-10-24。S01〜S41と再利用例を含む計104ページ・199原画crop・396掲載は公開確認済み。S42 Frame AverageとS43 Metadataへ継続中。Fusion全体は未完了。
+更新: 2026-10-24。S01〜S44と再利用例を含む計107ページ・231原画crop・436掲載は公開確認済み。S45〜S47の実機撮影を終え、次の記事掲載へ継続中。Fusion全体は未完了。
 
 撮影候補は [fusion-screenshot-candidates.json](./fusion-screenshot-candidates.json) に記録する。記事の説明基準は [Fusion Authoring Contract](./fusion-authoring-contract.md)、技術出典はDaVinci Resolve 21.1 Reference Manual（2026年9月）。公式画像の転載ではなく、実機から独自に撮影する。
 
@@ -30,7 +30,7 @@
 
 - Mission: Fusion全体の、画像が必要な箇所を実機撮影・記事掲載・GitHub反映・公開確認まで完了する。ユーザーはこの制作元taskで全586ページへの継続と必要なGitHub操作を明示許可した。14記事でMissionを完了扱いにしない。
 - Owner: Sol、制作元Codex task `01a1683b-3067-7a40-892a-47a3b30d50b2`。設計・GUI・実装・統合・検証を継続担当。Dot intake writer `01a1689f-419e-7742-8058-b0d6a0aa302d` は安全な境界で停止し、親も再投入なしを確認済み。
-- Canonical edit checkout: `C:/Users/shiro/Documents/Codex/2026-10-23/task-19/collectanea-screenshot-integration`。現在branch `integration/fusion-metadata-native-20261024`、base `0c332c12efffb87f1c20f4ca6091e0f3333b1ade`。旧producer checkoutと元の43MB配布ZIPは保全。branch作成時にorigin/mainがupstreamになるため、pushは必ず明示branchを指定する。
+- Canonical edit checkout: `C:/Users/shiro/Documents/Codex/2026-10-23/task-19/collectanea-screenshot-integration`。現在branch `integration/fusion-utility-selection-native-20261024`、base `6b5a815da4d213a4094223aa0ab53e5d1c103be4`。旧producer checkoutと元の43MB配布ZIPは保全。branch作成時にorigin/mainがupstreamになるため、pushは必ず明示branchを指定する。
 - Published batch 1: S01–S14、14記事・50画像。[PR #63](https://github.com/46slv/collectanea-DB/pull/63)、main `b5862defc25d342381849d6afcc499597efc4745`。候補 `2176ab3572689cba26d83c8b4d494055f192c216` とmainのtree `a9aa538d22790ad862d1ba92158bce047d33f44c` は一致。
 - PASS: [exact-head Quality 39966534167](https://github.com/46slv/collectanea-DB/actions/runs/39966534167)、[Pages 39967626278](https://github.com/46slv/collectanea-DB/actions/runs/39967626278)、公開14ページ・50画像の1440px/390px表示・decode・Alt・原寸リンク・横overflow、公開232素材のHTTP200/SHA-256一致。公開証拠は `artifacts/fusion-captures/public-display-report.json`、`public-assets.json` と28画面。これらは既存ignore内に保存。
 - Public-check note: 長いS08–S10の末尾画像は遅延読込。撮影節の末尾までscrollして全画像を確認した。最初の未読込観測は公開レポートに保持。CIの初回URL形状assertion失敗は、Docusaurusの `assets/files/` 配布を実バイトhashで照合する修正後の新headで解消。
@@ -82,8 +82,15 @@
 - S44 native accepted: 青BG001/BGOnly=keepBG、赤FG002/FGOnly=keepFGを2入力へ接続。Merge Replace Duplicates→ShotNameFG002と両固有項目、Preserve→BG001と両固有項目、Replace→FG002とFGOnly、Clear→全項目なしをGUI/Subviewで確認。全4画面の青い出力領域は同一pixel。runtime入力IDはBackground/Metadataで、Foregroundではない。初回guardで入力ID不一致を検出して停止し、既存8Node・未接続の対象だけを確認して接続を修復、再buildなし。最後はOperation0へ戻し保存、採用原画撮影後に右Subviewを無効へ戻したfresh画像も確認。schema/ファイル保持はNOT_RUN。
 - Batch 9 local PASS: S42–S44の32cropを3記事、R77–R79の8再利用掲載をTime/Metadata索引へ追加。production build、変更4ページ44画像の1440px/390px・decode/Alt/原寸リンク/hash/overflow PASS。累計107ページ231crop436掲載、公開確認済み104ページとは区別。初回focused確認はbuild完了前に開始して404だったため採用せず、build完了後の4/44 PASSを記録。全体未完了、partialとremaining_views維持。
 - Method: owned MetadataSubviewを開くcontext経路はビュー→サブビュー→メタデータ。GUI text/numberのSelectAllはhotkey Ctrl+A→type_text→Return、Comboはforeground click→単独Up/Down→Returnで実変化を受理。UIA no-op/coords付きkey経路の失敗probeは不採用。session expiryで拒否された操作は実行済みとせず、start_session後のfresh画面から再開した。settings未変更。
-- Current host: owned project Collectanea_Captures_20261023_Sol、PID8944/HWND1251932、S44_capture/frame0、左MetaFGExtra・右CopyMetadata1、Inspector Operation0。両Color40%、右Subview無効へ戻したS44-subview-off.png確認済み。Spline/Keyframes閉、RoI/DoD無効、popupなし。Operation0とSubview無効のscratch保存済み。終了時はowned scratch保存→Project Managerへ。
-- Next action: current main/open PRを確認し、S42–S44をReady PR/exact-head Quality→Pages→4記事44掲載/全素材hashの公開確認へ。CI中はSet Timecode等をwork stageだけで進め、凍結候補へ積まない。447未図示ページと掲載済みremaining_viewsは未完了。
+- Batch 9 published PASS: [PR #81](https://github.com/46slv/collectanea-DB/pull/81)、candidate `e7d85ec0071ae2c8bb9701f7d5e385243d373e93`、main `6b5a815da4d213a4094223aa0ab53e5d1c103be4`、tree `25e886039284116897f3901530790cc71df2c0f9`一致。[Quality 40013301812](https://github.com/46slv/collectanea-DB/actions/runs/40013301812)全job/step成功、reviewなし/current-main確認後expected-head squash merge。[Pages 40014372083](https://github.com/46slv/collectanea-DB/actions/runs/40014372083)成功。公開4記事44画像の1440px/390px・decode/Alt/原寸リンク/overflow PASS。699公開素材HTTP200/SHA256一致。public-batch9-display-report.json、public-batch9-assets.json、8画面を保存。累計107ページ231crop436掲載。旧candidate c7c2974はmain更新のPR80を通常mergeし新head CIへ置き換えた。履歴改変なし。
+- Coverage drift: PR80でHeat Shimmer記事が1件増えたため全体587ページへ拡張する。既存S30はRadial静止例で、新recipeのX/Y・Seethe Rate・局所Maskを示す証拠ではない。この新記事は新規撮影対象へ追加する。
+- Batch 10 work stage accepted: S45 Set Timecode=Fuse.SetMetaDataTC、FPS24/Seconds8/Frames15、frame0→TimeCode00:00:08:15、frame24→00:00:09:15。GUIでFPS25へ変えると同じframe24が00:00:09:14、FrameRate25を表示。Timeline FPS24は変更なし。最後はFPS24/frame0/offset8:15、Subviewオン、保存。Print to Console/型/出力保持/他FPSは未確認。
+- S46 native stage accepted: SwitchのAPI ConnectInputはMO側・Input0側とも成立せず、再buildなし。read-only入力一覧でInput0/Input1を確認し、GUIでBlue→Input0、Gold→Input1、Switch→MediaOutを配線。Source0/1で右Viewer青/金を実機確認。Config NumberOfInputs2、Name0 BLUE/Name1 GOLDを実GUI入力しSource表示名の更新を撮影。最後はSource0/BLUE、両Color40%、保存。FindInputメソッドはこのbindingでNoneだったためGetInputListによる確認へ戻した。API失敗を製品不具合やtyped-input順序だけで解消する仕様と断定しない。work helperのS46 buildはGUI配線前scaffoldのみへ修正。Shape/3D/Source animation/9超入力は未確認。
+- S47 native stage accepted: Text+ WIRELESS、Fuse.Wireless、MediaOutの3Node。Text1 tileを実GUIでInspector InputへdragするとInputにText1、右にもWIRELESSを表示。Text1へ画像配線なし。source StyledTextをUPDATEDへ変えると左右ともUPDATED、最後はWIRELESSへ戻し保存。exportはWireless.Input SourceOp=Text1/Source=Output、GUI表示と一致。Source/GetInputはuserdataのためreadback JSONへ文字列として出ないが、exportとGUIで参照先を確認。最初のlinked画像はViewerがFitだったため、40%へ統一したS47-link40/updated/restoredを採用候補にする。
+- Batch 10 local PASS: S45–S47の18cropとR80–R82の8再利用を4記事へ掲載。production buildと変更4ページ38画像の1440px/390px・decode/Alt/原寸リンク/hash/overflow PASS。累計110ページ249crop462掲載、公開済み107ページとは区別する。PR80新記事を含む587ページの画像要否監査を更新し、未図示445ページ/画像不要32、掲載済みremaining_viewsは継続。
+- S48 work stage: Manual ch111 pp2582–2583、registry ChangeDepthを参照。黒白Horizontal Background→ChangeDepth→MediaOutのowned caseを作成。Depthの実GUI dropdownは現状維持/int8/int16/float16/float32。mainwindowの背面PNGにpopupが描かれないため、fresh owned popup HWND64360784を別に撮影して選択肢を確認、273×120原画S48-depth-popup.png。native Down/Returnでint8へ変更し、左Viewer float32/右int8、両Color40%を実機確認。Depth1/Dither0のreadbackとscratch保存済み。元のKeep画像は右Fitだったため出力比較には採用しない。canonical記事/helper/ledgerへS48は未追加。
+- Current host: owned project Collectanea_Captures_20261023_Sol、PID8944/HWND1251932、S48_capture/frame0、左Gradient1・右ChangeDepth1、Inspector Depth int8/Ditherなし。両Color40%、Subviewなし、Spline/Keyframes閉、RoI/DoD無効、popupは選択後に閉。scratch保存済み。S45右Subviewはそのowned comp内のみオン。終了時は保存→Project Managerへ。
+- Next action: S45–S47をcurrent-mainに追随しReady PR/exact-head Quality→Pages→公開4記事38画像/全素材hashを確認。CI中はS48のDepth/Ditherをwork stageだけで継続。445未図示ページとremaining_viewsは未完了。
 - KEEP: 同じSolが継続。Checkpoint保存や単一batch完了だけでは停止・Rolloverしない。文脈圧迫が必要になったときだけCOMPACT/ROLLOVERを判断する。
 
 ## 第1batchの撮影・統合メモ（履歴）

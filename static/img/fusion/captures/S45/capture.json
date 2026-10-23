@@ -1,0 +1,190 @@
+{
+  "schema_version": 1,
+  "case": "S45",
+  "article": "manuals/fusion/nodes/time-metadata/set-timecode.md",
+  "manual": {
+    "version": "21.1",
+    "chapter": 110,
+    "printed_pages": "2575–2576; ch68 p1467"
+  },
+  "runtime": {
+    "version": "21.1.0.14",
+    "edition": "Studio",
+    "os": "Windows-11-10.0.26200-SP0",
+    "ui_language": "ja-JP (some Shape controls remain English)"
+  },
+  "captured_at": "2026-10-23T19:56:38.039418+00:00",
+  "project": "Collectanea_Captures_20261023_Sol",
+  "timeline": "S45_capture",
+  "frame": 0.0,
+  "resolution": [
+    1920,
+    1080
+  ],
+  "color_management": {
+    "colorScienceMode": "davinciYRGB",
+    "colorSpaceTimeline": "Rec.709 (Scene)",
+    "colorSpaceTimelineGamma": "",
+    "colorSpaceOutput": "Rec.709 (Scene)",
+    "colorSpaceOutputGamma": "ACEScc",
+    "separateColorSpaceAndGamma": "0",
+    "isAutoColorManage": "0",
+    "timelineResolutionWidth": "1920",
+    "timelineResolutionHeight": "1080",
+    "timelineFrameRate": 24.0,
+    "timelinePlaybackFrameRate": "30"
+  },
+  "viewer": {
+    "zoom_percent": 40,
+    "channel": "Color",
+    "background": "checkerboard for transparent pixels",
+    "note": "Viewer screenshots are display evidence, not colorimetric exports."
+  },
+  "graph": "fixture.comp",
+  "settings": "readback.json",
+  "source": {
+    "file": "screen.png",
+    "size": [
+      3352,
+      1910
+    ],
+    "sha256": "47a835b1474a5f1fb48214adc804118ccd1ad7a60d03444482a11c64cc157dcb"
+  },
+  "shots": [
+    {
+      "file": "graph.png",
+      "source": "screen.png",
+      "source_sha256": "47a835b1474a5f1fb48214adc804118ccd1ad7a60d03444482a11c64cc157dcb",
+      "frame": 0,
+      "crop_xyxy": [
+        580,
+        1300,
+        2280,
+        1450
+      ],
+      "resampled": false,
+      "sha256": "945b17677adc919711e80d519548e727289fe61135ecb7d9c97fb61249aca11c"
+    },
+    {
+      "file": "inspector.png",
+      "source": "screen.png",
+      "source_sha256": "47a835b1474a5f1fb48214adc804118ccd1ad7a60d03444482a11c64cc157dcb",
+      "frame": 0,
+      "crop_xyxy": [
+        2830,
+        120,
+        3352,
+        390
+      ],
+      "resampled": false,
+      "sha256": "8313eb7eb275ef3adf5ba646db19731de86a40d37a04dc6d8ffa3a9764b06a09"
+    },
+    {
+      "file": "compare.png",
+      "source": "screen.png",
+      "source_sha256": "47a835b1474a5f1fb48214adc804118ccd1ad7a60d03444482a11c64cc157dcb",
+      "frame": 0,
+      "crop_xyxy": [
+        1146,
+        65,
+        2830,
+        815
+      ],
+      "resampled": false,
+      "sha256": "2d2ab2630676948fa910922ad4b75a72977b9668001bb18a42f1f74081f5d7e6"
+    },
+    {
+      "file": "metadata.png",
+      "source": "screen.png",
+      "source_sha256": "47a835b1474a5f1fb48214adc804118ccd1ad7a60d03444482a11c64cc157dcb",
+      "frame": 0,
+      "crop_xyxy": [
+        2034,
+        96,
+        2830,
+        190
+      ],
+      "resampled": false,
+      "sha256": "dc17698b4e6a6f7f9f57dfab8f330060dcb35cfeb55f949f69de708111f70b4d"
+    },
+    {
+      "file": "frame24.png",
+      "source": "screen-frame24.png",
+      "source_sha256": "3307ccbfddcb7f00a8df897656de488b828a28f5771a998ff5defa9543db6f01",
+      "frame": 24,
+      "crop_xyxy": [
+        1146,
+        65,
+        2830,
+        815
+      ],
+      "resampled": false,
+      "sha256": "186b887608ceff326e89dd997c0a8cdfb8d2983545373da8ee6fde9d1e60f8c1"
+    },
+    {
+      "file": "fps25-inspector.png",
+      "source": "screen-fps25.png",
+      "source_sha256": "739cd80107f8a4e41447b7a92ccfa538eecde378d6b90624ebfd41e60da5ada0",
+      "frame": 24,
+      "crop_xyxy": [
+        2830,
+        120,
+        3352,
+        390
+      ],
+      "resampled": false,
+      "sha256": "3292e44ecd604c5161ff16da06c90f4b631b9549e224f585b10bc680720b637c"
+    },
+    {
+      "file": "fps25.png",
+      "source": "screen-fps25.png",
+      "source_sha256": "739cd80107f8a4e41447b7a92ccfa538eecde378d6b90624ebfd41e60da5ada0",
+      "frame": 24,
+      "crop_xyxy": [
+        1146,
+        65,
+        2830,
+        815
+      ],
+      "resampled": false,
+      "sha256": "9d6e384259770ddc2b1bf3c14b0c5917f8f359bda6d9afcd590ce1d52454a94e"
+    },
+    {
+      "file": "zero-metadata.png",
+      "source": "screen-zero.png",
+      "source_sha256": "be62bd21fae7c4ed2b826ae3c3fb56c322b96dd0e0e812e4cf1613937a773e52",
+      "frame": 0,
+      "crop_xyxy": [
+        2034,
+        96,
+        2830,
+        190
+      ],
+      "resampled": false,
+      "sha256": "52dee5b6088c25389f4cab0a309bb8dfdd5218dd8dd6a9a5f2bbff51689679ff"
+    }
+  ],
+  "acceptance": {
+    "gui": "PASS: owner visually inspected node connections, selected Inspector, and output",
+    "article_display": "PASS: local production build;1440px/390px decode/Alt/native links/hash/overflow"
+  },
+  "unverified": [
+    "Free edition and other platforms",
+    "All parameter ranges and performance",
+    "Print to Console, other FPS/drop-frame and output file retention",
+    "Exported portable composition reimport"
+  ],
+  "state_variants": {
+    "screen.png": "frame0 FPS24 TCSeconds8 TCFrames15 → FrameRate24 TimeCode00:00:08:15; restored",
+    "screen-frame24.png": "frame24 same offset/FPS → TimeCode00:00:09:15",
+    "screen-fps25.png": "frame24 native FPS25 button, same offset → FrameRate25 TimeCode00:00:09:14",
+    "screen-zero.png": "frame0 initial offset0 → TimeCode00:00:00:00"
+  },
+  "restoration": "PASS: owned scratch saved, both Color40%, Spline/Keyframes closed, RoI/DoD off; frame0 FPS24 offset8s15f; rightMetadataSubview on in owned comp; Timeline stays24fps",
+  "reproduction": {
+    "fixture_sha256": "e33f66d7ef60793d0fc25c1c4b72536134476ca763032c785f57c65a6a125a9b",
+    "readback_sha256": "1265fd7e15ffcdc79d9f7efce9e83875a1ae4116b0e960eed9791b94064adbaa",
+    "paths": "Comp:/../_fixtures/ for bundled synthetic fixtures",
+    "reimport": "NOT_RUN: accepted GUI evidence precedes export path normalization"
+  }
+}

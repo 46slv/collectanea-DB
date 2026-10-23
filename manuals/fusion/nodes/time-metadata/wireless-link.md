@@ -61,9 +61,29 @@ Wireless Linkからは、参照した2D NodeのImageを後段へ接続できま�
 
 Controls tabにある唯一のWireless Link固有Controlです。
 
-21.1 Manualでは、Node Editorにある参照元の2D Nodeを、この`Input` fieldへドラッグして設定します。現在の記事で以前記載していた「Node名を入力して参照する」という操作ではありません。
+21.1 Manualでは、Node Editorにある参照元の2D Nodeを、この`Input` fieldへドラッグして設定します。参照元のNodeタイルをドラッグします。
 
 設定後は、参照元Nodeの変更がWireless Linkへ反映され、そのoutputを近くのNodeへ接続できます。
+
+## 実機でText+をInputへ指定する
+
+Resolve Studio 21.1.0.14、Windows、日本語UIで、Text+「WIRELESS」、Wireless Link、MediaOutの3つを用意しました。Text1のタイルを、Wireless LinkのInspectorにあるInput欄へ実際にドラッグしています。出力フレーム0、両ViewerはColor／40%です。
+
+[![Text1からWireless1へ画像のpipeを引かず、Wireless1からMediaOut1だけを接続した実機Graph](/img/fusion/captures/S47/graph.png)](/img/fusion/captures/S47/graph.png)
+
+[![Wireless LinkのInspector Input欄へText1をドラッグした後の表示](/img/fusion/captures/S47/inspector.png)](/img/fusion/captures/S47/inspector.png)
+
+[![左Text1と右Wireless1に同じWIRELESSの文字を表示した実機Viewer](/img/fusion/captures/S47/compare.png)](/img/fusion/captures/S47/compare.png)
+
+Input欄にText1が表示され、左右のViewerが同じWIRELESSになりました。GraphにはText1からWireless1への画像pipeが見えず、Wireless1からMediaOut1への接続だけがあります。
+
+参照元Text1の文字をUPDATEDへ変更すると、Wireless1の出力もUPDATEDになりました。参照した時点の画像を固定したコピーではありません。
+
+[![参照元Text1の文字をUPDATEDへ変えると、右Wireless1の文字もUPDATEDになる](/img/fusion/captures/S47/updated.png)](/img/fusion/captures/S47/updated.png)
+
+最後はWIRELESSへ戻しました。この環境のruntime REGIDは`Fuse.Wireless`です。保存したGraphにもInputの参照先Text1が記録されています。参照元のrename／delete、別の参照元への切り替え、他のデータ型、Free editionや他OSは未確認です。
+
+[再現用Graph](/img/fusion/captures/S47/fixture.comp) · [撮影条件と確認範囲](/img/fusion/captures/S47/capture.json)
 
 ## 最小構成
 
@@ -122,7 +142,7 @@ Wireless Linkは複数sourceを切り替えるNodeではありません。1つ�
 - 参照できる対象として21.1 Manualが明記しているのは**2D Node**です。Shape、Particle、Classic 3D、USD等の別data domainを同じ方法で直接参照できるとは、このページでは断定しません。
 - 元Nodeの変更はWireless Link側へ反映されます。参照時点のImageを固定保存するNodeではありません。
 - Wireless Linkを多用すると、Node Editor上のpipeだけでは依存関係を追えなくなります。配線を短くする利点と、接続元が見えなくなる欠点を比較して使います。
-- runtime REGID、内部Parameter ID、edition差、参照元Nodeのrename / delete時のexactな挙動は、このページの確認範囲では断定していません。
+- edition差、全内部Parameter ID、参照元Nodeのrename / delete時のexactな挙動は、このページの確認範囲では断定していません。
 
 ## バージョンと出典
 
@@ -130,4 +150,4 @@ DaVinci Resolve 21.1 Reference Manual（September 2026）、Chapter 111「Miscel
 
 Manualで確認した範囲は、Wireless Linkが2D Node同士をwirelessに接続する用途、入力端子がないこと、Controls tabの単一`Input` field、Node Editorから2D Nodeを`Input`へドラッグして設定する操作、元Nodeの変更がWireless Linkへ反映されること、Wireless Linkのoutputを後段へ接続できることです。
 
-runtime REGID、内部Parameter ID、edition差、参照切れ時の挙動は別verification対象として残しているため、`verification: partial`を維持しています。
+実機例以外のdata domain、edition差、参照切れ時の挙動は別verification対象として残しているため、`verification: partial`を維持しています。

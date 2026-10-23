@@ -2,7 +2,7 @@
   "schema_version": 1,
   "created": "2026-10-20",
   "scope": "All Fusion pages, DaVinci Resolve 21.1",
-  "status_note": "2026-10-24:104 pages/199 crops/396 placements public PASS through PR79. S42–S44/R77–R79 local4 pages44 images PASS;32 new crops plus8 reuse placements. Cumulative107 pages231 crops436 placements; batch9 publication NOT_RUN. Full Fusion and remaining_views incomplete.",
+  "status_note": "2026-10-24:107 pages/231 crops/436 placements public PASS through PR81. S45–S47/R80–R82 local4 pages38 images PASS;18 new crops plus8 reuse placements. Cumulative110 pages249 crops462 placements; batch10 publication NOT_RUN. Full587-page Fusion and remaining_views incomplete.",
   "asset_directory_template": "static/img/fusion/captures/{id}/{shot.slug}.png",
   "capture_manifest_name": "capture.json",
   "candidates": [
@@ -1861,7 +1861,7 @@
         "printed_pages": "2596–2597"
       },
       "goal": "前後方向の平均とclip先頭のMissing Framesを比較する",
-      "status": "captured-local-display-verified",
+      "status": "published-display-verified",
       "shots": [
         {
           "slug": "graph",
@@ -1948,7 +1948,8 @@
           "status": "native-observed"
         }
       ],
-      "capture_manifest": "static/img/fusion/captures/S42/capture.json"
+      "capture_manifest": "static/img/fusion/captures/S42/capture.json",
+      "published_batch": "fusion-native-20261024-09"
     },
     {
       "id": "S43",
@@ -1960,7 +1961,7 @@
         "printed_pages": "2573–2574; ch68 p1467"
       },
       "goal": "Name/ValueとMetadata subviewの一致を確認する",
-      "status": "captured-local-display-verified",
+      "status": "published-display-verified",
       "shots": [
         {
           "slug": "graph",
@@ -1999,7 +2000,8 @@
           "status": "native-observed"
         }
       ],
-      "capture_manifest": "static/img/fusion/captures/S43/capture.json"
+      "capture_manifest": "static/img/fusion/captures/S43/capture.json",
+      "published_batch": "fusion-native-20261024-09"
     },
     {
       "id": "S44",
@@ -2011,7 +2013,7 @@
         "printed_pages": "2571–2573; ch68 p1467"
       },
       "goal": "同名fieldの優先・置換・消去を4方式で比較する",
-      "status": "captured-local-display-verified",
+      "status": "published-display-verified",
       "shots": [
         {
           "slug": "graph",
@@ -2086,7 +2088,161 @@
           "status": "native-observed"
         }
       ],
-      "capture_manifest": "static/img/fusion/captures/S44/capture.json"
+      "capture_manifest": "static/img/fusion/captures/S44/capture.json",
+      "published_batch": "fusion-native-20261024-09"
+    },
+    {
+      "id": "S45",
+      "priority": "P1",
+      "article": "manuals/fusion/nodes/time-metadata/set-timecode.md",
+      "manual": {
+        "version": "21.1",
+        "chapter": 110,
+        "printed_pages": "2575–2576; ch68 p1467"
+      },
+      "goal": "画像を変えず時刻・FPSでMetadataが変わることを比べる",
+      "status": "captured-local-display-verified",
+      "shots": [
+        {
+          "slug": "graph",
+          "kind": "node-graph",
+          "target": "set-timecode",
+          "status": "native-observed"
+        },
+        {
+          "slug": "inspector",
+          "kind": "inspector",
+          "target": "set-timecode",
+          "status": "native-observed"
+        },
+        {
+          "slug": "compare",
+          "kind": "output",
+          "target": "set-timecode",
+          "status": "native-observed"
+        },
+        {
+          "slug": "metadata",
+          "kind": "output",
+          "target": "set-timecode",
+          "status": "native-observed"
+        },
+        {
+          "slug": "frame24",
+          "kind": "output",
+          "target": "set-timecode",
+          "status": "native-observed"
+        },
+        {
+          "slug": "fps25-inspector",
+          "kind": "inspector",
+          "target": "set-timecode",
+          "status": "native-observed"
+        },
+        {
+          "slug": "fps25",
+          "kind": "output",
+          "target": "set-timecode",
+          "status": "native-observed"
+        },
+        {
+          "slug": "zero-metadata",
+          "kind": "output",
+          "target": "set-timecode",
+          "status": "native-observed"
+        }
+      ],
+      "capture_manifest": "static/img/fusion/captures/S45/capture.json"
+    },
+    {
+      "id": "S46",
+      "priority": "P1",
+      "article": "manuals/fusion/nodes/time-metadata/switch.md",
+      "manual": {
+        "version": "21.1",
+        "chapter": 111,
+        "printed_pages": "2606–2607"
+      },
+      "goal": "GUI配線とSource・Configで候補選択を確認する",
+      "status": "captured-local-display-verified",
+      "shots": [
+        {
+          "slug": "graph",
+          "kind": "node-graph",
+          "target": "switch",
+          "status": "native-observed"
+        },
+        {
+          "slug": "inspector",
+          "kind": "inspector",
+          "target": "switch",
+          "status": "native-observed"
+        },
+        {
+          "slug": "compare",
+          "kind": "output",
+          "target": "switch",
+          "status": "native-observed"
+        },
+        {
+          "slug": "gold-inspector",
+          "kind": "inspector",
+          "target": "switch",
+          "status": "native-observed"
+        },
+        {
+          "slug": "gold",
+          "kind": "output",
+          "target": "switch",
+          "status": "native-observed"
+        },
+        {
+          "slug": "config-inspector",
+          "kind": "inspector",
+          "target": "switch",
+          "status": "native-observed"
+        }
+      ],
+      "capture_manifest": "static/img/fusion/captures/S46/capture.json"
+    },
+    {
+      "id": "S47",
+      "priority": "P1",
+      "article": "manuals/fusion/nodes/time-metadata/wireless-link.md",
+      "manual": {
+        "version": "21.1",
+        "chapter": 111,
+        "printed_pages": "2613–2614"
+      },
+      "goal": "InspectorへのNode dragと参照元変更の反映を確認する",
+      "status": "captured-local-display-verified",
+      "shots": [
+        {
+          "slug": "graph",
+          "kind": "node-graph",
+          "target": "wireless-link",
+          "status": "native-observed"
+        },
+        {
+          "slug": "inspector",
+          "kind": "inspector",
+          "target": "wireless-link",
+          "status": "native-observed"
+        },
+        {
+          "slug": "compare",
+          "kind": "output",
+          "target": "wireless-link",
+          "status": "native-observed"
+        },
+        {
+          "slug": "updated",
+          "kind": "output",
+          "target": "wireless-link",
+          "status": "native-observed"
+        }
+      ],
+      "capture_manifest": "static/img/fusion/captures/S47/capture.json"
     }
   ],
   "publication_batches": [
@@ -2385,27 +2541,57 @@
         "artifacts/fusion-captures/public-batch8-assets.json"
       ],
       "limitations": "Full Fusion and article remaining_views continue."
+    },
+    {
+      "id": "fusion-native-20261024-09",
+      "cases": [
+        "S42",
+        "S43",
+        "S44"
+      ],
+      "reuses": [
+        "R77",
+        "R78",
+        "R79"
+      ],
+      "pr": "https://github.com/46slv/collectanea-DB/pull/81",
+      "candidate": "e7d85ec0071ae2c8bb9701f7d5e385243d373e93",
+      "main": "6b5a815da4d213a4094223aa0ab53e5d1c103be4",
+      "tree": "25e886039284116897f3901530790cc71df2c0f9",
+      "quality_run": "https://github.com/46slv/collectanea-DB/actions/runs/40013301812",
+      "pages_run": "https://github.com/46slv/collectanea-DB/actions/runs/40014372083",
+      "public_pages": 4,
+      "public_images": 44,
+      "new_placements": 40,
+      "new_native_crops": 32,
+      "public_asset_hashes": 699,
+      "result": "PASS",
+      "evidence": [
+        "artifacts/fusion-captures/public-batch9-display-report.json",
+        "artifacts/fusion-captures/public-batch9-assets.json"
+      ],
+      "limitations": "Full Fusion and article remaining_views continue. Incoming PR80 new recipe requires native capture."
     }
   ],
   "coverage_inventory": {
-    "checked_at": "2026-10-23T19:36:29.179667+00:00",
+    "checked_at": "2026-10-23T20:02:54.362940+00:00",
     "scope": "All manuals/fusion Markdown and MDX pages; review necessity before adding images.",
     "completion_rule": "Every page has an explicit image decision; necessary images are native-observed, embedded, saved to GitHub and public-display-verified. A native example does not verify all article controls.",
     "summary": {
-      "total_pages": 586,
-      "with_images": 107,
-      "with_native_examples": 107,
+      "total_pages": 587,
+      "with_images": 110,
+      "with_native_examples": 110,
       "states": {
         "reviewed-no-standalone-image": 26,
         "no-standalone-image-needed": 6,
         "illustrated-reused-example": 65,
-        "capture-planned": 447,
-        "illustrated-native-example": 42
+        "capture-planned": 445,
+        "illustrated-native-example": 45
       },
       "decisions": {
         "no-standalone-image-needed": 32,
-        "image-required": 107,
-        "capture-needed": 447
+        "image-required": 110,
+        "capture-needed": 445
       }
     },
     "pages": [
@@ -15897,13 +16083,16 @@
         "article": "manuals/fusion/nodes/time-metadata/index.md",
         "title": "Time / Metadata / Utilityノード",
         "kind": "index",
-        "image_count": 12,
+        "image_count": 20,
         "native_cases": [],
         "reused_cases": [
           "S40",
           "S42",
           "S43",
-          "S44"
+          "S44",
+          "S45",
+          "S46",
+          "S47"
         ],
         "planned_cases": [],
         "state": "illustrated-reused-example",
@@ -15911,9 +16100,9 @@
         "reason": "Source Time、Keyframe評価、Metadata subviewやDoDの実画面を示す。",
         "remaining_views": [
           "Flow/SpeedWarp/Fields/Keyframe Stretcher等の比較",
-          "Set Timecode/DoD/Bit depth/Switch/Wireless等の自身のUIと結果"
+          "DoD/Bit depth/Custom Tool等の自身のUIと結果"
         ],
-        "audit_note": "S42–S44の実機例を掲載。固定条件の結果と未撮影機能を区別しpartial維持。"
+        "audit_note": "S45–S47の実機例を掲載。固定条件の結果と未撮影機能を区別しpartial維持。"
       },
       {
         "article": "manuals/fusion/nodes/time-metadata/keyframe-stretcher.md",
@@ -16072,13 +16261,18 @@
         "article": "manuals/fusion/nodes/time-metadata/set-timecode.md",
         "title": "Set Timecode",
         "kind": "node",
-        "image_count": 0,
-        "native_cases": [],
+        "image_count": 8,
+        "native_cases": [
+          "S45"
+        ],
         "reused_cases": [],
         "planned_cases": [],
-        "state": "capture-planned",
-        "decision": "capture-needed",
+        "state": "illustrated-native-example",
+        "decision": "image-required",
         "reason": "本文の対象機能: Set Timecodeは、FPSとcomposition開始位置から計算したタイムコードを2D Imageのメタデータへ書き込むNode。。RGBの見た目ではmetadata付与/copy/timecodeを示せない。",
+        "remaining_views": [
+          "Print to Console、他FPS/drop-frame、出力形式への保持"
+        ],
         "required_views": [
           "対象Graph",
           "自身のField/Operation/FPS等",
@@ -16108,7 +16302,8 @@
             "role": "入力/結果または実UIの具体箇所"
           }
         ],
-        "hold_conditions": []
+        "hold_conditions": [],
+        "audit_note": "S45–S47の実機例を掲載。固定条件の結果と未撮影機能を区別しpartial維持。"
       },
       {
         "article": "manuals/fusion/nodes/time-metadata/speedwarp.md",
@@ -16150,13 +16345,18 @@
         "article": "manuals/fusion/nodes/time-metadata/switch.md",
         "title": "Switch",
         "kind": "node",
-        "image_count": 0,
-        "native_cases": [],
+        "image_count": 6,
+        "native_cases": [
+          "S46"
+        ],
         "reused_cases": [],
         "planned_cases": [],
-        "state": "capture-planned",
-        "decision": "capture-needed",
+        "state": "illustrated-native-example",
+        "decision": "image-required",
         "reason": "本文の対象機能: 複数の入力のうち1本を選んで後段へ渡すNode。2D Image、Shape、Classic 3Dなどに対応する。。通常pipeではsource選択/無線参照を示せない。",
+        "remaining_views": [
+          "Shape/3D、Source animation、9超入力と未接続入力"
+        ],
         "required_views": [
           "対象名と実接続が読めるGraph",
           "対象自身を選択したInspectorの該当Control",
@@ -16188,7 +16388,8 @@
         ],
         "hold_conditions": [
           "Switch異domain自動変換を仮定しない。Wireless Linkに入力portを作らない。"
-        ]
+        ],
+        "audit_note": "S45–S47の実機例を掲載。固定条件の結果と未撮影機能を区別しpartial維持。"
       },
       {
         "article": "manuals/fusion/nodes/time-metadata/time-speed.md",
@@ -16289,13 +16490,18 @@
         "article": "manuals/fusion/nodes/time-metadata/wireless-link.md",
         "title": "Wireless Link",
         "kind": "node",
-        "image_count": 0,
-        "native_cases": [],
+        "image_count": 4,
+        "native_cases": [
+          "S47"
+        ],
         "reused_cases": [],
         "planned_cases": [],
-        "state": "capture-planned",
-        "decision": "capture-needed",
+        "state": "illustrated-native-example",
+        "decision": "image-required",
         "reason": "本文の対象機能: 離れた2D Nodeのoutputをpipeなしで参照するrouting Node。。通常pipeではsource選択/無線参照を示せない。",
+        "remaining_views": [
+          "参照元のrename/delete/切替、参照切れと他data domain"
+        ],
         "required_views": [
           "対象名と実接続が読めるGraph",
           "対象自身を選択したInspectorの該当Control",
@@ -16322,7 +16528,8 @@
         ],
         "hold_conditions": [
           "Switch異domain自動変換を仮定しない。Wireless Linkに入力portを作らない。"
-        ]
+        ],
+        "audit_note": "S45–S47の実機例を掲載。固定条件の結果と未撮影機能を区別しpartial維持。"
       },
       {
         "article": "manuals/fusion/nodes/tracking/camera-tracker.md",
@@ -19199,6 +19406,26 @@
         "reason": "Alpha Divide→ColorCorrector→Alpha Multiplyの透明エッジ比較"
       },
       {
+        "article": "manuals/fusion/recipes/compositing/heat-shimmer-with-fast-noise-displace.md",
+        "title": "Fast NoiseとDisplaceで熱気の揺らぎを作る",
+        "kind": "recipe",
+        "image_count": 0,
+        "native_cases": [],
+        "reused_cases": [],
+        "planned_cases": [],
+        "state": "capture-planned",
+        "decision": "capture-needed",
+        "reason": "X/Y変位、Seethe Rateの時刻差、局所Effect Maskは既存S30のRadial静止例では示せない。",
+        "priority": "P2",
+        "required_views": [
+          "元画像とFast Noise・Polygonを分離したGraph",
+          "Displace X/YとSeethe RateのInspector",
+          "複数frameの局所変位とMask境界比較"
+        ],
+        "minimum_fixture": "所有する線・文字plate、Fast Noise、Displace、局所Mask",
+        "audit_note": "PR80追加記事を個別監査。既存例で未追試手順の完成を主張しない。"
+      },
+      {
         "article": "manuals/fusion/recipes/compositing/multi-merge-layers.md",
         "title": "複数ImageをMultiMergeでまとめる",
         "kind": "recipe",
@@ -20834,8 +21061,9 @@
         "compare.png",
         "forward.png"
       ],
-      "status": "embedded-local-display-verified",
-      "scope": "Frames12の固定例。Fields、Keyframe Stretcher、ノイズ低減性能は未確認。"
+      "status": "published-display-verified",
+      "scope": "Frames12の固定例。Fields、Keyframe Stretcher、ノイズ低減性能は未確認。",
+      "published_batch": "fusion-native-20261024-09"
     },
     {
       "id": "R78",
@@ -20845,8 +21073,9 @@
         "inspector.png",
         "metadata.png"
       ],
-      "status": "embedded-local-display-verified",
-      "scope": "Name/Valueの固定例。Set Timecodeと書き出し時の保持は未確認。"
+      "status": "published-display-verified",
+      "scope": "Name/Valueの固定例。Set Timecodeと書き出し時の保持は未確認。",
+      "published_batch": "fusion-native-20261024-09"
     },
     {
       "id": "R79",
@@ -20857,8 +21086,44 @@
         "preserve-metadata.png",
         "replace-metadata.png"
       ],
+      "status": "published-display-verified",
+      "scope": "2入力のmetadata結合と置換。保存ファイルへの保持は未確認。",
+      "published_batch": "fusion-native-20261024-09"
+    },
+    {
+      "id": "R80",
+      "article": "manuals/fusion/nodes/time-metadata/index.md",
+      "source_case": "S45",
+      "images": [
+        "metadata.png",
+        "frame24.png"
+      ],
       "status": "embedded-local-display-verified",
-      "scope": "2入力のmetadata結合と置換。保存ファイルへの保持は未確認。"
+      "scope": "固定オフセットと24fpsの時刻差。書き出し時のTimecode保持は未確認。"
+    },
+    {
+      "id": "R81",
+      "article": "manuals/fusion/nodes/time-metadata/index.md",
+      "source_case": "S46",
+      "images": [
+        "graph.png",
+        "gold-inspector.png",
+        "gold.png"
+      ],
+      "status": "embedded-local-display-verified",
+      "scope": "2D Imageの固定選択。Shape/3DとSourceアニメーションは未確認。"
+    },
+    {
+      "id": "R82",
+      "article": "manuals/fusion/nodes/time-metadata/index.md",
+      "source_case": "S47",
+      "images": [
+        "graph.png",
+        "inspector.png",
+        "updated.png"
+      ],
+      "status": "embedded-local-display-verified",
+      "scope": "Text+の2D Image参照。参照元のrename/deleteや参照切れは未確認。"
     }
   ]
 }
