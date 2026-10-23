@@ -2,7 +2,7 @@
   "schema_version": 1,
   "created": "2026-10-20",
   "scope": "All Fusion pages, DaVinci Resolve 21.1",
-  "status_note": "2026-10-24:115 pages294 crops527 placements public PASS through PR86. S52/S53/R89–R93 add21 native crops and12 reuse placements;local7 pages55 images PASS. Cumulative117 pages315 crops560 placements;batch13 public NOT_RUN. Whole587-page Fusion and remaining_views incomplete.",
+  "status_note": "2026-10-24:117 pages315 crops560 placements public PASS through PR87. S54/S55/R94–R96 add17 native crops and10 reuse placements;local4 distinct pages39 images PASS. Cumulative119 pages332 crops587 placements;batch14 public NOT_RUN. Whole587-page Fusion and remaining_views incomplete.",
   "asset_directory_template": "static/img/fusion/captures/{id}/{shot.slug}.png",
   "capture_manifest_name": "capture.json",
   "candidates": [
@@ -2591,7 +2591,7 @@
         "printed_pages": "2198–2199"
       },
       "goal": "Compare canvas RGB/Alpha and explicit canvas reference",
-      "status": "captured-local-display-verified",
+      "status": "published-display-verified",
       "shots": [
         {
           "slug": "graph",
@@ -2666,7 +2666,8 @@
           "status": "native-observed"
         }
       ],
-      "capture_manifest": "static/img/fusion/captures/S52/capture.json"
+      "capture_manifest": "static/img/fusion/captures/S52/capture.json",
+      "published_batch": "fusion-native-20261024-13"
     },
     {
       "id": "S53",
@@ -2678,7 +2679,7 @@
         "printed_pages": "2862–2864"
       },
       "goal": "Compare physical image dimensions and centered versus left crop",
-      "status": "captured-local-display-verified",
+      "status": "published-display-verified",
       "shots": [
         {
           "slug": "graph",
@@ -2735,7 +2736,140 @@
           "status": "native-observed"
         }
       ],
-      "capture_manifest": "static/img/fusion/captures/S53/capture.json"
+      "capture_manifest": "static/img/fusion/captures/S53/capture.json",
+      "published_batch": "fusion-native-20261024-13"
+    },
+    {
+      "id": "S54",
+      "priority": "P1",
+      "article": "manuals/fusion/nodes/transform/letterbox.md",
+      "manual": {
+        "version": "21.1",
+        "chapter": 120,
+        "printed_pages": "2868–2870"
+      },
+      "goal": "Compare Envelope/PanScan, Center and transparent bands",
+      "status": "captured-local-display-verified",
+      "shots": [
+        {
+          "slug": "graph",
+          "kind": "node-graph",
+          "target": "Letterbox",
+          "status": "native-observed"
+        },
+        {
+          "slug": "inspector",
+          "kind": "inspector",
+          "target": "Letterbox",
+          "status": "native-observed"
+        },
+        {
+          "slug": "compare",
+          "kind": "output",
+          "target": "Letterbox",
+          "status": "native-observed"
+        },
+        {
+          "slug": "pan-inspector",
+          "kind": "inspector",
+          "target": "Letterbox",
+          "status": "native-observed"
+        },
+        {
+          "slug": "pan",
+          "kind": "output",
+          "target": "Letterbox",
+          "status": "native-observed"
+        },
+        {
+          "slug": "pan-offset-inspector",
+          "kind": "inspector",
+          "target": "Letterbox",
+          "status": "native-observed"
+        },
+        {
+          "slug": "pan-offset",
+          "kind": "output",
+          "target": "Letterbox",
+          "status": "native-observed"
+        },
+        {
+          "slug": "envelope-offset-inspector",
+          "kind": "inspector",
+          "target": "Letterbox",
+          "status": "native-observed"
+        },
+        {
+          "slug": "envelope-offset",
+          "kind": "output",
+          "target": "Letterbox",
+          "status": "native-observed"
+        },
+        {
+          "slug": "alpha",
+          "kind": "output",
+          "target": "Letterbox",
+          "status": "native-observed"
+        }
+      ],
+      "capture_manifest": "static/img/fusion/captures/S54/capture.json"
+    },
+    {
+      "id": "S55",
+      "priority": "P1",
+      "article": "manuals/fusion/nodes/transform/dve.md",
+      "manual": {
+        "version": "21.1",
+        "chapter": 120,
+        "printed_pages": "2865–2867"
+      },
+      "goal": "Compare 2D perspective and Z Move",
+      "status": "captured-local-display-verified",
+      "shots": [
+        {
+          "slug": "graph",
+          "kind": "node-graph",
+          "target": "DVE",
+          "status": "native-observed"
+        },
+        {
+          "slug": "inspector",
+          "kind": "inspector",
+          "target": "DVE",
+          "status": "native-observed"
+        },
+        {
+          "slug": "compare",
+          "kind": "output",
+          "target": "DVE",
+          "status": "native-observed"
+        },
+        {
+          "slug": "perspective-inspector",
+          "kind": "inspector",
+          "target": "DVE",
+          "status": "native-observed"
+        },
+        {
+          "slug": "perspective",
+          "kind": "output",
+          "target": "DVE",
+          "status": "native-observed"
+        },
+        {
+          "slug": "zmove2-inspector",
+          "kind": "inspector",
+          "target": "DVE",
+          "status": "native-observed"
+        },
+        {
+          "slug": "zmove2",
+          "kind": "output",
+          "target": "DVE",
+          "status": "native-observed"
+        }
+      ],
+      "capture_manifest": "static/img/fusion/captures/S55/capture.json"
     }
   ],
   "publication_batches": [
@@ -3152,27 +3286,62 @@
         "artifacts/fusion-captures/public-batch12-assets.json"
       ],
       "limitations": "Whole587-page Fusion and remaining_views continue. S52/S53 native accepted and embedded; local display/public pending."
+    },
+    {
+      "id": "fusion-native-20261024-13",
+      "cases": [
+        "S52",
+        "S53"
+      ],
+      "reuses": [
+        "R89",
+        "R90",
+        "R91",
+        "R92",
+        "R93"
+      ],
+      "pr": "https://github.com/46slv/collectanea-DB/pull/87",
+      "candidate": "248ca45f56457d892bed18e2e8404d15416cebf7",
+      "initial_candidate": "c89429ad5b9a4e98f72faf44d568d7c7a930ec2f",
+      "incoming_main": "6090aacb42f0884ea4371d19412e0e707662685d",
+      "incoming_pr": "https://github.com/46slv/collectanea-DB/pull/84",
+      "main": "02ebe758be5797319ef2680a28f370ae2251df4b",
+      "tree": "642a3cf832f68f619d0b2d09a04412622dd74b4e",
+      "quality_run": "https://github.com/46slv/collectanea-DB/actions/runs/40028988622",
+      "superseded_quality": "https://github.com/46slv/collectanea-DB/actions/runs/40027972936",
+      "pages_run": "https://github.com/46slv/collectanea-DB/actions/runs/40030363104",
+      "public_pages": 7,
+      "public_images": 55,
+      "new_placements": 33,
+      "new_native_crops": 21,
+      "public_asset_hashes": 858,
+      "result": "PASS",
+      "evidence": [
+        "artifacts/fusion-captures/public-batch13-display-report.json",
+        "artifacts/fusion-captures/public-batch13-assets.json"
+      ],
+      "limitations": "Whole587-page Fusion and remaining_views continue. S54/S55 native accepted/saved, not yet embedded."
     }
   ],
   "coverage_inventory": {
-    "checked_at": "2026-10-23T21:34:46.085636+00:00",
+    "checked_at": "2026-10-23T22:08:07.265246+00:00",
     "scope": "All manuals/fusion Markdown and MDX pages; review necessity before adding images.",
     "completion_rule": "Every page has an explicit image decision; necessary images are native-observed, embedded, saved to GitHub and public-display-verified. A native example does not verify all article controls.",
     "summary": {
       "total_pages": 587,
-      "with_images": 117,
-      "with_native_examples": 117,
+      "with_images": 119,
+      "with_native_examples": 119,
       "states": {
         "reviewed-no-standalone-image": 26,
         "no-standalone-image-needed": 6,
         "illustrated-reused-example": 66,
-        "capture-planned": 438,
-        "illustrated-native-example": 51
+        "capture-planned": 436,
+        "illustrated-native-example": 53
       },
       "decisions": {
         "no-standalone-image-needed": 32,
-        "image-required": 117,
-        "capture-needed": 438
+        "image-required": 119,
+        "capture-needed": 436
       }
     },
     "pages": [
@@ -3824,21 +3993,22 @@
         "article": "manuals/fusion/learn/03-space/resolution-aspect.md",
         "title": "解像度 / アスペクト比（Resolution / Aspect）",
         "kind": "concept",
-        "image_count": 7,
+        "image_count": 10,
         "native_cases": [
           "S24"
         ],
         "reused_cases": [
-          "S53"
+          "S53",
+          "S54"
         ],
         "planned_cases": [],
         "state": "illustrated-native-example",
         "decision": "image-required",
         "reason": "FHDからTransform Size 0.5／Scale Size 0.5／Resize 960×540の寸法付き比較。",
         "remaining_views": [
-          "Pixel Aspectと後段Mergeの実比較"
+          "PixelAspect、後段Mergeとexportの実比較"
         ],
-        "audit_note": "S52/S53の固定実機例を掲載。全control/性能と区別しpartial維持。"
+        "audit_note": "S54/S55の固定実機例を掲載。全control/合成/export/性能はpartial維持。"
       },
       {
         "article": "manuals/fusion/learn/04-compositing/alpha.md",
@@ -17436,13 +17606,18 @@
         "article": "manuals/fusion/nodes/transform/dve.md",
         "title": "DVE",
         "kind": "node",
-        "image_count": 0,
-        "native_cases": [],
+        "image_count": 7,
+        "native_cases": [
+          "S55"
+        ],
         "reused_cases": [],
         "planned_cases": [],
-        "state": "capture-planned",
-        "decision": "capture-needed",
+        "state": "illustrated-native-example",
+        "decision": "image-required",
         "reason": "本文の対象機能: DVEは、2D画像を奥行き方向に動かし、傾きや遠近感を付ける変形Node。。S06全体Transformはcrop寸法/policy/遠近/時間揺れを示せない。",
+        "remaining_views": [
+          "DVE/Effect Mask、BlackBackground/FillBlack、AlphaMode、Shear/Pivot変更、animation/Merge/性能"
+        ],
         "required_views": [
           "対象名と実接続が読めるGraph",
           "対象自身を選択したInspectorの該当Control",
@@ -17467,17 +17642,20 @@
             "role": "入力/結果または実UIの具体箇所"
           }
         ],
-        "hold_conditions": []
+        "hold_conditions": [],
+        "audit_note": "S54/S55の固定実機例を掲載。全control/合成/export/性能はpartial維持。"
       },
       {
         "article": "manuals/fusion/nodes/transform/index.md",
         "title": "Transform / Formatノード",
         "kind": "index",
-        "image_count": 5,
+        "image_count": 12,
         "native_cases": [],
         "reused_cases": [
           "S06",
-          "S53"
+          "S53",
+          "S54",
+          "S55"
         ],
         "planned_cases": [],
         "state": "illustrated-reused-example",
@@ -17487,22 +17665,27 @@
           "S06"
         ],
         "remaining_views": [
-          "DVE/Letterbox等の自身のUIと出力",
-          "Crop Auto Crop/Pixel Aspect/Clippingと後段Merge"
+          "DVE Masks/Alpha/animation、Letterbox PixelAspect/Filtersと後段Merge",
+          "Crop AutoCrop/PixelAspect/Clippingと後段Merge"
         ],
-        "audit_note": "S52/S53の固定実機例を掲載。全control/性能と区別しpartial維持。"
+        "audit_note": "S54/S55の固定実機例を掲載。全control/合成/export/性能はpartial維持。"
       },
       {
         "article": "manuals/fusion/nodes/transform/letterbox.md",
         "title": "Letterbox",
         "kind": "node",
-        "image_count": 0,
-        "native_cases": [],
+        "image_count": 10,
+        "native_cases": [
+          "S54"
+        ],
         "reused_cases": [],
         "planned_cases": [],
-        "state": "capture-planned",
-        "decision": "capture-needed",
+        "state": "illustrated-native-example",
+        "decision": "image-required",
         "reason": "本文の対象機能: Letterboxは、画像の縦横比と出力寸法を合わせ、余白または切り出しによってフレームへ収めるNode。。S06全体Transformはcrop寸法/policy/遠近/時間揺れを示せない。",
+        "remaining_views": [
+          "AutoResolution、PixelAspect、Filters、Merge、不透明帯合成とexport、animation/性能"
+        ],
         "required_views": [
           "対象名と実接続が読めるGraph",
           "対象自身を選択したInspectorの該当Control",
@@ -17527,7 +17710,8 @@
             "role": "入力/結果または実UIの具体箇所"
           }
         ],
-        "hold_conditions": []
+        "hold_conditions": [],
+        "audit_note": "S54/S55の固定実機例を掲載。全control/合成/export/性能はpartial維持。"
       },
       {
         "article": "manuals/fusion/nodes/transform/resize.md",
@@ -21872,8 +22056,9 @@
         "inspector.png",
         "dod.png"
       ],
-      "status": "embedded-local-display-verified",
-      "scope": "固定チャートのColor表示。後段合成、Mask反転、書き出しの色は未確認。"
+      "status": "published-display-verified",
+      "scope": "固定チャートのColor表示。後段合成、Mask反転、書き出しの色は未確認。",
+      "published_batch": "fusion-native-20261024-13"
     },
     {
       "id": "R90",
@@ -21883,8 +22068,9 @@
         "inspector.png",
         "compare.png"
       ],
-      "status": "embedded-local-display-verified",
-      "scope": "Cropの寸法比較。Transform往復、Clipping ModeやBlurの境界は未確認。"
+      "status": "published-display-verified",
+      "scope": "Cropの寸法比較。Transform往復、Clipping ModeやBlurの境界は未確認。",
+      "published_batch": "fusion-native-20261024-13"
     },
     {
       "id": "R91",
@@ -21895,8 +22081,9 @@
         "inspector.png",
         "compare.png"
       ],
-      "status": "embedded-local-display-verified",
-      "scope": "固定チャートの手入力例。後段合成や書き出しの色は未確認。"
+      "status": "published-display-verified",
+      "scope": "固定チャートの手入力例。後段合成や書き出しの色は未確認。",
+      "published_batch": "fusion-native-20261024-13"
     },
     {
       "id": "R92",
@@ -21907,8 +22094,9 @@
         "inspector.png",
         "compare.png"
       ],
-      "status": "embedded-local-display-verified",
-      "scope": "固定Crop例。Auto Crop、Pixel Aspect、Merge後の寸法は未確認。"
+      "status": "published-display-verified",
+      "scope": "固定Crop例。Auto Crop、Pixel Aspect、Merge後の寸法は未確認。",
+      "published_batch": "fusion-native-20261024-13"
     },
     {
       "id": "R93",
@@ -21918,8 +22106,46 @@
         "inspector.png",
         "compare.png"
       ],
+      "status": "published-display-verified",
+      "scope": "固定チャートのCrop例。Pixel Aspect、Auto Crop、後段Mergeは未確認。",
+      "published_batch": "fusion-native-20261024-13"
+    },
+    {
+      "id": "R94",
+      "article": "manuals/fusion/nodes/transform/index.md",
+      "source_case": "S54",
+      "images": [
+        "graph.png",
+        "inspector.png",
+        "compare.png",
+        "pan.png"
+      ],
       "status": "embedded-local-display-verified",
-      "scope": "固定チャートのCrop例。Pixel Aspect、Auto Crop、後段Mergeは未確認。"
+      "scope": "透明余白の固定例。不透明黒帯の合成、書き出し、他Filterは未確認。"
+    },
+    {
+      "id": "R95",
+      "article": "manuals/fusion/nodes/transform/index.md",
+      "source_case": "S55",
+      "images": [
+        "graph.png",
+        "inspector.png",
+        "compare.png"
+      ],
+      "status": "embedded-local-display-verified",
+      "scope": "静止DVE例。Masks、Alpha、後段Merge、アニメーションは未確認。"
+    },
+    {
+      "id": "R96",
+      "article": "manuals/fusion/learn/03-space/resolution-aspect.md",
+      "source_case": "S54",
+      "images": [
+        "inspector.png",
+        "compare.png",
+        "pan.png"
+      ],
+      "status": "embedded-local-display-verified",
+      "scope": "固定Letterbox例。Pixel Aspect、後段Merge、不透明黒帯の合成は未確認。"
     }
   ]
 }

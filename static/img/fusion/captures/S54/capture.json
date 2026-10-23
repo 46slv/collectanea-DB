@@ -1,0 +1,255 @@
+{
+  "schema_version": 1,
+  "case": "S54",
+  "article": "manuals/fusion/nodes/transform/letterbox.md",
+  "manual": {
+    "version": "21.1",
+    "chapter": 120,
+    "printed_pages": "2868–2870"
+  },
+  "runtime": {
+    "version": "21.1.0.14",
+    "edition": "Studio",
+    "os": "Windows-11-10.0.26200-SP0",
+    "ui_language": "ja-JP (some Shape controls remain English)"
+  },
+  "captured_at": "2026-10-23T22:03:28.053444+00:00",
+  "project": "Collectanea_Captures_20261023_Sol",
+  "timeline": "S54_capture",
+  "frame": 0.0,
+  "resolution": [
+    1920,
+    1080
+  ],
+  "color_management": {
+    "colorScienceMode": "davinciYRGB",
+    "colorSpaceTimeline": "Rec.709 (Scene)",
+    "colorSpaceTimelineGamma": "",
+    "colorSpaceOutput": "Rec.709 (Scene)",
+    "colorSpaceOutputGamma": "ACEScc",
+    "separateColorSpaceAndGamma": "0",
+    "isAutoColorManage": "0",
+    "timelineResolutionWidth": "1920",
+    "timelineResolutionHeight": "1080",
+    "timelineFrameRate": 24.0,
+    "timelinePlaybackFrameRate": "30"
+  },
+  "viewer": {
+    "zoom_percent": 40,
+    "channel": "Color",
+    "background": "checkerboard for transparent pixels",
+    "note": "Viewer screenshots are display evidence, not colorimetric exports."
+  },
+  "graph": "fixture.comp",
+  "settings": "readback.json",
+  "source": {
+    "file": "screen.png",
+    "size": [
+      3352,
+      1910
+    ],
+    "sha256": "7b124befa291fdd30b2ff9d64032e8be253f8a53a979a5a69ba11489bd4dff02"
+  },
+  "shots": [
+    {
+      "file": "graph.png",
+      "source": "screen.png",
+      "source_sha256": "7b124befa291fdd30b2ff9d64032e8be253f8a53a979a5a69ba11489bd4dff02",
+      "frame": 0.0,
+      "crop_xyxy": [
+        480,
+        1300,
+        2380,
+        1450
+      ],
+      "resampled": false,
+      "sha256": "a390cdb52672bb67a0157d8afb6f5def97f43bdc51c202d804d61c84ae2d71a8",
+      "viewer_channels": "Color"
+    },
+    {
+      "file": "inspector.png",
+      "source": "screen.png",
+      "source_sha256": "7b124befa291fdd30b2ff9d64032e8be253f8a53a979a5a69ba11489bd4dff02",
+      "frame": 0.0,
+      "crop_xyxy": [
+        2830,
+        120,
+        3352,
+        465
+      ],
+      "resampled": false,
+      "sha256": "b0ab7b0aaace4b8a6790c397ff0c909fd11a1fb5dc69e880a008884b699cdbd7",
+      "viewer_channels": "Color"
+    },
+    {
+      "file": "compare.png",
+      "source": "screen-image.png",
+      "source_sha256": "e98636e96a6b29f03871ef05ec137e9a0bde49358739344617b31c7c0d4a3126",
+      "frame": 0.0,
+      "crop_xyxy": [
+        1146,
+        65,
+        2830,
+        705
+      ],
+      "resampled": false,
+      "sha256": "c9d7359772b49e370a631eab40862194cec14adabdd31edbe8755b05b5854892",
+      "viewer_channels": "Color"
+    },
+    {
+      "file": "pan-inspector.png",
+      "source": "screen-pan.png",
+      "source_sha256": "fea6148473ef0ab280a710c18820844725fac473e0d46e2bb495c124f4a3ecab",
+      "frame": 0.0,
+      "crop_xyxy": [
+        2830,
+        120,
+        3352,
+        465
+      ],
+      "resampled": false,
+      "sha256": "096312838fa4195e33c55b1b218a18801535b058363c43690df89c0bfc62cb39",
+      "viewer_channels": "Color"
+    },
+    {
+      "file": "pan.png",
+      "source": "screen-pan-image.png",
+      "source_sha256": "c775746f639990481777d8f9086f0c06dae1276af0dc64dece5f507b5c465440",
+      "frame": 0.0,
+      "crop_xyxy": [
+        1146,
+        65,
+        2830,
+        705
+      ],
+      "resampled": false,
+      "sha256": "39643c9e974e82aff00848f04868e3a18c98942675829cfb7c9774bb2af9a2ad",
+      "viewer_channels": "Color"
+    },
+    {
+      "file": "pan-offset-inspector.png",
+      "source": "screen-pan-offset.png",
+      "source_sha256": "e42d314652c52d72f79461aae88276e8c684204d939f9386fc43b63ba13c2584",
+      "frame": 0.0,
+      "crop_xyxy": [
+        2830,
+        120,
+        3352,
+        465
+      ],
+      "resampled": false,
+      "sha256": "6b3b3e4e137b5b28d6a306953ead0fb21924fc92bf5bbe103004064a3caebf3e",
+      "viewer_channels": "Color"
+    },
+    {
+      "file": "pan-offset.png",
+      "source": "screen-pan-offset-image.png",
+      "source_sha256": "3b50902eb07ea2696dd4142e159cd9f330f27cdb41bc4fd949b9eac46a6adc14",
+      "frame": 0.0,
+      "crop_xyxy": [
+        1146,
+        65,
+        2830,
+        705
+      ],
+      "resampled": false,
+      "sha256": "1144cf811cf26be0b8f68a5fce8bc097a191c3eb4a5512a62289fc26d1be01f0",
+      "viewer_channels": "Color"
+    },
+    {
+      "file": "envelope-offset-inspector.png",
+      "source": "screen-envelope-offset.png",
+      "source_sha256": "540d1fee41880d8c831dddc571373a3ca3660c361bda44ae9d0a0d97e354849f",
+      "frame": 0.0,
+      "crop_xyxy": [
+        2830,
+        120,
+        3352,
+        465
+      ],
+      "resampled": false,
+      "sha256": "d7728f41016c33c43c7fced4113103bff9201156cdb89e3c86b11381fd996f9c",
+      "viewer_channels": "Color"
+    },
+    {
+      "file": "envelope-offset.png",
+      "source": "screen-envelope-offset-image.png",
+      "source_sha256": "bc3828c6fa43b46227cc714843e611bf2e6cc59992a1820e3ffcd266da5a7fa9",
+      "frame": 0.0,
+      "crop_xyxy": [
+        1146,
+        65,
+        2830,
+        705
+      ],
+      "resampled": false,
+      "sha256": "c9d7359772b49e370a631eab40862194cec14adabdd31edbe8755b05b5854892",
+      "viewer_channels": "Color"
+    },
+    {
+      "file": "alpha.png",
+      "source": "screen-alpha.png",
+      "source_sha256": "548f7b16eab3d49a1953b2d5650a364774bd9bc260c0f9a142097fc5ee6733c4",
+      "frame": 0.0,
+      "crop_xyxy": [
+        1146,
+        65,
+        2830,
+        705
+      ],
+      "resampled": false,
+      "sha256": "48bff76b025f9932737a365ef48a616b1364d764bd87761867710e40a54fce27",
+      "viewer_channels": "Left Color / Right Alpha"
+    }
+  ],
+  "acceptance": {
+    "gui": "PASS: owner visually inspected node connections, selected Inspector, and output",
+    "article_display": "PASS: local production build;1440px/390px decode/Alt/native links/hash/overflow"
+  },
+  "unverified": [
+    "Free edition and other platforms",
+    "All parameter ranges and performance",
+    "AutoResolution, PixelAspect, other Filters, downstream Merge, opaque band composite/export, animation/performance",
+    "Exported portable composition reimport"
+  ],
+  "state_variants": {
+    "screen.png": "final1080x1080 Envelope Center.5/.5 Linear Auto0; Letterbox selected, editing guides overlay Viewers",
+    "screen-image.png": "same Envelope Center.5/.5, MediaOut selected removes guides",
+    "screen-pan.png": "native GUI ModePanScan Center.5/.5; editing guides; Inspector only",
+    "screen-pan-image.png": "same PanScan, MediaOut selected",
+    "screen-pan-offset.png": "PanScan Center.65/.5 after Point numeric-key normalization; Inspector only",
+    "screen-pan-offset-image.png": "same PanScan .65, MediaOut selected",
+    "screen-envelope-offset.png": "Envelope Center.65/.5, Inspector only",
+    "screen-envelope-offset-image.png": "Envelope .65 MediaOut selected; output unchanged",
+    "screen-alpha.png": "Left Color / Right Alpha, Envelope .5; transparent bands black, image white"
+  },
+  "restoration": "PASS: owned scratch saved, frame0/both Color40%, DoD/RoI off, no popup; Envelope1080x1080 Center.5/.5 Linear Auto0, native C restored Color after Alpha",
+  "parameter_readback_scope": "Number/Text/Point/FuID/Clip only; no Image/Mask/3D/ScriptVal payload evaluation.",
+  "center_comparison": {
+    "mode": "Letterbox/Envelope",
+    "center_x": [
+      0.5,
+      0.65
+    ],
+    "sources": [
+      "screen-image.png",
+      "screen-envelope-offset-image.png"
+    ],
+    "roi_xyxy": [
+      2048,
+      193,
+      2816,
+      625
+    ],
+    "pixel_mode": "RGB",
+    "pixel_bytes_equal": true,
+    "scope": "Native screenshot ROI equality; no colorimetric export claim"
+  },
+  "method_repair": "JSON string Point keys did not change Center; rejected probe. Work helper converts numeric Point keys to integers; native Center.65 and changed PanScan output accepted. Scalar/other data semantics preserved.",
+  "reproduction": {
+    "fixture_sha256": "6bba30879fcee71bf5c2b6203b829eadb7067abc037a06d271c4e8c91059152a",
+    "readback_sha256": "c3a0aa9def3c46bbef7b78aa915a2d976f4e7eef4ad81de8fdd64d722513c51d",
+    "paths": "Comp:/../_fixtures/ for bundled synthetic fixtures",
+    "reimport": "NOT_RUN: accepted GUI evidence precedes export path normalization"
+  }
+}

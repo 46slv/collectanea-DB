@@ -44,6 +44,8 @@ TARGETS['S50']='AutoDomain1';LEFT['S50']='Loader1';RIGHT['S50']='AutoDomain1'
 TARGETS['S51']='SetDomain1';LEFT['S51']='AutoDomain1';RIGHT['S51']='SetDomain1'
 TARGETS['S52']='SetCanvasColor1';LEFT['S52']='Transform1';RIGHT['S52']='SetCanvasColor1'
 TARGETS['S53']='Crop1';LEFT['S53']='Loader1';RIGHT['S53']='Crop1'
+TARGETS['S54']='Letterbox1';LEFT['S54']='Loader1';RIGHT['S54']='Letterbox1'
+TARGETS['S55']='DVE1';LEFT['S55']='Loader1';RIGHT['S55']='DVE1'
 r=d.scriptapp('Resolve')
 assert r, 'Resolve scripting unavailable; do not change preferences automatically'
 pm=r.GetProjectManager(); p=pm.GetCurrentProject()
@@ -76,7 +78,7 @@ if action=='scale':
 if action=='mask_inspector':
  assert case=='S49';TARGETS[case]='Ellipse1';action='show'
 if action=='image':
- assert case in ['S50','S51'];TARGETS[case]='MediaOut1';action='show'
+ assert case in ['S50','S51','S54','S55'];TARGETS[case]='MediaOut1';action='show'
 if action=='canvas_source':
  assert case=='S52';TARGETS[case]='GoldCanvas1';action='show'
 if action=='map':
@@ -171,6 +173,8 @@ def select(target,left=None):
  layouts['S37']={'Base1':(0,0),'Rectangle1':(0,-2),'Red1':(1.5,-2),'Ellipse1':(1.5,2),'Gold1':(3,2),'MergeMaster':(3,-1),'MergeDerived':(4.5,1),'MediaOut1':(6,1)}
  layouts['S38']={'Loader1':(0,0),'TransformReference':(1.5,0),'MediaOut1':(3,0)}
  layouts['S50']={'Loader1':(0,0),'AutoDomain1':(1.5,0),'MediaOut1':(3,0)}
+ layouts['S54']={'Loader1':(0,0),'Letterbox1':(1.5,0),'MediaOut1':(3,0)}
+ layouts['S55']={'Loader1':(0,0),'DVE1':(1.5,0),'MediaOut1':(3,0)}
  layouts['S53']={'Loader1':(0,0),'Crop1':(1.5,0),'MediaOut1':(3,0)}
  layouts['S52']={'Loader1':(0,1),'Transform1':(1.5,1),'Gold1':(0,-1),'GoldCanvas1':(1.5,-1),'SetCanvasColor1':(3,1),'MediaOut1':(4.5,1)}
  layouts['S51']={'Loader1':(0,0),'AutoDomain1':(1.5,0),'SetDomain1':(3,0),'MediaOut1':(4.5,0)}
@@ -224,6 +228,10 @@ if action=='build':
   rb=add('sRender','RenderBase1',4,-1);connect(rb,'Input',base)
   target=add('sTransform','Transform1',2,1);connect(target,'Input',base)
   rr=add('sRender','RenderChanged1',4,1);connect(rr,'Input',target);connect(mo,'Input',rr)
+ elif case in ['S54','S55']:
+  loader=add('Loader','Loader1',0,0,Clip=str(REPO/'static/img/fusion/captures/_fixtures/chart.png'))
+  reg='Letterbox' if case=='S54' else 'DVE'
+  target=add(reg,TARGETS[case],1.5,0);connect(target,'Input',loader);connect(mo,'Input',target)
  elif case=='S53':
   loader=add('Loader','Loader1',0,0,Clip=str(REPO/'static/img/fusion/captures/_fixtures/chart.png'))
   target=add('Crop','Crop1',1.5,0);connect(target,'Input',loader);connect(mo,'Input',target)
@@ -434,7 +442,11 @@ if action=='set':
  for name,values in json.loads(sys.argv[3]).items():
   assert name in tools
   for key,value in values.items():
-   assert any(z.GetAttrs()['INPS_ID']==key for z in tools[name].GetInputList().values()),key
+   entry=next((z for z in tools[name].GetInputList().values() if z.GetAttrs()['INPS_ID']==key),None)
+   assert entry,key
+   if entry.GetAttrs().get('INPS_DataType')=='Point':
+    assert isinstance(value,dict) and all(str(k).isdigit() for k in value), 'Point requires numeric component keys'
+    value={int(k):v for k,v in value.items()}
    tools[name].SetInput(key,value)
  action='show'
 if action in ('build','show'):

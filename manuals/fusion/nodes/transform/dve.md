@@ -72,6 +72,34 @@ DVE MaskとEffect Maskは同じ「マスク」でも、変形の前か後かが�
 
 X/Y軸に傾けた画像の遠近感を追加調整します。カメラのField of View（画角）を変えたときのように、奥行き方向の見え方を変えるための設定です。X/Y回転と組み合わせて使い、平面内のZ回転だけでは分かりにくい場合があります。
 
+## 実機で2D画像の遠近変形を見る
+
+Resolve Studio 21.1.0.14、Windows、日本語UIで、1920×1080の静止チャートを使いました。出力フレーム0、両ViewerはColor／40%です。3D Rendererを使わず、DVEの2D Image出力をMediaOutへ接続しています。
+
+[![2DチャートをLoaderからDVE1、MediaOut1へ接続。3D Rendererは使わない実機Graph](/img/fusion/captures/S55/graph.png)](/img/fusion/captures/S55/graph.png)
+
+[![DVEのX回転15、Y回転25、Z回転0、Z Move1.4、Perspective1を示すInspector](/img/fusion/captures/S55/inspector.png)](/img/fusion/captures/S55/inspector.png)
+
+[![左右とも1920×1080。右ではチャートが遠近感のある四辺形へ変形し、周囲が透明になる](/img/fusion/captures/S55/compare.png)](/img/fusion/captures/S55/compare.png)
+
+X回転15、Y回転25、Z回転0、Z Move1.4、Perspective1にすると、右のチャートが遠近感のある四辺形へ変形しました。CenterとPivotは0.5／0.5、Z Pivot0、回転順はZYXです。画像寸法は両方とも1920×1080のままで、runtime REGIDは`DVE`でした。
+
+[![同じ回転とZ Move1.4でPerspectiveを0.3へ変更したInspector](/img/fusion/captures/S55/perspective-inspector.png)](/img/fusion/captures/S55/perspective-inspector.png)
+
+[![Perspective0.3では遠近感とはみ出しが変わり、チャートの左上がフレーム外へ広がる](/img/fusion/captures/S55/perspective.png)](/img/fusion/captures/S55/perspective.png)
+
+回転とZ Moveを保ってPerspectiveを0.3にすると、遠近感とはみ出しが変わりました。この値ではチャートの左上がフレーム外へ広がります。
+
+[![Perspective1、同じ回転のままZ Moveを2へ変えたInspector](/img/fusion/captures/S55/zmove2-inspector.png)](/img/fusion/captures/S55/zmove2-inspector.png)
+
+[![Z Move2では、同じ1920×1080の中で変形したチャートが小さくなる](/img/fusion/captures/S55/zmove2.png)](/img/fusion/captures/S55/zmove2.png)
+
+Perspectiveを1へ戻してZ Moveを2にすると、変形したチャートが小さくなりました。比較画像ではMediaOutを選択し、DVE選択中に両Viewerへ重なる緑枠と支点の操作ガイドを外しています。
+
+最後はPerspective1、Z Move1.4へ戻して保存しました。これは静止画像と固定値の確認です。DVE Mask／Effect Mask、Black Background／Fill Black、Alpha Mode、Shear、Pivot変更、アニメーション、後段Merge、性能、Free editionや他OSは未確認です。
+
+[再現用Graph](/img/fusion/captures/S55/fixture.comp) · [撮影条件と確認範囲](/img/fusion/captures/S55/capture.json)
+
 ## Maskingタブ — 変形した部分と元画像をどう重ねるか
 
 DVEには、変形前にマスクで取り出した領域を扱うための独立したMaskingタブがあります。通常の青いEffect Maskだけでは、同じ処理にはなりません。
@@ -136,6 +164,6 @@ Pivot・Centerの違いは[Center / Pivot / Size / Angle](../../learn/03-space/c
 
 ## 出典・確認範囲
 
-Blackmagic Design『DaVinci Resolve 21.1 Reference Manual』（September 2026）、Chapter 120「Transform Nodes」、**pp.2865–2867**。DVEの用途、3つの入力、ControlsタブのPivot・Rotation Order・XYZ Rotation・Center・Z Move・Perspective、MaskingタブのBlack Background・Fill Black・Alpha Modeを確認しました。本文の2つの構成例はこれらの仕様をもとにした制作向けの説明で、実機のレンダリング結果を再現確認したものではありません。
+Blackmagic Design『DaVinci Resolve 21.1 Reference Manual』（September 2026）、Chapter 120「Transform Nodes」、**pp.2865–2867**。DVEの用途、3つの入力、ControlsタブのPivot・Rotation Order・XYZ Rotation・Center・Z Move・Perspective、MaskingタブのBlack Background・Fill Black・Alpha Modeを確認しました。本文の2つの制作構成例はManualに基づく説明です。S55では別の固定例として、2Dチャートの回転、Perspective、Z Moveと出力寸法を実機確認しました。
 
-内部REGID、Inspectorの全Controlのrange、Edition別制約、現在のFusion実機でのAlpha処理は未検証のため、`verification: partial`としています。
+S55のREGIDは確認済みです。Masks／Alpha処理、全Controlの範囲、後段合成、性能、Edition別制約は未確認のため、`verification: partial`を維持します。

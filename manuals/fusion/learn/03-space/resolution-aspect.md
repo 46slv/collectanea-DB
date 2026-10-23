@@ -199,6 +199,20 @@ S53では元画像を横につぶさず、左右を420pxずつ除いて1080×108
 
 Resolve Studio21.1.0.14／Windows、両Viewer Color／40%。固定チャートのCrop例。Pixel Aspect、Auto Crop、後段Mergeは未確認。 [再現用Graph](/img/fusion/captures/S53/fixture.comp) · [撮影条件と確認範囲](/img/fusion/captures/S53/capture.json)
 
+### 実機の参考例：同じ出力寸法で残す範囲を選ぶ
+
+<!-- capture-reuse:R96 -->
+
+S54の出力はどちらのモードも1080×1080です。Envelopeは全チャート、Pan-and-Scanは中央の範囲を表示し、見える内容と余白が変わります。
+
+[![Letterboxの1080×1080、Auto Resolutionオフ、Center0.5/0.5、Envelope、Filter Linearを示すInspector](/img/fusion/captures/S54/inspector.png)](/img/fusion/captures/S54/inspector.png)
+
+[![左1920×1080の全チャートが、右1080×1080では縮小され上下に透明チェッカーの余白を持つ](/img/fusion/captures/S54/compare.png)](/img/fusion/captures/S54/compare.png)
+
+[![Pan-and-Scanでは上下の余白がなくなり、チャートの左右が切れる](/img/fusion/captures/S54/pan.png)](/img/fusion/captures/S54/pan.png)
+
+Resolve Studio21.1.0.14／Windows、両Viewer Color／40%。固定Letterbox例。Pixel Aspect、後段Merge、不透明黒帯の合成は未確認。 [再現用Graph](/img/fusion/captures/S54/fixture.comp) · [撮影条件と確認範囲](/img/fusion/captures/S54/capture.json)
+
 ## 解像度が変わる案件での判断
 
 同じレイアウトを1920×1080と3840×2160の両方で使うなら、配置比率を保つか、余白を同じピクセル数に保つかを先に決めます。前者は正規化座標でCenterを管理し、後者は基準解像度から位置のオフセットを計算します。

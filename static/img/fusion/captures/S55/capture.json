@@ -1,0 +1,179 @@
+{
+  "schema_version": 1,
+  "case": "S55",
+  "article": "manuals/fusion/nodes/transform/dve.md",
+  "manual": {
+    "version": "21.1",
+    "chapter": 120,
+    "printed_pages": "2865–2867"
+  },
+  "runtime": {
+    "version": "21.1.0.14",
+    "edition": "Studio",
+    "os": "Windows-11-10.0.26200-SP0",
+    "ui_language": "ja-JP (some Shape controls remain English)"
+  },
+  "captured_at": "2026-10-23T22:03:28.067925+00:00",
+  "project": "Collectanea_Captures_20261023_Sol",
+  "timeline": "S55_capture",
+  "frame": 0.0,
+  "resolution": [
+    1920,
+    1080
+  ],
+  "color_management": {
+    "colorScienceMode": "davinciYRGB",
+    "colorSpaceTimeline": "Rec.709 (Scene)",
+    "colorSpaceTimelineGamma": "",
+    "colorSpaceOutput": "Rec.709 (Scene)",
+    "colorSpaceOutputGamma": "ACEScc",
+    "separateColorSpaceAndGamma": "0",
+    "isAutoColorManage": "0",
+    "timelineResolutionWidth": "1920",
+    "timelineResolutionHeight": "1080",
+    "timelineFrameRate": 24.0,
+    "timelinePlaybackFrameRate": "30"
+  },
+  "viewer": {
+    "zoom_percent": 40,
+    "channel": "Color",
+    "background": "checkerboard for transparent pixels",
+    "note": "Viewer screenshots are display evidence, not colorimetric exports."
+  },
+  "graph": "fixture.comp",
+  "settings": "readback.json",
+  "source": {
+    "file": "screen.png",
+    "size": [
+      3352,
+      1910
+    ],
+    "sha256": "8d8c135179d7b7adb42f21d9435765e3bc5db84840e8a2d3b77c788d719d3127"
+  },
+  "shots": [
+    {
+      "file": "graph.png",
+      "source": "screen.png",
+      "source_sha256": "8d8c135179d7b7adb42f21d9435765e3bc5db84840e8a2d3b77c788d719d3127",
+      "frame": 0.0,
+      "crop_xyxy": [
+        480,
+        1300,
+        2380,
+        1450
+      ],
+      "resampled": false,
+      "sha256": "6f0a49abc8a2d4da58a415b9ef325bd33c24cc18890f2f80edd8a9b969757a0a"
+    },
+    {
+      "file": "inspector.png",
+      "source": "screen.png",
+      "source_sha256": "8d8c135179d7b7adb42f21d9435765e3bc5db84840e8a2d3b77c788d719d3127",
+      "frame": 0.0,
+      "crop_xyxy": [
+        2830,
+        120,
+        3352,
+        610
+      ],
+      "resampled": false,
+      "sha256": "323392b1a62e3c60ab276b5b6818a9db6d1d6bfb79c1d8fbcf62b182b1cc62ae"
+    },
+    {
+      "file": "compare.png",
+      "source": "screen-image.png",
+      "source_sha256": "7d23a96f448a45589a26921f0b735797eb70977498d8ffc56447dd9a2ce3c472",
+      "frame": 0.0,
+      "crop_xyxy": [
+        1146,
+        65,
+        2830,
+        705
+      ],
+      "resampled": false,
+      "sha256": "83d5ba511b950521f977117a9bea1d6d88b2b98314d3c71e3804769c7f6dbcf5"
+    },
+    {
+      "file": "perspective-inspector.png",
+      "source": "screen-perspective.png",
+      "source_sha256": "6ab7e70627a93c2e80fc169d8e0cfb34bf886006e3067fd56f0049c5b70e8f3f",
+      "frame": 0.0,
+      "crop_xyxy": [
+        2830,
+        120,
+        3352,
+        610
+      ],
+      "resampled": false,
+      "sha256": "35e8913b3d69279cf64b951e74179fec17585160a74cb7649527429131b5b2d9"
+    },
+    {
+      "file": "perspective.png",
+      "source": "screen-perspective-image.png",
+      "source_sha256": "66df3c0b6abf7776e3d66c324eb7165e252d00d097a3b6519c4fd49c96d6edfa",
+      "frame": 0.0,
+      "crop_xyxy": [
+        1146,
+        65,
+        2830,
+        705
+      ],
+      "resampled": false,
+      "sha256": "8ff634ea998f47db9e7beca621f3c643ec03605dadce58968f21d8bbd55b830c"
+    },
+    {
+      "file": "zmove2-inspector.png",
+      "source": "screen-zmove2.png",
+      "source_sha256": "c24c3c79969faf960b3a0afe66464e2b7c214721f090e111d5f74f742d00524e",
+      "frame": 0.0,
+      "crop_xyxy": [
+        2830,
+        120,
+        3352,
+        610
+      ],
+      "resampled": false,
+      "sha256": "b8fa7f50d9762b56272ddd86af570b61c5ce32865a17f44f856d184bf17b349f"
+    },
+    {
+      "file": "zmove2.png",
+      "source": "screen-zmove2-image.png",
+      "source_sha256": "03cb018e70df188862fea93d1d2b31bc3cf48c3b52f2b9c821e23e487e917a76",
+      "frame": 0.0,
+      "crop_xyxy": [
+        1146,
+        65,
+        2830,
+        705
+      ],
+      "resampled": false,
+      "sha256": "07df31779a411533f44791fa979d9d57ce84f205f891b8a510ea5f41a45256dc"
+    }
+  ],
+  "acceptance": {
+    "gui": "PASS: owner visually inspected node connections, selected Inspector, and output",
+    "article_display": "PASS: local production build;1440px/390px decode/Alt/native links/hash/overflow"
+  },
+  "unverified": [
+    "Free edition and other platforms",
+    "All parameter ranges and performance",
+    "DVE/Effect masks, BlackBackground/FillBlack, AlphaMode, Shear/Pivot changes, animation/Merge/performance",
+    "Exported portable composition reimport"
+  ],
+  "state_variants": {
+    "screen.png": "XRot15/Y25/Z0 ZMove1.4 Perspective1, DVE selected; editing guides overlay",
+    "screen-image.png": "same rotation/Z/P; MediaOut selected removes guides",
+    "screen-perspective.png": "same rotation/Z1.4, Perspective.3; Inspector only",
+    "screen-perspective-image.png": "Perspective.3 clean output; upper-left extends beyond frame",
+    "screen-zmove2.png": "same rotation/P1, ZMove2; Inspector only",
+    "screen-zmove2-image.png": "ZMove2 clean output; chart smaller"
+  },
+  "restoration": "PASS: owned scratch saved, frame0/both Color40%, DoD/RoI off, no popup; XRot15/Y25/Z0 ZMove1.4 Perspective1 Center/Pivot.5/.5 ZPivot0",
+  "parameter_readback_scope": "Number/Text/Point/FuID/Clip only; no Image/Mask/3D/ScriptVal payload evaluation.",
+  "reproduction": {
+    "fixture_sha256": "8c8a8eacfd9fc5987ce03a3d4c954d82475ec59ae1154a0909dda3312ccce23a",
+    "readback_sha256": "44b36af51b1303207cc38f1d9199699a013283821a554d8cd8cebc944fd32aed",
+    "paths": "Comp:/../_fixtures/ for bundled synthetic fixtures",
+    "reimport": "NOT_RUN: accepted GUI evidence precedes export path normalization"
+  }
+}
