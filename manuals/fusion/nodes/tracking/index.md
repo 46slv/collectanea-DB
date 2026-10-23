@@ -1,16 +1,16 @@
 ---
 title: Trackingノード
-description: Point・Planar・3D Cameraの追跡方法と、得たtracking dataを別要素へ適用するNodeを目的から選ぶ入口。
+description: Point・Planar・Surface・3D Cameraの追跡方法と、得たtracking dataを別要素へ適用するNodeを目的から選ぶ入口。
 doc_type: index
 verification: partial
 product_scope: fusion
-tasks: [lookup-node, track, match-move, stabilize, camera-track]
-updated: "2026-10-21"
+tasks: [lookup-node, track, surface-track, match-move, stabilize, camera-track]
+updated: "2026-10-22"
 ---
 
 # Trackingノード
 
-FusionのTrackingには、**特徴点を追うPoint Tracking、平面のperspective変化を追うPlanar Tracking、2D footageから3D camera motionを復元するCamera Tracking**があります。
+FusionのTrackingには、**画像内の特徴点を追うTracker、平面の動きを追うPlanar Tracker、布などの変形する面を追うSurface Tracker、実写映像から3Dカメラの動きを復元するCamera Tracker**があります。
 
 どのTrackerを使うかは、「画面の何を追うか」と「結果を何へ使うか」で決めます。
 
@@ -23,6 +23,24 @@ FusionのTrackingには、**特徴点を追うPoint Tracking、平面のperspect
 | しわの寄る布・伸縮する肌など柔らかい面 | [Surface Tracker](./surface-tracker) | 面内のメッシュ変形を追い、Overlay合成・安定化・再変形に利用 |
 | Planar trackをImage / Maskへ再利用 | [Planar Transform](./planar-transform) | Planar Trackerの動きを別要素へ適用 |
 | 実写cameraの3D movementを復元 | [Camera Tracker](./camera-tracker) | 3D CameraとPoint Cloudを含むscene data |
+
+## 用途別の制作手順
+
+同じ追跡ノードでも、追跡後に画像を貼るのか、マスクだけを渡すのか、元映像を安定化するのかで接続が変わります。必要な素材と完成させたい映像から選んでください。
+
+| 作りたい結果 | 入力から出力まで | 手順 |
+| --- | --- | --- |
+| **車のドアノブに説明ラベルを追従させる** | 車の映像をTrackerで1点追い、Connect ToでText+のTransformへ位置を渡してから、Mergeで元映像へ重ねる。 | [Trackerで文字を追従させる](../../recipes/tracking/point-track-text-callout) |
+| **動く看板へロゴを貼る** | 看板の実写をPlanar Trackerで解析し、別入力の透明ロゴをPlanar Transformで動かしてMergeで合成する。 | [平面追跡で看板にロゴを貼る](../../recipes/tracking/planar-track-graphic) |
+| **カメラが動く映像の壁の汚れを消す** | 壁をPlanar Trackerで追跡・固定し、透明レイヤーのPaintで補修してから、同じ追跡データで逆変形し元の動きへ戻す。 | [Planar Trackerで固定・Paint・逆変形](../../recipes/tracking/planar-steady-paint-rewarp) |
+| **動く額の小さな傷を1フレームの補修で隠す** | Time Stretcherで固定したフレームをPaintで修正し、Planar TransformでPolygonの切り出し範囲を追従させ、Mergeで元映像へ重ねる。 | [Clean Plateを固定・マスク追従](../../recipes/tracking/planar-clean-plate-freeze-track) |
+| **看板のロゴを通行人の背後へ隠す** | Planar Trackerでロゴを追従させた後、人物を切り抜いた元映像を別のMergeで前景へ戻す。追跡除外用マスクだけでは前後関係は作れない。 | [平面追跡したロゴの前景遮蔽](../../recipes/tracking/planar-foreground-occlusion) |
+| **シャツのしわにロゴをなじませる** | シャツの映像と透明ロゴをSurface Trackerへ入力し、布のメッシュ変形に沿ってロゴを変形・合成する。 | [Surface Trackerでシャツへロゴを貼る](../../recipes/tracking/surface-track-shirt-logo) |
+| **動く肌の小さな傷を直す** | 肌をSurface Trackerで固定した映像にPaintで修正を加え、同じ追跡データで再変形して元の動きへ戻す。 | [Surface Trackerで固定・修正・再変形](../../recipes/tracking/surface-track-stabilize-rewarp-skin-fix) |
+| **動く服の一部分だけ色補正する** | Surface TrackerのメッシュまたはPolygonから追従アルファを作り、元映像を補正するColor CorrectorのEffect Maskへ渡す。 | [追従マスクを色補正へ使う](../../recipes/tracking/surface-track-alpha-effect-mask) |
+| **実写の床へ3Dオブジェクトを置く** | Camera Trackerでカメラの動きと3Dの点群を求め、ExportしたCamera 3Dを使ってCGをレンダリングし実写と合成する。 | [Camera Trackerから3Dオブジェクトを合成](../../recipes/3d/camera-track-3d-object) |
+
+追跡点や平面が滑る場合は[追跡がずれる原因の切り分け](../../troubleshooting/tracking/track-drifts)、**Point Trackerの模様が隠れたり画面外へ出たりする場合**は[追跡パスの復旧](../../troubleshooting/tracking/point-tracker-pattern-lost)、3DカメラのSolveに失敗する場合は[Camera TrackerのSolveと3D合成の診断](../../troubleshooting/tracking/camera-solve-or-3d-composite-fails)へ進んでください。
 
 ## Tracker
 

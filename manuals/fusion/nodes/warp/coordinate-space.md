@@ -15,7 +15,7 @@ outputs: ["image"]
 tasks: ["warp-image", "motion-graphics"]
 product_scope: fusion
 suite_surfaces: ["fusion"]
-updated: "2026-10-05"
+updated: "2026-10-22"
 ---
 
 # Coordinate Space
@@ -62,29 +62,67 @@ Imageそのものの色を作り直すのではなく、pixelを参照する座�
 - Coordinate Spaceを2つ使い、その間にDripやTransformを挟んで、元の座標系では作りにくい歪みを作る
 - Fast Noiseやmosaic状の素材を円形patternへ変換して背景graphicsを作る
 
-## 最小構成
+## 運用例1：Text+でトンネル状の文字を作る
 
-    Text+ → Coordinate Space → MediaOut
+21.1 Reference Manual pp.2961–2962に掲載された、文字の上下移動を遠方から手前へ迫るような動きに変える例です。
 
-Text+を上下へanimationし、Coordinate Spaceを**Polar to Rectangular**にすると、元の上下移動が中心から遠近方向へ動くように見えます。
+~~~text
+Text+（上から下へ動く文字）
+  ↓
+Coordinate Space（Polar to Rectangular）
+  ↓
+MediaOut
+~~~
 
-必要に応じて前段または後段へTransformを置き、文字の向きやscaleを整えます。
+1. [Text+](../generators/text-plus)で文字を作り、画面の上から下へ移動するように位置をアニメーションさせます。まずText+だけをViewerで確認し、動いていることを確かめます。
+2. Text+の出力をCoordinate Spaceのオレンジ色のInputへつなぎ、その出力をMediaOutへ接続します。
+3. Controlsタブの**ShapeをPolar to Rectangular**にします。元の上下移動が、遠くから近くへ迫るような動きとして見えるか再生して確認します。
+4. 文字の向きが不自然なら、Text+とCoordinate Spaceの**間**に[Transform](../transform/transform)を入れて向きを調整します。前段で向きを変える場合と、変換後の向きを変える場合では見え方が異なります。
+5. 文字が途中で欠ける場合は、最初にText+の移動範囲を確認し、変換後のViewerと見比べます。
 
-## 運用例
+入力は透明背景に描かれた動く**2Dの文字画像**です。Coordinate Spaceが変えるのは画素の配置であり、3Dカメラや文字の奥行き形状を作るわけではありません。Shapeだけでは時間方向の動きは生まれないため、Text+側のアニメーションが必要です。
 
-座標変換の途中でだけwarpを加える場合:
+## 運用例2：2つのCoordinate Spaceの間で変形する
 
-    Image
-      ↓
-    Coordinate Space 1
-      ↓
-    Drip / Transform
-      ↓
-    Coordinate Space 2
-      ↓
-    Result
+21.1 Reference Manualでは、Shape設定が異なる2つのCoordinate Spaceの間へDripやTransformを置く構成が紹介されています。**中間の画像を編集してから、通常の座標へ戻す**方法です。
 
-1つ目で別の座標系へ変換し、その状態で歪みやTransformを加え、2つ目で元の座標系へ戻します。これにより、通常のX/Y空間では作りにくい円周方向・放射方向の変形を作れます。
+~~~text
+撮影素材 / Image
+  ↓
+Coordinate Space A（Rectangular to Polar）
+  ↓
+Transform（中間座標で位置を調整）
+  ↓
+Coordinate Space B（Polar to Rectangular）
+  ↓
+MediaOut
+~~~
+
+1. Coordinate Space AのShapeを**Rectangular to Polar**にします。まずAの出力をViewerで見て、画像の配置がどのように変わったか確認します。
+2. AとBの間にTransformを入れ、位置を少しずつ動かします。変換された画像の横・縦方向を操作すると、元画像にTransformを直接使う場合とは異なる変形になります。
+3. Coordinate Space BのShapeを**Polar to Rectangular**にします。中間座標で行った編集が、通常の2D画像へ戻ったときにどの部分へ作用するか確認します。
+4. Transformを一度無効にして、2つのCoordinate Spaceだけを通った結果と比較します。続いてTransformを有効にし、円周方向・放射方向の変化を見比べます。
+5. 波紋状の歪みを中間座標で作りたい場合は、Transformを[Drip](./drip)に置き換えます。画像端に伸びや欠けがあれば、中間画像の端と変形範囲を確認します。
+
+2つのCoordinate Spaceは「座標を変える」「元の座標へ戻す」という組み合わせです。中間に変形がなければ元画像に近い結果になりますが、**再サンプリングや画面端の扱いで、往復後の全画素が完全一致するとは限りません**。
+
+## 運用例3：ノイズを円形の背景グラフィックに変える
+
+21.1マニュアルは、[Fast Noise](../generators/fast-noise)、Mosaic Blur（DaVinci Resolve Resolve FXのみ）、Transform、Coordinate Space、[Crop](../transform/crop)を使う円形パターンの例も紹介しています。
+
+Fast Noiseで模様を作り、Mosaic Blurなどで模様の大きさを調整した素材をCoordinate Spaceで変換すると、直線的なノイズ模様を円形・放射状の背景へ利用できます。Cropは最終的な出力解像度を設定するために使います。Mosaic Blurの実際の利用可能範囲はResolve FXの搭載状況を確認してください。
+
+この場合のFast Noiseは**変換される入力画像**であり、青いEffect Mask入力へつないで適用範囲を制限するケースとは用途が異なります。
+
+## うまくいかないとき
+
+| 症状 | 確認すること |
+| --- | --- |
+| トンネル状の動きにならない | Text+単体が時間とともに移動しているか、Shapeが**Polar to Rectangular**か。 |
+| 文字の向きが違う | Text+とCoordinate Spaceの間のTransformで、変換前の向きを試す。 |
+| 2つのNodeをつないでも変化が分かりにくい | A/Bが逆方向のShapeか、間のTransformやDripが有効か。中間Nodeを無効にした画と比較する。 |
+| 画像端が欠ける・伸びる | 元画像と中間画像の外側を参照していないか、後段のCropで切っていないか。 |
+| Effect Maskを接続したら変化しない | Maskが全黒になっていないか、変形したい範囲を覆っているか。Maskは処理後に適用される。 |
 
 ## Dent / Drip / Vortexとの違い
 

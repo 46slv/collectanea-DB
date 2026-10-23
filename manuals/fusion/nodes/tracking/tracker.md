@@ -15,7 +15,7 @@ tasks: [track, point-track, match-move, stabilize]
 level: intermediate
 product_scope: fusion
 suite_surfaces: [fusion]
-updated: "2026-10-21"
+updated: "2026-10-22"
 ---
 
 # Tracker
@@ -148,7 +148,7 @@ Graphic → Transform → Merge
 
 ### 追跡点が隠れた後で別の模様へつなぐ
 
-シャツのマークが腕に隠れて途中から追えなくなった場合、正確な区間を残し、再開位置で新しい模様へ追跡点を移します。PointのPath CenterをTrack Center (append)にして続きを追い、境界で位置が跳ばないか確認します。別の奥行きにある模様へ移すと視差の誤差が出るため、近い場所を優先します。
+シャツのマークが腕に隠れて途中から追えなくなった場合、正確な区間を残し、再開位置で新しい模様へ追跡点を移します。PointのPath CenterをTrack Center (append)にして続きを追い、境界で位置が跳ばないか確認します。別の奥行きにある模様へ移すと視差の誤差が出るため、近い場所を優先します。遮蔽前後を別々に追う方法、`Trim to End`による誤追跡データの整理、`Track Center (append)`の操作順は[追跡点が隠れたときの復旧](../../troubleshooting/tracking/point-tracker-pattern-lost)にまとめています。
 
 ## Tracker Modifier
 

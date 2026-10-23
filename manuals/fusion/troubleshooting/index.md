@@ -41,6 +41,7 @@ slug: /fusion/troubleshooting
 ## トラッキング
 
 - [トラッキング結果がずれる / driftする](./troubleshooting/tracking/track-drifts)
+- [Trackerの追跡点が隠れる・画面外へ出る](./troubleshooting/tracking/point-tracker-pattern-lost)
 - [Camera TrackerのSolveが失敗する・3D合成がずれる](./troubleshooting/tracking/camera-solve-or-3d-composite-fails)
 
 ## 処理性能（Performance）
@@ -55,4 +56,4 @@ slug: /fusion/troubleshooting
 4. 最後に正常だった地点と、最初に壊れた地点を特定する。
 5. 一般Conceptで説明できなければNode固有Referenceへ進む。
 
-現在 **14 Diagnostic** です。
+現在 **15 Diagnostic** です。

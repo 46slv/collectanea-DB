@@ -15,7 +15,7 @@ outputs: ["image"]
 tasks: ["warp-image", "screen-replace"]
 product_scope: fusion
 suite_surfaces: ["fusion"]
-updated: "2026-10-20"
+updated: "2026-10-23"
 ---
 
 # Corner Positioner
@@ -49,6 +49,14 @@ Corner Positionerは、入力Imageの4隅をViewer上で動かし、別の四辺
 
 遠近の付いた看板や画面へImageを合わせる場合は、Perspectiveの方が目的に合います。
 
+### Bi-LinearとPerspectiveを同じ4点で比べる
+
+**Bi-Linear**は4隅の位置を基準に画像内部を2Dで補間します。**Perspective**は四辺形を遠近のある平面として扱うため、実写の看板・モニターなどを置き換えるときの基本候補です。21.1マニュアルでは、Bi-Linearを2Dの変形、Perspectiveを3Dの遠近投影として区別しています。
+
+違いを確かめるには、格子線と文字を載せた長方形の画像をInputへ接続し、Corner Positionerの4点を**右側が狭い台形**に配置します。4点を動かさずにMapping Typeだけを切り替え、文字の幅、内部の格子線、奥へ向かう並び方を比較します。角の位置が一致しても、四辺形の**内部**の変形結果は同じとは限りません。
+
+Bi-Linearを使う理由がある場合は、過去のFusionプロジェクトの見た目を維持する場合や、遠近投影ではなく2D的な引き伸ばしを意図している場合です。モニター画面の差し替えで不自然に見えるときは、四隅を何度も微調整する前にMapping Typeを確認します。
+
 ### Corners X / Y
 
 4つのcorner pointの位置を指定します。Viewer上で直接ドラッグでき、PathやTrackerなどのmodifierへ接続してanimationすることもできます。
@@ -63,6 +71,20 @@ Corner Positionerは、入力Imageの4隅をViewer上で動かし、別の四辺
 - モニターや端末画面へUI・映像を配置する
 - 4点をanimationして、四辺形の形が変わるwarpを作る
 - tracking済みの平面へreplacement Imageを追従させる
+
+## 最小構成：静止したポスターを置き換える
+
+~~~text
+差し替え画像 → Corner Positioner → Merge（Foreground）→ 出力
+撮影画像 ────────────────────────→ Merge（Background）
+~~~
+
+1. 撮影画像をMergeのBackgroundへ、差し替えるポスター画像をCorner PositionerのInputへ入れます。
+2. Corner Positionerの出力をMergeのForegroundへ接続し、Viewerで撮影画像と重ねて表示します。
+3. Mapping TypeをPerspectiveにし、差し替え画像の4隅を撮影画像内のポスターの4隅に合わせます。まず大まかに置き、拡大表示して角のずれを直します。
+4. 四隅だけでなく、ポスター内部の直線や文字の傾きも確認します。角が合っていても見え方が不自然なら、Mapping Typeと元画像の縦横比を見直します。
+
+この構成は**静止した平面**の例です。撮影中にポスターの位置や遠近が変わる場合は、4点をフレームごとに動かすか、次のPlanar Trackerを使った構成へ進みます。
 
 ## 動く平面への配置：Planar Trackerと組み合わせる
 
@@ -87,6 +109,17 @@ Corner Positionerは指定した4点へ素材を変形しますが、**撮影映
 看板の元の文字を消す処理や、看板の手前を通る人物をロゴより前に合成する処理は別に必要です。Corner Positionerの**Effect Maskは変形処理の範囲を制限する入力**で、Planar Trackerの**Occlusion Maskは追跡計算から手前の物体を除外する入力**です。どちらも人物を自動で手前に切り抜いて合成する機能ではありません。
 
 Planar Transformの作成後は、追跡結果の再解析が不要ならPlanar TrackerをGraphから外す構成も可能です。追跡精度を調整する予定があるなら、解析用ブランチとして残しておくと作業を続けやすくなります。
+
+## うまく合わないときの確認
+
+| 症状 | 切り分け方 |
+| --- | --- |
+| 4つの角は合うが、画面内の文字や格子が不自然に変形する | Mapping TypeをPerspectiveにし、同じ4点でBi-Linearとの差を確認します。四隅を直す前に変形方法を選びます。 |
+| 画像が裏返ったように見える、または一部が極端に伸びる | 4隅の対応が交差していないか、隣り合う角を取り違えていないか確認します。まず長方形へ戻してから1点ずつ配置し直します。 |
+| 差し替え画像が表示されない | Corner PositionerのInput、MergeのForeground/Background、差し替え素材のAlpha、Effect Maskが全黒でないかを順に確認します。 |
+| 最初は合うのに、再生すると看板から滑る | Corner Positionerは動きを解析しません。Planar Transformを使っている場合は追跡精度とReference Timeを先に確認します。 |
+| 看板の手前を通る人物にもロゴが重なる | 4点変形では前後関係を自動で判定しません。人物を切り分けるマスクと、Mergeの重ねる順序を別途調整します。 |
+| 角は合うのに、実写の端に沿うとずれる | レンズ歪みや平面そのものの曲がりを確認します。強いレンズ歪みがある場合は補正してから追跡・はめ込みを行う方法も検討します。 |
 
 ## Perspective Positionerとの違い
 
