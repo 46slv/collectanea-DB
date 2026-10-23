@@ -48,6 +48,20 @@ USDライト ─────┘                      └→ Saver ⇒ .exr連番
 
 **uMergeはUSDシーンをまとめるノード、uRendererはそれを2D画像へ変えるノード**です。Classic 3DのMerge 3D／Renderer 3Dと端子のデータ形式を取り違えないようにします。
 
+### 実機の参考例
+
+<!-- capture-reuse:R46 -->
+
+uShapeのCapsuleをuMerge経由でuRendererへ渡しています。Storm、Default Camera、Camera Lighting、Color AOVの最小描画例です。
+
+[![S12の実機Node Editorの接続](/img/fusion/captures/S12/graph.png)](/img/fusion/captures/S12/graph.png)
+
+[![S12の実機Inspectorの設定値](/img/fusion/captures/S12/inspector.png)](/img/fusion/captures/S12/inspector.png)
+
+[![S12のViewer出力](/img/fusion/captures/S12/result.png)](/img/fusion/captures/S12/result.png)
+
+Resolve Studio 21.1.0.14／Windowsで撮影したS12の参考例です。Colorの表示だけを確認した例です。外部USD、非Color AOV、EXR保存と再読込の忠実度は未確認です。 [撮影条件と確認範囲](/img/fusion/captures/S12/capture.json)
+
 ## 2. AOV・補助Z・レイヤーを区別する
 
 uRendererの主なAOVは次のとおりです。

@@ -165,6 +165,28 @@ Viewerは画像ごとに表示倍率を自動調整することがあるため�
 
 最後に、上の三つの枝をすべて**MergeのForeground**として使う場合と、各枝を**MergeのBackground**へ入れる場合で、Mergeの出力寸法を比べます。これにより「素材の大きさ」と「合成結果のキャンバスの大きさ」を区別できます。
 
+## 実機でフレーム寸法を比較する
+
+DaVinci Resolve Studio 21.1.0.14、Windows、日本語UIで、同じ1920×1080のチャートを3つの枝へ渡しました。
+
+[![chart.pngのLoader出力からTransform1、Scale1、Resize1へ分岐しResize1をMediaOut1へ送る実機Node Editor](/img/fusion/captures/S24/graph.png)](/img/fusion/captures/S24/graph.png)
+
+Loader1は画面上ではファイル名のchart.pngと表示されています。Transform1はSize 0.5、Scale1はX/YをロックしてSize 0.5、Resize1はWidth 960／Height 540です。
+
+[![Resize1の日本語Inspector。幅960、高さ540を指定している](/img/fusion/captures/S24/inspector.png)](/img/fusion/captures/S24/inspector.png)
+
+[![左ViewerのTransform1は1920×1080の透明フレーム内に縮小チャート、右のResize1は960×540のフレーム全体がチャート](/img/fusion/captures/S24/compare.png)](/img/fusion/captures/S24/compare.png)
+
+両Viewerは40%です。チャート自体の見える大きさは同じでも、左は1920×1080のフレーム内に余白があり、右のフレームは960×540です。Viewer右上の寸法表示と、チャートの外側を見比べてください。
+
+[![Scale1 Inspector。X/Yをロックがオン、Sizeは0.5](/img/fusion/captures/S24/scale-inspector.png)](/img/fusion/captures/S24/scale-inspector.png)
+
+[![左ViewerのScale1と右ViewerのResize1は両方とも960×540で同じ大きさのチャートを表示](/img/fusion/captures/S24/scale-compare.png)](/img/fusion/captures/S24/scale-compare.png)
+
+左をScale1へ切り替えると、出力寸法も960×540になります。フレーム0の寸法比較を確認した例です。Pixel Aspect、Mergeの接続先による寸法変化、リサイズフィルタの画質や処理速度は別の確認が必要です。
+
+[再現用Graph](/img/fusion/captures/S24/fixture.comp) · [撮影条件と確認範囲](/img/fusion/captures/S24/capture.json)
+
 ## 解像度が変わる案件での判断
 
 同じレイアウトを1920×1080と3840×2160の両方で使うなら、配置比率を保つか、余白を同じピクセル数に保つかを先に決めます。前者は正規化座標でCenterを管理し、後者は基準解像度から位置のオフセットを計算します。
@@ -191,4 +213,4 @@ Transformの**Reference Size**はCenterのInspector表示をピクセル値へ�
 - Chapter 120「Transform Nodes」pp.2862–2864、2873–2878、2879–2883：Crop、Resize、Scale、Transformの各Control、物理解像度とReference Size、Pixel Aspect。
 - Chapter 6「Project Settings」およびChapter 11 p.287：タイムラインとクリップのPixel Aspect設定。
 
-操作例と数値例は上記の仕様から構成しました。記載したNodeの働きとControl名は21.1 Manualで確認していますが、手順全体の21.1実機操作、素材固有のPAR挙動、フィルタの画質比較、Free / Studioの全差分は確認していません。そのため、検証状態は**partial**としています。
+操作例と数値例は上記の仕様から構成しました。記載したNodeの働きとControl名は21.1 Manualで確認していますが、上記固定例以外の手順全体、素材固有のPAR挙動、フィルタの画質比較、Free / Studioの全差分は確認していません。そのため、検証状態は**partial**としています。

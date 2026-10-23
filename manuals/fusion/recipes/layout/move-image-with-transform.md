@@ -57,6 +57,20 @@ Reference Sizeを変えても、Transformの内部Center値そのものがpixel�
 
 CenterとPivotを同時に変更せず、最初はCenterだけで位置を決めると役割を追いやすくなります。
 
+### 実機の参考例
+
+<!-- capture-reuse:R43 -->
+
+Center 0.65／0.55、Pivot 0.5／0.5、Size 1.25、Angle 12°の固定例です。左がLoader1の入力、右がTransform1の出力です。
+
+[![S06の実機Node Editorの接続](/img/fusion/captures/S06/graph.png)](/img/fusion/captures/S06/graph.png)
+
+[![S06の実機Inspectorの設定値](/img/fusion/captures/S06/inspector.png)](/img/fusion/captures/S06/inspector.png)
+
+[![S06の左右Viewerの比較](/img/fusion/captures/S06/compare.png)](/img/fusion/captures/S06/compare.png)
+
+Resolve Studio 21.1.0.14／Windowsで撮影したS06の参考例です。複数の値を設定した状態です。Centerだけの変化やReference Sizeの表示切替、位置アニメーションは含みません。 [撮影条件と確認範囲](/img/fusion/captures/S06/capture.json)
+
 ## この構成にする理由
 
 TransformはImageのWidth / Heightを変えません。

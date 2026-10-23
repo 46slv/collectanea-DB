@@ -8,6 +8,7 @@ import sys, json, pathlib, platform, datetime, re, time
 sys.path.insert(0, r'C:\ProgramData\Blackmagic Design\DaVinci Resolve\Support\Developer\Scripting\Modules')
 import DaVinciResolveScript as d
 ROOT=pathlib.Path(__file__).resolve().parents[1]
+REPO=ROOT
 PROJECT='Collectanea_Captures_20261023_Sol'
 TARGETS={'S01':'sGrid1','S02':'Merge1','S03':'Glow1','S04':'sRender1','S05':'sBoolean1','S06':'Transform1','S07':'Ellipse1','S08':'Text1','S09':'pEmitter1','S10':'PlanarTracker1','S11':'Renderer3D1','S12':'uRenderer1','S13':'Blur1','S14':'ColorCorrector1','S15':'Gradient1','S16':'NoiseDetail1','S17':'Rectangle1','S18':'EllipseArc1'}
 RIGHT={'S01':'sRender1','S05':'sRender1','S07':'Blur1','S09':'pRender1','S10':'Composite1','S15':'Gradient1','S16':'NoiseDetail1','S17':'Background1','S18':'RenderArc1'}
@@ -15,12 +16,19 @@ LEFT={'S03':'Text1','S05':'UnionRender1','S06':'Loader1','S07':'BlurFull','S11':
 TARGETS.update({'S19':'ShapeChanged1','S20':'ShapeChanged1','S21':'ShapeChanged1','S22':'Transform1'})
 RIGHT.update({key:'RenderChanged1' for key in ['S19','S20','S21','S22']})
 LEFT.update({key:'RenderBase1' for key in ['S19','S20','S21','S22']})
+TARGETS.update({'S23':'Transform1','S24':'Resize1','S25':'Ellipse1','S26':'Text1'})
+RIGHT.update({'S23':'Transform1','S24':'Resize1','S25':'LoaderCutout','S26':'Text1'})
+LEFT.update({'S23':'SourceB','S24':'Transform1','S25':'BlurMask','S26':'Text1'})
 r=d.scriptapp('Resolve')
 assert r, 'Resolve scripting unavailable; do not change preferences automatically'
 pm=r.GetProjectManager(); p=pm.GetCurrentProject()
 assert p and p.GetName()==PROJECT, 'Refusing to mutate a foreign project'
 assert r.GetCurrentPage(), 'Resolve has a modal dialog; reconcile the GUI first'
 case=sys.argv[1]; action=sys.argv[2] if len(sys.argv)>2 else 'readback'
+if action=='final':
+ assert case=='S23';RIGHT[case]='Merge1';LEFT[case]='SourceA';action='show'
+if action=='scale':
+ assert case=='S24';TARGETS[case]='Scale1';LEFT[case]='Scale1';action='show'
 timelines={p.GetTimelineByIndex(i).GetName().split('_')[0]:p.GetTimelineByIndex(i) for i in range(1,p.GetTimelineCount()+1)}
 if case not in timelines:
  assert action=='build'
@@ -48,13 +56,16 @@ time.sleep(.3)
 tools={x.GetAttrs()['TOOLS_Name']:x for x in c.GetToolList().values()}
 mo=next(x for x in tools.values() if x.GetAttrs()['TOOLS_RegID']=='MediaOut')
 def add(reg,name,x,y,**values):
- a=c.AddTool(reg,x,y); assert a,reg
- a.SetAttrs({'TOOLS_Name':name})
- for k,v in values.items():
-  assert any(z.GetAttrs()['INPS_ID']==k for z in a.GetInputList().values()),(reg,k)
-  a.SetInput(k,v)
- tools[name]=a
- return a
+ c.Lock()
+ try:
+  a=c.AddTool(reg,x,y); assert a,reg
+  a.SetAttrs({'TOOLS_Name':name})
+  for k,v in values.items():
+   assert any(z.GetAttrs()['INPS_ID']==k for z in a.GetInputList().values()),(reg,k)
+   a.SetInput(k,v)
+  tools[name]=a
+  return a
+ finally:c.Unlock()
 def connect(dst,key,src):
  assert dst.ConnectInput(key,src), (dst.GetAttrs()['TOOLS_Name'],key)
 def text(name,x,y,value='FUSION',size=.13):
@@ -90,6 +101,10 @@ def select(target,left=None):
  for key in ['S19','S20','S21']:
   layouts[key]={'ShapeBase1':(0,-1),'RenderBase1':(2,-1),'ShapeChanged1':(0,1),'RenderChanged1':(2,1),'MediaOut1':(4,1)}
  layouts['S22']={'ShapeBase1':(0,-1),'RenderBase1':(4,-1),'Transform1':(2,1),'RenderChanged1':(4,1),'MediaOut1':(6,1)}
+ layouts['S23']={'SourceA':(0,2),'SourceB':(0,-2),'Transform1':(2,-2),'Merge1':(4,2),'MediaOut1':(6,2)}
+ layouts['S24']={'Loader1':(0,0),'Transform1':(2,-2),'Scale1':(2,0),'Resize1':(2,2),'MediaOut1':(4,2)}
+ layouts['S25']={'LoaderOpaque':(0,0),'BlurMask':(2,0),'Ellipse1':(2,-2),'LoaderCutout':(4,-2),'MediaOut1':(6,-2)}
+ layouts['S26']={'Text1':(0,0),'MediaOut1':(2,0)}
  for n,pos in layouts.get(case,{}).items():
   if n in tools:flow.SetPos(tools[n],*pos)
  flow.FrameAll()
@@ -125,6 +140,23 @@ if action=='build':
   rb=add('sRender','RenderBase1',4,-1);connect(rb,'Input',base)
   target=add('sTransform','Transform1',2,1);connect(target,'Input',base)
   rr=add('sRender','RenderChanged1',4,1);connect(rr,'Input',target);connect(mo,'Input',rr)
+ elif case=='S23':
+  bg=add('Background','SourceA',0,2,TopLeftRed=.025,TopLeftGreen=.075,TopLeftBlue=.13)
+  tx=text('SourceB',0,-2,'FUSION',.14)
+  target=add('Transform','Transform1',2,-2,Center={1:.65,2:.60});connect(target,'Input',tx)
+  m=add('Merge','Merge1',4,2);connect(m,'Background',bg);connect(m,'Foreground',target);connect(mo,'Input',m)
+ elif case=='S24':
+  loader=add('Loader','Loader1',0,0,Clip=str(REPO/'static/img/fusion/captures/_fixtures/chart.png'))
+  xf=add('Transform','Transform1',2,-2,Size=.5);connect(xf,'Input',loader)
+  sc=add('Scale','Scale1',2,0,XSize=.5,YSize=.5,LockXY=1);connect(sc,'Input',loader)
+  target=add('BetterResize','Resize1',2,2,Width=960,Height=540);connect(target,'Input',loader);connect(mo,'Input',target)
+ elif case=='S25':
+  loader=add('Loader','LoaderOpaque',0,0,Clip=str(REPO/'static/img/fusion/captures/_fixtures/chart.png'))
+  target=add('EllipseMask','Ellipse1',2,-2,Width=.55,Height=.5,SoftEdge=.02)
+  blur=add('Blur','BlurMask',2,0,XBlurSize=20);connect(blur,'Input',loader);connect(blur,'EffectMask',target)
+  cut=add('Loader','LoaderCutout',4,-2,Clip=str(REPO/'static/img/fusion/captures/_fixtures/chart.png'));connect(cut,'EffectMask',target);connect(mo,'Input',cut)
+ elif case=='S26':
+  target=text('Text1',0,0,'DoD',.18);connect(mo,'Input',target)
  elif case=='S15':
   add('Background','Solid1',0,-1,TopLeftRed=.025,TopLeftGreen=.075,TopLeftBlue=.13)
   target=add('Background','Gradient1',0,1,TopLeftRed=.025,TopLeftGreen=.075,TopLeftBlue=.13,TopRightRed=1,TopRightGreen=.35,TopRightBlue=.06)

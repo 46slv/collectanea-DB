@@ -107,6 +107,20 @@ Scaleを**Foreground側だけ**へ入れた場合、通常はMergeの出力解�
 
 Scaleは画像の物理解像度を変えるため、**Sizeなどをフレームごとにアニメーションさせる運用は21.1 Manualでも推奨されていません**。時間とともに拡大する見た目を作りたい場合は、まずTransformを使います。
 
+## 実機の参考例
+
+<!-- capture-reuse:R54 -->
+
+1920×1080の同じチャートをScale1へ渡し、X/YをロックしてSize 0.5にした例です。左のScale1と右のResize1はどちらも960×540で、Viewerは40%です。
+
+[![S24の実機Node Editorの接続](/img/fusion/captures/S24/graph.png)](/img/fusion/captures/S24/graph.png)
+
+[![S24のScaleのSize 0.5設定](/img/fusion/captures/S24/scale-inspector.png)](/img/fusion/captures/S24/scale-inspector.png)
+
+[![S24のScaleとResizeの960×540出力](/img/fusion/captures/S24/scale-compare.png)](/img/fusion/captures/S24/scale-compare.png)
+
+Resolve Studio 21.1.0.14／Windowsで撮影したS24の参考例です。Scaleの倍率と出力寸法を確認した固定例です。Pixel Aspectやフィルタ画質、全Controlの範囲は含みません。 [撮影条件と確認範囲](/img/fusion/captures/S24/capture.json)
+
 ## 関連する考え方
 
 - [解像度 / アスペクト比](../../learn/03-space/resolution-aspect)

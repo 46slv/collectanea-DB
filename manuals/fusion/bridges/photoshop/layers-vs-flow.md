@@ -37,6 +37,18 @@ Image B → Effect ──┘
 
 PhotoshopのLayer panel上の上下位置に相当する意味を、FusionではMergeのForeground / BackgroundやGraph connectionとして読みます。
 
+### 実機の参考例
+
+<!-- capture-reuse:R41 -->
+
+Text1とBackground1をMerge1で重ねています。Graphの上下位置ではなく、Foreground／Backgroundの接続先で重なりを読みます。
+
+[![S02の実機Node Editorの接続](/img/fusion/captures/S02/graph.png)](/img/fusion/captures/S02/graph.png)
+
+[![S02のViewer出力](/img/fusion/captures/S02/result.png)](/img/fusion/captures/S02/result.png)
+
+Resolve Studio 21.1.0.14／Windowsで撮影したS02の参考例です。Photoshopの全Layer機能とNodeを一対一に対応させる例ではありません。 [撮影条件と確認範囲](/img/fusion/captures/S02/capture.json)
+
 ## 共通する考え方
 
 目的としては共通します。

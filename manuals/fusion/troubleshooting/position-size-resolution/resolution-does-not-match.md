@@ -43,6 +43,20 @@ Transformのposition / scale問題とは分けます。
 
 見た目の大きさは変わっても、output Imageのピクセル dimensionsは別問題です。
 
+#### 実機の参考例
+
+<!-- capture-reuse:R51 -->
+
+同じ1920×1080チャートをTransform Size 0.5、Scale Size 0.5、Resize 960×540の枝へ分けています。Viewer 40%で、Transformの出力は1920×1080、ScaleとResizeは960×540です。
+
+[![S24の実機Node Editorの接続](/img/fusion/captures/S24/graph.png)](/img/fusion/captures/S24/graph.png)
+
+[![S24の左右Viewerの比較](/img/fusion/captures/S24/compare.png)](/img/fusion/captures/S24/compare.png)
+
+[![S24のScaleとResizeの960×540出力](/img/fusion/captures/S24/scale-compare.png)](/img/fusion/captures/S24/scale-compare.png)
+
+Resolve Studio 21.1.0.14／Windowsで撮影したS24の参考例です。見える素材の倍率とフレーム寸法を区別する固定例です。Pixel Aspectやタイムライン変更、全フォーマットの挙動は含みません。 [撮影条件と確認範囲](/img/fusion/captures/S24/capture.json)
+
 ### 参照元とtimeline / 対象のaspectが違う
 
 同じnormalized 配置でも見え方が変わる可能性があります。

@@ -49,6 +49,18 @@ Shape / Particle / 3D / USDを早い段階で2D Imageへ変換し、大きなras
 
 フレーム外まで大きな有効領域を持ち、Blur等の計算範囲が増えている可能性があります。
 
+#### 実機の参考例
+
+<!-- capture-reuse:R49 -->
+
+Text1のDoDとRoIを表示した例です。文字周辺の点線がDoD、白いハンドル付きの矩形がRoIです。計算領域を調べる場所を確認できます。
+
+[![S26の右ViewerのDoD表示](/img/fusion/captures/S26/dod.png)](/img/fusion/captures/S26/dod.png)
+
+[![S26の右ViewerのRoIとDoD表示](/img/fusion/captures/S26/roi.png)](/img/fusion/captures/S26/roi.png)
+
+Resolve Studio 21.1.0.14／Windowsで撮影したS26の参考例です。速度改善を測定した結果ではありません。RoI外にもcached pixelsが残って見え、処理時間やFPSの原因は判定していません。 [撮影条件と確認範囲](/img/fusion/captures/S26/capture.json)
+
 ### temporal / トラッキング / AI処理
 
 1 フレームだけで完結しない処理やheavy analysisがbottleneckになっている可能性があります。

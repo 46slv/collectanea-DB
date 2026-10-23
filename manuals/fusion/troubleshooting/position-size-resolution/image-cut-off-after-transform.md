@@ -57,6 +57,18 @@ Transformで元Imageの外側が露出すると、Edges = CanvasではCanvas Col
 
 繰り返し画像ならWrap、端を延長したい場合はDuplicate、反射させたい場合はMirrorが使えます。ただし、見た目を埋めるためだけにEdgesを変えず、必要な境界処理を選びます。
 
+#### 実機の参考例
+
+<!-- capture-reuse:R50 -->
+
+EdgesがCanvasのTransform1で、Center 0.65／0.55、Size 1.25、Angle 12°を設定した状態です。Inspectorと実際の表示範囲を対応させて読みます。
+
+[![S06の実機Inspectorの設定値](/img/fusion/captures/S06/inspector.png)](/img/fusion/captures/S06/inspector.png)
+
+[![S06の左右Viewerの比較](/img/fusion/captures/S06/compare.png)](/img/fusion/captures/S06/compare.png)
+
+Resolve Studio 21.1.0.14／Windowsで撮影したS06の参考例です。Centerだけが欠けの原因だと断定しません。中央へ戻す復旧、Cropで失う枝、全Edgesモードの比較は含みません。 [撮影条件と確認範囲](/img/fusion/captures/S06/capture.json)
+
 ### Cropでpixel自体を切り出した
 
 CropはMaskと違い、出力Width / Heightを変更します。

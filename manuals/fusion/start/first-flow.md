@@ -38,6 +38,26 @@ Source B → XF ──┘
 
 Resolve内Fusionでは、timeline clipがMediaInとしてFlowへ入る構成が代表的です。
 
+## 実機でSourceからMergeまでを読む
+
+DaVinci Resolve Studio 21.1.0.14、Windows、日本語UIで撮影しました。外部素材を使わず、青いBackgroundをSourceA、Text+をSourceBという名前にしています。
+
+[![SourceBからTransform1を通ってMerge1のForegroundへ、SourceAからBackgroundへ接続しMediaOut1へ送る実機Node Editor](/img/fusion/captures/S23/graph.png)](/img/fusion/captures/S23/graph.png)
+
+SourceBの文字だけを動かしてから、Merge1でSourceAへ重ねます。下のInspectorではTransform1のCenterをX 0.65／Y 0.60に設定しました。Sizeは1、Angleは0です。
+
+[![Transform1 Inspector。Center X 0.65、Y 0.60、Size 1、Angle 0](/img/fusion/captures/S23/inspector.png)](/img/fusion/captures/S23/inspector.png)
+
+[![左ViewerのSourceBは中央のFUSION文字、右ViewerのTransform1は右上へ移動した同じ文字](/img/fusion/captures/S23/compare.png)](/img/fusion/captures/S23/compare.png)
+
+左はSourceB、右はTransform1です。市松模様は透明部分です。両Viewerを40%に揃え、位置の変化を見ています。緑色の線や赤い軸はTransformの操作表示です。
+
+[![左ViewerはSourceAの青一色、右ViewerはMerge1で青い背景へFUSION文字を重ねた結果](/img/fusion/captures/S23/final.png)](/img/fusion/captures/S23/final.png)
+
+最後に左をSourceA、右をMerge1へ切り替えました。同じ接続のまま、素材、処理後、合成後を順に確認できます。1920×1080、フレーム0の静止例です。MediaInの取り込みやキーフレーム操作はこの撮影には含めていません。
+
+[再現用Graph](/img/fusion/captures/S23/fixture.comp) · [撮影条件と確認範囲](/img/fusion/captures/S23/capture.json)
+
 ## 見るポイント
 
 ### Node配置ではなく接続を見る

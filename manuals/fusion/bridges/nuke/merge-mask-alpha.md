@@ -27,6 +27,18 @@ Fusion Mergeでは、まずNukeのA/B namingを忘れ、Fusionの役割を読み
 - Foreground
 - Effect Mask
 
+### 実機の参考例
+
+<!-- capture-reuse:R38 -->
+
+MergeのオレンジがBackground、緑がForeground、青がEffect Maskです。この例ではText1とBackground1の2つの画像を接続しています。
+
+[![S02の実機Nodeの端子](/img/fusion/captures/S02/node.png)](/img/fusion/captures/S02/node.png)
+
+[![S02の実機Node Editorの接続](/img/fusion/captures/S02/graph.png)](/img/fusion/captures/S02/graph.png)
+
+Resolve Studio 21.1.0.14／Windowsで撮影したS02の参考例です。青い入力は未接続です。Mask適用、Premultiplication、Nukeとの動作同一性を示す例ではありません。 [撮影条件と確認範囲](/img/fusion/captures/S02/capture.json)
+
 ## Fusionでの考え方
 
 ```text

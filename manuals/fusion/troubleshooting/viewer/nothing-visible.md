@@ -44,6 +44,18 @@ output
 
 Graphは正しくても、Viewerが別Nodeを表示している可能性があります。
 
+#### 実機の参考例
+
+<!-- capture-reuse:R53 -->
+
+左Viewerの対象はLoader1、右はTransform1です。Graphの入力と変形後を対象名・出力の両方で確認します。
+
+[![S06の実機Node Editorの接続](/img/fusion/captures/S06/graph.png)](/img/fusion/captures/S06/graph.png)
+
+[![S06の左右Viewerの比較](/img/fusion/captures/S06/compare.png)](/img/fusion/captures/S06/compare.png)
+
+Resolve Studio 21.1.0.14／Windowsで撮影したS06の参考例です。正常な観察例です。空表示を再現・修復した記録や全原因の検証ではありません。 [撮影条件と確認範囲](/img/fusion/captures/S06/capture.json)
+
 ### upstreamですでにImageがない
 
 downstreamのNodeを調整する前に、参照元側から確認します。

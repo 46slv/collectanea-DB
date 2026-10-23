@@ -43,6 +43,18 @@ Image ──────┘
 7. Text+をMergeのForegroundへ接続します。
 8. Merge OutputをViewerで確認します。
 
+### 実機の参考例
+
+<!-- capture-reuse:R44 -->
+
+Text+のText1をForeground、Background1をBackgroundへ接続し、文字を青い背景へ重ねています。
+
+[![S02の実機Node Editorの接続](/img/fusion/captures/S02/graph.png)](/img/fusion/captures/S02/graph.png)
+
+[![S02のViewer出力](/img/fusion/captures/S02/result.png)](/img/fusion/captures/S02/result.png)
+
+Resolve Studio 21.1.0.14／Windowsで撮影したS02の参考例です。Outline、Write On、Followerや外部Transformの全手順を実行した例ではありません。 [撮影条件と確認範囲](/img/fusion/captures/S02/capture.json)
+
 ## 配置をどこで持つか
 
 Text+自身のLayoutで位置を持たせる方法と、Text+の後ろへTransformを置く方法があります。

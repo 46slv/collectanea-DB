@@ -73,6 +73,20 @@ Planar TrackerでSteadyの検査に合格したら、次は**追跡データの�
 
 Tracker（点追跡）を別ノードへ使う場合は、対象のCenterなどのパラメーターから**Connect To → Tracker → Offset Position**を選びます。これはTrackerの画像出力を配線する操作とは違います。位置を接続しただけでは、回転・拡大率まで同時に合うとは限りません。詳しくは[Tracker](../../nodes/tracking/tracker)を参照してください。
 
+### 実機の参考例
+
+<!-- capture-reuse:R52 -->
+
+追跡解析の枝と、PlanarTransformで文字へ動きを適用する枝を分けた例です。フレーム0と60で、文字が既知の右移動3px/frameへ追従した結果を示します。
+
+[![S10の実機Node Editorの接続](/img/fusion/captures/S10/graph.png)](/img/fusion/captures/S10/graph.png)
+
+[![S10の基準フレーム0の合成](/img/fusion/captures/S10/reference.png)](/img/fusion/captures/S10/reference.png)
+
+[![S10のViewer出力](/img/fusion/captures/S10/result.png)](/img/fusion/captures/S10/result.png)
+
+Resolve Studio 21.1.0.14／Windowsで撮影したS10の参考例です。正常なTranslationの参照例です。実写driftの再現・修復、Point、Perspective、Steadyの精度は未確認です。 [撮影条件と確認範囲](/img/fusion/captures/S10/capture.json)
+
 ## Stabilizeだけ結果が変わらない場合
 
 Planar TrackerのStabilizeは、モードを変えただけでは安定化を計算しません。Smoothing RadiusやParameters to Smoothを設定した後、**Compute Stabilization**を実行します。

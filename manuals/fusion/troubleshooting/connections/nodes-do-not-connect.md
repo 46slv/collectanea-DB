@@ -42,6 +42,18 @@ Shapeを<Term id="image">Image</Term> inputへ、3D sceneを2D filterへ、と�
 
 Shape render、3D render、Deep to <Term id="image">Image</Term>等、別domainを2D Imageへ変換する工程が必要な場合があります。
 
+#### 実機の参考例
+
+<!-- capture-reuse:R47 -->
+
+sEllipse1 → sRender1 → MediaOut1の正常な接続です。Shapeをそのまま画像入力へ送らず、sRenderで2D Imageへ変換しています。
+
+[![S04の実機Node Editorの接続](/img/fusion/captures/S04/graph.png)](/img/fusion/captures/S04/graph.png)
+
+[![S04のViewer出力](/img/fusion/captures/S04/result.png)](/img/fusion/captures/S04/result.png)
+
+Resolve Studio 21.1.0.14／Windowsで撮影したS04の参考例です。誤接続を拒否した画面や、全データ型の互換性を検証した結果ではありません。 [撮影条件と確認範囲](/img/fusion/captures/S04/capture.json)
+
 ### 似た名前の別Nodeを使っている
 
 Merge / Merge3D / sMerge / dMergeなど、名前が似てもdomainが異なります。
