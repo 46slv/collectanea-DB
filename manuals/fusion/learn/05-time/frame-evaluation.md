@@ -73,6 +73,26 @@ MediaIn → Time Stretcher → MediaOut
 
 Time Stretcherの端子、補間、初期キーフレームの詳細は[Time Stretcher](../../nodes/time-metadata/time-stretcher)にまとめています。
 
+### 実機で出力時刻とSource Timeを比べる
+
+Resolve Studio 21.1.0.14、Windows、日本語UIで、番号入りの100枚の連番PNGをLoaderから読み込みました。上の枝はTimeDynamic、下の枝は素材を12番目に固定するTimeHoldです。MediaOut1へは上の枝を接続しています。
+
+[![番号入り連番画像をTimeDynamicとTimeHoldへ分岐。上はMediaOut1、下はTransformHoldへ接続した実機Graph](/img/fusion/captures/S39/graph.png)](/img/fusion/captures/S39/graph.png)
+
+[![出力フレーム12でTimeDynamicのSource Timeは49.5、Interpolate ModeはBlend](/img/fusion/captures/S39/inspector.png)](/img/fusion/captures/S39/inspector.png)
+
+Source Timeを0→99へLinearで変えると、出力フレーム0／12／24で読み戻した値は0／49.5／99でした。次の3枚では、左にその時刻のLoader、右にTimeDynamicを表示しています。
+
+[![出力フレーム0。左のLoaderと右のTimeDynamicはどちらもSOURCE 000を表示](/img/fusion/captures/S39/frame0.png)](/img/fusion/captures/S39/frame0.png)
+
+[![出力フレーム12。左の入力はSOURCE 012、右はSOURCE 049と050がBlendで重なる](/img/fusion/captures/S39/compare.png)](/img/fusion/captures/S39/compare.png)
+
+[![出力フレーム24。左の入力はSOURCE 024、右のTimeDynamicはSOURCE 099を表示](/img/fusion/captures/S39/frame24.png)](/img/fusion/captures/S39/frame24.png)
+
+[![TimeDynamicのSource Timeだけを選んだSpline Editor。フレーム0の値0と24の値99を直線で結ぶ](/img/fusion/captures/S39/spline.png)](/img/fusion/captures/S39/spline.png)
+
+フレーム12ではBlend補間により、右の番号049と050が重なります。Splineの横軸は出力フレーム、縦軸はSource Timeです。両ViewerはColor、40%。Nearest／Flowとの画質比較はこの例には含めていません。
+
 ## パラメータの時間と素材の時間を分ける
 
 今度はTime Stretcherの後ろへTransformを追加します。
@@ -91,7 +111,7 @@ TransformのSizeに、出力フレーム0で`0.8`、出力フレーム24で`1.2`
 
 ## 1つだけ変えて確認する：止めるのは素材か、アニメーションか
 
-先ほどの構成のうち、Time Stretcherの`Source Time`だけを一定値にします。たとえば12番目を読み続けるように固定します。初期の`Source Time`キーフレームが残っている場合は、それを外して値が時間で変わらない状態にします。
+先ほどの構成のうち、Time Stretcherの`Source Time`だけを一定値にします。たとえば12番目を読み続けるように固定します。一定値のキー1つだけを残すか、アニメーションを外して、値が時間で変わらない状態にします。
 
 ```text
 MediaIn → Time Stretcher（Source Timeを固定）→ Transform → MediaOut
@@ -104,6 +124,24 @@ MediaIn → Time Stretcher（Source Timeを固定）→ Transform → MediaOut
 - **出力フレームを変えても絵が全く変わらない**：Source Timeと後段パラメータの両方を見る。
 
 「画面が止まっている」だけでは、素材の参照位置が固定されたのか、後段の値まで固定されたのかは分かりません。
+
+### 実機で素材12を固定し、Sizeだけを動かす
+
+下のTimeHoldは、フレーム0にSource Time = 12のキーを1つだけ置いています。0／12／24で読み戻しても値は12です。後段TransformHoldのSizeには、フレーム0で0.8、24で1.2のLinearキーを置きました。
+
+[![TimeHoldのSource Timeは12。フレーム0に置いた値12のキー1つで素材を固定](/img/fusion/captures/S39/hold-inspector.png)](/img/fusion/captures/S39/hold-inspector.png)
+
+[![出力フレーム0のTransformHold。Sizeは0.8で、素材側のSource Timeとは別にアニメーションする](/img/fusion/captures/S39/hold0-inspector.png)](/img/fusion/captures/S39/hold0-inspector.png)
+
+[![出力フレーム0。左は固定したSOURCE 012、右は同じ素材をSize 0.8で縮小した出力](/img/fusion/captures/S39/hold0.png)](/img/fusion/captures/S39/hold0.png)
+
+[![出力フレーム24のTransformHold。Sizeは1.2へ変化](/img/fusion/captures/S39/hold24-inspector.png)](/img/fusion/captures/S39/hold24-inspector.png)
+
+[![出力フレーム24。左は引き続きSOURCE 012、右は同じ素材をSize 1.2で拡大した出力](/img/fusion/captures/S39/hold24.png)](/img/fusion/captures/S39/hold24.png)
+
+左のTimeHoldは両時刻ともSOURCE 012のまま、右のTransformHoldだけが縮小から拡大へ変わります。Viewer中央の緑の線は選択中Transformの操作表示です。内部キャッシュ、ネットワークレンダリング、書き出し時の評価順は未確認です。
+
+[再現用Graph](/img/fusion/captures/S39/fixture.comp) · [撮影条件と確認範囲](/img/fusion/captures/S39/capture.json)
 
 ## 値はどこから来るか：KeyframeとExpression
 
@@ -226,4 +264,4 @@ MergeのBlendをキーフレームで変えると、同じ入力でも合成の�
 - Chapter 111「Miscellaneous Nodes」pp.2607–2612：Time Speed / Time Stretcher、`Source Time`、補間方式、100→25フレームの例。
 - 公式配布元：[Blackmagic Design Support Center](https://www.blackmagicdesign.com/support)。
 
-フレーム番号とパラメータ値の例は説明用です。ここではManualに記載された動作と診断上の考え方を整理しており、21.1実機での全Nodeの評価順、内部キャッシュ、host別・edition別の違いまでは検証していません。そのため`verification: partial`を維持します。
+実機例では、番号入り連番のSource Timeと後段Sizeを確認しました。Manualに記載された動作と診断上の考え方も整理していますが、21.1実機での全Nodeの評価順、内部キャッシュ、host別・edition別の違いまでは検証していません。そのため`verification: partial`を維持します。

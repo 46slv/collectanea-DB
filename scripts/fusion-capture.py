@@ -26,6 +26,10 @@ TARGETS.update({'S31':'Merge1','S32':'MergeChanged','S33':'EllipseSubtract','S34
 TARGETS['S35']='TransformAnimated';RIGHT['S35']='TransformAnimated';LEFT['S35']='Text1'
 RIGHT.update({'S31':'Merge1','S32':'MergeChanged','S33':'GoldSubtract','S34':'TransformPivot'})
 LEFT.update({'S31':'Cutout1','S32':'MergeBase','S33':'GoldBase','S34':'TransformBase'})
+TARGETS['S36']='TransformSmooth';LEFT['S36']='TransformLinear';RIGHT['S36']='TransformSmooth'
+TARGETS['S37']='MergeDerived';LEFT['S37']='MergeMaster';RIGHT['S37']='MergeDerived'
+TARGETS['S38']='TransformReference';LEFT['S38']='Loader1';RIGHT['S38']='TransformReference'
+TARGETS['S39']='TimeDynamic';LEFT['S39']='Loader1';RIGHT['S39']='TimeDynamic'
 r=d.scriptapp('Resolve')
 assert r, 'Resolve scripting unavailable; do not change preferences automatically'
 pm=r.GetProjectManager(); p=pm.GetCurrentProject()
@@ -34,7 +38,16 @@ assert r.GetCurrentPage(), 'Resolve has a modal dialog; reconcile the GUI first'
 case=sys.argv[1]; action=sys.argv[2] if len(sys.argv)>2 else 'readback'
 requested_frame=int(sys.argv[3]) if action=='frame' else 0
 if action=='frame':
- assert case=='S35' and requested_frame in [0,48];action='show'
+ assert case in ['S35','S36','S39'] and requested_frame in ([0,48] if case=='S35' else [0,3,6,9,12,18,24]);action='show'
+if action=='hold':
+ assert case=='S39';requested_frame=int(sys.argv[3]);assert requested_frame in [0,24]
+ TARGETS[case]='TransformHold';LEFT[case]='TimeHold';RIGHT[case]='TransformHold';action='show'
+if action=='hold_source':
+ assert case=='S39';TARGETS[case]='TimeHold';LEFT[case]='TimeHold';RIGHT[case]='TransformHold';action='show'
+if action=='master':
+ assert case=='S37';TARGETS[case]='MergeMaster';action='show'
+if action=='step':
+ assert case=='S36';TARGETS[case]='TransformStep';RIGHT[case]='TransformStep';requested_frame=3;action='show'
 if action=='final':
  assert case=='S23';RIGHT[case]='Merge1';LEFT[case]='SourceA';action='show'
 if action=='scale':
@@ -63,7 +76,8 @@ for _ in range(50):
  time.sleep(.1)
 else:raise RuntimeError('Requested composition did not become the active GUI composition')
 t.SetCurrentTimecode('01:00:02:00' if case=='S09' else '01:00:00:00')
-c.CurrentTime=requested_frame if case=='S35' else 48 if case=='S09' else 0
+c.CurrentTime=requested_frame if case in ['S35','S36','S39'] else 48 if case=='S09' else 0
+if case in ['S36','S39']:t.SetCurrentTimecode(f'01:00:{requested_frame//24:02d}:{requested_frame%24:02d}')
 if case=='S35':t.SetCurrentTimecode('01:00:02:00' if requested_frame==48 else '01:00:00:00')
 time.sleep(.3)
 tools={x.GetAttrs()['TOOLS_Name']:x for x in c.GetToolList().values()}
@@ -126,6 +140,10 @@ def select(target,left=None):
  layouts['S32']={'Loader1':(0,2),'Ellipse1':(0,-2),'Foreground1':(1.5,-2),'MergeBase':(3,3.5),'MergeChanged':(3,1),'MediaOut1':(4.5,1)}
  layouts['S33']={'Rectangle1':(0,-1.5),'EllipseSubtract':(1.5,-1.5),'GoldBase':(1.5,1.5),'GoldSubtract':(3,0),'MediaOut1':(4.5,0)}
  layouts['S34']={'Loader1':(0,0),'TransformBase':(1.5,-1),'TransformPivot':(1.5,1),'MediaOut1':(3,1)}
+ layouts['S36']={'Text1':(0,0),'TransformLinear':(1.5,-2),'TransformSmooth':(1.5,0),'TransformStep':(1.5,2),'MediaOut1':(3,0)}
+ layouts['S37']={'Base1':(0,0),'Rectangle1':(0,-2),'Red1':(1.5,-2),'Ellipse1':(1.5,2),'Gold1':(3,2),'MergeMaster':(3,-1),'MergeDerived':(4.5,1),'MediaOut1':(6,1)}
+ layouts['S38']={'Loader1':(0,0),'TransformReference':(1.5,0),'MediaOut1':(3,0)}
+ layouts['S39']={'Loader1':(0,0),'TimeDynamic':(1.5,-1.5),'TimeHold':(1.5,1.5),'TransformHold':(3,1.5),'MediaOut1':(3,-1.5)}
  layouts['S35']={'Text1':(0,0),'TransformAnimated':(1.5,0),'MediaOut1':(3,0)}
  for n,pos in layouts.get(case,{}).items():
   if n in tools:flow.SetPos(tools[n],*pos)
@@ -165,6 +183,44 @@ if action=='build':
   rb=add('sRender','RenderBase1',4,-1);connect(rb,'Input',base)
   target=add('sTransform','Transform1',2,1);connect(target,'Input',base)
   rr=add('sRender','RenderChanged1',4,1);connect(rr,'Input',target);connect(mo,'Input',rr)
+ elif case=='S39':
+  loader=add('Loader','Loader1',0,0,Clip=str(ROOT/'static/img/fusion/captures/_fixtures/timeplate/frame0000.png'))
+  target=add('TimeStretcher','TimeDynamic',1.5,-1.5);connect(target,'Input',loader)
+  out=target.SourceTime.GetConnectedOutput()
+  if not out:target.SourceTime=c.BezierSpline();out=target.SourceTime.GetConnectedOutput()
+  out.GetTool().SetKeyFrames({0:{1:0,'Flags':{'Linear':True}},24:{1:99,'Flags':{'Linear':True}}},True)
+  hold=add('TimeStretcher','TimeHold',1.5,1.5);connect(hold,'Input',loader)
+  hold.SourceTime.GetConnectedOutput().GetTool().SetKeyFrames({0:{1:12}},True)
+  xf=add('Transform','TransformHold',3,1.5);connect(xf,'Input',hold);xf.Size=c.BezierSpline()
+  xf.Size.GetConnectedOutput().GetTool().SetKeyFrames({0:{1:.8,'Flags':{'Linear':True}},24:{1:1.2,'Flags':{'Linear':True}}},True)
+  connect(mo,'Input',target)
+  assert abs(target.GetInput('SourceTime',12)-49.5)<.00001
+  assert hold.GetInput('SourceTime',0)==hold.GetInput('SourceTime',24)==12
+ elif case=='S38':
+  loader=add('Loader','Loader1',0,0,Clip=str(REPO/'static/img/fusion/captures/_fixtures/chart.png'))
+  target=add('Transform','TransformReference',1.5,0,Center={1:.525,2:.5},Width=1920,Height=1080,UseFrameFormatSettings=0);connect(target,'Input',loader);connect(mo,'Input',target)
+ elif case=='S37':
+  bg=add('Background','Base1',0,0,TopLeftRed=.025,TopLeftGreen=.075,TopLeftBlue=.13)
+  rect=add('RectangleMask','Rectangle1',0,-2,Width=.5,Height=.4)
+  red=add('Background','Red1',1.5,-2,TopLeftRed=.8,TopLeftGreen=.06,TopLeftBlue=.05);connect(red,'EffectMask',rect)
+  ell=add('EllipseMask','Ellipse1',1.5,2,Width=.4,Height=.5)
+  gold=add('Background','Gold1',3,2,TopLeftRed=1,TopLeftGreen=.5,TopLeftBlue=.05);connect(gold,'EffectMask',ell)
+  master=add('Merge','MergeMaster',3,-1,Blend=.8);connect(master,'Background',bg);connect(master,'Foreground',red)
+  target=add('Merge','MergeDerived',4.5,1);connect(target,'Background',bg);connect(target,'Foreground',gold);connect(mo,'Input',target)
+  target.Blend.SetExpression('MergeMaster.Blend')
+  assert abs(target.GetInput('Blend',0)-.8)<.00001
+ elif case=='S36':
+  tx=text('Text1',0,0,'SPLINE',.12)
+  nodes={}
+  for name in ['TransformLinear','TransformSmooth','TransformStep']:
+   a=add('Transform',name,1.5,0);connect(a,'Input',tx);a.Size=c.BezierSpline();nodes[name]=a
+  keysets={
+   'TransformLinear':{0:{1:.7,'Flags':{'Linear':True}},12:{1:1.1,'Flags':{'Linear':True}},24:{1:1.0,'Flags':{'Linear':True}}},
+   'TransformSmooth':{0:{1:.7,'RH':{1:4,2:0}},12:{1:1.1,'LH':{1:-4,2:0},'RH':{1:4,2:0}},24:{1:1.,'LH':{1:-4,2:0}}},
+   'TransformStep':{0:{1:.7,'Flags':{'StepIn':True}},12:{1:1.1,'Flags':{'StepIn':True}},24:{1:1.,'Flags':{'StepIn':True}}}}
+  for name,keys in keysets.items():
+   spline=nodes[name].Size.GetConnectedOutput().GetTool();spline.SetKeyFrames(keys,True)
+  target=nodes['TransformSmooth'];connect(mo,'Input',target)
  elif case=='S35':
   tx=text('Text1',0,0,'KEYFRAME',.09)
   target=add('Transform','TransformAnimated',1.5,0,Center={1:.25,2:.5});connect(target,'Input',tx);connect(mo,'Input',target)
@@ -275,6 +331,12 @@ for n,a in tools.items():
 keep=['colorScienceMode','colorSpaceTimeline','colorSpaceTimelineGamma','colorSpaceOutput','colorSpaceOutputGamma','separateColorSpaceAndGamma','isAutoColorManage','timelineResolutionWidth','timelineResolutionHeight','timelineFrameRate','timelinePlaybackFrameRate']
 settings=p.GetSetting()
 report={'project':p.GetName(),'timeline':t.GetName(),'resolve':r.GetVersionString(),'edition':r.GetProductName(),'os':platform.platform(),'time':datetime.datetime.now(datetime.timezone.utc).isoformat(),'frame':c.CurrentTime,'sampled_frame':c.CurrentTime,'project_settings':{k:settings[k] for k in keep if k in settings},'tools':inputs}
+if case=='S39':
+ report['time_samples']=[{'frame':f,'dynamic_source_time':tools['TimeDynamic'].GetInput('SourceTime',f),'held_source_time':tools['TimeHold'].GetInput('SourceTime',f),'transform_size':tools['TransformHold'].GetInput('Size',f)} for f in [0,12,24]]
+if case=='S37':
+ report['parameter_link']={'master':tools['MergeMaster'].GetInput('Blend',c.CurrentTime),'derived':tools['MergeDerived'].GetInput('Blend',c.CurrentTime),'expression':tools['MergeDerived'].Blend.GetExpression(),'expression_exported_in':'fixture.comp'}
+if case=='S36':
+ report['animation_samples']=[{'frame':f,**{n:tools[n].GetInput('Size',f) for n in ['TransformLinear','TransformSmooth','TransformStep']}} for f in [0,3,6,9,12,18,24]]
 if case=='S35':
  report['animation_samples']=[{'frame':f,'Center':tools['TransformAnimated'].GetInput('Center',f)} for f in [0,24,48]]
 folder=ROOT/'static/img/fusion/captures'/case;folder.mkdir(parents=True,exist_ok=True)

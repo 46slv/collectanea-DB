@@ -122,6 +122,32 @@ Paint chapterでは、Planar Trackerでtrackしたclipからclean plateを作る
 
 `Source Time`のdefault keyframeを無効にし、freezeしたいsource frame番号へ固定すると、その1 frameをPaintへ渡せます。動いている素材から静止したclean plateを作り、不要物をCloneで消すような処理に使えます。
 
+### 実機の参考例
+
+<!-- capture-reuse:R71 -->
+
+番号入り100枚の連番を使ったS39です。TimeDynamicのSource Timeを出力0で0、24で99にすると、出力12では49.5になります。Blend補間では049と050の番号が重なり、出力24では099を表示しました。Splineは0→99のLinearです。
+
+[![番号入り連番画像をTimeDynamicとTimeHoldへ分岐。上はMediaOut1、下はTransformHoldへ接続した実機Graph](/img/fusion/captures/S39/graph.png)](/img/fusion/captures/S39/graph.png)
+
+[![出力フレーム12でTimeDynamicのSource Timeは49.5、Interpolate ModeはBlend](/img/fusion/captures/S39/inspector.png)](/img/fusion/captures/S39/inspector.png)
+
+[![出力フレーム12。左の入力はSOURCE 012、右はSOURCE 049と050がBlendで重なる](/img/fusion/captures/S39/compare.png)](/img/fusion/captures/S39/compare.png)
+
+[![出力フレーム24。左の入力はSOURCE 024、右のTimeDynamicはSOURCE 099を表示](/img/fusion/captures/S39/frame24.png)](/img/fusion/captures/S39/frame24.png)
+
+[![TimeDynamicのSource Timeだけを選んだSpline Editor。フレーム0の値0と24の値99を直線で結ぶ](/img/fusion/captures/S39/spline.png)](/img/fusion/captures/S39/spline.png)
+
+別のTimeHoldではSource Time = 12のキーをフレーム0に1つだけ置き、素材を固定しました。後段TransformHoldのSizeだけは0.8→1.2へ動かしています。最後の2枚は出力0と24で、左が固定素材、右がTransform出力です。
+
+[![TimeHoldのSource Timeは12。フレーム0に置いた値12のキー1つで素材を固定](/img/fusion/captures/S39/hold-inspector.png)](/img/fusion/captures/S39/hold-inspector.png)
+
+[![出力フレーム0。左は固定したSOURCE 012、右は同じ素材をSize 0.8で縮小した出力](/img/fusion/captures/S39/hold0.png)](/img/fusion/captures/S39/hold0.png)
+
+[![出力フレーム24。左は引き続きSOURCE 012、右は同じ素材をSize 1.2で拡大した出力](/img/fusion/captures/S39/hold24.png)](/img/fusion/captures/S39/hold24.png)
+
+Resolve Studio 21.1.0.14／Windows、両Viewer Color／40%。Nearest／Flow、逆再生、Optical FlowとEXR再利用、Paintによるclean plateは未確認です。[撮影条件と確認範囲](/img/fusion/captures/S39/capture.json)
+
 ### Optical Flowで補間する
 
     MediaIn → Optical Flow → Time Stretcher → Result

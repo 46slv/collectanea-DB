@@ -61,6 +61,30 @@ Transformの`Reference Size`はCenterの**Inspector表示**を変更する機能
 
 Reference Sizeを変更しただけで画像は動きません。21.1 Manualは、スクリプトで読み取ったり他NodeへPublishしたりした場合には、正規化された元の値が得られると明記しています。`Auto Resolution`の参照先は、DaVinci Resolve内Fusionでは**タイムライン解像度**、Fusion Studioでは**現在のFrame Format**です。入力画像の解像度とReference Sizeを無条件に同一視しないでください。
 
+### 実機でReference Sizeと座標表示を比べる
+
+Resolve Studio 21.1.0.14、Windows、日本語UIで、1920×1080のチャートをTransformReferenceへ接続しました。内部Centerは(0.525, 0.5)に固定しています。
+
+[![1920×1080のチャートからTransformReferenceを経由してMediaOut1へ渡す実機Graph](/img/fusion/captures/S38/graph.png)](/img/fusion/captures/S38/graph.png)
+
+[![Reference Sizeの幅と高さが1の状態。InspectorのCenterはX 0.525、Y 0.5と表示される](/img/fusion/captures/S38/normalized-inspector.png)](/img/fusion/captures/S38/normalized-inspector.png)
+
+[![Reference Sizeを1920と1080にするとCenter表示が1008と540になる。自動解像度はオフ](/img/fusion/captures/S38/inspector.png)](/img/fusion/captures/S38/inspector.png)
+
+[![Reference Sizeだけを3840と2160へ変えたInspector。Center表示は2016と1080になる](/img/fusion/captures/S38/large-inspector.png)](/img/fusion/captures/S38/large-inspector.png)
+
+参照寸法を倍にすると表示値も倍になります。スクリプトで読み戻したCenterは、どちらも(0.525, 0.5)でした。
+
+[![左は入力チャート、右はCenter X 0.525のTransform出力。参照寸法を変更しても右の画像位置は変わらない](/img/fusion/captures/S38/compare.png)](/img/fusion/captures/S38/compare.png)
+
+右は入力に対して48ソースピクセル右へ配置した状態です。参照寸法1920×1080と3840×2160で撮った右Viewerの同じ領域は、スクリーンショットの画素比較でも一致しました。これはViewer表示の比較で、書き出し画像の測色試験ではありません。
+
+[![自動解像度をオンにすると参照寸法はTimelineの1920と1080になり、Centerは1008と540で表示される](/img/fusion/captures/S38/auto-inspector.png)](/img/fusion/captures/S38/auto-inspector.png)
+
+Auto Resolutionをオンにすると、このTimelineの1920×1080が参照寸法になりました。Pivotの表示も同じ参照寸法で960／540へ変わっています。画像出力は1920×1080のままです。フレーム0、両Viewer 40%。最後はAuto Resolutionをオフ、参照寸法を1920×1080へ戻しました。別解像度の入力やTimelineへの変更、ピクセル表示の欄から位置を入力する操作は含めていません。
+
+[再現用Graph](/img/fusion/captures/S38/fixture.comp) · [撮影条件と確認範囲](/img/fusion/captures/S38/capture.json)
+
 ## Pivot
 
 Pivotは**回転と拡大縮小の支点**です。初期値は `(0.5, 0.5)` で、画像の中央を基準とします。Centerだけを右へ移動しても、Pivotの設定値は別に管理されます。

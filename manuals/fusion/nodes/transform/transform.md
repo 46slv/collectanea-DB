@@ -105,6 +105,24 @@ Transformで画像を動かしたり縮めたりすると、元画像の外側�
 
 Reference Sizeを使ってピクセル位置を入力する際は、**参照寸法と実際に位置を揃えたいImageの寸法が同じか**を確認します。Timelineが1920×1080でも、Transformに入る透過ロゴのImageが960×540なら、そのTransformの座標系まで1920×1080になるわけではありません。[正規化座標](../../learn/03-space/normalized-coordinates)と[解像度 / アスペクト比](../../learn/03-space/resolution-aspect)も参照してください。
 
+### 実機の参考例
+
+<!-- capture-reuse:R68 -->
+
+S38では内部Centerを(0.525, 0.5)に固定し、参照寸法1×1、1920×1080、3840×2160の表示を比べました。Center表示は0.525／0.5、1008／540、2016／1080と変わり、内部値とViewerの画像位置は変わりません。Auto Resolutionでは、このTimelineの1920×1080を使いました。
+
+[![S38の実機撮影。チャートからTransformReferenceへの接続](/img/fusion/captures/S38/graph.png)](/img/fusion/captures/S38/graph.png)
+
+[![S38の実機撮影。参照寸法1でCenterが0.525と0.5の表示](/img/fusion/captures/S38/normalized-inspector.png)](/img/fusion/captures/S38/normalized-inspector.png)
+
+[![S38の実機撮影。参照1920と1080でCenterが1008と540の表示](/img/fusion/captures/S38/inspector.png)](/img/fusion/captures/S38/inspector.png)
+
+[![S38の実機撮影。参照3840と2160でCenterが2016と1080の表示](/img/fusion/captures/S38/large-inspector.png)](/img/fusion/captures/S38/large-inspector.png)
+
+[![S38の実機撮影。自動解像度オンでTimeline寸法1920と1080を参照](/img/fusion/captures/S38/auto-inspector.png)](/img/fusion/captures/S38/auto-inspector.png)
+
+Resolve Studio 21.1.0.14／Windows、両Viewer 40%。同じ1920×1080入力での表示単位の比較です。本文のピクセル欄へ入力して位置を動かす操作、異なる入力解像度やTimeline解像度の比較は未確認です。 [撮影条件と確認範囲](/img/fusion/captures/S38/capture.json)
+
 ## 運用例1：フルHD映像を右へ48pxずらす
 
 1920×1080の映像をTransformへ接続し、次のように操作します。

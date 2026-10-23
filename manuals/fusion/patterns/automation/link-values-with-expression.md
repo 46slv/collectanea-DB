@@ -64,6 +64,24 @@ Node名を手入力したくない場合は、SimpleExpression欄の左にある
 
 同じBlend値でも、前景画像のAlphaや内容が違えばViewer上の結果は一致しません。**値の連動**と**見た目の一致**は分けて確認します。
 
+### 実機の参考例
+
+<!-- capture-reuse:R67 -->
+
+MergeMasterのBlendをMergeDerivedの式から参照したS37です。Masterが0.8のときDerivedも0.8、Masterだけを0.3へ変えるとDerivedも0.3へ追従しました。赤い長方形とオレンジの楕円は異なる画像入力です。
+
+[![S37の実機撮影。2つのMergeへ別々の前景を渡すGraph](/img/fusion/captures/S37/graph.png)](/img/fusion/captures/S37/graph.png)
+
+[![S37の実機撮影。基準MergeMasterのBlend 0.8](/img/fusion/captures/S37/master-inspector.png)](/img/fusion/captures/S37/master-inspector.png)
+
+[![S37の実機撮影。MergeDerivedのBlendと参照式MergeMaster.Blend](/img/fusion/captures/S37/inspector.png)](/img/fusion/captures/S37/inspector.png)
+
+[![S37の実機撮影。式を残したまま0.3へ追従した派生Blend](/img/fusion/captures/S37/low-inspector.png)](/img/fusion/captures/S37/low-inspector.png)
+
+[![S37の実機撮影。両Blendが0.3へ下がった左右出力](/img/fusion/captures/S37/low.png)](/img/fusion/captures/S37/low.png)
+
+Resolve Studio 21.1.0.14／Windows、両Viewer 40%。同値を参照するNumber式の例です。比率の式、Point式、5フレーム前の参照、Pick Whipは未確認です。 [撮影条件と確認範囲](/img/fusion/captures/S37/capture.json)
+
 ## 実例2：片方の変化量を半分にする
 
 Merge2の前景だけを控えめにしたい場合は、同値の参照を比率へ変えます。

@@ -40,6 +40,10 @@ CONFIG={
  'S33':{'graph':(240,1060,2600,1660),'inspector':(2830,120,3352,540),'compare':(1146,65,2830,705)},
  'S34':{'graph':(580,1190,2280,1555),'inspector':(2830,120,3352,570),'compare':(1146,65,2830,705)},
  'S35':{'graph':(580,1300,2280,1450),'inspector':(2830,120,3352,570),'compare':(1146,65,2830,705),'frame0-inspector':(2830,120,3352,570),'frame0':(1146,65,2830,705),'spline':(1410,850,2830,1840),'modifiers':(2830,90,3352,470)},
+ 'S36':{'graph':(580,1060,2280,1660),'inspector':(2830,120,3352,570),'compare':(1146,65,2830,705),'step-inspector':(2830,120,3352,570),'step':(1146,65,2830,705),'linear-spline':(1410,850,2830,1840),'smooth-spline':(1410,850,2830,1840),'step-spline':(1410,850,2830,1840),'keyframes':(1410,850,2250,1090),'peak-inspector':(2830,120,3352,570)},
+ 'S37':{'graph':(240,1060,2600,1660),'master-inspector':(2830,120,3352,710),'inspector':(2830,120,3352,740),'compare':(1146,65,2830,705),'master-low-inspector':(2830,120,3352,710),'low-inspector':(2830,120,3352,740),'low':(1146,65,2830,705)},
+ 'S38':{'graph':(580,1300,2280,1450),'normalized-inspector':(2830,120,3352,660),'inspector':(2830,120,3352,660),'large-inspector':(2830,120,3352,660),'auto-inspector':(2830,120,3352,660),'compare':(1146,65,2830,705)},
+ 'S39':{'graph':(580,1060,2280,1660),'inspector':(2830,120,3352,340),'compare':(1146,65,2830,815),'frame0':(1146,65,2830,815),'frame24':(1146,65,2830,815),'spline':(1410,850,2830,1840),'hold-inspector':(2830,120,3352,340),'hold0-inspector':(2830,120,3352,570),'hold0':(1146,65,2830,815),'hold24-inspector':(2830,120,3352,570),'hold24':(1146,65,2830,815)},
 }
 def sha(p):return hashlib.sha256(p.read_bytes()).hexdigest()
 candidates=json.loads((ROOT/'docs/fusion-screenshot-candidates.json').read_text(encoding='utf-8'))
@@ -67,11 +71,17 @@ for case in args.cases:
   if case=='S32':
    for variant in ['blend','multiply','in']:
     for suffix in ['', '-inspector']:extra[(case,variant+suffix)]='screen-'+variant+'.png'
+  if case=='S36':extra.update({(case,'step'):'screen-step.png',(case,'step-inspector'):'screen-step.png',(case,'linear-spline'):'screen-linear-spline.png',(case,'smooth-spline'):'screen-smooth-spline.png',(case,'step-spline'):'screen-step-spline.png',(case,'keyframes'):'screen-keyframes.png',(case,'peak-inspector'):'screen-peak.png'})
+  if case=='S37':extra.update({(case,'master-inspector'):'screen-master.png',(case,'master-low-inspector'):'screen-master-low.png',(case,'low-inspector'):'screen-low.png',(case,'low'):'screen-low.png'})
+  if case=='S38':extra.update({(case,'normalized-inspector'):'screen-normalized.png',(case,'large-inspector'):'screen-3840.png',(case,'auto-inspector'):'screen-auto.png'})
+  if case=='S39':extra.update({(case,'frame0'):'screen-frame0.png',(case,'frame24'):'screen-frame24.png',(case,'spline'):'screen-spline.png',(case,'hold-inspector'):'screen-held-source.png',(case,'hold0-inspector'):'screen-hold0.png',(case,'hold0'):'screen-hold0.png',(case,'hold24-inspector'):'screen-hold24.png',(case,'hold24'):'screen-hold24.png'})
   src=folder/extra.get((case,slug),variants.get((case,slug),'screen.png'))
   assert 0<=box[0]<box[2]<=im.width and 0<=box[1]<box[3]<=im.height, (case,slug,box)
   path=folder/(slug+'.png');Image.open(src).crop(box).save(path)
   frame=60 if (case,slug)==('S10','result') else 0 if (case,slug)==('S09','frame0') else readback['frame']
   if case=='S35' and slug.startswith('frame0'):frame=0
+  if case=='S36':frame=12 if slug=='peak-inspector' else 3
+  if case=='S39':frame=0 if slug in ['frame0','hold-inspector','hold0-inspector','hold0'] else 24 if slug in ['frame24','hold24-inspector','hold24'] else 12
   shots.append({'file':path.name,'source':src.name,'source_sha256':sha(src),'frame':frame,'crop_xyxy':box,'resampled':False,'sha256':sha(path)})
   if case in ['S25','S28','S31']:shots[-1]['viewer_channels']='Alpha' if slug=='alpha' else 'Color'
  candidate=next(x for x in candidates['candidates'] if x['id']==case)

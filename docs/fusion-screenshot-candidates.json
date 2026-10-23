@@ -2,7 +2,7 @@
   "schema_version": 1,
   "created": "2026-10-20",
   "scope": "All Fusion pages, DaVinci Resolve 21.1",
-  "status_note": "2026-10-24:92 pages public PASS through PR73. Batch6 S31-S35/R65-R66 adds26 native crops/37 placements across7 changed articles. All96 pages/299 placements local PASS. Full Fusion continues, retaining remaining_views and partial verification.",
+  "status_note": "2026-10-24:96 pages/138 crops/299 placements public PASS through PR75. Batch7 S36-S39/R67-R71 adds34 native crops and22 reuse placements across8 changed articles; focused8 pages/73 total placements local PASS. Cumulative100 pages/172 crops/355 placements; batch7 public NOT_RUN. Full Fusion continues with remaining_views and partial verification.",
   "asset_directory_template": "static/img/fusion/captures/{id}/{shot.slug}.png",
   "capture_manifest_name": "capture.json",
   "candidates": [
@@ -1155,7 +1155,7 @@
       },
       "goal": "前景単体とOver後のColor/Alphaを比べる",
       "suggested_graph": "Owned alpha/space/time fixture; fixture.comp and native variants",
-      "status": "captured-local-display-verified",
+      "status": "published-display-verified",
       "shots": [
         {
           "slug": "graph",
@@ -1182,7 +1182,8 @@
           "status": "native-observed"
         }
       ],
-      "capture_manifest": "static/img/fusion/captures/S31/capture.json"
+      "capture_manifest": "static/img/fusion/captures/S31/capture.json",
+      "published_batch": "fusion-native-20261024-06"
     },
     {
       "id": "S32",
@@ -1195,7 +1196,7 @@
       },
       "goal": "Blend、Apply Mode、Operatorを基準から個別に変える",
       "suggested_graph": "Owned alpha/space/time fixture; fixture.comp and native variants",
-      "status": "captured-local-display-verified",
+      "status": "published-display-verified",
       "shots": [
         {
           "slug": "graph",
@@ -1252,7 +1253,8 @@
           "status": "native-observed"
         }
       ],
-      "capture_manifest": "static/img/fusion/captures/S32/capture.json"
+      "capture_manifest": "static/img/fusion/captures/S32/capture.json",
+      "published_batch": "fusion-native-20261024-06"
     },
     {
       "id": "S33",
@@ -1265,7 +1267,7 @@
       },
       "goal": "RectangleからEllipseをSubtractした範囲を見る",
       "suggested_graph": "Owned alpha/space/time fixture; fixture.comp and native variants",
-      "status": "captured-local-display-verified",
+      "status": "published-display-verified",
       "shots": [
         {
           "slug": "graph",
@@ -1286,7 +1288,8 @@
           "status": "native-observed"
         }
       ],
-      "capture_manifest": "static/img/fusion/captures/S33/capture.json"
+      "capture_manifest": "static/img/fusion/captures/S33/capture.json",
+      "published_batch": "fusion-native-20261024-06"
     },
     {
       "id": "S34",
@@ -1299,7 +1302,7 @@
       },
       "goal": "Angleを固定しPivot Xだけを変更する",
       "suggested_graph": "Owned alpha/space/time fixture; fixture.comp and native variants",
-      "status": "captured-local-display-verified",
+      "status": "published-display-verified",
       "shots": [
         {
           "slug": "graph",
@@ -1320,7 +1323,8 @@
           "status": "native-observed"
         }
       ],
-      "capture_manifest": "static/img/fusion/captures/S34/capture.json"
+      "capture_manifest": "static/img/fusion/captures/S34/capture.json",
+      "published_batch": "fusion-native-20261024-06"
     },
     {
       "id": "S35",
@@ -1333,7 +1337,7 @@
       },
       "goal": "Centerの2KeyとPath Displacementを区別する",
       "suggested_graph": "Owned alpha/space/time fixture; fixture.comp and native variants",
-      "status": "captured-local-display-verified",
+      "status": "published-display-verified",
       "shots": [
         {
           "slug": "graph",
@@ -1378,7 +1382,276 @@
           "status": "native-observed"
         }
       ],
-      "capture_manifest": "static/img/fusion/captures/S35/capture.json"
+      "capture_manifest": "static/img/fusion/captures/S35/capture.json",
+      "published_batch": "fusion-native-20261024-06"
+    },
+    {
+      "id": "S36",
+      "priority": "P1",
+      "article": "manuals/fusion/learn/05-time/keyframes-spline-time.md",
+      "manual": {
+        "version": "21.1",
+        "chapter": 71,
+        "printed_pages": "1535–1546,1549–1551"
+      },
+      "goal": "Sizeの3キー、Linear・水平handle・Step Inを比べる",
+      "suggested_graph": "Owned time/parameter fixture; exported comp and native variants",
+      "status": "captured-local-display-verified",
+      "shots": [
+        {
+          "slug": "graph",
+          "kind": "node-graph",
+          "target": "Sizeの3キー、Linear・水平handle・Step Inを比べる",
+          "status": "native-observed"
+        },
+        {
+          "slug": "inspector",
+          "kind": "inspector",
+          "target": "Sizeの3キー、Linear・水平handle・Step Inを比べる",
+          "status": "native-observed"
+        },
+        {
+          "slug": "compare",
+          "kind": "output",
+          "target": "Sizeの3キー、Linear・水平handle・Step Inを比べる",
+          "status": "native-observed"
+        },
+        {
+          "slug": "step-inspector",
+          "kind": "inspector",
+          "target": "Sizeの3キー、Linear・水平handle・Step Inを比べる",
+          "status": "native-observed"
+        },
+        {
+          "slug": "step",
+          "kind": "output",
+          "target": "Sizeの3キー、Linear・水平handle・Step Inを比べる",
+          "status": "native-observed"
+        },
+        {
+          "slug": "linear-spline",
+          "kind": "output",
+          "target": "Sizeの3キー、Linear・水平handle・Step Inを比べる",
+          "status": "native-observed"
+        },
+        {
+          "slug": "smooth-spline",
+          "kind": "output",
+          "target": "Sizeの3キー、Linear・水平handle・Step Inを比べる",
+          "status": "native-observed"
+        },
+        {
+          "slug": "step-spline",
+          "kind": "output",
+          "target": "Sizeの3キー、Linear・水平handle・Step Inを比べる",
+          "status": "native-observed"
+        },
+        {
+          "slug": "keyframes",
+          "kind": "output",
+          "target": "Sizeの3キー、Linear・水平handle・Step Inを比べる",
+          "status": "native-observed"
+        },
+        {
+          "slug": "peak-inspector",
+          "kind": "inspector",
+          "target": "Sizeの3キー、Linear・水平handle・Step Inを比べる",
+          "status": "native-observed"
+        }
+      ],
+      "capture_manifest": "static/img/fusion/captures/S36/capture.json"
+    },
+    {
+      "id": "S37",
+      "priority": "P1",
+      "article": "manuals/fusion/learn/05-time/expressions.md",
+      "manual": {
+        "version": "21.1",
+        "chapter": 73,
+        "printed_pages": "1583–1588"
+      },
+      "goal": "画像配線と別にBlend値を式で連動させる",
+      "suggested_graph": "Owned time/parameter fixture; exported comp and native variants",
+      "status": "captured-local-display-verified",
+      "shots": [
+        {
+          "slug": "graph",
+          "kind": "node-graph",
+          "target": "画像配線と別にBlend値を式で連動させる",
+          "status": "native-observed"
+        },
+        {
+          "slug": "master-inspector",
+          "kind": "inspector",
+          "target": "画像配線と別にBlend値を式で連動させる",
+          "status": "native-observed"
+        },
+        {
+          "slug": "inspector",
+          "kind": "inspector",
+          "target": "画像配線と別にBlend値を式で連動させる",
+          "status": "native-observed"
+        },
+        {
+          "slug": "compare",
+          "kind": "output",
+          "target": "画像配線と別にBlend値を式で連動させる",
+          "status": "native-observed"
+        },
+        {
+          "slug": "master-low-inspector",
+          "kind": "inspector",
+          "target": "画像配線と別にBlend値を式で連動させる",
+          "status": "native-observed"
+        },
+        {
+          "slug": "low-inspector",
+          "kind": "inspector",
+          "target": "画像配線と別にBlend値を式で連動させる",
+          "status": "native-observed"
+        },
+        {
+          "slug": "low",
+          "kind": "output",
+          "target": "画像配線と別にBlend値を式で連動させる",
+          "status": "native-observed"
+        }
+      ],
+      "capture_manifest": "static/img/fusion/captures/S37/capture.json"
+    },
+    {
+      "id": "S38",
+      "priority": "P1",
+      "article": "manuals/fusion/learn/03-space/center-pivot-size-angle.md",
+      "manual": {
+        "version": "21.1",
+        "chapter": 120,
+        "printed_pages": "2882–2883"
+      },
+      "goal": "Reference Sizeの表示値と内部正規化値・出力位置を区別する",
+      "suggested_graph": "Owned chart→TransformReference→MediaOut",
+      "status": "captured-local-display-verified",
+      "shots": [
+        {
+          "slug": "graph",
+          "kind": "node-graph",
+          "target": "Reference Size",
+          "status": "native-observed"
+        },
+        {
+          "slug": "normalized-inspector",
+          "kind": "inspector",
+          "target": "Reference Size",
+          "status": "native-observed"
+        },
+        {
+          "slug": "inspector",
+          "kind": "inspector",
+          "target": "Reference Size",
+          "status": "native-observed"
+        },
+        {
+          "slug": "large-inspector",
+          "kind": "inspector",
+          "target": "Reference Size",
+          "status": "native-observed"
+        },
+        {
+          "slug": "auto-inspector",
+          "kind": "inspector",
+          "target": "Reference Size",
+          "status": "native-observed"
+        },
+        {
+          "slug": "compare",
+          "kind": "output",
+          "target": "Reference Size",
+          "status": "native-observed"
+        }
+      ],
+      "capture_manifest": "static/img/fusion/captures/S38/capture.json"
+    },
+    {
+      "id": "S39",
+      "priority": "P1",
+      "article": "manuals/fusion/learn/05-time/frame-evaluation.md",
+      "manual": {
+        "version": "21.1",
+        "chapter": 111,
+        "printed_pages": "2610–2613"
+      },
+      "goal": "出力0/12/24と参照時刻0/49.5/99、素材固定後のSize変化を区別する",
+      "suggested_graph": "Numbered Loader→TimeDynamic→MediaOut; Loader→TimeHold12→TransformHold",
+      "status": "captured-local-display-verified",
+      "shots": [
+        {
+          "slug": "graph",
+          "kind": "node-graph",
+          "target": "Frame evaluation",
+          "status": "native-observed"
+        },
+        {
+          "slug": "inspector",
+          "kind": "inspector",
+          "target": "Frame evaluation",
+          "status": "native-observed"
+        },
+        {
+          "slug": "compare",
+          "kind": "output",
+          "target": "Frame evaluation",
+          "status": "native-observed"
+        },
+        {
+          "slug": "frame0",
+          "kind": "output",
+          "target": "Frame evaluation",
+          "status": "native-observed"
+        },
+        {
+          "slug": "frame24",
+          "kind": "output",
+          "target": "Frame evaluation",
+          "status": "native-observed"
+        },
+        {
+          "slug": "spline",
+          "kind": "output",
+          "target": "Frame evaluation",
+          "status": "native-observed"
+        },
+        {
+          "slug": "hold-inspector",
+          "kind": "inspector",
+          "target": "Frame evaluation",
+          "status": "native-observed"
+        },
+        {
+          "slug": "hold0-inspector",
+          "kind": "inspector",
+          "target": "Frame evaluation",
+          "status": "native-observed"
+        },
+        {
+          "slug": "hold0",
+          "kind": "output",
+          "target": "Frame evaluation",
+          "status": "native-observed"
+        },
+        {
+          "slug": "hold24-inspector",
+          "kind": "inspector",
+          "target": "Frame evaluation",
+          "status": "native-observed"
+        },
+        {
+          "slug": "hold24",
+          "kind": "output",
+          "target": "Frame evaluation",
+          "status": "native-observed"
+        }
+      ],
+      "capture_manifest": "static/img/fusion/captures/S39/capture.json"
     }
   ],
   "publication_batches": [
@@ -1582,27 +1855,58 @@
         "artifacts/fusion-captures/public-batch5-assets.json"
       ],
       "limitations": "Full Fusion mission and remaining article views are incomplete."
+    },
+    {
+      "id": "fusion-native-20261024-06",
+      "cases": [
+        "S31",
+        "S32",
+        "S33",
+        "S34",
+        "S35"
+      ],
+      "reuses": [
+        "R65",
+        "R66"
+      ],
+      "pr": "https://github.com/46slv/collectanea-DB/pull/75",
+      "candidate": "4ad052e4809c8c696135fcc641857b6aa906cf7b",
+      "main": "ba19663c28205eab8493b94852a71e5ef31f68bc",
+      "tree": "5b477f0b06ca1cda6ded4bc21b4292bc13519a9e",
+      "quality_run": "https://github.com/46slv/collectanea-DB/actions/runs/39996623749",
+      "pages_run": "https://github.com/46slv/collectanea-DB/actions/runs/39997789986",
+      "public_pages": 7,
+      "public_images": 44,
+      "new_placements": 37,
+      "new_native_crops": 26,
+      "public_asset_hashes": 424,
+      "result": "PASS",
+      "evidence": [
+        "artifacts/fusion-captures/public-batch6-display-report.json",
+        "artifacts/fusion-captures/public-batch6-assets.json"
+      ],
+      "limitations": "Full Fusion mission and article remaining_views continue."
     }
   ],
   "coverage_inventory": {
-    "checked_at": "2026-10-23T17:26:20.073443+00:00",
+    "checked_at": "2026-10-23T18:21:13.540878+00:00",
     "scope": "All manuals/fusion Markdown and MDX pages; review necessity before adding images.",
     "completion_rule": "Every page has an explicit image decision; necessary images are native-observed, embedded, saved to GitHub and public-display-verified. A native example does not verify all article controls.",
     "summary": {
       "total_pages": 586,
-      "with_images": 96,
-      "with_native_examples": 96,
+      "with_images": 100,
+      "with_native_examples": 100,
       "states": {
         "reviewed-no-standalone-image": 26,
         "no-standalone-image-needed": 6,
-        "illustrated-reused-example": 61,
-        "capture-planned": 458,
-        "illustrated-native-example": 35
+        "illustrated-reused-example": 63,
+        "capture-planned": 454,
+        "illustrated-native-example": 37
       },
       "decisions": {
         "no-standalone-image-needed": 32,
-        "image-required": 96,
-        "capture-needed": 458
+        "image-required": 100,
+        "capture-needed": 454
       }
     },
     "pages": [
@@ -2109,18 +2413,21 @@
         "article": "manuals/fusion/learn/02-data/parameter-data.md",
         "title": "パラメータ / データ（Parameter / Data）",
         "kind": "concept",
-        "image_count": 2,
+        "image_count": 6,
         "native_cases": [],
         "reused_cases": [
-          "S06"
+          "S06",
+          "S37",
+          "S36"
         ],
         "planned_cases": [],
         "state": "illustrated-reused-example",
         "decision": "image-required",
         "reason": "本文の接続・設定・出力を、撮影済みの固定例で図示する。記事全体の検証とは区別する。",
         "remaining_views": [
-          "Keyframe/Expression/Modifier/Publish/Connect Toの供給元追跡"
-        ]
+          "Modifier、Publish/Connect Toと別フレームの供給元追跡"
+        ],
+        "audit_note": "S36/S37/S38の固定例を掲載。確認済みの差分と未確認操作を区別しpartial維持。"
       },
       {
         "article": "manuals/fusion/learn/02-data/particle.md",
@@ -2185,9 +2492,10 @@
         "article": "manuals/fusion/learn/03-space/center-pivot-size-angle.md",
         "title": "Center / Pivot / Size / Angle",
         "kind": "concept",
-        "image_count": 5,
+        "image_count": 11,
         "native_cases": [
-          "S34"
+          "S34",
+          "S38"
         ],
         "reused_cases": [
           "S06"
@@ -2197,10 +2505,10 @@
         "decision": "image-required",
         "reason": "本文の接続・設定・出力を、撮影済みの固定例で図示する。記事全体の検証とは区別する。",
         "remaining_views": [
-          "Reference Sizeの正規化座標とピクセル表示",
-          "本文タイトル配置と連続回転の例"
+          "本文タイトル配置と連続回転の例",
+          "Reference Sizeの表示欄から位置を入力する操作と異なる入力解像度"
         ],
-        "audit_note": "S31–S35のnative固定例を掲載。実機確認済みの比較と残る視点を分け、記事全体のverificationはpartialを維持。"
+        "audit_note": "S36/S37/S38の固定例を掲載。確認済みの差分と未確認操作を区別しpartial維持。"
       },
       {
         "article": "manuals/fusion/learn/03-space/domain-of-definition.md",
@@ -2350,44 +2658,58 @@
         "article": "manuals/fusion/learn/05-time/expressions.md",
         "title": "式（Expressions）",
         "kind": "concept",
-        "image_count": 0,
-        "native_cases": [],
+        "image_count": 7,
+        "native_cases": [
+          "S37"
+        ],
         "reused_cases": [],
         "planned_cases": [],
-        "state": "capture-planned",
-        "decision": "capture-needed",
+        "state": "illustrated-native-example",
+        "decision": "image-required",
         "reason": "既存S01〜S26にSimpleExpression欄と評価結果の対がない。",
+        "remaining_views": [
+          "Pick Whip、時間/GetValue参照、Point/Text式とExpression Modifier"
+        ],
         "required_views": [
           "Merge2.BlendのSimpleExpression欄にMerge1.Blendが残るInspectorと、Masterを0.8から0.3へ変更した2状態の連動値",
           "time式とSpline表示、GetValueによる5フレーム差、Point式をNumber式と区別できるInspector"
         ],
-        "capture_group": "expression-values"
+        "capture_group": "expression-values",
+        "audit_note": "S36/S37/S38の固定例を掲載。確認済みの差分と未確認操作を区別しpartial維持。"
       },
       {
         "article": "manuals/fusion/learn/05-time/frame-evaluation.md",
         "title": "フレーム評価（Frame Evaluation）",
         "kind": "concept",
-        "image_count": 0,
-        "native_cases": [],
+        "image_count": 11,
+        "native_cases": [
+          "S39"
+        ],
         "reused_cases": [],
         "planned_cases": [],
-        "state": "capture-planned",
-        "decision": "capture-needed",
+        "state": "illustrated-native-example",
+        "decision": "image-required",
         "reason": "S09のフレーム差は粒子の時間蓄積であり、リタイムの素材参照時刻を示さない。",
+        "remaining_views": [
+          "時間を使うExpressionと別時刻GetValue",
+          "評価順・cache・network renderの実測"
+        ],
         "required_views": [
           "フレーム番号を画像内で判別できるowned連番→Time Stretcher→TransformのGraph",
           "出力0/12/24、Source Time 0/49.5/99とLinear Splineを表示し、素材参照時刻と出力時刻を区別する",
           "Source Time固定でも後段TransformのSizeが動く2時刻を比較する"
         ],
-        "capture_group": "source-time-vs-output-time"
+        "capture_group": "source-time-vs-output-time",
+        "audit_note": "S39の連番例を実機掲載。素材時刻と後段パラメータの時刻を区別。partial維持。"
       },
       {
         "article": "manuals/fusion/learn/05-time/keyframes-spline-time.md",
         "title": "キーフレーム / スプライン / 時間（Keyframe / Spline / Time）",
         "kind": "concept",
-        "image_count": 7,
+        "image_count": 17,
         "native_cases": [
-          "S35"
+          "S35",
+          "S36"
         ],
         "reused_cases": [],
         "planned_cases": [],
@@ -2395,8 +2717,7 @@
         "decision": "image-required",
         "reason": "既存固定Transform画面にはキー、補間、Editorが写っていない。",
         "remaining_views": [
-          "Transform Sizeの0/12/24キーとKeyframes Editor",
-          "同時刻・同値のLinear/Smooth/Step比較",
+          "Smoothボタンの既定補間、Step Out、Easeと区間伸縮",
           "Global/Render Rangeの実UI"
         ],
         "required_views": [
@@ -2405,7 +2726,7 @@
           "CenterのMotion PathとDisplacement Splineの縦軸を数値Size Splineと区別する"
         ],
         "capture_group": "keyframe-spline-basics",
-        "audit_note": "S31–S35のnative固定例を掲載。実機確認済みの比較と残る視点を分け、記事全体のverificationはpartialを維持。"
+        "audit_note": "S36/S37/S38の固定例を掲載。確認済みの差分と未確認操作を区別しpartial維持。"
       },
       {
         "article": "manuals/fusion/learn/05-time/modifier-parameter-sources.md",
@@ -15369,13 +15690,20 @@
         "article": "manuals/fusion/nodes/time-metadata/time-stretcher.md",
         "title": "Time Stretcher",
         "kind": "node",
-        "image_count": 0,
+        "image_count": 8,
         "native_cases": [],
-        "reused_cases": [],
+        "reused_cases": [
+          "S39"
+        ],
         "planned_cases": [],
-        "state": "capture-planned",
-        "decision": "capture-needed",
+        "state": "illustrated-reused-example",
+        "decision": "image-required",
         "reason": "本文の対象機能: Time Stretcherは、Source TimeをSplineで指定し、再生速度を時間に応じて変えたり、freezeやreverseを作ったりするNode。。static/別Node UIは対象の時間参照/補間/平均を示せない。",
+        "remaining_views": [
+          "Nearest/Flow比較とOptical Flow",
+          "逆再生とspeed ramp",
+          "EXR再利用、Paintによるclean plate"
+        ],
         "required_views": [
           "対象名と実接続が読めるGraph",
           "対象自身を選択したInspectorの該当Control",
@@ -15403,7 +15731,8 @@
         ],
         "hold_conditions": [
           "前後handlesを確認。Flow modeは必要vector/解析経路も確認。"
-        ]
+        ],
+        "audit_note": "S39の連番例を実機掲載。素材時刻と後段パラメータの時刻を区別。partial維持。"
       },
       {
         "article": "manuals/fusion/nodes/time-metadata/wireless-link.md",
@@ -15829,15 +16158,22 @@
         "article": "manuals/fusion/nodes/transform/transform.md",
         "title": "Transform",
         "kind": "node",
-        "image_count": 3,
+        "image_count": 8,
         "native_cases": [
           "S06"
         ],
-        "reused_cases": [],
+        "reused_cases": [
+          "S38"
+        ],
         "planned_cases": [],
         "state": "illustrated-native-example",
         "decision": "image-required",
-        "reason": "本文の接続・設定・出力を、撮影済みの固定例で図示する。記事全体の検証とは区別する。"
+        "reason": "本文の接続・設定・出力を、撮影済みの固定例で図示する。記事全体の検証とは区別する。",
+        "remaining_views": [
+          "Reference Sizeの表示欄への位置入力と異なる入力解像度",
+          "本文のロゴ配置と全Controlの比較"
+        ],
+        "audit_note": "S36/S37/S38の固定例を掲載。確認済みの差分と未確認操作を区別しpartial維持。"
       },
       {
         "article": "manuals/fusion/nodes/usd/index.md",
@@ -17887,18 +18223,24 @@
         "article": "manuals/fusion/patterns/automation/link-values-with-expression.md",
         "title": "Expressionで値の関係を保つ",
         "kind": "pattern",
-        "image_count": 0,
+        "image_count": 5,
         "native_cases": [],
-        "reused_cases": [],
+        "reused_cases": [
+          "S37"
+        ],
         "planned_cases": [],
-        "state": "capture-planned",
-        "decision": "capture-needed",
+        "state": "illustrated-reused-example",
+        "decision": "image-required",
         "reason": "同値、比率、位置差、時間差を実際に評価する代表例が必要。",
+        "remaining_views": [
+          "比率・Point式、5フレーム前の値とPick Whip"
+        ],
         "required_views": [
           "Merge2.Blendの式とMaster 0.8/0.3時の両値",
           "倍率0.5の派生値、Point型の位置差、GetValue time-5の2時刻を同じfixtureで分けて表示"
         ],
-        "capture_group": "expression-values"
+        "capture_group": "expression-values",
+        "audit_note": "S36/S37/S38の固定例を掲載。確認済みの差分と未確認操作を区別しpartial維持。"
       },
       {
         "article": "manuals/fusion/patterns/automation/master-follower-parameters.md",
@@ -19777,8 +20119,9 @@
         "compare.png",
         "spline.png"
       ],
-      "status": "embedded-local-display-verified",
-      "scope": "2キーと中間フレーム24のCenter(0.5, 0.5)を確認した例です。再生の滑らかさや、Splineで補間を変更した比較は未確認です。"
+      "status": "published-display-verified",
+      "scope": "2キーと中間フレーム24のCenter(0.5, 0.5)を確認した例です。再生の滑らかさや、Splineで補間を変更した比較は未確認です。",
+      "published_batch": "fusion-native-20261024-06"
     },
     {
       "id": "R66",
@@ -19791,8 +20134,76 @@
         "modifiers.png",
         "spline.png"
       ],
+      "status": "published-display-verified",
+      "scope": "直線の2点経路とDisplacementを確認した最小例です。曲線経路、Path全体のSize/回転、Heading Offset、XY Pathとの比較は未確認です。",
+      "published_batch": "fusion-native-20261024-06"
+    },
+    {
+      "id": "R67",
+      "article": "manuals/fusion/patterns/automation/link-values-with-expression.md",
+      "source_case": "S37",
+      "images": [
+        "graph.png",
+        "master-inspector.png",
+        "inspector.png",
+        "low-inspector.png",
+        "low.png"
+      ],
       "status": "embedded-local-display-verified",
-      "scope": "直線の2点経路とDisplacementを確認した最小例です。曲線経路、Path全体のSize/回転、Heading Offset、XY Pathとの比較は未確認です。"
+      "scope": "同値を参照するNumber式の例です。比率の式、Point式、5フレーム前の参照、Pick Whipは未確認です。"
+    },
+    {
+      "id": "R68",
+      "article": "manuals/fusion/nodes/transform/transform.md",
+      "source_case": "S38",
+      "images": [
+        "graph.png",
+        "normalized-inspector.png",
+        "inspector.png",
+        "large-inspector.png",
+        "auto-inspector.png"
+      ],
+      "status": "embedded-local-display-verified",
+      "scope": "同じ1920×1080入力での表示単位の比較です。本文のピクセル欄へ入力して位置を動かす操作、異なる入力解像度やTimeline解像度の比較は未確認です。"
+    },
+    {
+      "id": "R69",
+      "article": "manuals/fusion/learn/02-data/parameter-data.md",
+      "source_case": "S37",
+      "images": [
+        "inspector.png",
+        "low-inspector.png"
+      ],
+      "status": "embedded-local-display-verified",
+      "scope": "Number型のSimpleExpressionの例です。ModifierやPublish/Connect To、別フレームの参照は未確認です。"
+    },
+    {
+      "id": "R70",
+      "article": "manuals/fusion/learn/02-data/parameter-data.md",
+      "source_case": "S36",
+      "images": [
+        "peak-inspector.png",
+        "keyframes.png"
+      ],
+      "status": "embedded-local-display-verified",
+      "scope": "SizeのNumberアニメーションの例です。Point/Text型の供給元や、Publish/Connect Toの操作は未確認です。"
+    },
+    {
+      "id": "R71",
+      "article": "manuals/fusion/nodes/time-metadata/time-stretcher.md",
+      "source_case": "S39",
+      "images": [
+        "graph.png",
+        "inspector.png",
+        "compare.png",
+        "frame24.png",
+        "spline.png",
+        "hold-inspector.png",
+        "hold0.png",
+        "hold24.png"
+      ],
+      "status": "embedded-local-display-verified",
+      "scope": "Source Time Linear0→99、Blend49.5、1キーで素材12固定と後段Size。Nearest/Flow等は未確認。"
     }
   ]
 }
