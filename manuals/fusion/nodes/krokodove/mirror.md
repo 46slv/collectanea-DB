@@ -1,61 +1,101 @@
 ---
-title: "Mirror"
-description: "任意axis反射。"
+title: Mirror
+description: Krokodove Mirrorで画像を指定した線に沿って反転する考え方、入出力、映像合成例、KaleidoscopeやSeamlessとの違い。
 doc_type: node
-term_id: "mirror"
-term_short: "Mirrorは、任意axis反射。Krokodove固有のtool。"
+term_id: mirror
+term_short: 指定した線を基準に2D画像を鏡映のように反転するKrokodoveの画像変形ツール。
 verification: partial
-aliases: ["Mirror"]
-concepts: ["image-data"]
-nodes: ["Mirror"]
-node_family: "krokodove"
-inputs: ["image"]
-outputs: ["image"]
-tasks: ["motion-graphics"]
+aliases: [Mirror]
+concepts: [image-data]
+nodes: [Mirror]
+node_family: krokodove
+inputs: [image]
+outputs: [image]
+tasks: [motion-graphics]
 product_scope: fusion
-suite_surfaces: ["fusion"]
-updated: "2026-10-05"
+suite_surfaces: [fusion]
+updated: '2026-10-18'
 ---
 
 # Mirror
 
-Mirrorは、任意axis反射。Krokodove固有のtoolです。名前だけで2D Image Nodeと判断せず、Input / Output domainとFamily Overviewを先に確認します。
+**Mirrorは、画像を指定した線に沿って反転する**Krokodoveのツールです。DaVinci Resolve 21.1 Reference Manualでは「Image Warp Tools（画像の変形）」に分類され、線を基準に画像を裏返す働きが説明されています。
 
-## 役割
+鏡に文字を映すと左右が逆に見えるように、元の画像と反転後の画像では配置の向きが変わります。重要なのは、Mirrorが**画面全体を一律に明るくしたり、画像の輪郭を抽出したりする処理ではない**ことです。画像の位置関係そのものを変える変形です。
 
-任意axis反射。このページでは、名前だけで選ばず、**何を受け取り、何が変わり、どのdomainへ返すか**を先に整理します。
+## 「線に沿って反転」とは
 
-この項目で確認できている中心的な役割は「任意axis反射」です。exactなInspector項目が未確認の場合は、役割とdata domainを先に使って候補を絞ります。
+画像の中に基準となる線を置き、その線を鏡の位置と考えるとイメージしやすくなります。縦方向の線で反転する場合と、斜めの線で反転する場合では、反転後の向きが異なります。
+
+ただし、21.1 Manualの記述は *Flips the image along a specified line* という短い説明です。基準線の座標指定方法や、線の片側を保持してもう片側へ複写するのか、入力画像全体を反転するのかといった**出力範囲の厳密な挙動までは、この記述だけで確定できません**。対称模様が必ず生成されると考えず、Viewerで結果を確かめます。
 
 ## 入力と出力
 
-入力分類: **image**。 出力分類: **image**。 この分類はdata domainを読むためのものです。Fusion 21.1のexactな端子名・端子数を未確認の場合、ここでは推測して固定しません。
+| 項目 | 役割と確認範囲 |
+| --- | --- |
+| 入力 | 既存のCOLLECTANEAカタログでは **2D Image** を入力する画像変形ツールに分類されています。 |
+| 処理 | 指定した線を基準に、入力画像を反転します。 |
+| 出力 | 同カタログでは **2D Image** に分類されています。反転結果は画像として後段の合成処理へ渡す想定です。 |
+| 未確認 | 入力・出力端子の正式名称と数、追加の入力、基準線を動かすInspector項目、既定値や範囲。 |
 
-## 使うときの判断
+<Term id="image">Image</Term>はピクセルを持つ画像データです。Mirrorは、線で構成された図形を保持するShapeデータを出力するツールとしては案内されていません。ここでいう「線」は、**画像を反転する基準**であり、線そのものを描き出すという意味ではありません。
 
-KrokodoveはImage、Shape、3D、Regionが同じchapterに並ぶため、まずOutput domainで候補を絞ります。
+frontmatterの `inputs: [image]` と `outputs: [image]` はカタログの**データ種別**を表します。実機のコネクタ名や接続可能な全データ型を証明するものではありません。
 
-同じ目的を別Familyでも作れる場合は、後段で必要なdata domainと、Graph上で責任をどこに置きたいかで選びます。
+## 主な用途
 
-## 最小構成
+### グラフィックの向きを変える
 
-    Image / Source → Mirror → Result
+左右の位置関係を入れ替えたタイトル背景や模様を作りたいときに候補になります。たとえば、画面の左に寄った図形が反転後にどこへ現れるかをViewerで比較すると、基準線による変化が分かります。
 
-これは接続関係を理解するための最小構成案です。公式Manualのexactな作例として確認していない構成は、実制作前にViewerで中間結果を確認します。
+### 同じ映像から別の構図を試す
 
-## 確認ポイント
+人物や建物を含む画像の向きを反転すると、画面の重心や視線の流れが変わります。元画像と結果を見比べて選べます。ただし、文字やロゴも反転の影響を受け得るため、読める向きを保つ必要がある素材では注意します。
 
-- 入力dataのdomainが合っているか。
-- この項目のoutputを受け取れる後段Nodeへ接続しているか。
-- 同じ役割を前段 / 後段で二重に処理していないか。
-- source-limited pageでは、未確認のControl名・default・rangeを名前から推測していないか。
+### 鏡像を使う切り替えや合成
 
-## Family内での位置づけ
+反転させた画像を元映像と合成し、画面の一部分だけに使う構成も検討できます。**Mirror単体が左右の2画面を作る、あるいは自動でワイプする**とは資料で確認できていません。必要な領域指定や切り替えは、後段の合成処理と分けて考えます。
 
-Krokodoveノードの全体像と近いNodeの選び分けは[Family Overview](./)を参照してください。
+## 制作例：元映像と反転映像を比較して重ねる
+
+次は標準の[Merge](../compositing/merge)を組み合わせる**構成案**です。Mirrorの正式な端子図ではありません。
+
+```text
+MediaIn ────────────────→ Merge（Background）→ MediaOut
+       └─→ Mirror ─────→ Merge（Foreground）
+```
+
+1. MediaInの画像をMirrorへつなぎ、まずMirror単体をViewerに表示します。基準線に沿って何が反転するかを確認します。
+2. 同じMediaInをMergeの**Background**にも接続します。背景側には未加工の画像が残ります。
+3. Mirrorの出力が2D Imageとして利用できることを確認し、Mergeの**Foreground**へ接続します。
+4. Merge側の**Blend**で元画像と反転画像の混ざり方を比較します。Mirrorの画像が不透明なら、通常合成では元画像を全面的に隠すことがあります。
+5. 部分的な鏡像表現が必要なときは、MergeのEffect Maskなど、**合成側の機能**で表示範囲を制御します。
+
+この作例は、MirrorにBlendやEffect MaskというInspector項目があると主張するものではありません。合成量やマスクの説明は[Merge](../compositing/merge)の機能です。
+
+## 似たツールとの違い
+
+| ツール | 21.1 Manualで確認できる役割 | 選ぶ目安 |
+| --- | --- | --- |
+| **Mirror** | 指定した線に沿って画像を反転する | 画像の向きや鏡映の構図を変えたい |
+| [Kaleidoscope](./kaleidoscope) | 放射状の鏡映で万華鏡のような見た目を作る | 反射を繰り返した放射状の模様が欲しい |
+| [Seamless](./seamless) | 反対側の端を鏡映しにして元画像とブレンドする | 画像の端をつなぐ加工を検討したい |
+| [Lines](./lines) | 1組または複数組の線で繰り返し模様を作る | 元画像を反転するのではなく、線模様を生成したい |
+
+Mirrorの「基準線」は反転の軸です。Linesが作る「描画された線の模様」とは役割が違います。また、Mirrorを一回適用することと、Kaleidoscopeのような複数方向への繰り返し反射は同じ処理ではありません。
+
+## 使用時の注意点
+
+- **文字・ロゴ**：画像と一緒に反転すると文字の向きも変わり得ます。必要なら文字を後段で合成します。
+- **画面外と境界**：反転後に画像外へ出る部分の扱い、端の補間、基準線付近の表示は、掲載文だけでは確定できません。
+- **アルファ**：透明部分の扱い、プリマルチプライの有無、補助チャンネルの変換は未確認です。ほかの画像と重ねる際は境界を確認します。
+- **Inspector**：基準線の指定方法、位置・角度の正確なパラメータ名、初期値・可変範囲は確認していません。
+- **バージョンとエディション**：21.1 Manualへの掲載は確認済みですが、Resolve Free / Studio / Fusion Studioごとの利用条件や内部REGIDを実機で確認したわけではありません。
 
 ## 出典と確認範囲
 
-このページの役割・data domain・系譜は、既存COLLECTANEA catalogとBlackmagic Design公式資料で確認された範囲をreader-first形式へ整理しています。
+一次資料はBlackmagic Design『**DaVinci Resolve 21.1 Reference Manual**』（September 2026）、Chapter 105「Krokodove Nodes」、**p.2436、Image Warp Tools / Mirror**です。資料から確認できる中心的な役割は「指定された線に沿って画像を反転する」です。
 
-Fusion 21.1 Reference Manualで個別のInspector項目・default・rangeまで確認できていない項目は、**source-limited**としてその詳細を断定していません。verification: partial はその未確認範囲を含みます。runtime REGIDや現在のEffects Library表示は別のruntime verificationで確定します。
+画像の入出力分類は既存COLLECTANEAカタログに基づきます。具体的な制作例と用途はその役割から組み立てた運用案であり、Manualが保証する操作手順ではありません。端子・Inspector・アルファ・製品別の詳細が未確認のため、`verification: partial`を維持しています。
+
+[Krokodoveの全体像](./)と[画像（Image）](../../learn/02-data/image)も参照してください。

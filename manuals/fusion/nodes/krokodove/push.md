@@ -1,61 +1,119 @@
 ---
-title: "Push"
-description: "2枚目imageを使うslide transition。"
+title: Push（Krokodove）
+description: 2枚の画像をスライドで切り替えるPushの仕組み、入力構成、制作例、Dissolveとの違い。
 doc_type: node
-term_id: "push"
-term_short: "Pushは、2枚目imageを使うslide transition。Krokodove固有のtool。"
+term_id: push
+term_short: 2枚の画像を接続し、画面が滑るように片方からもう片方へ切り替えるKrokodoveの画像ツール。
 verification: partial
-aliases: ["Push"]
-concepts: ["image-data"]
-nodes: ["Push"]
-node_family: "krokodove"
-inputs: ["image"]
-outputs: ["image"]
-tasks: ["motion-graphics"]
+aliases: [Push]
+concepts: [image-data]
+nodes: [Push]
+node_family: krokodove
+inputs: [image]
+outputs: [image]
+tasks: [motion-graphics]
 product_scope: fusion
-suite_surfaces: ["fusion"]
-updated: "2026-10-05"
+suite_surfaces: [fusion]
+updated: '2026-10-20'
 ---
 
-# Push
+# Push（Krokodove）
 
-Pushは、2枚目imageを使うslide transition。Krokodove固有のtoolです。名前だけで2D Image Nodeと判断せず、Input / Output domainとFamily Overviewを先に確認します。
+**Pushは、2枚の画像を使い、画面が滑るように片方の画像からもう片方の画像へ切り替えるKrokodoveツール**です。DaVinci Resolve 21.1 Reference Manualは、Pushを「Image Pixel Tools」に掲載し、2枚目の画像を接続して画像間をスライドさせる効果として説明しています。
 
-## 役割
+ここでいう「スライド」は、プレゼンテーションのページそのものではなく、**画像が画面上を移動するように見える切り替え**のことです。たとえば、赤い画面から青い画面へ変わる場面を考えます。赤を少しずつ青に混ぜるのではなく、画面のどこまで赤が見え、どこから青が現れるかが位置とともに変わる表現です。
 
-2枚目imageを使うslide transition。このページでは、名前だけで選ばず、**何を受け取り、何が変わり、どのdomainへ返すか**を先に整理します。
+ただし、21.1 ManualのPushの説明は短く、最初の画像と次の画像が**両方移動するのか、片方だけが移動するのか**、切り替え方向、時間の制御方法までは記されていません。このページは確認できた役割を起点に、実際に試せる構成と未確認の仕様を分けて説明します。
 
-この項目で確認できている中心的な役割は「2枚目imageを使うslide transition」です。exactなInspector項目が未確認の場合は、役割とdata domainを先に使って候補を絞ります。
+## 何をするノードか
+
+Pushの目的は、**1つの画像の形を歪ませることではなく、2つの画像の見せ方を切り替えること**です。1枚目をA、2枚目をBとすると、完成映像ではAを表示する状態からBを表示する状態への変化を作ります。切り替えの途中に「スライド」が入る点が、静止画を単純に入れ替える操作との違いです。
+
+画像の入れ替えといっても、次の3種類は別の表現です。
+
+- **瞬間的なカット：** あるフレームを境にAがBへ切り替わる。
+- **クロスフェード：** Aを薄くしながらBを濃くして、両者が重なって見える時間を作る。
+- **スライド：** 画像を動かすような切り替えを見せる。どちらが移動するかなどの詳細はPushで実機確認する。
+
+Pushは3番目を目的とするツールとして理解できます。効果名から一定方向への押し出し方や画面端の処理まで推定してはいけません。
 
 ## 入力と出力
 
-入力分類: **image**。 出力分類: **image**。 この分類はdata domainを読むためのものです。Fusion 21.1のexactな端子名・端子数を未確認の場合、ここでは推測して固定しません。
+| 段階 | データ | 役割 |
+| --- | --- | --- |
+| 1枚目の入力 | 2D <Term id="image">Image</Term> | 切り替え元になる画像。 |
+| 2枚目の入力 | 2D Image | 切り替え先の画像。公式Manualが追加画像の接続を明示している。 |
+| 処理 | Push | 2つの画像を使ってスライド式の切り替えを作る。 |
+| 出力 | 2D Image | 切り替え結果を後段へ渡す。 |
 
-## 使うときの判断
+**2枚目の画像を接続することは21.1 Manualで直接確認できます。** 一方、「1枚目」「2枚目」は説明用の呼び方です。Fusionの端子に表示される正式名称、入力の位置・色・総数、Mask入力の有無までは確認していません。
 
-KrokodoveはImage、Shape、3D、Regionが同じchapterに並ぶため、まずOutput domainで候補を絞ります。
+frontmatterの inputs: [image] は**受け取るデータの種類**を表す分類であり、「入力端子は1つだけ」という意味ではありません。同じ分類の画像を2枚使う点を区別してください。
 
-同じ目的を別Familyでも作れる場合は、後段で必要なdata domainと、Graph上で責任をどこに置きたいかで選びます。
+Pushが扱うのは描画済みの画像です。テキストや図形を別々の編集可能オブジェクトとして移動させる代わりに、合成済みの画面Aと画面Bを切り替える用途と考えると構成を組みやすくなります。
 
-## 最小構成
+## 主な用途
 
-    Image / Source → Push → Result
+### タイトル画面を次の画面へ送る
 
-これは接続関係を理解するための最小構成案です。公式Manualのexactな作例として確認していない構成は、実制作前にViewerで中間結果を確認します。
+タイトルAからタイトルBへ移るモーショングラフィックスで、切り替えそのものに動きを加えたい場合です。左右や上下など、**狙った方向のスライドを指定できるか**はInspectorの実際の項目を確認してから決めます。方向変更が必要な案件では、最初に小さな試作を作ると後の調整を減らせます。
 
-## 確認ポイント
+### 画面全体を切り替える
 
-- 入力dataのdomainが合っているか。
-- この項目のoutputを受け取れる後段Nodeへ接続しているか。
-- 同じ役割を前段 / 後段で二重に処理していないか。
-- source-limited pageでは、未確認のControl名・default・rangeを名前から推測していないか。
+映像Aから映像Bへ場面を変える際、静的なカットよりも視覚的なつながりを付ける制作案です。これは公式の作例ではありません。被写体の顔や字幕を横切る境界がどう見えるかは、Viewerで確認して採用を判断します。
 
-## Family内での位置づけ
+### 同じレイアウトの情報を更新する
 
-Krokodoveノードの全体像と近いNodeの選び分けは[Family Overview](./)を参照してください。
+たとえば、背景・写真・見出しをまとめた情報カードを2枚用意し、カード全体をスライド切り替えの素材として使う方法です。カード内の文字を一文字ずつ動かすのではなく、**各カードを1枚の画像として扱う**ため、構成を単純にできます。
 
-## 出典と確認範囲
+## 制作例：色と文字の違う2画面を切り替える
 
-このページの役割・data domain・系譜は、既存COLLECTANEA catalogとBlackmagic Design公式資料で確認された範囲をreader-first形式へ整理しています。
+次はPushの働きを確認するための接続案です。Blackmagic Designの公式ノードグラフや設定値を再現したものではありません。
 
-Fusion 21.1 Reference Manualで個別のInspector項目・default・rangeまで確認できていない項目は、**source-limited**としてその詳細を断定していません。verification: partial はその未確認範囲を含みます。runtime REGIDや現在のEffects Library表示は別のruntime verificationで確定します。
+    Background（赤） ─┐
+                      ├→ Merge A ──┐
+    Text+（文字 A） ───┘             │
+                                   ├→ Push → MediaOut
+    Background（青） ─┐             │
+                      ├→ Merge B ──┘
+    Text+（文字 B） ───┘
+
+上の図は、各Mergeの**結果を1本ずつPushへ渡す**という意味です。実際のMergeは背景と文字をそれぞれBackground／Foreground入力で受け取り、画像を1枚出力します。Push側の正確なポート配置はここでは固定していません。
+
+1. 同じ画面サイズのBackgroundを2つ作り、一方を赤、もう一方を青にします。解像度を揃えるのは比較を容易にするための提案であり、Pushの必須条件として確認したものではありません。
+2. 各Backgroundに別のText+をMergeで重ね、「A」「B」の2枚の完成画像を作ります。
+3. 2枚をPushへ接続します。2枚目の画像の接続が必要なことは公式資料で確認済みですが、どの入力が第2画像に当たるかは現在のノードで確認します。
+4. Pushの出力をViewerへ表示し、**Aのみが見える状態、切り替え途中、Bのみが見える状態**を比較します。実際にその3状態を制御できるか、何を動かすと切り替わるかをInspectorで調べます。
+5. アニメーションさせる場合は、切り替えの進行に関係する設定が実際に存在し、キーフレームに対応することを確認してから時間に沿って変化させます。現時点では「Progress」などのControl名や自動切り替え動作を推測しません。
+6. 最後に映像の再生速度で、境界の動き、文字の可読性、画面端、2枚の画像の切り替わりを確認します。
+
+すでに合成済みの2本の映像があれば、Merge A／Bの代わりに2つのMediaInを使ってもかまいません。**1枚しか画像をつながない構成では、2枚の間を切り替えるというPushの用途を十分に確認できません。**
+
+## DissolveやMergeとの違い
+
+| ツール | 中心的な役割 | 選ぶ目安 |
+| --- | --- | --- |
+| **Push** | 2枚のImageを使ったスライド式の切り替え。 | 画像が移動するように見える場面転換を試す。 |
+| [Dissolve](../compositing/dissolve) | 2枚のImageの混合率やWipeで切り替える。 | クロスフェード、指定したWipeなどを確実に制御したい。 |
+| [Merge](../compositing/merge) | ForegroundをBackgroundへ重ねる。 | 2枚を同時に合成し、重ね方を調整したい。 |
+| [Transform](../transform/transform)＋Merge | 画像の位置を動かして重ねる。 | 各画像の移動距離、速度、重なり順を個別に設計したい。 |
+
+**PushとDissolveの違いは「動いて切り替えるか、混ぜて切り替えるか」を起点に考える**と選びやすくなります。ただしDissolveにもWipe機能があるため、「画面の境界が移動する」だけでPush専用の表現とは言えません。最終的には移動する画像そのものの見え方と、必要な制御の細かさで選びます。
+
+また、Krokodoveの[Shuffle](./shuffle)は**1枚の画像を区画に分けて再配置する**機能です。「画像の位置が変わる」という見た目の共通点があっても、2枚の画像をつなぐPushとは目的が異なります。
+
+## 制作上の注意と未確認事項
+
+- **動く対象：** AとBの両方が移動するか、片方が現れるだけか、押し出し／覆いかぶせ／単純なWipeのどれに近いかは公式の短い説明からは決まりません。
+- **Inspector：** 切り替え方向、進行量、速度曲線、境界の柔らかさ、キーフレーム対応の正確なControl名・既定値・値域は未確認です。
+- **入力：** 第2画像の存在は明記されていますが、正式なポート名、端子色、追加のMaskやControl入力の有無は未確認です。
+- **解像度とAlpha：** 異なる解像度やPixel Aspectの2画像を接続した場合の出力サイズ、透明部分・画像外の処理、RGB／Alphaの合成方式は確認していません。必要に応じて入力サイズを揃えて試します。
+- **時間とEdition：** 切り替えが自動で進むか、手動アニメーションが必要か、クリップの端でどう動くか、Resolve Free／Studio／Fusion Studioの差、内部REGIDは未確認です。
+
+## バージョンと出典
+
+一次資料：Blackmagic Design『**DaVinci Resolve 21.1 Reference Manual**』（September 2026）、Chapter 105「Krokodove Nodes」、**p.2436「Image Pixel Tools / Push」**。ここで確認できるのは「スライド効果であること」と「2枚目の画像を接続し、2枚の画像間を移ること」です。
+
+公式資料の入口：[Blackmagic Design サポート](https://www.blackmagicdesign.com/jp/support/)。
+
+本文の赤・青の画面、2枚のカード、Text+を使う接続案は、公式に確認された役割を説明するための**制作・検証例**です。実機のパラメータ、端子構成、Alpha演算、製品差を確認していないため、verification: partialを維持しています。関連するデータの基礎は[Image](../../learn/02-data/image)、Krokodoveの分類は[ファミリー概要](./)を参照してください。

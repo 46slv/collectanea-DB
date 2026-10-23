@@ -1,61 +1,114 @@
 ---
-title: "Seamless Loop"
-description: "timing controlでloop化。"
+title: Seamless Loop
+description: KrokodoveのSeamless Loopでコンポジションの時間を調整し、繰り返し再生の継ぎ目を考えるための使い方と注意点。
 doc_type: node
-term_id: "seamless-loop"
-term_short: "Seamless Loopは、timing controlでloop化。Krokodove固有のtool。"
+term_id: seamless-loop
+term_short: コンポジションの時間を調整して、終端から冒頭へ戻る繰り返し映像を作るKrokodoveツール。
 verification: partial
-aliases: ["Seamless Loop"]
-concepts: ["image-data"]
-nodes: ["Seamless Loop"]
-node_family: "krokodove"
-inputs: ["image"]
-outputs: ["image"]
-tasks: ["motion-graphics"]
+aliases: [Seamless Loop]
+concepts: [image-data]
+nodes: [Seamless Loop]
+node_family: krokodove
+inputs: [image]
+outputs: [image]
+tasks: [motion-graphics]
 product_scope: fusion
-suite_surfaces: ["fusion"]
-updated: "2026-10-05"
+suite_surfaces: [fusion]
+updated: '2026-10-18'
 ---
 
 # Seamless Loop
 
-Seamless Loopは、timing controlでloop化。Krokodove固有のtoolです。名前だけで2D Image Nodeと判断せず、Input / Output domainとFamily Overviewを先に確認します。
+**Seamless Loopは、コンポジションの時間の扱いを変え、繰り返し再生できる映像を作るためのKrokodoveツール**です。DaVinci Resolve 21.1 Reference Manualでは、時間を調整するコントロールを備え、継ぎ目のないループシーケンスを組み立てるものと説明されています。
 
-## 役割
+ここでいう「継ぎ目」は**画面の左右端ではなく、映像の最後から最初へ戻る瞬間**です。同じKrokodoveの[Seamless](./seamless)は画像の反対側の端を鏡映しにして混ぜるツールであり、対象が異なります。
 
-timing controlでloop化。このページでは、名前だけで選ばず、**何を受け取り、何が変わり、どのdomainへ返すか**を先に整理します。
+## 「時間の継ぎ目」をなくすとは
 
-この項目で確認できている中心的な役割は「timing controlでloop化」です。exactなInspector項目が未確認の場合は、役割とdata domainを先に使って候補を絞ります。
+短いアニメーションを何度も再生すると、通常は最後のフレームの直後に最初のフレームへ戻ります。最後と最初で物体の位置、明るさ、模様などが大きく違うと、そこだけ急に飛んだように見えます。
 
-## 入力と出力
+```text
+通常の繰り返し
+最初 → 中間 → 最後 │ 最初 → 中間 → 最後 ...
+                  ↑ ここで映像が跳ぶことがある
+```
 
-入力分類: **image**。 出力分類: **image**。 この分類はdata domainを読むためのものです。Fusion 21.1のexactな端子名・端子数を未確認の場合、ここでは推測して固定しません。
+**時間方向のループ**は、この戻り目を目立ちにくくするように映像の時間構成を考える作業です。Seamless Loopは、そのためにコンポジションのタイミングを調整する候補となります。
 
-## 使うときの判断
+ただし、21.1 Manualには「どのフレームを再利用するか」「時間を重ねてブレンドするか」「どのような補間を行うか」といった**具体的な内部処理は記載されていません**。クロスフェードや自動モーション補間を必ず行うツールとしては案内しません。
 
-KrokodoveはImage、Shape、3D、Regionが同じchapterに並ぶため、まずOutput domainで候補を絞ります。
+## 入力・処理・出力
 
-同じ目的を別Familyでも作れる場合は、後段で必要なdata domainと、Graph上で責任をどこに置きたいかで選びます。
+| 項目 | 説明 |
+| --- | --- |
+| 扱う対象 | 時間の変化を持つコンポジション、映像シーケンス |
+| 入力の分類 | 既存COLLECTANEAカタログでは **2D Image** に分類 |
+| 主な処理 | コンポジションのタイミングを調整し、ループするシーケンスを作る |
+| 出力の分類 | 同カタログでは **2D Image** に分類 |
+| 未確認 | 正式な入力・出力端子名と数、Inspectorの設定名・既定値・可変範囲、フレーム補間の方式 |
 
-## 最小構成
+<Term id="image">Image</Term>はピクセルを持つ画像データです。静止画の色や形を変えるだけの効果と異なり、Seamless Loopの目的を理解するには**複数フレームを時間順に確認する**必要があります。
 
-    Image / Source → Seamless Loop → Result
+frontmatterの `inputs: [image]` / `outputs: [image]` は既存カタログのデータ種別であり、実機の全端子仕様を示すものではありません。また、Manualの *comp* はコンポジションを指します。単一画像だけでなく、前段で組み立てた動きのある結果を考えると用途が分かりやすくなります。
 
-これは接続関係を理解するための最小構成案です。公式Manualのexactな作例として確認していない構成は、実制作前にViewerで中間結果を確認します。
+## どんなときに使うか
 
-## 確認ポイント
+### 繰り返すモーショングラフィックス
 
-- 入力dataのdomainが合っているか。
-- この項目のoutputを受け取れる後段Nodeへ接続しているか。
-- 同じ役割を前段 / 後段で二重に処理していないか。
-- source-limited pageでは、未確認のControl名・default・rangeを名前から推測していないか。
+背景の模様、線、光、抽象的な動きなどを短い区間で繰り返したい場合に候補になります。たとえば背景の明るい帯が移動するアニメーションなら、最後から最初へ戻ったときに帯が突然違う位置へ移らないかを確認します。
 
-## Family内での位置づけ
+### 画面内で流し続ける背景
 
-Krokodoveノードの全体像と近いNodeの選び分けは[Family Overview](./)を参照してください。
+配信画面やタイトルの背後に置く映像を繰り返し使うとき、ループのたびに変化が見えると気になる場合があります。Seamless Loopは**時間上の継ぎ目を調整する候補**ですが、動きの複雑さや素材の内容によって見え方は変わるため、完成を目視で判断します。
+
+### 既存のコンポジションをループ化する
+
+複数のノードで作ったアニメーションをまとめて扱う場合にも、前段の各ノードを個別に反復させるのではなく、出力されるシーケンスの時間構成を検討できます。ただし、Seamless Loopがどの種類のコンポジションや時間範囲に適用できるかは、実機で確認が必要です。
+
+## 制作例：動く背景を繰り返す
+
+次は**構成を考えるための例**であり、Manual掲載の端子図やInspector操作を再現した手順ではありません。
+
+```text
+アニメーションのあるImage / Comp
+              ↓
+        Seamless Loop
+              ↓
+         Viewer / 出力
+```
+
+1. まずSeamless Loopなしで短いアニメーションを用意します。開始と終了で、模様の位置・色・明るさがどう変わるかを見ます。
+2. シーケンスを繰り返し再生し、最後から最初へ戻るフレーム境界を確認します。ここでの段差が比較基準です。
+3. コンポジションの後段にSeamless Loopを置く構成を検討し、**実機で端子と時間範囲を確認してから**接続します。
+4. 調整後は境界の直前・直後を連続再生します。静止フレームだけでは、位置が跳ぶ、明るさがちらつく、動きが一瞬止まるといった問題を判断できません。
+5. ループを2周以上再生し、途中に新しい不連続な動きが現れていないかも確認します。
+
+試す素材には、一定方向に動く帯やグラデーションのように**変化を追いやすいもの**が向きます。最初から複雑な実写や粒子表現で試すと、どの変化が時間調整によるものか分かりにくくなります。
+
+## 近いツールとの違い
+
+| ツール | 21.1 Manualなどで確認できる役割 | 選ぶ目安 |
+| --- | --- | --- |
+| **Seamless Loop** | コンポジションのタイミングを調整してループシーケンスを作る | 再生終端と冒頭の時間的なつながりを検討する |
+| [Seamless](./seamless) | 画像の反対側の端を反転して元画像と混ぜる | 画面の**空間的な端**の処理を考える |
+| [Time Mapper](./time-mapper) | 外部画像マップでシーケンスの異なる時刻を組み合わせる | 画像で時間の参照を制御したい |
+| [Time Stretcher](../time-metadata/time-stretcher) | `Source Time`のSplineで、各出力フレームが読む入力時刻を指定する | 時間の対応関係を自分で設計したい |
+| [Time Speed](../time-metadata/time-speed) | 一定の速度比率・時間オフセットで映像を読み直す | 一定速度のスロー・倍速・逆再生を作る |
+
+Seamless Loopは、単純な倍速処理やフレーム数の変更と同じ目的ではありません。また、**映像の時間的なループと、横スクロールするテクスチャの左右端をつなぐ処理は別の問題**です。必要なら両方を個別に確認します。
+
+## 注意点と未確認事項
+
+- **必ず自然につながるとは限らない**：素材に急なカットや大きな位置変化がある場合、時間の調整だけで違和感が消える保証はありません。これは素材選びと目視確認に関する運用上の注意です。
+- **映像と音声は別**：本文はFusionの画像シーケンスを対象とします。音声まで自動的にループ処理されるとは確認していません。
+- **Alphaと補助チャンネル**：透明部分、モーションベクターなどの補助チャンネルがどう処理されるかは未確認です。
+- **Inspector**：ループ長、開始・終了時刻、ブレンド量といった設定が存在するかどうかも、Manualの短い記述からは判断できません。名称や初期値を想像で固定しないでください。
+- **製品差**：21.1 Manualに掲載されていることは確認済みですが、Resolve Free / Studio / Fusion Studioごとの利用条件、Effects Libraryでの表示、内部REGIDは未確認です。
 
 ## 出典と確認範囲
 
-このページの役割・data domain・系譜は、既存COLLECTANEA catalogとBlackmagic Design公式資料で確認された範囲をreader-first形式へ整理しています。
+Blackmagic Design『**DaVinci Resolve 21.1 Reference Manual**』（September 2026）、Chapter 105「Krokodove Nodes」、**p.2436、Image Pixel Tools / Seamless Loop**。公式記述で確認できるのは、コンポジションの時間を調整してシームレスに繰り返すシーケンスを作るためのツール、という役割です。
 
-Fusion 21.1 Reference Manualで個別のInspector項目・default・rangeまで確認できていない項目は、**source-limited**としてその詳細を断定していません。verification: partial はその未確認範囲を含みます。runtime REGIDや現在のEffects Library表示は別のruntime verificationで確定します。
+画像データの入出力分類は既存COLLECTANEAカタログに基づきます。ループ境界の確認方法や制作例は一般的なモーショングラフィックスの運用案であり、Seamless Loop固有のInspector仕様を実証するものではありません。端子・内部処理・エディション差が未確認のため、`verification: partial`を維持しています。
+
+[Krokodoveの全体像](./)も参照してください。
