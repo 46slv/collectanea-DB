@@ -173,6 +173,20 @@ Resolve Studio 21.1.0.14／Windows、両Viewer Color／40%。固定オフセッ�
 
 [Change Depth](./change-depth.md)はチャンネルのBit depthを変換します。高精度な色処理の後で必要なら16-bitへ下げて後段のメモリ負荷を減らせますが、量子化誤差が増える場合は`Dither`を検討します。Bit depthを上げても元素材に存在しない階調が復元されるわけではありません。
 
+### 実機の参考例：bit depthの表示
+
+<!-- capture-reuse:R83 -->
+
+S48ではfloat32のGradientをChange Depthへ接続し、int16を選びました。右Viewerの画像情報がint16へ変わり、画像寸法は1920×1080を保っています。
+
+[![黒白のHorizontal GradientからChangeDepth1を経由してMediaOut1へ接続した実機Graph](/img/fusion/captures/S48/graph.png)](/img/fusion/captures/S48/graph.png)
+
+[![Change DepthのDepthをint16、Ditherをなしにした実機Inspector](/img/fusion/captures/S48/inspector.png)](/img/fusion/captures/S48/inspector.png)
+
+[![左のGradientは1920×1080 float32、右のChange Depth出力は1920×1080 int16と表示される](/img/fusion/captures/S48/compare.png)](/img/fusion/captures/S48/compare.png)
+
+Resolve Studio21.1.0.14／Windows、両Viewer Color／40%。設定とViewer表示の固定例。Dither画質・Effect Mask・memory/性能は未確認。 [再現用Graph](/img/fusion/captures/S48/fixture.comp) · [撮影条件と確認範囲](/img/fusion/captures/S48/capture.json)
+
 ## 計算・切替・外部連携
 
 [Custom Tool](./custom-tool.md)はImageやMatteから画素値を読み、数式でRGB・Alphaなどのチャンネルを計算します。`Number In`などのControlをInspectorに出せます。`Setup`はフレーム単位、`Intermediate`とチャンネル式は画素単位で評価します。

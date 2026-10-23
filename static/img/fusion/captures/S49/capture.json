@@ -1,0 +1,208 @@
+{
+  "schema_version": 1,
+  "case": "S49",
+  "article": "manuals/fusion/recipes/compositing/heat-shimmer-with-fast-noise-displace.md",
+  "manual": {
+    "version": "21.1",
+    "chapter": 123,
+    "printed_pages": "2967–2969; ch103 pp2363–2365"
+  },
+  "runtime": {
+    "version": "21.1.0.14",
+    "edition": "Studio",
+    "os": "Windows-11-10.0.26200-SP0",
+    "ui_language": "ja-JP (some Shape controls remain English)"
+  },
+  "captured_at": "2026-10-23T20:45:06.925934+00:00",
+  "project": "Collectanea_Captures_20261023_Sol",
+  "timeline": "S49_capture",
+  "frame": 0.0,
+  "resolution": [
+    1920,
+    1080
+  ],
+  "color_management": {
+    "colorScienceMode": "davinciYRGB",
+    "colorSpaceTimeline": "Rec.709 (Scene)",
+    "colorSpaceTimelineGamma": "",
+    "colorSpaceOutput": "Rec.709 (Scene)",
+    "colorSpaceOutputGamma": "ACEScc",
+    "separateColorSpaceAndGamma": "0",
+    "isAutoColorManage": "0",
+    "timelineResolutionWidth": "1920",
+    "timelineResolutionHeight": "1080",
+    "timelineFrameRate": 24.0,
+    "timelinePlaybackFrameRate": "30"
+  },
+  "viewer": {
+    "zoom_percent": 40,
+    "channel": "Color",
+    "background": "checkerboard for transparent pixels",
+    "note": "Viewer screenshots are display evidence, not colorimetric exports."
+  },
+  "graph": "fixture.comp",
+  "settings": "readback.json",
+  "source": {
+    "file": "screen.png",
+    "size": [
+      3352,
+      1910
+    ],
+    "sha256": "f54ba17b4f2bbfad25abae6351c4928cfa01a2c76b439fbb52cb90ec81b17ce5"
+  },
+  "shots": [
+    {
+      "file": "graph.png",
+      "source": "screen.png",
+      "source_sha256": "f54ba17b4f2bbfad25abae6351c4928cfa01a2c76b439fbb52cb90ec81b17ce5",
+      "frame": 0,
+      "crop_xyxy": [
+        240,
+        1060,
+        2600,
+        1660
+      ],
+      "resampled": false,
+      "sha256": "50512e96713ff1d37f1ccac1a73ad6fcdcac440c3501f521d2f455ff8003385e"
+    },
+    {
+      "file": "inspector.png",
+      "source": "screen.png",
+      "source_sha256": "f54ba17b4f2bbfad25abae6351c4928cfa01a2c76b439fbb52cb90ec81b17ce5",
+      "frame": 0,
+      "crop_xyxy": [
+        2830,
+        120,
+        3352,
+        515
+      ],
+      "resampled": false,
+      "sha256": "e5f0b61d18b5977c7dd868c837b21b8dbfe1c50881ff20e38d1e3924cd5bd791"
+    },
+    {
+      "file": "compare.png",
+      "source": "screen.png",
+      "source_sha256": "f54ba17b4f2bbfad25abae6351c4928cfa01a2c76b439fbb52cb90ec81b17ce5",
+      "frame": 0,
+      "crop_xyxy": [
+        1146,
+        65,
+        2830,
+        815
+      ],
+      "resampled": false,
+      "sha256": "9c2b9df4c09775f98e09d305b5c1f236b95db553176d037ce99d7594b0578b33"
+    },
+    {
+      "file": "unmasked0.png",
+      "source": "screen-unmasked0.png",
+      "source_sha256": "fe8286b06d01330012c38c916e1b008d5f01dcd8a25b90386bd9b95dcff02300",
+      "frame": 0,
+      "crop_xyxy": [
+        1146,
+        65,
+        2830,
+        815
+      ],
+      "resampled": false,
+      "sha256": "1f6c09f1ce54451e19b1f88a47c3f3040c5c5f763529e9d67c8dd17396ae4b39"
+    },
+    {
+      "file": "unmasked24.png",
+      "source": "screen-unmasked24.png",
+      "source_sha256": "ba198131b85c01fe2c49f96e0ac99dc328999c7a3d19f51e3352cc3940ba8d86",
+      "frame": 24,
+      "crop_xyxy": [
+        1146,
+        65,
+        2830,
+        815
+      ],
+      "resampled": false,
+      "sha256": "4effd9c06cdde841e7abef64648f06c66eb2f07019cc143432c0ad8e0015099d"
+    },
+    {
+      "file": "masked24.png",
+      "source": "screen-masked24.png",
+      "source_sha256": "64b0f6c0a0c86f2a96a49e0fb8bf0d9d6d1694668e2e9a2f0fe8f4694ff01aa6",
+      "frame": 24,
+      "crop_xyxy": [
+        1146,
+        65,
+        2830,
+        815
+      ],
+      "resampled": false,
+      "sha256": "14f2cf1000698968dd5e37684031099f35ce0081622714139cf299723b599ef3"
+    },
+    {
+      "file": "map-inspector.png",
+      "source": "screen-map.png",
+      "source_sha256": "07682a52ab47d3e85c0b1328e21e4f674f34604a8053500951489ee944f00ed0",
+      "frame": 0,
+      "crop_xyxy": [
+        2830,
+        120,
+        3352,
+        600
+      ],
+      "resampled": false,
+      "sha256": "d1fbc6ffa7eb4b9d86f012141bd83b440371b251c56efed7780dc88ea9fddeab"
+    },
+    {
+      "file": "map.png",
+      "source": "screen-map.png",
+      "source_sha256": "07682a52ab47d3e85c0b1328e21e4f674f34604a8053500951489ee944f00ed0",
+      "frame": 0,
+      "crop_xyxy": [
+        1146,
+        65,
+        2830,
+        705
+      ],
+      "resampled": false,
+      "sha256": "484a70828d18f3db35d321afa9e343fb35867d2f03becf113b86ca3e14ed64f9"
+    },
+    {
+      "file": "mask-inspector.png",
+      "source": "screen-mask.png",
+      "source_sha256": "5f284ef839d78cba9aad62db5271b1eb9f9f843fb0a1a29fce37b328e0f7a8ea",
+      "frame": 0,
+      "crop_xyxy": [
+        2830,
+        120,
+        3352,
+        515
+      ],
+      "resampled": false,
+      "sha256": "d29e348e547128a708ef70b1475112a466920c43e09521f348bdc85dc7d86859"
+    }
+  ],
+  "acceptance": {
+    "gui": "PASS: owner visually inspected node connections, selected Inspector, and output",
+    "article_display": "PASS: local production build;1440px/390px decode/Alt/native links/hash/overflow"
+  },
+  "unverified": [
+    "Free edition and other platforms",
+    "All parameter ranges and performance",
+    "Polygon and real footage, Y displacement, all edge conditions and continuous playback performance",
+    "Exported portable composition reimport"
+  ],
+  "state_variants": {
+    "screen.png": "frame0 masked X/Y, X.015/Y0, Noise SeetheRate.4; restored",
+    "screen-unmasked0.png": "frame0 before EffectMask connection, both Color40%",
+    "screen-unmasked24.png": "frame24 unmasked, same static input and Noise settings",
+    "screen-masked24.png": "frame24 with Ellipse EffectMask; scalar-only readback; both40%",
+    "screen-map.png": "frame0 Noise Inspector and leftNoise/rightDisplace; Center UI controls overlay both Viewers",
+    "screen-mask.png": "frame0 Ellipse Inspector; green ellipse controls overlay Viewers; only Inspector crop adopted"
+  },
+  "restoration": "PASS: owned scratch saved, frame0/both Color40%, Spline/Keyframes closed, RoI/DoD off, no popup; Displace X/Y Luma X.015/Y0, Ellipse Width.45/Height.6/SoftEdge.04, NoiseRate.4",
+  "parameter_readback_scope": "Number/Text/Point/FuID/Clip values only; no Image/Mask/3D/ScriptVal payload evaluation; connections established by exported Graph and native GUI.",
+  "recovery_observation": "Broad GetInput enumeration coincided with two host exits. Saved owned graph retained the mask; no rebuild/reconnection. After recovery, time-only and scalar-only preview0/24, Inspector views, normal export/save/readback and final native frame0 passed. Exact offending input was not retested; no general product-defect claim.",
+  "reproduction": {
+    "fixture_sha256": "c9f74fe3de849010dc3518be135448dd6d9559ff97be68dd5cd29f1602d3db3f",
+    "readback_sha256": "7d0ff001ea08f494d18ce83a7f35d6afcfde7ba6e32483ec8b92e5f23746477e",
+    "paths": "Comp:/../_fixtures/ for bundled synthetic fixtures",
+    "reimport": "NOT_RUN: accepted GUI evidence precedes export path normalization"
+  }
+}
