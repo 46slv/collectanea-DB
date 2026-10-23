@@ -123,6 +123,24 @@ MediaIn（背景映像）─────────→ Merge（Background）
 
 これらは21.1 Manualで確認できる接続・Controlを組み合わせた運用例です。個々の完成画を21.1実機で検証した記録ではありません。
 
+## 実機で塗りつぶしと円弧を比べる
+
+DaVinci Resolve Studio 21.1.0.14、Windows、日本語UIで撮影しました。同じ大きさの楕円を2系統作り、それぞれsRenderで画像化しています。
+
+[![上段はEllipseSolid1からRenderSolid1、下段はEllipseArc1からRenderArc1とMediaOut1へつないだ実機Node Editor](/img/fusion/captures/S18/graph.png)](/img/fusion/captures/S18/graph.png)
+
+両方ともWidth 0.45／Height 0.28です。上段はSolidをオンにし、下段はオフにしてBorder Widthを0.012、Positionを0.08、Lengthを0.7にしました。
+
+[![sEllipse Inspector。Solidはオフ、Border Width 0.012、Position 0.08、Length 0.7、Width 0.45、Height 0.28](/img/fusion/captures/S18/inspector.png)](/img/fusion/captures/S18/inspector.png)
+
+このbuildのScripting入力IDは、UIのPositionが `WritePosition`、Lengthが `WriteLength` でした。画面に表示される名前と内部IDを区別して使います。
+
+[![40%の左右Viewer。左は白い塗りつぶし楕円、右はLengthを0.7にして一部が開いた白い円弧](/img/fusion/captures/S18/compare.png)](/img/fusion/captures/S18/compare.png)
+
+1920×1080、フレーム0の静止画です。市松模様は透明部分です。緑色の輪郭はViewerの操作表示で、右の開いた部分には白い出力線がありません。Lengthのキーフレームアニメーションや、Cap Styleの切り替え比較はこの撮影には含めていません。
+
+[再現用Graph](/img/fusion/captures/S18/fixture.comp) · [撮影条件と確認範囲](/img/fusion/captures/S18/capture.json)
+
 ## 関連ノードと注意点
 
 - [sRectangle](./srectangle)：四角形・角丸形状を作ります。真円や楕円を直接生成するならsEllipseです。
@@ -140,4 +158,4 @@ MediaIn（背景映像）─────────→ Merge（Background）
 
 参照先：[Blackmagic Design公式サポート](https://www.blackmagicdesign.com/support)。
 
-内部REGID、正確な端子表示名・色、Edition差、Inspectorの初期値・範囲、21.1実機での描画結果は確認していません。そのため`verification: partial`を維持しています。
+上記の実機例ではREGID `sEllipse`、sRenderへの接続、Solidと掲載した寸法・円弧設定、描画結果を確認しました。Edition差、Inspectorの全初期値・数値範囲、Allow Combining、アニメーションは未確認のため、`verification: partial`を維持しています。

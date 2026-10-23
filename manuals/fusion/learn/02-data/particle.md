@@ -13,7 +13,7 @@ prerequisites: [image-data, typed-connections]
 level: intermediate
 product_scope: fusion
 suite_surfaces: [fusion]
-updated: "2026-10-17"
+updated: "2026-10-23"
 ---
 
 # パーティクル（Particle）
@@ -89,6 +89,17 @@ pRenderはparticle chainのrender boundaryです。
 ```text
 pEmitter → pRender (2D) → Merge
 ```
+
+<!-- capture-reuse:R10 -->
+#### 実機の参考例：Particle setを2D画像にする
+
+pEmitterのParticle setをpRenderの2Dモードで画像化し、フレーム48に蓄積した白いBlob粒子を表示しています。赤い円は編集用Controlです。
+
+[![S09の実機撮影：Particle setを2D画像にするの接続](/img/fusion/captures/S09/graph.png)](/img/fusion/captures/S09/graph.png)
+
+[![S09の実機撮影：Particle setを2D画像にするの表示結果](/img/fusion/captures/S09/result.png)](/img/fusion/captures/S09/result.png)
+
+Resolve Studio 21.1.0.14／Windowsで撮影したS09の固定例を再掲しています。[撮影条件と確認範囲](/img/fusion/captures/S09/capture.json)で元の設定を確認できます。
 
 ### 3D Output
 

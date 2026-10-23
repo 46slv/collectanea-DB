@@ -11,7 +11,7 @@ tasks: [build-shape, procedural-graphics, read-graph, debug]
 prerequisites: [typed-connections]
 level: foundation
 product_scope: fusion
-updated: "2026-10-17"
+updated: "2026-10-23"
 ---
 
 # シェイプ（Shape）
@@ -105,6 +105,17 @@ sEllipse → sGrid → sRender
 `sEllipse` では小さな円を1つ作り、`sGrid` 側で横・縦の複製数や間隔を変えます。
 
 円そのものを作り直しているのではなく、入力されたShapeを並べる段階と、それを画像化する段階が分かれていることを確認できます。
+
+<!-- capture-reuse:R01 -->
+### 実機の参考例：Shapeを画像へ変換する
+
+sEllipseのShapeをsGridで5列3行に複製し、sRenderで15個の白い円として画像化した例です。
+
+[![S01の実機撮影：Shapeを画像へ変換するの接続](/img/fusion/captures/S01/graph.png)](/img/fusion/captures/S01/graph.png)
+
+[![S01の実機撮影：Shapeを画像へ変換するの表示結果](/img/fusion/captures/S01/result.png)](/img/fusion/captures/S01/result.png)
+
+Resolve Studio 21.1.0.14／Windowsで撮影したS01の固定例を再掲しています。[撮影条件と確認範囲](/img/fusion/captures/S01/capture.json)で元の設定を確認できます。
 
 ## 初見のShape Nodeを読む
 

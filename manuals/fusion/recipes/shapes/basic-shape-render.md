@@ -41,6 +41,17 @@ sEllipseはShape streamを出し、sRenderはShape domainを2D Imageへrasterize
 
 → [特殊domainのまま処理し、必要な境界で2Dへ戻す](../../patterns/data-domain/defer-domain-conversion)
 
+<!-- capture-reuse:R02 -->
+### 実機の参考例：最小構成の描画結果
+
+sEllipseのShapeをsRenderへ渡し、透明部分を持つ白い楕円の2D Imageへ変換しています。
+
+[![S04の実機撮影：最小構成の描画結果の接続](/img/fusion/captures/S04/graph.png)](/img/fusion/captures/S04/graph.png)
+
+[![S04の実機撮影：最小構成の描画結果の表示結果](/img/fusion/captures/S04/result.png)](/img/fusion/captures/S04/result.png)
+
+Resolve Studio 21.1.0.14／Windowsで撮影したS04の固定例を再掲しています。[撮影条件と確認範囲](/img/fusion/captures/S04/capture.json)で元の設定を確認できます。
+
 ## 別の方法
 
 sRenderの前へ:

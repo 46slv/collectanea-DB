@@ -13,7 +13,7 @@ prerequisites: [image-data, typed-connections]
 level: intermediate
 product_scope: fusion
 suite_surfaces: [fusion]
-updated: "2026-10-18"
+updated: "2026-10-23"
 ---
 
 # Classic 3D scene
@@ -80,6 +80,17 @@ Classic 3D scene → Renderer 3D → Image
 ```
 
 Software / OpenGL rendererを選べ、shadowやDepth of Field、auxiliary layers等の対応が異なります。
+
+<!-- capture-reuse:R09 -->
+### 実機の参考例：SceneからImageへ変換する
+
+左はMerge 3Dの操作用ビュー、右はSoftware RendererがCamera 3Dから描いた球の2D Imageです。左右でカメラの役割が異なります。
+
+[![S11の実機撮影：SceneからImageへ変換するの接続](/img/fusion/captures/S11/graph.png)](/img/fusion/captures/S11/graph.png)
+
+[![S11の実機撮影：SceneからImageへ変換するの表示結果](/img/fusion/captures/S11/compare.png)](/img/fusion/captures/S11/compare.png)
+
+Resolve Studio 21.1.0.14／Windowsで撮影したS11の固定例を再掲しています。[撮影条件と確認範囲](/img/fusion/captures/S11/capture.json)で元の設定を確認できます。
 
 ## 入力と出力をたどる
 

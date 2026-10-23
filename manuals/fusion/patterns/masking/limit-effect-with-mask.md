@@ -72,6 +72,17 @@ Ellipse Mask ───────┘
 
 Ellipseは円形・楕円形に向き、Polygonは人物の輪郭や建物など不規則な範囲に向きます。[Blur](../../nodes/blur-filter/blur.md) / [Ellipse Mask](../../nodes/masks/ellipse-mask.md)で個別の操作を確認できます。
 
+<!-- capture-reuse:R04 -->
+### 実機の参考例：テストチャートで範囲を読む
+
+テストチャートで同じ接続を確認すると、Ellipseの外ではグリッドと四隅が鮮明に残ります。人物を撮影した例ではありません。
+
+[![S07の実機撮影：テストチャートで範囲を読むの接続](/img/fusion/captures/S07/graph.png)](/img/fusion/captures/S07/graph.png)
+
+[![S07の実機撮影：テストチャートで範囲を読むの表示結果](/img/fusion/captures/S07/compare.png)](/img/fusion/captures/S07/compare.png)
+
+Resolve Studio 21.1.0.14／Windowsで撮影したS07の固定例を再掲しています。[撮影条件と確認範囲](/img/fusion/captures/S07/capture.json)で元の設定を確認できます。
+
 ## Effect Maskは原則として「処理後」に適用される
 
 DaVinci Resolve 21.1 Reference ManualのChapter 79では、Effect Maskは原則として**post-effect**の仕組みとして説明されています。処理Nodeがまず入力画像に効果を計算し、その後でMaskを使って「効果を適用しない部分へ元の画像を戻す」という考え方です。

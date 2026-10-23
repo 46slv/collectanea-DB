@@ -119,6 +119,22 @@ Merge ─→ MediaOut
 
 この場合、Rectangle Maskだけで色が生まれるわけではありません。色はBackgroundが作り、Rectangle Maskはその表示範囲を決めます。
 
+## 実機で角丸の色付きパネルを作る
+
+DaVinci Resolve Studio 21.1.0.14、Windows、日本語UIで撮影しました。背景映像との合成前に、色付きパネルだけを出力した例です。
+
+[![Rectangle1をBackground1の青いEffect Maskへつなぎ、Background1をMediaOut1へ送る実機Node Editor](/img/fusion/captures/S17/graph.png)](/img/fusion/captures/S17/graph.png)
+
+Backgroundの色をRGB 0.8／0.15／0.07にし、RectangleのCenterを0.5／0.5、Widthを0.6、Heightを0.25にしました。Corner Radiusは0.15、Soft Edgeは0.015、Levelは1です。
+
+[![Rectangle Mask Inspector。Width 0.6、Height 0.25、Corner Radius 0.15、Soft Edge 0.015](/img/fusion/captures/S17/inspector.png)](/img/fusion/captures/S17/inspector.png)
+
+[![1920×1080のフレーム0。透明背景に四隅を丸めた赤橙色の横長パネルが表示される](/img/fusion/captures/S17/result.png)](/img/fusion/captures/S17/result.png)
+
+Viewer倍率は40%です。市松模様は透明部分で、緑色の輪郭や中央のハンドルは選択中のマスクの操作表示です。色はBackground、角丸と境界の柔らかさはRectangleで調整しています。複数マスクのPaint Modeや、映像へのMerge合成はこの撮影には含めていません。
+
+[再現用Graph](/img/fusion/captures/S17/fixture.comp) · [撮影条件と確認範囲](/img/fusion/captures/S17/capture.json)
+
 ## 関連ノードと選び方
 
 [Ellipse Mask](./ellipse-mask)は円形や楕円形、[Polygon Mask](./polygon-mask)は人物などの不規則な輪郭に向きます。矩形で足りるならRectangle Maskを選んだ方が、Width、Height、Corner Radiusなどの意味が分かりやすく、後から調整しやすくなります。
@@ -129,4 +145,4 @@ Merge ─→ MediaOut
 
 Blackmagic Design『DaVinci Resolve 21.1 Reference Manual』（2026年9月）Chapter 108「Mask Nodes」pp.2490–2493を基準にしています。Rectangle Mask [Rec]の入出力、Controls、Corner Radius、Soft Edge、Filter、Paint ModeとBackgroundを使った基本構成を確認しました。
 
-`Rec`はマニュアル記載のSelect Tool用略号であり、内部REGIDと断定しません。21.1実機での個々の設定値、全Inspector項目、Free／Studio差は未確認のため、`verification: partial`を維持します。
+`Rec`はマニュアル記載のSelect Tool用略号です。上記の実機例ではREGID `RectangleMask`、BackgroundのEffect Maskへの接続、掲載した設定値とパネル出力を確認しました。全Inspector項目、複数マスクの演算、Free／Studio差は未確認のため、`verification: partial`を維持します。

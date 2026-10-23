@@ -144,6 +144,24 @@ BackgroundをForegroundとして使うかBackgroundとして使うかは、最�
 
 円形のlight mapが必要ならGradient → Radialを使い、必要に応じてColor / Alphaを調整します。
 
+## 実機で単色と横方向グラデーションを比べる
+
+DaVinci Resolve Studio 21.1.0.14、Windows、日本語UIで撮影しました。1920×1080、フレーム0の例です。画像を開くと原寸で数値を読めます。
+
+[![単色のSolid1と、横方向グラデーションのGradient1からMediaOut1への実機接続](/img/fusion/captures/S15/graph.png)](/img/fusion/captures/S15/graph.png)
+
+上段のSolid1は単色の比較用です。下段のGradient1をMediaOut1へ接続し、TypeをHorizontalにしました。日本語UIでは「横方向」と表示されます。
+
+[![BackgroundのColor Inspector。種類は横方向、左RGBは0.025・0.075・0.13、右RGBは1・0.35・0.06](/img/fusion/captures/S15/inspector.png)](/img/fusion/captures/S15/inspector.png)
+
+左端の色をRGB 0.025／0.075／0.13、右端を1／0.35／0.06に設定し、両端のAlphaを1にしています。単色側も左端と同じ色です。
+
+[![左右とも40%のViewer。左は暗い青の単色、右は同じ青からオレンジへ変わる横方向グラデーション](/img/fusion/captures/S15/compare.png)](/img/fusion/captures/S15/compare.png)
+
+Viewer倍率は両方40%です。右の出力で、画面の左から右へ色が変わることを確認しました。この例ではImageタブの個別設定や、ほかのGradient Typeは変更していません。
+
+[再現用Graph](/img/fusion/captures/S15/fixture.comp) · [撮影条件と確認範囲](/img/fusion/captures/S15/capture.json)
+
 ## Fast Noiseとの違い
 
 - **Background** — 明示的な色・gradientを設計

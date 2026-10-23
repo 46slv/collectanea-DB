@@ -183,6 +183,24 @@ Fast Noise ──→ map input
 
 位置を横へ流したい場合はCenter、pattern自体を変化させたい場合はSeethe、と役割を分けます。
 
+## 実機でDetailとContrastを変更する
+
+DaVinci Resolve Studio 21.1.0.14、Windows、日本語UIで撮影しました。1920×1080、フレーム0、Seethe 0、Seethe Rate 0の静止した例です。
+
+[![比較用NoiseDefault1と、NoiseDetail1からMediaOut1への実機Node Editor](/img/fusion/captures/S16/graph.png)](/img/fusion/captures/S16/graph.png)
+
+左ViewerのNoiseDefault1はDetail 2／Contrast 1、右ViewerのNoiseDetail1はDetail 6／Contrast 2です。Scaleは両方2で、CenterやSeetheなどは同じ値にしています。
+
+[![Fast NoiseのNoiseタブ。Detail 6、Contrast 2、Scale 2、SeetheとSeethe Rateは0](/img/fusion/captures/S16/inspector.png)](/img/fusion/captures/S16/inspector.png)
+
+[![40%の左右Viewer。左の滑らかなノイズと、Detail・Contrastを上げた右の細かく明暗差の強いノイズ](/img/fusion/captures/S16/compare.png)](/img/fusion/captures/S16/compare.png)
+
+この比較ではDetailとContrastを同時に変更しています。それぞれの効果を切り分ける場合は、一方を戻して1項目ずつ変えてください。Two Colorの既定AlphaはColor 1が0、Color 2が1のため、市松模様が透けて見えます。中央の緑色の円と赤い軸はViewerの操作表示です。
+
+動画としてのSeethe Rate、マップ入力、ColorタブのGradientは、この撮影例では検証していません。
+
+[再現用Graph](/img/fusion/captures/S16/fixture.comp) · [撮影条件と確認範囲](/img/fusion/captures/S16/capture.json)
+
 ## Backgroundとの違い
 
 - **Background** — 意図した色・gradientを明示的に配置
