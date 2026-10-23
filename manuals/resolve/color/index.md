@@ -77,6 +77,7 @@ Colorページは、素材の明るさや色の偏りを整え、複数ショッ
 - [書き出し後に色や明るさが違うとき](./troubleshooting/export-color-mismatch) — 出力変換、色タグ、Levels、再生環境を切り分ける
 - [ノード無効化とグレードバイパス](./troubleshooting/node-bypass-diagnostics) — 調整がどこで変化したかを診断する
 - [白飛び・黒つぶれの診断](./troubleshooting/highlight-shadow-clipping) — Scopesとノード比較から原因を分ける
+- [暗部を持ち上げるとノイズが増える・黒が浮くとき](./troubleshooting/shadow-noise-and-lifted-blacks) — 収録ノイズ、暗部補正、表示変換、Studio版NRの原因を切り分ける
 
 ## 次に整備する領域
 
