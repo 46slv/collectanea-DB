@@ -29,7 +29,7 @@ DoDは、Image内で実際にdataが存在するとFusionが扱う矩形領域�
 Set Domainには、DoDを座標で決める**Set**と、現在のDoDを基準に広げたり狭めたりする**Adjust**があります。
 
 - **Set**: Left / Bottom / Right / TopでDoDの境界を直接指定する。
-- **Adjust**: 既存DoDの各辺を相対的に移動する。正の値でDoDを狭め、負の値で外側へ広げる。
+- **Adjust**: 既存DoDの各辺を相対的に移動する。実機では正の値で左・下が内側へ、右・上が外側へ動きました。
 
 Set Domainが変更する中心的な情報はDoDです。retime、metadataの書き換え、bit depth変更を行うNodeではありません。
 
@@ -47,50 +47,75 @@ Foreground入力は、別Imageがすでに持っているDoDを基準として�
 
 ### Mode
 
-`Set`と`Adjust`を切り替えます。
+`Set`は境界座標を直接指定し、`Adjust`は入力のDoDから各辺を相対的に動かします。S51の初期状態はAdjust、4項目すべて0でした。0では入力のDoDを保ちます。
 
-**Set**では、Image左端 / 下端を0、右端 / 上端を1とする正規化座標でDoDを指定します。初期状態はImage全体です。
+Setでは左端・下端を0、右端・上端を1とする座標を使います。左・下0、右・上1ならフレーム全体です。S51では右・上を0.5にすると右上が960,540になり、寸法1920×1080は保ったまま内容が欠けました。
 
-```text
-Left   = 0
-Bottom = 0
-Right  = 1
-Top    = 1
-```
+### Left / Bottom
 
-**Adjust**では、4つの値が0の状態で現在のDoDを維持します。正の値は対応する辺を内側へ動かしてDoDを狭め、負の値は外側へ動かしてDoDを広げます。
+Setでは左端・下端の座標を指定します。Adjustでは、正の値で左端が右へ、下端が上へ動き、負の値でそれぞれ左・下へ広がりました。撮影例の±0.1は、横192px、縦108pxの変化に対応します。
 
-### Left
+### Right / Top
 
-DoDの左端を決めます。
+Setでは右端・上端の座標を指定します。1から0.5へ下げると、右端は左へ、上端は下へ移りました。
 
-Setでは値を上げるほど左端が右へ移動し、左側のdataをDoDから外します。既定値は0です。
+Adjustでは、正の値で右端が右へ、上端が上へ広がり、負の値では内側へ狭まりました。左・下と同じ符号で同じ「拡大／縮小」になるわけではありません。
 
-### Bottom
+21.1 Manualには、Adjustで正の値はDoDを狭めるとする説明や、SetのRight / Topの座標と増減方向が一致しない説明があります。本ページは下の実機例を基準に、撮影環境で確認した方向を記載しています。
 
-DoDの下端を決めます。
+## 実機でAdjustとSetを比べる
 
-Setでは値を上げるほど下端が上へ移動し、下側のdataをDoDから外します。既定値は0です。
+Resolve Studio 21.1.0.14、Windows、日本語UIで、透明PNGをAuto Domainへ通してからSet Domainへ接続しました。入力のDoDは640,360から1280,720、画像寸法は1920×1080です。出力フレーム0、両ViewerはColor／40%、RoIは無効です。
 
-### Right
+[![Loader、AutoDomain1、SetDomain1、MediaOut1の順に接続した実機Graph](/img/fusion/captures/S51/graph.png)](/img/fusion/captures/S51/graph.png)
 
-DoDの右端を決めます。
+[![Set DomainのAdjust、四辺0、結合モードCopyを示すInspector](/img/fusion/captures/S51/inspector.png)](/img/fusion/captures/S51/inspector.png)
 
-21.1 Manualでは、Set modeの座標scaleについて「0がImage左端、1が右端、既定値は1」と記載されています。一方、同じControlの説明には「値を上げるほど右端が左へ移動する」とあり、座標scaleの説明と増減方向の説明が一致しません。
+[![左右ともDoDが640,360から1280,720。Adjustの四辺0で入力のDoDを保つ](/img/fusion/captures/S51/compare.png)](/img/fusion/captures/S51/compare.png)
 
-そのため、Set modeで右端を狭める際の値の増減方向は実機確認前に断定しません。ViewerでDoDを表示し、境界の動きを確認しながら調整してください。
+Adjustの4値が0なら、右ViewerのDoDは左と一致します。runtime REGIDは`SetDomain`です。結合モードはCopyのままで、Foregroundは接続していません。
 
-Adjust modeについては、Manualが「正の値でDoDを狭め、負の値で広げる」と明記しています。Rightへ正の値を入れると右端側からDoDを狭めます。
+### Adjustの正負を四辺で比べる
 
-### Top
+右・上をともに0.1へ、次に−0.1へ変更しました。
 
-DoDの上端を決めます。
+[![Set DomainのAdjustで右と上を0.1にしたInspector](/img/fusion/captures/S51/adjust-plus-inspector.png)](/img/fusion/captures/S51/adjust-plus-inspector.png)
 
-21.1 Manualでは、Set modeの座標scaleについて「0がImage下端、1が上端、既定値は1」と記載されています。一方、同じControlの説明には「値を上げるほど上端が下へ移動する」とあり、座標scaleの説明と増減方向の説明が一致しません。
+[![Adjustの右・上0.1でDoDの右上が1472,828へ広がる](/img/fusion/captures/S51/adjust-plus.png)](/img/fusion/captures/S51/adjust-plus.png)
 
-そのため、Set modeで上端を狭める際の値の増減方向は実機確認前に断定しません。ViewerでDoDを表示し、境界の動きを確認しながら調整してください。
+[![Set DomainのAdjustで右と上をマイナス0.1にしたInspector](/img/fusion/captures/S51/adjust-minus-inspector.png)](/img/fusion/captures/S51/adjust-minus-inspector.png)
 
-Adjust modeについては、Manualが「正の値でDoDを狭め、負の値で広げる」と明記しています。Topへ正の値を入れると上端側からDoDを狭めます。
+[![Adjustの右・上マイナス0.1で右上が1088,612になり、矩形が欠ける](/img/fusion/captures/S51/adjust-minus.png)](/img/fusion/captures/S51/adjust-minus.png)
+
+右上は1472,828へ広がり、負値では1088,612へ狭まりました。次は右・上を0へ戻し、左・下だけを0.1、−0.1へ変更しています。
+
+[![Set DomainのAdjustで左と下を0.1にしたInspector](/img/fusion/captures/S51/left-bottom-plus-inspector.png)](/img/fusion/captures/S51/left-bottom-plus-inspector.png)
+
+[![Adjustの左・下0.1でDoDの左下が832,468へ移り、矩形の左側と下側が欠ける](/img/fusion/captures/S51/left-bottom-plus.png)](/img/fusion/captures/S51/left-bottom-plus.png)
+
+[![Set DomainのAdjustで左と下をマイナス0.1にしたInspector](/img/fusion/captures/S51/left-bottom-minus-inspector.png)](/img/fusion/captures/S51/left-bottom-minus-inspector.png)
+
+[![Adjustの左・下マイナス0.1でDoDの左下が448,252へ広がる](/img/fusion/captures/S51/left-bottom-minus.png)](/img/fusion/captures/S51/left-bottom-minus.png)
+
+左下は正値で832,468へ移り、矩形の左側と下側が欠けました。負値では448,252へ広がります。どの状態でも画像寸法は1920×1080です。
+
+### Setで境界座標を指定する
+
+GUIでSetへ切り替えると、左・下0、右・上1になりました。画像の内容にかかわらず、DoDをフレーム全体へ指定した状態です。
+
+[![Set DomainをSetに切り替え、左と下0、右と上1を示すInspector](/img/fusion/captures/S51/set-full-inspector.png)](/img/fusion/captures/S51/set-full-inspector.png)
+
+[![Setの右・上1では、右ViewerのDoDは0,0から1920,1080。画像内容は中央の矩形のまま](/img/fusion/captures/S51/set-full.png)](/img/fusion/captures/S51/set-full.png)
+
+[![Set DomainのSetで左と下0、右と上0.5を示すInspector](/img/fusion/captures/S51/set-half-inspector.png)](/img/fusion/captures/S51/set-half-inspector.png)
+
+[![Setの右・上0.5ではDoDが0,0から960,540となり矩形が欠ける。画像寸法は1920×1080のまま](/img/fusion/captures/S51/set-half.png)](/img/fusion/captures/S51/set-half.png)
+
+右・上を0.5にすると、DoDは0,0から960,540になり、オレンジ矩形の一部が欠けました。出力比較の画像ではMediaOutを選択して、Set Domain選択中に重なる赤い操作ガイドを外しています。元の画像は撮影条件から確認できます。
+
+最後はAdjust、四辺0、Set側の右・上1へ戻し、DoD表示とRoIを解除して保存しました。ForegroundからのDoD参照、他の結合モード、後段BlurやCrop、性能、Free editionや他OSは未確認です。
+
+[再現用Graph](/img/fusion/captures/S51/fixture.comp) · [撮影条件と確認範囲](/img/fusion/captures/S51/capture.json)
 
 ## 主な用途
 
@@ -108,7 +133,7 @@ Set Domain自体はImageをCropしません。width / heightはそのままで�
 
 すでにDoDを持つImageで、境界だけを調整したい場合はAdjustを使います。
 
-たとえば後段処理に必要な余白を確保したい場合は負の値でDoDを広げ、不要な外周を処理対象から外したい場合は正の値で狭められます。
+撮影環境では、余白を広げるには左・下を負、右・上を正へ動かしました。狭める際はその逆です。必要な内容が欠けない範囲で、各辺をViewerで確認します。
 
 ### 別ImageのDoDを使う
 
@@ -139,7 +164,7 @@ contentの範囲へ自動追従させたい場合はAuto Domain、固定範囲�
 - Set DomainはImageのwidth / heightを変更しません。[Crop](../transform/crop.md)やResizeとは役割が異なります。
 - DoDを必要以上に狭くすると、その外側は後段Nodeの処理対象になりません。Viewerの`Show DoD`で意図した範囲になっているか確認します。
 - DoDとRegion of Interest（RoI）は別の概念です。DoDは「Imageにdataがある範囲」、RoIは「今回renderを要求する範囲」を表します。
-- runtime REGID、Effects Library上のcurrent表示、edition差は、このページの確認範囲では断定していません。
+- S51で確認したREGIDと境界の方向は撮影環境のものです。Effects Library上の表示、edition差、他環境の動作は未確認です。
 
 ## 関連する考え方
 
@@ -158,6 +183,4 @@ DaVinci Resolve 21.1 Reference Manual（September 2026）Chapter 111「Miscellan
 
 確認した項目は、Image dimensionsを変更しないこと、Background / Foregroundの2入力、`Set` / `Adjust`、`Left` / `Bottom` / `Right` / `Top`、DoD外を後段Nodeが処理しないこと、ViewerでのDoD表示です。
 
-`Right` / `Top`は、21.1 Manual内でSet modeの座標scale説明と値を増やしたときの移動方向が一致していません。このページでは一方を推測で採用せず、Set modeの増減方向を実機確認待ちとして扱います。Adjust modeの「正の値でDoDを狭め、負の値で広げる」はManual本文に明記されているため、その説明は維持しています。
-
-runtime REGID、Effects Library上のcurrent表示、edition差、`Right` / `Top`のSet modeにおける実機上の増減方向は別verification対象として残しているため、`verification: partial`を維持しています。
+S51では、Adjustの四辺0と正負、Setのフルフレームと右・上0.5、画像寸法を実機確認しました。ManualのAdjustに関する一律の符号説明とは一致しないため、辺ごとの方向を本文に記載しています。Foreground、他の結合モード、後段処理、性能、版別の差は未確認のため、`verification: partial`を維持します。

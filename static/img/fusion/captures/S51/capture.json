@@ -1,0 +1,296 @@
+{
+  "schema_version": 1,
+  "case": "S51",
+  "article": "manuals/fusion/nodes/time-metadata/set-domain.md",
+  "manual": {
+    "version": "21.1",
+    "chapter": 111,
+    "printed_pages": "2602–2604; ch68 pp1479–1480"
+  },
+  "runtime": {
+    "version": "21.1.0.14",
+    "edition": "Studio",
+    "os": "Windows-11-10.0.26200-SP0",
+    "ui_language": "ja-JP (some Shape controls remain English)"
+  },
+  "captured_at": "2026-10-23T21:11:13.082345+00:00",
+  "project": "Collectanea_Captures_20261023_Sol",
+  "timeline": "S51_capture",
+  "frame": 0.0,
+  "resolution": [
+    1920,
+    1080
+  ],
+  "color_management": {
+    "colorScienceMode": "davinciYRGB",
+    "colorSpaceTimeline": "Rec.709 (Scene)",
+    "colorSpaceTimelineGamma": "",
+    "colorSpaceOutput": "Rec.709 (Scene)",
+    "colorSpaceOutputGamma": "ACEScc",
+    "separateColorSpaceAndGamma": "0",
+    "isAutoColorManage": "0",
+    "timelineResolutionWidth": "1920",
+    "timelineResolutionHeight": "1080",
+    "timelineFrameRate": 24.0,
+    "timelinePlaybackFrameRate": "30"
+  },
+  "viewer": {
+    "zoom_percent": 40,
+    "channel": "Color",
+    "background": "checkerboard for transparent pixels",
+    "note": "Viewer screenshots are display evidence, not colorimetric exports."
+  },
+  "graph": "fixture.comp",
+  "settings": "readback.json",
+  "source": {
+    "file": "screen.png",
+    "size": [
+      3352,
+      1910
+    ],
+    "sha256": "225118f356fc189745f69e3abf9b72ef631643f4989d9236a6064c96b5686fd4"
+  },
+  "shots": [
+    {
+      "file": "graph.png",
+      "source": "screen.png",
+      "source_sha256": "225118f356fc189745f69e3abf9b72ef631643f4989d9236a6064c96b5686fd4",
+      "frame": 0.0,
+      "crop_xyxy": [
+        480,
+        1300,
+        2380,
+        1450
+      ],
+      "resampled": false,
+      "sha256": "ce74f269b43f7b700ba75448edaf54921f6492437ad13e042393ae030f6b42f3"
+    },
+    {
+      "file": "inspector.png",
+      "source": "screen.png",
+      "source_sha256": "225118f356fc189745f69e3abf9b72ef631643f4989d9236a6064c96b5686fd4",
+      "frame": 0.0,
+      "crop_xyxy": [
+        2830,
+        120,
+        3352,
+        390
+      ],
+      "resampled": false,
+      "sha256": "c9bb2da5d15a8ffbc29d3997e1e48e9640377773f3bfd911b8cc926b7df7dd4d"
+    },
+    {
+      "file": "compare.png",
+      "source": "screen.png",
+      "source_sha256": "225118f356fc189745f69e3abf9b72ef631643f4989d9236a6064c96b5686fd4",
+      "frame": 0.0,
+      "crop_xyxy": [
+        1146,
+        65,
+        2830,
+        705
+      ],
+      "resampled": false,
+      "sha256": "66d7774e69b906a69f00322de61cd8ca21639a44679b76a0d90b930e25018d7a"
+    },
+    {
+      "file": "adjust-plus-inspector.png",
+      "source": "screen-adjust-plus.png",
+      "source_sha256": "f6787cf1b4cfb83a62b2f5b13f8b10c2007edf2a36aa5899c268cdc555e9be52",
+      "frame": 0.0,
+      "crop_xyxy": [
+        2830,
+        120,
+        3352,
+        390
+      ],
+      "resampled": false,
+      "sha256": "11d043e6b2935667e68bebb585522a2f8a7ed766604940e2bc1113b5e1e495ff"
+    },
+    {
+      "file": "adjust-plus.png",
+      "source": "screen-adjust-plus.png",
+      "source_sha256": "f6787cf1b4cfb83a62b2f5b13f8b10c2007edf2a36aa5899c268cdc555e9be52",
+      "frame": 0.0,
+      "crop_xyxy": [
+        1146,
+        65,
+        2830,
+        705
+      ],
+      "resampled": false,
+      "sha256": "df98489bc6c3a960661e3e05ef254d2bad02e255b71e0eb6d713557cc00afc5f"
+    },
+    {
+      "file": "adjust-minus-inspector.png",
+      "source": "screen-adjust-minus.png",
+      "source_sha256": "9c0217e702861d64b9d53531c02b49352da07f41bf5ab34a1debddc98f795ba9",
+      "frame": 0.0,
+      "crop_xyxy": [
+        2830,
+        120,
+        3352,
+        390
+      ],
+      "resampled": false,
+      "sha256": "b97c018ca2a6ee6745c13b967e1ea8ede93978a58d99e0b5ab9b6cb0ef432f3d"
+    },
+    {
+      "file": "adjust-minus.png",
+      "source": "screen-adjust-minus.png",
+      "source_sha256": "9c0217e702861d64b9d53531c02b49352da07f41bf5ab34a1debddc98f795ba9",
+      "frame": 0.0,
+      "crop_xyxy": [
+        1146,
+        65,
+        2830,
+        705
+      ],
+      "resampled": false,
+      "sha256": "0209b84996cb132875d19fa74cddbf5a994e86416321d70c3f80d89e490165e0"
+    },
+    {
+      "file": "left-bottom-plus-inspector.png",
+      "source": "screen-left-bottom-plus.png",
+      "source_sha256": "0a2c614405bc521844d3458a8594f57e79131b91d3b1f5515223af5bee704fe8",
+      "frame": 0.0,
+      "crop_xyxy": [
+        2830,
+        120,
+        3352,
+        390
+      ],
+      "resampled": false,
+      "sha256": "fba5405f9278591b19085859a471cbd1410a9c21a78c07b1891696e082da5c92"
+    },
+    {
+      "file": "left-bottom-plus.png",
+      "source": "screen-left-bottom-plus.png",
+      "source_sha256": "0a2c614405bc521844d3458a8594f57e79131b91d3b1f5515223af5bee704fe8",
+      "frame": 0.0,
+      "crop_xyxy": [
+        1146,
+        65,
+        2830,
+        705
+      ],
+      "resampled": false,
+      "sha256": "07e7ab059f61b7563d4b2c412f266676c970f429a02873ef0872a8c516c3ec04"
+    },
+    {
+      "file": "left-bottom-minus-inspector.png",
+      "source": "screen-left-bottom-minus.png",
+      "source_sha256": "240b90812dd3dfc8c14ce3888233a103af2ae1446c11099b9f7f236536caf63b",
+      "frame": 0.0,
+      "crop_xyxy": [
+        2830,
+        120,
+        3352,
+        390
+      ],
+      "resampled": false,
+      "sha256": "ca12398e15e22953c6488afc24b5644dcd68bbdccb52831fda4f080f8b1ec077"
+    },
+    {
+      "file": "left-bottom-minus.png",
+      "source": "screen-left-bottom-minus.png",
+      "source_sha256": "240b90812dd3dfc8c14ce3888233a103af2ae1446c11099b9f7f236536caf63b",
+      "frame": 0.0,
+      "crop_xyxy": [
+        1146,
+        65,
+        2830,
+        705
+      ],
+      "resampled": false,
+      "sha256": "b4b94aee3bf343842d4b4a1dfca3fbe56f72c9a18273d6166216ec4872d747ed"
+    },
+    {
+      "file": "set-full-inspector.png",
+      "source": "screen-set-full.png",
+      "source_sha256": "4ba88a016d069770e2254ebbeea4eb3d8a44b9f24f1d10ffe7393ce57bd1aae0",
+      "frame": 0.0,
+      "crop_xyxy": [
+        2830,
+        120,
+        3352,
+        390
+      ],
+      "resampled": false,
+      "sha256": "1a8f7f723b37d031401afcfeb459e9289d1c407cbd6033e4a875b78e42427998"
+    },
+    {
+      "file": "set-full.png",
+      "source": "screen-set-full-image.png",
+      "source_sha256": "648c66c7b524c11bed8ac29858ff6249cf33e672d3a59a8c805d48a4bc84be5d",
+      "frame": 0.0,
+      "crop_xyxy": [
+        1146,
+        65,
+        2830,
+        705
+      ],
+      "resampled": false,
+      "sha256": "7a3c37db73804e1e3be8819ffe4e49cb95554d9e0ca9177d7da3b1f5ea3da1a7"
+    },
+    {
+      "file": "set-half-inspector.png",
+      "source": "screen-set-half.png",
+      "source_sha256": "34854c574ac2dc3468adabc28ffa137eb9d8a25082f8d4f068ed44551e445e4d",
+      "frame": 0.0,
+      "crop_xyxy": [
+        2830,
+        120,
+        3352,
+        390
+      ],
+      "resampled": false,
+      "sha256": "ffbb966dc4a3af52a2249175530535a575ffb42b8e2a99168a0a4e73cdd9eff3"
+    },
+    {
+      "file": "set-half.png",
+      "source": "screen-set-half-image.png",
+      "source_sha256": "3a9cc510c80d3bea3d223267928e1fd982e48e6422743a516d996bd00e182619",
+      "frame": 0.0,
+      "crop_xyxy": [
+        1146,
+        65,
+        2830,
+        705
+      ],
+      "resampled": false,
+      "sha256": "2561ca45727e224f73350000f709e56bcbb104e450ffb02d409c9e2d99dd1f26"
+    }
+  ],
+  "acceptance": {
+    "gui": "PASS: owner visually inspected node connections, selected Inspector, and output",
+    "article_display": "PASS: local production build;1440px/390px decode/Alt/native links/hash/overflow"
+  },
+  "unverified": [
+    "Free edition and other platforms",
+    "All parameter ranges and performance",
+    "Foreground DoD transfer, other Combine modes, downstream Blur/Crop and performance",
+    "Exported portable composition reimport"
+  ],
+  "state_variants": {
+    "screen.png": "Adjust four0 Copy; input/output DoD640,360–1280,720",
+    "screen-adjust-plus.png": "AdjustRight/Top+.1 →1472,828",
+    "screen-adjust-minus.png": "AdjustRight/Top−.1 →1088,612; clipped",
+    "screen-left-bottom-plus.png": "AdjustLeft/Bottom+.1 →832,468; clipped",
+    "screen-left-bottom-minus.png": "AdjustLeft/Bottom−.1 →448,252; expanded",
+    "screen-set-full.png": "GUI ModeSet L/B0 R/T1; red editing controls overlay Viewers; Inspector only adopted",
+    "screen-set-full-image.png": "same SetFull, MediaOut selected removes editing guides; DoD0,0–1920,1080",
+    "screen-set-half.png": "Set L/B0 R/T.5; editing guides overlay; Inspector only adopted",
+    "screen-set-half-image.png": "same SetHalf MediaOut selected; DoD0,0–960,540, clipped content; dimensions1920x1080",
+    "screen-restored.png": "Adjust four0 Copy, SetRight/Top1, DoD/RoI off, saved"
+  },
+  "restoration": "PASS: owned scratch saved, frame0/both Color40%, Spline/Keyframes closed, RoI/DoD off, no popup; SetDomain Adjust four0, SetRight/Top1, CombineCopy",
+  "manual_runtime_difference": "Manual111 pp2603–2604 says positive Adjust shrinks DoD generally; native21.1.0.14 positive Left/Bottom shrink while positive Right/Top expand. Set R/T1→.5 moves borders left/down.",
+  "parameter_readback_scope": "Number/Text/Point/FuID/Clip only; no Image/Mask/3D/ScriptVal payload evaluation.",
+  "reproduction": {
+    "fixture_sha256": "3f3a457c912d00f2a2ba863d12e2fc85111514325a5a25eadd6b9f3a70e13f9f",
+    "readback_sha256": "37a4b50a28ce4e51b1366ed2fb0eb8217a07da28ddf16607bc901a29f0d20ab9",
+    "paths": "Comp:/../_fixtures/ for bundled synthetic fixtures",
+    "reimport": "NOT_RUN: accepted GUI evidence precedes export path normalization"
+  }
+}

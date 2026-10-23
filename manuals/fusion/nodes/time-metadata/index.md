@@ -187,6 +187,20 @@ S48ではfloat32のGradientをChange Depthへ接続し、int16を選びました
 
 Resolve Studio21.1.0.14／Windows、両Viewer Color／40%。設定とViewer表示の固定例。Dither画質・Effect Mask・memory/性能は未確認。 [再現用Graph](/img/fusion/captures/S48/fixture.comp) · [撮影条件と確認範囲](/img/fusion/captures/S48/capture.json)
 
+### 実機の参考例：画像寸法とDoDを見分ける
+
+<!-- capture-reuse:R88 -->
+
+S50ではAuto Domainの初期4値0で、フルフレームのDoDが中央の矩形へ絞られました。寸法は1920×1080のままです。
+
+[![透明PNGをLoaderからAutoDomain1、MediaOut1へ接続した実機Node Editor](/img/fusion/captures/S50/graph.png)](/img/fusion/captures/S50/graph.png)
+
+[![Auto Domainの左・下・右・上がすべて0の実機Inspector](/img/fusion/captures/S50/inspector.png)](/img/fusion/captures/S50/inspector.png)
+
+[![左LoaderのDoDは0,0から1920,1080、右Auto Domainは640,360から1280,720。画像寸法は両方1920×1080](/img/fusion/captures/S50/compare.png)](/img/fusion/captures/S50/compare.png)
+
+Resolve Studio21.1.0.14／Windows、両Viewer Color／40%。透明PNGの固定例。Canvas color、Mask、動く素材、性能は未確認。 [再現用Graph](/img/fusion/captures/S50/fixture.comp) · [撮影条件と確認範囲](/img/fusion/captures/S50/capture.json)
+
 ## 計算・切替・外部連携
 
 [Custom Tool](./custom-tool.md)はImageやMatteから画素値を読み、数式でRGB・Alphaなどのチャンネルを計算します。`Number In`などのControlをInspectorに出せます。`Setup`はフレーム単位、`Intermediate`とチャンネル式は画素単位で評価します。

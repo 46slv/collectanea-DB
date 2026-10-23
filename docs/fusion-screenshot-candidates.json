@@ -2,7 +2,7 @@
   "schema_version": 1,
   "created": "2026-10-20",
   "scope": "All Fusion pages, DaVinci Resolve 21.1",
-  "status_note": "2026-10-24:110 pages249 crops462 placements public PASS through PR82. S48/S49/R83/R84 add19 native crops and8 reuse placements; local4 pages52 images PASS. Cumulative112 pages268 crops489 placements; batch11 public NOT_RUN. Whole587-page Fusion and remaining_views incomplete; Dot batch10 delivered.",
+  "status_note": "2026-10-24:112 pages268 crops489 placements public PASS through PR85. S50/S51/R85–R88 add26 native crops and12 reuse placements;local5 distinct pages65 images PASS. Cumulative115 pages294 crops527 placements;batch12 public NOT_RUN. Whole587-page Fusion and remaining_views incomplete.",
   "asset_directory_template": "static/img/fusion/captures/{id}/{shot.slug}.png",
   "capture_manifest_name": "capture.json",
   "candidates": [
@@ -2257,7 +2257,7 @@
         "printed_pages": "2582–2583"
       },
       "goal": "Depthと実Viewerの精度表示を対応させる",
-      "status": "captured-local-display-verified",
+      "status": "published-display-verified",
       "shots": [
         {
           "slug": "graph",
@@ -2320,7 +2320,8 @@
           "status": "native-observed"
         }
       ],
-      "capture_manifest": "static/img/fusion/captures/S48/capture.json"
+      "capture_manifest": "static/img/fusion/captures/S48/capture.json",
+      "published_batch": "fusion-native-20261024-11"
     },
     {
       "id": "S49",
@@ -2332,7 +2333,7 @@
         "printed_pages": "2967–2969; ch103 pp2363–2365"
       },
       "goal": "X/Y変位・Seethe Rateの時間差・局所Maskを比較する",
-      "status": "captured-local-display-verified",
+      "status": "published-display-verified",
       "shots": [
         {
           "slug": "graph",
@@ -2389,7 +2390,194 @@
           "status": "native-observed"
         }
       ],
-      "capture_manifest": "static/img/fusion/captures/S49/capture.json"
+      "capture_manifest": "static/img/fusion/captures/S49/capture.json",
+      "published_batch": "fusion-native-20261024-11"
+    },
+    {
+      "id": "S50",
+      "priority": "P1",
+      "article": "manuals/fusion/nodes/time-metadata/auto-domain.md",
+      "manual": {
+        "version": "21.1",
+        "chapter": 111,
+        "printed_pages": "2580–2582; ch68 pp1479–1480"
+      },
+      "goal": "Compare image dimensions, detected DoD and actual border directions",
+      "status": "captured-local-display-verified",
+      "shots": [
+        {
+          "slug": "graph",
+          "kind": "node-graph",
+          "target": "AutoDomain",
+          "status": "native-observed"
+        },
+        {
+          "slug": "inspector",
+          "kind": "inspector",
+          "target": "AutoDomain",
+          "status": "native-observed"
+        },
+        {
+          "slug": "compare",
+          "kind": "output",
+          "target": "AutoDomain",
+          "status": "native-observed"
+        },
+        {
+          "slug": "right-plus-inspector",
+          "kind": "inspector",
+          "target": "AutoDomain",
+          "status": "native-observed"
+        },
+        {
+          "slug": "right-plus",
+          "kind": "output",
+          "target": "AutoDomain",
+          "status": "native-observed"
+        },
+        {
+          "slug": "right-minus-inspector",
+          "kind": "inspector",
+          "target": "AutoDomain",
+          "status": "native-observed"
+        },
+        {
+          "slug": "right-minus",
+          "kind": "output",
+          "target": "AutoDomain",
+          "status": "native-observed"
+        },
+        {
+          "slug": "top-plus-inspector",
+          "kind": "inspector",
+          "target": "AutoDomain",
+          "status": "native-observed"
+        },
+        {
+          "slug": "top-plus",
+          "kind": "output",
+          "target": "AutoDomain",
+          "status": "native-observed"
+        },
+        {
+          "slug": "top-minus-inspector",
+          "kind": "inspector",
+          "target": "AutoDomain",
+          "status": "native-observed"
+        },
+        {
+          "slug": "top-minus",
+          "kind": "output",
+          "target": "AutoDomain",
+          "status": "native-observed"
+        }
+      ],
+      "capture_manifest": "static/img/fusion/captures/S50/capture.json"
+    },
+    {
+      "id": "S51",
+      "priority": "P1",
+      "article": "manuals/fusion/nodes/time-metadata/set-domain.md",
+      "manual": {
+        "version": "21.1",
+        "chapter": 111,
+        "printed_pages": "2602–2604; ch68 pp1479–1480"
+      },
+      "goal": "Compare image dimensions, detected DoD and actual border directions",
+      "status": "captured-local-display-verified",
+      "shots": [
+        {
+          "slug": "graph",
+          "kind": "node-graph",
+          "target": "SetDomain",
+          "status": "native-observed"
+        },
+        {
+          "slug": "inspector",
+          "kind": "inspector",
+          "target": "SetDomain",
+          "status": "native-observed"
+        },
+        {
+          "slug": "compare",
+          "kind": "output",
+          "target": "SetDomain",
+          "status": "native-observed"
+        },
+        {
+          "slug": "adjust-plus-inspector",
+          "kind": "inspector",
+          "target": "SetDomain",
+          "status": "native-observed"
+        },
+        {
+          "slug": "adjust-plus",
+          "kind": "output",
+          "target": "SetDomain",
+          "status": "native-observed"
+        },
+        {
+          "slug": "adjust-minus-inspector",
+          "kind": "inspector",
+          "target": "SetDomain",
+          "status": "native-observed"
+        },
+        {
+          "slug": "adjust-minus",
+          "kind": "output",
+          "target": "SetDomain",
+          "status": "native-observed"
+        },
+        {
+          "slug": "left-bottom-plus-inspector",
+          "kind": "inspector",
+          "target": "SetDomain",
+          "status": "native-observed"
+        },
+        {
+          "slug": "left-bottom-plus",
+          "kind": "output",
+          "target": "SetDomain",
+          "status": "native-observed"
+        },
+        {
+          "slug": "left-bottom-minus-inspector",
+          "kind": "inspector",
+          "target": "SetDomain",
+          "status": "native-observed"
+        },
+        {
+          "slug": "left-bottom-minus",
+          "kind": "output",
+          "target": "SetDomain",
+          "status": "native-observed"
+        },
+        {
+          "slug": "set-full-inspector",
+          "kind": "inspector",
+          "target": "SetDomain",
+          "status": "native-observed"
+        },
+        {
+          "slug": "set-full",
+          "kind": "output",
+          "target": "SetDomain",
+          "status": "native-observed"
+        },
+        {
+          "slug": "set-half-inspector",
+          "kind": "inspector",
+          "target": "SetDomain",
+          "status": "native-observed"
+        },
+        {
+          "slug": "set-half",
+          "kind": "output",
+          "target": "SetDomain",
+          "status": "native-observed"
+        }
+      ],
+      "capture_manifest": "static/img/fusion/captures/S51/capture.json"
     }
   ],
   "publication_batches": [
@@ -2748,27 +2936,55 @@
         "artifacts/fusion-captures/public-batch10-assets.json"
       ],
       "limitations": "Whole587-page Fusion and article remaining_views continue. S48 stage accepted; S49 mask GUI NOT_RUN after host exit/recovery."
+    },
+    {
+      "id": "fusion-native-20261024-11",
+      "cases": [
+        "S48",
+        "S49"
+      ],
+      "reuses": [
+        "R83",
+        "R84"
+      ],
+      "pr": "https://github.com/46slv/collectanea-DB/pull/85",
+      "candidate": "af739dcd163409ae83a3aa17e589b5ae91124682",
+      "main": "3c74fcf183f4e35d3c204669abaa976501ac3a09",
+      "tree": "08de35968534dc6aa73c06d1bc4c4a32798a6d6d",
+      "quality_run": "https://github.com/46slv/collectanea-DB/actions/runs/40022969330",
+      "pages_run": "https://github.com/46slv/collectanea-DB/actions/runs/40023852668",
+      "public_pages": 4,
+      "public_images": 52,
+      "new_placements": 27,
+      "new_native_crops": 19,
+      "public_asset_hashes": 772,
+      "result": "PASS",
+      "evidence": [
+        "artifacts/fusion-captures/public-batch11-display-report.json",
+        "artifacts/fusion-captures/public-batch11-assets.json"
+      ],
+      "limitations": "Whole587-page Fusion and remaining_views continue. S50/S51 native work stage only; public NOT_RUN."
     }
   ],
   "coverage_inventory": {
-    "checked_at": "2026-10-23T20:54:03.227933+00:00",
+    "checked_at": "2026-10-23T21:16:26.535535+00:00",
     "scope": "All manuals/fusion Markdown and MDX pages; review necessity before adding images.",
     "completion_rule": "Every page has an explicit image decision; necessary images are native-observed, embedded, saved to GitHub and public-display-verified. A native example does not verify all article controls.",
     "summary": {
       "total_pages": 587,
-      "with_images": 112,
-      "with_native_examples": 112,
+      "with_images": 115,
+      "with_native_examples": 115,
       "states": {
         "reviewed-no-standalone-image": 26,
         "no-standalone-image-needed": 6,
-        "illustrated-reused-example": 65,
-        "capture-planned": 443,
-        "illustrated-native-example": 47
+        "illustrated-reused-example": 66,
+        "capture-planned": 440,
+        "illustrated-native-example": 49
       },
       "decisions": {
         "no-standalone-image-needed": 32,
-        "image-required": 112,
-        "capture-needed": 443
+        "image-required": 115,
+        "capture-needed": 440
       }
     },
     "pages": [
@@ -3377,15 +3593,22 @@
         "article": "manuals/fusion/learn/03-space/domain-of-definition.md",
         "title": "有効領域（Domain of Definition）",
         "kind": "concept",
-        "image_count": 4,
+        "image_count": 9,
         "native_cases": [
           "S26"
         ],
-        "reused_cases": [],
+        "reused_cases": [
+          "S50",
+          "S51"
+        ],
         "planned_cases": [],
         "state": "illustrated-native-example",
         "decision": "image-required",
-        "reason": "Show DoDの矩形とframe外枠、RoI設定・解除の実画面。"
+        "reason": "Show DoDの矩形とframe外枠、RoI設定・解除の実画面。",
+        "remaining_views": [
+          "Blur/Cropの境界、Canvas color、動的素材と性能"
+        ],
+        "audit_note": "S50/S51固定例とManualとの差を掲載。全control/性能はpartial維持。"
       },
       {
         "article": "manuals/fusion/learn/03-space/normalized-coordinates.md",
@@ -3736,13 +3959,19 @@
         "article": "manuals/fusion/learn/07-debugging/resolution-domain-of-definition.md",
         "title": "Resolution / Domain of Definitionを確認する",
         "kind": "concept",
-        "image_count": 0,
+        "image_count": 4,
         "native_cases": [],
-        "reused_cases": [],
+        "reused_cases": [
+          "S51"
+        ],
         "planned_cases": [],
-        "state": "capture-planned",
-        "decision": "capture-needed",
-        "reason": "Transformで外へ移動して戻す枝と、中間Cropで失う枝、DoDと寸法の比較。"
+        "state": "illustrated-reused-example",
+        "decision": "image-required",
+        "reason": "Transformで外へ移動して戻す枝と、中間Cropで失う枝、DoDと寸法の比較。",
+        "remaining_views": [
+          "Transform往復とCrop/Blurの実出力"
+        ],
+        "audit_note": "S50/S51固定例とManualとの差を掲載。全control/性能はpartial維持。"
       },
       {
         "article": "manuals/fusion/learn/07-debugging/trace-data-domain.md",
@@ -16025,13 +16254,18 @@
         "article": "manuals/fusion/nodes/time-metadata/auto-domain.md",
         "title": "Auto Domain",
         "kind": "node",
-        "image_count": 0,
-        "native_cases": [],
+        "image_count": 11,
+        "native_cases": [
+          "S50"
+        ],
         "reused_cases": [],
         "planned_cases": [],
-        "state": "capture-planned",
-        "decision": "capture-needed",
+        "state": "illustrated-native-example",
+        "decision": "image-required",
         "reason": "本文の対象機能: Auto Domainは、Image内容からDomain of Definition（DoD）を自動設定するNode。。見た目が同じでもDoD/bit depthは異なり通常Blur画像では証明できない。",
+        "remaining_views": [
+          "Left/Bottomの増減、動く素材、Canvas color、Mask、性能"
+        ],
         "required_views": [
           "対象名と実接続が読めるGraph",
           "対象自身を選択したInspectorの該当Control",
@@ -16053,7 +16287,8 @@
         ],
         "hold_conditions": [
           "メモリ/GPU性能をUI値や画面だけで推測しない。"
-        ]
+        ],
+        "audit_note": "S50/S51固定例とManualとの差を掲載。全control/性能はpartial維持。"
       },
       {
         "article": "manuals/fusion/nodes/time-metadata/change-depth.md",
@@ -16266,7 +16501,7 @@
         "article": "manuals/fusion/nodes/time-metadata/index.md",
         "title": "Time / Metadata / Utilityノード",
         "kind": "index",
-        "image_count": 23,
+        "image_count": 26,
         "native_cases": [],
         "reused_cases": [
           "S40",
@@ -16276,7 +16511,8 @@
           "S45",
           "S46",
           "S47",
-          "S48"
+          "S48",
+          "S50"
         ],
         "planned_cases": [],
         "state": "illustrated-reused-example",
@@ -16284,9 +16520,9 @@
         "reason": "Source Time、Keyframe評価、Metadata subviewやDoDの実画面を示す。",
         "remaining_views": [
           "Flow/SpeedWarp/Fields/Keyframe Stretcher等の比較",
-          "DoD/Custom Tool等の自身のUIと結果"
+          "Custom Tool等の自身のUIと結果"
         ],
-        "audit_note": "S48/S49の固定実機例を掲載。全control/画質/性能の完成とは区別しpartial維持。"
+        "audit_note": "S50/S51固定例とManualとの差を掲載。全control/性能はpartial維持。"
       },
       {
         "article": "manuals/fusion/nodes/time-metadata/keyframe-stretcher.md",
@@ -16368,13 +16604,18 @@
         "article": "manuals/fusion/nodes/time-metadata/set-domain.md",
         "title": "Set Domain",
         "kind": "node",
-        "image_count": 0,
-        "native_cases": [],
+        "image_count": 15,
+        "native_cases": [
+          "S51"
+        ],
         "reused_cases": [],
         "planned_cases": [],
-        "state": "capture-planned",
-        "decision": "capture-needed",
+        "state": "illustrated-native-example",
+        "decision": "image-required",
         "reason": "本文の対象機能: Set Domainは、ImageのDomain of Definition（DoD）を手動で設定・調整するNode。。見た目が同じでもDoD/bit depthは異なり通常Blur画像では証明できない。",
+        "remaining_views": [
+          "ForegroundとCombine、後段Blur/Crop、性能"
+        ],
         "required_views": [
           "対象名と実接続が読めるGraph",
           "対象自身を選択したInspectorの該当Control",
@@ -16396,7 +16637,8 @@
         ],
         "hold_conditions": [
           "メモリ/GPU性能をUI値や画面だけで推測しない。"
-        ]
+        ],
+        "audit_note": "S50/S51固定例とManualとの差を掲載。全control/性能はpartial維持。"
       },
       {
         "article": "manuals/fusion/nodes/time-metadata/set-metadata.md",
@@ -21332,8 +21574,9 @@
         "inspector.png",
         "compare.png"
       ],
-      "status": "embedded-local-display-verified",
-      "scope": "設定とViewer表示の固定例。Dither画質・Effect Mask・memory/性能は未確認。"
+      "status": "published-display-verified",
+      "scope": "設定とViewer表示の固定例。Dither画質・Effect Mask・memory/性能は未確認。",
+      "published_batch": "fusion-native-20261024-11"
     },
     {
       "id": "R84",
@@ -21346,8 +21589,57 @@
         "masked24.png",
         "map-inspector.png"
       ],
+      "status": "published-display-verified",
+      "scope": "X/Yの両ChannelはLuminance、X Refraction0.015/Y0。Polygon、実写、縦変位、連続再生性能は未確認。",
+      "published_batch": "fusion-native-20261024-11"
+    },
+    {
+      "id": "R85",
+      "article": "manuals/fusion/learn/03-space/domain-of-definition.md",
+      "source_case": "S50",
+      "images": [
+        "inspector.png",
+        "compare.png"
+      ],
       "status": "embedded-local-display-verified",
-      "scope": "X/Yの両ChannelはLuminance、X Refraction0.015/Y0。Polygon、実写、縦変位、連続再生性能は未確認。"
+      "scope": "静止PNGのみ。動く素材、Canvas color、Mask、性能は未確認。"
+    },
+    {
+      "id": "R86",
+      "article": "manuals/fusion/learn/03-space/domain-of-definition.md",
+      "source_case": "S51",
+      "images": [
+        "inspector.png",
+        "set-half-inspector.png",
+        "set-half.png"
+      ],
+      "status": "embedded-local-display-verified",
+      "scope": "Set Domainの固定例。Transformで戻せるか、BlurやCropでの境界は未確認。"
+    },
+    {
+      "id": "R87",
+      "article": "manuals/fusion/learn/07-debugging/resolution-domain-of-definition.md",
+      "source_case": "S51",
+      "images": [
+        "graph.png",
+        "inspector.png",
+        "set-half-inspector.png",
+        "set-half.png"
+      ],
+      "status": "embedded-local-display-verified",
+      "scope": "Set Domainの固定例。Transformの往復やCrop、後段Filterの挙動を証明する画像ではありません。"
+    },
+    {
+      "id": "R88",
+      "article": "manuals/fusion/nodes/time-metadata/index.md",
+      "source_case": "S50",
+      "images": [
+        "graph.png",
+        "inspector.png",
+        "compare.png"
+      ],
+      "status": "embedded-local-display-verified",
+      "scope": "透明PNGの固定例。Canvas color、Mask、動く素材、性能は未確認。"
     }
   ]
 }

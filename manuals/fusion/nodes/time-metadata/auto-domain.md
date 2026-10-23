@@ -77,37 +77,55 @@ Image → Set Canvas Color → Auto Domain → Result
 
 ## 主な設定項目
 
-通常はAuto DomainがDoDを自動計算しますが、InspectorのControls tabで**探索する矩形範囲**を制限できます。
+21.1 Manualでは、Left / Bottom / Right / Topを内容の探索範囲として説明し、Right / Topの既定値を1としています。ただし、撮影したResolve Studio 21.1.0.14では4項目とも初期値が0で、検出済みDoDの境界を相対的に動かしました。Manualの説明と、この環境で見えた動作を分けて扱います。
 
-### Left
+### Left / Bottom
 
-探索範囲の左端です。値を上げるほど左側を除外し、境界が右へ移動します。
+Manualでは、Leftを増やすと左端が右へ、Bottomを増やすと下端が上へ動くと説明されています。S50では両方を0のままにしており、この2項目の増減は未確認です。
 
-21.1 Manualでは0がImage左端、1が右端で、defaultは0です。
+### Right / Top
 
-### Bottom
+この実機例では、Rightを0から0.1にすると右端が右へ広がり、−0.1では左へ狭まりました。Topも、0.1では上へ広がり、−0.1では下へ狭まります。変化量は入力フレームの幅・高さを基準とし、1920×1080の例で0.1は横192px、縦108pxに対応しました。
 
-探索範囲の下端です。値を上げるほど下側を除外し、境界が上へ移動します。
+DoDを内容より狭くすると、その外側の矩形がViewerから欠けます。値の符号だけで判断せず、DoD表示と画像内容を確認してください。
 
-0がImage下端、1が上端で、defaultは0です。
+## 実機で自動検出と境界の変化を見る
 
-### Right
+Resolve Studio 21.1.0.14、Windows、日本語UIで、1920×1080の透明PNGにオレンジの矩形を置きました。矩形は左下640,360から右上1280,720の範囲です。出力フレーム0、両ViewerはColor／40%、RoIは無効にしています。
 
-探索範囲の右端を指定します。
+[![透明PNGをLoaderからAutoDomain1、MediaOut1へ接続した実機Node Editor](/img/fusion/captures/S50/graph.png)](/img/fusion/captures/S50/graph.png)
 
-21.1 Manualでは、0がImage左端、1が右端、defaultは1と記載されています。一方、同じControlの説明には「値を上げるほど右端が左へ移動する」という記述もあり、座標scaleの説明と増減方向の説明が一致しません。
+[![Auto Domainの左・下・右・上がすべて0の実機Inspector](/img/fusion/captures/S50/inspector.png)](/img/fusion/captures/S50/inspector.png)
 
-そのため、実機確認までは値の増減方向をこのページで断定しません。右側の探索範囲を狭める場合は、ViewerでDoDを確認しながら調整してください。
+[![左LoaderのDoDは0,0から1920,1080、右Auto Domainは640,360から1280,720。画像寸法は両方1920×1080](/img/fusion/captures/S50/compare.png)](/img/fusion/captures/S50/compare.png)
 
-### Top
+左のLoaderはフレーム全体のDoD、右のAuto Domainは矩形を囲むDoDになりました。点線枠と座標が変わっても、画像情報は両方とも1920×1080のままです。runtime REGIDは`AutoDomain`でした。
 
-探索範囲の上端を指定します。
+まず「右」をGUIで0.1へ変更し、続いて−0.1と比較しました。
 
-21.1 Manualでは、0がImage下端、1が上端、defaultは1と記載されています。一方、同じControlの説明には「値を上げるほど上端が下へ移動する」という記述もあり、座標scaleの説明と増減方向の説明が一致しません。
+[![Auto Domainの右を0.1にしたInspector](/img/fusion/captures/S50/right-plus-inspector.png)](/img/fusion/captures/S50/right-plus-inspector.png)
 
-そのため、実機確認までは値の増減方向をこのページで断定しません。上側の探索範囲を狭める場合は、ViewerでDoDを確認しながら調整してください。
+[![右0.1でDoDの右端が1280から1472へ広がり、オレンジ矩形の外にも点線枠がある](/img/fusion/captures/S50/right-plus.png)](/img/fusion/captures/S50/right-plus.png)
 
-Left / Bottom / Right / TopはImageをCropするControlsではなく、Auto Domainが内容を探す範囲を決めるためのControlsです。
+[![Auto Domainの右をマイナス0.1にしたInspector](/img/fusion/captures/S50/right-minus-inspector.png)](/img/fusion/captures/S50/right-minus-inspector.png)
+
+[![右マイナス0.1でDoDの右端が1088になり、矩形の右側が欠ける](/img/fusion/captures/S50/right-minus.png)](/img/fusion/captures/S50/right-minus.png)
+
+0.1では右端が1472へ広がり、−0.1では1088へ狭まりました。後者では矩形の右側も欠けています。左端640と下端360は変えていません。
+
+右を0へ戻し、今度は「上」を0.1、−0.1へ変更しました。
+
+[![Auto Domainの上を0.1にしたInspector](/img/fusion/captures/S50/top-plus-inspector.png)](/img/fusion/captures/S50/top-plus-inspector.png)
+
+[![上0.1でDoDの上端が720から828へ広がる](/img/fusion/captures/S50/top-plus.png)](/img/fusion/captures/S50/top-plus.png)
+
+[![Auto Domainの上をマイナス0.1にしたInspector](/img/fusion/captures/S50/top-minus-inspector.png)](/img/fusion/captures/S50/top-minus-inspector.png)
+
+[![上マイナス0.1でDoDの上端が612になり、矩形の上側が欠ける](/img/fusion/captures/S50/top-minus.png)](/img/fusion/captures/S50/top-minus.png)
+
+上端は720から828、612へ変わりました。最後は4項目を0へ戻し、DoD表示とRoIを解除して保存しています。これは静止PNGの固定例です。動く素材への追従、Canvas colorの変更、Mask、左・下の増減、処理時間、Free editionや他OSは未確認です。
+
+[再現用Graph](/img/fusion/captures/S50/fixture.comp) · [撮影条件と確認範囲](/img/fusion/captures/S50/capture.json)
 
 ## 主な用途
 
@@ -156,7 +174,7 @@ contentのboundsへ自動追従させたいならAuto Domain、明示的な範�
 - Canvas colorの設定が素材と合っていないと、意図したcontent boundsを検出できない可能性があります。
 - すでに適切なDoDを持つ素材では、追加する意味が小さい場合があります。
 - DoDは「Imageに有効dataがある範囲」、Region of Interest（RoI）は「今回renderを要求する範囲」で別の概念です。
-- runtime REGID、Effects Library上のcurrent表示、edition差、Effect MaskがDoD計算へ与えるexactな挙動は、このページの確認範囲では断定していません。
+- S50で確認したREGIDと境界の変化は撮影環境のものです。Effects Library上の表示、edition差、Maskの作用は未確認です。
 
 ## 関連する考え方
 
@@ -175,6 +193,4 @@ DaVinci Resolve 21.1 Reference Manual（September 2026）Chapter 111「Miscellan
 
 確認した項目は、Canvas colorを基準にしたDoDの自動計算、Image dimensionsを変更しないこと、frameごとの更新、Input / Effect Mask、`Left` / `Bottom` / `Right` / `Top`、Set Canvas Colorを使う構成、OpenEXRと一般clipのDoDの扱いです。
 
-`Right` / `Top`は、21.1 Manual内で座標scaleの説明と値を増やしたときの移動方向が一致していません。このページでは一方を推測で採用せず、増減方向を実機確認待ちとして扱います。
-
-runtime REGID、Effects Library上のcurrent表示、edition差、Effect MaskのDoD計算に対するexactな挙動、`Right` / `Top`の実機上の増減方向は別verification対象として残しているため、`verification: partial`を維持しています。
+S50では、初期値、DoDの自動検出、Right / Topの正負による境界の変化と画像寸法を実機確認しました。ManualのRight / Topの既定値・増減方向とは一致しないため、本文に環境と値を明記しています。動く素材、Canvas color、Mask、左・下、性能、版別の差は未確認のため、`verification: partial`を維持します。
