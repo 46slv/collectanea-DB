@@ -50,6 +50,42 @@ MediaInの接続先: Displaceの橙 Input（変形する元画像）
 7. 画面全体で効果が確認できたら、Polygonなどで熱気の領域を囲み、Displaceの**青 Effect Mask**へ接続します。境界が目立つ場合はMaskの縁を滑らかにします。背景全体のゆがみと、熱気領域だけのゆがみを比較してください。
 8. 最後に複数の時点で再生し、変位が強すぎて被写体の輪郭が崩れないか、Maskの境界が映らないか、画面端で不自然な伸びがないかを確認します。
 
+## 実機で横揺れと局所Maskを比べる
+
+Resolve Studio 21.1.0.14、Windows、日本語UIで、1920×1080の静止チャートを使いました。両ViewerはColor／40%です。この固定例ではX側だけを動かし、手順中のPolygonの代わりにEllipseを使っています。
+
+[![静止チャートをDisplaceの橙Input、Fast Noiseを緑Foreground、Ellipseを青Effect Maskへ接続した最終Graph](/img/fusion/captures/S49/graph.png)](/img/fusion/captures/S49/graph.png)
+
+[![DisplaceのX/Yモード。X/Yとも輝度、X Refraction0.015、Y Refraction0、Light Power0](/img/fusion/captures/S49/inspector.png)](/img/fusion/captures/S49/inspector.png)
+
+上のGraphはマスク追加後の最終形です。まず青のEffect Maskをつながず、X/Yモード、両軸のRefraction ChannelをLuminance、X Refractionを0.015、Y Refractionを0にしました。Light Powerも0です。Fast NoiseはDetail4、Contrast1.4、Scale8、Seethe Rate0.4で固定しています。
+
+[![マスク未接続の出力0。右ではチャートの中央だけでなく外周の白枠も横に歪む](/img/fusion/captures/S49/unmasked0.png)](/img/fusion/captures/S49/unmasked0.png)
+
+[![同じ静止チャートとSeethe Rate0.4で出力24を表示。右の歪み方が出力0から変わる](/img/fusion/captures/S49/unmasked24.png)](/img/fusion/captures/S49/unmasked24.png)
+
+出力0と24を比べると、元の静止チャートは同じまま、右の歪み方が変わりました。マスクがない状態では外周の白枠も波打っています。
+
+[![Fast NoiseのDetail4、Contrast1.4、Scale8、Seethe Rate0.4を示すInspector](/img/fusion/captures/S49/map-inspector.png)](/img/fusion/captures/S49/map-inspector.png)
+
+[![左Viewerに変位マップのFast Noise、右に局所変位したチャート。Noise選択中のCenter操作表示も重なる](/img/fusion/captures/S49/map.png)](/img/fusion/captures/S49/map.png)
+
+左をNoiseMap1へ切り替えると、変位量に使う模様を確認できます。Noise選択中の画像にはCenterの操作表示も重なります。これは入力チャートへノイズ画像を重ねて合成した結果ではありません。
+
+次にEllipseをDisplaceの青いEffect Maskへ接続しました。Centerは0.5／0.5、Width0.45、Height0.6、Soft Edge0.04です。
+
+[![EllipseのSoft Edge0.04、Center0.5/0.5、Width0.45、Height0.6を示すInspector](/img/fusion/captures/S49/mask-inspector.png)](/img/fusion/captures/S49/mask-inspector.png)
+
+[![マスク接続後の出力0。左は静止チャート、右は中央が横に歪み、外周の白枠は直線を保つ](/img/fusion/captures/S49/compare.png)](/img/fusion/captures/S49/compare.png)
+
+[![マスク接続後の出力24。外周を保ちながら中央の横揺れが出力0から変わる](/img/fusion/captures/S49/masked24.png)](/img/fusion/captures/S49/masked24.png)
+
+マスク追加後は外周の白枠が直線を保ち、中央の格子や文字、カラーパッチが横に歪みます。出力24でも中央の歪み方が変わることを確認しました。最後はマスク接続あり、出力0へ戻して保存しています。
+
+これはチャートと固定値での配線・時刻差・局所範囲の確認です。実写素材での熱気らしさ、Polygon、縦方向の変位、すべての境界条件、連続再生の性能は未確認です。
+
+[再現用Graph](/img/fusion/captures/S49/fixture.comp) · [撮影条件と確認範囲](/img/fusion/captures/S49/capture.json)
+
 ## なぜこの構成で動くか
 
 Displaceは元の2D画像と、画素値を変位量として読む**別の2D画像**を受け取ります。Fast Noiseの模様が変わるとDisplaceが参照する位置も変わり、元映像が揺れて見えます。
@@ -100,4 +136,4 @@ Fast NoiseのScaleとDetailを変えて細かな変化を加えます。ただ�
 - Chapter 123、pp.2967–2969：Displaceの元画像・Foreground Image・Effect Mask、Radial / X/Y、Refraction Channel / Strength、Fast Noiseを用いた基本構成。
 - Chapter 103、pp.2363–2365：Fast NoiseのNoise Detail / Brightness Map、Scale、Contrast、Detail、Center、Seethe / Seethe Rate。
 
-**確認済み**：上記の入力役割、主な設定の働き、Fast NoiseをDisplaceのマップへ渡す基本構成。**制作手順はManualに基づく構成案**で、現行21.1実機での映像・描画・速度検証は行っていません。数値の既定値・範囲、特定素材に最適な値、版別の差は未確認のため断定していません。
+**Manualで確認**：上記の入力役割、主な設定の働き、Fast NoiseをDisplaceのマップへ渡す基本構成。S49では21.1実機で静止チャート・X/Yの横変位・Seethe Rateの時刻差・Ellipseによる局所範囲を確認しました。Polygonや実写での仕上がり、連続再生性能、全既定値・範囲、最適値、版別の差は未確認です。

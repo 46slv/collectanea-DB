@@ -64,7 +64,7 @@ ManualのEffect Mask説明にはこのNodeの役割と一致しない`blur`表�
 
 `Keep`は入力Imageのdepthを変更せず、そのまま維持します。その他の選択肢は、選んだ値へbit depthを変換します。
 
-21.1 ManualはこのControlの役割を説明していますが、本文中で全選択肢を列挙していません。このページでも、Manualで確認できていない選択肢を推測して追加しません。
+21.1 ManualはこのControlの役割を説明していますが、本文中で全選択肢を列挙していません。以下の実機例では、撮影環境のメニューにある5項目と、Keep／int8／int16の出力表示を確認しています。
 
 ### Dither
 
@@ -76,6 +76,38 @@ ManualのEffect Mask説明にはこのNodeの役割と一致しない`blur`表�
 - **Additive Noise**: 微小なnoiseを加え、段階的な変化が目立つのを抑える。
 
 特に高contrastなgradientなど、bit depthを下げたことで階調の段差が見えやすいImageで確認します。
+
+## 実機でDepthとViewerの表示を対応させる
+
+Resolve Studio 21.1.0.14、Windows、日本語UIで、float32の黒白Horizontal Gradientを入力しました。出力フレーム0、両ViewerはColor／40%です。画像の色だけで判断せず、Viewer上部の画像情報も確認します。
+
+[![黒白のHorizontal GradientからChangeDepth1を経由してMediaOut1へ接続した実機Graph](/img/fusion/captures/S48/graph.png)](/img/fusion/captures/S48/graph.png)
+
+[![実機のDepthメニュー。現状維持、int8、int16、float16、float32の5項目](/img/fusion/captures/S48/depth-menu.png)](/img/fusion/captures/S48/depth-menu.png)
+
+[![Depthの現状維持、DitherなしのInspector](/img/fusion/captures/S48/keep-inspector.png)](/img/fusion/captures/S48/keep-inspector.png)
+
+[![Depthの現状維持では、左右の画像ヘッダーがともにfloat32になる](/img/fusion/captures/S48/keep.png)](/img/fusion/captures/S48/keep.png)
+
+[![Change DepthのDepthをint16、Ditherをなしにした実機Inspector](/img/fusion/captures/S48/inspector.png)](/img/fusion/captures/S48/inspector.png)
+
+[![左のGradientは1920×1080 float32、右のChange Depth出力は1920×1080 int16と表示される](/img/fusion/captures/S48/compare.png)](/img/fusion/captures/S48/compare.png)
+
+[![Depthをint8、Ditherをなしへ変更したInspector](/img/fusion/captures/S48/int8-inspector.png)](/img/fusion/captures/S48/int8-inspector.png)
+
+[![入力のfloat32に対し、右Viewerの出力ヘッダーがint8になる](/img/fusion/captures/S48/int8.png)](/img/fusion/captures/S48/int8.png)
+
+「現状維持」では出力もfloat32、int16を選ぶと右の表示がint16、int8ではint8になりました。いずれも1920×1080のままです。この環境のDepthメニューには現状維持・int8・int16・float16・float32がありましたが、float16／float32への明示変換はこの例では試していません。
+
+int8のまま、Ditherを「誤差拡散」「付加ノイズ」へ順に切り替えたInspectorも撮影しました。
+
+[![int8へ変換する設定でDitherの誤差拡散を選択した実機Inspector](/img/fusion/captures/S48/error-inspector.png)](/img/fusion/captures/S48/error-inspector.png)
+
+[![同じint8設定でDitherの付加ノイズを選択した実機Inspector](/img/fusion/captures/S48/noise-inspector.png)](/img/fusion/captures/S48/noise-inspector.png)
+
+ここで確認したのは設定の選択とViewerのbit depth表示です。40%に縮小されたスクリーンショットだけで、Ditherの画質改善や量子化誤差の大きさを判定していません。最後はint16、Ditherなしへ戻しました。runtime REGIDは`ChangeDepth`です。Effect Mask、測色書き出し、memoryや処理時間、Free editionや他OSは未確認です。
+
+[再現用Graph](/img/fusion/captures/S48/fixture.comp) · [撮影条件と確認範囲](/img/fusion/captures/S48/capture.json)
 
 ## 主な用途
 
@@ -132,7 +164,7 @@ Change Depthは、見た目を直接作るEffectではなく、**後段をどの
 - bit depthを上げても、sourceに存在しないdetailや階調を新しく生成するわけではありません。
 - bit depthを下げるとmemoryと処理負荷を抑えられる場合がありますが、量子化artifactが増える可能性があります。
 - down conversionでは`Dither`の有無と方式をViewerで比較します。
-- `Depth`の全選択肢、内部Parameter ID、runtime REGID、Effects Library上のcurrent表示、edition差は、このページの確認範囲では断定していません。
+- 撮影環境のDepthメニューとREGIDは実機例の範囲で確認しました。全内部Parameter ID、edition差、他環境の選択肢は未確認です。
 
 ## 関連Node
 
@@ -148,4 +180,4 @@ DaVinci Resolve 21.1 Reference Manual（September 2026）、Chapter 111「Miscel
 
 確認した項目は、color channel bit depthを変更する役割、orange Input、blue Effect Mask、32-bit floating-pointから16-bit per channelへ変換する公式例、`Depth`、`Keep`、`Dither`、`Error Diffusion`、`Additive Noise`です。
 
-runtime REGID、内部Parameter ID、Manual本文に列挙されていないDepthの全選択肢、edition差、Effect Maskのexactな適用挙動は別verification対象として残しているため、`verification: partial`を維持しています。
+float16／float32への明示変換、Ditherの画質、全内部Parameter ID、edition差、Effect Maskの適用挙動は別verification対象として残しているため、`verification: partial`を維持しています。

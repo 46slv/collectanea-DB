@@ -1,0 +1,220 @@
+{
+  "schema_version": 1,
+  "case": "S48",
+  "article": "manuals/fusion/nodes/time-metadata/change-depth.md",
+  "manual": {
+    "version": "21.1",
+    "chapter": 111,
+    "printed_pages": "2582–2583"
+  },
+  "runtime": {
+    "version": "21.1.0.14",
+    "edition": "Studio",
+    "os": "Windows-11-10.0.26200-SP0",
+    "ui_language": "ja-JP (some Shape controls remain English)"
+  },
+  "captured_at": "2026-10-23T20:45:06.900737+00:00",
+  "project": "Collectanea_Captures_20261023_Sol",
+  "timeline": "S48_capture",
+  "frame": 0.0,
+  "resolution": [
+    1920,
+    1080
+  ],
+  "color_management": {
+    "colorScienceMode": "davinciYRGB",
+    "colorSpaceTimeline": "Rec.709 (Scene)",
+    "colorSpaceTimelineGamma": "",
+    "colorSpaceOutput": "Rec.709 (Scene)",
+    "colorSpaceOutputGamma": "ACEScc",
+    "separateColorSpaceAndGamma": "0",
+    "isAutoColorManage": "0",
+    "timelineResolutionWidth": "1920",
+    "timelineResolutionHeight": "1080",
+    "timelineFrameRate": 24.0,
+    "timelinePlaybackFrameRate": "30"
+  },
+  "viewer": {
+    "zoom_percent": 40,
+    "channel": "Color",
+    "background": "checkerboard for transparent pixels",
+    "note": "Viewer screenshots are display evidence, not colorimetric exports."
+  },
+  "graph": "fixture.comp",
+  "settings": "readback.json",
+  "source": {
+    "file": "screen.png",
+    "size": [
+      3352,
+      1910
+    ],
+    "sha256": "873adfd52ea51ea7233fdb02dab3801539655dc473d1bda991f6a353e7266a17"
+  },
+  "shots": [
+    {
+      "file": "graph.png",
+      "source": "screen.png",
+      "source_sha256": "873adfd52ea51ea7233fdb02dab3801539655dc473d1bda991f6a353e7266a17",
+      "frame": 0.0,
+      "crop_xyxy": [
+        580,
+        1300,
+        2280,
+        1450
+      ],
+      "resampled": false,
+      "sha256": "878e0e5b92102c05e058c3a7c1bc3fe9af0ceb3cf67cb8208bc91269476c6d78"
+    },
+    {
+      "file": "inspector.png",
+      "source": "screen.png",
+      "source_sha256": "873adfd52ea51ea7233fdb02dab3801539655dc473d1bda991f6a353e7266a17",
+      "frame": 0.0,
+      "crop_xyxy": [
+        2830,
+        120,
+        3352,
+        310
+      ],
+      "resampled": false,
+      "sha256": "25c747bf7eacf48c255e3a992c1303ce8f7cfb659527e1358421561656e2c21b"
+    },
+    {
+      "file": "compare.png",
+      "source": "screen.png",
+      "source_sha256": "873adfd52ea51ea7233fdb02dab3801539655dc473d1bda991f6a353e7266a17",
+      "frame": 0.0,
+      "crop_xyxy": [
+        1146,
+        65,
+        2830,
+        705
+      ],
+      "resampled": false,
+      "sha256": "742c31999f0c0a64e0776cd46bb98493604a769952f91e48439bfd8f78dd839e"
+    },
+    {
+      "file": "depth-menu.png",
+      "source": "screen-menu.png",
+      "source_sha256": "1bc567f962b12f03efbc3ea399081abf10bf384cd8525ee6400a474013519a14",
+      "frame": 0.0,
+      "crop_xyxy": [
+        0,
+        0,
+        271,
+        120
+      ],
+      "resampled": false,
+      "sha256": "be96737b306a949161c987f7874375085befbdd8e50b5acb9f87a7b38bbaa5a9"
+    },
+    {
+      "file": "int8-inspector.png",
+      "source": "screen-int8.png",
+      "source_sha256": "3e338e414feb58ac1ecf0cd66bd55a4f5ac38c414530718ec10b9d01f93bdf11",
+      "frame": 0.0,
+      "crop_xyxy": [
+        2830,
+        120,
+        3352,
+        310
+      ],
+      "resampled": false,
+      "sha256": "55febdb8c1524f22cc679932a05d6726db463d95c08d9f40c5ff51554c86990f"
+    },
+    {
+      "file": "int8.png",
+      "source": "screen-int8.png",
+      "source_sha256": "3e338e414feb58ac1ecf0cd66bd55a4f5ac38c414530718ec10b9d01f93bdf11",
+      "frame": 0.0,
+      "crop_xyxy": [
+        1146,
+        65,
+        2830,
+        705
+      ],
+      "resampled": false,
+      "sha256": "5a5bd10b02a8a74c578088123127fe24e76348e0ca22f086695602440603c541"
+    },
+    {
+      "file": "keep-inspector.png",
+      "source": "screen-keep.png",
+      "source_sha256": "c04e4771e7b3fe946831a89cefac5c9b52d2d727f109891a26630c9d6233ab24",
+      "frame": 0.0,
+      "crop_xyxy": [
+        2830,
+        120,
+        3352,
+        310
+      ],
+      "resampled": false,
+      "sha256": "9a67e147bcf8a86e47d953e19205836fb38a3a4c301101c04faad04678e4994a"
+    },
+    {
+      "file": "keep.png",
+      "source": "screen-keep.png",
+      "source_sha256": "c04e4771e7b3fe946831a89cefac5c9b52d2d727f109891a26630c9d6233ab24",
+      "frame": 0.0,
+      "crop_xyxy": [
+        1146,
+        65,
+        2830,
+        705
+      ],
+      "resampled": false,
+      "sha256": "4c9d13955f54de225a98781d06dad595d3a02a6d73fac51e42c4979470aea323"
+    },
+    {
+      "file": "error-inspector.png",
+      "source": "screen-error.png",
+      "source_sha256": "ee0543c64f56003ebc6073f26c74fc1790ebff01c27ec05ca05646648e59afb3",
+      "frame": 0.0,
+      "crop_xyxy": [
+        2830,
+        120,
+        3352,
+        310
+      ],
+      "resampled": false,
+      "sha256": "a1216c5d8c0f9b9d9686e62bac1930309af73296a1ad0c5fce72957c18f1d9b5"
+    },
+    {
+      "file": "noise-inspector.png",
+      "source": "screen-noise.png",
+      "source_sha256": "6d6220d766bd7ad3624563b71d4289e3a8d7419371c5cfae69efcc25604d89a1",
+      "frame": 0.0,
+      "crop_xyxy": [
+        2830,
+        120,
+        3352,
+        310
+      ],
+      "resampled": false,
+      "sha256": "0904227bda697dc3aec2b55992b59d08713396f0c4217b432ef80300dceca600"
+    }
+  ],
+  "acceptance": {
+    "gui": "PASS: owner visually inspected node connections, selected Inspector, and output",
+    "article_display": "PASS: local production build;1440px/390px decode/Alt/native links/hash/overflow"
+  },
+  "unverified": [
+    "Free edition and other platforms",
+    "All parameter ranges and performance",
+    "Explicit float16/float32 conversion, Dither quality/colorimetric export/performance and EffectMask",
+    "Exported portable composition reimport"
+  ],
+  "state_variants": {
+    "screen.png": "frame0 Depth int16/Dither0 restored; input float32/output int16",
+    "screen-int8.png": "Depth int8/Dither0; input float32/output int8",
+    "screen-keep.png": "Keep/Dither0; both float32, Color40%",
+    "screen-error.png": "int8/Dither1 ErrorDiffusion after native foreground click; UIA no-op probe rejected",
+    "screen-noise.png": "int8/Dither2 AdditiveNoise after native foreground click",
+    "screen-menu.png": "owned native popup271x120; Keep/int8/int16/float16/float32; separate source window"
+  },
+  "restoration": "PASS: owned scratch saved, frame0/both Color40%, Spline/Keyframes closed, RoI/DoD off, no popup; Depth int16/Dither0",
+  "reproduction": {
+    "fixture_sha256": "cb26845804f4900d1d963b84cfcc409c9a99e001f4c6d5a14a6a8447160b042a",
+    "readback_sha256": "7be90b77dd96c6e3b52c7029fed0d6d78225ff5f09790018e99558e32feac576",
+    "paths": "Comp:/../_fixtures/ for bundled synthetic fixtures",
+    "reimport": "NOT_RUN: accepted GUI evidence precedes export path normalization"
+  }
+}
