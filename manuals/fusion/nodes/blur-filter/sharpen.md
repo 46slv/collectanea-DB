@@ -130,6 +130,38 @@ SharpenはUnsharp Maskより必ず劣るという意味ではありません。�
 | 透過素材の端がおかしい | Alphaの処理対象とClipping Mode、背景へMergeした結果を確認します。 |
 | 一方向の輪郭だけ強くなる | Lock X/Yが解除されていないか、X/Yの設定を確認します。 |
 
+## 実機例：Amountと縁取りを確認する
+
+<!-- capture-case:S62 -->
+
+Resolve Studio21.1.0.14／WindowsのFusionページで、1920×1080の固定チャートを接続しました。通常の比較は両Viewer Color／40%です。内部REGIDは`Sharpen`でした。入力をBlur Size2で少しぼかし、左はそのBlur出力、右はSharpenの結果を表示しています。
+
+[![LoaderからBlurSource1、Sharpen1、MediaOut1へ順に接続した実機Graph](/img/fusion/captures/S62/graph.png)](/img/fusion/captures/S62/graph.png)
+
+[![SharpenのLock X/Yオン、Amount1、Frame、Blend1を示すInspector](/img/fusion/captures/S62/inspector.png)](/img/fusion/captures/S62/inspector.png)
+
+[![左はBlur Size2を通したチャート、右はSharpen Amount1で輪郭を強調した40%表示](/img/fusion/captures/S62/compare.png)](/img/fusion/captures/S62/compare.png)
+
+Amount1、Lock X/Yオン、Blend1を基準に、両Viewerを100%へ変更しました。下は画像の一部を表示した実機Viewerです。右の文字やパネルの境界が左より強く見えます。画像ファイルを後から拡大したものではありません。
+
+[![両Viewer100%で比較し、右の文字とパネル境界が左より強く見える](/img/fusion/captures/S62/detail1.png)](/img/fusion/captures/S62/detail1.png)
+
+Amountを3へ上げた100%表示では、文字や色パッチの周囲に太い明暗の縁取りが出ました。輪郭が強くなることと、自然な仕上がりになることは別に判断します。
+
+[![同じ入力のままAmountを3へ上げたSharpen Inspector](/img/fusion/captures/S62/strong-inspector.png)](/img/fusion/captures/S62/strong-inspector.png)
+
+[![両Viewer100%でAmount3の右側に太い明暗の縁取りが出る](/img/fusion/captures/S62/detail3.png)](/img/fusion/captures/S62/detail3.png)
+
+Amountを1へ戻し、Blendを0にすると、40%表示で右は左のBlur済み入力と同じ見た目へ戻りました。最後はAmount1／Blend1／40%へ復元して保存しています。
+
+[![Amount1のままBlend0へ下げたSharpen Inspector](/img/fusion/captures/S62/blend0-inspector.png)](/img/fusion/captures/S62/blend0-inspector.png)
+
+[![Blend0では右のチャートが左のBlur済み入力と同じ表示になる](/img/fusion/captures/S62/blend0.png)](/img/fusion/captures/S62/blend0.png)
+
+これは固定チャートで強調と縁取りを見分ける例です。失われた細部の復元、実写の画質、Alpha、Mask、Clipping Modeの比較、性能は未確認です。
+
+[再現用Graph](/img/fusion/captures/S62/fixture.comp) · [撮影条件と確認範囲](/img/fusion/captures/S62/capture.json)
+
 ## 関連項目と根拠
 
 - [Blur / Filterノード](./index.md)：ぼかしと輪郭強調の選び分け。
@@ -138,4 +170,4 @@ SharpenはUnsharp Maskより必ず劣るという意味ではありません。�
 
 一次資料はBlackmagic Design『DaVinci Resolve 21.1 Reference Manual』（2026年9月）、Chapter 92「Blur Nodes」、**pp.2119–2121**です。Image / Effect Maskの接続、RGBAの計算前後の違い、Lock X/Y、Amount、Clipping Modeの3モード、Blendの連動を確認しています。[公式サポート](https://www.blackmagicdesign.com/jp/support/)。
 
-制作例と症状別の調整手順は、確認した仕様に基づく運用上の提案です。21.1実機での画素単位の動作、内部REGID、Amountの詳細な数値範囲、Free / Studio差は未検証のため、記事のverificationはpartialを維持します。
+制作例と症状別の調整手順は、確認した仕様に基づく運用上の提案です。S62の内部REGID、Amount1／3、Blend0／1と40%／100%の表示は確認済みです。画素単位の演算、Amountの全範囲、Alpha／Mask、実写の画質、Free / Studio差は未確認のため、verificationはpartialを維持します。

@@ -1,0 +1,184 @@
+{
+  "schema_version": 1,
+  "case": "S63",
+  "article": "manuals/fusion/nodes/blur-filter/unsharp-mask.md",
+  "manual": {
+    "version": "21.1",
+    "chapter": 92,
+    "printed_pages": "2124–2126"
+  },
+  "runtime": {
+    "version": "21.1.0.14",
+    "edition": "Studio",
+    "os": "Windows-11-10.0.26200-SP0",
+    "ui_language": "ja-JP (some Shape controls remain English)"
+  },
+  "captured_at": "2026-10-23T23:03:27.012246+00:00",
+  "project": "Collectanea_Captures_20261023_Sol",
+  "timeline": "S63_capture",
+  "frame": 0.0,
+  "resolution": [
+    1920,
+    1080
+  ],
+  "color_management": {
+    "colorScienceMode": "davinciYRGB",
+    "colorSpaceTimeline": "Rec.709 (Scene)",
+    "colorSpaceTimelineGamma": "",
+    "colorSpaceOutput": "Rec.709 (Scene)",
+    "colorSpaceOutputGamma": "ACEScc",
+    "separateColorSpaceAndGamma": "0",
+    "isAutoColorManage": "0",
+    "timelineResolutionWidth": "1920",
+    "timelineResolutionHeight": "1080",
+    "timelineFrameRate": 24.0,
+    "timelinePlaybackFrameRate": "30"
+  },
+  "viewer": {
+    "zoom_percent": 40,
+    "channel": "Color",
+    "background": "checkerboard for transparent pixels",
+    "note": "Viewer screenshots are display evidence, not colorimetric exports. Detail shots use native100% viewer zoom, recorded per shot; no pixel resampling."
+  },
+  "graph": "fixture.comp",
+  "settings": "readback.json",
+  "source": {
+    "file": "screen.png",
+    "size": [
+      3352,
+      1910
+    ],
+    "sha256": "5fa093836440fff1ec22ebe5eabc6204d178d2706882c029273ac4b7f9e1d9df"
+  },
+  "shots": [
+    {
+      "file": "graph.png",
+      "source": "screen.png",
+      "source_sha256": "5fa093836440fff1ec22ebe5eabc6204d178d2706882c029273ac4b7f9e1d9df",
+      "frame": 0.0,
+      "crop_xyxy": [
+        480,
+        1300,
+        2380,
+        1450
+      ],
+      "resampled": false,
+      "sha256": "0c2ba8f518bc136dc6bb4535b05198c6adc7253fb997192d9a9f31cba92eeddf",
+      "viewer_zoom_percent": 40
+    },
+    {
+      "file": "inspector.png",
+      "source": "screen.png",
+      "source_sha256": "5fa093836440fff1ec22ebe5eabc6204d178d2706882c029273ac4b7f9e1d9df",
+      "frame": 0.0,
+      "crop_xyxy": [
+        2830,
+        120,
+        3352,
+        390
+      ],
+      "resampled": false,
+      "sha256": "3c5d71c7654b8036755fbd43911f23ccdb0a4e27c9706184e8400c5e68dda42d",
+      "viewer_zoom_percent": 40
+    },
+    {
+      "file": "compare.png",
+      "source": "screen.png",
+      "source_sha256": "5fa093836440fff1ec22ebe5eabc6204d178d2706882c029273ac4b7f9e1d9df",
+      "frame": 0.0,
+      "crop_xyxy": [
+        1146,
+        65,
+        2830,
+        725
+      ],
+      "resampled": false,
+      "sha256": "018ea1773f281ca245ddc0e21e3b928e436373cf5d64f5fb996bc0a52bb9782f",
+      "viewer_zoom_percent": 40
+    },
+    {
+      "file": "detail0.png",
+      "source": "screen-detail0.png",
+      "source_sha256": "2b0d7c2393a9dee346a9054eb7c510d2112842b2d5b003b6baee3e72d395315a",
+      "frame": 0.0,
+      "crop_xyxy": [
+        1146,
+        65,
+        2830,
+        725
+      ],
+      "resampled": false,
+      "sha256": "8aa13653d7a0df1abbb263945a7823f0bf081e70b80fdb48b8f73465d707fb77",
+      "viewer_zoom_percent": 100
+    },
+    {
+      "file": "threshold02-inspector.png",
+      "source": "screen-threshold02.png",
+      "source_sha256": "b391f039afa10d6d12442c231479b2c399414570f0f6c2822f4b2f6419ee5136",
+      "frame": 0.0,
+      "crop_xyxy": [
+        2830,
+        120,
+        3352,
+        390
+      ],
+      "resampled": false,
+      "sha256": "91e16f331abae0cfc2376074de5780cb6c3466a46aea842d6f4858af3827c12f",
+      "viewer_zoom_percent": 40
+    },
+    {
+      "file": "threshold02.png",
+      "source": "screen-threshold02.png",
+      "source_sha256": "b391f039afa10d6d12442c231479b2c399414570f0f6c2822f4b2f6419ee5136",
+      "frame": 0.0,
+      "crop_xyxy": [
+        1146,
+        65,
+        2830,
+        725
+      ],
+      "resampled": false,
+      "sha256": "dfebde2077d19481b44d41a9a03b4a1fe4d9b95774f89f46e2078713d5dfb057",
+      "viewer_zoom_percent": 40
+    },
+    {
+      "file": "detail02.png",
+      "source": "screen-detail02.png",
+      "source_sha256": "966310e9e5f2b63e27df298457d94bb813e74c2ffe66323cde055d0fbb3b8077",
+      "frame": 0.0,
+      "crop_xyxy": [
+        1146,
+        65,
+        2830,
+        725
+      ],
+      "resampled": false,
+      "sha256": "31a3a4486a4c380c1acda7e56081a5082da055786d98ad54a1937467b68ac809",
+      "viewer_zoom_percent": 100
+    }
+  ],
+  "acceptance": {
+    "gui": "PASS: owner visually inspected node connections, selected Inspector, and output",
+    "article_display": "PASS: local production build;1440px/390px decode/Alt/native links/hash/overflow"
+  },
+  "unverified": [
+    "Free edition and other platforms",
+    "All parameter ranges and performance",
+    "Alpha/Mask、軸別Size、Clipping、実写ノイズ/画質/性能",
+    "Exported portable composition reimport"
+  ],
+  "state_variants": {
+    "screen.png": "BlurSource Size2→Unsharp Size5/Gain2/Threshold0,40%",
+    "screen-detail0.png": "same Threshold0, both native Viewers100%",
+    "screen-threshold02.png": "same Size/Gain,Threshold.2,40%",
+    "screen-detail02.png": "Threshold.2, both native Viewers100%"
+  },
+  "restoration": "PASS: owned scratch saved, frame0/both Color40%, DoD/RoI off, no popup; primary screen settings restored.",
+  "parameter_readback_scope": "Number/Text/Point/FuID/Clip only; no Image/Mask/3D/ScriptVal payload evaluation.",
+  "reproduction": {
+    "fixture_sha256": "3375a46adb6b56c00d58624ba358d8a80da060b2157e59fd17df6170c49ff840",
+    "readback_sha256": "f27e21a68ce0d6023f22bf6252319132b6084cd876bf9846ad571d9caf1d26b4",
+    "paths": "Comp:/../_fixtures/ for bundled synthetic fixtures",
+    "reimport": "NOT_RUN: accepted GUI evidence precedes export path normalization"
+  }
+}
