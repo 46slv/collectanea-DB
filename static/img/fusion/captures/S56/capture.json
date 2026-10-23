@@ -1,0 +1,191 @@
+{
+  "schema_version": 1,
+  "case": "S56",
+  "article": "manuals/fusion/nodes/transform/camera-shake.md",
+  "manual": {
+    "version": "21.1",
+    "chapter": 120,
+    "printed_pages": "2859–2861"
+  },
+  "runtime": {
+    "version": "21.1.0.14",
+    "edition": "Studio",
+    "os": "Windows-11-10.0.26200-SP0",
+    "ui_language": "ja-JP (some Shape controls remain English)"
+  },
+  "captured_at": "2026-10-23T22:19:41.615223+00:00",
+  "project": "Collectanea_Captures_20261023_Sol",
+  "timeline": "S56_capture",
+  "frame": 0.0,
+  "resolution": [
+    1920,
+    1080
+  ],
+  "color_management": {
+    "colorScienceMode": "davinciYRGB",
+    "colorSpaceTimeline": "Rec.709 (Scene)",
+    "colorSpaceTimelineGamma": "",
+    "colorSpaceOutput": "Rec.709 (Scene)",
+    "colorSpaceOutputGamma": "ACEScc",
+    "separateColorSpaceAndGamma": "0",
+    "isAutoColorManage": "0",
+    "timelineResolutionWidth": "1920",
+    "timelineResolutionHeight": "1080",
+    "timelineFrameRate": 24.0,
+    "timelinePlaybackFrameRate": "30"
+  },
+  "viewer": {
+    "zoom_percent": 40,
+    "channel": "Color",
+    "background": "checkerboard for transparent pixels",
+    "note": "Viewer screenshots are display evidence, not colorimetric exports."
+  },
+  "graph": "fixture.comp",
+  "settings": "readback.json",
+  "source": {
+    "file": "screen.png",
+    "size": [
+      3352,
+      1910
+    ],
+    "sha256": "ad5e871bd995872d6276358261f906538fcc67df163e2f814e721989c6ee8263"
+  },
+  "shots": [
+    {
+      "file": "graph.png",
+      "source": "screen.png",
+      "source_sha256": "ad5e871bd995872d6276358261f906538fcc67df163e2f814e721989c6ee8263",
+      "frame": 0.0,
+      "crop_xyxy": [
+        480,
+        1300,
+        2380,
+        1450
+      ],
+      "resampled": false,
+      "sha256": "701e82f480d4f86e1344270ab0160629cd9fd3aa5c66aa82340206a216a893af"
+    },
+    {
+      "file": "inspector.png",
+      "source": "screen.png",
+      "source_sha256": "ad5e871bd995872d6276358261f906538fcc67df163e2f814e721989c6ee8263",
+      "frame": 0.0,
+      "crop_xyxy": [
+        2830,
+        120,
+        3352,
+        550
+      ],
+      "resampled": false,
+      "sha256": "c5557a15b72a4a61848e45b55f041d325a4656ea9ef57082993d47788290e7de"
+    },
+    {
+      "file": "compare.png",
+      "source": "screen.png",
+      "source_sha256": "ad5e871bd995872d6276358261f906538fcc67df163e2f814e721989c6ee8263",
+      "frame": 0.0,
+      "crop_xyxy": [
+        1146,
+        65,
+        2830,
+        805
+      ],
+      "resampled": false,
+      "sha256": "20f1d6c53f49c7516af9e1ced218a71dd4b5ba43e4c45ceea1ebc0943af4cb21"
+    },
+    {
+      "file": "frame24.png",
+      "source": "screen-frame24.png",
+      "source_sha256": "59a2fe41aedb79d10dc613e289f9884d5f7933440fe29b97c1737af543f2308d",
+      "frame": 24,
+      "crop_xyxy": [
+        1146,
+        65,
+        2830,
+        805
+      ],
+      "resampled": false,
+      "sha256": "c1678799c19e5ce119070e33b87512f5a5a226a6103f3c306c50af5a1eff3b1e"
+    },
+    {
+      "file": "square24-inspector.png",
+      "source": "screen-square24.png",
+      "source_sha256": "4c77ed4ede6c56198868f1f0db29ea3017a355734591b3a77dab6adbb13a7d89",
+      "frame": 24,
+      "crop_xyxy": [
+        2830,
+        120,
+        3352,
+        550
+      ],
+      "resampled": false,
+      "sha256": "5b2b375b1056cb31459213c73672c7ffc875194fa6b08bb7ff1b327f12f0375b"
+    },
+    {
+      "file": "square24.png",
+      "source": "screen-square24.png",
+      "source_sha256": "4c77ed4ede6c56198868f1f0db29ea3017a355734591b3a77dab6adbb13a7d89",
+      "frame": 24,
+      "crop_xyxy": [
+        1146,
+        65,
+        2830,
+        805
+      ],
+      "resampled": false,
+      "sha256": "aab2fc2bff2d8421dc6555bcdb381a2f693e6fe781fbe0816a9b814ad5f5a919"
+    },
+    {
+      "file": "strength0-inspector.png",
+      "source": "screen-strength0.png",
+      "source_sha256": "8a889a19508c6963ef0a0e8bae81a2cd3b15ae6b8be1d1d2727b17c31f4e94e7",
+      "frame": 0.0,
+      "crop_xyxy": [
+        2830,
+        120,
+        3352,
+        550
+      ],
+      "resampled": false,
+      "sha256": "8e0bc34877a49534b157f18ae40ff0a8464889671d870e15951571a34df26252"
+    },
+    {
+      "file": "strength0.png",
+      "source": "screen-strength0.png",
+      "source_sha256": "8a889a19508c6963ef0a0e8bae81a2cd3b15ae6b8be1d1d2727b17c31f4e94e7",
+      "frame": 0.0,
+      "crop_xyxy": [
+        1146,
+        65,
+        2830,
+        805
+      ],
+      "resampled": false,
+      "sha256": "6328b1a515549759dccef5b19dd40ed65cf3d003428381790d31338853af310f"
+    }
+  ],
+  "acceptance": {
+    "gui": "PASS: owner visually inspected node connections, selected Inspector, and output",
+    "article_display": "PASS: local production build;1440px/390px decode/Alt/native links/hash/overflow"
+  },
+  "unverified": [
+    "Free edition and other platforms",
+    "All parameter ranges and performance",
+    "Effect Mask、Rectified Sine、Edges/Filters、後段合成、連続再生/性能/export",
+    "Exported portable composition reimport"
+  ],
+  "state_variants": {
+    "screen.png": "frame0/Sine0/X.08/Y.04/Rot.03/Randomness.5/Strength1/Speed.8/Linear",
+    "screen-frame24.png": "same settings/Sine/frame24",
+    "screen-square24.png": "native GUI Frequency Square2/frame24; same remaining settings",
+    "screen-strength0.png": "frame0/Square2/OverallStrength0"
+  },
+  "restoration": "PASS: owned scratch saved, frame0/both Color40%, DoD/RoI off, no popup; FrequencySine0/Strength1",
+  "parameter_readback_scope": "Number/Text/Point/FuID/Clip only; no Image/Mask/3D/ScriptVal payload evaluation.",
+  "reproduction": {
+    "fixture_sha256": "11c4baaa3302303acf77f41329df5504d187016ada45f60716f492047453e12d",
+    "readback_sha256": "d0f9570d310bbd85035f94cc3cce9b9b0482117d9530f6dbda24c3c841e02494",
+    "paths": "Comp:/../_fixtures/ for bundled synthetic fixtures",
+    "reimport": "NOT_RUN: accepted GUI evidence precedes export path normalization"
+  }
+}

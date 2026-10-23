@@ -247,6 +247,20 @@ Resolve Studio 21.1.0.14／Windows、両Viewer Color／40%。Text+の2D Image参
 
 [Run Command](./run-command.md)はレンダリング開始時・各フレームの完了時・レンダリング終了時に外部コマンドを実行します。`Saver → Run Command`と接続すると、フレームの保存が完了した後の後処理に使えます。外部プロセスの内容、対象ファイル、起動回数、終了待ちを確認してからレンダリングします。
 
+### 実機の参考例：画素式へGainを渡す
+
+<!-- capture-reuse:R98 -->
+
+S57はNumber In 1をGainへ改名し、Setup 1=n1、Intermediate 1=r1*s1、RGBA=i1/g1*s1/b1*s1/a1とした例です。左が元画像、右がGain0.5の結果です。
+
+[![LoaderのImageをCustomTool1のImage1へ接続しMediaOut1へ出した実機Graph](/img/fusion/captures/S57/graph.png)](/img/fusion/captures/S57/graph.png)
+
+[![Redにi1、Greenにg1*s1、Blueにb1*s1、Alphaにa1を入力したChannels](/img/fusion/captures/S57/channels.png)](/img/fusion/captures/S57/channels.png)
+
+[![元のチャートが左、RGBへGain0.5を掛けて暗くなったCustom Toolの結果が右](/img/fusion/captures/S57/compare.png)](/img/fusion/captures/S57/compare.png)
+
+Resolve Studio21.1.0.14／Windows、両Viewer Color／40%。Custom Tool独自の画素式。SimpleExpressionの構文・評価対象とは区別する。Matte/Mask/LUT/他channel/性能は未確認。 [再現用Graph](/img/fusion/captures/S57/fixture.comp) · [撮影条件と確認範囲](/img/fusion/captures/S57/capture.json)
+
 ## 判断を間違えやすい点
 
 - **リタイムとアニメーション伸縮**：素材の再生時間はTime Speed / Time Stretcher、タイトルのキーフレーム評価はKeyframe Stretcherです。

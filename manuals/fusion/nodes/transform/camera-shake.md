@@ -100,6 +100,38 @@ Effect Maskには、PolygonやEllipseなどのMask Nodeで作った領域を接�
 
 これは**効果を適用する画面上の領域を制限する**構成です。マスクで切り抜いた物体を独立した画像として揺らし、背景と重ねたい場合は、マスクで前景を用意してからCamera Shakeを通し、[Merge](../compositing/merge)で合成する方法も検討してください。Effect Maskだけで被写体を独立したレイヤーへ変換するわけではありません。
 
+## 実機例：同じ静止画の別フレームを比較する
+
+<!-- capture-case:S56 -->
+
+Resolve Studio21.1.0.14／WindowsのFusionページで、1920×1080の非対称チャートをCamera Shakeへ接続しました。左は入力、右は処理後で、両ViewerはColor／40%です。内部REGIDは`CameraShake`でした。
+
+[![静止チャートのLoaderからCameraShake1、MediaOut1へ接続した実機Graph](/img/fusion/captures/S56/graph.png)](/img/fusion/captures/S56/graph.png)
+
+[![Camera ShakeのX0.08、Y0.04、回転0.03、Randomness0.5、Strength1、Speed0.8、正弦波を示すInspector](/img/fusion/captures/S56/inspector.png)](/img/fusion/captures/S56/inspector.png)
+
+[![同じ静止チャートの入力が左、Sineのframe0で位置と傾きが変わった出力が右](/img/fusion/captures/S56/compare.png)](/img/fusion/captures/S56/compare.png)
+
+Xの揺れを0.08、Yを0.04、回転を0.03、Randomnessを0.5、Overall Strengthを1、Speedを0.8、波形をSineに固定しています。上はframe 0、下はframe 24です。入力は静止画のままでも、右のチャートの位置と傾きが変わります。
+
+[![同じSine設定のframe24では右のチャートの位置と傾きがframe0から変わる](/img/fusion/captures/S56/frame24.png)](/img/fusion/captures/S56/frame24.png)
+
+同じframe 24で、Inspectorの波形をGUIからSquare Waveへ切り替えました。日本語UIでは「矩形波」と表示され、Sineとは異なる配置になりました。2枚の静止画で見える差を示すもので、動きの滑らかさや再生性能の比較ではありません。
+
+[![GUIで波形を矩形波に切り替えたCamera ShakeのInspector](/img/fusion/captures/S56/square24-inspector.png)](/img/fusion/captures/S56/square24-inspector.png)
+
+[![同じframe24で矩形波へ切り替えた右Viewerの位置と傾き](/img/fusion/captures/S56/square24.png)](/img/fusion/captures/S56/square24.png)
+
+Overall Strengthを0へ下げると、frame 0で左右に同じチャートが表示されました。個別の揺れ幅を保ちながら、全体の強さを抑える例です。
+
+[![Camera ShakeのOverall Strengthが0を示すInspector](/img/fusion/captures/S56/strength0-inspector.png)](/img/fusion/captures/S56/strength0-inspector.png)
+
+[![Overall Strength0では左右に同じチャートが表示されるframe0の比較](/img/fusion/captures/S56/strength0.png)](/img/fusion/captures/S56/strength0.png)
+
+最後はSine、Strength1、frame 0へ戻して保存しました。Effect Mask、Rectified Sine、Edgesや他Filter、後段の拡大合成、連続再生、性能と書き出しは未確認です。
+
+[再現用Graph](/img/fusion/captures/S56/fixture.comp) · [撮影条件と確認範囲](/img/fusion/captures/S56/capture.json)
+
 ## Transform・Shake Modifierとの違い
 
 [Transform](./transform)はCenter、Size、Angleなどを直接指定して配置や動きを作ります。動くタイミングと軌道を正確に決めたいなら、TransformのKeyframeが適しています。一方、Camera Shakeは位置と回転の揺れをまとめて生成し、強さ・速さ・波形から調整するNodeです。21.1マニュアルはCamera Shakeの変形が隣接するTransform系Nodeと連結され、より高品質な処理につながることも説明しています。
@@ -108,6 +140,6 @@ Effect Maskには、PolygonやEllipseなどのMask Nodeで作った領域を接�
 
 ## 出典と確認範囲
 
-Blackmagic Design『**DaVinci Resolve 21.1 Reference Manual**』（September 2026）、Chapter 120「Transform Nodes」、**pp.2859–2861**。2つの入力、Effect Maskの適用位置、Controlsタブの項目、各Deviationの範囲、Frequency Methodの3種、Filter / Window Methodを確認しました。前述の制作例はマニュアルの仕様から組み立てた説明であり、実機でのレンダリング結果を検証した記録ではありません。
+Blackmagic Design『**DaVinci Resolve 21.1 Reference Manual**』（September 2026）、Chapter 120「Transform Nodes」、**pp.2859–2861**。2つの入力、Effect Maskの適用位置、Controlsタブの項目、各Deviationの範囲、Frequency Methodの3種、Filter / Window Methodを確認しました。前述の2つの制作例はManualの仕様に基づく説明です。S56は別の固定例として、静止チャートのframe 0／24、Sine／Square Wave、Strength0／1を実機確認しました。
 
-内部REGID、個々のControlの初期値、ほかのControlの厳密な数値範囲、Free / StudioのEdition差、現行実機での表示は未検証のため、verificationはpartialとしています。
+S56の内部REGIDと上記の固定値・出力表示は確認済みです。全Controlの範囲、Mask、連続再生と性能、Free / StudioのEdition差は未確認のため、verificationはpartialを維持します。
