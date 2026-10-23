@@ -66,6 +66,10 @@ CONFIG={
  'S59':{'graph': (480, 1300, 2380, 1450), 'inspector': (2830, 120, 3352, 510), 'compare': (1146, 65, 2830, 705), 'gaussian-inspector': (2830, 120, 3352, 510), 'gaussian': (1146, 65, 2830, 705), 'bloom-inspector': (2830, 120, 3352, 510), 'bloom': (1146, 65, 2830, 705)},
  'S60':{'graph': (480, 1300, 2380, 1450), 'inspector': (2830, 120, 3352, 570), 'compare': (1146, 65, 2830, 705), 'gain05-inspector': (2830, 120, 3352, 570), 'gain05': (1146, 65, 2830, 705), 'saturation0-inspector': (2830, 120, 3352, 570), 'saturation0': (1146, 65, 2830, 705)},
  'S61':{'graph': (480, 1300, 2380, 1450), 'inspector': (2830, 120, 3352, 720), 'compare': (1146, 65, 2830, 705), 'gainred05-inspector': (2830, 120, 3352, 720), 'gainred05': (1146, 65, 2830, 705), 'liftred02-inspector': (2830, 120, 3352, 720), 'liftred02': (1146, 65, 2830, 705)},
+ 'S62':{'graph': (480, 1300, 2380, 1450), 'inspector': (2830, 120, 3352, 385), 'compare': (1146, 65, 2830, 725), 'detail1': (1146, 65, 2830, 725), 'strong-inspector': (2830, 120, 3352, 385), 'detail3': (1146, 65, 2830, 725), 'blend0-inspector': (2830, 120, 3352, 385), 'blend0': (1146, 65, 2830, 725)},
+ 'S63':{'graph': (480, 1300, 2380, 1450), 'inspector': (2830, 120, 3352, 390), 'compare': (1146, 65, 2830, 725), 'detail0': (1146, 65, 2830, 725), 'threshold02-inspector': (2830, 120, 3352, 390), 'threshold02': (1146, 65, 2830, 725), 'detail02': (1146, 65, 2830, 725)},
+ 'S64':{'graph': (480, 1300, 2380, 1450), 'inspector': (2830, 120, 3352, 385), 'compare': (1146, 65, 2830, 725), 'negative-inspector': (2830, 120, 3352, 385), 'negative': (1146, 65, 2830, 725), 'zero-inspector': (2830, 120, 3352, 385), 'zero': (1146, 65, 2830, 725)},
+ 'S65':{'graph': (480, 1300, 2380, 1450), 'inspector': (2830, 120, 3352, 310), 'compare': (1146, 65, 2830, 725), 'rank0-inspector': (2830, 120, 3352, 310), 'rank0': (1146, 65, 2830, 725), 'rank1-inspector': (2830, 120, 3352, 310), 'rank1': (1146, 65, 2830, 725)},
 }
 def sha(p):return hashlib.sha256(p.read_bytes()).hexdigest()
 candidates=json.loads((ROOT/'docs/fusion-screenshot-candidates.json').read_text(encoding='utf-8'))
@@ -131,6 +135,10 @@ for case in args.cases:
   if case=='S59':extra.update({('S59', 'gaussian-inspector'): 'screen-gaussian.png', ('S59', 'gaussian'): 'screen-gaussian.png', ('S59', 'bloom-inspector'): 'screen-bloom.png', ('S59', 'bloom'): 'screen-bloom.png'})
   if case=='S60':extra.update({('S60', 'gain05-inspector'): 'screen-gain05.png', ('S60', 'gain05'): 'screen-gain05.png', ('S60', 'saturation0-inspector'): 'screen-saturation0.png', ('S60', 'saturation0'): 'screen-saturation0.png'})
   if case=='S61':extra.update({('S61', 'gainred05-inspector'): 'screen-gainred05.png', ('S61', 'gainred05'): 'screen-gainred05.png', ('S61', 'liftred02-inspector'): 'screen-liftred02.png', ('S61', 'liftred02'): 'screen-liftred02.png'})
+  if case=='S62':extra.update({('S62', 'detail1'): 'screen-detail1.png', ('S62', 'strong-inspector'): 'screen-detail3.png', ('S62', 'detail3'): 'screen-detail3.png', ('S62', 'blend0-inspector'): 'screen-blend0.png', ('S62', 'blend0'): 'screen-blend0.png'})
+  if case=='S63':extra.update({('S63', 'detail0'): 'screen-detail0.png', ('S63', 'threshold02-inspector'): 'screen-threshold02.png', ('S63', 'threshold02'): 'screen-threshold02.png', ('S63', 'detail02'): 'screen-detail02.png'})
+  if case=='S64':extra.update({('S64', 'negative-inspector'): 'screen-negative.png', ('S64', 'negative'): 'screen-negative.png', ('S64', 'zero-inspector'): 'screen-zero.png', ('S64', 'zero'): 'screen-zero.png'})
+  if case=='S65':extra.update({('S65', 'rank0-inspector'): 'screen-rank0.png', ('S65', 'rank0'): 'screen-rank0.png', ('S65', 'rank1-inspector'): 'screen-rank1.png', ('S65', 'rank1'): 'screen-rank1.png'})
   src=folder/extra.get((case,slug),variants.get((case,slug),'screen.png'))
   assert 0<=box[0]<box[2]<=im.width and 0<=box[1]<box[3]<=im.height, (case,slug,box)
   path=folder/(slug+'.png');Image.open(src).crop(box).save(path)
@@ -144,6 +152,7 @@ for case in args.cases:
   if case=='S49':frame=24 if slug in ['unmasked24','masked24'] else 0
   if case=='S56' and slug.startswith(('frame24','square24')):frame=24
   shots.append({'file':path.name,'source':src.name,'source_sha256':sha(src),'frame':frame,'crop_xyxy':box,'resampled':False,'sha256':sha(path)})
+  if case in ['S62','S63']:shots[-1]['viewer_zoom_percent']=100 if 'detail' in slug or slug=='strong-inspector' else 40
   if case=='S54':shots[-1]['viewer_channels']='Left Color / Right Alpha' if slug=='alpha' else 'Color'
   if case in ['S25','S28','S31']:shots[-1]['viewer_channels']='Alpha' if slug=='alpha' else 'Color'
  candidate=next(x for x in candidates['candidates'] if x['id']==case)

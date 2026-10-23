@@ -138,8 +138,36 @@ Erode Dilateではマットの境界位置を変え、Blurでは境界を柔ら�
 
 [Luma Keyer](../matte-keying/luma-keyer)は輝度からキーを作り、[Matte Control](../matte-keying/matte-control)はマットの取り扱いと合成を補助します。[Blur](./blur)は柔らかい境界を作るためのノードです。フィルターの一覧は[Blur / Filterノード](./index.md)にまとめています。
 
+## 実機例：明るい領域を膨らませる・縮める
+
+<!-- capture-case:S64 -->
+
+Resolve Studio21.1.0.14／WindowsのFusionページで、1920×1080の固定チャートを接続しました。通常の比較は両Viewer Color／40%です。内部REGIDは`ErodeDilate`でした。この例は不透明なチャートの明暗領域を比べています。
+
+[![LoaderのチャートからErodeDilate1とMediaOut1へ接続した実機Graph](/img/fusion/captures/S64/graph.png)](/img/fusion/captures/S64/graph.png)
+
+[![Erode DilateのLock X/Yオン、Amount0.003を示すInspector](/img/fusion/captures/S64/inspector.png)](/img/fusion/captures/S64/inspector.png)
+
+[![正のAmount0.003で右の白い点や枠が太り、白いパネル内の黒文字が細くなる](/img/fusion/captures/S64/compare.png)](/img/fusion/captures/S64/compare.png)
+
+Amount0.003では白い点や外枠が太くなり、白いパネル内の黒文字は細くなりました。同じ入力でAmountを−0.003へ変えると、白い点や枠が細り、黒文字は太く見えます。
+
+[![同じ入力でAmountをマイナス0.003にしたInspector](/img/fusion/captures/S64/negative-inspector.png)](/img/fusion/captures/S64/negative-inspector.png)
+
+[![負のAmountでは右の明るい点や枠が細り、白いパネル内の黒文字が太くなる](/img/fusion/captures/S64/negative.png)](/img/fusion/captures/S64/negative.png)
+
+初期Amount0では、左右に同じチャートが表示されます。最後はAmount0.003へ戻して保存しました。Filterは初期状態を保ち、Lock X/Yはオンです。
+
+[![初期Amount0のErode Dilate Inspector](/img/fusion/captures/S64/zero-inspector.png)](/img/fusion/captures/S64/zero-inspector.png)
+
+[![Amount0では左右に同じチャートが表示される](/img/fusion/captures/S64/zero.png)](/img/fusion/captures/S64/zero.png)
+
+マットのAlpha境界やキーの縁を処理した実証とは区別してください。Alpha、Effect Mask、X/Yの分離、Filter／Clipping切替、正確なpixel単位の境界測定、性能は未確認です。
+
+[再現用Graph](/img/fusion/captures/S64/fixture.comp) · [撮影条件と確認範囲](/img/fusion/captures/S64/capture.json)
+
 ## バージョンと根拠
 
 **一次資料**：Blackmagic Design『DaVinci Resolve 21.1 Reference Manual』（September 2026）、Chapter 99「Filter Nodes」、**pp.2337–2338**。Erode Dilateの画像入力、青色のEffect Mask、Color Channelsの計算順序、Lock X/Y、Amountの正負・画像幅基準、細部とグラデーションへの影響を確認しました。[Blackmagic Design公式サポート](https://www.blackmagicdesign.com/support)。
 
-キーの縁の処理、ロゴの太さ変更、X/Yの分離はこの仕様に基づく制作例です。21.1実機でのレンダリング結果、ノードの内部識別子、すべての既定値・数値範囲、Edition差は未確認のため、`verification: partial`を維持します。
+キーの縁の処理、ロゴの太さ変更、X/Yの分離はこの仕様に基づく制作例です。S64の内部REGID、不透明チャートのAmount0／±0.003と出力表示は確認済みです。Alphaマット、Mask、全既定値・数値範囲、Edition差は未確認のため、`verification: partial`を維持します。

@@ -52,6 +52,10 @@ TARGETS['S58']='DirectionalBlur1';LEFT['S58']='Loader1';RIGHT['S58']='Directiona
 TARGETS['S59']='Defocus1';LEFT['S59']='Loader1';RIGHT['S59']='Defocus1'
 TARGETS['S60']='BrightnessContrast1';LEFT['S60']='Loader1';RIGHT['S60']='BrightnessContrast1'
 TARGETS['S61']='ColorGain1';LEFT['S61']='Loader1';RIGHT['S61']='ColorGain1'
+TARGETS['S62']='Sharpen1';LEFT['S62']='Loader1';RIGHT['S62']='Sharpen1'
+TARGETS['S63']='UnsharpMask1';LEFT['S63']='Loader1';RIGHT['S63']='UnsharpMask1'
+TARGETS['S64']='ErodeDilate1';LEFT['S64']='Loader1';RIGHT['S64']='ErodeDilate1'
+TARGETS['S65']='RankFilter1';LEFT['S65']='Loader1';RIGHT['S65']='RankFilter1'
 r=d.scriptapp('Resolve')
 assert r, 'Resolve scripting unavailable; do not change preferences automatically'
 pm=r.GetProjectManager(); p=pm.GetCurrentProject()
@@ -59,6 +63,8 @@ assert p and p.GetName()==PROJECT, 'Refusing to mutate a foreign project'
 assert r.GetCurrentPage(), 'Resolve has a modal dialog; reconcile the GUI first'
 case=sys.argv[1]; action=sys.argv[2] if len(sys.argv)>2 else 'readback'
 save_export=action!='preview'
+detail_view=action=='detail'
+if detail_view:assert case in ['S62','S63'];action='show'
 requested_frame=int(sys.argv[3]) if action=='frame' else 24 if case in ['S40','S42'] else 0
 if action=='preview':
  assert case=='S49';requested_frame=int(sys.argv[3]) if len(sys.argv)>3 else 0;assert requested_frame in [0,24];action='show'
@@ -181,6 +187,8 @@ def select(target,left=None):
  layouts['S50']={'Loader1':(0,0),'AutoDomain1':(1.5,0),'MediaOut1':(3,0)}
  layouts['S54']={'Loader1':(0,0),'Letterbox1':(1.5,0),'MediaOut1':(3,0)}
  for cid in ['S58','S59','S60','S61']:layouts[cid]={'Loader1':(0,0),TARGETS[cid]:(1.5,0),'MediaOut1':(3,0)}
+ for cid in ['S62','S63','S64','S65']:layouts[cid]={'Loader1':(0,0),TARGETS[cid]:(1.5,0),'MediaOut1':(3,0)}
+ if case in ['S62','S63'] and 'BlurSource1' in tools:layouts[case]={'Loader1':(0,0),'BlurSource1':(1.5,0),TARGETS[case]:(3,0),'MediaOut1':(4.5,0)}
  layouts['S57']={'Loader1':(0,0),'CustomTool1':(1.5,0),'MediaOut1':(3,0)}
  layouts['S56']={'Loader1':(0,0),'CameraShake1':(1.5,0),'MediaOut1':(3,0)}
  layouts['S55']={'Loader1':(0,0),'DVE1':(1.5,0),'MediaOut1':(3,0)}
@@ -237,6 +245,10 @@ if action=='build':
   rb=add('sRender','RenderBase1',4,-1);connect(rb,'Input',base)
   target=add('sTransform','Transform1',2,1);connect(target,'Input',base)
   rr=add('sRender','RenderChanged1',4,1);connect(rr,'Input',target);connect(mo,'Input',rr)
+ elif case in ['S62','S63','S64','S65']:
+  loader=add('Loader','Loader1',0,0,Clip=str(REPO/'static/img/fusion/captures/_fixtures/chart.png'))
+  reg={'S62':'Sharpen','S63':'UnsharpMask','S64':'ErodeDilate','S65':'RankFilter'}[case]
+  target=add(reg,TARGETS[case],1.5,0);connect(target,'Input',loader);connect(mo,'Input',target)
  elif case in ['S58','S59','S60','S61']:
   loader=add('Loader','Loader1',0,0,Clip=str(REPO/'static/img/fusion/captures/_fixtures/chart.png'))
   reg={'S58':'DirectionalBlur','S59':'Defocus','S60':'BrightnessContrast','S61':'ColorGain'}[case]
@@ -433,7 +445,7 @@ if action=='build':
  else: raise ValueError('No fixture defined: '+case)
  c.CurrentFrame.FlowView.SetPos(mo,9,1 if case=='S02' else 0)
  assert pm.SaveProject()
-elif action in ('show','readback','set','masked','canvas_fg','canvas_manual','canvas_reference'):
+elif action in ('show','readback','set','masked','canvas_fg','canvas_manual','canvas_reference','soft_source'):
  target=tools.get(TARGETS.get(case,''))
 assert target
 if action in ['canvas_fg','canvas_manual','canvas_reference']:
@@ -457,6 +469,12 @@ if action=='masked':
  if previous:assert previous.GetTool().GetAttrs()['TOOLS_Name']=='Ellipse1'
  else:connect(target,'EffectMask',tools['Ellipse1'])
  action='show'
+if action=='soft_source':
+ assert case in ['S62','S63'] and 'BlurSource1' not in tools, 'Owned input preparation is one-shot; inspect before retry'
+ src=add('Blur','BlurSource1',1.5,0,XBlurSize=2,YBlurSize=2,LockXY=1)
+ connect(src,'Input',tools['Loader1']);connect(target,'Input',src)
+ LEFT[case]='BlurSource1';action='show'
+if case in ['S62','S63'] and 'BlurSource1' in tools:LEFT[case]='BlurSource1'
 if action=='set':
  for name,values in json.loads(sys.argv[3]).items():
   assert name in tools
@@ -470,6 +488,8 @@ if action=='set':
  action='show'
 if action in ('build','show'):
  select(target,tools.get('Text1') if case=='S03' else None)
+ if detail_view:
+  for preview_name in ['LeftView','RightView']:c.GetPreviewList()[preview_name].View.SetScale(1)
  folder=ROOT/'static/img/fusion/captures'/case;folder.mkdir(parents=True,exist_ok=True)
  if save_export:
   c.Save(str(folder/'fixture.comp'))

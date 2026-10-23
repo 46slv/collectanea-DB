@@ -116,8 +116,38 @@ Rankを0または1にすると、暗部・明部の拡張という点ではErode
 - **効果が強すぎる**：SizeまたはRankを調整し、必要ならSettingsタブのBlendで元画像の割合を増やします。
 - **動くノイズだけを除去したい**：Rank Filterは前後フレームの比較を前提とする処理ではありません。目的に合う時間方向の処理を検討します。
 
+## 実機例：Sizeを保ってRankを変える
+
+<!-- capture-case:S65 -->
+
+Resolve Studio21.1.0.14／WindowsのFusionページで、1920×1080の固定チャートを接続しました。通常の比較は両Viewer Color／40%です。内部REGIDは`RankFilter`でした。
+
+[![LoaderからRankFilter1とMediaOut1へ接続した実機Graph](/img/fusion/captures/S65/graph.png)](/img/fusion/captures/S65/graph.png)
+
+[![Rank FilterのSize7とRank0.5を示すInspector](/img/fusion/captures/S65/inspector.png)](/img/fusion/captures/S65/inspector.png)
+
+[![Size7とRank0.5では右の細い格子や小さい文字が減り、太い色パッチが残る](/img/fusion/captures/S65/compare.png)](/img/fusion/captures/S65/compare.png)
+
+Size7、Rank0.5では、細い格子や小さな文字が減り、太い色パッチは残っています。細部を保ったままノイズだけを消した例ではありません。
+
+同じSize7でRankを0にすると、暗い領域が広がって細い白線や白点が減りました。
+
+[![Size7を保ちRankを0へ下げたInspector](/img/fusion/captures/S65/rank0-inspector.png)](/img/fusion/captures/S65/rank0-inspector.png)
+
+[![Rank0では右の暗い領域が広がり、細い白線と白点が減る](/img/fusion/captures/S65/rank0.png)](/img/fusion/captures/S65/rank0.png)
+
+Rankを1にすると、明るい領域が広がり、白点や格子が太くなります。Sizeは参照する周囲の広さ、Rankはその中から選ぶ値の位置という違いを、同じチャートで比較できます。
+
+[![Size7を保ちRankを1へ上げたInspector](/img/fusion/captures/S65/rank1-inspector.png)](/img/fusion/captures/S65/rank1-inspector.png)
+
+[![Rank1では右の明るい領域が広がり、白点と格子が太くなる](/img/fusion/captures/S65/rank1.png)](/img/fusion/captures/S65/rank1.png)
+
+最後はSize7／Rank0.5へ戻して保存しました。実写、salt-and-pepper noiseの除去、Mask、Alpha、境界処理、内部の順位付け、性能は未確認です。
+
+[再現用Graph](/img/fusion/captures/S65/fixture.comp) · [撮影条件と確認範囲](/img/fusion/captures/S65/capture.json)
+
 ## バージョンと根拠
 
 **一次資料**：Blackmagic Design『DaVinci Resolve 21.1 Reference Manual』（2026年9月）、Chapter 99「Filter Nodes」、**pp.2341–2343**。Rank Filterの入力、Size、Rank、Size 7／Rank 0.7の作例、Effect Maskの適用順、共通SettingsのBlendを確認しました。[Blackmagic Design公式サポート](https://www.blackmagicdesign.com/jp/support/)。
 
-ノイズ除去や部分加工の手順は、確認した仕様から組み立てた運用例です。21.1実機での画素単位の結果、内部の順位付け方法、正確な全既定値・数値範囲、Edition差は未検証のため、記事のverificationはpartialとしています。
+ノイズ除去や部分加工の手順は、確認した仕様から組み立てた運用例です。S65の内部REGID、Size7／Rank0・0.5・1と出力表示は確認済みです。画素単位の結果、内部の順位付け、全既定値・数値範囲、実写ノイズ除去、Edition差は未確認のため、verificationはpartialを維持します。

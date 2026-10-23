@@ -161,6 +161,62 @@ Lens／Size12では全体がぼけ、Bloom Levelを0から0.9へ上げると白�
 
 Resolve Studio21.1.0.14／Windows、両Viewer Color／40%。固定チャートでの表示確認です。全Control、Mask、Alpha、性能は未確認。 [再現用Graph](/img/fusion/captures/S59/fixture.comp) · [撮影条件と確認範囲](/img/fusion/captures/S59/capture.json)
 
+### 実機の参考例：Amountと縁取りを見る
+
+<!-- capture-reuse:R103 -->
+
+Blur済み入力とSharpen Amount1を比較した固定例です。個別記事には100%表示とAmount3／Blend0の比較もあります。
+
+[![LoaderからBlurSource1、Sharpen1、MediaOut1へ順に接続した実機Graph](/img/fusion/captures/S62/graph.png)](/img/fusion/captures/S62/graph.png)
+
+[![SharpenのLock X/Yオン、Amount1、Frame、Blend1を示すInspector](/img/fusion/captures/S62/inspector.png)](/img/fusion/captures/S62/inspector.png)
+
+[![左はBlur Size2を通したチャート、右はSharpen Amount1で輪郭を強調した40%表示](/img/fusion/captures/S62/compare.png)](/img/fusion/captures/S62/compare.png)
+
+Resolve Studio21.1.0.14／Windows、両Viewer Color／40%。全Control、Mask、Alpha、実写の画質と性能は未確認。 [再現用Graph](/img/fusion/captures/S62/fixture.comp) · [撮影条件と確認範囲](/img/fusion/captures/S62/capture.json)
+
+### 実機の参考例：Thresholdで弱い差を選別する
+
+<!-- capture-reuse:R104 -->
+
+Blur済み入力へSize5／Gain2／Threshold0を設定しました。個別記事でThreshold0.2と100%表示を比較できます。
+
+[![LoaderからBlurSource1、UnsharpMask1、MediaOut1へ順に接続した実機Graph](/img/fusion/captures/S63/graph.png)](/img/fusion/captures/S63/graph.png)
+
+[![Unsharp MaskのLock X/Yオン、Size5、Gain2、Threshold0を示すInspector](/img/fusion/captures/S63/inspector.png)](/img/fusion/captures/S63/inspector.png)
+
+[![左はBlur Size2を通した入力、右はUnsharp MaskのSize5とGain2で輪郭を強くした40%表示](/img/fusion/captures/S63/compare.png)](/img/fusion/captures/S63/compare.png)
+
+Resolve Studio21.1.0.14／Windows、両Viewer Color／40%。全Control、Mask、Alpha、実写の画質と性能は未確認。 [再現用Graph](/img/fusion/captures/S63/fixture.comp) · [撮影条件と確認範囲](/img/fusion/captures/S63/capture.json)
+
+### 実機の参考例：明るい領域を膨張・収縮する
+
+<!-- capture-reuse:R105 -->
+
+不透明チャートへAmount0.003をかけた例です。個別記事に0と−0.003を掲載し、Alphaマットの検証とは区別しています。
+
+[![LoaderのチャートからErodeDilate1とMediaOut1へ接続した実機Graph](/img/fusion/captures/S64/graph.png)](/img/fusion/captures/S64/graph.png)
+
+[![Erode DilateのLock X/Yオン、Amount0.003を示すInspector](/img/fusion/captures/S64/inspector.png)](/img/fusion/captures/S64/inspector.png)
+
+[![正のAmount0.003で右の白い点や枠が太り、白いパネル内の黒文字が細くなる](/img/fusion/captures/S64/compare.png)](/img/fusion/captures/S64/compare.png)
+
+Resolve Studio21.1.0.14／Windows、両Viewer Color／40%。全Control、Mask、Alpha、実写の画質と性能は未確認。 [再現用Graph](/img/fusion/captures/S64/fixture.comp) · [撮影条件と確認範囲](/img/fusion/captures/S64/capture.json)
+
+### 実機の参考例：参照範囲と選ぶ順位を分ける
+
+<!-- capture-reuse:R106 -->
+
+Size7／Rank0.5で細い格子や文字が減った固定例です。個別記事では同じSizeでRank0／1を比較できます。
+
+[![LoaderからRankFilter1とMediaOut1へ接続した実機Graph](/img/fusion/captures/S65/graph.png)](/img/fusion/captures/S65/graph.png)
+
+[![Rank FilterのSize7とRank0.5を示すInspector](/img/fusion/captures/S65/inspector.png)](/img/fusion/captures/S65/inspector.png)
+
+[![Size7とRank0.5では右の細い格子や小さい文字が減り、太い色パッチが残る](/img/fusion/captures/S65/compare.png)](/img/fusion/captures/S65/compare.png)
+
+Resolve Studio21.1.0.14／Windows、両Viewer Color／40%。全Control、Mask、Alpha、実写の画質と性能は未確認。 [再現用Graph](/img/fusion/captures/S65/fixture.comp) · [撮影条件と確認範囲](/img/fusion/captures/S65/capture.json)
+
 ## 出典と確認範囲
 
 一次資料はBlackmagic Design『DaVinci Resolve 21.1 Reference Manual』（2026年9月）、**Chapter 92「Blur Nodes」pp.2108–2131**、**Chapter 99「Filter Nodes」pp.2327以降**です。正確な入出力・設定とその根拠ページは各ノードの記事で説明しています。[公式マニュアル](https://documents.blackmagicdesign.com/UserManuals/DaVinci_Resolve_21.1_Reference_Manual.pdf)。

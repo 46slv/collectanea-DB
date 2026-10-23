@@ -94,6 +94,34 @@ MediaIn ───→ Unsharp Mask → MediaOut
 | 合成したときの縁が変わる | Aチャンネルの処理とマット調整を分けて確認します。 |
 | 軸ごとに見た目が違う | Lock X/Yのオン・オフと水平・垂直の設定を確認します。 |
 
+## 実機例：Thresholdで弱い差の強調を抑える
+
+<!-- capture-case:S63 -->
+
+Resolve Studio21.1.0.14／WindowsのFusionページで、1920×1080の固定チャートを接続しました。通常の比較は両Viewer Color／40%です。内部REGIDは`UnsharpMask`でした。Blur Size2を通したチャートを左へ、Unsharp Maskの結果を右へ表示しました。
+
+[![LoaderからBlurSource1、UnsharpMask1、MediaOut1へ順に接続した実機Graph](/img/fusion/captures/S63/graph.png)](/img/fusion/captures/S63/graph.png)
+
+[![Unsharp MaskのLock X/Yオン、Size5、Gain2、Threshold0を示すInspector](/img/fusion/captures/S63/inspector.png)](/img/fusion/captures/S63/inspector.png)
+
+[![左はBlur Size2を通した入力、右はUnsharp MaskのSize5とGain2で輪郭を強くした40%表示](/img/fusion/captures/S63/compare.png)](/img/fusion/captures/S63/compare.png)
+
+Size5、Gain2、Threshold0に固定しています。効果を見分けるため強めにした例で、推奨値ではありません。両Viewer100%では、右の文字やパネルの周囲に強い縁取りが出ています。
+
+[![両Viewer100%で、Threshold0の右の文字やパネルの周囲に強い縁取りが見える](/img/fusion/captures/S63/detail0.png)](/img/fusion/captures/S63/detail0.png)
+
+SizeとGainを保ち、Thresholdだけを0.2へ上げました。40%と100%の両方で、弱い格子などの強調が抑えられ、パネル周囲の縁取りも減ることを確認できます。
+
+[![同じSize5とGain2のままThresholdを0.2へ上げたInspector](/img/fusion/captures/S63/threshold02-inspector.png)](/img/fusion/captures/S63/threshold02-inspector.png)
+
+[![Threshold0.2では低いコントラストの格子などの強調が抑えられた40%表示](/img/fusion/captures/S63/threshold02.png)](/img/fusion/captures/S63/threshold02.png)
+
+[![両Viewer100%で、Threshold0.2では弱い格子の強調と白い縁取りが減る](/img/fusion/captures/S63/detail02.png)](/img/fusion/captures/S63/detail02.png)
+
+最後はThreshold0／40%へ戻して保存しました。ノイズ除去の効果、実写の質感、Alpha、Mask、軸別設定、Clipping、性能は未確認です。100%の画像は実機Viewerで倍率を変えて撮影し、crop時の拡大はしていません。
+
+[再現用Graph](/img/fusion/captures/S63/fixture.comp) · [撮影条件と確認範囲](/img/fusion/captures/S63/capture.json)
+
 ## 関連項目
 
 - [Blur / Filterカテゴリ](./index.md)：ぼかしと輪郭強調の選び分け。
@@ -103,4 +131,4 @@ MediaIn ───→ Unsharp Mask → MediaOut
 
 ## 出典と確認範囲
 
-Blackmagic Design『DaVinci Resolve 21.1 Reference Manual』（2026年9月、Chapter 92「Blur Nodes」、pp.2124–2126）で、処理概念、Input / Effect Mask、ControlsタブのColor Channels・Lock X/Y・Size・Gain・Threshold、共通コントロールとの処理順序の違いを確認しています。数値のデフォルト・範囲、Free / Studio差、実機の処理速度は未確認です。
+Blackmagic Design『DaVinci Resolve 21.1 Reference Manual』（2026年9月、Chapter 92「Blur Nodes」、pp.2124–2126）で、処理概念、Input / Effect Mask、ControlsタブのColor Channels・Lock X/Y・Size・Gain・Threshold、共通コントロールとの処理順序の違いを確認しています。S63の内部REGID、Size5／Gain2／Threshold0と0.2、40%／100%の出力表示を実機確認しました。数値の全範囲、Mask／Alpha、実写の画質、Free / Studio差、処理速度は未確認です。
