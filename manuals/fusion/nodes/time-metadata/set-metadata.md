@@ -73,6 +73,30 @@ Field Value → その項目に保存する値
 
 Set Metadataの中心となる固有Controlはこの2つです。Settings tabにはMetadata Nodeで共通のControlsがありますが、このページではSet Metadata固有部分を扱います。
 
+## 実機でNameとValueをSubviewに表示する
+
+Resolve Studio 21.1.0.14、Windows、日本語UIで、青いBackgroundへ`ShotName = SH010`を追加しました。出力フレーム0、両ViewerはColor／40%です。
+
+[![Background1からSetMetadata1を経由してMediaOut1へ接続した実機Graph](/img/fusion/captures/S43/graph.png)](/img/fusion/captures/S43/graph.png)
+
+[![Set MetadataのField NameはShotName、Field ValueはSH010](/img/fusion/captures/S43/inspector.png)](/img/fusion/captures/S43/inspector.png)
+
+[![左の青いBackgroundと右のSet Metadata出力。右SubviewにShotName=SH010が表示される](/img/fusion/captures/S43/compare.png)](/img/fusion/captures/S43/compare.png)
+
+[![右ViewerのMetadata subviewにShotName=SH010が表示される](/img/fusion/captures/S43/metadata.png)](/img/fusion/captures/S43/metadata.png)
+
+右Viewerを右クリックし、「ビュー → サブビュー → メタデータ」を選ぶと、左上の小さな領域にShotNameと値が表示されました。画素へ文字を描き込んだ結果ではありません。
+
+Field Valueだけを実際の数値・文字入力欄で`SH020`へ変更すると、Subviewも`ShotName = SH020`へ変わりました。2画面の出力画像領域を比較すると、青い画素の表示は一致しています。
+
+[![実GUIでField ValueだけSH020へ変更したInspector。Field NameはShotNameのまま](/img/fusion/captures/S43/changed-inspector.png)](/img/fusion/captures/S43/changed-inspector.png)
+
+[![Field Value変更後のMetadata subview。ShotName=SH020へ更新される](/img/fusion/captures/S43/changed-metadata.png)](/img/fusion/captures/S43/changed-metadata.png)
+
+最後はSH010へ戻しました。この例ではruntime REGID `Fuse.SetMetaData`を確認しています。値型の全仕様、同名fieldの上書き、保存先フォーマットへの保持、Free editionや他OSは未確認です。
+
+[再現用Graph](/img/fusion/captures/S43/fixture.comp) · [撮影条件と確認範囲](/img/fusion/captures/S43/capture.json)
+
 ## 主な用途
 
 ### composition内で識別情報を持たせる
@@ -112,7 +136,7 @@ Set Metadataを接続してもImageの見た目が変わらない場合、pixel�
 - Field Nameにはspaceを使いません。
 - Set Metadataはretime Nodeではありません。source frameや再生速度は変更しません。
 - Set MetadataがImageへmetadataを埋め込むことと、そのmetadataが最終fileへ保存されることは同じではありません。最終出力での保持可否はSaver / Deliver、container、codecなどの出力経路ごとに確認します。
-- 同名fieldがすでに存在する場合の上書き規則、値型の詳細、runtime REGID、edition差、各Controlのdefault / rangeは、このページの確認範囲では断定していません。
+- 同名fieldがすでに存在する場合の上書き規則、値型の詳細、edition差、各Controlの全default / rangeは、このページの確認範囲では断定していません。
 
 ## 関連Node
 
@@ -126,4 +150,4 @@ DaVinci Resolve 21.1 Reference Manual、Chapter 110「Metadata Nodes」の`Set M
 
 確認した項目は、single orange Background Input、Background Imageへ新しいName = Value metadata pairを追加して出力すること、Viewer subviewでmetadataを確認できること、`Field Name`、`Field Value`、Field Nameにspaceを使わない制約です。
 
-runtime REGID、Effects Library上のcurrent表示、edition差、既存同名fieldとの衝突規則、各Controlのdefault / min / maxはこの確認範囲に含めていないため、`verification: partial`を維持しています。
+実機例のREGIDと2つの値は確認しました。edition差、既存同名fieldとの衝突規則、各Controlの全default / min / maxは確認範囲に含めていないため、`verification: partial`を維持しています。

@@ -73,6 +73,48 @@ Frame Averageはmotion vectorや別のguide inputを受け取るNodeではあり
 
 clip edgeで平均結果の明るさや見え方が変わる場合は、FramesだけでなくMissing Framesも確認します。
 
+## 実機で平均する方向とclip先頭を比べる
+
+Resolve Studio 21.1.0.14、Windows、日本語UIで、右へ動く緑barと素材番号を入れた100枚の連番を読み込みました。両ViewerはColor／40%です。まずFramesを0にすると、出力24の左右が同じSOURCE 024になりました。
+
+[![番号入り連番LoaderからFrameAverage1を経由してMediaOut1へ接続した実機Graph](/img/fusion/captures/S42/graph.png)](/img/fusion/captures/S42/graph.png)
+
+[![比較前のFrames0、Backward、Duplicate OriginalのInspector](/img/fusion/captures/S42/zero-inspector.png)](/img/fusion/captures/S42/zero-inspector.png)
+
+[![Frames0、出力24では左右が同じSOURCE024の単一画像になる](/img/fusion/captures/S42/zero.png)](/img/fusion/captures/S42/zero.png)
+
+同じ出力24のままFramesを12へ増やし、Sample Directionを実際のInspectorで切り替えました。Backwardでは過去側、Bothでは前後、Forwardでは未来側の緑barが混ざります。
+
+[![Backward、Frames12、Duplicate OriginalのInspector](/img/fusion/captures/S42/backward-inspector.png)](/img/fusion/captures/S42/backward-inspector.png)
+
+[![出力24でBackwardを選ぶと、右の緑barの残像が現在位置より過去側へ広がる](/img/fusion/captures/S42/backward.png)](/img/fusion/captures/S42/backward.png)
+
+[![Frame AverageのInspector。Sample DirectionはBoth、Missing FramesはDuplicate Original、Framesは12](/img/fusion/captures/S42/inspector.png)](/img/fusion/captures/S42/inspector.png)
+
+[![出力24でBoth、Frames12。左のSOURCE024に対し、右は前後の番号と移動する緑barが平均される](/img/fusion/captures/S42/compare.png)](/img/fusion/captures/S42/compare.png)
+
+[![Forward、Frames12、Duplicate OriginalのInspector](/img/fusion/captures/S42/forward-inspector.png)](/img/fusion/captures/S42/forward-inspector.png)
+
+[![出力24でForwardを選ぶと、右の緑barの残像が現在位置より未来側へ広がる](/img/fusion/captures/S42/forward.png)](/img/fusion/captures/S42/forward.png)
+
+Forwardのまま出力を12へ移動すると、SOURCE 012の先にある素材番号とbarが混ざりました。現在時刻の1枚をぼかす処理との違いを、番号と移動位置で確認できます。
+
+[![出力12のForward、Frames12。左のSOURCE012に対し、右は未来側の番号と緑barが混ざる](/img/fusion/captures/S42/frame12.png)](/img/fusion/captures/S42/frame12.png)
+
+clip先頭も別に比べました。出力0、Backward、Frames12の固定条件で、Duplicate OriginalではSOURCE 000が保たれ、Blank Frameでは画像が薄くなって透明のチェッカーが見えました。
+
+[![出力0でBackward、Frames12、Missing FramesをDuplicate OriginalにしたInspector](/img/fusion/captures/S42/edge-duplicate-inspector.png)](/img/fusion/captures/S42/edge-duplicate-inspector.png)
+
+[![連番先頭の出力0でDuplicate Originalを選ぶと右もSOURCE000を表示する](/img/fusion/captures/S42/edge-duplicate.png)](/img/fusion/captures/S42/edge-duplicate.png)
+
+[![出力0でBackward、Frames12、Missing FramesをBlank FrameにしたInspector](/img/fusion/captures/S42/edge-blank-inspector.png)](/img/fusion/captures/S42/edge-blank-inspector.png)
+
+[![同じ先頭でBlank Frameを選ぶと右のSOURCE000が薄くなり、透明部分のチェッカーが見える](/img/fusion/captures/S42/edge-blank.png)](/img/fusion/captures/S42/edge-blank.png)
+
+最後はBoth、Frames12、Duplicate Original、出力24へ戻しました。ノイズ低減の画質、正確な平均対象枚数、実ファイル欠落時の挙動、性能、Free editionや他OSは未確認です。
+
+[再現用Graph](/img/fusion/captures/S42/fixture.comp) · [撮影条件と確認範囲](/img/fusion/captures/S42/capture.json)
+
 ## 主な用途
 
 ### long-shutter風の残像
@@ -131,7 +173,7 @@ Frame Averageは時間方向に複数frameを参照するため、現在frameだ
 
 また、平均化したい対象にscene cutが含まれると、cut前後のImageが同時に混ざる場合があります。long-shutter表現では意図した結果になることもありますが、noise低減では通常避けます。
 
-このページでは21.1 Manualで確認できるControl名と選択肢を基準にしています。current runtimeのREGID、内部Parameter ID、Manualに記載されていないdefault / range、edition差は確定していません。
+このページでは21.1 Manualで確認できるControl名と選択肢を基準にしています。実機例ではruntime REGID `Fuse.FrameAverage`と3つのControlを確認しました。Manualに記載されていない全default / range、edition差は未確認です。
 
 ## 関連ページ
 

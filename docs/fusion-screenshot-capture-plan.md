@@ -1,6 +1,6 @@
 # Fusion 21.1 スクリーンショット計画
 
-更新: 2026-10-24。S01〜S39と再利用例を含む計100ページ・172原画crop・355掲載は公開確認済み。S40 Time SpeedとS41 Publishへ継続中。Fusion全体は未完了。
+更新: 2026-10-24。S01〜S41と再利用例を含む計104ページ・199原画crop・396掲載は公開確認済み。S42 Frame AverageとS43 Metadataへ継続中。Fusion全体は未完了。
 
 撮影候補は [fusion-screenshot-candidates.json](./fusion-screenshot-candidates.json) に記録する。記事の説明基準は [Fusion Authoring Contract](./fusion-authoring-contract.md)、技術出典はDaVinci Resolve 21.1 Reference Manual（2026年9月）。公式画像の転載ではなく、実機から独自に撮影する。
 
@@ -30,7 +30,7 @@
 
 - Mission: Fusion全体の、画像が必要な箇所を実機撮影・記事掲載・GitHub反映・公開確認まで完了する。ユーザーはこの制作元taskで全586ページへの継続と必要なGitHub操作を明示許可した。14記事でMissionを完了扱いにしない。
 - Owner: Sol、制作元Codex task `01a1683b-3067-7a40-892a-47a3b30d50b2`。設計・GUI・実装・統合・検証を継続担当。Dot intake writer `01a1689f-419e-7742-8058-b0d6a0aa302d` は安全な境界で停止し、親も再投入なしを確認済み。
-- Canonical edit checkout: `C:/Users/shiro/Documents/Codex/2026-10-23/task-19/collectanea-screenshot-integration`。現在branch `integration/fusion-utility-native-20261024`、base `5083e5e61c70cc03c21c539e5b45a4115e706e0d`。旧producer checkoutと元の43MB配布ZIPは保全。branch作成時にorigin/mainがupstreamになるため、pushは必ず明示branchを指定する。
+- Canonical edit checkout: `C:/Users/shiro/Documents/Codex/2026-10-23/task-19/collectanea-screenshot-integration`。現在branch `integration/fusion-metadata-native-20261024`、base `0c332c12efffb87f1c20f4ca6091e0f3333b1ade`。旧producer checkoutと元の43MB配布ZIPは保全。branch作成時にorigin/mainがupstreamになるため、pushは必ず明示branchを指定する。
 - Published batch 1: S01–S14、14記事・50画像。[PR #63](https://github.com/46slv/collectanea-DB/pull/63)、main `b5862defc25d342381849d6afcc499597efc4745`。候補 `2176ab3572689cba26d83c8b4d494055f192c216` とmainのtree `a9aa538d22790ad862d1ba92158bce047d33f44c` は一致。
 - PASS: [exact-head Quality 39966534167](https://github.com/46slv/collectanea-DB/actions/runs/39966534167)、[Pages 39967626278](https://github.com/46slv/collectanea-DB/actions/runs/39967626278)、公開14ページ・50画像の1440px/390px表示・decode・Alt・原寸リンク・横overflow、公開232素材のHTTP200/SHA-256一致。公開証拠は `artifacts/fusion-captures/public-display-report.json`、`public-assets.json` と28画面。これらは既存ignore内に保存。
 - Public-check note: 長いS08–S10の末尾画像は遅延読込。撮影節の末尾までscrollして全画像を確認した。最初の未読込観測は公開レポートに保持。CIの初回URL形状assertion失敗は、Docusaurusの `assets/files/` 配布を実バイトhashで照合する修正後の新headで解消。
@@ -76,8 +76,14 @@
 - Dot batch7 report delivered: fresh silvelプロフィールと空入力欄を確認し、PR78・公開100ページ172crop355掲載・594素材一致・残454ページを送信。会話表示と欄クリアを確認しdot-batch7-report.jpg保存。single writer継続。
 - Batch 8 local PASS: S40/S41の27cropとR72–R76の14再利用掲載を5記事へ追加。production buildと変更5ページ47掲載の1440px/390px・decode/Alt/原寸リンク/hash/overflow PASS。候補含む累計104ページ199crop396掲載。公開済み100ページとは区別する。全体未完了、remaining_viewsとpartial維持。
 - Batch 9 work stage S42: Manual ch111 pp2596–2597を参照。実機registryでFrame Average=Fuse.FrameAverageを確認して新規owned caseを作成。frame24、Frames0の単一画像からFrames12へ変え、Backward/Forwardの残像方向をGUIで観察。work/fusion-utility-stage/static/img/fusion/captures/S42、helper work/fusion-capture-utility.pyのみ。canonical helper/ledgerへはまだ追加していない。Cua session expiryではcaptureだけ拒否され、sessionを復旧して観測、build/setterは再実行していない。
-- Current host: owned project Collectanea_Captures_20261023_Sol、PID8944/HWND1251932、S42_capture/frame24、左Loader・右FrameAverage1、Frames12/SampleDirectionForward(2)/MissingFramesDuplicateOriginal(0)。両Color40%、Spline/Keyframes閉、RoI/DoD無効。scratch保存済み。次にBothと別時刻を観察する。
-- Next action: S40/S41候補をcurrent mainに追随し、Ready PR/exact-head Quality→Pages→変更5記事47掲載を公開確認。CI中はS42をwork stageで継続する。450未図示ページと掲載済みremaining_viewsは未完了。
+- Batch 8 published PASS: [PR #79](https://github.com/46slv/collectanea-DB/pull/79)、candidate `de77228516de336f7b69680e83e4c069df2bc0cb`、main `0c332c12efffb87f1c20f4ca6091e0f3333b1ade`、tree `0873100d350972c46f6872f6ee54eb4507abe203`一致。[Quality 40007373897](https://github.com/46slv/collectanea-DB/actions/runs/40007373897)全必要step成功、current main/review確認後expected-head squash merge。[Pages 40008884195](https://github.com/46slv/collectanea-DB/actions/runs/40008884195)成功。変更5記事47掲載の1440px/390px・decode/Alt/原寸リンク/overflow PASS。643公開素材HTTP200/SHA256一致。詳細public-batch8-display-report.json、public-batch8-assets.json、10画面。累計104ページ199crop396掲載。
+- S42 native stage accepted: Frames12でGUIからBackward/Both/Forwardを切り替え、frame24の緑bar平均位置が過去/中央/未来へ変わる実画面を確認。右Viewer内のbar色差重心は184.777/218.461/252.062、Frames0は218.5（表示pixel、測色exportではない）。最初のAPI Forward画面はBackwardと同じ184.777だったので不採用。GUI切替後のS42-*-gui24を採用する。frame12のForwardも確認。frame0 BackwardでDuplicateOriginalはSOURCE000を保ち、BlankFrameでは透明との平均になった。Qt ComboBoxのUIA ListItem Invokeはno-op、foreground click→単独Down/Returnで実選択を確認。press_keyに座標を同時に渡す経路と、先にclickして単独keyを送る経路は同じではない。最後はBoth/Frames12/DuplicateOriginal/frame24へGUI復元し保存、S42-restored.pngとGraph/readback保全。
+- S43 native accepted: Background→SetMetadata→MediaOut。FieldName ShotName、FieldValue SH010を実機Subviewで確認。実GUIでValueだけSH020へ変更し、metadataもSH020へ更新。最後はSH010へ戻し保存。青い出力の固定領域[2048,193,2816,625]は2画面でRGB pixel一致。codec等への保持はNOT_RUN。
+- S44 native accepted: 青BG001/BGOnly=keepBG、赤FG002/FGOnly=keepFGを2入力へ接続。Merge Replace Duplicates→ShotNameFG002と両固有項目、Preserve→BG001と両固有項目、Replace→FG002とFGOnly、Clear→全項目なしをGUI/Subviewで確認。全4画面の青い出力領域は同一pixel。runtime入力IDはBackground/Metadataで、Foregroundではない。初回guardで入力ID不一致を検出して停止し、既存8Node・未接続の対象だけを確認して接続を修復、再buildなし。最後はOperation0へ戻し保存、採用原画撮影後に右Subviewを無効へ戻したfresh画像も確認。schema/ファイル保持はNOT_RUN。
+- Batch 9 local PASS: S42–S44の32cropを3記事、R77–R79の8再利用掲載をTime/Metadata索引へ追加。production build、変更4ページ44画像の1440px/390px・decode/Alt/原寸リンク/hash/overflow PASS。累計107ページ231crop436掲載、公開確認済み104ページとは区別。初回focused確認はbuild完了前に開始して404だったため採用せず、build完了後の4/44 PASSを記録。全体未完了、partialとremaining_views維持。
+- Method: owned MetadataSubviewを開くcontext経路はビュー→サブビュー→メタデータ。GUI text/numberのSelectAllはhotkey Ctrl+A→type_text→Return、Comboはforeground click→単独Up/Down→Returnで実変化を受理。UIA no-op/coords付きkey経路の失敗probeは不採用。session expiryで拒否された操作は実行済みとせず、start_session後のfresh画面から再開した。settings未変更。
+- Current host: owned project Collectanea_Captures_20261023_Sol、PID8944/HWND1251932、S44_capture/frame0、左MetaFGExtra・右CopyMetadata1、Inspector Operation0。両Color40%、右Subview無効へ戻したS44-subview-off.png確認済み。Spline/Keyframes閉、RoI/DoD無効、popupなし。Operation0とSubview無効のscratch保存済み。終了時はowned scratch保存→Project Managerへ。
+- Next action: current main/open PRを確認し、S42–S44をReady PR/exact-head Quality→Pages→4記事44掲載/全素材hashの公開確認へ。CI中はSet Timecode等をwork stageだけで進め、凍結候補へ積まない。447未図示ページと掲載済みremaining_viewsは未完了。
 - KEEP: 同じSolが継続。Checkpoint保存や単一batch完了だけでは停止・Rolloverしない。文脈圧迫が必要になったときだけCOMPACT/ROLLOVERを判断する。
 
 ## 第1batchの撮影・統合メモ（履歴）

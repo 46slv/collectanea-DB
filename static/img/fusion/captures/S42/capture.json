@@ -1,0 +1,288 @@
+{
+  "schema_version": 1,
+  "case": "S42",
+  "article": "manuals/fusion/nodes/time-metadata/frame-average.md",
+  "manual": {
+    "version": "21.1",
+    "chapter": 111,
+    "printed_pages": "2596–2597"
+  },
+  "runtime": {
+    "version": "21.1.0.14",
+    "edition": "Studio",
+    "os": "Windows-11-10.0.26200-SP0",
+    "ui_language": "ja-JP (some Shape controls remain English)"
+  },
+  "captured_at": "2026-10-23T19:31:50.356677+00:00",
+  "project": "Collectanea_Captures_20261023_Sol",
+  "timeline": "S42_capture",
+  "frame": 24.0,
+  "resolution": [
+    1920,
+    1080
+  ],
+  "color_management": {
+    "colorScienceMode": "davinciYRGB",
+    "colorSpaceTimeline": "Rec.709 (Scene)",
+    "colorSpaceTimelineGamma": "",
+    "colorSpaceOutput": "Rec.709 (Scene)",
+    "colorSpaceOutputGamma": "ACEScc",
+    "separateColorSpaceAndGamma": "0",
+    "isAutoColorManage": "0",
+    "timelineResolutionWidth": "1920",
+    "timelineResolutionHeight": "1080",
+    "timelineFrameRate": 24.0,
+    "timelinePlaybackFrameRate": "30"
+  },
+  "viewer": {
+    "zoom_percent": 40,
+    "channel": "Color",
+    "background": "checkerboard for transparent pixels",
+    "note": "Viewer screenshots are display evidence, not colorimetric exports."
+  },
+  "graph": "fixture.comp",
+  "settings": "readback.json",
+  "source": {
+    "file": "screen.png",
+    "size": [
+      3352,
+      1910
+    ],
+    "sha256": "301eeca545ecac88453d65f74a4a3fe1ea44d0a73bf50a04e8a06ac7f20d4490"
+  },
+  "shots": [
+    {
+      "file": "graph.png",
+      "source": "screen.png",
+      "source_sha256": "301eeca545ecac88453d65f74a4a3fe1ea44d0a73bf50a04e8a06ac7f20d4490",
+      "frame": 24,
+      "crop_xyxy": [
+        580,
+        1300,
+        2280,
+        1450
+      ],
+      "resampled": false,
+      "sha256": "0aab4e87a7950dc882d92569fba4c473ce95c0cf7c1d129285fe32b5d184b609"
+    },
+    {
+      "file": "inspector.png",
+      "source": "screen.png",
+      "source_sha256": "301eeca545ecac88453d65f74a4a3fe1ea44d0a73bf50a04e8a06ac7f20d4490",
+      "frame": 24,
+      "crop_xyxy": [
+        2830,
+        120,
+        3352,
+        350
+      ],
+      "resampled": false,
+      "sha256": "3ad3356a340db2f7cebd42f2119c9b523b36d7115406bba4e3976e63345a035a"
+    },
+    {
+      "file": "compare.png",
+      "source": "screen.png",
+      "source_sha256": "301eeca545ecac88453d65f74a4a3fe1ea44d0a73bf50a04e8a06ac7f20d4490",
+      "frame": 24,
+      "crop_xyxy": [
+        1146,
+        65,
+        2830,
+        815
+      ],
+      "resampled": false,
+      "sha256": "9df934ff59b55f75a6cdd9c2c75b2a89f6d752d14df8ce2d1240a9886cb89424"
+    },
+    {
+      "file": "frame12.png",
+      "source": "screen-frame12.png",
+      "source_sha256": "1d45b25e2b49ac40d33317e5126a6e9b872d88d3664c565495b8ff96ae2ec21d",
+      "frame": 12,
+      "crop_xyxy": [
+        1146,
+        65,
+        2830,
+        815
+      ],
+      "resampled": false,
+      "sha256": "8f3eb4dec146878a584b47e706b514f561a17b44cb167ff3335cc1f96ac068bb"
+    },
+    {
+      "file": "backward-inspector.png",
+      "source": "screen-backward.png",
+      "source_sha256": "940e6dee6dbad38f5d77d76290680d0518775cb2ce375f02f1831af1d0c20df7",
+      "frame": 24,
+      "crop_xyxy": [
+        2830,
+        120,
+        3352,
+        350
+      ],
+      "resampled": false,
+      "sha256": "842834177f3c0061efaebd0fd3ea27ee4b0b37512eb48a3ae6eb6e2f56b5542b"
+    },
+    {
+      "file": "backward.png",
+      "source": "screen-backward.png",
+      "source_sha256": "940e6dee6dbad38f5d77d76290680d0518775cb2ce375f02f1831af1d0c20df7",
+      "frame": 24,
+      "crop_xyxy": [
+        1146,
+        65,
+        2830,
+        815
+      ],
+      "resampled": false,
+      "sha256": "0eee1c29ef532a6ab029052a46640a48d448ed90967f0e3ecdadc756b32b50b3"
+    },
+    {
+      "file": "forward-inspector.png",
+      "source": "screen-forward.png",
+      "source_sha256": "5a9e36e46c0a5a2a714ccda667b9fc3853f5c11aee5eed6e9b6fa1b6b7a1ec56",
+      "frame": 24,
+      "crop_xyxy": [
+        2830,
+        120,
+        3352,
+        350
+      ],
+      "resampled": false,
+      "sha256": "9fa570c0c3581eb58a938e544736cce55139a77596763617590709a9ce9b99b8"
+    },
+    {
+      "file": "forward.png",
+      "source": "screen-forward.png",
+      "source_sha256": "5a9e36e46c0a5a2a714ccda667b9fc3853f5c11aee5eed6e9b6fa1b6b7a1ec56",
+      "frame": 24,
+      "crop_xyxy": [
+        1146,
+        65,
+        2830,
+        815
+      ],
+      "resampled": false,
+      "sha256": "8e7f191e2954f49b0c07cf3b354bc392795b10282c10f12a9b63d8d5c3a904f6"
+    },
+    {
+      "file": "zero-inspector.png",
+      "source": "screen-zero.png",
+      "source_sha256": "6abee23d8092ea1d75c898f718251ce57ce88361e4aa13bd4cb8c511c559fcff",
+      "frame": 24,
+      "crop_xyxy": [
+        2830,
+        120,
+        3352,
+        350
+      ],
+      "resampled": false,
+      "sha256": "81bf646dd1f844b7c5c8bfa420db1e42d81660b97e0e54af0948447d388d4fc7"
+    },
+    {
+      "file": "zero.png",
+      "source": "screen-zero.png",
+      "source_sha256": "6abee23d8092ea1d75c898f718251ce57ce88361e4aa13bd4cb8c511c559fcff",
+      "frame": 24,
+      "crop_xyxy": [
+        1146,
+        65,
+        2830,
+        815
+      ],
+      "resampled": false,
+      "sha256": "d1d2775746d66da936051e641a65a15534db9012cc3fe5e257075c4928abcd43"
+    },
+    {
+      "file": "edge-duplicate-inspector.png",
+      "source": "screen-edge-duplicate.png",
+      "source_sha256": "70e331115c824fd3f2f5e66c1a96a50d03e9c362f5a37752837895fedcbf65f2",
+      "frame": 0,
+      "crop_xyxy": [
+        2830,
+        120,
+        3352,
+        350
+      ],
+      "resampled": false,
+      "sha256": "6d9fab881e55f0d8096d48c0a4f231a29481a166c24022ad0c91c5a24185e07e"
+    },
+    {
+      "file": "edge-duplicate.png",
+      "source": "screen-edge-duplicate.png",
+      "source_sha256": "70e331115c824fd3f2f5e66c1a96a50d03e9c362f5a37752837895fedcbf65f2",
+      "frame": 0,
+      "crop_xyxy": [
+        1146,
+        65,
+        2830,
+        815
+      ],
+      "resampled": false,
+      "sha256": "3a682a5e4d526e629af987a26304da2a62e85030c5abc663e8bc91d3df278f0b"
+    },
+    {
+      "file": "edge-blank-inspector.png",
+      "source": "screen-edge-blank.png",
+      "source_sha256": "6febe8cff688f0ca1aa9fc64e83ebdbd75679cabbcc3e63dc9d6fc8a479d8106",
+      "frame": 0,
+      "crop_xyxy": [
+        2830,
+        120,
+        3352,
+        350
+      ],
+      "resampled": false,
+      "sha256": "a89735d7e987eefcf90645c22bfaf2f48083a86776148f7f56058223683e33a3"
+    },
+    {
+      "file": "edge-blank.png",
+      "source": "screen-edge-blank.png",
+      "source_sha256": "6febe8cff688f0ca1aa9fc64e83ebdbd75679cabbcc3e63dc9d6fc8a479d8106",
+      "frame": 0,
+      "crop_xyxy": [
+        1146,
+        65,
+        2830,
+        815
+      ],
+      "resampled": false,
+      "sha256": "7bf395730a2321548614c1643245cd91842a79b1ae776958c907eb7dc90393fd"
+    }
+  ],
+  "acceptance": {
+    "gui": "PASS: owner visually inspected node connections, selected Inspector, and output",
+    "article_display": "PASS: local production build;1440px/390px decode/Alt/native links/hash/overflow"
+  },
+  "unverified": [
+    "Free edition and other platforms",
+    "All parameter ranges and performance",
+    "Noise reduction quality, exact sample count and missing physical files",
+    "Exported portable composition reimport"
+  ],
+  "state_variants": {
+    "screen.png": "frame24 Both Frames12 DuplicateOriginal, restored",
+    "screen-backward.png": "frame24 Backward Frames12; native GUI direction",
+    "screen-forward.png": "frame24 Forward Frames12; native GUI direction",
+    "screen-frame12.png": "frame12 Forward Frames12",
+    "screen-zero.png": "frame24 Backward Frames0 before averaging",
+    "screen-edge-duplicate.png": "frame0 Backward Frames12 DuplicateOriginal",
+    "screen-edge-blank.png": "frame0 Backward Frames12 BlankFrame; transparent output"
+  },
+  "restoration": "PASS: owned scratch saved; both Color40%; Spline/Keyframes closed, DoD/RoI off; Both Frames12 DuplicateOriginal frame24",
+  "native_gui_acceptance": {
+    "direction": "Backward/Both/Forward actually changed Viewer after native Inspector buttons; initial API direction probes unchanged and rejected",
+    "missing_frames": "Native foreground Combo click then Down/Return changed DuplicateOriginal to BlankFrame; UIA item invoke no-op rejected",
+    "bar_centroid_display_pixels": {
+      "Frames0": 218.5,
+      "Backward12": 184.777,
+      "Both12": 218.461,
+      "Forward12": 252.062
+    },
+    "measurement_scope": "Green bar color-difference centroid in native rightViewer rectangle; not colorimetric export or sample count proof"
+  },
+  "reproduction": {
+    "fixture_sha256": "d185aaa5f07229611dd67d1d7f399f0cb32638957f3b156923ef2586890a51de",
+    "readback_sha256": "05d86dcb6d9c1ca0d1ee8442ac252fcbaa67d48ad0db7926ee047c2953539d87",
+    "paths": "Comp:/../_fixtures/ for bundled synthetic fixtures",
+    "reimport": "NOT_RUN: accepted GUI evidence precedes export path normalization"
+  }
+}

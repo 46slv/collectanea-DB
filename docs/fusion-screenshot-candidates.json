@@ -2,7 +2,7 @@
   "schema_version": 1,
   "created": "2026-10-20",
   "scope": "All Fusion pages, DaVinci Resolve 21.1",
-  "status_note": "2026-10-24:100 pages/172 crops/355 placements public PASS through PR78. S40/S41 and R72-R76 add27 native crops/14 reused placements across5 articles. Focused5 pages/47 total images local PASS; cumulative104 pages/199 crops/396 placements. Batch8 public NOT_RUN. S42 FrameAverage work stage only; full mission remains incomplete.",
+  "status_note": "2026-10-24:104 pages/199 crops/396 placements public PASS through PR79. S42–S44/R77–R79 local4 pages44 images PASS;32 new crops plus8 reuse placements. Cumulative107 pages231 crops436 placements; batch9 publication NOT_RUN. Full Fusion and remaining_views incomplete.",
   "asset_directory_template": "static/img/fusion/captures/{id}/{shot.slug}.png",
   "capture_manifest_name": "capture.json",
   "candidates": [
@@ -1667,7 +1667,7 @@
         "printed_pages": "2607–2609"
       },
       "goal": "固定連番で速度・Delay・Freeze・reverseを区別する",
-      "status": "captured-local-display-verified",
+      "status": "published-display-verified",
       "shots": [
         {
           "slug": "graph",
@@ -1760,7 +1760,8 @@
           "status": "native-observed"
         }
       ],
-      "capture_manifest": "static/img/fusion/captures/S40/capture.json"
+      "capture_manifest": "static/img/fusion/captures/S40/capture.json",
+      "published_batch": "fusion-native-20261024-08"
     },
     {
       "id": "S41",
@@ -1772,7 +1773,7 @@
         "printed_pages": "3024; ch69 pp1511–1512; ch73 pp1583–1585"
       },
       "goal": "Publish/Connect Toの実UIとSizeの双方向共有",
-      "status": "captured-local-display-verified",
+      "status": "published-display-verified",
       "shots": [
         {
           "slug": "graph",
@@ -1847,7 +1848,245 @@
           "status": "native-observed"
         }
       ],
-      "capture_manifest": "static/img/fusion/captures/S41/capture.json"
+      "capture_manifest": "static/img/fusion/captures/S41/capture.json",
+      "published_batch": "fusion-native-20261024-08"
+    },
+    {
+      "id": "S42",
+      "priority": "P1",
+      "article": "manuals/fusion/nodes/time-metadata/frame-average.md",
+      "manual": {
+        "version": "21.1",
+        "chapter": 111,
+        "printed_pages": "2596–2597"
+      },
+      "goal": "前後方向の平均とclip先頭のMissing Framesを比較する",
+      "status": "captured-local-display-verified",
+      "shots": [
+        {
+          "slug": "graph",
+          "kind": "node-graph",
+          "target": "frame-average",
+          "status": "native-observed"
+        },
+        {
+          "slug": "inspector",
+          "kind": "inspector",
+          "target": "frame-average",
+          "status": "native-observed"
+        },
+        {
+          "slug": "compare",
+          "kind": "output",
+          "target": "frame-average",
+          "status": "native-observed"
+        },
+        {
+          "slug": "frame12",
+          "kind": "output",
+          "target": "frame-average",
+          "status": "native-observed"
+        },
+        {
+          "slug": "backward-inspector",
+          "kind": "inspector",
+          "target": "frame-average",
+          "status": "native-observed"
+        },
+        {
+          "slug": "backward",
+          "kind": "output",
+          "target": "frame-average",
+          "status": "native-observed"
+        },
+        {
+          "slug": "forward-inspector",
+          "kind": "inspector",
+          "target": "frame-average",
+          "status": "native-observed"
+        },
+        {
+          "slug": "forward",
+          "kind": "output",
+          "target": "frame-average",
+          "status": "native-observed"
+        },
+        {
+          "slug": "zero-inspector",
+          "kind": "inspector",
+          "target": "frame-average",
+          "status": "native-observed"
+        },
+        {
+          "slug": "zero",
+          "kind": "output",
+          "target": "frame-average",
+          "status": "native-observed"
+        },
+        {
+          "slug": "edge-duplicate-inspector",
+          "kind": "inspector",
+          "target": "frame-average",
+          "status": "native-observed"
+        },
+        {
+          "slug": "edge-duplicate",
+          "kind": "output",
+          "target": "frame-average",
+          "status": "native-observed"
+        },
+        {
+          "slug": "edge-blank-inspector",
+          "kind": "inspector",
+          "target": "frame-average",
+          "status": "native-observed"
+        },
+        {
+          "slug": "edge-blank",
+          "kind": "output",
+          "target": "frame-average",
+          "status": "native-observed"
+        }
+      ],
+      "capture_manifest": "static/img/fusion/captures/S42/capture.json"
+    },
+    {
+      "id": "S43",
+      "priority": "P1",
+      "article": "manuals/fusion/nodes/time-metadata/set-metadata.md",
+      "manual": {
+        "version": "21.1",
+        "chapter": 110,
+        "printed_pages": "2573–2574; ch68 p1467"
+      },
+      "goal": "Name/ValueとMetadata subviewの一致を確認する",
+      "status": "captured-local-display-verified",
+      "shots": [
+        {
+          "slug": "graph",
+          "kind": "node-graph",
+          "target": "set-metadata",
+          "status": "native-observed"
+        },
+        {
+          "slug": "inspector",
+          "kind": "inspector",
+          "target": "set-metadata",
+          "status": "native-observed"
+        },
+        {
+          "slug": "compare",
+          "kind": "output",
+          "target": "set-metadata",
+          "status": "native-observed"
+        },
+        {
+          "slug": "metadata",
+          "kind": "output",
+          "target": "set-metadata",
+          "status": "native-observed"
+        },
+        {
+          "slug": "changed-inspector",
+          "kind": "inspector",
+          "target": "set-metadata",
+          "status": "native-observed"
+        },
+        {
+          "slug": "changed-metadata",
+          "kind": "output",
+          "target": "set-metadata",
+          "status": "native-observed"
+        }
+      ],
+      "capture_manifest": "static/img/fusion/captures/S43/capture.json"
+    },
+    {
+      "id": "S44",
+      "priority": "P1",
+      "article": "manuals/fusion/nodes/time-metadata/copy-metadata.md",
+      "manual": {
+        "version": "21.1",
+        "chapter": 110,
+        "printed_pages": "2571–2573; ch68 p1467"
+      },
+      "goal": "同名fieldの優先・置換・消去を4方式で比較する",
+      "status": "captured-local-display-verified",
+      "shots": [
+        {
+          "slug": "graph",
+          "kind": "node-graph",
+          "target": "copy-metadata",
+          "status": "native-observed"
+        },
+        {
+          "slug": "inspector",
+          "kind": "inspector",
+          "target": "copy-metadata",
+          "status": "native-observed"
+        },
+        {
+          "slug": "compare",
+          "kind": "output",
+          "target": "copy-metadata",
+          "status": "native-observed"
+        },
+        {
+          "slug": "metadata",
+          "kind": "output",
+          "target": "copy-metadata",
+          "status": "native-observed"
+        },
+        {
+          "slug": "bg-inspector",
+          "kind": "inspector",
+          "target": "copy-metadata",
+          "status": "native-observed"
+        },
+        {
+          "slug": "fg-inspector",
+          "kind": "inspector",
+          "target": "copy-metadata",
+          "status": "native-observed"
+        },
+        {
+          "slug": "preserve-inspector",
+          "kind": "inspector",
+          "target": "copy-metadata",
+          "status": "native-observed"
+        },
+        {
+          "slug": "preserve-metadata",
+          "kind": "output",
+          "target": "copy-metadata",
+          "status": "native-observed"
+        },
+        {
+          "slug": "replace-inspector",
+          "kind": "inspector",
+          "target": "copy-metadata",
+          "status": "native-observed"
+        },
+        {
+          "slug": "replace-metadata",
+          "kind": "output",
+          "target": "copy-metadata",
+          "status": "native-observed"
+        },
+        {
+          "slug": "clear-inspector",
+          "kind": "inspector",
+          "target": "copy-metadata",
+          "status": "native-observed"
+        },
+        {
+          "slug": "clear-metadata",
+          "kind": "output",
+          "target": "copy-metadata",
+          "status": "native-observed"
+        }
+      ],
+      "capture_manifest": "static/img/fusion/captures/S44/capture.json"
     }
   ],
   "publication_batches": [
@@ -2115,27 +2354,58 @@
         "artifacts/fusion-captures/public-batch7-assets.json"
       ],
       "limitations": "Full Fusion mission and article remaining_views continue."
+    },
+    {
+      "id": "fusion-native-20261024-08",
+      "cases": [
+        "S40",
+        "S41"
+      ],
+      "reuses": [
+        "R72",
+        "R73",
+        "R74",
+        "R75",
+        "R76"
+      ],
+      "pr": "https://github.com/46slv/collectanea-DB/pull/79",
+      "candidate": "de77228516de336f7b69680e83e4c069df2bc0cb",
+      "main": "0c332c12efffb87f1c20f4ca6091e0f3333b1ade",
+      "tree": "0873100d350972c46f6872f6ee54eb4507abe203",
+      "quality_run": "https://github.com/46slv/collectanea-DB/actions/runs/40007373897",
+      "pages_run": "https://github.com/46slv/collectanea-DB/actions/runs/40008884195",
+      "public_pages": 5,
+      "public_images": 47,
+      "new_placements": 41,
+      "new_native_crops": 27,
+      "public_asset_hashes": 643,
+      "result": "PASS",
+      "evidence": [
+        "artifacts/fusion-captures/public-batch8-display-report.json",
+        "artifacts/fusion-captures/public-batch8-assets.json"
+      ],
+      "limitations": "Full Fusion and article remaining_views continue."
     }
   ],
   "coverage_inventory": {
-    "checked_at": "2026-10-23T18:54:15.997619+00:00",
+    "checked_at": "2026-10-23T19:36:29.179667+00:00",
     "scope": "All manuals/fusion Markdown and MDX pages; review necessity before adding images.",
     "completion_rule": "Every page has an explicit image decision; necessary images are native-observed, embedded, saved to GitHub and public-display-verified. A native example does not verify all article controls.",
     "summary": {
       "total_pages": 586,
-      "with_images": 104,
-      "with_native_examples": 104,
+      "with_images": 107,
+      "with_native_examples": 107,
       "states": {
         "reviewed-no-standalone-image": 26,
         "no-standalone-image-needed": 6,
         "illustrated-reused-example": 65,
-        "capture-planned": 450,
-        "illustrated-native-example": 39
+        "capture-planned": 447,
+        "illustrated-native-example": 42
       },
       "decisions": {
         "no-standalone-image-needed": 32,
-        "image-required": 104,
-        "capture-needed": 450
+        "image-required": 107,
+        "capture-needed": 447
       }
     },
     "pages": [
@@ -15460,13 +15730,18 @@
         "article": "manuals/fusion/nodes/time-metadata/copy-metadata.md",
         "title": "Copy Metadata",
         "kind": "node",
-        "image_count": 0,
-        "native_cases": [],
+        "image_count": 12,
+        "native_cases": [
+          "S44"
+        ],
         "reused_cases": [],
         "planned_cases": [],
-        "state": "capture-planned",
-        "decision": "capture-needed",
+        "state": "illustrated-native-example",
+        "decision": "image-required",
         "reason": "本文の対象機能: Copy Metadataは、Foreground ImageのmetadataをBackground Imageへ結合・置換するNode。。RGBの見た目ではmetadata付与/copy/timecodeを示せない。",
+        "remaining_views": [
+          "特殊なmetadata型、出力形式への保持"
+        ],
         "required_views": [
           "対象Graph",
           "自身のField/Operation/FPS等",
@@ -15491,7 +15766,8 @@
             "role": "入力/結果または実UIの具体箇所"
           }
         ],
-        "hold_conditions": []
+        "hold_conditions": [],
+        "audit_note": "S42–S44の実機例を掲載。固定条件の結果と未撮影機能を区別しpartial維持。"
       },
       {
         "article": "manuals/fusion/nodes/time-metadata/custom-tool.md",
@@ -15575,13 +15851,18 @@
         "article": "manuals/fusion/nodes/time-metadata/frame-average.md",
         "title": "Frame Average",
         "kind": "node",
-        "image_count": 0,
-        "native_cases": [],
+        "image_count": 14,
+        "native_cases": [
+          "S42"
+        ],
         "reused_cases": [],
         "planned_cases": [],
-        "state": "capture-planned",
-        "decision": "capture-needed",
+        "state": "illustrated-native-example",
+        "decision": "image-required",
         "reason": "本文の対象機能: Frame Averageは、複数frameを平均して現在frameのImageを作るNode。。static/別Node UIは対象の時間参照/補間/平均を示せない。",
+        "remaining_views": [
+          "ノイズ低減の画質、平均対象枚数、実ファイル欠落と性能"
+        ],
         "required_views": [
           "対象名と実接続が読めるGraph",
           "対象自身を選択したInspectorの該当Control",
@@ -15609,26 +15890,30 @@
         ],
         "hold_conditions": [
           "前後handlesを確認。Flow modeは必要vector/解析経路も確認。"
-        ]
+        ],
+        "audit_note": "S42–S44の実機例を掲載。固定条件の結果と未撮影機能を区別しpartial維持。"
       },
       {
         "article": "manuals/fusion/nodes/time-metadata/index.md",
         "title": "Time / Metadata / Utilityノード",
         "kind": "index",
-        "image_count": 4,
+        "image_count": 12,
         "native_cases": [],
         "reused_cases": [
-          "S40"
+          "S40",
+          "S42",
+          "S43",
+          "S44"
         ],
         "planned_cases": [],
         "state": "illustrated-reused-example",
         "decision": "image-required",
         "reason": "Source Time、Keyframe評価、Metadata subviewやDoDの実画面を示す。",
         "remaining_views": [
-          "Flow/SpeedWarp/Frame Average等の比較",
-          "Metadata/DoD/Bit depth/Switch/Wireless等の自身のUIと結果"
+          "Flow/SpeedWarp/Fields/Keyframe Stretcher等の比較",
+          "Set Timecode/DoD/Bit depth/Switch/Wireless等の自身のUIと結果"
         ],
-        "audit_note": "S40/S41と既存の実機例を掲載。Number共有と素材時刻の固定条件を確認し、残る機能はpartial。"
+        "audit_note": "S42–S44の実機例を掲載。固定条件の結果と未撮影機能を区別しpartial維持。"
       },
       {
         "article": "manuals/fusion/nodes/time-metadata/keyframe-stretcher.md",
@@ -15744,13 +16029,18 @@
         "article": "manuals/fusion/nodes/time-metadata/set-metadata.md",
         "title": "Set Metadata",
         "kind": "node",
-        "image_count": 0,
-        "native_cases": [],
+        "image_count": 6,
+        "native_cases": [
+          "S43"
+        ],
         "reused_cases": [],
         "planned_cases": [],
-        "state": "capture-planned",
-        "decision": "capture-needed",
+        "state": "illustrated-native-example",
+        "decision": "image-required",
         "reason": "本文の対象機能: Set Metadataは、Field NameとField Valueを指定して2D Imageへ任意のmetadataを追加するNode。。RGBの見た目ではmetadata付与/copy/timecodeを示せない。",
+        "remaining_views": [
+          "同名fieldの上書き、型、出力形式への保持"
+        ],
         "required_views": [
           "対象Graph",
           "自身のField/Operation/FPS等",
@@ -15775,7 +16065,8 @@
             "role": "入力/結果または実UIの具体箇所"
           }
         ],
-        "hold_conditions": []
+        "hold_conditions": [],
+        "audit_note": "S42–S44の実機例を掲載。固定条件の結果と未撮影機能を区別しpartial維持。"
       },
       {
         "article": "manuals/fusion/nodes/time-metadata/set-timecode.md",
@@ -20480,8 +20771,9 @@
         "high.png",
         "low.png"
       ],
-      "status": "embedded-local-display-verified",
-      "scope": "Numberの共有だけを確認。Perturb、Modifierの連結、Point/Text型は未確認。"
+      "status": "published-display-verified",
+      "scope": "Numberの共有だけを確認。Perturb、Modifierの連結、Point/Text型は未確認。",
+      "published_batch": "fusion-native-20261024-08"
     },
     {
       "id": "R73",
@@ -20491,8 +20783,9 @@
         "inspector.png",
         "low-inspector.png"
       ],
-      "status": "embedded-local-display-verified",
-      "scope": "同じ時刻のNumber式。5フレーム前のGetValueとPick Whipは未確認。"
+      "status": "published-display-verified",
+      "scope": "同じ時刻のNumber式。5フレーム前のGetValueとPick Whipは未確認。",
+      "published_batch": "fusion-native-20261024-08"
     },
     {
       "id": "R74",
@@ -20502,8 +20795,9 @@
         "peak-inspector.png",
         "keyframes.png"
       ],
-      "status": "embedded-local-display-verified",
-      "scope": "SizeのNumberアニメーション。Perturbの重ね合わせとModifier連結は未確認。"
+      "status": "published-display-verified",
+      "scope": "SizeのNumberアニメーション。Perturbの重ね合わせとModifier連結は未確認。",
+      "published_batch": "fusion-native-20261024-08"
     },
     {
       "id": "R75",
@@ -20513,8 +20807,9 @@
         "published-inspector.png",
         "b-high-inspector.png"
       ],
-      "status": "embedded-local-display-verified",
-      "scope": "NumberのPublish/Connect To。別時刻の参照、Point/Text型、Modifier連結は未確認。"
+      "status": "published-display-verified",
+      "scope": "NumberのPublish/Connect To。別時刻の参照、Point/Text型、Modifier連結は未確認。",
+      "published_batch": "fusion-native-20261024-08"
     },
     {
       "id": "R76",
@@ -20526,8 +20821,44 @@
         "compare.png",
         "fast.png"
       ],
+      "status": "published-display-verified",
+      "scope": "番号入り連番のSpeedだけを図示。Flow/SpeedWarp/Frame AverageやMetadataの実UIは未確認。",
+      "published_batch": "fusion-native-20261024-08"
+    },
+    {
+      "id": "R77",
+      "article": "manuals/fusion/nodes/time-metadata/index.md",
+      "source_case": "S42",
+      "images": [
+        "backward.png",
+        "compare.png",
+        "forward.png"
+      ],
       "status": "embedded-local-display-verified",
-      "scope": "番号入り連番のSpeedだけを図示。Flow/SpeedWarp/Frame AverageやMetadataの実UIは未確認。"
+      "scope": "Frames12の固定例。Fields、Keyframe Stretcher、ノイズ低減性能は未確認。"
+    },
+    {
+      "id": "R78",
+      "article": "manuals/fusion/nodes/time-metadata/index.md",
+      "source_case": "S43",
+      "images": [
+        "inspector.png",
+        "metadata.png"
+      ],
+      "status": "embedded-local-display-verified",
+      "scope": "Name/Valueの固定例。Set Timecodeと書き出し時の保持は未確認。"
+    },
+    {
+      "id": "R79",
+      "article": "manuals/fusion/nodes/time-metadata/index.md",
+      "source_case": "S44",
+      "images": [
+        "graph.png",
+        "preserve-metadata.png",
+        "replace-metadata.png"
+      ],
+      "status": "embedded-local-display-verified",
+      "scope": "2入力のmetadata結合と置換。保存ファイルへの保持は未確認。"
     }
   ]
 }
