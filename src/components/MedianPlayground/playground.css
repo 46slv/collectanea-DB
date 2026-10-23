@@ -1,0 +1,22 @@
+.vp-median { border: 1px solid var(--ifm-color-emphasis-300); border-radius: 12px; padding: 1rem; margin: 1rem 0 1.5rem; min-width: 0; }
+.vp-median > h3 { margin: 0 0 .5rem; }
+.vp-median > p { margin: 0 0 .85rem; }
+.vp-median__previews { display: grid; grid-template-columns: repeat(2, minmax(0, 1fr)); gap: .9rem; margin-bottom: .8rem; }
+.vp-median__preview { margin: 0; min-width: 0; border: 1px solid var(--ifm-color-emphasis-300); border-radius: 8px; overflow: hidden; }
+.vp-median__preview figcaption { display: flex; flex-wrap: wrap; gap: .2rem .5rem; justify-content: space-between; padding: .6rem .65rem; font-size: .85rem; }
+.vp-median__preview figcaption span { color: var(--ifm-color-emphasis-700); }
+.vp-median__preview canvas { display: block; width: 100%; height: auto; image-rendering: pixelated; background: var(--ifm-background-color); }
+.vp-median__note { color: var(--ifm-color-emphasis-700); font-size: .88rem; }
+.vp-median__controls { display: grid; grid-template-columns: repeat(auto-fit, minmax(min(100%, 230px), 1fr)); gap: .8rem 1.2rem; }
+.vp-median__control { display: flex; flex-direction: column; gap: .35rem; min-width: 0; }
+.vp-median__control > span { font-weight: 600; font-size: .9rem; }
+.vp-median__control select, .vp-median__control input { width: 100%; min-width: 0; }
+.vp-median__control select { padding: .35rem; border-radius: 6px; border: 1px solid var(--ifm-color-emphasis-400); color: var(--ifm-font-color-base); background: var(--ifm-background-color); }
+.vp-median__actions { margin-top: .8rem; }
+.vp-median__actions button { cursor: pointer; border: 1px solid var(--ifm-color-emphasis-400); color: var(--ifm-font-color-base); background: var(--ifm-background-color); padding: .4rem .85rem; border-radius: 6px; }
+.vp-median__actions button:focus-visible, .vp-median__control input:focus-visible, .vp-median__control select:focus-visible { outline: 2px solid var(--ifm-color-primary); outline-offset: 2px; }
+@media (max-width: 680px) { .vp-median { padding: .7rem; } .vp-median__previews { grid-template-columns: minmax(0, 1fr); } }
+
+.vp-median__mae { padding: .55rem .7rem; border-radius: 6px; background: var(--ifm-color-emphasis-100); font-size: .87rem; overflow-wrap: anywhere; }
+
+.vp-median__changes { display: flex; flex-direction: column; gap: .2rem; margin: 0 0 .85rem; padding: .55rem .7rem; border: 1px solid var(--ifm-color-emphasis-300); border-radius: 6px; font-size: .87rem; overflow-wrap: anywhere; }
