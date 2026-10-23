@@ -35,6 +35,9 @@ TARGETS['S41']='TransformA';LEFT['S41']='TransformA';RIGHT['S41']='TransformB'
 TARGETS['S42']='FrameAverage1';LEFT['S42']='Loader1';RIGHT['S42']='FrameAverage1'
 TARGETS['S43']='SetMetadata1';LEFT['S43']='Background1';RIGHT['S43']='SetMetadata1'
 TARGETS['S44']='CopyMetadata1';LEFT['S44']='MetaFGExtra';RIGHT['S44']='CopyMetadata1'
+TARGETS['S45']='SetTimecode1';LEFT['S45']='Background1';RIGHT['S45']='SetTimecode1'
+TARGETS['S46']='Switch1';LEFT['S46']='Blue1';RIGHT['S46']='Switch1'
+TARGETS['S47']='Wireless1';LEFT['S47']='Text1';RIGHT['S47']='Wireless1'
 r=d.scriptapp('Resolve')
 assert r, 'Resolve scripting unavailable; do not change preferences automatically'
 pm=r.GetProjectManager(); p=pm.GetCurrentProject()
@@ -43,7 +46,7 @@ assert r.GetCurrentPage(), 'Resolve has a modal dialog; reconcile the GUI first'
 case=sys.argv[1]; action=sys.argv[2] if len(sys.argv)>2 else 'readback'
 requested_frame=int(sys.argv[3]) if action=='frame' else 24 if case in ['S40','S42'] else 0
 if action=='frame':
- assert case in ['S35','S36','S39','S40','S42'] and requested_frame in ([0,48] if case=='S35' else [0,3,6,9,12,18,24]);action='show'
+ assert case in ['S35','S36','S39','S40','S42','S45'] and requested_frame in ([0,48] if case=='S35' else [0,3,6,9,12,18,24]);action='show'
 if action=='hold':
  assert case=='S39';requested_frame=int(sys.argv[3]);assert requested_frame in [0,24]
  TARGETS[case]='TransformHold';LEFT[case]='TimeHold';RIGHT[case]='TransformHold';action='show'
@@ -85,8 +88,8 @@ for _ in range(50):
  time.sleep(.1)
 else:raise RuntimeError('Requested composition did not become the active GUI composition')
 t.SetCurrentTimecode('01:00:02:00' if case=='S09' else '01:00:00:00')
-c.CurrentTime=requested_frame if case in ['S35','S36','S39','S40','S42'] else 48 if case=='S09' else 0
-if case in ['S36','S39','S40','S42']:t.SetCurrentTimecode(f'01:00:{requested_frame//24:02d}:{requested_frame%24:02d}')
+c.CurrentTime=requested_frame if case in ['S35','S36','S39','S40','S42','S45'] else 48 if case=='S09' else 0
+if case in ['S36','S39','S40','S42','S45']:t.SetCurrentTimecode(f'01:00:{requested_frame//24:02d}:{requested_frame%24:02d}')
 if case=='S35':t.SetCurrentTimecode('01:00:02:00' if requested_frame==48 else '01:00:00:00')
 time.sleep(.3)
 tools={x.GetAttrs()['TOOLS_Name']:x for x in c.GetToolList().values()}
@@ -152,6 +155,9 @@ def select(target,left=None):
  layouts['S36']={'Text1':(0,0),'TransformLinear':(1.5,-2),'TransformSmooth':(1.5,0),'TransformStep':(1.5,2),'MediaOut1':(3,0)}
  layouts['S37']={'Base1':(0,0),'Rectangle1':(0,-2),'Red1':(1.5,-2),'Ellipse1':(1.5,2),'Gold1':(3,2),'MergeMaster':(3,-1),'MergeDerived':(4.5,1),'MediaOut1':(6,1)}
  layouts['S38']={'Loader1':(0,0),'TransformReference':(1.5,0),'MediaOut1':(3,0)}
+ layouts['S47']={'Text1':(0,0),'Wireless1':(3,0),'MediaOut1':(4.5,0)}
+ layouts['S46']={'Blue1':(0,-1.5),'Gold1':(0,1.5),'Switch1':(2,0),'MediaOut1':(4,0)}
+ layouts['S45']={'Background1':(0,0),'SetTimecode1':(1.5,0),'MediaOut1':(3,0)}
  layouts['S44']={'Blue1':(0,1.5),'MetaBGShot':(1.5,1.5),'MetaBGExtra':(3,1.5),'Red1':(0,-1.5),'MetaFGShot':(1.5,-1.5),'MetaFGExtra':(3,-1.5),'CopyMetadata1':(4.5,1.5),'MediaOut1':(6,1.5)}
  layouts['S43']={'Background1':(0,0),'SetMetadata1':(1.5,0),'MediaOut1':(3,0)}
  layouts['S42']={'Loader1':(0,0),'FrameAverage1':(1.5,0),'MediaOut1':(3,0)}
@@ -197,6 +203,19 @@ if action=='build':
   rb=add('sRender','RenderBase1',4,-1);connect(rb,'Input',base)
   target=add('sTransform','Transform1',2,1);connect(target,'Input',base)
   rr=add('sRender','RenderChanged1',4,1);connect(rr,'Input',target);connect(mo,'Input',rr)
+ # S47 build creates the scaffold; finish Wireless Input node reference in the native GUI.
+ elif case=='S47':
+  text('Text1',0,0,'WIRELESS',.12)
+  target=add('Fuse.Wireless','Wireless1',3,0);connect(mo,'Input',target)
+ # S46 build creates the scaffold; finish Switch input/output wiring and Config names in the native GUI.
+ elif case=='S46':
+  blue=add('Background','Blue1',0,-1.5,TopLeftRed=.03,TopLeftGreen=.12,TopLeftBlue=.3)
+  gold=add('Background','Gold1',0,1.5,TopLeftRed=.85,TopLeftGreen=.42,TopLeftBlue=.03)
+  target=add('Switch','Switch1',2,0)
+  print('Switch scaffold: inspect native inputs before connecting candidates')
+ elif case=='S45':
+  bg=add('Background','Background1',0,0,TopLeftRed=.03,TopLeftGreen=.12,TopLeftBlue=.3)
+  target=add('Fuse.SetMetaDataTC','SetTimecode1',1.5,0);connect(target,'Input',bg);connect(mo,'Input',target)
  elif case=='S44':
   blue=add('Background','Blue1',0,1.5,TopLeftRed=.03,TopLeftGreen=.12,TopLeftBlue=.3)
   red=add('Background','Red1',0,-1.5,TopLeftRed=.8,TopLeftGreen=.04,TopLeftBlue=.02)

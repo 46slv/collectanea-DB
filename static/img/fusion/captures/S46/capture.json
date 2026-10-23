@@ -1,0 +1,166 @@
+{
+  "schema_version": 1,
+  "case": "S46",
+  "article": "manuals/fusion/nodes/time-metadata/switch.md",
+  "manual": {
+    "version": "21.1",
+    "chapter": 111,
+    "printed_pages": "2606–2607"
+  },
+  "runtime": {
+    "version": "21.1.0.14",
+    "edition": "Studio",
+    "os": "Windows-11-10.0.26200-SP0",
+    "ui_language": "ja-JP (some Shape controls remain English)"
+  },
+  "captured_at": "2026-10-23T19:56:38.051106+00:00",
+  "project": "Collectanea_Captures_20261023_Sol",
+  "timeline": "S46_capture",
+  "frame": 0.0,
+  "resolution": [
+    1920,
+    1080
+  ],
+  "color_management": {
+    "colorScienceMode": "davinciYRGB",
+    "colorSpaceTimeline": "Rec.709 (Scene)",
+    "colorSpaceTimelineGamma": "",
+    "colorSpaceOutput": "Rec.709 (Scene)",
+    "colorSpaceOutputGamma": "ACEScc",
+    "separateColorSpaceAndGamma": "0",
+    "isAutoColorManage": "0",
+    "timelineResolutionWidth": "1920",
+    "timelineResolutionHeight": "1080",
+    "timelineFrameRate": 24.0,
+    "timelinePlaybackFrameRate": "30"
+  },
+  "viewer": {
+    "zoom_percent": 40,
+    "channel": "Color",
+    "background": "checkerboard for transparent pixels",
+    "note": "Viewer screenshots are display evidence, not colorimetric exports."
+  },
+  "graph": "fixture.comp",
+  "settings": "readback.json",
+  "source": {
+    "file": "screen.png",
+    "size": [
+      3352,
+      1910
+    ],
+    "sha256": "045fbfb195c41a3e3fb58372cadec986e03a0ac8784e9d9a6d0023998f14b543"
+  },
+  "shots": [
+    {
+      "file": "graph.png",
+      "source": "screen.png",
+      "source_sha256": "045fbfb195c41a3e3fb58372cadec986e03a0ac8784e9d9a6d0023998f14b543",
+      "frame": 0.0,
+      "crop_xyxy": [
+        240,
+        1060,
+        2600,
+        1660
+      ],
+      "resampled": false,
+      "sha256": "2812e69fb822740bfeaee7dad5df5913c24a7f71dba32a7797733637ae72dcf5"
+    },
+    {
+      "file": "inspector.png",
+      "source": "screen.png",
+      "source_sha256": "045fbfb195c41a3e3fb58372cadec986e03a0ac8784e9d9a6d0023998f14b543",
+      "frame": 0.0,
+      "crop_xyxy": [
+        2830,
+        120,
+        3352,
+        300
+      ],
+      "resampled": false,
+      "sha256": "6afb7fd16bc5832cd898d36f71403fb26a0234e96592cc94fd26ea742755ced5"
+    },
+    {
+      "file": "compare.png",
+      "source": "screen.png",
+      "source_sha256": "045fbfb195c41a3e3fb58372cadec986e03a0ac8784e9d9a6d0023998f14b543",
+      "frame": 0.0,
+      "crop_xyxy": [
+        1146,
+        65,
+        2830,
+        705
+      ],
+      "resampled": false,
+      "sha256": "2016b2ca75fa03960637f8d509e8e9efa213ba8161d464a777fd49994e1642a0"
+    },
+    {
+      "file": "gold-inspector.png",
+      "source": "screen-gold.png",
+      "source_sha256": "610bbea14b2d388ee3f97112c7e89f5b3537b2b17d2886883c9073855fd5ccde",
+      "frame": 0.0,
+      "crop_xyxy": [
+        2830,
+        120,
+        3352,
+        300
+      ],
+      "resampled": false,
+      "sha256": "30574854397da8da5d40199f9a0b8c6e598b4fdfbbf66fad4f68acd8acae5c6f"
+    },
+    {
+      "file": "gold.png",
+      "source": "screen-gold.png",
+      "source_sha256": "610bbea14b2d388ee3f97112c7e89f5b3537b2b17d2886883c9073855fd5ccde",
+      "frame": 0.0,
+      "crop_xyxy": [
+        1146,
+        65,
+        2830,
+        705
+      ],
+      "resampled": false,
+      "sha256": "9653ca8c9290b6b66b7935cdfdbae3bdae37c46a3d8a1949b5d48e9c38e15734"
+    },
+    {
+      "file": "config-inspector.png",
+      "source": "screen-config.png",
+      "source_sha256": "1f054efc04e52d8661614300f45f44e2b73ca353a806d4bc2fc08c44c2ebea15",
+      "frame": 0.0,
+      "crop_xyxy": [
+        2830,
+        120,
+        3352,
+        330
+      ],
+      "resampled": false,
+      "sha256": "311aa1faf2b92991ef933fbe2658634e618f83603238ed42554a0637c4da036a"
+    }
+  ],
+  "acceptance": {
+    "gui": "PASS: owner visually inspected node connections, selected Inspector, and output",
+    "article_display": "PASS: local production build;1440px/390px decode/Alt/native links/hash/overflow"
+  },
+  "unverified": [
+    "Free edition and other platforms",
+    "All parameter ranges and performance",
+    "Shape/3D, source animation, more than nine or unconnected inputs",
+    "Exported portable composition reimport"
+  ],
+  "state_variants": {
+    "screen.png": "Source0 BLUE, named inputs and restored",
+    "screen-gold.png": "Source1 GOLD; rightGold/leftBlue",
+    "screen-config.png": "Config NumberOfInputs2, Name0 BLUE, Name1 GOLD; Source1 GOLD"
+  },
+  "restoration": "PASS: owned scratch saved, both Color40%, Spline/Keyframes closed, RoI/DoD off; frame0 Source0 BLUE; names BLUE/GOLD; no popup",
+  "native_gui_acceptance": {
+    "connections": "All three connections performed in native Node Editor. GetInputList observed Input0/Input1 and GUI confirmed Source0/1 results. API-only ConnectInput attempts failed and were not accepted.",
+    "names": "Native Config text edits BLUE/GOLD; Source labels updated.",
+    "builder_scope": "Scaffold only; requires native wiring. Existing accepted case must not be rebuilt."
+  },
+  "reproduction": {
+    "fixture_sha256": "73457eab764cff242f3985fc0802acbbb7901e7739dc659027e711f41e5cd6fa",
+    "readback_sha256": "1c3c4fbb1ef9459f1640be49684d1bd86325bd5d7526fd57eec935ec92e6367f",
+    "paths": "Comp:/../_fixtures/ for bundled synthetic fixtures",
+    "reimport": "NOT_RUN: accepted GUI evidence precedes export path normalization"
+  }
+}

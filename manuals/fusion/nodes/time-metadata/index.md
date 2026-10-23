@@ -147,6 +147,18 @@ Resolve Studio 21.1.0.14／Windows、両Viewer Color／40%。2入力のmetadata�
 
 [Set Timecode](./set-timecode.md)はFPSと開始位置を基に、ImageのタイムコードMetadataを生成します。素材の速度やEditページのタイムライン開始時刻を変更するものではありません。
 
+### 実機の参考例：タイムコード
+
+<!-- capture-reuse:R80 -->
+
+S45ではFPS24と8秒15フレームの開始オフセットを設定しました。出力0では00:00:08:15、出力24では00:00:09:15です。画素は青のままで、付帯情報の時刻だけが変わります。
+
+[![Set TimecodeのMetadata subview。FrameRate24、TimeCode00:00:08:15](/img/fusion/captures/S45/metadata.png)](/img/fusion/captures/S45/metadata.png)
+
+[![同じFPS24と開始オフセットで出力24へ進めると、右のTimeCodeは00:00:09:15になる](/img/fusion/captures/S45/frame24.png)](/img/fusion/captures/S45/frame24.png)
+
+Resolve Studio 21.1.0.14／Windows、両Viewer Color／40%。固定オフセットと24fpsの時刻差。書き出し時のTimecode保持は未確認。 [再現用Graph](/img/fusion/captures/S45/fixture.comp) · [撮影条件と確認範囲](/img/fusion/captures/S45/capture.json)
+
 **FusionでMetadataが存在することと、最終ファイルへ保持されることは別問題です。** 保存が必要な場合はSaver / Deliverと出力フォーマット、後段処理を別途確認します。
 
 ## DoDとBit depth：処理する場所と精度
@@ -173,9 +185,37 @@ Resolve Studio 21.1.0.14／Windows、両Viewer Color／40%。2入力のmetadata�
 Text+ ────────────────→ Merge（Foreground）
 ```
 
+### 実機の参考例：入力の選択
+
+<!-- capture-reuse:R81 -->
+
+S46は青と金色の2入力からGOLDを選んだ例です。左のBlue1は青のまま、右のSwitch出力だけが金色になります。SourceのBLUE／GOLDはConfigで付けた入力名です。
+
+[![Blue1とGold1をSwitch1の2入力へ接続し、出力だけをMediaOut1へ渡す実機Graph](/img/fusion/captures/S46/graph.png)](/img/fusion/captures/S46/graph.png)
+
+[![同じSwitchのSourceをGOLDへ切り替えたInspector](/img/fusion/captures/S46/gold-inspector.png)](/img/fusion/captures/S46/gold-inspector.png)
+
+[![SourceでGOLDを選ぶと右のSwitch出力が金色になる。左Blue1は青のまま](/img/fusion/captures/S46/gold.png)](/img/fusion/captures/S46/gold.png)
+
+Resolve Studio 21.1.0.14／Windows、両Viewer Color／40%。2D Imageの固定選択。Shape/3DとSourceアニメーションは未確認。 [再現用Graph](/img/fusion/captures/S46/fixture.comp) · [撮影条件と確認範囲](/img/fusion/captures/S46/capture.json)
+
 両方の背景を同時に重ねるならMerge、クロスフェードするならDissolveを検討します。
 
 [Wireless Link](./wireless-link.md)は入力端子ではなくInspectorの`Input`フィールドへ2D Nodeをドラッグして参照し、長い配線を引かずに同じImageを出力します。便利ですが、画面上のパイプだけでは依存先を追いにくくなります。
+
+### 実機の参考例：配線を省いた参照
+
+<!-- capture-reuse:R82 -->
+
+S47ではText1のタイルをWireless LinkのInputへドラッグしました。Text1へ画像pipeを引かずに参照し、元の文字をUPDATEDへ変えるとWireless側もUPDATEDになります。
+
+[![Text1からWireless1へ画像のpipeを引かず、Wireless1からMediaOut1だけを接続した実機Graph](/img/fusion/captures/S47/graph.png)](/img/fusion/captures/S47/graph.png)
+
+[![Wireless LinkのInspector Input欄へText1をドラッグした後の表示](/img/fusion/captures/S47/inspector.png)](/img/fusion/captures/S47/inspector.png)
+
+[![参照元Text1の文字をUPDATEDへ変えると、右Wireless1の文字もUPDATEDになる](/img/fusion/captures/S47/updated.png)](/img/fusion/captures/S47/updated.png)
+
+Resolve Studio 21.1.0.14／Windows、両Viewer Color／40%。Text+の2D Image参照。参照元のrename/deleteや参照切れは未確認。 [再現用Graph](/img/fusion/captures/S47/fixture.comp) · [撮影条件と確認範囲](/img/fusion/captures/S47/capture.json)
 
 [Run Command](./run-command.md)はレンダリング開始時・各フレームの完了時・レンダリング終了時に外部コマンドを実行します。`Saver → Run Command`と接続すると、フレームの保存が完了した後の後処理に使えます。外部プロセスの内容、対象ファイル、起動回数、終了待ちを確認してからレンダリングします。
 

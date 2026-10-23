@@ -1,0 +1,137 @@
+{
+  "schema_version": 1,
+  "case": "S47",
+  "article": "manuals/fusion/nodes/time-metadata/wireless-link.md",
+  "manual": {
+    "version": "21.1",
+    "chapter": 111,
+    "printed_pages": "2613–2614"
+  },
+  "runtime": {
+    "version": "21.1.0.14",
+    "edition": "Studio",
+    "os": "Windows-11-10.0.26200-SP0",
+    "ui_language": "ja-JP (some Shape controls remain English)"
+  },
+  "captured_at": "2026-10-23T19:56:38.060480+00:00",
+  "project": "Collectanea_Captures_20261023_Sol",
+  "timeline": "S47_capture",
+  "frame": 0.0,
+  "resolution": [
+    1920,
+    1080
+  ],
+  "color_management": {
+    "colorScienceMode": "davinciYRGB",
+    "colorSpaceTimeline": "Rec.709 (Scene)",
+    "colorSpaceTimelineGamma": "",
+    "colorSpaceOutput": "Rec.709 (Scene)",
+    "colorSpaceOutputGamma": "ACEScc",
+    "separateColorSpaceAndGamma": "0",
+    "isAutoColorManage": "0",
+    "timelineResolutionWidth": "1920",
+    "timelineResolutionHeight": "1080",
+    "timelineFrameRate": 24.0,
+    "timelinePlaybackFrameRate": "30"
+  },
+  "viewer": {
+    "zoom_percent": 40,
+    "channel": "Color",
+    "background": "checkerboard for transparent pixels",
+    "note": "Viewer screenshots are display evidence, not colorimetric exports."
+  },
+  "graph": "fixture.comp",
+  "settings": "readback.json",
+  "source": {
+    "file": "screen.png",
+    "size": [
+      3352,
+      1910
+    ],
+    "sha256": "fb476be2b33f232189f0f4a9a798cc0b81f4bf1220ee1fa588aeb43c6910a6d7"
+  },
+  "shots": [
+    {
+      "file": "graph.png",
+      "source": "screen.png",
+      "source_sha256": "fb476be2b33f232189f0f4a9a798cc0b81f4bf1220ee1fa588aeb43c6910a6d7",
+      "frame": 0.0,
+      "crop_xyxy": [
+        240,
+        1300,
+        2600,
+        1450
+      ],
+      "resampled": false,
+      "sha256": "640f16d0cfbb615e42f97e3fcac9502dc3aac53d6637019f5a1b97dc20c152b9"
+    },
+    {
+      "file": "inspector.png",
+      "source": "screen.png",
+      "source_sha256": "fb476be2b33f232189f0f4a9a798cc0b81f4bf1220ee1fa588aeb43c6910a6d7",
+      "frame": 0.0,
+      "crop_xyxy": [
+        2830,
+        120,
+        3352,
+        300
+      ],
+      "resampled": false,
+      "sha256": "72e51f1da05b99f836c906ac6f8bc25a9eda63ecd2a1430601b624bff554af26"
+    },
+    {
+      "file": "compare.png",
+      "source": "screen.png",
+      "source_sha256": "fb476be2b33f232189f0f4a9a798cc0b81f4bf1220ee1fa588aeb43c6910a6d7",
+      "frame": 0.0,
+      "crop_xyxy": [
+        1146,
+        65,
+        2830,
+        705
+      ],
+      "resampled": false,
+      "sha256": "1756e668074e5f6424b701d8f6bdb856da871e4e34c82f9f1f80f521b5288e38"
+    },
+    {
+      "file": "updated.png",
+      "source": "screen-updated.png",
+      "source_sha256": "d6b1f33e10c01dc3cc9e25ac898474902a78b6e5dbddc8134b4cfe38f16c35ce",
+      "frame": 0.0,
+      "crop_xyxy": [
+        1146,
+        65,
+        2830,
+        705
+      ],
+      "resampled": false,
+      "sha256": "64f92261586ee9c4beb16351f37c9ed8d0d738c5759ed257f3ecf37cc110ab6d"
+    }
+  ],
+  "acceptance": {
+    "gui": "PASS: owner visually inspected node connections, selected Inspector, and output",
+    "article_display": "PASS: local production build;1440px/390px decode/Alt/native links/hash/overflow"
+  },
+  "unverified": [
+    "Free edition and other platforms",
+    "All parameter ranges and performance",
+    "Source rename/delete/switch, broken links and other data domains",
+    "Exported portable composition reimport"
+  ],
+  "state_variants": {
+    "screen.png": "Input references Text1; Text WIRELESS, restored",
+    "screen-updated.png": "same link; source StyledText changed to UPDATED, both Viewers updated"
+  },
+  "restoration": "PASS: owned scratch saved, both Color40%, Spline/Keyframes closed, RoI/DoD off; frame0 Text1 WIRELESS, Wireless.Input=Text1; no popup",
+  "native_gui_acceptance": {
+    "reference": "Dragged Text1 tile into native Wireless.Input field; field reads Text1; exported SourceOp Text1/Source Output. GetInput returned userdata/None, so GUI and export establish target.",
+    "change": "Changed source StyledText to UPDATED; both native Viewers updated; restored WIRELESS.",
+    "builder_scope": "Scaffold only; requires native Input drag."
+  },
+  "reproduction": {
+    "fixture_sha256": "4a2d984827afffaadcd17894ad81164ff6de4e3950acb2edd960d6db1d2fdd8c",
+    "readback_sha256": "07e6f170b0ead985c14bb88a9cbf541e67fd78e5b686c96f5b946e2e159b6503",
+    "paths": "Comp:/../_fixtures/ for bundled synthetic fixtures",
+    "reimport": "NOT_RUN: accepted GUI evidence precedes export path normalization"
+  }
+}
