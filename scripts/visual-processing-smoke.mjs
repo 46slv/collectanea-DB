@@ -250,6 +250,39 @@ try {
     await noOverflow();
     await shot('quantization-mobile');
   });
+  await check('filter-optics-widget-interactions-mobile', async () => {
+    const cases = [
+      {route: '/filters/gaussian-blur', name: 'blur', slider: 'ぼかし幅', attr: 'data-vp-sigma', minimum: '0'},
+      {route: '/optics/bloom', name: 'bloom', slider: '合成強度', attr: 'data-vp-bloom-strength', minimum: '0'},
+      {route: '/filters/unsharp-mask', name: 'sharpen', slider: '強さ', attr: 'data-vp-sharpen-amount', minimum: '0'},
+      {route: '/filters/sobel-edge-detection', name: 'sobel', slider: '輪郭の閾値', attr: 'data-vp-sobel-threshold', minimum: '0'},
+      {route: '/filters/difference-of-gaussians', name: 'dog', slider: '小さいぼかしの標準偏差', attr: 'data-vp-dog-sigma', minimum: '0.5'},
+    ];
+    for (const spec of cases) {
+      for (const width of [1440, 390, 320]) {
+        await page.setViewportSize({width, height: width === 1440 ? 1000 : 844});
+        await go('/reference/visual-processing' + spec.route);
+        const widget = page.locator('[data-vp-' + spec.name + '="ready"]');
+        await expect(widget).toBeVisible();
+        const order = await widget.evaluate((section, name) => {
+          const previews = section.querySelector('.vp-' + name + '__previews');
+          const controls = section.querySelector('.vp-' + name + '__controls');
+          return {
+            dom: Boolean(previews && controls && (previews.compareDocumentPosition(controls) & Node.DOCUMENT_POSITION_FOLLOWING)),
+            visual: Boolean(previews && controls && previews.getBoundingClientRect().bottom <= controls.getBoundingClientRect().top),
+          };
+        }, spec.name);
+        assert.ok(order.dom && order.visual, 'Results precede controls: ' + spec.name + ' ' + width + ' ' + JSON.stringify(order));
+        const slider = widget.getByRole('slider', {name: spec.slider, exact: true});
+        await slider.focus();
+        await slider.press('Home');
+        await expect(widget).toHaveAttribute(spec.attr, spec.minimum);
+        await widget.getByRole('button', {name: '初期値に戻す'}).click();
+        await expect(widget).not.toHaveAttribute(spec.attr, spec.minimum);
+        await noOverflow();
+      }
+    }
+  });
   await check('no-runtime-or-resource-errors', async () => {
     assert.deepEqual(report.pageErrors, []);
     assert.deepEqual(report.resourceErrors, []);
