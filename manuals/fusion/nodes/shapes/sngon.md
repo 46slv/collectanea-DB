@@ -14,7 +14,7 @@ controls: ["Solid", "Border Width", "Border Style", "Cap Style", "Position", "Le
 tasks: ["build-shape", "procedural-graphics"]
 product_scope: fusion
 suite_surfaces: ["fusion"]
-updated: "2026-10-11"
+updated: "2026-10-24"
 ---
 
 # sNGon
@@ -85,7 +85,7 @@ sNGon → sGrid → sRender → Merge → MediaOut
                              MediaIn（映像）
 ```
 
-この構成ではsNGonが「どんな形の一個を作るか」、sGridが「それをどこへ何個並べるか」、sRenderが「完成したShapeを画素に変えるか」を担当します。背景パターンとして映像に重ねたい場合は、最後の通常の`Merge`で前景・背景を合わせます。多角形の辺数を変更する具体的なInspector項目名は、この節のManual本文だけでは確定できないため記載していません。
+この構成ではsNGonが元の形、sGridが配置と個数、sRenderが画像化を担当します。背景パターンとして映像に重ねたい場合は、最後の通常の`Merge`で前景・背景を合わせます。辺数の項目名はManual本文だけでは確定できないため、下記の実機例で確認したSidesを使います。
 
 ### 輪郭が描かれるHUD風のマーク
 
@@ -98,6 +98,22 @@ sNGon → sGrid → sRender → Merge → MediaOut
 sNGonのStyleタブでAlphaを0.5などに下げ、`sDuplicate`で位置を少しずつずらして重なりを作ります。重複部分だけ不自然に濃くなる場合は`Allow Combining`を有効にして比べます。逆に重なるほど濃く見せたい場合は、無効の結果を確認します。
 
 この例はManualに記載されたAlphaの重複動作とShapeの接続仕様を使った運用案です。21.1実機でのレンダリング結果まで確認したものではありません。
+
+## 実機で六角形と八角形を比較する
+
+DaVinci Resolve Studio 21.1.0.14、Windows、日本語UIで撮影しました。両方ともWidth 0.35／Height 0.35、Solidオンの設定です。
+
+[![2つのsNGonをそれぞれsRenderへ接続した実機Node Editor。下段はMediaOut1へ接続](/img/fusion/captures/S20/graph.png)](/img/fusion/captures/S20/graph.png)
+
+このbuildのInspectorでは辺数を「辺の数」、Scriptingでは `Sides` と表示・指定します。ShapeBase1を6、ShapeChanged1を8にしました。
+
+[![sNGon Inspector。辺の数8、Solidオン、WidthとHeightはともに0.35](/img/fusion/captures/S20/inspector.png)](/img/fusion/captures/S20/inspector.png)
+
+[![左右とも40%のViewer。左は白い六角形、右は同じ寸法指定の白い八角形](/img/fusion/captures/S20/compare.png)](/img/fusion/captures/S20/compare.png)
+
+1920×1080、フレーム0で、白い形の辺数が変わることを確認しました。市松模様は透明部分、緑色の円や軸は操作表示です。寸法の内部計算式、Border Style、Lengthのアニメーションはこの比較に含めていません。
+
+[再現用Graph](/img/fusion/captures/S20/fixture.comp) · [撮影条件と確認範囲](/img/fusion/captures/S20/capture.json)
 
 ## 近いノードとの違い・注意点
 
@@ -113,4 +129,4 @@ Shape系ノードの用途別一覧は[Shapeノード](./)を参照してくだ�
 
 **DaVinci Resolve 21.1 Reference Manual（September 2026）、Chapter 117「Shape Nodes」、pp.2747–2750**を参照しました。外部入力なし、Shape出力、Solid、Border Width、Border Style、Cap Style、Position、Length、X/Y Offset、Width/Height、Angle、Color、Allow Combiningは同資料で確認済みです。
 
-頂点数の変更に使う正確なInspector項目名、内部REGID、Edition差、実際の端子表示・描画結果は未確認です。ManualのWidth/Height節にある「ellipse」の表記も、sNGon固有の厳密なサイズ動作の根拠には使用していません。そのため`verification: partial`を維持しています。
+上記の実機例ではREGID `sNGon`、Sidesによる辺数変更、sRenderへの接続と六角形・八角形の描画を確認しました。Edition差、全数値範囲、厳密な寸法計算は未確認です。ManualのWidth/Height節の「ellipse」という表記も計算式の根拠にはせず、`verification: partial`を維持しています。

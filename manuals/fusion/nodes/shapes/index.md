@@ -5,7 +5,7 @@ doc_type: index
 verification: partial
 product_scope: fusion
 tasks: [lookup-node, build-shape]
-updated: "2026-10-17"
+updated: "2026-10-24"
 ---
 
 # Shapeノード
@@ -92,6 +92,18 @@ sEllipse → sGrid → sRender → Merge
 ```
 
 この最小構成を一度作ると、Shape系Nodeが通常のImage系Nodeとどこで分かれているか確認できます。
+
+### 実機の参考例
+
+<!-- capture-reuse:R33 -->
+
+sEllipse1 → sRender1 → MediaOut1の実機例です。Shapeの形をsRenderで2D画像へ変換し、市松模様で透明部分を確認しています。
+
+[![S04の実機撮影例。Node Editorの接続](/img/fusion/captures/S04/graph.png)](/img/fusion/captures/S04/graph.png)
+
+[![S04の実機撮影例。Viewerの出力結果](/img/fusion/captures/S04/result.png)](/img/fusion/captures/S04/result.png)
+
+Resolve Studio 21.1.0.14／Windowsで撮影済みのS04を再利用した参考例です。単一楕円の固定例です。本文のリング構成や全Shape処理の確認を意味しません。 [元の撮影条件と確認範囲](/img/fusion/captures/S04/capture.json)
 
 ## 形を変える操作の選び分け
 

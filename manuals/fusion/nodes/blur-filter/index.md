@@ -5,7 +5,7 @@ doc_type: index
 verification: partial
 product_scope: fusion
 tasks: [lookup-node, blur, soften, defocus, motion-blur, sharpen, filtering, bump-map]
-updated: "2026-10-14"
+updated: "2026-10-24"
 ---
 
 # Blur / Filterノード
@@ -74,6 +74,18 @@ Motion Vectorパス ──→ Vectors入力
 ~~~
 
 ベクトルのチャンネル配置、符号、単位は元データの仕様に合わせます。背景を止めたまま走行中の車だけを流したい場合には、画面全体へ一定方向のブラーを掛けるより、画素ごとの動きを生かせます。
+
+### 実機の参考例
+
+<!-- capture-reuse:R27 -->
+
+同じチャートを左Viewerへ、Blurを通した画像を右へ表示しています。画像の接続を保ったまま輪郭や細部がぼける様子を読めます。
+
+[![S13の実機撮影例。Node Editorの接続](/img/fusion/captures/S13/graph.png)](/img/fusion/captures/S13/graph.png)
+
+[![S13の実機撮影例。左右Viewerの比較](/img/fusion/captures/S13/compare.png)](/img/fusion/captures/S13/compare.png)
+
+Resolve Studio 21.1.0.14／Windowsで撮影済みのS13を再利用した参考例です。通常のBlurの参考例です。Vari Blur、Vector、Bump Mapの実機結果としては使いません。 [元の撮影条件と確認範囲](/img/fusion/captures/S13/capture.json)
 
 ## 仕上がりに応じた使い分け
 

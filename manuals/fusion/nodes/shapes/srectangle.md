@@ -14,7 +14,7 @@ controls: ["Solid", "Border Width", "Border Style", "Cap Style", "Position", "Le
 tasks: ["build-shape", "procedural-graphics"]
 product_scope: fusion
 suite_surfaces: ["fusion"]
-updated: "2026-10-11"
+updated: "2026-10-24"
 ---
 
 # sRectangle
@@ -116,6 +116,22 @@ sRectangleで小さな正方形を1個作り、sGridへつないで縦横に並�
 
 この3つはManualにある接続関係・設定の説明を組み合わせた制作例です。表示結果そのものは21.1実機で未検証です。
 
+## 実機で角丸を比較する
+
+DaVinci Resolve Studio 21.1.0.14、Windows、日本語UIで撮影しました。同じWidth 0.5／Height 0.18の長方形を2つ作り、sRenderで画像化しています。
+
+[![上下のsRectangleをそれぞれsRenderへ接続し、下段をMediaOut1へ送る実機Node Editor](/img/fusion/captures/S19/graph.png)](/img/fusion/captures/S19/graph.png)
+
+上段のShapeBase1はCorner Radius 0、下段のShapeChanged1は0.65です。両方ともSolidをオンにしています。
+
+[![sRectangle Inspector。Solidはオン、Width 0.5、Height 0.18、Corner Radius 0.65](/img/fusion/captures/S19/inspector.png)](/img/fusion/captures/S19/inspector.png)
+
+[![左右Viewerの白い長方形。左は角のある形、右はCorner Radius 0.65で四隅が丸い形](/img/fusion/captures/S19/compare.png)](/img/fusion/captures/S19/compare.png)
+
+1920×1080、フレーム0、両Viewer 40%です。白い部分が出力で、市松模様は透明部分です。選択中のShapeの緑色の輪郭は両Viewerに重なる操作表示なので、角の違いは白い塗りで見比べます。Border StyleやCap Styleの切り替え、Lengthのアニメーションは含めていません。
+
+[再現用Graph](/img/fusion/captures/S19/fixture.comp) · [撮影条件と確認範囲](/img/fusion/captures/S19/capture.json)
+
 ## 関連ノードと注意点
 
 - [sEllipse](./s-ellipse)は円・楕円の生成向けです。四角形を角丸にしたいならsRectangleの`Corner Radius`で調整します。
@@ -132,4 +148,4 @@ Shape全体の流れとほかのノードの一覧は[Shapeノード](./index.md
 
 出典： [Blackmagic Design公式サポート（21.1 Manual、2026-09-08公開）](https://www.blackmagicdesign.com/support)。
 
-内部REGID、正確なポート表示名・色、Edition差、Inspectorの初期値、実機描画の細部は確認していません。そのため`verification: partial`を維持しています。
+上記の例ではREGID `sRectangle`、sRenderへの接続、掲載した寸法・Corner Radiusと描画結果を確認しました。全初期値・数値範囲、Edition差、Allow Combiningや輪郭アニメーションは未確認のため、`verification: partial`を維持しています。

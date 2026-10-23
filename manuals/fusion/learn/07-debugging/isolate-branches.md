@@ -81,6 +81,18 @@ Mergeを1段ずつ確認します。
 
 Mask 分岐をImage 分岐から独立させます。
 
+#### 実機の参考例
+
+<!-- capture-reuse:R24 -->
+
+同じLoaderから、MaskなしのBlurFullと、Ellipse1をEffect MaskへつないだBlur1へ分岐しています。左は全体、右は楕円内のぼかしです。
+
+[![S07の実機撮影例。Node Editorの接続](/img/fusion/captures/S07/graph.png)](/img/fusion/captures/S07/graph.png)
+
+[![S07の実機撮影例。左右Viewerの比較](/img/fusion/captures/S07/compare.png)](/img/fusion/captures/S07/compare.png)
+
+Resolve Studio 21.1.0.14／Windowsで撮影済みのS07を再利用した参考例です。接続先とViewer対象を対応させる例です。bypassによる故障切り分けやGroup内部の診断は含めていません。 [元の撮影条件と確認範囲](/img/fusion/captures/S07/capture.json)
+
 ### Reusable groups
 
 Groupの外→内→外という境界で同じ方法を使います。

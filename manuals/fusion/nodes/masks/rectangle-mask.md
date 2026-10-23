@@ -15,7 +15,7 @@ outputs: [mask]
 tasks: [create-mask, rectangle, rounded-rectangle, isolate-effect]
 product_scope: fusion
 suite_surfaces: [fusion]
-updated: "2026-10-10"
+updated: "2026-10-24"
 ---
 
 # Rectangle Mask

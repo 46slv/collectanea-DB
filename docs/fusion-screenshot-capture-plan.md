@@ -1,6 +1,6 @@
 # Fusion 21.1 スクリーンショット計画
 
-更新: 2026-10-23。S01〜S14は公開確認済み。S15〜S18と既存画像を使った12記事はローカル表示確認済みで、GitHub反映・公開確認を進めている。Fusion全体への展開は継続中。
+更新: 2026-10-24。S01〜S18と既存画像を使った12記事、計30ページは公開確認済み。S19〜S22と基礎・Family記事への展開を継続中。Fusion全体は未完了。
 
 撮影候補は [fusion-screenshot-candidates.json](./fusion-screenshot-candidates.json) に記録する。記事の説明基準は [Fusion Authoring Contract](./fusion-authoring-contract.md)、技術出典はDaVinci Resolve 21.1 Reference Manual（2026年9月）。公式画像の転載ではなく、実機から独自に撮影する。
 
@@ -26,22 +26,25 @@
 
 ## 次段階
 
-## Active Checkpoint — 2026-10-23
+## Active Checkpoint — 2026-10-24
 
 - Mission: Fusion全体の、画像が必要な箇所を実機撮影・記事掲載・GitHub反映・公開確認まで完了する。ユーザーはこの制作元taskで全586ページへの継続と必要なGitHub操作を明示許可した。14記事でMissionを完了扱いにしない。
 - Owner: Sol、制作元Codex task `01a1683b-3067-7a40-892a-47a3b30d50b2`。設計・GUI・実装・統合・検証を継続担当。Dot intake writer `01a1689f-419e-7742-8058-b0d6a0aa302d` は安全な境界で停止し、親も再投入なしを確認済み。
-- Canonical edit checkout: `C:/Users/shiro/Documents/Codex/2026-10-23/task-19/collectanea-screenshot-integration`。現在branch `integration/fusion-capture-coverage-20261023`、base `b5862defc25d342381849d6afcc499597efc4745`。旧producer checkoutと元の43MB配布ZIPは保全している。
+- Canonical edit checkout: `C:/Users/shiro/Documents/Codex/2026-10-23/task-19/collectanea-screenshot-integration`。現在branch `integration/fusion-shape-foundations-20261024`、base `004012af9640926cd00be646f78d5bfc51b6a0d5`。旧producer checkoutと元の43MB配布ZIPは保全。branch作成時にorigin/mainがupstreamになるため、pushは必ず明示branchを指定する。
 - Published batch 1: S01–S14、14記事・50画像。[PR #63](https://github.com/46slv/collectanea-DB/pull/63)、main `b5862defc25d342381849d6afcc499597efc4745`。候補 `2176ab3572689cba26d83c8b4d494055f192c216` とmainのtree `a9aa538d22790ad862d1ba92158bce047d33f44c` は一致。
 - PASS: [exact-head Quality 39966534167](https://github.com/46slv/collectanea-DB/actions/runs/39966534167)、[Pages 39967626278](https://github.com/46slv/collectanea-DB/actions/runs/39967626278)、公開14ページ・50画像の1440px/390px表示・decode・Alt・原寸リンク・横overflow、公開232素材のHTTP200/SHA-256一致。公開証拠は `artifacts/fusion-captures/public-display-report.json`、`public-assets.json` と28画面。これらは既存ignore内に保存。
 - Public-check note: 長いS08–S10の末尾画像は遅延読込。撮影節の末尾までscrollして全画像を確認した。最初の未読込観測は公開レポートに保持。CIの初回URL形状assertion失敗は、Docusaurusの `assets/files/` 配布を実バイトhashで照合する修正後の新headで解消。
-- Coverage: `fusion-screenshot-candidates.json` の `coverage_inventory` が全586ページを列挙。画像のあるページは30件。画像の有無を全controlの実機検証と混同しない。必要性の判断、再利用、追加撮影、保留理由を同じ台帳へ記録する。
-- Batch 2 local PASS: S15 Background、S16 Fast Noise、S17 Rectangle Mask、S18 sEllipseの4記事・12原画cropを追加。既存14ケースを使う学習・Pattern・Recipe・診断記事12件に23箇所の画像を追加。再利用は固定した既存例の図示であり、別記事の手順全体を追試した主張にはしない。production build、regressions 19件、全30ページ・85画像掲載の原寸リンク/hash/decode/Altと1440px・390px表示はPASS。GitHub/公開は未完了。
+- Coverage: `fusion-screenshot-candidates.json` の `coverage_inventory` が全586ページを列挙。索引40件を個別監査し、単独画像不要14・再利用11・新規撮影15と判断。続いて基礎22件を監査し、再利用13・新規撮影9と判断。画像の有無を全controlの実機検証と混同せず、記事内の未撮影箇所はremaining_viewsへ残す。
+- Batch 2 published PASS: [PR #67](https://github.com/46slv/collectanea-DB/pull/67)、candidate `68d79b64e374f7585038e25ea1c0fd3c5f1bed8e`、main `004012af9640926cd00be646f78d5bfc51b6a0d5`。candidate/main treeは `3c39843e24950ccd50e988e5051b5884b62371ce` で一致。S15–S18の4記事・12原画cropと、12記事・23箇所の再利用を公開。累計30ページ・62原画crop・85掲載。再利用は固定例の図示であり、別記事の全手順を追試した主張にはしない。
+- Batch 2 validation: local build/regressions19/30ページ85掲載、[exact-head Quality 39974309205](https://github.com/46slv/collectanea-DB/actions/runs/39974309205)、[Pages 39975568150](https://github.com/46slv/collectanea-DB/actions/runs/39975568150) PASS。公開変更16ページ35掲載の1440px/390px、decode/Alt/原寸リンク/overflowをCuaで確認し、公開260素材はHTTP200/SHA256一致。証拠は `artifacts/fusion-captures/public-batch2-display-report.json`、`public-batch2-assets.json`、32画面。silvelへの完了報告も宛先をfresh確認して送信済み。
 - Batch 2 native receipt: 同じowned projectのS15_capture〜S18_capture、frame 0。原画は新しい実測3352×1910。無拡大crop/hash/Graph/readbackは各Sxxに保存。S15 Type=Horizontal、S16 Detail 2/Contrast 1対6/2、S17 Corner Radius 0.15/Soft Edge 0.015、S18 Solid on対off/Length 0.7を実画面で確認。S15 ComboBoxのUIA Invokeは値が変わらず、読み戻して失敗を確定後、semantic setterで変更しfresh画面とreadbackを確認した。
 - Capture method: prepare/finalizeは対象caseを必須引数にして、既存14ケースを一括上書きしない。prepareは既存manifestを明示的な--replaceなしで上書きしない。原画サイズとcrop範囲をassertし、公開用textのLF正規化後にhashを採る。
 - Host: fresh installed/runtime version 21.1.0.14。新しい撮影用Cua session `collectanea-coverage`、Resolve PID 8944を起動。起動前Resolve processなし、起動後はProject Manager（HWND 8326730）を実画面で確認。本番projectは開いていない。既存の `Collectanea_Captures_20261023_Sol` だけを開き、次のcase用timelineを追加する。ユーザー設定を変えず、終了時は保存してProject Managerへ戻す。
 - First batch host closeout: 元Project・Timeline・Colorページの復元PASS。本番内容は編集・保存していない。次batchの開始baselineは上記のProject Managerなので、古いproject名を復元目標へ流用しない。
 - NOT_RUN retained: S03 optional masks、S12 non-Color AOV、Free/別OS/全control、測色PNG、portable Graph再import。記事の `verification: partial` を維持する。
-- Next action: current mainのReference教材更新を保持してintegration候補を凍結。exact-head CI、GitHub統合、Pages、変更16ページの公開表示を確認する。独立read-only監査中の40索引ページの画像必要性を台帳へ反映し、残る記事を順次撮影・再利用する。
+- Batch 3 local PASS: S19 sRectangle（角丸0対0.65）、S20 sNGon（Sides 6対8）、S21 sStar（Points/Depth 5/0.5対8/0.25）、S22 sTransform（Offset 0.2/0.05、Size 1.3/0.8、Rotation25）を実機撮影し、原画/crop/Graph/readbackと記事へ追加。撮影直後のstagingは制作元workspaceのwork/fusion-next-stageに保全。実機3352×1910、FHD/frame0/Viewer40%。新しい13基礎記事＋11Family記事へ既存例50箇所を追加。production buildと全58ページ147掲載のPC/mobile、原寸リンク/hash/decode/Alt/overflowはPASS。sNGonはCuaで実表示も確認。CI/GitHub/公開は未完了。
+- Coverage after batch 3 local check: native22・reuse36の58ページ、単独画像不要14、新規撮影24、要判断490。parameter-dataの供給元追跡とusdのScene Tree等は画像追加後もremaining_viewsへ保持する。記事に一枚あるだけで必要箇所が全て揃ったとは判定しない。
+- Next action: current mainを保持してcandidate凍結、exact-head Quality、GitHub統合、Pages、変更28ページ62掲載の公開表示を確認する。その後、first-flow、Alpha表示、DoD、Transform/Scale/Resize寸法比較などの未撮影箇所へ進む。
 - KEEP: 同じSolが継続。Checkpoint保存や単一batch完了だけでは停止・Rolloverしない。文脈圧迫が必要になったときだけCOMPACT/ROLLOVERを判断する。
 
 ## 第1batchの撮影・統合メモ（履歴）

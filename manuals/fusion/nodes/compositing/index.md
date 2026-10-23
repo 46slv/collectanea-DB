@@ -5,7 +5,7 @@ doc_type: index
 verification: partial
 product_scope: fusion
 tasks: [lookup-node, composite, layer]
-updated: "2026-10-04"
+updated: "2026-10-24"
 ---
 
 # 合成ノード（Compositing）
@@ -35,6 +35,18 @@ Background ─┘
 Mergeは、Backgroundを基準にForegroundを合成します。必要ならEffect Maskで合成範囲を限定します。
 
 21.1 Manualでは、Backgroundへ接続した画像の解像度がMerge出力の解像度になります。Foreground側にはCenter、Size、Angleがあり、単純な配置なら別のTransformを追加せず調整できます。
+
+### 実機の参考例
+
+<!-- capture-reuse:R29 -->
+
+Background1をBackground入力、Text1をForeground入力へ接続し、文字を背景へ重ねています。青いEffect Maskは未接続です。
+
+[![S02の実機撮影例。Node Editorの接続](/img/fusion/captures/S02/graph.png)](/img/fusion/captures/S02/graph.png)
+
+[![S02の実機撮影例。Viewerの出力結果](/img/fusion/captures/S02/result.png)](/img/fusion/captures/S02/result.png)
+
+Resolve Studio 21.1.0.14／Windowsで撮影済みのS02を再利用した参考例です。Mergeの固定例です。MultiMergeのLayer ListやDissolveの解像度挙動は別途確認します。 [元の撮影条件と確認範囲](/img/fusion/captures/S02/capture.json)
 
 ## MultiMerge
 

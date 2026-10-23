@@ -11,7 +11,7 @@ tasks: [animate, automate, link-values, debug]
 prerequisites: [typed-connections]
 level: foundation
 product_scope: fusion
-updated: "2026-10-17"
+updated: "2026-10-24"
 ---
 
 # パラメータ / Data
@@ -40,6 +40,18 @@ MediaIn1からTransform1に渡るImageには、画素の色・Alpha・画像サ�
 | Parameter | Nodeがどう処理するかの設定値 | TransformのCenter、MergeのBlend | InspectorのTools / Modifiers |
 
 これがFusionで扱うすべてのデータ型というわけではありません。Shape・Particle・3Dなどもあります。詳しくは[Image / Mask / Dataを分ける](./image-mask-data.md)を参照してください。
+
+### 実機の参考例
+
+<!-- capture-reuse:R19 -->
+
+画像はLoader1 → Transform1 → MediaOut1の線で渡し、処理値はInspectorで指定します。Center 0.65／0.55、Pivot 0.5／0.5、Size 1.25、Angle 12°の固定設定です。
+
+[![S06の実機撮影例。Node Editorの接続](/img/fusion/captures/S06/graph.png)](/img/fusion/captures/S06/graph.png)
+
+[![S06の実機撮影例。Inspectorの設定値](/img/fusion/captures/S06/inspector.png)](/img/fusion/captures/S06/inspector.png)
+
+Resolve Studio 21.1.0.14／Windowsで撮影済みのS06を再利用した参考例です。画像接続とパラメータの場所を区別する例です。Keyframe・Expression・Modifier・Publish/Connect Toの供給元追跡は追加撮影の対象です。 [元の撮影条件と確認範囲](/img/fusion/captures/S06/capture.json)
 
 ## パラメータには型がある
 

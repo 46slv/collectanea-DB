@@ -54,6 +54,18 @@ minimal repair
 
 これで症状を複数の小さい質問へ分解できます。
 
+### 実機の参考例
+
+<!-- capture-reuse:R23 -->
+
+正常なMergeの参照例です。Background1はオレンジのBackground入力、Text1は緑のForeground入力に接続し、Merge1からMediaOut1へ送っています。青いEffect Maskは未接続です。
+
+[![S02の実機撮影例。Node Editorの接続](/img/fusion/captures/S02/graph.png)](/img/fusion/captures/S02/graph.png)
+
+[![S02の実機撮影例。Viewerの出力結果](/img/fusion/captures/S02/result.png)](/img/fusion/captures/S02/result.png)
+
+Resolve Studio 21.1.0.14／Windowsで撮影済みのS02を再利用した参考例です。正常な接続先を読むための例です。本文の不具合を再現・修復した記録ではありません。 [元の撮影条件と確認範囲](/img/fusion/captures/S02/capture.json)
+
 ## 共通ルール
 
 - observation before mutation。

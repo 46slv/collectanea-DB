@@ -16,7 +16,7 @@ tasks: [generate-image, create-background, mask, gradient]
 level: foundation
 product_scope: fusion
 suite_surfaces: [fusion]
-updated: "2026-10-04"
+updated: "2026-10-24"
 ---
 
 # Background

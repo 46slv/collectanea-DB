@@ -5,7 +5,7 @@ doc_type: index
 verification: partial
 product_scope: fusion
 tasks: [lookup-node, transform-image, resize, crop, format]
-updated: "2026-10-17"
+updated: "2026-10-24"
 ---
 
 # Transform / Formatノード
@@ -42,6 +42,18 @@ DVEでX/Y軸を回転して見える遠近感は、3Dモデルを配置する処
 Transformは**元と同じ寸法のキャンバス内で**画像を縮小します。ScaleとResizeは、後段へ渡すImage自体のピクセル寸法を変えます。前者は入力に対する倍率で、後者は目標の幅と高さで指定します。
 
 Cropでは指定範囲を残せます。たとえば1920×1080から1080×1080の正方形領域を取り出すなら、画像の一部分を残して出力サイズを変更します。元の映像全体を保ったまま16:9へ入れたい場合とは目的が異なります。
+
+### 実機の参考例
+
+<!-- capture-reuse:R35 -->
+
+1920×1080の同じcanvas内で、TransformのCenter 0.65／0.55、Size 1.25、Angle 12°を設定しました。左が入力、右が変形後です。
+
+[![S06の実機撮影例。Node Editorの接続](/img/fusion/captures/S06/graph.png)](/img/fusion/captures/S06/graph.png)
+
+[![S06の実機撮影例。左右Viewerの比較](/img/fusion/captures/S06/compare.png)](/img/fusion/captures/S06/compare.png)
+
+Resolve Studio 21.1.0.14／Windowsで撮影済みのS06を再利用した参考例です。通常のTransformの例です。ResizeやScaleによる出力寸法の比較は別途撮影します。 [元の撮影条件と確認範囲](/img/fusion/captures/S06/capture.json)
 
 ## 合成での接続例
 

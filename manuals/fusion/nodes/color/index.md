@@ -5,7 +5,7 @@ doc_type: index
 verification: partial
 product_scope: fusion
 tasks: [lookup-node, color-correct, white-balance, color-space]
-updated: "2026-10-05"
+updated: "2026-10-24"
 ---
 
 # Colorノード
@@ -23,6 +23,18 @@ Color系Nodeは、2D <Term id="image">Image</Term>の見た目を補正するも
 | Shadows / Midtones / Highlightsまで総合補正 | [Color Corrector](./color-corrector) |
 | 軽量なLift / Gamma / Gain + Balance | [Color Gain](./color-gain) |
 | gray / color temperatureからwhite balance | [White Balance](./white-balance) |
+
+### 実機の参考例
+
+<!-- capture-reuse:R28 -->
+
+ColorCorrectorのInspectorと、左の入力チャート・右の補正後の比較です。基本色補正を画像の処理として読む参考例です。
+
+[![S14の実機撮影例。Inspectorの設定値](/img/fusion/captures/S14/inspector.png)](/img/fusion/captures/S14/inspector.png)
+
+[![S14の実機撮影例。左右Viewerの比較](/img/fusion/captures/S14/compare.png)](/img/fusion/captures/S14/compare.png)
+
+Resolve Studio 21.1.0.14／Windowsで撮影済みのS14を再利用した参考例です。色管理の変換、Channel操作や全Controlの検証は含めていません。 [元の撮影条件と確認範囲](/img/fusion/captures/S14/capture.json)
 
 ## Curveで補正
 

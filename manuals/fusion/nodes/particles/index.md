@@ -5,7 +5,7 @@ doc_type: index
 verification: partial
 product_scope: fusion
 tasks: [lookup-node, particles, emit, force, render]
-updated: "2026-10-13"
+updated: "2026-10-24"
 ---
 
 # Particleノード
@@ -21,6 +21,20 @@ pEmitter → pRender
 ```
 
 pEmitterがparticleを生成し、pRenderが見える結果へ変換します。
+
+### 実機の参考例
+
+<!-- capture-reuse:R32 -->
+
+pEmitterからpRenderへ渡し、2D画像として出力しています。Number 3、Lifespan 80の例で、フレーム0の3粒からフレーム48までに粒子が蓄積します。
+
+[![S09の実機撮影例。Node Editorの接続](/img/fusion/captures/S09/graph.png)](/img/fusion/captures/S09/graph.png)
+
+[![S09の実機撮影例。フレーム0のViewer出力](/img/fusion/captures/S09/frame0.png)](/img/fusion/captures/S09/frame0.png)
+
+[![S09の実機撮影例。Viewerの出力結果](/img/fusion/captures/S09/result.png)](/img/fusion/captures/S09/result.png)
+
+Resolve Studio 21.1.0.14／Windowsで撮影済みのS09を再利用した参考例です。StyleはBlob、Size 3。Force・Set・3D出力や全時間設定の検証は含めていません。赤い表示はViewerの操作ハンドルです。 [元の撮影条件と確認範囲](/img/fusion/captures/S09/capture.json)
 
 ## Nodeを選ぶ
 

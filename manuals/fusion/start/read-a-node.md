@@ -64,6 +64,20 @@ Inspectorを上から暗記せず、意味でgroup化します。
 - time / アニメーション
 - format / resolution
 
+#### 実機の参考例
+
+<!-- capture-reuse:R13 -->
+
+Loader1 → Transform1 → MediaOut1の例です。Centerは0.65／0.55、Pivotは0.5／0.5、Sizeは1.25、Angleは12°。左Viewerが入力、右が変形後で、緑の線は操作表示です。
+
+[![S06の実機撮影例。Node Editorの接続](/img/fusion/captures/S06/graph.png)](/img/fusion/captures/S06/graph.png)
+
+[![S06の実機撮影例。Inspectorの設定値](/img/fusion/captures/S06/inspector.png)](/img/fusion/captures/S06/inspector.png)
+
+[![S06の実機撮影例。左右Viewerの比較](/img/fusion/captures/S06/compare.png)](/img/fusion/captures/S06/compare.png)
+
+Resolve Studio 21.1.0.14／Windowsで撮影済みのS06を再利用した参考例です。固定値のControlを読む例です。ExpressionやModifierの供給元は別の撮影対象です。 [元の撮影条件と確認範囲](/img/fusion/captures/S06/capture.json)
+
 ### 5. Graph 役割
 
 そのNodeが

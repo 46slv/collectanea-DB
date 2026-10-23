@@ -5,7 +5,7 @@ doc_type: index
 verification: partial
 product_scope: fusion
 tasks: [lookup-node, track, surface-track, match-move, stabilize, camera-track]
-updated: "2026-10-22"
+updated: "2026-10-24"
 ---
 
 # Trackingノード
@@ -92,6 +92,18 @@ Camera Trackerは、画面内の固定featureを多数追跡し、実写camera�
 **Point Tracker**の追跡位置などを別ノードのパラメーターへ使う場合も、単に画像出力をつなぐのではなく、対象のパラメーターから**Connect To**で追跡値を参照します。**Camera Tracker**ではTrack / Solve後のExportで3Dカメラや点群を使うため、Planar Transformとは受け渡し方が異なります。個別の手順は[Planar Transform](./planar-transform)、[Tracker](./tracker)、[Camera Tracker](./camera-tracker)を参照してください。
 
 → [Trackを解いてから適用先を分ける](../../patterns/tracking/solve-then-apply-track)
+
+### 実機の参考例
+
+<!-- capture-reuse:R34 -->
+
+合成テスト用の移動する連番をPlanarTrackerで解析し、生成したPlanarTransformへText+を渡した例です。結果画像はフレーム60です。
+
+[![S10の実機撮影例。Node Editorの接続](/img/fusion/captures/S10/graph.png)](/img/fusion/captures/S10/graph.png)
+
+[![S10の実機撮影例。Viewerの出力結果](/img/fusion/captures/S10/result.png)](/img/fusion/captures/S10/result.png)
+
+Resolve Studio 21.1.0.14／Windowsで撮影済みのS10を再利用した参考例です。既知の右移動3px/frameで確認したPlanarの例です。Point・Surface・Cameraの追跡精度には流用しません。 [元の撮影条件と確認範囲](/img/fusion/captures/S10/capture.json)
 
 ## 追跡がずれる場合
 

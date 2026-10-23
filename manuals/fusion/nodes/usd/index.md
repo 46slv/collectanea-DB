@@ -5,7 +5,7 @@ doc_type: index
 verification: partial
 product_scope: fusion
 tasks: [lookup-node, usd, build-usd-scene, render-usd]
-updated: "2026-10-18"
+updated: "2026-10-24"
 ---
 
 # USDノード
@@ -30,6 +30,18 @@ uDistant Light（任意） ──┘
 4. uRendererが出力した**2D画像**を、必要に応じて通常のMergeで実写と合成し、MediaOutへ送ります。
 
 読み込んだUSDにカメラやライトが含まれている場合、必ずしも別ノードで追加する必要はありません。uRendererの**Camera**のDefaultはシーン内で最初に見つかったカメラを使用し、存在しない場合は既定のPerspective視点を使用します。思いどおりの構図にならなければ、どのカメラで描画しているかを確認します。
+
+### 実機の参考例
+
+<!-- capture-reuse:R36 -->
+
+uShape1 → uMerge1 → uRenderer1 → MediaOut1の最小例です。StormのColor出力でプリミティブを画像化しました。
+
+[![S12の実機撮影例。Node Editorの接続](/img/fusion/captures/S12/graph.png)](/img/fusion/captures/S12/graph.png)
+
+[![S12の実機撮影例。Viewerの出力結果](/img/fusion/captures/S12/result.png)](/img/fusion/captures/S12/result.png)
+
+Resolve Studio 21.1.0.14／Windowsで撮影済みのS12を再利用した参考例です。外部USD、Prim Selectionや非Color AOVの忠実度は、この例の確認範囲に含めていません。 [元の撮影条件と確認範囲](/img/fusion/captures/S12/capture.json)
 
 ## 制作例：街並みから看板を消して車を移動する
 
