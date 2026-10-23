@@ -46,6 +46,7 @@ Colorページは、素材の明るさや色の偏りを整え、複数ショッ
 - [Split Screen](./reference/split-screen-comparison) — 複数ショットやVersionを同時表示して比較
 - [Lightbox](./reference/lightbox) — タイムライン全体の色調と補正漏れを点検
 - [グレードのコピーと追記](./reference/grade-copy-and-append) — Apply GradeとAppend Node Graphを使い分ける
+- [ColorTrace（編集後のグレード引き継ぎ）](./reference/color-trace) — 編集版の差し替え時に旧タイムラインの補正を照合・転送する
 - [Versions／グレード比較](./reference/versions-and-grade-comparison) — 1ショットの複数案を管理して比較する
 - [RGB Mixer](./reference/rgb-mixer) — 色チャンネルの混合とモノクロの階調設計
 - [Color Warper](./reference/color-warper) — 色相・彩度のグリッドで色の関係を調整
