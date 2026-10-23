@@ -40,6 +40,22 @@ Image → Transform A (outside) → Transform B (back) → Output
 
 Aの段階で有効ピクセルが保持されていれば戻せる場合があります。途中でclip / cropされてピクセルが失われれば、Bで位置を戻しても復活しません。
 
+### 実機の参考例：寸法を変えずに内容が欠ける例
+
+<!-- capture-reuse:R87 -->
+
+S51はAuto Domainで範囲を検出し、Set DomainのSetで右・上を0.5にした例です。1920×1080を保ちながらDoDが960,540までになり、矩形が欠けています。
+
+[![Loader、AutoDomain1、SetDomain1、MediaOut1の順に接続した実機Graph](/img/fusion/captures/S51/graph.png)](/img/fusion/captures/S51/graph.png)
+
+[![Set DomainのAdjust、四辺0、結合モードCopyを示すInspector](/img/fusion/captures/S51/inspector.png)](/img/fusion/captures/S51/inspector.png)
+
+[![Set DomainのSetで左と下0、右と上0.5を示すInspector](/img/fusion/captures/S51/set-half-inspector.png)](/img/fusion/captures/S51/set-half-inspector.png)
+
+[![Setの右・上0.5ではDoDが0,0から960,540となり矩形が欠ける。画像寸法は1920×1080のまま](/img/fusion/captures/S51/set-half.png)](/img/fusion/captures/S51/set-half.png)
+
+Resolve Studio21.1.0.14／Windows、両Viewer Color／40%。Set Domainの固定例。Transformの往復やCrop、後段Filterの挙動を証明する画像ではありません。 [再現用Graph](/img/fusion/captures/S51/fixture.comp) · [撮影条件と確認範囲](/img/fusion/captures/S51/capture.json)
+
 ## 共通ルール
 
 - フレーム sizeとDoDを同じだと決めない。

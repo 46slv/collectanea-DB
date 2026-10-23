@@ -40,6 +40,8 @@ TARGETS['S46']='Switch1';LEFT['S46']='Blue1';RIGHT['S46']='Switch1'
 TARGETS['S47']='Wireless1';LEFT['S47']='Text1';RIGHT['S47']='Wireless1'
 TARGETS['S48']='ChangeDepth1';LEFT['S48']='Gradient1';RIGHT['S48']='ChangeDepth1'
 TARGETS['S49']='Displace1';LEFT['S49']='Loader1';RIGHT['S49']='Displace1'
+TARGETS['S50']='AutoDomain1';LEFT['S50']='Loader1';RIGHT['S50']='AutoDomain1'
+TARGETS['S51']='SetDomain1';LEFT['S51']='AutoDomain1';RIGHT['S51']='SetDomain1'
 r=d.scriptapp('Resolve')
 assert r, 'Resolve scripting unavailable; do not change preferences automatically'
 pm=r.GetProjectManager(); p=pm.GetCurrentProject()
@@ -71,6 +73,8 @@ if action=='scale':
  assert case=='S24';TARGETS[case]='Scale1';LEFT[case]='Scale1';action='show'
 if action=='mask_inspector':
  assert case=='S49';TARGETS[case]='Ellipse1';action='show'
+if action=='image':
+ assert case in ['S50','S51'];TARGETS[case]='MediaOut1';action='show'
 if action=='map':
  assert case in ['S30','S49'];TARGETS[case]='NoiseMap1';LEFT[case]='NoiseMap1';action='show'
 timelines={p.GetTimelineByIndex(i).GetName().split('_')[0]:p.GetTimelineByIndex(i) for i in range(1,p.GetTimelineCount()+1)}
@@ -162,6 +166,8 @@ def select(target,left=None):
  layouts['S36']={'Text1':(0,0),'TransformLinear':(1.5,-2),'TransformSmooth':(1.5,0),'TransformStep':(1.5,2),'MediaOut1':(3,0)}
  layouts['S37']={'Base1':(0,0),'Rectangle1':(0,-2),'Red1':(1.5,-2),'Ellipse1':(1.5,2),'Gold1':(3,2),'MergeMaster':(3,-1),'MergeDerived':(4.5,1),'MediaOut1':(6,1)}
  layouts['S38']={'Loader1':(0,0),'TransformReference':(1.5,0),'MediaOut1':(3,0)}
+ layouts['S50']={'Loader1':(0,0),'AutoDomain1':(1.5,0),'MediaOut1':(3,0)}
+ layouts['S51']={'Loader1':(0,0),'AutoDomain1':(1.5,0),'SetDomain1':(3,0),'MediaOut1':(4.5,0)}
  layouts['S49']={'Loader1':(0,1),'NoiseMap1':(0,-1),'Ellipse1':(2,-2),'Displace1':(2,1),'MediaOut1':(4,1)}
  layouts['S48']={'Gradient1':(0,0),'ChangeDepth1':(1.5,0),'MediaOut1':(3,0)}
  layouts['S47']={'Text1':(0,0),'Wireless1':(3,0),'MediaOut1':(4.5,0)}
@@ -212,6 +218,13 @@ if action=='build':
   rb=add('sRender','RenderBase1',4,-1);connect(rb,'Input',base)
   target=add('sTransform','Transform1',2,1);connect(target,'Input',base)
   rr=add('sRender','RenderChanged1',4,1);connect(rr,'Input',target);connect(mo,'Input',rr)
+ elif case in ['S50','S51']:
+  loader=add('Loader','Loader1',0,0,Clip=str(ROOT/'static/img/fusion/captures/_fixtures/domain-rectangle.png'))
+  auto=add('AutoDomain','AutoDomain1',1.5,0);connect(auto,'Input',loader)
+  target=auto
+  if case=='S51':
+   target=add('SetDomain','SetDomain1',3,0);connect(target,'Input',auto)
+  connect(mo,'Input',target)
  elif case=='S49':
   loader=add('Loader','Loader1',0,1,Clip=str(REPO/'static/img/fusion/captures/_fixtures/chart.png'))
   noise=add('FastNoise','NoiseMap1',0,-1,Detail=4,Contrast=1.4,XScale=8,YScale=8,SeetheRate=.4)
