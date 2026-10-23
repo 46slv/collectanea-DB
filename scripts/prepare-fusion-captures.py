@@ -46,6 +46,9 @@ CONFIG={
  'S39':{'graph':(580,1060,2280,1660),'inspector':(2830,120,3352,340),'compare':(1146,65,2830,815),'frame0':(1146,65,2830,815),'frame24':(1146,65,2830,815),'spline':(1410,850,2830,1840),'hold-inspector':(2830,120,3352,340),'hold0-inspector':(2830,120,3352,570),'hold0':(1146,65,2830,815),'hold24-inspector':(2830,120,3352,570),'hold24':(1146,65,2830,815)},
  'S40':{'graph': (580, 1300, 2280, 1450), 'inspector': (2830, 120, 3352, 365), 'compare': (1146, 65, 2830, 815), 'fast-inspector': (2830, 120, 3352, 365), 'fast': (1146, 65, 2830, 815), 'delay-inspector': (2830, 120, 3352, 365), 'delay': (1146, 65, 2830, 815), 'advance-inspector': (2830, 120, 3352, 365), 'advance': (1146, 65, 2830, 815), 'freeze-inspector': (2830, 120, 3352, 365), 'freeze': (1146, 65, 2830, 815), 'freeze0': (1146, 65, 2830, 815), 'reverse-inspector': (2830, 120, 3352, 365), 'reverse0': (1146, 65, 2830, 815), 'reverse24': (1146, 65, 2830, 815)},
  'S41':{'graph': (580, 1060, 2280, 1660), 'inspector': (2830, 120, 3352, 570), 'published-inspector': (2830, 96, 3352, 310), 'before': (1146, 65, 2830, 705), 'compare': (1146, 65, 2830, 705), 'b-high-inspector': (2830, 120, 3352, 570), 'a-high-inspector': (2830, 120, 3352, 570), 'high': (1146, 65, 2830, 705), 'a-low-inspector': (2830, 120, 3352, 570), 'b-low-inspector': (2830, 120, 3352, 570), 'low': (1146, 65, 2830, 705), 'publish-menu': (0, 0, 141, 272)},
+ 'S42':{'graph': (580, 1300, 2280, 1450), 'inspector': (2830, 120, 3352, 350), 'compare': (1146, 65, 2830, 815), 'frame12': (1146, 65, 2830, 815), 'backward-inspector': (2830, 120, 3352, 350), 'backward': (1146, 65, 2830, 815), 'forward-inspector': (2830, 120, 3352, 350), 'forward': (1146, 65, 2830, 815), 'zero-inspector': (2830, 120, 3352, 350), 'zero': (1146, 65, 2830, 815), 'edge-duplicate-inspector': (2830, 120, 3352, 350), 'edge-duplicate': (1146, 65, 2830, 815), 'edge-blank-inspector': (2830, 120, 3352, 350), 'edge-blank': (1146, 65, 2830, 815)},
+ 'S43':{'graph': (580, 1300, 2280, 1450), 'inspector': (2830, 120, 3352, 300), 'compare': (1146, 65, 2830, 705), 'metadata': (2034, 96, 2830, 190), 'changed-inspector': (2830, 120, 3352, 300), 'changed-metadata': (2034, 96, 2830, 190)},
+ 'S44':{'graph': (240, 1060, 2600, 1660), 'inspector': (2830, 120, 3352, 300), 'compare': (1146, 65, 2830, 705), 'metadata': (2034, 96, 2830, 190), 'bg-inspector': (2830, 120, 3352, 300), 'fg-inspector': (2830, 120, 3352, 300), 'preserve-inspector': (2830, 120, 3352, 300), 'preserve-metadata': (2034, 96, 2830, 190), 'replace-inspector': (2830, 120, 3352, 300), 'replace-metadata': (2034, 96, 2830, 190), 'clear-inspector': (2830, 120, 3352, 300), 'clear-metadata': (2034, 96, 2830, 190)},
 }
 def sha(p):return hashlib.sha256(p.read_bytes()).hexdigest()
 candidates=json.loads((ROOT/'docs/fusion-screenshot-candidates.json').read_text(encoding='utf-8'))
@@ -82,6 +85,15 @@ for case in args.cases:
     for suffix in ['', '-inspector']:extra[(case,variant+suffix)]='screen-'+variant+'.png'
    extra.update({(case,'freeze0'):'screen-freeze0.png',(case,'reverse-inspector'):'screen-reverse24.png',(case,'reverse0'):'screen-reverse0.png',(case,'reverse24'):'screen-reverse24.png'})
   if case=='S41':extra.update({(case,'published-inspector'):'screen-published.png',(case,'before'):'screen-before.png',(case,'b-high-inspector'):'screen-b-high.png',(case,'a-high-inspector'):'screen-a-high.png',(case,'high'):'screen-b-high.png',(case,'a-low-inspector'):'screen-a-low.png',(case,'b-low-inspector'):'screen-b-low.png',(case,'low'):'screen-a-low.png',(case,'publish-menu'):'screen-menu.png'})
+  if case=='S42':
+   for variant in ['backward','forward','zero','edge-duplicate','edge-blank']:
+    for suffix in ['', '-inspector']:extra[(case,variant+suffix)]='screen-'+variant+'.png'
+   extra[(case,'frame12')]='screen-frame12.png'
+  if case=='S43':extra.update({(case,'changed-inspector'):'screen-value020.png',(case,'changed-metadata'):'screen-value020.png'})
+  if case=='S44':
+   for variant in ['preserve','replace','clear']:
+    for suffix in ['-inspector','-metadata']:extra[(case,variant+suffix)]='screen-'+variant+'.png'
+   extra.update({(case,'bg-inspector'):'screen-bg-source.png',(case,'fg-inspector'):'screen-fg-source.png'})
   src=folder/extra.get((case,slug),variants.get((case,slug),'screen.png'))
   assert 0<=box[0]<box[2]<=im.width and 0<=box[1]<box[3]<=im.height, (case,slug,box)
   path=folder/(slug+'.png');Image.open(src).crop(box).save(path)
@@ -90,6 +102,7 @@ for case in args.cases:
   if case=='S36':frame=12 if slug=='peak-inspector' else 3
   if case=='S39':frame=0 if slug in ['frame0','hold-inspector','hold0-inspector','hold0'] else 24 if slug in ['frame24','hold24-inspector','hold24'] else 12
   if case=='S40':frame=0 if slug in ['freeze0','reverse0'] else 24
+  if case=='S42':frame=0 if slug.startswith('edge-') else 12 if slug=='frame12' else 24
   shots.append({'file':path.name,'source':src.name,'source_sha256':sha(src),'frame':frame,'crop_xyxy':box,'resampled':False,'sha256':sha(path)})
   if case in ['S25','S28','S31']:shots[-1]['viewer_channels']='Alpha' if slug=='alpha' else 'Color'
  candidate=next(x for x in candidates['candidates'] if x['id']==case)

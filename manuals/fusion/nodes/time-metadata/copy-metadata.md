@@ -65,6 +65,49 @@ Copy Metadataが変更する対象はmetadataです。再生速度やsource fram
 
 Settings tabにはMetadata Nodeで共通するControlsがあります。このページではCopy Metadata固有の`Operation`を中心に扱います。
 
+## 実機で同名fieldと4つのOperationを比べる
+
+Resolve Studio 21.1.0.14、Windows、日本語UIで、背景を青、metadataの供給元を赤にしました。両方にShotNameを付け、青はBG001、赤はFG002としています。さらに青だけにBGOnly=keepBG、赤だけにFGOnly=keepFGを付けました。出力フレーム0、両ViewerはColor／40%です。
+
+[![青と赤の各BackgroundにShotNameと固有項目を追加し、Copy Metadataの2入力へ接続した実機Graph](/img/fusion/captures/S44/graph.png)](/img/fusion/captures/S44/graph.png)
+
+[![青い背景側のSet Metadata。ShotName=BG001を設定](/img/fusion/captures/S44/bg-inspector.png)](/img/fusion/captures/S44/bg-inspector.png)
+
+[![赤い供給元側のSet Metadata。ShotName=FG002を設定](/img/fusion/captures/S44/fg-inspector.png)](/img/fusion/captures/S44/fg-inspector.png)
+
+[![Copy MetadataのOperationはMerge (Replace Duplicates)](/img/fusion/captures/S44/inspector.png)](/img/fusion/captures/S44/inspector.png)
+
+[![左のmetadata供給元は赤、右のCopy Metadata出力は青。右上に結合後の3項目が見える](/img/fusion/captures/S44/compare.png)](/img/fusion/captures/S44/compare.png)
+
+[![Merge (Replace Duplicates)の結果。BGOnly、FGOnlyを残し、ShotNameはFG002](/img/fusion/captures/S44/metadata.png)](/img/fusion/captures/S44/metadata.png)
+
+左Viewerは赤いmetadata供給元、右はCopy Metadataの出力です。Merge (Replace Duplicates)では両方の固有項目が残り、同名のShotNameはFG002になりました。Operationを実際のInspectorで変更すると、Metadata subviewは次のように変わります。
+
+| Operation | ShotName | BGOnly | FGOnly |
+| --- | --- | --- | --- |
+| Merge (Replace Duplicates) | FG002 | keepBG | keepFG |
+| Merge (Preserve Duplicates) | BG001 | keepBG | keepFG |
+| Replace | FG002 | なし | keepFG |
+| Clear | なし | なし | なし |
+
+[![OperationをMerge (Preserve Duplicates)へ変更したInspector](/img/fusion/captures/S44/preserve-inspector.png)](/img/fusion/captures/S44/preserve-inspector.png)
+
+[![Preserve Duplicatesの結果。両方の固有項目を残し、ShotNameはBG001](/img/fusion/captures/S44/preserve-metadata.png)](/img/fusion/captures/S44/preserve-metadata.png)
+
+[![OperationをReplaceへ変更したInspector](/img/fusion/captures/S44/replace-inspector.png)](/img/fusion/captures/S44/replace-inspector.png)
+
+[![Replaceの結果。FGOnly=keepFGとShotName=FG002が残り、BGOnlyは消える](/img/fusion/captures/S44/replace-metadata.png)](/img/fusion/captures/S44/replace-metadata.png)
+
+[![OperationをClearへ変更したInspector](/img/fusion/captures/S44/clear-inspector.png)](/img/fusion/captures/S44/clear-inspector.png)
+
+[![Clearの結果。Metadata subviewの項目が空になり、下の青い画素は残る](/img/fusion/captures/S44/clear-metadata.png)](/img/fusion/captures/S44/clear-metadata.png)
+
+4つのOperationを通して出力は青のままで、撮影画面内の出力画像領域も一致しました。ClearではMetadataの表示項目が空になります。最後はMerge (Replace Duplicates)へ戻しました。
+
+この環境のruntime REGIDは`Fuse.FLS_CopyMetadata`で、スクリプト上のgreen入力IDは`Metadata`でした。ManualでのForegroundという役割名と区別してください。保存ファイルへ保持される情報、特殊なmetadata型、Free editionや他OSは未確認です。
+
+[再現用Graph](/img/fusion/captures/S44/fixture.comp) · [撮影条件と確認範囲](/img/fusion/captures/S44/capture.json)
+
 ## 主な用途
 
 ### 別branchのmetadataを処理済みImageへ引き継ぐ
@@ -141,7 +184,7 @@ Copy Metadataを接続しても通常のViewer画像だけでは差が分から�
 - bit depthやDomain of Definitionを変更するNodeでもありません。
 - `Replace`はBackground側のmetadata全体をForeground側のmetadataで置き換えます。単一fieldだけを追加する用途とは挙動が異なります。
 - `Clear`でNode出力のmetadataを消しても、最終fileにmetadataが一切含まれないことまで保証するものではありません。出力経路側で追加される情報は別に確認します。
-- runtime REGID、Effects Library上のcurrent表示、edition差、Operationのdefaultは、このページの確認範囲では断定していません。
+- 実機例ではREGIDと4つのOperationを確認しました。edition差と全defaultは未確認です。
 
 ## 関連Node
 
@@ -156,4 +199,4 @@ DaVinci Resolve 21.1 Reference Manual、Chapter 110「Metadata Nodes」の`Copy 
 
 確認した項目は、orange Background Inputとgreen Foreground Inputの2系統の2D Image入力、Background Imageが出力の基準になること、Foreground Imageがmetadata sourceになること、Viewer subviewでmetadataを確認できること、`Operation`の4 modeとduplicate fieldの扱いです。
 
-runtime REGID、Effects Library上のcurrent表示、edition差、Operationのdefaultはこの確認範囲に含めていないため、`verification: partial`を維持しています。
+実機例で扱っていないmetadata型、edition差、全defaultは確認範囲に含めていないため、`verification: partial`を維持しています。

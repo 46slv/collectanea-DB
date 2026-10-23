@@ -73,11 +73,25 @@ MediaIn → Optical Flow → Time Stretcher → MediaOut
 
 [![出力フレーム24、左はSOURCE 024、右の2倍速出力はSOURCE 048](/img/fusion/captures/S40/fast.png)](/img/fusion/captures/S40/fast.png)
 
-Resolve Studio 21.1.0.14／Windows、両Viewer Color／40%。番号入り連番のSpeedだけを図示。Flow/SpeedWarp/Frame AverageやMetadataの実UIは未確認。 [撮影条件と確認範囲](/img/fusion/captures/S40/capture.json)
+Resolve Studio 21.1.0.14／Windows、両Viewer Color／40%。番号入り連番のSpeedだけを図示。この画像が示すのはTime Speedの固定例です。Flow/SpeedWarpの補間比較は未確認。 [撮影条件と確認範囲](/img/fusion/captures/S40/capture.json)
 
 ### Frame Average / Fields / Keyframe Stretcher
 
 [Frame Average](./frame-average.md)は再生速度を変えません。過去・未来・前後の複数フレームから画素値を平均し、現在の1フレームを作ります。固定カメラの夜景でランダムなノイズを平均すると目立ちにくくなりますが、動いている車なども複数位置に重なり、残像になります。動体を追跡・補正してから平均する機能ではありません。
+
+### 実機の参考例：平均する方向
+
+<!-- capture-reuse:R77 -->
+
+S42では出力24とFrames12を固定し、Backward／Both／ForwardをGUIで切り替えました。右へ動く緑barの残像が、過去側／前後／未来側へ変わります。
+
+[![出力24でBackwardを選ぶと、右の緑barの残像が現在位置より過去側へ広がる](/img/fusion/captures/S42/backward.png)](/img/fusion/captures/S42/backward.png)
+
+[![出力24でBoth、Frames12。左のSOURCE024に対し、右は前後の番号と移動する緑barが平均される](/img/fusion/captures/S42/compare.png)](/img/fusion/captures/S42/compare.png)
+
+[![出力24でForwardを選ぶと、右の緑barの残像が現在位置より未来側へ広がる](/img/fusion/captures/S42/forward.png)](/img/fusion/captures/S42/forward.png)
+
+Resolve Studio 21.1.0.14／Windows、両Viewer Color／40%。Frames12の固定例。Fields、Keyframe Stretcher、ノイズ低減性能は未確認。 [再現用Graph](/img/fusion/captures/S42/fixture.comp) · [撮影条件と確認範囲](/img/fusion/captures/S42/capture.json)
 
 [Fields](./fields.md)はインターレース素材のField 1 / Field 2を扱い、分離、補間、再結合、フィールド順の調整を行います。映像速度の変更ではなく、1フレームを構成するフィールドの処理です。
 
@@ -97,7 +111,33 @@ Source Timeを変えて素材をリタイムするのではありません。単
 
 [Set Metadata](./set-metadata.md)は`Field Name = Field Value`の組をImageへ追加します。たとえば`ShotName = SH010`という識別情報を付け、ViewerのMetadata subviewで確認します。Field Nameに空白は使いません。
 
+### 実機の参考例：Metadataの追加
+
+<!-- capture-reuse:R78 -->
+
+S43はShotName=SH010を追加した実機例です。Inspectorの2項目と、ViewerのMetadata subviewに表示された値が一致します。
+
+[![Set MetadataのField NameはShotName、Field ValueはSH010](/img/fusion/captures/S43/inspector.png)](/img/fusion/captures/S43/inspector.png)
+
+[![右ViewerのMetadata subviewにShotName=SH010が表示される](/img/fusion/captures/S43/metadata.png)](/img/fusion/captures/S43/metadata.png)
+
+Resolve Studio 21.1.0.14／Windows、両Viewer Color／40%。Name/Valueの固定例。Set Timecodeと書き出し時の保持は未確認。 [再現用Graph](/img/fusion/captures/S43/fixture.comp) · [撮影条件と確認範囲](/img/fusion/captures/S43/capture.json)
+
 [Copy Metadata](./copy-metadata.md)は**orangeのBackground Imageを出力の基準**として、**greenのForeground ImageからMetadataを移す**Nodeです。画素を合成するMergeとは異なります。`Merge (Replace Duplicates)`は同名項目でForegroundを、`Merge (Preserve Duplicates)`はBackgroundを優先します。`Replace`は付帯情報全体を置換、`Clear`は消去します。
+
+### 実機の参考例：Metadataの優先と置換
+
+<!-- capture-reuse:R79 -->
+
+S44は青のBG001と赤のFG002を使った例です。Merge (Preserve Duplicates)ではShotName=BG001を残し、ReplaceではFG002と赤側だけのFGOnlyへ置き換わります。出力の画素は青です。
+
+[![青と赤の各BackgroundにShotNameと固有項目を追加し、Copy Metadataの2入力へ接続した実機Graph](/img/fusion/captures/S44/graph.png)](/img/fusion/captures/S44/graph.png)
+
+[![Preserve Duplicatesの結果。両方の固有項目を残し、ShotNameはBG001](/img/fusion/captures/S44/preserve-metadata.png)](/img/fusion/captures/S44/preserve-metadata.png)
+
+[![Replaceの結果。FGOnly=keepFGとShotName=FG002が残り、BGOnlyは消える](/img/fusion/captures/S44/replace-metadata.png)](/img/fusion/captures/S44/replace-metadata.png)
+
+Resolve Studio 21.1.0.14／Windows、両Viewer Color／40%。2入力のmetadata結合と置換。保存ファイルへの保持は未確認。 [再現用Graph](/img/fusion/captures/S44/fixture.comp) · [撮影条件と確認範囲](/img/fusion/captures/S44/capture.json)
 
 ```text
 仕上げたPlate ──────────────────→ Copy Metadata → Set Metadata → 後段処理

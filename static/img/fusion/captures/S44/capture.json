@@ -1,0 +1,265 @@
+{
+  "schema_version": 1,
+  "case": "S44",
+  "article": "manuals/fusion/nodes/time-metadata/copy-metadata.md",
+  "manual": {
+    "version": "21.1",
+    "chapter": 110,
+    "printed_pages": "2571–2573; ch68 p1467"
+  },
+  "runtime": {
+    "version": "21.1.0.14",
+    "edition": "Studio",
+    "os": "Windows-11-10.0.26200-SP0",
+    "ui_language": "ja-JP (some Shape controls remain English)"
+  },
+  "captured_at": "2026-10-23T19:31:50.389021+00:00",
+  "project": "Collectanea_Captures_20261023_Sol",
+  "timeline": "S44_capture",
+  "frame": 0.0,
+  "resolution": [
+    1920,
+    1080
+  ],
+  "color_management": {
+    "colorScienceMode": "davinciYRGB",
+    "colorSpaceTimeline": "Rec.709 (Scene)",
+    "colorSpaceTimelineGamma": "",
+    "colorSpaceOutput": "Rec.709 (Scene)",
+    "colorSpaceOutputGamma": "ACEScc",
+    "separateColorSpaceAndGamma": "0",
+    "isAutoColorManage": "0",
+    "timelineResolutionWidth": "1920",
+    "timelineResolutionHeight": "1080",
+    "timelineFrameRate": 24.0,
+    "timelinePlaybackFrameRate": "30"
+  },
+  "viewer": {
+    "zoom_percent": 40,
+    "channel": "Color",
+    "background": "checkerboard for transparent pixels",
+    "note": "Viewer screenshots are display evidence, not colorimetric exports."
+  },
+  "graph": "fixture.comp",
+  "settings": "readback.json",
+  "source": {
+    "file": "screen.png",
+    "size": [
+      3352,
+      1910
+    ],
+    "sha256": "d74fb7172c5051895960241d57ffb2c39aa94975aee249d36e3b2fa76b93d767"
+  },
+  "shots": [
+    {
+      "file": "graph.png",
+      "source": "screen.png",
+      "source_sha256": "d74fb7172c5051895960241d57ffb2c39aa94975aee249d36e3b2fa76b93d767",
+      "frame": 0.0,
+      "crop_xyxy": [
+        240,
+        1060,
+        2600,
+        1660
+      ],
+      "resampled": false,
+      "sha256": "5d20a89b7145c2277c1e1042b33b51a0efedaef339f50bcd40a66d2d4b0c359e"
+    },
+    {
+      "file": "inspector.png",
+      "source": "screen.png",
+      "source_sha256": "d74fb7172c5051895960241d57ffb2c39aa94975aee249d36e3b2fa76b93d767",
+      "frame": 0.0,
+      "crop_xyxy": [
+        2830,
+        120,
+        3352,
+        300
+      ],
+      "resampled": false,
+      "sha256": "d2426d42224dafbf13664c7b5b1b49f5e374a393be9230777619d2e43cf81a37"
+    },
+    {
+      "file": "compare.png",
+      "source": "screen.png",
+      "source_sha256": "d74fb7172c5051895960241d57ffb2c39aa94975aee249d36e3b2fa76b93d767",
+      "frame": 0.0,
+      "crop_xyxy": [
+        1146,
+        65,
+        2830,
+        705
+      ],
+      "resampled": false,
+      "sha256": "3e364ea62e717ff7f23c1d9a78e199ea5141e6d50ce1823fd754e9b1bdfe76f5"
+    },
+    {
+      "file": "metadata.png",
+      "source": "screen.png",
+      "source_sha256": "d74fb7172c5051895960241d57ffb2c39aa94975aee249d36e3b2fa76b93d767",
+      "frame": 0.0,
+      "crop_xyxy": [
+        2034,
+        96,
+        2830,
+        190
+      ],
+      "resampled": false,
+      "sha256": "21886231befbf8a2369181c2bf9d99cee9b56f60fbbad8c7881bd02b789a42fa"
+    },
+    {
+      "file": "bg-inspector.png",
+      "source": "screen-bg-source.png",
+      "source_sha256": "5b7e215a051c561ae6f42326de6ffd7458c80fe83b6e70759736a4ce41a8a232",
+      "frame": 0.0,
+      "crop_xyxy": [
+        2830,
+        120,
+        3352,
+        300
+      ],
+      "resampled": false,
+      "sha256": "0102ee9711051b9ebde8dc6665a785d4fb0629802ef6c0d1d6b777c1e6348326"
+    },
+    {
+      "file": "fg-inspector.png",
+      "source": "screen-fg-source.png",
+      "source_sha256": "a6e6431cde263dca01d415b46922792a34fd2185a1d0a5a82a8ef681eb9e3e93",
+      "frame": 0.0,
+      "crop_xyxy": [
+        2830,
+        120,
+        3352,
+        300
+      ],
+      "resampled": false,
+      "sha256": "5eaecb118b6df38b8178d55643c1351b218a7b415af902675d9ae9cef71e3a61"
+    },
+    {
+      "file": "preserve-inspector.png",
+      "source": "screen-preserve.png",
+      "source_sha256": "bb1cfaf7429f388a0b0977ad0789eb49d71eeb1b030dffbe8124ffce5f0f95e2",
+      "frame": 0.0,
+      "crop_xyxy": [
+        2830,
+        120,
+        3352,
+        300
+      ],
+      "resampled": false,
+      "sha256": "47d78e1ff8eb4fa53e20f0414ebd96d32e03677eae878d6fc06669fd4b76540c"
+    },
+    {
+      "file": "preserve-metadata.png",
+      "source": "screen-preserve.png",
+      "source_sha256": "bb1cfaf7429f388a0b0977ad0789eb49d71eeb1b030dffbe8124ffce5f0f95e2",
+      "frame": 0.0,
+      "crop_xyxy": [
+        2034,
+        96,
+        2830,
+        190
+      ],
+      "resampled": false,
+      "sha256": "7d55c2f31d354c6e0d4641403075e2306ddeb5e1ae33da58dc22213973ddd589"
+    },
+    {
+      "file": "replace-inspector.png",
+      "source": "screen-replace.png",
+      "source_sha256": "cd9e7ebc379134f1b7abcda3346ce673605f4e49e7a75f2bef38847b8cfb9553",
+      "frame": 0.0,
+      "crop_xyxy": [
+        2830,
+        120,
+        3352,
+        300
+      ],
+      "resampled": false,
+      "sha256": "fe056ff55d94097e7cde45696f20fe7ac9b9e94df8d39c0c6c43606c399bac79"
+    },
+    {
+      "file": "replace-metadata.png",
+      "source": "screen-replace.png",
+      "source_sha256": "cd9e7ebc379134f1b7abcda3346ce673605f4e49e7a75f2bef38847b8cfb9553",
+      "frame": 0.0,
+      "crop_xyxy": [
+        2034,
+        96,
+        2830,
+        190
+      ],
+      "resampled": false,
+      "sha256": "3f7e0cdc6cd7d08eb307a05cfcdddfe3dab36a3ab708d76c6a52ac8a18254c28"
+    },
+    {
+      "file": "clear-inspector.png",
+      "source": "screen-clear.png",
+      "source_sha256": "94a93e94c818cf087a04d1fc66e1d615c4d6314d220919b9994bf64e8da003e4",
+      "frame": 0.0,
+      "crop_xyxy": [
+        2830,
+        120,
+        3352,
+        300
+      ],
+      "resampled": false,
+      "sha256": "dbd037125d014552c1cab0f151b48add9b744edf6f5af1c7c28c5491fd7443d6"
+    },
+    {
+      "file": "clear-metadata.png",
+      "source": "screen-clear.png",
+      "source_sha256": "94a93e94c818cf087a04d1fc66e1d615c4d6314d220919b9994bf64e8da003e4",
+      "frame": 0.0,
+      "crop_xyxy": [
+        2034,
+        96,
+        2830,
+        190
+      ],
+      "resampled": false,
+      "sha256": "953a21499afae1843d7018a19794b788c000c1cdf077069c4b8e6a031cb850a9"
+    }
+  ],
+  "acceptance": {
+    "gui": "PASS: owner visually inspected node connections, selected Inspector, and output",
+    "article_display": "PASS: local production build;1440px/390px decode/Alt/native links/hash/overflow"
+  },
+  "unverified": [
+    "Free edition and other platforms",
+    "All parameter ranges and performance",
+    "Special metadata types and file export retention",
+    "Exported portable composition reimport"
+  ],
+  "state_variants": {
+    "screen.png": "frame0 Operation0 Merge Replace Duplicates; ShotNameFG002, BGOnly, FGOnly; restored",
+    "screen-preserve.png": "Operation1 Merge Preserve Duplicates; ShotNameBG001, BGOnly, FGOnly",
+    "screen-replace.png": "Operation2 Replace; ShotNameFG002, FGOnly",
+    "screen-clear.png": "Operation3 Clear; metadata empty",
+    "screen-bg-source.png": "background ShotName=BG001 Inspector; rightViewer still Clear",
+    "screen-fg-source.png": "metadata source ShotName=FG002 Inspector; rightViewer still Clear"
+  },
+  "restoration": "PASS: owned scratch saved; both Color40%; Spline/Keyframes closed, DoD/RoI off; Merge Replace Duplicates frame0; rightMetadataSubview on in owned comp",
+  "pixel_comparison": {
+    "result": "PASS",
+    "method": "Exact RGB screenshot pixel equality, fixed rightViewer image rectangle; excludes metadata overlay and Inspector",
+    "rectangle_xyxy": [
+      2048,
+      193,
+      2816,
+      625
+    ],
+    "compared_sources": [
+      "screen.png",
+      "screen-preserve.png",
+      "screen-replace.png",
+      "screen-clear.png"
+    ],
+    "scope": "Native Viewer display only, not exported image fidelity"
+  },
+  "reproduction": {
+    "fixture_sha256": "dabfa7d5bd80acfc2f44c9c2f53d0b1a1f2207e92c230ab646eddbb80526c289",
+    "readback_sha256": "3f251b7bb175f02c6a020f59ce4a39cb440d079f53ea0aa7a1e44828bd2700fc",
+    "paths": "Comp:/../_fixtures/ for bundled synthetic fixtures",
+    "reimport": "NOT_RUN: accepted GUI evidence precedes export path normalization"
+  }
+}
