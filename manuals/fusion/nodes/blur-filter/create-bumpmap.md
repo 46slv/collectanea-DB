@@ -149,8 +149,36 @@ Create Bump Mapが2D Imageを出すため、別の画像処理を挟めます。
 - [3D Material / Lightノード一覧](../materials-lights/index.md)：材質と照明の選択。
 - [Blur / Filterノード一覧](./index.md)：2Dの画像処理Nodeを探す。
 
+## 実機例：高さの差をRGB方向データへ変換する
+
+<!-- capture-case:S68 -->
+
+Resolve Studio21.1.0.14／WindowsのFusionページで、1920×1080の固定チャートを接続しました。通常の比較は両Viewer Color／40%です。内部REGIDは`CreateBumpMap`でした。Height ChannelはLuminanceで、色付きチャートの輝度から高さの差を読みます。
+
+[![LoaderからCreateBumpMap1、MediaOut1へ接続した実機Node Editor](/img/fusion/captures/S68/graph.png)](/img/fusion/captures/S68/graph.png)
+
+[![Create Bump Mapの3、Luminance、Clamp、Height Scale1を示すInspector](/img/fusion/captures/S68/inspector.png)](/img/fusion/captures/S68/inspector.png)
+
+[![左のチャートの明暗から、右に青紫のRGB方向データが表示される](/img/fusion/captures/S68/compare.png)](/img/fusion/captures/S68/compare.png)
+
+Filter Size3、Clamp Normal.Z 0、Wrap Mode Clamp、Texture Depth Sourceを保ち、Height Scaleだけを1から5へ上げました。文字や格子の境界に、より強い色の差が現れます。
+
+[![Height Scaleだけを5にしたInspector](/img/fusion/captures/S68/height5-inspector.png)](/img/fusion/captures/S68/height5-inspector.png)
+
+[![Height Scale5では右の文字や格子の境界に色の差が強く現れる](/img/fusion/captures/S68/height5.png)](/img/fusion/captures/S68/height5.png)
+
+Height Scaleへ0を指定すると、この実機では0.0001と表示されました。その結果はほぼ一様な青紫になり、細かな境界が見えなくなります。0の値で演算した結果とは扱いません。
+
+[![0を指定した結果、Height Scaleが0.0001と表示されたInspector](/img/fusion/captures/S68/height-low-inspector.png)](/img/fusion/captures/S68/height-low-inspector.png)
+
+[![Height Scale0.0001では右の細かな境界が見えなくなり、ほぼ一様な青紫になる](/img/fusion/captures/S68/height-low.png)](/img/fusion/captures/S68/height-low.png)
+
+最後はHeight Scale1へ戻して保存しました。ここで確認したのは2DのRGB表示です。3D材質へ接続した凹凸、法線の数値、Mask、Filter Size切替、シームレス境界、bit depth差と性能は未確認です。
+
+[再現用Graph](/img/fusion/captures/S68/fixture.comp) · [撮影条件と確認範囲](/img/fusion/captures/S68/capture.json)
+
 ## 出典と確認範囲
 
 一次資料：Blackmagic Design『DaVinci Resolve 21.1 Reference Manual』（2026年9月）、Chapter 99「Filter Nodes」**Create Bump Map [CBu]（pp.2328–2329）**。2入力、2D RGB出力、6つのInspector設定、Height / Bump / Normalの用語を確認しました。後段のBump Map [3Bu]の接続およびSource Image TypeはChapter 91「3D Texture Nodes」（pp.2082–2084）に基づきます。
 
-制作例はマニュアルに記載された処理を組み合わせたものです。21.1実機での描画、内部REGID、パラメータの初期値・範囲、Edition差は未検証のため`verification: partial`を維持します。
+制作例はマニュアルに記載された処理を組み合わせたものです。S68の内部REGID、Luminanceからの2D表示とHeight Scale1／5／実機0.0001は確認済みです。3D材質の制作例、全初期値・範囲、Edition差は未確認のため`verification: partial`を維持します。

@@ -165,8 +165,40 @@ MediaIn ───────→ Custom Filter ───→ MediaOut
 - **特定の場所だけ変えたい**：Effect Maskの接続先が青い入力か、マスクの白黒と境界が意図どおりかを確認します。
 - **最初の設定へ戻したい**：例1の中央だけ1の行列で、画像経路とNormalize／Floor Levelを切り分けます。
 
+## 実機例：中央だけ1の行列を基準にする
+
+<!-- capture-case:S69 -->
+
+Resolve Studio21.1.0.14／WindowsのFusionページで、1920×1080の固定チャートを接続しました。通常の比較は両Viewer Color／40%です。内部REGIDは`CustomFilter`でした。3×3の中央だけを1、周囲8マスを0へ編集し、NormalizeとFloor Levelを0にしました。
+
+[![LoaderからCustomFilter1、MediaOut1へ接続した実機Node Editor](/img/fusion/captures/S69/graph.png)](/img/fusion/captures/S69/graph.png)
+
+[![中央だけ1、周囲0の3×3行列とNormalize0、Floor Level0のInspector](/img/fusion/captures/S69/inspector.png)](/img/fusion/captures/S69/inspector.png)
+
+[![中央だけ1の行列では40%の左右Viewerに同じチャートが見える](/img/fusion/captures/S69/compare.png)](/img/fusion/captures/S69/compare.png)
+
+両Viewerを100%へ変えた状態でも、文字と色パッチが同じように表示されます。下は実機Viewerの倍率を変えて撮影した画像で、crop時の拡大はしていません。画素値をexportして完全一致を測定した結果ではありません。
+
+[![両Viewer100%で、中央だけ1の行列が入力の文字と色パッチを保つ](/img/fusion/captures/S69/detail.png)](/img/fusion/captures/S69/detail.png)
+
+この行列を保ってFloor Levelだけを0.25へ上げると、暗部を含めて明るさが持ち上がりました。
+
+[![中央だけ1の行列を保ちFloor Levelを0.25にしたInspector](/img/fusion/captures/S69/floor025-inspector.png)](/img/fusion/captures/S69/floor025-inspector.png)
+
+[![Floor Level0.25では右の暗部を含めて明るさが持ち上がる](/img/fusion/captures/S69/floor025.png)](/img/fusion/captures/S69/floor025.png)
+
+Floor Levelを0へ戻し、Normalizeだけを0.5へ上げた例です。明部や色パッチが明るくなり、黒いパッチは残っています。2つの設定を同時に変えた比較ではありません。
+
+[![Floor Level0へ戻しNormalizeだけ0.5にしたInspector](/img/fusion/captures/S69/normalize05-inspector.png)](/img/fusion/captures/S69/normalize05-inspector.png)
+
+[![Normalize0.5では右の明部や色パッチが明るくなり、黒いパッチは残る](/img/fusion/captures/S69/normalize05.png)](/img/fusion/captures/S69/normalize05.png)
+
+最後は中央だけ1の行列／Normalize0／Floor Level0／40%へ復元して保存しました。負の係数を使うEmbossとRelief、5×5／7×7、Update Lock、プリセット、Alpha境界、Mask、内部の正規化式と性能は未確認です。
+
+[再現用Graph](/img/fusion/captures/S69/fixture.comp) · [撮影条件と確認範囲](/img/fusion/captures/S69/capture.json)
+
 ## バージョンと根拠
 
 **一次資料**：Blackmagic Design『DaVinci Resolve 21.1 Reference Manual』（2026年9月）、Chapter 99「Filter Nodes」、**pp.2332–2336**。[Blackmagic Design公式サポート](https://www.blackmagicdesign.com/jp/support/)。
 
-行列の仕様、3×3／5×5／7×7、整数係数、入出力、RGBA、Update Lock、Normalize、Floor Level、4つの行列例、Settings > Loadの経路は同マニュアルで確認しました。制作手順はその仕様から組み立てた例です。**21.1実機での数値出力、内部の正規化式、全初期値、Edition差、プリセットの実際の収録内容は未検証**のため、verificationはpartialとしています。
+行列の仕様、3×3／5×5／7×7、整数係数、入出力、RGBA、Update Lock、Normalize、Floor Level、4つの行列例、Settings > Loadの経路は同マニュアルで確認しました。制作手順はその仕様から組み立てた例です。S69で内部REGID、中央だけ1の3×3行列と40%／100%表示、Floor Level0.25、Normalize0.5を確認しました。数値export、内部の正規化式、全初期値、Edition差、プリセットの収録内容は未確認のため、verificationはpartialとしています。

@@ -47,7 +47,7 @@ Effect Maskは「ノードがどの画素を調べるか」の設定ではなく
 | **Laplacian** | Sobelより細かい輪郭を抽出する | 小さなディテールを拾う輪郭マスク |
 | **Grain** | 主に中間調へフィルム粒子に似たノイズを加える | CGと実写を合成する際の質感合わせ |
 
-この表は21.1 ManualのFilter Type一覧に明示された項目です。**Median**は次節のInspector説明に登場しますが、同じManualのFilter Type一覧には列挙されていません。実機で選択可能か未確認のため、一覧へ無条件に追加していません。
+この表は21.1 ManualのFilter Type一覧に明示された項目です。**Median**は次節のInspector説明に登場しますが、同じManualのFilter Type一覧には列挙されていません。S66のStudio21.1.0.14／Windows実機メニューでも7項目だけが表示され、Medianはありませんでした。
 
 SobelとLaplacianは被写体の意味を理解して切り抜くキーヤーではありません。明暗や色の変化がある場所を検出するため、必要ないテクスチャーの輪郭も出ます。結果をそのまま完成したアルファマットとみなさず、使うチャンネルと明るさを確認します。
 
@@ -67,7 +67,7 @@ R・G・B・Aのチェックで、処理対象のチャンネルを選びます�
 
 ### Median
 
-21.1 Manualは、**Median設定時のみ**現れるパラメータとして説明しています。値が**0.0なら最小値、0.5なら中央値、1.0なら最大値**を選びます。ただし、前述のとおりFilter Type一覧と記載が一致しません。操作画面にMedianがなければ、このスライダーの存在を前提にせず、近傍画素の順位を明示的に操作できる[Rank Filter](./rank-filter)を確認してください。
+21.1 Manualは、**Median設定時のみ**現れるパラメータとして説明しています。値が**0.0なら最小値、0.5なら中央値、1.0なら最大値**を選びます。ただし、前述のとおりFilter Type一覧と記載が一致しません。S66の実機ではMedianがなかったため、このスライダーの存在を前提にせず、近傍画素の順位を明示的に操作できる[Rank Filter](./rank-filter)を確認してください。
 
 ### Seed / Animated
 
@@ -115,7 +115,39 @@ Grainはフィルム粒子風、Noiseは均一なノイズというManual上の�
 - **マスクをつないでも想定外の部分が変わる**：青いEffect Mask入力と橙の画像入力を取り違えていないか、マスクの白黒やAlpha、どの画像を表示しているかを確認します。
 - **Medianが見当たらない**：21.1 Manual内でFilter Type一覧とMedianパラメータ説明が一致していません。存在や表示条件を推測せず、[Rank Filter](./rank-filter)を代替候補として確認します。
 
+## 実機例：SobelとAlphaの処理を分ける
+
+<!-- capture-case:S66 -->
+
+Resolve Studio21.1.0.14／WindowsのFusionページで、1920×1080の固定チャートを接続しました。通常の比較は両Viewer Color／40%です。内部REGIDは`Filter`でした。左は入力、右はFilterの結果です。
+
+[![LoaderからFilter1、MediaOut1へ接続した実機Node Editor](/img/fusion/captures/S66/graph.png)](/img/fusion/captures/S66/graph.png)
+
+[![FilterでSobelを選び、RGBAのAを外した実機Inspector](/img/fusion/captures/S66/inspector.png)](/img/fusion/captures/S66/inspector.png)
+
+[![左の入力チャートに対し、右は不透明な黒地へSobelの輪郭が出る](/img/fusion/captures/S66/compare.png)](/img/fusion/captures/S66/compare.png)
+
+Sobelを選び、ノード本体のRGBAからAを外すと、不透明な黒地に文字や格子の輪郭が表示されました。Aも処理すると、同じ入力でも輪郭以外に透過チェッカーが現れます。輪郭を画像として使う場合は、RGBとAlphaを別々に確認します。
+
+[![SobelでAも処理する初期RGBA選択のInspector](/img/fusion/captures/S66/alpha1-inspector.png)](/img/fusion/captures/S66/alpha1-inspector.png)
+
+[![Aを処理したSobelでは右の輪郭以外に透過チェッカーが見える](/img/fusion/captures/S66/alpha1.png)](/img/fusion/captures/S66/alpha1.png)
+
+同じ入力でLaplacianへ切り替え、Aを外した結果です。このチャートと40%表示では、Sobelより弱い細い輪郭が見えます。一般的な強度差や正確な演算式を測定した結果ではありません。
+
+[![同じ入力でLaplacianを選びAを外したInspector](/img/fusion/captures/S66/laplacian-inspector.png)](/img/fusion/captures/S66/laplacian-inspector.png)
+
+[![Laplacianでは右に弱い細い輪郭が表示される](/img/fusion/captures/S66/laplacian.png)](/img/fusion/captures/S66/laplacian.png)
+
+実機のFilter Typeメニューは下の7項目でした。この環境ではMedianを選べませんでした。ManualのMedian説明を、このメニューへ追加された機能として読み替えないでください。
+
+[![実機Filterメニューの7項目。Medianの項目は表示されていない](/img/fusion/captures/S66/filter-menu.png)](/img/fusion/captures/S66/filter-menu.png)
+
+最後はSobel／Aオフ／Blend1へ戻して保存しました。Effect Mask、Noise／Grainの時間変化、その他のFilter、実写、画素単位の演算と性能は未確認です。
+
+[再現用Graph](/img/fusion/captures/S66/fixture.comp) · [撮影条件と確認範囲](/img/fusion/captures/S66/capture.json)
+
 ## 出典と確認範囲
 
 - Blackmagic Design『DaVinci Resolve 21.1 Reference Manual』（September 2026）、Chapter 99「Filter Nodes」、pp.2339–2341。入力、各Filter Type、InspectorのColor Channels / Power / Angle / Median / Seed / AnimatedとSobelの接続例を確認。
-- Medianのメニュー上の有無、各Filterの内部演算式、正確なチャンネル変換、21.1実機での初期値・Edition差は未検証です。本記事の接続例はManualの基本接続を基に説明しています。
+- S66で内部REGID、7項目のメニューとMedian不在、Sobel／Laplacian、Aオン／オフの表示を確認しました。内部演算式、画素単位のチャンネル値、全初期値、Edition差は未確認です。制作例の全構成を実行したものではありません。
