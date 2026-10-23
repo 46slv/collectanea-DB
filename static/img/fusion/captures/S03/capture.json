@@ -1,0 +1,116 @@
+{
+  "schema_version": 1,
+  "case": "S03",
+  "article": "manuals/fusion/nodes/blur-filter/glow.md",
+  "manual": {
+    "version": "21.1",
+    "chapter": 92,
+    "printed_pages": "2116–2119"
+  },
+  "runtime": {
+    "version": "21.1.0.14",
+    "edition": "Studio",
+    "os": "Windows-11-10.0.26200-SP0",
+    "ui_language": "ja-JP (some Shape controls remain English)"
+  },
+  "captured_at": "2026-10-23T10:26:04.537322+00:00",
+  "project": "Collectanea_Captures_20261023_Sol",
+  "timeline": "S03_capture",
+  "frame": 0.0,
+  "resolution": [
+    1920,
+    1080
+  ],
+  "color_management": {
+    "colorScienceMode": "davinciYRGB",
+    "colorSpaceTimeline": "Rec.709 (Scene)",
+    "colorSpaceTimelineGamma": "",
+    "colorSpaceOutput": "Rec.709 (Scene)",
+    "colorSpaceOutputGamma": "ACEScc",
+    "separateColorSpaceAndGamma": "0",
+    "isAutoColorManage": "0",
+    "timelineResolutionWidth": "1920",
+    "timelineResolutionHeight": "1080",
+    "timelineFrameRate": 24.0,
+    "timelinePlaybackFrameRate": "30"
+  },
+  "viewer": {
+    "zoom_percent": 40,
+    "channel": "Color",
+    "background": "checkerboard for transparent pixels",
+    "note": "Viewer screenshots are display evidence, not colorimetric exports."
+  },
+  "graph": "fixture.comp",
+  "settings": "readback.json",
+  "source": {
+    "file": "screen.png",
+    "size": [
+      3360,
+      1914
+    ],
+    "sha256": "7afc9c4d4ad98a5f1fb50f26366aa6fe49a2177fa8869191efd80f92e76029c3"
+  },
+  "shots": [
+    {
+      "file": "graph.png",
+      "source": "screen.png",
+      "source_sha256": "7afc9c4d4ad98a5f1fb50f26366aa6fe49a2177fa8869191efd80f92e76029c3",
+      "frame": 0.0,
+      "crop_xyxy": [
+        590,
+        1320,
+        2250,
+        1440
+      ],
+      "resampled": false,
+      "sha256": "83c0e2e63ea25660eb98f0bc906618191cd3fc8933cc0ce1318998f3dbe0dc0a"
+    },
+    {
+      "file": "inspector.png",
+      "source": "screen.png",
+      "source_sha256": "7afc9c4d4ad98a5f1fb50f26366aa6fe49a2177fa8869191efd80f92e76029c3",
+      "frame": 0.0,
+      "crop_xyxy": [
+        2840,
+        90,
+        3360,
+        465
+      ],
+      "resampled": false,
+      "sha256": "7ab17259132bbfd3ab61facc330597b0e9ba30454f2c4278e346e9b2e72741a2"
+    },
+    {
+      "file": "compare.png",
+      "source": "screen.png",
+      "source_sha256": "7afc9c4d4ad98a5f1fb50f26366aa6fe49a2177fa8869191efd80f92e76029c3",
+      "frame": 0.0,
+      "crop_xyxy": [
+        1147,
+        65,
+        2840,
+        650
+      ],
+      "resampled": false,
+      "sha256": "7fd992c9f4fb8549a137d4d8ef244201e5358f545734cfd4f0f93e0e33e3b589"
+    }
+  ],
+  "acceptance": {
+    "gui": "PASS: owner visually inspected node connections, selected Inspector, and output",
+    "article_display": "PASS: production build, 1440px/390px, all shot decode/Alt/native links, source/fixture/manifest hashes, no page errors or horizontal overflow; evidence artifacts/fusion-captures/display-report.json"
+  },
+  "unverified": [
+    "Free edition and other platforms",
+    "All parameter ranges and performance",
+    "S03 optional Glow Mask / Effect Mask comparison is deferred",
+    "Exported portable composition reimport"
+  ],
+  "reproduction": {
+    "fixture_sha256": "6171b11d6015cb0e5cf253e92329ef9dd129fcfd6328d061a848bdeceaa1e478",
+    "readback_sha256": "870f13151c1e576dc11cc6cf2664de7175ad3565417e190a8c0c2718e61f5157",
+    "paths": "Comp:/../_fixtures/ for bundled synthetic fixtures",
+    "reimport": "NOT_RUN: accepted GUI evidence precedes export path normalization",
+    "artifact_fixture_sha256": "5023742ed4e5dbbc72cf03483400741eae9cf7b78124cec0838fae3cb8c5c47a",
+    "artifact_readback_sha256": "0504928d2c5e2fbae5a50c70861317708eb95768b6f39c12e04b03d96b03abc5",
+    "intake_normalization": "CRLF to LF; only trailing empty export lines removed from fixture.comp. Original artifact hashes retained; portable composition reimport remains NOT_RUN."
+  }
+}

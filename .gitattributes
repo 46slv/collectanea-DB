@@ -1,0 +1,3 @@
+# Keep exported evidence bytes stable across Windows and Linux checkouts.
+static/img/fusion/captures/**/*.json text eol=lf
+static/img/fusion/captures/**/*.comp text eol=lf

@@ -16,7 +16,7 @@ tasks: [render-3d, convert-domain, composite-3d]
 level: intermediate
 product_scope: fusion
 suite_surfaces: [fusion]
-updated: "2026-10-10"
+updated: "2026-10-23"
 ---
 
 # Renderer 3D
@@ -174,6 +174,21 @@ OpenGL UVは「モデルをカメラで撮る」のではなく、モデルのUV
 - [補助Channel / AOV](../../learn/02-data/auxiliary-channels.md) — Z・Normal・ObjectIDの意味と使い方
 - [Ambient Occlusion](../deep/ambient-occlusion-deep-pixel.md) — Z・Normal・Cameraを使う陰影処理
 - [Classic 3Dノード一覧](./index.md) — 関連Nodeを探す
+
+<!-- capture:S11 -->
+## 実機で3D Viewerとカメラからの描画を見分ける
+
+DaVinci Resolve Studio 21.1.0.14、Windows、日本語UI。1920×1080、フレーム0で撮影しました。画像を開くと原寸で確認できます。
+
+[![Shape 3D + Camera 3D + Point Light → Merge 3D → Renderer 3D → MediaOut](/img/fusion/captures/S11/graph.png)](/img/fusion/captures/S11/graph.png)
+
+球、Camera 3D、Point LightをMerge 3Dへ接続し、Renderer 3DをSoftware Renderer、Lighting有効で描画しました。CameraのZは7、Point LightのX / Y / Zは2 / 2 / 3です。左はMerge 3Dの操作用ビュー、右はCameraから描画した2D Imageです。右では照明による明暗が付き、操作用グリッドは画像に入りません。左右は同じカメラのBefore / Afterではありません。OpenGL、影、全補助チャンネルは未確認です。
+
+[![Renderer 3DのSoftware RendererとLighting有効のInspector](/img/fusion/captures/S11/inspector.png)](/img/fusion/captures/S11/inspector.png)
+
+[![左は3Dシーン操作ビュー、右はSoftware Rendererがカメラから描いた球](/img/fusion/captures/S11/compare.png)](/img/fusion/captures/S11/compare.png)
+
+[再現用Graph](/img/fusion/captures/S11/fixture.comp) · [撮影条件と確認範囲](/img/fusion/captures/S11/capture.json)
 
 ## 出典と確認範囲
 

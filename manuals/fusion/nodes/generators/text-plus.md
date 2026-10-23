@@ -15,7 +15,7 @@ tasks: [text, motion-graphics, title, animate]
 level: foundation
 product_scope: fusion
 suite_surfaces: [fusion, edit]
-updated: "2026-10-04"
+updated: "2026-10-23"
 ---
 
 # Text+
@@ -259,6 +259,27 @@ Text+ → Merge → Output
 - Text 3D
 - sText
 - [Merge](../compositing/merge)
+
+<!-- capture:S08 -->
+## 実機で2行タイトルに塗りとアウトラインを付ける
+
+DaVinci Resolve Studio 21.1.0.14、Windows、日本語UI。1920×1080、フレーム0で撮影しました。画像を開くと原寸で確認できます。
+
+[![Text+ → MediaOut](/img/fusion/captures/S08/graph.png)](/img/fusion/captures/S08/graph.png)
+
+Text+へ「COLLECTANEA」「FUSION 21.1」の2行を入力し、Arial Bold、Size 0.1にしました。ShadingのElement 1は白い塗り、Element 2はRed Outlineを有効にし、太さ0.02で赤い縁取りを表示しています。実機のTextタブとShadingタブをそれぞれ撮影しました。
+
+[![Text+の2行のStyled Text、Arial Bold、Size 0.1](/img/fusion/captures/S08/inspector.png)](/img/fusion/captures/S08/inspector.png)
+
+[![Text+の2D Image出力端子](/img/fusion/captures/S08/node.png)](/img/fusion/captures/S08/node.png)
+
+[![ShadingのElement 2、Red Outline、太さ0.02と赤色](/img/fusion/captures/S08/shading.png)](/img/fusion/captures/S08/shading.png)
+
+[![白い塗りと赤いアウトラインを持つ2行タイトル](/img/fusion/captures/S08/result.png)](/img/fusion/captures/S08/result.png)
+
+Viewer倍率は40%です。市松模様は透明部分を示します。
+
+[再現用Graph](/img/fusion/captures/S08/fixture.comp) · [撮影条件と確認範囲](/img/fusion/captures/S08/capture.json)
 
 ## 出典と確認範囲
 

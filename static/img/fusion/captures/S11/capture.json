@@ -1,0 +1,115 @@
+{
+  "schema_version": 1,
+  "case": "S11",
+  "article": "manuals/fusion/nodes/3d/renderer-3d.md",
+  "manual": {
+    "version": "21.1",
+    "chapter": 88,
+    "printed_pages": "1970–1978"
+  },
+  "runtime": {
+    "version": "21.1.0.14",
+    "edition": "Studio",
+    "os": "Windows-11-10.0.26200-SP0",
+    "ui_language": "ja-JP (some Shape controls remain English)"
+  },
+  "captured_at": "2026-10-23T10:47:16.371544+00:00",
+  "project": "Collectanea_Captures_20261023_Sol",
+  "timeline": "S11_capture",
+  "frame": 0.0,
+  "resolution": [
+    1920,
+    1080
+  ],
+  "color_management": {
+    "colorScienceMode": "davinciYRGB",
+    "colorSpaceTimeline": "Rec.709 (Scene)",
+    "colorSpaceTimelineGamma": "",
+    "colorSpaceOutput": "Rec.709 (Scene)",
+    "colorSpaceOutputGamma": "ACEScc",
+    "separateColorSpaceAndGamma": "0",
+    "isAutoColorManage": "0",
+    "timelineResolutionWidth": "1920",
+    "timelineResolutionHeight": "1080",
+    "timelineFrameRate": 24.0,
+    "timelinePlaybackFrameRate": "30"
+  },
+  "viewer": {
+    "zoom_percent": 40,
+    "channel": "Color",
+    "background": "checkerboard for transparent pixels",
+    "note": "Viewer screenshots are display evidence, not colorimetric exports."
+  },
+  "graph": "fixture.comp",
+  "settings": "readback.json",
+  "source": {
+    "file": "screen.png",
+    "size": [
+      3360,
+      1914
+    ],
+    "sha256": "39f8cbd6b63466fd1da433913e35e8051d840256a7e31fe64ddb043c4d2b0733"
+  },
+  "shots": [
+    {
+      "file": "graph.png",
+      "source": "screen.png",
+      "source_sha256": "39f8cbd6b63466fd1da433913e35e8051d840256a7e31fe64ddb043c4d2b0733",
+      "frame": 0.0,
+      "crop_xyxy": [
+        500,
+        1080,
+        2350,
+        1660
+      ],
+      "resampled": false,
+      "sha256": "83172b623b433b481778463986133ceee95510f15a4be53e9cd7937b626fa666"
+    },
+    {
+      "file": "inspector.png",
+      "source": "screen.png",
+      "source_sha256": "39f8cbd6b63466fd1da433913e35e8051d840256a7e31fe64ddb043c4d2b0733",
+      "frame": 0.0,
+      "crop_xyxy": [
+        2840,
+        90,
+        3360,
+        590
+      ],
+      "resampled": false,
+      "sha256": "10a767f6f390875b2334571a65d84e8a9221ca1cc99cac3337131eaf7f7e18e5"
+    },
+    {
+      "file": "compare.png",
+      "source": "screen.png",
+      "source_sha256": "39f8cbd6b63466fd1da433913e35e8051d840256a7e31fe64ddb043c4d2b0733",
+      "frame": 0.0,
+      "crop_xyxy": [
+        1147,
+        65,
+        2840,
+        730
+      ],
+      "resampled": false,
+      "sha256": "b3cd08b43f0e75d8c068a368d0c2ba84e191ed7f9493f55241fb08f06da6e014"
+    }
+  ],
+  "acceptance": {
+    "gui": "PASS: owner visually inspected node connections, selected Inspector, and output",
+    "article_display": "PASS: production build, 1440px/390px, all shot decode/Alt/native links, source/fixture/manifest hashes, no page errors or horizontal overflow; evidence artifacts/fusion-captures/display-report.json"
+  },
+  "unverified": [
+    "Free edition and other platforms",
+    "All parameter ranges and performance",
+    "Exported portable composition reimport"
+  ],
+  "reproduction": {
+    "fixture_sha256": "8f5c64aa3d11b8b49ae39f586657586c857e1581383d23e72a773a6f904ef7fd",
+    "readback_sha256": "07870d72e674068da9be580c5f5b032de4fc600cd9fe7b5d7baaeb16cf8df1f9",
+    "paths": "Comp:/../_fixtures/ for bundled synthetic fixtures",
+    "reimport": "NOT_RUN: accepted GUI evidence precedes export path normalization",
+    "artifact_fixture_sha256": "3150cd93a4582c168c5a3509bdcc422c5d87c9fdd6bb0c2add0608c752f5b778",
+    "artifact_readback_sha256": "c97164205305e61ca7a800783e35234945cb77b149c1fcc7b511776e11b4dade",
+    "intake_normalization": "CRLF to LF; only trailing empty export lines removed from fixture.comp. Original artifact hashes retained; portable composition reimport remains NOT_RUN."
+  }
+}

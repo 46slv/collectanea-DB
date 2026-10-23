@@ -17,7 +17,7 @@ level: foundation
 product_scope: fusion
 suite_surfaces: [fusion]
 slug: /fusion/nodes/transform/transform
-updated: "2026-10-17"
+updated: "2026-10-23"
 ---
 
 # Transform
@@ -159,8 +159,27 @@ TransformのCenterはTransformに入っている960×540のImageを基準にし�
 - [Resize](./resize) / [Scale](./scale) / [Crop](./crop)
 - [Merge](../compositing/merge)
 
+<!-- capture:S06 -->
+## 実機で四隅を見ながら位置・大きさ・回転を変える
+
+DaVinci Resolve Studio 21.1.0.14、Windows、日本語UI。1920×1080、フレーム0で撮影しました。画像を開くと原寸で確認できます。
+
+[![Loader → Transform → MediaOut](/img/fusion/captures/S06/graph.png)](/img/fusion/captures/S06/graph.png)
+
+同梱のテストチャートをLoaderで読み込み、TransformのCenterを0.65 / 0.55、Pivotを0.5 / 0.5、Sizeを1.25、Angleを12にしました。左が入力、右が変換後です。右ではTR・BR側が画面外へ出て、グリッドと文字が回転しています。緑の枠とハンドルは編集用Controlです。
+
+[![TransformのCenter、Pivot、Size 1.25、Angle 12](/img/fusion/captures/S06/inspector.png)](/img/fusion/captures/S06/inspector.png)
+
+[![同一チャートの変換前と移動・拡大・回転後](/img/fusion/captures/S06/compare.png)](/img/fusion/captures/S06/compare.png)
+
+Viewer倍率は40%です。市松模様は透明部分を示します。
+
+[テストチャート](/img/fusion/captures/_fixtures/chart.png)をLoaderで読み込めます。GraphのLoaderは `Comp:/../_fixtures/chart.png` を参照します。
+
+[再現用Graph](/img/fusion/captures/S06/fixture.comp) · [撮影条件と確認範囲](/img/fusion/captures/S06/capture.json)
+
 ## 出典と確認範囲
 
 DaVinci Resolve 21.1 Reference Manual（September 2026）、Chapter 120、pp.2879–2883。Input / Effect Mask、Center、Pivot、Use Size and Aspect、Size、Aspect、Angle、Flip、Edges、Filter Method、Invert Transform、Flatten Transform、Reference Size、Auto Resolutionを確認しました。48px移動とReference Sizeの数値はManualの正規化座標の説明から計算した例です。
 
-内部REGID、edition別制約、Transform concatenationの最適化条件、実機描画結果や性能は未確認のため`verification: partial`としています。
+上記チャートの指定したCenter・Pivot・Size・Angleでは実機Viewerの描画を確認しました。内部REGID、edition別制約、Transform concatenationの全最適化条件、他の条件での描画結果・性能は未確認のため`verification: partial`としています。

@@ -14,7 +14,7 @@ tasks: [particles, emit, procedural-motion]
 level: intermediate
 product_scope: fusion
 suite_surfaces: [fusion]
-updated: "2026-10-13"
+updated: "2026-10-23"
 ---
 
 # pEmitter
@@ -288,6 +288,27 @@ pEmitterではSetsタブからSet 1〜32のグループを指定でき、**一�
 
 - [パーティクル（Particle）](../../learn/02-data/particle)
 - [最小Particle chainを作る](../../recipes/particles/basic-particle-chain)
+
+<!-- capture:S09 -->
+## 実機で粒子の生成と時間変化を確かめる
+
+DaVinci Resolve Studio 21.1.0.14、Windows、日本語UI。1920×1080、フレーム48（別カットは0）で撮影しました。画像を開くと原寸で確認できます。
+
+[![pEmitter → pRender（2D）→ MediaOut](/img/fusion/captures/S09/graph.png)](/img/fusion/captures/S09/graph.png)
+
+pEmitterのRandom Seedを7、Numberを3、Lifespanを80、Velocityを0.002にしました。StyleはBlob、Sizeは3、RegionはSphere、Region Sizeは0.55です。pRenderを2Dにして画像化します。下のフレーム0では3粒、フレーム48では蓄積した多数の白い粒子が見えます。赤い円はRegionの操作用Controlです。Numberは画面内の総粒子数と同じではありません。小さすぎるSizeでは40%表示で粒子を判別できなかったため、この例では読める大きさに調整しています。
+
+[![pEmitterのRandom Seed 7、Number 3、Lifespan 80、Velocity 0.002](/img/fusion/captures/S09/inspector.png)](/img/fusion/captures/S09/inspector.png)
+
+[![pEmitterのRegion。Sphere、Size 0.55](/img/fusion/captures/S09/region.png)](/img/fusion/captures/S09/region.png)
+
+[![フレーム0の同じParticle Graph。白い粒子が3個](/img/fusion/captures/S09/frame0.png)](/img/fusion/captures/S09/frame0.png)
+
+[![フレーム48のpRender出力。白いBlob粒子が多数表示される](/img/fusion/captures/S09/result.png)](/img/fusion/captures/S09/result.png)
+
+Viewer倍率は40%です。市松模様は透明部分を示します。
+
+[再現用Graph](/img/fusion/captures/S09/fixture.comp) · [撮影条件と確認範囲](/img/fusion/captures/S09/capture.json)
 
 ## 出典と確認範囲
 

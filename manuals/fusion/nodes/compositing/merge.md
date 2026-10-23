@@ -16,7 +16,7 @@ tasks: [composite, layer, mask]
 level: foundation
 product_scope: fusion
 suite_surfaces: [fusion]
-updated: "2026-10-17"
+updated: "2026-10-23"
 ---
 
 # Merge
@@ -199,8 +199,30 @@ Mask ───────↑
 - [Maskで処理範囲を限定する](../../patterns/masking/limit-effect-with-mask)
 - [解像度を跨ぐ配置](../../patterns/transform/resolution-aware-positioning) — 背景解像度が変わるときの固定ピクセル余白
 
+## 実機でタイトルを重ねる
+
+DaVinci Resolve Studio 21.1.0.14、Windows、日本語UIで、Backgroundへ白いText+を重ねました。
+
+[![Text1を緑のForeground、Background1をオレンジのBackgroundへ接続し、Merge1からMediaOut1へ送るNode Editor](/img/fusion/captures/S02/graph.png)](/img/fusion/captures/S02/graph.png)
+
+[![MergeのオレンジのBackground入力、上の緑のForeground入力、下の青いEffect Mask入力](/img/fusion/captures/S02/node.png)](/img/fusion/captures/S02/node.png)
+
+この配置では、左のオレンジ入力が背景、上の緑入力が文字、下の青入力が任意のEffect Maskです。端子の位置はNodeの配置で変わり得るので、色と入力名で区別します。
+
+1. Backgroundの色をRGB 0.025 / 0.075 / 0.13、Alphaを1にします。
+2. Text+に `COLLECTANEA` と入力し、Arial Bold、Size 0.1にします。
+3. MergeをNormal / Over、Center 0.5 / 0.5、Size 1、Blend 1にします。
+
+[![Merge Inspector。Centerは0.5と0.5、Sizeは1、適用モードは通常、Operatorはオーバー、Blendは1](/img/fusion/captures/S02/inspector.png)](/img/fusion/captures/S02/inspector.png)
+
+[![フレーム0のMerge出力。暗い青の背景に白いCOLLECTANEAの文字が重なる](/img/fusion/captures/S02/result.png)](/img/fusion/captures/S02/result.png)
+
+1920×1080、フレーム0、Viewer倍率40%。Viewerの緑の枠と中央のハンドルは選択中の操作Controlで、合成画像の一部ではありません。
+
+[再現用Graph](/img/fusion/captures/S02/fixture.comp) · [撮影条件と確認範囲](/img/fusion/captures/S02/capture.json)
+
 ## 出典と確認範囲
 
 DaVinci Resolve 21.1 Reference Manual、September 2026、Chapter 94、pp.2211–2219で、Background / Foreground / Effect Mask、解像度処理、Foreground sizing、Apply Mode、Operator、Subtractive/Additive、Alpha Gain、Burn In、Blend、Filter Method、Edges、Invert Transform、Flatten Transform、Reference Size / Use Frame Format Settings、Z-Depth compositing / Foreground Z-Offsetを確認しました。Reference Sizeの実例はp.2218の仕様に基づく計算例です。
 
-全Apply Modeの数式・画作り、内部REGID、Edition差、実機での描画結果・性能は未確認のため `verification: partial` を維持します。
+上記のNormal / Over合成では、実機のREGID `Merge`、3つの入力端子、主要Inspector、文字と背景の合成結果を確認しました。全Apply Modeの数式・画作り、Edition差、他の条件での描画結果・性能は未確認のため `verification: partial` を維持します。

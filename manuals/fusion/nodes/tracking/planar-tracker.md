@@ -15,7 +15,7 @@ tasks: [track, planar-track, screen-replace, stabilize]
 level: intermediate
 product_scope: fusion
 suite_surfaces: [fusion]
-updated: "2026-10-14"
+updated: "2026-10-23"
 ---
 
 # Planar Tracker
@@ -240,8 +240,31 @@ Steadyとは異なり、Stabilizeは大きなカメラ移動をなるべく残�
 - [Tracker](./tracker)
 - [Camera Tracker](./camera-tracker)
 
+<!-- capture:S10 -->
+## 実機で移動する面を追跡して文字を合成する
+
+DaVinci Resolve Studio 21.1.0.14、Windows、日本語UI。1920×1080、フレーム0と60で撮影しました。画像を開くと原寸で確認できます。
+
+[![LoaderをPlanar TrackerとMergeの背景へ分岐。Text+ → Planar Transform → Mergeの前景](/img/fusion/captures/S10/graph.png)](/img/fusion/captures/S10/graph.png)
+
+専用の120フレーム連番をLoaderで読み込みました。1920×1080、24fps、各フレームでチャートを右へ3px移動させた素材です。フレーム0で中央の文字と周囲を四角く囲み、Operation ModeをTrack、TrackerをPoint、Motion TypeをTranslation、Track ChannelをLumaにして前方解析しました。Create Planar Transformから作ったNodeへ黄色いTRACKED文字を接続し、元の連番へMergeしています。フレーム60では素材の180pxの移動に文字も追従します。変形・遠近変化・実写の遮蔽への頑健性は未確認です。
+
+[![Planar TrackerのTrack、Point、Translation、Lumaと解析ボタン](/img/fusion/captures/S10/inspector.png)](/img/fusion/captures/S10/inspector.png)
+
+[![フレーム0で描いたPlanar Trackerの追跡範囲](/img/fusion/captures/S10/region.png)](/img/fusion/captures/S10/region.png)
+
+[![フレーム0の合成。TRACKED文字の基準位置](/img/fusion/captures/S10/reference.png)](/img/fusion/captures/S10/reference.png)
+
+[![フレーム60。右へ移動したテスト面に黄色いTRACKED文字が追従した結果](/img/fusion/captures/S10/result.png)](/img/fusion/captures/S10/result.png)
+
+Viewer倍率は40%です。市松模様は透明部分を示します。
+
+再現時は `python scripts/create-fusion-chart.py --sequence` で連番を生成します。GraphのLoaderは `Comp:/../_fixtures/plate/frame0000.png` を参照します。追跡データはGraphへ保存済みです。
+
+[再現用Graph](/img/fusion/captures/S10/fixture.comp) · [撮影条件と確認範囲](/img/fusion/captures/S10/capture.json)
+
 ## 出典と確認範囲
 
 **一次資料：** Blackmagic Design『DaVinci Resolve 21.1 Reference Manual』（September 2026）、Chapter 119「Tracking Nodes」**pp.2820–2829**（Planar Tracker Node [PTRA]）とFusion Fundamentals Chapter 82「Planar Tracking」。配布元：[Blackmagic Design Support](https://www.blackmagicdesign.com/support/)。
 
-4入力、2 Tracker方式、5 Motion Type、Track Channel、4 Operation Mode、Track / Stable Track spline、Output、Inspector主要項目、保存仕様を21.1マニュアルと照合しました。制作例はその仕様を基にした構成例です。**追跡精度・速度、内部アルゴリズム、Free / Studioの差は実機未確認**のため、`verification: partial`を維持します。
+4入力、2 Tracker方式、5 Motion Type、Track Channel、4 Operation Mode、Track / Stable Track spline、Output、Inspector主要項目、保存仕様を21.1マニュアルと照合しました。上記の既知移動連番ではTranslationの実機追跡と合成を確認し、120サンプルの最大X誤差は0.004993pxでした。その他の制作例は仕様を基にした構成例です。一般の素材での追跡精度・速度、他のMotion Type、内部アルゴリズム、Free / Studioの差は未確認のため、`verification: partial`を維持します。

@@ -14,7 +14,7 @@ outputs: [image]
 tasks: [glow, bloom, light-effect]
 product_scope: fusion
 suite_surfaces: [fusion]
-updated: "2026-10-14"
+updated: "2026-10-23"
 ---
 
 # Glow
@@ -161,8 +161,28 @@ Alphaのあるロゴ画像をGlowへ入力し、出力をMergeで背景と合成
 
 [Glow](./glow)はFilterやApply Modeを使い、明確なhaloやグラフィックな発光を組み立てる場合に向きます。[Soft Glow](./soft-glow)は追加処理による柔らかく自然な発光が必要な場合に向き、ThresholdとGainで発光元と強さを調整します。[Blur](./blur)は元画像をぼかすNodeで、Glowのように光の成分を元画像へ重ねる目的ではありません。[Blur / Filterノード一覧](./index.md)も参照してください。
 
+## 実機で文字に光を足す
+
+DaVinci Resolve Studio 21.1.0.14、Windows、日本語UIで撮影しました。文字の輪郭を残すため、ここではApply ModeをMerge Under（日本語UIでは「下にマージ」）にします。
+
+[![Text1からGlow1、MediaOut1へ接続した実機Node Editor](/img/fusion/captures/S03/graph.png)](/img/fusion/captures/S03/graph.png)
+
+1. Text+に `GLOW` と入力し、Arial Bold、Size 0.17にします。
+2. GlowのFilterをFast Gaussian、Lock X/Yを有効、Glow Sizeを30、Glowを0.3にします。
+3. Apply Modeを「下にマージ」、Blendを1にします。
+
+[![Glow Inspector。Glow Sizeは30、Glowは0.3、Blendは1、適用モードは下にマージ](/img/fusion/captures/S03/inspector.png)](/img/fusion/captures/S03/inspector.png)
+
+[![左右の実機Viewer比較。左はText1の元文字、右はMediaOut1に出したGlow後の文字。両方ともフレーム0、倍率40%](/img/fusion/captures/S03/compare.png)](/img/fusion/captures/S03/compare.png)
+
+左右は同じ1920×1080の文字、フレーム0、倍率40%です。右では輪郭の外へhaloが広がっています。市松模様は透明部分で、背景色を合成した画像ではありません。まずこの値で再現し、Sizeだけを変えて広がりを、Glowだけを変えて強さを比べられます。
+
+この撮影ではGlow MaskとEffect Maskの比較、全Filter・Apply Modeの挙動は確認していません。PNGレンダーはViewerと一致する結果として採用できなかったため、掲載画像は実機Viewerの無加工の切り出しです。
+
+[再現用Graph](/img/fusion/captures/S03/fixture.comp) · [撮影条件と確認範囲](/img/fusion/captures/S03/capture.json)
+
 ## 出典と確認範囲
 
 Blackmagic Design『DaVinci Resolve 21.1 Reference Manual』（2026年9月）Chapter 92「Blur Nodes」pp.2116–2119に基づき、3入力、8種類のFilter、RGBAの演算順、Glow Size・Glow・Num Passes、Apply Mode・Color Scale・Clipping Mode・Blendを確認しました。
 
-制作例はマニュアルに記載された入出力と処理内容から構成したものです。同一素材による21.1実機レンダリングは未検証であり、内部REGID、各値の範囲・初期値、Edition差、GPUごとの性能は断定しません。そのため `verification: partial` を維持しています。
+上記のText+とGlowの条件では、同一フレーム・同一倍率の実機Viewer結果を確認しました。他の制作例はマニュアルに記載された入出力と処理内容から構成したものです。全Filter・Apply Mode・Mask、各値の範囲・初期値、Edition差、GPUごとの性能、測色を伴うPNG出力は未確認のため `verification: partial` を維持しています。

@@ -15,7 +15,7 @@ tasks: [color-correct, shadows, midtones, highlights, histogram-match]
 level: intermediate
 product_scope: fusion
 suite_surfaces: [fusion]
-updated: "2026-10-04"
+updated: "2026-10-23"
 ---
 
 # Color Corrector
@@ -201,6 +201,25 @@ dColorCorrectorはDeep Image domainのNodeです。
 - [White Balance](./white-balance) — gray reference / color temperatureから補正
 - [Color Curves](./color-curves) — curveでchannel値をremap
 - dColorCorrector — Deep Image用
+
+<!-- capture:S14 -->
+## 実機で彩度とゲインでチャートがどう変わるかを見る
+
+DaVinci Resolve Studio 21.1.0.14、Windows、日本語UI。1920×1080、フレーム0で撮影しました。画像を開くと原寸で確認できます。
+
+[![Loader → Color Corrector → MediaOut](/img/fusion/captures/S14/graph.png)](/img/fusion/captures/S14/graph.png)
+
+Color CorrectorのMasterを選び、Saturationを0.3、RGB Gainを1.15にしました。左は入力、右は補正後です。右の色面は彩度が下がり、明るいグレーは白に近づいています。InspectorにはColorsとRGBの階調Controlを表示しています。この比較は同じプロジェクト・同じViewer条件での見た目の確認です。測色、Histogram Match、全Rangeとメニューの出力は未確認です。
+
+[![Color CorrectorのMaster、Saturation 0.3、RGB Gain 1.15](/img/fusion/captures/S14/inspector.png)](/img/fusion/captures/S14/inspector.png)
+
+[![同じチャートの補正前と彩度低下・ゲイン増加後](/img/fusion/captures/S14/compare.png)](/img/fusion/captures/S14/compare.png)
+
+Viewer倍率は40%です。市松模様は透明部分を示します。
+
+[テストチャート](/img/fusion/captures/_fixtures/chart.png)をLoaderで読み込めます。GraphのLoaderは `Comp:/../_fixtures/chart.png` を参照します。
+
+[再現用Graph](/img/fusion/captures/S14/fixture.comp) · [撮影条件と確認範囲](/img/fusion/captures/S14/capture.json)
 
 ## 出典と確認範囲
 
