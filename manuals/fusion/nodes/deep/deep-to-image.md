@@ -16,7 +16,7 @@ tasks: [deep, flatten, convert-domain]
 level: advanced
 product_scope: fusion
 suite_surfaces: [fusion]
-updated: "2026-10-16"
+updated: "2026-10-24"
 ---
 
 # Deep to Image
@@ -128,6 +128,28 @@ Deep to Imageは「高品質なMerge」ではなく、**扱うデータの種類
 - **色や明るさが変わる**：Source Color Spaceの情報指定と、Source Gamma Space / Remove Curveによる実際の変換を分けて確認します。不要な二重変換に注意します。
 - **Nodeが見つからない**：21.1 ManualではDeep Image Compositing Toolsetは**Studio Version Only**とされています。使用Editionを確認します。
 
+## 実機例：2つの深度から2D出力を作る
+
+<!-- capture-reuse:R176 -->
+
+Resolve Studio21.1.0.14／Windows、1920×1080、フレーム0、右Viewer40%で撮影しました。赤と青はそれぞれ不透明な単色の楕円です。外部Deep EXRは使っていません。
+
+[![赤と青をImage to Deepへ渡し、dMergeからdCrop、Deep to Image、MediaOutへつないだ実機Graph](/img/fusion/captures/S121/graph.png)](/img/fusion/captures/S121/graph.png)
+
+Image to Deepで赤をZ＝2、青をZ＝5に置き、dMergeでまとめています。dCropの深度制限を両方OFFにし、Deep to ImageのFlip DepthとVolumetric CompositionもOFFにしました。実機で観測した画像入力IDはImage、データ型はDeepImageです。
+
+[![Deep to Imageの深度反転とVolumetric CompositionをOFFにした実機Inspector](/img/fusion/captures/S121/flatten-inspector.png)](/img/fusion/captures/S121/flatten-inspector.png)
+
+Deep to Imageの出力をMediaOutへつなぐと、赤が青を覆う2D画像として表示されました。dCropで奥の青を選ぶ操作は、この平面化より前で行っています。
+
+[![深度範囲を制限しない出力で赤が青の重なりを覆う実機結果](/img/fusion/captures/S121/compare.png)](/img/fusion/captures/S121/compare.png)
+
+Flip Depthの切替比較、Volumetric Compositionの半透明素材での比較、Image tabの精度・色・Alpha設定は未確認です。
+
+この例は、一定のZを持つ不透明な2枚の入力に限った確認です。外部Deep EXR、半透明・体積の合成、境界値ちょうどの扱い、サンプル数や入力数の上限、Edition差と性能は未確認です。色の数値精度を評価した例ではありません。
+
+[再現用Graph](/img/fusion/captures/S121/fixture.comp) · [撮影条件と確認範囲](/img/fusion/captures/S121/capture.json)
+
 ## バージョン・出典・確認範囲
 
 一次資料はBlackmagic Design『**DaVinci Resolve 21.1 Reference Manual**』（2026年9月）、Chapter 95「Deep Image Nodes」です。
@@ -136,6 +158,6 @@ Deep to Imageは「高品質なMerge」ではなく、**扱うデータの種類
 - **p.2240**：Process Mode、Depth、Source Color Space、Source Gamma Space、Remove Curve、Pre-Divide/Post-Multiply。色空間情報の指定と実変換の違い。
 - **pp.2226–2227**：Studio限定、Deep画像の入出力経路、Deep合成にLinear colorspaceが必要なこと。
 
-**未確認**：Resolve/Fusion 21.1実機でのREGID、Inspectorの初期値と数値範囲、Flip Depthの内部計算、Volumetric Compositionの素材別の数値結果、出力Alphaの具体的な計算経路。これらは推測で補わず、`verification: partial`のままにしています。
+S121でREGID＝DeepToImage、DeepImage入力、Flip Depth／Volumetric CompositionがOFFの不透明2層からの2D出力を実機確認しました。初期値と数値範囲、深度反転の計算、半透明素材の体積合成、出力Alphaの計算は未確認のため、`verification: partial`を維持します。
 
 関連概念：[Deep Imageの基本](../../learn/02-data/deep-image.md) / [補助チャンネルとAOV](../../learn/02-data/auxiliary-channels.md)。

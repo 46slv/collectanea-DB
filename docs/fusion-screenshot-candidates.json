@@ -2,7 +2,7 @@
   "schema_version": 1,
   "created": "2026-10-20",
   "scope": "All Fusion pages, DaVinci Resolve 21.1",
-  "status_note": "2026-10-24:public192/738/1106 through PR128,1711/1711 HTTP/hash PASS. S118–S120/R169–R173 local5pages37images PASS,cumulative195/763/1138.Whole587/360capture-needed and remaining_views incomplete;partial retained.",
+  "status_note": "2026-10-24:public195/763/1138 throughPR129,1759assetsPASS;batch38 LOCAL200/774/1168,6pages35imagesPASS.Whole587/355capture-needed plus remaining_views incomplete;partial retained.",
   "asset_directory_template": "static/img/fusion/captures/{id}/{shot.slug}.png",
   "capture_manifest_name": "capture.json",
   "candidates": [
@@ -6290,7 +6290,7 @@
         "printed_pages": "2263–2266"
       },
       "goal": "Normal-based Shader Ambient.1 Diffuse.5 Specular0 Reflection0 Polar30,Equator45 vs-45",
-      "status": "captured-local-display-verified",
+      "status": "published-display-verified",
       "shots": [
         {
           "slug": "graph",
@@ -6352,7 +6352,7 @@
         "printed_pages": "2266–2268"
       },
       "goal": "Software Renderer UV+RGBA,chart on Texture port,FlipHoriz0 vs1;UV diagnostic",
-      "status": "captured-local-display-verified",
+      "status": "published-display-verified",
       "shots": [
         {
           "slug": "graph",
@@ -6414,7 +6414,7 @@
         "printed_pages": "2256–2259"
       },
       "goal": "Sphere/ground,RGBA+Z+Normal and connected Camera,AO512 Radius1 Hemisphere,Color/Blend0 vs1 andAO-only",
-      "status": "captured-local-display-verified",
+      "status": "published-display-verified",
       "shots": [
         {
           "slug": "graph",
@@ -6468,6 +6468,86 @@
           "slug": "renderer-inspector",
           "kind": "inspector",
           "target": "SSAO",
+          "status": "native-observed"
+        }
+      ]
+    },
+    {
+      "id": "S121",
+      "priority": "P1",
+      "article": "manuals/fusion/nodes/deep/d-merge.md",
+      "manual": {
+        "version": "21.1",
+        "chapter": 95,
+        "printed_pages": "2237–2240,2246–2247,2252–2253"
+      },
+      "goal": "Two opaque flat-Z DeepImage sources Z2 red/Z5 blue,dMerge retains hidden rear sample,dCrop1..3 and4..6,DeepToImage flatten for native display",
+      "status": "captured-local-display-verified",
+      "shots": [
+        {
+          "slug": "graph",
+          "kind": "node-graph",
+          "target": "dMerge",
+          "status": "native-observed"
+        },
+        {
+          "slug": "inspector",
+          "kind": "inspector",
+          "target": "dMerge",
+          "status": "native-observed"
+        },
+        {
+          "slug": "compare",
+          "kind": "output",
+          "target": "dMerge",
+          "status": "native-observed"
+        },
+        {
+          "slug": "red-inspector",
+          "kind": "inspector",
+          "target": "ImageToDeep",
+          "status": "native-observed"
+        },
+        {
+          "slug": "blue-inspector",
+          "kind": "inspector",
+          "target": "ImageToDeep",
+          "status": "native-observed"
+        },
+        {
+          "slug": "all-inspector",
+          "kind": "inspector",
+          "target": "dCrop",
+          "status": "native-observed"
+        },
+        {
+          "slug": "near-inspector",
+          "kind": "inspector",
+          "target": "dCrop",
+          "status": "native-observed"
+        },
+        {
+          "slug": "near",
+          "kind": "output",
+          "target": "dCrop",
+          "status": "native-observed"
+        },
+        {
+          "slug": "far-inspector",
+          "kind": "inspector",
+          "target": "dCrop",
+          "status": "native-observed"
+        },
+        {
+          "slug": "far",
+          "kind": "output",
+          "target": "dCrop",
+          "status": "native-observed"
+        },
+        {
+          "slug": "flatten-inspector",
+          "kind": "inspector",
+          "target": "DeepToImage",
           "status": "native-observed"
         }
       ]
@@ -7662,27 +7742,60 @@
         "artifacts/fusion-captures/public-batch36-assets.json"
       ],
       "limitations": "Whole587/360capture-needed plus remaining_views incomplete;S118–120 local accepted only. One fixture HTTP503 recovered with failed-only retry;history preserved."
+    },
+    {
+      "id": "fusion-native-20261024-37",
+      "cases": [
+        "S118",
+        "S119",
+        "S120"
+      ],
+      "reuses": [
+        "R169",
+        "R170",
+        "R171",
+        "R172",
+        "R173"
+      ],
+      "pr": "https://github.com/46slv/collectanea-DB/pull/129",
+      "candidate": "527719c61abaa69374091d089ebc2600b23919ec",
+      "main": "0231832b8c5eede692628577374d527b1ff1449e",
+      "tree": "926d0e87dff1946884d2214d6022604ce99e25fc",
+      "quality_run": "https://github.com/46slv/collectanea-DB/actions/runs/40082878247",
+      "pages_run": "https://github.com/46slv/collectanea-DB/actions/runs/40083898498",
+      "merge_owner": "Sol exact-head all jobs/steps,fresh main/head/reviews/comments/inline,expected-head squash,MERGED/equal tree",
+      "public_pages": 5,
+      "public_images": 37,
+      "new_native_crops": 25,
+      "new_placements": 32,
+      "public_asset_hashes": 1759,
+      "result": "PASS",
+      "evidence": [
+        "artifacts/fusion-captures/public-batch37-display-report.json",
+        "artifacts/fusion-captures/public-batch37-assets.json"
+      ],
+      "limitations": "Whole587/360capture-needed plus remaining_views incomplete;S121 WORK notaccepted. AO residual sampling artifacts documented."
     }
   ],
   "coverage_inventory": {
-    "checked_at": "2026-10-24T09:38:58.922160+00:00",
+    "checked_at": "2026-10-24T10:35:10.998039+00:00",
     "scope": "All manuals/fusion Markdown and MDX pages; review necessity before adding images.",
     "completion_rule": "Every page has an explicit image decision; necessary images are native-observed, embedded, saved to GitHub and public-display-verified. A native example does not verify all article controls.",
     "summary": {
       "total_pages": 587,
-      "with_images": 195,
-      "with_native_examples": 195,
+      "with_images": 200,
+      "with_native_examples": 200,
       "states": {
         "reviewed-no-standalone-image": 26,
         "no-standalone-image-needed": 6,
-        "illustrated-reused-example": 77,
-        "capture-planned": 360,
-        "illustrated-native-example": 118
+        "illustrated-reused-example": 81,
+        "capture-planned": 355,
+        "illustrated-native-example": 119
       },
       "decisions": {
         "no-standalone-image-needed": 32,
-        "image-required": 195,
-        "capture-needed": 360
+        "image-required": 200,
+        "capture-needed": 355
       }
     },
     "pages": [
@@ -8137,12 +8250,14 @@
         "article": "manuals/fusion/learn/02-data/deep-image.md",
         "title": "Deep Image",
         "kind": "concept",
-        "image_count": 0,
+        "image_count": 3,
         "native_cases": [],
-        "reused_cases": [],
+        "reused_cases": [
+          "S121"
+        ],
         "planned_cases": [],
-        "state": "capture-planned",
-        "decision": "capture-needed",
+        "state": "illustrated-reused-example",
+        "decision": "image-required",
         "reason": "2D fixture→Image to Deep→dMerge→Deep to Image、Specify Zと奥行きの結果。true Deep EXRは別fixture。"
       },
       {
@@ -11434,13 +11549,18 @@
         "article": "manuals/fusion/nodes/deep/d-merge.md",
         "title": "dMerge",
         "kind": "node",
-        "image_count": 0,
-        "native_cases": [],
+        "image_count": 11,
+        "native_cases": [
+          "S121"
+        ],
         "reused_cases": [],
         "planned_cases": [],
-        "state": "capture-planned",
-        "decision": "capture-needed",
+        "state": "illustrated-native-example",
+        "decision": "image-required",
         "reason": "本文の対象機能: 複数のDeep Imageに記録された奥行きごとのサンプルを、Deepデータのまま1つに統合するNode。。S11/S12の通常Color renderやZ channel1枚は複数sampleを保持するDeepの証拠にならない。",
+        "remaining_views": [
+          "Alternate controls,semi-transparent/volumetric inputs,external Deep EXR persistence,depth boundaries,platform/edition/performance"
+        ],
         "required_views": [
           "対象Node名と実際の配線が読めるGraph",
           "対象Nodeを選択した固有Inspector（本文で示すControlを含む）",
@@ -11466,7 +11586,8 @@
             "section": "実例：建物、煙、2Dタイトルを合成する",
             "role": "入力と結果を示す箇所"
           }
-        ]
+        ],
+        "audit_note": "S121 native DeepImage two opaque flat-Z source proof;whole article remains partial."
       },
       {
         "article": "manuals/fusion/nodes/deep/dcolorcorrector.md",
@@ -11505,13 +11626,18 @@
         "article": "manuals/fusion/nodes/deep/dcrop.md",
         "title": "dCrop",
         "kind": "node",
-        "image_count": 0,
+        "image_count": 7,
         "native_cases": [],
-        "reused_cases": [],
+        "reused_cases": [
+          "S121"
+        ],
         "planned_cases": [],
-        "state": "capture-planned",
-        "decision": "capture-needed",
+        "state": "illustrated-reused-example",
+        "decision": "image-required",
         "reason": "本文の対象機能: dCropは、Deep Imageの各画素に重なる奥行きサンプルを、指定したZ範囲で残す・除外するNode。。S11/S12の通常Color renderやZ channel1枚は複数sampleを保持するDeepの証拠にならない。",
+        "remaining_views": [
+          "Alternate controls,semi-transparent/volumetric inputs,external Deep EXR persistence,depth boundaries,platform/edition/performance"
+        ],
         "required_views": [
           "対象Node名と実際の配線が読めるGraph",
           "対象Nodeを選択した固有Inspector（本文で示すControlを含む）",
@@ -11537,19 +11663,25 @@
             "section": "実例：手前と奥のサンプルを別々に扱う",
             "role": "入力と結果を示す箇所"
           }
-        ]
+        ],
+        "audit_note": "S121 native DeepImage two opaque flat-Z source proof;whole article remains partial."
       },
       {
         "article": "manuals/fusion/nodes/deep/deep-to-image.md",
         "title": "Deep to Image",
         "kind": "node",
-        "image_count": 0,
+        "image_count": 3,
         "native_cases": [],
-        "reused_cases": [],
+        "reused_cases": [
+          "S121"
+        ],
         "planned_cases": [],
-        "state": "capture-planned",
-        "decision": "capture-needed",
+        "state": "illustrated-reused-example",
+        "decision": "image-required",
         "reason": "本文の対象機能: 複数の奥行きサンプルを1枚の2D画像へまとめ、通常の画像処理へ渡すDeep変換Node。。S11/S12の通常Color renderやZ channel1枚は複数sampleを保持するDeepの証拠にならない。",
+        "remaining_views": [
+          "Alternate controls,semi-transparent/volumetric inputs,external Deep EXR persistence,depth boundaries,platform/edition/performance"
+        ],
         "required_views": [
           "対象Node名と実際の配線が読めるGraph",
           "対象Nodeを選択した固有Inspector（本文で示すControlを含む）",
@@ -11580,7 +11712,8 @@
             "section": "Inspector：出力の重なり方を決める",
             "role": "入力と結果を示す箇所"
           }
-        ]
+        ],
+        "audit_note": "S121 native DeepImage two opaque flat-Z source proof;whole article remains partial."
       },
       {
         "article": "manuals/fusion/nodes/deep/deep-to-points.md",
@@ -11832,13 +11965,18 @@
         "article": "manuals/fusion/nodes/deep/image-to-deep.md",
         "title": "Image to Deep",
         "kind": "node",
-        "image_count": 0,
+        "image_count": 5,
         "native_cases": [],
-        "reused_cases": [],
+        "reused_cases": [
+          "S121"
+        ],
         "planned_cases": [],
-        "state": "capture-planned",
-        "decision": "capture-needed",
+        "state": "illustrated-reused-example",
+        "decision": "image-required",
         "reason": "本文の対象機能: 通常の2D画像へ奥行き情報を与え、Deep合成で使えるDeep Imageに変換するNode。。S11/S12の通常Color renderやZ channel1枚は複数sampleを保持するDeepの証拠にならない。",
+        "remaining_views": [
+          "Alternate controls,semi-transparent/volumetric inputs,external Deep EXR persistence,depth boundaries,platform/edition/performance"
+        ],
         "required_views": [
           "対象Node名と実際の配線が読めるGraph",
           "対象Nodeを選択した固有Inspector（本文で示すControlを含む）",
@@ -11864,19 +12002,21 @@
             "section": "実例：Deep背景に2Dタイトルを加える",
             "role": "入力と結果を示す箇所"
           }
-        ]
+        ],
+        "audit_note": "S121 native DeepImage two opaque flat-Z source proof;whole article remains partial."
       },
       {
         "article": "manuals/fusion/nodes/deep/index.md",
         "title": "Deep Image / 補助チャンネルのノード",
         "kind": "index",
-        "image_count": 5,
+        "image_count": 6,
         "native_cases": [],
         "reused_cases": [
           "S116",
           "S118",
           "S119",
-          "S120"
+          "S120",
+          "S121"
         ],
         "planned_cases": [],
         "state": "illustrated-reused-example",
@@ -27827,7 +27967,7 @@
       "images": [
         "compare.png"
       ],
-      "status": "embedded-local-display-verified",
+      "status": "published-display-verified",
       "scope": "Normalを使って球の陰影を変えるShader;ordinary2D aux only,nottrueDeep."
     },
     {
@@ -27837,7 +27977,7 @@
       "images": [
         "compare.png"
       ],
-      "status": "embedded-local-display-verified",
+      "status": "published-display-verified",
       "scope": "UVを使ってチャートを球面へ貼るTexture;ordinary2D aux only,nottrueDeep."
     },
     {
@@ -27847,7 +27987,7 @@
       "images": [
         "compare.png"
       ],
-      "status": "embedded-local-display-verified",
+      "status": "published-display-verified",
       "scope": "Z・Normal・Cameraから接触部の陰影を加えるAmbient Occlusion;ordinary2D aux only,nottrueDeep."
     },
     {
@@ -27858,7 +27998,7 @@
         "normal-inspector.png",
         "normal.png"
       ],
-      "status": "embedded-local-display-verified",
+      "status": "published-display-verified",
       "scope": "Normalを方向の色として確認する;ordinary2D aux only,nottrueDeep."
     },
     {
@@ -27869,8 +28009,72 @@
         "uv-inspector.png",
         "uv.png"
       ],
-      "status": "embedded-local-display-verified",
+      "status": "published-display-verified",
       "scope": "UVを赤と緑で確認する;ordinary2D aux only,nottrueDeep."
+    },
+    {
+      "id": "R174",
+      "article": "manuals/fusion/nodes/deep/image-to-deep.md",
+      "source_case": "S121",
+      "images": [
+        "graph.png",
+        "red-inspector.png",
+        "blue-inspector.png",
+        "compare.png",
+        "far.png"
+      ],
+      "status": "captured-local-display-verified",
+      "scope": "True DeepImage two opaque flat-Z samples,hidden rear recovery;own selected Inspector where applicable,not external EXR or volumetric."
+    },
+    {
+      "id": "R175",
+      "article": "manuals/fusion/nodes/deep/dcrop.md",
+      "source_case": "S121",
+      "images": [
+        "graph.png",
+        "all-inspector.png",
+        "compare.png",
+        "near-inspector.png",
+        "near.png",
+        "far-inspector.png",
+        "far.png"
+      ],
+      "status": "captured-local-display-verified",
+      "scope": "True DeepImage two opaque flat-Z samples,hidden rear recovery;own selected Inspector where applicable,not external EXR or volumetric."
+    },
+    {
+      "id": "R176",
+      "article": "manuals/fusion/nodes/deep/deep-to-image.md",
+      "source_case": "S121",
+      "images": [
+        "graph.png",
+        "flatten-inspector.png",
+        "compare.png"
+      ],
+      "status": "captured-local-display-verified",
+      "scope": "True DeepImage two opaque flat-Z samples,hidden rear recovery;own selected Inspector where applicable,not external EXR or volumetric."
+    },
+    {
+      "id": "R177",
+      "article": "manuals/fusion/learn/02-data/deep-image.md",
+      "source_case": "S121",
+      "images": [
+        "graph.png",
+        "compare.png",
+        "far.png"
+      ],
+      "status": "captured-local-display-verified",
+      "scope": "True DeepImage two opaque flat-Z samples,hidden rear recovery;own selected Inspector where applicable,not external EXR or volumetric."
+    },
+    {
+      "id": "R178",
+      "article": "manuals/fusion/nodes/deep/index.md",
+      "source_case": "S121",
+      "images": [
+        "compare.png"
+      ],
+      "status": "captured-local-display-verified",
+      "scope": "True DeepImage two opaque flat-Z samples,hidden rear recovery;own selected Inspector where applicable,not external EXR or volumetric."
     }
   ],
   "external_reports": [
@@ -27911,6 +28115,15 @@
       "evidence": "artifacts/fusion-captures/dot-batch33-report.jpg",
       "ack": "PR124/125 public,CDL fix and next three unpublished distinguished;Sol/partial retained,no extra workers",
       "authority": "Standing user authorization;reply adds no new execution authority"
+    },
+    {
+      "event_id": "fusion-native-20261024-36",
+      "destination": "verified silvel UI https://chatgpt.com/dots/home",
+      "status": "SENT_ACKNOWLEDGED",
+      "public_scope": "PR126–128,192/738/1106,1711assetsPASS",
+      "pending_scope": "PR129local195/763/1138,notpublic",
+      "receipt": "artifacts/fusion-captures/dot-batch36-report.jpg",
+      "ack": "Native UI588;public192 andPR129 distinguished,Solonly/no duplicate worker"
     }
   ]
 }

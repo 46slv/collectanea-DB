@@ -109,6 +109,7 @@ TARGETS['S117']='Fog1';LEFT['S117']='Renderer3D1'
 TARGETS['S118']='Shader1';LEFT['S118']='Renderer3D1'
 TARGETS['S119']='Texture1';LEFT['S119']='Renderer3D1'
 TARGETS['S120']='AO1';LEFT['S120']='Renderer3D1'
+TARGETS['S121']='dMerge1';RIGHT['S121']='MediaOut1'
 LEFT.update({'S100':'Swizzler1','S101':'Swizzler1','S102':'SwizzlerA1'})
 r=d.scriptapp('Resolve')
 assert r, 'Resolve scripting unavailable; do not change preferences automatically'
@@ -182,6 +183,10 @@ if action=='map':
 if case in ['S100','S101','S102']:
  assert action!='build', 'Layer cases use accepted fixture.comp;never rebuild existing authored examples'
  assert r.GetCurrentPage() is not None,'Resolve has no active page;inspect child modal dialogs first'
+if case=='S121':
+ assert action in ['readback','show'], 'S121 uses the reviewed fixture; automatic build/set not qualified after viewer lifecycle exit'
+ assert p.GetCurrentTimeline().GetName()=='S121_capture' and r.GetCurrentPage()=='fusion', 'S121 requires its already active owned composition and initialized Right MediaOut viewer'
+
 timelines={p.GetTimelineByIndex(i).GetName().split('_')[0]:p.GetTimelineByIndex(i) for i in range(1,p.GetTimelineCount()+1)}
 if case not in timelines:
  assert action=='build'
@@ -226,6 +231,10 @@ def connect(dst,key,src):
 def text(name,x,y,value='FUSION',size=.13):
  return add('TextPlus',name,x,y,StyledText=value,Font='Arial',Style='Bold',Size=size)
 def select(target,left=None):
+ if case=='S121':
+  assert c.FindTool('FlattenAll1') is None
+  c.SetActiveTool(target);c.CurrentFrame.FlowView.Select();c.CurrentFrame.FlowView.Select(target)
+  return # Single initialized Right MediaOut; do not assign/scale another Deep branch
  if case=='S97' and 'AlphaMultiply1' in tools:RIGHT['S97']='AlphaMultiply1'
  c.SetActiveTool(target)
  previews=c.GetPreviewList()
@@ -366,6 +375,8 @@ if action=='build':
   rb=add('sRender','RenderBase1',4,-1);connect(rb,'Input',base)
   target=add('sTransform','Transform1',2,1);connect(target,'Input',base)
   rr=add('sRender','RenderChanged1',4,1);connect(rr,'Input',target);connect(mo,'Input',rr)
+ elif case=='S121':
+  raise AssertionError('S121 automatic build is not qualified; use reviewed fixture and native evidence')
  elif case=='S120':
   sphere=add('Shape3D','Sphere1',0,-2,Shape='SurfaceSphereInputs')
   ground=add('Shape3D','Ground1',0,-.7)
