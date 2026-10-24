@@ -187,7 +187,7 @@
   },
   "native_proof": {
     "file": "native-proof.json",
-    "sha256": "1eb0bcbac04d7dd87e7f39c1865ae8200cebe26377cd05a4b235dc4a9a9cf5f4",
+    "sha256": "b5e9943d1b7b7dd80df58920610313cadde75a1a2be018fcc9f3eadc31ccb712",
     "regid": "Highlight",
     "final": {
       "Low": 0.9,
@@ -229,7 +229,10 @@
           254
         ]
       ]
-    }
+    },
+    "source_sha256": "1eb0bcbac04d7dd87e7f39c1865ae8200cebe26377cd05a4b235dc4a9a9cf5f4",
+    "source_line_endings": "CRLF",
+    "source_normalization": "The original source packet proof used CRLF. Replacing CRLF pairs with LF yields the committed and public native-proof.json bytes exactly; parsed JSON values are identical. sha256 identifies the published file, and source_sha256 preserves the original source bytes."
   },
   "limits": [
     "Synthetic static point-on-black input only; mask and optional-input behavior, alternate controls/color curves, animation, physical optical fidelity, platform/edition/performance are unverified.",

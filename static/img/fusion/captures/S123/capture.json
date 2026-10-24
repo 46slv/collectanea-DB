@@ -186,7 +186,7 @@
   },
   "native_proof": {
     "file": "native-proof.json",
-    "sha256": "6f6d67c4efd81d1972903f58aa56af48f4627aecbce7aac2bcd22440b31323b4",
+    "sha256": "baad4aa3bcbd8dd129f4782ea9024d68bfcc79fdcc3d01d809c458be4599a030",
     "regid": "Fuse.Duplicate",
     "final": {
       "Copies": 5.0,
@@ -218,7 +218,10 @@
       ],
       "final_segments": 5,
       "copies_1_segments": 1
-    }
+    },
+    "source_sha256": "6f6d67c4efd81d1972903f58aa56af48f4627aecbce7aac2bcd22440b31323b4",
+    "source_line_endings": "CRLF",
+    "source_normalization": "The original source packet proof used CRLF. Replacing CRLF pairs with LF yields the committed and public native-proof.json bytes exactly; parsed JSON values are identical. sha256 identifies the published file, and source_sha256 preserves the original source bytes."
   },
   "limits": [
     "Static opaque oval only; TimeOffset animation, Jitter, Duplicate Path, other merge modes, edge/alpha quality, edition/platform/performance are unverified.",
