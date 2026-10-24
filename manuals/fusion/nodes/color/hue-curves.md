@@ -15,7 +15,7 @@ outputs: [image]
 tasks: [hue-selective, color-correct]
 product_scope: fusion
 suite_surfaces: [fusion]
-updated: "2026-10-11"
+updated: "2026-10-24"
 ---
 
 # Hue Curves
@@ -122,8 +122,32 @@ Pre-Divide / Post-Multiplyを有効にすると、補正前にRGBをAlphaで割�
 | 時間が進むと合わなくなる | 固定曲線を見直すかAnimated Pointsを使う |
 | 半透明の輪郭が不自然 | Alpha形式とPre-Divide / Post-Multiplyを確認する |
 
+## 実機例：緑付近の彩度を弱める
+
+<!-- capture-case:S109 -->
+
+Resolve Studio21.1.0.14／Windows、1920×1080、Viewer40%、フレーム0で撮影しました。左が入力、右が処理後です。
+
+[![LoaderからHue Curvesを経てMediaOutへ接続した実機Graph](/img/fusion/captures/S109/graph.png)](/img/fusion/captures/S109/graph.png)
+
+ModeはNo Animation、編集対象はSatだけです。最初は彩度の曲線が水平で、左右のチャートは同じ見え方でした。
+
+[![Satだけを編集対象とし、彩度の曲線が水平になっているHue Curvesの実機Inspector](/img/fusion/captures/S109/baseline-inspector.png)](/img/fusion/captures/S109/baseline-inspector.png)
+
+[![彩度の曲線を変更する前の入力と出力の実機比較](/img/fusion/captures/S109/baseline.png)](/img/fusion/captures/S109/baseline.png)
+
+緑に対応する既存の点を下へドラッグしました。保存Graphのその点はIn2／Out約0.262で、ほかの6点はOut1のままです。右の緑のパッチだけが淡くなっています。元画像と処理後を同じ位置で比べると、色の変化を確認できます。
+
+[![緑に対応するSatの点をIn2、Out約0.262へ下げたHue Curvesの実機Inspector](/img/fusion/captures/S109/inspector.png)](/img/fusion/captures/S109/inspector.png)
+
+[![彩度の曲線を緑付近だけ下げると右の緑のパッチが淡くなる実機比較](/img/fusion/captures/S109/compare.png)](/img/fusion/captures/S109/compare.png)
+
+横軸はColor Curvesの画素値とは異なり、ここでは色相の位置です。この数値は手動操作の保存値で、プリセットではありません。ほかの曲線、Pick、Animated Points／Dissolve、Mask、半透明画像、実写や測色、Edition差と性能は未確認です。
+
+[再現用Graph](/img/fusion/captures/S109/fixture.comp) · [撮影条件と確認範囲](/img/fusion/captures/S109/capture.json)
+
 ## 出典と確認範囲
 
 Blackmagic Design, **DaVinci Resolve 21.1 Reference Manual**, Chapter 93, pp.2188–2190（Hue Curves [HCv]、入力、Mode、Color Channel Checkboxes、Spline Window、Eyedropper、In/Out、Pre-Divide/Post-Multiply）。2026-10-11確認。
 
-服と肌の例はマニュアルで確認できる機能を組み合わせた操作例です。正確な初期値・調整範囲、Edition差、実機での表示結果は確認していないため断定していません。
+服と肌の例はマニュアルで確認できる機能を組み合わせた操作例です。S109のSat曲線編集と表示は実機確認済みです。全初期値・調整範囲、ほかの操作とEdition差は未確認です。

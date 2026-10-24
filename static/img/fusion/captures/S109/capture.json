@@ -1,0 +1,208 @@
+{
+  "schema_version": 1,
+  "case": "S109",
+  "article": "manuals/fusion/nodes/color/hue-curves.md",
+  "manual": {
+    "version": "21.1",
+    "chapter": 93,
+    "printed_pages": "2188–2190"
+  },
+  "runtime": {
+    "version": "21.1.0.14",
+    "edition": "Studio",
+    "os": "Windows-11-10.0.26200-SP0",
+    "ui_language": "ja-JP (some Shape controls remain English)"
+  },
+  "captured_at": "2026-10-24T07:58:52.265889+00:00",
+  "project": "Collectanea_Captures_20261023_Sol",
+  "timeline": "S109_capture",
+  "frame": 0.0,
+  "resolution": [
+    1920,
+    1080
+  ],
+  "color_management": {
+    "colorScienceMode": "davinciYRGB",
+    "colorSpaceTimeline": "Rec.709 (Scene)",
+    "colorSpaceTimelineGamma": "",
+    "colorSpaceOutput": "Rec.709 (Scene)",
+    "colorSpaceOutputGamma": "ACEScc",
+    "separateColorSpaceAndGamma": "0",
+    "isAutoColorManage": "0",
+    "timelineResolutionWidth": "1920",
+    "timelineResolutionHeight": "1080",
+    "timelineFrameRate": 24.0,
+    "timelinePlaybackFrameRate": "30"
+  },
+  "viewer": {
+    "zoom_percent": 40,
+    "channel": "Color",
+    "background": "checkerboard for transparent pixels",
+    "note": "Viewer screenshots are display evidence, not colorimetric exports."
+  },
+  "graph": "fixture.comp",
+  "settings": "readback.json",
+  "source": {
+    "file": "screen.png",
+    "size": [
+      3352,
+      1910
+    ],
+    "sha256": "874380572cd01bb07ca30bbec69e7bc6f9f115ccab3fd7bbc82a45a4ade33d98"
+  },
+  "shots": [
+    {
+      "file": "graph.png",
+      "source": "screen.png",
+      "source_sha256": "874380572cd01bb07ca30bbec69e7bc6f9f115ccab3fd7bbc82a45a4ade33d98",
+      "frame": 0,
+      "crop_xyxy": [
+        930,
+        1320,
+        1920,
+        1425
+      ],
+      "resampled": false,
+      "sha256": "67e617639178e3f24ef19eb264d7a6daef1f56d7b621236f49dc17d206fa986a",
+      "viewer_guides": false,
+      "viewer_contents": "Left chart / Right green Sat curve In2 Out0.262032"
+    },
+    {
+      "file": "inspector.png",
+      "source": "screen.png",
+      "source_sha256": "874380572cd01bb07ca30bbec69e7bc6f9f115ccab3fd7bbc82a45a4ade33d98",
+      "frame": 0,
+      "crop_xyxy": [
+        2830,
+        120,
+        3352,
+        610
+      ],
+      "resampled": false,
+      "sha256": "ceacd603b46c4b1e1678e7594a38a2c340271b1597b589f03b6e50774856196b",
+      "viewer_guides": false,
+      "viewer_contents": "Left chart / Right green Sat curve In2 Out0.262032"
+    },
+    {
+      "file": "compare.png",
+      "source": "screen.png",
+      "source_sha256": "874380572cd01bb07ca30bbec69e7bc6f9f115ccab3fd7bbc82a45a4ade33d98",
+      "frame": 0,
+      "crop_xyxy": [
+        1146,
+        65,
+        2830,
+        725
+      ],
+      "resampled": false,
+      "sha256": "7ef00fb34065d45f7f3198789ace7384681bde18db798a484e2dbe8dcd2455bc",
+      "viewer_guides": false,
+      "viewer_contents": "Left chart / Right green Sat curve In2 Out0.262032"
+    },
+    {
+      "file": "baseline-inspector.png",
+      "source": "screen-baseline.png",
+      "source_sha256": "c66273a94a1cbb3592a035ffa34eed77ff062f9c7c05c27ca4a598c5d516e31f",
+      "frame": 0,
+      "crop_xyxy": [
+        2830,
+        120,
+        3352,
+        610
+      ],
+      "resampled": false,
+      "sha256": "49e7161fa2682b77b195a6be2903542586fdc986b3eed87933ecd3629f19e625",
+      "viewer_guides": false,
+      "viewer_contents": "Left chart / Right unchanged Sat curve"
+    },
+    {
+      "file": "baseline.png",
+      "source": "screen-baseline.png",
+      "source_sha256": "c66273a94a1cbb3592a035ffa34eed77ff062f9c7c05c27ca4a598c5d516e31f",
+      "frame": 0,
+      "crop_xyxy": [
+        1146,
+        65,
+        2830,
+        725
+      ],
+      "resampled": false,
+      "sha256": "48a21ef4c4f85f33e26375ceeba96ba0c41af4695198bb428ab888bd7085e5f8",
+      "viewer_guides": false,
+      "viewer_contents": "Left chart / Right unchanged Sat curve"
+    }
+  ],
+  "acceptance": {
+    "gui": "PASS: owner visually inspected node connections, selected Inspector, and output",
+    "article_display": "Executed outcomes recorded in docs/fusion-screenshot-candidates.json;provenance fixed."
+  },
+  "unverified": [
+    "Free edition and other platforms",
+    "All parameter ranges and performance",
+    "Real footage,colorimetric/export fidelity,all controls and modes,Mask/Alpha,portable reimport",
+    "Exported portable composition reimport"
+  ],
+  "gui_authoring": {
+    "host": {
+      "pid": 20156,
+      "hwnd": 82647722,
+      "source_pixels": [
+        3352,
+        1910
+      ]
+    },
+    "tool": "HueCurves1",
+    "regid": "HueCurves",
+    "visible_flow_tools": 3,
+    "delivery": "SDK/synthetic Cua,physicalNOT_PROVEN;native UI/export establish outcome"
+  },
+  "native_proof": {
+    "curve": "Sat only;green In2 Out0.262032085561497;other six points1",
+    "visible_delta_roi": [
+      265,
+      244,
+      362,
+      329
+    ],
+    "roi_xyxy": [
+      2055,
+      205,
+      2810,
+      615
+    ],
+    "extrema": [
+      [
+        0,
+        27
+      ],
+      [
+        0,
+        15
+      ],
+      [
+        0,
+        8
+      ]
+    ],
+    "raw_sources": [
+      "screen-baseline.png",
+      "screen.png"
+    ],
+    "final_snapshot": "s000003a2",
+    "delivery": "unknown/global_input;physicalNOT_PROVEN;native UI and saved export establish outcome",
+    "limits": [
+      "Other curves/modes",
+      "Pick",
+      "Mask/Alpha",
+      "real footage/colorimetric",
+      "portable reimport"
+    ]
+  },
+  "restoration": "PASS:frame0,both40%,compact Flow,owned scratch saved,native final inspected",
+  "reproduction": {
+    "fixture_sha256": "16fd2ae452d5333e7da97b6055d679e8a842fd9f88fe387ebe468917e32af3b9",
+    "readback_sha256": "43fde4e687a8b2d4ef792370d6259299dbd79669a9185ea5f025945b8cfb4d2c",
+    "paths": "Comp:/../_fixtures/ for bundled synthetic fixtures",
+    "reimport": "NOT_RUN: accepted GUI evidence precedes export path normalization"
+  }
+}
