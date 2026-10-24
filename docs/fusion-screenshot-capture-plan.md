@@ -1,6 +1,6 @@
 # Fusion 21.1 スクリーンショット計画
 
-更新: 2026-10-24。175ページ653crop1001掲載を公開確認済み。S103 CST/S104 Chromatic Adaptation/S105 OCIO CDL native完成、記事掲載へ継続。全体未完。
+更新: 2026-10-24。175ページ653crop1001掲載が公開PASS。PR124は公開4記事37画像PASS、CDL byte不一致の修正待ち。S106–S108 local4記事40画像PASS、累計local181/685/1039。全体未完。
 
 撮影候補は [fusion-screenshot-candidates.json](./fusion-screenshot-candidates.json) に記録する。記事の説明基準は [Fusion Authoring Contract](./fusion-authoring-contract.md)、技術出典はDaVinci Resolve 21.1 Reference Manual（2026年9月）。公式画像の転載ではなく、実機から独自に撮影する。
 
@@ -29,14 +29,14 @@
 ## Active Checkpoint — 2026-10-24
 
 - Mission / Owner: Fusion全体の必要箇所を実機撮影→記事掲載→GitHub→公開確認まで継続。Sol、制作元task `01a1683b-3067-7a40-892a-47a3b30d50b2`が設計・GUI・実装・統合・検証のsingle writer。ユーザーは全体継続・必要なGitHub操作・silvelへの報告を明示許可。Resolve GUIの別writerなし。新規worker/自動Rolloverは不要。
-- Canonical checkout:C:/Users/shiro/Documents/Codex/2026-10-23/task-19/collectanea-screenshot-integration、branch integration/fusion-cst-adaptation-cdl-native-20261024、base513e457f613b7d599e076c4be080f232e9a15223。PR123公開receiptとDot31 ACK保持。
+- Canonical checkout:C:/Users/shiro/Documents/Codex/2026-10-23/task-19/collectanea-screenshot-integration、branch integration/fusion-aces-aberration-curves-native-20261024、base9f5546765c301f6398ab2ae05aa3537149dc547e。PR124 merged、native CDL -text修正とS106–S108 local候補。
 - Public PASS:S01–S102/R01–R152、175ページ653unique crop1001掲載。全587/未図示380/画像不要32、remaining_views未完、partial維持。
 - Latest receipt:PR123 candidate2908ea23c26f83e5f569fa725ef349c686dd8216、main513e457f613b7d599e076c4be080f232e9a15223、tree4b2c74830eebd4c1cca981d9fd560a34f98cba88一致。Quality40072089520/Pages40073065317全job/step PASS。fresh identity/reviews/comments/inline→Sol expected-head squash→MERGED。公開4記事17画像PC/390px/decode/Alt/原寸リンク/overflow、1542素材HTTP/hash PASS。Layer Muxer公開画面を実見・会話掲載。
 - Batch16 PUBLIC PASS: S58–S61/R99–R102、28新crop+12再利用。PR91 initiala18bc59はincoming PR90 Banding/main5d53be9の通常mergeでf452e117へ更新。Reference2パスのincoming差分・祖先を確認しlocalff-only。旧Quality40035383198 cancelledはsuperseded。既存Integratorのmergeをfresh readback、二重mergeなし。
 - Validation/publication contract: scoped prepare/finalize/verifyへcase/entry IDを渡し既存caseを上書きしない。無描画/無拡大crop、source/crop/Graph/readback hashes。Ready integration PRのexact-head Quality全job/step→fresh main/reviews/comments→expected-head merge→Pages→公開UI/全素材hash。incoming mainは通常merge→新head CI、Integratorが先に統合していればreadbackだけ。CI中は凍結candidateへ追加しない。
-- Source/work stage:canonical helperS96/workS98。S94–S96 native確認・14crop＋3reuse採用、local/public未。S97 ChannelBoolean native/export/限定Number readbackまで確認、adopt未。広い入力値列挙省略、Image/Mask/3D/ScriptVal payload評価なし。
+- Source/work stage:canonical/work helperS108、S106–S108各build/adopt/prepare/embed/finalize/local verify済み、再実行しない。16crop+3reuse19掲載、4ページ40画像PASS。native S108曲線の保存値Out約.743を採用しUIA一時表示.75を棄却。
 - Native protection: 起動前processなし→Project Managerを実機確認してowned projectだけを開いた。production project/preferences、keyboard/settingsは変更しない。真の終了時はowned scratchを保存しProject Managerへ戻す。旧本番project名を復元先へ流用しない。Viewer screenshotを測色export・Free/別OS/全control/性能やportable Graph再importの証明にしない。
-- **Current host / accepted boundary:**Studio21.1.0.14/Japanese/Windows、PID20156/HWND82647722、owned Collectanea_Captures_20261023_Sol/Fusion/S98_capture/frame0/Gamut1選択/両40%/保存。SourceSpaceRec709(native ITU-R BT.709(scene))/RemoveGamma1/OutputNoChange/AddGamma1、GammaOFFで入力表示へ戻る比較後ONへ復元しnative darkened outputを実見338。production/preferences変更なし。
+- **Current host / accepted boundary:**Studio21.1.0.14/Japanese/Windows、PID20156/HWND82647722、owned Collectanea_Captures_20261023_Sol/S108_capture/frame0/ColorCurves1/両40%/saved、modalなし。RGB曲線0→0/.5→.742712110440361/1→1、Alpha直線。
 - Accepted method repairs: GetInputはNumber/Text/Point/FuID/Clipだけ、Image/Mask/3D/任意ScriptVal payloadを評価しない。広い列挙でS49時にhost exitし、scalar-onlyへ狭めて以後安定。Maskやrenderの製品不具合とは断定しない。PointのJSON数値keyはPoint inputだけ整数化（S54 Center.65と出力変化で確認）。clean出力はMediaOut選択で操作guideを外す。S62/S63のdetailはnative Viewer100%で撮影しshot別倍率を記録、cropの拡大なし。
 - Cua/session: collectanea-coverage。session失効はstart_session→fresh captureだけで復旧、build/setterを再実行しない。Qt UIA/no-opはfresh画面で判定。Comboはforeground click→単独Up/Down/Return、数値はfocus→hotkey Ctrl+A→type/Return。背景no-opを確認した操作だけforegroundへ。menuが主PNGに出なければfresh owned popupを別capture。旧PID8944/46696/10664へ入力しない。Start-Process Hidden復旧は非表示windowになったため再使用しない。
 - S62 native/local display PASS: Sharpen REGID。Loader→BlurSource1(Size2)→Sharpen→MediaOut、左Blur/右Sharpen。Amount1と3をnative100%で比較、3で太い明暗halo、Amount1/Blend0は40%で入力へ戻る。最後Amount1/Blend1/40%で保存、restored実見。sources restored/detail1/detail3/blend0、8crop。soft_source初回はaction登録漏れのassertでAddTool前に停止、コードを直し既存Blur不在guard下で1回だけ作成。再buildなし。実写/Alpha/Mask/軸別/Clipping/性能未確認。
@@ -45,7 +45,7 @@
 - S65 native/local display PASS: RankFilter REGID、chart/Size7、Rank.5で細格子/小文字が減り、0で暗領域、1で明領域が広がる。最後Rank.5へ復元保存、restored実見。sources restored/rank0/rank1、7crop。実写salt-pepper/Mask/Alpha/境界/内部順位/性能未確認。
 - Batch17/18 PUBLIC PASS: S62–S65/PR93の29新crop+12再利用、S66–S69/PR96の31新crop+4分類比較を公開。累計public133/437/726。batch19 S70–S73は26新crop+4分類比較、local137/463/756まで受理。各exact identityはpublication_batches参照。
 - Dot delivered/readback PASS: fresh title/profile silvel/空入力を確認、event fusion-native-20261024-15でPR87–89公開121/349/610と929素材、PR91 head a18bc59f CI待ち、未図示430＋remaining_views、Sol単一writerを1段落paste→1回Send。送信文・空入力・受領文（121/349/610、PR91はCI待ち、未図示430継続）を確認。dot-batch15-report.jpgは報告本文の画面で会話へ掲載済み。返信画面を撮れたとは扱わず受領はUIテキストで確認。以後のPR91 head更新は別のGitHub readback。Dot返信から実行権限を追加しない。
-- **Next action / KEEP:**S103–S105 local4ページ37画像PASS、16crop＋3再利用19掲載、native CDL roundtrip PASS。inventory→fresh main→commit/explicit push/Ready PR→exact-head CI/merge/Pages/public/assets。公開175/653/1001、全体未完。現在S105_capture/20156/82647722、frame0/40%/File/Forward/saved、modalなし。次はACES Transformや色収差除去など未図示Colorへ。
+- **Next action / KEEP:**S106–S108/R156–R158 local4ページ40画像PASS＋native CDL byte保護fixをcommit/explicit push/Ready PR→exact-head Quality/main gate/merge/Pages→PR124の未完1assetを再照合し今回候補の全公開画像/assets確認。public175/653/1001、local181/685/1039、全体未完。Sol単一GUI writerで継続。
 
 ## 第1batchの撮影・統合メモ（履歴）
 
@@ -197,3 +197,15 @@ Batch32 LOCAL PASS:production build、回帰19/19、Python構文/diff check、CD
 Batch32 inventory:全587、local図示178ページ669crop1020掲載、未図示377、画像不要32。Public PASSは175/653/1001。次候補を凍結後、WORKだけで次のnative準備を進める。
 
 Batch32差分補足:新規未追跡ファイルをstageした後のdiff --checkは、実機書出しred-slope05.cc末尾の空行1件を検出。実機生成物のbyte/hashを保持するため整形せず採用する。追跡済み記事・helperのdiff checkはPASS、native XMLの値・原本同一hashはPASS。先の包括的diff check PASSはこのnative末尾空行を除く。
+
+Batch32 GitHub:PR124 head d68ff0d22029aca9f350e8a9f1faf2881399467d、Quality40074603097全job/step PASS、fresh main/head/review/comment/inline gate後expected-head squash。main9f5546765c301f6398ab2ae05aa3537149dc547e、candidate/main tree bc4fc85ca78c95ff0021c30917ca4fc67023a70f一致。Pages40075474704進行中、公開画面・素材未確認のためpublic累計175/653/1001維持。次branchはfresh main9f55467から作成。
+S106 native PASS:REG AcesTransform、ACES2.0、InputTransform200 IDT_SRGB_CSC=sRGB(Texture)-CSC、OutputTransform200 ODT_NONEの暗い出力38e→ODT_REC709_100=Rec.709 BT.1886の出力38fを実見保存。GamutCompressionNone。3visible、frame0/40%、設定保護。実写cameraIDT/測色/RCM/他Version未確認。
+S107 native PASS:REG ChromaticAberrationRemoval、clean chart、全Scale/Edge0 baseline391から赤シアンScale0.8のみ変更394/396。右白枠/点に赤シアンfringe、ROI差はRedのみで最大224、G/B0。補正効果ではなく過補正の例。ShowEstimatedRedFringes ON395は灰色診断＋赤Viewer guide、最後OFF/Scale0.8保存。LensCenter/Edge/実写除去/他controls未確認。
+S108 native PASS:REG ColorCurves、NoAnimation/RGB。EditRGB1/Alpha0、Cua drag399→39bはunknown/global_input、物理入力証明とせずnative曲線・明るい出力を実見。In0.5、Out約0.742712110440361、RGB3本のKeyColorSplinesとAlpha直線をexportで確認。UIA Out0.75は一時表示後に保存値へ戻ったため未受入、再送せず実保存値を採用。final39e、frame0/40%/3visible/saved、modalなし。WORK/S108-native-curve-proof.json。S106–S108/R156–R158を16crop＋3reuse19掲載としてadopt済み、local build/displayは未確認。
+
+Batch32公開差分:Pages40075474704全job/step PASS、公開4ページ37画像PC/390px/decode/Alt/原寸リンク/overflow PASS。1575素材の初回1573PASS、S52 capture.json HTTP503はfailed-only retryで解消。残るS105/red-slope05.ccはnative233byte/CRLF11/hashdac17...がGit blob/public222byte/LF11/hashf5a6...へ変換されていた。改行正規化だけでXML内容一致とfresh証拠確認。実機原本を変更せず.gitattributesの当該pathに-text、限定git add --renormalizeでstaged blobとnative hash完全一致。未配信なのでpublic累計を増やさず、次候補にfixを含める。
+Batch33 local PASS:production build、regressions19/19、3helper構文、native RGB curve export、diff check PASS。実build4ページ40画像PC/390px/source/crop/native-link hash/decode/Alt/overflow PASS。immutable capture manifestは実行済み結果を既存ledgerへ参照し、receipt更新だけで画像/assetを書き換えない。S105 native CCのlocal配信byteを次に照合する。
+
+Batch33 inventory:全587、local181ページ685crop1039掲載、未図示374、画像不要32。PR124のnative CC修復前のためpublic175/653/1001維持。local native CC233byte/hash完全一致。次候補はCI凍結後WORKのみで準備する。
+
+Byte保護後のdiff check:CC原本のCRLF11行と末尾空行はGitがtrailing whitespaceとして検出する。原本保護対象として記録し、この1ファイル以外の差分を別途checkする。XML内容・staged native hash・local HTTP/hashはPASS。古い保全PR17/27/29–31にはColor等の旧差分があるが、現在のWriter PR119/116ほかと今回パス重複なし。旧branchの書換えや成果破棄はしない。

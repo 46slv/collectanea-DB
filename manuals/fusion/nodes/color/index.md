@@ -210,6 +210,26 @@ Resolve Studio21.1.0.14／Windows、Color／40%。個別記事に記載した範
 
 [OCIOCDLTransformのGraph・Inspector・条件と未確認範囲](./ocio-cdl-transform)を参照してください。
 
+### ACES・輪郭の色ずれ・曲線を比べる実機例
+
+<!-- capture-reuse:R156 -->
+
+[![ACES2.0のsRGB入力とRec709 BT1886出力の実機比較](/img/fusion/captures/S106/compare.png)](/img/fusion/captures/S106/compare.png)
+
+[AcesTransformのGraph・Inspector・条件と未確認範囲](./aces-transform)を参照してください。
+
+<!-- capture-reuse:R157 -->
+
+[![色ずれのないチャートへ赤シアンScale0.8を加えた変化の実機比較](/img/fusion/captures/S107/compare.png)](/img/fusion/captures/S107/compare.png)
+
+[ChromaticAberrationRemovalのGraph・Inspector・条件と未確認範囲](./chromatic-aberration-removal)を参照してください。
+
+<!-- capture-reuse:R158 -->
+
+[![RGBの中間点を持ち上げて明るくした表示の実機比較](/img/fusion/captures/S108/compare.png)](/img/fusion/captures/S108/compare.png)
+
+[ColorCurvesのGraph・Inspector・条件と未確認範囲](./color-curves)を参照してください。
+
 ## 出典と確認範囲
 
 DaVinci Resolve 21.1 Reference Manual Chapter 93 pp.2133–2206とChapter 106 Swizzler pp.2445–2450を基に整理しています。

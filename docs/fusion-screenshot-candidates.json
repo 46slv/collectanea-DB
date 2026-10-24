@@ -2,7 +2,7 @@
   "schema_version": 1,
   "created": "2026-10-20",
   "scope": "All Fusion pages, DaVinci Resolve 21.1",
-  "status_note": "2026-10-24:public175/653/1001 through PR123 and1542assets PASS;S103–S105 local4pages37images PASS,16newcrop+3reuse19placements;whole Fusion incomplete.",
+  "status_note": "2026-10-24:public175/653/1001 through PR123. PR124 public4pages37images PASS but1574/1575 assets;native CDL newline/hash repair pending next deploy. S106–S108/R156–R158 local4pages40images PASS,cumulative181/685/1039;whole587 and remaining_views incomplete,partial retained.",
   "asset_directory_template": "static/img/fusion/captures/{id}/{shot.slug}.png",
   "capture_manifest_name": "capture.json",
   "candidates": [
@@ -5688,6 +5688,147 @@
           "status": "native-observed"
         }
       ]
+    },
+    {
+      "id": "S106",
+      "priority": "P1",
+      "article": "manuals/fusion/nodes/color/aces-transform.md",
+      "manual": {
+        "version": "21.1",
+        "chapter": 93,
+        "printed_pages": "2134–2135"
+      },
+      "goal": "ACES2.0 sRGB(texture) CSC input and Rec709 BT1886 output versus no ODT",
+      "status": "captured-local-display-verified",
+      "shots": [
+        {
+          "slug": "graph",
+          "kind": "node-graph",
+          "target": "AcesTransform",
+          "status": "native-observed"
+        },
+        {
+          "slug": "inspector",
+          "kind": "inspector",
+          "target": "AcesTransform",
+          "status": "native-observed"
+        },
+        {
+          "slug": "compare",
+          "kind": "output",
+          "target": "AcesTransform",
+          "status": "native-observed"
+        },
+        {
+          "slug": "idt-inspector",
+          "kind": "inspector",
+          "target": "AcesTransform",
+          "status": "native-observed"
+        },
+        {
+          "slug": "idt",
+          "kind": "output",
+          "target": "AcesTransform",
+          "status": "native-observed"
+        }
+      ],
+      "capture_manifest": "static/img/fusion/captures/S106/capture.json"
+    },
+    {
+      "id": "S107",
+      "priority": "P1",
+      "article": "manuals/fusion/nodes/color/chromatic-aberration-removal.md",
+      "manual": {
+        "version": "21.1",
+        "chapter": 93,
+        "printed_pages": "2146–2148"
+      },
+      "goal": "R/C Scale0.8 on clean chart creates fringing;estimated fringe diagnostic gray,not real lens correction",
+      "status": "captured-local-display-verified",
+      "shots": [
+        {
+          "slug": "graph",
+          "kind": "node-graph",
+          "target": "ChromaticAberrationRemoval",
+          "status": "native-observed"
+        },
+        {
+          "slug": "inspector",
+          "kind": "inspector",
+          "target": "ChromaticAberrationRemoval",
+          "status": "native-observed"
+        },
+        {
+          "slug": "compare",
+          "kind": "output",
+          "target": "ChromaticAberrationRemoval",
+          "status": "native-observed"
+        },
+        {
+          "slug": "baseline",
+          "kind": "output",
+          "target": "ChromaticAberrationRemoval",
+          "status": "native-observed"
+        },
+        {
+          "slug": "estimate-inspector",
+          "kind": "inspector",
+          "target": "ChromaticAberrationRemoval",
+          "status": "native-observed"
+        },
+        {
+          "slug": "estimate",
+          "kind": "output",
+          "target": "ChromaticAberrationRemoval",
+          "status": "native-observed"
+        }
+      ],
+      "capture_manifest": "static/img/fusion/captures/S107/capture.json"
+    },
+    {
+      "id": "S108",
+      "priority": "P1",
+      "article": "manuals/fusion/nodes/color/color-curves.md",
+      "manual": {
+        "version": "21.1",
+        "chapter": 93,
+        "printed_pages": "2168–2171"
+      },
+      "goal": "RGB curves (0,0),(.5,.742712110440361),(1,1);Alpha editing off and curve unchanged",
+      "status": "captured-local-display-verified",
+      "shots": [
+        {
+          "slug": "graph",
+          "kind": "node-graph",
+          "target": "ColorCurves",
+          "status": "native-observed"
+        },
+        {
+          "slug": "inspector",
+          "kind": "inspector",
+          "target": "ColorCurves",
+          "status": "native-observed"
+        },
+        {
+          "slug": "compare",
+          "kind": "output",
+          "target": "ColorCurves",
+          "status": "native-observed"
+        },
+        {
+          "slug": "baseline-inspector",
+          "kind": "inspector",
+          "target": "ColorCurves",
+          "status": "native-observed"
+        },
+        {
+          "slug": "baseline",
+          "kind": "output",
+          "target": "ColorCurves",
+          "status": "native-observed"
+        }
+      ],
+      "capture_manifest": "static/img/fusion/captures/S108/capture.json"
     }
   ],
   "publication_batches": [
@@ -6719,27 +6860,59 @@
         "artifacts/fusion-captures/public-batch31-assets.json"
       ],
       "limitations": "Whole587/380capture-needed plus remaining_views incomplete;S103–S105 native WORK only."
+    },
+    {
+      "id": "fusion-native-20261024-32",
+      "cases": [
+        "S103",
+        "S104",
+        "S105"
+      ],
+      "reuses": [
+        "R153",
+        "R154",
+        "R155"
+      ],
+      "pr": "https://github.com/46slv/collectanea-DB/pull/124",
+      "candidate": "d68ff0d22029aca9f350e8a9f1faf2881399467d",
+      "main": "9f5546765c301f6398ab2ae05aa3537149dc547e",
+      "tree": "bc4fc85ca78c95ff0021c30917ca4fc67023a70f",
+      "quality_run": "https://github.com/46slv/collectanea-DB/actions/runs/40074603097",
+      "pages_run": "https://github.com/46slv/collectanea-DB/actions/runs/40075474704",
+      "merge_owner": "Sol exact-head all Quality jobs/steps,fresh identity/reviews/comments/inline,expected-head squash,MERGED/equal tree",
+      "public_pages": 4,
+      "public_images": 37,
+      "new_native_crops": 16,
+      "new_placements": 19,
+      "public_asset_hashes": 1574,
+      "public_asset_total": 1575,
+      "result": "PUBLIC_DISPLAY_PASS_ASSET_FIX_PENDING",
+      "evidence": [
+        "artifacts/fusion-captures/public-batch32-display-report.json",
+        "artifacts/fusion-captures/public-batch32-assets.json"
+      ],
+      "limitations": "Native CDL233bytes CRLF normalized by Git into222bytes LF;public hash mismatch. XML content identical but full publication PASS withheld. Scoped -text attribute and original staged bytes fixed in next candidate. S52 HTTP503 resolved by failed-only retry."
     }
   ],
   "coverage_inventory": {
-    "checked_at": "2026-10-24T07:26:25.066759+00:00",
+    "checked_at": "2026-10-24T07:54:25.849115+00:00",
     "scope": "All manuals/fusion Markdown and MDX pages; review necessity before adding images.",
     "completion_rule": "Every page has an explicit image decision; necessary images are native-observed, embedded, saved to GitHub and public-display-verified. A native example does not verify all article controls.",
     "summary": {
       "total_pages": 587,
-      "with_images": 178,
-      "with_native_examples": 178,
+      "with_images": 181,
+      "with_native_examples": 181,
       "states": {
         "reviewed-no-standalone-image": 26,
         "no-standalone-image-needed": 6,
         "illustrated-reused-example": 75,
-        "capture-planned": 377,
-        "illustrated-native-example": 103
+        "capture-planned": 374,
+        "illustrated-native-example": 106
       },
       "decisions": {
         "no-standalone-image-needed": 32,
-        "image-required": 178,
-        "capture-needed": 377
+        "image-required": 181,
+        "capture-needed": 374
       }
     },
     "pages": [
@@ -9308,13 +9481,18 @@
         "article": "manuals/fusion/nodes/color/aces-transform.md",
         "title": "ACES Transform",
         "kind": "node",
-        "image_count": 0,
-        "native_cases": [],
+        "image_count": 5,
+        "native_cases": [
+          "S106"
+        ],
         "reused_cases": [],
         "planned_cases": [],
-        "state": "capture-planned",
-        "decision": "capture-needed",
+        "state": "illustrated-native-example",
+        "decision": "image-required",
         "reason": "本文の対象機能: ACESが定義する入力変換（IDT）と出力変換（ODT）を画像に適用するノード。。S14の見た目の色補正はencoding変換の証拠にならず、display screenshotだけでは色精度を証明できない。",
+        "remaining_views": [
+          "Other controls/modes,real footage,measured fidelity,Mask/Alpha,other editions/platforms/performance"
+        ],
         "required_views": [
           "対象Node名と実際の配線が読めるGraph",
           "対象Nodeを選択した固有Inspector（本文で示すControlを含む）",
@@ -9335,7 +9513,8 @@
             "section": "入力・出力",
             "role": "入力と結果を示す箇所"
           }
-        ]
+        ],
+        "audit_note": "S106 bounded native example accepted;whole article remains partial."
       },
       {
         "article": "manuals/fusion/nodes/color/auto-gain.md",
@@ -9452,13 +9631,18 @@
         "article": "manuals/fusion/nodes/color/chromatic-aberration-removal.md",
         "title": "Chromatic Aberration Removal",
         "kind": "node",
-        "image_count": 0,
-        "native_cases": [],
+        "image_count": 6,
+        "native_cases": [
+          "S107"
+        ],
         "reused_cases": [],
         "planned_cases": [],
-        "state": "capture-planned",
-        "decision": "capture-needed",
+        "state": "illustrated-native-example",
+        "decision": "image-required",
         "reason": "本文の対象機能: レンズによって輪郭に生じた色のずれを、色の組み合わせごとに補正するノード。。Color Corrector画像ではCurve/Matrix/Boolean等の固有Controlやchannel操作を示せない。",
+        "remaining_views": [
+          "Other controls/modes,real footage,measured fidelity,Mask/Alpha,other editions/platforms/performance"
+        ],
         "required_views": [
           "対象Node名と実際の配線が読めるGraph",
           "対象Nodeを選択した固有Inspector（本文で示すControlを含む）",
@@ -9477,7 +9661,8 @@
             "section": "入力・出力",
             "role": "入力と結果を示す箇所"
           }
-        ]
+        ],
+        "audit_note": "S107 bounded native example accepted;whole article remains partial."
       },
       {
         "article": "manuals/fusion/nodes/color/chromatic-adaptation.md",
@@ -9547,13 +9732,18 @@
         "article": "manuals/fusion/nodes/color/color-curves.md",
         "title": "Color Curves",
         "kind": "node",
-        "image_count": 0,
-        "native_cases": [],
+        "image_count": 5,
+        "native_cases": [
+          "S108"
+        ],
         "reused_cases": [],
         "planned_cases": [],
-        "state": "capture-planned",
-        "decision": "capture-needed",
+        "state": "illustrated-native-example",
+        "decision": "image-required",
         "reason": "本文の対象機能: RGBなどの画素値をSplineの曲線に従って変換し、明るさや色の偏りを調整するColor Node。。Color Corrector画像ではCurve/Matrix/Boolean等の固有Controlやchannel操作を示せない。",
+        "remaining_views": [
+          "Other controls/modes,real footage,measured fidelity,Mask/Alpha,other editions/platforms/performance"
+        ],
         "required_views": [
           "対象Node名と実際の配線が読めるGraph",
           "対象Nodeを選択した固有Inspector（本文で示すControlを含む）",
@@ -9582,7 +9772,8 @@
             "section": "Spline Window：入力値を出力値へ変える",
             "role": "入力と結果を示す箇所"
           }
-        ]
+        ],
+        "audit_note": "S108 bounded native example accepted;whole article remains partial."
       },
       {
         "article": "manuals/fusion/nodes/color/color-gain.md",
@@ -9939,7 +10130,7 @@
         "article": "manuals/fusion/nodes/color/index.md",
         "title": "Colorノード",
         "kind": "index",
-        "image_count": 21,
+        "image_count": 24,
         "native_cases": [],
         "reused_cases": [
           "S14",
@@ -9955,7 +10146,10 @@
           "S99",
           "S103",
           "S104",
-          "S105"
+          "S105",
+          "S106",
+          "S107",
+          "S108"
         ],
         "planned_cases": [],
         "state": "illustrated-reused-example",
@@ -26623,6 +26817,36 @@
       ],
       "status": "embedded-local-display-verified",
       "scope": "OCIO CDL Controlsで赤Slopeだけを0.5にした表示;not real footage/colorimetric or full control validation."
+    },
+    {
+      "id": "R156",
+      "article": "manuals/fusion/nodes/color/index.md",
+      "source_case": "S106",
+      "images": [
+        "compare.png"
+      ],
+      "status": "embedded-local-display-verified",
+      "scope": "ACES2.0のsRGB入力とRec709 BT1886出力;not real footage or full-control/colorimetric acceptance."
+    },
+    {
+      "id": "R157",
+      "article": "manuals/fusion/nodes/color/index.md",
+      "source_case": "S107",
+      "images": [
+        "compare.png"
+      ],
+      "status": "embedded-local-display-verified",
+      "scope": "色ずれのないチャートへ赤シアンScale0.8を加えた変化;not real footage or full-control/colorimetric acceptance."
+    },
+    {
+      "id": "R158",
+      "article": "manuals/fusion/nodes/color/index.md",
+      "source_case": "S108",
+      "images": [
+        "compare.png"
+      ],
+      "status": "embedded-local-display-verified",
+      "scope": "RGBの中間点を持ち上げて明るくした表示;not real footage or full-control/colorimetric acceptance."
     }
   ],
   "external_reports": [
