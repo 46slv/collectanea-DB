@@ -100,6 +100,20 @@ sEllipse → sRender → Bitmap Mask ────────────┘
 
 不透明な黒い図形は、**Alphaでは高い値、Luminanceでは低い値**になり得ます。「黒く見えるからMaskでも黒」と判断せず、どのチャンネルを選択しているか確認してください。
 
+### 実機例：Image・Mask・後段の結果を見分ける
+
+<!-- capture-reuse:R124 -->
+
+最初の比較は左が入力チャート、右がBitmap MaskでLuminanceから作った白灰黒のMaskです。次は左にそのMask、右にMaskを適用したオレンジBackgroundを表示しています。Imageから選択範囲を作る段階と、その範囲を後段へ渡す段階を分けて確認できます。
+
+[![左は入力チャートのColor、右はBitmap Maskが出力した白灰黒の単一チャンネルMask](/img/fusion/captures/S77/mask.png)](/img/fusion/captures/S77/mask.png)
+
+[![左の白灰黒Maskに応じて、右のオレンジBackgroundに不透明と透明の模様が現れる](/img/fusion/captures/S77/compare.png)](/img/fusion/captures/S77/compare.png)
+
+Resolve Studio21.1.0.14／Windows、1920×1080、Viewer40%の固定例です。 Luminance、Threshold0.25／0.75、Invertオフ。[Bitmap Maskの接続と設定](../../nodes/masks/bitmap-mask)に確認条件を記録しています。Shapeからの変換や、全Mask操作を確認した例ではありません。
+
+[再現用Graph](/img/fusion/captures/S77/fixture.comp) · [撮影条件と確認範囲](/img/fusion/captures/S77/capture.json)
+
 ## Maskを作る方法
 
 Maskは複数の方法で作れます。
