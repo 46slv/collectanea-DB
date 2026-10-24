@@ -2,7 +2,7 @@
   "schema_version": 1,
   "created": "2026-10-20",
   "scope": "All Fusion pages, DaVinci Resolve 21.1",
-  "status_note": "2026-10-24:PR131 deployed S123–S125. Public HTTP route and image checks passed, but the capture.json native-proof hash chain is being repaired after proving CRLF-to-LF normalization. S123–S125 remain unaccepted; no batch39 receipt issued. Whole587/355capture-needed plus remaining_views incomplete;partial retained.S122 dHoldout remains unresolved and unaccepted.",
+  "status_note": "2026-10-24:PR135 repaired native-proof CRLF-to-LF binding; exact-head CI #40100267862, Pages #40102612970/#40104248065 and source/Git/public proof chains PASS. Three routes/14 images and 1816 public asset hashes PASS; exact-head CI Chromium checks PASS, public-live browser NOT_RUN. S123-S125 published-display-verified with limits; whole587/352capture-needed plus remaining_views incomplete;partial retained.S122 dHoldout remains unresolved and unaccepted.",
   "asset_directory_template": "static/img/fusion/captures/{id}/{shot.slug}.png",
   "capture_manifest_name": "capture.json",
   "candidates": [
@@ -6562,7 +6562,7 @@
         "printed_pages": "2272–2278"
       },
       "goal": "Built-in Fuse.Duplicate in Resolve Studio 21.1.0.14; Copies1 vs5; saved output shows five total including source, not six.",
-      "status": "captured-embedded-unverified",
+      "status": "published-display-verified",
       "shots": [
         {
           "slug": "graph",
@@ -6588,7 +6588,8 @@
           "target": "Fuse.Duplicate",
           "status": "native-observed"
         }
-      ]
+      ],
+      "published_batch": "fusion-native-20261024-39"
     },
     {
       "id": "S124",
@@ -6600,7 +6601,7 @@
         "printed_pages": "2278–2281"
       },
       "goal": "Synthetic point-on-black; Highlight Number of Points4 vs6, Low0.9 High1 Curve0.2 Length0.8 Angle0 MergeOver1.",
-      "status": "captured-embedded-unverified",
+      "status": "published-display-verified",
       "shots": [
         {
           "slug": "graph",
@@ -6632,7 +6633,8 @@
           "target": "Highlight",
           "status": "native-observed"
         }
-      ]
+      ],
+      "published_batch": "fusion-native-20261024-39"
     },
     {
       "id": "S125",
@@ -6644,7 +6646,7 @@
         "printed_pages": "2281–2287"
       },
       "goal": "Synthetic chart; Hot Spot PrimaryStrength0 vs1 at PrimaryCenter0.35/0.5, Size0.35, Aspect1, Add; no EffectMask/Occlusion.",
-      "status": "captured-embedded-unverified",
+      "status": "published-display-verified",
       "shots": [
         {
           "slug": "graph",
@@ -6676,7 +6678,8 @@
           "target": "HotSpot",
           "status": "native-observed"
         }
-      ]
+      ],
+      "published_batch": "fusion-native-20261024-39"
     }
   ],
   "publication_batches": [
@@ -7932,27 +7935,82 @@
         "artifacts/fusion-captures/public-batch38-display-report.json",
         "artifacts/fusion-captures/public-batch38-assets.json"
       ]
+    },
+    {
+      "id": "fusion-native-20261024-39",
+      "cases": [
+        "S123",
+        "S124",
+        "S125"
+      ],
+      "reuses": [],
+      "pr": "https://github.com/46slv/collectanea-DB/pull/135",
+      "asset_pr": "https://github.com/46slv/collectanea-DB/pull/131",
+      "candidate": "1fb5f9642090c14e0f4e2d568e71f43b938ad34e",
+      "merge_commit": "fccd6c408e9af60c78c8585b1884b84e6904c4be",
+      "main": "067633c8208c37ae8a44c1e415d6e30d37b29f2f",
+      "tree": "650dd0b1d7f73de044039be56986d58bd0e77898",
+      "quality_run": "https://github.com/46slv/collectanea-DB/actions/runs/40100267862",
+      "merge_pages_run": "https://github.com/46slv/collectanea-DB/actions/runs/40102612970",
+      "pages_run": "https://github.com/46slv/collectanea-DB/actions/runs/40104248065",
+      "merge_owner": "46slv merged PR #135 at 2026-10-24T14:27:59Z; exact-head CI and current-main Pages deployment verified.",
+      "public_pages": 3,
+      "public_images": 14,
+      "new_native_crops": 14,
+      "new_placements": 14,
+      "public_asset_hashes": 1816,
+      "result": "PASS",
+      "native_proof_hash_chains": [
+        {
+          "case": "S123",
+          "source_sha256": "6f6d67c4efd81d1972903f58aa56af48f4627aecbce7aac2bcd22440b31323b4",
+          "git_and_public_sha256": "baad4aa3bcbd8dd129f4782ea9024d68bfcc79fdcc3d01d809c458be4599a030",
+          "normalization": "CRLF-to-LF"
+        },
+        {
+          "case": "S124",
+          "source_sha256": "1eb0bcbac04d7dd87e7f39c1865ae8200cebe26377cd05a4b235dc4a9a9cf5f4",
+          "git_and_public_sha256": "b5e9943d1b7b7dd80df58920610313cadde75a1a2be018fcc9f3eadc31ccb712",
+          "normalization": "CRLF-to-LF"
+        },
+        {
+          "case": "S125",
+          "source_sha256": "22cb94e1deffaca3c89ba190567b8f06839745183c70a2b63eae426e672a6ef3",
+          "git_and_public_sha256": "d57be4b785fa1a8f055a24e93d3eda630ab25da2a41dfb440a53da24f28161c7",
+          "normalization": "CRLF-to-LF"
+        }
+      ],
+      "ci_browser_checks": "PASS: exact-head CI Chromium against the production build checked image decode, alt text, exact crop links, 1440x1000 and 390x844 viewports, and overflow.",
+      "public_browser_session": "NOT_RUN: no supported live browser surface was available; HTTP retrieval and byte/hash checks do not establish public browser decode, responsive layout, or overflow.",
+      "evidence": [
+        "artifacts/fusion-captures/native-proof-chain-diagnostic.json",
+        "artifacts/fusion-captures/native-proof-chain-post-corrective-commit.json",
+        "artifacts/fusion-captures/native-proof-chain-public-post-deploy.json",
+        "artifacts/fusion-captures/page-report-post-deploy.json",
+        "artifacts/fusion-captures/public-assets-recheck-post-deploy.json"
+      ],
+      "limitations": "S123 is built-in Fuse.Duplicate in Resolve Studio 21.1.0.14; observed Copies=5 means five total including source, not six. Static opaque oval only; TimeOffset, Jitter, Duplicate Path, other merge modes, edge/alpha quality, and platform/performance remain unverified. Broad input enumeration NOT_RUN after saved host exit; proof covers listed values/connections only. Portable export reimport NOT_RUN. S124 uses a static synthetic point on black; masks/optional inputs, alternate controls and color curves, animation, optical fidelity, and platform/performance remain unverified; broad input enumeration, curve payload readback, and portable export reimport NOT_RUN. S125 uses a static synthetic chart; masks/Occlusion, alternate controls and color curves, animation, optical fidelity, and platform/performance remain unverified; broad input enumeration, curve payload readback, and portable export reimport NOT_RUN. Public live browser NOT_RUN; CI browser PASS applies to the local production build. Whole 587 pages/352 capture-needed plus remaining_views incomplete; S122 dHoldout remains unresolved and unaccepted."
     }
   ],
   "coverage_inventory": {
-    "checked_at": "2026-10-24T10:35:10.998039+00:00",
+    "checked_at": "2026-10-24T15:11:49Z",
     "scope": "All manuals/fusion Markdown and MDX pages; review necessity before adding images.",
     "completion_rule": "Every page has an explicit image decision; necessary images are native-observed, embedded, saved to GitHub and public-display-verified. A native example does not verify all article controls.",
     "summary": {
       "total_pages": 587,
-      "with_images": 200,
-      "with_native_examples": 200,
+      "with_images": 203,
+      "with_native_examples": 203,
       "states": {
         "reviewed-no-standalone-image": 26,
         "no-standalone-image-needed": 6,
         "illustrated-reused-example": 81,
-        "capture-planned": 355,
-        "illustrated-native-example": 119
+        "capture-planned": 352,
+        "illustrated-native-example": 122
       },
       "decisions": {
         "no-standalone-image-needed": 32,
-        "image-required": 200,
-        "capture-needed": 355
+        "image-required": 203,
+        "capture-needed": 352
       }
     },
     "pages": [
@@ -12348,12 +12406,14 @@
         "article": "manuals/fusion/nodes/effects-film/duplicate.md",
         "title": "Duplicate",
         "kind": "node",
-        "image_count": 0,
-        "native_cases": [],
+        "image_count": 4,
+        "native_cases": [
+          "S123"
+        ],
         "reused_cases": [],
         "planned_cases": [],
-        "state": "capture-planned",
-        "decision": "capture-needed",
+        "state": "illustrated-native-example",
+        "decision": "image-required",
         "reason": "本文の対象機能: Duplicateは2D画像を複製し、各コピーに段階的な変形や時間差を与えるNode。。S13のBlur、S03のGlow、S14のColor Correctorは別NodeのUIと演算であり、似た見た目でも代用不可。",
         "required_views": [
           "対象Node名と実際の配線が読めるGraph",
@@ -12383,6 +12443,10 @@
             "section": "主な用途と運用例",
             "role": "入力と結果を示す箇所"
           }
+        ],
+        "remaining_views": [
+          "Static opaque oval; TimeOffset, Jitter, Duplicate Path, other merge modes, edge/alpha quality, and platform/performance are unverified.",
+          "Broad input enumeration NOT_RUN after the saved host exit; proof covers listed values/connections only. Portable export reimport NOT_RUN."
         ]
       },
       {
@@ -12466,12 +12530,14 @@
         "article": "manuals/fusion/nodes/effects-film/highlight.md",
         "title": "Highlight",
         "kind": "node",
-        "image_count": 0,
-        "native_cases": [],
+        "image_count": 5,
+        "native_cases": [
+          "S124"
+        ],
         "reused_cases": [],
         "planned_cases": [],
-        "state": "capture-planned",
-        "decision": "capture-needed",
+        "state": "illustrated-native-example",
+        "decision": "image-required",
         "reason": "本文の対象機能: Highlightは、入力画像の明るい部分から星形の光を伸ばす2D Effect Node。。S13のBlur、S03のGlow、S14のColor Correctorは別NodeのUIと演算であり、似た見た目でも代用不可。",
         "required_views": [
           "対象Node名と実際の配線が読めるGraph",
@@ -12501,18 +12567,24 @@
             "section": "運用例：夜景の看板だけに星形の光を付ける",
             "role": "入力と結果を示す箇所"
           }
+        ],
+        "remaining_views": [
+          "Static synthetic point on black; masks/optional inputs, alternate controls and color curves, animation, optical fidelity, and platform/performance are unverified.",
+          "Broad input enumeration, curve payload readback, and portable export reimport NOT_RUN; proof covers listed values/connections only."
         ]
       },
       {
         "article": "manuals/fusion/nodes/effects-film/hot-spot.md",
         "title": "Hot Spot",
         "kind": "node",
-        "image_count": 0,
-        "native_cases": [],
+        "image_count": 5,
+        "native_cases": [
+          "S125"
+        ],
         "reused_cases": [],
         "planned_cases": [],
-        "state": "capture-planned",
-        "decision": "capture-needed",
+        "state": "illustrated-native-example",
+        "decision": "image-required",
         "reason": "本文の対象機能: Hot Spotは、画像上の光源位置に発光やレンズ内反射を加え、別画像でその光を遮ることもできるNode。。S13のBlur、S03のGlow、S14のColor Correctorは別NodeのUIと演算であり、似た見た目でも代用不可。",
         "required_views": [
           "対象Node名と実際の配線が読めるGraph",
@@ -12532,6 +12604,10 @@
             "section": "運用例：車のヘッドライトを光らせ、車体で隠す",
             "role": "入力と結果を示す箇所"
           }
+        ],
+        "remaining_views": [
+          "Static synthetic chart; masks/Occlusion, alternate controls and color curves, animation, optical fidelity, and platform/performance are unverified.",
+          "Broad input enumeration, curve payload readback, and portable export reimport NOT_RUN; proof covers listed values/connections only."
         ]
       },
       {
