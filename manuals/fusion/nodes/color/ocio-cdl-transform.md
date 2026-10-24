@@ -15,7 +15,7 @@ outputs: [image]
 tasks: [ocio, cdl, color-grade]
 product_scope: fusion
 suite_surfaces: [fusion]
-updated: "2026-10-11"
+updated: "2026-10-24"
 ---
 
 # OCIO CDL Transform
@@ -130,10 +130,51 @@ Saver / MediaOut
 
 CDLは**色補正値の受け渡し**、OCIO Color Spaceは**色空間変換**という役割が異なります。どちらも必要なら、一方で他方の代わりをさせず、それぞれの位置と入力条件を決めます。マスクでの部分適用については[Maskで処理範囲を限定する](../../patterns/masking/limit-effect-with-mask)を参照してください。
 
+## 実機例：赤Slopeを変えてCDLを書き出し、読み直す
+
+<!-- capture-case:S105 -->
+
+Resolve Studio21.1.0.14／Windows、1920×1080、Viewer40%、フレーム0で撮影しました。Loaderのテストチャートをノードへ入力し、その画像出力をMediaOutへ接続しています。左が入力、右が処理後です。
+
+[![LoaderからOCIO CDL Transformを経てMediaOutへ接続した実機Graph](/img/fusion/captures/S105/graph.png)](/img/fusion/captures/S105/graph.png)
+
+OperationをControls、DirectionをForwardにしました。SlopeのRGBを各1、Offsetを各0、Powerを各1、Saturationを1にした状態では、左右のチャートは同じ見え方です。
+
+[![ControlsのSlope1、Offset0、Power1、Saturation1で入力と出力が同じ見え方になる実機比較](/img/fusion/captures/S105/baseline.png)](/img/fusion/captures/S105/baseline.png)
+
+Red Slopeだけを0.5へ変更すると、右の白と灰色はシアン寄りになり、赤いパッチも暗くなりました。Green／Blue Slopeは1、Offsetは0、PowerとSaturationは1のままです。
+
+[![OCIO CDL Transformの実機Controls、赤Slope0.5、緑青Slope1、Offset0、Power1、Saturation1](/img/fusion/captures/S105/inspector.png)](/img/fusion/captures/S105/inspector.png)
+
+[![赤Slopeだけを0.5にすると、右の白と灰色がシアン寄りになる実機比較](/img/fusion/captures/S105/compare.png)](/img/fusion/captures/S105/compare.png)
+
+実機の「CDLファイルの書き出し」で`red-slope05.cc`を保存しました。出力されたXMLの値は次の通りです。
+
+~~~xml
+<Slope>0.5 1 1</Slope>
+<Offset>0 0 0</Offset>
+<Power>1 1 1</Power>
+<Saturation>1</Saturation>
+~~~
+
+[実機から書き出したCDL](/img/fusion/captures/S105/red-slope05.cc)を確認できます。
+
+読み込みを確かめるため、ControlsのRed Slopeを1へ戻し、元のチャートの表示になったことを確認しました。その後、OperationをFile、DirectionをForwardにして、書き出したCDLを読み込み直しています。保存Graphでは同じフォルダーのファイルを`Comp:/red-slope05.cc`で参照します。
+
+[![Operation FileとForward、同じフォルダーのred-slope05.ccを参照した実機Inspector](/img/fusion/captures/S105/file-inspector.png)](/img/fusion/captures/S105/file-inspector.png)
+
+[![CDLファイルを読み直すと右が再びシアン寄りになり、Controlsで赤Slope0.5にした結果と同じ見え方になる実機比較](/img/fusion/captures/S105/file.png)](/img/fusion/captures/S105/file.png)
+
+Fileによる出力はControlsのRed Slope 0.5と同じ見え方になり、元のチャートとは異なりました。保存した画面のViewer内の同じ範囲でも、両者のRGB画素が一致しています。この照合は画面上の比較で、測色精度や書き出し画像の一致を検証したものではありません。
+
+最後はFile／Forwardで保存しました。別アプリとのCDL互換、CCC／CDLの別形式、Reverse、Slope以外の変更、実写や異なる色空間、Mask、他OS・Edition差と性能は未確認です。`verification: partial`を維持します。
+
+[再現用Graph](/img/fusion/captures/S105/fixture.comp) · [撮影条件と確認範囲](/img/fusion/captures/S105/capture.json)
+
 ## バージョンと出典
 
 - **Blackmagic Design『DaVinci Resolve 21.1 Reference Manual』Chapter 93「Color Nodes」pp.2190–2193**：OCIO CDL Transform [OCT]、Input / Effect Mask、Fusion Studioの接続例、Operation / Direction / Slope / Offset / Power / Saturation / Export File、Settingsタブ。
 - **OpenColorIO公式「CDLTransform」**：ASC CDLに準拠したSlope・Offset・Power・Saturationの処理と、逆方向変換に関する技術資料。https://opencolorio.readthedocs.io/en/stable/api/transforms.html
-- このページの撮影・合成ワークフローは、上記仕様に基づく運用例です。特定のCDLファイルの互換性、正確なInspector初期値・範囲、Free / Studio差、21.1実機での表示結果は未検証です。
+- このページの撮影・合成ワークフローは、上記仕様に基づく運用例です。S105の数値調整、実機CDL書き出し・再読込と表示を確認しました。特定の外部CDLの互換性、全Inspector初期値・範囲、Free / Studio差は未確認です。
 
 **確認範囲：** ノード名、入力2系統、主要Inspector項目と基本的な働きは21.1マニュアルで確認しました。再現性を保証するには、使用するCDLと素材の入力条件を実案件で照合する必要があります。

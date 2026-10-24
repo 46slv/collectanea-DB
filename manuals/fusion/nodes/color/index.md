@@ -190,6 +190,26 @@ Resolve Studio21.1.0.14／Windows、Color／40%。個別記事に記載した範
 
 [swizzlerの接続・Inspector・比較条件](./swizzler)を参照してください。
 
+### Gamma・色順応・CDLを比べる実機例
+
+<!-- capture-reuse:R153 -->
+
+[![CSTで入力Gamma2.4から出力Linearへ変換した表示の実機比較](/img/fusion/captures/S103/compare.png)](/img/fusion/captures/S103/compare.png)
+
+[ColorSpaceTransformのGraph・Inspector・条件と未確認範囲](./color-space-transform)を参照してください。
+
+<!-- capture-reuse:R154 -->
+
+[![CAT02でSource D65からTarget D50へ変えた表示の実機比較](/img/fusion/captures/S104/compare.png)](/img/fusion/captures/S104/compare.png)
+
+[ChromaticAdaptationのGraph・Inspector・条件と未確認範囲](./chromatic-adaptation)を参照してください。
+
+<!-- capture-reuse:R155 -->
+
+[![OCIO CDL Controlsで赤Slopeだけを0.5にした表示の実機比較](/img/fusion/captures/S105/compare.png)](/img/fusion/captures/S105/compare.png)
+
+[OCIOCDLTransformのGraph・Inspector・条件と未確認範囲](./ocio-cdl-transform)を参照してください。
+
 ## 出典と確認範囲
 
 DaVinci Resolve 21.1 Reference Manual Chapter 93 pp.2133–2206とChapter 106 Swizzler pp.2445–2450を基に整理しています。

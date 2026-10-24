@@ -1,0 +1,184 @@
+{
+  "schema_version": 1,
+  "case": "S103",
+  "article": "manuals/fusion/nodes/color/color-space-transform.md",
+  "manual": {
+    "version": "21.1",
+    "chapter": 93,
+    "printed_pages": "2138–2141"
+  },
+  "runtime": {
+    "version": "21.1.0.14",
+    "edition": "Studio",
+    "os": "Windows-11-10.0.26200-SP0",
+    "ui_language": "ja-JP (some Shape controls remain English)"
+  },
+  "captured_at": "2026-10-24T07:18:23.124022+00:00",
+  "project": "Collectanea_Captures_20261023_Sol",
+  "timeline": "S103_capture",
+  "frame": 0.0,
+  "resolution": [
+    1920,
+    1080
+  ],
+  "color_management": {
+    "colorScienceMode": "davinciYRGB",
+    "colorSpaceTimeline": "Rec.709 (Scene)",
+    "colorSpaceTimelineGamma": "",
+    "colorSpaceOutput": "Rec.709 (Scene)",
+    "colorSpaceOutputGamma": "ACEScc",
+    "separateColorSpaceAndGamma": "0",
+    "isAutoColorManage": "0",
+    "timelineResolutionWidth": "1920",
+    "timelineResolutionHeight": "1080",
+    "timelineFrameRate": 24.0,
+    "timelinePlaybackFrameRate": "30"
+  },
+  "viewer": {
+    "zoom_percent": 40,
+    "channel": "Color",
+    "background": "checkerboard for transparent pixels",
+    "note": "Viewer screenshots are display evidence, not colorimetric exports."
+  },
+  "graph": "fixture.comp",
+  "settings": "readback.json",
+  "source": {
+    "file": "screen.png",
+    "size": [
+      3352,
+      1910
+    ],
+    "sha256": "2186b79269c09fc12f7cd551bc6e3efb4c17760015d7935592eef9fc2ee77036"
+  },
+  "shots": [
+    {
+      "file": "graph.png",
+      "source": "screen.png",
+      "source_sha256": "2186b79269c09fc12f7cd551bc6e3efb4c17760015d7935592eef9fc2ee77036",
+      "frame": 0,
+      "crop_xyxy": [
+        930,
+        1320,
+        1920,
+        1425
+      ],
+      "resampled": false,
+      "sha256": "eed079ee3e145d43453176de5d793e2e174cf7f65c627f7bc15c420a420009a0",
+      "viewer_guides": false,
+      "viewer_contents": "Left chart / Right CST InputGamma2.4 OutputLinear"
+    },
+    {
+      "file": "inspector.png",
+      "source": "screen.png",
+      "source_sha256": "2186b79269c09fc12f7cd551bc6e3efb4c17760015d7935592eef9fc2ee77036",
+      "frame": 0,
+      "crop_xyxy": [
+        2830,
+        120,
+        3352,
+        500
+      ],
+      "resampled": false,
+      "sha256": "43c90030fe5f5af22468fc4b9198a96027ea4242f516603a248cb4991cf96ae7",
+      "viewer_guides": false,
+      "viewer_contents": "Left chart / Right CST InputGamma2.4 OutputLinear"
+    },
+    {
+      "file": "compare.png",
+      "source": "screen.png",
+      "source_sha256": "2186b79269c09fc12f7cd551bc6e3efb4c17760015d7935592eef9fc2ee77036",
+      "frame": 0,
+      "crop_xyxy": [
+        1146,
+        65,
+        2830,
+        725
+      ],
+      "resampled": false,
+      "sha256": "fdc289e7337c15c6a1834b7c2423126ea0c6dc51c2f8306265f30b6dc9b05b19",
+      "viewer_guides": false,
+      "viewer_contents": "Left chart / Right CST InputGamma2.4 OutputLinear"
+    },
+    {
+      "file": "matched-inspector.png",
+      "source": "screen-matched.png",
+      "source_sha256": "b5b595becfce1b32e1ecad314e357fc188d0ae28fa160ddb1de943c07fbd3ade",
+      "frame": 0,
+      "crop_xyxy": [
+        2830,
+        120,
+        3352,
+        500
+      ],
+      "resampled": false,
+      "sha256": "54aab5f426ed0831e7b9b8a15c0cb1fb908a1aff67a33ef24cb1f8bd912ea545",
+      "viewer_guides": false,
+      "viewer_contents": "Left chart / Right CST InputGamma2.4 OutputGamma2.4"
+    },
+    {
+      "file": "matched.png",
+      "source": "screen-matched.png",
+      "source_sha256": "b5b595becfce1b32e1ecad314e357fc188d0ae28fa160ddb1de943c07fbd3ade",
+      "frame": 0,
+      "crop_xyxy": [
+        1146,
+        65,
+        2830,
+        725
+      ],
+      "resampled": false,
+      "sha256": "717cd84734e3f77ce8a7581ca29d926ad8d4f1d2046fedbf5f765ba65ef1208a",
+      "viewer_guides": false,
+      "viewer_contents": "Left chart / Right CST InputGamma2.4 OutputGamma2.4"
+    }
+  ],
+  "acceptance": {
+    "gui": "PASS: owner visually inspected node connections, selected Inspector, and output",
+    "article_display": "Executed local/public outcomes recorded in docs/fusion-screenshot-candidates.json per-case status/publication_batches;capture provenance fixed."
+  },
+  "unverified": [
+    "Free edition and other platforms",
+    "All parameter ranges and performance",
+    "Real footage,colorimetric accuracy,all parameter ranges/other editions/platforms/performance,Effect Mask and Alpha edges",
+    "Exported portable composition reimport"
+  ],
+  "parameter_readback_scope": "No broad input value enumeration or Image/Mask/ScriptVal GetInput. Exact-tool runtime metadata and bounded FuID/Number/Text readbacks plus native GUI/export.",
+  "gui_authoring": {
+    "host": {
+      "pid": 20156,
+      "hwnd": 82647722,
+      "source_pixels": [
+        3352,
+        1910
+      ]
+    },
+    "tool": "ColorSpaceTransform1",
+    "regid": "ColorSpaceTransform",
+    "visible_flow_tools": 3,
+    "delivery": "SDK settings and synthetic native Cua;physical input NOT_PROVEN;native UI/export establish result"
+  },
+  "restoration": "PASS:frame0,both40%,compact Flow,owned scratch saved,native final inspected",
+  "reproduction_action": "build creates scaffold only;apply documented settings/native CDL workflow. Do not rebuild saved cases. Portable Graph reimport NOT_RUN.",
+  "native_values": {
+    "InputColorSpace": "REC709_COLORSPACE",
+    "OutputColorSpace": "REC709_COLORSPACE",
+    "InputGamma": "TWOPOINTFOUR_GAMMA",
+    "OutputGamma": "LINEAR_GAMMA",
+    "ToneMappingMethod": "TM_NONE",
+    "GamutMappingMethod": "GM_NONE"
+  },
+  "state_variants": {
+    "screen.png": "Final inputGamma2.4/outputLinear,MappingNone",
+    "screen-matched.png": "InputGamma2.4/outputGamma2.4,MappingNone"
+  },
+  "unverified_extra": [
+    "Advanced Japanese labels and REGID names differ in runtime metadata;no Advanced control changes or interpretation accepted",
+    "OOTF,RCM,HDR/Tone/Gamut Mapping,all presets and roundtrip numeric fidelity"
+  ],
+  "reproduction": {
+    "fixture_sha256": "3a0a40fdd1c3c889ff44406d32a7d379c3e632da10c0d988852d0b7a3d690048",
+    "readback_sha256": "65ba5e93d1559236e86b2cdd7a1bda5f7e4da0796b51ce737ddc9743bc3131cf",
+    "paths": "Comp:/../_fixtures/ for bundled synthetic fixtures",
+    "reimport": "NOT_RUN: accepted GUI evidence precedes export path normalization"
+  }
+}

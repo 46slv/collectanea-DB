@@ -1,0 +1,246 @@
+{
+  "schema_version": 1,
+  "case": "S105",
+  "article": "manuals/fusion/nodes/color/ocio-cdl-transform.md",
+  "manual": {
+    "version": "21.1",
+    "chapter": 93,
+    "printed_pages": "2190–2193"
+  },
+  "runtime": {
+    "version": "21.1.0.14",
+    "edition": "Studio",
+    "os": "Windows-11-10.0.26200-SP0",
+    "ui_language": "ja-JP (some Shape controls remain English)"
+  },
+  "captured_at": "2026-10-24T07:18:30.001493+00:00",
+  "project": "Collectanea_Captures_20261023_Sol",
+  "timeline": "S105_capture",
+  "frame": 0.0,
+  "resolution": [
+    1920,
+    1080
+  ],
+  "color_management": {
+    "colorScienceMode": "davinciYRGB",
+    "colorSpaceTimeline": "Rec.709 (Scene)",
+    "colorSpaceTimelineGamma": "",
+    "colorSpaceOutput": "Rec.709 (Scene)",
+    "colorSpaceOutputGamma": "ACEScc",
+    "separateColorSpaceAndGamma": "0",
+    "isAutoColorManage": "0",
+    "timelineResolutionWidth": "1920",
+    "timelineResolutionHeight": "1080",
+    "timelineFrameRate": 24.0,
+    "timelinePlaybackFrameRate": "30"
+  },
+  "viewer": {
+    "zoom_percent": 40,
+    "channel": "Color",
+    "background": "checkerboard for transparent pixels",
+    "note": "Viewer screenshots are display evidence, not colorimetric exports."
+  },
+  "graph": "fixture.comp",
+  "settings": "readback.json",
+  "source": {
+    "file": "screen.png",
+    "size": [
+      3352,
+      1910
+    ],
+    "sha256": "7191aa94f2d37deb0a2cb9dbfae5cb11d2a66b1d32c2bbffd2ce3543ffd8fde5"
+  },
+  "shots": [
+    {
+      "file": "graph.png",
+      "source": "screen.png",
+      "source_sha256": "7191aa94f2d37deb0a2cb9dbfae5cb11d2a66b1d32c2bbffd2ce3543ffd8fde5",
+      "frame": 0,
+      "crop_xyxy": [
+        930,
+        1320,
+        1920,
+        1425
+      ],
+      "resampled": false,
+      "sha256": "709631bb16c34d15c4025a401df03e53af8b78da5fc9aff44d1159dbfdd2235d",
+      "viewer_guides": false,
+      "viewer_contents": "Left chart / Right native CDL File RedSlope0.5,Controls reset1"
+    },
+    {
+      "file": "inspector.png",
+      "source": "screen-controls.png",
+      "source_sha256": "0dc365befb6bcf25c4547bd3c49eab8af648daa734c8cf00700d244241de4694",
+      "frame": 0,
+      "crop_xyxy": [
+        2830,
+        120,
+        3352,
+        640
+      ],
+      "resampled": false,
+      "sha256": "8c3552375b4737abe6e0d10cd6aea9c1d032b962bff39d3da9278f010ef9313d",
+      "viewer_guides": false,
+      "viewer_contents": "Left chart / Right Controls RedSlope0.5"
+    },
+    {
+      "file": "compare.png",
+      "source": "screen-controls.png",
+      "source_sha256": "0dc365befb6bcf25c4547bd3c49eab8af648daa734c8cf00700d244241de4694",
+      "frame": 0,
+      "crop_xyxy": [
+        1146,
+        65,
+        2830,
+        725
+      ],
+      "resampled": false,
+      "sha256": "30266798eba1b0380bd67047c4e1dd4011c78b1cfbc3539d98d4c82ab0ac6b55",
+      "viewer_guides": false,
+      "viewer_contents": "Left chart / Right Controls RedSlope0.5"
+    },
+    {
+      "file": "baseline.png",
+      "source": "screen-baseline.png",
+      "source_sha256": "47a634639bc2221ea964166c576671990ef5b091643d621cdc4ea42416872521",
+      "frame": 0,
+      "crop_xyxy": [
+        1146,
+        65,
+        2830,
+        725
+      ],
+      "resampled": false,
+      "sha256": "d03c352d549459dd7e9995c70a559e5e3d69bd485a163ae4e7a747c95adfbf60",
+      "viewer_guides": false,
+      "viewer_contents": "Left chart / Right identity Controls"
+    },
+    {
+      "file": "file-inspector.png",
+      "source": "screen.png",
+      "source_sha256": "7191aa94f2d37deb0a2cb9dbfae5cb11d2a66b1d32c2bbffd2ce3543ffd8fde5",
+      "frame": 0,
+      "crop_xyxy": [
+        2830,
+        120,
+        3352,
+        370
+      ],
+      "resampled": false,
+      "sha256": "2ad64ff8b6bb5362b9f0444e9b75bf26afa668faa6ca77bdce72dffb223926d9",
+      "viewer_guides": false,
+      "viewer_contents": "Left chart / Right native CDL File RedSlope0.5,Controls reset1"
+    },
+    {
+      "file": "file.png",
+      "source": "screen.png",
+      "source_sha256": "7191aa94f2d37deb0a2cb9dbfae5cb11d2a66b1d32c2bbffd2ce3543ffd8fde5",
+      "frame": 0,
+      "crop_xyxy": [
+        1146,
+        65,
+        2830,
+        725
+      ],
+      "resampled": false,
+      "sha256": "30266798eba1b0380bd67047c4e1dd4011c78b1cfbc3539d98d4c82ab0ac6b55",
+      "viewer_guides": false,
+      "viewer_contents": "Left chart / Right native CDL File RedSlope0.5,Controls reset1"
+    }
+  ],
+  "acceptance": {
+    "gui": "PASS: owner visually inspected node connections, selected Inspector, and output",
+    "article_display": "Executed local/public outcomes recorded in docs/fusion-screenshot-candidates.json per-case status/publication_batches;capture provenance fixed."
+  },
+  "unverified": [
+    "Free edition and other platforms",
+    "All parameter ranges and performance",
+    "Real footage,colorimetric accuracy,all parameter ranges/other editions/platforms/performance,Effect Mask and Alpha edges",
+    "Exported portable composition reimport"
+  ],
+  "parameter_readback_scope": "No broad input value enumeration or Image/Mask/ScriptVal GetInput. Exact-tool runtime metadata and bounded FuID/Number/Text readbacks plus native GUI/export.",
+  "gui_authoring": {
+    "host": {
+      "pid": 20156,
+      "hwnd": 82647722,
+      "source_pixels": [
+        3352,
+        1910
+      ]
+    },
+    "tool": "OCIOCDLTransform1",
+    "regid": "OCIOCDLTransform",
+    "visible_flow_tools": 3,
+    "delivery": "SDK settings and synthetic native Cua;physical input NOT_PROVEN;native UI/export establish result"
+  },
+  "restoration": "PASS:frame0,both40%,compact Flow,owned scratch saved,native final inspected",
+  "reproduction_action": "build creates scaffold only;apply documented settings/native CDL workflow. Do not rebuild saved cases. Portable Graph reimport NOT_RUN.",
+  "native_values": {
+    "Operation": "File",
+    "Direction": "Forward",
+    "LUTFile": "Comp:/red-slope05.cc",
+    "Controls_RedSlope_before_file": 1
+  },
+  "cdl_roundtrip": {
+    "export_sha256": "dac17cb588ec966edc6a0bfca321a301bef88e75422afe5d517454b7cc83709e",
+    "native_file_values": {
+      "Slope": [
+        0.5,
+        1,
+        1
+      ],
+      "Offset": [
+        0,
+        0,
+        0
+      ],
+      "Power": [
+        1,
+        1,
+        1
+      ],
+      "Saturation": 1
+    },
+    "Controls_RedSlope_before_file": 1,
+    "Operation": "File",
+    "Direction": "Forward",
+    "LUTFile": "Comp:/red-slope05.cc",
+    "native_acceptance": "PASS:actual native File Inspector and cyan chart visually inspected;Controls reset1 before load",
+    "viewer_pixel_check": {
+      "scope": "native screenshot ROI only;not colorimetric/export fidelity",
+      "crop_xyxy": [
+        2055,
+        205,
+        2810,
+        615
+      ],
+      "controls_vs_file": "EXACT_RGB_EQUAL",
+      "identity_vs_file": "DIFFERENT",
+      "source_files": [
+        "screen-controls.png",
+        "screen.png",
+        "screen-baseline.png"
+      ]
+    }
+  },
+  "state_variants": {
+    "screen.png": "Final File/Forward/native exported CDL,Controls red reset1",
+    "screen-controls.png": "Controls/Forward RedSlope0.5",
+    "screen-baseline.png": "Controls/Forward identity"
+  },
+  "native_export": {
+    "file": "red-slope05.cc",
+    "sha256": "dac17cb588ec966edc6a0bfca321a301bef88e75422afe5d517454b7cc83709e",
+    "method": "Native Export CDL button/Save dialog,owned new path,no overwrite",
+    "file_dialog_correction": "Forward-slash path rejected as invalid filename;OK then backslash absolute path,Save success,XML verified,no blind retry"
+  },
+  "unverified_extra": [
+    "External CDL/CCC compatibility,Reverse,Slope other RGB/Offset/Power/Saturation changes,other apps"
+  ],
+  "reproduction": {
+    "fixture_sha256": "f908c4bc7008c576e32d47b175053f61f58027451b5ebe01826647fc240e2e9d",
+    "readback_sha256": "9620db906bcd6269b952077448700cd8ad4b6ae08509f3e44bb4994f7f6ff7a3",
+    "paths": "Comp:/../_fixtures/ for bundled synthetic fixtures",
+    "reimport": "NOT_RUN: accepted GUI evidence precedes export path normalization"
+  }
+}
