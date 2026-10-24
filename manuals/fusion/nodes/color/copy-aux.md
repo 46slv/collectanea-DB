@@ -15,7 +15,7 @@ outputs: [image]
 tasks: [auxiliary-channels, inspect-aov, channel-remap]
 product_scope: fusion
 suite_surfaces: [fusion]
-updated: "2026-10-11"
+updated: "2026-10-24"
 ---
 
 # Copy Aux
@@ -145,9 +145,37 @@ MediaIn / Loader（RGBA + Z）
 - [Depth Blur](../deep/depth-blur-deep-pixel) — Zを使った被写界深度
 - [Texture](../deep/texture-deep-pixel) — UVを使ったレンダリング後のテクスチャ差し替え
 
+## 実機例：球のZをカラーへ取り出す
+
+<!-- capture-case:S115 -->
+
+Resolve Studio21.1.0.14／Windows、1920×1080、Viewer40%、フレーム0で撮影しました。左がRenderer 3Dのカラー出力、右が処理後です。
+
+[![球体とCamera、LightからRenderer 3D、Copy Aux、MediaOutへ接続した実機Graph](/img/fusion/captures/S115/graph.png)](/img/fusion/captures/S115/graph.png)
+
+Renderer 3Dの種類をSoftware Rendererとし、出力チャンネルのRGBAとZを有効にしました。カメラはZ＝7、球は原点に置いています。
+
+[![Software Rendererの出力チャンネルでRGBAとZを有効にした実機Inspector](/img/fusion/captures/S115/renderer-inspector.png)](/img/fusion/captures/S115/renderer-inspector.png)
+
+Copy AuxをAux to Color、Aux ChannelをZにします。Out Color DepthはMatch Aux Channel Depth、Channel MissingはFail、Kill Aux ChannelsはOFFです。再マッピングがOFFの状態では、右は黒く表示されました。元のZは負の浮動小数点値であり、黒い表示だけからZが欠けていると判断できません。
+
+[![Copy AuxでZを選び、チャンネル欠落時は失敗、再マッピングOFFにした実機Inspector](/img/fusion/captures/S115/unmapped-inspector.png)](/img/fusion/captures/S115/unmapped-inspector.png)
+
+[![補助Zをカラーへ取り出し、負値が右Viewerで黒く表示される実機比較](/img/fusion/captures/S115/unmapped.png)](/img/fusion/captures/S115/unmapped.png)
+
+Enable RemappingをONにし、Fromを−7〜−5、Toを0〜1へ固定しました。右に球の奥行きが灰色の濃淡として現れます。Channel Missing＝Failのまま出力できており、欠落時のデフォルト値を見ている例ではありません。範囲はこのシーン用で、ほかの素材へそのまま適用する値ではありません。
+
+[![Copy AuxのZ再マッピングをFromマイナス7からマイナス5、To0から1に設定した実機Inspector](/img/fusion/captures/S115/inspector.png)](/img/fusion/captures/S115/inspector.png)
+
+[![左の照明付き球体と、右の固定範囲で可視化したZ深度の実機比較](/img/fusion/captures/S115/compare.png)](/img/fusion/captures/S115/compare.png)
+
+最後はこの再マッピングをONにして保存しました。出力カラーを置き換える可視化の例です。Color to Auxでの書き戻し、Kill Aux Channels、ほかの補助チャンネル、外部EXRの保存・再読込、透明境界や実写合成、Edition差と性能は未確認です。複数サンプルを持つDeep Imageの検証にも当たりません。
+
+[再現用Graph](/img/fusion/captures/S115/fixture.comp) · [撮影条件と確認範囲](/img/fusion/captures/S115/capture.json)
+
 ## 出典と確認範囲
 
 - **DaVinci Resolve 21.1 Reference Manual**, Chapter 93「Color Nodes」pp.2182–2185、「Copy Aux [CpA]」。入力、Mode、Aux Channelの成分対応、Out Color Depth、欠落時の動作、Kill Aux Channels、Remappingを確認。
 - **Chapter 77「Understanding Image Channels」**。補助チャンネルの保存・伝搬・値の意味を参照。
 
-本記事は**21.1公式マニュアルで説明されている挙動**を記載しています。Resolve 21.1の実機での全パラメータの既定値・範囲・Edition差は未検証です。
+S115でSoftware Rendererの補助Z、Aux to Color、固定Remappingの表示を実機確認しました。全パラメータの既定値・範囲、ほかの入力やEdition差は未確認です。

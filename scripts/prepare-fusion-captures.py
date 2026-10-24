@@ -119,6 +119,9 @@ CONFIG={
  'S112':{'graph': (930, 1320, 1920, 1425), 'inspector': (2830, 120, 3352, 400), 'compare': (1146, 65, 2830, 725), 'matched-inspector': (2830, 120, 3352, 400), 'matched': (1146, 65, 2830, 725)},
  'S113':{'graph': (930, 1320, 1920, 1425), 'inspector': (2830, 120, 3352, 400), 'compare': (1146, 65, 2830, 725), 'baseline-inspector': (2830, 120, 3352, 400), 'baseline': (1146, 65, 2830, 725)},
  'S114':{'graph': (930, 1320, 1920, 1425), 'inspector': (2830, 120, 3352, 500), 'compare': (1146, 65, 2830, 725), 'baseline-inspector': (2830, 120, 3352, 500), 'baseline': (1146, 65, 2830, 725), 'source-inspector': (2830, 120, 3352, 500)},
+ 'S115':{'graph': (420, 1100, 2420, 1640), 'inspector': (2830, 120, 3352, 650), 'compare': (1146, 65, 2830, 725), 'unmapped-inspector': (2830, 120, 3352, 650), 'unmapped': (1146, 65, 2830, 725), 'renderer-inspector': (2830, 120, 3352, 850)},
+ 'S116':{'graph': (420, 1100, 2420, 1640), 'inspector': (2830, 120, 3352, 460), 'compare': (1146, 65, 2830, 725), 'baseline': (1146, 65, 2830, 725), 'far-inspector': (2830, 120, 3352, 460), 'far': (1146, 65, 2830, 725), 'depth-inspector': (2830, 120, 3352, 650), 'depth': (1146, 65, 2830, 725)},
+ 'S117':{'graph': (420, 1100, 2420, 1640), 'inspector': (2830, 120, 3352, 540), 'compare': (1146, 65, 2830, 725), 'baseline-inspector': (2830, 120, 3352, 540), 'baseline': (1146, 65, 2830, 725), 'depth-inspector': (2830, 120, 3352, 650), 'depth': (1146, 65, 2830, 725)},
 }
 def sha(p):return hashlib.sha256(p.read_bytes()).hexdigest()
 candidates=json.loads((ROOT/'docs/fusion-screenshot-candidates.json').read_text(encoding='utf-8'))
@@ -234,6 +237,9 @@ for case in args.cases:
   if case=='S112':extra.update({(case,'matched'):'screen-matched.png',(case,'matched-inspector'):'screen-matched.png'})
   if case in ['S113','S114']:extra.update({(case,'baseline'):'screen-baseline.png',(case,'baseline-inspector'):'screen-baseline.png'})
   if case=='S114':extra[(case,'source-inspector')]='screen-source.png'
+  if case=='S115':extra.update({(case,'unmapped'):'screen-unmapped.png',(case,'unmapped-inspector'):'screen-unmapped.png',(case,'renderer-inspector'):'screen-renderer.png'})
+  if case in ['S116','S117']:extra.update({(case,'baseline'):'screen-baseline.png',(case,'baseline-inspector'):'screen-baseline.png',(case,'depth'):'screen-depth.png',(case,'depth-inspector'):'screen-depth.png'})
+  if case=='S116':extra.update({(case,'far'):'screen-far.png',(case,'far-inspector'):'screen-far.png'})
   src=folder/extra.get((case,slug),variants.get((case,slug),'screen.png'))
   assert 0<=box[0]<box[2]<=im.width and 0<=box[1]<box[3]<=im.height, (case,slug,box)
   path=folder/(slug+'.png');Image.open(src).crop(box).save(path)
@@ -318,6 +324,11 @@ for case in args.cases:
    shots[-1]['frame']=0
    shots[-1]['viewer_guides']=False
    shots[-1]['viewer_contents']='Left chart / Right Gamma2.2 toGamma2.2' if case=='S112' and slug.startswith('matched') else 'Left chart / Right Gamma2.2 tolinear' if case=='S112' else 'Left chart / Right SourcesRGB DisplaysRGB' if case=='S113' and slug.startswith('baseline') else 'Left chart / Right Sourcelinear DisplaysRGB' if case=='S113' else 'Left float32 RGBA4/1/.25/1 / Right ToneMappingNone' if slug.startswith('baseline') else 'Left float32 RGBA4/1/.25/1 / Right Simple Compress,GamutMappingNone'
+  if case in ['S115','S116','S117']:
+   shots[-1]['frame']=0
+   shots[-1]['viewer_guides']=False
+   shots[-1]['active_tool']='Renderer3D1' if slug=='renderer-inspector' else 'CopyAux1' if slug.startswith('depth') or case=='S115' else 'DepthBlur1' if case=='S116' else 'Fog1'
+   shots[-1]['viewer_contents']='Left beauty / Right Z without remap,black display' if case=='S115' and slug.startswith('unmapped') else 'Left beauty / Right Z remapped[-7,-5] to[0,1]' if case=='S115' else 'Left beauty / Right diagnostic Z remapped[-13,-9] to[0,1]' if slug.startswith('depth') else 'Left beauty / Right BlurSize0' if case=='S116' and slug=='baseline' else 'Left beauty / Right Soft Blur20 Focal-12.5 DOF1 ZScale1' if case=='S116' and slug.startswith('far') else 'Left beauty / Right Soft Blur20 Focal-9.5 DOF1 ZScale1' if case=='S116' else 'Left beauty / Right Fog Opacity0' if slug.startswith('baseline') else 'Left beauty / Right Fog Near-10 Far-13 Opacity1'
  candidate=next(x for x in candidates['candidates'] if x['id']==case)
  manifest={'schema_version':1,'case':case,'article':candidate['article'],'manual':candidate['manual'],'runtime':{'version':readback['resolve'],'edition':'Studio','os':readback['os'],'ui_language':'ja-JP (some Shape controls remain English)'},'captured_at':datetime.datetime.fromtimestamp(source.stat().st_mtime,datetime.timezone.utc).isoformat(),'project':readback['project'],'timeline':readback['timeline'],'frame':readback['frame'],'resolution':[1920,1080],'color_management':readback['project_settings'],'viewer':{'zoom_percent':40,'channel':'Color','background':'checkerboard for transparent pixels','note':'Viewer screenshots are display evidence, not colorimetric exports.'},'graph':'fixture.comp','settings':'readback.json','source':{'file':'screen.png','size':im.size,'sha256':sha(source)},'shots':shots,'acceptance':{'gui':'PASS: owner visually inspected node connections, selected Inspector, and output','article_display':'NOT_RUN'},'unverified':['Free edition and other platforms','All parameter ranges and performance','S03 optional Glow Mask / Effect Mask comparison is deferred'] if case=='S03' else ['Free edition and other platforms','All parameter ranges and performance']}
  (folder/'capture.json').write_text(json.dumps(manifest,ensure_ascii=False,indent=2)+'\n',encoding='utf-8',newline='\n')

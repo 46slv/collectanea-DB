@@ -1,0 +1,243 @@
+{
+  "schema_version": 1,
+  "case": "S115",
+  "article": "manuals/fusion/nodes/color/copy-aux.md",
+  "manual": {
+    "version": "21.1",
+    "chapter": 93,
+    "printed_pages": "2182–2185"
+  },
+  "runtime": {
+    "version": "21.1.0.14",
+    "edition": "Studio",
+    "os": "Windows-11-10.0.26200-SP0",
+    "ui_language": "ja-JP (some Shape controls remain English)"
+  },
+  "captured_at": "2026-10-24T08:56:24.920129+00:00",
+  "project": "Collectanea_Captures_20261023_Sol",
+  "timeline": "S115_capture",
+  "frame": 0.0,
+  "resolution": [
+    1920,
+    1080
+  ],
+  "color_management": {
+    "colorScienceMode": "davinciYRGB",
+    "colorSpaceTimeline": "Rec.709 (Scene)",
+    "colorSpaceTimelineGamma": "",
+    "colorSpaceOutput": "Rec.709 (Scene)",
+    "colorSpaceOutputGamma": "ACEScc",
+    "separateColorSpaceAndGamma": "0",
+    "isAutoColorManage": "0",
+    "timelineResolutionWidth": "1920",
+    "timelineResolutionHeight": "1080",
+    "timelineFrameRate": 24.0,
+    "timelinePlaybackFrameRate": "30"
+  },
+  "viewer": {
+    "zoom_percent": 40,
+    "channel": "Color",
+    "background": "checkerboard for transparent pixels",
+    "note": "Viewer screenshots are display evidence, not colorimetric exports."
+  },
+  "graph": "fixture.comp",
+  "settings": "readback.json",
+  "source": {
+    "file": "screen.png",
+    "size": [
+      3352,
+      1910
+    ],
+    "sha256": "3bbc1a898085017f544db2097596ee9b83b543bd40ae7e85e7a46a6519e45290"
+  },
+  "shots": [
+    {
+      "file": "graph.png",
+      "source": "screen.png",
+      "source_sha256": "3bbc1a898085017f544db2097596ee9b83b543bd40ae7e85e7a46a6519e45290",
+      "frame": 0,
+      "crop_xyxy": [
+        420,
+        1100,
+        2420,
+        1640
+      ],
+      "resampled": false,
+      "sha256": "054dcec60185735c1b78e2e96459f7cd87f803a533f9caf5ac877a6557ba4b56",
+      "viewer_guides": false,
+      "active_tool": "CopyAux1",
+      "viewer_contents": "Left beauty / Right Z remapped[-7,-5] to[0,1]"
+    },
+    {
+      "file": "inspector.png",
+      "source": "screen.png",
+      "source_sha256": "3bbc1a898085017f544db2097596ee9b83b543bd40ae7e85e7a46a6519e45290",
+      "frame": 0,
+      "crop_xyxy": [
+        2830,
+        120,
+        3352,
+        650
+      ],
+      "resampled": false,
+      "sha256": "cdfdc648f30f14c76f54d34c830af5b8910baa4e5c7d0361dd4223e774d7d7ac",
+      "viewer_guides": false,
+      "active_tool": "CopyAux1",
+      "viewer_contents": "Left beauty / Right Z remapped[-7,-5] to[0,1]"
+    },
+    {
+      "file": "compare.png",
+      "source": "screen.png",
+      "source_sha256": "3bbc1a898085017f544db2097596ee9b83b543bd40ae7e85e7a46a6519e45290",
+      "frame": 0,
+      "crop_xyxy": [
+        1146,
+        65,
+        2830,
+        725
+      ],
+      "resampled": false,
+      "sha256": "9e97ab861c3c9b0483352934c35a79d78642a6f3409653fbbca0ce72ec45eed9",
+      "viewer_guides": false,
+      "active_tool": "CopyAux1",
+      "viewer_contents": "Left beauty / Right Z remapped[-7,-5] to[0,1]"
+    },
+    {
+      "file": "unmapped-inspector.png",
+      "source": "screen-unmapped.png",
+      "source_sha256": "e3beae5958a2988324fd21be71ce66775c9775988be812f03cc36f5d85066e0c",
+      "frame": 0,
+      "crop_xyxy": [
+        2830,
+        120,
+        3352,
+        650
+      ],
+      "resampled": false,
+      "sha256": "9f501fe36bfdc74b155754f985636296b691fe95990025bd09642006be6a0e5b",
+      "viewer_guides": false,
+      "active_tool": "CopyAux1",
+      "viewer_contents": "Left beauty / Right Z without remap,black display"
+    },
+    {
+      "file": "unmapped.png",
+      "source": "screen-unmapped.png",
+      "source_sha256": "e3beae5958a2988324fd21be71ce66775c9775988be812f03cc36f5d85066e0c",
+      "frame": 0,
+      "crop_xyxy": [
+        1146,
+        65,
+        2830,
+        725
+      ],
+      "resampled": false,
+      "sha256": "d310fdf858396e55873f33525635ff18d5ca2f210a9afcb35a65fb27f4a336da",
+      "viewer_guides": false,
+      "active_tool": "CopyAux1",
+      "viewer_contents": "Left beauty / Right Z without remap,black display"
+    },
+    {
+      "file": "renderer-inspector.png",
+      "source": "screen-renderer.png",
+      "source_sha256": "4de01bd190722dd3a37a3f3126ceb09aeb16e17a3ec8cf69e4fad557fdd1b554",
+      "frame": 0,
+      "crop_xyxy": [
+        2830,
+        120,
+        3352,
+        850
+      ],
+      "resampled": false,
+      "sha256": "e25c42fa263eb7f923061b9b140ad92f3a220c7d14446c188a86c2028229d239",
+      "viewer_guides": false,
+      "active_tool": "Renderer3D1",
+      "viewer_contents": "Left beauty / Right Z remapped[-7,-5] to[0,1]"
+    }
+  ],
+  "acceptance": {
+    "gui": "PASS: owner visually inspected node connections, selected Inspector, and output",
+    "article_display": "Executed outcomes recorded in docs/fusion-screenshot-candidates.json;provenance fixed."
+  },
+  "unverified": [
+    "Free edition and other platforms",
+    "All parameter ranges and performance",
+    "No true Deep/multiple samples,external EXR export/reimport,other renderer/platform/edition/performance or all controls.",
+    "Exported portable composition reimport"
+  ],
+  "gui_authoring": {
+    "host": {
+      "pid": 20156,
+      "hwnd": 82647722,
+      "source_pixels": [
+        3352,
+        1910
+      ]
+    },
+    "tool": "CopyAux1",
+    "regid": "Dimension.CopyAux",
+    "visible_flow_tools": 7,
+    "delivery": "SDK/synthetic Cua,physicalNOT_PROVEN;native UI/export establish outcome"
+  },
+  "native_proof": {
+    "target": "CopyAux1",
+    "final": {
+      "Mode": 0.0,
+      "Channel": "Z",
+      "OutColorDepth": 0.0,
+      "ChannelMissing": 0.0,
+      "KillAuxChannels": 0.0,
+      "Z.Remap.Enable": 1.0,
+      "Z.Remap.From.Min": -7.0,
+      "Z.Remap.From.Max": -5.0,
+      "Z.Remap.To.Min": 0.0,
+      "Z.Remap.To.Max": 1.0
+    },
+    "renderer": {
+      "RendererType": "RendererSoftware",
+      "RendererSoftware.Channels.RGBA": 1.0,
+      "RendererSoftware.Channels.Z": 1.0
+    },
+    "comparison": "Z unmapped vs fixed remap",
+    "frame": 0,
+    "roi_xyxy": [
+      2055,
+      205,
+      2810,
+      615
+    ],
+    "aux_domain": "ordinary 2D RGBA plus Z,NOT true Deep",
+    "physical_input": "NOT_PROVEN:SDK/synthetic;native screenshots and bounded scalar readback establish outcome",
+    "limits": [
+      "No true Deep/multiple samples,external EXR export/reimport,other renderer/platform/edition/performance or all controls."
+    ],
+    "delta": {
+      "bbox": [
+        195,
+        20,
+        559,
+        388
+      ],
+      "extrema": [
+        [
+          0,
+          127
+        ],
+        [
+          0,
+          127
+        ],
+        [
+          0,
+          127
+        ]
+      ]
+    }
+  },
+  "restoration": "PASS:frame0,both40%,compact Flow,owned scratch saved,native final inspected",
+  "reproduction": {
+    "fixture_sha256": "d7b8ac4b732cc66faedaf8c5a2a24b8afa8c9a28e634a1094e1743bdb5f011a6",
+    "readback_sha256": "479137404c5e39ec1ee4f2e465c618cabc843b3993b21a61dd6e60eb1321038b",
+    "paths": "Comp:/../_fixtures/ for bundled synthetic fixtures",
+    "reimport": "NOT_RUN: accepted GUI evidence precedes export path normalization"
+  }
+}
