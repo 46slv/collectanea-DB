@@ -387,6 +387,38 @@ try {
       if (width === 390) await shot('bilateral-filter-mobile');
     }
   });
+  await check('thresholding-interaction-and-mobile', async () => {
+    await go(route);
+    await page.getByRole('link', {name: '操作して二値化を比較する'}).click();
+    await expect(page).toHaveURL(new RegExp('/reference/visual-processing/thresholding/?$'));
+    for (const width of [1440, 390, 320]) {
+      await page.setViewportSize({width, height: width === 1440 ? 1000 : 844});
+      await go('/reference/visual-processing/thresholding');
+      await expect(page.locator('.theme-doc-markdown h1')).toHaveText('閾値処理（Thresholding）');
+      const widget = page.locator('[data-vp-threshold="ready"]');
+      await expect(widget).toBeVisible();
+      const layout = await widget.evaluate((el) => {
+        const previews = el.querySelector('.vp-threshold__previews');
+        const controls = el.querySelector('.vp-threshold__controls');
+        return {
+          dom: Boolean(previews && controls && (previews.compareDocumentPosition(controls) & Node.DOCUMENT_POSITION_FOLLOWING)),
+          visual: Boolean(previews && controls && previews.getBoundingClientRect().bottom <= controls.getBoundingClientRect().top),
+        };
+      });
+      assert.ok(layout.dom && layout.visual, 'Threshold previews precede controls: ' + width + ' ' + JSON.stringify(layout));
+      const binary = widget.locator('[data-vp-threshold-preview="binary"] canvas');
+      const initial = await binary.evaluate((canvas) => canvas.toDataURL());
+      const slider = widget.getByRole('slider', {name: 'しきい値'});
+      await slider.focus();
+      await slider.press('Home');
+      await expect(widget).toHaveAttribute('data-vp-threshold-value', '0');
+      await expect.poll(() => binary.evaluate((canvas) => canvas.toDataURL())).not.toBe(initial);
+      await widget.getByRole('button', {name: '初期値に戻す'}).click();
+      await expect(widget).toHaveAttribute('data-vp-threshold-value', '128');
+      await noOverflow();
+      if (width === 390) await shot('thresholding-mobile');
+    }
+  });
   await check('no-runtime-or-resource-errors', async () => {
     assert.deepEqual(report.pageErrors, []);
     assert.deepEqual(report.resourceErrors, []);
