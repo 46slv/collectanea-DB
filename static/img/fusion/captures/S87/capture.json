@@ -1,0 +1,233 @@
+{
+  "schema_version": 1,
+  "case": "S87",
+  "article": "manuals/fusion/nodes/paint/stroke.md",
+  "manual": {
+    "version": "21.1",
+    "chapter": 113,
+    "printed_pages": "2638–2645"
+  },
+  "runtime": {
+    "version": "21.1.0.14",
+    "edition": "Studio",
+    "os": "Windows-11-10.0.26200-SP0",
+    "ui_language": "ja-JP (some Shape controls remain English)"
+  },
+  "captured_at": "2026-10-24T03:44:06.273808+00:00",
+  "project": "Collectanea_Captures_20261023_Sol",
+  "timeline": "S87_capture",
+  "frame": 0.0,
+  "resolution": [
+    1920,
+    1080
+  ],
+  "color_management": {
+    "colorScienceMode": "davinciYRGB",
+    "colorSpaceTimeline": "Rec.709 (Scene)",
+    "colorSpaceTimelineGamma": "",
+    "colorSpaceOutput": "Rec.709 (Scene)",
+    "colorSpaceOutputGamma": "ACEScc",
+    "separateColorSpaceAndGamma": "0",
+    "isAutoColorManage": "0",
+    "timelineResolutionWidth": "1920",
+    "timelineResolutionHeight": "1080",
+    "timelineFrameRate": 24.0,
+    "timelinePlaybackFrameRate": "30"
+  },
+  "viewer": {
+    "zoom_percent": 40,
+    "channel": "Color",
+    "background": "checkerboard for transparent pixels",
+    "note": "Viewer screenshots are display evidence, not colorimetric exports."
+  },
+  "graph": "fixture.comp",
+  "settings": "readback.json",
+  "source": {
+    "file": "screen.png",
+    "size": [
+      3352,
+      1910
+    ],
+    "sha256": "0e492abeded490220f3387273a0959a20c569c76997d8b1db247e891fb7d326d"
+  },
+  "shots": [
+    {
+      "file": "graph.png",
+      "source": "screen.png",
+      "source_sha256": "0e492abeded490220f3387273a0959a20c569c76997d8b1db247e891fb7d326d",
+      "frame": 0,
+      "crop_xyxy": [
+        770,
+        1300,
+        2050,
+        1450
+      ],
+      "resampled": false,
+      "sha256": "65dae31b90f03771a53d4b4a6d164b51ab90074d663fb104eccd8fd73ee8c533",
+      "viewer_contents": "Left input chart / Right Paint white Stroke,both1920x1080/40%",
+      "active_tool": "Paint1",
+      "viewer_guides": true
+    },
+    {
+      "file": "inspector.png",
+      "source": "screen-controls.png",
+      "source_sha256": "e35e22562707d7aed2584bfbc17c2f5793eb2d0350691ac463384f4aa77296a2",
+      "frame": 0,
+      "crop_xyxy": [
+        2830,
+        120,
+        3352,
+        790
+      ],
+      "resampled": false,
+      "sha256": "0994307471eb8d1ff27c6c0e6f89b56d668973b8cb0d90b1f30de593f21f424f",
+      "viewer_contents": "Left input chart / Right Paint white Stroke,both1920x1080/40%",
+      "active_tool": "Stroke1",
+      "viewer_guides": true
+    },
+    {
+      "file": "compare.png",
+      "source": "screen-clean0.png",
+      "source_sha256": "7132c0753213ba8fca052d9aa500d162bc31598e4dde562df5cf9cdde61b5e32",
+      "frame": 0,
+      "crop_xyxy": [
+        1146,
+        65,
+        2830,
+        725
+      ],
+      "resampled": false,
+      "sha256": "78a6f5cc8ec863b74723e92711ebae1a5894e5bd4641ba679d33ac6bfb375983",
+      "viewer_contents": "Left input chart / Right Paint white Stroke,both1920x1080/40%",
+      "active_tool": "MediaOut1",
+      "viewer_guides": false
+    },
+    {
+      "file": "editable.png",
+      "source": "screen-editable.png",
+      "source_sha256": "5e8486e8eab8eae7eb0fb4b3cdabccd1de929f872ccce7324cb3542545f0f3df",
+      "frame": 0,
+      "crop_xyxy": [
+        2830,
+        120,
+        3352,
+        790
+      ],
+      "resampled": false,
+      "sha256": "6bd5b20373e7f0d6fa81dd06b5f58980b1ed9d670c1854879fcf80fa29d18159",
+      "viewer_contents": "Left input chart / Right Paint white Stroke,both1920x1080/40%",
+      "active_tool": "Stroke1",
+      "viewer_guides": true
+    },
+    {
+      "file": "frame1.png",
+      "source": "screen-clean1.png",
+      "source_sha256": "1237a1c1ad3b13b36068dd47dd6260ee1327a5479675ae3d5799d9212c50b1a7",
+      "frame": 1,
+      "crop_xyxy": [
+        1146,
+        65,
+        2830,
+        725
+      ],
+      "resampled": false,
+      "sha256": "9cd7be68678890e01e407304252a92685d0b3bc4e37f74df91b62f030d88ce26",
+      "viewer_contents": "Left input chart / Right Paint white Stroke,both1920x1080/40%",
+      "active_tool": "MediaOut1",
+      "viewer_guides": false
+    },
+    {
+      "file": "frame119.png",
+      "source": "screen-clean119.png",
+      "source_sha256": "367d1a0a8aa271ee10fef844ca21d97810ea354df17911a6222e3711c0127581",
+      "frame": 119,
+      "crop_xyxy": [
+        1146,
+        65,
+        2830,
+        725
+      ],
+      "resampled": false,
+      "sha256": "6a6be0a14f3a3839d33d8321bf767f9bc7b93a9b93792bedafd39327d676253e",
+      "viewer_contents": "Left input chart / Right Paint white Stroke,both1920x1080/40%",
+      "active_tool": "MediaOut1",
+      "viewer_guides": false
+    }
+  ],
+  "acceptance": {
+    "gui": "PASS: owner visually inspected node connections, selected Inspector, and output",
+    "article_display": "PASS: local production build;4 distinct pages18 images at1440px/390px;canonical Docusaurus routes/decode/Alt/native links/hash/overflow"
+  },
+  "unverified": [
+    "Free edition and other platforms",
+    "All parameter ranges and performance",
+    "Individual control-point movement/add/delete,shape animation,Write On/Off,Duration change,Clone/Paint Group/tracking/tablet/real footage/performance",
+    "All120 frames individually;only frames0/1/119 visually confirmed",
+    "Exported portable composition reimport"
+  ],
+  "parameter_readback_scope": "All tool GetInputList/GetInput NOT_RUN after S86 observed host exit;REGID/runtime/project identity only. Native Inspector and exported text are acceptance evidence.",
+  "native_inspector_values": {
+    "source": "screen-controls.png/inspector.png",
+    "target": "Stroke1",
+    "StrokeAnimation": "All Frames",
+    "Length": 1,
+    "WriteOn": [
+      0,
+      1
+    ],
+    "Center": [
+      0.4973958,
+      0.3125
+    ],
+    "Angle": 0,
+    "Size": 1,
+    "Spacing": 0.2
+  },
+  "gui_authoring": {
+    "delivery": "synthetic Cua background drag;not physical input",
+    "from_window_xy": [
+      2190,
+      490
+    ],
+    "to_window_xy": [
+      2670,
+      490
+    ],
+    "duration_ms": 600,
+    "steps": 24,
+    "drawn_stroke": "Stroke1",
+    "exported_polyline_points": 25,
+    "export_y": 0,
+    "visible_flow_tools": 3,
+    "host": {
+      "pid": 42776,
+      "hwnd": 43648076,
+      "source_pixels": [
+        3352,
+        1910
+      ]
+    },
+    "exact_selection": "Guarded SDK SetActiveTool(Stroke1),then native Inspector Stroke Controls/Make Editable;exported Stroke1 Polyline25 points confirms exact target."
+  },
+  "rejected_attempts": [
+    "Initial native Select/line hit did not bind the intended drawn stroke. First Make Editable targeted waiting Stroke3,not Stroke1;those Inspector/editable captures excluded.",
+    "SDK SetActiveTool(Stroke1) used after export reconciliation;native controls reopened and Make Editable applied once to exact Stroke1.",
+    "Export preserves Stroke2 with one off-canvas point and Stroke3 with one-point Polyline from setup/waiting states;not three drawn image strokes. No deletions or hidden-data cleanup claimed."
+  ],
+  "state_variants": {
+    "screen.png": "frame0/Paint selected,before exact Stroke1 conversion;graph crop only",
+    "screen-controls.png": "frame0/exact Stroke1/before Make Editable",
+    "screen-editable.png": "frame0/exact Stroke1/after Make Editable",
+    "screen-clean0.png": "frame0/MediaOut selected/guides absent,before conversion",
+    "screen-clean1.png": "frame1/MediaOut selected/guides absent,before conversion",
+    "screen-clean119.png": "frame119/MediaOut selected/guides absent,before conversion"
+  },
+  "restoration": "PASS:frame0,exact Stroke1 selected,25-point Polyline conversion,saved owned project/export,both40%;native postconversion image viewed.",
+  "reproduction_action": "build creates EMPTY Paint scaffold. Native Stroke selection/drawing required;bind exact drawn Stroke1 before Make Editable. Do not rebuild existing case or enumerate tool input values.",
+  "reproduction": {
+    "fixture_sha256": "00782f06686292db9836222959cde7ace036b4faa16cafc374114e1aa95f0551",
+    "readback_sha256": "2fca482b03ed09ae1051adac98345e74844486bd509b8016185a2439dc932b8b",
+    "paths": "Comp:/../_fixtures/ for bundled synthetic fixtures",
+    "reimport": "NOT_RUN: accepted GUI evidence precedes export path normalization"
+  }
+}

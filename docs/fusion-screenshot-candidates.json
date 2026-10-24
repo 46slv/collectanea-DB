@@ -2,7 +2,7 @@
   "schema_version": 1,
   "created": "2026-10-20",
   "scope": "All Fusion pages, DaVinci Resolve 21.1",
-  "status_note": "2026-10-24:152/556/876 public through PR107;1320 assets HTTP/hash PASS. S83–S85/R129–R132 local4 distinct pages31 images PASS;19 native crops+5 reuse placements,cumulative155/575/900. Whole587 and remaining_views incomplete;partial retained.",
+  "status_note": "2026-10-24:155/575/900 public through PR110;1359 assets HTTP/hash PASS. S86/S87/R133–R137 local4 distinct pages18 images PASS;10 native crops+8 reuse placements,cumulative159/585/918. Whole587 and remaining_views incomplete;partial retained.",
   "asset_directory_template": "static/img/fusion/captures/{id}/{shot.slug}.png",
   "capture_manifest_name": "capture.json",
   "candidates": [
@@ -4659,7 +4659,7 @@
         "printed_pages": "2468–2472"
       },
       "goal": "Native GUI authored shape, Inspector and Mask/Background result; documented limited variants",
-      "status": "captured-local-display-verified",
+      "status": "published-display-verified",
       "shots": [
         {
           "slug": "graph",
@@ -4698,7 +4698,8 @@
           "status": "native-observed"
         }
       ],
-      "capture_manifest": "static/img/fusion/captures/S83/capture.json"
+      "capture_manifest": "static/img/fusion/captures/S83/capture.json",
+      "published_batch": "fusion-native-20261024-25"
     },
     {
       "id": "S84",
@@ -4710,7 +4711,7 @@
         "printed_pages": "2475–2478"
       },
       "goal": "Native GUI authored shape, Inspector and Mask/Background result; documented limited variants",
-      "status": "captured-local-display-verified",
+      "status": "published-display-verified",
       "shots": [
         {
           "slug": "graph",
@@ -4755,7 +4756,8 @@
           "status": "native-observed"
         }
       ],
-      "capture_manifest": "static/img/fusion/captures/S84/capture.json"
+      "capture_manifest": "static/img/fusion/captures/S84/capture.json",
+      "published_batch": "fusion-native-20261024-25"
     },
     {
       "id": "S85",
@@ -4767,7 +4769,7 @@
         "printed_pages": "2478–2480"
       },
       "goal": "Native Polygon and B-Spline in one List,individual enabled state and combined Mask output",
-      "status": "captured-local-display-verified",
+      "status": "published-display-verified",
       "shots": [
         {
           "slug": "graph",
@@ -4806,7 +4808,98 @@
           "status": "native-observed"
         }
       ],
-      "capture_manifest": "static/img/fusion/captures/S85/capture.json"
+      "capture_manifest": "static/img/fusion/captures/S85/capture.json",
+      "published_batch": "fusion-native-20261024-25"
+    },
+    {
+      "id": "S86",
+      "priority": "P1",
+      "article": "manuals/fusion/nodes/paint/paint.md",
+      "manual": {
+        "version": "21.1",
+        "chapter": 113,
+        "printed_pages": "2638–2645"
+      },
+      "goal": "Native Paint image input and default white Multistroke/frame0-1;GUI/export evidence without broad parameter enumeration",
+      "status": "captured-local-display-verified",
+      "shots": [
+        {
+          "slug": "graph",
+          "kind": "node-graph",
+          "target": "Paint",
+          "status": "native-observed"
+        },
+        {
+          "slug": "inspector",
+          "kind": "inspector",
+          "target": "Paint",
+          "status": "native-observed"
+        },
+        {
+          "slug": "compare",
+          "kind": "output",
+          "target": "Paint",
+          "status": "native-observed"
+        },
+        {
+          "slug": "frame1",
+          "kind": "output",
+          "target": "Paint",
+          "status": "native-observed"
+        }
+      ],
+      "capture_manifest": "static/img/fusion/captures/S86/capture.json"
+    },
+    {
+      "id": "S87",
+      "priority": "P1",
+      "article": "manuals/fusion/nodes/paint/stroke.md",
+      "manual": {
+        "version": "21.1",
+        "chapter": 113,
+        "printed_pages": "2638–2645"
+      },
+      "goal": "Native white Stroke on image;All Frames at0/1/119 and exact Stroke1 Make Editable/exported25-point Polyline",
+      "status": "captured-local-display-verified",
+      "shots": [
+        {
+          "slug": "graph",
+          "kind": "node-graph",
+          "target": "Stroke",
+          "status": "native-observed"
+        },
+        {
+          "slug": "inspector",
+          "kind": "inspector",
+          "target": "Stroke",
+          "status": "native-observed"
+        },
+        {
+          "slug": "compare",
+          "kind": "output",
+          "target": "Stroke",
+          "status": "native-observed"
+        },
+        {
+          "slug": "editable",
+          "kind": "inspector",
+          "target": "Stroke",
+          "status": "native-observed"
+        },
+        {
+          "slug": "frame1",
+          "kind": "output",
+          "target": "Stroke",
+          "status": "native-observed"
+        },
+        {
+          "slug": "frame119",
+          "kind": "output",
+          "target": "Stroke",
+          "status": "native-observed"
+        }
+      ],
+      "capture_manifest": "static/img/fusion/captures/S87/capture.json"
     }
   ],
   "publication_batches": [
@@ -5616,27 +5709,62 @@
         "98ba/40054711161:alljobs/steps PASS,then incoming main PR103 required normal merge"
       ],
       "limitations": "Whole587/403 capture-needed and remaining_views incomplete;S83/S84/S85 native only pending article publication."
+    },
+    {
+      "id": "fusion-native-20261024-25",
+      "cases": [
+        "S83",
+        "S84",
+        "S85"
+      ],
+      "reuses": [
+        "R129",
+        "R130",
+        "R131",
+        "R132"
+      ],
+      "pr": "https://github.com/46slv/collectanea-DB/pull/110",
+      "candidate": "413f93e304d94ce1e1b503d7190227314d5da9cd",
+      "main": "bb23ac575fea02f8ee9e284dfc937631774f99d1",
+      "tree": "a6a2468bc5c58d815ddf785552f1508c65a824b4",
+      "quality_run": "https://github.com/46slv/collectanea-DB/actions/runs/40057312990",
+      "pages_run": "https://github.com/46slv/collectanea-DB/actions/runs/40057976521",
+      "merge_owner": "Existing integrator merged first;Sol fresh MERGED/SHA readback and equal candidate/main tree,no duplicate merge",
+      "public_pages": 4,
+      "public_images": 31,
+      "new_placements": 24,
+      "new_native_crops": 19,
+      "public_asset_hashes": 1359,
+      "result": "PASS",
+      "evidence": [
+        "artifacts/fusion-captures/public-batch25-display-report.json",
+        "artifacts/fusion-captures/public-batch25-assets.json"
+      ],
+      "superseded": [
+        "2add/40057000871 cancelled after incoming Color PR109 main merge;not publication PASS"
+      ],
+      "limitations": "Whole587/400 capture-needed and remaining_views incomplete;S86 limited GUI/export native evidence pending article adoption."
     }
   ],
   "coverage_inventory": {
-    "checked_at": "2026-10-24T03:04:32.688915+00:00",
+    "checked_at": "2026-10-24T03:47:00.569310+00:00",
     "scope": "All manuals/fusion Markdown and MDX pages; review necessity before adding images.",
     "completion_rule": "Every page has an explicit image decision; necessary images are native-observed, embedded, saved to GitHub and public-display-verified. A native example does not verify all article controls.",
     "summary": {
       "total_pages": 587,
-      "with_images": 155,
-      "with_native_examples": 155,
+      "with_images": 159,
+      "with_native_examples": 159,
       "states": {
         "reviewed-no-standalone-image": 26,
         "no-standalone-image-needed": 6,
-        "illustrated-reused-example": 72,
-        "capture-planned": 400,
-        "illustrated-native-example": 83
+        "illustrated-reused-example": 74,
+        "capture-planned": 396,
+        "illustrated-native-example": 85
       },
       "decisions": {
         "no-standalone-image-needed": 32,
-        "image-required": 155,
-        "capture-needed": 400
+        "image-required": 159,
+        "capture-needed": 396
       }
     },
     "pages": [
@@ -17102,24 +17230,30 @@
         "article": "manuals/fusion/nodes/paint/index.md",
         "title": "Paintノード：描画要素の使い分け",
         "kind": "index",
-        "image_count": 0,
+        "image_count": 2,
         "native_cases": [],
-        "reused_cases": [],
+        "reused_cases": [
+          "S86",
+          "S87"
+        ],
         "planned_cases": [],
-        "state": "capture-planned",
-        "decision": "capture-needed",
+        "state": "illustrated-reused-example",
+        "decision": "image-required",
         "reason": "Toolbar、Inspector、Source Tool、Stroke Durationと補修前後を示す。"
       },
       {
         "article": "manuals/fusion/nodes/paint/multistroke.md",
         "title": "Multistroke",
         "kind": "node",
-        "image_count": 0,
+        "image_count": 5,
         "native_cases": [],
-        "reused_cases": [],
+        "reused_cases": [
+          "S86",
+          "S87"
+        ],
         "planned_cases": [],
-        "state": "capture-planned",
-        "decision": "capture-needed",
+        "state": "illustrated-reused-example",
+        "decision": "image-required",
         "reason": "本文の対象機能: Paint内部で多数のストロークを効率よく描く方式。表示期間と筆先を描く前に決める。。独立Flow Nodeではない。別stroke/Mask画像は対象要素の実操作を示せない。",
         "required_views": [
           "Paint内部の対象選択toolbar/List/Controls",
@@ -17192,13 +17326,18 @@
         "article": "manuals/fusion/nodes/paint/paint.md",
         "title": "Paint",
         "kind": "node",
-        "image_count": 0,
-        "native_cases": [],
+        "image_count": 4,
+        "native_cases": [
+          "S86"
+        ],
         "reused_cases": [],
         "planned_cases": [],
-        "state": "capture-planned",
-        "decision": "capture-needed",
+        "state": "illustrated-native-example",
+        "decision": "image-required",
         "reason": "本文の対象機能: 2D画像上に描いた線や複製・補修の操作を、ストロークごとに管理するノード。。Mask PaintやText+はImage Paintのstroke管理を示せない。",
+        "remaining_views": [
+          "RGB/Duration change,other stroke types,Clone/Fill,transparent canvas,Effect Mask,tablet,real footage,numeric output/performance"
+        ],
         "required_views": [
           "対象名と実接続が読めるGraph",
           "対象自身を選択したInspectorの該当Control",
@@ -17228,7 +17367,8 @@
             "role": "入力/結果または実UIの具体箇所"
           }
         ],
-        "hold_conditions": []
+        "hold_conditions": [],
+        "audit_note": "S86 native GUI/export limited acceptance;tool inputs enumeration NOT_RUN after host exit."
       },
       {
         "article": "manuals/fusion/nodes/paint/polyline-stroke.md",
@@ -17312,13 +17452,20 @@
         "article": "manuals/fusion/nodes/paint/stroke.md",
         "title": "Stroke",
         "kind": "node",
-        "image_count": 0,
-        "native_cases": [],
-        "reused_cases": [],
+        "image_count": 7,
+        "native_cases": [
+          "S87"
+        ],
+        "reused_cases": [
+          "S86"
+        ],
         "planned_cases": [],
-        "state": "capture-planned",
-        "decision": "capture-needed",
+        "state": "illustrated-native-example",
+        "decision": "image-required",
         "reason": "本文の対象機能: PaintのViewerで描き、線の形や表示期間を後から変えられるブラシストローク。。独立Flow Nodeではない。別stroke/Mask画像は対象要素の実操作を示せない。",
+        "remaining_views": [
+          "Individual Polyline point edit,keyframes,Write On/duration changes,Clone/Paint Group/tracking/tablet/real footage/performance"
+        ],
         "required_views": [
           "Paint内部の対象選択toolbar/List/Controls",
           "形/brushまたはclone source/offset",
@@ -17345,7 +17492,8 @@
         ],
         "hold_conditions": [
           "存在しないFlow端子や個別編集Controlを要求しない。Duration/編集可否は実要素ごとに確認。"
-        ]
+        ],
+        "audit_note": "S87 native exact Stroke1 GUI/export accepted;full tool parameter enumeration NOT_RUN."
       },
       {
         "article": "manuals/fusion/nodes/particles/index.md",
@@ -25088,8 +25236,9 @@
         "guides.png",
         "compare.png"
       ],
-      "status": "embedded-local-display-verified",
-      "scope": "Same four exported XY coordinates;straight Polygon versus native closed B-Spline,no Tension adjustment."
+      "status": "published-display-verified",
+      "scope": "Same four exported XY coordinates;straight Polygon versus native closed B-Spline,no Tension adjustment.",
+      "published_batch": "fusion-native-20261024-25"
     },
     {
       "id": "R130",
@@ -25098,8 +25247,9 @@
       "images": [
         "compare.png"
       ],
-      "status": "embedded-local-display-verified",
-      "scope": "Native Mask/Background result;limited static fixture,partial retained."
+      "status": "published-display-verified",
+      "scope": "Native Mask/Background result;limited static fixture,partial retained.",
+      "published_batch": "fusion-native-20261024-25"
     },
     {
       "id": "R131",
@@ -25108,8 +25258,9 @@
       "images": [
         "compare.png"
       ],
-      "status": "embedded-local-display-verified",
-      "scope": "Native Mask/Background result;limited static fixture,partial retained."
+      "status": "published-display-verified",
+      "scope": "Native Mask/Background result;limited static fixture,partial retained.",
+      "published_batch": "fusion-native-20261024-25"
     },
     {
       "id": "R132",
@@ -25118,8 +25269,62 @@
       "images": [
         "compare.png"
       ],
+      "status": "published-display-verified",
+      "scope": "Native separated Polygon and B-Spline combined Mask;no overlapping operator or animation acceptance.",
+      "published_batch": "fusion-native-20261024-25"
+    },
+    {
+      "id": "R133",
+      "article": "manuals/fusion/nodes/paint/index.md",
+      "source_case": "S86",
+      "images": [
+        "compare.png"
+      ],
       "status": "embedded-local-display-verified",
-      "scope": "Native separated Polygon and B-Spline combined Mask;no overlapping operator or animation acceptance."
+      "scope": "Native default white Paint Multistroke on input chart,frames0/1;Duration/RGB changes and performance unverified."
+    },
+    {
+      "id": "R134",
+      "article": "manuals/fusion/nodes/paint/multistroke.md",
+      "source_case": "S86",
+      "images": [
+        "graph.png",
+        "inspector.png",
+        "compare.png",
+        "frame1.png"
+      ],
+      "status": "embedded-local-display-verified",
+      "scope": "Native default white Paint Multistroke on input chart,frames0/1;Duration/RGB changes and performance unverified."
+    },
+    {
+      "id": "R135",
+      "article": "manuals/fusion/nodes/paint/stroke.md",
+      "source_case": "S86",
+      "images": [
+        "frame1.png"
+      ],
+      "status": "embedded-local-display-verified",
+      "scope": "Native default Stroke versus Multistroke display at frames0/1/119;exact path equality and timing edits unverified."
+    },
+    {
+      "id": "R136",
+      "article": "manuals/fusion/nodes/paint/multistroke.md",
+      "source_case": "S87",
+      "images": [
+        "frame1.png"
+      ],
+      "status": "embedded-local-display-verified",
+      "scope": "Native default Stroke versus Multistroke display at frames0/1/119;exact path equality and timing edits unverified."
+    },
+    {
+      "id": "R137",
+      "article": "manuals/fusion/nodes/paint/index.md",
+      "source_case": "S87",
+      "images": [
+        "compare.png"
+      ],
+      "status": "embedded-local-display-verified",
+      "scope": "Native default Stroke versus Multistroke display at frames0/1/119;exact path equality and timing edits unverified."
     }
   ]
 }

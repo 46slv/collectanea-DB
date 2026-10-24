@@ -15,7 +15,7 @@ outputs: []
 tasks: [paint, cleanup, animate]
 product_scope: fusion
 suite_surfaces: [fusion]
-updated: "2026-10-10"
+updated: "2026-10-24"
 ---
 
 # Stroke
@@ -93,6 +93,42 @@ MediaIn → Paint → MediaOutの構成でStrokeを選び、Apply ModeをClone�
 
 数百本の独立したStrokeを使うと処理が遅くなることがあります。補修後の細かな編集が不要ならMultistrokeを選びます。
 
+## 実機例：通常のStrokeを描き、表示期間を比べる
+
+<!-- capture-case:S87 -->
+
+Resolve Studio21.1.0.14／Windows、1920×1080、Viewer40%の実機です。LoaderのテストチャートをPaintへ入力し、Viewer上部でStrokeを選んで白い水平線を描きました。左は入力、右はPaintの画像出力です。
+
+[![Loaderの入力画像をPaintで描画しMediaOutへ渡す実機Graph、StrokeはPaint内部に保持される](/img/fusion/captures/S87/graph.png)](/img/fusion/captures/S87/graph.png)
+
+[![Stroke1を選択したInspector、ストロークアニメーションは全フレーム、Make Editableボタンが表示される](/img/fusion/captures/S87/inspector.png)](/img/fusion/captures/S87/inspector.png)
+
+[![フレーム0、左の入力チャートに対し右のPaint出力には白いStrokeが重なっている](/img/fusion/captures/S87/compare.png)](/img/fusion/captures/S87/compare.png)
+
+Flowに見えるのはLoader・Paint・MediaOutの3ノードです。描画内容はPaint内部の`Stroke1`に保持され、実機の内部REGIDは`Stroke`でした。
+
+Stroke1のInspectorで、Stroke Animationの「全フレーム」を確認しました。フレーム0の線は、フレーム1とコンポジション終端の119でも表示されました。以下はViewerのガイドを外し、画像出力だけを比較したものです。全120フレームを個別に検査した例ではありません。
+
+[![フレーム1でも右のPaint出力に白いStrokeが残り、左の入力チャートと比較できる](/img/fusion/captures/S87/frame1.png)](/img/fusion/captures/S87/frame1.png)
+
+[![コンポジション終端のフレーム119でも右のPaint出力に白いStrokeが表示される](/img/fusion/captures/S87/frame119.png)](/img/fusion/captures/S87/frame119.png)
+
+次に、描いたStroke1を明示的に選び、Make Editableを押しました。Inspectorのボタンは「右クリックで形状をアニメート」の表示へ変わり、保存したGraphではStroke1の描画点が25点のPolylineへ変換されていました。個々の点の移動・追加・削除や、形状アニメーションまでは確認していません。
+
+[![Stroke1のMake Editable実行後、Inspectorのボタンが右クリックで形状をアニメートの表示へ変わった](/img/fusion/captures/S87/editable.png)](/img/fusion/captures/S87/editable.png)
+
+最後はフレーム0、Stroke1選択、両Viewer40%で保存しました。Write On、表示期間の変更、Clone、Paint Group、追跡、筆圧、実写の補修、性能と全初期値は未確認です。掲載した設定値は実機Inspectorと保存Graphで確認した範囲に限ります。
+
+[再現用Graph](/img/fusion/captures/S87/fixture.comp) · [撮影条件と確認範囲](/img/fusion/captures/S87/capture.json)
+
+<!-- capture-reuse:R135 -->
+
+### Multistrokeとの表示期間の違い
+
+同じ入力チャートへ初期Multistrokeで白い線を描いたS86では、Duration1のためフレーム1で線が消えました。下がその比較です。S87のStrokeでは上のフレーム1・119でも線が残っています。描画経路の数値が同一という比較ではなく、各初期方式の表示期間を確かめた例です。
+
+[![S86の初期Multistrokeはフレーム1で白い線が消え、左右とも入力チャートが表示される](/img/fusion/captures/S86/frame1.png)](/img/fusion/captures/S86/frame1.png)
+
 ## 出典と確認範囲
 
-Blackmagic Design『DaVinci Resolve 21.1 Reference Manual』Chapter 113「Paint Node」pp.2638–2645、Chapter 80「Paint」pp.1749–1750。Paintの入出力、StrokeとMultistrokeの違い、Make Editable、Stroke Animation、追跡と性能上の注意を確認しました。実機21.1の内部REGIDやInspectorの全初期値・範囲は未検証のため、verificationはpartialです。
+Blackmagic Design『DaVinci Resolve 21.1 Reference Manual』Chapter 113「Paint Node」pp.2638–2645、Chapter 80「Paint」pp.1749–1750。Paintの入出力、StrokeとMultistrokeの違い、Make Editable、Stroke Animation、追跡と性能上の注意を確認しました。S87で内部REGID、画像入力のGraph、全フレーム設定とフレーム0／1／119の出力、Stroke1のMake EditableによるPolyline変換を実機確認しました。個別点の編集、全初期値・値域、他のアニメーション方式と性能は未確認のため、`verification: partial`を維持します。
