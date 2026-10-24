@@ -194,6 +194,30 @@ Software RendererのRGBAとZを有効にした画像をCopy Auxへ渡してい�
 
 [撮影条件・設定値と未確認範囲](../../nodes/color/copy-aux)を参照してください。
 
+### 実機例：Normalを方向の色として確認する
+
+<!-- capture-reuse:R172 -->
+
+Software Rendererが出すNormalをCopy AuxのAux to Colorで取り出しました。−1〜1を0〜1へ固定変換し、Channel Missing＝Failで表示できることを確認しています。材質色ではなく方向データの可視化です。
+
+[![Normalを方向の色として確認するの実機画面：normal-inspector](/img/fusion/captures/S118/normal-inspector.png)](/img/fusion/captures/S118/normal-inspector.png)
+
+[![Normalを方向の色として確認するの実機画面：normal](/img/fusion/captures/S118/normal.png)](/img/fusion/captures/S118/normal.png)
+
+[Graph・Inspector・条件と未確認範囲](../../nodes/deep/shader-deep-pixel)を参照してください。
+
+### 実機例：UVを赤と緑で確認する
+
+<!-- capture-reuse:R173 -->
+
+Software RendererのTexture Coordinatesを有効にし、Copy AuxのTextureで取り出しました。Channel Missing＝Failのまま赤・緑の連続した表示を確認しています。外部UVの数値精度や保存を検証した例ではありません。
+
+[![UVを赤と緑で確認するの実機画面：uv-inspector](/img/fusion/captures/S119/uv-inspector.png)](/img/fusion/captures/S119/uv-inspector.png)
+
+[![UVを赤と緑で確認するの実機画面：uv](/img/fusion/captures/S119/uv.png)](/img/fusion/captures/S119/uv.png)
+
+[Graph・Inspector・条件と未確認範囲](../../nodes/deep/texture-deep-pixel)を参照してください。
+
 ## 出典・バージョン
 
 一次資料：**Blackmagic Design『DaVinci Resolve 21.1 Reference Manual』（September 2026）**。

@@ -15,7 +15,7 @@ outputs: [image]
 tasks: [aov, texture-replace, uv]
 product_scope: fusion
 suite_surfaces: [fusion]
-updated: "2026-10-11"
+updated: "2026-10-24"
 ---
 
 # Texture (Deep Pixel)
@@ -136,6 +136,42 @@ Textureはレンダリング後の2D処理です。3Dシーンのライト、物
 - [Channel Booleans](../color/channel-boolean.md)：別画像のRed・GreenをU・Vへ割り当てる。
 - [Shader (Deep Pixel)](./shader-deep-pixel.md)：UVではなくNormalを使い、後処理で照明・反射を調整する。
 
+## 実機例：球のUVでチャートを貼り替える
+
+<!-- capture-case:S119 -->
+
+Resolve Studio21.1.0.14／Windows、1920×1080、Viewer40%、フレーム0で撮影しました。左がRenderer 3Dのカラー出力、右が処理後です。
+
+[![RGBAとUVを出すRendererからTextureへ画像を渡し、別のLoaderを緑のTexture入力へ接続した実機Graph](/img/fusion/captures/S119/graph.png)](/img/fusion/captures/S119/graph.png)
+
+原点の球、Z＝7のカメラ、点光源から作ったシーンです。Software RendererでRGBAとTexture Coordinatesを有効にしました。
+
+[![Software RendererのRGBAとTexture Coordinatesを有効にした実機Inspector](/img/fusion/captures/S119/renderer-inspector.png)](/img/fusion/captures/S119/renderer-inspector.png)
+
+合成テストチャートをLoaderからTextureの緑の入力へ接続しました。FlipはOFF、Swap UVとRotate 90もOFF、U/V Scale＝1、U/V Offset＝0です。右ではチャートの格子や色パッチが球面に沿って表示されています。
+
+[![TextureのFlipとUV入替・回転をOFF、Scale1、Offset0にした実機Inspector](/img/fusion/captures/S119/baseline-inspector.png)](/img/fusion/captures/S119/baseline-inspector.png)
+
+[![元の照明付き球と、UVに沿って合成チャートを貼った球を並べた実機比較](/img/fusion/captures/S119/baseline.png)](/img/fusion/captures/S119/baseline.png)
+
+Flip HorizontalだけをONにすると、見える文字や色パッチの並びが変わりました。幾何形状やカメラを変えず、2D画像に含まれるUVを使って貼り方を切り替えています。最後は横フリップをONにして保存しました。
+
+[![Textureの横フリップだけをONにした実機Inspector](/img/fusion/captures/S119/inspector.png)](/img/fusion/captures/S119/inspector.png)
+
+[![横フリップで球面上の文字と色パッチが変わるTextureの実機比較](/img/fusion/captures/S119/compare.png)](/img/fusion/captures/S119/compare.png)
+
+この例ではEffect Maskを接続していないため、球の外側の背景も色付きの表示になっています。背景を含む画素の処理を球だけに限定した例ではありません。実写への合成ではAlphaやIDを使う限定処理を別途確認してください。
+
+確認用Copy AuxではAux Channel＝Texture、Channel Missing＝Failを選びました。右の球に赤・緑の連続した色が現れ、UVを持つ入力であることを確認できています。
+
+[![Copy AuxでTextureとチャンネル欠落時Failを選んだUV診断用の実機Inspector](/img/fusion/captures/S119/uv-inspector.png)](/img/fusion/captures/S119/uv-inspector.png)
+
+[![球のUVが赤と緑の連続した色で表示される実機診断](/img/fusion/captures/S119/uv.png)](/img/fusion/captures/S119/uv.png)
+
+UVの数値精度、背景のAlpha／ID限定、縦フリップ・Swap・Rotate・Scale・Offset、外部UV、EXR保存、Edition差と性能は未確認です。複数サンプルのDeep Imageを検証した例でもありません。
+
+[再現用Graph](/img/fusion/captures/S119/fixture.comp) · [撮影条件と確認範囲](/img/fusion/captures/S119/capture.json)
+
 ## 出典と検証状況
 
 一次資料：**Blackmagic Design『DaVinci Resolve 21.1 Reference Manual』**。
@@ -144,4 +180,4 @@ Textureはレンダリング後の2D処理です。3Dシーンのライト、物
 - **Chapter 77「Understanding Image Channels」、p.1693**：MediaIn / LoaderでのUVパスの割り当て、Red→U・Green→V、Mergeで元画像と合成する例。
 - **Chapter 88「Renderer3D」、pp.1974–1975**：TexCoordの出力と補助チャンネルのアンチエイリアス。
 
-入力名・設定名・例の根拠は21.1マニュアルにあります。外部EXRの個別形式や21.1実機・GPU差は未検証のため、**verification: partial**を維持します。
+S119でSoftware Rendererの補助UV、Textureの接続と横フリップの表示を実機確認しました。外部EXR、ほかのControl、GPUやEdition差は未確認のため、**verification: partial**を維持します。

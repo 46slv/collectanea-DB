@@ -115,6 +115,36 @@ Depth BlurはRendererが出した通常のRGBA画像と補助Zを使っていま
 
 [撮影条件・設定値と未確認範囲](./depth-blur-deep-pixel)を参照してください。
 
+### 実機例：Normalを使って球の陰影を変えるShader
+
+<!-- capture-reuse:R169 -->
+
+通常の2D画像に含まれる補助チャンネルを使った実機例です。true Deepの複数サンプルや平面化を検証した例ではありません。
+
+[![Normalを使って球の陰影を変えるShaderの実機画面：compare](/img/fusion/captures/S118/compare.png)](/img/fusion/captures/S118/compare.png)
+
+[Graph・Inspector・条件と未確認範囲](./shader-deep-pixel)を参照してください。
+
+### 実機例：UVを使ってチャートを球面へ貼るTexture
+
+<!-- capture-reuse:R170 -->
+
+通常の2D画像に含まれる補助チャンネルを使った実機例です。true Deepの複数サンプルや平面化を検証した例ではありません。
+
+[![UVを使ってチャートを球面へ貼るTextureの実機画面：compare](/img/fusion/captures/S119/compare.png)](/img/fusion/captures/S119/compare.png)
+
+[Graph・Inspector・条件と未確認範囲](./texture-deep-pixel)を参照してください。
+
+### 実機例：Z・Normal・Cameraから接触部の陰影を加えるAmbient Occlusion
+
+<!-- capture-reuse:R171 -->
+
+通常の2D画像に含まれる補助チャンネルを使った実機例です。true Deepの複数サンプルや平面化を検証した例ではありません。
+
+[![Z・Normal・Cameraから接触部の陰影を加えるAmbient Occlusionの実機画面：compare](/img/fusion/captures/S120/compare.png)](/img/fusion/captures/S120/compare.png)
+
+[Graph・Inspector・条件と未確認範囲](./ambient-occlusion-deep-pixel)を参照してください。
+
 ## 関連する考え方と出典
 
 - [Deep Image：1画素に複数の奥行きサンプルを持つ形式](../../learn/02-data/deep-image.md)
