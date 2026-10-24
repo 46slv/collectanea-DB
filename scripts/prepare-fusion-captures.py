@@ -113,6 +113,9 @@ CONFIG={
  'S106':{'graph': (930, 1320, 1920, 1425), 'inspector': (2830, 120, 3352, 430), 'compare': (1146, 65, 2830, 725), 'idt-inspector': (2830, 120, 3352, 430), 'idt': (1146, 65, 2830, 725)},
  'S107':{'graph': (930, 1320, 1920, 1425), 'inspector': (2830, 120, 3352, 590), 'compare': (1146, 65, 2830, 725), 'baseline': (1146, 65, 2830, 725), 'estimate-inspector': (2830, 120, 3352, 590), 'estimate': (1146, 65, 2830, 725)},
  'S108':{'graph': (930, 1320, 1920, 1425), 'inspector': (2830, 120, 3352, 640), 'compare': (1146, 65, 2830, 725), 'baseline-inspector': (2830, 120, 3352, 640), 'baseline': (1146, 65, 2830, 725)},
+ 'S109':{'graph': (930, 1320, 1920, 1425), 'inspector': (2830, 120, 3352, 610), 'compare': (1146, 65, 2830, 725), 'baseline-inspector': (2830, 120, 3352, 610), 'baseline': (1146, 65, 2830, 725)},
+ 'S110':{'graph': (930, 1320, 1920, 1425), 'inspector': (2830, 120, 3352, 340), 'compare': (1146, 65, 2830, 725), 'baseline-inspector': (2830, 120, 3352, 340), 'baseline': (1146, 65, 2830, 725)},
+ 'S111':{'graph': (930, 1320, 1920, 1425), 'inspector': (2830, 120, 3352, 370), 'compare': (1146, 65, 2830, 725), 'baseline': (1146, 65, 2830, 725), 'reverse-inspector': (2830, 120, 3352, 370), 'reverse': (1146, 65, 2830, 725)},
 }
 def sha(p):return hashlib.sha256(p.read_bytes()).hexdigest()
 candidates=json.loads((ROOT/'docs/fusion-screenshot-candidates.json').read_text(encoding='utf-8'))
@@ -223,6 +226,8 @@ for case in args.cases:
   if case=='S106':extra.update({(case,'idt'):'screen-idt.png',(case,'idt-inspector'):'screen-idt.png'})
   if case=='S107':extra.update({(case,'baseline'):'screen-baseline.png',(case,'estimate'):'screen-estimate.png',(case,'estimate-inspector'):'screen-estimate.png'})
   if case=='S108':extra.update({(case,'baseline'):'screen-baseline.png',(case,'baseline-inspector'):'screen-baseline.png'})
+  if case in ['S109','S110']:extra.update({(case,'baseline'):'screen-baseline.png',(case,'baseline-inspector'):'screen-baseline.png'})
+  if case=='S111':extra.update({(case,'baseline'):'screen-baseline.png',(case,'reverse'):'screen-reverse.png',(case,'reverse-inspector'):'screen-reverse.png'})
   src=folder/extra.get((case,slug),variants.get((case,slug),'screen.png'))
   assert 0<=box[0]<box[2]<=im.width and 0<=box[1]<box[3]<=im.height, (case,slug,box)
   path=folder/(slug+'.png');Image.open(src).crop(box).save(path)
@@ -299,6 +304,10 @@ for case in args.cases:
    shots[-1]['frame']=0
    shots[-1]['viewer_guides']=case=='S107' and slug.startswith('estimate')
    shots[-1]['viewer_contents']='Left chart / Right ACES2.0 sRGB texture CSC,NoODT' if case=='S106' and slug.startswith('idt') else 'Left chart / Right ACES2.0 sRGB texture CSC,Rec709 BT1886 ODT' if case=='S106' else 'Left clean chart / Right identity' if case=='S107' and slug=='baseline' else 'Left clean chart / Right R/C estimate diagnostic,Scale0.8' if case=='S107' and slug.startswith('estimate') else 'Left clean chart / Right R/C Scale0.8,overcorrection example' if case=='S107' else 'Left chart / Right identity RGB curves' if slug.startswith('baseline') else 'Left chart / Right RGB midpoint0.5 to0.742712;Alpha unchanged'
+  if case in ['S109','S110','S111']:
+   shots[-1]['frame']=0
+   shots[-1]['viewer_guides']=False
+   shots[-1]['viewer_contents']='Left chart / Right unchanged Sat curve' if case=='S109' and slug.startswith('baseline') else 'Left chart / Right green Sat curve In2 Out0.262032' if case=='S109' else 'Left nativeRed / Right LimitRec2020,same CurrentRec2020 Linear' if case=='S110' and slug.startswith('baseline') else 'Left nativeRed / Right LimitRec709,CurrentRec2020 Linear' if case=='S110' else 'Left chart / Right no file,identity' if slug=='baseline' else 'Left chart / Right native CDL Reverse' if slug.startswith('reverse') else 'Left chart / Right native CDL Forward'
  candidate=next(x for x in candidates['candidates'] if x['id']==case)
  manifest={'schema_version':1,'case':case,'article':candidate['article'],'manual':candidate['manual'],'runtime':{'version':readback['resolve'],'edition':'Studio','os':readback['os'],'ui_language':'ja-JP (some Shape controls remain English)'},'captured_at':datetime.datetime.fromtimestamp(source.stat().st_mtime,datetime.timezone.utc).isoformat(),'project':readback['project'],'timeline':readback['timeline'],'frame':readback['frame'],'resolution':[1920,1080],'color_management':readback['project_settings'],'viewer':{'zoom_percent':40,'channel':'Color','background':'checkerboard for transparent pixels','note':'Viewer screenshots are display evidence, not colorimetric exports.'},'graph':'fixture.comp','settings':'readback.json','source':{'file':'screen.png','size':im.size,'sha256':sha(source)},'shots':shots,'acceptance':{'gui':'PASS: owner visually inspected node connections, selected Inspector, and output','article_display':'NOT_RUN'},'unverified':['Free edition and other platforms','All parameter ranges and performance','S03 optional Glow Mask / Effect Mask comparison is deferred'] if case=='S03' else ['Free edition and other platforms','All parameter ranges and performance']}
  (folder/'capture.json').write_text(json.dumps(manifest,ensure_ascii=False,indent=2)+'\n',encoding='utf-8',newline='\n')
