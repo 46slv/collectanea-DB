@@ -15,7 +15,7 @@ outputs: []
 tasks: [paint, cleanup, animate]
 product_scope: fusion
 suite_surfaces: [fusion]
-updated: "2026-10-10"
+updated: "2026-10-24"
 ---
 
 # Paint Group
@@ -97,8 +97,34 @@ Merge → MediaOut
 
 描画データとマスクの違いは[Paintの解説](./)、各描画方式の選択は[Paintカテゴリ](./index.md)を参照してください。
 
+## 実機例：2つの円をグループにして一緒に移動する
+
+<!-- capture-case:S96 -->
+
+Resolve Studio21.1.0.14／Windows、1920×1080、Viewer40%で撮影しました。LoaderのチャートをPaintへ入力し、Paintの画像出力をMediaOutへ接続しています。左が入力、右が描画後の画像です。
+
+[![LoaderからPaintを経てMediaOutへ渡す実機Graph、PaintGroupはPaint内部に保持](/img/fusion/captures/S96/graph.png)](/img/fusion/captures/S96/graph.png)
+
+[![実機PaintGroupのInspector、今回変更した座標と描画設定を表示](/img/fusion/captures/S96/inspector.png)](/img/fusion/captures/S96/inspector.png)
+
+Circleで白い円を2つ描き、Selectへ切り替えて両方を範囲選択しました。Paint Groupをクリックすると、保存GraphにPaintGroup1が作られ、内部でCircle2からCircle1へつながる描画をまとめていることを確認できました。
+
+[![グループ作成直後、チャート上部の2つの白い円と、その中央のPaint Groupハンドルを表示](/img/fusion/captures/S96/before.png)](/img/fusion/captures/S96/before.png)
+
+作成直後のCenterはX約0.4583333／Y約0.5208333でした。Xを保ち、Yだけ0.32へ変えると、2つの円が相対的な間隔を保ったまま下へ移動しました。チャートの文字や色パッチ自体は移動していません。InspectorではAngle0、Size1、「サブグループのコントロールを表示」はOFFです。
+
+[![Paint GroupのCenter Yを0.32へ変更し、2つの円が一緒に下へ移動した実機比較](/img/fusion/captures/S96/compare.png)](/img/fusion/captures/S96/compare.png)
+
+[![フレーム119でもPaint内部のPaintGroupによる描画結果が残る実機比較](/img/fusion/captures/S96/frame119.png)](/img/fusion/captures/S96/frame119.png)
+
+フレーム0と119で同じ結果が残ることを確認し、最後は0へ戻して保存しました。全120フレームを個別に検査した例ではありません。内部REGIDは`PaintGroup`、描画要素は`PaintGroup1`でした。
+
+Angle・Sizeの変更、中心だけの変更、サブグループ操作、グループ解除、Multistroke系のグループ化、Tracker接続、アニメーション、実写、筆圧、他OS・Edition差と性能は未確認です。`verification: partial`を維持します。
+
+[再現用Graph](/img/fusion/captures/S96/fixture.comp) · [撮影条件と確認範囲](/img/fusion/captures/S96/capture.json)
+
 ## バージョンと出典
 
 Blackmagic Design『DaVinci Resolve 21.1 Reference Manual』（2026年9月）、Chapter 80「Paint」pp.1756、1760、およびChapter 113「Paint Node」pp.2639–2640、2645。複数ストロークの選択とグループ化、**Center / Angle / Size**、**Show Subgroup Controls**、Multistroke系の追跡、グループ中心の操作を確認しました。画像入出力は同Manual pp.1747–1749、2638に基づきます。
 
-本記事の操作はManualで確認した範囲です。Resolve 21.1実機での内部ID、Controlの数値範囲、すべての描画方式での挙動、Free / Studioの差は個別には検証していないため、`verification: partial`としています。
+S96で内部REGID、2つのCircleの選択とグループ化、Center Y変更、フレーム0／119の出力を実機確認しました。数値範囲、他の描画方式や追跡、Edition差は未確認のため、`verification: partial`を維持します。

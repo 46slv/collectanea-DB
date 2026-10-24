@@ -1,0 +1,45 @@
+{
+  "project": "Collectanea_Captures_20261023_Sol",
+  "timeline": "S95_capture",
+  "resolve": "21.1.0.14",
+  "edition": "DaVinci Resolve Studio",
+  "os": "Windows-11-10.0.26200-SP0",
+  "time": "2026-10-24T05:08:14.152350+00:00",
+  "frame": 0.0,
+  "sampled_frame": 0.0,
+  "project_settings": {
+    "colorScienceMode": "davinciYRGB",
+    "colorSpaceTimeline": "Rec.709 (Scene)",
+    "colorSpaceTimelineGamma": "",
+    "colorSpaceOutput": "Rec.709 (Scene)",
+    "colorSpaceOutputGamma": "ACEScc",
+    "separateColorSpaceAndGamma": "0",
+    "isAutoColorManage": "0",
+    "timelineResolutionWidth": "1920",
+    "timelineResolutionHeight": "1080",
+    "timelineFrameRate": 24.0,
+    "timelinePlaybackFrameRate": "30"
+  },
+  "tools": {
+    "Loader1": {
+      "regid": "Loader",
+      "inputs": {},
+      "readback_scope": "NOT_RUN: broad input enumeration avoided after observed host exit;native GUI/export required"
+    },
+    "Paint1": {
+      "regid": "Paint",
+      "inputs": {},
+      "readback_scope": "NOT_RUN: broad input enumeration avoided after observed host exit;native GUI/export required"
+    },
+    "Fill1": {
+      "regid": "Fill",
+      "inputs": {},
+      "readback_scope": "NOT_RUN: broad input enumeration avoided after observed host exit;native GUI/export required"
+    },
+    "MediaOut1": {
+      "regid": "MediaOut",
+      "inputs": {},
+      "readback_scope": "NOT_RUN: broad input enumeration avoided after observed host exit;native GUI/export required"
+    }
+  }
+}

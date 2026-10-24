@@ -1,0 +1,180 @@
+{
+  "schema_version": 1,
+  "case": "S94",
+  "article": "manuals/fusion/nodes/paint/copy-rectangle.md",
+  "manual": {
+    "version": "21.1",
+    "chapter": 113,
+    "printed_pages": "2638–2645",
+    "additional_chapter": 80,
+    "additional_printed_pages": "1751–1760"
+  },
+  "runtime": {
+    "version": "21.1.0.14",
+    "edition": "Studio",
+    "os": "Windows-11-10.0.26200-SP0",
+    "ui_language": "ja-JP (some Shape controls remain English)"
+  },
+  "captured_at": "2026-10-24T05:30:10.525512+00:00",
+  "project": "Collectanea_Captures_20261023_Sol",
+  "timeline": "S94_capture",
+  "frame": 0.0,
+  "resolution": [
+    1920,
+    1080
+  ],
+  "color_management": {
+    "colorScienceMode": "davinciYRGB",
+    "colorSpaceTimeline": "Rec.709 (Scene)",
+    "colorSpaceTimelineGamma": "",
+    "colorSpaceOutput": "Rec.709 (Scene)",
+    "colorSpaceOutputGamma": "ACEScc",
+    "separateColorSpaceAndGamma": "0",
+    "isAutoColorManage": "0",
+    "timelineResolutionWidth": "1920",
+    "timelineResolutionHeight": "1080",
+    "timelineFrameRate": 24.0,
+    "timelinePlaybackFrameRate": "30"
+  },
+  "viewer": {
+    "zoom_percent": 40,
+    "channel": "Color",
+    "background": "checkerboard for transparent pixels",
+    "note": "Viewer screenshots are display evidence, not colorimetric exports."
+  },
+  "graph": "fixture.comp",
+  "settings": "readback.json",
+  "source": {
+    "file": "screen.png",
+    "size": [
+      3352,
+      1910
+    ],
+    "sha256": "11b71db280e7b4cfefcc0ef2cdc069a0145b57a71b3c1cb031af65cc5111dc71"
+  },
+  "shots": [
+    {
+      "file": "graph.png",
+      "source": "screen.png",
+      "source_sha256": "11b71db280e7b4cfefcc0ef2cdc069a0145b57a71b3c1cb031af65cc5111dc71",
+      "frame": 0,
+      "crop_xyxy": [
+        770,
+        1300,
+        2050,
+        1450
+      ],
+      "resampled": false,
+      "sha256": "65dae31b90f03771a53d4b4a6d164b51ab90074d663fb104eccd8fd73ee8c533",
+      "viewer_contents": "Left input chart / Right Paint result,both1920x1080/40%",
+      "viewer_guides": true,
+      "active_tool": "Paint1"
+    },
+    {
+      "file": "inspector.png",
+      "source": "screen.png",
+      "source_sha256": "11b71db280e7b4cfefcc0ef2cdc069a0145b57a71b3c1cb031af65cc5111dc71",
+      "frame": 0,
+      "crop_xyxy": [
+        2830,
+        120,
+        3352,
+        590
+      ],
+      "resampled": false,
+      "sha256": "c2e7b321ac1bbb75a32f87304b079014ad2c77677d80afb046b8b156ad755e5b",
+      "viewer_contents": "Left input chart / Right Paint result,both1920x1080/40%",
+      "viewer_guides": true,
+      "active_tool": "Paint1"
+    },
+    {
+      "file": "compare.png",
+      "source": "screen-clean0.png",
+      "source_sha256": "e70e61ac3b3bbc02f21f6b0e541ae042fc321e4a996dd9e6cc3d91efdaf275f4",
+      "frame": 0,
+      "crop_xyxy": [
+        1146,
+        65,
+        2830,
+        725
+      ],
+      "resampled": false,
+      "sha256": "aa43c107407480c08011160c73a982507f91715be9dc2c990384a1e78229cdfc",
+      "viewer_contents": "Left input chart / Right Paint result,both1920x1080/40%",
+      "viewer_guides": false,
+      "active_tool": "MediaOut1"
+    },
+    {
+      "file": "frame119.png",
+      "source": "screen-clean119.png",
+      "source_sha256": "726c58e01eb147b78c3be0c23ff3047e2dc26c86854eb125ccaaf99a26ec1e24",
+      "frame": 119,
+      "crop_xyxy": [
+        1146,
+        65,
+        2830,
+        725
+      ],
+      "resampled": false,
+      "sha256": "37f0c89b66c090bfb174670ae15d0326c23ee1216f342939816171de768db95f",
+      "viewer_contents": "Left input chart / Right Paint result,both1920x1080/40%",
+      "viewer_guides": false,
+      "active_tool": "MediaOut1"
+    }
+  ],
+  "acceptance": {
+    "gui": "PASS: owner visually inspected node connections, selected Inspector, and output",
+    "article_display": "Local/public outcomes recorded after execution in docs/fusion-screenshot-candidates.json per-case status and publication_batches;capture provenance fixed."
+  },
+  "unverified": [
+    "Free edition and other platforms",
+    "All parameter ranges and performance",
+    "別画像のSource指定、透明キャンバス、反転、Softness、参照位置や形状のアニメーション、期間変更、Shiftによる形状制約",
+    "Real footage,tablet,all control ranges/performance,portable Graph reimport",
+    "Exported portable composition reimport"
+  ],
+  "parameter_readback_scope": "Broad tool GetInputList/GetInput NOT_RUN. REGID/project/runtime identity,native Inspector and exported text only. Existing exported Point/Number keys changed with guard;no Image/Mask/ScriptVal payload read.",
+  "gui_authoring": {
+    "host": {
+      "pid": 20156,
+      "hwnd": 82647722,
+      "source_pixels": [
+        3352,
+        1910
+      ]
+    },
+    "modifier": "CopyRectangle1",
+    "regid": "CopyRectangle",
+    "visible_flow_tools": 3,
+    "delivery": "synthetic Cua,physical input NOT_PROVEN;native GUI/export are result evidence"
+  },
+  "restoration": "PASS:frame0,both40%,owned scratch saved,native final visually inspected",
+  "reproduction_action": "build creates EMPTY Paint scaffold;native style/drawing/grouping and bounded coordinate changes required. Never rebuild saved cases.",
+  "native_inspector_values": {
+    "Center": [
+      0.1197916,
+      0.2777778
+    ],
+    "Source": [
+      0.875,
+      0.3125
+    ],
+    "Width": 0.12,
+    "Height": 0.12,
+    "FillType": "Image",
+    "Angle": 0,
+    "Size": 1,
+    "Softness": 0,
+    "Opacity": 1
+  },
+  "source_change": "Source and Width/Height changed once from exported existing keys;GUI/result verified.",
+  "rejected_attempts": [
+    "Initial source-size capture unconfirmed;no setter retry. Fresh exact window reobservation succeeded."
+  ],
+  "reproduction": {
+    "fixture_sha256": "b0da9d14256c97cbbcb4a4c744872586e10e439f9049c26fbd8f66498b6b7321",
+    "readback_sha256": "5e0d61d27c9227afaf2aa01c179c3c645650540e9deebda62d43c8f32c63139a",
+    "paths": "Comp:/../_fixtures/ for bundled synthetic fixtures",
+    "reimport": "NOT_RUN: accepted GUI evidence precedes export path normalization"
+  }
+}

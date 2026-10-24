@@ -2,7 +2,7 @@
   "schema_version": 1,
   "created": "2026-10-20",
   "scope": "All Fusion pages, DaVinci Resolve 21.1",
-  "status_note": "2026-10-24:public162/598/934 through PR113;local165/611/950 through S93/R143. Batch28 4pages21images desktop/mobile/native links/hash/overflow PASS,build/regressions19/content51 PASS. S94/S95 native work-stage only. Whole Fusion incomplete.",
+  "status_note": "2026-10-24:public165/611/950 through PR115,1447 assets PASS. S94–S96/R144–R146 local168/625/967,post-incoming8d217dd build and4pages25images PASS,ready for exact-head CI/publication. S97/S98 native work-stage only;whole587/387 capture-needed and remaining_views incomplete.",
   "asset_directory_template": "static/img/fusion/captures/{id}/{shot.slug}.png",
   "capture_manifest_name": "capture.json",
   "candidates": [
@@ -5041,7 +5041,7 @@
         "additional_printed_pages": "1749–1755"
       },
       "goal": "Native Paint CloneMultistroke,Graph/Inspector/source copy and frame duration;GUI/export scope only",
-      "status": "captured-local-display-verified",
+      "status": "published-display-verified",
       "shots": [
         {
           "slug": "graph",
@@ -5067,7 +5067,8 @@
           "target": "CloneMultistroke",
           "status": "native-observed"
         }
-      ]
+      ],
+      "published_batch": "fusion-native-20261024-28"
     },
     {
       "id": "S92",
@@ -5081,7 +5082,7 @@
         "additional_printed_pages": "1749–1755"
       },
       "goal": "Native Paint CopyPolyLine,Graph/Inspector/source copy and frame duration;GUI/export scope only",
-      "status": "captured-local-display-verified",
+      "status": "published-display-verified",
       "shots": [
         {
           "slug": "graph",
@@ -5107,7 +5108,8 @@
           "target": "CopyPolyLine",
           "status": "native-observed"
         }
-      ]
+      ],
+      "published_batch": "fusion-native-20261024-28"
     },
     {
       "id": "S93",
@@ -5121,7 +5123,7 @@
         "additional_printed_pages": "1749–1755"
       },
       "goal": "Native Paint CopyEllipse,Graph/Inspector/source copy and frame duration;GUI/export scope only",
-      "status": "captured-local-display-verified",
+      "status": "published-display-verified",
       "shots": [
         {
           "slug": "graph",
@@ -5151,6 +5153,139 @@
           "slug": "source-guides",
           "kind": "output",
           "target": "CopyEllipse",
+          "status": "native-observed"
+        }
+      ],
+      "published_batch": "fusion-native-20261024-28"
+    },
+    {
+      "id": "S94",
+      "priority": "P1",
+      "article": "manuals/fusion/nodes/paint/copy-rectangle.md",
+      "manual": {
+        "version": "21.1",
+        "chapter": 113,
+        "printed_pages": "2638–2645",
+        "additional_chapter": 80,
+        "additional_printed_pages": "1751–1760"
+      },
+      "goal": "Native Paint CopyRectangle,Graph/exact Inspector/output and119;bounded copy/seed/group translation",
+      "status": "captured-local-display-verified",
+      "shots": [
+        {
+          "slug": "graph",
+          "kind": "node-graph",
+          "target": "CopyRectangle",
+          "status": "native-observed"
+        },
+        {
+          "slug": "inspector",
+          "kind": "inspector",
+          "target": "CopyRectangle",
+          "status": "native-observed"
+        },
+        {
+          "slug": "compare",
+          "kind": "output",
+          "target": "CopyRectangle",
+          "status": "native-observed"
+        },
+        {
+          "slug": "frame119",
+          "kind": "output",
+          "target": "CopyRectangle",
+          "status": "native-observed"
+        }
+      ]
+    },
+    {
+      "id": "S95",
+      "priority": "P1",
+      "article": "manuals/fusion/nodes/paint/fill.md",
+      "manual": {
+        "version": "21.1",
+        "chapter": 113,
+        "printed_pages": "2638–2645",
+        "additional_chapter": 80,
+        "additional_printed_pages": "1751–1760"
+      },
+      "goal": "Native Paint Fill,Graph/exact Inspector/output and119;bounded copy/seed/group translation",
+      "status": "captured-local-display-verified",
+      "shots": [
+        {
+          "slug": "graph",
+          "kind": "node-graph",
+          "target": "Fill",
+          "status": "native-observed"
+        },
+        {
+          "slug": "inspector",
+          "kind": "inspector",
+          "target": "Fill",
+          "status": "native-observed"
+        },
+        {
+          "slug": "compare",
+          "kind": "output",
+          "target": "Fill",
+          "status": "native-observed"
+        },
+        {
+          "slug": "frame119",
+          "kind": "output",
+          "target": "Fill",
+          "status": "native-observed"
+        },
+        {
+          "slug": "yellow",
+          "kind": "output",
+          "target": "Fill",
+          "status": "native-observed"
+        }
+      ]
+    },
+    {
+      "id": "S96",
+      "priority": "P1",
+      "article": "manuals/fusion/nodes/paint/paint-group.md",
+      "manual": {
+        "version": "21.1",
+        "chapter": 113,
+        "printed_pages": "2638–2645",
+        "additional_chapter": 80,
+        "additional_printed_pages": "1751–1760"
+      },
+      "goal": "Native Paint PaintGroup,Graph/exact Inspector/output and119;bounded copy/seed/group translation",
+      "status": "captured-local-display-verified",
+      "shots": [
+        {
+          "slug": "graph",
+          "kind": "node-graph",
+          "target": "PaintGroup",
+          "status": "native-observed"
+        },
+        {
+          "slug": "inspector",
+          "kind": "inspector",
+          "target": "PaintGroup",
+          "status": "native-observed"
+        },
+        {
+          "slug": "compare",
+          "kind": "output",
+          "target": "PaintGroup",
+          "status": "native-observed"
+        },
+        {
+          "slug": "frame119",
+          "kind": "output",
+          "target": "PaintGroup",
+          "status": "native-observed"
+        },
+        {
+          "slug": "before",
+          "kind": "output",
+          "target": "PaintGroup",
           "status": "native-observed"
         }
       ]
@@ -6061,27 +6196,58 @@
         "artifacts/fusion-captures/public-batch27-assets.json"
       ],
       "limitations": "Whole587/393 capture-needed and remaining_views incomplete;S91/S92 native work stage not yet adopted."
+    },
+    {
+      "id": "fusion-native-20261024-28",
+      "cases": [
+        "S91",
+        "S92",
+        "S93"
+      ],
+      "reuses": [
+        "R141",
+        "R142",
+        "R143"
+      ],
+      "pr": "https://github.com/46slv/collectanea-DB/pull/115",
+      "candidate": "4ae125a6f1c8f5b7148e3ca6fc93a519ffdc3504",
+      "main": "8215d118f4187b054fba43cf7a5e15bc0ef491bc",
+      "tree": "8eb0aea25d5f4c70347a10365ffc8d15b26500a8",
+      "quality_run": "https://github.com/46slv/collectanea-DB/actions/runs/40065516616",
+      "pages_run": "https://github.com/46slv/collectanea-DB/actions/runs/40066337704",
+      "merge_owner": "Sol exact-head all Quality jobs/steps PASS,fresh main/reviews/comments,expected-head squash,MERGED and equal tree readback",
+      "public_pages": 4,
+      "public_images": 21,
+      "new_placements": 16,
+      "new_native_crops": 13,
+      "public_asset_hashes": 1447,
+      "result": "PASS",
+      "evidence": [
+        "artifacts/fusion-captures/public-batch28-display-report.json",
+        "artifacts/fusion-captures/public-batch28-assets.json"
+      ],
+      "limitations": "Whole587/390 capture-needed and remaining_views incomplete;S94–S96 next adoption,not public."
     }
   ],
   "coverage_inventory": {
-    "checked_at": "2026-10-24T05:12:48.250501+00:00",
+    "checked_at": "2026-10-24T05:42:33.746290+00:00",
     "scope": "All manuals/fusion Markdown and MDX pages; review necessity before adding images.",
     "completion_rule": "Every page has an explicit image decision; necessary images are native-observed, embedded, saved to GitHub and public-display-verified. A native example does not verify all article controls.",
     "summary": {
       "total_pages": 587,
-      "with_images": 165,
-      "with_native_examples": 165,
+      "with_images": 168,
+      "with_native_examples": 168,
       "states": {
         "reviewed-no-standalone-image": 26,
         "no-standalone-image-needed": 6,
         "illustrated-reused-example": 74,
-        "capture-planned": 390,
-        "illustrated-native-example": 91
+        "capture-planned": 387,
+        "illustrated-native-example": 94
       },
       "decisions": {
         "no-standalone-image-needed": 32,
-        "image-required": 165,
-        "capture-needed": 390
+        "image-required": 168,
+        "capture-needed": 387
       }
     },
     "pages": [
@@ -17498,13 +17664,18 @@
         "article": "manuals/fusion/nodes/paint/copy-rectangle.md",
         "title": "Copy Rectangle",
         "kind": "node",
-        "image_count": 0,
-        "native_cases": [],
+        "image_count": 4,
+        "native_cases": [
+          "S94"
+        ],
         "reused_cases": [],
         "planned_cases": [],
-        "state": "capture-planned",
-        "decision": "capture-needed",
+        "state": "illustrated-native-example",
+        "decision": "image-required",
         "reason": "本文の対象機能: Paint内で四角く指定した範囲へ、別の位置や画像の画素をコピーする描画要素。独立したFlowノードではない。。独立Flow Nodeではない。別stroke/Mask画像は対象要素の実操作を示せない。",
+        "remaining_views": [
+          "Other controls/animation/tracking,external source/Alpha,real footage,tablet,other editions/platforms/performance"
+        ],
         "required_views": [
           "Paint内部の対象選択toolbar/List/Controls",
           "形/brushまたはclone source/offset",
@@ -17531,19 +17702,25 @@
         ],
         "hold_conditions": [
           "存在しないFlow端子や個別編集Controlを要求しない。Duration/編集可否は実要素ごとに確認。"
-        ]
+        ],
+        "audit_note": "S94 native GUI/export bounded example accepted."
       },
       {
         "article": "manuals/fusion/nodes/paint/fill.md",
         "title": "Fill",
         "kind": "node",
-        "image_count": 0,
-        "native_cases": [],
+        "image_count": 5,
+        "native_cases": [
+          "S95"
+        ],
         "reused_cases": [],
         "planned_cases": [],
-        "state": "capture-planned",
-        "decision": "capture-needed",
+        "state": "illustrated-native-example",
+        "decision": "image-required",
         "reason": "本文の対象機能: Paint内でクリックした位置から、色やチャンネルの値が近く、つながっている画素を塗る描画要素。独立したFlowノードではない。。独立Flow Nodeではない。別stroke/Mask画像は対象要素の実操作を示せない。",
+        "remaining_views": [
+          "Other controls/animation/tracking,external source/Alpha,real footage,tablet,other editions/platforms/performance"
+        ],
         "required_views": [
           "Paint内部の対象選択toolbar/List/Controls",
           "形/brushまたはclone source/offset",
@@ -17565,13 +17742,14 @@
         ],
         "hold_conditions": [
           "存在しないFlow端子や個別編集Controlを要求しない。Duration/編集可否は実要素ごとに確認。"
-        ]
+        ],
+        "audit_note": "S95 native GUI/export bounded example accepted."
       },
       {
         "article": "manuals/fusion/nodes/paint/index.md",
         "title": "Paintノード：描画要素の使い分け",
         "kind": "index",
-        "image_count": 8,
+        "image_count": 11,
         "native_cases": [],
         "reused_cases": [
           "S86",
@@ -17581,7 +17759,10 @@
           "S90",
           "S91",
           "S92",
-          "S93"
+          "S93",
+          "S94",
+          "S95",
+          "S96"
         ],
         "planned_cases": [],
         "state": "illustrated-reused-example",
@@ -17634,13 +17815,18 @@
         "article": "manuals/fusion/nodes/paint/paint-group.md",
         "title": "Paint Group",
         "kind": "node",
-        "image_count": 0,
-        "native_cases": [],
+        "image_count": 5,
+        "native_cases": [
+          "S96"
+        ],
         "reused_cases": [],
         "planned_cases": [],
-        "state": "capture-planned",
-        "decision": "capture-needed",
+        "state": "illustrated-native-example",
+        "decision": "image-required",
         "reason": "本文の対象機能: Paint内の複数の描画操作をまとめ、同じ移動・回転・拡大縮小を適用する機能。。独立Flow Nodeではない。別stroke/Mask画像は対象要素の実操作を示せない。",
+        "remaining_views": [
+          "Other controls/animation/tracking,external source/Alpha,real footage,tablet,other editions/platforms/performance"
+        ],
         "required_views": [
           "Paint内部の対象選択toolbar/List/Controls",
           "形/brushまたはclone source/offset",
@@ -17667,7 +17853,8 @@
         ],
         "hold_conditions": [
           "存在しないFlow端子や個別編集Controlを要求しない。Duration/編集可否は実要素ごとに確認。"
-        ]
+        ],
+        "audit_note": "S96 native GUI/export bounded example accepted."
       },
       {
         "article": "manuals/fusion/nodes/paint/paint.md",
@@ -25730,8 +25917,9 @@
       "images": [
         "compare.png"
       ],
-      "status": "embedded-local-display-verified",
-      "scope": "Native same-input Paint copy,not external source or animation."
+      "status": "published-display-verified",
+      "scope": "Native same-input Paint copy,not external source or animation.",
+      "published_batch": "fusion-native-20261024-28"
     },
     {
       "id": "R142",
@@ -25740,8 +25928,9 @@
       "images": [
         "compare.png"
       ],
-      "status": "embedded-local-display-verified",
-      "scope": "Native same-input Paint copy,not external source or animation."
+      "status": "published-display-verified",
+      "scope": "Native same-input Paint copy,not external source or animation.",
+      "published_batch": "fusion-native-20261024-28"
     },
     {
       "id": "R143",
@@ -25750,8 +25939,39 @@
       "images": [
         "compare.png"
       ],
+      "status": "published-display-verified",
+      "scope": "Native same-input Paint copy,not external source or animation.",
+      "published_batch": "fusion-native-20261024-28"
+    },
+    {
+      "id": "R144",
+      "article": "manuals/fusion/nodes/paint/index.md",
+      "source_case": "S94",
+      "images": [
+        "compare.png"
+      ],
       "status": "embedded-local-display-verified",
-      "scope": "Native same-input Paint copy,not external source or animation."
+      "scope": "Native bounded Paint CopyRectangle example,not full controls or tracking."
+    },
+    {
+      "id": "R145",
+      "article": "manuals/fusion/nodes/paint/index.md",
+      "source_case": "S95",
+      "images": [
+        "compare.png"
+      ],
+      "status": "embedded-local-display-verified",
+      "scope": "Native bounded Paint Fill example,not full controls or tracking."
+    },
+    {
+      "id": "R146",
+      "article": "manuals/fusion/nodes/paint/index.md",
+      "source_case": "S96",
+      "images": [
+        "compare.png"
+      ],
+      "status": "embedded-local-display-verified",
+      "scope": "Native bounded Paint PaintGroup example,not full controls or tracking."
     }
   ],
   "external_reports": [
