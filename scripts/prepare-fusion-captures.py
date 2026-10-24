@@ -92,6 +92,9 @@ CONFIG={
  'S85':{'graph': (770, 1205, 2050, 1530), 'inspector': (2830, 120, 3352, 830), 'compare': (1146, 65, 2830, 725), 'guides': (1146, 65, 2830, 725), 'off-inspector': (2830, 120, 3352, 830), 'off': (1146, 65, 2830, 725)},
  'S86':{'graph': (770, 1300, 2050, 1450), 'inspector': (2830, 120, 3352, 675), 'compare': (1146, 65, 2830, 725), 'frame1': (1146, 65, 2830, 725)},
  'S87':{'graph': (770, 1300, 2050, 1450), 'inspector': (2830, 120, 3352, 790), 'compare': (1146, 65, 2830, 725), 'editable': (2830, 120, 3352, 790), 'frame1': (1146, 65, 2830, 725), 'frame119': (1146, 65, 2830, 725)},
+ 'S88':{'graph': (770, 1300, 2050, 1450), 'inspector': (2830, 120, 3352, 790), 'compare': (1146, 65, 2830, 725), 'guides': (1146, 65, 2830, 725), 'frame119': (1146, 65, 2830, 725)},
+ 'S89':{'graph': (770, 1300, 2050, 1450), 'inspector': (2830, 120, 3352, 550), 'compare': (1146, 65, 2830, 725), 'frame119': (1146, 65, 2830, 725)},
+ 'S90':{'graph': (770, 1300, 2050, 1450), 'inspector': (2830, 120, 3352, 550), 'compare': (1146, 65, 2830, 725), 'frame119': (1146, 65, 2830, 725)},
 }
 def sha(p):return hashlib.sha256(p.read_bytes()).hexdigest()
 candidates=json.loads((ROOT/'docs/fusion-screenshot-candidates.json').read_text(encoding='utf-8'))
@@ -183,6 +186,9 @@ for case in args.cases:
   if case=='S85':extra.update({('S85', 'compare'): 'screen-clean.png', ('S85', 'off-inspector'): 'screen-off.png', ('S85', 'off'): 'screen-off-clean.png'})
   if case=='S86' and slug=='frame1':extra[(case,slug)]='screen-frame1.png'
   if case=='S87':extra.update({(case,'inspector'):'screen-controls.png',(case,'editable'):'screen-editable.png',(case,'compare'):'screen-clean0.png',(case,'frame1'):'screen-clean1.png',(case,'frame119'):'screen-clean119.png'})
+  if case in ['S88','S89','S90']:
+   extra.update({(case,'compare'):'screen-clean0.png',(case,'frame119'):'screen-clean119.png'})
+   if case=='S88':extra[(case,'inspector')]='screen-controls.png'
   src=folder/extra.get((case,slug),variants.get((case,slug),'screen.png'))
   assert 0<=box[0]<box[2]<=im.width and 0<=box[1]<box[3]<=im.height, (case,slug,box)
   path=folder/(slug+'.png');Image.open(src).crop(box).save(path)
@@ -227,6 +233,11 @@ for case in args.cases:
    shots[-1]['frame']=1 if slug=='frame1' else 119 if slug=='frame119' else 0
    shots[-1]['active_tool']='MediaOut1' if slug in ['compare','frame1','frame119'] else 'Stroke1' if slug in ['inspector','editable'] else 'Paint1'
    shots[-1]['viewer_guides']=slug not in ['compare','frame1','frame119']
+  if case in ['S88','S89','S90']:
+   shots[-1]['viewer_contents']='Left input chart / Right Paint image,both1920x1080/40%'
+   shots[-1]['frame']=119 if slug=='frame119' else 0
+   shots[-1]['viewer_guides']=slug not in ['compare','frame119']
+   shots[-1]['active_tool']='MediaOut1' if slug in ['compare','frame119'] else 'Paint1' if case=='S88' else 'Circle1' if case=='S89' else 'Rectangle1'
  candidate=next(x for x in candidates['candidates'] if x['id']==case)
  manifest={'schema_version':1,'case':case,'article':candidate['article'],'manual':candidate['manual'],'runtime':{'version':readback['resolve'],'edition':'Studio','os':readback['os'],'ui_language':'ja-JP (some Shape controls remain English)'},'captured_at':datetime.datetime.fromtimestamp(source.stat().st_mtime,datetime.timezone.utc).isoformat(),'project':readback['project'],'timeline':readback['timeline'],'frame':readback['frame'],'resolution':[1920,1080],'color_management':readback['project_settings'],'viewer':{'zoom_percent':40,'channel':'Color','background':'checkerboard for transparent pixels','note':'Viewer screenshots are display evidence, not colorimetric exports.'},'graph':'fixture.comp','settings':'readback.json','source':{'file':'screen.png','size':im.size,'sha256':sha(source)},'shots':shots,'acceptance':{'gui':'PASS: owner visually inspected node connections, selected Inspector, and output','article_display':'NOT_RUN'},'unverified':['Free edition and other platforms','All parameter ranges and performance','S03 optional Glow Mask / Effect Mask comparison is deferred'] if case=='S03' else ['Free edition and other platforms','All parameter ranges and performance']}
  (folder/'capture.json').write_text(json.dumps(manifest,ensure_ascii=False,indent=2)+'\n',encoding='utf-8',newline='\n')

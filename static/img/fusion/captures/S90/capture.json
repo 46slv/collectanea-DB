@@ -1,0 +1,198 @@
+{
+  "schema_version": 1,
+  "case": "S90",
+  "article": "manuals/fusion/nodes/paint/rectangle.md",
+  "manual": {
+    "version": "21.1",
+    "chapter": 113,
+    "printed_pages": "2638–2645"
+  },
+  "runtime": {
+    "version": "21.1.0.14",
+    "edition": "Studio",
+    "os": "Windows-11-10.0.26200-SP0",
+    "ui_language": "ja-JP (some Shape controls remain English)"
+  },
+  "captured_at": "2026-10-24T04:00:41.783490+00:00",
+  "project": "Collectanea_Captures_20261023_Sol",
+  "timeline": "S90_capture",
+  "frame": 0.0,
+  "resolution": [
+    1920,
+    1080
+  ],
+  "color_management": {
+    "colorScienceMode": "davinciYRGB",
+    "colorSpaceTimeline": "Rec.709 (Scene)",
+    "colorSpaceTimelineGamma": "",
+    "colorSpaceOutput": "Rec.709 (Scene)",
+    "colorSpaceOutputGamma": "ACEScc",
+    "separateColorSpaceAndGamma": "0",
+    "isAutoColorManage": "0",
+    "timelineResolutionWidth": "1920",
+    "timelineResolutionHeight": "1080",
+    "timelineFrameRate": 24.0,
+    "timelinePlaybackFrameRate": "30"
+  },
+  "viewer": {
+    "zoom_percent": 40,
+    "channel": "Color",
+    "background": "checkerboard for transparent pixels",
+    "note": "Viewer screenshots are display evidence, not colorimetric exports."
+  },
+  "graph": "fixture.comp",
+  "settings": "readback.json",
+  "source": {
+    "file": "screen.png",
+    "size": [
+      3352,
+      1910
+    ],
+    "sha256": "f4c3dfbff9a5009f3446a1e453a4f001d8a181fad5cc86fb27b1993631d81be3"
+  },
+  "shots": [
+    {
+      "file": "graph.png",
+      "source": "screen.png",
+      "source_sha256": "f4c3dfbff9a5009f3446a1e453a4f001d8a181fad5cc86fb27b1993631d81be3",
+      "frame": 0,
+      "crop_xyxy": [
+        770,
+        1300,
+        2050,
+        1450
+      ],
+      "resampled": false,
+      "sha256": "48a3ec4d68927f15fe1b368076cf03d03dd019812941850775018b4592dcb4dc",
+      "viewer_contents": "Left input chart / Right Paint image,both1920x1080/40%",
+      "viewer_guides": true,
+      "active_tool": "Rectangle1"
+    },
+    {
+      "file": "inspector.png",
+      "source": "screen.png",
+      "source_sha256": "f4c3dfbff9a5009f3446a1e453a4f001d8a181fad5cc86fb27b1993631d81be3",
+      "frame": 0,
+      "crop_xyxy": [
+        2830,
+        120,
+        3352,
+        550
+      ],
+      "resampled": false,
+      "sha256": "7a00dce58c591c5d8fead7f4c6b985ac151b6282ae221fe6f0395048acc80b9a",
+      "viewer_contents": "Left input chart / Right Paint image,both1920x1080/40%",
+      "viewer_guides": true,
+      "active_tool": "Rectangle1"
+    },
+    {
+      "file": "compare.png",
+      "source": "screen-clean0.png",
+      "source_sha256": "f157a1e24378fe8275bf4e84a10786aa86d2da08d3895a0f123a9bf8260ea9ce",
+      "frame": 0,
+      "crop_xyxy": [
+        1146,
+        65,
+        2830,
+        725
+      ],
+      "resampled": false,
+      "sha256": "d83c7b5bbe43bb55ba2f4b3e2bb8b3e05dad321d58c5c501f7ba96095b62759a",
+      "viewer_contents": "Left input chart / Right Paint image,both1920x1080/40%",
+      "viewer_guides": false,
+      "active_tool": "MediaOut1"
+    },
+    {
+      "file": "frame119.png",
+      "source": "screen-clean119.png",
+      "source_sha256": "7e1cb5d38f5fa3dfe01383185a571cb83418221aa7ee6523d16e428525eb109f",
+      "frame": 119,
+      "crop_xyxy": [
+        1146,
+        65,
+        2830,
+        725
+      ],
+      "resampled": false,
+      "sha256": "d439a248afdfb9d32e5d8de6d24db3d68c5dd692767c6e29057d2cadcdc6d945",
+      "viewer_contents": "Left input chart / Right Paint image,both1920x1080/40%",
+      "viewer_guides": false,
+      "active_tool": "MediaOut1"
+    }
+  ],
+  "acceptance": {
+    "gui": "PASS: owner visually inspected node connections, selected Inspector, and output",
+    "article_display": "PASS: local production build;4 distinct pages18 images at1440px/390px;canonical routes/decode/Alt/native links/hash/overflow"
+  },
+  "unverified": [
+    "Free edition and other platforms",
+    "All parameter ranges and performance",
+    "位置や幅・高さの描画後変更・アニメーション、期間の短縮、Copy Rectangle、Effect Mask、透明Backgroundとの合成、追跡",
+    "Individual check of all120 frames;only0/119 accepted",
+    "Other platforms/edition,real footage,tablet,all control ranges and performance",
+    "Exported portable composition reimport"
+  ],
+  "parameter_readback_scope": "All tool GetInputList/GetInput NOT_RUN after S86 observed host exit;REGID/runtime/project identity only. Native GUI and exported text are acceptance evidence.",
+  "native_inspector_values": {
+    "source": "screen.png",
+    "target": "Rectangle1",
+    "Center": [
+      0.497395820915699,
+      0.3125
+    ],
+    "Width": 0.624999985098839,
+    "Height": 0.277777791023254,
+    "RGBA": [
+      1,
+      1,
+      1,
+      1
+    ],
+    "Opacity": 1,
+    "SubpixelDrawing": true
+  },
+  "state_variants": {
+    "screen.png": "frame0/Paint or exact modifier selected/native Inspector and guides",
+    "screen-clean0.png": "frame0/MediaOut selected/guides absent",
+    "screen-clean119.png": "frame119/MediaOut selected/guides absent"
+  },
+  "gui_authoring": {
+    "visible_flow_tools": 3,
+    "drawn_modifier": "Rectangle1",
+    "regid": "Rectangle",
+    "host": {
+      "pid": 42776,
+      "hwnd": 43648076,
+      "source_pixels": [
+        3352,
+        1910
+      ]
+    },
+    "delivery": "synthetic Cua;physical input NOT_PROVEN;native screenshot/export prove result",
+    "gesture": {
+      "toolbar": [
+        2237,
+        110
+      ],
+      "from": [
+        2190,
+        430
+      ],
+      "to": [
+        2670,
+        550
+      ],
+      "duration_ms": 600,
+      "steps": 24
+    }
+  },
+  "restoration": "PASS:frame0/both40%,owned scratch saved and native image visually inspected",
+  "reproduction_action": "build creates EMPTY Paint scaffold;native toolbar and drawing required. Bind exact drawn modifier before Inspector acceptance. Never rebuild existing case or broadly enumerate tool inputs.",
+  "exact_selection": "Guarded SDK SetActiveTool(Rectangle1),native Inspector and exported numeric text;waiting Rectangle2 retained in Graph and not counted as a second visible shape.",
+  "reproduction": {
+    "fixture_sha256": "208d1ea951aadb1cdac45005d2c2b2d27549beb45d756e62126a13a219451a78",
+    "readback_sha256": "4489be4c8275cd0b074cc27e96d2bde366fe8ab7b11ab77c5a2874a9266993e8",
+    "paths": "Comp:/../_fixtures/ for bundled synthetic fixtures",
+    "reimport": "NOT_RUN: accepted GUI evidence precedes export path normalization"
+  }
+}

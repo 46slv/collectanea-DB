@@ -15,7 +15,7 @@ outputs: []
 tasks: [paint, animate, cleanup]
 product_scope: fusion
 suite_surfaces: [fusion]
-updated: "2026-10-10"
+updated: "2026-10-24"
 ---
 
 # Polyline Stroke
@@ -121,9 +121,37 @@ Write On / Write Offでは**StartとEndで経路上の表示範囲**を調整で
 
 制御点は追加できますが、細かな手ぶれまで大量の点として残すと調整しにくくなります。Draw Appendで作った経路の点が多すぎる場合は、**Reduce**で点数を減らしてから形を整えます。
 
+## 実機例：3点をクリックして開いた折れ線を描く
+
+<!-- capture-case:S88 -->
+
+Resolve Studio21.1.0.14／Windows、1920×1080、Viewer40%で撮影しました。LoaderのテストチャートをPaintへ入力し、Paintの画像出力をMediaOutへ接続しています。左が入力、右が描画後の画像です。
+
+Viewer上部でPolyline Strokeを選び、左端・頂点・右端の3点をクリックしました。開いた経路に沿って白い線が描かれ、下のガイド付き表示では点の位置と経路を確認できます。Make Editableを押してから作った経路ではありません。
+
+[![Loaderの画像をPaintへ入れてMediaOutへ渡す実機Graph、PolylineStrokeはPaint内部に保持](/img/fusion/captures/S88/graph.png)](/img/fusion/captures/S88/graph.png)
+
+[![実機PolylineStroke1のInspector、形状とColorの設定を表示](/img/fusion/captures/S88/inspector.png)](/img/fusion/captures/S88/inspector.png)
+
+[![3点の開いたPolyline Stroke、左右のViewerに制御点と経路ガイドを表示](/img/fusion/captures/S88/guides.png)](/img/fusion/captures/S88/guides.png)
+
+保存Graphは、Linear属性を持つ3点のPolylineです。端点を結ぶClosed設定や、Shape用のBezierSplineは記録されていません。Inspectorでは全フレーム、Length1、Write Onの範囲0–1、Center0.5／0.5、Angle0、Size1、Spacing0.2を確認しました。
+
+[![フレーム0、左は入力チャート、右はPaint内部のPolylineStrokeを白で描いた画像出力](/img/fusion/captures/S88/compare.png)](/img/fusion/captures/S88/compare.png)
+
+上がフレーム0、下がコンポジション終端のフレーム119です。両フレームで同じ描画が残ることを確認しました。全120フレームを個別に検査した例ではありません。
+
+[![フレーム119でもPaint内部のPolylineStrokeによる白い描画が残る実機比較](/img/fusion/captures/S88/frame119.png)](/img/fusion/captures/S88/frame119.png)
+
+Flowに見えるノードはLoader・Paint・MediaOutの3つで、描画要素はPaint内部の`PolylineStroke1`、実機の内部REGIDは`PolylineStroke`でした。最後はフレーム0、両Viewer40%で保存しています。
+
+個々の点の移動・追加・削除、Closed、Smooth、Draw Append、PathやMaskへのConnect To、Write On、Roto Assist、追跡、実写の補修、筆圧、性能と全初期値は未確認です。`verification: partial`を維持します。
+
+[再現用Graph](/img/fusion/captures/S88/fixture.comp) · [撮影条件と確認範囲](/img/fusion/captures/S88/capture.json)
+
 ## 出典と確認範囲
 
 - Blackmagic Design『DaVinci Resolve 21.1 Reference Manual』Chapter 80「Paint」pp.1749–1750、1756–1759：Strokeとの違い、Path接続、Modifiers、Write On、追跡。
 - 同Chapter 113「Paint Node」pp.2638–2645：Paintの2D画像／Effect Mask入力、Polyline Stroke、Viewer編集ツール、Inspectorのブラシ／ストローク設定。
 
-操作名と機能の関係は上記マニュアルに基づきます。**21.1実機のREGID、端子内部ID、全設定の初期値、SVGごとの接続可否は未検証**なので、verificationはpartialのままです。
+操作名と機能の関係は上記マニュアルに基づきます。S88で内部REGID、3点の開いた経路、掲載したInspector、フレーム0／119の画像出力を実機確認しました。端子内部ID、全初期値、各編集操作、SVGごとの接続可否は未確認のため、`verification: partial`を維持します。

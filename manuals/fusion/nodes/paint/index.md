@@ -105,6 +105,28 @@ Resolve Studio21.1.0.14／Windows、1920×1080、Viewer40%。[PaintのGraphとIn
 
 [![フレーム0、左の入力チャートに対し右のPaint出力には白いStrokeが重なっている](/img/fusion/captures/S87/compare.png)](/img/fusion/captures/S87/compare.png)
 
+### 点から描く線と、円・矩形の塗り
+
+3つともPaintへ入力した画像へ描いた実機例です。Polyline Strokeは3点の開いた折れ線、CircleとRectangleは白い塗りとして出力されました。MaskやCopy系の描画を確認した例ではありません。
+
+<!-- capture-reuse:R138 -->
+
+[![Paint内部のPolylineStrokeで入力チャートへ白い折れ線を描いた実機のフレーム0](/img/fusion/captures/S88/compare.png)](/img/fusion/captures/S88/compare.png)
+
+[PolylineStrokeのGraph・Inspector・フレーム119](./polyline-stroke)。
+
+<!-- capture-reuse:R139 -->
+
+[![Paint内部のCircleで入力チャートへ白い円を描いた実機のフレーム0](/img/fusion/captures/S89/compare.png)](/img/fusion/captures/S89/compare.png)
+
+[CircleのGraph・Inspector・フレーム119](./circle-stroke)。
+
+<!-- capture-reuse:R140 -->
+
+[![Paint内部のRectangleで入力チャートへ白い矩形を描いた実機のフレーム0](/img/fusion/captures/S90/compare.png)](/img/fusion/captures/S90/compare.png)
+
+[RectangleのGraph・Inspector・フレーム119](./rectangle)。
+
 ## 出典と確認範囲
 
 Blackmagic Design『DaVinci Resolve 21.1 Reference Manual』（2026年9月）、Chapter 80「Paint」pp.1747–1751、およびChapter 113「Paint Node」pp.2638–2643に基づきます。PaintとMask Paint、入出力、透明キャンバスの構成、Source、描画要素の分類、表示期間と後編集の違いを確認しました。
