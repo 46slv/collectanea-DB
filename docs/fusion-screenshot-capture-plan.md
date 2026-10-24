@@ -195,3 +195,5 @@ Dot31送信1428/formatted1447–1453/ACK1458。PR118/120公開171、PR123CI待�
 Batch32 LOCAL PASS:production build、回帰19/19、Python構文/diff check、CDL XML各値、実buildの4ページ37画像PC/390px/decode/Alt/原寸リンク/sourcehash/overflow PASS（batch32-local/display-report.json、8画面）。採用原画のcopy2で撮影mtime保持。native S105 Controls/file Viewer比較を配布するscreen-controls.png/screen.pngでも再照合しEXACT RGB EQUAL、identity baselineとはDIFFERENT。Graph portable再importはNOT_RUNのまま。
 
 Batch32 inventory:全587、local図示178ページ669crop1020掲載、未図示377、画像不要32。Public PASSは175/653/1001。次候補を凍結後、WORKだけで次のnative準備を進める。
+
+Batch32差分補足:新規未追跡ファイルをstageした後のdiff --checkは、実機書出しred-slope05.cc末尾の空行1件を検出。実機生成物のbyte/hashを保持するため整形せず採用する。追跡済み記事・helperのdiff checkはPASS、native XMLの値・原本同一hashはPASS。先の包括的diff check PASSはこのnative末尾空行を除く。
