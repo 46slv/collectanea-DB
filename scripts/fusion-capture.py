@@ -60,6 +60,10 @@ TARGETS['S66']='Filter1';LEFT['S66']='Loader1';RIGHT['S66']='Filter1'
 TARGETS['S67']='SoftGlow1';LEFT['S67']='Loader1';RIGHT['S67']='SoftGlow1'
 TARGETS['S68']='CreateBumpMap1';LEFT['S68']='Loader1';RIGHT['S68']='CreateBumpMap1'
 TARGETS['S69']='CustomFilter1';LEFT['S69']='Loader1';RIGHT['S69']='CustomFilter1'
+TARGETS['S70']='AutoGain1';LEFT['S70']='Loader1';RIGHT['S70']='AutoGain1'
+TARGETS['S71']='ColorMatrix1';LEFT['S71']='Loader1';RIGHT['S71']='ColorMatrix1'
+TARGETS['S72']='ColorSpace1';LEFT['S72']='Loader1';RIGHT['S72']='ColorSpace1'
+TARGETS['S73']='WhiteBalance1';LEFT['S73']='Loader1';RIGHT['S73']='WhiteBalance1'
 r=d.scriptapp('Resolve')
 assert r, 'Resolve scripting unavailable; do not change preferences automatically'
 pm=r.GetProjectManager(); p=pm.GetCurrentProject()
@@ -95,6 +99,8 @@ if action=='mask_inspector':
  assert case=='S49';TARGETS[case]='Ellipse1';action='show'
 if action=='image':
  assert case in ['S50','S51','S54','S55','S57','S58','S59','S60','S61'];TARGETS[case]='MediaOut1';action='show'
+if action=='roundtrip_result':
+ assert case=='S72';TARGETS[case]='RGBBack1';LEFT[case]='ColorSpace1';RIGHT[case]='RGBBack1';action='show'
 if action=='canvas_source':
  assert case=='S52';TARGETS[case]='GoldCanvas1';action='show'
 if action=='map':
@@ -191,9 +197,11 @@ def select(target,left=None):
  layouts['S50']={'Loader1':(0,0),'AutoDomain1':(1.5,0),'MediaOut1':(3,0)}
  layouts['S54']={'Loader1':(0,0),'Letterbox1':(1.5,0),'MediaOut1':(3,0)}
  for cid in ['S58','S59','S60','S61']:layouts[cid]={'Loader1':(0,0),TARGETS[cid]:(1.5,0),'MediaOut1':(3,0)}
+ for cid in ['S70','S71','S72','S73']:layouts[cid]={'Loader1':(0,0),TARGETS[cid]:(1.5,0),'MediaOut1':(3,0)}
  for cid in ['S66','S67','S68','S69']:layouts[cid]={'Loader1':(0,0),TARGETS[cid]:(1.5,0),'MediaOut1':(3,0)}
  for cid in ['S62','S63','S64','S65']:layouts[cid]={'Loader1':(0,0),TARGETS[cid]:(1.5,0),'MediaOut1':(3,0)}
  if case in ['S62','S63'] and 'BlurSource1' in tools:layouts[case]={'Loader1':(0,0),'BlurSource1':(1.5,0),TARGETS[case]:(3,0),'MediaOut1':(4.5,0)}
+ if case=='S72' and 'RGBBack1' in tools:layouts[case]={'Loader1':(0,0),'ColorSpace1':(1.5,0),'RGBBack1':(3,0),'MediaOut1':(4.5,0)}
  layouts['S57']={'Loader1':(0,0),'CustomTool1':(1.5,0),'MediaOut1':(3,0)}
  layouts['S56']={'Loader1':(0,0),'CameraShake1':(1.5,0),'MediaOut1':(3,0)}
  layouts['S55']={'Loader1':(0,0),'DVE1':(1.5,0),'MediaOut1':(3,0)}
@@ -250,7 +258,12 @@ if action=='build':
   rb=add('sRender','RenderBase1',4,-1);connect(rb,'Input',base)
   target=add('sTransform','Transform1',2,1);connect(target,'Input',base)
   rr=add('sRender','RenderChanged1',4,1);connect(rr,'Input',target);connect(mo,'Input',rr)
- # S69 build creates the scaffold; finish matrix edits by native double-click, typing and Return; UIA text alone did not commit the FilterTable.
+ # S71 matrix edits require native GUI commit and exported FilterTable readback.
+ elif case in ['S70','S71','S72','S73']:
+  loader=add('Loader','Loader1',0,0,Clip=str(REPO/'static/img/fusion/captures/_fixtures/chart.png'))
+  reg={'S70':'AutoGain','S71':'CustomColorMatrix','S72':'ColorSpace','S73':'WhiteBalance'}[case]
+  target=add(reg,TARGETS[case],1.5,0);connect(target,'Input',loader);connect(mo,'Input',target)
+ # S69 matrix edits require native GUI commit; UIA text alone is insufficient.
  elif case in ['S66','S67','S68','S69']:
   loader=add('Loader','Loader1',0,0,Clip=str(REPO/'static/img/fusion/captures/_fixtures/chart.png'))
   reg={'S66':'Filter','S67':'SoftGlow','S68':'CreateBumpMap','S69':'CustomFilter'}[case]
@@ -455,7 +468,7 @@ if action=='build':
  else: raise ValueError('No fixture defined: '+case)
  c.CurrentFrame.FlowView.SetPos(mo,9,1 if case=='S02' else 0)
  assert pm.SaveProject()
-elif action in ('show','readback','set','masked','canvas_fg','canvas_manual','canvas_reference','soft_source'):
+elif action in ('show','readback','set','masked','canvas_fg','canvas_manual','canvas_reference','soft_source','roundtrip'):
  target=tools.get(TARGETS.get(case,''))
 assert target
 if action in ['canvas_fg','canvas_manual','canvas_reference']:
@@ -479,6 +492,10 @@ if action=='masked':
  if previous:assert previous.GetTool().GetAttrs()['TOOLS_Name']=='Ellipse1'
  else:connect(target,'EffectMask',tools['Ellipse1'])
  action='show'
+if action=='roundtrip':
+ assert case=='S72' and 'RGBBack1' not in tools,'one-shot roundtrip already exists'
+ back=add('ColorSpace','RGBBack1',3,0,ColorSpaceConversion=2,ColorType=1)
+ connect(back,'Input',tools['ColorSpace1']);connect(mo,'Input',back);action='show'
 if action=='soft_source':
  assert case in ['S62','S63'] and 'BlurSource1' not in tools, 'Owned input preparation is one-shot; inspect before retry'
  src=add('Blur','BlurSource1',1.5,0,XBlurSize=2,YBlurSize=2,LockXY=1)

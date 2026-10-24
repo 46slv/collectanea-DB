@@ -132,6 +132,32 @@ MediaOut
 | BWにした色が元へ戻らない | BWは白黒化で色情報が失われる。往復可能な3成分の表現変換と区別する。 |
 | 透明部分の縁で結果が変わる | Color Space変換自体はAlphaを変更しない。中間ノードのRGB・Alphaの取り扱いを確認する。 |
 
+## 実機例：YUVの中間画像とRGBへの復帰を見る
+
+<!-- capture-case:S72 -->
+
+Resolve Studio21.1.0.14／WindowsのFusionページで、1920×1080の固定チャートを接続しました。両ViewerはColor／40%です。内部REGIDは`ColorSpace`でした。2つのColor Spaceを直列につなぎ、前段でRGBからYUV、後段でYUVからRGBへ戻しています。
+
+[![LoaderからColorSpace1、RGBBack1、MediaOut1へ接続した実機Graph](/img/fusion/captures/S72/graph.png)](/img/fusion/captures/S72/graph.png)
+
+[![RGBBack1のConversion RGBとColor Type YUVを示すInspector](/img/fusion/captures/S72/inspector.png)](/img/fusion/captures/S72/inspector.png)
+
+[![左はYUV成分をColor表示した中間画像、右はRGBへ戻したチャート](/img/fusion/captures/S72/compare.png)](/img/fusion/captures/S72/compare.png)
+
+上の左は前段ColorSpace1のYUV成分、右は後段RGBBack1でRGBへ戻した結果です。RGBに戻した右には、入力チャートの配色が再び見えます。値をexportして完全一致や変換精度を測定した結果ではありません。
+
+前段を選ぶと、Conversion Color／Color Type YUVになります。下の比較では左に入力RGB、右に前段のYUV成分を表示しました。GraphのMediaOutは、引き続き後段RGBBack1へ接続しています。
+
+[![ColorSpace1のConversion ColorとColor Type YUVを示すInspector](/img/fusion/captures/S72/converted-inspector.png)](/img/fusion/captures/S72/converted-inspector.png)
+
+[![左の入力RGBに対し、右のYUV成分はColor Viewerで緑と赤が強い表示になる](/img/fusion/captures/S72/converted.png)](/img/fusion/captures/S72/converted.png)
+
+RGB Viewerは各成分をR/G/Bとして表示するため、中間画像は緑や赤が強い見た目になります。意図した成分表示と、素材の色かぶりを混同しないよう、Viewerのノード名も確認します。
+
+最後は左にYUV中間、右にRGB復帰後を表示して保存しました。他のColor Type、成分ごとの加工、Alpha、Mask、bit depth別の精度と性能は未確認です。
+
+[再現用Graph](/img/fusion/captures/S72/fixture.comp) · [撮影条件と確認範囲](/img/fusion/captures/S72/capture.json)
+
 ## 出典・確認範囲
 
 - Blackmagic Design, *DaVinci Resolve 21.1 Reference Manual*（September 2026）、Chapter 93「Color Nodes」、pp.2180–2182。Conversion、Color Typeの8種類、入力・Effect Mask、Viewer・SettingsのRGB解釈、Alphaが変換されないことを確認。

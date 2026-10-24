@@ -147,6 +147,34 @@ Aout = Ain
 - **[Brightness Contrast](./brightness-contrast)**：Gain・Lift・Gamma・Contrastなど、一般的な見た目の色調整に向きます。
 - **[Copy Aux](./copy-aux)**：ZやNormalなどの補助チャンネルをRGBAへ取り出し、必要なら戻す用途です。
 
+## 実機例：赤と青を入れ替えてAddを加える
+
+<!-- capture-case:S71 -->
+
+Resolve Studio21.1.0.14／WindowsのFusionページで、1920×1080の固定チャートを接続しました。両ViewerはColor／40%です。内部REGIDは`CustomColorMatrix`でした。左は入力、右はColor Matrixの結果です。
+
+[![LoaderからColorMatrix1、MediaOut1へ接続した実機Graph](/img/fusion/captures/S71/graph.png)](/img/fusion/captures/S71/graph.png)
+
+[![赤と青を入れ替え、緑とAlphaを保つ係数を設定したColor Matrix Inspector](/img/fusion/captures/S71/inspector.png)](/img/fusion/captures/S71/inspector.png)
+
+[![右の色パッチは赤と青が入れ替わり、白いパネルと灰色段階は灰色を保つ](/img/fusion/captures/S71/compare.png)](/img/fusion/captures/S71/compare.png)
+
+出力Rには入力B、出力Bには入力Rを使い、GとAは初期値を保ちました。右では色パッチの赤と青が入れ替わり、白と灰色の段階は灰色を保っています。下は変更前の対角成分だけ1の行列です。
+
+[![対角成分1、それ以外0の初期Color Matrix Inspector](/img/fusion/captures/S71/identity-inspector.png)](/img/fusion/captures/S71/identity-inspector.png)
+
+[![初期行列では左右のチャートが同じ見た目になる](/img/fusion/captures/S71/identity.png)](/img/fusion/captures/S71/identity.png)
+
+赤と青の入れ替えを保ち、最上段のAddだけを0.2へ上げました。右では暗部と灰色パッチにも赤が加わります。チャンネルの入れ替えと、一定値を加える操作を別々に確認できます。
+
+[![赤と青の入れ替えを保ち、最上段のAddだけ0.2へ変えたInspector](/img/fusion/captures/S71/add02-inspector.png)](/img/fusion/captures/S71/add02-inspector.png)
+
+[![Add0.2を加えると、右の暗部と灰色パッチにも赤が加わる](/img/fusion/captures/S71/add02.png)](/img/fusion/captures/S71/add02.png)
+
+係数はInspectorで入力を確定し、保存GraphのFilterTableとも照合しました。最後はAdd0、赤と青の入れ替えだけを残して保存しています。Invert、負の係数、Alphaの変更、Mask、特異行列、画素値のexportと性能は未確認です。
+
+[再現用Graph](/img/fusion/captures/S71/fixture.comp) · [撮影条件と確認範囲](/img/fusion/captures/S71/capture.json)
+
 ## 出典・確認範囲
 
 - **Blackmagic Design『DaVinci Resolve 21.1 Reference Manual』**、Chapter 93「Color Matrix [CMx]」、**pp.2176–2179**。入力・Effect Mask、Matrix、Update Lock、Invert、ネガ反転、各チャンネルへの固定値加算、チャンネルのコピー例を確認。

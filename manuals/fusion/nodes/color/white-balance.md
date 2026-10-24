@@ -159,6 +159,34 @@ white balanceが済んだ後にColor Correctorを使う構成は可能ですが�
 - [Brightness Contrast](./brightness-contrast) — 基本tone調整
 - [Color Curves](./color-curves) — curveでchannel値をremap
 
+## 実機例：参照と結果の色温度を分ける
+
+<!-- capture-case:S73 -->
+
+Resolve Studio21.1.0.14／WindowsのFusionページで、1920×1080の固定チャートを接続しました。両ViewerはColor／40%です。内部REGIDは`WhiteBalance`でした。左は入力、右はWhite Balanceの結果です。この例は設定の向きによる表示差を確認するもので、チャートの撮影色温度を測定した補正例ではありません。
+
+[![LoaderからWhiteBalance1、MediaOut1へ接続した実機Graph](/img/fusion/captures/S73/graph.png)](/img/fusion/captures/S73/graph.png)
+
+[![Temperature法、参照3200、結果6500、範囲ロックオンのWhite Balance Inspector](/img/fusion/captures/S73/inspector.png)](/img/fusion/captures/S73/inspector.png)
+
+[![参照3200と結果6500では、右の白いパネルと灰色段階が青寄りになる](/img/fusion/captures/S73/compare.png)](/img/fusion/captures/S73/compare.png)
+
+Temperature法、範囲ロックオンで、Temperature Reference3200／Result6500を指定すると、右の白いパネルや灰色段階が青寄りになりました。参照6500／結果3200へ逆にすると黄橙寄りになります。
+
+[![参照6500、結果3200へ逆向きに設定したWhite Balance Inspector](/img/fusion/captures/S73/inverse-inspector.png)](/img/fusion/captures/S73/inverse-inspector.png)
+
+[![参照6500と結果3200では、右の白いパネルと灰色段階が黄橙寄りになる](/img/fusion/captures/S73/inverse.png)](/img/fusion/captures/S73/inverse.png)
+
+参照と結果をどちらも6500へ合わせると、左右のチャートが同じ見た目へ戻ります。
+
+[![参照と結果をどちらも6500へ合わせたWhite Balance Inspector](/img/fusion/captures/S73/neutral-inspector.png)](/img/fusion/captures/S73/neutral-inspector.png)
+
+[![参照と結果が6500で同じ場合は、左右のチャートが同じ見た目になる](/img/fusion/captures/S73/neutral.png)](/img/fusion/captures/S73/neutral.png)
+
+撮影時のSpaceは初期表示のAdobe RGB (1998)、Use Gammaはオンを保ちました。素材に適した色空間の推奨値として示すものではありません。最後は参照3200／結果6500へ復元して保存しています。Custom法のピッカー、範囲ごとの独立調整、Ranges、他Space、Gammaオフ、Mask、実写の補正精度と性能は未確認です。
+
+[再現用Graph](/img/fusion/captures/S73/fixture.comp) · [撮影条件と確認範囲](/img/fusion/captures/S73/capture.json)
+
 ## 出典と確認範囲
 
 DaVinci Resolve 21.1 Reference Manual、September 2026、Chapter 93、pp.2200–2202で、Image / Effect Mask入力、Space、Custom / Temperature method、Lock Black / Mid / White、Reference / Result、Temperature Reference / Result、Use Gamma、Ranges tabを確認しました。

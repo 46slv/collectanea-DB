@@ -1,0 +1,148 @@
+{
+  "schema_version": 1,
+  "case": "S72",
+  "article": "manuals/fusion/nodes/color/color-space.md",
+  "manual": {
+    "version": "21.1",
+    "chapter": 93,
+    "printed_pages": "2180–2182"
+  },
+  "runtime": {
+    "version": "21.1.0.14",
+    "edition": "Studio",
+    "os": "Windows-11-10.0.26200-SP0",
+    "ui_language": "ja-JP (some Shape controls remain English)"
+  },
+  "captured_at": "2026-10-23T23:55:51.820731+00:00",
+  "project": "Collectanea_Captures_20261023_Sol",
+  "timeline": "S72_capture",
+  "frame": 0.0,
+  "resolution": [
+    1920,
+    1080
+  ],
+  "color_management": {
+    "colorScienceMode": "davinciYRGB",
+    "colorSpaceTimeline": "Rec.709 (Scene)",
+    "colorSpaceTimelineGamma": "",
+    "colorSpaceOutput": "Rec.709 (Scene)",
+    "colorSpaceOutputGamma": "ACEScc",
+    "separateColorSpaceAndGamma": "0",
+    "isAutoColorManage": "0",
+    "timelineResolutionWidth": "1920",
+    "timelineResolutionHeight": "1080",
+    "timelineFrameRate": 24.0,
+    "timelinePlaybackFrameRate": "30"
+  },
+  "viewer": {
+    "zoom_percent": 40,
+    "channel": "Color",
+    "background": "checkerboard for transparent pixels",
+    "note": "Viewer screenshots are display evidence, not colorimetric exports."
+  },
+  "graph": "fixture.comp",
+  "settings": "readback.json",
+  "source": {
+    "file": "screen.png",
+    "size": [
+      3352,
+      1910
+    ],
+    "sha256": "dabe704c7b43396c1e5387871204bef05b55be62d24996040f1e4abc4d18fb71"
+  },
+  "shots": [
+    {
+      "file": "graph.png",
+      "source": "screen.png",
+      "source_sha256": "dabe704c7b43396c1e5387871204bef05b55be62d24996040f1e4abc4d18fb71",
+      "frame": 0.0,
+      "crop_xyxy": [
+        480,
+        1300,
+        2380,
+        1450
+      ],
+      "resampled": false,
+      "sha256": "cd4bdd27bb0d8621e39eadc9c8807263da14b303b9d79062f28e3df9cd58ef1f"
+    },
+    {
+      "file": "inspector.png",
+      "source": "screen.png",
+      "source_sha256": "dabe704c7b43396c1e5387871204bef05b55be62d24996040f1e4abc4d18fb71",
+      "frame": 0.0,
+      "crop_xyxy": [
+        2830,
+        120,
+        3352,
+        300
+      ],
+      "resampled": false,
+      "sha256": "4a91836c4faf352da034a05eb48e87a8b09b3efe91f354a9c6544e1f18db4d8d"
+    },
+    {
+      "file": "compare.png",
+      "source": "screen.png",
+      "source_sha256": "dabe704c7b43396c1e5387871204bef05b55be62d24996040f1e4abc4d18fb71",
+      "frame": 0.0,
+      "crop_xyxy": [
+        1146,
+        65,
+        2830,
+        725
+      ],
+      "resampled": false,
+      "sha256": "11f9a2d4d84b709684a62da8bf84f3c74a65cea0181a121b8103aee787701264"
+    },
+    {
+      "file": "converted-inspector.png",
+      "source": "screen-converted.png",
+      "source_sha256": "2d96a1a7e0e2edc76d9e41ddeb12656a4b69c41dae084422b946a6d57321aea1",
+      "frame": 0.0,
+      "crop_xyxy": [
+        2830,
+        120,
+        3352,
+        300
+      ],
+      "resampled": false,
+      "sha256": "f28f4e8f5d68a449e28d998881c43e09e445a98fbf525883447089d7953e1433"
+    },
+    {
+      "file": "converted.png",
+      "source": "screen-converted.png",
+      "source_sha256": "2d96a1a7e0e2edc76d9e41ddeb12656a4b69c41dae084422b946a6d57321aea1",
+      "frame": 0.0,
+      "crop_xyxy": [
+        1146,
+        65,
+        2830,
+        725
+      ],
+      "resampled": false,
+      "sha256": "1527c934d1c0b543061ca0b4ad3f5abb32b757a85e4d2fce401274f425123387"
+    }
+  ],
+  "acceptance": {
+    "gui": "PASS: owner visually inspected node connections, selected Inspector, and output",
+    "article_display": "PASS: local production build;1440px/390px decode/Alt/native links/hash/overflow"
+  },
+  "unverified": [
+    "Free edition and other platforms",
+    "All parameter ranges and performance",
+    "他Color Type、成分加工/Alpha/Mask、depth別精度/性能",
+    "Exported portable composition reimport"
+  ],
+  "restoration": "PASS: owned scratch saved;frame0/both Color40%,primary settings/Viewer restored,no popup.",
+  "parameter_readback_scope": "Number/Text/Point/FuID/Clip only;no Image/Mask/3D/ScriptVal payload evaluation.",
+  "state_variants": {
+    "screen.png": "left ToColor/YUV,right ToRGB/YUV;Inspector RGBBack1;four-node graph",
+    "screen-converted.png": "left input RGB,right ToColor/YUV;Inspector ColorSpace1;MediaOut remains RGBBack1"
+  },
+  "reproduction_action": "Guarded one-shot roundtrip adds RGBBack1 after ColorSpace1;roundtrip_result selects accepted final intermediate/result pair. Do not run one-shot twice.",
+  "reproduction": {
+    "fixture_sha256": "9b6ca2bb7de1c7ce25632544b2de575ea34b1c30d69ad28db6c234425717d14f",
+    "readback_sha256": "c5b2e20938286caf72fedfd090aa54ad6ea32c3e9d96928cb0dcb03fe7a568b9",
+    "paths": "Comp:/../_fixtures/ for bundled synthetic fixtures",
+    "reimport": "NOT_RUN: accepted GUI evidence precedes export path normalization"
+  }
+}

@@ -74,6 +74,10 @@ CONFIG={
  'S67':{'graph': (480, 1300, 2380, 1450), 'inspector': (2830, 120, 3352, 465), 'compare': (1146, 65, 2830, 725), 'threshold09-inspector': (2830, 120, 3352, 465), 'threshold09': (1146, 65, 2830, 725), 'blend0-inspector': (2830, 120, 3352, 465), 'blend0': (1146, 65, 2830, 725), 'default-inspector': (2830, 120, 3352, 465)},
  'S68':{'graph': (480, 1300, 2380, 1450), 'inspector': (2830, 120, 3352, 390), 'compare': (1146, 65, 2830, 725), 'height5-inspector': (2830, 120, 3352, 390), 'height5': (1146, 65, 2830, 725), 'height-low-inspector': (2830, 120, 3352, 390), 'height-low': (1146, 65, 2830, 725)},
  'S69':{'graph': (480, 1300, 2380, 1450), 'inspector': (2830, 120, 3352, 535), 'compare': (1146, 65, 2830, 725), 'floor025-inspector': (2830, 120, 3352, 535), 'floor025': (1146, 65, 2830, 725), 'normalize05-inspector': (2830, 120, 3352, 535), 'normalize05': (1146, 65, 2830, 725), 'detail': (1146, 65, 2830, 725)},
+ 'S70':{'graph': (480, 1300, 2380, 1450), 'inspector': (2830, 120, 3352, 325), 'compare': (1146, 65, 2830, 725), 'base-inspector': (2830, 120, 3352, 325), 'base': (1146, 65, 2830, 725), 'low02-inspector': (2830, 120, 3352, 325), 'low02': (1146, 65, 2830, 725)},
+ 'S71':{'graph': (480, 1300, 2380, 1450), 'inspector': (2830, 120, 3352, 405), 'compare': (1146, 65, 2830, 725), 'identity-inspector': (2830, 120, 3352, 405), 'identity': (1146, 65, 2830, 725), 'add02-inspector': (2830, 120, 3352, 405), 'add02': (1146, 65, 2830, 725)},
+ 'S72':{'graph': (480, 1300, 2380, 1450), 'inspector': (2830, 120, 3352, 300), 'compare': (1146, 65, 2830, 725), 'converted-inspector': (2830, 120, 3352, 300), 'converted': (1146, 65, 2830, 725)},
+ 'S73':{'graph': (480, 1300, 2380, 1450), 'inspector': (2830, 120, 3352, 395), 'compare': (1146, 65, 2830, 725), 'inverse-inspector': (2830, 120, 3352, 395), 'inverse': (1146, 65, 2830, 725), 'neutral-inspector': (2830, 120, 3352, 395), 'neutral': (1146, 65, 2830, 725)},
 }
 def sha(p):return hashlib.sha256(p.read_bytes()).hexdigest()
 candidates=json.loads((ROOT/'docs/fusion-screenshot-candidates.json').read_text(encoding='utf-8'))
@@ -147,6 +151,10 @@ for case in args.cases:
   if case=='S67':extra.update({('S67', 'threshold09-inspector'): 'screen-threshold09.png', ('S67', 'threshold09'): 'screen-threshold09.png', ('S67', 'blend0-inspector'): 'screen-blend0.png', ('S67', 'blend0'): 'screen-blend0.png', ('S67', 'default-inspector'): 'screen-default.png'})
   if case=='S68':extra.update({('S68', 'height5-inspector'): 'screen-height5.png', ('S68', 'height5'): 'screen-height5.png', ('S68', 'height-low-inspector'): 'screen-height-low.png', ('S68', 'height-low'): 'screen-height-low.png'})
   if case=='S69':extra.update({('S69', 'floor025-inspector'): 'screen-floor025.png', ('S69', 'floor025'): 'screen-floor025.png', ('S69', 'normalize05-inspector'): 'screen-normalize05.png', ('S69', 'normalize05'): 'screen-normalize05.png', ('S69', 'detail'): 'screen-detail.png'})
+  if case=='S70':extra.update({('S70', 'base-inspector'): 'screen-base.png', ('S70', 'base'): 'screen-base.png', ('S70', 'low02-inspector'): 'screen-low02.png', ('S70', 'low02'): 'screen-low02.png'})
+  if case=='S71':extra.update({('S71', 'identity-inspector'): 'screen-identity.png', ('S71', 'identity'): 'screen-identity.png', ('S71', 'add02-inspector'): 'screen-add02.png', ('S71', 'add02'): 'screen-add02.png'})
+  if case=='S72':extra.update({('S72', 'converted-inspector'): 'screen-converted.png', ('S72', 'converted'): 'screen-converted.png'})
+  if case=='S73':extra.update({('S73', 'inverse-inspector'): 'screen-inverse.png', ('S73', 'inverse'): 'screen-inverse.png', ('S73', 'neutral-inspector'): 'screen-neutral.png', ('S73', 'neutral'): 'screen-neutral.png'})
   src=folder/extra.get((case,slug),variants.get((case,slug),'screen.png'))
   assert 0<=box[0]<box[2]<=im.width and 0<=box[1]<box[3]<=im.height, (case,slug,box)
   path=folder/(slug+'.png');Image.open(src).crop(box).save(path)
