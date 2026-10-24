@@ -118,8 +118,48 @@ Blurで画面端や素材の境界が不自然に切れる場合は、**Clipping
 
 色域で選ぶ[Chroma Keyer](./chroma-keyer)、別撮りの背景との差を使う[Difference Keyer](./difference-keyer)、作成したマットをさらに調整する[Matte Control](./matte-control)とは、必要な手掛かりと工程で使い分けます。合成後の画像の扱いは[Merge](../compositing/merge)も参照してください。
 
+## 実機例：Threshold・Invert・Blueを比較する
+
+<!-- capture-case:S76 -->
+
+Resolve Studio21.1.0.14／WindowsのFusionページで、1920×1080の固定チャートを使いました。通常の比較は左が入力、右が結果で、両ViewerをColor／40%にしています。内部REGIDは`LumaKeyer`でした。ChannelはLuminance、Thresholdの下限0.25／上限0.75、Invertオフ、Post-Multiply Imageオンです。暗い背景が透明になり、明るいパネルや色パッチが残ります。
+
+[![Loaderの固定チャートからLuma Keyer、MediaOutへ接続した実機Graph](/img/fusion/captures/S76/graph.png)](/img/fusion/captures/S76/graph.png)
+
+[![Luminance、Threshold下限0.25と上限0.75、Invertオフ、Post-Multiply ImageオンのInspector](/img/fusion/captures/S76/inspector.png)](/img/fusion/captures/S76/inspector.png)
+
+[![右では暗い背景が透明になり、白いパネルと色パッチが明るさに応じて残る](/img/fusion/captures/S76/compare.png)](/img/fusion/captures/S76/compare.png)
+
+下は初期Threshold0／1の状態です。この段階でも明るさからAlphaが作られるため、右の背景に市松模様が見えます。撮影時の初期FilterはFast Gaussian、Post-Multiply Imageはオンでした。
+
+[![Luma Keyer初期表示のLuminance、Threshold0から1、Fast GaussianとPost-Multiply Imageオン](/img/fusion/captures/S76/default-inspector.png)](/img/fusion/captures/S76/default-inspector.png)
+
+[![初期Threshold0から1でも明るさがAlphaになり、右の暗い背景に市松模様が見える](/img/fusion/captures/S76/default.png)](/img/fusion/captures/S76/default.png)
+
+Threshold0.25／0.75へ戻し、Invertだけオンにすると、白いパネルや枠が透明になり、暗い背景側が残ります。
+
+[![Threshold0.25から0.75を保ちInvertだけオンにしたInspector](/img/fusion/captures/S76/inverse-inspector.png)](/img/fusion/captures/S76/inverse-inspector.png)
+
+[![Invertオンでは右の白いパネルと枠が透明になり、暗い背景側が残る](/img/fusion/captures/S76/inverse.png)](/img/fusion/captures/S76/inverse.png)
+
+Invertをオフに戻して、ChannelだけBlueへ変えました。赤と黄は消え、青と紫、白いパネルが強く残ります。明るさで分ける場合と、特定の色チャンネルで分ける場合を区別できます。
+
+[![判定ChannelだけをBlueへ変え、Threshold0.25から0.75を保ったInspector](/img/fusion/captures/S76/blue-inspector.png)](/img/fusion/captures/S76/blue-inspector.png)
+
+[![Blueで判定すると右の赤と黄は消え、青と紫、白いパネルが強く残る](/img/fusion/captures/S76/blue.png)](/img/fusion/captures/S76/blue.png)
+
+下はChannelをLuminanceへ戻し、右ViewerだけAlpha表示にしたものです。白いパネルと枠は白、暗い背景は黒、色パッチや灰色段階には中間の灰色が見えます。Color表示の市松模様だけでなく、作られたマットそのものを確認します。
+
+[![左は入力のColor、右はLuminanceとThreshold0.25から0.75で作ったAlphaの白灰黒表示](/img/fusion/captures/S76/alpha.png)](/img/fusion/captures/S76/alpha.png)
+
+入力属性とNode EditorではImage入力とGarbage／Solid／Effect Maskの計4端子を確認しました。補助Maskの接続動作や、出力を別ノードのEffect Maskへ渡す構成は、この例では確認していません。
+
+最後はLuminance、Threshold0.25／0.75、Invertオフ、両ViewerのColor表示へ戻して保存しました。他のChannel、Blur／Contract／Gamma、DoD、実写の夜景・キーイング品質、数値測定と性能は未確認です。
+
+[再現用Graph](/img/fusion/captures/S76/fixture.comp) · [撮影条件と確認範囲](/img/fusion/captures/S76/capture.json)
+
 ## バージョンと確認範囲
 
 出典：Blackmagic Design『**DaVinci Resolve 21.1 Reference Manual**』（September 2026）、Chapter 109「Matte Nodes」、**pp.2530–2533**。4入力と役割、ChannelとThreshold、Filter / Blur / Clipping Mode、Contract/Expand、Gamma、Invert、Post-Multiply Image、およびマスク入力への出力利用をManual本文で確認しました。公式資料の公開元は[Blackmagic Designサポート](https://www.blackmagicdesign.com/support)です。
 
-夜景の看板の例はManualの機能説明から組み立てた手順であり、特定素材での実機検証結果ではありません。内部REGID、現行hostでの端子表示、実測性能、Free/Studioの差は今回検証していません。そのため`verification: partial`を維持します。
+夜景の看板の例はManualの機能説明から組み立てた手順であり、特定素材での実機検証結果ではありません。S76ではREGID、4端子、Luminance／Blue、Threshold、InvertとAlpha Viewerを確認しました。実測性能、補助Maskや全Control、Free/Studioの差は未確認です。そのため`verification: partial`を維持します。

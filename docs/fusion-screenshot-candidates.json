@@ -2,7 +2,7 @@
   "schema_version": 1,
   "created": "2026-10-20",
   "scope": "All Fusion pages, DaVinci Resolve 21.1",
-  "status_note": "2026-10-24:137/463/756 public through PR98;1146 assets HTTP/hash PASS. S74/R115–R120 local7 distinct pages33 images PASS;12 native crops+18 reused placements,cumulative143/475/786. Whole587/412 capture-needed+remaining_views incomplete;partial retained.",
+  "status_note": "2026-10-24:143/475/786 public through PR101;1169 assets HTTP/hash PASS. S75/S76/R121/R122 local3 distinct pages27 images PASS;25 native crops+2 index placements,cumulative146/500/813. Whole587/409 capture-needed+remaining_views incomplete;partial retained.",
   "asset_directory_template": "static/img/fusion/captures/{id}/{shot.slug}.png",
   "capture_manifest_name": "capture.json",
   "candidates": [
@@ -3957,7 +3957,7 @@
         "printed_pages": "2504–2505;chapter77 pp.1680–1681"
       },
       "goal": "Compare direct Levels output-floor correction with explicit Alpha Divide/Multiply and built-in Pre-Divide/Post-Multiply",
-      "status": "captured-local-display-verified",
+      "status": "published-display-verified",
       "shots": [
         {
           "slug": "graph",
@@ -4032,7 +4032,188 @@
           "status": "native-observed"
         }
       ],
-      "capture_manifest": "static/img/fusion/captures/S74/capture.json"
+      "capture_manifest": "static/img/fusion/captures/S74/capture.json",
+      "published_batch": "fusion-native-20261024-20"
+    },
+    {
+      "id": "S75",
+      "priority": "P1",
+      "article": "manuals/fusion/nodes/matte-keying/matte-control.md",
+      "manual": {
+        "version": "21.1",
+        "chapter": 109,
+        "printed_pages": "2539–2544"
+      },
+      "goal": "Copy image Alpha and compare independent Garbage/Solid masks",
+      "status": "captured-local-display-verified",
+      "shots": [
+        {
+          "slug": "graph",
+          "kind": "node-graph",
+          "target": "matte-control",
+          "status": "native-observed"
+        },
+        {
+          "slug": "inspector",
+          "kind": "inspector",
+          "target": "matte-control",
+          "status": "native-observed"
+        },
+        {
+          "slug": "compare",
+          "kind": "output",
+          "target": "matte-control",
+          "status": "native-observed"
+        },
+        {
+          "slug": "default-inspector",
+          "kind": "inspector",
+          "target": "matte-control",
+          "status": "native-observed"
+        },
+        {
+          "slug": "copy-inspector",
+          "kind": "inspector",
+          "target": "matte-control",
+          "status": "native-observed"
+        },
+        {
+          "slug": "copy",
+          "kind": "output",
+          "target": "matte-control",
+          "status": "native-observed"
+        },
+        {
+          "slug": "source",
+          "kind": "output",
+          "target": "matte-control",
+          "status": "native-observed"
+        },
+        {
+          "slug": "inverse-inspector",
+          "kind": "inspector",
+          "target": "matte-control",
+          "status": "native-observed"
+        },
+        {
+          "slug": "inverse",
+          "kind": "output",
+          "target": "matte-control",
+          "status": "native-observed"
+        },
+        {
+          "slug": "post-off-inspector",
+          "kind": "inspector",
+          "target": "matte-control",
+          "status": "native-observed"
+        },
+        {
+          "slug": "post-off",
+          "kind": "output",
+          "target": "matte-control",
+          "status": "native-observed"
+        },
+        {
+          "slug": "garbage-inspector",
+          "kind": "inspector",
+          "target": "matte-control",
+          "status": "native-observed"
+        },
+        {
+          "slug": "garbage",
+          "kind": "output",
+          "target": "matte-control",
+          "status": "native-observed"
+        },
+        {
+          "slug": "solid-inspector",
+          "kind": "inspector",
+          "target": "matte-control",
+          "status": "native-observed"
+        },
+        {
+          "slug": "solid",
+          "kind": "output",
+          "target": "matte-control",
+          "status": "native-observed"
+        }
+      ],
+      "capture_manifest": "static/img/fusion/captures/S75/capture.json"
+    },
+    {
+      "id": "S76",
+      "priority": "P1",
+      "article": "manuals/fusion/nodes/matte-keying/luma-keyer.md",
+      "manual": {
+        "version": "21.1",
+        "chapter": 109,
+        "printed_pages": "2530–2533"
+      },
+      "goal": "Compare luminance thresholds,inversion,Blue channel and native Alpha Viewer",
+      "status": "captured-local-display-verified",
+      "shots": [
+        {
+          "slug": "graph",
+          "kind": "node-graph",
+          "target": "luma-keyer",
+          "status": "native-observed"
+        },
+        {
+          "slug": "inspector",
+          "kind": "inspector",
+          "target": "luma-keyer",
+          "status": "native-observed"
+        },
+        {
+          "slug": "compare",
+          "kind": "output",
+          "target": "luma-keyer",
+          "status": "native-observed"
+        },
+        {
+          "slug": "default-inspector",
+          "kind": "inspector",
+          "target": "luma-keyer",
+          "status": "native-observed"
+        },
+        {
+          "slug": "default",
+          "kind": "output",
+          "target": "luma-keyer",
+          "status": "native-observed"
+        },
+        {
+          "slug": "inverse-inspector",
+          "kind": "inspector",
+          "target": "luma-keyer",
+          "status": "native-observed"
+        },
+        {
+          "slug": "inverse",
+          "kind": "output",
+          "target": "luma-keyer",
+          "status": "native-observed"
+        },
+        {
+          "slug": "blue-inspector",
+          "kind": "inspector",
+          "target": "luma-keyer",
+          "status": "native-observed"
+        },
+        {
+          "slug": "blue",
+          "kind": "output",
+          "target": "luma-keyer",
+          "status": "native-observed"
+        },
+        {
+          "slug": "alpha",
+          "kind": "output",
+          "target": "luma-keyer",
+          "status": "native-observed"
+        }
+      ],
+      "capture_manifest": "static/img/fusion/captures/S76/capture.json"
     }
   ],
   "publication_batches": [
@@ -4687,27 +4868,62 @@
         "artifacts/fusion-captures/public-batch19-assets.json"
       ],
       "limitations": "Whole587-page Fusion and remaining_views incomplete. S74 native accepted but article adoption/local/public not yet done."
+    },
+    {
+      "id": "fusion-native-20261024-20",
+      "cases": [
+        "S74"
+      ],
+      "reuses": [
+        "R115",
+        "R116",
+        "R117",
+        "R118",
+        "R119",
+        "R120"
+      ],
+      "pr": "https://github.com/46slv/collectanea-DB/pull/101",
+      "initial_candidate": "82a37955471447f4be00a22f806e33b386dd3c70",
+      "incoming_main": "a437ee53da26a87418ded2540b0dd79177330e8b",
+      "incoming_pr": "https://github.com/46slv/collectanea-DB/pull/100",
+      "candidate": "d3a6862cefb666d969ade958eb43db463f2aee9d",
+      "main": "beb79c0b70b05f09f688e9e21302da5e4be24e29",
+      "tree": "970c0a7250cb70bf6efef07e462d7891b3b9d713",
+      "quality_run": "https://github.com/46slv/collectanea-DB/actions/runs/40046097806",
+      "pages_run": "https://github.com/46slv/collectanea-DB/actions/runs/40047238324",
+      "merge_owner": "Sol;fresh incoming main/reviews/comments and exact-head Quality alljob/stepPASS;expected-head squash;candidate/main tree equal",
+      "public_pages": 7,
+      "public_images": 33,
+      "new_placements": 30,
+      "new_native_crops": 12,
+      "public_asset_hashes": 1169,
+      "result": "PASS",
+      "evidence": [
+        "artifacts/fusion-captures/public-batch20-display-report.json",
+        "artifacts/fusion-captures/public-batch20-assets.json"
+      ],
+      "limitations": "Original82a Quality40045306426 superseded by normal incoming-main merge. Whole587/remaining_views incomplete;S75/S76 local acceptance in progress."
     }
   ],
   "coverage_inventory": {
-    "checked_at": "2026-10-24T00:29:09.380218+00:00",
+    "checked_at": "2026-10-24T01:00:58.965983+00:00",
     "scope": "All manuals/fusion Markdown and MDX pages; review necessity before adding images.",
     "completion_rule": "Every page has an explicit image decision; necessary images are native-observed, embedded, saved to GitHub and public-display-verified. A native example does not verify all article controls.",
     "summary": {
       "total_pages": 587,
-      "with_images": 143,
-      "with_native_examples": 143,
+      "with_images": 146,
+      "with_native_examples": 146,
       "states": {
         "reviewed-no-standalone-image": 26,
         "no-standalone-image-needed": 6,
-        "illustrated-reused-example": 71,
-        "capture-planned": 412,
-        "illustrated-native-example": 72
+        "illustrated-reused-example": 72,
+        "capture-planned": 409,
+        "illustrated-native-example": 74
       },
       "decisions": {
         "no-standalone-image-needed": 32,
-        "image-required": 143,
-        "capture-needed": 412
+        "image-required": 146,
+        "capture-needed": 409
       }
     },
     "pages": [
@@ -14440,25 +14656,33 @@
         "article": "manuals/fusion/nodes/matte-keying/index.md",
         "title": "Matte / Keyingノード",
         "kind": "index",
-        "image_count": 0,
+        "image_count": 2,
         "native_cases": [],
-        "reused_cases": [],
+        "reused_cases": [
+          "S75",
+          "S76"
+        ],
         "planned_cases": [],
-        "state": "capture-planned",
-        "decision": "capture-needed",
+        "state": "illustrated-reused-example",
+        "decision": "image-required",
         "reason": "入力素材・Alpha・合成結果とGarbage/Solid Matteを対応させる。"
       },
       {
         "article": "manuals/fusion/nodes/matte-keying/luma-keyer.md",
         "title": "Luma Keyer",
         "kind": "node",
-        "image_count": 0,
-        "native_cases": [],
+        "image_count": 10,
+        "native_cases": [
+          "S76"
+        ],
         "reused_cases": [],
         "planned_cases": [],
-        "state": "capture-planned",
-        "decision": "capture-needed",
+        "state": "illustrated-native-example",
+        "decision": "image-required",
         "reason": "本文の対象機能: Luma Keyerは、明るさなどのchannel値からAlpha matteを作るKeyer。。別KeyerやEllipseは対象の色選択/zone/edge処理を示さない。",
+        "remaining_views": [
+          "他Channel・Blur/Contract/Gamma・補助Mask/EffectMask出力利用・DoD・実写・数値/性能"
+        ],
         "required_views": [
           "対象名と実接続が読めるGraph",
           "対象自身を選択したInspectorの該当Control",
@@ -14481,7 +14705,8 @@
         ],
         "hold_conditions": [
           "synthetic純色例から髪/実spill/実noise品質へ拡張しない。対応素材がなければその主張を保留。"
-        ]
+        ],
+        "audit_note": "S75/S76 fixed native example;partial retained."
       },
       {
         "article": "manuals/fusion/nodes/matte-keying/magic-mask.md",
@@ -14519,13 +14744,18 @@
         "article": "manuals/fusion/nodes/matte-keying/matte-control.md",
         "title": "Matte Control",
         "kind": "node",
-        "image_count": 0,
-        "native_cases": [],
+        "image_count": 15,
+        "native_cases": [
+          "S75"
+        ],
         "reused_cases": [],
         "planned_cases": [],
-        "state": "capture-planned",
-        "decision": "capture-needed",
+        "state": "illustrated-native-example",
+        "decision": "image-required",
         "reason": "本文の対象機能: Matte Controlは、作成済みAlphaや別Imageのchannelを組み合わせてmatteを整えるNode。。通常MergeやMask適用ではAlpha Combine/post-multiplyを示せない。",
+        "remaining_views": [
+          "全Combine/演算/色channel・Gamma/Threshold/Blur・Spill・EffectMask・実写・数値/性能"
+        ],
         "required_views": [
           "対象名と実接続が読めるGraph",
           "対象自身を選択したInspectorの該当Control",
@@ -14545,7 +14775,8 @@
             "role": "入力/結果または実UIの具体箇所"
           }
         ],
-        "hold_conditions": []
+        "hold_conditions": [],
+        "audit_note": "S75/S76 fixed native example;partial retained."
       },
       {
         "article": "manuals/fusion/nodes/matte-keying/primatte-5.md",
@@ -23911,8 +24142,9 @@
         "multiply-inspector.png",
         "compare.png"
       ],
-      "status": "embedded-local-display-verified",
-      "scope": "Authentic S74 comparison reused for the specific node/concept/procedure/diagnostic role;full conditions in Alpha Divide article."
+      "status": "published-display-verified",
+      "scope": "Authentic S74 comparison reused for the specific node/concept/procedure/diagnostic role;full conditions in Alpha Divide article.",
+      "published_batch": "fusion-native-20261024-20"
     },
     {
       "id": "R116",
@@ -23924,8 +24156,9 @@
         "builtin-options.png",
         "builtin.png"
       ],
-      "status": "embedded-local-display-verified",
-      "scope": "Authentic S74 comparison reused for the specific node/concept/procedure/diagnostic role;full conditions in Alpha Divide article."
+      "status": "published-display-verified",
+      "scope": "Authentic S74 comparison reused for the specific node/concept/procedure/diagnostic role;full conditions in Alpha Divide article.",
+      "published_batch": "fusion-native-20261024-20"
     },
     {
       "id": "R117",
@@ -23935,8 +24168,9 @@
         "graph.png",
         "compare.png"
       ],
-      "status": "embedded-local-display-verified",
-      "scope": "Authentic S74 comparison reused for the specific node/concept/procedure/diagnostic role;full conditions in Alpha Divide article."
+      "status": "published-display-verified",
+      "scope": "Authentic S74 comparison reused for the specific node/concept/procedure/diagnostic role;full conditions in Alpha Divide article.",
+      "published_batch": "fusion-native-20261024-20"
     },
     {
       "id": "R118",
@@ -23949,8 +24183,9 @@
         "builtin-options.png",
         "builtin.png"
       ],
-      "status": "embedded-local-display-verified",
-      "scope": "Authentic S74 comparison reused for the specific node/concept/procedure/diagnostic role;full conditions in Alpha Divide article."
+      "status": "published-display-verified",
+      "scope": "Authentic S74 comparison reused for the specific node/concept/procedure/diagnostic role;full conditions in Alpha Divide article.",
+      "published_batch": "fusion-native-20261024-20"
     },
     {
       "id": "R119",
@@ -23960,8 +24195,9 @@
         "baseline.png",
         "compare.png"
       ],
-      "status": "embedded-local-display-verified",
-      "scope": "Authentic S74 comparison reused for the specific node/concept/procedure/diagnostic role;full conditions in Alpha Divide article."
+      "status": "published-display-verified",
+      "scope": "Authentic S74 comparison reused for the specific node/concept/procedure/diagnostic role;full conditions in Alpha Divide article.",
+      "published_batch": "fusion-native-20261024-20"
     },
     {
       "id": "R120",
@@ -23971,8 +24207,29 @@
         "builtin-options.png",
         "builtin.png"
       ],
+      "status": "published-display-verified",
+      "scope": "Authentic S74 comparison reused for the specific node/concept/procedure/diagnostic role;full conditions in Alpha Divide article.",
+      "published_batch": "fusion-native-20261024-20"
+    },
+    {
+      "id": "R121",
+      "article": "manuals/fusion/nodes/matte-keying/index.md",
+      "source_case": "S75",
+      "images": [
+        "compare.png"
+      ],
       "status": "embedded-local-display-verified",
-      "scope": "Authentic S74 comparison reused for the specific node/concept/procedure/diagnostic role;full conditions in Alpha Divide article."
+      "scope": "One fixed comparison linked to full native graph/Inspector/conditions in node article."
+    },
+    {
+      "id": "R122",
+      "article": "manuals/fusion/nodes/matte-keying/index.md",
+      "source_case": "S76",
+      "images": [
+        "alpha.png"
+      ],
+      "status": "embedded-local-display-verified",
+      "scope": "One fixed comparison linked to full native graph/Inspector/conditions in node article."
     }
   ]
 }
