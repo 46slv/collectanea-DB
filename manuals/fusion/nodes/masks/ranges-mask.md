@@ -181,8 +181,48 @@ Ranges Mask (output) → Color Corrector (Effect Mask)
 
 Mask同士の合成は[Maskノードの概要](./index.md)、基本概念は[マスク（Mask）](../../learn/02-data/mask)も参照してください。
 
+## 実機例：低域・中域・高域のMaskを比べる
+
+<!-- capture-case:S78 -->
+
+Resolve Studio21.1.0.14／Windows、1920×1080、Viewer40%で撮影しました。チャートをRanges Maskへ入力し、出力したMaskをオレンジ色のBackgroundのEffect Maskへ接続しています。内部REGIDは`RangesMask`、ImageとEffect Maskの2入力を確認しました。
+
+[![チャートからRanges Maskを作りオレンジBackgroundの青いEffect Mask入力へ渡す実機Graph](/img/fusion/captures/S78/graph.png)](/img/fusion/captures/S78/graph.png)
+
+[![LuminanceとHighlightsを選び初期の範囲カーブを表示したRanges Mask Inspector](/img/fusion/captures/S78/inspector.png)](/img/fusion/captures/S78/inspector.png)
+
+[![左のHighlights Maskで白い部分に対応して右のオレンジBackgroundが残り暗部が透明になる](/img/fusion/captures/S78/compare.png)](/img/fusion/captures/S78/compare.png)
+
+上の左はHighlightsのMask、右はそれを適用したBackgroundです。白いパネルや外枠は強く選ばれ、暗い背景はほぼ選ばれていません。範囲はLuminanceを基準に判定しており、画像内の物体を認識しているわけではありません。
+
+次の3枚は左を入力チャート、右をBackgroundに揃え、ChannelをLuminance、カーブを同じ状態に保った比較です。最初に表示されたShadowsでは暗い背景がオレンジで埋まり、白いパネル部分は透明になりました。
+
+[![LuminanceのShadowsを選んだRanges Mask Inspector](/img/fusion/captures/S78/shadows-inspector.png)](/img/fusion/captures/S78/shadows-inspector.png)
+
+[![Shadowsでは左チャートの暗い背景に対応する右側がオレンジで埋まり白いパネルは透明になる](/img/fusion/captures/S78/shadows.png)](/img/fusion/captures/S78/shadows.png)
+
+Midtonesへ切り替えると中間の色パッチや階調にオレンジが残り、白いパネルや暗い背景への適用は弱まりました。
+
+[![同じカーブでMidtonesへ切り替えたRanges Mask Inspector](/img/fusion/captures/S78/midtones-inspector.png)](/img/fusion/captures/S78/midtones-inspector.png)
+
+[![Midtonesでは中間の色パッチや階調にオレンジが残り白いパネルと暗背景の適用が弱くなる](/img/fusion/captures/S78/midtones.png)](/img/fusion/captures/S78/midtones.png)
+
+Highlightsでは白いパネルや枠が残り、暗い背景は透明になります。各領域には灰色の重みもあり、すべての画素を白か黒へ二分したMaskではありません。
+
+[![Highlightsでは右に白いパネルや枠の形がオレンジで残り暗い背景は透明になる](/img/fusion/captures/S78/highlights.png)](/img/fusion/captures/S78/highlights.png)
+
+下は右にRanges Mask単体を表示したものです。後段の色や強さで選択結果が分かりにくい場合は、この中間Maskを見て、白・灰・黒の場所を確認します。
+
+[![左のチャートからRanges Maskが抽出したHighlightsを右に白灰黒で表示している](/img/fusion/captures/S78/mask.png)](/img/fusion/captures/S78/mask.png)
+
+Level1、Soft Edge0、Center0.5／0.5、Fit Input Cropを保ち、操作ガイドはShow View Controlsをオフにしました。今回作成したノードのFilter初期表示はFast Gaussianでした。最後はLuminance／Highlights、左Ranges Mask／右Background、フレーム0、両Viewer40%へ戻して保存しています。
+
+カーブの手動編集、Simple／Smoothの切替結果、Luminance以外のChannel、Invert、Soft Edge・Levelの変更、別Maskとの合成、異なる寸法、実写の色補正、数値出力と性能は未確認です。上の運用例すべてを再現した撮影ではありません。
+
+[再現用Graph](/img/fusion/captures/S78/fixture.comp) · [撮影条件と確認範囲](/img/fusion/captures/S78/capture.json)
+
 ## 出典と確認範囲
 
 **DaVinci Resolve 21.1 Reference Manual**（September 2026）、Chapter 108「Mask Nodes」、**pp.2485–2490**で、Input / Effect Mask、Channel、Shadows / Midtones / Highlights、Mini Spline Editor、Presets、Level、Filter、Soft Edge、Paint Mode、Invert、Center、Fit Inputを確認しました。
 
-内部REGID、Inspector設定の細かなデフォルト値や範囲、Edition別の挙動は実機確認していないため、`verification: partial`を維持しています。
+S78でREGID、Luminanceの3領域、中間Mask、BackgroundへのEffect Mask接続を実機確認しました。全Control・範囲・Edition差は未確認のため、`verification: partial`を維持しています。

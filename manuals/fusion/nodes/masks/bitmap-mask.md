@@ -219,8 +219,50 @@ Luminanceの値が0.2、0.5、0.9の場所を想定します。Threshold Lowを0
 - [Ranges Mask](./ranges-mask) — tonal rangeからMaskを作る
 - [Wand Mask](./wand-mask) — 連続した近似色領域からMaskを作る
 
+## 実機例：ImageのAlphaとLuminanceからMaskを作る
+
+<!-- capture-case:S77 -->
+
+Resolve Studio21.1.0.14／Windows、1920×1080、Viewer40%の固定例です。チャートから作ったBitmap Maskを、オレンジ色のBackgroundのEffect Maskへ接続しました。元画像のRGBをBackgroundへコピーせず、どこを不透明にするかをMaskで指定しています。内部REGIDは`BitmapMask`、ImageとEffect Maskの2入力を確認しました。
+
+[![チャートからBitmap Maskを作り、その出力をオレンジBackgroundの青いEffect Mask入力へ接続した実機Graph](/img/fusion/captures/S77/graph.png)](/img/fusion/captures/S77/graph.png)
+
+[![Luminance、Threshold下限0.25と上限0.75、InvertオフのBitmap Mask Inspector](/img/fusion/captures/S77/inspector.png)](/img/fusion/captures/S77/inspector.png)
+
+[![左の白灰黒Maskに応じて、右のオレンジBackgroundに不透明と透明の模様が現れる](/img/fusion/captures/S77/compare.png)](/img/fusion/captures/S77/compare.png)
+
+上の左はBitmap Mask単体、右はMaskを適用したBackgroundです。ChannelをLuminance、Thresholdを下限0.25／上限0.75にすると、明るいパネルや枠の形がオレンジに残り、暗い背景は透明になります。白灰黒のMaskと、色を持つImageの出力を区別して見ます。
+
+最初のChannelはAlphaでした。不透明なチャートを使っているため、Threshold0／1ではMaskが全面選択となり、右にオレンジが全面表示されます。入力に黒い場所があっても、その画素が不透明ならAlphaは低くなりません。
+
+[![初期Channel Alpha、Threshold0から1を示すBitmap Mask Inspector](/img/fusion/captures/S77/default-inspector.png)](/img/fusion/captures/S77/default-inspector.png)
+
+[![不透明な入力チャートのAlphaを使うと右のオレンジBackgroundが全面表示になる](/img/fusion/captures/S77/default.png)](/img/fusion/captures/S77/default.png)
+
+Threshold0／1を保ち、ChannelだけLuminanceへ変えると、チャートの明るさに応じた模様が現れました。LuminanceとAlphaで同じ範囲を選べるとは限りません。
+
+[![ChannelだけLuminanceへ変え、Threshold0から1を保ったInspector](/img/fusion/captures/S77/luminance-inspector.png)](/img/fusion/captures/S77/luminance-inspector.png)
+
+[![左のチャートの明るさに応じ、右のオレンジBackgroundの透明度に模様が現れる](/img/fusion/captures/S77/luminance.png)](/img/fusion/captures/S77/luminance.png)
+
+Threshold0.25／0.75へ戻し、Invertだけオンにすると選択が反転します。暗い背景側がオレンジで埋まり、白いパネルに対応する部分が透明になりました。
+
+[![LuminanceとThreshold0.25から0.75を保ちInvertをオンにしたInspector](/img/fusion/captures/S77/inverse-inspector.png)](/img/fusion/captures/S77/inverse-inspector.png)
+
+[![Invertオンでは右の暗背景側がオレンジで埋まり、白いパネル部分が透明になる](/img/fusion/captures/S77/inverse.png)](/img/fusion/captures/S77/inverse.png)
+
+下はInvertをオフに戻し、右にBitmap Mask単体を表示したものです。入力Colorの色パッチが、明るさに応じた白・灰・黒へ変わっています。後段の結果だけで原因を判断せず、この中間Maskを確認します。
+
+[![左は入力チャートのColor、右はBitmap Maskが出力した白灰黒の単一チャンネルMask](/img/fusion/captures/S77/mask.png)](/img/fusion/captures/S77/mask.png)
+
+Level1、Soft Edge0、Filterの初期表示Fast Gaussianを保ち、操作ガイドはShow View Controlsをオフにして撮影しました。最後はLuminance、Threshold0.25／0.75、Invertオフ、左Bitmap Mask／右Backgroundの比較へ戻して保存しています。
+
+この例では背景色の生成にMaskを使いました。BlurやColor Corrector、Shape→sRenderの入力、Paint Modeでの別Mask合成、Soft Edge／Levelの変更、Fit Input／Center、異なる寸法、ID／Coverage、実写と性能は未確認です。
+
+[再現用Graph](/img/fusion/captures/S77/fixture.comp) · [撮影条件と確認範囲](/img/fusion/captures/S77/capture.json)
+
 ## 出典と確認範囲
 
-DaVinci Resolve 21.1 Reference Manual、September 2026、Chapter 108、pp.2463–2467で、Image / Effect Mask入力、Level、Soft Edge、Filter、Paint Mode、Fit Input、Channel、Threshold、Use Object / Use Materialの挙動を確認しました。運用例はこれらの仕様を組み合わせた構成例であり、21.1実機での再現は未確認です。
+DaVinci Resolve 21.1 Reference Manual、September 2026、Chapter 108、pp.2463–2467で、Image / Effect Mask入力、Level、Soft Edge、Filter、Paint Mode、Fit Input、Channel、Threshold、Use Object / Use Materialの挙動を確認しました。S77で固定チャートのAlpha／Luminance、Threshold、InvertとBackgroundへのEffect Mask接続を確認しました。窓・照明・透過文字・Shapeなどの運用例は、この固定例の確認範囲に含めていません。
 
-内部REGID、ID channelの生成方法、各Filterの実機差、Edition差は未確認のため `verification: partial` としています。
+REGIDは上の実機例で確認しました。ID channelの生成方法、各Filterの実機差、Edition差は未確認のため `verification: partial` としています。

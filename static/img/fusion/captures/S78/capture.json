@@ -1,0 +1,220 @@
+{
+  "schema_version": 1,
+  "case": "S78",
+  "article": "manuals/fusion/nodes/masks/ranges-mask.md",
+  "manual": {
+    "version": "21.1",
+    "chapter": 108,
+    "printed_pages": "2485–2490"
+  },
+  "runtime": {
+    "version": "21.1.0.14",
+    "edition": "Studio",
+    "os": "Windows-11-10.0.26200-SP0",
+    "ui_language": "ja-JP (some Shape controls remain English)"
+  },
+  "captured_at": "2026-10-24T01:28:30.682340+00:00",
+  "project": "Collectanea_Captures_20261023_Sol",
+  "timeline": "S78_capture",
+  "frame": 0.0,
+  "resolution": [
+    1920,
+    1080
+  ],
+  "color_management": {
+    "colorScienceMode": "davinciYRGB",
+    "colorSpaceTimeline": "Rec.709 (Scene)",
+    "colorSpaceTimelineGamma": "",
+    "colorSpaceOutput": "Rec.709 (Scene)",
+    "colorSpaceOutputGamma": "ACEScc",
+    "separateColorSpaceAndGamma": "0",
+    "isAutoColorManage": "0",
+    "timelineResolutionWidth": "1920",
+    "timelineResolutionHeight": "1080",
+    "timelineFrameRate": 24.0,
+    "timelinePlaybackFrameRate": "30"
+  },
+  "viewer": {
+    "zoom_percent": 40,
+    "channel": "Color",
+    "background": "checkerboard for transparent pixels",
+    "note": "Viewer screenshots are display evidence, not colorimetric exports."
+  },
+  "graph": "fixture.comp",
+  "settings": "readback.json",
+  "source": {
+    "file": "screen.png",
+    "size": [
+      3352,
+      1910
+    ],
+    "sha256": "712e6ca29303f2f3e4da0c698df5adf7bbfe1b837083c681bd1eebfacf5f888b"
+  },
+  "shots": [
+    {
+      "file": "graph.png",
+      "source": "screen.png",
+      "source_sha256": "712e6ca29303f2f3e4da0c698df5adf7bbfe1b837083c681bd1eebfacf5f888b",
+      "frame": 0.0,
+      "crop_xyxy": [
+        500,
+        1210,
+        2330,
+        1530
+      ],
+      "resampled": false,
+      "sha256": "c1247b1c44805a3af2f342a75b970b4081f6bf8820399497b6f0f3226e8b3600",
+      "viewer_contents": "Left Ranges Mask / Right masked Gold Color"
+    },
+    {
+      "file": "inspector.png",
+      "source": "screen.png",
+      "source_sha256": "712e6ca29303f2f3e4da0c698df5adf7bbfe1b837083c681bd1eebfacf5f888b",
+      "frame": 0.0,
+      "crop_xyxy": [
+        2830,
+        120,
+        3352,
+        690
+      ],
+      "resampled": false,
+      "sha256": "fd7bd2d06de42d3fb104b7ead3b429d71298db460290ed4beb5fa853e7b328cb",
+      "viewer_contents": "Left Ranges Mask / Right masked Gold Color"
+    },
+    {
+      "file": "compare.png",
+      "source": "screen.png",
+      "source_sha256": "712e6ca29303f2f3e4da0c698df5adf7bbfe1b837083c681bd1eebfacf5f888b",
+      "frame": 0.0,
+      "crop_xyxy": [
+        1146,
+        65,
+        2830,
+        725
+      ],
+      "resampled": false,
+      "sha256": "c587ec6fba6c2a57bc3c447971f2e298380a28fd66c63f99f0b53178d34196a4",
+      "viewer_contents": "Left Ranges Mask / Right masked Gold Color"
+    },
+    {
+      "file": "shadows-inspector.png",
+      "source": "screen-shadows.png",
+      "source_sha256": "79c8e3cd5259db85803d8a1a17be9ce15f88822661270ef59ed253f34f76e778",
+      "frame": 0.0,
+      "crop_xyxy": [
+        2830,
+        120,
+        3352,
+        690
+      ],
+      "resampled": false,
+      "sha256": "e01b1667346e4a3ca464b8234c0efed9d5d44de95b824b1be9bc78f8f86ab6a2",
+      "viewer_contents": "Left source Color / Right masked Gold Color"
+    },
+    {
+      "file": "shadows.png",
+      "source": "screen-shadows.png",
+      "source_sha256": "79c8e3cd5259db85803d8a1a17be9ce15f88822661270ef59ed253f34f76e778",
+      "frame": 0.0,
+      "crop_xyxy": [
+        1146,
+        65,
+        2830,
+        725
+      ],
+      "resampled": false,
+      "sha256": "1cc48bea9908a51fd9f521506277a43ebe96dfd5d426b7bb32f9f50573f0c637",
+      "viewer_contents": "Left source Color / Right masked Gold Color"
+    },
+    {
+      "file": "midtones-inspector.png",
+      "source": "screen-midtones.png",
+      "source_sha256": "924151125b825beb930d27b39dc24b06706380c6b31a913a873d510e9c364e7c",
+      "frame": 0.0,
+      "crop_xyxy": [
+        2830,
+        120,
+        3352,
+        690
+      ],
+      "resampled": false,
+      "sha256": "a4a5eeeed19dee538ff21adce5f114082e71e38a70d4f74cb635c9691ad87c52",
+      "viewer_contents": "Left source Color / Right masked Gold Color"
+    },
+    {
+      "file": "midtones.png",
+      "source": "screen-midtones.png",
+      "source_sha256": "924151125b825beb930d27b39dc24b06706380c6b31a913a873d510e9c364e7c",
+      "frame": 0.0,
+      "crop_xyxy": [
+        1146,
+        65,
+        2830,
+        725
+      ],
+      "resampled": false,
+      "sha256": "33e89dd7ca725394a18827e600d9108ae829f04ede4b07ffca5f2fb1a3eb357c",
+      "viewer_contents": "Left source Color / Right masked Gold Color"
+    },
+    {
+      "file": "highlights.png",
+      "source": "screen-highlights.png",
+      "source_sha256": "9685e88136f1ab6e8d1e08b6dabea4dee520a0d8c890b01164b3730e5743295b",
+      "frame": 0.0,
+      "crop_xyxy": [
+        1146,
+        65,
+        2830,
+        725
+      ],
+      "resampled": false,
+      "sha256": "75a75328a603f612d2e11e53e8a22c33fb71b54dafe27ea90b3065b504eec9f4",
+      "viewer_contents": "Left source Color / Right masked Gold Color"
+    },
+    {
+      "file": "mask.png",
+      "source": "screen-mask.png",
+      "source_sha256": "e6d86e858a3ee3210bbac3db48bbc6e9063321bca566f266d98957afc78c0950",
+      "frame": 0.0,
+      "crop_xyxy": [
+        1146,
+        65,
+        2830,
+        725
+      ],
+      "resampled": false,
+      "sha256": "cba2ea32d7a504f3352242fee4b32fe77ef96e22ff0295f94d8e799832bdea92",
+      "viewer_contents": "Left source Color / Right Ranges Mask"
+    }
+  ],
+  "acceptance": {
+    "gui": "PASS: owner visually inspected node connections, selected Inspector, and output",
+    "article_display": "PASS: local production build;4 distinct pages30 images;1440px/390px/decode/Alt/native links/hash/overflow"
+  },
+  "unverified": [
+    "Free edition and other platforms",
+    "All parameter ranges and performance",
+    "Spline手動編集・Simple/Smooth切替・他Channel・Invert・SoftEdge/Level変更・別Mask合成・異寸法・実写/数値/性能",
+    "Exported portable composition reimport"
+  ],
+  "parameter_readback_scope": "Number/Text/Point/FuID/Clip only;Image/Mask attributes and Graph connections only. ColorCurves inspected in exported text;no payload GetInput.",
+  "state_variants": {
+    "screen.png": "Luminance/Highlights2;Left RangesMask/Right Gold",
+    "screen-shadows.png": "Luminance/Shadows0;Left chart/Right Gold",
+    "screen-midtones.png": "Luminance/Midtones1;Left chart/Right Gold",
+    "screen-highlights.png": "Luminance/Highlights2;Left chart/Right Gold",
+    "screen-mask.png": "Luminance/Highlights2;Left chart/Right RangesMask"
+  },
+  "restoration": "PASS:frame0/Highlights2/Luminance0/Level1/SoftEdge0/ShowViewControls0;Left RangesMask/Right Gold40%,saved and visually confirmed.",
+  "rejected_attempts": [
+    "Initial build Fit excluded;show reset both40%.",
+    "Smooth background click and reconciled foreground click left native curve/output and exported Graph unchanged. Preset change NOT verified;diagnostic smooth screenshots not adopted."
+  ],
+  "reproduction_action": "build creates4node fixture;set RangesRange2,then ranges_result for final Mask/result comparison.",
+  "reproduction": {
+    "fixture_sha256": "b77c4d7ddc2ca0743488b585842366f34dbe1a3958ac9c07223fc2eb83fa96f6",
+    "readback_sha256": "f8cabdeaaa3ebbf6850588951a9396f478cfa186e601ddac2f6f6c5c83586abb",
+    "paths": "Comp:/../_fixtures/ for bundled synthetic fixtures",
+    "reimport": "NOT_RUN: accepted GUI evidence precedes export path normalization"
+  }
+}

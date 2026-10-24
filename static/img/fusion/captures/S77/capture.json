@@ -1,0 +1,231 @@
+{
+  "schema_version": 1,
+  "case": "S77",
+  "article": "manuals/fusion/nodes/masks/bitmap-mask.md",
+  "manual": {
+    "version": "21.1",
+    "chapter": 108,
+    "printed_pages": "2463–2467"
+  },
+  "runtime": {
+    "version": "21.1.0.14",
+    "edition": "Studio",
+    "os": "Windows-11-10.0.26200-SP0",
+    "ui_language": "ja-JP (some Shape controls remain English)"
+  },
+  "captured_at": "2026-10-24T01:28:30.428044+00:00",
+  "project": "Collectanea_Captures_20261023_Sol",
+  "timeline": "S77_capture",
+  "frame": 0.0,
+  "resolution": [
+    1920,
+    1080
+  ],
+  "color_management": {
+    "colorScienceMode": "davinciYRGB",
+    "colorSpaceTimeline": "Rec.709 (Scene)",
+    "colorSpaceTimelineGamma": "",
+    "colorSpaceOutput": "Rec.709 (Scene)",
+    "colorSpaceOutputGamma": "ACEScc",
+    "separateColorSpaceAndGamma": "0",
+    "isAutoColorManage": "0",
+    "timelineResolutionWidth": "1920",
+    "timelineResolutionHeight": "1080",
+    "timelineFrameRate": 24.0,
+    "timelinePlaybackFrameRate": "30"
+  },
+  "viewer": {
+    "zoom_percent": 40,
+    "channel": "Color",
+    "background": "checkerboard for transparent pixels",
+    "note": "Viewer screenshots are display evidence, not colorimetric exports."
+  },
+  "graph": "fixture.comp",
+  "settings": "readback.json",
+  "source": {
+    "file": "screen.png",
+    "size": [
+      3352,
+      1910
+    ],
+    "sha256": "6fe943ceea334d60563c7c3509dfbed38644abfdea6ed88c87711819aec790ae"
+  },
+  "shots": [
+    {
+      "file": "graph.png",
+      "source": "screen.png",
+      "source_sha256": "6fe943ceea334d60563c7c3509dfbed38644abfdea6ed88c87711819aec790ae",
+      "frame": 0.0,
+      "crop_xyxy": [
+        500,
+        1210,
+        2330,
+        1530
+      ],
+      "resampled": false,
+      "sha256": "cfb7fde18227f9033d560543400ca8143d0fa66877eb3d755f9bd83e9a1bb144",
+      "viewer_contents": "Left Bitmap Mask / Right masked Gold Color"
+    },
+    {
+      "file": "inspector.png",
+      "source": "screen.png",
+      "source_sha256": "6fe943ceea334d60563c7c3509dfbed38644abfdea6ed88c87711819aec790ae",
+      "frame": 0.0,
+      "crop_xyxy": [
+        2830,
+        120,
+        3352,
+        600
+      ],
+      "resampled": false,
+      "sha256": "cd282fc8678fbf8d64003b7d08f41ae82953e62076d5ced2ee029e43193acfa0",
+      "viewer_contents": "Left Bitmap Mask / Right masked Gold Color"
+    },
+    {
+      "file": "compare.png",
+      "source": "screen.png",
+      "source_sha256": "6fe943ceea334d60563c7c3509dfbed38644abfdea6ed88c87711819aec790ae",
+      "frame": 0.0,
+      "crop_xyxy": [
+        1146,
+        65,
+        2830,
+        725
+      ],
+      "resampled": false,
+      "sha256": "1d0f89ce26ef0c86a5de21a490347dae006c446c8edb2fbdbb6f2cb0a628e9f0",
+      "viewer_contents": "Left Bitmap Mask / Right masked Gold Color"
+    },
+    {
+      "file": "default-inspector.png",
+      "source": "screen-default.png",
+      "source_sha256": "9dae2987c4ce34c826ce7daf4944e3d36b43fe11b0af8c0db9887186d32e87f4",
+      "frame": 0.0,
+      "crop_xyxy": [
+        2830,
+        120,
+        3352,
+        600
+      ],
+      "resampled": false,
+      "sha256": "a5b1c5afb46234ad5c432fb0bd98a19dcd6dc1d39c091b25703463ed292f2820",
+      "viewer_contents": "Left source Color / Right masked Gold Color"
+    },
+    {
+      "file": "default.png",
+      "source": "screen-default.png",
+      "source_sha256": "9dae2987c4ce34c826ce7daf4944e3d36b43fe11b0af8c0db9887186d32e87f4",
+      "frame": 0.0,
+      "crop_xyxy": [
+        1146,
+        65,
+        2830,
+        725
+      ],
+      "resampled": false,
+      "sha256": "141210275487a09ccba6a1124fafd03365a4b7e0db3366dbe31946ef4a381d0e",
+      "viewer_contents": "Left source Color / Right masked Gold Color"
+    },
+    {
+      "file": "luminance-inspector.png",
+      "source": "screen-luminance.png",
+      "source_sha256": "5c90e7b34c6d1f0884fd83642ebf8c42f160945a40037fce81e37ac55d9441a7",
+      "frame": 0.0,
+      "crop_xyxy": [
+        2830,
+        120,
+        3352,
+        600
+      ],
+      "resampled": false,
+      "sha256": "a02660902266e4645b05709e0db16302ca4e652233b73a2c32ab957eadc84447",
+      "viewer_contents": "Left source Color / Right masked Gold Color"
+    },
+    {
+      "file": "luminance.png",
+      "source": "screen-luminance.png",
+      "source_sha256": "5c90e7b34c6d1f0884fd83642ebf8c42f160945a40037fce81e37ac55d9441a7",
+      "frame": 0.0,
+      "crop_xyxy": [
+        1146,
+        65,
+        2830,
+        725
+      ],
+      "resampled": false,
+      "sha256": "d405665a017a384cb571c0c02b9013781d39ddf9aaf895ae2c3b9a41ef5cdbaf",
+      "viewer_contents": "Left source Color / Right masked Gold Color"
+    },
+    {
+      "file": "inverse-inspector.png",
+      "source": "screen-inverse.png",
+      "source_sha256": "613d932cef8c08d947692a2e2eeaa7566af134f19449653dc7608be8bccdc032",
+      "frame": 0.0,
+      "crop_xyxy": [
+        2830,
+        120,
+        3352,
+        600
+      ],
+      "resampled": false,
+      "sha256": "0da575212d96c7f99ab0014edb67a0e7ad317eb1be0881a330f22ce29ef9fb63",
+      "viewer_contents": "Left source Color / Right masked Gold Color"
+    },
+    {
+      "file": "inverse.png",
+      "source": "screen-inverse.png",
+      "source_sha256": "613d932cef8c08d947692a2e2eeaa7566af134f19449653dc7608be8bccdc032",
+      "frame": 0.0,
+      "crop_xyxy": [
+        1146,
+        65,
+        2830,
+        725
+      ],
+      "resampled": false,
+      "sha256": "bf5f677a38b664c7c21884984336b92280adb07d1cfac4db6efd0e2bd1d88ba5",
+      "viewer_contents": "Left source Color / Right masked Gold Color"
+    },
+    {
+      "file": "mask.png",
+      "source": "screen-mask.png",
+      "source_sha256": "d90bced3854122213cb6e26d35ac6fbdd53d5d6c1d5e2e5febe071b7edcf4b4c",
+      "frame": 0.0,
+      "crop_xyxy": [
+        1146,
+        65,
+        2830,
+        725
+      ],
+      "resampled": false,
+      "sha256": "160b76f267c4a94259ba4eb49fa50ed77214caafa331ce33003abbf5bfc37b08",
+      "viewer_contents": "Left source Color / Right Bitmap Mask"
+    }
+  ],
+  "acceptance": {
+    "gui": "PASS: owner visually inspected node connections, selected Inspector, and output",
+    "article_display": "PASS: local production build;4 distinct pages30 images;1440px/390px/decode/Alt/native links/hash/overflow"
+  },
+  "unverified": [
+    "Free edition and other platforms",
+    "All parameter ranges and performance",
+    "SoftEdge/Filter/Level変更・PaintMode/別Mask合成・FitInput/Center/異寸法・ID/Coverage・Shape/sRender・実写/数値/性能",
+    "Exported portable composition reimport"
+  ],
+  "parameter_readback_scope": "Number/Text/Point/FuID/Clip only;Image/Mask port attributes/Graph connections only,no payload evaluation.",
+  "state_variants": {
+    "screen.png": "Luminance/.25/.75/Invert0,Left BitmapMask/Right masked Gold",
+    "screen-default.png": "Alpha/0/1,Left opaque chart/Right full Gold",
+    "screen-luminance.png": "Luminance/0/1,Left chart/Right Gold",
+    "screen-inverse.png": "Luminance/.25/.75/Invert1,Left chart/Right Gold",
+    "screen-mask.png": "Luminance/.25/.75/Invert0,Left chart/Right BitmapMask"
+  },
+  "restoration": "PASS: frame0/Luminance/.25/.75/Invert0/Level1/SoftEdge0/ShowViewControls0;Left BitmapMask/Right Gold40%,saved,no popup.",
+  "reproduction_action": "build creates4node scaffold;set Channel Luminance/Low.25/High.75/Invert0,then bitmap_result selects final Mask/result pair.",
+  "reproduction": {
+    "fixture_sha256": "3a3379c76c6d434b0da7641b49535af13d76b889ab5ad3c085b680ab47f495b7",
+    "readback_sha256": "6c8013c335716c5af7635627412734c4d92160068719be488f3551a7197aa0b3",
+    "paths": "Comp:/../_fixtures/ for bundled synthetic fixtures",
+    "reimport": "NOT_RUN: accepted GUI evidence precedes export path normalization"
+  }
+}
