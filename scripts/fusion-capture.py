@@ -97,6 +97,15 @@ TARGETS['S105']='OCIOCDLTransform1';LEFT['S105']='Loader1'
 TARGETS['S106']='AcesTransform1';LEFT['S106']='Loader1'
 TARGETS['S107']='ChromaticAberrationRemoval1';LEFT['S107']='Loader1'
 TARGETS['S108']='ColorCurves1';LEFT['S108']='Loader1'
+TARGETS['S109']='HueCurves1';LEFT['S109']='Loader1'
+TARGETS['S110']='GamutLimiter1';LEFT['S110']='Red1'
+TARGETS['S111']='OCIOFileTransform1';LEFT['S111']='Loader1'
+TARGETS['S112']='OCIOColorSpace1';LEFT['S112']='Loader1'
+TARGETS['S113']='OCIODisplay1';LEFT['S113']='Loader1'
+TARGETS['S114']='GamutMapping1';LEFT['S114']='HDRSource1'
+TARGETS['S115']='CopyAux1';LEFT['S115']='Renderer3D1'
+TARGETS['S116']='DepthBlur1';LEFT['S116']='Renderer3D1'
+TARGETS['S117']='Fog1';LEFT['S117']='Renderer3D1'
 LEFT.update({'S100':'Swizzler1','S101':'Swizzler1','S102':'SwizzlerA1'})
 r=d.scriptapp('Resolve')
 assert r, 'Resolve scripting unavailable; do not change preferences automatically'
@@ -309,7 +318,11 @@ def select(target,left=None):
  for cid in ['S100','S101']:
   layouts[cid]={'ChartSource1' if cid=='S100' else 'Loader1':(0,0),'Gold1':(0,-1.5),'Swizzler1':(1,0),TARGETS[cid]:(2,0),'MediaOut1':(3,0)}
  layouts['S102']={'Loader1':(0,0),'Gold1':(0,-1.5),'Blue1':(0,1.5),'SwizzlerA1':(1,-.75),'SwizzlerB1':(1,.75),'LayerMuxer1':(2,0),'MediaOut1':(3,0)}
- for cid in ['S103','S104','S105','S106','S107','S108']:layouts[cid]={'Loader1':(0,0),TARGETS[cid]:(1,0),'MediaOut1':(2,0)}
+ for cid in ['S103','S104','S105','S106','S107','S108','S109','S110','S111','S112','S113']:layouts[cid]={'Loader1':(0,0),TARGETS[cid]:(1,0),'MediaOut1':(2,0)}
+ if case=='S115':layouts[case]={'Shape3D1':(0,-1.5),'Camera3D1':(0,0),'PointLight1':(0,1.5),'Merge3D1':(1,0),'Renderer3D1':(2,0),'CopyAux1':(3,0),'MediaOut1':(4,0)}
+ if case in ['S116','S117']:layouts[case]={'NearSphere1':(0,-2),'FarSphere1':(0,-.7),'Camera3D1':(0,.7),'PointLight1':(0,2),'Merge3D1':(1.2,0),'Renderer3D1':(2.4,0),TARGETS[case]:(3.6,0),'CopyAux1':(2.4,1.5),'MediaOut1':(4.8,0)}
+ if case=='S114':layouts[case]={'HDRSource1':(0,0),'GamutMapping1':(1,0),'MediaOut1':(2,0)}
+ if case=='S110':layouts[case]={'Red1':(0,0),'GamutLimiter1':(1,0),'MediaOut1':(2,0)}
  for n,pos in layouts.get(case,{}).items():
   if n in tools:flow.SetPos(tools[n],*pos)
  if case=='S27':flow.SetScale(1.0)
@@ -348,9 +361,43 @@ if action=='build':
   rb=add('sRender','RenderBase1',4,-1);connect(rb,'Input',base)
   target=add('sTransform','Transform1',2,1);connect(target,'Input',base)
   rr=add('sRender','RenderChanged1',4,1);connect(rr,'Input',target);connect(mo,'Input',rr)
- elif case in ['S104','S105','S106','S107','S108']:
+ elif case in ['S116','S117']:
+  near=add('Shape3D','NearSphere1',0,-2,Shape='SurfaceSphereInputs',**{'Transform3DOp.Translate.X':-1.1})
+  far=add('Shape3D','FarSphere1',0,-.7,Shape='SurfaceSphereInputs',**{'Transform3DOp.Translate.X':1.3,'Transform3DOp.Translate.Z':-3})
+  camera=add('Camera3D','Camera3D1',0,.7,**{'Transform3DOp.Translate.Z':10})
+  light=add('LightPoint','PointLight1',0,2,**{'Transform3DOp.Translate.X':2,'Transform3DOp.Translate.Y':2,'Transform3DOp.Translate.Z':3})
+  scene=add('Merge3D','Merge3D1',1.2,0)
+  for i,src in enumerate([near,far,camera,light],1):connect(scene,'SceneInput'+str(i),src)
+  render=add('Renderer3D','Renderer3D1',2.4,0,Width=1920,Height=1080,UseFrameFormatSettings=1,RendererType='RendererSoftware',**{'RendererSoftware.LightingEnabled':1,'RendererSoftware.Channels.Z':1});connect(render,'SceneInput',scene)
+  aux=add('Dimension.CopyAux','CopyAux1',2.4,1.5,Mode=0,Channel='Z',ChannelMissing=0,**{'Z.Remap.Enable':1,'Z.Remap.From.Min':-13,'Z.Remap.From.Max':-9,'Z.Remap.To.Min':0,'Z.Remap.To.Max':1});connect(aux,'Input',render)
+  target=add('DepthBlur' if case=='S116' else 'Fog',TARGETS[case],3.6,0)
+  ports={z.GetAttrs()['INPS_ID'] for z in target.GetInputList().values() if z and callable(z.GetAttrs) and z.GetAttrs().get('INPS_DataType')=='Image'}
+  assert 'Input' in ports,ports
+  connect(target,'Input',render);connect(mo,'Input',target)
+ elif case=='S115':
+  shape=add('Shape3D','Shape3D1',0,-1.5,Shape='SurfaceSphereInputs')
+  camera=add('Camera3D','Camera3D1',0,0,**{'Transform3DOp.Translate.Z':7})
+  light=add('LightPoint','PointLight1',0,1.5,**{'Transform3DOp.Translate.X':2,'Transform3DOp.Translate.Y':2,'Transform3DOp.Translate.Z':3})
+  scene=add('Merge3D','Merge3D1',1,0);connect(scene,'SceneInput1',shape);connect(scene,'SceneInput2',camera);connect(scene,'SceneInput3',light)
+  render=add('Renderer3D','Renderer3D1',2,0,Width=1920,Height=1080,UseFrameFormatSettings=1,**{'RendererSoftware.LightingEnabled':1});connect(render,'SceneInput',scene)
+  target=add('Dimension.CopyAux','CopyAux1',3,0);ports={z.GetAttrs()['INPS_ID'] for z in target.GetInputList().values() if z and callable(z.GetAttrs) and z.GetAttrs().get('INPS_DataType')=='Image'}
+  assert 'Input' in ports,ports
+  connect(target,'Input',render);connect(mo,'Input',target)
+ elif case=='S114':
+  src=add('Background','HDRSource1',0,0,TopLeftRed=4,TopLeftGreen=1,TopLeftBlue=.25,TopLeftAlpha=1)
+  target=add('GamutMapping','GamutMapping1',1,0)
+  ports={z.GetAttrs()['INPS_ID'] for z in target.GetInputList().values() if z and callable(z.GetAttrs) and z.GetAttrs().get('INPS_DataType')=='Image'}
+  assert 'Input' in ports,ports
+  connect(target,'Input',src);connect(mo,'Input',target)
+ elif case=='S110':
+  red=add('Background','Red1',0,0,TopLeftRed=1,TopLeftGreen=0,TopLeftBlue=0,TopLeftAlpha=1)
+  target=add('GamutLimiter','GamutLimiter1',1,0)
+  ports={z.GetAttrs()['INPS_ID'] for z in target.GetInputList().values() if z and callable(z.GetAttrs) and z.GetAttrs().get('INPS_DataType')=='Image'}
+  assert 'Input' in ports,ports
+  connect(target,'Input',red);connect(mo,'Input',target)
+ elif case in ['S104','S105','S106','S107','S108','S109','S111','S112','S113']:
   loader=add('Loader','Loader1',0,0,Clip=str(REPO/'static/img/fusion/captures/_fixtures/chart.png'))
-  reg={'S104':'ChromaticAdaptation','S105':'OCIOCDLTransform','S106':'AcesTransform','S107':'ChromaticAberrationRemoval','S108':'ColorCurves'}[case]
+  reg={'S104':'ChromaticAdaptation','S105':'OCIOCDLTransform','S106':'AcesTransform','S107':'ChromaticAberrationRemoval','S108':'ColorCurves','S109':'HueCurves','S110':'GamutLimiter','S111':'OCIOFileTransform','S112':'OCIOColorSpace','S113':'OCIODisplay'}[case]
   target=add(reg,TARGETS[case],1,0)
   ports={z.GetAttrs()['INPS_ID'] for z in target.GetInputList().values() if z and callable(z.GetAttrs) and z.GetAttrs().get('INPS_DataType')=='Image'}
   assert 'Input' in ports,ports

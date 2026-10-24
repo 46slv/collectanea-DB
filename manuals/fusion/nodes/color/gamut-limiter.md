@@ -15,7 +15,7 @@ outputs: [image]
 tasks: [gamut-limit, delivery, qc]
 product_scope: fusion
 suite_surfaces: [fusion]
-updated: "2026-10-11"
+updated: "2026-10-24"
 ---
 
 # Gamut Limiter
@@ -112,10 +112,34 @@ Gamut Limiterは色域の制限用であり、**色空間変換やHDR→SDRのTo
 
 **QC上の注意：** Gamut Limiterは指定色域の制限用で、納品仕様全体を自動検査する機能ではありません。輝度、信号レンジ、書き出しのガンマ、タグなどの確認は別に必要です。Chromaticityスコープの色域三角形も、すべての輝度域での適合を単独で保証するものではありません。
 
+## 実機例：単色の赤をRec.709の色域で制限する
+
+<!-- capture-case:S110 -->
+
+Resolve Studio21.1.0.14／Windows、1920×1080、Viewer40%、フレーム0で撮影しました。左が入力、右が処理後です。
+
+[![赤のBackgroundからGamut Limiterを経てMediaOutへ接続した実機Graph](/img/fusion/captures/S110/graph.png)](/img/fusion/captures/S110/graph.png)
+
+BackgroundのRGBAを1・0・0・1にした単色の赤を使っています。Viewerにはfloat32と表示されています。この入力をCurrent Gamut＝Rec.2020、Current Gamma＝Linearとして扱いました。Limit GamutもRec.2020のとき、左右は同じ赤に見えます。
+
+[![Current GamutとLimit GamutがRec2020、Current GammaがLinearの実機Inspector](/img/fusion/captures/S110/baseline-inspector.png)](/img/fusion/captures/S110/baseline-inspector.png)
+
+[![CurrentとLimitをともにRec2020にしたときの赤い入力と出力の実機比較](/img/fusion/captures/S110/baseline.png)](/img/fusion/captures/S110/baseline.png)
+
+Current Gamut／Gammaを保ち、Limit GamutだけをRec.709へ変更しました。右の赤は少し橙寄りになっています。Limit Gamutは画像の色域を制限する設定です。納品形式への変換やQCの完了は別に確認します。
+
+[![Current Rec2020とLinearを保ち、Limit GamutだけをRec709にした実機Inspector](/img/fusion/captures/S110/inspector.png)](/img/fusion/captures/S110/inspector.png)
+
+[![Limit GamutをRec709へ変えると右の単色の赤が少し橙寄りになる実機比較](/img/fusion/captures/S110/compare.png)](/img/fusion/captures/S110/compare.png)
+
+通常のテストチャートでは、この設定変更による表示差が出なかったため、単色入力で比較しています。最後はLimit Rec.709で保存しました。この画面は作用の確認であり、測色値、色域境界の全数検証、書き出し結果やQC適合を保証するものではありません。実写、ほかのGamut／Gamma、MaskやAlpha、Edition差と性能は未確認です。
+
+[再現用Graph](/img/fusion/captures/S110/fixture.comp) · [撮影条件と確認範囲](/img/fusion/captures/S110/capture.json)
+
 ## 出典と確認範囲
 
 - Blackmagic Design『DaVinci Resolve 21.1 Reference Manual』Chapter 93「Color Nodes」pp.2141–2142：Gamut Limiterの目的、入力、Inspector、ハードクリップ、最後に近い位置への配置。
 - 同Chapter 93 pp.2143–2145：Gamut MappingのTone / Saturation処理との比較。
 - 同マニュアルp.3100付近：Chromaticityスコープの色域表示とその限界。
 
-接続例・QCの確認項目はマニュアルに基づく運用例です。DaVinci Resolve 21.1実機での描画・レンダリング、Inspectorメニューの全選択肢や既定値、Free / Studioの差は未検証です。
+接続例・QCの確認項目はマニュアルに基づく運用例です。S110の単色入力と色域制限による表示差は実機確認済みです。Inspectorメニューの全選択肢や既定値、測色・書き出し・QC適合、Free / Studio差は未確認です。

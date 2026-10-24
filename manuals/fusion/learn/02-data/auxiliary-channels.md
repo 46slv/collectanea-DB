@@ -180,6 +180,20 @@ Renderer 3D ──┬───────────────────�
 - [Channel Booleans](../../nodes/color/channel-boolean.md) — RGBAと補助チャンネルの構成を変更する
 - [Deep Image](./deep-image.md) — 画素内に複数の奥行きサンプルを持つ別データ形式
 
+## 実機例：RGBAとZは同じ画像に含まれる
+
+<!-- capture-reuse:R165 -->
+
+Software RendererのRGBAとZを有効にした画像をCopy Auxへ渡しています。左は照明付きのカラー、右は補助Zを固定範囲で可視化した表示です。Zを別ケーブルで合成していません。この例でObject ID・Normal・UVや外部EXR、全ノードの保持動作を確認したわけではありません。
+
+[![実機例：RGBAとZは同じ画像に含まれる：graphの実機画面](/img/fusion/captures/S115/graph.png)](/img/fusion/captures/S115/graph.png)
+
+[![実機例：RGBAとZは同じ画像に含まれる：renderer-inspectorの実機画面](/img/fusion/captures/S115/renderer-inspector.png)](/img/fusion/captures/S115/renderer-inspector.png)
+
+[![実機例：RGBAとZは同じ画像に含まれる：compareの実機画面](/img/fusion/captures/S115/compare.png)](/img/fusion/captures/S115/compare.png)
+
+[撮影条件・設定値と未確認範囲](../../nodes/color/copy-aux)を参照してください。
+
 ## 出典・バージョン
 
 一次資料：**Blackmagic Design『DaVinci Resolve 21.1 Reference Manual』（September 2026）**。

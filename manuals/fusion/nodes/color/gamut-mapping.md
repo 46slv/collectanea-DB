@@ -15,7 +15,7 @@ outputs: [image]
 tasks: [tone-map, gamut-map, hdr-sdr]
 product_scope: fusion
 suite_surfaces: [fusion]
-updated: "2026-10-11"
+updated: "2026-10-24"
 ---
 
 # Gamut Mapping
@@ -142,6 +142,34 @@ Gamut Limiterは色域外の値を**ハードクリップ**するノードです
 - **画面の一部だけ変わる**：Effect Maskの接続と境界を確認します。
 - **Viewerと書き出しで色が違う**：Viewer LUT、カラー管理、後段の出力変換をそれぞれ確認します。
 
+## 実機例：1を超える入力でNoneとSimpleを比べる
+
+<!-- capture-case:S114 -->
+
+Resolve Studio21.1.0.14／Windows、1920×1080、Viewer40%、フレーム0で撮影しました。左が入力、右が処理後です。
+
+[![値が1を超えるBackgroundからGamut Mappingを経てMediaOutへ接続した実機Graph](/img/fusion/captures/S114/graph.png)](/img/fusion/captures/S114/graph.png)
+
+BackgroundのRGBAを4・1・0.25・1にした単色入力です。Viewerにはfloat32と表示されています。画像ファイルやカメラのHDR素材ではなく、処理の差を確認するために作った入力です。
+
+[![Backgroundの実機Inspectorに赤4、緑1、青0.25、Alpha1を指定した入力条件](/img/fusion/captures/S114/source-inspector.png)](/img/fusion/captures/S114/source-inspector.png)
+
+Gamma＝Linear、Gamut Mapping Method＝Noneとし、Tone Mapping MethodもNoneにしました。右は左と同じ明るい黄色に表示されています。この画面表示だけでは、1を超える各成分の値を見分けられません。
+
+[![Gamma Linear、Tone Mapping None、Gamut Mapping Noneの実機Inspector](/img/fusion/captures/S114/baseline-inspector.png)](/img/fusion/captures/S114/baseline-inspector.png)
+
+[![Tone Mapping Noneでは左右が同じ明るい黄色に表示される実機比較](/img/fusion/captures/S114/baseline.png)](/img/fusion/captures/S114/baseline.png)
+
+Tone Mapping MethodをSimple、Dynamic RangeをCompressにすると、右は暗めの橙色へ変わりました。Gamma LinearとGamut Mapping Noneは保っています。順方向・逆方向OOTFはともにOFFです。
+
+[![Gamma Linear、Tone Mapping Simple、Dynamic Range Compress、Gamut Mapping Noneの実機Inspector](/img/fusion/captures/S114/inspector.png)](/img/fusion/captures/S114/inspector.png)
+
+[![SimpleとCompressを適用すると右の単色入力が暗めの橙色へ変わる実機比較](/img/fusion/captures/S114/compare.png)](/img/fusion/captures/S114/compare.png)
+
+最後はSimple／Compressで保存しました。これは表示と設定の確認です。ピーク輝度の測定、実写HDR→SDRの品質、書き出し値、階調保持やQC適合、ほかのTone／Gamut Mapping方式、Expand、OOTFやMask、Edition差と性能は未確認です。
+
+[再現用Graph](/img/fusion/captures/S114/fixture.comp) · [撮影条件と確認範囲](/img/fusion/captures/S114/capture.json)
+
 ## 出典と確認範囲
 
 - Blackmagic Design『DaVinci Resolve 21.1 Reference Manual』Chapter 93「Color Nodes」pp.2143–2145：Gamut Mappingの入出力、Gamma、Tone Mapping、輝度・彩度・OOTFの項目。
@@ -149,4 +177,4 @@ Gamut Limiterは色域外の値を**ハードクリップ**するノードです
 - 同Chapter 93 pp.2141–2142：Gamut Limiterのハードクリップと配置上の注意。
 - 同Chapter 76「Managing Color for Visual Effects」pp.1654–1659：手動リニア化、Viewer LUT、RCMとFusionの色管理。
 
-接続例はマニュアルをもとにした説明用の構成例です。DaVinci Resolve 21.1実機での表示・レンダリング、Inspectorの全プリセット・既定値・数値範囲、Free / Studio差は未検証です。
+接続例はマニュアルをもとにした説明用の構成例です。S114でfloat32入力、NoneとSimple／Compressの表示を実機確認しました。Inspectorの全プリセット・既定値・数値範囲、実写・測色・書き出し、Free / Studio差は未確認です。

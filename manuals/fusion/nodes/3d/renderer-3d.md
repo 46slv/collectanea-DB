@@ -190,6 +190,18 @@ DaVinci Resolve Studio 21.1.0.14、Windows、日本語UI。1920×1080、フレ�
 
 [再現用Graph](/img/fusion/captures/S11/fixture.comp) · [撮影条件と確認範囲](/img/fusion/captures/S11/capture.json)
 
+## 実機補足：Software RendererからZも出す
+
+<!-- capture-reuse:R166 -->
+
+S115のSoftware Rendererで出力チャンネルのRGBAとZを有効にしました。Copy Aux側はZが欠けていると失敗する設定のまま、球の深度を表示できています。ここで確認したのは通常の2D画像と補助Zです。ほかのチャンネル、OpenGL、true Deepや外部EXRの保存は未確認です。
+
+[![実機補足：Software RendererからZも出す：renderer-inspectorの実機画面](/img/fusion/captures/S115/renderer-inspector.png)](/img/fusion/captures/S115/renderer-inspector.png)
+
+[![実機補足：Software RendererからZも出す：compareの実機画面](/img/fusion/captures/S115/compare.png)](/img/fusion/captures/S115/compare.png)
+
+[撮影条件・設定値と未確認範囲](../color/copy-aux)を参照してください。
+
 ## 出典と確認範囲
 
 - **Blackmagic Design, DaVinci Resolve 21.1 Reference Manual**, Chapter 88「Renderer3D [3Rn]」、本文pp.1970–1978。入力、Camera / Eye、Software / OpenGL / OpenGL UV、Output Channels、Multilayer、アンチエイリアス、Depth of Field、Cryptomatte、UV書き出しを確認。

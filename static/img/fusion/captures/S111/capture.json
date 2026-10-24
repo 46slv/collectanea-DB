@@ -1,0 +1,241 @@
+{
+  "schema_version": 1,
+  "case": "S111",
+  "article": "manuals/fusion/nodes/color/ocio-filetransform.md",
+  "manual": {
+    "version": "21.1",
+    "chapter": 93,
+    "printed_pages": "2196–2198"
+  },
+  "runtime": {
+    "version": "21.1.0.14",
+    "edition": "Studio",
+    "os": "Windows-11-10.0.26200-SP0",
+    "ui_language": "ja-JP (some Shape controls remain English)"
+  },
+  "captured_at": "2026-10-24T08:02:37.068199+00:00",
+  "project": "Collectanea_Captures_20261023_Sol",
+  "timeline": "S111_capture",
+  "frame": 0.0,
+  "resolution": [
+    1920,
+    1080
+  ],
+  "color_management": {
+    "colorScienceMode": "davinciYRGB",
+    "colorSpaceTimeline": "Rec.709 (Scene)",
+    "colorSpaceTimelineGamma": "",
+    "colorSpaceOutput": "Rec.709 (Scene)",
+    "colorSpaceOutputGamma": "ACEScc",
+    "separateColorSpaceAndGamma": "0",
+    "isAutoColorManage": "0",
+    "timelineResolutionWidth": "1920",
+    "timelineResolutionHeight": "1080",
+    "timelineFrameRate": 24.0,
+    "timelinePlaybackFrameRate": "30"
+  },
+  "viewer": {
+    "zoom_percent": 40,
+    "channel": "Color",
+    "background": "checkerboard for transparent pixels",
+    "note": "Viewer screenshots are display evidence, not colorimetric exports."
+  },
+  "graph": "fixture.comp",
+  "settings": "readback.json",
+  "source": {
+    "file": "screen.png",
+    "size": [
+      3352,
+      1910
+    ],
+    "sha256": "2f7edab5ae27b935a5ab9d3ce22004cb8c3c9dd0d464ba36dfd5cbb64a32a072"
+  },
+  "shots": [
+    {
+      "file": "graph.png",
+      "source": "screen.png",
+      "source_sha256": "2f7edab5ae27b935a5ab9d3ce22004cb8c3c9dd0d464ba36dfd5cbb64a32a072",
+      "frame": 0,
+      "crop_xyxy": [
+        930,
+        1320,
+        1920,
+        1425
+      ],
+      "resampled": false,
+      "sha256": "d17133a30a02a9da7925dc40d4a8e99c29dd7b10ae76629f0141df4cd5fda08a",
+      "viewer_guides": false,
+      "viewer_contents": "Left chart / Right native CDL Forward"
+    },
+    {
+      "file": "inspector.png",
+      "source": "screen.png",
+      "source_sha256": "2f7edab5ae27b935a5ab9d3ce22004cb8c3c9dd0d464ba36dfd5cbb64a32a072",
+      "frame": 0,
+      "crop_xyxy": [
+        2830,
+        120,
+        3352,
+        370
+      ],
+      "resampled": false,
+      "sha256": "c9a1b86e8168de5e8c021f89469cca925c715db62cb589b9acfc94dd1e235a57",
+      "viewer_guides": false,
+      "viewer_contents": "Left chart / Right native CDL Forward"
+    },
+    {
+      "file": "compare.png",
+      "source": "screen.png",
+      "source_sha256": "2f7edab5ae27b935a5ab9d3ce22004cb8c3c9dd0d464ba36dfd5cbb64a32a072",
+      "frame": 0,
+      "crop_xyxy": [
+        1146,
+        65,
+        2830,
+        725
+      ],
+      "resampled": false,
+      "sha256": "66f6f5c9f4b24204890c04001d71273c4e23f639b42a678a0c1d96d7fd07d3c3",
+      "viewer_guides": false,
+      "viewer_contents": "Left chart / Right native CDL Forward"
+    },
+    {
+      "file": "baseline.png",
+      "source": "screen-baseline.png",
+      "source_sha256": "28e1331b73f6671bc78f8ef2f350b16a5c361a8e870c3da6de422a2c74c73b2c",
+      "frame": 0,
+      "crop_xyxy": [
+        1146,
+        65,
+        2830,
+        725
+      ],
+      "resampled": false,
+      "sha256": "3fefe2f81c20056f956bc15d86d3053bcfe0309f90c0523056e3edd5c7d207f0",
+      "viewer_guides": false,
+      "viewer_contents": "Left chart / Right no file,identity"
+    },
+    {
+      "file": "reverse-inspector.png",
+      "source": "screen-reverse.png",
+      "source_sha256": "ad22fc9fcf7b09c0bddf77827e5a88b88707f5ef0eb9f7d3d978406265e2059e",
+      "frame": 0,
+      "crop_xyxy": [
+        2830,
+        120,
+        3352,
+        370
+      ],
+      "resampled": false,
+      "sha256": "c766f53856b0f9d08f8461f5697b582d0f2716396adbb84ffe782eae9d705fda",
+      "viewer_guides": false,
+      "viewer_contents": "Left chart / Right native CDL Reverse"
+    },
+    {
+      "file": "reverse.png",
+      "source": "screen-reverse.png",
+      "source_sha256": "ad22fc9fcf7b09c0bddf77827e5a88b88707f5ef0eb9f7d3d978406265e2059e",
+      "frame": 0,
+      "crop_xyxy": [
+        1146,
+        65,
+        2830,
+        725
+      ],
+      "resampled": false,
+      "sha256": "5183149acfae3d84dc230d6ad7db57cc9b9ac87aac6feb8cbfa80e8e0ac2efaf",
+      "viewer_guides": false,
+      "viewer_contents": "Left chart / Right native CDL Reverse"
+    }
+  ],
+  "acceptance": {
+    "gui": "PASS: owner visually inspected node connections, selected Inspector, and output",
+    "article_display": "Executed outcomes recorded in docs/fusion-screenshot-candidates.json;provenance fixed."
+  },
+  "unverified": [
+    "Free edition and other platforms",
+    "All parameter ranges and performance",
+    "Real footage,colorimetric/export fidelity,all controls and modes,Mask/Alpha,portable reimport",
+    "Exported portable composition reimport"
+  ],
+  "gui_authoring": {
+    "host": {
+      "pid": 20156,
+      "hwnd": 82647722,
+      "source_pixels": [
+        3352,
+        1910
+      ]
+    },
+    "tool": "OCIOFileTransform1",
+    "regid": "OCIOFileTransform",
+    "visible_flow_tools": 3,
+    "delivery": "SDK/synthetic Cua,physicalNOT_PROVEN;native UI/export establish outcome"
+  },
+  "native_proof": {
+    "file": "Comp:/../S105/red-slope05.cc",
+    "Forward": "screen.png",
+    "Reverse": "screen-reverse.png",
+    "baseline": "screen-baseline.png",
+    "roi_xyxy": [
+      2055,
+      205,
+      2810,
+      615
+    ],
+    "forward_vs_cdl_controls": {
+      "bbox": null,
+      "extrema": [
+        [
+          0,
+          0
+        ],
+        [
+          0,
+          0
+        ],
+        [
+          0,
+          0
+        ]
+      ]
+    },
+    "forward_vs_reverse": {
+      "bbox": [
+        0,
+        0,
+        755,
+        410
+      ],
+      "extrema": [
+        [
+          0,
+          185
+        ],
+        [
+          0,
+          0
+        ],
+        [
+          0,
+          0
+        ]
+      ]
+    },
+    "limits": [
+      "Other LUT formats/CCC ID/interpolation",
+      "singular reverse",
+      "real footage",
+      "measured color",
+      "portable reimport"
+    ],
+    "forward_comparison_source": "../S105/screen-controls.png"
+  },
+  "restoration": "PASS:frame0,both40%,compact Flow,owned scratch saved,native final inspected",
+  "reproduction": {
+    "fixture_sha256": "9de8826bbc8a6737b692ca8e86de6ddc5ed80fce9cc6ce0c83639fb374b0373c",
+    "readback_sha256": "96d4180ef2ddedced905808a6f7f6b685e2654681172e5da789ea518cb4a38bd",
+    "paths": "Comp:/../_fixtures/ for bundled synthetic fixtures",
+    "reimport": "NOT_RUN: accepted GUI evidence precedes export path normalization"
+  }
+}

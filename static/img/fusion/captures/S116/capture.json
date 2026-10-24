@@ -1,0 +1,297 @@
+{
+  "schema_version": 1,
+  "case": "S116",
+  "article": "manuals/fusion/nodes/deep/depth-blur-deep-pixel.md",
+  "manual": {
+    "version": "21.1",
+    "chapter": 96,
+    "printed_pages": "2259–2261"
+  },
+  "runtime": {
+    "version": "21.1.0.14",
+    "edition": "Studio",
+    "os": "Windows-11-10.0.26200-SP0",
+    "ui_language": "ja-JP (some Shape controls remain English)"
+  },
+  "captured_at": "2026-10-24T09:02:52.571278+00:00",
+  "project": "Collectanea_Captures_20261023_Sol",
+  "timeline": "S116_capture",
+  "frame": 0.0,
+  "resolution": [
+    1920,
+    1080
+  ],
+  "color_management": {
+    "colorScienceMode": "davinciYRGB",
+    "colorSpaceTimeline": "Rec.709 (Scene)",
+    "colorSpaceTimelineGamma": "",
+    "colorSpaceOutput": "Rec.709 (Scene)",
+    "colorSpaceOutputGamma": "ACEScc",
+    "separateColorSpaceAndGamma": "0",
+    "isAutoColorManage": "0",
+    "timelineResolutionWidth": "1920",
+    "timelineResolutionHeight": "1080",
+    "timelineFrameRate": 24.0,
+    "timelinePlaybackFrameRate": "30"
+  },
+  "viewer": {
+    "zoom_percent": 40,
+    "channel": "Color",
+    "background": "checkerboard for transparent pixels",
+    "note": "Viewer screenshots are display evidence, not colorimetric exports."
+  },
+  "graph": "fixture.comp",
+  "settings": "readback.json",
+  "source": {
+    "file": "screen.png",
+    "size": [
+      3352,
+      1910
+    ],
+    "sha256": "fe2c224aa8330823b7242262a998e0dcca7707a3e13a347ca837f7739a8918ab"
+  },
+  "shots": [
+    {
+      "file": "graph.png",
+      "source": "screen.png",
+      "source_sha256": "fe2c224aa8330823b7242262a998e0dcca7707a3e13a347ca837f7739a8918ab",
+      "frame": 0,
+      "crop_xyxy": [
+        420,
+        1100,
+        2420,
+        1640
+      ],
+      "resampled": false,
+      "sha256": "2f801110653a38c153fcd9b902d8d061b7957c7bad95cc8bb26ca9220ef5115c",
+      "viewer_guides": false,
+      "active_tool": "DepthBlur1",
+      "viewer_contents": "Left beauty / Right Soft Blur20 Focal-9.5 DOF1 ZScale1"
+    },
+    {
+      "file": "inspector.png",
+      "source": "screen.png",
+      "source_sha256": "fe2c224aa8330823b7242262a998e0dcca7707a3e13a347ca837f7739a8918ab",
+      "frame": 0,
+      "crop_xyxy": [
+        2830,
+        120,
+        3352,
+        460
+      ],
+      "resampled": false,
+      "sha256": "622db36b9c13ca2e74e11174a1523026548a59860ec32bd8957d1b1dc701d906",
+      "viewer_guides": false,
+      "active_tool": "DepthBlur1",
+      "viewer_contents": "Left beauty / Right Soft Blur20 Focal-9.5 DOF1 ZScale1"
+    },
+    {
+      "file": "compare.png",
+      "source": "screen.png",
+      "source_sha256": "fe2c224aa8330823b7242262a998e0dcca7707a3e13a347ca837f7739a8918ab",
+      "frame": 0,
+      "crop_xyxy": [
+        1146,
+        65,
+        2830,
+        725
+      ],
+      "resampled": false,
+      "sha256": "5ae4057bad01f28194df889cf6feab4d762c066d6ec2c52ba1e468df027bcc2d",
+      "viewer_guides": false,
+      "active_tool": "DepthBlur1",
+      "viewer_contents": "Left beauty / Right Soft Blur20 Focal-9.5 DOF1 ZScale1"
+    },
+    {
+      "file": "baseline.png",
+      "source": "screen-baseline.png",
+      "source_sha256": "1c897fef7b534d8ce9e70db2ea3038224c9b7e3edddf2d5f84cd99bf9ee65bc9",
+      "frame": 0,
+      "crop_xyxy": [
+        1146,
+        65,
+        2830,
+        725
+      ],
+      "resampled": false,
+      "sha256": "a912d021970089a8d3826e15d57dd98b043e9aa5d495ebb2a2da7feb65452fbe",
+      "viewer_guides": false,
+      "active_tool": "DepthBlur1",
+      "viewer_contents": "Left beauty / Right BlurSize0"
+    },
+    {
+      "file": "far-inspector.png",
+      "source": "screen-far.png",
+      "source_sha256": "59773f748cd6af25f3268d4de96be32fde4c6b3aa582c74e321d01d7de8d6bea",
+      "frame": 0,
+      "crop_xyxy": [
+        2830,
+        120,
+        3352,
+        460
+      ],
+      "resampled": false,
+      "sha256": "9ea00f0bbebda94564803946a49d0bc1a8838007f081a402017ac93ce1b0d047",
+      "viewer_guides": false,
+      "active_tool": "DepthBlur1",
+      "viewer_contents": "Left beauty / Right Soft Blur20 Focal-12.5 DOF1 ZScale1"
+    },
+    {
+      "file": "far.png",
+      "source": "screen-far.png",
+      "source_sha256": "59773f748cd6af25f3268d4de96be32fde4c6b3aa582c74e321d01d7de8d6bea",
+      "frame": 0,
+      "crop_xyxy": [
+        1146,
+        65,
+        2830,
+        725
+      ],
+      "resampled": false,
+      "sha256": "94f32cdbacc5ceb171997afd33a0c2fce6dc4dc292e291ea2f7c9aed3c58a82b",
+      "viewer_guides": false,
+      "active_tool": "DepthBlur1",
+      "viewer_contents": "Left beauty / Right Soft Blur20 Focal-12.5 DOF1 ZScale1"
+    },
+    {
+      "file": "depth-inspector.png",
+      "source": "screen-depth.png",
+      "source_sha256": "bff34a9f7a322aef94ee87660393b3848cfa5b3d2f139f70dbb8703e5598f1d6",
+      "frame": 0,
+      "crop_xyxy": [
+        2830,
+        120,
+        3352,
+        650
+      ],
+      "resampled": false,
+      "sha256": "7b746cc38eef62bb29f2a7b5034f938a9c9db1129266e0ec56f1e56a462994a8",
+      "viewer_guides": false,
+      "active_tool": "CopyAux1",
+      "viewer_contents": "Left beauty / Right diagnostic Z remapped[-13,-9] to[0,1]"
+    },
+    {
+      "file": "depth.png",
+      "source": "screen-depth.png",
+      "source_sha256": "bff34a9f7a322aef94ee87660393b3848cfa5b3d2f139f70dbb8703e5598f1d6",
+      "frame": 0,
+      "crop_xyxy": [
+        1146,
+        65,
+        2830,
+        725
+      ],
+      "resampled": false,
+      "sha256": "60a81a3dcde99509790490b168566f60c688a8706785a107cb65a0f7931d29c8",
+      "viewer_guides": false,
+      "active_tool": "CopyAux1",
+      "viewer_contents": "Left beauty / Right diagnostic Z remapped[-13,-9] to[0,1]"
+    }
+  ],
+  "acceptance": {
+    "gui": "PASS: owner visually inspected node connections, selected Inspector, and output",
+    "article_display": "Executed outcomes recorded in docs/fusion-screenshot-candidates.json;provenance fixed."
+  },
+  "unverified": [
+    "Free edition and other platforms",
+    "All parameter ranges and performance",
+    "No true Deep/multiple samples,external EXR export/reimport,other renderer/platform/edition/performance or all controls.",
+    "Exported portable composition reimport"
+  ],
+  "gui_authoring": {
+    "host": {
+      "pid": 20156,
+      "hwnd": 82647722,
+      "source_pixels": [
+        3352,
+        1910
+      ]
+    },
+    "tool": "DepthBlur1",
+    "regid": "DepthBlur",
+    "visible_flow_tools": 9,
+    "delivery": "SDK/synthetic Cua,physicalNOT_PROVEN;native UI/export establish outcome"
+  },
+  "native_proof": {
+    "target": "DepthBlur1",
+    "final": {
+      "Filter": 1.0,
+      "BlurChannel": 0.0,
+      "LockXY": 1.0,
+      "XBlurSize": 20.0,
+      "YBlurSize": 20.0,
+      "FocalPoint": -9.5,
+      "DepthOfField": 1.0,
+      "ZScale": 1.0
+    },
+    "renderer": {
+      "RendererType": "RendererSoftware",
+      "RendererSoftware.Channels.RGBA": 1.0,
+      "RendererSoftware.Channels.Z": 1.0
+    },
+    "comparison": "Blur0 vs20;FocalPoint -9.5 vs-12.5",
+    "frame": 0,
+    "roi_xyxy": [
+      2055,
+      205,
+      2810,
+      615
+    ],
+    "aux_domain": "ordinary 2D RGBA plus Z,NOT true Deep",
+    "physical_input": "NOT_PROVEN:SDK/synthetic;native screenshots and bounded scalar readback establish outcome",
+    "limits": [
+      "No true Deep/multiple samples,external EXR export/reimport,other renderer/platform/edition/performance or all controls."
+    ],
+    "delta": {
+      "bbox": [
+        89,
+        58,
+        621,
+        351
+      ],
+      "extrema": [
+        [
+          0,
+          80
+        ],
+        [
+          0,
+          80
+        ],
+        [
+          0,
+          80
+        ]
+      ]
+    },
+    "focus_switch_delta": {
+      "bbox": [
+        107,
+        76,
+        603,
+        332
+      ],
+      "extrema": [
+        [
+          0,
+          73
+        ],
+        [
+          0,
+          73
+        ],
+        [
+          0,
+          73
+        ]
+      ]
+    }
+  },
+  "restoration": "PASS:frame0,both40%,compact Flow,owned scratch saved,native final inspected",
+  "reproduction": {
+    "fixture_sha256": "8a9b10497e95096b5881953975dc8c92799937e470bbeb8a8a78e1569677be98",
+    "readback_sha256": "6b085406f24107fd4fc2fd1749b4b62119d17f99c0556e472d6100523070a1ae",
+    "paths": "Comp:/../_fixtures/ for bundled synthetic fixtures",
+    "reimport": "NOT_RUN: accepted GUI evidence precedes export path normalization"
+  }
+}

@@ -1,0 +1,238 @@
+{
+  "schema_version": 1,
+  "case": "S113",
+  "article": "manuals/fusion/nodes/color/ocio-display.md",
+  "manual": {
+    "version": "21.1",
+    "chapter": 93,
+    "printed_pages": "2195–2196"
+  },
+  "runtime": {
+    "version": "21.1.0.14",
+    "edition": "Studio",
+    "os": "Windows-11-10.0.26200-SP0",
+    "ui_language": "ja-JP (some Shape controls remain English)"
+  },
+  "captured_at": "2026-10-24T08:30:03.489607+00:00",
+  "project": "Collectanea_Captures_20261023_Sol",
+  "timeline": "S113_capture",
+  "frame": 0.0,
+  "resolution": [
+    1920,
+    1080
+  ],
+  "color_management": {
+    "colorScienceMode": "davinciYRGB",
+    "colorSpaceTimeline": "Rec.709 (Scene)",
+    "colorSpaceTimelineGamma": "",
+    "colorSpaceOutput": "Rec.709 (Scene)",
+    "colorSpaceOutputGamma": "ACEScc",
+    "separateColorSpaceAndGamma": "0",
+    "isAutoColorManage": "0",
+    "timelineResolutionWidth": "1920",
+    "timelineResolutionHeight": "1080",
+    "timelineFrameRate": 24.0,
+    "timelinePlaybackFrameRate": "30"
+  },
+  "viewer": {
+    "zoom_percent": 40,
+    "channel": "Color",
+    "background": "checkerboard for transparent pixels",
+    "note": "Viewer screenshots are display evidence, not colorimetric exports."
+  },
+  "graph": "fixture.comp",
+  "settings": "readback.json",
+  "source": {
+    "file": "screen.png",
+    "size": [
+      3352,
+      1910
+    ],
+    "sha256": "5fb84bf75bf54a1968a973369a045703cebd8b105c6c5989ad3b007ba037646a"
+  },
+  "shots": [
+    {
+      "file": "graph.png",
+      "source": "screen.png",
+      "source_sha256": "5fb84bf75bf54a1968a973369a045703cebd8b105c6c5989ad3b007ba037646a",
+      "frame": 0,
+      "crop_xyxy": [
+        930,
+        1320,
+        1920,
+        1425
+      ],
+      "resampled": false,
+      "sha256": "45969bafa6f556634283db78391b17ee825792ba202fee3c3c122bc3d5d76b4a",
+      "viewer_guides": false,
+      "viewer_contents": "Left chart / Right Sourcelinear DisplaysRGB"
+    },
+    {
+      "file": "inspector.png",
+      "source": "screen.png",
+      "source_sha256": "5fb84bf75bf54a1968a973369a045703cebd8b105c6c5989ad3b007ba037646a",
+      "frame": 0,
+      "crop_xyxy": [
+        2830,
+        120,
+        3352,
+        400
+      ],
+      "resampled": false,
+      "sha256": "5f57716b6e01bd974323ceea81b36850a59355a1826298983c98574b8f3fb5f4",
+      "viewer_guides": false,
+      "viewer_contents": "Left chart / Right Sourcelinear DisplaysRGB"
+    },
+    {
+      "file": "compare.png",
+      "source": "screen.png",
+      "source_sha256": "5fb84bf75bf54a1968a973369a045703cebd8b105c6c5989ad3b007ba037646a",
+      "frame": 0,
+      "crop_xyxy": [
+        1146,
+        65,
+        2830,
+        725
+      ],
+      "resampled": false,
+      "sha256": "8ce2f0c5be6454711b0f7afa322fc3c6eec3d4d86425b83a054707be6c44a3f3",
+      "viewer_guides": false,
+      "viewer_contents": "Left chart / Right Sourcelinear DisplaysRGB"
+    },
+    {
+      "file": "baseline-inspector.png",
+      "source": "screen-baseline.png",
+      "source_sha256": "de663ee6e438c864379e8a1234cff85d060e2835d0ae2e3b208eb4bdfd3e84d2",
+      "frame": 0,
+      "crop_xyxy": [
+        2830,
+        120,
+        3352,
+        400
+      ],
+      "resampled": false,
+      "sha256": "b420698ece50473d13eb9208f6d615c919a383b85d71b180b2f0ed1337a039ed",
+      "viewer_guides": false,
+      "viewer_contents": "Left chart / Right SourcesRGB DisplaysRGB"
+    },
+    {
+      "file": "baseline.png",
+      "source": "screen-baseline.png",
+      "source_sha256": "de663ee6e438c864379e8a1234cff85d060e2835d0ae2e3b208eb4bdfd3e84d2",
+      "frame": 0,
+      "crop_xyxy": [
+        1146,
+        65,
+        2830,
+        725
+      ],
+      "resampled": false,
+      "sha256": "e2c208494213cdf68c7c5c8ec2eb150b90438f622a640ac04c3df6b04ad56318",
+      "viewer_guides": false,
+      "viewer_contents": "Left chart / Right SourcesRGB DisplaysRGB"
+    }
+  ],
+  "acceptance": {
+    "gui": "PASS: owner visually inspected node connections, selected Inspector, and output",
+    "article_display": "Executed outcomes recorded in docs/fusion-screenshot-candidates.json;provenance fixed."
+  },
+  "unverified": [
+    "Free edition and other platforms",
+    "All parameter ranges and performance",
+    "Real footage/colorimetric or export fidelity",
+    "Other modes/spaces/views/masks/Alpha",
+    "Portable Graph reimport and other platforms/editions",
+    "Full parameter ranges/performance",
+    "Exported portable composition reimport"
+  ],
+  "gui_authoring": {
+    "host": {
+      "pid": 20156,
+      "hwnd": 82647722,
+      "source_pixels": [
+        3352,
+        1910
+      ]
+    },
+    "tool": "OCIODisplay1",
+    "regid": "OCIODisplay",
+    "visible_flow_tools": 3,
+    "delivery": "SDK/synthetic Cua,physicalNOT_PROVEN;native UI/export establish outcome"
+  },
+  "native_proof": {
+    "final": {
+      "SourceSpace": "linear",
+      "Display": "default",
+      "View": "sRGB",
+      "Direction": "Forward"
+    },
+    "comparison": {
+      "SourceSpace": "sRGB",
+      "Display": "default",
+      "View": "sRGB"
+    },
+    "sources": [
+      "screen.png",
+      "screen-baseline.png"
+    ],
+    "delta": {
+      "bbox": [
+        0,
+        0,
+        755,
+        410
+      ],
+      "extrema": [
+        [
+          0,
+          73
+        ],
+        [
+          0,
+          73
+        ],
+        [
+          0,
+          73
+        ]
+      ]
+    },
+    "rejected": "View None selection rendered blank in native Inspector;not accepted valid selection,no repeat.Used visible sRGB view and Source comparison instead.",
+    "config_dependency": {
+      "config": "C:\\Program Files\\Blackmagic Design\\DaVinci Resolve\\Fusion\\LUTs\\DefaultConfig.ocio",
+      "sha256": "4db1ce5bc74257291f4985696e082898746c66b23edfd6bf9de60a6c244189a7",
+      "copied_to_repository": false,
+      "used_by": "Node OCIOConfig only;environment/preferences unchanged",
+      "profile": 1,
+      "srgb_lut": {
+        "file": "C:\\Program Files\\Blackmagic Design\\DaVinci Resolve\\Fusion\\LUTs\\OCIO\\srgb.spi1d",
+        "sha256": "4240e29bd6638d46d68bdcb83ea321428c1a00e4360e44dd84864f78b86ff0e9"
+      }
+    },
+    "roi_xyxy": [
+      2055,
+      205,
+      2810,
+      615
+    ],
+    "limits": [
+      "Real footage/colorimetric or export fidelity",
+      "Other modes/spaces/views/masks/Alpha",
+      "Portable Graph reimport and other platforms/editions",
+      "Full parameter ranges/performance"
+    ],
+    "bounded_readback": {
+      "SourceSpace": "linear",
+      "Display": "default",
+      "View": "sRGB",
+      "Direction": "Forward"
+    }
+  },
+  "restoration": "PASS:frame0,both40%,compact Flow,owned scratch saved,native final inspected",
+  "reproduction": {
+    "fixture_sha256": "8dd3feec033a2d63afebd7869a4fbe349464a0c2dfff27d1e3ccf0bdfc1c7725",
+    "readback_sha256": "f37c769dcb8ea7610896204cefa07e5e622f731c628b90c320d0389cb76e9548",
+    "paths": "Comp:/../_fixtures/ for bundled synthetic fixtures",
+    "reimport": "NOT_RUN: accepted GUI evidence precedes export path normalization"
+  }
+}

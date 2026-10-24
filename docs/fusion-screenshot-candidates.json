@@ -2,7 +2,7 @@
   "schema_version": 1,
   "created": "2026-10-20",
   "scope": "All Fusion pages, DaVinci Resolve 21.1",
-  "status_note": "2026-10-24:public175/653/1001 through PR123. PR124 public4pages37images PASS but1574/1575 assets;native CDL newline/hash repair pending next deploy. S106–S108/R156–R158 local4pages40images PASS,cumulative181/685/1039;whole587 and remaining_views incomplete,partial retained.",
+  "status_note": "2026-10-24:public187/717/1077 through PR127,1671/1671 HTTP/hash PASS. S115–S117/R165–R168 local7pages62images PASS,cumulative192/738/1106.Whole587 and remaining_views incomplete;partial retained.",
   "asset_directory_template": "static/img/fusion/captures/{id}/{shot.slug}.png",
   "capture_manifest_name": "capture.json",
   "candidates": [
@@ -5561,7 +5561,7 @@
         "printed_pages": "2138–2141"
       },
       "goal": "Gamma2.4 to Linear versus matched2.4,Rec709 and MappingNone",
-      "status": "captured-local-display-verified",
+      "status": "published-display-verified",
       "shots": [
         {
           "slug": "graph",
@@ -5605,7 +5605,7 @@
         "printed_pages": "2136–2138"
       },
       "goal": "CAT02 SourceD65 TargetD50 versus sameD65",
-      "status": "captured-local-display-verified",
+      "status": "published-display-verified",
       "shots": [
         {
           "slug": "graph",
@@ -5649,7 +5649,7 @@
         "printed_pages": "2190–2193"
       },
       "goal": "Controls RedSlope0.5,native CDL export/reload with independent identity Controls",
-      "status": "captured-local-display-verified",
+      "status": "published-display-verified",
       "shots": [
         {
           "slug": "graph",
@@ -5699,7 +5699,7 @@
         "printed_pages": "2134–2135"
       },
       "goal": "ACES2.0 sRGB(texture) CSC input and Rec709 BT1886 output versus no ODT",
-      "status": "captured-local-display-verified",
+      "status": "published-display-verified",
       "shots": [
         {
           "slug": "graph",
@@ -5744,7 +5744,7 @@
         "printed_pages": "2146–2148"
       },
       "goal": "R/C Scale0.8 on clean chart creates fringing;estimated fringe diagnostic gray,not real lens correction",
-      "status": "captured-local-display-verified",
+      "status": "published-display-verified",
       "shots": [
         {
           "slug": "graph",
@@ -5795,7 +5795,7 @@
         "printed_pages": "2168–2171"
       },
       "goal": "RGB curves (0,0),(.5,.742712110440361),(1,1);Alpha editing off and curve unchanged",
-      "status": "captured-local-display-verified",
+      "status": "published-display-verified",
       "shots": [
         {
           "slug": "graph",
@@ -5829,6 +5829,456 @@
         }
       ],
       "capture_manifest": "static/img/fusion/captures/S108/capture.json"
+    },
+    {
+      "id": "S109",
+      "priority": "P1",
+      "article": "manuals/fusion/nodes/color/hue-curves.md",
+      "manual": {
+        "version": "21.1",
+        "chapter": 93,
+        "printed_pages": "2188–2190"
+      },
+      "goal": "Sat curve only;green In2 Out0.262032085561497",
+      "status": "published-display-verified",
+      "shots": [
+        {
+          "slug": "graph",
+          "kind": "node-graph",
+          "target": "HueCurves",
+          "status": "native-observed"
+        },
+        {
+          "slug": "inspector",
+          "kind": "inspector",
+          "target": "HueCurves",
+          "status": "native-observed"
+        },
+        {
+          "slug": "compare",
+          "kind": "output",
+          "target": "HueCurves",
+          "status": "native-observed"
+        },
+        {
+          "slug": "baseline-inspector",
+          "kind": "inspector",
+          "target": "HueCurves",
+          "status": "native-observed"
+        },
+        {
+          "slug": "baseline",
+          "kind": "output",
+          "target": "HueCurves",
+          "status": "native-observed"
+        }
+      ],
+      "capture_manifest": "static/img/fusion/captures/S109/capture.json"
+    },
+    {
+      "id": "S110",
+      "priority": "P1",
+      "article": "manuals/fusion/nodes/color/gamut-limiter.md",
+      "manual": {
+        "version": "21.1",
+        "chapter": 93,
+        "printed_pages": "2141–2142"
+      },
+      "goal": "Native pure-red Background float32,CurrentRec2020/Linear;LimitRec2020 vsRec709",
+      "status": "published-display-verified",
+      "shots": [
+        {
+          "slug": "graph",
+          "kind": "node-graph",
+          "target": "GamutLimiter",
+          "status": "native-observed"
+        },
+        {
+          "slug": "inspector",
+          "kind": "inspector",
+          "target": "GamutLimiter",
+          "status": "native-observed"
+        },
+        {
+          "slug": "compare",
+          "kind": "output",
+          "target": "GamutLimiter",
+          "status": "native-observed"
+        },
+        {
+          "slug": "baseline-inspector",
+          "kind": "inspector",
+          "target": "GamutLimiter",
+          "status": "native-observed"
+        },
+        {
+          "slug": "baseline",
+          "kind": "output",
+          "target": "GamutLimiter",
+          "status": "native-observed"
+        }
+      ],
+      "capture_manifest": "static/img/fusion/captures/S110/capture.json"
+    },
+    {
+      "id": "S111",
+      "priority": "P1",
+      "article": "manuals/fusion/nodes/color/ocio-filetransform.md",
+      "manual": {
+        "version": "21.1",
+        "chapter": 93,
+        "printed_pages": "2196–2198"
+      },
+      "goal": "Read native S105 CDL file,Forward versusReverse;InterpolationLinear",
+      "status": "published-display-verified",
+      "shots": [
+        {
+          "slug": "graph",
+          "kind": "node-graph",
+          "target": "OCIOFileTransform",
+          "status": "native-observed"
+        },
+        {
+          "slug": "inspector",
+          "kind": "inspector",
+          "target": "OCIOFileTransform",
+          "status": "native-observed"
+        },
+        {
+          "slug": "compare",
+          "kind": "output",
+          "target": "OCIOFileTransform",
+          "status": "native-observed"
+        },
+        {
+          "slug": "baseline",
+          "kind": "output",
+          "target": "OCIOFileTransform",
+          "status": "native-observed"
+        },
+        {
+          "slug": "reverse-inspector",
+          "kind": "inspector",
+          "target": "OCIOFileTransform",
+          "status": "native-observed"
+        },
+        {
+          "slug": "reverse",
+          "kind": "output",
+          "target": "OCIOFileTransform",
+          "status": "native-observed"
+        }
+      ],
+      "capture_manifest": "static/img/fusion/captures/S111/capture.json"
+    },
+    {
+      "id": "S112",
+      "priority": "P1",
+      "article": "manuals/fusion/nodes/color/ocio-colorspace.md",
+      "manual": {
+        "version": "21.1",
+        "chapter": 93,
+        "printed_pages": "2193–2195"
+      },
+      "goal": "Installed DefaultConfig Gamma2.2 tolinear vsGamma2.2 matched;not environment override",
+      "status": "published-display-verified",
+      "shots": [
+        {
+          "slug": "graph",
+          "kind": "node-graph",
+          "target": "OCIOColorSpace",
+          "status": "native-observed"
+        },
+        {
+          "slug": "inspector",
+          "kind": "inspector",
+          "target": "OCIOColorSpace",
+          "status": "native-observed"
+        },
+        {
+          "slug": "compare",
+          "kind": "output",
+          "target": "OCIOColorSpace",
+          "status": "native-observed"
+        },
+        {
+          "slug": "matched-inspector",
+          "kind": "inspector",
+          "target": "OCIOColorSpace",
+          "status": "native-observed"
+        },
+        {
+          "slug": "matched",
+          "kind": "output",
+          "target": "OCIOColorSpace",
+          "status": "native-observed"
+        }
+      ],
+      "capture_manifest": "static/img/fusion/captures/S112/capture.json"
+    },
+    {
+      "id": "S113",
+      "priority": "P1",
+      "article": "manuals/fusion/nodes/color/ocio-display.md",
+      "manual": {
+        "version": "21.1",
+        "chapter": 93,
+        "printed_pages": "2195–2196"
+      },
+      "goal": "Installed DefaultConfig Displaydefault ViewsRGB,SourceSpace sRGB vslinear",
+      "status": "published-display-verified",
+      "shots": [
+        {
+          "slug": "graph",
+          "kind": "node-graph",
+          "target": "OCIODisplay",
+          "status": "native-observed"
+        },
+        {
+          "slug": "inspector",
+          "kind": "inspector",
+          "target": "OCIODisplay",
+          "status": "native-observed"
+        },
+        {
+          "slug": "compare",
+          "kind": "output",
+          "target": "OCIODisplay",
+          "status": "native-observed"
+        },
+        {
+          "slug": "baseline-inspector",
+          "kind": "inspector",
+          "target": "OCIODisplay",
+          "status": "native-observed"
+        },
+        {
+          "slug": "baseline",
+          "kind": "output",
+          "target": "OCIODisplay",
+          "status": "native-observed"
+        }
+      ],
+      "capture_manifest": "static/img/fusion/captures/S113/capture.json"
+    },
+    {
+      "id": "S114",
+      "priority": "P1",
+      "article": "manuals/fusion/nodes/color/gamut-mapping.md",
+      "manual": {
+        "version": "21.1",
+        "chapter": 93,
+        "printed_pages": "2143–2145"
+      },
+      "goal": "Native float32 Background RGBA4/1/.25/1,Linear,TM None vsSimple Compress,GamutMappingNone",
+      "status": "published-display-verified",
+      "shots": [
+        {
+          "slug": "graph",
+          "kind": "node-graph",
+          "target": "GamutMapping",
+          "status": "native-observed"
+        },
+        {
+          "slug": "inspector",
+          "kind": "inspector",
+          "target": "GamutMapping",
+          "status": "native-observed"
+        },
+        {
+          "slug": "compare",
+          "kind": "output",
+          "target": "GamutMapping",
+          "status": "native-observed"
+        },
+        {
+          "slug": "baseline-inspector",
+          "kind": "inspector",
+          "target": "GamutMapping",
+          "status": "native-observed"
+        },
+        {
+          "slug": "baseline",
+          "kind": "output",
+          "target": "GamutMapping",
+          "status": "native-observed"
+        },
+        {
+          "slug": "source-inspector",
+          "kind": "inspector",
+          "target": "GamutMapping",
+          "status": "native-observed"
+        }
+      ],
+      "capture_manifest": "static/img/fusion/captures/S114/capture.json"
+    },
+    {
+      "id": "S115",
+      "priority": "P1",
+      "article": "manuals/fusion/nodes/color/copy-aux.md",
+      "manual": {
+        "version": "21.1",
+        "chapter": 93,
+        "printed_pages": "2182–2185"
+      },
+      "goal": "Software Renderer RGBA+Z sphere,AuxToColor Z,MissingFail,fixed[-7,-5] to[0,1]",
+      "status": "captured-local-display-verified",
+      "shots": [
+        {
+          "slug": "graph",
+          "kind": "node-graph",
+          "target": "Dimension.CopyAux",
+          "status": "native-observed"
+        },
+        {
+          "slug": "inspector",
+          "kind": "inspector",
+          "target": "Dimension.CopyAux",
+          "status": "native-observed"
+        },
+        {
+          "slug": "compare",
+          "kind": "output",
+          "target": "Dimension.CopyAux",
+          "status": "native-observed"
+        },
+        {
+          "slug": "unmapped-inspector",
+          "kind": "inspector",
+          "target": "Dimension.CopyAux",
+          "status": "native-observed"
+        },
+        {
+          "slug": "unmapped",
+          "kind": "output",
+          "target": "Dimension.CopyAux",
+          "status": "native-observed"
+        },
+        {
+          "slug": "renderer-inspector",
+          "kind": "inspector",
+          "target": "Dimension.CopyAux",
+          "status": "native-observed"
+        }
+      ]
+    },
+    {
+      "id": "S116",
+      "priority": "P1",
+      "article": "manuals/fusion/nodes/deep/depth-blur-deep-pixel.md",
+      "manual": {
+        "version": "21.1",
+        "chapter": 96,
+        "printed_pages": "2259–2261"
+      },
+      "goal": "Two spheres atZ0/-3,CameraZ10,RGBA+Z;Soft Blur20,Focus-9.5 vs-12.5,DOF1,ZScale1",
+      "status": "captured-local-display-verified",
+      "shots": [
+        {
+          "slug": "graph",
+          "kind": "node-graph",
+          "target": "DepthBlur",
+          "status": "native-observed"
+        },
+        {
+          "slug": "inspector",
+          "kind": "inspector",
+          "target": "DepthBlur",
+          "status": "native-observed"
+        },
+        {
+          "slug": "compare",
+          "kind": "output",
+          "target": "DepthBlur",
+          "status": "native-observed"
+        },
+        {
+          "slug": "baseline",
+          "kind": "output",
+          "target": "DepthBlur",
+          "status": "native-observed"
+        },
+        {
+          "slug": "far-inspector",
+          "kind": "inspector",
+          "target": "DepthBlur",
+          "status": "native-observed"
+        },
+        {
+          "slug": "far",
+          "kind": "output",
+          "target": "DepthBlur",
+          "status": "native-observed"
+        },
+        {
+          "slug": "depth-inspector",
+          "kind": "inspector",
+          "target": "DepthBlur",
+          "status": "native-observed"
+        },
+        {
+          "slug": "depth",
+          "kind": "output",
+          "target": "DepthBlur",
+          "status": "native-observed"
+        }
+      ]
+    },
+    {
+      "id": "S117",
+      "priority": "P1",
+      "article": "manuals/fusion/nodes/deep/fog-deep-pixel.md",
+      "manual": {
+        "version": "21.1",
+        "chapter": 96,
+        "printed_pages": "2261–2263"
+      },
+      "goal": "RGBA+Z two spheres;Fog Near-10/Far-13,Opacity0 vs1;bounded native 2D aux proof",
+      "status": "captured-local-display-verified",
+      "shots": [
+        {
+          "slug": "graph",
+          "kind": "node-graph",
+          "target": "Fog",
+          "status": "native-observed"
+        },
+        {
+          "slug": "inspector",
+          "kind": "inspector",
+          "target": "Fog",
+          "status": "native-observed"
+        },
+        {
+          "slug": "compare",
+          "kind": "output",
+          "target": "Fog",
+          "status": "native-observed"
+        },
+        {
+          "slug": "baseline-inspector",
+          "kind": "inspector",
+          "target": "Fog",
+          "status": "native-observed"
+        },
+        {
+          "slug": "baseline",
+          "kind": "output",
+          "target": "Fog",
+          "status": "native-observed"
+        },
+        {
+          "slug": "depth-inspector",
+          "kind": "inspector",
+          "target": "Fog",
+          "status": "native-observed"
+        },
+        {
+          "slug": "depth",
+          "kind": "output",
+          "target": "Fog",
+          "status": "native-observed"
+        }
+      ]
     }
   ],
   "publication_batches": [
@@ -6884,35 +7334,131 @@
       "public_images": 37,
       "new_native_crops": 16,
       "new_placements": 19,
-      "public_asset_hashes": 1574,
+      "public_asset_hashes": 1575,
       "public_asset_total": 1575,
-      "result": "PUBLIC_DISPLAY_PASS_ASSET_FIX_PENDING",
+      "result": "PASS",
       "evidence": [
         "artifacts/fusion-captures/public-batch32-display-report.json",
         "artifacts/fusion-captures/public-batch32-assets.json"
       ],
-      "limitations": "Native CDL233bytes CRLF normalized by Git into222bytes LF;public hash mismatch. XML content identical but full publication PASS withheld. Scoped -text attribute and original staged bytes fixed in next candidate. S52 HTTP503 resolved by failed-only retry."
+      "limitations": "Initial native CDL Git newline normalization failure retained in asset report history;fixed by exact-path -text in PR125.1575/1575 HTTP/hash PASS after deploy.4pages37images originally verified at9f55467;Color index later extended by batch33.Whole Fusion and remaining_views incomplete.",
+      "asset_fix_pr": "https://github.com/46slv/collectanea-DB/pull/125",
+      "asset_fix_main": "3f22897c8912e42bd8a19e563269e196a719a4b6",
+      "asset_fix_pages_run": "https://github.com/46slv/collectanea-DB/actions/runs/40076808360"
+    },
+    {
+      "id": "fusion-native-20261024-33",
+      "cases": [
+        "S106",
+        "S107",
+        "S108"
+      ],
+      "reuses": [
+        "R156",
+        "R157",
+        "R158"
+      ],
+      "pr": "https://github.com/46slv/collectanea-DB/pull/125",
+      "candidate": "79aa4b4d2cd480f381f262cd60c373829177b84f",
+      "main": "3f22897c8912e42bd8a19e563269e196a719a4b6",
+      "tree": "aa6da16a9eb6a535419981b4c14b477a012cc864",
+      "quality_run": "https://github.com/46slv/collectanea-DB/actions/runs/40076098635",
+      "pages_run": "https://github.com/46slv/collectanea-DB/actions/runs/40076808360",
+      "merge_owner": "Sol exact-head all jobs/steps,fresh main/head/reviews/comments/inline,expected-head squash,MERGED/equal tree",
+      "public_pages": 4,
+      "public_images": 40,
+      "new_native_crops": 16,
+      "new_placements": 19,
+      "public_asset_hashes": 1607,
+      "result": "PASS",
+      "evidence": [
+        "artifacts/fusion-captures/public-batch33-display-report.json",
+        "artifacts/fusion-captures/public-batch33-assets.json"
+      ],
+      "limitations": "Whole587/374capture-needed plus remaining_views incomplete;S109–S111 local gates pending."
+    },
+    {
+      "id": "fusion-native-20261024-34",
+      "cases": [
+        "S109",
+        "S110",
+        "S111"
+      ],
+      "reuses": [
+        "R159",
+        "R160",
+        "R161"
+      ],
+      "pr": "https://github.com/46slv/collectanea-DB/pull/126",
+      "candidate": "72cb1f9020163930a2e5f39ad9f7f9f0f50545ab",
+      "main": "13717d5c3abf069c4f0edc799514604d4ae03624",
+      "tree": "c82e8e2229fbde5791c24f56ea51b7e181b8d7c5",
+      "quality_run": "https://github.com/46slv/collectanea-DB/actions/runs/40077588885",
+      "pages_run": "https://github.com/46slv/collectanea-DB/actions/runs/40078445079",
+      "merge_owner": "Sol exact-head all jobs/steps,fresh main/head/reviews/comments/inline,expected-head squash,MERGED/equal tree",
+      "public_pages": 4,
+      "public_images": 43,
+      "new_native_crops": 16,
+      "new_placements": 19,
+      "public_asset_hashes": 1639,
+      "result": "PASS",
+      "evidence": [
+        "artifacts/fusion-captures/public-batch34-display-report.json",
+        "artifacts/fusion-captures/public-batch34-assets.json"
+      ],
+      "limitations": "Whole587/371capture-needed plus remaining_views incomplete;S112–114 only local accepted."
+    },
+    {
+      "id": "fusion-native-20261024-35",
+      "cases": [
+        "S112",
+        "S113",
+        "S114"
+      ],
+      "reuses": [
+        "R162",
+        "R163",
+        "R164"
+      ],
+      "pr": "https://github.com/46slv/collectanea-DB/pull/127",
+      "candidate": "9270e220d5c5ca0a519a6a6f01e39d4c6a37e26f",
+      "main": "ae1351edd4b1a7439a905093b33b4618646c87a4",
+      "tree": "4f69951a67b9f65e7d8925b3cdfe953ae56aa99a",
+      "quality_run": "https://github.com/46slv/collectanea-DB/actions/runs/40079294287",
+      "pages_run": "https://github.com/46slv/collectanea-DB/actions/runs/40080050915",
+      "merge_owner": "Sol exact-head all jobs/steps,fresh main/head/reviews/comments/inline,expected-head squash,MERGED/equal tree",
+      "public_pages": 4,
+      "public_images": 46,
+      "new_native_crops": 16,
+      "new_placements": 19,
+      "public_asset_hashes": 1671,
+      "result": "PASS",
+      "evidence": [
+        "artifacts/fusion-captures/public-batch35-display-report.json",
+        "artifacts/fusion-captures/public-batch35-assets.json"
+      ],
+      "limitations": "Whole587/368capture-needed plus remaining_views incomplete;S115–117 native WORK only."
     }
   ],
   "coverage_inventory": {
-    "checked_at": "2026-10-24T07:54:25.849115+00:00",
+    "checked_at": "2026-10-24T09:12:27.782790+00:00",
     "scope": "All manuals/fusion Markdown and MDX pages; review necessity before adding images.",
     "completion_rule": "Every page has an explicit image decision; necessary images are native-observed, embedded, saved to GitHub and public-display-verified. A native example does not verify all article controls.",
     "summary": {
       "total_pages": 587,
-      "with_images": 181,
-      "with_native_examples": 181,
+      "with_images": 192,
+      "with_native_examples": 192,
       "states": {
         "reviewed-no-standalone-image": 26,
         "no-standalone-image-needed": 6,
-        "illustrated-reused-example": 75,
-        "capture-planned": 374,
-        "illustrated-native-example": 106
+        "illustrated-reused-example": 77,
+        "capture-planned": 363,
+        "illustrated-native-example": 115
       },
       "decisions": {
         "no-standalone-image-needed": 32,
-        "image-required": 181,
-        "capture-needed": 374
+        "image-required": 192,
+        "capture-needed": 363
       }
     },
     "pages": [
@@ -7319,13 +7865,19 @@
         "article": "manuals/fusion/learn/02-data/auxiliary-channels.md",
         "title": "補助Channel / AOV",
         "kind": "concept",
-        "image_count": 0,
+        "image_count": 3,
         "native_cases": [],
-        "reused_cases": [],
+        "reused_cases": [
+          "S115"
+        ],
         "planned_cases": [],
-        "state": "capture-planned",
-        "decision": "capture-needed",
-        "reason": "Renderer3DのObjectID/Z有効化、該当Viewer channelと後段の利用。"
+        "state": "illustrated-reused-example",
+        "decision": "image-required",
+        "reason": "Renderer3DのObjectID/Z有効化、該当Viewer channelと後段の利用。",
+        "remaining_views": [
+          "Other Aux channels/renderer,external EXR persistence,transparent boundaries,Mask/alternate inputs,other platforms/editions/performance;true Deep remains separate"
+        ],
+        "audit_note": "S115–117 bounded native ordinary2D+Z proof;whole article remains partial."
       },
       {
         "article": "manuals/fusion/learn/02-data/classic-3d.md",
@@ -8561,11 +9113,13 @@
         "article": "manuals/fusion/nodes/3d/renderer-3d.md",
         "title": "Renderer 3D",
         "kind": "node",
-        "image_count": 3,
+        "image_count": 5,
         "native_cases": [
           "S11"
         ],
-        "reused_cases": [],
+        "reused_cases": [
+          "S115"
+        ],
         "planned_cases": [],
         "state": "illustrated-native-example",
         "decision": "image-required",
@@ -9951,13 +10505,18 @@
         "article": "manuals/fusion/nodes/color/copy-aux.md",
         "title": "Copy Aux",
         "kind": "node",
-        "image_count": 0,
-        "native_cases": [],
+        "image_count": 6,
+        "native_cases": [
+          "S115"
+        ],
         "reused_cases": [],
         "planned_cases": [],
-        "state": "capture-planned",
-        "decision": "capture-needed",
+        "state": "illustrated-native-example",
+        "decision": "image-required",
         "reason": "本文の対象機能: 画像に含まれる奥行きや面の向きなどの情報を、RGBAへ取り出したり元の補助チャンネルへ戻したりするNode。。通常chartやColor出力だけの画像にはaux/layer構造の証拠がない。",
+        "remaining_views": [
+          "Other Aux channels/renderer,external EXR persistence,transparent boundaries,Mask/alternate inputs,other platforms/editions/performance;true Deep remains separate"
+        ],
         "required_views": [
           "対象Node名と実際の配線が読めるGraph",
           "対象Nodeを選択した固有Inspector（本文で示すControlを含む）",
@@ -9978,19 +10537,24 @@
             "role": "入力と結果を示す箇所"
           }
         ],
-        "audit_note": "Planning prerequisite: hold-fixture-identity; not a live capability failure."
+        "audit_note": "S115–117 bounded native ordinary2D+Z proof;whole article remains partial."
       },
       {
         "article": "manuals/fusion/nodes/color/gamut-limiter.md",
         "title": "Gamut Limiter",
         "kind": "node",
-        "image_count": 0,
-        "native_cases": [],
+        "image_count": 5,
+        "native_cases": [
+          "S110"
+        ],
         "reused_cases": [],
         "planned_cases": [],
-        "state": "capture-planned",
-        "decision": "capture-needed",
+        "state": "illustrated-native-example",
+        "decision": "image-required",
         "reason": "本文の対象機能: 指定した色域の外に出る色を強制的に切り捨てる、仕上げ段階向けのColorノード。。S14の見た目の色補正はencoding変換の証拠にならず、display screenshotだけでは色精度を証明できない。",
+        "remaining_views": [
+          "Other controls/modes/formats,real footage,measured fidelity,Mask/Alpha,other editions/platforms/performance"
+        ],
         "required_views": [
           "対象Node名と実際の配線が読めるGraph",
           "対象Nodeを選択した固有Inspector（本文で示すControlを含む）",
@@ -10011,19 +10575,25 @@
             "section": "入力・出力",
             "role": "入力と結果を示す箇所"
           }
-        ]
+        ],
+        "audit_note": "S110 bounded native example accepted;whole article remains partial."
       },
       {
         "article": "manuals/fusion/nodes/color/gamut-mapping.md",
         "title": "Gamut Mapping",
         "kind": "node",
-        "image_count": 0,
-        "native_cases": [],
+        "image_count": 6,
+        "native_cases": [
+          "S114"
+        ],
         "reused_cases": [],
         "planned_cases": [],
-        "state": "capture-planned",
-        "decision": "capture-needed",
+        "state": "illustrated-native-example",
+        "decision": "image-required",
         "reason": "本文の対象機能: 明るさの幅や彩度を、出力先で扱いやすい範囲へ再配置するColorノード。。S14の見た目の色補正はencoding変換の証拠にならず、display screenshotだけでは色精度を証明できない。",
+        "remaining_views": [
+          "Other modes/configs/spaces/views,real footage,measured/export fidelity,Mask/Alpha,other platforms/editions/performance"
+        ],
         "required_views": [
           "対象Node名と実際の配線が読めるGraph",
           "対象Nodeを選択した固有Inspector（本文で示すControlを含む）",
@@ -10039,7 +10609,8 @@
             "section": "入力・出力",
             "role": "入力と結果を示す箇所"
           }
-        ]
+        ],
+        "audit_note": "S114 bounded native example accepted;whole article remains partial."
       },
       {
         "article": "manuals/fusion/nodes/color/gamut.md",
@@ -10089,13 +10660,18 @@
         "article": "manuals/fusion/nodes/color/hue-curves.md",
         "title": "Hue Curves",
         "kind": "node",
-        "image_count": 0,
-        "native_cases": [],
+        "image_count": 5,
+        "native_cases": [
+          "S109"
+        ],
         "reused_cases": [],
         "planned_cases": [],
-        "state": "capture-planned",
-        "decision": "capture-needed",
+        "state": "illustrated-native-example",
+        "decision": "image-required",
         "reason": "本文の対象機能: 色相の範囲を指定し、その色の見え方を曲線で調整するノード。。Color Corrector画像ではCurve/Matrix/Boolean等の固有Controlやchannel操作を示せない。",
+        "remaining_views": [
+          "Other controls/modes/formats,real footage,measured fidelity,Mask/Alpha,other editions/platforms/performance"
+        ],
         "required_views": [
           "対象Node名と実際の配線が読めるGraph",
           "対象Nodeを選択した固有Inspector（本文で示すControlを含む）",
@@ -10124,13 +10700,14 @@
             "section": "運用例：青い服だけ彩度を下げる",
             "role": "入力と結果を示す箇所"
           }
-        ]
+        ],
+        "audit_note": "S109 bounded native example accepted;whole article remains partial."
       },
       {
         "article": "manuals/fusion/nodes/color/index.md",
         "title": "Colorノード",
         "kind": "index",
-        "image_count": 24,
+        "image_count": 31,
         "native_cases": [],
         "reused_cases": [
           "S14",
@@ -10149,7 +10726,14 @@
           "S105",
           "S106",
           "S107",
-          "S108"
+          "S108",
+          "S109",
+          "S110",
+          "S111",
+          "S112",
+          "S113",
+          "S114",
+          "S115"
         ],
         "planned_cases": [],
         "state": "illustrated-reused-example",
@@ -10211,13 +10795,18 @@
         "article": "manuals/fusion/nodes/color/ocio-colorspace.md",
         "title": "OCIO Color Space",
         "kind": "node",
-        "image_count": 0,
-        "native_cases": [],
+        "image_count": 5,
+        "native_cases": [
+          "S112"
+        ],
         "reused_cases": [],
         "planned_cases": [],
-        "state": "capture-planned",
-        "decision": "capture-needed",
+        "state": "illustrated-native-example",
+        "decision": "image-required",
         "reason": "本文の対象機能: OCIO configに従い、入力画像を指定の色空間へ変換するノード。。S14の見た目の色補正はencoding変換の証拠にならず、display screenshotだけでは色精度を証明できない。",
+        "remaining_views": [
+          "Other modes/configs/spaces/views,real footage,measured/export fidelity,Mask/Alpha,other platforms/editions/performance"
+        ],
         "required_views": [
           "対象Node名と実際の配線が読めるGraph",
           "対象Nodeを選択した固有Inspector（本文で示すControlを含む）",
@@ -10243,19 +10832,25 @@
             "section": "運用例：Log素材をACEScgへ変換して合成",
             "role": "入力と結果を示す箇所"
           }
-        ]
+        ],
+        "audit_note": "S112 bounded native example accepted;whole article remains partial."
       },
       {
         "article": "manuals/fusion/nodes/color/ocio-display.md",
         "title": "OCIO Display",
         "kind": "node",
-        "image_count": 0,
-        "native_cases": [],
+        "image_count": 5,
+        "native_cases": [
+          "S113"
+        ],
         "reused_cases": [],
         "planned_cases": [],
-        "state": "capture-planned",
-        "decision": "capture-needed",
+        "state": "illustrated-native-example",
+        "decision": "image-required",
         "reason": "本文の対象機能: OCIOで定義されたDisplay / Viewの表示変換を画像そのものに適用するノード。。S14の見た目の色補正はencoding変換の証拠にならず、display screenshotだけでは色精度を証明できない。",
+        "remaining_views": [
+          "Other modes/configs/spaces/views,real footage,measured/export fidelity,Mask/Alpha,other platforms/editions/performance"
+        ],
         "required_views": [
           "対象Node名と実際の配線が読めるGraph",
           "対象Nodeを選択した固有Inspector（本文で示すControlを含む）",
@@ -10281,19 +10876,25 @@
             "section": "運用例：ACEScgで合成した画像を確認用に書き出す",
             "role": "入力と結果を示す箇所"
           }
-        ]
+        ],
+        "audit_note": "S113 bounded native example accepted;whole article remains partial."
       },
       {
         "article": "manuals/fusion/nodes/color/ocio-filetransform.md",
         "title": "OCIO File Transform",
         "kind": "node",
-        "image_count": 0,
-        "native_cases": [],
+        "image_count": 6,
+        "native_cases": [
+          "S111"
+        ],
         "reused_cases": [],
         "planned_cases": [],
-        "state": "capture-planned",
-        "decision": "capture-needed",
+        "state": "illustrated-native-example",
+        "decision": "image-required",
         "reason": "本文の対象機能: 外部LUTなどの変換ファイルを読み込み、画像の色に適用するノード。。S14の見た目の色補正はencoding変換の証拠にならず、display screenshotだけでは色精度を証明できない。",
+        "remaining_views": [
+          "Other controls/modes/formats,real footage,measured fidelity,Mask/Alpha,other editions/platforms/performance"
+        ],
         "required_views": [
           "対象Node名と実際の配線が読めるGraph",
           "対象Nodeを選択した固有Inspector（本文で示すControlを含む）",
@@ -10324,7 +10925,8 @@
             "section": "運用例：制作担当者から指定されたルックLUTを適用する",
             "role": "入力と結果を示す箇所"
           }
-        ]
+        ],
+        "audit_note": "S111 bounded native example accepted;whole article remains partial."
       },
       {
         "article": "manuals/fusion/nodes/color/set-canvas-color.md",
@@ -10785,13 +11387,18 @@
         "article": "manuals/fusion/nodes/deep/depth-blur-deep-pixel.md",
         "title": "Depth Blur (Deep Pixel)",
         "kind": "node",
-        "image_count": 0,
-        "native_cases": [],
+        "image_count": 8,
+        "native_cases": [
+          "S116"
+        ],
         "reused_cases": [],
         "planned_cases": [],
-        "state": "capture-planned",
-        "decision": "capture-needed",
+        "state": "illustrated-native-example",
+        "decision": "image-required",
         "reason": "本文の対象機能: Z深度などを参照して、手前と奥でぼけの強さを変える2D処理Node。。ディレクトリ名がDeepでもtrue Deepとは異なる。S11のColorだけではZ/Normal/UVを受け渡した証拠にならない。",
+        "remaining_views": [
+          "Other Aux channels/renderer,external EXR persistence,transparent boundaries,Mask/alternate inputs,other platforms/editions/performance;true Deep remains separate"
+        ],
         "required_views": [
           "対象Node名と実際の配線が読めるGraph",
           "対象Nodeを選択した固有Inspector（本文で示すControlを含む）",
@@ -10811,7 +11418,8 @@
             "section": "入力と出力",
             "role": "入力と結果を示す箇所"
           }
-        ]
+        ],
+        "audit_note": "S115–117 bounded native ordinary2D+Z proof;whole article remains partial."
       },
       {
         "article": "manuals/fusion/nodes/deep/dholdout.md",
@@ -10954,13 +11562,18 @@
         "article": "manuals/fusion/nodes/deep/fog-deep-pixel.md",
         "title": "Fog (Deep Pixel)",
         "kind": "node",
-        "image_count": 0,
-        "native_cases": [],
+        "image_count": 7,
+        "native_cases": [
+          "S117"
+        ],
         "reused_cases": [],
         "planned_cases": [],
-        "state": "capture-planned",
-        "decision": "capture-needed",
+        "state": "illustrated-native-example",
+        "decision": "image-required",
         "reason": "本文の対象機能: Zチャンネルの距離を使い、近景を残して遠景を霞ませる2D後処理Node。。ディレクトリ名がDeepでもtrue Deepとは異なる。S11のColorだけではZ/Normal/UVを受け渡した証拠にならない。",
+        "remaining_views": [
+          "Other Aux channels/renderer,external EXR persistence,transparent boundaries,Mask/alternate inputs,other platforms/editions/performance;true Deep remains separate"
+        ],
         "required_views": [
           "対象Node名と実際の配線が読めるGraph",
           "対象Nodeを選択した固有Inspector（本文で示すControlを含む）",
@@ -10980,7 +11593,8 @@
             "section": "入力と出力",
             "role": "入力と結果を示す箇所"
           }
-        ]
+        ],
+        "audit_note": "S115–117 bounded native ordinary2D+Z proof;whole article remains partial."
       },
       {
         "article": "manuals/fusion/nodes/deep/image-to-deep.md",
@@ -11024,13 +11638,20 @@
         "article": "manuals/fusion/nodes/deep/index.md",
         "title": "Deep Image / 補助チャンネルのノード",
         "kind": "index",
-        "image_count": 0,
+        "image_count": 2,
         "native_cases": [],
-        "reused_cases": [],
+        "reused_cases": [
+          "S116"
+        ],
         "planned_cases": [],
-        "state": "capture-planned",
-        "decision": "capture-needed",
-        "reason": "複数サンプルのDeepと通常画像のZ/AOVを区別できるfixture、平面化と表示を撮影する。"
+        "state": "illustrated-reused-example",
+        "decision": "image-required",
+        "reason": "複数サンプルのDeepと通常画像のZ/AOVを区別できるfixture、平面化と表示を撮影する。",
+        "remaining_views": [
+          "Actual multiple-sample Deep creation/processing/flatten comparison NOT_RUN",
+          "Other Aux channels/renderer,external EXR persistence,transparent boundaries,Mask/alternate inputs,other platforms/editions/performance;true Deep remains separate"
+        ],
+        "audit_note": "S115–117 bounded native ordinary2D+Z proof;whole article remains partial."
       },
       {
         "article": "manuals/fusion/nodes/deep/shader-deep-pixel.md",
@@ -26795,7 +27416,7 @@
       "images": [
         "compare.png"
       ],
-      "status": "embedded-local-display-verified",
+      "status": "published-display-verified",
       "scope": "CSTで入力Gamma2.4から出力Linearへ変換した表示;not real footage/colorimetric or full control validation."
     },
     {
@@ -26805,7 +27426,7 @@
       "images": [
         "compare.png"
       ],
-      "status": "embedded-local-display-verified",
+      "status": "published-display-verified",
       "scope": "CAT02でSource D65からTarget D50へ変えた表示;not real footage/colorimetric or full control validation."
     },
     {
@@ -26815,7 +27436,7 @@
       "images": [
         "compare.png"
       ],
-      "status": "embedded-local-display-verified",
+      "status": "published-display-verified",
       "scope": "OCIO CDL Controlsで赤Slopeだけを0.5にした表示;not real footage/colorimetric or full control validation."
     },
     {
@@ -26825,7 +27446,7 @@
       "images": [
         "compare.png"
       ],
-      "status": "embedded-local-display-verified",
+      "status": "published-display-verified",
       "scope": "ACES2.0のsRGB入力とRec709 BT1886出力;not real footage or full-control/colorimetric acceptance."
     },
     {
@@ -26835,7 +27456,7 @@
       "images": [
         "compare.png"
       ],
-      "status": "embedded-local-display-verified",
+      "status": "published-display-verified",
       "scope": "色ずれのないチャートへ赤シアンScale0.8を加えた変化;not real footage or full-control/colorimetric acceptance."
     },
     {
@@ -26845,8 +27466,112 @@
       "images": [
         "compare.png"
       ],
-      "status": "embedded-local-display-verified",
+      "status": "published-display-verified",
       "scope": "RGBの中間点を持ち上げて明るくした表示;not real footage or full-control/colorimetric acceptance."
+    },
+    {
+      "id": "R159",
+      "article": "manuals/fusion/nodes/color/index.md",
+      "source_case": "S109",
+      "images": [
+        "compare.png"
+      ],
+      "status": "published-display-verified",
+      "scope": "Hue Curvesで緑付近の彩度を弱めた表示;bounded native display only."
+    },
+    {
+      "id": "R160",
+      "article": "manuals/fusion/nodes/color/index.md",
+      "source_case": "S110",
+      "images": [
+        "compare.png"
+      ],
+      "status": "published-display-verified",
+      "scope": "Rec2020の単色赤をRec709の色域で制限した表示;bounded native display only."
+    },
+    {
+      "id": "R161",
+      "article": "manuals/fusion/nodes/color/index.md",
+      "source_case": "S111",
+      "images": [
+        "compare.png"
+      ],
+      "status": "published-display-verified",
+      "scope": "OCIO File Transformで実機CDLをForward適用した表示;bounded native display only."
+    },
+    {
+      "id": "R162",
+      "article": "manuals/fusion/nodes/color/index.md",
+      "source_case": "S112",
+      "images": [
+        "compare.png"
+      ],
+      "status": "published-display-verified",
+      "scope": "OCIO Color SpaceのGamma2.2からlinearへの表示;bounded native display only."
+    },
+    {
+      "id": "R163",
+      "article": "manuals/fusion/nodes/color/index.md",
+      "source_case": "S113",
+      "images": [
+        "compare.png"
+      ],
+      "status": "published-display-verified",
+      "scope": "OCIO DisplayのSource linearとView sRGBの表示;bounded native display only."
+    },
+    {
+      "id": "R164",
+      "article": "manuals/fusion/nodes/color/index.md",
+      "source_case": "S114",
+      "images": [
+        "compare.png"
+      ],
+      "status": "published-display-verified",
+      "scope": "float32入力へSimpleとCompressを適用した表示;bounded native display only."
+    },
+    {
+      "id": "R165",
+      "article": "manuals/fusion/learn/02-data/auxiliary-channels.md",
+      "source_case": "S115",
+      "images": [
+        "graph.png",
+        "renderer-inspector.png",
+        "compare.png"
+      ],
+      "status": "embedded-local-display-verified",
+      "scope": "Software RendererのRGBAとZを有効にした画像をCopy Auxへ渡しています。左は照明付きのカラー、右は補助Zを固定範囲で可視化した表示です。Zを別ケーブルで合成していません。この例でObject ID・Normal・UVや外部EXR、全ノードの保持動作を確認したわけではありません。"
+    },
+    {
+      "id": "R166",
+      "article": "manuals/fusion/nodes/3d/renderer-3d.md",
+      "source_case": "S115",
+      "images": [
+        "renderer-inspector.png",
+        "compare.png"
+      ],
+      "status": "embedded-local-display-verified",
+      "scope": "S115のSoftware Rendererで出力チャンネルのRGBAとZを有効にしました。Copy Aux側はZが欠けていると失敗する設定のまま、球の深度を表示できています。ここで確認したのは通常の2D画像と補助Zです。ほかのチャンネル、OpenGL、true Deepや外部EXRの保存は未確認です。"
+    },
+    {
+      "id": "R167",
+      "article": "manuals/fusion/nodes/color/index.md",
+      "source_case": "S115",
+      "images": [
+        "compare.png"
+      ],
+      "status": "embedded-local-display-verified",
+      "scope": "Copy AuxのAux to Colorで、Software Rendererが出したZをRGBAへ取り出しました。固定の再マッピングで表示用の0〜1へ変換しています。"
+    },
+    {
+      "id": "R168",
+      "article": "manuals/fusion/nodes/deep/index.md",
+      "source_case": "S116",
+      "images": [
+        "graph.png",
+        "compare.png"
+      ],
+      "status": "embedded-local-display-verified",
+      "scope": "Depth BlurはRendererが出した通常のRGBA画像と補助Zを使っています。右の出力では手前をほぼ鮮明に保ち、奥をぼかしました。このGraphのCopy AuxはZ確認用の分岐です。複数サンプルを保持するDeep Imageや、その平面化を実証した例ではありません。"
     }
   ],
   "external_reports": [
@@ -26876,6 +27601,17 @@
       "readback": "PASS:sent1428/formatted1447–1453,empty255/disabled261;ACK1458 separates PR118/120 public171/639/984,PR123 CI pending175/653/1001,S103 native in progress,Sol single owner/no duplicate workers",
       "evidence": "artifacts/fusion-captures/dot-batch31-report.jpg",
       "scope": "Report preceded PR123 publication;ACK does not prove publication or grant new authority."
+    },
+    {
+      "event_id": "fusion-native-20261024-33",
+      "destination": "Verified silvel conversation UI at https://chatgpt.com/dots/home",
+      "sender_task": "01a1683b-3067-7a40-892a-47a3b30d50b2",
+      "status": "SENT_ACKNOWLEDGED",
+      "scope": "PR124/125 public181/685/1039,1607 hashes,CDL fix;S109–111 then-local pending,whole587/374+remaining_views incomplete,Sol sole GUI writer/partial",
+      "delivery": "One paste/send;1544–1546 bubble and empty input. UI update error observed;reload confirmed persisted369–371 and ACK376,empty382/send388disabled. No resend.",
+      "evidence": "artifacts/fusion-captures/dot-batch33-report.jpg",
+      "ack": "PR124/125 public,CDL fix and next three unpublished distinguished;Sol/partial retained,no extra workers",
+      "authority": "Standing user authorization;reply adds no new execution authority"
     }
   ]
 }

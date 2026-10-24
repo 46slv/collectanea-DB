@@ -15,7 +15,7 @@ outputs: [image]
 tasks: [ocio, lut]
 product_scope: fusion
 suite_surfaces: [fusion]
-updated: "2026-10-11"
+updated: "2026-10-24"
 ---
 
 # OCIO File Transform
@@ -121,10 +121,38 @@ Saver / MediaOut
 
 OCIO File Transformの機能は、Fusionの**View LUTメニューから使うView LUT**としても提供されています。ただし、View LUTとして使う場合はViewer上の表示に適用する用途であり、**ノードを接続して後続の画像を変換する場合とは出力への影響が異なります**。必要なのがプレビュー上の変換か、実際の画像データの変換かを先に決めてください。
 
+## 実機例：実機CDLを読み込み、ForwardとReverseを比べる
+
+<!-- capture-case:S111 -->
+
+Resolve Studio21.1.0.14／Windows、1920×1080、Viewer40%、フレーム0で撮影しました。左が入力、右が処理後です。
+
+[![LoaderからOCIO File Transformを経てMediaOutへ接続した実機Graph](/img/fusion/captures/S111/graph.png)](/img/fusion/captures/S111/graph.png)
+
+最初はLUT Fileを指定しておらず、左右のチャートは同じ見え方です。
+
+[![LUT Fileが空のときは入力と出力が同じ見え方になる実機比較](/img/fusion/captures/S111/baseline.png)](/img/fusion/captures/S111/baseline.png)
+
+[OCIO CDL Transformの実機例](./ocio-cdl-transform)で書き出した[red-slope05.cc](/img/fusion/captures/S105/red-slope05.cc)をLUT Fileへ指定しました。Red Slopeだけが0.5、ほかのSlopeは1、Offsetは0、PowerとSaturationは1のCDLです。DirectionはForward、InterpolationはLinear、CCC IDは空です。右の白と灰色がシアン寄りになりました。
+
+[![実機CDLをLUT Fileに指定し、ForwardとLinearを選んだOCIO File Transformの実機Inspector](/img/fusion/captures/S111/inspector.png)](/img/fusion/captures/S111/inspector.png)
+
+[![実機CDLをForwardで適用すると右の白と灰色がシアン寄りになる実機比較](/img/fusion/captures/S111/compare.png)](/img/fusion/captures/S111/compare.png)
+
+同じファイルのままDirectionをReverseへ変えると、右は赤みのある表示へ変わりました。このCDLは赤のSlopeが0.5なので逆方向の変化も確認できますが、値を失う処理を含む任意のLUTが元に戻せるという意味ではありません。
+
+[![同じCDLとLinearを保ち、DirectionだけをReverseへ変えた実機Inspector](/img/fusion/captures/S111/reverse-inspector.png)](/img/fusion/captures/S111/reverse-inspector.png)
+
+[![同じ実機CDLをReverseで適用し、右が赤みのある表示へ変わった実機比較](/img/fusion/captures/S111/reverse.png)](/img/fusion/captures/S111/reverse.png)
+
+最後はForwardへ戻して保存しました。保存Graphでは隣のS105フォルダーを`Comp:/../S105/red-slope05.cc`で参照します。GraphとCDLを別の場所へ保存した場合は、LUT Fileで実際のファイルを指定してください。ForwardのViewer内の同じ範囲はOCIO CDL TransformのControls例とRGB画素が一致しました。これは画面上の比較です。別のLUT形式、CCC IDの選択、補間方式ごとの差、実写、測色、他アプリ・Edition差と性能は未確認です。
+
+[再現用Graph](/img/fusion/captures/S111/fixture.comp) · [撮影条件と確認範囲](/img/fusion/captures/S111/capture.json)
+
 ## バージョンと出典
 
 - **Blackmagic Design『DaVinci Resolve 21.1 Reference Manual』Chapter 93「Color Nodes」pp.2196–2198**：OCIO File Transform [OCF]、Input / Effect Mask、基本構成、LUT File / CCC ID / Direction / Interpolation、View LUTとの関係。
 - **同マニュアル Chapter 76「Managing Color for Visual Effects」p.1661**：OCIOの色管理とLUTを扱うノードの役割。
 - 読者向けの運用例は上記仕様に基づく構成例です。LUTの対応形式一覧、補間方式ごとの内部演算、各パラメータの初期値、Free / Studio間の細かな差は21.1実機では未検証です。
 
-**確認範囲：** 記載した固有のInspector項目名、入力とEffect Mask、Forward / ReverseおよびNearest / Bestの速度関係は21.1マニュアルで確認しました。操作例そのものを実機で再現したと断定するものではありません。
+**確認範囲：** 記載した固有のInspector項目名、入力とEffect Mask、Forward / ReverseおよびNearest / Bestの速度関係は21.1マニュアルで確認しました。S111の実機CDL読込とForward／Reverse表示は確認済みです。ほかの操作例はManualに基づく提案です。
