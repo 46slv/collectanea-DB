@@ -221,6 +221,22 @@ Viewer倍率は40%です。市松模様は透明部分を示します。
 
 [再現用Graph](/img/fusion/captures/S14/fixture.comp) · [撮影条件と確認範囲](/img/fusion/captures/S14/capture.json)
 
+## 実機例：Optionsの前後処理で透明部分を保つ
+
+<!-- capture-reuse:R120 -->
+
+柔らかい楕円前景にLevelsのMaster RGB出力下限0.2を指定しました。左はColor Corrector単体、右はAlpha Divide→Color Corrector→Alpha Multiplyです。左のOptionsでPre-Divide / Post-Multiplyをオンにすると、両方とも暗い背景を保つ同じ見た目になりました。
+
+[![ColorDirectのOptionsで処理前に除算、処理後に乗算のチェックをオンにしたInspector](/img/fusion/captures/S74/builtin-options.png)](/img/fusion/captures/S74/builtin-options.png)
+
+[![左のColor Corrector内蔵前後処理と、右の明示的なDivideとMultiply構成が同じ見た目になる](/img/fusion/captures/S74/builtin.png)](/img/fusion/captures/S74/builtin.png)
+
+右のColor Correctorでは内蔵前後処理をオフにしています。数値exportによる完全一致や、全Correctionモードでの動作確認は行っていません。
+
+Resolve Studio21.1.0.14／WindowsのFusionページで、1920×1080の合成を作りました。両ViewerはColor／40%。左のMergeNaiveは直接補正、右のMergeCorrectはAlpha Divide→補正→Alpha Multiplyの結果です。 この固定例の表示と保存Graphを確認しました。実写のキーイング素材、外部OFX、Effect Mask、Alphaが0に近い画素の数値、HDRと性能は未確認です。 詳しい[接続と比較条件](../matte-keying/alpha-divide)はAlpha Divideの実機例に記録しています。
+
+[再現用Graph](/img/fusion/captures/S74/fixture.comp) · [撮影条件と確認範囲](/img/fusion/captures/S74/capture.json)
+
 ## 出典と確認範囲
 
 DaVinci Resolve 21.1 Reference Manual、September 2026、Chapter 93、pp.2157–2167で、4入力、Correction / Ranges / Options / Settings、Colors / Levels / Histogram / Suppress、tone Range、Color Wheel、Hue / Saturation、主要tone controls、Histogram Match、Ranges、Pre-Divide / Post-Multiply、Histogram Proxy Scale、Process Orderを確認しました。

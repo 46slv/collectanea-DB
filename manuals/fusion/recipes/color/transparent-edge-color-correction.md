@@ -44,6 +44,31 @@ Foreground
   → Merge
 ```
 
+## 実機例：出力下限を上げて透明部分への影響を比較する
+
+<!-- capture-reuse:R118 -->
+
+1. Backgroundに柔らかいEllipseを接続し、青い前景を作ります。
+2. 一方はColor Correctorへ直接、もう一方はAlpha Divide→Color Corrector→Alpha Multiplyへ接続します。
+3. 両方のCorrectionをLevels、Master／RGBにし、出力下限を0.2、上限を1へ合わせます。内部Pre-Divide / Post-Multiplyは両方オフにします。
+4. 同じ暗い背景へMergeし、左の直接補正では背景まで灰色になり、右では暗い背景を保つことを確認します。
+
+[![共通の楕円前景を直接補正とAlpha DivideからAlpha Multiplyまでの補正へ分け、同じ背景へ合成した実機Graph](/img/fusion/captures/S74/graph.png)](/img/fusion/captures/S74/graph.png)
+
+[![ColorStraightのLevelsでMaster RGBの出力下限0.2、上限1を設定したInspector](/img/fusion/captures/S74/correct-inspector.png)](/img/fusion/captures/S74/correct-inspector.png)
+
+[![左の直接補正では背景が灰色に持ち上がり、右のDivideとMultiplyを通す補正では暗い背景を保つ](/img/fusion/captures/S74/compare.png)](/img/fusion/captures/S74/compare.png)
+
+[![ColorDirectのOptionsで処理前に除算、処理後に乗算のチェックをオンにしたInspector](/img/fusion/captures/S74/builtin-options.png)](/img/fusion/captures/S74/builtin-options.png)
+
+[![左のColor Corrector内蔵前後処理と、右の明示的なDivideとMultiply構成が同じ見た目になる](/img/fusion/captures/S74/builtin.png)](/img/fusion/captures/S74/builtin.png)
+
+補正1つだけで済む場合は、左のColor CorrectorでOptionsのPre-Divide / Post-Multiplyをオンにします。最後の実機比較では、明示的な前後処理と同じ見た目になりました。手元の素材へ適用するときは、読み込み時のAlpha解釈から確認してください。
+
+Resolve Studio21.1.0.14／WindowsのFusionページで、1920×1080の合成を作りました。両ViewerはColor／40%。左のMergeNaiveは直接補正、右のMergeCorrectはAlpha Divide→補正→Alpha Multiplyの結果です。 この固定例の表示と保存Graphを確認しました。実写のキーイング素材、外部OFX、Effect Mask、Alphaが0に近い画素の数値、HDRと性能は未確認です。 詳しい[接続と比較条件](../../nodes/matte-keying/alpha-divide)はAlpha Divideの実機例に記録しています。
+
+[再現用Graph](/img/fusion/captures/S74/fixture.comp) · [撮影条件と確認範囲](/img/fusion/captures/S74/capture.json)
+
 ## この構成で動く理由
 
 色処理（Color operation）をストレートRGB（straight RGB）側で行い、合成前にプリマルチプライの関係へ戻すことで、透明エッジ（Edge）のRGBを扱いやすくする構造です。

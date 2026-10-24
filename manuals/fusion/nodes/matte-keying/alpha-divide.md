@@ -152,10 +152,58 @@ Alpha DivideとAlpha Multiplyは対になる処理として使われることが
 - [Color Corrector](../color/color-corrector)
 - [Matte / Keying Family Overview](./)
 
+## 実機例：補正前後のDivideとMultiplyを比較する
+
+<!-- capture-case:S74 -->
+
+柔らかい輪郭を持つ青い楕円を、2つの経路で同じ暗い背景へ重ねます。上段のColorDirectは前景を直接補正し、下段のColorStraightはAlpha DivideとAlpha Multiplyの間で補正します。
+
+Resolve Studio21.1.0.14／WindowsのFusionページで、1920×1080の合成を作りました。両ViewerはColor／40%。左のMergeNaiveは直接補正、右のMergeCorrectはAlpha Divide→補正→Alpha Multiplyの結果です。
+
+[![共通の楕円前景を直接補正とAlpha DivideからAlpha Multiplyまでの補正へ分け、同じ背景へ合成した実機Graph](/img/fusion/captures/S74/graph.png)](/img/fusion/captures/S74/graph.png)
+
+[![AlphaDivide1には固有の補正パラメーターがなく、共通Settingsが表示される](/img/fusion/captures/S74/inspector.png)](/img/fusion/captures/S74/inspector.png)
+
+[![左の直接補正では背景が灰色に持ち上がり、右のDivideとMultiplyを通す補正では暗い背景を保つ](/img/fusion/captures/S74/compare.png)](/img/fusion/captures/S74/compare.png)
+
+両方のColor CorrectorでCorrectionをLevels、範囲をMaster、チャンネルをRGBとし、出力レベルの下限だけを0.2へ上げました。上限1、入力レベル0／1／1は共通です。左は楕円の外側まで灰色になり、右は暗い背景を保ちます。
+
+[![ColorStraightのLevelsでMaster RGBの出力下限0.2、上限1を設定したInspector](/img/fusion/captures/S74/correct-inspector.png)](/img/fusion/captures/S74/correct-inspector.png)
+
+[![直接補正するColorDirectにも同じMaster RGB出力下限0.2、上限1を指定したInspector](/img/fusion/captures/S74/direct-inspector.png)](/img/fusion/captures/S74/direct-inspector.png)
+
+比較の開始時は、両方のColor CorrectorでOptionsのPre-Divide / Post-Multiplyをオフにしています。日本語UIでは「処理前に除算／処理後に乗算」と表示されます。下段には前後処理用の2ノードを置いているため、その間のColor Correctorで同じ処理を重ねません。
+
+[![比較開始時のColorDirectはOptionsの処理前に除算、処理後に乗算をオフにしている](/img/fusion/captures/S74/direct-options.png)](/img/fusion/captures/S74/direct-options.png)
+
+[![AlphaMultiply1も固有の補正パラメーターはなく、共通Settingsが表示される](/img/fusion/captures/S74/multiply-inspector.png)](/img/fusion/captures/S74/multiply-inspector.png)
+
+Alpha DivideとAlpha MultiplyのInspectorには共通Settingsが表示され、固有の補正値はありません。内部REGIDはそれぞれ`AlphaDivide`、`AlphaMultiply`でした。
+
+前景はBackgroundのRGB0.2／0.55／0.9、Alpha1に、Width0.4／Height0.65／Soft Edge0.08のEllipseを接続して作りました。下の左はこの前景、右はDivide直後です。右の中間画像では半透明部分が明るく見えます。これをそのまま完成画像と判断せず、MultiplyとMergeを通した結果まで確認します。
+
+[![楕円マスクを接続したBackgroundのRGB0.2、0.55、0.9とAlpha1のInspector](/img/fusion/captures/S74/source-inspector.png)](/img/fusion/captures/S74/source-inspector.png)
+
+[![左はマスク付き前景、右はAlpha Divide直後をColor表示した中間画像](/img/fusion/captures/S74/source.png)](/img/fusion/captures/S74/source.png)
+
+出力レベル下限を両方とも0へ戻すと、左右とも暗い背景に戻りました。変えたのはマットの形状ではなく、色補正の出力下限です。
+
+[![両方のColor Correctorの出力下限を0にすると、左右とも暗い背景に青い楕円が合成される](/img/fusion/captures/S74/baseline.png)](/img/fusion/captures/S74/baseline.png)
+
+補正が1つだけなら、ColorDirectのOptionsで内蔵のPre-Divide / Post-Multiplyをオンにする方法もあります。出力下限0.2のままオンにすると、左も右と同じ見た目になりました。画素値の完全一致を測定した結果ではありません。
+
+[![ColorDirectのOptionsで処理前に除算、処理後に乗算のチェックをオンにしたInspector](/img/fusion/captures/S74/builtin-options.png)](/img/fusion/captures/S74/builtin-options.png)
+
+[![左のColor Corrector内蔵前後処理と、右の明示的なDivideとMultiply構成が同じ見た目になる](/img/fusion/captures/S74/builtin.png)](/img/fusion/captures/S74/builtin.png)
+
+最後は内蔵前後処理を両方ともオフ、出力下限0.2へ戻し、明示的な前後処理との比較を保存しました。この固定例の表示と保存Graphを確認しました。実写のキーイング素材、外部OFX、Effect Mask、Alphaが0に近い画素の数値、HDRと性能は未確認です。
+
+[再現用Graph](/img/fusion/captures/S74/fixture.comp) · [撮影条件と確認範囲](/img/fusion/captures/S74/capture.json)
+
 ## バージョンと出典
 
 DaVinci Resolve 21.1 Reference Manual（September 2026）Chapter 109「Matte Nodes」p.2504を基準に、Alpha Divideの目的、Input / Effect Mask、基本Node構成、固有Inspector Controlがないことを確認しています。
 
 premultiplicationをColor処理するときの考え方、Pre-Divide / Post-Multiplyとの使い分け、複数処理をAlpha Divide / Alpha Multiplyで挟む構成は、同Manual Chapter 77「Understanding Image Channels」pp.1679–1681で確認しています。
 
-current runtimeのREGID、内部Parameter ID、Manualに記載されていないedition差はこのページでは確定していません。
+上の実機例でREGIDと接続、Inspector、補正結果を確認しました。全Parameter、Manualに記載されていないedition差は未確認です。

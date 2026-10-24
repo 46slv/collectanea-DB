@@ -2,7 +2,7 @@
   "schema_version": 1,
   "created": "2026-10-20",
   "scope": "All Fusion pages, DaVinci Resolve 21.1",
-  "status_note": "2026-10-24:133 pages437 crops726 placements public PASS through PR96;1097 public assets HTTP/hash PASS. S70–S73/R111–R114 local5 distinct pages41 images PASS;26 native crops+4 index comparisons,cumulative137 pages463 crops756 placements. Whole587-page Fusion,418 capture-needed pages and remaining_views incomplete.",
+  "status_note": "2026-10-24:137/463/756 public through PR98;1146 assets HTTP/hash PASS. S74/R115–R120 local7 distinct pages33 images PASS;12 native crops+18 reused placements,cumulative143/475/786. Whole587/412 capture-needed+remaining_views incomplete;partial retained.",
   "asset_directory_template": "static/img/fusion/captures/{id}/{shot.slug}.png",
   "capture_manifest_name": "capture.json",
   "candidates": [
@@ -3737,7 +3737,7 @@
         "printed_pages": "2149–2150"
       },
       "goal": "Compare output Low/High range on fixed chart",
-      "status": "captured-local-display-verified",
+      "status": "published-display-verified",
       "shots": [
         {
           "slug": "graph",
@@ -3782,7 +3782,8 @@
           "status": "native-observed"
         }
       ],
-      "capture_manifest": "static/img/fusion/captures/S70/capture.json"
+      "capture_manifest": "static/img/fusion/captures/S70/capture.json",
+      "published_batch": "fusion-native-20261024-19"
     },
     {
       "id": "S71",
@@ -3794,7 +3795,7 @@
         "printed_pages": "2176–2179"
       },
       "goal": "Compare native R/B swap and Red Add.2 with identity",
-      "status": "captured-local-display-verified",
+      "status": "published-display-verified",
       "shots": [
         {
           "slug": "graph",
@@ -3839,7 +3840,8 @@
           "status": "native-observed"
         }
       ],
-      "capture_manifest": "static/img/fusion/captures/S71/capture.json"
+      "capture_manifest": "static/img/fusion/captures/S71/capture.json",
+      "published_batch": "fusion-native-20261024-19"
     },
     {
       "id": "S72",
@@ -3851,7 +3853,7 @@
         "printed_pages": "2180–2182"
       },
       "goal": "Compare RGB/YUV intermediate and To RGB roundtrip",
-      "status": "captured-local-display-verified",
+      "status": "published-display-verified",
       "shots": [
         {
           "slug": "graph",
@@ -3884,7 +3886,8 @@
           "status": "native-observed"
         }
       ],
-      "capture_manifest": "static/img/fusion/captures/S72/capture.json"
+      "capture_manifest": "static/img/fusion/captures/S72/capture.json",
+      "published_batch": "fusion-native-20261024-19"
     },
     {
       "id": "S73",
@@ -3896,7 +3899,7 @@
         "printed_pages": "2200–2203"
       },
       "goal": "Compare3200/6500 temperature direction and equal-reference/result",
-      "status": "captured-local-display-verified",
+      "status": "published-display-verified",
       "shots": [
         {
           "slug": "graph",
@@ -3941,7 +3944,95 @@
           "status": "native-observed"
         }
       ],
-      "capture_manifest": "static/img/fusion/captures/S73/capture.json"
+      "capture_manifest": "static/img/fusion/captures/S73/capture.json",
+      "published_batch": "fusion-native-20261024-19"
+    },
+    {
+      "id": "S74",
+      "priority": "P1",
+      "article": "manuals/fusion/nodes/matte-keying/alpha-divide.md",
+      "manual": {
+        "version": "21.1",
+        "chapter": 109,
+        "printed_pages": "2504–2505;chapter77 pp.1680–1681"
+      },
+      "goal": "Compare direct Levels output-floor correction with explicit Alpha Divide/Multiply and built-in Pre-Divide/Post-Multiply",
+      "status": "captured-local-display-verified",
+      "shots": [
+        {
+          "slug": "graph",
+          "kind": "node-graph",
+          "target": "Alpha Divide / Alpha Multiply / Color Corrector",
+          "status": "native-observed"
+        },
+        {
+          "slug": "inspector",
+          "kind": "inspector",
+          "target": "Alpha Divide / Alpha Multiply / Color Corrector",
+          "status": "native-observed"
+        },
+        {
+          "slug": "compare",
+          "kind": "output",
+          "target": "Alpha Divide / Alpha Multiply / Color Corrector",
+          "status": "native-observed"
+        },
+        {
+          "slug": "correct-inspector",
+          "kind": "inspector",
+          "target": "Alpha Divide / Alpha Multiply / Color Corrector",
+          "status": "native-observed"
+        },
+        {
+          "slug": "direct-inspector",
+          "kind": "inspector",
+          "target": "Alpha Divide / Alpha Multiply / Color Corrector",
+          "status": "native-observed"
+        },
+        {
+          "slug": "multiply-inspector",
+          "kind": "inspector",
+          "target": "Alpha Divide / Alpha Multiply / Color Corrector",
+          "status": "native-observed"
+        },
+        {
+          "slug": "source-inspector",
+          "kind": "inspector",
+          "target": "Alpha Divide / Alpha Multiply / Color Corrector",
+          "status": "native-observed"
+        },
+        {
+          "slug": "source",
+          "kind": "output",
+          "target": "Alpha Divide / Alpha Multiply / Color Corrector",
+          "status": "native-observed"
+        },
+        {
+          "slug": "baseline",
+          "kind": "output",
+          "target": "Alpha Divide / Alpha Multiply / Color Corrector",
+          "status": "native-observed"
+        },
+        {
+          "slug": "builtin-options",
+          "kind": "inspector",
+          "target": "Alpha Divide / Alpha Multiply / Color Corrector",
+          "status": "native-observed"
+        },
+        {
+          "slug": "builtin",
+          "kind": "output",
+          "target": "Alpha Divide / Alpha Multiply / Color Corrector",
+          "status": "native-observed"
+        },
+        {
+          "slug": "direct-options",
+          "kind": "inspector",
+          "target": "Alpha Divide / Alpha Multiply / Color Corrector",
+          "status": "native-observed"
+        }
+      ],
+      "capture_manifest": "static/img/fusion/captures/S74/capture.json"
     }
   ],
   "publication_batches": [
@@ -4563,27 +4654,60 @@
         "artifacts/fusion-captures/public-batch18-assets.json"
       ],
       "limitations": "Initial8bcfbdee Quality40040416953 superseded by incoming normal merge. Whole587-page Fusion and remaining_views incomplete;S70–S73 local PASS,not yet public."
+    },
+    {
+      "id": "fusion-native-20261024-19",
+      "cases": [
+        "S70",
+        "S71",
+        "S72",
+        "S73"
+      ],
+      "reuses": [
+        "R111",
+        "R112",
+        "R113",
+        "R114"
+      ],
+      "pr": "https://github.com/46slv/collectanea-DB/pull/98",
+      "candidate": "c670bc90aa907be1bc9c5df8d9610de072c3692e",
+      "main": "d8d18a050e1edbab1210702c0e71fa65a4c452ae",
+      "tree": "1b0b6eba693b81bbd7f2fb38db22a1a9a5cca5e6",
+      "quality_run": "https://github.com/46slv/collectanea-DB/actions/runs/40042932735",
+      "pages_run": "https://github.com/46slv/collectanea-DB/actions/runs/40044059384",
+      "merge_owner": "Sol;fresh main84ffe33/reviews empty/comments empty,expected-head squash;candidate/main tree equal",
+      "public_pages": 5,
+      "public_images": 41,
+      "new_placements": 30,
+      "new_native_crops": 26,
+      "public_asset_hashes": 1146,
+      "result": "PASS",
+      "evidence": [
+        "artifacts/fusion-captures/public-batch19-display-report.json",
+        "artifacts/fusion-captures/public-batch19-assets.json"
+      ],
+      "limitations": "Whole587-page Fusion and remaining_views incomplete. S74 native accepted but article adoption/local/public not yet done."
     }
   ],
   "coverage_inventory": {
-    "checked_at": "2026-10-23T23:59:08.206109+00:00",
+    "checked_at": "2026-10-24T00:29:09.380218+00:00",
     "scope": "All manuals/fusion Markdown and MDX pages; review necessity before adding images.",
     "completion_rule": "Every page has an explicit image decision; necessary images are native-observed, embedded, saved to GitHub and public-display-verified. A native example does not verify all article controls.",
     "summary": {
       "total_pages": 587,
-      "with_images": 137,
-      "with_native_examples": 137,
+      "with_images": 143,
+      "with_native_examples": 143,
       "states": {
         "reviewed-no-standalone-image": 26,
         "no-standalone-image-needed": 6,
-        "illustrated-reused-example": 66,
-        "capture-planned": 418,
-        "illustrated-native-example": 71
+        "illustrated-reused-example": 71,
+        "capture-planned": 412,
+        "illustrated-native-example": 72
       },
       "decisions": {
         "no-standalone-image-needed": 32,
-        "image-required": 137,
-        "capture-needed": 418
+        "image-required": 143,
+        "capture-needed": 412
       }
     },
     "pages": [
@@ -5333,19 +5457,25 @@
         "article": "manuals/fusion/learn/04-compositing/premultiplication.md",
         "title": "プリマルチプライ（Premultiplication）",
         "kind": "concept",
-        "image_count": 0,
+        "image_count": 4,
         "native_cases": [],
-        "reused_cases": [],
+        "reused_cases": [
+          "S74"
+        ],
         "planned_cases": [],
-        "state": "capture-planned",
-        "decision": "capture-needed",
+        "state": "illustrated-reused-example",
+        "decision": "image-required",
         "reason": "S14の固定色補正やS25のAlpha表示は、半透明RGBの前後処理を実行した証拠ではない。",
+        "remaining_views": [
+          "実写/キーイング素材・外部OFX・Effect Mask・Alpha0近傍の数値・HDR・性能"
+        ],
         "required_views": [
           "半透明境界を持つ同一Premultiplied素材でPre-Divide/Post-Multiplyの有無と背景合成後の縁を比較する",
           "Color CorrectorのOptions側の設定と、Alpha Divide→色処理→Alpha Multiplyの明示Graphを示す",
           "同じAlphaを再乗算した枝の暗い縁を正常枝と比較する"
         ],
-        "capture_group": "premult-color-edge"
+        "capture_group": "premult-color-edge",
+        "audit_note": "S74 fixed premult correction comparison;partial retained;article role determines reused shots."
       },
       {
         "article": "manuals/fusion/learn/05-time/expressions.md",
@@ -7352,15 +7482,21 @@
         "article": "manuals/fusion/nodes/color/color-corrector.md",
         "title": "Color Corrector",
         "kind": "node",
-        "image_count": 3,
+        "image_count": 5,
         "native_cases": [
           "S14"
         ],
-        "reused_cases": [],
+        "reused_cases": [
+          "S74"
+        ],
         "planned_cases": [],
         "state": "illustrated-native-example",
         "decision": "image-required",
-        "reason": "本文の接続・設定・出力を、撮影済みの固定例で図示する。記事全体の検証とは区別する。"
+        "reason": "本文の接続・設定・出力を、撮影済みの固定例で図示する。記事全体の検証とは区別する。",
+        "remaining_views": [
+          "実写/キーイング素材・外部OFX・Effect Mask・Alpha0近傍の数値・HDR・性能"
+        ],
+        "audit_note": "S74 fixed premult correction comparison;partial retained;article role determines reused shots."
       },
       {
         "article": "manuals/fusion/nodes/color/color-curves.md",
@@ -14041,13 +14177,18 @@
         "article": "manuals/fusion/nodes/matte-keying/alpha-divide.md",
         "title": "Alpha Divide",
         "kind": "node",
-        "image_count": 0,
-        "native_cases": [],
+        "image_count": 12,
+        "native_cases": [
+          "S74"
+        ],
         "reused_cases": [],
         "planned_cases": [],
-        "state": "capture-planned",
-        "decision": "capture-needed",
+        "state": "illustrated-native-example",
+        "decision": "image-required",
         "reason": "本文の対象機能: Alpha Divideは、premultiplied ImageのRGBをAlphaで除算し、straight状態へ戻すNode。。S02通常Mergeや透明文字だけではstraight/premultiplied値を確定できない。",
+        "remaining_views": [
+          "実写/キーイング素材・外部OFX・Effect Mask・Alpha0近傍の数値・HDR・性能"
+        ],
         "required_views": [
           "対象Graph",
           "固有Controlsなしの実Inspector/Settings",
@@ -14073,19 +14214,25 @@
         ],
         "hold_conditions": [
           "架空の除算/乗算sliderを要求しない。"
-        ]
+        ],
+        "audit_note": "S74 fixed premult correction comparison;partial retained;article role determines reused shots."
       },
       {
         "article": "manuals/fusion/nodes/matte-keying/alpha-multiply.md",
         "title": "Alpha Multiply",
         "kind": "node",
-        "image_count": 0,
+        "image_count": 3,
         "native_cases": [],
-        "reused_cases": [],
+        "reused_cases": [
+          "S74"
+        ],
         "planned_cases": [],
-        "state": "capture-planned",
-        "decision": "capture-needed",
+        "state": "illustrated-reused-example",
+        "decision": "image-required",
         "reason": "本文の対象機能: Alpha Multiplyは、straight ImageのRGBへAlphaを乗算し、premultiplied状態へ戻すNode。。S02通常Mergeや透明文字だけではstraight/premultiplied値を確定できない。",
+        "remaining_views": [
+          "実写/キーイング素材・外部OFX・Effect Mask・Alpha0近傍の数値・HDR・性能"
+        ],
         "required_views": [
           "対象Graph",
           "固有Controlsなしの実Inspector/Settings",
@@ -14111,7 +14258,8 @@
         ],
         "hold_conditions": [
           "架空の除算/乗算sliderを要求しない。"
-        ]
+        ],
+        "audit_note": "S74 fixed premult correction comparison;partial retained;article role determines reused shots."
       },
       {
         "article": "manuals/fusion/nodes/matte-keying/chroma-keyer.md",
@@ -21225,19 +21373,25 @@
         "article": "manuals/fusion/patterns/color-alpha/premult-aware-color-operation.md",
         "title": "Alphaを保ったまま色処理（Color operation）する",
         "kind": "pattern",
-        "image_count": 0,
+        "image_count": 2,
         "native_cases": [],
-        "reused_cases": [],
+        "reused_cases": [
+          "S74"
+        ],
         "planned_cases": [],
-        "state": "capture-planned",
-        "decision": "capture-needed",
+        "state": "illustrated-reused-example",
+        "decision": "image-required",
         "reason": "記事の中心はPremult対応であり、一般的な色補正・Mask画像では補えない。",
+        "remaining_views": [
+          "実写/キーイング素材・外部OFX・Effect Mask・Alpha0近傍の数値・HDR・性能"
+        ],
         "required_views": [
           "Alpha Divide→Color処理→Alpha Multiply→MergeのGraph",
           "同じ半透明前景で内部Pre-Divide/Post-Multiply方式と明示pair方式を分け、正常な縁を表示",
           "二重処理をした比較枝"
         ],
-        "capture_group": "premult-color-edge"
+        "capture_group": "premult-color-edge",
+        "audit_note": "S74 fixed premult correction comparison;partial retained;article role determines reused shots."
       },
       {
         "article": "manuals/fusion/patterns/compositing/choose-merge-vs-multimerge.md",
@@ -21600,13 +21754,19 @@
         "article": "manuals/fusion/recipes/color/transparent-edge-color-correction.md",
         "title": "透明エッジ（Edge）を保って色補正する（Color Correct）",
         "kind": "recipe",
-        "image_count": 0,
+        "image_count": 5,
         "native_cases": [],
-        "reused_cases": [],
+        "reused_cases": [
+          "S74"
+        ],
         "planned_cases": [],
-        "state": "capture-planned",
-        "decision": "capture-needed",
-        "reason": "Alpha Divide→ColorCorrector→Alpha Multiplyの透明エッジ比較"
+        "state": "illustrated-reused-example",
+        "decision": "image-required",
+        "reason": "Alpha Divide→ColorCorrector→Alpha Multiplyの透明エッジ比較",
+        "remaining_views": [
+          "実写/キーイング素材・外部OFX・Effect Mask・Alpha0近傍の数値・HDR・性能"
+        ],
+        "audit_note": "S74 fixed premult correction comparison;partial retained;article role determines reused shots."
       },
       {
         "article": "manuals/fusion/recipes/compositing/heat-shimmer-with-fast-noise-displace.md",
@@ -22184,13 +22344,19 @@
         "article": "manuals/fusion/troubleshooting/masking/alpha-edge-looks-wrong.md",
         "title": "透明Edgeの色や縁がおかしい",
         "kind": "diagnostic",
-        "image_count": 0,
+        "image_count": 2,
         "native_cases": [],
-        "reused_cases": [],
+        "reused_cases": [
+          "S74"
+        ],
         "planned_cases": [],
-        "state": "capture-planned",
-        "decision": "capture-needed",
-        "reason": "Straight/Premultipliedと補正順による拡大輪郭比較"
+        "state": "illustrated-reused-example",
+        "decision": "image-required",
+        "reason": "Straight/Premultipliedと補正順による拡大輪郭比較",
+        "remaining_views": [
+          "実写/キーイング素材・外部OFX・Effect Mask・Alpha0近傍の数値・HDR・性能"
+        ],
+        "audit_note": "S74 fixed premult correction comparison;partial retained;article role determines reused shots."
       },
       {
         "article": "manuals/fusion/troubleshooting/masking/mask-does-not-change-result.md",
@@ -23699,8 +23865,9 @@
       "images": [
         "compare.png"
       ],
-      "status": "embedded-local-display-verified",
-      "scope": "One output comparison linked to full native graph/Inspector conditions in node article."
+      "status": "published-display-verified",
+      "scope": "One output comparison linked to full native graph/Inspector conditions in node article.",
+      "published_batch": "fusion-native-20261024-19"
     },
     {
       "id": "R112",
@@ -23709,8 +23876,9 @@
       "images": [
         "compare.png"
       ],
-      "status": "embedded-local-display-verified",
-      "scope": "One output comparison linked to full native graph/Inspector conditions in node article."
+      "status": "published-display-verified",
+      "scope": "One output comparison linked to full native graph/Inspector conditions in node article.",
+      "published_batch": "fusion-native-20261024-19"
     },
     {
       "id": "R113",
@@ -23719,8 +23887,9 @@
       "images": [
         "compare.png"
       ],
-      "status": "embedded-local-display-verified",
-      "scope": "One output comparison linked to full native graph/Inspector conditions in node article."
+      "status": "published-display-verified",
+      "scope": "One output comparison linked to full native graph/Inspector conditions in node article.",
+      "published_batch": "fusion-native-20261024-19"
     },
     {
       "id": "R114",
@@ -23729,8 +23898,81 @@
       "images": [
         "compare.png"
       ],
+      "status": "published-display-verified",
+      "scope": "One output comparison linked to full native graph/Inspector conditions in node article.",
+      "published_batch": "fusion-native-20261024-19"
+    },
+    {
+      "id": "R115",
+      "article": "manuals/fusion/nodes/matte-keying/alpha-multiply.md",
+      "source_case": "S74",
+      "images": [
+        "graph.png",
+        "multiply-inspector.png",
+        "compare.png"
+      ],
       "status": "embedded-local-display-verified",
-      "scope": "One output comparison linked to full native graph/Inspector conditions in node article."
+      "scope": "Authentic S74 comparison reused for the specific node/concept/procedure/diagnostic role;full conditions in Alpha Divide article."
+    },
+    {
+      "id": "R116",
+      "article": "manuals/fusion/learn/04-compositing/premultiplication.md",
+      "source_case": "S74",
+      "images": [
+        "source.png",
+        "compare.png",
+        "builtin-options.png",
+        "builtin.png"
+      ],
+      "status": "embedded-local-display-verified",
+      "scope": "Authentic S74 comparison reused for the specific node/concept/procedure/diagnostic role;full conditions in Alpha Divide article."
+    },
+    {
+      "id": "R117",
+      "article": "manuals/fusion/patterns/color-alpha/premult-aware-color-operation.md",
+      "source_case": "S74",
+      "images": [
+        "graph.png",
+        "compare.png"
+      ],
+      "status": "embedded-local-display-verified",
+      "scope": "Authentic S74 comparison reused for the specific node/concept/procedure/diagnostic role;full conditions in Alpha Divide article."
+    },
+    {
+      "id": "R118",
+      "article": "manuals/fusion/recipes/color/transparent-edge-color-correction.md",
+      "source_case": "S74",
+      "images": [
+        "graph.png",
+        "correct-inspector.png",
+        "compare.png",
+        "builtin-options.png",
+        "builtin.png"
+      ],
+      "status": "embedded-local-display-verified",
+      "scope": "Authentic S74 comparison reused for the specific node/concept/procedure/diagnostic role;full conditions in Alpha Divide article."
+    },
+    {
+      "id": "R119",
+      "article": "manuals/fusion/troubleshooting/masking/alpha-edge-looks-wrong.md",
+      "source_case": "S74",
+      "images": [
+        "baseline.png",
+        "compare.png"
+      ],
+      "status": "embedded-local-display-verified",
+      "scope": "Authentic S74 comparison reused for the specific node/concept/procedure/diagnostic role;full conditions in Alpha Divide article."
+    },
+    {
+      "id": "R120",
+      "article": "manuals/fusion/nodes/color/color-corrector.md",
+      "source_case": "S74",
+      "images": [
+        "builtin-options.png",
+        "builtin.png"
+      ],
+      "status": "embedded-local-display-verified",
+      "scope": "Authentic S74 comparison reused for the specific node/concept/procedure/diagnostic role;full conditions in Alpha Divide article."
     }
   ]
 }
