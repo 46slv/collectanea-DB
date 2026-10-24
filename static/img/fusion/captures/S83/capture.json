@@ -1,0 +1,211 @@
+{
+  "schema_version": 1,
+  "case": "S83",
+  "article": "manuals/fusion/nodes/masks/b-spline-mask.md",
+  "manual": {
+    "version": "21.1",
+    "chapter": 108,
+    "printed_pages": "2468–2472"
+  },
+  "runtime": {
+    "version": "21.1.0.14",
+    "edition": "Studio",
+    "os": "Windows-11-10.0.26200-SP0",
+    "ui_language": "ja-JP (some Shape controls remain English)"
+  },
+  "captured_at": "2026-10-24T03:01:01.468973+00:00",
+  "project": "Collectanea_Captures_20261023_Sol",
+  "timeline": "S83_capture",
+  "frame": 0.0,
+  "resolution": [
+    1920,
+    1080
+  ],
+  "color_management": {
+    "colorScienceMode": "davinciYRGB",
+    "colorSpaceTimeline": "Rec.709 (Scene)",
+    "colorSpaceTimelineGamma": "",
+    "colorSpaceOutput": "Rec.709 (Scene)",
+    "colorSpaceOutputGamma": "ACEScc",
+    "separateColorSpaceAndGamma": "0",
+    "isAutoColorManage": "0",
+    "timelineResolutionWidth": "1920",
+    "timelineResolutionHeight": "1080",
+    "timelineFrameRate": 24.0,
+    "timelinePlaybackFrameRate": "30"
+  },
+  "viewer": {
+    "zoom_percent": 40,
+    "channel": "Color",
+    "background": "checkerboard for transparent pixels",
+    "note": "Viewer screenshots are display evidence, not colorimetric exports."
+  },
+  "graph": "fixture.comp",
+  "settings": "readback.json",
+  "source": {
+    "file": "screen.png",
+    "size": [
+      3352,
+      1910
+    ],
+    "sha256": "4b153a19652cbd487d88854327a20b7bb9603f9760244813b6b1d8ff3c2501ec"
+  },
+  "shots": [
+    {
+      "file": "graph.png",
+      "source": "screen.png",
+      "source_sha256": "4b153a19652cbd487d88854327a20b7bb9603f9760244813b6b1d8ff3c2501ec",
+      "frame": 0.0,
+      "crop_xyxy": [
+        770,
+        1205,
+        2050,
+        1530
+      ],
+      "resampled": false,
+      "sha256": "5e2b2f126d2e2de9e437bf8caba78eae276edb29a5bbab952016b07dfe5995a1",
+      "viewer_contents": "Left Mask / Right masked Gold Color,both1920x1080/40%",
+      "show_view_controls": 0
+    },
+    {
+      "file": "inspector.png",
+      "source": "screen.png",
+      "source_sha256": "4b153a19652cbd487d88854327a20b7bb9603f9760244813b6b1d8ff3c2501ec",
+      "frame": 0.0,
+      "crop_xyxy": [
+        2830,
+        120,
+        3352,
+        610
+      ],
+      "resampled": false,
+      "sha256": "b1385a29218910a10b743a6ba243870850d466eb5abf9dc95143891bdbd045c4",
+      "viewer_contents": "Left Mask / Right masked Gold Color,both1920x1080/40%",
+      "show_view_controls": 0
+    },
+    {
+      "file": "compare.png",
+      "source": "screen.png",
+      "source_sha256": "4b153a19652cbd487d88854327a20b7bb9603f9760244813b6b1d8ff3c2501ec",
+      "frame": 0.0,
+      "crop_xyxy": [
+        1146,
+        65,
+        2830,
+        725
+      ],
+      "resampled": false,
+      "sha256": "cbac0aadb4a72a559220736b7b7d3de89ef395842807f8e106c18b1ba0bddbfb",
+      "viewer_contents": "Left Mask / Right masked Gold Color,both1920x1080/40%",
+      "show_view_controls": 0
+    },
+    {
+      "file": "guides.png",
+      "source": "screen-guides.png",
+      "source_sha256": "15f0e87c7d606ca9873752363355a7ea5b33e00714119ae31ec37701fdd1ee81",
+      "frame": 0.0,
+      "crop_xyxy": [
+        1146,
+        65,
+        2830,
+        725
+      ],
+      "resampled": false,
+      "sha256": "2daea8d128e3244dcab7ad2bd57c3fed2a38b384c1261c418f771e4db36c08b2",
+      "viewer_contents": "Left Mask / Right masked Gold Color,both1920x1080/40%",
+      "show_view_controls": 1
+    },
+    {
+      "file": "outline-inspector.png",
+      "source": "screen-outline.png",
+      "source_sha256": "1ce57e89885dbb14f27c3defdfa840c463750423daf1d006e0e6652a26308cbf",
+      "frame": 0.0,
+      "crop_xyxy": [
+        2830,
+        120,
+        3352,
+        610
+      ],
+      "resampled": false,
+      "sha256": "38bb667dbbadf014af447519d350d05653cc25e4e5e2bc3c892158a8f18942fa",
+      "viewer_contents": "Left Mask / Right masked Gold Color,both1920x1080/40%",
+      "show_view_controls": 0
+    },
+    {
+      "file": "outline.png",
+      "source": "screen-outline.png",
+      "source_sha256": "1ce57e89885dbb14f27c3defdfa840c463750423daf1d006e0e6652a26308cbf",
+      "frame": 0.0,
+      "crop_xyxy": [
+        1146,
+        65,
+        2830,
+        725
+      ],
+      "resampled": false,
+      "sha256": "2f5565f373f6771cd748e93072db6c02791b70b850007523c089bdf05a437e32",
+      "viewer_contents": "Left Mask / Right masked Gold Color,both1920x1080/40%",
+      "show_view_controls": 0
+    }
+  ],
+  "acceptance": {
+    "gui": "PASS: owner visually inspected node connections, selected Inspector, and output",
+    "article_display": "PASS: local production build;4 distinct pages31 images at1440px/390px;decode/Alt/native links/hash/overflow"
+  },
+  "unverified": [
+    "Free edition and other platforms",
+    "All parameter ranges and performance",
+    "Tension editing and individual point editing",
+    "Multiple-frame shape animation,Fill Method,other Mask composition,real roto and performance",
+    "Exported portable composition reimport"
+  ],
+  "parameter_readback_scope": "Number/Text/Point/FuID/Clip only;no Image/Mask/ScriptVal/Polyline payload evaluation.",
+  "state_variants": {
+    "screen.png": "Solid1/Border0/ShowControls0",
+    "screen-guides.png": "Same4points/Closed/ShowControls1",
+    "screen-outline.png": "Solid0/Border.02/ShowControls0"
+  },
+  "gui_authoring": {
+    "delivery": "background synthetic Cua clicks",
+    "points_window_xy": [
+      [
+        1358,
+        538
+      ],
+      [
+        1818,
+        538
+      ],
+      [
+        1759,
+        301
+      ],
+      [
+        1398,
+        258
+      ]
+    ],
+    "close_window_xy": [
+      1358,
+      538
+    ],
+    "closed": true,
+    "points": 4,
+    "shape_keyframes": [
+      0
+    ],
+    "same_exported_xy_as": "S82"
+  },
+  "restoration": "PASS:Solid1/Border0/Soft0/Level1/Size1/Center(.5,.5)/XYZRotation0/ShowControls0/frame0/both40%,saved and visually confirmed.",
+  "rejected_attempts": [
+    "Tension W+drag is not supported by the advertised input API;not attempted as invented syntax.",
+    "Context submenu exploration did not establish EditPoints or Tension;diagnostic images excluded."
+  ],
+  "reproduction_action": "build creates an EMPTY scaffold;native Viewer authoring is required before acceptance. Never rebuild an existing owned case.",
+  "reproduction": {
+    "fixture_sha256": "aed080a728e4f8886f0fe2836acd600bc5d9e32372a62406087bde8b46e98ed3",
+    "readback_sha256": "b84996a1aec370b021f9d1603bc75d60c4b3b89c29aa2f65d2daeb3f3459162b",
+    "paths": "Comp:/../_fixtures/ for bundled synthetic fixtures",
+    "reimport": "NOT_RUN: accepted GUI evidence precedes export path normalization"
+  }
+}

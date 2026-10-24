@@ -125,6 +125,30 @@ Resolve Studio21.1.0.14／Windows、1920×1080、Viewer40%。[Polygonの作図�
 
 [再現用Graph](/img/fusion/captures/S82/fixture.comp) · [撮影条件と確認範囲](/img/fusion/captures/S82/capture.json)
 
+### 実機の参考例：同じ4点のB-Spline
+
+<!-- capture-reuse:R130 -->
+
+Polygonの例と同じ4点からB-Splineを作ると、制御点を結ぶ線の内側に滑らかな輪郭ができます。左はMask、右は適用後のBackgroundです。Tensionは変更していません。
+
+[![同じ4点から作った滑らかな白いB-Spline Maskとオレンジの適用結果](/img/fusion/captures/S83/compare.png)](/img/fusion/captures/S83/compare.png)
+
+Resolve Studio21.1.0.14／Windows、1920×1080、Viewer40%。[4点とSolidの比較](./b-spline-mask)に実機条件を掲載しています。
+
+[再現用Graph](/img/fusion/captures/S83/fixture.comp) · [撮影条件と確認範囲](/img/fusion/captures/S83/capture.json)
+
+### 実機の参考例：2つの輪郭をまとめて出力する
+
+<!-- capture-reuse:R132 -->
+
+左の三角形はPolygon、丸みのある形はB-Splineです。1つのMultiPolyのListで管理し、同じMaskとしてBackgroundへ渡しています。形状同士は重ねていません。
+
+[![左の三角Polygonと丸みのあるB-Splineが同じ白いMaskとして出力され右にオレンジで現れる](/img/fusion/captures/S85/compare.png)](/img/fusion/captures/S85/compare.png)
+
+Resolve Studio21.1.0.14／Windows、1920×1080、Viewer40%。[Listと形状の表示切り替え](./multipoly)に実機条件と未確認範囲を掲載しています。
+
+[再現用Graph](/img/fusion/captures/S85/fixture.comp) · [撮影条件と確認範囲](/img/fusion/captures/S85/capture.json)
+
 ## Mask PaintとPaintを使い分ける
 
 [Mask Paint](./mask-paint)は画像入力なしでもマスクを手描きできます。Bitmap Maskの人物領域に小さな穴があるときは、その出力をMask Paintの青いEffect Mask入力につなぎ、穴を白く描いて埋めます。出力は単一チャンネルのマスクです。
@@ -167,6 +191,18 @@ Maskでは、白に近いほど処理を強く適用し、黒に近いほど適�
 ## 関連パターン
 
 - [Maskで処理範囲を限定する](../../patterns/masking/limit-effect-with-mask)
+
+### 実機の参考例：画像入力なしで線を描く
+
+<!-- capture-reuse:R131 -->
+
+Mask Paintで描いた白い線を、BackgroundのEffect Maskへ渡した例です。右の色はBackgroundが持ちます。このMultistrokeはフレーム0だけに表示され、フレーム1では消えました。
+
+[![フレーム0でMask Paintの白い水平線が右のオレンジの線として現れる](/img/fusion/captures/S84/compare.png)](/img/fusion/captures/S84/compare.png)
+
+Resolve Studio21.1.0.14／Windows、1920×1080、Viewer40%。[フレーム0／1とInvertの比較](./mask-paint)に設定と確認範囲を掲載しています。
+
+[再現用Graph](/img/fusion/captures/S84/fixture.comp) · [撮影条件と確認範囲](/img/fusion/captures/S84/capture.json)
 
 ## 出典と確認範囲
 

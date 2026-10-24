@@ -2,7 +2,7 @@
   "schema_version": 1,
   "created": "2026-10-20",
   "scope": "All Fusion pages, DaVinci Resolve 21.1",
-  "status_note": "2026-10-24:150/539/858 public through PR106;1287 assets HTTP/hash PASS. S81/S82/R128 local3 distinct pages24 images PASS;17 native crops+1 reuse,cumulative152/556/876. Whole587 and remaining_views incomplete;partial retained.",
+  "status_note": "2026-10-24:152/556/876 public through PR107;1320 assets HTTP/hash PASS. S83–S85/R129–R132 local4 distinct pages31 images PASS;19 native crops+5 reuse placements,cumulative155/575/900. Whole587 and remaining_views incomplete;partial retained.",
   "asset_directory_template": "static/img/fusion/captures/{id}/{shot.slug}.png",
   "capture_manifest_name": "capture.json",
   "candidates": [
@@ -4525,7 +4525,7 @@
         "printed_pages": "2500–2502"
       },
       "goal": "Show native Mask Image/Settings tabs,Default/Custom frame format and independent960x540 output;Motion Blur dependent controls only",
-      "status": "captured-local-display-verified",
+      "status": "published-display-verified",
       "shots": [
         {
           "slug": "graph",
@@ -4582,7 +4582,8 @@
           "status": "native-observed"
         }
       ],
-      "capture_manifest": "static/img/fusion/captures/S81/capture.json"
+      "capture_manifest": "static/img/fusion/captures/S81/capture.json",
+      "published_batch": "fusion-native-20261024-24"
     },
     {
       "id": "S82",
@@ -4594,7 +4595,7 @@
         "printed_pages": "2480–2484"
       },
       "goal": "Native Viewer4-point closed polygon and whole-shape Size/ZRotation with Mask/result comparison",
-      "status": "captured-local-display-verified",
+      "status": "published-display-verified",
       "shots": [
         {
           "slug": "graph",
@@ -4645,7 +4646,167 @@
           "status": "native-observed"
         }
       ],
-      "capture_manifest": "static/img/fusion/captures/S82/capture.json"
+      "capture_manifest": "static/img/fusion/captures/S82/capture.json",
+      "published_batch": "fusion-native-20261024-24"
+    },
+    {
+      "id": "S83",
+      "priority": "P1",
+      "article": "manuals/fusion/nodes/masks/b-spline-mask.md",
+      "manual": {
+        "version": "21.1",
+        "chapter": 108,
+        "printed_pages": "2468–2472"
+      },
+      "goal": "Native GUI authored shape, Inspector and Mask/Background result; documented limited variants",
+      "status": "captured-local-display-verified",
+      "shots": [
+        {
+          "slug": "graph",
+          "kind": "node-graph",
+          "target": "b-spline-mask",
+          "status": "native-observed"
+        },
+        {
+          "slug": "inspector",
+          "kind": "inspector",
+          "target": "b-spline-mask",
+          "status": "native-observed"
+        },
+        {
+          "slug": "compare",
+          "kind": "output",
+          "target": "b-spline-mask",
+          "status": "native-observed"
+        },
+        {
+          "slug": "guides",
+          "kind": "output",
+          "target": "b-spline-mask",
+          "status": "native-observed"
+        },
+        {
+          "slug": "outline-inspector",
+          "kind": "inspector",
+          "target": "b-spline-mask",
+          "status": "native-observed"
+        },
+        {
+          "slug": "outline",
+          "kind": "output",
+          "target": "b-spline-mask",
+          "status": "native-observed"
+        }
+      ],
+      "capture_manifest": "static/img/fusion/captures/S83/capture.json"
+    },
+    {
+      "id": "S84",
+      "priority": "P1",
+      "article": "manuals/fusion/nodes/masks/mask-paint.md",
+      "manual": {
+        "version": "21.1",
+        "chapter": 108,
+        "printed_pages": "2475–2478"
+      },
+      "goal": "Native GUI authored shape, Inspector and Mask/Background result; documented limited variants",
+      "status": "captured-local-display-verified",
+      "shots": [
+        {
+          "slug": "graph",
+          "kind": "node-graph",
+          "target": "mask-paint",
+          "status": "native-observed"
+        },
+        {
+          "slug": "inspector",
+          "kind": "inspector",
+          "target": "mask-paint",
+          "status": "native-observed"
+        },
+        {
+          "slug": "compare",
+          "kind": "output",
+          "target": "mask-paint",
+          "status": "native-observed"
+        },
+        {
+          "slug": "mask-inspector",
+          "kind": "inspector",
+          "target": "mask-paint",
+          "status": "native-observed"
+        },
+        {
+          "slug": "inverse-inspector",
+          "kind": "inspector",
+          "target": "mask-paint",
+          "status": "native-observed"
+        },
+        {
+          "slug": "inverse",
+          "kind": "output",
+          "target": "mask-paint",
+          "status": "native-observed"
+        },
+        {
+          "slug": "frame1",
+          "kind": "output",
+          "target": "mask-paint",
+          "status": "native-observed"
+        }
+      ],
+      "capture_manifest": "static/img/fusion/captures/S84/capture.json"
+    },
+    {
+      "id": "S85",
+      "priority": "P1",
+      "article": "manuals/fusion/nodes/masks/multipoly.md",
+      "manual": {
+        "version": "21.1",
+        "chapter": 108,
+        "printed_pages": "2478–2480"
+      },
+      "goal": "Native Polygon and B-Spline in one List,individual enabled state and combined Mask output",
+      "status": "captured-local-display-verified",
+      "shots": [
+        {
+          "slug": "graph",
+          "kind": "node-graph",
+          "target": "MultiPoly",
+          "status": "native-observed"
+        },
+        {
+          "slug": "inspector",
+          "kind": "inspector",
+          "target": "MultiPoly",
+          "status": "native-observed"
+        },
+        {
+          "slug": "compare",
+          "kind": "output",
+          "target": "MultiPoly",
+          "status": "native-observed"
+        },
+        {
+          "slug": "guides",
+          "kind": "output",
+          "target": "MultiPoly",
+          "status": "native-observed"
+        },
+        {
+          "slug": "off-inspector",
+          "kind": "inspector",
+          "target": "MultiPoly",
+          "status": "native-observed"
+        },
+        {
+          "slug": "off",
+          "kind": "output",
+          "target": "MultiPoly",
+          "status": "native-observed"
+        }
+      ],
+      "capture_manifest": "static/img/fusion/captures/S85/capture.json"
     }
   ],
   "publication_batches": [
@@ -5423,27 +5584,59 @@
         "artifacts/fusion-captures/public-batch23-assets.json"
       ],
       "limitations": "Whole587 and remaining_views incomplete;S81/S82 native ready,next article batch."
+    },
+    {
+      "id": "fusion-native-20261024-24",
+      "cases": [
+        "S81",
+        "S82"
+      ],
+      "reuses": [
+        "R128"
+      ],
+      "pr": "https://github.com/46slv/collectanea-DB/pull/107",
+      "candidate": "c4b71c37533b29b52bf133282a53261b7f919b30",
+      "main": "a514ea1955222c215842d08719b09169b2acfea7",
+      "tree": "d9c6f3f33480a8272a850af0f7eb4920b228b369",
+      "quality_run": "https://github.com/46slv/collectanea-DB/actions/runs/40055496954",
+      "pages_run": "https://github.com/46slv/collectanea-DB/actions/runs/40056192410",
+      "merge_owner": "Existing integrator merged first;Sol read back MERGED/exact SHA and equal candidate/main tree,no duplicate merge",
+      "public_pages": 3,
+      "public_images": 24,
+      "new_placements": 18,
+      "new_native_crops": 17,
+      "public_asset_hashes": 1320,
+      "result": "PASS",
+      "evidence": [
+        "artifacts/fusion-captures/public-batch24-display-report.json",
+        "artifacts/fusion-captures/public-batch24-assets.json"
+      ],
+      "superseded": [
+        "abaa/40053333028:5-minute UI deadline FAIL",
+        "98ba/40054711161:alljobs/steps PASS,then incoming main PR103 required normal merge"
+      ],
+      "limitations": "Whole587/403 capture-needed and remaining_views incomplete;S83/S84/S85 native only pending article publication."
     }
   ],
   "coverage_inventory": {
-    "checked_at": "2026-10-24T02:12:20.832068+00:00",
+    "checked_at": "2026-10-24T03:04:32.688915+00:00",
     "scope": "All manuals/fusion Markdown and MDX pages; review necessity before adding images.",
     "completion_rule": "Every page has an explicit image decision; necessary images are native-observed, embedded, saved to GitHub and public-display-verified. A native example does not verify all article controls.",
     "summary": {
       "total_pages": 587,
-      "with_images": 152,
-      "with_native_examples": 152,
+      "with_images": 155,
+      "with_native_examples": 155,
       "states": {
         "reviewed-no-standalone-image": 26,
         "no-standalone-image-needed": 6,
         "illustrated-reused-example": 72,
-        "capture-planned": 403,
-        "illustrated-native-example": 80
+        "capture-planned": 400,
+        "illustrated-native-example": 83
       },
       "decisions": {
         "no-standalone-image-needed": 32,
-        "image-required": 152,
-        "capture-needed": 403
+        "image-required": 155,
+        "capture-needed": 400
       }
     },
     "pages": [
@@ -13539,13 +13732,21 @@
         "article": "manuals/fusion/nodes/masks/b-spline-mask.md",
         "title": "B-Spline Mask",
         "kind": "node",
-        "image_count": 0,
-        "native_cases": [],
-        "reused_cases": [],
+        "image_count": 8,
+        "native_cases": [
+          "S83"
+        ],
+        "reused_cases": [
+          "S82"
+        ],
         "planned_cases": [],
-        "state": "capture-planned",
-        "decision": "capture-needed",
+        "state": "illustrated-native-example",
+        "decision": "image-required",
         "reason": "本文の対象機能: 少ない制御点とTensionで滑らかな輪郭を作るMask。接続方法、Inspector、形状アニメーションと具体的な使い方を解説。。S07のEllipseではB-Spline Tension、Bitmap channel/threshold、Mask Paint strokeを示せない。",
+        "remaining_views": [
+          "Tension editing and individual point editing",
+          "Multiple-frame shape animation,Fill Method,other Mask composition,real roto and performance"
+        ],
         "required_views": [
           "対象Node名と実際の配線が読めるGraph",
           "対象Nodeを選択した固有Inspector（本文で示すControlを含む）",
@@ -13571,7 +13772,8 @@
             "section": "具体的な運用例",
             "role": "入力と結果を示す箇所"
           }
-        ]
+        ],
+        "audit_note": "S83 native limited fixture accepted;partial retained."
       },
       {
         "article": "manuals/fusion/nodes/masks/bitmap-mask.md",
@@ -13671,7 +13873,7 @@
         "article": "manuals/fusion/nodes/masks/index.md",
         "title": "Maskノード",
         "kind": "index",
-        "image_count": 7,
+        "image_count": 10,
         "native_cases": [],
         "reused_cases": [
           "S07",
@@ -13679,7 +13881,10 @@
           "S78",
           "S79",
           "S80",
-          "S82"
+          "S82",
+          "S83",
+          "S84",
+          "S85"
         ],
         "planned_cases": [],
         "state": "illustrated-reused-example",
@@ -13693,13 +13898,19 @@
         "article": "manuals/fusion/nodes/masks/mask-paint.md",
         "title": "Mask Paint",
         "kind": "node",
-        "image_count": 0,
-        "native_cases": [],
+        "image_count": 7,
+        "native_cases": [
+          "S84"
+        ],
         "reused_cases": [],
         "planned_cases": [],
-        "state": "capture-planned",
-        "decision": "capture-needed",
+        "state": "illustrated-native-example",
+        "decision": "image-required",
         "reason": "本文の対象機能: 画像入力なしでマスクを直接描き、既存のマスクを部分補修するFusionノード。Paintとの違い、合成方法、表示期間を説明。。S07のEllipseではB-Spline Tension、Bitmap channel/threshold、Mask Paint strokeを示せない。",
+        "remaining_views": [
+          "Duration change,Stroke/Polyline Stroke,Make Editable,Write On/Off",
+          "Other brushes/Apply Modes,existing-mask repairs,real footage and performance"
+        ],
         "required_views": [
           "対象Node名と実際の配線が読めるGraph",
           "対象Nodeを選択した固有Inspector（本文で示すControlを含む）",
@@ -13725,19 +13936,25 @@
             "section": "具体的な運用例",
             "role": "入力と結果を示す箇所"
           }
-        ]
+        ],
+        "audit_note": "S84 native limited fixture accepted;partial retained."
       },
       {
         "article": "manuals/fusion/nodes/masks/multipoly.md",
         "title": "MultiPoly",
         "kind": "node",
-        "image_count": 0,
-        "native_cases": [],
+        "image_count": 6,
+        "native_cases": [
+          "S85"
+        ],
         "reused_cases": [],
         "planned_cases": [],
-        "state": "capture-planned",
-        "decision": "capture-needed",
+        "state": "illustrated-native-example",
+        "decision": "image-required",
         "reason": "本文の対象機能: 複数の自由曲線マスクを1つのノードのリストで編集し、まとめて出力する。。S07 Ellipseは各Mask固有の作成・選択・List/色連結/curveを示さない。",
+        "remaining_views": [
+          "Overlapping shape Paint Mode,individual transforms,List reorder/duplicate/split/delete/reset,multiple-frame animation,real roto/performance"
+        ],
         "required_views": [
           "対象名と実接続が読めるGraph",
           "対象自身を選択したInspectorの該当Control",
@@ -13757,7 +13974,8 @@
             "role": "入力/結果または実UIの具体箇所"
           }
         ],
-        "hold_conditions": []
+        "hold_conditions": [],
+        "audit_note": "S85 native Polygon3+BSpline4 closed shapes,List enable toggle,combined output;partial retained."
       },
       {
         "article": "manuals/fusion/nodes/masks/polygon-mask.md",
@@ -24858,8 +25076,50 @@
       "images": [
         "compare.png"
       ],
+      "status": "published-display-verified",
+      "scope": "GUI-authored closed4point straight polygon Mask and Background result;curvature/animation not verified.",
+      "published_batch": "fusion-native-20261024-24"
+    },
+    {
+      "id": "R129",
+      "article": "manuals/fusion/nodes/masks/b-spline-mask.md",
+      "source_case": "S82",
+      "images": [
+        "guides.png",
+        "compare.png"
+      ],
       "status": "embedded-local-display-verified",
-      "scope": "GUI-authored closed4point straight polygon Mask and Background result;curvature/animation not verified."
+      "scope": "Same four exported XY coordinates;straight Polygon versus native closed B-Spline,no Tension adjustment."
+    },
+    {
+      "id": "R130",
+      "article": "manuals/fusion/nodes/masks/index.md",
+      "source_case": "S83",
+      "images": [
+        "compare.png"
+      ],
+      "status": "embedded-local-display-verified",
+      "scope": "Native Mask/Background result;limited static fixture,partial retained."
+    },
+    {
+      "id": "R131",
+      "article": "manuals/fusion/nodes/masks/index.md",
+      "source_case": "S84",
+      "images": [
+        "compare.png"
+      ],
+      "status": "embedded-local-display-verified",
+      "scope": "Native Mask/Background result;limited static fixture,partial retained."
+    },
+    {
+      "id": "R132",
+      "article": "manuals/fusion/nodes/masks/index.md",
+      "source_case": "S85",
+      "images": [
+        "compare.png"
+      ],
+      "status": "embedded-local-display-verified",
+      "scope": "Native separated Polygon and B-Spline combined Mask;no overlapping operator or animation acceptance."
     }
   ]
 }

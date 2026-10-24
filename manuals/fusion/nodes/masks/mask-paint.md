@@ -14,14 +14,14 @@ outputs: [mask]
 tasks: [create-mask, paint-mask, cleanup, roto]
 product_scope: fusion
 suite_surfaces: [fusion]
-updated: "2026-10-10"
+updated: "2026-10-24"
 ---
 
 # Mask Paint
 
 Mask Paintは、Viewer上でブラシや図形を描き、**処理を適用する範囲を表すマスク**を作るノードです。映像の色を塗り替えるのではなく、白・黒・グレーの値で「どこに、どの程度処理をかけるか」を決めます。例えば、人物のマスクに小さな穴が開いている場合、その部分だけ白く描いて補修できます。
 
-[Paint](../paint/paint.md)は2D画像の入力が必須ですが、**Mask Paintは画像を接続しなくてもマスクを描けます**。FusionのEffects LibraryではMaskカテゴリにあり、リファレンスマニュアルの表記は「Mask Paint [PNM]」です。ここでのPNMを内部REGIDとは断定しません。
+[Paint](../paint/paint.md)は2D画像の入力が必須ですが、**Mask Paintは画像を接続しなくてもマスクを描けます**。FusionのEffects LibraryではMaskカテゴリにあり、リファレンスマニュアルの表記は「Mask Paint [PNM]」です。S84の実機例では内部REGIDが`PaintMask`であることを確認しました。
 
 ## 入力と出力
 
@@ -106,6 +106,42 @@ Mask Paintの描画操作は、基本的にPaintと共通です。Viewerのペ�
 
 幾何学的な輪郭を最初から作るなら[Polygon Mask](./polygon-mask)や[Ellipse Mask](./ellipse-mask)、画像のAlphaや輝度から抽出するなら[Bitmap Mask](./bitmap-mask)を先に検討します。Mask Paintは手描きが必要な部分や、**既存のマスクを少しだけ直す作業**で特に有効です。選択基準の全体像は[Maskノードの概要](./index.md)を参照してください。
 
+## 実機例：手描きの線と1フレームのMultistroke
+
+<!-- capture-case:S84 -->
+
+Resolve Studio21.1.0.14／Windows、1920×1080、Viewer40%で撮影しました。画像入力なしのMask PaintをBackgroundのEffect Maskへ接続しています。内部REGIDは`PaintMask`でした。Flowに見えるのはMask Paint、Background、MediaOutの3ノードです。
+
+[![画像入力のないMask PaintからGold BackgroundのEffect Maskへ接続する実機Graph](/img/fusion/captures/S84/graph.png)](/img/fusion/captures/S84/graph.png)
+
+[![Soft BrushのSize0.02、Softness1、Alpha1、Opacity1、ストロークの長さ1のInspector](/img/fusion/captures/S84/inspector.png)](/img/fusion/captures/S84/inspector.png)
+
+[![フレーム0でMask Paintの白い水平線が右のオレンジの線として現れる](/img/fusion/captures/S84/compare.png)](/img/fusion/captures/S84/compare.png)
+
+実機Viewerで水平にドラッグして線を描きました。左に白いMask、右に同じ位置のオレンジの線が現れます。色は後段のBackgroundが持ち、Mask Paintは表示する範囲を渡しています。
+
+この状態では内部にMultistrokeが作られ、Soft Brush、Size0.02、Softness1、Apply ModeのColor、Alpha1、Opacity1、Duration1を読み戻しました。Inspectorの「ストロークの長さ」はこのDurationです。描いた線のデータはフレーム0に保存されています。
+
+同じ状態でフレーム1へ進めると、線が消え、左は黒いMask、右は全面透明になりました。初期Multistrokeの1フレームという期間を、フレーム0と1の出力で確認した例です。Durationを変更してから描く操作は、まだ確認していません。
+
+[![同じMultistrokeはフレーム1で消え、左が黒、右が全面透明になっている](/img/fusion/captures/S84/frame1.png)](/img/fusion/captures/S84/frame1.png)
+
+フレーム0へ戻し、Maskタブを開くと、Level1、Fast Gaussian、Soft Edge0、Invertオフを確認できます。
+
+[![Level1、Fast Gaussian、Soft Edge0、InvertオフのMask Paint Maskタブ](/img/fusion/captures/S84/mask-inspector.png)](/img/fusion/captures/S84/mask-inspector.png)
+
+Invertだけをオンにすると、左は白地に黒い線、右はオレンジの面に透明な線となり、表示する範囲が入れ替わりました。
+
+[![InvertをオンにしたMask Paintの実機Maskタブ](/img/fusion/captures/S84/inverse-inspector.png)](/img/fusion/captures/S84/inverse-inspector.png)
+
+[![Invertオンでは左が白地に黒線、右がオレンジ地に透明な線へ反転する](/img/fusion/captures/S84/inverse.png)](/img/fusion/captures/S84/inverse.png)
+
+最後はフレーム0、Invertオフ、Show View Controlsオフへ戻し、Controlsタブと両Viewer40%の状態で保存しました。
+
+Stroke／Polyline Strokeへの切り替え、Durationの変更、Make Editable、Write On／Write Off、別Brush・Apply Mode、既存Maskの穴補修、実写と性能は未確認です。
+
+[再現用Graph](/img/fusion/captures/S84/fixture.comp) · [撮影条件と確認範囲](/img/fusion/captures/S84/capture.json)
+
 ## バージョン・出典・未確認範囲
 
 Blackmagic Design『DaVinci Resolve 21.1 Reference Manual』（2026年9月）を基準にしています。
@@ -114,4 +150,4 @@ Blackmagic Design『DaVinci Resolve 21.1 Reference Manual』（2026年9月）を
 - Chapter 108「Mask Nodes」pp.2475–2476：Mask Paint [PNM]、青いEffect Mask入力、描画ツール、期間、Bitmap Maskの穴補修。pp.2465–2466：Mask共通のPaint Mode演算。
 - Chapter 113「Paint Node」pp.2639–2645：StrokeとMultistrokeの編集可能範囲、Brush／Apply／Stroke Controls、Duration、Keyframes Editor。
 
-正確な内部REGID、各Inspector設定の数値範囲、21.1実機での全ツール表示、Free／Studioの差は未検証です。したがって`verification: partial`を維持します。
+S84で内部REGID `PaintMask`、初期Multistrokeの描画、フレーム0／1の表示、MaskタブのInvertを実機確認しました。全描画ツール、各値域、Duration変更、Free／Studio差は未確認のため、`verification: partial`を維持します。

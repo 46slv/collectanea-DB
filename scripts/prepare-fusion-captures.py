@@ -87,6 +87,9 @@ CONFIG={
  'S80':{'graph': (770, 1205, 2050, 1530), 'inspector': (2830, 120, 3352, 565), 'compare': (1146, 65, 2830, 725), 'default-inspector': (2830, 120, 3352, 565), 'default': (1146, 65, 2830, 725), 'outline-inspector': (2830, 120, 3352, 565), 'outline': (1146, 65, 2830, 725), 'soft-inspector': (2830, 120, 3352, 565), 'soft': (1146, 65, 2830, 725)},
  'S81':{'graph': (770, 1205, 2050, 1530), 'controls-inspector': (2830, 120, 3352, 550), 'compare': (1146, 65, 2830, 725), 'image-default-inspector': (2830, 120, 3352, 450), 'image-custom-inspector': (2830, 120, 3352, 450), 'image960-inspector': (2830, 120, 3352, 450), 'custom960': (1146, 65, 2830, 725), 'settings-off-inspector': (2830, 120, 3352, 450), 'settings-on-inspector': (2830, 120, 3352, 550)},
  'S82':{'graph': (770, 1205, 2050, 1530), 'inspector': (2830, 120, 3352, 610), 'compare': (1146, 65, 2830, 725), 'guides': (1146, 65, 2830, 725), 'size-inspector': (2830, 120, 3352, 610), 'size': (1146, 65, 2830, 725), 'rotate-inspector': (2830, 120, 3352, 610), 'rotate': (1146, 65, 2830, 725)},
+ 'S83':{'graph': (770, 1205, 2050, 1530), 'inspector': (2830, 120, 3352, 610), 'compare': (1146, 65, 2830, 725), 'guides': (1146, 65, 2830, 725), 'outline-inspector': (2830, 120, 3352, 610), 'outline': (1146, 65, 2830, 725)},
+ 'S84':{'graph': (770, 1205, 2050, 1530), 'inspector': (2830, 120, 3352, 705), 'compare': (1146, 65, 2830, 725), 'mask-inspector': (2830, 120, 3352, 410), 'inverse-inspector': (2830, 120, 3352, 410), 'inverse': (1146, 65, 2830, 725), 'frame1': (1146, 65, 2830, 725)},
+ 'S85':{'graph': (770, 1205, 2050, 1530), 'inspector': (2830, 120, 3352, 830), 'compare': (1146, 65, 2830, 725), 'guides': (1146, 65, 2830, 725), 'off-inspector': (2830, 120, 3352, 830), 'off': (1146, 65, 2830, 725)},
 }
 def sha(p):return hashlib.sha256(p.read_bytes()).hexdigest()
 candidates=json.loads((ROOT/'docs/fusion-screenshot-candidates.json').read_text(encoding='utf-8'))
@@ -173,6 +176,9 @@ for case in args.cases:
   if case=='S80':extra.update({('S80', 'default-inspector'): 'screen-default.png', ('S80', 'default'): 'screen-default.png', ('S80', 'outline-inspector'): 'screen-outline.png', ('S80', 'outline'): 'screen-outline.png', ('S80', 'soft-inspector'): 'screen-soft.png', ('S80', 'soft'): 'screen-soft.png'})
   if case=='S81':extra.update({('S81', 'image-default-inspector'): 'screen-image.png', ('S81', 'image-custom-inspector'): 'screen-custom.png', ('S81', 'image960-inspector'): 'screen-custom960.png', ('S81', 'custom960'): 'screen-custom960.png', ('S81', 'settings-off-inspector'): 'screen-settings-off.png', ('S81', 'settings-on-inspector'): 'screen-settings-on.png'})
   if case=='S82':extra.update({('S82', 'guides'): 'screen-guides.png', ('S82', 'size-inspector'): 'screen-size.png', ('S82', 'size'): 'screen-size.png', ('S82', 'rotate-inspector'): 'screen-rotate.png', ('S82', 'rotate'): 'screen-rotate.png'})
+  if case=='S83':extra.update({('S83', 'guides'): 'screen-guides.png', ('S83', 'outline-inspector'): 'screen-outline.png', ('S83', 'outline'): 'screen-outline.png'})
+  if case=='S84':extra.update({('S84', 'mask-inspector'): 'screen-mask.png', ('S84', 'inverse-inspector'): 'screen-inverse.png', ('S84', 'inverse'): 'screen-inverse.png', ('S84', 'frame1'): 'screen-frame1.png'})
+  if case=='S85':extra.update({('S85', 'compare'): 'screen-clean.png', ('S85', 'off-inspector'): 'screen-off.png', ('S85', 'off'): 'screen-off-clean.png'})
   src=folder/extra.get((case,slug),variants.get((case,slug),'screen.png'))
   assert 0<=box[0]<box[2]<=im.width and 0<=box[1]<box[3]<=im.height, (case,slug,box)
   path=folder/(slug+'.png');Image.open(src).crop(box).save(path)
@@ -201,6 +207,14 @@ for case in args.cases:
   if case=='S82':
    shots[-1]['viewer_contents']='Left Polygon Mask / Right masked Gold Color,both1920x1080/40%'
    shots[-1]['show_view_controls']=1 if slug=='guides' else 0
+  if case in ['S83','S84']:
+   shots[-1]['viewer_contents']='Left Mask / Right masked Gold Color,both1920x1080/40%'
+   shots[-1]['show_view_controls']=1 if case=='S83' and slug=='guides' else 0
+   if case=='S84' and slug=='frame1':shots[-1]['frame']=1
+  if case=='S85':
+   shots[-1]['viewer_contents']='Left MultiPoly Mask / Right masked Gold,both1920x1080/40%'
+   shots[-1]['viewer_guides']=slug not in ['compare','off']
+   shots[-1]['active_tool']='MediaOut1' if slug in ['compare','off'] else 'MultiPoly1'
  candidate=next(x for x in candidates['candidates'] if x['id']==case)
  manifest={'schema_version':1,'case':case,'article':candidate['article'],'manual':candidate['manual'],'runtime':{'version':readback['resolve'],'edition':'Studio','os':readback['os'],'ui_language':'ja-JP (some Shape controls remain English)'},'captured_at':datetime.datetime.fromtimestamp(source.stat().st_mtime,datetime.timezone.utc).isoformat(),'project':readback['project'],'timeline':readback['timeline'],'frame':readback['frame'],'resolution':[1920,1080],'color_management':readback['project_settings'],'viewer':{'zoom_percent':40,'channel':'Color','background':'checkerboard for transparent pixels','note':'Viewer screenshots are display evidence, not colorimetric exports.'},'graph':'fixture.comp','settings':'readback.json','source':{'file':'screen.png','size':im.size,'sha256':sha(source)},'shots':shots,'acceptance':{'gui':'PASS: owner visually inspected node connections, selected Inspector, and output','article_display':'NOT_RUN'},'unverified':['Free edition and other platforms','All parameter ranges and performance','S03 optional Glow Mask / Effect Mask comparison is deferred'] if case=='S03' else ['Free edition and other platforms','All parameter ranges and performance']}
  (folder/'capture.json').write_text(json.dumps(manifest,ensure_ascii=False,indent=2)+'\n',encoding='utf-8',newline='\n')
