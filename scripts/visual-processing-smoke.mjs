@@ -468,6 +468,56 @@ try {
       if (width === 390) await shot('guided-filter-mobile');
     }
   });
+  await check('gamma-powercurve-preview-and-mobile', async () => {
+    await go(route);
+    await page.getByRole('link', {name: 'べき乗カーブを操作して比較'}).click();
+    await expect(page).toHaveURL(new RegExp('/reference/visual-processing/gamma/?$'));
+    for (const width of [1440, 390, 320]) {
+      await page.setViewportSize({width, height: width === 1440 ? 1000 : 844});
+      await go('/reference/visual-processing/gamma');
+      await expect(page.locator('.theme-doc-markdown h1')).toHaveText('ガンマ（Gamma）とべき乗変換');
+      const widget = page.locator('[data-vp-gamma="ready"]');
+      await expect(widget).toBeVisible();
+      const order = await widget.evaluate((element) => {
+        const previews = element.querySelector('.vp-gamma__previews');
+        const controls = element.querySelector('.vp-gamma__controls');
+        return {
+          dom: Boolean(previews && controls && (previews.compareDocumentPosition(controls) & Node.DOCUMENT_POSITION_FOLLOWING)),
+          visual: Boolean(previews && controls && previews.getBoundingClientRect().bottom <= controls.getBoundingClientRect().top),
+          panels: element.querySelectorAll('[data-vp-gamma-preview]').length,
+        };
+      });
+      assert.ok(order.dom && order.visual && order.panels === 2,
+        'Gamma preview-first two-panel layout: ' + width + ' ' + JSON.stringify(order));
+      const exponent = widget.getByRole('slider', {name: 'べき乗指数 g'});
+      const sample = widget.locator('.vp-gamma__sample');
+      const output = widget.locator('[data-vp-gamma-preview="output"] canvas');
+      await expect(sample).toContainText('出力128');
+      await expect(output).toBeVisible();
+      if (width === 1440) {
+        const initial = await output.evaluate((canvas) => canvas.toDataURL());
+        await exponent.focus();
+        await exponent.press('Home');
+        await exponent.press('ArrowRight');
+        await expect(widget).toHaveAttribute('data-vp-gamma-exponent', '0.5');
+        await expect(sample).toContainText('出力181');
+        await expect.poll(() => output.evaluate((canvas) => canvas.toDataURL())).not.toBe(initial);
+        await exponent.press('End');
+        for (let i = 0; i < 4; i += 1) await exponent.press('ArrowLeft');
+        await expect(widget).toHaveAttribute('data-vp-gamma-exponent', '2');
+        await expect(sample).toContainText('出力64');
+        await widget.getByRole('combobox', {name: '元画像'}).selectOption('radial');
+        await widget.getByRole('combobox', {name: '表示倍率'}).selectOption('2');
+        await widget.getByRole('button', {name: '初期値に戻す'}).click();
+        await expect(widget).toHaveAttribute('data-vp-gamma-exponent', '1');
+        await expect(sample).toContainText('出力128');
+        await expect(widget.getByRole('combobox', {name: '元画像'})).toHaveValue('ramp');
+        await expect(widget.getByRole('combobox', {name: '表示倍率'})).toHaveValue('1');
+      }
+      await noOverflow();
+      if (width === 390) await shot('gamma-powercurve-mobile');
+    }
+  });
   await check('no-runtime-or-resource-errors', async () => {
     assert.deepEqual(report.pageErrors, []);
     assert.deepEqual(report.resourceErrors, []);
