@@ -1,0 +1,185 @@
+{
+  "schema_version": 1,
+  "case": "S91",
+  "article": "manuals/fusion/nodes/paint/clone-multistroke.md",
+  "manual": {
+    "version": "21.1",
+    "chapter": 113,
+    "printed_pages": "2638–2645",
+    "additional_chapter": 80,
+    "additional_printed_pages": "1749–1755"
+  },
+  "runtime": {
+    "version": "21.1.0.14",
+    "edition": "Studio",
+    "os": "Windows-11-10.0.26200-SP0",
+    "ui_language": "ja-JP (some Shape controls remain English)"
+  },
+  "captured_at": "2026-10-24T04:55:49.186831+00:00",
+  "project": "Collectanea_Captures_20261023_Sol",
+  "timeline": "S91_capture",
+  "frame": 0.0,
+  "resolution": [
+    1920,
+    1080
+  ],
+  "color_management": {
+    "colorScienceMode": "davinciYRGB",
+    "colorSpaceTimeline": "Rec.709 (Scene)",
+    "colorSpaceTimelineGamma": "",
+    "colorSpaceOutput": "Rec.709 (Scene)",
+    "colorSpaceOutputGamma": "ACEScc",
+    "separateColorSpaceAndGamma": "0",
+    "isAutoColorManage": "0",
+    "timelineResolutionWidth": "1920",
+    "timelineResolutionHeight": "1080",
+    "timelineFrameRate": 24.0,
+    "timelinePlaybackFrameRate": "30"
+  },
+  "viewer": {
+    "zoom_percent": 40,
+    "channel": "Color",
+    "background": "checkerboard for transparent pixels",
+    "note": "Viewer screenshots are display evidence, not colorimetric exports."
+  },
+  "graph": "fixture.comp",
+  "settings": "readback.json",
+  "source": {
+    "file": "screen.png",
+    "size": [
+      3352,
+      1910
+    ],
+    "sha256": "bdd28d482ae6bb34aec5381a541c34a339eb0134b65d7778edceae3b3179f0b9"
+  },
+  "shots": [
+    {
+      "file": "graph.png",
+      "source": "screen.png",
+      "source_sha256": "bdd28d482ae6bb34aec5381a541c34a339eb0134b65d7778edceae3b3179f0b9",
+      "frame": 0,
+      "crop_xyxy": [
+        770,
+        1300,
+        2050,
+        1450
+      ],
+      "resampled": false,
+      "sha256": "65dae31b90f03771a53d4b4a6d164b51ab90074d663fb104eccd8fd73ee8c533",
+      "viewer_contents": "Left input chart / Right Paint copy result,both1920x1080/40%",
+      "viewer_guides": true,
+      "active_tool": "Paint1",
+      "show_source": null
+    },
+    {
+      "file": "inspector.png",
+      "source": "screen.png",
+      "source_sha256": "bdd28d482ae6bb34aec5381a541c34a339eb0134b65d7778edceae3b3179f0b9",
+      "frame": 0,
+      "crop_xyxy": [
+        2830,
+        120,
+        3352,
+        900
+      ],
+      "resampled": false,
+      "sha256": "cf07de02aeb7725ece66c7d312ff83856cac14d0a8190f58c69033df55f0530c",
+      "viewer_contents": "Left input chart / Right Paint copy result,both1920x1080/40%",
+      "viewer_guides": true,
+      "active_tool": "Paint1",
+      "show_source": null
+    },
+    {
+      "file": "compare.png",
+      "source": "screen-clean0.png",
+      "source_sha256": "5a2a5a649a73ac1f35bbb7491b742ca8a733b48b828433b2670758d1fa6791e0",
+      "frame": 0,
+      "crop_xyxy": [
+        1146,
+        65,
+        2830,
+        725
+      ],
+      "resampled": false,
+      "sha256": "c1fe8623979a67d72443546462831a819ff1b0a7d2f91fad316ab615e4003146",
+      "viewer_contents": "Left input chart / Right Paint copy result,both1920x1080/40%",
+      "viewer_guides": false,
+      "active_tool": "MediaOut1",
+      "show_source": null
+    },
+    {
+      "file": "frame1.png",
+      "source": "screen-clean1.png",
+      "source_sha256": "3a7f52c3c711c3370f8106e174a5d0eb3e43fbbabe05f9478b93ff98b6affe3e",
+      "frame": 1,
+      "crop_xyxy": [
+        1146,
+        65,
+        2830,
+        725
+      ],
+      "resampled": false,
+      "sha256": "73f8662d091fcd73aaf1c19995aa13f0e2772dfd7fd09bbb7c49119b53737851",
+      "viewer_contents": "Left input chart / Right Paint copy result,both1920x1080/40%",
+      "viewer_guides": false,
+      "active_tool": "MediaOut1",
+      "show_source": null
+    }
+  ],
+  "acceptance": {
+    "gui": "PASS: owner visually inspected node connections, selected Inspector, and output",
+    "article_display": "Local/publication outcomes are recorded after execution in docs/fusion-screenshot-candidates.json publication_batches and per-case status;this manifest preserves capture provenance."
+  },
+  "unverified": [
+    "Free edition and other platforms",
+    "All parameter ranges and performance",
+    "External source node,transparent canvas,source time offset,shape/stroke edits and animation,tablet,real footage and performance",
+    "Portable composition reimport",
+    "Exported portable composition reimport"
+  ],
+  "parameter_readback_scope": "Broad GetInputList/GetInput NOT_RUN. GUI/export accepted. S93 diagnostic queried metadata of exact CopyEllipse1 and Paint1 only, then bounded Number values FillType/Blend/Opacity/ShowSource;no Image/Mask/ScriptVal payload evaluation.",
+  "gui_authoring": {
+    "visible_flow_tools": 3,
+    "modifier": "CloneMultistroke1",
+    "regid": "CloneMultistroke",
+    "host": {
+      "pid": 42776,
+      "hwnd": 43648076,
+      "source_pixels": [
+        3352,
+        1910
+      ]
+    },
+    "delivery": "synthetic Cua;physical input NOT_PROVEN;native screenshot/export are result evidence"
+  },
+  "restoration": "PASS:frame0,both40%,owned scratch saved and native image visually inspected",
+  "reproduction_action": "build creates EMPTY Paint scaffold. Native toolbar/style/drawing and source choice required. Never rebuild saved cases.",
+  "native_inspector_values": {
+    "Opacity": 1,
+    "TimeOffset": 0,
+    "Offset": [
+      -0.287760416666667,
+      0.5
+    ],
+    "Size": 1,
+    "Angle": 0,
+    "SourceTool": "empty"
+  },
+  "stroke_export": {
+    "points": 21,
+    "time": 0,
+    "all_y": -0.1875
+  },
+  "duration_observation": "Visible0/absent1;Duration not changed",
+  "state_variants": {
+    "screen-clean0.png": "frame0",
+    "screen-clean1.png": "frame1",
+    "screen.png": "frame0"
+  },
+  "reproduction": {
+    "fixture_sha256": "a6647365d5bef888272c3b65709ad96616b3ab3ccc514a1d2f31a92a1122cbcf",
+    "readback_sha256": "e9262717c0a69f4b34afaaa56f61985b6b52135f6cb59543a1a759eb655da726",
+    "paths": "Comp:/../_fixtures/ for bundled synthetic fixtures",
+    "reimport": "NOT_RUN: accepted GUI evidence precedes export path normalization"
+  }
+}

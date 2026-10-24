@@ -15,7 +15,7 @@ outputs: []
 tasks: [paint, cleanup, clone]
 product_scope: fusion
 suite_surfaces: [fusion]
-updated: "2026-10-10"
+updated: "2026-10-24"
 ---
 
 # Clone Multistroke
@@ -95,6 +95,28 @@ Paintを透明なBackgroundに接続して描画だけを別レイヤーにす�
 
 [Paint全体の解説](./)と[Paintツールの一覧](./index.md)も参照してください。
 
+## 実機例：白いパッチを参照して短い線を描く
+
+<!-- capture-case:S91 -->
+
+Resolve Studio21.1.0.14／Windows、1920×1080、Viewer40%で撮影しました。LoaderのチャートをPaintへ入力し、Clone Multistrokeを選択。白いパッチをAltクリックして参照位置を決め、赤いパッチの上を短くドラッグしました。左が入力、右がPaintの画像出力です。
+
+[![LoaderのチャートをPaintへ入れてMediaOutへ渡す実機Graph、Clone MultistrokeはPaint内部に保持](/img/fusion/captures/S91/graph.png)](/img/fusion/captures/S91/graph.png)
+
+[![実機Clone Multistrokeの適用コントロール、CloneモードとOffset、Time Offset、Opacityを表示](/img/fusion/captures/S91/inspector.png)](/img/fusion/captures/S91/inspector.png)
+
+適用コントロールではOpacity1、Time Offset0、Offset X約−0.2877604／Y0.5、Size1、Angle0を確認しました。Source Tool欄は空のまま、Paintへ入れた同じ画像内の別位置を参照しています。保存Graphの描画要素は`CloneMultistroke1`、内部REGIDは`CloneMultistroke`、Apply Modeは`PaintApplyRubThrough`でした。
+
+[![フレーム0、左の入力チャートに対し右の赤いパッチへ白と暗い画素を複製した短い線](/img/fusion/captures/S91/compare.png)](/img/fusion/captures/S91/compare.png)
+
+線の右端には暗い画素も入っています。参照位置が白いパッチの端を越えるため、白い単色で塗った線とは異なります。書き出しにはフレーム0の21点の描画が記録されています。
+
+[![フレーム1ではClone Multistrokeの短い線が消え、入力と同じチャートへ戻る実機比較](/img/fusion/captures/S91/frame1.png)](/img/fusion/captures/S91/frame1.png)
+
+次のフレーム1では描画が消えることを確認し、最後はフレーム0へ戻して保存しました。Durationの変更、別ノードのSource Tool指定、Time Offset変更、Overlay、Still Source、複数の描画、筆圧、実写の補修と性能は未確認です。`verification: partial`を維持します。
+
+[再現用Graph](/img/fusion/captures/S91/fixture.comp) · [撮影条件と確認範囲](/img/fusion/captures/S91/capture.json)
+
 ## バージョンと出典
 
-Blackmagic Design『DaVinci Resolve 21.1 Reference Manual』Chapter 113「Paint Node」pp.2638–2645（Clone Multistrokeの仕様はp.2639、Clone Apply Modeはp.2643、Durationはp.2644、参照位置の操作はp.2645）、Chapter 80「Paint」pp.1748–1749、1756、1760を確認。初期Duration 1フレーム、描画後の編集制限、参照元指定、Paint Groupを使う運用を記載しました。現行Resolve 21.1実機での内部REGID、Inspectorの全項目・初期値と版差の確認は未実施のため、verificationはpartialです。
+Blackmagic Design『DaVinci Resolve 21.1 Reference Manual』Chapter 113「Paint Node」pp.2638–2645（Clone Multistrokeの仕様はp.2639、Clone Apply Modeはp.2643、Durationはp.2644、参照位置の操作はp.2645）、Chapter 80「Paint」pp.1748–1749、1756、1760を確認。初期Duration 1フレーム、描画後の編集制限、参照元指定、Paint Groupを使う運用を記載しました。S91で内部REGID、掲載したInspector、同じ入力画像内のクローン、フレーム0／1の出力を実機確認しました。全項目・初期値、別Source、版差は未確認のため、verificationはpartialです。

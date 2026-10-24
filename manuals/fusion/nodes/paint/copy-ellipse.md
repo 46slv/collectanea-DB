@@ -14,89 +14,68 @@ outputs: []
 tasks: [paint, cleanup]
 product_scope: fusion
 suite_surfaces: [fusion]
-updated: "2026-10-10"
+updated: "2026-10-24"
 ---
 
 # Copy Ellipse（Paintの楕円形コピー）
 
-**Copy Ellipseは、[Paintノード](./paint.md)の内部で楕円形の範囲を定め、別の位置や画像の画素をコピーする描画要素**です。壁の小さなマーカーを消すなら、マーカーのない壁の模様を楕円形にコピーして上から重ねます。塗りつぶしと異なり、元画像の明暗や質感を使った補修ができます。
+Copy Ellipseは[Paint](./paint.md)の内部で楕円形の範囲を作り、その内側へ別の位置の画素を複製する描画要素です。マーカーのない壁の模様を選び、マーカーの上へ重ねるような補修に使います。FlowではPaintの画像出力を後段へ渡します。
 
-本サイトの項目名は「Copy Ellipse」ですが、DaVinci Resolve 21.1 Reference ManualのPaintツール一覧では**Copy Circle/Rectangle**、ショートカット一覧では**Copy Rect/Ellipse**と記載されています。本記事では円・楕円形のコピー要素を扱います。実機での正確なボタン表記は未確認であり、名称の違いから別の独立ノードがあるとは推測しません。
+本サイトではCopy Ellipseと表記しています。21.1 Manualのツール一覧ではCopy Circle/Rectangle、ショートカット一覧ではCopy Rect/Ellipseと記載されています。今回の実機Graphでは内部REGID `CopyEllipse`を確認しました。
 
-## 入力と出力
+## 入力とコピー元
 
-Copy Ellipse自身には**Flow上の入力・出力端子がありません**。独立ノードではなく、親のPaint内で作成・編集する要素だからです。
-
-- **PaintのInput（オレンジ）**：描画先の2D画像。画像サイズがPaintのキャンバスサイズになります。
-- **PaintのEffect Mask（青）**：任意のマスク入力。Paintの処理範囲を制限するもので、Copy Ellipseの複製元ではありません。
-- **コピー元**：PaintのInspectorにある**Source Tool**欄にMediaInやLoaderなどの画像ノードを指定します。Copy系の形状では**Fill TypeをImage**にする必要があります。
-- **Paintの出力**：楕円形のコピー結果を反映した2D画像。後段のMergeやMediaOutへ渡します。
-
-**Copy Ellipse → Mergeのような独立ノード同士の配線はできません。** Paintの出力を後段へつなぎ、Copy EllipseはPaint内部で編集します。
-
-## どうコピーされるか
-
-コピー要素では、**どこを覆うか（楕円の範囲）**と、**どの画像位置から画素を取るか（複製元）**を分けて指定します。楕円をマーカーの上に置き、別の位置のきれいな壁がそこに入るように調整します。
-
-### Source Tool / Fill Type
-
-DaVinci Resolve 21.1 Manual Chapter 80の「Shape Drawing Tools」は、Copy系の形状に対して**元になるノードの接続**と**Fill Type = Image**を要求しています。実際のPaint操作では、Chapter 80の前節にあるとおり、画像ノードをPaintのInspectorの**Source Tool**欄へ指定します。Paintの入力端子に画像をつないだだけで、Copy要素のSourceを指定したと決めつけないでください。
-
-例えばMediaInを複製元にするなら、そのMediaInをPaintの描画先Inputへつなぐとともに、InspectorのSource Toolにも指定します。透明なBackgroundを描画先にする場合でも、複製する映像をSource Toolへ別途指定します。
-
-### Offset、形状、期間
-
-21.1 Manual Chapter 113では**Copy Circle/RectangleのOffsetがアニメーション可能**と説明されています。Offsetを変えると、同じ楕円形の範囲へ別の場所の画像が入ります。マーカーと重なる位置だけでなく、コピー元の模様や明暗が周囲と一致する位置を探します。
-
-楕円形の位置や大きさはViewerで編集します。21.1 Manualのショートカット一覧には、**Copy Rect/EllipseをShift＋ドラッグで形状制約して作図**する操作があります。Mask EllipseのWidth / Height等の名称を、そのままCopy EllipseのInspector項目だと断定しないでください。
-
-Copy Circle/Rectangleの初期表示期間は**コンポジション全体**です。数フレームだけ補修が必要な場合は、**Keyframes Editorでその要素の表示期間を変更**します。これは元画像のOffsetをアニメーションさせる操作とは別です。
-
-## 制作例：壁のマーカーを消す
-
-固定カメラで撮影した壁に小さなマーカーがあり、その近くに何もない同じ壁が映っているとします。
-
-1. **MediaIn → Paint → MediaOut**を接続し、Paintの出力をViewerに表示します。
-2. PaintのInspectorの**Source ToolにMediaInを指定**します。コピー元にPaintの処理後の画像を戻して循環参照させないようにします。
-3. Viewer上部のPaintツールバーから円・楕円形のCopy系要素を選び、マーカーを隠す範囲を作ります。
-4. **Fill TypeをImage**にします。単色しか出ない場合は、Source ToolとFill Typeを再確認します。
-5. **Offsetを調整**し、マーカーのない壁の画素が楕円内へ収まるようにします。壁の目地、影、模様が不自然につながっていないか見ます。
-6. 前後のフレームを再生して確かめます。必要ならOffsetや形状の位置をアニメーションし、補修が必要なフレームだけ表示期間を残します。
+描画先の画像をPaintのInputへつなぎ、Paintの出力をMediaOutなどへ渡します。PaintのEffect Maskは処理範囲を制限する入力です。
 
 ~~~text
-MediaIn ─→ Paint（内部でCopy Ellipseを作成）─→ MediaOut
-   └────────────→ PaintのSource Tool欄で指定
+Loader / MediaIn → Paint → MediaOut
 ~~~
 
-**Copy Ellipseを追加するだけで自動追跡されるわけではありません。** 被写体やカメラが動く場合は、コピー範囲と元の位置が適切か毎フレーム確認します。一定のOffsetで模様がずれるなら、時間に応じた調整が必要です。
+21.1 Manual Chapter 80のShape Drawing Tools節は、Copy系の形状について、元ノードをPaintへ接続し、Fill TypeをImageにするよう説明しています。下の実機例ではLoaderをPaintのInputにつなぎ、Inspectorの「塗りつぶしの種類」を「イメージ」にした状態で、同じ入力画像内からコピーできました。
 
-## 制作例：補修だけ別レイヤーへ分ける
+Inspectorの「ソース」はX／Y座標です。Clone Apply Modeで使うSource Tool欄と同一の項目として扱わないでください。この実機例では、Copy要素にも親Paintにも別画像を指定するSource Tool欄は表示されていません。別ノードの画像を透明Background上へ複製する手順は未確認です。
 
-元映像に直接Paintを重ねたくない場合は、同じ解像度でAlphaを0にしたBackgroundをPaintの描画先にします。Paintの出力をMergeのForegroundへ、元映像をMergeのBackgroundへ接続します。
+## 実機例：白いパッチを楕円形の範囲へコピーする
 
-~~~text
-Background（同解像度・Alpha 0）→ Paint ─→ MergeのForeground
-MediaIn ────────────────────────────────→ MergeのBackground
-  └────────────→ PaintのSource Tool欄へ指定
-Merge → MediaOut
-~~~
+<!-- capture-case:S93 -->
 
-この構成でも**Source Toolへ元映像を指定し、Fill TypeをImageにする**必要があります。透明なBackground自体にはコピーすべき画素がありません。透明BackgroundからMergeする基本構成は21.1 Manual Chapter 113に記載されていますが、この図はCopy Ellipseに応用した制作例です。合成後はコピーした部分の輪郭が目立たないか確認します。
+Resolve Studio21.1.0.14／Windows、1920×1080、Viewer40%で撮影しました。左がLoaderの入力チャート、右がPaintの画像出力です。
 
-## 関連するPaint要素
+[![LoaderをPaintへつなぎMediaOutへ渡す実機Graph、Copy EllipseはPaint内部に保持](/img/fusion/captures/S93/graph.png)](/img/fusion/captures/S93/graph.png)
 
-- [Circle](./circle-stroke)：中心と半径を調整して円形領域を描きます。周囲の画素を複製する処理ではありません。
-- [Copy Rectangle](./copy-rectangle)：矩形範囲で画素を複製する場合に使います。直線的なパネルの補修向きです。
-- [Copy Polyline](./copy-polyline)：自由な輪郭を制御点で作り、曲がった境界などを囲んでコピーします。
-- [Clone Multistroke](./clone-multistroke)：大量の小さな補修を素早く描けますが、個々の描画は後から直接編集できず、初期表示期間は1フレームです。
-- [Paint Group](./paint-group)：複数の描画要素をまとめて移動・調整できます。
+[![実機Copy EllipseのInspector、塗りつぶしの種類はイメージ、SourceのXとYを表示](/img/fusion/captures/S93/inspector.png)](/img/fusion/captures/S93/inspector.png)
 
-**Copy Ellipseは色付きの円を描くCircleとも、別エフェクトの範囲を制限するMask Ellipseとも用途が違います。** Paint全体の使い分けは[カテゴリ概要](./index.md)を参照してください。
+Viewerで楕円形の範囲をドラッグして作り、Sourceを初期のX0.09375／Y0.3125からX0.875／Y0.3125へ変更しました。CenterはX0.09375／Y0.3125、Width約0.0520833、Height約0.0694444、Angle0、Size1、Softness0、Opacity1です。
+
+[![ソースを表示をONにした実機画面、赤いパッチ上の楕円と右端の白い参照位置を同時に表示](/img/fusion/captures/S93/source-guides.png)](/img/fusion/captures/S93/source-guides.png)
+
+「ソースを表示」をONにすると、右端の白いパッチに参照位置のガイドが現れます。下の出力比較ではOFFへ戻し、MediaOutを選択してガイドを外しています。
+
+[![フレーム0、左は入力、右はCopy Ellipseで赤いパッチへ別位置の画素を複製した実機出力](/img/fusion/captures/S93/compare.png)](/img/fusion/captures/S93/compare.png)
+
+赤いパッチ上の楕円形の範囲に、右端の白いパッチと周囲の画素が入りました。参照範囲が白いパッチの上下へ出る部分には、背景の暗い画素も含まれます。
+
+[![フレーム119でもCopy Ellipseによる複製が残っている実機出力比較](/img/fusion/captures/S93/frame119.png)](/img/fusion/captures/S93/frame119.png)
+
+フレーム0と119の両方で複製が残り、最後は0へ戻して保存しました。全120フレームを個別に検査した例ではありません。描画要素は`CopyEllipse1`、内部REGIDは`CopyEllipse`、Apply Modeは`PaintApplyStamp`でした。Flowに見えるノードはLoader・Paint・MediaOutの3つです。
+
+[再現用Graph](/img/fusion/captures/S93/fixture.comp) · [撮影条件と確認範囲](/img/fusion/captures/S93/capture.json)
+
+## 輪郭・参照位置・期間を調整する
+
+Copy EllipseではCenterとWidth／Heightで範囲を指定します。掲載画像は作図直後の形状で、描画後の寸法変更やShiftドラッグによる形状制約は未確認です。
+
+ManualはCopy系の参照位置をOffsetとして説明し、アニメーション可能としています。今回の実機Inspectorでは「ソース」と表示され、Source座標の変更で複製結果を確認しました。参照位置を変えるときは、模様や明暗が補修先の周囲につながるか、Paintの出力で確認します。
+
+Copy系の形状は既定でコンポジション全体に表示され、ManualではKeyframes Editorによる期間変更も説明されています。今回の実機例では期間の短縮・延長、参照位置や輪郭のアニメーション、Tracker接続、Time Offsetは未確認です。
+
+## 使い分け
+
+[Circle](./circle-stroke)や[Rectangle](./rectangle)は色で覆う描画に、[Clone Multistroke](./clone-multistroke)はブラシで短い補修を重ねる操作に使います。Copy系は領域の中へ画像の画素を入れます。後段のエフェクトの適用範囲を定義する場合は[Mask](../masks/index.md)を使います。
 
 ## 出典と確認範囲
 
-- Blackmagic Design『DaVinci Resolve 21.1 Reference Manual』（September 2026）、Chapter 80「Paint」pp.1749–1751：Paintツール分類、Shape Drawing Tools、Copy系に必要なSource／Fill Type = Image、表示期間。
-- 同Chapter 113「Paint Node」pp.2638–2640：Paintの2D Image入力とEffect Mask、透明Backgroundでの合成、Copy Circle/RectangleのOffset。
-- 同Chapter 113 pp.2642–2645：Paint Controls／ModifiersとCopy Rect/EllipseのShift＋ドラッグ。
+- Blackmagic Design『DaVinci Resolve 21.1 Reference Manual』（2026年9月）、Chapter 80「Paint」p.1751：Copy系のShape Drawing Tools、Paintへの元ノード接続、Fill Type = Image。
+- 同Chapter 113「Paint Node」pp.2638–2645：Paintの入出力、Copy系のOffsetと期間、Polyline編集、コピー元表示。
 
-本文の接続図はManualの説明を組み合わせた制作例です。**21.1実機でのCopy要素のボタン表記・内部REGID・Inspector全項目の正式名称や初期値・範囲・Free／Studio差は未検証**のため、`verification: partial`を維持します。
+掲載したGraph、Inspector、Source変更後の出力、フレーム0／119を実機確認しました。別ノードからのコピー、透明Background上へのコピー、個々の編集操作、全既定値・値域、実写の補修、筆圧、Free／Studio差、他OSと性能は未確認のため、`verification: partial`を維持します。

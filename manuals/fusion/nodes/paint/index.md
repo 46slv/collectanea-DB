@@ -127,6 +127,28 @@ Resolve Studio21.1.0.14／Windows、1920×1080、Viewer40%。[PaintのGraphとIn
 
 [RectangleのGraph・Inspector・フレーム119](./rectangle)。
 
+### 同じ画像内の画素をコピーする
+
+Clone Multistrokeはブラシで短い線を描き、Copy PolylineとCopy Ellipseは形状の内側へ画素を複製します。下は同じ入力チャートで確認した結果です。
+
+<!-- capture-reuse:R141 -->
+
+[![入力チャートの別の位置の画素をPaint内部のCloneMultistrokeで赤いパッチへ複製した実機比較](/img/fusion/captures/S91/compare.png)](/img/fusion/captures/S91/compare.png)
+
+[CloneMultistrokeのGraph・Inspector・表示期間](./clone-multistroke)。
+
+<!-- capture-reuse:R142 -->
+
+[![入力チャートの別の位置の画素をPaint内部のCopyPolyLineで赤いパッチへ複製した実機比較](/img/fusion/captures/S92/compare.png)](/img/fusion/captures/S92/compare.png)
+
+[CopyPolyLineのGraph・Inspector・表示期間](./copy-polyline)。
+
+<!-- capture-reuse:R143 -->
+
+[![入力チャートの別の位置の画素をPaint内部のCopyEllipseで赤いパッチへ複製した実機比較](/img/fusion/captures/S93/compare.png)](/img/fusion/captures/S93/compare.png)
+
+[CopyEllipseのGraph・Inspector・表示期間](./copy-ellipse)。
+
 ## 出典と確認範囲
 
 Blackmagic Design『DaVinci Resolve 21.1 Reference Manual』（2026年9月）、Chapter 80「Paint」pp.1747–1751、およびChapter 113「Paint Node」pp.2638–2643に基づきます。PaintとMask Paint、入出力、透明キャンバスの構成、Source、描画要素の分類、表示期間と後編集の違いを確認しました。
