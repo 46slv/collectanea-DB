@@ -15,7 +15,7 @@ outputs: ["image"]
 tasks: ["stylize-image"]
 product_scope: fusion
 suite_surfaces: ["fusion"]
-updated: "2026-10-09"
+updated: "2026-10-24"
 ---
 
 # Highlight
@@ -91,6 +91,26 @@ MediaIn → Highlight → MediaOut
 - **[Rays](./rays.md)**：画像のAlphaや明るい領域から、指定した中心へ向かう放射状の光条を作るNode。Highlightではそれぞれの明点を中心に星形の光条が作られます。
 - **Effect MaskとHighlight Mask**：前者は完成後の表示範囲、後者は光の発生源を制限します。マスクの外まで光を伸ばしたいときはHighlight Maskを使います。
 - **光学的な正確さ**：撮影レンズの内部構造や絞り形状を測定して再現するNodeではありません。実写との一致は光条の方向・本数・長さ・減衰を見て調整します。
+
+## 実機例：明点から4本・6本の光条を出す
+
+<!-- capture-case:S124 -->
+
+この静止例では、`PointMask1`で白い点を作り、`Black1`と`WhitePoint1`を`MergeSource1`で合成してから`Highlight1`へ渡しています。
+
+[![PointMask1とWhitePoint1、Black1とMergeSource1、Highlight1からMediaOut1へ続くGraph](/img/fusion/captures/S124/graph.png)](/img/fusion/captures/S124/graph.png)
+
+同じ入力とほかの表示値を保ち、`Number of Points`を4から6へ変えた保存画像を比べます。4では十字、6では6方向へ伸びる星形になりました。最終Inspectorには`Low=0.9`、`High=1.0`、`Curve=0.2`、`Length=0.8`、`Angle=0`、`Merge Over`オンが表示されています。
+
+[![Highlight1のInspectorでNumber of Pointsが4と表示された状態](/img/fusion/captures/S124/four-points-inspector.png)](/img/fusion/captures/S124/four-points-inspector.png)
+
+[![左の白い点から右Viewerに4方向の光条が出た状態](/img/fusion/captures/S124/four-points.png)](/img/fusion/captures/S124/four-points.png)
+
+[![Highlight1のInspectorでNumber of Pointsが6と表示された状態](/img/fusion/captures/S124/six-points-inspector.png)](/img/fusion/captures/S124/six-points-inspector.png)
+
+[![左の白い点から右Viewerに6方向の光条が出た状態](/img/fusion/captures/S124/six-points.png)](/img/fusion/captures/S124/six-points.png)
+
+これは合成した静止テスト画像の結果です。マスクの組み合わせ、アニメーション、実写レンズとの一致は確認していません。接続と保存値は[fixture.comp](/img/fusion/captures/S124/fixture.comp)、[readback.json](/img/fusion/captures/S124/readback.json)、[capture.json](/img/fusion/captures/S124/capture.json)にあります。
 
 ## 関連する考え方
 

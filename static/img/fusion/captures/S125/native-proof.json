@@ -1,0 +1,72 @@
+{
+  "frame": 0,
+  "target": "HotSpot1",
+  "regid": "HotSpot",
+  "final": {
+    "PrimaryCenter": {
+      "1": 0.35,
+      "2": 0.5,
+      "3": 0.0
+    },
+    "PrimaryStrength": 1.0,
+    "HotSpotSize": 0.35,
+    "Aspect": 1.0,
+    "AspectAngle": 0.0,
+    "SecondaryStrength": 0.0,
+    "ApplyMode": 0.0,
+    "Occlude": 0.0,
+    "LensAberration": 0.0,
+    "ElementStrength1": 0.0,
+    "ElementStrength2": 0.0,
+    "ElementStrength3": 0.0
+  },
+  "connections": {
+    "Input": "Loader1",
+    "EffectMask": null,
+    "Occlusion": null
+  },
+  "visible_flow_tools": 3,
+  "internal_LUTBezier_modifiers": [
+    "HotSpot1赤",
+    "HotSpot1緑",
+    "HotSpot1青",
+    "HotSpot1アルファ",
+    "HotSpot1ミックス",
+    "HotSpot1放射状",
+    "HotSpot1長さ"
+  ],
+  "curve_edit": "NOT_RUN:internal modifiers automatically instantiated;no LUT value/curve payload read",
+  "comparison": "baseline",
+  "roi_xyxy": [
+    2054,
+    194,
+    2822,
+    626
+  ],
+  "native_rgb_delta": {
+    "bbox": [
+      129,
+      81,
+      397,
+      349
+    ],
+    "extrema": [
+      [
+        0,
+        231
+      ],
+      [
+        0,
+        227
+      ],
+      [
+        0,
+        219
+      ]
+    ]
+  },
+  "physical_input": "NOT_PROVEN:SDK/synthetic;native UI/export and bounded readback establish outcome",
+  "limits": [
+    "Synthetic static input only;mask/optional-input behavior,alternate controls and color curves,animation,physical optical fidelity,platform/edition/performance and portable reimport NOT_RUN."
+  ]
+}

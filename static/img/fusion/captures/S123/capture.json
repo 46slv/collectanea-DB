@@ -1,0 +1,241 @@
+{
+  "schema_version": 1,
+  "case": "S123",
+  "article": "manuals/fusion/nodes/effects-film/duplicate.md",
+  "manual": {
+    "version": "21.1",
+    "chapter": 97,
+    "printed_pages": "2272–2278"
+  },
+  "runtime": {
+    "version": "21.1.0.14",
+    "edition": "DaVinci Resolve Studio",
+    "os": "Windows-11-10.0.26200-SP0"
+  },
+  "captured_at": "2026-10-24T10:56:27.897793+00:00",
+  "project": "Collectanea_Captures_20261023_Sol",
+  "timeline": "S123_capture",
+  "frame": 0.0,
+  "resolution": [
+    1920,
+    1080
+  ],
+  "color_management": {
+    "colorScienceMode": "davinciYRGB",
+    "colorSpaceTimeline": "Rec.709 (Scene)",
+    "colorSpaceTimelineGamma": "",
+    "colorSpaceOutput": "Rec.709 (Scene)",
+    "colorSpaceOutputGamma": "ACEScc",
+    "separateColorSpaceAndGamma": "0",
+    "isAutoColorManage": "0",
+    "timelineResolutionWidth": "1920",
+    "timelineResolutionHeight": "1080",
+    "timelineFrameRate": 24.0,
+    "timelinePlaybackFrameRate": "30"
+  },
+  "viewer": {
+    "zoom_percent": 40,
+    "channel": "Color",
+    "background": "checkerboard for transparent pixels",
+    "left": "Circle1 source at40%",
+    "right": "Duplicate1 result at40%",
+    "note": "For the output screenshot MediaOut1 is selected to hide guides; the right Viewer header remains Duplicate1. Viewer screenshots are display evidence, not colorimetric exports."
+  },
+  "graph": "fixture.comp",
+  "settings": "readback.json",
+  "source": {
+    "file": "screen.png",
+    "size": [
+      3352,
+      1910
+    ],
+    "sha256": "754d851c61b13853d17fe776948ac85e542a72a68c1c9e64341612bd748c2b9d"
+  },
+  "source_screens": [
+    {
+      "file": "screen.png",
+      "sha256": "754d851c61b13853d17fe776948ac85e542a72a68c1c9e64341612bd748c2b9d",
+      "bytes": 429810,
+      "pixels": [
+        3352,
+        1910
+      ],
+      "original_packet_file": "S123-final.png"
+    },
+    {
+      "file": "screen-final-inspector.png",
+      "sha256": "3d7a59df2acaac68e65dc7da633e8c85203124e8d17dd7d462f767c06015a576",
+      "bytes": 461165,
+      "pixels": [
+        3352,
+        1910
+      ],
+      "original_packet_file": "S123-final-inspector.png"
+    },
+    {
+      "file": "screen-one-inspector.png",
+      "sha256": "4fc1f0d84810b52fb3bc5f78d0d0e6b8df883c75f95601a1e7c2b050949fd839",
+      "bytes": 455061,
+      "pixels": [
+        3352,
+        1910
+      ],
+      "original_packet_file": "S123-one-inspector.png"
+    },
+    {
+      "file": "screen-one-output.png",
+      "sha256": "0e105f2f7afe9d6f7979506db71fcfbc28b76d94c360241497e7aed3a49bef72",
+      "bytes": 423459,
+      "pixels": [
+        3352,
+        1910
+      ],
+      "original_packet_file": "S123-one-output.png"
+    }
+  ],
+  "shots": [
+    {
+      "file": "graph.png",
+      "source": "screen.png",
+      "source_sha256": "754d851c61b13853d17fe776948ac85e542a72a68c1c9e64341612bd748c2b9d",
+      "frame": 0,
+      "crop_xyxy": [
+        430,
+        1100,
+        2400,
+        1650
+      ],
+      "resampled": false,
+      "sha256": "dd378b5bbb74aac083238ca7e32137d87fe90138b0005da407d535fc4781045b",
+      "pixels": [
+        1970,
+        550
+      ],
+      "viewer_guides": false,
+      "active_tool": "MediaOut1",
+      "viewer_contents": "Four-node Flow; the final output Viewer is headed Duplicate1."
+    },
+    {
+      "file": "copies-1-inspector.png",
+      "source": "screen-one-inspector.png",
+      "source_sha256": "4fc1f0d84810b52fb3bc5f78d0d0e6b8df883c75f95601a1e7c2b050949fd839",
+      "frame": 0,
+      "crop_xyxy": [
+        2830,
+        120,
+        3352,
+        650
+      ],
+      "resampled": false,
+      "sha256": "6e07e27c7a0a2f616e1c7e07ac24deea3bedd893b86b796af6ea75956acd5d14",
+      "pixels": [
+        522,
+        530
+      ],
+      "viewer_guides": false,
+      "active_tool": "Duplicate1",
+      "viewer_contents": "Left Circle1 and right Duplicate1 at40%; Copies1 Inspector."
+    },
+    {
+      "file": "copies-5-inspector.png",
+      "source": "screen-final-inspector.png",
+      "source_sha256": "3d7a59df2acaac68e65dc7da633e8c85203124e8d17dd7d462f767c06015a576",
+      "frame": 0,
+      "crop_xyxy": [
+        2830,
+        120,
+        3352,
+        650
+      ],
+      "resampled": false,
+      "sha256": "4088610f17bcc15ec96101dcec8fba73cf1f90577d61088e2d84c20d24140379",
+      "pixels": [
+        522,
+        530
+      ],
+      "viewer_guides": false,
+      "active_tool": "Duplicate1",
+      "viewer_contents": "Left Circle1 and right Duplicate1 at40%; Copies5 Inspector."
+    },
+    {
+      "file": "compare.png",
+      "source": "screen.png",
+      "source_sha256": "754d851c61b13853d17fe776948ac85e542a72a68c1c9e64341612bd748c2b9d",
+      "frame": 0,
+      "crop_xyxy": [
+        1146,
+        65,
+        2830,
+        705
+      ],
+      "resampled": false,
+      "sha256": "5e42e7f152ed6c497e0aa86427b2158a5e1dc484eeee6ea69bd6a65bb93c5e76",
+      "pixels": [
+        1684,
+        640
+      ],
+      "viewer_guides": false,
+      "active_tool": "MediaOut1",
+      "viewer_contents": "Left Circle1 and right Duplicate1 at40%; MediaOut1 selected to hide guides, Viewer title remains Duplicate1."
+    }
+  ],
+  "acceptance": {
+    "gui": "PASS: existing saved screenshot and bounded proof inspected; no new capture was made.",
+    "article_display": "NOT_RUN: local production build and scoped display verification are pending.",
+    "public": "NOT_RUN: no deployment or public verification has occurred."
+  },
+  "native_proof": {
+    "file": "native-proof.json",
+    "sha256": "6f6d67c4efd81d1972903f58aa56af48f4627aecbce7aac2bcd22440b31323b4",
+    "regid": "Fuse.Duplicate",
+    "final": {
+      "Copies": 5.0,
+      "TimeOffset": 0.0,
+      "Center": [
+        0.62,
+        0.5
+      ],
+      "XSize": 1.0,
+      "YSize": 1.0,
+      "Angle": 0.0,
+      "ApplyMode": "Merge",
+      "Operator": "Over"
+    },
+    "baseline": {
+      "Copies": 1.0
+    },
+    "image_input": {
+      "port": "Background",
+      "datatype": "Image",
+      "source": "Circle1"
+    },
+    "observed_output": "Copies1 showed one oval; Copies5 showed five total including source in the installed built-in Fuse.Duplicate implementation.",
+    "native_object_count": {
+      "scanline_y": 410,
+      "x_interval": [
+        2048,
+        2815
+      ],
+      "final_segments": 5,
+      "copies_1_segments": 1
+    }
+  },
+  "limits": [
+    "Static opaque oval only; TimeOffset animation, Jitter, Duplicate Path, other merge modes, edge/alpha quality, edition/platform/performance are unverified.",
+    "Broad input enumeration NOT_RUN after a saved host exit; the proof covers only the listed scalar values and connections.",
+    "Portable export reimport NOT_RUN."
+  ],
+  "portable_transform": [
+    "Public fixture.comp is a distribution copy: ResolveCaches/LastFile lines are removed, fixture paths under _fixtures are normalized to Comp:/../_fixtures/, and line endings are LF. Original fixture bytes remain in the task source packet.",
+    "readback.json is serialized as UTF-8 JSON after normalizing fixture paths; its source copy remains in the task packet.",
+    "PNG crops are exact native-pixel rectangles from saved screenshots; no resizing or painted UI."
+  ],
+  "reproduction": {
+    "source_fixture_sha256": "7b402f9385892976537f7a8b08d365cc56851c8267b91c75d8d5bb8862ca0a85",
+    "fixture_sha256": "c0f1067bb1b6bc9051bf2427eff2466a679adfb3caad7761b40a182c873bb3ce",
+    "source_readback_sha256": "2b06ae8c905265d8b112815e9e686990bce128d6756946c0ada7fb146ef08134",
+    "readback_sha256": "3f6a40d1c8e74830235da553d2fdf070b345087f79a8098605498368054054fc",
+    "paths": "Comp:/../_fixtures/ for bundled synthetic fixtures",
+    "reimport": "NOT_RUN: accepted GUI evidence precedes public-copy path normalization."
+  }
+}

@@ -15,7 +15,7 @@ outputs: ["image"]
 tasks: ["duplicate", "repeat", "array", "motion-graphics"]
 product_scope: fusion
 suite_surfaces: ["fusion"]
-updated: "2026-10-09"
+updated: "2026-10-24"
 ---
 
 # Duplicate
@@ -54,7 +54,7 @@ Copiesだけを変えた段階では、コピーが同じ位置に重なって�
 
 ### Copies / Time Offset
 
-- **Copies**：元画像から何回コピーを作るかを指定します。次のコピーは直前のコピーをもとに作られるため、変形は段階的に積み重なります。
+- **Copies**：反復出力に含める数を指定します。Manualと実装で数え方が異なる場合があるため、実機の表示も確認してください。S123ではこの差を組み込み `Fuse.Duplicate` に限って記録しています。
 - **Time Offset**：元画像のアニメーションを、コピーごとに異なる時刻で参照します。たとえば元の図形が回転しているとき、マニュアルの例にある **-1.0** を設定すると、後のコピーほど1フレームずつ前の状態を表示できます。静止画だけを入れても時間差の効果は見えません。
 
 ### Center / Pivot / Size / Angle
@@ -110,6 +110,26 @@ Jitterタブは、Controlsで作ったコピーへ**ばらつき**を追加す�
 - **3D配列には別Node**：3Dモデルを増やすなら[Duplicate 3D](../3d/duplicate-3d.md)です。2D Duplicateの出力はそのまま3Dシーンにはなりません。
 - **コピー数と重なり**：Copiesを増やすと、配置だけでなく合成・Gainの累積結果も変わります。まず少数で間隔と重なりを決めてから増やします。
 - **Effect Maskは後処理**：発生源を限定するための事前マスクではありません。どの段階の画像を切り取りたいかで接続位置を決めます。
+
+## 実機例：Copiesの数え方をFuse.Duplicateで確認する
+
+<!-- capture-case:S123 -->
+
+この例では、組み込みのEffects版 `Fuse.Duplicate` をDaVinci Resolve Studio 21.1.0.14で確認しました。`Krokodove KD_Duplicate`とは別の実装です。`Ellipse1`を`Circle1`のマスクにし、その画像を`Duplicate1`の`Background`入力へ渡して、`MediaOut1`へ接続しています。
+
+[![Ellipse1からCircle1、Duplicate1を経てMediaOut1へつなぐ4ノードのFlow](/img/fusion/captures/S123/graph.png)](/img/fusion/captures/S123/graph.png)
+
+Inspectorを`Copies=1`にした状態では1個、`Copies=5`にした状態では元画像を含めて5個の楕円が表示されました。Manualの例にある「5個を追加して合計6個」という数え方とは、この実装の結果が異なります。5個という観測はこのNodeとバージョンの範囲に限られ、別のDuplicate実装やバージョンには一般化しません。
+
+[![Duplicate1のInspectorでCopiesが1.0と表示された状態](/img/fusion/captures/S123/copies-1-inspector.png)](/img/fusion/captures/S123/copies-1-inspector.png)
+
+[![Duplicate1のInspectorでCopiesが5.0、Center Xが0.62、Yが0.5と表示された状態](/img/fusion/captures/S123/copies-5-inspector.png)](/img/fusion/captures/S123/copies-5-inspector.png)
+
+[![左ViewerのCircle1は1個、右ViewerのDuplicate1は5個を表示する比較](/img/fusion/captures/S123/compare.png)](/img/fusion/captures/S123/compare.png)
+
+出力比較の撮影ではガイドを隠すために`MediaOut1`を選びました。そのときも右Viewerの見出しは`Duplicate1`のままです。Inspectorの値は別の画像で`Duplicate1`を選んで記録しています。今回の保存値は`Time Offset=0`、`Center=(0.62, 0.5)`、`Size=1`、`Angle=0`、`Apply Mode=Normal`、`Operator=Over`です。
+
+この例は、静止した不透明な楕円を使ったフレーム0の確認です。時間差、Jitter、透明な縁、ほかの合成方式や実装は確認していません。保存Graphと撮影条件は[fixture.comp](/img/fusion/captures/S123/fixture.comp)と[capture.json](/img/fusion/captures/S123/capture.json)にあります。
 
 ## 関連する考え方・Node
 

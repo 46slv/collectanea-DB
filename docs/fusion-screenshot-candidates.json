@@ -2,7 +2,7 @@
   "schema_version": 1,
   "created": "2026-10-20",
   "scope": "All Fusion pages, DaVinci Resolve 21.1",
-  "status_note": "2026-10-24:public200/774/1168 throughPR130,1780/1780 HTTP/hashPASS.Whole587/355capture-needed plus remaining_views incomplete;partial retained.S122 dHoldout SDK connection exit unresolved;S123 WORK native1vs5 proof,notadopted.",
+  "status_note": "2026-10-24:public200/774/1168 throughPR130;1780/1780 HTTP/hashPASS.Whole587/355capture-needed plus remaining_views incomplete;partial retained.S122 dHoldout remains unresolved and unaccepted.S123–S125 are registered on integration only;local display/CI/public verification pending.",
   "asset_directory_template": "static/img/fusion/captures/{id}/{shot.slug}.png",
   "capture_manifest_name": "capture.json",
   "candidates": [
@@ -6548,6 +6548,132 @@
           "slug": "flatten-inspector",
           "kind": "inspector",
           "target": "DeepToImage",
+          "status": "native-observed"
+        }
+      ]
+    },
+    {
+      "id": "S123",
+      "priority": "P1",
+      "article": "manuals/fusion/nodes/effects-film/duplicate.md",
+      "manual": {
+        "version": "21.1",
+        "chapter": 97,
+        "printed_pages": "2272–2278"
+      },
+      "goal": "Built-in Fuse.Duplicate in Resolve Studio 21.1.0.14; Copies1 vs5; saved output shows five total including source, not six.",
+      "status": "captured-embedded-unverified",
+      "shots": [
+        {
+          "slug": "graph",
+          "kind": "node-graph",
+          "target": "Fuse.Duplicate",
+          "status": "native-observed"
+        },
+        {
+          "slug": "copies-1-inspector",
+          "kind": "inspector",
+          "target": "Fuse.Duplicate",
+          "status": "native-observed"
+        },
+        {
+          "slug": "copies-5-inspector",
+          "kind": "inspector",
+          "target": "Fuse.Duplicate",
+          "status": "native-observed"
+        },
+        {
+          "slug": "compare",
+          "kind": "output",
+          "target": "Fuse.Duplicate",
+          "status": "native-observed"
+        }
+      ]
+    },
+    {
+      "id": "S124",
+      "priority": "P1",
+      "article": "manuals/fusion/nodes/effects-film/highlight.md",
+      "manual": {
+        "version": "21.1",
+        "chapter": 97,
+        "printed_pages": "2278–2281"
+      },
+      "goal": "Synthetic point-on-black; Highlight Number of Points4 vs6, Low0.9 High1 Curve0.2 Length0.8 Angle0 MergeOver1.",
+      "status": "captured-embedded-unverified",
+      "shots": [
+        {
+          "slug": "graph",
+          "kind": "node-graph",
+          "target": "Highlight",
+          "status": "native-observed"
+        },
+        {
+          "slug": "four-points-inspector",
+          "kind": "inspector",
+          "target": "Highlight",
+          "status": "native-observed"
+        },
+        {
+          "slug": "four-points",
+          "kind": "output",
+          "target": "Highlight",
+          "status": "native-observed"
+        },
+        {
+          "slug": "six-points-inspector",
+          "kind": "inspector",
+          "target": "Highlight",
+          "status": "native-observed"
+        },
+        {
+          "slug": "six-points",
+          "kind": "output",
+          "target": "Highlight",
+          "status": "native-observed"
+        }
+      ]
+    },
+    {
+      "id": "S125",
+      "priority": "P1",
+      "article": "manuals/fusion/nodes/effects-film/hot-spot.md",
+      "manual": {
+        "version": "21.1",
+        "chapter": 97,
+        "printed_pages": "2281–2287"
+      },
+      "goal": "Synthetic chart; Hot Spot PrimaryStrength0 vs1 at PrimaryCenter0.35/0.5, Size0.35, Aspect1, Add; no EffectMask/Occlusion.",
+      "status": "captured-embedded-unverified",
+      "shots": [
+        {
+          "slug": "graph",
+          "kind": "node-graph",
+          "target": "HotSpot",
+          "status": "native-observed"
+        },
+        {
+          "slug": "baseline-inspector",
+          "kind": "inspector",
+          "target": "HotSpot",
+          "status": "native-observed"
+        },
+        {
+          "slug": "baseline",
+          "kind": "output",
+          "target": "HotSpot",
+          "status": "native-observed"
+        },
+        {
+          "slug": "final-inspector",
+          "kind": "inspector",
+          "target": "HotSpot",
+          "status": "native-observed"
+        },
+        {
+          "slug": "final",
+          "kind": "output",
+          "target": "HotSpot",
           "status": "native-observed"
         }
       ]

@@ -1,0 +1,253 @@
+{
+  "schema_version": 1,
+  "case": "S124",
+  "article": "manuals/fusion/nodes/effects-film/highlight.md",
+  "manual": {
+    "version": "21.1",
+    "chapter": 97,
+    "printed_pages": "2278–2281"
+  },
+  "runtime": {
+    "version": "21.1.0.14",
+    "edition": "DaVinci Resolve Studio",
+    "os": "Windows-11-10.0.26200-SP0"
+  },
+  "captured_at": "2026-10-24T11:03:53.740027+00:00",
+  "project": "Collectanea_Captures_20261023_Sol",
+  "timeline": "S124_capture",
+  "frame": 0.0,
+  "resolution": [
+    1920,
+    1080
+  ],
+  "color_management": {
+    "colorScienceMode": "davinciYRGB",
+    "colorSpaceTimeline": "Rec.709 (Scene)",
+    "colorSpaceTimelineGamma": "",
+    "colorSpaceOutput": "Rec.709 (Scene)",
+    "colorSpaceOutputGamma": "ACEScc",
+    "separateColorSpaceAndGamma": "0",
+    "isAutoColorManage": "0",
+    "timelineResolutionWidth": "1920",
+    "timelineResolutionHeight": "1080",
+    "timelineFrameRate": 24.0,
+    "timelinePlaybackFrameRate": "30"
+  },
+  "viewer": {
+    "zoom_percent": 40,
+    "channel": "Color",
+    "background": "checkerboard for transparent pixels",
+    "left": "MergeSource1 synthetic point-on-black input at40%",
+    "right": "Highlight1 output at40%",
+    "note": "Viewer screenshots are display evidence, not colorimetric exports. Viewer screenshots are display evidence, not colorimetric exports."
+  },
+  "graph": "fixture.comp",
+  "settings": "readback.json",
+  "source": {
+    "file": "screen.png",
+    "size": [
+      3352,
+      1910
+    ],
+    "sha256": "22c7b2ad0f8420a1342df215e792cd3f4ec9075093f87ad6d6e9091ea27557aa"
+  },
+  "source_screens": [
+    {
+      "file": "screen.png",
+      "sha256": "22c7b2ad0f8420a1342df215e792cd3f4ec9075093f87ad6d6e9091ea27557aa",
+      "bytes": 432239,
+      "pixels": [
+        3352,
+        1910
+      ],
+      "original_packet_file": "S124-final.png"
+    },
+    {
+      "file": "screen-four.png",
+      "sha256": "90eb8b15394cde631ec3188a93aefb7c87aec73a4d2890fd4211b6c5e1eb037e",
+      "bytes": 430005,
+      "pixels": [
+        3352,
+        1910
+      ],
+      "original_packet_file": "S124-four.png"
+    }
+  ],
+  "shots": [
+    {
+      "file": "graph.png",
+      "source": "screen.png",
+      "source_sha256": "22c7b2ad0f8420a1342df215e792cd3f4ec9075093f87ad6d6e9091ea27557aa",
+      "frame": 0,
+      "crop_xyxy": [
+        430,
+        1100,
+        2400,
+        1650
+      ],
+      "resampled": false,
+      "sha256": "c5e9b219d1e4b737e6391c4bf5fa2c1f61502482525055cd98664e682984cc4f",
+      "pixels": [
+        1970,
+        550
+      ],
+      "viewer_guides": false,
+      "active_tool": "Highlight1",
+      "viewer_contents": "PointMask1/WhitePoint1 and Black1/MergeSource1 feed Highlight1 then MediaOut1."
+    },
+    {
+      "file": "four-points-inspector.png",
+      "source": "screen-four.png",
+      "source_sha256": "90eb8b15394cde631ec3188a93aefb7c87aec73a4d2890fd4211b6c5e1eb037e",
+      "frame": 0,
+      "crop_xyxy": [
+        2830,
+        120,
+        3352,
+        650
+      ],
+      "resampled": false,
+      "sha256": "d5bd5d69f39aa966c2cdbb9469e82ae55f611797dd0bd4f6ea4ecaac8c7eba0b",
+      "pixels": [
+        522,
+        530
+      ],
+      "viewer_guides": false,
+      "active_tool": "Highlight1",
+      "viewer_contents": "MergeSource1 on the left and Highlight1 on the right at40%; Number of Points4."
+    },
+    {
+      "file": "four-points.png",
+      "source": "screen-four.png",
+      "source_sha256": "90eb8b15394cde631ec3188a93aefb7c87aec73a4d2890fd4211b6c5e1eb037e",
+      "frame": 0,
+      "crop_xyxy": [
+        1146,
+        65,
+        2830,
+        705
+      ],
+      "resampled": false,
+      "sha256": "8fe0c43f63279ee7d144a82d8ba605ad17e433eaa7bbbbc00849f6aa18f393f0",
+      "pixels": [
+        1684,
+        640
+      ],
+      "viewer_guides": false,
+      "active_tool": "Highlight1",
+      "viewer_contents": "Left MergeSource1 shows one white point; right Highlight1 shows four rays."
+    },
+    {
+      "file": "six-points-inspector.png",
+      "source": "screen.png",
+      "source_sha256": "22c7b2ad0f8420a1342df215e792cd3f4ec9075093f87ad6d6e9091ea27557aa",
+      "frame": 0,
+      "crop_xyxy": [
+        2830,
+        120,
+        3352,
+        650
+      ],
+      "resampled": false,
+      "sha256": "2c80ad2139407586b17200a09ef7310cee8091592fb6fa92279bc20dadcc6287",
+      "pixels": [
+        522,
+        530
+      ],
+      "viewer_guides": false,
+      "active_tool": "Highlight1",
+      "viewer_contents": "MergeSource1 on the left and Highlight1 on the right at40%; Number of Points6."
+    },
+    {
+      "file": "six-points.png",
+      "source": "screen.png",
+      "source_sha256": "22c7b2ad0f8420a1342df215e792cd3f4ec9075093f87ad6d6e9091ea27557aa",
+      "frame": 0,
+      "crop_xyxy": [
+        1146,
+        65,
+        2830,
+        705
+      ],
+      "resampled": false,
+      "sha256": "9e7422915594113e12930a88f7e071bbdd6f364f7427b0d1205feb5b04984355",
+      "pixels": [
+        1684,
+        640
+      ],
+      "viewer_guides": false,
+      "active_tool": "Highlight1",
+      "viewer_contents": "Left MergeSource1 shows one white point; right Highlight1 shows a six-point star."
+    }
+  ],
+  "acceptance": {
+    "gui": "PASS: existing saved screenshot and bounded proof inspected; no new capture was made.",
+    "article_display": "NOT_RUN: local production build and scoped display verification are pending.",
+    "public": "NOT_RUN: no deployment or public verification has occurred."
+  },
+  "native_proof": {
+    "file": "native-proof.json",
+    "sha256": "1eb0bcbac04d7dd87e7f39c1865ae8200cebe26377cd05a4b235dc4a9a9cf5f4",
+    "regid": "Highlight",
+    "final": {
+      "Low": 0.9,
+      "High": 1.0,
+      "Curve": 0.2,
+      "Length": 0.8,
+      "NumberOfPoints": 6.0,
+      "Angle": 0.0,
+      "MergeOver": 1.0
+    },
+    "comparison": {
+      "before_NumberOfPoints": 4.0,
+      "after_NumberOfPoints": 6.0
+    },
+    "connections": {
+      "Input": "MergeSource1",
+      "EffectMask": null,
+      "HighlightMask": null
+    },
+    "flow": "PointMask1 -> WhitePoint1 (EffectMask); Black1 and WhitePoint1 -> MergeSource1; MergeSource1 -> Highlight1 -> MediaOut1.",
+    "native_rgb_delta": {
+      "bbox": [
+        93,
+        72,
+        147,
+        166
+      ],
+      "extrema": [
+        [
+          0,
+          254
+        ],
+        [
+          0,
+          254
+        ],
+        [
+          0,
+          254
+        ]
+      ]
+    }
+  },
+  "limits": [
+    "Synthetic static point-on-black input only; mask and optional-input behavior, alternate controls/color curves, animation, physical optical fidelity, platform/edition/performance are unverified.",
+    "Broad input enumeration NOT_RUN; the saved proof is limited to its listed scalar and connection evidence.",
+    "Curve editing NOT_RUN; no LUT/Bezier payload was read.",
+    "Portable export reimport NOT_RUN."
+  ],
+  "portable_transform": [
+    "Public fixture.comp is a distribution copy: ResolveCaches/LastFile lines are removed, fixture paths under _fixtures are normalized to Comp:/../_fixtures/, and line endings are LF. Original fixture bytes remain in the task source packet.",
+    "readback.json is serialized as UTF-8 JSON after normalizing fixture paths; its source copy remains in the task packet.",
+    "PNG crops are exact native-pixel rectangles from saved screenshots; no resizing or painted UI."
+  ],
+  "reproduction": {
+    "source_fixture_sha256": "eb7acf1d5b930e965afce0ff60d1ae6d83d53650e200d70e2e67a6af2d09a55b",
+    "fixture_sha256": "8fc25934ec47cfc66dd05dc845d85568123f27fdcc16ff6dd523cae99ebb70fd",
+    "source_readback_sha256": "4fca59e8b0c9d9105dc4b91d1e0f94f2833f2766491d8fe46bbb8df4a3bf2e15",
+    "readback_sha256": "0afad74a0ff46a2fd265183fc4774107739e59f147cf83300cd7b8b38bc9e893",
+    "paths": "Comp:/../_fixtures/ for bundled synthetic fixtures",
+    "reimport": "NOT_RUN: accepted GUI evidence precedes public-copy path normalization."
+  }
+}
