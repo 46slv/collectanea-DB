@@ -1,0 +1,288 @@
+{
+  "schema_version": 1,
+  "case": "S119",
+  "article": "manuals/fusion/nodes/deep/texture-deep-pixel.md",
+  "manual": {
+    "version": "21.1",
+    "chapter": 96,
+    "printed_pages": "2266–2268"
+  },
+  "runtime": {
+    "version": "21.1.0.14",
+    "edition": "Studio",
+    "os": "Windows-11-10.0.26200-SP0",
+    "ui_language": "ja-JP (some Shape controls remain English)"
+  },
+  "captured_at": "2026-10-24T09:19:14.924760+00:00",
+  "project": "Collectanea_Captures_20261023_Sol",
+  "timeline": "S119_capture",
+  "frame": 0.0,
+  "resolution": [
+    1920,
+    1080
+  ],
+  "color_management": {
+    "colorScienceMode": "davinciYRGB",
+    "colorSpaceTimeline": "Rec.709 (Scene)",
+    "colorSpaceTimelineGamma": "",
+    "colorSpaceOutput": "Rec.709 (Scene)",
+    "colorSpaceOutputGamma": "ACEScc",
+    "separateColorSpaceAndGamma": "0",
+    "isAutoColorManage": "0",
+    "timelineResolutionWidth": "1920",
+    "timelineResolutionHeight": "1080",
+    "timelineFrameRate": 24.0,
+    "timelinePlaybackFrameRate": "30"
+  },
+  "viewer": {
+    "zoom_percent": 40,
+    "channel": "Color",
+    "background": "checkerboard for transparent pixels",
+    "note": "Viewer screenshots are display evidence, not colorimetric exports."
+  },
+  "graph": "fixture.comp",
+  "settings": "readback.json",
+  "source": {
+    "file": "screen.png",
+    "size": [
+      3352,
+      1910
+    ],
+    "sha256": "958ec30a4bc7c60428037627f3938e8dbfecdc4b38283098596a551391c7c776"
+  },
+  "shots": [
+    {
+      "file": "graph.png",
+      "source": "screen.png",
+      "source_sha256": "958ec30a4bc7c60428037627f3938e8dbfecdc4b38283098596a551391c7c776",
+      "frame": 0,
+      "crop_xyxy": [
+        420,
+        1100,
+        2420,
+        1640
+      ],
+      "resampled": false,
+      "sha256": "5e84d503cc1aeed1e4a6e6f9cad7afd8104a1980c85c1590e9f2ec106beef910",
+      "viewer_guides": false,
+      "active_tool": "Texture1",
+      "viewer_contents": "Left beauty / Right chart textured sphere FlipHoriz1"
+    },
+    {
+      "file": "inspector.png",
+      "source": "screen.png",
+      "source_sha256": "958ec30a4bc7c60428037627f3938e8dbfecdc4b38283098596a551391c7c776",
+      "frame": 0,
+      "crop_xyxy": [
+        2830,
+        120,
+        3352,
+        430
+      ],
+      "resampled": false,
+      "sha256": "bfc3b0812ab839f274d9124439dde67b437a0e278e3d0fbd55957bcffefcefc7",
+      "viewer_guides": false,
+      "active_tool": "Texture1",
+      "viewer_contents": "Left beauty / Right chart textured sphere FlipHoriz1"
+    },
+    {
+      "file": "compare.png",
+      "source": "screen.png",
+      "source_sha256": "958ec30a4bc7c60428037627f3938e8dbfecdc4b38283098596a551391c7c776",
+      "frame": 0,
+      "crop_xyxy": [
+        1146,
+        65,
+        2830,
+        725
+      ],
+      "resampled": false,
+      "sha256": "1b0e9f700f76cd490b5320f512f32f23c7a7e82004a73f17e92d673c0b2e31d6",
+      "viewer_guides": false,
+      "active_tool": "Texture1",
+      "viewer_contents": "Left beauty / Right chart textured sphere FlipHoriz1"
+    },
+    {
+      "file": "baseline-inspector.png",
+      "source": "screen-baseline.png",
+      "source_sha256": "cb484b121d58a2984ad8fdbdf33698a5eddacc5ebac4567a3efd502c1c432f84",
+      "frame": 0,
+      "crop_xyxy": [
+        2830,
+        120,
+        3352,
+        430
+      ],
+      "resampled": false,
+      "sha256": "ef0cab97d42d68ad4e8344d43d7847fb8c7d448b076dc0a27701287635fc1d9f",
+      "viewer_guides": false,
+      "active_tool": "Texture1",
+      "viewer_contents": "Left beauty / Right chart textured sphere FlipHoriz0"
+    },
+    {
+      "file": "baseline.png",
+      "source": "screen-baseline.png",
+      "source_sha256": "cb484b121d58a2984ad8fdbdf33698a5eddacc5ebac4567a3efd502c1c432f84",
+      "frame": 0,
+      "crop_xyxy": [
+        1146,
+        65,
+        2830,
+        725
+      ],
+      "resampled": false,
+      "sha256": "838b8761e34e9943da63cf664620601f224911e5e72fc4b4dd75051a5132959e",
+      "viewer_guides": false,
+      "active_tool": "Texture1",
+      "viewer_contents": "Left beauty / Right chart textured sphere FlipHoriz0"
+    },
+    {
+      "file": "uv-inspector.png",
+      "source": "screen-uv.png",
+      "source_sha256": "d2800d4946e38c1e8b9d5c212ba7e6052141889a3915a88cdc896ce9d1cf6e0b",
+      "frame": 0,
+      "crop_xyxy": [
+        2830,
+        120,
+        3352,
+        650
+      ],
+      "resampled": false,
+      "sha256": "ea805b90f7ec3f03be39d97628abb137da7af1442f4b0242de9639f18bc3da88",
+      "viewer_guides": false,
+      "active_tool": "CopyAux1",
+      "viewer_contents": "Left beauty / Right UV asRG"
+    },
+    {
+      "file": "uv.png",
+      "source": "screen-uv.png",
+      "source_sha256": "d2800d4946e38c1e8b9d5c212ba7e6052141889a3915a88cdc896ce9d1cf6e0b",
+      "frame": 0,
+      "crop_xyxy": [
+        1146,
+        65,
+        2830,
+        725
+      ],
+      "resampled": false,
+      "sha256": "886620a83b84eee50b63850cddc7293a537dc92fcac92e63cf3ca85cca59a0d6",
+      "viewer_guides": false,
+      "active_tool": "CopyAux1",
+      "viewer_contents": "Left beauty / Right UV asRG"
+    },
+    {
+      "file": "renderer-inspector.png",
+      "source": "screen-renderer.png",
+      "source_sha256": "f4dc83589b6e72f2296a25c518986007917890cdaf3daf29af40ddec4879d191",
+      "frame": 0,
+      "crop_xyxy": [
+        2830,
+        120,
+        3352,
+        850
+      ],
+      "resampled": false,
+      "sha256": "017395aa5f0233b08ddad2a32620e501692f210e1e8848f9863094f2c397f5d4",
+      "viewer_guides": false,
+      "active_tool": "Renderer3D1",
+      "viewer_contents": "Left beauty / Right chart textured sphere FlipHoriz1"
+    }
+  ],
+  "acceptance": {
+    "gui": "PASS: owner visually inspected node connections, selected Inspector, and output",
+    "article_display": "Executed outcomes recorded in docs/fusion-screenshot-candidates.json;provenance fixed."
+  },
+  "unverified": [
+    "Free edition and other platforms",
+    "All parameter ranges and performance",
+    "No true Deep/multiple samples,external EXR persistence,alternate inputs/all controls,other renderer/platform/edition/performance.",
+    "Background also receives texture contribution;alpha/ID mask isolation NOT_RUN.",
+    "Exported portable composition reimport"
+  ],
+  "gui_authoring": {
+    "host": {
+      "pid": 20156,
+      "hwnd": 82647722,
+      "source_pixels": [
+        3352,
+        1910
+      ]
+    },
+    "tool": "Texture1",
+    "regid": "Texture",
+    "visible_flow_tools": 9,
+    "delivery": "SDK/synthetic Cua,physicalNOT_PROVEN;native UI/export establish outcome"
+  },
+  "native_proof": {
+    "target": "Texture1",
+    "final": {
+      "FlipHoriz": 1.0,
+      "FlipVert": 0.0,
+      "SwapUV0": 0.0,
+      "Rotate90": 0.0,
+      "UScale": 1.0,
+      "VScale": 1.0,
+      "UOffset": 0.0,
+      "VOffset": 0.0
+    },
+    "renderer": {
+      "RendererType": "RendererSoftware",
+      "RendererSoftware.Channels.RGBA": 1.0,
+      "RendererSoftware.Channels.TexCoord0": 1.0
+    },
+    "connections": {
+      "Input": "Renderer3D1",
+      "Texture": "Loader1"
+    },
+    "aux_diagnostics": {
+      "CopyAux1": {
+        "Channel": "Texture",
+        "ChannelMissing": 0.0,
+        "OutColorDepth": 0.0
+      }
+    },
+    "comparison": "chart-mapped",
+    "frame": 0,
+    "roi_xyxy": [
+      2055,
+      205,
+      2810,
+      615
+    ],
+    "delta": {
+      "bbox": [
+        203,
+        24,
+        559,
+        387
+      ],
+      "extrema": [
+        [
+          0,
+          255
+        ],
+        [
+          0,
+          255
+        ],
+        [
+          0,
+          255
+        ]
+      ]
+    },
+    "aux_domain": "ordinary2D RGBA+aux channels,NOT true Deep",
+    "physical_input": "NOT_PROVEN:SDK/synthetic;native screenshots/bounded scalar readback establish outcome",
+    "limits": [
+      "No true Deep/multiple samples,external EXR persistence,alternate inputs/all controls,other renderer/platform/edition/performance.",
+      "Background also receives texture contribution;alpha/ID mask isolation NOT_RUN."
+    ]
+  },
+  "restoration": "PASS:frame0,both40%,compact Flow,owned scratch saved,native final inspected",
+  "reproduction": {
+    "fixture_sha256": "d4871f0bfb787ed6ebcaac4c6d542fc8defb292d154c6931a627a35f2fc23e40",
+    "readback_sha256": "302431aa03703d0c9bc7412808191e2b1efc5e0e6af73f21117e6e2cc411c97d",
+    "paths": "Comp:/../_fixtures/ for bundled synthetic fixtures",
+    "reimport": "NOT_RUN: accepted GUI evidence precedes export path normalization"
+  }
+}
