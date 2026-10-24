@@ -104,6 +104,9 @@ CONFIG={
  'S97':{'graph': (260, 1200, 2560, 1560), 'inspector': (2830, 120, 3352, 375), 'compare': (1146, 65, 2830, 725), 'raw': (1146, 65, 2830, 725), 'alpha-source': (1146, 65, 2830, 725)},
  'S98':{'graph': (600, 1300, 2250, 1450), 'inspector': (2830, 120, 3352, 590), 'compare': (1146, 65, 2830, 725), 'off-inspector': (2830, 120, 3352, 590), 'off': (1146, 65, 2830, 725)},
  'S99':{'graph': (600, 1200, 2250, 1560), 'inspector': (2830, 120, 3352, 635), 'compare': (1146, 65, 2830, 725), 'chart': (1146, 65, 2830, 725)},
+ 'S100':{'graph': (770, 1200, 2070, 1530), 'inspector': (2830, 120, 3352, 300), 'compare': (1146, 65, 2830, 725), 'before': (1146, 65, 2830, 725)},
+ 'S101':{'graph': (770, 1200, 2070, 1530), 'inspector': (2830, 120, 3352, 590), 'compare': (1146, 65, 2830, 725), 'before': (1146, 65, 2830, 725), 'chart': (1146, 65, 2830, 725)},
+ 'S102':{'graph': (770, 1150, 2070, 1580), 'inspector': (2830, 120, 3352, 300), 'compare': (1146, 65, 2830, 725), 'before': (1146, 65, 2830, 725), 'layers': (0, 0, 155, 117)},
 }
 def sha(p):return hashlib.sha256(p.read_bytes()).hexdigest()
 candidates=json.loads((ROOT/'docs/fusion-screenshot-candidates.json').read_text(encoding='utf-8'))
@@ -204,6 +207,10 @@ for case in args.cases:
    extra.update({(case,'compare'):'screen-clean0.png',(case,'frame119'):'screen-clean119.png',(case,'yellow'):'screen-yellow.png',(case,'before'):'screen-before.png'})
   if case in ['S97','S98','S99']:
    extra.update({(case,'raw'):'screen-raw.png',(case,'alpha-source'):'screen-alpha-source.png',(case,'off-inspector'):'screen-off.png',(case,'off'):'screen-off.png',(case,'chart'):'screen-chart.png'})
+  if case in ['S100','S101','S102']:
+   extra[(case,'before')]='screen-before.png'
+  if case=='S101':extra.update({(case,'compare'):'screen-warm.png'})
+  if case=='S102':extra[(case,'layers')]='screen-layers.png'
   src=folder/extra.get((case,slug),variants.get((case,slug),'screen.png'))
   assert 0<=box[0]<box[2]<=im.width and 0<=box[1]<box[3]<=im.height, (case,slug,box)
   path=folder/(slug+'.png');Image.open(src).crop(box).save(path)
@@ -268,6 +275,10 @@ for case in args.cases:
    shots[-1]['frame']=0
    shots[-1]['viewer_contents']='Left AlphaSource circle / Right AlphaMultiply cutout' if case=='S97' and slug=='alpha-source' else 'Left chart / Right raw ChannelBooleans output before AlphaMultiply' if case=='S97' and slug=='raw' else 'Left chart / Right AlphaMultiply cutout' if case=='S97' else 'Left chart / Right Gamut RemoveGamma OFF' if case=='S98' and slug.startswith('off') else 'Left chart / Right Gamut RemoveGamma ON' if case=='S98' else 'Left chart / Right Swizzler Chart layer' if slug=='chart' else 'Left chart / Right Swizzler Gold layer'
    shots[-1]['viewer_guides']=False
+  if case in ['S100','S101','S102']:
+   shots[-1]['frame']=0
+   shots[-1]['viewer_guides']=False
+   shots[-1]['viewer_contents']='Left Swizzler Gold / Right same Gold before removal' if case=='S100' and slug=='before' else 'Left Swizzler Gold / Right retained Chart' if case=='S100' else 'Left Swizzler Gold / Right original Gold before rename' if case=='S101' and slug=='before' else 'Left Swizzler Gold / Right renamed Warm,same orange pixels' if case=='S101' and slug=='compare' else 'Left Swizzler Gold / Right retained Chart' if case=='S101' else 'Native popup only:Default,Gold,Chart,Blue,Reference' if slug=='layers' else 'Left SwizzlerA Gold / Right LayerMuxer Gold' if slug=='before' else 'Left SwizzlerA Gold / Right LayerMuxer selected Blue'
  candidate=next(x for x in candidates['candidates'] if x['id']==case)
  manifest={'schema_version':1,'case':case,'article':candidate['article'],'manual':candidate['manual'],'runtime':{'version':readback['resolve'],'edition':'Studio','os':readback['os'],'ui_language':'ja-JP (some Shape controls remain English)'},'captured_at':datetime.datetime.fromtimestamp(source.stat().st_mtime,datetime.timezone.utc).isoformat(),'project':readback['project'],'timeline':readback['timeline'],'frame':readback['frame'],'resolution':[1920,1080],'color_management':readback['project_settings'],'viewer':{'zoom_percent':40,'channel':'Color','background':'checkerboard for transparent pixels','note':'Viewer screenshots are display evidence, not colorimetric exports.'},'graph':'fixture.comp','settings':'readback.json','source':{'file':'screen.png','size':im.size,'sha256':sha(source)},'shots':shots,'acceptance':{'gui':'PASS: owner visually inspected node connections, selected Inspector, and output','article_display':'NOT_RUN'},'unverified':['Free edition and other platforms','All parameter ranges and performance','S03 optional Glow Mask / Effect Mask comparison is deferred'] if case=='S03' else ['Free edition and other platforms','All parameter ranges and performance']}
  (folder/'capture.json').write_text(json.dumps(manifest,ensure_ascii=False,indent=2)+'\n',encoding='utf-8',newline='\n')
