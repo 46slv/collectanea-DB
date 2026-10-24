@@ -250,6 +250,29 @@ try {
     await noOverflow();
     await shot('quantization-mobile');
   });
+  await check('posterization-article-and-mobile', async () => {
+    for (const width of [1440, 390, 320]) {
+      await page.setViewportSize({width, height: width === 1440 ? 1000 : 844});
+      await go(route);
+      await page.getByRole('link', {name: '階調数を変えて面表現を試す'}).click();
+      await expect(page).toHaveURL(new RegExp('/reference/visual-processing/posterization/?$'));
+      await expect(page.locator('.theme-doc-markdown h1')).toHaveText('ポスタリゼーション（Posterization）');
+      const widget = page.locator('[data-vp-dither="ready"]');
+      await expect(widget).toBeVisible();
+      const levels = widget.getByRole('slider', {name: '階調数'});
+      await levels.focus();
+      await levels.press('Home');
+      await expect(widget).toHaveAttribute('data-vp-levels', '2');
+      await widget.getByRole('combobox', {name: '処理方式'}).selectOption('none');
+      await expect(widget).toHaveAttribute('data-vp-method', 'none');
+      const picture = (kind) => widget.locator('[data-vp-preview="' + kind + '"] canvas')
+        .evaluate((canvas) => canvas.toDataURL());
+      await expect.poll(() => picture('processed')).toBe(await picture('plain'));
+      await widget.getByRole('button', {name: '初期値に戻す'}).click();
+      await expect(widget).toHaveAttribute('data-vp-levels', '4');
+      await noOverflow();
+    }
+  });
   await check('filter-optics-widget-interactions-mobile', async () => {
     const cases = [
       {route: '/filters/gaussian-blur', name: 'blur', slider: 'ぼかし幅', attr: 'data-vp-sigma', minimum: '0'},
