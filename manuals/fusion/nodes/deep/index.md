@@ -103,6 +103,18 @@ Normalは「表面がどちらを向くか」、UVは「物体の表面のどこ
 - **透明物や物体の境界で不自然になる**：補助チャンネルは、RGBAと同じように平均すると不適切な値になる場合があります。Z・Normal・UVなどの出力条件を確認し、必要に応じて元のレンダリング方法も見直します。
 - **製品によってNodeが見つからない**：少なくともChapter 95のDeep Image ToolsetはStudio限定です。Chapter 96の全Nodeに同じEdition条件が適用されるとは、この章名だけで判断できません。
 
+## 実機例：補助Zを使う2D後処理
+
+<!-- capture-reuse:R168 -->
+
+Depth BlurはRendererが出した通常のRGBA画像と補助Zを使っています。右の出力では手前をほぼ鮮明に保ち、奥をぼかしました。このGraphのCopy AuxはZ確認用の分岐です。複数サンプルを保持するDeep Imageや、その平面化を実証した例ではありません。
+
+[![実機例：補助Zを使う2D後処理：graphの実機画面](/img/fusion/captures/S116/graph.png)](/img/fusion/captures/S116/graph.png)
+
+[![実機例：補助Zを使う2D後処理：compareの実機画面](/img/fusion/captures/S116/compare.png)](/img/fusion/captures/S116/compare.png)
+
+[撮影条件・設定値と未確認範囲](./depth-blur-deep-pixel)を参照してください。
+
 ## 関連する考え方と出典
 
 - [Deep Image：1画素に複数の奥行きサンプルを持つ形式](../../learn/02-data/deep-image.md)

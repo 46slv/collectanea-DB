@@ -1,0 +1,258 @@
+{
+  "schema_version": 1,
+  "case": "S117",
+  "article": "manuals/fusion/nodes/deep/fog-deep-pixel.md",
+  "manual": {
+    "version": "21.1",
+    "chapter": 96,
+    "printed_pages": "2261–2263"
+  },
+  "runtime": {
+    "version": "21.1.0.14",
+    "edition": "Studio",
+    "os": "Windows-11-10.0.26200-SP0",
+    "ui_language": "ja-JP (some Shape controls remain English)"
+  },
+  "captured_at": "2026-10-24T09:04:15.685581+00:00",
+  "project": "Collectanea_Captures_20261023_Sol",
+  "timeline": "S117_capture",
+  "frame": 0.0,
+  "resolution": [
+    1920,
+    1080
+  ],
+  "color_management": {
+    "colorScienceMode": "davinciYRGB",
+    "colorSpaceTimeline": "Rec.709 (Scene)",
+    "colorSpaceTimelineGamma": "",
+    "colorSpaceOutput": "Rec.709 (Scene)",
+    "colorSpaceOutputGamma": "ACEScc",
+    "separateColorSpaceAndGamma": "0",
+    "isAutoColorManage": "0",
+    "timelineResolutionWidth": "1920",
+    "timelineResolutionHeight": "1080",
+    "timelineFrameRate": 24.0,
+    "timelinePlaybackFrameRate": "30"
+  },
+  "viewer": {
+    "zoom_percent": 40,
+    "channel": "Color",
+    "background": "checkerboard for transparent pixels",
+    "note": "Viewer screenshots are display evidence, not colorimetric exports."
+  },
+  "graph": "fixture.comp",
+  "settings": "readback.json",
+  "source": {
+    "file": "screen.png",
+    "size": [
+      3352,
+      1910
+    ],
+    "sha256": "e4ae734c9c0183b900a49302fd6202f333e3a908dafefbb2fd45340dcc9ec254"
+  },
+  "shots": [
+    {
+      "file": "graph.png",
+      "source": "screen.png",
+      "source_sha256": "e4ae734c9c0183b900a49302fd6202f333e3a908dafefbb2fd45340dcc9ec254",
+      "frame": 0,
+      "crop_xyxy": [
+        420,
+        1100,
+        2420,
+        1640
+      ],
+      "resampled": false,
+      "sha256": "be01025540a2d09698fdf74329a43a34cc1d59556dd2d63c69c7f4b8ee98c32d",
+      "viewer_guides": false,
+      "active_tool": "Fog1",
+      "viewer_contents": "Left beauty / Right Fog Near-10 Far-13 Opacity1"
+    },
+    {
+      "file": "inspector.png",
+      "source": "screen.png",
+      "source_sha256": "e4ae734c9c0183b900a49302fd6202f333e3a908dafefbb2fd45340dcc9ec254",
+      "frame": 0,
+      "crop_xyxy": [
+        2830,
+        120,
+        3352,
+        540
+      ],
+      "resampled": false,
+      "sha256": "1d89c9bfde61939ee234442eb6a1d9c8aad04559aa205230bb5a811653f7edd7",
+      "viewer_guides": false,
+      "active_tool": "Fog1",
+      "viewer_contents": "Left beauty / Right Fog Near-10 Far-13 Opacity1"
+    },
+    {
+      "file": "compare.png",
+      "source": "screen.png",
+      "source_sha256": "e4ae734c9c0183b900a49302fd6202f333e3a908dafefbb2fd45340dcc9ec254",
+      "frame": 0,
+      "crop_xyxy": [
+        1146,
+        65,
+        2830,
+        725
+      ],
+      "resampled": false,
+      "sha256": "58b59ec037ca3cb39f3118041bbc7d5265fd6429a84876049cc6baab74f6121b",
+      "viewer_guides": false,
+      "active_tool": "Fog1",
+      "viewer_contents": "Left beauty / Right Fog Near-10 Far-13 Opacity1"
+    },
+    {
+      "file": "baseline-inspector.png",
+      "source": "screen-baseline.png",
+      "source_sha256": "bb3fad4e8bfd522e90f716c953d20a83c70702837f21228a1f21a97c1a2ea234",
+      "frame": 0,
+      "crop_xyxy": [
+        2830,
+        120,
+        3352,
+        540
+      ],
+      "resampled": false,
+      "sha256": "8e82bcf225f9760fb290b2def91b7c19c4962b171498e06b24dd1b856bdeaa5a",
+      "viewer_guides": false,
+      "active_tool": "Fog1",
+      "viewer_contents": "Left beauty / Right Fog Opacity0"
+    },
+    {
+      "file": "baseline.png",
+      "source": "screen-baseline.png",
+      "source_sha256": "bb3fad4e8bfd522e90f716c953d20a83c70702837f21228a1f21a97c1a2ea234",
+      "frame": 0,
+      "crop_xyxy": [
+        1146,
+        65,
+        2830,
+        725
+      ],
+      "resampled": false,
+      "sha256": "62153edae2bfb3f01b76f776d0d6d1b892ca33dd9d773efcfdb0d10fac6d2650",
+      "viewer_guides": false,
+      "active_tool": "Fog1",
+      "viewer_contents": "Left beauty / Right Fog Opacity0"
+    },
+    {
+      "file": "depth-inspector.png",
+      "source": "screen-depth.png",
+      "source_sha256": "7bcbf8b96044acd8e627387dc328419240cc09b9c0c864cb58694135ebebcf38",
+      "frame": 0,
+      "crop_xyxy": [
+        2830,
+        120,
+        3352,
+        650
+      ],
+      "resampled": false,
+      "sha256": "7b746cc38eef62bb29f2a7b5034f938a9c9db1129266e0ec56f1e56a462994a8",
+      "viewer_guides": false,
+      "active_tool": "CopyAux1",
+      "viewer_contents": "Left beauty / Right diagnostic Z remapped[-13,-9] to[0,1]"
+    },
+    {
+      "file": "depth.png",
+      "source": "screen-depth.png",
+      "source_sha256": "7bcbf8b96044acd8e627387dc328419240cc09b9c0c864cb58694135ebebcf38",
+      "frame": 0,
+      "crop_xyxy": [
+        1146,
+        65,
+        2830,
+        725
+      ],
+      "resampled": false,
+      "sha256": "60a81a3dcde99509790490b168566f60c688a8706785a107cb65a0f7931d29c8",
+      "viewer_guides": false,
+      "active_tool": "CopyAux1",
+      "viewer_contents": "Left beauty / Right diagnostic Z remapped[-13,-9] to[0,1]"
+    }
+  ],
+  "acceptance": {
+    "gui": "PASS: owner visually inspected node connections, selected Inspector, and output",
+    "article_display": "Executed outcomes recorded in docs/fusion-screenshot-candidates.json;provenance fixed."
+  },
+  "unverified": [
+    "Free edition and other platforms",
+    "All parameter ranges and performance",
+    "No true Deep/multiple samples,external EXR export/reimport,other renderer/platform/edition/performance or all controls.",
+    "Exported portable composition reimport"
+  ],
+  "gui_authoring": {
+    "host": {
+      "pid": 20156,
+      "hwnd": 82647722,
+      "source_pixels": [
+        3352,
+        1910
+      ]
+    },
+    "tool": "Fog1",
+    "regid": "Fog",
+    "visible_flow_tools": 9,
+    "delivery": "SDK/synthetic Cua,physicalNOT_PROVEN;native UI/export establish outcome"
+  },
+  "native_proof": {
+    "target": "Fog1",
+    "final": {
+      "ZNearPlane": -10.0,
+      "ZFarPlane": -13.0,
+      "ZScale": 1.0,
+      "FogRed": 0.7,
+      "FogGreen": 0.7,
+      "FogBlue": 0.8,
+      "FogAlpha": 1.0,
+      "FogOpacity": 1.0
+    },
+    "renderer": {
+      "RendererType": "RendererSoftware",
+      "RendererSoftware.Channels.RGBA": 1.0,
+      "RendererSoftware.Channels.Z": 1.0
+    },
+    "comparison": "FogOpacity0 vs1;Near-10 Far-13",
+    "frame": 0,
+    "roi_xyxy": [
+      2055,
+      205,
+      2810,
+      615
+    ],
+    "aux_domain": "ordinary 2D RGBA plus Z,NOT true Deep",
+    "physical_input": "NOT_PROVEN:SDK/synthetic;native screenshots and bounded scalar readback establish outcome",
+    "limits": [
+      "No true Deep/multiple samples,external EXR export/reimport,other renderer/platform/edition/performance or all controls."
+    ],
+    "delta": {
+      "bbox": [
+        0,
+        0,
+        755,
+        410
+      ],
+      "extrema": [
+        [
+          0,
+          177
+        ],
+        [
+          0,
+          177
+        ],
+        [
+          0,
+          202
+        ]
+      ]
+    }
+  },
+  "restoration": "PASS:frame0,both40%,compact Flow,owned scratch saved,native final inspected",
+  "reproduction": {
+    "fixture_sha256": "4571d5115d14c6b6049ecc2fe99f2934ab1b0488844ab4feb542218fb979c751",
+    "readback_sha256": "f648209d811a841dce9103453d7b1baaab3e20b2401a814a9b2127df061c2ce5",
+    "paths": "Comp:/../_fixtures/ for bundled synthetic fixtures",
+    "reimport": "NOT_RUN: accepted GUI evidence precedes export path normalization"
+  }
+}

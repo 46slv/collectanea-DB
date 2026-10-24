@@ -15,7 +15,7 @@ outputs: [image]
 tasks: [aov, fog, depth-atmosphere]
 product_scope: fusion
 suite_surfaces: [fusion]
-updated: "2026-10-10"
+updated: "2026-10-24"
 ---
 
 # Fog (Deep Pixel)
@@ -111,10 +111,42 @@ Fog 3Dは3Dシーンの段階で働くため、公式Manualではアンチエイ
 - [Channel Booleans](../color/channel-boolean.md) — Zを別画像から組み込む。
 - [Copy Aux](../color/copy-aux.md) — Zの存在や値を確認する。
 
+## 実機例：奥の球を霧で覆う
+
+<!-- capture-case:S117 -->
+
+Resolve Studio21.1.0.14／Windows、1920×1080、Viewer40%、フレーム0で撮影しました。左がRenderer 3Dのカラー出力、右が処理後です。
+
+手前の球はX＝−1.1・Z＝0、奥の球はX＝1.3・Z＝−3、カメラはZ＝10に置いています。Software RendererからRGBAとZを出力しました。GraphのCopyAux1は確認用の分岐で、処理本体の入力ではありません。
+
+[![RGBAとZを持つRenderer 3Dの画像をFogへ渡し、Copy Auxを診断用に分岐した実機Graph](/img/fusion/captures/S117/graph.png)](/img/fusion/captures/S117/graph.png)
+
+Z-Buffer Near Plane＝−10、Far Plane＝−13、Z Scale＝1、Fog ColorのRGBA＝0.7・0.7・0.8・1としました。まずFog Opacity＝0で、入力と同じ見え方を確認します。追加のFog画像やEffect Maskは接続していません。
+
+[![FogのNearマイナス10、Farマイナス13、Opacity0を設定した実機Inspector](/img/fusion/captures/S117/baseline-inspector.png)](/img/fusion/captures/S117/baseline-inspector.png)
+
+[![Fog Opacity0では入力と同じ球体が表示される実機比較](/img/fusion/captures/S117/baseline.png)](/img/fusion/captures/S117/baseline.png)
+
+Fog Opacityだけを1へ上げました。手前の球はほぼ元の陰影を保ち、奥の球は霧の色に覆われます。Zのない背景も霧色になっています。Near／Farの数値はこのシーンの負のZに合わせた値であり、実際の入力を確認して決めます。
+
+[![NearとFarを保ち、Fog Opacityだけを1へ上げた実機Inspector](/img/fusion/captures/S117/inspector.png)](/img/fusion/captures/S117/inspector.png)
+
+[![右のFog出力で手前の球の陰影を保ち、奥の球を霧色で覆った実機比較](/img/fusion/captures/S117/compare.png)](/img/fusion/captures/S117/compare.png)
+
+確認用のCopy Auxでは、ZをFrom＝−13〜−9からTo＝0〜1へ取り出しています。Channel Missing＝Failのまま、手前が白、奥が暗い診断出力を確認できました。最後はFogを選択し、Opacity＝1で保存しています。
+
+[![Fog入力の補助Zを確認するCopy Auxの実機Inspector](/img/fusion/captures/S117/depth-inspector.png)](/img/fusion/captures/S117/depth-inspector.png)
+
+[![手前と奥で異なる値を持つZの診断表示と元のカラー出力の実機比較](/img/fusion/captures/S117/depth.png)](/img/fusion/captures/S117/depth.png)
+
+通常の2D画像に含まれる補助Zで霧を加えた例です。true Deep、Fog 3D、Volume Fogの検証ではありません。追加Fog画像、Pick操作、透明物・Z境界、Mask、外部EXRの保存・再読込、別Renderer、Edition差と性能は未確認です。
+
+[再現用Graph](/img/fusion/captures/S117/fixture.comp) · [撮影条件と確認範囲](/img/fusion/captures/S117/capture.json)
+
 ## 出典・確認範囲
 
 - **Blackmagic Design『DaVinci Resolve 21.1 Reference Manual』**、Chapter 96「Fog [Fog]」、本文**pp.2261–2263**。3入力、Renderer 3DのZ-Depth、Near/Far Pick、Z Depth Scale、Fog Color / Opacityを確認。
 - 同Manual Chapter 88「Fog 3D [3Fo]」（pp.1950–1952）および「Fog 3D and Soft Clipping」（p.1865）。3D処理と2D後処理の違い。
 - [Blackmagic Design公式サポート](https://www.blackmagicdesign.com/support)（21.1 Reference Manual）。
 
-21.1マニュアルに基づく説明です。21.1実機での端子ラベル、Z境界、透明素材、Renderer種別やEdition差の動作は未検証のため、`verification: partial`を維持します。
+S117でSoftware Rendererの補助Z、Near／FarとOpacityによる表示を実機確認しました。Z境界、透明素材、別RendererやEdition差は未確認のため、`verification: partial`を維持します。
