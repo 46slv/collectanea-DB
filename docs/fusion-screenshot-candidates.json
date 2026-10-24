@@ -2,7 +2,7 @@
   "schema_version": 1,
   "created": "2026-10-20",
   "scope": "All Fusion pages, DaVinci Resolve 21.1",
-  "status_note": "2026-10-24:PR130 merged/QualityPASS,Pages/public pending.Local200/774/1168;public195/763/1138 throughPR129.S122 dHoldout nativeSDK connection exits remain unresolved;S123 ordinary2D WORK progressing,partial retained.",
+  "status_note": "2026-10-24:public200/774/1168 throughPR130,1780/1780 HTTP/hashPASS.Whole587/355capture-needed plus remaining_views incomplete;partial retained.S122 dHoldout SDK connection exit unresolved;S123 WORK native1vs5 proof,notadopted.",
   "asset_directory_template": "static/img/fusion/captures/{id}/{shot.slug}.png",
   "capture_manifest_name": "capture.json",
   "candidates": [
@@ -6482,7 +6482,7 @@
         "printed_pages": "2237–2240,2246–2247,2252–2253"
       },
       "goal": "Two opaque flat-Z DeepImage sources Z2 red/Z5 blue,dMerge retains hidden rear sample,dCrop1..3 and4..6,DeepToImage flatten for native display",
-      "status": "captured-local-display-verified",
+      "status": "published-display-verified",
       "shots": [
         {
           "slug": "graph",
@@ -7797,8 +7797,15 @@
       "merge_owner": "Sol exact-head all jobs/steps,fresh main/head/reviews/comments/inline,expected-head squash,MERGED/equal tree",
       "new_native_crops": 11,
       "new_placements": 30,
-      "result": "WAIT_PAGES_PUBLIC",
-      "limitations": "Whole587/355capture-needed plus remaining_views incomplete;dHoldoutS122 blocked on SDK connection host exits,notaccepted."
+      "result": "PASS",
+      "limitations": "Whole587/355capture-needed plus remaining_views incomplete;dHoldoutS122 blocked on SDK connection host exits,notaccepted.",
+      "public_pages": 6,
+      "public_images": 35,
+      "public_asset_hashes": 1780,
+      "evidence": [
+        "artifacts/fusion-captures/public-batch38-display-report.json",
+        "artifacts/fusion-captures/public-batch38-assets.json"
+      ]
     }
   ],
   "coverage_inventory": {
@@ -28048,7 +28055,7 @@
         "compare.png",
         "far.png"
       ],
-      "status": "captured-local-display-verified",
+      "status": "published-display-verified",
       "scope": "True DeepImage two opaque flat-Z samples,hidden rear recovery;own selected Inspector where applicable,not external EXR or volumetric."
     },
     {
@@ -28064,7 +28071,7 @@
         "far-inspector.png",
         "far.png"
       ],
-      "status": "captured-local-display-verified",
+      "status": "published-display-verified",
       "scope": "True DeepImage two opaque flat-Z samples,hidden rear recovery;own selected Inspector where applicable,not external EXR or volumetric."
     },
     {
@@ -28076,7 +28083,7 @@
         "flatten-inspector.png",
         "compare.png"
       ],
-      "status": "captured-local-display-verified",
+      "status": "published-display-verified",
       "scope": "True DeepImage two opaque flat-Z samples,hidden rear recovery;own selected Inspector where applicable,not external EXR or volumetric."
     },
     {
@@ -28088,7 +28095,7 @@
         "compare.png",
         "far.png"
       ],
-      "status": "captured-local-display-verified",
+      "status": "published-display-verified",
       "scope": "True DeepImage two opaque flat-Z samples,hidden rear recovery;own selected Inspector where applicable,not external EXR or volumetric."
     },
     {
@@ -28098,7 +28105,7 @@
       "images": [
         "compare.png"
       ],
-      "status": "captured-local-display-verified",
+      "status": "published-display-verified",
       "scope": "True DeepImage two opaque flat-Z samples,hidden rear recovery;own selected Inspector where applicable,not external EXR or volumetric."
     }
   ],
