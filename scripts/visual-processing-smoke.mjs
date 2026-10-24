@@ -419,6 +419,55 @@ try {
       if (width === 390) await shot('thresholding-mobile');
     }
   });
+  await check('guided-filter-preview-controls-and-mobile', async () => {
+    await go(route);
+    await page.getByRole('link', {name: '自己ガイドと理想ガイドを操作して比較'}).click();
+    await expect(page).toHaveURL(new RegExp('/reference/visual-processing/filters/guided-filter/?$'));
+    for (const width of [1440, 390, 320]) {
+      await page.setViewportSize({width, height: width === 1440 ? 1000 : 844});
+      await go('/reference/visual-processing/filters/guided-filter');
+      await expect(page.locator('.theme-doc-markdown h1')).toHaveText('Guided Filter（ガイド付きフィルタ）');
+      const widget = page.locator('[data-vp-guided="ready"]');
+      await expect(widget).toBeVisible();
+      const layout = await widget.evaluate((element) => {
+        const previews = element.querySelector('.vp-guided__previews');
+        const controls = element.querySelector('.vp-guided__controls');
+        return {
+          dom: Boolean(previews && controls && (previews.compareDocumentPosition(controls) & Node.DOCUMENT_POSITION_FOLLOWING)),
+          visual: Boolean(previews && controls && previews.getBoundingClientRect().bottom <= controls.getBoundingClientRect().top),
+          panels: element.querySelectorAll('[data-vp-guided-preview]').length,
+        };
+      });
+      assert.ok(layout.dom && layout.visual && layout.panels === 4,
+        'Guided Filter four-panel preview-first layout: ' + width + ' ' + JSON.stringify(layout));
+      const mode = widget.getByRole('combobox', {name: 'ガイドの種類'});
+      const guidance = widget.locator('[data-vp-guided-preview="guide"] canvas');
+      const output = widget.locator('[data-vp-guided-preview="output"] canvas');
+      const frame = canvas => canvas.evaluate(element => element.toDataURL());
+      if (width === 1440) {
+        const originalGuide = await frame(guidance);
+        const originalOutput = await frame(output);
+        await mode.selectOption('ideal');
+        await expect(widget).toHaveAttribute('data-vp-guided-guide-mode', 'ideal');
+        await expect.poll(() => frame(guidance)).not.toBe(originalGuide);
+        await expect.poll(() => frame(output)).not.toBe(originalOutput);
+        const radius = widget.getByRole('slider', {name: '近傍半径'});
+        await radius.focus();
+        await radius.press('End');
+        await expect(widget).toHaveAttribute('data-vp-guided-radius', '6');
+        const changed = await frame(output);
+        await widget.getByRole('slider', {name: '正則化'}).focus();
+        await widget.getByRole('slider', {name: '正則化'}).press('End');
+        await expect.poll(() => frame(output)).not.toBe(changed);
+        await widget.getByRole('button', {name: '初期値に戻す'}).click();
+        await expect(widget).toHaveAttribute('data-vp-guided-guide-mode', 'self');
+        await expect(widget).toHaveAttribute('data-vp-guided-radius', '3');
+        await expect(widget.getByRole('slider', {name: '正則化'})).toHaveValue('20');
+      }
+      await noOverflow();
+      if (width === 390) await shot('guided-filter-mobile');
+    }
+  });
   await check('no-runtime-or-resource-errors', async () => {
     assert.deepEqual(report.pageErrors, []);
     assert.deepEqual(report.resourceErrors, []);

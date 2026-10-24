@@ -64,6 +64,7 @@ import '@site/src/css/visual-processing.css';
 | **ボックスブラー（Box Blur）** | 一定範囲の画素を均等に平均し、輪郭をぼかす。 |
 | **方向性ブラー（Directional Blur）** | 決めた方向へ画像を引き延ばしたようなぼけを作る。 |
 | **バイラテラルフィルタ（Bilateral Filter）** | 距離だけでなく明るさの近さも見て平均し、輪郭を残しながら平滑化する。[Gaussian Blurと操作して比較](./filters/bilateral-filter.mdx)。 |
+| **ガイド付きフィルタ（Guided Filter）** | 同じ画像や別のガイド画像の構造を利用して、輪郭を保ちながら平滑化する。[自己ガイドと理想ガイドを操作して比較](./filters/guided-filter.mdx)。 |
 | **メディアンフィルタ（Median Filter）** | 近傍の中央値へ置き換え、孤立した明暗のノイズなどを除去する。[塩胡椒ノイズとGaussian Blurを比較](./filters/median-filter.mdx)。 |
 | **シャープニング（Sharpening）** | 輪郭付近の局所的なコントラストを強め、細部がくっきり見えるようにする。 |
 | **アンシャープマスク（Unsharp Mask）** | ぼかした画像との差から輪郭成分を取り出し、元画像へ加えて強調する。[輪郭とハローの比較](./filters/unsharp-mask.mdx)。 |

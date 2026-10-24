@@ -1,0 +1,14 @@
+.vp-guided { max-width: 100%; margin: 1.25rem 0 2rem; }
+.vp-guided__previews { display: grid; grid-template-columns: repeat(auto-fit, minmax(min(100%, 220px), 1fr)); gap: 0.8rem; margin: 1rem 0; }
+.vp-guided__panel { margin: 0; min-width: 0; padding: 0.7rem; border: 1px solid var(--ifm-color-emphasis-300); border-radius: 0.5rem; }
+.vp-guided__panel figcaption { display: flex; flex-direction: column; gap: 0.2rem; min-height: 3.6rem; font-size: 0.85rem; overflow-wrap: anywhere; }
+.vp-guided__panel figcaption span { color: var(--ifm-font-color-secondary); }
+.vp-guided__panel canvas { display: block; width: 100%; max-width: 100%; height: auto; margin-top: 0.45rem; image-rendering: pixelated; border: 1px solid var(--ifm-color-emphasis-300); }
+.vp-guided__metric { margin: 1rem 0 0.5rem; overflow-wrap: anywhere; }
+.vp-guided__note { font-size: 0.88rem; }
+.vp-guided__controls { display: grid; grid-template-columns: repeat(auto-fit, minmax(min(100%, 220px), 1fr)); gap: 1rem; margin: 1.1rem 0; }
+.vp-guided__controls label { display: flex; flex-direction: column; min-width: 0; gap: 0.4rem; }
+.vp-guided__controls input, .vp-guided__controls select { width: 100%; min-width: 0; }
+.vp-guided__controls input[type="range"] { accent-color: var(--ifm-color-primary); }
+.vp-guided__reset { cursor: pointer; border: 1px solid var(--ifm-color-emphasis-400); border-radius: 0.4rem; padding: 0.5rem 0.9rem; background: var(--ifm-background-surface-color); color: var(--ifm-font-color-base); }
+.vp-guided__reset:focus-visible { outline: 2px solid var(--ifm-color-primary); outline-offset: 2px; }
