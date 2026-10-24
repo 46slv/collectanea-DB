@@ -87,6 +87,9 @@ TARGETS['S93']='Paint1';LEFT['S93']='Loader1';RIGHT['S93']='Paint1'
 TARGETS['S94']='Paint1';LEFT['S94']='Loader1';RIGHT['S94']='Paint1'
 TARGETS['S95']='Paint1';LEFT['S95']='Loader1';RIGHT['S95']='Paint1'
 TARGETS['S96']='Paint1';LEFT['S96']='Loader1';RIGHT['S96']='Paint1'
+TARGETS['S97']='ChannelBooleans1';LEFT['S97']='Loader1';RIGHT['S97']='ChannelBooleans1'
+TARGETS['S98']='Gamut1';LEFT['S98']='Loader1';RIGHT['S98']='Gamut1'
+TARGETS['S99']='Swizzler1';LEFT['S99']='Loader1';RIGHT['S99']='Swizzler1'
 r=d.scriptapp('Resolve')
 assert r, 'Resolve scripting unavailable; do not change preferences automatically'
 pm=r.GetProjectManager(); p=pm.GetCurrentProject()
@@ -97,6 +100,8 @@ save_export=action!='preview'
 detail_view=action=='detail'
 if detail_view:assert case in ['S62','S63','S69'];action='show'
 requested_frame=int(sys.argv[3]) if action=='frame' else 24 if case in ['S40','S42'] else 0
+if action=='channel_source':
+ assert case=='S97';LEFT[case]='AlphaSource1';action='show'
 if action=='paint_clean':
  assert case in ['S87','S88','S89','S90','S91','S92','S93','S94','S95','S96'];requested_frame=int(sys.argv[3]);assert requested_frame in [0,1,119]
  TARGETS[case]='MediaOut1';action='show'
@@ -198,6 +203,7 @@ def connect(dst,key,src):
 def text(name,x,y,value='FUSION',size=.13):
  return add('TextPlus',name,x,y,StyledText=value,Font='Arial',Style='Bold',Size=size)
 def select(target,left=None):
+ if case=='S97' and 'AlphaMultiply1' in tools:RIGHT['S97']='AlphaMultiply1'
  c.SetActiveTool(target)
  previews=c.GetPreviewList()
  previews['RightView'].ViewOn(tools[RIGHT.get(case,TARGETS[case])])
@@ -285,6 +291,10 @@ def select(target,left=None):
  layouts['S40']={'Loader1':(0,0),'TimeSpeed1':(1.5,0),'MediaOut1':(3,0)}
  layouts['S39']={'Loader1':(0,0),'TimeDynamic':(1.5,-1.5),'TimeHold':(1.5,1.5),'TransformHold':(3,1.5),'MediaOut1':(3,-1.5)}
  layouts['S35']={'Text1':(0,0),'TransformAnimated':(1.5,0),'MediaOut1':(3,0)}
+ layouts['S97']={'Loader1':(0,0),'Ellipse1':(0,-2),'AlphaSource1':(1.5,-2),'ChannelBooleans1':(3,0),'MediaOut1':(4.5,0)}
+ if case=='S97' and 'AlphaMultiply1' in tools:
+  layouts['S97'].update({'AlphaMultiply1':(4.5,0),'MediaOut1':(6,0)});RIGHT['S97']='AlphaMultiply1'
+ layouts['S99']={'Loader1':(0,0),'Gold1':(0,-2),'Swizzler1':(2,0),'MediaOut1':(4,0)}
  for n,pos in layouts.get(case,{}).items():
   if n in tools:flow.SetPos(tools[n],*pos)
  if case=='S27':flow.SetScale(1.0)
@@ -323,6 +333,24 @@ if action=='build':
   rb=add('sRender','RenderBase1',4,-1);connect(rb,'Input',base)
   target=add('sTransform','Transform1',2,1);connect(target,'Input',base)
   rr=add('sRender','RenderChanged1',4,1);connect(rr,'Input',target);connect(mo,'Input',rr)
+ elif case=='S99':
+  loader=add('Loader','Loader1',0,0,Clip=str(REPO/'static/img/fusion/captures/_fixtures/chart.png'))
+  gold=add('Background','Gold1',0,-2,TopLeftRed=1,TopLeftGreen=.5,TopLeftBlue=.05,TopLeftAlpha=1)
+  target=add('Swizzler','Swizzler1',2,0)
+  ids={z.GetAttrs().get('INPS_ID') for z in target.GetInputList().values() if z is not None and callable(z.GetAttrs) and z.GetAttrs().get('INPS_DataType')=='Image'}
+  assert 'Input1' in ids,ids
+  connect(target,'Input1',loader)
+  ids={z.GetAttrs().get('INPS_ID') for z in target.GetInputList().values() if z is not None and callable(z.GetAttrs) and z.GetAttrs().get('INPS_DataType')=='Image'}
+  assert 'Input2' in ids,ids
+  connect(target,'Input2',gold);connect(mo,'Input',target)
+ elif case=='S98':
+  loader=add('Loader','Loader1',0,0,Clip=str(REPO/'static/img/fusion/captures/_fixtures/chart.png'))
+  target=add('GamutConvert','Gamut1',1.5,0);connect(target,'Input',loader);connect(mo,'Input',target)
+ elif case=='S97':
+  loader=add('Loader','Loader1',0,0,Clip=str(REPO/'static/img/fusion/captures/_fixtures/chart.png'))
+  mask=add('EllipseMask','Ellipse1',0,-2,ShowViewControls=0)
+  alpha=add('Background','AlphaSource1',1.5,-2,TopLeftRed=1,TopLeftGreen=1,TopLeftBlue=1,TopLeftAlpha=1);connect(alpha,'EffectMask',mask)
+  target=add('ChannelBoolean','ChannelBooleans1',3,0);connect(target,'Background',loader);connect(target,'Foreground',alpha);connect(mo,'Input',target)
  # S88-96 create empty Paint scaffolds;native style selection and authoring required.
  elif case in ['S88','S89','S90','S91','S92','S93','S94','S95','S96']:
   loader=add('Loader','Loader1',0,0,Clip=str(REPO/'static/img/fusion/captures/_fixtures/chart.png'))
@@ -673,8 +701,8 @@ inputs={}
 for n,a in tools.items():
  inputs[n]={'regid':a.GetAttrs()['TOOLS_RegID'],'inputs':{}}
  # The first Paint scaffold saved successfully, then broad scalar introspection coincided
- # with host exit. For S86 onward Paint cases use native Inspector and exported text; do not retry that probe.
- if case in ['S86','S87','S88','S89','S90','S91','S92','S93','S94','S95','S96']:
+ # with host exit. For S86 onward use native Inspector and exported text; do not retry that probe.
+ if case in ['S86','S87','S88','S89','S90','S91','S92','S93','S94','S95','S96','S97','S98','S99']:
   inputs[n]['readback_scope']='NOT_RUN: broad input enumeration avoided after observed host exit;native GUI/export required'
   continue
  for z in a.GetInputList().values():

@@ -11,7 +11,7 @@ def portable(value):
 parser=argparse.ArgumentParser(description=__doc__)
 parser.add_argument('cases',nargs='+',help='Only finalize the named reviewed cases, e.g. S15 S16')
 args=parser.parse_args()
-assert all(re.fullmatch(r'S\d{2}',case) for case in args.cases)
+assert all(re.fullmatch(r'S(?:[0-9]{2}|[1-9][0-9]{2,})',case) for case in args.cases)
 for folder in [captures/case for case in args.cases]:
  fixture=folder/'fixture.comp'
  if not (folder/'capture.json').exists():continue

@@ -1,0 +1,171 @@
+{
+  "schema_version": 1,
+  "case": "S99",
+  "article": "manuals/fusion/nodes/color/swizzler.md",
+  "manual": {
+    "version": "21.1",
+    "chapter": 106,
+    "printed_pages": "2445–2450"
+  },
+  "runtime": {
+    "version": "21.1.0.14",
+    "edition": "Studio",
+    "os": "Windows-11-10.0.26200-SP0",
+    "ui_language": "ja-JP (some Shape controls remain English)"
+  },
+  "captured_at": "2026-10-24T06:09:34.423688+00:00",
+  "project": "Collectanea_Captures_20261023_Sol",
+  "timeline": "S99_capture",
+  "frame": 0.0,
+  "resolution": [
+    1920,
+    1080
+  ],
+  "color_management": {
+    "colorScienceMode": "davinciYRGB",
+    "colorSpaceTimeline": "Rec.709 (Scene)",
+    "colorSpaceTimelineGamma": "",
+    "colorSpaceOutput": "Rec.709 (Scene)",
+    "colorSpaceOutputGamma": "ACEScc",
+    "separateColorSpaceAndGamma": "0",
+    "isAutoColorManage": "0",
+    "timelineResolutionWidth": "1920",
+    "timelineResolutionHeight": "1080",
+    "timelineFrameRate": 24.0,
+    "timelinePlaybackFrameRate": "30"
+  },
+  "viewer": {
+    "zoom_percent": 40,
+    "channel": "Color",
+    "background": "checkerboard for transparent pixels",
+    "note": "Viewer screenshots are display evidence, not colorimetric exports."
+  },
+  "graph": "fixture.comp",
+  "settings": "readback.json",
+  "source": {
+    "file": "screen.png",
+    "size": [
+      3352,
+      1910
+    ],
+    "sha256": "51b5993f2769c3a5133e4fd619e197a4f4a9cd4f33d0ad4dde892a352bf39585"
+  },
+  "shots": [
+    {
+      "file": "graph.png",
+      "source": "screen.png",
+      "source_sha256": "51b5993f2769c3a5133e4fd619e197a4f4a9cd4f33d0ad4dde892a352bf39585",
+      "frame": 0,
+      "crop_xyxy": [
+        600,
+        1200,
+        2250,
+        1560
+      ],
+      "resampled": false,
+      "sha256": "3f747cf8a4c7bf4839d9edb0e675e2d1166cc9d538054b06c38d4fe5bc774efd",
+      "viewer_contents": "Left chart / Right Swizzler Gold layer",
+      "viewer_guides": false
+    },
+    {
+      "file": "inspector.png",
+      "source": "screen.png",
+      "source_sha256": "51b5993f2769c3a5133e4fd619e197a4f4a9cd4f33d0ad4dde892a352bf39585",
+      "frame": 0,
+      "crop_xyxy": [
+        2830,
+        120,
+        3352,
+        635
+      ],
+      "resampled": false,
+      "sha256": "0bca522c207fcc375492d04d9625f1c15eaffd61bca05bd1102412b83c770f20",
+      "viewer_contents": "Left chart / Right Swizzler Gold layer",
+      "viewer_guides": false
+    },
+    {
+      "file": "compare.png",
+      "source": "screen.png",
+      "source_sha256": "51b5993f2769c3a5133e4fd619e197a4f4a9cd4f33d0ad4dde892a352bf39585",
+      "frame": 0,
+      "crop_xyxy": [
+        1146,
+        65,
+        2830,
+        725
+      ],
+      "resampled": false,
+      "sha256": "ce455860444427f85ecd6679dd12ddc5617afa996b592dcd2d8870922210a746",
+      "viewer_contents": "Left chart / Right Swizzler Gold layer",
+      "viewer_guides": false
+    },
+    {
+      "file": "chart.png",
+      "source": "screen-chart.png",
+      "source_sha256": "b2e7abe5841e4307db2721cb436723fc2f7039e43e04874174608340d8e06115",
+      "frame": 0,
+      "crop_xyxy": [
+        1146,
+        65,
+        2830,
+        725
+      ],
+      "resampled": false,
+      "sha256": "87238226a928b60ba982faeccf1ba4e301f592c84c62c88470c5411c23446537",
+      "viewer_contents": "Left chart / Right Swizzler Chart layer",
+      "viewer_guides": false
+    }
+  ],
+  "acceptance": {
+    "gui": "PASS: owner visually inspected node connections, selected Inspector, and output",
+    "article_display": "Local/public outcomes recorded after execution in docs/fusion-screenshot-candidates.json per-case status and publication_batches;capture provenance fixed."
+  },
+  "unverified": [
+    "Free edition and other platforms",
+    "All parameter ranges and performance",
+    "Real footage,colorimetric accuracy,all control ranges,other editions/platforms/performance",
+    "Exported portable composition reimport"
+  ],
+  "parameter_readback_scope": "Broad value sweep NOT_RUN;exact-tool metadata plus bounded Number/Text/FuID readbacks and native GUI/export. No Image/Mask/ScriptVal payload evaluation.",
+  "gui_authoring": {
+    "host": {
+      "pid": 20156,
+      "hwnd": 82647722,
+      "source_pixels": [
+        3352,
+        1910
+      ]
+    },
+    "tool": "Swizzler1",
+    "regid": "Swizzler",
+    "visible_flow_tools": 4,
+    "delivery": "synthetic Cua/SDK,physical input NOT_PROVEN;native GUI/export establish outcome"
+  },
+  "restoration": "PASS:frame0,both40%,owned scratch saved,native final visually inspected",
+  "native_values": {
+    "Gold": {
+      "Source": "Input2",
+      "Channels": "All Channels"
+    },
+    "Chart": {
+      "Source": "Input1",
+      "Channels": "All Channels"
+    },
+    "KeepMainInputLayers": false,
+    "SourceLayer": "Default"
+  },
+  "state_variants": {
+    "screen.png": "Viewer Gold,Inspector Chart",
+    "screen-chart.png": "Viewer Chart,Inspector Chart"
+  },
+  "gui_sequence": "Native AddLayer once;metadata-confirmed LayerName2 renamed Chart. Native Viewer layer menu showed Gold/Chart;foreground Chart and Gold selections yielded foreground_unavailable after popup closure but native output independently confirmed;no blind retry.",
+  "unverified_extra": [
+    "Aux modes,KeepMain ON,EXR saving/downstream layer retention,layer order/deletion"
+  ],
+  "reproduction": {
+    "fixture_sha256": "843c489c518ab99a2489a85cb670fba81da94816c597a750d4f10ec25c01c177",
+    "readback_sha256": "ce9ed3aa91031c8137dd01aac67978ca8029912d636db9766f18698ef5f79c34",
+    "paths": "Comp:/../_fixtures/ for bundled synthetic fixtures",
+    "reimport": "NOT_RUN: accepted GUI evidence precedes export path normalization"
+  }
+}

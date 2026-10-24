@@ -15,7 +15,7 @@ outputs: [image]
 tasks: [channel-remap, alpha, auxiliary-channels]
 product_scope: fusion
 suite_surfaces: [fusion]
-updated: "2026-10-10"
+updated: "2026-10-24"
 ---
 
 # Channel Booleans
@@ -120,9 +120,37 @@ RGBの白黒階調として書き出した深度画像は、元の浮動小数�
 - **[Matte Control](../matte-keying/matte-control.md)**：マットの調整やAlphaの組み合わせを中心に使います。
 - **[Channel Boolean Material](../materials-lights/channel-boolean-material.md)**：名前は似ていますが**Classic 3DのMaterial用**です。2D画像にはChannel Booleansを使います。
 
+## 実機例：色とAlphaを別の入力から取る
+
+<!-- capture-case:S97 -->
+
+Resolve Studio21.1.0.14／Windows、1920×1080、Viewer40%、フレーム0で撮影しました。テスト用チャートを使った設定例です。
+
+LoaderのチャートをBackgroundへ、Ellipseで切り抜いた白いBackgroundをForegroundへ接続しました。Channel Booleansの後にはAlpha Multiplyを置き、その出力をMediaOutへ渡しています。
+
+[![チャートをBackground、楕円形の白い画像をForegroundへ接続し、Channel Booleansの後にAlpha Multiplyを置いた実機Graph](/img/fusion/captures/S97/graph.png)](/img/fusion/captures/S97/graph.png)
+
+[![Channel Booleansの実機Inspector、CopyでRGBはBackground、AlphaはForegroundから取る設定](/img/fusion/captures/S97/inspector.png)](/img/fusion/captures/S97/inspector.png)
+
+OperationはCopy、To Red／To Green／To BlueはそれぞれRed BG／Green BG／Blue BG、To AlphaはAlpha FGです。日本語UIでは赤・緑・青の「背景」と、アルファの「前景」が表示されています。前述のDo Nothingを使うManual例とは設定が異なり、この撮影ではRGBの供給元を明示しています。
+
+[![左は白い楕円形のAlpha供給画像、右はそのAlphaを採用してAlpha Multiplyを通したチャート](/img/fusion/captures/S97/alpha-source.png)](/img/fusion/captures/S97/alpha-source.png)
+
+Alphaの差し替えと、RGBへAlphaを掛ける処理は別です。Alpha Multiplyを追加する前のChannel Booleans出力では、楕円の外側にもRGBが残り、Viewerの市松模様が明るく色づいて見えました。次の画像はその比較用に保存した状態で、GraphにはまだAlpha Multiplyがありません。
+
+[![Alphaだけを差し替えたChannel Booleans出力、楕円外のRGBが残って市松模様が明るく色づく実機例](/img/fusion/captures/S97/raw.png)](/img/fusion/captures/S97/raw.png)
+
+後段へAlpha Multiplyを追加すると、楕円の外は通常の市松模様になり、内側のチャートが残りました。右Viewerの表示先もChannel BooleansからAlphaMultiply1へ切り替えています。すでにRGBへAlphaが掛かっている素材では、重ねて乗算しないよう入力の状態を確認します。
+
+[![左のチャートと右のAlpha Multiply後の出力、楕円の外が透明になった実機比較](/img/fusion/captures/S97/compare.png)](/img/fusion/captures/S97/compare.png)
+
+確認したのはCopyによるこのRGBA割り当てと、後段のAlpha Multiplyを含む表示までです。Aux、Matte、Effect Mask、他のOperation、実写素材のエッジや色の精度、他OS・Edition差と性能は未確認です。`verification: partial`を維持します。
+
+[再現用Graph](/img/fusion/captures/S97/fixture.comp) · [撮影条件と確認範囲](/img/fusion/captures/S97/capture.json)
+
 ## 出典・確認範囲
 
 - **Blackmagic Design『DaVinci Resolve 21.1 Reference Manual』**、Chapter 93「Channel Booleans [Bol]」、本文**pp.2154–2157**。4入力、Foreground未接続時の挙動、Operation、RGBAの差し替え、Aux Channels、ForegroundのZをBackgroundへコピーする例を確認。
 - 関連：同Manual Chapter 93「Copy Aux [CpA]」（pp.2182–2185）、Chapter 96「Depth Blur [DBl]」（pp.2259–2261）と「Fog [Fog]」（pp.2261–2263）。
 
-本文の接続例は21.1公式資料をもとに構成しています。21.1実機での全演算の境界値、外部画像の深度チャンネル形式、Alphaのpremultiplicationによる差は未検証のため、`verification: partial`を維持します。
+本文の接続例は21.1公式資料をもとに構成しています。21.1実機での全演算の境界値、外部画像の深度チャンネル形式、他の素材でのpremultiplicationによる差は未検証のため、`verification: partial`を維持します。

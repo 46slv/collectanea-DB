@@ -15,7 +15,7 @@ outputs: [image]
 tasks: [multilayer, auxiliary-channels, channel-remap]
 product_scope: fusion
 suite_surfaces: [fusion]
-updated: "2026-10-10"
+updated: "2026-10-24"
 ---
 
 # Swizzler
@@ -119,6 +119,32 @@ Input 2自体が複数Layerを持つ場合は、**Source Layer**で対象を選�
 - [Layer Muxer](../layers/layer-muxer)：2つのマルチレイヤー画像からLayerを選んで結合する。
 - [Layer Regex](../layers/layer-regex)：Layer名の規則で名称変更・選別・削除をする。
 - [Layer Remover](../layers/layer-remover)：すでにある不要Layerを削除する。
+
+## 実機例：2つの入力を名前付きLayerへまとめる
+
+<!-- capture-case:S99 -->
+
+Resolve Studio21.1.0.14／Windows、1920×1080、Viewer40%、フレーム0で撮影しました。テスト用チャートを使った設定例です。
+
+Input 1へLoaderのチャート、Input 2へオレンジ色のBackgroundを接続しました。Swizzlerの画像出力をMediaOutへ渡しています。
+
+[![チャートをSwizzlerのInput1、GoldのBackgroundをInput2へ接続し、出力をMediaOutへ渡す実機Graph](/img/fusion/captures/S99/graph.png)](/img/fusion/captures/S99/graph.png)
+
+最初のLayer1をGoldへ改名し、ChannelsをAll Channelsのまま、SourceをInput 2へ変更しました。続いて実機のAdd LayerでLayer2を追加し、Chartへ改名しています。ChartのSourceはInput 1です。両LayerのチェックはON、Keep Main Input LayersはOFF、Source Layerはデフォルトレイヤーです。
+
+[![SwizzlerのLayer ListにGoldとChartがあり、選択したChartのSourceがInput1になっている実機Inspector](/img/fusion/captures/S99/inspector.png)](/img/fusion/captures/S99/inspector.png)
+
+右ViewerのLayerメニューにはGoldとChartが現れました。Goldを選ぶと、Input 2のオレンジ色だけが表示されます。下のInspectorではChartを選んだままですが、Viewerの表示LayerはGoldです。Inspectorで編集するLayerとViewerで見るLayerは、それぞれ確認してください。
+
+[![左は入力チャート、右はSwizzlerのGoldレイヤーを選んだオレンジ色の実機出力](/img/fusion/captures/S99/compare.png)](/img/fusion/captures/S99/compare.png)
+
+ViewerのLayerをChartへ切り替えると、同じSwizzler出力からInput 1のチャートが表示されました。GoldとChartをMergeで重ねた結果ではなく、画像内の別々のLayerを選び直した比較です。
+
+[![同じSwizzler出力のChartレイヤーへ切り替え、右にInput1のチャートを表示した実機比較](/img/fusion/captures/S99/chart.png)](/img/fusion/captures/S99/chart.png)
+
+最後はViewerをGoldへ戻して保存しました。Layerの追加・改名、2入力のAll Channels割り当てとViewer切り替えまでを確認しています。Keep Main Input LayersのON、Aux、RGB/A、R/G/B/A、Layer順序・削除、EXR保存や後段への保持、他OS・Edition差と性能は未確認です。`verification: partial`を維持します。
+
+[再現用Graph](/img/fusion/captures/S99/fixture.comp) · [撮影条件と確認範囲](/img/fusion/captures/S99/capture.json)
 
 ## バージョンと出典
 

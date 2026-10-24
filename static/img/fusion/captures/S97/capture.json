@@ -1,0 +1,183 @@
+{
+  "schema_version": 1,
+  "case": "S97",
+  "article": "manuals/fusion/nodes/color/channel-boolean.md",
+  "manual": {
+    "version": "21.1",
+    "chapter": 93,
+    "printed_pages": "2154–2157"
+  },
+  "runtime": {
+    "version": "21.1.0.14",
+    "edition": "Studio",
+    "os": "Windows-11-10.0.26200-SP0",
+    "ui_language": "ja-JP (some Shape controls remain English)"
+  },
+  "captured_at": "2026-10-24T06:09:34.363793+00:00",
+  "project": "Collectanea_Captures_20261023_Sol",
+  "timeline": "S97_capture",
+  "frame": 0.0,
+  "resolution": [
+    1920,
+    1080
+  ],
+  "color_management": {
+    "colorScienceMode": "davinciYRGB",
+    "colorSpaceTimeline": "Rec.709 (Scene)",
+    "colorSpaceTimelineGamma": "",
+    "colorSpaceOutput": "Rec.709 (Scene)",
+    "colorSpaceOutputGamma": "ACEScc",
+    "separateColorSpaceAndGamma": "0",
+    "isAutoColorManage": "0",
+    "timelineResolutionWidth": "1920",
+    "timelineResolutionHeight": "1080",
+    "timelineFrameRate": 24.0,
+    "timelinePlaybackFrameRate": "30"
+  },
+  "viewer": {
+    "zoom_percent": 40,
+    "channel": "Color",
+    "background": "checkerboard for transparent pixels",
+    "note": "Viewer screenshots are display evidence, not colorimetric exports."
+  },
+  "graph": "fixture.comp",
+  "settings": "readback.json",
+  "source": {
+    "file": "screen.png",
+    "size": [
+      3352,
+      1910
+    ],
+    "sha256": "be58a9c0770b84fa94f82e30d92c26c8d2c8963e23ea8197ede29e3a9a0b8eee"
+  },
+  "shots": [
+    {
+      "file": "graph.png",
+      "source": "screen.png",
+      "source_sha256": "be58a9c0770b84fa94f82e30d92c26c8d2c8963e23ea8197ede29e3a9a0b8eee",
+      "frame": 0,
+      "crop_xyxy": [
+        260,
+        1200,
+        2560,
+        1560
+      ],
+      "resampled": false,
+      "sha256": "4c640e1ecb012c06cca5067d87b6a7ef3645739db15b3de22294cd21cf7dc2d0",
+      "viewer_contents": "Left chart / Right AlphaMultiply cutout",
+      "viewer_guides": false
+    },
+    {
+      "file": "inspector.png",
+      "source": "screen.png",
+      "source_sha256": "be58a9c0770b84fa94f82e30d92c26c8d2c8963e23ea8197ede29e3a9a0b8eee",
+      "frame": 0,
+      "crop_xyxy": [
+        2830,
+        120,
+        3352,
+        375
+      ],
+      "resampled": false,
+      "sha256": "07589eade2764ce3077e1ec795c6f7b1df637763eec1b9a93a96849f0f1c14f6",
+      "viewer_contents": "Left chart / Right AlphaMultiply cutout",
+      "viewer_guides": false
+    },
+    {
+      "file": "compare.png",
+      "source": "screen.png",
+      "source_sha256": "be58a9c0770b84fa94f82e30d92c26c8d2c8963e23ea8197ede29e3a9a0b8eee",
+      "frame": 0,
+      "crop_xyxy": [
+        1146,
+        65,
+        2830,
+        725
+      ],
+      "resampled": false,
+      "sha256": "80302765a215090dfbd7fa38c98227a8d1fa1beb441e6fb44541ddbd73f3c00b",
+      "viewer_contents": "Left chart / Right AlphaMultiply cutout",
+      "viewer_guides": false
+    },
+    {
+      "file": "raw.png",
+      "source": "screen-raw.png",
+      "source_sha256": "8296cd25ff57707a58d7485f509baf1a6a0becee421f0e14fce05048d475fd17",
+      "frame": 0,
+      "crop_xyxy": [
+        1146,
+        65,
+        2830,
+        725
+      ],
+      "resampled": false,
+      "sha256": "039bf337f21367f4aea6691492ec1bd9cb8d6cc2b41700c528363a1d2b8a9b1a",
+      "viewer_contents": "Left chart / Right raw ChannelBooleans output before AlphaMultiply",
+      "viewer_guides": false
+    },
+    {
+      "file": "alpha-source.png",
+      "source": "screen-alpha-source.png",
+      "source_sha256": "837903c2e3578f37db4c3b119b7b34858341ff974fdd4dbd985b8e33e9864d30",
+      "frame": 0,
+      "crop_xyxy": [
+        1146,
+        65,
+        2830,
+        725
+      ],
+      "resampled": false,
+      "sha256": "a35dd8ca3f2b8a554c4ba89d5da2e4e57e4b08bf9d05c6953eaaf132e18e9637",
+      "viewer_contents": "Left AlphaSource circle / Right AlphaMultiply cutout",
+      "viewer_guides": false
+    }
+  ],
+  "acceptance": {
+    "gui": "PASS: owner visually inspected node connections, selected Inspector, and output",
+    "article_display": "Local/public outcomes recorded after execution in docs/fusion-screenshot-candidates.json per-case status and publication_batches;capture provenance fixed."
+  },
+  "unverified": [
+    "Free edition and other platforms",
+    "All parameter ranges and performance",
+    "Real footage,colorimetric accuracy,all control ranges,other editions/platforms/performance",
+    "Exported portable composition reimport"
+  ],
+  "parameter_readback_scope": "Broad value sweep NOT_RUN;exact-tool metadata plus bounded Number/Text/FuID readbacks and native GUI/export. No Image/Mask/ScriptVal payload evaluation.",
+  "gui_authoring": {
+    "host": {
+      "pid": 20156,
+      "hwnd": 82647722,
+      "source_pixels": [
+        3352,
+        1910
+      ]
+    },
+    "tool": "ChannelBooleans1",
+    "regid": "ChannelBoolean",
+    "visible_flow_tools": 6,
+    "delivery": "synthetic Cua/SDK,physical input NOT_PROVEN;native GUI/export establish outcome"
+  },
+  "restoration": "PASS:frame0,both40%,owned scratch saved,native final visually inspected",
+  "native_values": {
+    "Operation": "Copy",
+    "ToRed": "Red BG",
+    "ToGreen": "Green BG",
+    "ToBlue": "Blue BG",
+    "ToAlpha": "Alpha FG"
+  },
+  "state_variants": {
+    "screen.png": "Final six-node graph and downstream AlphaMultiply output",
+    "screen-raw.png": "Earlier five-node graph/raw ChannelBooleans,RGB outside alpha remains",
+    "screen-alpha-source.png": "Final graph,left white AlphaSource circle/right AlphaMultiply"
+  },
+  "rejected_attempts": [
+    "UIA enum invoke and foreground popup did not set target channels;bounded metadata-mapped Number setters then native accepted",
+    "Initial premultiplied capture still viewed raw ChannelBooleans;rejected,ViewOn target corrected before restored capture"
+  ],
+  "reproduction": {
+    "fixture_sha256": "0147972c2e61645b0c9b4b127070ba3b969244bd91b8caee5365aa615910adc9",
+    "readback_sha256": "4acb863e2e7e093187ba4d8c2d10e8a48556434b631ad5bed66f19f08875e35a",
+    "paths": "Comp:/../_fixtures/ for bundled synthetic fixtures",
+    "reimport": "NOT_RUN: accepted GUI evidence precedes export path normalization"
+  }
+}

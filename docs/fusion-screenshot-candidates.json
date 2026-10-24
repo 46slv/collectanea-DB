@@ -2,7 +2,7 @@
   "schema_version": 1,
   "created": "2026-10-20",
   "scope": "All Fusion pages, DaVinci Resolve 21.1",
-  "status_note": "2026-10-24:public165/611/950 through PR115,1447 assets PASS. S94–S96/R144–R146 local168/625/967,post-incoming8d217dd build and4pages25images PASS,ready for exact-head CI/publication. S97/S98 native work-stage only;whole587/387 capture-needed and remaining_views incomplete.",
+  "status_note": "2026-10-24:public168/625/967 through PR118 and1481 assets PASS;S97–S99 local4pages32images PASS,14newcrop+3reuse;whole Fusion incomplete.",
   "asset_directory_template": "static/img/fusion/captures/{id}/{shot.slug}.png",
   "capture_manifest_name": "capture.json",
   "candidates": [
@@ -5170,7 +5170,7 @@
         "additional_printed_pages": "1751–1760"
       },
       "goal": "Native Paint CopyRectangle,Graph/exact Inspector/output and119;bounded copy/seed/group translation",
-      "status": "captured-local-display-verified",
+      "status": "published-display-verified",
       "shots": [
         {
           "slug": "graph",
@@ -5196,7 +5196,8 @@
           "target": "CopyRectangle",
           "status": "native-observed"
         }
-      ]
+      ],
+      "published_batch": "fusion-native-20261024-29"
     },
     {
       "id": "S95",
@@ -5210,7 +5211,7 @@
         "additional_printed_pages": "1751–1760"
       },
       "goal": "Native Paint Fill,Graph/exact Inspector/output and119;bounded copy/seed/group translation",
-      "status": "captured-local-display-verified",
+      "status": "published-display-verified",
       "shots": [
         {
           "slug": "graph",
@@ -5242,7 +5243,8 @@
           "target": "Fill",
           "status": "native-observed"
         }
-      ]
+      ],
+      "published_batch": "fusion-native-20261024-29"
     },
     {
       "id": "S96",
@@ -5256,7 +5258,7 @@
         "additional_printed_pages": "1751–1760"
       },
       "goal": "Native Paint PaintGroup,Graph/exact Inspector/output and119;bounded copy/seed/group translation",
-      "status": "captured-local-display-verified",
+      "status": "published-display-verified",
       "shots": [
         {
           "slug": "graph",
@@ -5286,6 +5288,133 @@
           "slug": "before",
           "kind": "output",
           "target": "PaintGroup",
+          "status": "native-observed"
+        }
+      ],
+      "published_batch": "fusion-native-20261024-29"
+    },
+    {
+      "id": "S97",
+      "priority": "P1",
+      "article": "manuals/fusion/nodes/color/channel-boolean.md",
+      "manual": {
+        "version": "21.1",
+        "chapter": 93,
+        "printed_pages": "2154–2157"
+      },
+      "goal": "RGB from BG and Alpha from FG;raw versus downstream AlphaMultiply",
+      "status": "captured-local-display-verified",
+      "shots": [
+        {
+          "slug": "graph",
+          "kind": "node-graph",
+          "target": "ChannelBoolean",
+          "status": "native-observed"
+        },
+        {
+          "slug": "inspector",
+          "kind": "inspector",
+          "target": "ChannelBoolean",
+          "status": "native-observed"
+        },
+        {
+          "slug": "compare",
+          "kind": "output",
+          "target": "ChannelBoolean",
+          "status": "native-observed"
+        },
+        {
+          "slug": "raw",
+          "kind": "output",
+          "target": "ChannelBoolean",
+          "status": "native-observed"
+        },
+        {
+          "slug": "alpha-source",
+          "kind": "output",
+          "target": "ChannelBoolean",
+          "status": "native-observed"
+        }
+      ]
+    },
+    {
+      "id": "S98",
+      "priority": "P1",
+      "article": "manuals/fusion/nodes/color/gamut.md",
+      "manual": {
+        "version": "21.1",
+        "chapter": 93,
+        "printed_pages": "2185–2187"
+      },
+      "goal": "Source BT.709 scene with Remove Gamma ON/OFF",
+      "status": "captured-local-display-verified",
+      "shots": [
+        {
+          "slug": "graph",
+          "kind": "node-graph",
+          "target": "GamutConvert",
+          "status": "native-observed"
+        },
+        {
+          "slug": "inspector",
+          "kind": "inspector",
+          "target": "GamutConvert",
+          "status": "native-observed"
+        },
+        {
+          "slug": "compare",
+          "kind": "output",
+          "target": "GamutConvert",
+          "status": "native-observed"
+        },
+        {
+          "slug": "off-inspector",
+          "kind": "inspector",
+          "target": "GamutConvert",
+          "status": "native-observed"
+        },
+        {
+          "slug": "off",
+          "kind": "output",
+          "target": "GamutConvert",
+          "status": "native-observed"
+        }
+      ]
+    },
+    {
+      "id": "S99",
+      "priority": "P1",
+      "article": "manuals/fusion/nodes/color/swizzler.md",
+      "manual": {
+        "version": "21.1",
+        "chapter": 106,
+        "printed_pages": "2445–2450"
+      },
+      "goal": "Two named layers from two inputs and native Viewer layer selection",
+      "status": "captured-local-display-verified",
+      "shots": [
+        {
+          "slug": "graph",
+          "kind": "node-graph",
+          "target": "Swizzler",
+          "status": "native-observed"
+        },
+        {
+          "slug": "inspector",
+          "kind": "inspector",
+          "target": "Swizzler",
+          "status": "native-observed"
+        },
+        {
+          "slug": "compare",
+          "kind": "output",
+          "target": "Swizzler",
+          "status": "native-observed"
+        },
+        {
+          "slug": "chart",
+          "kind": "output",
+          "target": "Swizzler",
           "status": "native-observed"
         }
       ]
@@ -6227,27 +6356,58 @@
         "artifacts/fusion-captures/public-batch28-assets.json"
       ],
       "limitations": "Whole587/390 capture-needed and remaining_views incomplete;S94–S96 next adoption,not public."
+    },
+    {
+      "id": "fusion-native-20261024-29",
+      "cases": [
+        "S94",
+        "S95",
+        "S96"
+      ],
+      "reuses": [
+        "R144",
+        "R145",
+        "R146"
+      ],
+      "pr": "https://github.com/46slv/collectanea-DB/pull/118",
+      "candidate": "3727f9632819688ea8c9a1c30b5cc85f122bfe3d",
+      "main": "a25153c19adadeeb3cacce2993b5a6244631c7d5",
+      "tree": "d2c6c3635ce7f7e8ae474c93b3126ddfbf3ddefa",
+      "quality_run": "https://github.com/46slv/collectanea-DB/actions/runs/40067680423",
+      "pages_run": "https://github.com/46slv/collectanea-DB/actions/runs/40068623240",
+      "merge_owner": "Sol exact-head all Quality jobs/steps PASS,fresh main/reviews/comments,expected-head squash,MERGED and equal tree readback",
+      "public_pages": 4,
+      "public_images": 25,
+      "new_placements": 17,
+      "new_native_crops": 14,
+      "public_asset_hashes": 1481,
+      "result": "PASS",
+      "evidence": [
+        "artifacts/fusion-captures/public-batch29-display-report.json",
+        "artifacts/fusion-captures/public-batch29-assets.json"
+      ],
+      "limitations": "Whole587/387 capture-needed and remaining_views incomplete;S97–S99 native work stage,not public."
     }
   ],
   "coverage_inventory": {
-    "checked_at": "2026-10-24T05:42:33.746290+00:00",
+    "checked_at": "2026-10-24T06:13:20.268783+00:00",
     "scope": "All manuals/fusion Markdown and MDX pages; review necessity before adding images.",
     "completion_rule": "Every page has an explicit image decision; necessary images are native-observed, embedded, saved to GitHub and public-display-verified. A native example does not verify all article controls.",
     "summary": {
       "total_pages": 587,
-      "with_images": 168,
-      "with_native_examples": 168,
+      "with_images": 171,
+      "with_native_examples": 171,
       "states": {
         "reviewed-no-standalone-image": 26,
         "no-standalone-image-needed": 6,
         "illustrated-reused-example": 74,
-        "capture-planned": 387,
-        "illustrated-native-example": 94
+        "capture-planned": 384,
+        "illustrated-native-example": 97
       },
       "decisions": {
         "no-standalone-image-needed": 32,
-        "image-required": 168,
-        "capture-needed": 387
+        "image-required": 171,
+        "capture-needed": 384
       }
     },
     "pages": [
@@ -8923,13 +9083,18 @@
         "article": "manuals/fusion/nodes/color/channel-boolean.md",
         "title": "Channel Booleans",
         "kind": "node",
-        "image_count": 0,
-        "native_cases": [],
+        "image_count": 5,
+        "native_cases": [
+          "S97"
+        ],
         "reused_cases": [],
         "planned_cases": [],
-        "state": "capture-planned",
-        "decision": "capture-needed",
+        "state": "illustrated-native-example",
+        "decision": "image-required",
         "reason": "本文の対象機能: 画像の色・透明度・補助チャンネルを、別画像の値や演算で組み替える2D Node。。Color Corrector画像ではCurve/Matrix/Boolean等の固有Controlやchannel操作を示せない。",
+        "remaining_views": [
+          "Other modes/control variants,real footage/Aux/EXR,other editions/platforms/performance"
+        ],
         "required_views": [
           "対象Node名と実際の配線が読めるGraph",
           "対象Nodeを選択した固有Inspector（本文で示すControlを含む）",
@@ -8948,7 +9113,8 @@
             "section": "入力と出力",
             "role": "入力と結果を示す箇所"
           }
-        ]
+        ],
+        "audit_note": "S97 native bounded comparison accepted;remaining variants not complete."
       },
       {
         "article": "manuals/fusion/nodes/color/chromatic-aberration-removal.md",
@@ -9344,13 +9510,18 @@
         "article": "manuals/fusion/nodes/color/gamut.md",
         "title": "Gamut",
         "kind": "node",
-        "image_count": 0,
-        "native_cases": [],
+        "image_count": 5,
+        "native_cases": [
+          "S98"
+        ],
         "reused_cases": [],
         "planned_cases": [],
-        "state": "capture-planned",
-        "decision": "capture-needed",
+        "state": "illustrated-native-example",
+        "decision": "image-required",
         "reason": "本文の対象機能: RGBの色空間を変換し、ガンマカーブを取り除く・付けるColorノード。。S14の見た目の色補正はencoding変換の証拠にならず、display screenshotだけでは色精度を証明できない。",
+        "remaining_views": [
+          "Other modes/control variants,real footage/Aux/EXR,other editions/platforms/performance"
+        ],
         "required_views": [
           "対象Node名と実際の配線が読めるGraph",
           "対象Nodeを選択した固有Inspector（本文で示すControlを含む）",
@@ -9376,7 +9547,8 @@
             "section": "実践例：リニアで合成してから出力する",
             "role": "入力と結果を示す箇所"
           }
-        ]
+        ],
+        "audit_note": "S98 native bounded comparison accepted;remaining variants not complete."
       },
       {
         "article": "manuals/fusion/nodes/color/hue-curves.md",
@@ -9423,7 +9595,7 @@
         "article": "manuals/fusion/nodes/color/index.md",
         "title": "Colorノード",
         "kind": "index",
-        "image_count": 15,
+        "image_count": 18,
         "native_cases": [],
         "reused_cases": [
           "S14",
@@ -9433,7 +9605,10 @@
           "S70",
           "S71",
           "S72",
-          "S73"
+          "S73",
+          "S97",
+          "S98",
+          "S99"
         ],
         "planned_cases": [],
         "state": "illustrated-reused-example",
@@ -9650,13 +9825,18 @@
         "article": "manuals/fusion/nodes/color/swizzler.md",
         "title": "Swizzler",
         "kind": "node",
-        "image_count": 0,
-        "native_cases": [],
+        "image_count": 4,
+        "native_cases": [
+          "S99"
+        ],
         "reused_cases": [],
         "planned_cases": [],
-        "state": "capture-planned",
-        "decision": "capture-needed",
+        "state": "illustrated-native-example",
+        "decision": "image-required",
         "reason": "本文の対象機能: 複数の画像のLayerやchannelを選択し、新しいLayerへ割り当てるノード。。通常chartやColor出力だけの画像にはaux/layer構造の証拠がない。",
+        "remaining_views": [
+          "Other modes/control variants,real footage/Aux/EXR,other editions/platforms/performance"
+        ],
         "required_views": [
           "対象Node名と実際の配線が読めるGraph",
           "対象Nodeを選択した固有Inspector（本文で示すControlを含む）",
@@ -9682,7 +9862,7 @@
             "role": "入力と結果を示す箇所"
           }
         ],
-        "audit_note": "Planning prerequisite: hold-fixture-identity; not a live capability failure."
+        "audit_note": "S99 native bounded comparison accepted;remaining variants not complete."
       },
       {
         "article": "manuals/fusion/nodes/color/white-balance.md",
@@ -25950,8 +26130,9 @@
       "images": [
         "compare.png"
       ],
-      "status": "embedded-local-display-verified",
-      "scope": "Native bounded Paint CopyRectangle example,not full controls or tracking."
+      "status": "published-display-verified",
+      "scope": "Native bounded Paint CopyRectangle example,not full controls or tracking.",
+      "published_batch": "fusion-native-20261024-29"
     },
     {
       "id": "R145",
@@ -25960,8 +26141,9 @@
       "images": [
         "compare.png"
       ],
-      "status": "embedded-local-display-verified",
-      "scope": "Native bounded Paint Fill example,not full controls or tracking."
+      "status": "published-display-verified",
+      "scope": "Native bounded Paint Fill example,not full controls or tracking.",
+      "published_batch": "fusion-native-20261024-29"
     },
     {
       "id": "R146",
@@ -25970,8 +26152,39 @@
       "images": [
         "compare.png"
       ],
+      "status": "published-display-verified",
+      "scope": "Native bounded Paint PaintGroup example,not full controls or tracking.",
+      "published_batch": "fusion-native-20261024-29"
+    },
+    {
+      "id": "R147",
+      "article": "manuals/fusion/nodes/color/index.md",
+      "source_case": "S97",
+      "images": [
+        "compare.png"
+      ],
       "status": "embedded-local-display-verified",
-      "scope": "Native bounded Paint PaintGroup example,not full controls or tracking."
+      "scope": "RGBとAlphaを別入力から取り、後段のAlpha Multiplyを通した楕円の切り抜き;bounded example,not full controls."
+    },
+    {
+      "id": "R148",
+      "article": "manuals/fusion/nodes/color/index.md",
+      "source_case": "S98",
+      "images": [
+        "compare.png"
+      ],
+      "status": "embedded-local-display-verified",
+      "scope": "SourceをBT.709 sceneにしてRemove GammaをONにした比較;bounded example,not full controls."
+    },
+    {
+      "id": "R149",
+      "article": "manuals/fusion/nodes/color/index.md",
+      "source_case": "S99",
+      "images": [
+        "compare.png"
+      ],
+      "status": "embedded-local-display-verified",
+      "scope": "Swizzlerで2入力をGoldとChartのLayerへ分け、Goldを表示した比較;bounded example,not full controls."
     }
   ],
   "external_reports": [
@@ -25983,6 +26196,15 @@
       "readback": "PASS:sent message1012/formatted1019,empty input255/Send261 disabled;ACK1034 explicitly separates PR110/112 public159/585/918 and PR113 CI pending162/598/934,Sol sole owner/no duplicate workers",
       "evidence": "artifacts/fusion-captures/dot-batch27-report.jpg",
       "scope": "This report preceded PR113 publication;ACK is not publication proof or new authority."
+    },
+    {
+      "event": "fusion-native-20261024-29",
+      "destination": "verified silvel profile at https://chatgpt.com/dots/home",
+      "source_task": "01a1683b-3067-7a40-892a-47a3b30d50b2",
+      "sent_once": true,
+      "readback": "PASS:sent1197/formatted1204/1206,empty input255/Send261 disabled;ACK1211 explicitly separates PR115 public165/611/950 and PR118 CI pending168/625/967,Sol sole owner/no duplicate workers",
+      "evidence": "artifacts/fusion-captures/dot-batch29-report.jpg",
+      "scope": "Report preceded PR118 publication;ACK is not publication proof or new authority."
     }
   ]
 }

@@ -1,6 +1,6 @@
 # Fusion 21.1 スクリーンショット計画
 
-更新: 2026-10-24。165ページ・611原画crop・950掲載を公開確認済み。S94–S96を次の掲載候補へ採用し、S97 Channel Booleansもnative確認まで継続。Fusion全体は未完了。
+更新: 2026-10-24。168ページ・625原画crop・967掲載を公開確認済み。S97–S99のnative確認を終え、記事掲載へ継続中。Fusion全体は未完了。
 
 撮影候補は [fusion-screenshot-candidates.json](./fusion-screenshot-candidates.json) に記録する。記事の説明基準は [Fusion Authoring Contract](./fusion-authoring-contract.md)、技術出典はDaVinci Resolve 21.1 Reference Manual（2026年9月）。公式画像の転載ではなく、実機から独自に撮影する。
 
@@ -29,9 +29,9 @@
 ## Active Checkpoint — 2026-10-24
 
 - Mission / Owner: Fusion全体の必要箇所を実機撮影→記事掲載→GitHub→公開確認まで継続。Sol、制作元task `01a1683b-3067-7a40-892a-47a3b30d50b2`が設計・GUI・実装・統合・検証のsingle writer。ユーザーは全体継続・必要なGitHub操作・silvelへの報告を明示許可。Resolve GUIの別writerなし。新規worker/自動Rolloverは不要。
-- Canonical checkout:C:/Users/shiro/Documents/Codex/2026-10-23/task-19/collectanea-screenshot-integration、branch integration/fusion-paint-final-native-20261024、base8d217dd9bbc93828f23c3b540b40cf6f6cb53a99。incoming DifferenceKeyerを通常fast-forward、PR115公開receipt保持、S94–S96へ継続。pushは明示branch。
-- Public PASS:S01–S93/R01–R143、165ページ・611unique crop・950掲載。全587/未図示390/画像不要32、remaining_views未完、verification partial維持。各exact identityはpublication_batches、原画/設定/未確認範囲は各capture.json。
-- Latest receipt:PR115 candidate4ae125a6f1c8f5b7148e3ca6fc93a519ffdc3504、main8215d118f4187b054fba43cf7a5e15bc0ef491bc、tree8eb0aea25d5f4c70347a10365ffc8d15b26500a8一致。Quality40065516616/Pages40066337704全job/step PASS。fresh main/head/reviews/comments→Sol expected-head squash→MERGED。公開4記事21画像PC/390px/decode/Alt/原寸リンク/overflow PASS、1447全素材HTTP/hash PASS。public-batch28-display-report/assetsと8画面保存、CopyEllipse公開画面を実見・会話掲載。
+- Canonical checkout:C:/Users/shiro/Documents/Codex/2026-10-23/task-19/collectanea-screenshot-integration、branch integration/fusion-channels-gamut-layers-native-20261024、basea25153c19adadeeb3cacce2993b5a6244631c7d5。PR118公開receipt保持。pushは明示branch。
+- Public PASS:S01–S96/R01–R146、168ページ・625unique crop・967掲載。全587/未図示387/画像不要32、remaining_views未完、verification partial維持。exact identityはpublication_batches。
+- Latest receipt:PR118 candidate3727f9632819688ea8c9a1c30b5cc85f122bfe3d、maina25153c19adadeeb3cacce2993b5a6244631c7d5、treed2c6c3635ce7f7e8ae474c93b3126ddfbf3ddefa一致。Quality40067680423/Pages40068623240全job/step PASS。fresh main/head/reviews/comments/inline→Sol expected-head squash→MERGED。公開4記事25画像PC/390px/decode/Alt/原寸リンク/overflow PASS、1481素材HTTP/hash PASS。public-batch29-display-report/assetsと8画面保存、Fill公開画面を実見・会話掲載。
 - Batch16 PUBLIC PASS: S58–S61/R99–R102、28新crop+12再利用。PR91 initiala18bc59はincoming PR90 Banding/main5d53be9の通常mergeでf452e117へ更新。Reference2パスのincoming差分・祖先を確認しlocalff-only。旧Quality40035383198 cancelledはsuperseded。既存Integratorのmergeをfresh readback、二重mergeなし。
 - Validation/publication contract: scoped prepare/finalize/verifyへcase/entry IDを渡し既存caseを上書きしない。無描画/無拡大crop、source/crop/Graph/readback hashes。Ready integration PRのexact-head Quality全job/step→fresh main/reviews/comments→expected-head merge→Pages→公開UI/全素材hash。incoming mainは通常merge→新head CI、Integratorが先に統合していればreadbackだけ。CI中は凍結candidateへ追加しない。
 - Source/work stage:canonical helperS96/workS98。S94–S96 native確認・14crop＋3reuse採用、local/public未。S97 ChannelBoolean native/export/限定Number readbackまで確認、adopt未。広い入力値列挙省略、Image/Mask/3D/ScriptVal payload評価なし。
@@ -45,7 +45,7 @@
 - S65 native/local display PASS: RankFilter REGID、chart/Size7、Rank.5で細格子/小文字が減り、0で暗領域、1で明領域が広がる。最後Rank.5へ復元保存、restored実見。sources restored/rank0/rank1、7crop。実写salt-pepper/Mask/Alpha/境界/内部順位/性能未確認。
 - Batch17/18 PUBLIC PASS: S62–S65/PR93の29新crop+12再利用、S66–S69/PR96の31新crop+4分類比較を公開。累計public133/437/726。batch19 S70–S73は26新crop+4分類比較、local137/463/756まで受理。各exact identityはpublication_batches参照。
 - Dot delivered/readback PASS: fresh title/profile silvel/空入力を確認、event fusion-native-20261024-15でPR87–89公開121/349/610と929素材、PR91 head a18bc59f CI待ち、未図示430＋remaining_views、Sol単一writerを1段落paste→1回Send。送信文・空入力・受領文（121/349/610、PR91はCI待ち、未図示430継続）を確認。dot-batch15-report.jpgは報告本文の画面で会話へ掲載済み。返信画面を撮れたとは扱わず受領はUIテキストで確認。以後のPR91 head更新は別のGitHub readback。Dot返信から実行権限を追加しない。
-- **Next action / KEEP:**S94–S96 local4記事25画像→inventory→fresh main/open PR→commit/explicit push/Ready PR→exact-head Quality/merge/Pages/public/assets。S97 work stage採用はその後。保存済みcase再build禁止。public165/611/950、全体未完、Sol単一担当KEEP。
+- **Next action / KEEP:**S97 Channel Booleans/S98 Gamut/S99 Swizzlerの原画・exportを採用→記事/overview掲載→fresh build/表示/inventory→exact-head CI/merge/Pages/public/assets。S100前に2桁ID制約を修正。保存済みcase再build禁止。Sol単一担当KEEP、public168/625/967、全体未完。
 
 ## 第1batchの撮影・統合メモ（履歴）
 
@@ -172,3 +172,7 @@ Batch29 local PASS:S94–S96/R144–R146、14新crop＋3reuse17掲載、4記事2
 S98 native conditional PASS/work未adopt:Gamut1 REGGamutConvert、Loader chart→Gamut→MediaOut。初期Source/Output NoChange、Remove/AddGammaON、WhitePointAdaptationON、PreDividePostMultiplyOFFをnative実見330、両40%。Source combo UIA/foregroundDownReturn no-op、未設定と確認し反復なし。exact Gamut metadata INPIDT_ComboControl_IDでRec709を特定、bounded FuID currentNoChange→Rec7091回、native ITU-R BT.709(scene)/色度図＋暗いoutput実見336。RemoveGamma1→0のNumber変更でnative入力同じ表示337、1へ1回復元し338実見保存。原画default/rec709-remove/remove-off/restored、adopt未。AddGammaやOutputSpace変更、色域roundtrip/測色/RCM/実写/PreDivide/Mask/他色域/性能は未確認。metadata work/S98-gamut-combo-metadata.json、beforeSourcecompはprivatework、再build禁止。
 
 Batch29 freeze readiness:incoming8d217dd後fresh production buildと4記事25画像/asset hashes/PC390px全確認PASS。local168/625/967、public165/611/950。既存engine/regressions19/content51はPR115で受理済み、次候補もexact-head全Qualityを必要とする。
+
+S99 native PASS:Input1 chart/Input2 Gold→Swizzler→MediaOut。Layer1をGold/Source Input2へ変更、native Add LayerでLayer2を作りChartへ改名、Source Input1。ViewerレイヤーメニューにGold/Chartを確認し、foreground選択後の実画面でChart/Gold両方を確認。foreground_unavailableはpopup閉鎖後に返ったため再送せずnative結果で判定。最後Gold、frame0/40%/Swizzler選択で保存。Keep Main Input Layers OFF、All Channels、Aux/EXR/export/他mode未確認。native originals WORK/S99-final.png、S99-chart-front.png、S99-two-layers.png。現host20156/82647722、S99_capture、保存済み。Dot29は送信1197/ACK1211でPR115公開済み・PR118CI待ちを区別して受領済み。
+
+S97–S99 LOCAL PASS（public未確認）:14新crop＋R147–R149再利用3掲載、local4ページ32画像PC/390px/hash/decode/Alt/原寸リンク/overflow PASS（batch30-local/display-report.json、8画面）。production build PASS、回帰19/19、Python構文とdiff check PASS。local171ページ639crop984掲載、全587/未図示384/画像不要32、remaining_views未完。S100以降に備えfinalizeのIDを2桁または先頭非0の3桁以上へ限定拡張し、S01/S99/S100/S999/S1000受付、S1/S001/パス/suffix拒否を確認。既存case再finalize/rebuildはしていない。PR30凍結後はWORKだけで次候補準備する。

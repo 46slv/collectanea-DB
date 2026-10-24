@@ -1,0 +1,183 @@
+{
+  "schema_version": 1,
+  "case": "S98",
+  "article": "manuals/fusion/nodes/color/gamut.md",
+  "manual": {
+    "version": "21.1",
+    "chapter": 93,
+    "printed_pages": "2185–2187"
+  },
+  "runtime": {
+    "version": "21.1.0.14",
+    "edition": "Studio",
+    "os": "Windows-11-10.0.26200-SP0",
+    "ui_language": "ja-JP (some Shape controls remain English)"
+  },
+  "captured_at": "2026-10-24T06:09:34.395178+00:00",
+  "project": "Collectanea_Captures_20261023_Sol",
+  "timeline": "S98_capture",
+  "frame": 0.0,
+  "resolution": [
+    1920,
+    1080
+  ],
+  "color_management": {
+    "colorScienceMode": "davinciYRGB",
+    "colorSpaceTimeline": "Rec.709 (Scene)",
+    "colorSpaceTimelineGamma": "",
+    "colorSpaceOutput": "Rec.709 (Scene)",
+    "colorSpaceOutputGamma": "ACEScc",
+    "separateColorSpaceAndGamma": "0",
+    "isAutoColorManage": "0",
+    "timelineResolutionWidth": "1920",
+    "timelineResolutionHeight": "1080",
+    "timelineFrameRate": 24.0,
+    "timelinePlaybackFrameRate": "30"
+  },
+  "viewer": {
+    "zoom_percent": 40,
+    "channel": "Color",
+    "background": "checkerboard for transparent pixels",
+    "note": "Viewer screenshots are display evidence, not colorimetric exports."
+  },
+  "graph": "fixture.comp",
+  "settings": "readback.json",
+  "source": {
+    "file": "screen.png",
+    "size": [
+      3352,
+      1910
+    ],
+    "sha256": "aa477fec39bdada7da798d7947d030fcfdb775e22635c8cf71b0a222944120bd"
+  },
+  "shots": [
+    {
+      "file": "graph.png",
+      "source": "screen.png",
+      "source_sha256": "aa477fec39bdada7da798d7947d030fcfdb775e22635c8cf71b0a222944120bd",
+      "frame": 0,
+      "crop_xyxy": [
+        600,
+        1300,
+        2250,
+        1450
+      ],
+      "resampled": false,
+      "sha256": "3c41193636fb2b306dc0344fd4623cb107ee16eaf706e11c1830e94bada9ac29",
+      "viewer_contents": "Left chart / Right Gamut RemoveGamma ON",
+      "viewer_guides": false
+    },
+    {
+      "file": "inspector.png",
+      "source": "screen.png",
+      "source_sha256": "aa477fec39bdada7da798d7947d030fcfdb775e22635c8cf71b0a222944120bd",
+      "frame": 0,
+      "crop_xyxy": [
+        2830,
+        120,
+        3352,
+        590
+      ],
+      "resampled": false,
+      "sha256": "c1a100686707ca44587db56562f974149501fe9969ee499c51d4a716bafffb11",
+      "viewer_contents": "Left chart / Right Gamut RemoveGamma ON",
+      "viewer_guides": false
+    },
+    {
+      "file": "compare.png",
+      "source": "screen.png",
+      "source_sha256": "aa477fec39bdada7da798d7947d030fcfdb775e22635c8cf71b0a222944120bd",
+      "frame": 0,
+      "crop_xyxy": [
+        1146,
+        65,
+        2830,
+        725
+      ],
+      "resampled": false,
+      "sha256": "a2ad7fd6cde9353d41413c491476882b8f6180faef32dac985ba09b648371509",
+      "viewer_contents": "Left chart / Right Gamut RemoveGamma ON",
+      "viewer_guides": false
+    },
+    {
+      "file": "off-inspector.png",
+      "source": "screen-off.png",
+      "source_sha256": "496603dc429be889ce89d80d00728bbd744658b19887fb18e0cf2e8b377f9fe4",
+      "frame": 0,
+      "crop_xyxy": [
+        2830,
+        120,
+        3352,
+        590
+      ],
+      "resampled": false,
+      "sha256": "23639e479d7608c67574b5f34e0995b5c81344065f4f57f60b268f04693bc7d9",
+      "viewer_contents": "Left chart / Right Gamut RemoveGamma OFF",
+      "viewer_guides": false
+    },
+    {
+      "file": "off.png",
+      "source": "screen-off.png",
+      "source_sha256": "496603dc429be889ce89d80d00728bbd744658b19887fb18e0cf2e8b377f9fe4",
+      "frame": 0,
+      "crop_xyxy": [
+        1146,
+        65,
+        2830,
+        725
+      ],
+      "resampled": false,
+      "sha256": "3851df78f693779b45f339fc5e6942905a4cf94791f9defad34b61d999cf1ca1",
+      "viewer_contents": "Left chart / Right Gamut RemoveGamma OFF",
+      "viewer_guides": false
+    }
+  ],
+  "acceptance": {
+    "gui": "PASS: owner visually inspected node connections, selected Inspector, and output",
+    "article_display": "Local/public outcomes recorded after execution in docs/fusion-screenshot-candidates.json per-case status and publication_batches;capture provenance fixed."
+  },
+  "unverified": [
+    "Free edition and other platforms",
+    "All parameter ranges and performance",
+    "Real footage,colorimetric accuracy,all control ranges,other editions/platforms/performance",
+    "Exported portable composition reimport"
+  ],
+  "parameter_readback_scope": "Broad value sweep NOT_RUN;exact-tool metadata plus bounded Number/Text/FuID readbacks and native GUI/export. No Image/Mask/ScriptVal payload evaluation.",
+  "gui_authoring": {
+    "host": {
+      "pid": 20156,
+      "hwnd": 82647722,
+      "source_pixels": [
+        3352,
+        1910
+      ]
+    },
+    "tool": "Gamut1",
+    "regid": "GamutConvert",
+    "visible_flow_tools": 3,
+    "delivery": "synthetic Cua/SDK,physical input NOT_PROVEN;native GUI/export establish outcome"
+  },
+  "restoration": "PASS:frame0,both40%,owned scratch saved,native final visually inspected",
+  "native_values": {
+    "SourceSpace": "ITU-R BT.709 (scene)",
+    "SourceSpace_ID": "Rec709",
+    "OutputSpace": "No Change",
+    "RemoveGamma": 1,
+    "AddGamma": 1,
+    "UseWhitePointAdaptation": 1,
+    "PreDividePostMultiply": 0
+  },
+  "state_variants": {
+    "screen.png": "RemoveGamma ON restored",
+    "screen-off.png": "RemoveGamma OFF only"
+  },
+  "rejected_attempts": [
+    "UIA and foreground combo attempt did not change SourceSpace;readback NoChange before one guarded Rec709 setter"
+  ],
+  "reproduction": {
+    "fixture_sha256": "aab6fb7399a57cffdda51674b9c50bc6eff2402dca0ddaca2bfb494ce6e35e2a",
+    "readback_sha256": "cc88f6a1f1f118515c6f0d79b9e3270258ae2a64edd6082507a958fdfc63bf7b",
+    "paths": "Comp:/../_fixtures/ for bundled synthetic fixtures",
+    "reimport": "NOT_RUN: accepted GUI evidence precedes export path normalization"
+  }
+}
