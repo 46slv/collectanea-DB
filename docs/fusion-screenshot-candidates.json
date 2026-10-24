@@ -2,7 +2,7 @@
   "schema_version": 1,
   "created": "2026-10-20",
   "scope": "All Fusion pages, DaVinci Resolve 21.1",
-  "status_note": "2026-10-24:129 pages406 crops691 placements public PASS through PR93,1039 assets. S66–S69/R107–R110 local5 distinct pages55 images PASS;31 native crops+4 index comparisons. Cumulative133 pages437 crops726 placements. Whole587-page Fusion,422 capture-needed pages and remaining_views incomplete.",
+  "status_note": "2026-10-24:133 pages437 crops726 placements public PASS through PR96;1097 public assets HTTP/hash PASS. S70–S73/R111–R114 local5 distinct pages41 images PASS;26 native crops+4 index comparisons,cumulative137 pages463 crops756 placements. Whole587-page Fusion,418 capture-needed pages and remaining_views incomplete.",
   "asset_directory_template": "static/img/fusion/captures/{id}/{shot.slug}.png",
   "capture_manifest_name": "capture.json",
   "candidates": [
@@ -3487,7 +3487,7 @@
         "printed_pages": "2339–2341"
       },
       "goal": "Compare Sobel/Laplacian, Alpha processing and actual filter menu",
-      "status": "captured-local-display-verified",
+      "status": "published-display-verified",
       "shots": [
         {
           "slug": "graph",
@@ -3538,7 +3538,8 @@
           "status": "native-observed"
         }
       ],
-      "capture_manifest": "static/img/fusion/captures/S66/capture.json"
+      "capture_manifest": "static/img/fusion/captures/S66/capture.json",
+      "published_batch": "fusion-native-20261024-18"
     },
     {
       "id": "S67",
@@ -3550,7 +3551,7 @@
         "printed_pages": "2121–2124"
       },
       "goal": "Compare threshold and Blend with native Fast Gaussian",
-      "status": "captured-local-display-verified",
+      "status": "published-display-verified",
       "shots": [
         {
           "slug": "graph",
@@ -3601,7 +3602,8 @@
           "status": "native-observed"
         }
       ],
-      "capture_manifest": "static/img/fusion/captures/S67/capture.json"
+      "capture_manifest": "static/img/fusion/captures/S67/capture.json",
+      "published_batch": "fusion-native-20261024-18"
     },
     {
       "id": "S68",
@@ -3613,7 +3615,7 @@
         "printed_pages": "2328–2330"
       },
       "goal": "Compare height scale in RGB bump-vector display",
-      "status": "captured-local-display-verified",
+      "status": "published-display-verified",
       "shots": [
         {
           "slug": "graph",
@@ -3658,7 +3660,8 @@
           "status": "native-observed"
         }
       ],
-      "capture_manifest": "static/img/fusion/captures/S68/capture.json"
+      "capture_manifest": "static/img/fusion/captures/S68/capture.json",
+      "published_batch": "fusion-native-20261024-18"
     },
     {
       "id": "S69",
@@ -3670,7 +3673,7 @@
         "printed_pages": "2332–2336"
       },
       "goal": "Native identity matrix and independent Floor/Normalize comparisons",
-      "status": "captured-local-display-verified",
+      "status": "published-display-verified",
       "shots": [
         {
           "slug": "graph",
@@ -3721,7 +3724,224 @@
           "status": "native-observed"
         }
       ],
-      "capture_manifest": "static/img/fusion/captures/S69/capture.json"
+      "capture_manifest": "static/img/fusion/captures/S69/capture.json",
+      "published_batch": "fusion-native-20261024-18"
+    },
+    {
+      "id": "S70",
+      "priority": "P1",
+      "article": "manuals/fusion/nodes/color/auto-gain.md",
+      "manual": {
+        "version": "21.1",
+        "chapter": 93,
+        "printed_pages": "2149–2150"
+      },
+      "goal": "Compare output Low/High range on fixed chart",
+      "status": "captured-local-display-verified",
+      "shots": [
+        {
+          "slug": "graph",
+          "kind": "node-graph",
+          "target": "auto-gain",
+          "status": "native-observed"
+        },
+        {
+          "slug": "inspector",
+          "kind": "inspector",
+          "target": "auto-gain",
+          "status": "native-observed"
+        },
+        {
+          "slug": "compare",
+          "kind": "output",
+          "target": "auto-gain",
+          "status": "native-observed"
+        },
+        {
+          "slug": "base-inspector",
+          "kind": "inspector",
+          "target": "auto-gain",
+          "status": "native-observed"
+        },
+        {
+          "slug": "base",
+          "kind": "output",
+          "target": "auto-gain",
+          "status": "native-observed"
+        },
+        {
+          "slug": "low02-inspector",
+          "kind": "inspector",
+          "target": "auto-gain",
+          "status": "native-observed"
+        },
+        {
+          "slug": "low02",
+          "kind": "output",
+          "target": "auto-gain",
+          "status": "native-observed"
+        }
+      ],
+      "capture_manifest": "static/img/fusion/captures/S70/capture.json"
+    },
+    {
+      "id": "S71",
+      "priority": "P1",
+      "article": "manuals/fusion/nodes/color/color-matrix.md",
+      "manual": {
+        "version": "21.1",
+        "chapter": 93,
+        "printed_pages": "2176–2179"
+      },
+      "goal": "Compare native R/B swap and Red Add.2 with identity",
+      "status": "captured-local-display-verified",
+      "shots": [
+        {
+          "slug": "graph",
+          "kind": "node-graph",
+          "target": "color-matrix",
+          "status": "native-observed"
+        },
+        {
+          "slug": "inspector",
+          "kind": "inspector",
+          "target": "color-matrix",
+          "status": "native-observed"
+        },
+        {
+          "slug": "compare",
+          "kind": "output",
+          "target": "color-matrix",
+          "status": "native-observed"
+        },
+        {
+          "slug": "identity-inspector",
+          "kind": "inspector",
+          "target": "color-matrix",
+          "status": "native-observed"
+        },
+        {
+          "slug": "identity",
+          "kind": "output",
+          "target": "color-matrix",
+          "status": "native-observed"
+        },
+        {
+          "slug": "add02-inspector",
+          "kind": "inspector",
+          "target": "color-matrix",
+          "status": "native-observed"
+        },
+        {
+          "slug": "add02",
+          "kind": "output",
+          "target": "color-matrix",
+          "status": "native-observed"
+        }
+      ],
+      "capture_manifest": "static/img/fusion/captures/S71/capture.json"
+    },
+    {
+      "id": "S72",
+      "priority": "P1",
+      "article": "manuals/fusion/nodes/color/color-space.md",
+      "manual": {
+        "version": "21.1",
+        "chapter": 93,
+        "printed_pages": "2180–2182"
+      },
+      "goal": "Compare RGB/YUV intermediate and To RGB roundtrip",
+      "status": "captured-local-display-verified",
+      "shots": [
+        {
+          "slug": "graph",
+          "kind": "node-graph",
+          "target": "color-space",
+          "status": "native-observed"
+        },
+        {
+          "slug": "inspector",
+          "kind": "inspector",
+          "target": "color-space",
+          "status": "native-observed"
+        },
+        {
+          "slug": "compare",
+          "kind": "output",
+          "target": "color-space",
+          "status": "native-observed"
+        },
+        {
+          "slug": "converted-inspector",
+          "kind": "inspector",
+          "target": "color-space",
+          "status": "native-observed"
+        },
+        {
+          "slug": "converted",
+          "kind": "output",
+          "target": "color-space",
+          "status": "native-observed"
+        }
+      ],
+      "capture_manifest": "static/img/fusion/captures/S72/capture.json"
+    },
+    {
+      "id": "S73",
+      "priority": "P1",
+      "article": "manuals/fusion/nodes/color/white-balance.md",
+      "manual": {
+        "version": "21.1",
+        "chapter": 93,
+        "printed_pages": "2200–2203"
+      },
+      "goal": "Compare3200/6500 temperature direction and equal-reference/result",
+      "status": "captured-local-display-verified",
+      "shots": [
+        {
+          "slug": "graph",
+          "kind": "node-graph",
+          "target": "white-balance",
+          "status": "native-observed"
+        },
+        {
+          "slug": "inspector",
+          "kind": "inspector",
+          "target": "white-balance",
+          "status": "native-observed"
+        },
+        {
+          "slug": "compare",
+          "kind": "output",
+          "target": "white-balance",
+          "status": "native-observed"
+        },
+        {
+          "slug": "inverse-inspector",
+          "kind": "inspector",
+          "target": "white-balance",
+          "status": "native-observed"
+        },
+        {
+          "slug": "inverse",
+          "kind": "output",
+          "target": "white-balance",
+          "status": "native-observed"
+        },
+        {
+          "slug": "neutral-inspector",
+          "kind": "inspector",
+          "target": "white-balance",
+          "status": "native-observed"
+        },
+        {
+          "slug": "neutral",
+          "kind": "output",
+          "target": "white-balance",
+          "status": "native-observed"
+        }
+      ],
+      "capture_manifest": "static/img/fusion/captures/S73/capture.json"
     }
   ],
   "publication_batches": [
@@ -4307,27 +4527,63 @@
         "artifacts/fusion-captures/public-batch17-assets.json"
       ],
       "limitations": "One existing S36 asset returned503; scoped read-only recheck passed and prior failure retained. Whole587-page Fusion and remaining_views continue. S66–S69 native accepted/adopted; article display pending."
+    },
+    {
+      "id": "fusion-native-20261024-18",
+      "cases": [
+        "S66",
+        "S67",
+        "S68",
+        "S69"
+      ],
+      "reuses": [
+        "R107",
+        "R108",
+        "R109",
+        "R110"
+      ],
+      "pr": "https://github.com/46slv/collectanea-DB/pull/96",
+      "candidate": "12ca92b6575fe2d6f9ba296619e0c20640c51425",
+      "initial_candidate": "8bcfbdee8d7010561278df3ff271592193606a12",
+      "incoming_main": "5fc8dfec83edfbd93b628f1dbae2c5eda9ab717f",
+      "incoming_pr": "https://github.com/46slv/collectanea-DB/pull/95",
+      "main": "84ffe33fa38f797f3b99eafe82fceb3cd2eee487",
+      "tree": "2a4c7586a6527cf119befc6f4b13783d43fb6420",
+      "quality_run": "https://github.com/46slv/collectanea-DB/actions/runs/40041405665",
+      "pages_run": "https://github.com/46slv/collectanea-DB/actions/runs/40042248805",
+      "merge_owner": "Existing Collectanea Integrator merged first; producer read already-merged result and exact candidate/main tree equality, no duplicate merge",
+      "public_pages": 5,
+      "public_images": 55,
+      "new_placements": 35,
+      "new_native_crops": 31,
+      "public_asset_hashes": 1097,
+      "result": "PASS",
+      "evidence": [
+        "artifacts/fusion-captures/public-batch18-display-report.json",
+        "artifacts/fusion-captures/public-batch18-assets.json"
+      ],
+      "limitations": "Initial8bcfbdee Quality40040416953 superseded by incoming normal merge. Whole587-page Fusion and remaining_views incomplete;S70–S73 local PASS,not yet public."
     }
   ],
   "coverage_inventory": {
-    "checked_at": "2026-10-23T23:31:40.701797+00:00",
+    "checked_at": "2026-10-23T23:59:08.206109+00:00",
     "scope": "All manuals/fusion Markdown and MDX pages; review necessity before adding images.",
     "completion_rule": "Every page has an explicit image decision; necessary images are native-observed, embedded, saved to GitHub and public-display-verified. A native example does not verify all article controls.",
     "summary": {
       "total_pages": 587,
-      "with_images": 133,
-      "with_native_examples": 133,
+      "with_images": 137,
+      "with_native_examples": 137,
       "states": {
         "reviewed-no-standalone-image": 26,
         "no-standalone-image-needed": 6,
         "illustrated-reused-example": 66,
-        "capture-planned": 422,
-        "illustrated-native-example": 67
+        "capture-planned": 418,
+        "illustrated-native-example": 71
       },
       "decisions": {
         "no-standalone-image-needed": 32,
-        "image-required": 133,
-        "capture-needed": 422
+        "image-required": 137,
+        "capture-needed": 418
       }
     },
     "pages": [
@@ -6922,13 +7178,18 @@
         "article": "manuals/fusion/nodes/color/auto-gain.md",
         "title": "Auto Gain",
         "kind": "node",
-        "image_count": 0,
-        "native_cases": [],
+        "image_count": 7,
+        "native_cases": [
+          "S70"
+        ],
         "reused_cases": [],
         "planned_cases": [],
-        "state": "capture-planned",
-        "decision": "capture-needed",
+        "state": "illustrated-native-example",
+        "decision": "image-required",
         "reason": "本文の対象機能: 最暗部と最明部を基準にImage全体の値域を自動で伸縮するColor Node。。Color Corrector画像ではCurve/Matrix/Boolean等の固有Controlやchannel操作を示せない。",
+        "remaining_views": [
+          "RGB解析/画素値、一定入力/float/HDR、Do Z/Mask/時間変動/性能"
+        ],
         "required_views": [
           "対象Node名と実際の配線が読めるGraph",
           "対象Nodeを選択した固有Inspector（本文で示すControlを含む）",
@@ -6942,7 +7203,8 @@
             "section": "入力と出力",
             "role": "入力と結果を示す箇所"
           }
-        ]
+        ],
+        "audit_note": "S70–S73 fixed native comparison;partial retained."
       },
       {
         "article": "manuals/fusion/nodes/color/brightness-contrast.md",
@@ -7182,13 +7444,18 @@
         "article": "manuals/fusion/nodes/color/color-matrix.md",
         "title": "Color Matrix",
         "kind": "node",
-        "image_count": 0,
-        "native_cases": [],
+        "image_count": 7,
+        "native_cases": [
+          "S71"
+        ],
         "reused_cases": [],
         "planned_cases": [],
-        "state": "capture-planned",
-        "decision": "capture-needed",
+        "state": "illustrated-native-example",
+        "decision": "image-required",
         "reason": "本文の対象機能: 入力RGBAを係数で組み合わせ、各チャンネルの値を再計算する2Dノード。。Color Corrector画像ではCurve/Matrix/Boolean等の固有Controlやchannel操作を示せない。",
+        "remaining_views": [
+          "Invert/負係数/Alpha/Mask/特異行列、数値export/性能"
+        ],
         "required_views": [
           "対象Node名と実際の配線が読めるGraph",
           "対象Nodeを選択した固有Inspector（本文で示すControlを含む）",
@@ -7217,7 +7484,8 @@
             "section": "Add：入力に関係なく一定量を足す",
             "role": "入力と結果を示す箇所"
           }
-        ]
+        ],
+        "audit_note": "S70–S73 fixed native comparison;partial retained."
       },
       {
         "article": "manuals/fusion/nodes/color/color-space-transform.md",
@@ -7261,13 +7529,18 @@
         "article": "manuals/fusion/nodes/color/color-space.md",
         "title": "Color Space",
         "kind": "node",
-        "image_count": 0,
-        "native_cases": [],
+        "image_count": 5,
+        "native_cases": [
+          "S72"
+        ],
         "reused_cases": [],
         "planned_cases": [],
-        "state": "capture-planned",
-        "decision": "capture-needed",
+        "state": "illustrated-native-example",
+        "decision": "image-required",
         "reason": "本文の対象機能: RGBをYUV・HLSなど別の色成分に変換し、成分ごとの処理やRGBへの復帰を行うノード。。S14の見た目の色補正はencoding変換の証拠にならず、display screenshotだけでは色精度を証明できない。",
+        "remaining_views": [
+          "他Color Type、成分加工/Alpha/Mask、depth別精度/性能"
+        ],
         "required_views": [
           "対象Node名と実際の配線が読めるGraph",
           "対象Nodeを選択した固有Inspector（本文で示すControlを含む）",
@@ -7293,7 +7566,8 @@
             "section": "入力・出力",
             "role": "入力と結果を示す箇所"
           }
-        ]
+        ],
+        "audit_note": "S70–S73 fixed native comparison;partial retained."
       },
       {
         "article": "manuals/fusion/nodes/color/copy-aux.md",
@@ -7472,13 +7746,17 @@
         "article": "manuals/fusion/nodes/color/index.md",
         "title": "Colorノード",
         "kind": "index",
-        "image_count": 11,
+        "image_count": 15,
         "native_cases": [],
         "reused_cases": [
           "S14",
           "S52",
           "S60",
-          "S61"
+          "S61",
+          "S70",
+          "S71",
+          "S72",
+          "S73"
         ],
         "planned_cases": [],
         "state": "illustrated-reused-example",
@@ -7733,13 +8011,18 @@
         "article": "manuals/fusion/nodes/color/white-balance.md",
         "title": "White Balance",
         "kind": "node",
-        "image_count": 0,
-        "native_cases": [],
+        "image_count": 7,
+        "native_cases": [
+          "S73"
+        ],
         "reused_cases": [],
         "planned_cases": [],
-        "state": "capture-planned",
-        "decision": "capture-needed",
+        "state": "illustrated-native-example",
+        "decision": "image-required",
         "reason": "本文の対象機能: White Balanceは、gray referenceや色温度を基準に色かぶりを補正するNode。。Color Corrector画像ではCurve/Matrix/Boolean等の固有Controlやchannel操作を示せない。",
+        "remaining_views": [
+          "Customピッカー/範囲分離/Ranges/他Space/Gammaオフ/Mask/実写精度/性能"
+        ],
         "required_views": [
           "対象Node名と実際の配線が読めるGraph",
           "対象Nodeを選択した固有Inspector（本文で示すControlを含む）",
@@ -7763,7 +8046,8 @@
             "section": "入力",
             "role": "入力と結果を示す箇所"
           }
-        ]
+        ],
+        "audit_note": "S70–S73 fixed native comparison;partial retained."
       },
       {
         "article": "manuals/fusion/nodes/compositing/dissolve.md",
@@ -23371,8 +23655,9 @@
       "images": [
         "compare.png"
       ],
-      "status": "embedded-local-display-verified",
-      "scope": "One output comparison and specific link to node article; graph/Inspector details stay in node article."
+      "status": "published-display-verified",
+      "scope": "One output comparison and specific link to node article; graph/Inspector details stay in node article.",
+      "published_batch": "fusion-native-20261024-18"
     },
     {
       "id": "R108",
@@ -23381,8 +23666,9 @@
       "images": [
         "compare.png"
       ],
-      "status": "embedded-local-display-verified",
-      "scope": "One output comparison and specific link to node article; graph/Inspector details stay in node article."
+      "status": "published-display-verified",
+      "scope": "One output comparison and specific link to node article; graph/Inspector details stay in node article.",
+      "published_batch": "fusion-native-20261024-18"
     },
     {
       "id": "R109",
@@ -23391,8 +23677,9 @@
       "images": [
         "compare.png"
       ],
-      "status": "embedded-local-display-verified",
-      "scope": "One output comparison and specific link to node article; graph/Inspector details stay in node article."
+      "status": "published-display-verified",
+      "scope": "One output comparison and specific link to node article; graph/Inspector details stay in node article.",
+      "published_batch": "fusion-native-20261024-18"
     },
     {
       "id": "R110",
@@ -23401,8 +23688,49 @@
       "images": [
         "compare.png"
       ],
+      "status": "published-display-verified",
+      "scope": "One output comparison and specific link to node article; graph/Inspector details stay in node article.",
+      "published_batch": "fusion-native-20261024-18"
+    },
+    {
+      "id": "R111",
+      "article": "manuals/fusion/nodes/color/index.md",
+      "source_case": "S70",
+      "images": [
+        "compare.png"
+      ],
       "status": "embedded-local-display-verified",
-      "scope": "One output comparison and specific link to node article; graph/Inspector details stay in node article."
+      "scope": "One output comparison linked to full native graph/Inspector conditions in node article."
+    },
+    {
+      "id": "R112",
+      "article": "manuals/fusion/nodes/color/index.md",
+      "source_case": "S71",
+      "images": [
+        "compare.png"
+      ],
+      "status": "embedded-local-display-verified",
+      "scope": "One output comparison linked to full native graph/Inspector conditions in node article."
+    },
+    {
+      "id": "R113",
+      "article": "manuals/fusion/nodes/color/index.md",
+      "source_case": "S72",
+      "images": [
+        "compare.png"
+      ],
+      "status": "embedded-local-display-verified",
+      "scope": "One output comparison linked to full native graph/Inspector conditions in node article."
+    },
+    {
+      "id": "R114",
+      "article": "manuals/fusion/nodes/color/index.md",
+      "source_case": "S73",
+      "images": [
+        "compare.png"
+      ],
+      "status": "embedded-local-display-verified",
+      "scope": "One output comparison linked to full native graph/Inspector conditions in node article."
     }
   ]
 }

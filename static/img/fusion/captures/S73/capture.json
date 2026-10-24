@@ -1,0 +1,176 @@
+{
+  "schema_version": 1,
+  "case": "S73",
+  "article": "manuals/fusion/nodes/color/white-balance.md",
+  "manual": {
+    "version": "21.1",
+    "chapter": 93,
+    "printed_pages": "2200–2203"
+  },
+  "runtime": {
+    "version": "21.1.0.14",
+    "edition": "Studio",
+    "os": "Windows-11-10.0.26200-SP0",
+    "ui_language": "ja-JP (some Shape controls remain English)"
+  },
+  "captured_at": "2026-10-23T23:55:51.827418+00:00",
+  "project": "Collectanea_Captures_20261023_Sol",
+  "timeline": "S73_capture",
+  "frame": 0.0,
+  "resolution": [
+    1920,
+    1080
+  ],
+  "color_management": {
+    "colorScienceMode": "davinciYRGB",
+    "colorSpaceTimeline": "Rec.709 (Scene)",
+    "colorSpaceTimelineGamma": "",
+    "colorSpaceOutput": "Rec.709 (Scene)",
+    "colorSpaceOutputGamma": "ACEScc",
+    "separateColorSpaceAndGamma": "0",
+    "isAutoColorManage": "0",
+    "timelineResolutionWidth": "1920",
+    "timelineResolutionHeight": "1080",
+    "timelineFrameRate": 24.0,
+    "timelinePlaybackFrameRate": "30"
+  },
+  "viewer": {
+    "zoom_percent": 40,
+    "channel": "Color",
+    "background": "checkerboard for transparent pixels",
+    "note": "Viewer screenshots are display evidence, not colorimetric exports."
+  },
+  "graph": "fixture.comp",
+  "settings": "readback.json",
+  "source": {
+    "file": "screen.png",
+    "size": [
+      3352,
+      1910
+    ],
+    "sha256": "3144466dacb8a41febad75537a2a9b48c89acbfb353cf83c06138abbcce3c12f"
+  },
+  "shots": [
+    {
+      "file": "graph.png",
+      "source": "screen.png",
+      "source_sha256": "3144466dacb8a41febad75537a2a9b48c89acbfb353cf83c06138abbcce3c12f",
+      "frame": 0.0,
+      "crop_xyxy": [
+        480,
+        1300,
+        2380,
+        1450
+      ],
+      "resampled": false,
+      "sha256": "a76283ac34f4164c30d0f2f90bc245847b8834b4af4828d27a11f98015238e3f"
+    },
+    {
+      "file": "inspector.png",
+      "source": "screen.png",
+      "source_sha256": "3144466dacb8a41febad75537a2a9b48c89acbfb353cf83c06138abbcce3c12f",
+      "frame": 0.0,
+      "crop_xyxy": [
+        2830,
+        120,
+        3352,
+        395
+      ],
+      "resampled": false,
+      "sha256": "46fe8f9cbd29312cdc9b1f314e5ccd22bff4aec7d3061968a74d148049c4f564"
+    },
+    {
+      "file": "compare.png",
+      "source": "screen.png",
+      "source_sha256": "3144466dacb8a41febad75537a2a9b48c89acbfb353cf83c06138abbcce3c12f",
+      "frame": 0.0,
+      "crop_xyxy": [
+        1146,
+        65,
+        2830,
+        725
+      ],
+      "resampled": false,
+      "sha256": "1738b9562cd333e7384ea1d996d4ab7cca44b7876709c5000c8cc0fd09d3561e"
+    },
+    {
+      "file": "inverse-inspector.png",
+      "source": "screen-inverse.png",
+      "source_sha256": "c18e0f47f0475a663019dc62d3d030385fe8c490193001dfbd6b626ca3ee6967",
+      "frame": 0.0,
+      "crop_xyxy": [
+        2830,
+        120,
+        3352,
+        395
+      ],
+      "resampled": false,
+      "sha256": "832d98fa5030742aeb169254337ac99af81feb70f269644e2daef542dacbc4c5"
+    },
+    {
+      "file": "inverse.png",
+      "source": "screen-inverse.png",
+      "source_sha256": "c18e0f47f0475a663019dc62d3d030385fe8c490193001dfbd6b626ca3ee6967",
+      "frame": 0.0,
+      "crop_xyxy": [
+        1146,
+        65,
+        2830,
+        725
+      ],
+      "resampled": false,
+      "sha256": "19de9897ca151e6e768091cd008acc638a2413cffbe8b15568eb16ffa8334ca8"
+    },
+    {
+      "file": "neutral-inspector.png",
+      "source": "screen-neutral.png",
+      "source_sha256": "63b901a0626390c048af2a5b89b2891bcf8e0c7cba1801bda435d16ee00c0a41",
+      "frame": 0.0,
+      "crop_xyxy": [
+        2830,
+        120,
+        3352,
+        395
+      ],
+      "resampled": false,
+      "sha256": "8c40a4c0c5e3aba853dd4048c49fdcca78b367afbf7f5103efb266d35515a473"
+    },
+    {
+      "file": "neutral.png",
+      "source": "screen-neutral.png",
+      "source_sha256": "63b901a0626390c048af2a5b89b2891bcf8e0c7cba1801bda435d16ee00c0a41",
+      "frame": 0.0,
+      "crop_xyxy": [
+        1146,
+        65,
+        2830,
+        725
+      ],
+      "resampled": false,
+      "sha256": "3862c0de3152e7e25eb30df84ed184a9ebfec583cd7c8bba27c5c78cc0b4ee18"
+    }
+  ],
+  "acceptance": {
+    "gui": "PASS: owner visually inspected node connections, selected Inspector, and output",
+    "article_display": "PASS: local production build;1440px/390px decode/Alt/native links/hash/overflow"
+  },
+  "unverified": [
+    "Free edition and other platforms",
+    "All parameter ranges and performance",
+    "Customピッカー/範囲分離/Ranges/他Space/Gammaオフ/Mask/実写精度/性能",
+    "Exported portable composition reimport"
+  ],
+  "restoration": "PASS: owned scratch saved;frame0/both Color40%,primary settings/Viewer restored,no popup.",
+  "parameter_readback_scope": "Number/Text/Point/FuID/Clip only;no Image/Mask/3D/ScriptVal payload evaluation.",
+  "state_variants": {
+    "screen.png": "Temperature/LockON,Reference3200/Result6500,Adobe RGB(1998)/UseGammaON",
+    "screen-inverse.png": "same settings,Reference6500/Result3200",
+    "screen-neutral.png": "same settings,Reference6500/Result6500"
+  },
+  "reproduction": {
+    "fixture_sha256": "31b5a6565e85cabccafcea9aea3df5de722375dd891086051436f6a3ed622675",
+    "readback_sha256": "075d6412562a16836f042b13d8d413658a5bbc41e0b16dc3117cd2e21460fc1b",
+    "paths": "Comp:/../_fixtures/ for bundled synthetic fixtures",
+    "reimport": "NOT_RUN: accepted GUI evidence precedes export path normalization"
+  }
+}

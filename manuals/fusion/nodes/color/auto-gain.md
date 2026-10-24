@@ -101,6 +101,34 @@ Auto Gainはフレームごとに入力の値域を参照するため、**同じ
 
 Auto Gainでは実際のImageの値が変わります。HDR/float素材を扱う合成で、データが持つ元の明るさや距離を保持したい場合は、プレビュー用の正規化と素材そのものの補正を区別してください。
 
+## 実機例：出力のLowとHighを変える
+
+<!-- capture-case:S70 -->
+
+Resolve Studio21.1.0.14／WindowsのFusionページで、1920×1080の固定チャートを接続しました。両ViewerはColor／40%です。内部REGIDは`AutoGain`でした。左は入力、右はAuto Gainの結果です。
+
+[![LoaderのチャートからAutoGain1、MediaOut1へ接続した実機Graph](/img/fusion/captures/S70/graph.png)](/img/fusion/captures/S70/graph.png)
+
+[![Auto GainのDo Zオフ、Range Low0、High0.5を示すInspector](/img/fusion/captures/S70/inspector.png)](/img/fusion/captures/S70/inspector.png)
+
+[![High0.5の右側では、入力に比べて白いパネルや色パッチが暗くなる](/img/fusion/captures/S70/compare.png)](/img/fusion/captures/S70/compare.png)
+
+Low0／High0.5では、白いパネルや色パッチが暗くなりました。下は初期Low0／High1の比較です。入力が黒から白まで含むチャートなので、この設定では見た目の変化が小さくなります。
+
+[![初期Range Low0、High1を示すAuto Gain Inspector](/img/fusion/captures/S70/base-inspector.png)](/img/fusion/captures/S70/base-inspector.png)
+
+[![Low0とHigh1では左右のチャートがほぼ同じ見た目になる](/img/fusion/captures/S70/base.png)](/img/fusion/captures/S70/base.png)
+
+Low0.2／High1へ変えると、黒いパッチや背景を含めて暗部が持ち上がります。Rangeは入力から抽出する明るさの範囲ではなく、出力の値域を指定する設定として比較します。
+
+[![RangeのLowを0.2、Highを1へ変えたInspector](/img/fusion/captures/S70/low02-inspector.png)](/img/fusion/captures/S70/low02-inspector.png)
+
+[![Low0.2の右側では黒いパッチや背景を含めて暗部が持ち上がる](/img/fusion/captures/S70/low02.png)](/img/fusion/captures/S70/low02.png)
+
+最後はLow0／High0.5へ戻して保存しました。各画素の数値、RGBの解析単位、一定値の入力、float/HDR、Do Z、Mask、時間方向の変動と性能は未確認です。
+
+[再現用Graph](/img/fusion/captures/S70/fixture.comp) · [撮影条件と確認範囲](/img/fusion/captures/S70/capture.json)
+
 ## 出典と確認範囲
 
-DaVinci Resolve 21.1 Reference Manual Chapter 93 pp.2149–2150で、Input / Effect Mask、Do Z、Range、時間変化時の注意を確認しました。実機default値、RGB各チャンネルの最小・最大値の具体的算出方法、特殊値に対する処理、performanceは未確認です。
+DaVinci Resolve 21.1 Reference Manual Chapter 93 pp.2149–2150で、Input / Effect Mask、Do Z、Range、時間変化時の注意を確認しました。S70でDo Zオフ、Low0／High1の初期表示とRangeの出力変化を確認しました。RGB各チャンネルの最小・最大値の算出方法、特殊値の処理、performanceは未確認です。

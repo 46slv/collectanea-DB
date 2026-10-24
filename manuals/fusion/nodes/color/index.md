@@ -130,6 +130,46 @@ Color GainのRGBロックをオフにし、赤のGain／Lift／Gammaを個別に
 
 Resolve Studio21.1.0.14／Windows、両Viewer Color／40%。固定チャートでの表示確認です。全Control、Mask、Alpha、性能は未確認。 [再現用Graph](/img/fusion/captures/S61/fixture.comp) · [撮影条件と確認範囲](/img/fusion/captures/S61/capture.json)
 
+### 実機の参考例：LowとHighで出力の値域を変える
+
+<!-- capture-reuse:R111 -->
+
+左は入力、右は処理結果です。 [接続・Inspector・比較条件](./auto-gain)は個別記事に掲載しています。
+
+[![High0.5の右側では、入力に比べて白いパネルや色パッチが暗くなる](/img/fusion/captures/S70/compare.png)](/img/fusion/captures/S70/compare.png)
+
+Resolve Studio21.1.0.14／Windows、Color／40%。個別記事に記載した範囲だけを確認しています。
+
+### 実機の参考例：赤と青を入れ替える
+
+<!-- capture-reuse:R112 -->
+
+左は入力、右は処理結果です。 [接続・Inspector・比較条件](./color-matrix)は個別記事に掲載しています。
+
+[![右の色パッチは赤と青が入れ替わり、白いパネルと灰色段階は灰色を保つ](/img/fusion/captures/S71/compare.png)](/img/fusion/captures/S71/compare.png)
+
+Resolve Studio21.1.0.14／Windows、Color／40%。個別記事に記載した範囲だけを確認しています。
+
+### 実機の参考例：YUVからRGBへ戻す
+
+<!-- capture-reuse:R113 -->
+
+左はYUVの中間表示、右はRGBへ戻した結果です。 [接続・Inspector・比較条件](./color-space)は個別記事に掲載しています。
+
+[![左はYUV成分をColor表示した中間画像、右はRGBへ戻したチャート](/img/fusion/captures/S72/compare.png)](/img/fusion/captures/S72/compare.png)
+
+Resolve Studio21.1.0.14／Windows、Color／40%。個別記事に記載した範囲だけを確認しています。
+
+### 実機の参考例：参照と結果の色温度を分ける
+
+<!-- capture-reuse:R114 -->
+
+左は入力、右は処理結果です。 [接続・Inspector・比較条件](./white-balance)は個別記事に掲載しています。
+
+[![参照3200と結果6500では、右の白いパネルと灰色段階が青寄りになる](/img/fusion/captures/S73/compare.png)](/img/fusion/captures/S73/compare.png)
+
+Resolve Studio21.1.0.14／Windows、Color／40%。個別記事に記載した範囲だけを確認しています。
+
 ## 出典と確認範囲
 
 DaVinci Resolve 21.1 Reference Manual Chapter 93 pp.2133–2206とChapter 106 Swizzler pp.2445–2450を基に整理しています。
