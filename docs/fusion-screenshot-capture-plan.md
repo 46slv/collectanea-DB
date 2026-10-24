@@ -184,4 +184,5 @@ S101 native WORK PASS:Image1=Swizzler Gold/Chart、Image2未接続。Expression1
 改善の成立:Operator.SaveSettings/LoadSettingsのファイル経路がS101/S102でTrue、Layer名とSourceのbounded readback/nativeで受理。新規AddToolはc.Lock/Unlockで囲む（特にLoader Open File自動表示を防ぐ）。WORK capture wrapperに保存警告とファイル名欄のAX gate追加。S100/101/102のGraphを実機上でcompactに並べ直し、画面内の余白を減らした。現在S101_capture/20156/82647722、frame0/40%/LayerRegex/Chart選択/saved、modalなし。次はS100–S102採用14crop前後→Layer一覧へ再利用→local/CI/public。
 
 Batch31 LOCAL PASS:S100–S102/R150–R152、production build、回帰19/19、Python構文/diff check、実buildの4ページ17画像PC/390px/decode/Alt/原寸リンク/sourcehash/overflow PASS。S102のViewer menu画像はnative155x117 popupを無加工crop、Color画像へ合成していない。掲載済み記事でも各remaining_viewsは未完、partial維持。
-`nBatch31 inventory:全587、local図示175ページ653crop1001掲載、未図示380、画像不要32。Public PASSは171/639/984のまま。新しいLayer indexは初の画像掲載なので4ページ増。
+
+Batch31 inventory:全587、local図示175ページ653crop1001掲載、未図示380、画像不要32。Public PASSは171/639/984のまま。新しいLayer indexは初の画像掲載なので4ページ増。
