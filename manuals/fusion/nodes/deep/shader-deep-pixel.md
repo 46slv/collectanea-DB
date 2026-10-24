@@ -15,7 +15,7 @@ outputs: [image]
 tasks: [aov, relight, reflection, shading]
 product_scope: fusion
 suite_surfaces: [fusion]
-updated: "2026-10-16"
+updated: "2026-10-24"
 ---
 
 # Shader (Deep Pixel)
@@ -128,6 +128,40 @@ OpenPBRやPhongなどの3D Materialは、3Dオブジェクトをレンダリン�
 - [Ambient Occlusion](./ambient-occlusion-deep-pixel.md) — ZとNormalなどを使って接触部の陰影を近似する
 - [Texture (Deep Pixel)](./texture-deep-pixel.md) — UV座標を使って面の模様を変更する
 
+## 実機例：Normalを使って陰影を変える
+
+<!-- capture-case:S118 -->
+
+Resolve Studio21.1.0.14／Windows、1920×1080、Viewer40%、フレーム0で撮影しました。左がRenderer 3Dのカラー出力、右が処理後です。
+
+[![Software RendererからShaderへ画像を渡し、Normal確認用Copy Auxを分岐した実機Graph](/img/fusion/captures/S118/graph.png)](/img/fusion/captures/S118/graph.png)
+
+原点の球、Z＝7のカメラ、点光源から作ったシーンです。Software RendererのRGBAとNormalを有効にしました。
+
+[![Software RendererのRGBAとNormalを有効にした実機Inspector](/img/fusion/captures/S118/renderer-inspector.png)](/img/fusion/captures/S118/renderer-inspector.png)
+
+ShaderのAmbient＝0.1、Diffuse＝0.5、Specular＝0、Reflection＝0、Polar Height＝30に固定し、Equator Angle＝45で表示しました。反射マップは接続していません。
+
+[![ShaderのAmbient0.1、Diffuse0.5、Specular0、Reflection0、Equator45、Polar30の実機Inspector](/img/fusion/captures/S118/baseline-inspector.png)](/img/fusion/captures/S118/baseline-inspector.png)
+
+[![Equator Angle45で元のカラーとは異なる陰影が表示されるShaderの実機比較](/img/fusion/captures/S118/baseline.png)](/img/fusion/captures/S118/baseline.png)
+
+Equator Angleだけを−45へ変えると、右の球は暗くなり、陰影の分布が変わりました。元の3D光源とカメラは変えていません。レンダリング後の2D画像に対する処理の比較です。最後は−45で保存しました。
+
+[![Equator Angleだけをマイナス45にしたShaderの実機Inspector](/img/fusion/captures/S118/inspector.png)](/img/fusion/captures/S118/inspector.png)
+
+[![Equator Angleの変更で右の球の明るさと陰影が変わるShaderの実機出力](/img/fusion/captures/S118/compare.png)](/img/fusion/captures/S118/compare.png)
+
+確認用Copy AuxでNormalを選び、From＝−1〜1をTo＝0〜1へ再マッピングしました。右の球はRGBの連続した色で表示されます。Channel Missing＝Failで出力できており、Normalを含む入力であることを確認しました。これは方向データを表示用の色へ変換したもので、元の材質色ではありません。
+
+[![Copy AuxでNormalと欠落時Failを選び、マイナス1から1を0から1へ変換した実機Inspector](/img/fusion/captures/S118/normal-inspector.png)](/img/fusion/captures/S118/normal-inspector.png)
+
+[![カラー画像と、RGBへ可視化した球体のNormalを並べた実機診断](/img/fusion/captures/S118/normal.png)](/img/fusion/captures/S118/normal.png)
+
+この例ではShader曲線を編集していません。反射マップ・Reflection Type、Specularや曲線編集、Mask／IDでの限定、外部Normal、EXR保存、物理的な照明再現、Edition差と性能は未確認です。通常の2D画像と補助Normalを使っており、Deep Imageは使っていません。
+
+[再現用Graph](/img/fusion/captures/S118/fixture.comp) · [撮影条件と確認範囲](/img/fusion/captures/S118/capture.json)
+
 ## 出典と確認範囲
 
 一次資料：**Blackmagic Design『DaVinci Resolve 21.1 Reference Manual』（September 2026）**。
@@ -136,4 +170,4 @@ OpenPBRやPhongなどの3D Materialは、3Dオブジェクトをレンダリン�
 - Chapter 77「Understanding Image Channels」、p.1694：MediaIn / LoaderでNormal X・Y・Zを割り当てる具体的な手順。
 - Chapter 88「Renderer3D」、pp.1974–1975：Normal出力と補助チャンネルのアンチエイリアス。
 
-外部EXRとResolve 21.1の実機差・GPU差は未検証のため、**verification: partial**としています。
+S118でSoftware Rendererの補助Normalと、Shaderの角度による表示変化を実機確認しました。外部EXR、ほかのControl、GPUやEdition差は未確認のため、**verification: partial**を維持します。

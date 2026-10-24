@@ -2,7 +2,7 @@
   "schema_version": 1,
   "created": "2026-10-20",
   "scope": "All Fusion pages, DaVinci Resolve 21.1",
-  "status_note": "2026-10-24:public187/717/1077 through PR127,1671/1671 HTTP/hash PASS. S115–S117/R165–R168 local7pages62images PASS,cumulative192/738/1106.Whole587 and remaining_views incomplete;partial retained.",
+  "status_note": "2026-10-24:public192/738/1106 through PR128,1711/1711 HTTP/hash PASS. S118–S120/R169–R173 local5pages37images PASS,cumulative195/763/1138.Whole587/360capture-needed and remaining_views incomplete;partial retained.",
   "asset_directory_template": "static/img/fusion/captures/{id}/{shot.slug}.png",
   "capture_manifest_name": "capture.json",
   "candidates": [
@@ -6122,7 +6122,7 @@
         "printed_pages": "2182–2185"
       },
       "goal": "Software Renderer RGBA+Z sphere,AuxToColor Z,MissingFail,fixed[-7,-5] to[0,1]",
-      "status": "captured-local-display-verified",
+      "status": "published-display-verified",
       "shots": [
         {
           "slug": "graph",
@@ -6172,7 +6172,7 @@
         "printed_pages": "2259–2261"
       },
       "goal": "Two spheres atZ0/-3,CameraZ10,RGBA+Z;Soft Blur20,Focus-9.5 vs-12.5,DOF1,ZScale1",
-      "status": "captured-local-display-verified",
+      "status": "published-display-verified",
       "shots": [
         {
           "slug": "graph",
@@ -6234,7 +6234,7 @@
         "printed_pages": "2261–2263"
       },
       "goal": "RGBA+Z two spheres;Fog Near-10/Far-13,Opacity0 vs1;bounded native 2D aux proof",
-      "status": "captured-local-display-verified",
+      "status": "published-display-verified",
       "shots": [
         {
           "slug": "graph",
@@ -6276,6 +6276,198 @@
           "slug": "depth",
           "kind": "output",
           "target": "Fog",
+          "status": "native-observed"
+        }
+      ]
+    },
+    {
+      "id": "S118",
+      "priority": "P1",
+      "article": "manuals/fusion/nodes/deep/shader-deep-pixel.md",
+      "manual": {
+        "version": "21.1",
+        "chapter": 96,
+        "printed_pages": "2263–2266"
+      },
+      "goal": "Normal-based Shader Ambient.1 Diffuse.5 Specular0 Reflection0 Polar30,Equator45 vs-45",
+      "status": "captured-local-display-verified",
+      "shots": [
+        {
+          "slug": "graph",
+          "kind": "node-graph",
+          "target": "Shader",
+          "status": "native-observed"
+        },
+        {
+          "slug": "inspector",
+          "kind": "inspector",
+          "target": "Shader",
+          "status": "native-observed"
+        },
+        {
+          "slug": "compare",
+          "kind": "output",
+          "target": "Shader",
+          "status": "native-observed"
+        },
+        {
+          "slug": "baseline-inspector",
+          "kind": "inspector",
+          "target": "Shader",
+          "status": "native-observed"
+        },
+        {
+          "slug": "baseline",
+          "kind": "output",
+          "target": "Shader",
+          "status": "native-observed"
+        },
+        {
+          "slug": "normal-inspector",
+          "kind": "inspector",
+          "target": "Shader",
+          "status": "native-observed"
+        },
+        {
+          "slug": "normal",
+          "kind": "output",
+          "target": "Shader",
+          "status": "native-observed"
+        },
+        {
+          "slug": "renderer-inspector",
+          "kind": "inspector",
+          "target": "Shader",
+          "status": "native-observed"
+        }
+      ]
+    },
+    {
+      "id": "S119",
+      "priority": "P1",
+      "article": "manuals/fusion/nodes/deep/texture-deep-pixel.md",
+      "manual": {
+        "version": "21.1",
+        "chapter": 96,
+        "printed_pages": "2266–2268"
+      },
+      "goal": "Software Renderer UV+RGBA,chart on Texture port,FlipHoriz0 vs1;UV diagnostic",
+      "status": "captured-local-display-verified",
+      "shots": [
+        {
+          "slug": "graph",
+          "kind": "node-graph",
+          "target": "Texture",
+          "status": "native-observed"
+        },
+        {
+          "slug": "inspector",
+          "kind": "inspector",
+          "target": "Texture",
+          "status": "native-observed"
+        },
+        {
+          "slug": "compare",
+          "kind": "output",
+          "target": "Texture",
+          "status": "native-observed"
+        },
+        {
+          "slug": "baseline-inspector",
+          "kind": "inspector",
+          "target": "Texture",
+          "status": "native-observed"
+        },
+        {
+          "slug": "baseline",
+          "kind": "output",
+          "target": "Texture",
+          "status": "native-observed"
+        },
+        {
+          "slug": "uv-inspector",
+          "kind": "inspector",
+          "target": "Texture",
+          "status": "native-observed"
+        },
+        {
+          "slug": "uv",
+          "kind": "output",
+          "target": "Texture",
+          "status": "native-observed"
+        },
+        {
+          "slug": "renderer-inspector",
+          "kind": "inspector",
+          "target": "Texture",
+          "status": "native-observed"
+        }
+      ]
+    },
+    {
+      "id": "S120",
+      "priority": "P1",
+      "article": "manuals/fusion/nodes/deep/ambient-occlusion-deep-pixel.md",
+      "manual": {
+        "version": "21.1",
+        "chapter": 96,
+        "printed_pages": "2256–2259"
+      },
+      "goal": "Sphere/ground,RGBA+Z+Normal and connected Camera,AO512 Radius1 Hemisphere,Color/Blend0 vs1 andAO-only",
+      "status": "captured-local-display-verified",
+      "shots": [
+        {
+          "slug": "graph",
+          "kind": "node-graph",
+          "target": "SSAO",
+          "status": "native-observed"
+        },
+        {
+          "slug": "inspector",
+          "kind": "inspector",
+          "target": "SSAO",
+          "status": "native-observed"
+        },
+        {
+          "slug": "compare",
+          "kind": "output",
+          "target": "SSAO",
+          "status": "native-observed"
+        },
+        {
+          "slug": "baseline",
+          "kind": "output",
+          "target": "SSAO",
+          "status": "native-observed"
+        },
+        {
+          "slug": "ao-inspector",
+          "kind": "inspector",
+          "target": "SSAO",
+          "status": "native-observed"
+        },
+        {
+          "slug": "ao",
+          "kind": "output",
+          "target": "SSAO",
+          "status": "native-observed"
+        },
+        {
+          "slug": "z",
+          "kind": "output",
+          "target": "SSAO",
+          "status": "native-observed"
+        },
+        {
+          "slug": "normal",
+          "kind": "output",
+          "target": "SSAO",
+          "status": "native-observed"
+        },
+        {
+          "slug": "renderer-inspector",
+          "kind": "inspector",
+          "target": "SSAO",
           "status": "native-observed"
         }
       ]
@@ -7438,27 +7630,59 @@
         "artifacts/fusion-captures/public-batch35-assets.json"
       ],
       "limitations": "Whole587/368capture-needed plus remaining_views incomplete;S115–117 native WORK only."
+    },
+    {
+      "id": "fusion-native-20261024-36",
+      "cases": [
+        "S115",
+        "S116",
+        "S117"
+      ],
+      "reuses": [
+        "R165",
+        "R166",
+        "R167",
+        "R168"
+      ],
+      "pr": "https://github.com/46slv/collectanea-DB/pull/128",
+      "candidate": "a596fa3d0d003a9e80946219e35e1c7a0cc69a7d",
+      "main": "61e0c3d3842f1993d926db0d4840a695a7c1a7cf",
+      "tree": "4c8cf9a0592ab41c91fe8370ec768fc1711d58bc",
+      "quality_run": "https://github.com/46slv/collectanea-DB/actions/runs/40081121284",
+      "pages_run": "https://github.com/46slv/collectanea-DB/actions/runs/40082150357",
+      "merge_owner": "Sol exact-head all jobs/steps,fresh main/head/reviews/comments/inline,expected-head squash,MERGED/equal tree",
+      "public_pages": 7,
+      "public_images": 62,
+      "new_native_crops": 21,
+      "new_placements": 29,
+      "public_asset_hashes": 1711,
+      "result": "PASS",
+      "evidence": [
+        "artifacts/fusion-captures/public-batch36-display-report.json",
+        "artifacts/fusion-captures/public-batch36-assets.json"
+      ],
+      "limitations": "Whole587/360capture-needed plus remaining_views incomplete;S118–120 local accepted only. One fixture HTTP503 recovered with failed-only retry;history preserved."
     }
   ],
   "coverage_inventory": {
-    "checked_at": "2026-10-24T09:12:27.782790+00:00",
+    "checked_at": "2026-10-24T09:38:58.922160+00:00",
     "scope": "All manuals/fusion Markdown and MDX pages; review necessity before adding images.",
     "completion_rule": "Every page has an explicit image decision; necessary images are native-observed, embedded, saved to GitHub and public-display-verified. A native example does not verify all article controls.",
     "summary": {
       "total_pages": 587,
-      "with_images": 192,
-      "with_native_examples": 192,
+      "with_images": 195,
+      "with_native_examples": 195,
       "states": {
         "reviewed-no-standalone-image": 26,
         "no-standalone-image-needed": 6,
         "illustrated-reused-example": 77,
-        "capture-planned": 363,
-        "illustrated-native-example": 115
+        "capture-planned": 360,
+        "illustrated-native-example": 118
       },
       "decisions": {
         "no-standalone-image-needed": 32,
-        "image-required": 192,
-        "capture-needed": 363
+        "image-required": 195,
+        "capture-needed": 360
       }
     },
     "pages": [
@@ -7865,10 +8089,12 @@
         "article": "manuals/fusion/learn/02-data/auxiliary-channels.md",
         "title": "補助Channel / AOV",
         "kind": "concept",
-        "image_count": 3,
+        "image_count": 7,
         "native_cases": [],
         "reused_cases": [
-          "S115"
+          "S115",
+          "S118",
+          "S119"
         ],
         "planned_cases": [],
         "state": "illustrated-reused-example",
@@ -11170,13 +11396,18 @@
         "article": "manuals/fusion/nodes/deep/ambient-occlusion-deep-pixel.md",
         "title": "Ambient Occlusion (Deep Pixel)",
         "kind": "node",
-        "image_count": 0,
-        "native_cases": [],
+        "image_count": 9,
+        "native_cases": [
+          "S120"
+        ],
         "reused_cases": [],
         "planned_cases": [],
-        "state": "capture-planned",
-        "decision": "capture-needed",
+        "state": "illustrated-native-example",
+        "decision": "image-required",
         "reason": "本文の対象機能: 3DレンダリングのZ・Normal・Cameraから接触部の陰影を作るAmbient Occlusion。入力、調整手順、OpenGLの補助チャンネル設定を解説。。ディレクトリ名がDeepでもtrue Deepとは異なる。S11のColorだけではZ/Normal/UVを受け渡した証拠にならない。",
+        "remaining_views": [
+          "Alternate inputs/all controls,transparent/edge behavior,external EXR persistence,other renderer/platform/edition/performance"
+        ],
         "required_views": [
           "対象Node名と実際の配線が読めるGraph",
           "対象Nodeを選択した固有Inspector（本文で示すControlを含む）",
@@ -11196,7 +11427,8 @@
             "section": "入力・出力",
             "role": "入力と結果を示す箇所"
           }
-        ]
+        ],
+        "audit_note": "S118–120 bounded native ordinary2D+aux proof;whole article remains partial."
       },
       {
         "article": "manuals/fusion/nodes/deep/d-merge.md",
@@ -11638,10 +11870,13 @@
         "article": "manuals/fusion/nodes/deep/index.md",
         "title": "Deep Image / 補助チャンネルのノード",
         "kind": "index",
-        "image_count": 2,
+        "image_count": 5,
         "native_cases": [],
         "reused_cases": [
-          "S116"
+          "S116",
+          "S118",
+          "S119",
+          "S120"
         ],
         "planned_cases": [],
         "state": "illustrated-reused-example",
@@ -11657,13 +11892,18 @@
         "article": "manuals/fusion/nodes/deep/shader-deep-pixel.md",
         "title": "Shader (Deep Pixel)",
         "kind": "node",
-        "image_count": 0,
-        "native_cases": [],
+        "image_count": 8,
+        "native_cases": [
+          "S118"
+        ],
         "reused_cases": [],
         "planned_cases": [],
-        "state": "capture-planned",
-        "decision": "capture-needed",
+        "state": "illustrated-native-example",
+        "decision": "image-required",
         "reason": "本文の対象機能: 2D画像に保存されたNormal（面の向き）を使い、レンダリング後の照明や反射を調整するNode。。ディレクトリ名がDeepでもtrue Deepとは異なる。S11のColorだけではZ/Normal/UVを受け渡した証拠にならない。",
+        "remaining_views": [
+          "Alternate inputs/all controls,transparent/edge behavior,external EXR persistence,other renderer/platform/edition/performance"
+        ],
         "required_views": [
           "対象Node名と実際の配線が読めるGraph",
           "対象Nodeを選択した固有Inspector（本文で示すControlを含む）",
@@ -11688,19 +11928,25 @@
             "section": "出力",
             "role": "入力と結果を示す箇所"
           }
-        ]
+        ],
+        "audit_note": "S118–120 bounded native ordinary2D+aux proof;whole article remains partial."
       },
       {
         "article": "manuals/fusion/nodes/deep/texture-deep-pixel.md",
         "title": "Texture (Deep Pixel)",
         "kind": "node",
-        "image_count": 0,
-        "native_cases": [],
+        "image_count": 8,
+        "native_cases": [
+          "S119"
+        ],
         "reused_cases": [],
         "planned_cases": [],
-        "state": "capture-planned",
-        "decision": "capture-needed",
+        "state": "illustrated-native-example",
+        "decision": "image-required",
         "reason": "本文の対象機能: レンダリング済み画像に記録されたUV座標を読み、別画像の模様を物体の表面へ貼り直す2Dノード。。ディレクトリ名がDeepでもtrue Deepとは異なる。S11のColorだけではZ/Normal/UVを受け渡した証拠にならない。",
+        "remaining_views": [
+          "Alternate inputs/all controls,transparent/edge behavior,external EXR persistence,other renderer/platform/edition/performance"
+        ],
         "required_views": [
           "対象Node名と実際の配線が読めるGraph",
           "対象Nodeを選択した固有Inspector（本文で示すControlを含む）",
@@ -11725,7 +11971,8 @@
             "section": "入力と出力",
             "role": "入力と結果を示す箇所"
           }
-        ]
+        ],
+        "audit_note": "S118–120 bounded native ordinary2D+aux proof;whole article remains partial."
       },
       {
         "article": "manuals/fusion/nodes/effects-film/cineon-log.md",
@@ -27538,7 +27785,7 @@
         "renderer-inspector.png",
         "compare.png"
       ],
-      "status": "embedded-local-display-verified",
+      "status": "published-display-verified",
       "scope": "Software RendererのRGBAとZを有効にした画像をCopy Auxへ渡しています。左は照明付きのカラー、右は補助Zを固定範囲で可視化した表示です。Zを別ケーブルで合成していません。この例でObject ID・Normal・UVや外部EXR、全ノードの保持動作を確認したわけではありません。"
     },
     {
@@ -27549,7 +27796,7 @@
         "renderer-inspector.png",
         "compare.png"
       ],
-      "status": "embedded-local-display-verified",
+      "status": "published-display-verified",
       "scope": "S115のSoftware Rendererで出力チャンネルのRGBAとZを有効にしました。Copy Aux側はZが欠けていると失敗する設定のまま、球の深度を表示できています。ここで確認したのは通常の2D画像と補助Zです。ほかのチャンネル、OpenGL、true Deepや外部EXRの保存は未確認です。"
     },
     {
@@ -27559,7 +27806,7 @@
       "images": [
         "compare.png"
       ],
-      "status": "embedded-local-display-verified",
+      "status": "published-display-verified",
       "scope": "Copy AuxのAux to Colorで、Software Rendererが出したZをRGBAへ取り出しました。固定の再マッピングで表示用の0〜1へ変換しています。"
     },
     {
@@ -27570,8 +27817,60 @@
         "graph.png",
         "compare.png"
       ],
-      "status": "embedded-local-display-verified",
+      "status": "published-display-verified",
       "scope": "Depth BlurはRendererが出した通常のRGBA画像と補助Zを使っています。右の出力では手前をほぼ鮮明に保ち、奥をぼかしました。このGraphのCopy AuxはZ確認用の分岐です。複数サンプルを保持するDeep Imageや、その平面化を実証した例ではありません。"
+    },
+    {
+      "id": "R169",
+      "article": "manuals/fusion/nodes/deep/index.md",
+      "source_case": "S118",
+      "images": [
+        "compare.png"
+      ],
+      "status": "embedded-local-display-verified",
+      "scope": "Normalを使って球の陰影を変えるShader;ordinary2D aux only,nottrueDeep."
+    },
+    {
+      "id": "R170",
+      "article": "manuals/fusion/nodes/deep/index.md",
+      "source_case": "S119",
+      "images": [
+        "compare.png"
+      ],
+      "status": "embedded-local-display-verified",
+      "scope": "UVを使ってチャートを球面へ貼るTexture;ordinary2D aux only,nottrueDeep."
+    },
+    {
+      "id": "R171",
+      "article": "manuals/fusion/nodes/deep/index.md",
+      "source_case": "S120",
+      "images": [
+        "compare.png"
+      ],
+      "status": "embedded-local-display-verified",
+      "scope": "Z・Normal・Cameraから接触部の陰影を加えるAmbient Occlusion;ordinary2D aux only,nottrueDeep."
+    },
+    {
+      "id": "R172",
+      "article": "manuals/fusion/learn/02-data/auxiliary-channels.md",
+      "source_case": "S118",
+      "images": [
+        "normal-inspector.png",
+        "normal.png"
+      ],
+      "status": "embedded-local-display-verified",
+      "scope": "Normalを方向の色として確認する;ordinary2D aux only,nottrueDeep."
+    },
+    {
+      "id": "R173",
+      "article": "manuals/fusion/learn/02-data/auxiliary-channels.md",
+      "source_case": "S119",
+      "images": [
+        "uv-inspector.png",
+        "uv.png"
+      ],
+      "status": "embedded-local-display-verified",
+      "scope": "UVを赤と緑で確認する;ordinary2D aux only,nottrueDeep."
     }
   ],
   "external_reports": [

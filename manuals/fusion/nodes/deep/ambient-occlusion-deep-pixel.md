@@ -14,7 +14,7 @@ outputs: [image]
 tasks: [aov, ambient-occlusion, post-process]
 product_scope: fusion
 suite_surfaces: [fusion]
-updated: "2026-10-16"
+updated: "2026-10-24"
 ---
 
 # Ambient Occlusion (Deep Pixel)
@@ -104,10 +104,48 @@ Ambient Occlusionは基本的に**不透明な3D形状**向けです。21.1マ�
 - [Depth Blur](./depth-blur-deep-pixel) — 同じZチャンネルを使った奥行きぼかし
 - [Deep / Auxiliary Channelノード](./index.md) — 真のDeep Imageとの違い
 
+## 実機例：球と床の接触部へAOを加える
+
+<!-- capture-case:S120 -->
+
+Resolve Studio21.1.0.14／Windows、1920×1080、Viewer40%、フレーム0で撮影しました。左がRenderer 3Dのカラー出力、右が処理後です。
+
+[![RGBAとZとNormalをAOへ渡し、同じCamera3DをAOのCamera入力へ接続した実機Graph](/img/fusion/captures/S120/graph.png)](/img/fusion/captures/S120/graph.png)
+
+球は原点、床はY＝−1、X回転＝−90、Scale＝6にしています。カメラはY＝1.5・Z＝7、X回転＝−12です。Software RendererのRGBA・Z・Normalを有効にし、画像をAOのInputへ、Camera 3DをAOのCameraへ接続しました。Camera未接続の初期状態では出力できなかったため、その状態は完成例へ採用していません。
+
+[![Software RendererでAOに必要なRGBAとZとNormalを有効にした実機Inspector](/img/fusion/captures/S120/renderer-inspector.png)](/img/fusion/captures/S120/renderer-inspector.png)
+
+Output Mode＝Color、Kernel Type＝Hemisphere、Number of Samples＝512、Kernel Radius＝1、Lift＝0、Gamma＝1、Tint＝白にしました。まずSettingsのBlend＝0で、元のカラーと同じ状態を確認します。
+
+[![Ambient OcclusionのBlend0で元の球と床のカラーが保たれる実機比較](/img/fusion/captures/S120/baseline.png)](/img/fusion/captures/S120/baseline.png)
+
+Blend＝1へ戻すと、右の球と床の接触部に暗い陰影が加わりました。ほかのパラメータと元のCamera・Lightは変えていません。
+
+[![AOのColor、Hemisphere、Samples512、Radius1、Lift0、Gamma1を選んだ実機Inspector](/img/fusion/captures/S120/inspector.png)](/img/fusion/captures/S120/inspector.png)
+
+[![右のAOカラー出力で球と床の接触部が暗くなる実機比較](/img/fusion/captures/S120/compare.png)](/img/fusion/captures/S120/compare.png)
+
+Output ModeをAOへ切り替えると、陰影成分だけを白黒で確認できます。接触部が暗く、ほかの面は白く表示されました。512サンプルでも接触部周辺にはノイズや縞が残っています。この値を最適値や十分な品質として示すものではありません。最後はColor、Blend＝1へ戻して保存しました。
+
+[![AOのみを出力するモードへ切り替えたAmbient Occlusionの実機Inspector](/img/fusion/captures/S120/ao-inspector.png)](/img/fusion/captures/S120/ao-inspector.png)
+
+[![白い面と暗い接触部をAOのみの出力で確認した実機比較](/img/fusion/captures/S120/ao.png)](/img/fusion/captures/S120/ao.png)
+
+入力側では、CopyAux1でZをFrom＝−9〜−4からTo＝0〜1へ、NormalAux1でNormalを−1〜1から0〜1へ取り出しました。いずれもChannel Missing＝Failで出力しています。2本は診断用の分岐で、AOへの入力にはRendererの元の補助チャンネルを使っています。
+
+[![球と床が連続した奥行き値を持つことを示す固定範囲のZ診断表示](/img/fusion/captures/S120/z.png)](/img/fusion/captures/S120/z.png)
+
+[![球面の連続した法線と床の一定方向がRGBで区別できるNormal診断表示](/img/fusion/captures/S120/normal.png)](/img/fusion/captures/S120/normal.png)
+
+これは通常の2D画像・Z・Normalを使う画面空間の後処理です。完全な大域照明、透明物や粒子、HiQ比較、カメラ移動時の安定性、別KernelやRadiusの最適化、EXR保存、別Renderer・Edition差と性能は未確認です。
+
+[再現用Graph](/img/fusion/captures/S120/fixture.comp) · [撮影条件と確認範囲](/img/fusion/captures/S120/capture.json)
+
 ## 出典・確認範囲
 
 - **Blackmagic Design, DaVinci Resolve 21.1 Reference Manual**, Chapter 96「Ambient Occlusion [SSAO]」、本文pp.2256–2259。入出力、Output Mode、Kernel、Samples、Radius、HiQ、透明物・粒子の制約を確認。
 - 同ManualのChapter 88「Renderer3D [3Rn]」、本文pp.1974–1975。Z / Normalの出力とOpenGL補助チャンネルのアンチエイリアスに関する推奨・記述の違いを確認。
 - 同ManualのChapter 77「Understanding Image Channels」、本文p.1686。AO等のShadowパスをMultiplyで合成する例を確認。
 
-設定名と動作は21.1の公式マニュアルに基づきます。DaVinci Resolve 21.1の実機、GPUごとの描画差、最適なRadius / Samples値は未検証です。
+S120でSoftware RendererのZ・NormalとCamera入力、Color／AO出力の表示を実機確認しました。GPU差、ほかの入力や最適なRadius／Samplesは未確認です。

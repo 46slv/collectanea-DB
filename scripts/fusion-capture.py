@@ -106,6 +106,9 @@ TARGETS['S114']='GamutMapping1';LEFT['S114']='HDRSource1'
 TARGETS['S115']='CopyAux1';LEFT['S115']='Renderer3D1'
 TARGETS['S116']='DepthBlur1';LEFT['S116']='Renderer3D1'
 TARGETS['S117']='Fog1';LEFT['S117']='Renderer3D1'
+TARGETS['S118']='Shader1';LEFT['S118']='Renderer3D1'
+TARGETS['S119']='Texture1';LEFT['S119']='Renderer3D1'
+TARGETS['S120']='AO1';LEFT['S120']='Renderer3D1'
 LEFT.update({'S100':'Swizzler1','S101':'Swizzler1','S102':'SwizzlerA1'})
 r=d.scriptapp('Resolve')
 assert r, 'Resolve scripting unavailable; do not change preferences automatically'
@@ -321,6 +324,8 @@ def select(target,left=None):
  for cid in ['S103','S104','S105','S106','S107','S108','S109','S110','S111','S112','S113']:layouts[cid]={'Loader1':(0,0),TARGETS[cid]:(1,0),'MediaOut1':(2,0)}
  if case=='S115':layouts[case]={'Shape3D1':(0,-1.5),'Camera3D1':(0,0),'PointLight1':(0,1.5),'Merge3D1':(1,0),'Renderer3D1':(2,0),'CopyAux1':(3,0),'MediaOut1':(4,0)}
  if case in ['S116','S117']:layouts[case]={'NearSphere1':(0,-2),'FarSphere1':(0,-.7),'Camera3D1':(0,.7),'PointLight1':(0,2),'Merge3D1':(1.2,0),'Renderer3D1':(2.4,0),TARGETS[case]:(3.6,0),'CopyAux1':(2.4,1.5),'MediaOut1':(4.8,0)}
+ if case in ['S118','S119']:layouts[case]={'Shape3D1':(0,-1.5),'Camera3D1':(0,0),'PointLight1':(0,1.5),'Merge3D1':(1,0),'Renderer3D1':(2,0),TARGETS[case]:(3,0),'CopyAux1':(2,1.5),'MediaOut1':(4,0),'Loader1':(2,-1.5)}
+ if case=='S120':layouts[case]={'Sphere1':(0,-2),'Ground1':(0,-.7),'Camera3D1':(0,.7),'PointLight1':(0,2),'Merge3D1':(1.2,0),'Renderer3D1':(2.4,0),'AO1':(3.6,0),'CopyAux1':(2.4,1.5),'NormalAux1':(3.6,1.5),'MediaOut1':(4.8,0)}
  if case=='S114':layouts[case]={'HDRSource1':(0,0),'GamutMapping1':(1,0),'MediaOut1':(2,0)}
  if case=='S110':layouts[case]={'Red1':(0,0),'GamutLimiter1':(1,0),'MediaOut1':(2,0)}
  for n,pos in layouts.get(case,{}).items():
@@ -361,6 +366,34 @@ if action=='build':
   rb=add('sRender','RenderBase1',4,-1);connect(rb,'Input',base)
   target=add('sTransform','Transform1',2,1);connect(target,'Input',base)
   rr=add('sRender','RenderChanged1',4,1);connect(rr,'Input',target);connect(mo,'Input',rr)
+ elif case=='S120':
+  sphere=add('Shape3D','Sphere1',0,-2,Shape='SurfaceSphereInputs')
+  ground=add('Shape3D','Ground1',0,-.7)
+  camera=add('Camera3D','Camera3D1',0,.7,**{'Transform3DOp.Translate.Z':7,'Transform3DOp.Translate.Y':1.5})
+  light=add('LightPoint','PointLight1',0,2,**{'Transform3DOp.Translate.X':2,'Transform3DOp.Translate.Y':3,'Transform3DOp.Translate.Z':3})
+  scene=add('Merge3D','Merge3D1',1.2,0)
+  for i,src in enumerate([sphere,ground,camera,light],1):connect(scene,'SceneInput'+str(i),src)
+  render=add('Renderer3D','Renderer3D1',2.4,0,Width=1920,Height=1080,UseFrameFormatSettings=1,RendererType='RendererSoftware',**{'RendererSoftware.LightingEnabled':1,'RendererSoftware.Channels.Z':1,'RendererSoftware.Channels.Normal':1});connect(render,'SceneInput',scene)
+  aux=add('Dimension.CopyAux','CopyAux1',2.4,1.5,Mode=0,Channel='Z',ChannelMissing=0,**{'Z.Remap.Enable':1,'Z.Remap.From.Min':-9,'Z.Remap.From.Max':-4,'Z.Remap.To.Min':0,'Z.Remap.To.Max':1});connect(aux,'Input',render)
+  norm=add('Dimension.CopyAux','NormalAux1',3.6,1.5,Mode=0,Channel='Normal',ChannelMissing=0,**{'Normal.Remap.Enable':1,'Normal.Remap.From.Min':-1,'Normal.Remap.From.Max':1,'Normal.Remap.To.Min':0,'Normal.Remap.To.Max':1});connect(norm,'Input',render)
+  target=add('SSAO','AO1',3.6,0)
+  ports={z.GetAttrs()['INPS_ID'] for z in target.GetInputList().values() if z and callable(z.GetAttrs) and z.GetAttrs().get('INPS_DataType')=='Image'}
+  assert 'Input' in ports,ports
+  connect(target,'Input',render);connect(mo,'Input',target)
+ elif case in ['S118','S119']:
+  shape=add('Shape3D','Shape3D1',0,-1.5,Shape='SurfaceSphereInputs')
+  camera=add('Camera3D','Camera3D1',0,0,**{'Transform3DOp.Translate.Z':7})
+  light=add('LightPoint','PointLight1',0,1.5,**{'Transform3DOp.Translate.X':2,'Transform3DOp.Translate.Y':2,'Transform3DOp.Translate.Z':3})
+  scene=add('Merge3D','Merge3D1',1,0)
+  for i,src in enumerate([shape,camera,light],1):connect(scene,'SceneInput'+str(i),src)
+  channel='Normal' if case=='S118' else 'TexCoord0'
+  render=add('Renderer3D','Renderer3D1',2,0,Width=1920,Height=1080,UseFrameFormatSettings=1,RendererType='RendererSoftware',**{'RendererSoftware.LightingEnabled':1,'RendererSoftware.Channels.'+channel:1});connect(render,'SceneInput',scene)
+  aux=add('Dimension.CopyAux','CopyAux1',2,1.5,Mode=0,Channel='Normal' if case=='S118' else 'Texture',ChannelMissing=0,**({'Normal.Remap.Enable':1,'Normal.Remap.From.Min':-1,'Normal.Remap.From.Max':1,'Normal.Remap.To.Min':0,'Normal.Remap.To.Max':1} if case=='S118' else {}));connect(aux,'Input',render)
+  if case=='S119':add('Loader','Loader1',2,-1.5,Clip=str(REPO/'static/img/fusion/captures/_fixtures/chart.png'))
+  target=add('Shader' if case=='S118' else 'Texture',TARGETS[case],3,0)
+  ports={z.GetAttrs()['INPS_ID'] for z in target.GetInputList().values() if z and callable(z.GetAttrs) and z.GetAttrs().get('INPS_DataType')=='Image'}
+  assert 'Input' in ports,ports
+  connect(target,'Input',render);connect(mo,'Input',target)
  elif case in ['S116','S117']:
   near=add('Shape3D','NearSphere1',0,-2,Shape='SurfaceSphereInputs',**{'Transform3DOp.Translate.X':-1.1})
   far=add('Shape3D','FarSphere1',0,-.7,Shape='SurfaceSphereInputs',**{'Transform3DOp.Translate.X':1.3,'Transform3DOp.Translate.Z':-3})
