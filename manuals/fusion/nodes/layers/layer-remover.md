@@ -13,7 +13,7 @@ outputs: [image]
 tasks: [multilayer, remove-layers, exr]
 product_scope: fusion
 suite_surfaces: [fusion]
-updated: "2026-10-10"
+updated: "2026-10-24"
 ---
 
 # Layer Remover
@@ -85,6 +85,30 @@ Layer RemoverのControlsタブでTemp / Previewに相当する項目へチェッ
 - [補助Channel / AOV](../../learn/02-data/auxiliary-channels) — Depth・Normalなど、CGレンダーから渡す補助データの基礎。
 
 Layerを丸ごと消したいだけならLayer Removerが簡単です。一方、RGBAのRチャンネルだけを別Layerへ移すなど、**チャンネル単位の再配置はLayer Removerの用途ではありません**。
+
+## 実機例：チェックしたGoldだけを除く
+
+<!-- capture-case:S100 -->
+
+Resolve Studio21.1.0.14／Windows、1920×1080、Viewer40%、フレーム0で撮影しました。Layerの入力は外部EXRではなく、LoaderのチャートとBackgroundをSwizzlerでまとめたテスト画像です。
+
+SwizzlerにGoldとChartの2つのLayerを作り、その出力をLayer Removerへ接続しました。Goldはオレンジ色のBackground、ChartはLoaderのチャートを持ちます。Layer Removerの出力はMediaOutへ渡しています。
+
+[![GoldとチャートをSwizzlerで2つのLayerにし、Layer Removerを経てMediaOutへ接続した実機Graph](/img/fusion/captures/S100/graph.png)](/img/fusion/captures/S100/graph.png)
+
+[![除外前はGoldもChartも未チェックで、左右のViewerにオレンジ色のGoldが見える実機画面](/img/fusion/captures/S100/before.png)](/img/fusion/captures/S100/before.png)
+
+両方のチェックがOFFの状態では、右ViewerにもGoldが表示されました。次にInspectorのGoldだけをONにします。
+
+[![実機Layer Removerの一覧でGoldがON、ChartがOFFになっているInspector](/img/fusion/captures/S100/inspector.png)](/img/fusion/captures/S100/inspector.png)
+
+[![左のSwizzlerにはGoldが残り、右のLayer Remover出力にはChartが表示された実機比較](/img/fusion/captures/S100/compare.png)](/img/fusion/captures/S100/compare.png)
+
+Goldをチェックすると、そのLayerが出力から除かれ、右ViewerにはChartが表示されました。左ViewerのSwizzlerはオレンジ色のままです。入力の画素を塗り消したのではなく、後段へ渡すLayerを減らした結果です。最後はGoldだけONの状態で保存しました。
+
+外部EXR、Depth・Normalなどのデータ、複数Layerの同時除外、書き出し後の保持、他OS・Edition差と性能は未確認です。`verification: partial`を維持します。
+
+[再現用Graph](/img/fusion/captures/S100/fixture.comp) · [撮影条件と確認範囲](/img/fusion/captures/S100/capture.json)
 
 ## バージョンと出典
 

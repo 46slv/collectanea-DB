@@ -2,7 +2,7 @@
   "schema_version": 1,
   "created": "2026-10-20",
   "scope": "All Fusion pages, DaVinci Resolve 21.1",
-  "status_note": "2026-10-24:public168/625/967 through PR118 and1481 assets PASS;S97–S99 local4pages32images PASS,14newcrop+3reuse;whole Fusion incomplete.",
+  "status_note": "2026-10-24:public171/639/984 through PR120 and1511 assets PASS;S100–S102 local4pages17images PASS,14newcrop+3reuse17placements;whole Fusion incomplete.",
   "asset_directory_template": "static/img/fusion/captures/{id}/{shot.slug}.png",
   "capture_manifest_name": "capture.json",
   "candidates": [
@@ -5303,7 +5303,7 @@
         "printed_pages": "2154–2157"
       },
       "goal": "RGB from BG and Alpha from FG;raw versus downstream AlphaMultiply",
-      "status": "captured-local-display-verified",
+      "status": "published-display-verified",
       "shots": [
         {
           "slug": "graph",
@@ -5335,7 +5335,8 @@
           "target": "ChannelBoolean",
           "status": "native-observed"
         }
-      ]
+      ],
+      "published_batch": "fusion-native-20261024-30"
     },
     {
       "id": "S98",
@@ -5347,7 +5348,7 @@
         "printed_pages": "2185–2187"
       },
       "goal": "Source BT.709 scene with Remove Gamma ON/OFF",
-      "status": "captured-local-display-verified",
+      "status": "published-display-verified",
       "shots": [
         {
           "slug": "graph",
@@ -5379,7 +5380,8 @@
           "target": "GamutConvert",
           "status": "native-observed"
         }
-      ]
+      ],
+      "published_batch": "fusion-native-20261024-30"
     },
     {
       "id": "S99",
@@ -5391,7 +5393,7 @@
         "printed_pages": "2445–2450"
       },
       "goal": "Two named layers from two inputs and native Viewer layer selection",
-      "status": "captured-local-display-verified",
+      "status": "published-display-verified",
       "shots": [
         {
           "slug": "graph",
@@ -5415,6 +5417,133 @@
           "slug": "chart",
           "kind": "output",
           "target": "Swizzler",
+          "status": "native-observed"
+        }
+      ],
+      "published_batch": "fusion-native-20261024-30"
+    },
+    {
+      "id": "S100",
+      "priority": "P1",
+      "article": "manuals/fusion/nodes/layers/layer-remover.md",
+      "manual": {
+        "version": "21.1",
+        "chapter": 106,
+        "printed_pages": "2444–2445"
+      },
+      "goal": "Remove checked Gold,retain Chart",
+      "status": "captured-local-display-verified",
+      "shots": [
+        {
+          "slug": "graph",
+          "kind": "node-graph",
+          "target": "LayerRemover",
+          "status": "native-observed"
+        },
+        {
+          "slug": "inspector",
+          "kind": "inspector",
+          "target": "LayerRemover",
+          "status": "native-observed"
+        },
+        {
+          "slug": "compare",
+          "kind": "output",
+          "target": "LayerRemover",
+          "status": "native-observed"
+        },
+        {
+          "slug": "before",
+          "kind": "output",
+          "target": "LayerRemover",
+          "status": "native-observed"
+        }
+      ]
+    },
+    {
+      "id": "S101",
+      "priority": "P1",
+      "article": "manuals/fusion/nodes/layers/layer-regex.md",
+      "manual": {
+        "version": "21.1",
+        "chapter": 106,
+        "printed_pages": "2441–2444"
+      },
+      "goal": "Transform Gold to Warm,keep unmatched Chart",
+      "status": "captured-local-display-verified",
+      "shots": [
+        {
+          "slug": "graph",
+          "kind": "node-graph",
+          "target": "LayerRegex",
+          "status": "native-observed"
+        },
+        {
+          "slug": "inspector",
+          "kind": "inspector",
+          "target": "LayerRegex",
+          "status": "native-observed"
+        },
+        {
+          "slug": "compare",
+          "kind": "output",
+          "target": "LayerRegex",
+          "status": "native-observed"
+        },
+        {
+          "slug": "before",
+          "kind": "output",
+          "target": "LayerRegex",
+          "status": "native-observed"
+        },
+        {
+          "slug": "chart",
+          "kind": "output",
+          "target": "LayerRegex",
+          "status": "native-observed"
+        }
+      ]
+    },
+    {
+      "id": "S102",
+      "priority": "P1",
+      "article": "manuals/fusion/nodes/layers/layer-muxer.md",
+      "manual": {
+        "version": "21.1",
+        "chapter": 106,
+        "printed_pages": "2440–2441"
+      },
+      "goal": "Combine four named layers from two sources and view Blue",
+      "status": "captured-local-display-verified",
+      "shots": [
+        {
+          "slug": "graph",
+          "kind": "node-graph",
+          "target": "LayerMuxer",
+          "status": "native-observed"
+        },
+        {
+          "slug": "inspector",
+          "kind": "inspector",
+          "target": "LayerMuxer",
+          "status": "native-observed"
+        },
+        {
+          "slug": "compare",
+          "kind": "output",
+          "target": "LayerMuxer",
+          "status": "native-observed"
+        },
+        {
+          "slug": "before",
+          "kind": "output",
+          "target": "LayerMuxer",
+          "status": "native-observed"
+        },
+        {
+          "slug": "layers",
+          "kind": "menu",
+          "target": "LayerMuxer",
           "status": "native-observed"
         }
       ]
@@ -6387,27 +6516,58 @@
         "artifacts/fusion-captures/public-batch29-assets.json"
       ],
       "limitations": "Whole587/387 capture-needed and remaining_views incomplete;S97–S99 native work stage,not public."
+    },
+    {
+      "id": "fusion-native-20261024-30",
+      "cases": [
+        "S97",
+        "S98",
+        "S99"
+      ],
+      "reuses": [
+        "R147",
+        "R148",
+        "R149"
+      ],
+      "pr": "https://github.com/46slv/collectanea-DB/pull/120",
+      "candidate": "621f853837d484ccd63ed98896bc2810a60752c3",
+      "main": "25e77f055511734a7173e206e657bde1a342cc3c",
+      "tree": "5431eeb4be308477c7914963d0b7e016a429ef91",
+      "quality_run": "https://github.com/46slv/collectanea-DB/actions/runs/40069480626",
+      "pages_run": "https://github.com/46slv/collectanea-DB/actions/runs/40070211753",
+      "merge_owner": "Fresh exact-head Quality/main/reviews/comments/inline checked;expected-head merge call returned already merged by Integrator;MERGED/equal tree readback,no duplicate merge",
+      "public_pages": 4,
+      "public_images": 32,
+      "new_placements": 17,
+      "new_native_crops": 14,
+      "public_asset_hashes": 1511,
+      "result": "PASS",
+      "evidence": [
+        "artifacts/fusion-captures/public-batch30-display-report.json",
+        "artifacts/fusion-captures/public-batch30-assets.json"
+      ],
+      "limitations": "Whole587/384capture-needed plus remaining_views incomplete;S100/S101 WORK only."
     }
   ],
   "coverage_inventory": {
-    "checked_at": "2026-10-24T06:13:20.268783+00:00",
+    "checked_at": "2026-10-24T06:53:15.169890+00:00",
     "scope": "All manuals/fusion Markdown and MDX pages; review necessity before adding images.",
     "completion_rule": "Every page has an explicit image decision; necessary images are native-observed, embedded, saved to GitHub and public-display-verified. A native example does not verify all article controls.",
     "summary": {
       "total_pages": 587,
-      "with_images": 171,
-      "with_native_examples": 171,
+      "with_images": 175,
+      "with_native_examples": 175,
       "states": {
         "reviewed-no-standalone-image": 26,
         "no-standalone-image-needed": 6,
-        "illustrated-reused-example": 74,
-        "capture-planned": 384,
-        "illustrated-native-example": 97
+        "illustrated-reused-example": 75,
+        "capture-planned": 380,
+        "illustrated-native-example": 100
       },
       "decisions": {
         "no-standalone-image-needed": 32,
-        "image-required": 171,
-        "capture-needed": 384
+        "image-required": 175,
+        "capture-needed": 380
       }
     },
     "pages": [
@@ -14257,25 +14417,34 @@
         "article": "manuals/fusion/nodes/layers/index.md",
         "title": "Layerノード",
         "kind": "index",
-        "image_count": 0,
+        "image_count": 3,
         "native_cases": [],
-        "reused_cases": [],
+        "reused_cases": [
+          "S100",
+          "S101",
+          "S102"
+        ],
         "planned_cases": [],
-        "state": "capture-planned",
-        "decision": "capture-needed",
+        "state": "illustrated-reused-example",
+        "decision": "image-required",
         "reason": "実際のLayer一覧とMain競合、削除チェックの処理前後を示す。"
       },
       {
         "article": "manuals/fusion/nodes/layers/layer-muxer.md",
         "title": "Layer Muxer",
         "kind": "node",
-        "image_count": 0,
-        "native_cases": [],
+        "image_count": 5,
+        "native_cases": [
+          "S102"
+        ],
         "reused_cases": [],
         "planned_cases": [],
-        "state": "capture-planned",
-        "decision": "capture-needed",
+        "state": "illustrated-native-example",
+        "decision": "image-required",
         "reason": "本文の対象機能: 2つのマルチレイヤー画像を受け、Image 2から必要なLayerを選んでImage 1へまとめるFusionノード。。RGBAの通常合成画像ではlayerの追加/削除/renameを確認できない。",
+        "remaining_views": [
+          "Other modes/controls,Main conflict/custom selection,EXR/Aux/output retention,other editions/platforms/performance"
+        ],
         "required_views": [
           "対象Node名と実際の配線が読めるGraph",
           "対象Nodeを選択した固有Inspector（本文で示すControlを含む）",
@@ -14301,19 +14470,24 @@
             "role": "入力と結果を示す箇所"
           }
         ],
-        "audit_note": "Planning prerequisite: hold-fixture-identity; not a live capability failure."
+        "audit_note": "S102 bounded native layer example accepted."
       },
       {
         "article": "manuals/fusion/nodes/layers/layer-regex.md",
         "title": "Layer Regex",
         "kind": "node",
-        "image_count": 0,
-        "native_cases": [],
+        "image_count": 5,
+        "native_cases": [
+          "S101"
+        ],
         "reused_cases": [],
         "planned_cases": [],
-        "state": "capture-planned",
-        "decision": "capture-needed",
+        "state": "illustrated-native-example",
+        "decision": "image-required",
         "reason": "本文の対象機能: マルチレイヤー画像のLayer名を正規表現で検索し、名前の変更・選別・削除を行うFusionノード。。RGBAの通常合成画像ではlayerの追加/削除/renameを確認できない。",
+        "remaining_views": [
+          "Other modes/controls,Main conflict/custom selection,EXR/Aux/output retention,other editions/platforms/performance"
+        ],
         "required_views": [
           "対象Node名と実際の配線が読めるGraph",
           "対象Nodeを選択した固有Inspector（本文で示すControlを含む）",
@@ -14339,19 +14513,24 @@
             "role": "入力と結果を示す箇所"
           }
         ],
-        "audit_note": "Planning prerequisite: hold-fixture-identity; not a live capability failure."
+        "audit_note": "S101 bounded native layer example accepted."
       },
       {
         "article": "manuals/fusion/nodes/layers/layer-remover.md",
         "title": "Layer Remover",
         "kind": "node",
-        "image_count": 0,
-        "native_cases": [],
+        "image_count": 4,
+        "native_cases": [
+          "S100"
+        ],
         "reused_cases": [],
         "planned_cases": [],
-        "state": "capture-planned",
-        "decision": "capture-needed",
+        "state": "illustrated-native-example",
+        "decision": "image-required",
         "reason": "本文の対象機能: マルチレイヤー画像から指定したLayerをチェックリストで除外し、必要なLayerだけを後段へ渡すFusionノード。。RGBAの通常合成画像ではlayerの追加/削除/renameを確認できない。",
+        "remaining_views": [
+          "Other modes/controls,Main conflict/custom selection,EXR/Aux/output retention,other editions/platforms/performance"
+        ],
         "required_views": [
           "対象Node名と実際の配線が読めるGraph",
           "対象Nodeを選択した固有Inspector（本文で示すControlを含む）",
@@ -14377,7 +14556,7 @@
             "role": "入力と結果を示す箇所"
           }
         ],
-        "audit_note": "Planning prerequisite: hold-fixture-identity; not a live capability failure."
+        "audit_note": "S100 bounded native layer example accepted."
       },
       {
         "article": "manuals/fusion/nodes/lut/file-lut.md",
@@ -26163,8 +26342,9 @@
       "images": [
         "compare.png"
       ],
-      "status": "embedded-local-display-verified",
-      "scope": "RGBとAlphaを別入力から取り、後段のAlpha Multiplyを通した楕円の切り抜き;bounded example,not full controls."
+      "status": "published-display-verified",
+      "scope": "RGBとAlphaを別入力から取り、後段のAlpha Multiplyを通した楕円の切り抜き;bounded example,not full controls.",
+      "published_batch": "fusion-native-20261024-30"
     },
     {
       "id": "R148",
@@ -26173,8 +26353,9 @@
       "images": [
         "compare.png"
       ],
-      "status": "embedded-local-display-verified",
-      "scope": "SourceをBT.709 sceneにしてRemove GammaをONにした比較;bounded example,not full controls."
+      "status": "published-display-verified",
+      "scope": "SourceをBT.709 sceneにしてRemove GammaをONにした比較;bounded example,not full controls.",
+      "published_batch": "fusion-native-20261024-30"
     },
     {
       "id": "R149",
@@ -26183,8 +26364,39 @@
       "images": [
         "compare.png"
       ],
+      "status": "published-display-verified",
+      "scope": "Swizzlerで2入力をGoldとChartのLayerへ分け、Goldを表示した比較;bounded example,not full controls.",
+      "published_batch": "fusion-native-20261024-30"
+    },
+    {
+      "id": "R150",
+      "article": "manuals/fusion/nodes/layers/index.md",
+      "source_case": "S100",
+      "images": [
+        "compare.png"
+      ],
       "status": "embedded-local-display-verified",
-      "scope": "Swizzlerで2入力をGoldとChartのLayerへ分け、Goldを表示した比較;bounded example,not full controls."
+      "scope": "Goldにチェックを入れて除外するとChartが残る;bounded native example,no EXR/Aux/output guarantees."
+    },
+    {
+      "id": "R151",
+      "article": "manuals/fusion/nodes/layers/index.md",
+      "source_case": "S101",
+      "images": [
+        "compare.png"
+      ],
+      "status": "embedded-local-display-verified",
+      "scope": "GoldをWarmへ改名してもオレンジ色の画像内容は変わらない;bounded native example,no EXR/Aux/output guarantees."
+    },
+    {
+      "id": "R152",
+      "article": "manuals/fusion/nodes/layers/index.md",
+      "source_case": "S102",
+      "images": [
+        "compare.png"
+      ],
+      "status": "embedded-local-display-verified",
+      "scope": "2入力をまとめた出力のBlueを選ぶと青い画像が見える;bounded native example,no EXR/Aux/output guarantees."
     }
   ],
   "external_reports": [

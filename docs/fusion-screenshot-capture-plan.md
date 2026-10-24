@@ -1,6 +1,6 @@
 # Fusion 21.1 スクリーンショット計画
 
-更新: 2026-10-24。168ページ・625原画crop・967掲載を公開確認済み。S97–S99のnative確認を終え、記事掲載へ継続中。Fusion全体は未完了。
+更新: 2026-10-24。171ページ639crop984掲載を公開確認済み。S100 Layer Remover native完了、S101 Layer Regexへ継続。全体未完。
 
 撮影候補は [fusion-screenshot-candidates.json](./fusion-screenshot-candidates.json) に記録する。記事の説明基準は [Fusion Authoring Contract](./fusion-authoring-contract.md)、技術出典はDaVinci Resolve 21.1 Reference Manual（2026年9月）。公式画像の転載ではなく、実機から独自に撮影する。
 
@@ -29,9 +29,9 @@
 ## Active Checkpoint — 2026-10-24
 
 - Mission / Owner: Fusion全体の必要箇所を実機撮影→記事掲載→GitHub→公開確認まで継続。Sol、制作元task `01a1683b-3067-7a40-892a-47a3b30d50b2`が設計・GUI・実装・統合・検証のsingle writer。ユーザーは全体継続・必要なGitHub操作・silvelへの報告を明示許可。Resolve GUIの別writerなし。新規worker/自動Rolloverは不要。
-- Canonical checkout:C:/Users/shiro/Documents/Codex/2026-10-23/task-19/collectanea-screenshot-integration、branch integration/fusion-channels-gamut-layers-native-20261024、basea25153c19adadeeb3cacce2993b5a6244631c7d5。PR118公開receipt保持。pushは明示branch。
-- Public PASS:S01–S96/R01–R146、168ページ・625unique crop・967掲載。全587/未図示387/画像不要32、remaining_views未完、verification partial維持。exact identityはpublication_batches。
-- Latest receipt:PR118 candidate3727f9632819688ea8c9a1c30b5cc85f122bfe3d、maina25153c19adadeeb3cacce2993b5a6244631c7d5、treed2c6c3635ce7f7e8ae474c93b3126ddfbf3ddefa一致。Quality40067680423/Pages40068623240全job/step PASS。fresh main/head/reviews/comments/inline→Sol expected-head squash→MERGED。公開4記事25画像PC/390px/decode/Alt/原寸リンク/overflow PASS、1481素材HTTP/hash PASS。public-batch29-display-report/assetsと8画面保存、Fill公開画面を実見・会話掲載。
+- Canonical checkout:C:/Users/shiro/Documents/Codex/2026-10-23/task-19/collectanea-screenshot-integration、branch integration/fusion-layer-operations-native-20261024、base25e77f055511734a7173e206e657bde1a342cc3c。PR120公開receipt保持、次のLayer系記事へ。
+- Public PASS:S01–S99/R01–R149、171ページ639unique crop984掲載。全587/未図示384/画像不要32、remaining_views未完、partial維持。
+- Latest receipt:PR120 candidate621f853837d484ccd63ed98896bc2810a60752c3、main25e77f055511734a7173e206e657bde1a342cc3c、tree5431eeb4be308477c7914963d0b7e016a429ef91一致。Quality40069480626/Pages40070211753全job/step PASS。fresh identity/reviews/inline後のexpected-head mergeはIntegrator既統合と応答、MERGED/equal treeを確認。公開4記事32画像PC/390px/decode/Alt/原寸リンク/overflow、1511素材HTTP/hash PASS。Swizzler公開画面を実見・会話掲載。
 - Batch16 PUBLIC PASS: S58–S61/R99–R102、28新crop+12再利用。PR91 initiala18bc59はincoming PR90 Banding/main5d53be9の通常mergeでf452e117へ更新。Reference2パスのincoming差分・祖先を確認しlocalff-only。旧Quality40035383198 cancelledはsuperseded。既存Integratorのmergeをfresh readback、二重mergeなし。
 - Validation/publication contract: scoped prepare/finalize/verifyへcase/entry IDを渡し既存caseを上書きしない。無描画/無拡大crop、source/crop/Graph/readback hashes。Ready integration PRのexact-head Quality全job/step→fresh main/reviews/comments→expected-head merge→Pages→公開UI/全素材hash。incoming mainは通常merge→新head CI、Integratorが先に統合していればreadbackだけ。CI中は凍結candidateへ追加しない。
 - Source/work stage:canonical helperS96/workS98。S94–S96 native確認・14crop＋3reuse採用、local/public未。S97 ChannelBoolean native/export/限定Number readbackまで確認、adopt未。広い入力値列挙省略、Image/Mask/3D/ScriptVal payload評価なし。
@@ -45,7 +45,7 @@
 - S65 native/local display PASS: RankFilter REGID、chart/Size7、Rank.5で細格子/小文字が減り、0で暗領域、1で明領域が広がる。最後Rank.5へ復元保存、restored実見。sources restored/rank0/rank1、7crop。実写salt-pepper/Mask/Alpha/境界/内部順位/性能未確認。
 - Batch17/18 PUBLIC PASS: S62–S65/PR93の29新crop+12再利用、S66–S69/PR96の31新crop+4分類比較を公開。累計public133/437/726。batch19 S70–S73は26新crop+4分類比較、local137/463/756まで受理。各exact identityはpublication_batches参照。
 - Dot delivered/readback PASS: fresh title/profile silvel/空入力を確認、event fusion-native-20261024-15でPR87–89公開121/349/610と929素材、PR91 head a18bc59f CI待ち、未図示430＋remaining_views、Sol単一writerを1段落paste→1回Send。送信文・空入力・受領文（121/349/610、PR91はCI待ち、未図示430継続）を確認。dot-batch15-report.jpgは報告本文の画面で会話へ掲載済み。返信画面を撮れたとは扱わず受領はUIテキストで確認。以後のPR91 head更新は別のGitHub readback。Dot返信から実行権限を追加しない。
-- **Next action / KEEP:**S97 Channel Booleans/S98 Gamut/S99 Swizzlerの原画・exportを採用→記事/overview掲載→fresh build/表示/inventory→exact-head CI/merge/Pages/public/assets。S100前に2桁ID制約を修正。保存済みcase再build禁止。Sol単一担当KEEP、public168/625/967、全体未完。
+- **Next action / KEEP:**S100–S102 local4ページ17画像PASS、14crop＋3再利用17掲載。inventory→fresh main→commit/explicit push/Ready PR→exact-head CI/merge/Pages/public/assets。公開171/639/984、全体未完。現在S101_capture/20156/82647722、frame0/40%/Chart/saved、modalなし。次はS103 CSTなどColorの未図示ノード。
 
 ## 第1batchの撮影・統合メモ（履歴）
 
@@ -176,3 +176,13 @@ Batch29 freeze readiness:incoming8d217dd後fresh production buildと4記事25画
 S99 native PASS:Input1 chart/Input2 Gold→Swizzler→MediaOut。Layer1をGold/Source Input2へ変更、native Add LayerでLayer2を作りChartへ改名、Source Input1。ViewerレイヤーメニューにGold/Chartを確認し、foreground選択後の実画面でChart/Gold両方を確認。foreground_unavailableはpopup閉鎖後に返ったため再送せずnative結果で判定。最後Gold、frame0/40%/Swizzler選択で保存。Keep Main Input Layers OFF、All Channels、Aux/EXR/export/他mode未確認。native originals WORK/S99-final.png、S99-chart-front.png、S99-two-layers.png。現host20156/82647722、S99_capture、保存済み。Dot29は送信1197/ACK1211でPR115公開済み・PR118CI待ちを区別して受領済み。
 
 S97–S99 LOCAL PASS（public未確認）:14新crop＋R147–R149再利用3掲載、local4ページ32画像PC/390px/hash/decode/Alt/原寸リンク/overflow PASS（batch30-local/display-report.json、8画面）。production build PASS、回帰19/19、Python構文とdiff check PASS。local171ページ639crop984掲載、全587/未図示384/画像不要32、remaining_views未完。S100以降に備えfinalizeのIDを2桁または先頭非0の3桁以上へ限定拡張し、S01/S99/S100/S999/S1000受付、S1/S001/パス/suffix拒否を確認。既存case再finalize/rebuildはしていない。Batch30候補凍結後はWORKだけで次候補準備する。
+
+S100 native WORK PASS:Swizzler Gold/Chart→LayerRemover→MediaOut、GoldチェックONで右はChart、左SwizzlerはGold。baseline S100-unblocked-baseline.png、final S100-final.png（snapshot362）、5visible nodes、frame0/both40%、absolute exportとSaveProject True。LayersのScriptVal GetInputは行わずexportにGold文字列を確認。S99原作Loader保持もreadback済み。CopySettings/PasteはOrderedDict変換失敗で空、再試行なし。ImportFusionCompは同名Composition1を置換しLoader→MediaInへ変化、owned S100内で新Loaderへ修復しimported MediaInをOperator.Deleteで除去（戻りNone、fresh不在確認）。このfull-comp import経路は汎用再現手順として採用しない。S101はOperator.SaveSettings/LoadSettingsファイル方式でGold/ChartとInput割当のbounded Text/Number readback PASS。
+原因と改善:新規LoaderをLockなしでAddToolするとOpen Fileが開き、Resolve GetCurrentPage/OpenPage/SaveProjectがNoneになる一方Fusion tool APIは動作した。既存helper addのc.Lock/Unlockを必須に戻す。相対c.Saveも保存エラーを発生。親HWND captureは子modalを描かないためAXの保存警告/ファイル名欄を撮影gateへ追加する。S100時のOpen FileはCancel、保存警告はOKで閉じ、page=fusion復帰とSaveProject Trueまで確認した。unknown/foreground_unavailableは物理入力の証拠にしない。
+
+S101 native WORK PASS:Image1=Swizzler Gold/Chart、Image2未接続。Expression1 ^Gold$、Mode1 Transform、Template1 Warm、Unmatched1 Keep。最初のImage1 key確認前Input接続は失敗し、metadataでImage1/2を確認して一度修正。右Warm/同色維持と、Viewer menu Warm/Chart、Chartを選んだチャートをnative確認。final S101-compact.png（374）、before S101-before-rename.png、Warm S101-renamed.png。frame0/both40%/saved。S102 native WORK PASS:2つのSwizzlerにGold/ChartとBlue/Reference、LayerMuxer Image1/Image2へ接続、Layer :All。native Viewer menu4Layerを確認、右Blue選択で青、左Goldで橙を表示、pixel mergeではない。Conflicts Image2への変更はInspector/readbackだけ確認、named-only sourceのMain切替は成立未確認のため採用せずImagea/UseImage1へ復元。final S102-compact.png（372）、before S102-baseline40.png、menu S102-layers-menu.png。7visible nodes、frame0/both40%/saved。
+改善の成立:Operator.SaveSettings/LoadSettingsのファイル経路がS101/S102でTrue、Layer名とSourceのbounded readback/nativeで受理。新規AddToolはc.Lock/Unlockで囲む（特にLoader Open File自動表示を防ぐ）。WORK capture wrapperに保存警告とファイル名欄のAX gate追加。S100/101/102のGraphを実機上でcompactに並べ直し、画面内の余白を減らした。現在S101_capture/20156/82647722、frame0/40%/LayerRegex/Chart選択/saved、modalなし。次はS100–S102採用14crop前後→Layer一覧へ再利用→local/CI/public。
+
+Batch31 LOCAL PASS:S100–S102/R150–R152、production build、回帰19/19、Python構文/diff check、実buildの4ページ17画像PC/390px/decode/Alt/原寸リンク/sourcehash/overflow PASS。S102のViewer menu画像はnative155x117 popupを無加工crop、Color画像へ合成していない。掲載済み記事でも各remaining_viewsは未完、partial維持。
+
+Batch31 inventory:全587、local図示175ページ653crop1001掲載、未図示380、画像不要32。Public PASSは171/639/984のまま。新しいLayer indexは初の画像掲載なので4ページ増。

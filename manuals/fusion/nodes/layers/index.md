@@ -74,6 +74,28 @@ Layer名に`right.1`、`right.2`などが含まれている場合、Layer Regex�
 
 各ノードはLayerの操作を担当し、最終的な画面合成、Depthによるぼかし、法線を使ったリライティングなどは別の処理です。
 
+## 実機で見るLayerの除外・改名・統合
+
+次の3例では、同じテスト用チャートとBackgroundから名前付きLayerを作っています。外部EXRの入出力や、Depth・Normalの処理を確認した例ではありません。
+
+<!-- capture-reuse:R150 -->
+
+[![Goldにチェックを入れて除外するとChartが残る実機比較](/img/fusion/captures/S100/compare.png)](/img/fusion/captures/S100/compare.png)
+
+[LayerRemoverのGraph・Inspector・確認範囲](./layer-remover)を参照してください。
+
+<!-- capture-reuse:R151 -->
+
+[![GoldをWarmへ改名してもオレンジ色の画像内容は変わらない実機比較](/img/fusion/captures/S101/compare.png)](/img/fusion/captures/S101/compare.png)
+
+[LayerRegexのGraph・Inspector・確認範囲](./layer-regex)を参照してください。
+
+<!-- capture-reuse:R152 -->
+
+[![2入力をまとめた出力のBlueを選ぶと青い画像が見える実機比較](/img/fusion/captures/S102/compare.png)](/img/fusion/captures/S102/compare.png)
+
+[LayerMuxerのGraph・Inspector・確認範囲](./layer-muxer)を参照してください。
+
 ## 出典と確認範囲
 
 **DaVinci Resolve 21.1 Reference Manual、Chapter 106「Layer Nodes」、pp.2439–2451**のLayer Muxer、Layer Regex、Layer Remover、Swizzlerを基に整理しました。CGレンダーのLayer名と接続例は用途を説明するための例です。

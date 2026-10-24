@@ -1,0 +1,197 @@
+{
+  "schema_version": 1,
+  "case": "S101",
+  "article": "manuals/fusion/nodes/layers/layer-regex.md",
+  "manual": {
+    "version": "21.1",
+    "chapter": 106,
+    "printed_pages": "2441–2444"
+  },
+  "runtime": {
+    "version": "21.1.0.14",
+    "edition": "Studio",
+    "os": "Windows-11-10.0.26200-SP0",
+    "ui_language": "ja-JP (some Shape controls remain English)"
+  },
+  "captured_at": "2026-10-24T06:48:18.077413+00:00",
+  "project": "Collectanea_Captures_20261023_Sol",
+  "timeline": "S101_capture",
+  "frame": 0,
+  "resolution": [
+    1920,
+    1080
+  ],
+  "color_management": {
+    "colorScienceMode": "davinciYRGB",
+    "colorSpaceTimeline": "Rec.709 (Scene)",
+    "colorSpaceTimelineGamma": "",
+    "colorSpaceOutput": "Rec.709 (Scene)",
+    "colorSpaceOutputGamma": "ACEScc",
+    "separateColorSpaceAndGamma": "0",
+    "isAutoColorManage": "0",
+    "timelineResolutionWidth": "1920",
+    "timelineResolutionHeight": "1080",
+    "timelineFrameRate": 24.0,
+    "timelinePlaybackFrameRate": "30"
+  },
+  "viewer": {
+    "zoom_percent": 40,
+    "channel": "Color",
+    "background": "checkerboard for transparent pixels",
+    "note": "Viewer screenshots are display evidence, not colorimetric exports."
+  },
+  "graph": "fixture.comp",
+  "settings": "readback.json",
+  "source": {
+    "file": "screen.png",
+    "size": [
+      3352,
+      1910
+    ],
+    "sha256": "2d785c9ada4ec0947769b9ab4bcca9f83b80fe1d3495499d0401f5cfda1870b7"
+  },
+  "shots": [
+    {
+      "file": "graph.png",
+      "source": "screen.png",
+      "source_sha256": "2d785c9ada4ec0947769b9ab4bcca9f83b80fe1d3495499d0401f5cfda1870b7",
+      "frame": 0,
+      "crop_xyxy": [
+        770,
+        1200,
+        2070,
+        1530
+      ],
+      "resampled": false,
+      "sha256": "d23a8cc3b2bb580e4a5dc0ac582f3dda6e0b258305fe317a9817ce739b53090e",
+      "viewer_guides": false,
+      "viewer_contents": "Left Swizzler Gold / Right retained Chart"
+    },
+    {
+      "file": "inspector.png",
+      "source": "screen.png",
+      "source_sha256": "2d785c9ada4ec0947769b9ab4bcca9f83b80fe1d3495499d0401f5cfda1870b7",
+      "frame": 0,
+      "crop_xyxy": [
+        2830,
+        120,
+        3352,
+        590
+      ],
+      "resampled": false,
+      "sha256": "a64f321d1bf350a0bfc8b2688784e33aa89452435008be836650f57857f06537",
+      "viewer_guides": false,
+      "viewer_contents": "Left Swizzler Gold / Right retained Chart"
+    },
+    {
+      "file": "compare.png",
+      "source": "screen-warm.png",
+      "source_sha256": "85a8907ed964ffbd4c817ad53d5cf331559231f2fcd19a698424d2f56eae6899",
+      "frame": 0,
+      "crop_xyxy": [
+        1146,
+        65,
+        2830,
+        725
+      ],
+      "resampled": false,
+      "sha256": "da82cb5ad6774b7b74654045b46bb2bd58a248f3278b73e8c86a46b876a38d94",
+      "viewer_guides": false,
+      "viewer_contents": "Left Swizzler Gold / Right renamed Warm,same orange pixels"
+    },
+    {
+      "file": "before.png",
+      "source": "screen-before.png",
+      "source_sha256": "3b38300cb41c8961f30e8042b4011ac28f8ba6413e06eed0f21b9b5693eecea6",
+      "frame": 0,
+      "crop_xyxy": [
+        1146,
+        65,
+        2830,
+        725
+      ],
+      "resampled": false,
+      "sha256": "d7bfb82858a3039118ee39792542b264f0f1db33b0783208411029f5836e9aa5",
+      "viewer_guides": false,
+      "viewer_contents": "Left Swizzler Gold / Right original Gold before rename"
+    },
+    {
+      "file": "chart.png",
+      "source": "screen.png",
+      "source_sha256": "2d785c9ada4ec0947769b9ab4bcca9f83b80fe1d3495499d0401f5cfda1870b7",
+      "frame": 0,
+      "crop_xyxy": [
+        1146,
+        65,
+        2830,
+        725
+      ],
+      "resampled": false,
+      "sha256": "01b54d1ce8ee169deae39a1d5337cb2f22cfdb1453cee2077ed028c87cbb3fdb",
+      "viewer_guides": false,
+      "viewer_contents": "Left Swizzler Gold / Right retained Chart"
+    }
+  ],
+  "acceptance": {
+    "gui": "PASS: owner visually inspected node connections, selected Inspector, and output",
+    "article_display": "Executed local/public outcomes stored in docs/fusion-screenshot-candidates.json per-case status/publication_batches;capture provenance fixed."
+  },
+  "unverified": [
+    "Free edition and other platforms",
+    "All parameter ranges and performance",
+    "External EXR/Aux,file output retention,all parameter ranges,other editions/platforms/performance",
+    "Exported portable composition reimport"
+  ],
+  "parameter_readback_scope": "No broad value enumeration and no Image/Mask/ScriptVal GetInput. Exact runtime metadata,limited Text/FuID values,native UI and exported text only.",
+  "gui_authoring": {
+    "host": {
+      "pid": 20156,
+      "hwnd": 82647722,
+      "source_pixels": [
+        3352,
+        1910
+      ]
+    },
+    "tool": "LayerRegex1",
+    "regid": "LayerRegex",
+    "visible_flow_tools": 5,
+    "delivery": "synthetic Cua/SDK;physical input NOT_PROVEN;native UI/export prove outcome"
+  },
+  "restoration": "PASS:frame0,both40%,compact native Flow,owned scratch saved,native final inspected",
+  "reproduction_action": "Accepted portable fixture available;reimport NOT_RUN. Helper show/readback only for existing owned cases;build refused.",
+  "mechanical_improvements": [
+    "Construct new Loader under c.Lock/Unlock to prevent automatic Open File dialog",
+    "Use absolute composition export path",
+    "Check child dialog AX before accepting parent-HWND screenshot",
+    "Use native tool .setting SaveSettings/LoadSettings instead of CopySettings/Paste or full-comp import",
+    "Compact native graph positions reduce article whitespace"
+  ],
+  "native_values": {
+    "Expression1": "^Gold$",
+    "Mode1": "Transform",
+    "Template1": "Warm",
+    "Unmatched1": "Keep",
+    "Image2": "unconnected"
+  },
+  "state_variants": {
+    "screen.png": "Final compact graph/right Chart",
+    "screen-warm.png": "Renamed right Warm,same orange image",
+    "screen-before.png": "Original right Gold"
+  },
+  "native_menu_observed": [
+    "Warm",
+    "Chart"
+  ],
+  "setting_reuse": "Native Swizzler tool SaveSettings/LoadSettings returned True;LayerName1/2 and RInput1/2 bounded readback accepted",
+  "rejected_attempts": [
+    "Wrong Input key rejected before output wiring;metadata Image1/Image2 used for guarded repair",
+    "Unprotected Loader creation opened Open File,cancelled with no file opened;builder Lock restored",
+    "Viewer menu background Invoke no-op;foreground selection closed popup,returned foreground_unavailable,actual Chart independently observed"
+  ],
+  "reproduction": {
+    "fixture_sha256": "d3601baf4a12bbed98a5c9f5f1741aa70e47a85ebaaaa7de13c118606bcfb7a7",
+    "readback_sha256": "248576d5d9313ab17fea8ae42c279040d11bcf3614c88ff24b2a8b1f7fda6378",
+    "paths": "Comp:/../_fixtures/ for bundled synthetic fixtures",
+    "reimport": "NOT_RUN: accepted GUI evidence precedes export path normalization"
+  }
+}
