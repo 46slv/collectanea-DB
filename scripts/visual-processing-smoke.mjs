@@ -556,6 +556,56 @@ try {
       if (width === 390) await shot('box-blur-mobile');
     }
   });
+  await check('contrast-preview-controls-and-mobile', async () => {
+    await go(route);
+    await page.getByRole('link', {name: '倍率とピボットを操作して比較'}).click();
+    await expect(page).toHaveURL(new RegExp('/reference/visual-processing/contrast/?$'));
+    for (const width of [1440, 390, 320]) {
+      await page.setViewportSize({width, height: width === 1440 ? 1000 : 844});
+      await go('/reference/visual-processing/contrast');
+      await expect(page.locator('.theme-doc-markdown h1')).toHaveText('コントラスト（Contrast）と明暗差の線形変換');
+      const widget = page.locator('[data-vp-contrast="ready"]');
+      await expect(widget).toBeVisible();
+      const layout = await widget.evaluate((element) => {
+        const previews = element.querySelector('.vp-contrast__previews');
+        const controls = element.querySelector('.vp-contrast__controls');
+        return {
+          dom: Boolean(previews && controls && (previews.compareDocumentPosition(controls) & Node.DOCUMENT_POSITION_FOLLOWING)),
+          visual: Boolean(previews && controls && previews.getBoundingClientRect().bottom <= controls.getBoundingClientRect().top),
+          panels: element.querySelectorAll('[data-vp-contrast-preview]').length,
+        };
+      });
+      assert.ok(layout.dom && layout.visual && layout.panels === 2, 'Contrast preview-first at ' + width);
+      const sample = widget.locator('.vp-contrast__sample');
+      await expect(sample).toContainText('入力64 → 64');
+      if (width === 1440) {
+        const gain = widget.getByRole('slider', {name: 'コントラスト倍率 c'});
+        const pivot = widget.getByRole('slider', {name: 'ピボット p'});
+        const output = widget.locator('[data-vp-contrast-preview="output"] canvas');
+        const initial = await output.evaluate((canvas) => canvas.toDataURL());
+        await gain.focus();
+        await gain.press('Home');
+        await expect(widget).toHaveAttribute('data-vp-contrast-gain', '0.5');
+        await expect(sample).toContainText('入力64 → 96');
+        await expect.poll(() => output.evaluate((canvas) => canvas.toDataURL())).not.toBe(initial);
+        await gain.press('End');
+        await expect(widget).toHaveAttribute('data-vp-contrast-gain', '2');
+        await expect(sample).toContainText('入力192 → 255');
+        await pivot.focus();
+        await pivot.press('Home');
+        await expect(sample).toContainText('入力64 → 64');
+        await widget.getByRole('combobox', {name: '元画像'}).selectOption('radial');
+        await widget.getByRole('combobox', {name: '表示倍率'}).selectOption('2');
+        await widget.getByRole('button', {name: '初期値に戻す'}).click();
+        await expect(widget).toHaveAttribute('data-vp-contrast-gain', '1');
+        await expect(pivot).toHaveValue('128');
+        await expect(widget.getByRole('combobox', {name: '元画像'})).toHaveValue('ramp');
+        await expect(widget.getByRole('combobox', {name: '表示倍率'})).toHaveValue('1');
+      }
+      await noOverflow();
+      if (width === 390) await shot('contrast-mobile');
+    }
+  });
   await check('no-runtime-or-resource-errors', async () => {
     assert.deepEqual(report.pageErrors, []);
     assert.deepEqual(report.resourceErrors, []);
