@@ -15,7 +15,7 @@ outputs: [image]
 tasks: [color-curves, tone-curve, match-reference]
 product_scope: fusion
 suite_surfaces: [fusion]
-updated: "2026-10-11"
+updated: "2026-10-24"
 ---
 
 # Color Curves
@@ -148,8 +148,32 @@ Reference機能では、別のショットや画像を見本として使い、�
 | 半透明部分の縁が不自然 | Alpha形式とPre-Divide/Post-Multiplyを確認する。 |
 | HDRの明部が想定と違う | 曲線は0～1の範囲外も扱う。該当値域のSplineと後段処理を確認する。 |
 
+## 実機例：RGBの中間調を一緒に持ち上げる
+
+<!-- capture-case:S108 -->
+
+Resolve Studio21.1.0.14／Windows、1920×1080、Viewer40%、フレーム0で撮影しました。左がLoaderのテストチャート、右が処理後です。
+
+[![LoaderからColor Curvesを経てMediaOutへ接続し、任意の参照画像とMaskは未接続の実機Graph](/img/fusion/captures/S108/graph.png)](/img/fusion/captures/S108/graph.png)
+
+ModeはNo Animation、Color SpaceはRGBです。Red・Green・Blueの編集をON、Alphaの編集をOFFにしました。各曲線が左下から右上へ向かう直線の状態では、左右は同じ見え方です。
+
+[![RGBの編集をON、AlphaをOFFにして直線の曲線を表示したColor Curvesの実機Inspector](/img/fusion/captures/S108/baseline-inspector.png)](/img/fusion/captures/S108/baseline-inspector.png)
+
+[![曲線を変更する前は入力と出力が同じ見え方になるColor Curvesの実機比較](/img/fusion/captures/S108/baseline.png)](/img/fusion/captures/S108/baseline.png)
+
+Spline Windowの中央付近を上へドラッグし、中間点のInを0.5にしました。保存したRGB各曲線の中間点はIn0.5／Out約0.743、両端は0→0と1→1です。右の灰色段階や色パッチが明るくなっています。Alphaの曲線は元の直線を保っています。
+
+[![RGBの中間点をIn0.5、Out約0.743へ持ち上げ、Alphaの曲線を直線に保った実機Inspector](/img/fusion/captures/S108/inspector.png)](/img/fusion/captures/S108/inspector.png)
+
+[![RGBの中間点を上げると右の灰色段階や色パッチが明るくなる実機比較](/img/fusion/captures/S108/compare.png)](/img/fusion/captures/S108/compare.png)
+
+この曲線は説明用に手動で作成したもので、プリセットではありません。実写、HDRの範囲外、RGB以外のColor Space、Pick、Reference Match／Sample Reference、Animated／Dissolve、Mask、半透明画像、Edition差と性能は未確認です。
+
+[再現用Graph](/img/fusion/captures/S108/fixture.comp) · [撮影条件と確認範囲](/img/fusion/captures/S108/capture.json)
+
 ## 出典と確認範囲
 
 **Blackmagic Design, DaVinci Resolve 21.1 Reference Manual**（2026年9月版）、Chapter 93「Color Nodes」、**pp.2168–2171「Color Curves [CCv]」**を一次資料として確認しました。入力端子、Color Space、Color Channels、SplineとIn/Out、Pick、Mode、Referenceの各Control、Pre-Divide/Post-Multiply、0～1の範囲外の扱いを参照しています。
 
-0.50→0.60の例、グレーの壁、カメラ間の色合わせは、マニュアルで確認できる機能を組み合わせた説明用の運用例です。内部REGID、曲線補間の厳密な演算式、全パラメータの初期値・範囲、実機の表示結果、Edition差までは確認していないため、`verification: partial`を維持しています。
+0.50→0.60の例、グレーの壁、カメラ間の色合わせは、マニュアルで確認できる機能を組み合わせた説明用の運用例です。S108で内部REGIDとRGB中間点の編集・表示を実機確認しました。曲線補間の厳密な演算式、全パラメータの初期値・範囲、他の操作やEdition差は未確認のため、`verification: partial`を維持しています。

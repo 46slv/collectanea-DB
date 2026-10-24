@@ -15,7 +15,7 @@ outputs: [image]
 tasks: [color-space, tone-map, gamut-map]
 product_scope: fusion
 suite_surfaces: [fusion]
-updated: "2026-10-11"
+updated: "2026-10-24"
 ---
 
 # Color Space Transform
@@ -166,9 +166,33 @@ CSTにはACESの選択肢もありますが、**正式なACESワークフロー�
 - **Viewerだけ見え方が違う**：Viewer LUTの有無を確認する。
 - **部分的にしか変換されない**：Effect Maskの接続と範囲を確認する。
 
+## 実機例：InputとOutputのGammaを比べる
+
+<!-- capture-case:S103 -->
+
+Resolve Studio21.1.0.14／Windows、1920×1080、Viewer40%、フレーム0で撮影しました。Loaderのテストチャートをノードへ入力し、その画像出力をMediaOutへ接続しています。左が入力、右が処理後です。
+
+[![LoaderからFusionのColor Space Transformを経てMediaOutへ接続した実機Graph](/img/fusion/captures/S103/graph.png)](/img/fusion/captures/S103/graph.png)
+
+Input Color SpaceとOutput Color SpaceはRec.709、Tone Mapping MethodとGamut Mapping MethodはNoneにしています。Input GammaをGamma 2.4、Output GammaをLinearにすると、右の色パッチや暗い階調が左より暗く表示されました。
+
+[![CSTの実機Inspector、入出力Rec709、入力Gamma2.4、出力Linear、ToneとGamut MappingはNone](/img/fusion/captures/S103/inspector.png)](/img/fusion/captures/S103/inspector.png)
+
+[![入力Gamma2.4から出力Linearへ変換すると右の色パッチと暗部が暗く表示される実機比較](/img/fusion/captures/S103/compare.png)](/img/fusion/captures/S103/compare.png)
+
+次にInput Gammaを保ち、Output GammaだけをGamma 2.4に変えました。入力と出力でGammaがそろうと、右は左のチャートと同じ見え方へ戻っています。
+
+[![Output GammaだけをGamma2.4へ変更し、入出力Gammaが同じになった実機Inspector](/img/fusion/captures/S103/matched-inspector.png)](/img/fusion/captures/S103/matched-inspector.png)
+
+[![入出力ともGamma2.4にすると右が入力チャートと同じ見え方へ戻る実機比較](/img/fusion/captures/S103/matched.png)](/img/fusion/captures/S103/matched.png)
+
+最後はOutput GammaをLinearへ戻して保存しました。この例はテストチャートを指定したGammaとして扱った表示比較です。カメラ素材の入力特性の判定、測色値、RCM、HDRやTone／Gamut Mapping、OOTF、半透明エッジ、全プリセット・他OS・Edition差と性能は未確認です。`verification: partial`を維持します。
+
+[再現用Graph](/img/fusion/captures/S103/fixture.comp) · [撮影条件と確認範囲](/img/fusion/captures/S103/capture.json)
+
 ## 出典と確認範囲
 
 - Blackmagic Design『DaVinci Resolve 21.1 Reference Manual』Chapter 93「Color Nodes」pp.2138–2141：入出力、4つの変換メニュー、Swap、Tone Mapping、Gamut Mapping、OOTF、White Point Adaptation、ACESに関する注意。
 - 同Chapter 76「Managing Color for Visual Effects」pp.1654–1659：リニア合成、Viewer LUT、MediaIn / Loaderのガンマ変換、DaVinci YRGB Color Managedでの自動変換。
 
-本文は21.1マニュアルで確認できた仕様に基づきます。接続例は仕様に基づく構成例であり、21.1実機でのレンダリングを検証したという意味ではありません。全プリセット、既定値・数値範囲、Free / Studio差は網羅確認していません。
+S103のGraph、Inspector、Gammaの表示比較と保存状態を実機確認しました。他の接続例はManualに基づく構成例です。全プリセット、数値範囲、実写・測色、Free / Studio差は網羅確認していません。

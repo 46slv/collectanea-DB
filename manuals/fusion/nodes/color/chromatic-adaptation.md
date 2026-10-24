@@ -15,7 +15,7 @@ outputs: [image]
 tasks: [white-point, color-temperature, color-management]
 product_scope: fusion
 suite_surfaces: [fusion]
-updated: "2026-10-11"
+updated: "2026-10-24"
 ---
 
 # Chromatic Adaptation
@@ -145,10 +145,34 @@ White Balanceは基準となるグレーや撮影時の色温度を手がかり�
 - [Gamut](./gamut) — 色空間とガンマ処理
 - [マスク（Mask）](../../learn/02-data/mask) — Effect Maskによる適用範囲の限定
 
+## 実機例：Target IlluminantだけをD50へ変える
+
+<!-- capture-case:S104 -->
+
+Resolve Studio21.1.0.14／Windows、1920×1080、Viewer40%、フレーム0で撮影しました。Loaderのテストチャートをノードへ入力し、その画像出力をMediaOutへ接続しています。左が入力、右が処理後です。
+
+[![LoaderからChromatic Adaptationを経てMediaOutへ接続した実機Graph](/img/fusion/captures/S104/graph.png)](/img/fusion/captures/S104/graph.png)
+
+MethodはCAT02、SourceとTargetのIlluminant TypeはStandard Illuminant、Current Color SpaceはRec.709、GammaはLinearです。SourceとTargetがともにD65の状態では、左右のチャートは同じ見え方でした。
+
+[![Chromatic Adaptationの実機Inspector、CAT02、SourceとTargetともD65、Rec709とLinear](/img/fusion/captures/S104/default-inspector.png)](/img/fusion/captures/S104/default-inspector.png)
+
+[![SourceとTargetがD65で一致しているときの入力と出力の実機比較](/img/fusion/captures/S104/default.png)](/img/fusion/captures/S104/default.png)
+
+SourceをD65に保ち、TargetのStd. IlluminantだけをD50へ変えました。右の白いパネルや灰色段階が黄みを帯び、色パッチも変化しています。
+
+[![TargetだけをD50へ変え、Source D65とCAT02を保ったChromatic Adaptationの実機Inspector](/img/fusion/captures/S104/inspector.png)](/img/fusion/captures/S104/inspector.png)
+
+[![左のチャートに対して、右の白と灰色が暖色へ変わったD65からD50への実機比較](/img/fusion/captures/S104/compare.png)](/img/fusion/captures/S104/compare.png)
+
+最後はTarget D50の状態で保存しました。確認したのはこの組み合わせによる画面表示までです。実写の照明条件や白色点の測定、他Methodの比較、Kelvin・xy指定、Mask、RCM、他OS・Edition差と性能は未確認です。`verification: partial`を維持します。
+
+[再現用Graph](/img/fusion/captures/S104/fixture.comp) · [撮影条件と確認範囲](/img/fusion/captures/S104/capture.json)
+
 ## 出典・確認範囲
 
 - Blackmagic Design, *DaVinci Resolve 21.1 Reference Manual*（September 2026）、Chapter 93「Color Nodes」、pp.2136–2138。Fusionの入力、Method、Illuminant、Current Color Space / Gammaを確認。
 - 同マニュアル、Chapter 9、pp.241–242。Resolve Color ManagementのWhite Point Adaptationと、P3-D60 / P3-D65の使用例を参照。
 - 同マニュアル、Chapter 156、pp.3541–3542。Colorページで使用するResolve FX Color版の説明も照合。
 
-説明は21.1の公式記述に基づきます。Fusion実機での内部REGID、各ドロップダウンの全選択肢、数値範囲、処理精度、Edition差はこの改稿では未確認です。ColorページのResolve FX版とFusionノード版でInspectorの全項目が完全一致するとは断定しません。
+説明は21.1の公式記述に基づきます。S104で内部REGIDと、CAT02／D65→D50の表示を実機確認しました。各ドロップダウンの全選択肢、数値範囲、測色精度、Edition差は未確認です。ColorページのResolve FX版とFusionノード版でInspectorの全項目が完全一致するとは断定しません。

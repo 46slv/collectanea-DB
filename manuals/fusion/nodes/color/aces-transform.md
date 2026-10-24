@@ -15,7 +15,7 @@ outputs: [image]
 tasks: [aces, color-space, color-management]
 product_scope: fusion
 suite_surfaces: [fusion]
-updated: "2026-10-11"
+updated: "2026-10-24"
 ---
 
 # ACES Transform
@@ -127,6 +127,30 @@ Fusion Studioでは、21.1マニュアルはACES色管理の手段としてOCIO�
 - **マスク境界だけ色が変わる**：Effect Maskが色変換を局所適用していないかを確認する。
 - **合成すると素材同士の明暗が合わない**：Merge前の素材が同じシーンリニアの色空間にあるか確認する。表示用のODTを一方だけにかけない。
 
+## 実機例：入力変換だけの表示とODTを加えた表示
+
+<!-- capture-case:S106 -->
+
+Resolve Studio21.1.0.14／Windows、1920×1080、Viewer40%、フレーム0で撮影しました。左がLoaderのテストチャート、右が処理後です。
+
+[![LoaderからFusionのACES Transformを経てMediaOutへ接続した実機Graph](/img/fusion/captures/S106/graph.png)](/img/fusion/captures/S106/graph.png)
+
+ACES VersionはACES 2.0です。このチャートをsRGBのテクスチャとして扱い、Input Transformに「sRGB (Texture) - CSC」を指定しました。Output TransformがNo Output Transformの状態では、右の中間調が暗く表示されています。
+
+[![ACES2.0で入力sRGB Texture CSC、出力No Output Transformを指定した実機Inspector](/img/fusion/captures/S106/idt-inspector.png)](/img/fusion/captures/S106/idt-inspector.png)
+
+[![sRGBの入力変換だけを適用し、表示用ODTを加えていない右Viewerの実機比較](/img/fusion/captures/S106/idt.png)](/img/fusion/captures/S106/idt.png)
+
+Input Transformを保ち、Output Transformを「Rec.709 BT.1886」へ変えました。右の中間調が入力変換だけの状態より明るくなり、色パッチも変わりました。入力と出力の変換をそろえて指定する場所を確認できます。
+
+[![ACES2.0、入力sRGB Texture CSC、出力Rec709 BT1886、Gamut Compress Noneの実機Inspector](/img/fusion/captures/S106/inspector.png)](/img/fusion/captures/S106/inspector.png)
+
+[![Rec709 BT1886の出力変換を加えた右Viewerと元のテストチャートの実機比較](/img/fusion/captures/S106/compare.png)](/img/fusion/captures/S106/compare.png)
+
+初期状態のNo Input Transform／No Output Transformでは、左右は同じ見え方でした。最後は上記の入出力変換で保存しています。Gamut Compress TypeはNone、プロジェクトの色管理設定は変更していません。これは合成チャートで操作を説明する例です。カメラIDTの適合判定、測色、RCM／プロジェクトACESとの連携、他Version・ODT・Gamut Compression、MaskやAlpha、Edition差と性能は未確認です。
+
+[再現用Graph](/img/fusion/captures/S106/fixture.comp) · [撮影条件と確認範囲](/img/fusion/captures/S106/capture.json)
+
 ## 出典と確認範囲
 
 - Blackmagic Design『DaVinci Resolve 21.1 Reference Manual』Chapter 93「Color Nodes」pp.2134–2135：ノードの入力、マスク、基本接続、InspectorのACES Version / Input Transform / Output Transform / Gamut Compress Type。
@@ -135,4 +159,4 @@ Fusion Studioでは、21.1マニュアルはACES色管理の手段としてOCIO�
 - 同Chapter 9「Data Levels, Color Management, and ACES」pp.244–247：プロジェクト側のACES Version、IDT / ODTと入出力の考え方。
 - [Blackmagic Design公式サポートセンター](https://www.blackmagicdesign.com/support)：DaVinci Resolve 21.1 Reference Manual（2026年9月8日公開）。
 
-接続例はマニュアルの仕様を基に組んだ例であり、Resolve 21.1実機での表示や書き出しを検証した結果ではありません。Fusionノードの全プリセット、初期値・数値範囲、Free / Studioの差は未確認です。
+S106の接続とInspector、入出力変換による表示を実機確認しました。カメラ素材の構成例はManualに基づく提案で、実写や書き出しの検証結果ではありません。Fusionノードの全プリセット、初期値・数値範囲、Free / Studioの差は未確認です。
