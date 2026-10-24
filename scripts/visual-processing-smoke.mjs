@@ -518,6 +518,55 @@ try {
       if (width === 390) await shot('gamma-powercurve-mobile');
     }
   });
+  await check('box-blur-preview-controls-and-mobile', async () => {
+    await go(route);
+    await page.getByRole('link', {name: '操作してGaussian Blurと比較'}).click();
+    await expect(page).toHaveURL(new RegExp('/reference/visual-processing/filters/box-blur/?
+    assert.deepEqual(report.pageErrors, []);
+    assert.deepEqual(report.resourceErrors, []);
+  });
+} finally {
+  report.status = report.checks.every((entry) => entry.status === 'PASS') ? 'PASS' : 'FAIL';
+  await fs.writeFile(path.join(out, 'reference-smoke-report.json'), JSON.stringify(report, null, 2));
+  await browser.close();
+}
+console.log(JSON.stringify(report, null, 2));
+if (report.status !== 'PASS') process.exitCode = 1;
+));
+    for (const width of [1440, 390, 320]) {
+      await page.setViewportSize({width, height: width === 1440 ? 1000 : 844});
+      await go('/reference/visual-processing/filters/box-blur');
+      await expect(page.locator('.theme-doc-markdown h1')).toHaveText('ボックスブラー（Box Blur）');
+      const widget = page.locator('[data-vp-box="ready"]');
+      await expect(widget).toBeVisible();
+      const layout = await widget.evaluate((element) => {
+        const previews = element.querySelector('.vp-box__previews');
+        const controls = element.querySelector('.vp-box__controls');
+        return {
+          dom: Boolean(previews && controls && (previews.compareDocumentPosition(controls) & Node.DOCUMENT_POSITION_FOLLOWING)),
+          visual: Boolean(previews && controls && previews.getBoundingClientRect().bottom <= controls.getBoundingClientRect().top),
+          panels: element.querySelectorAll('[data-vp-box-preview]').length,
+        };
+      });
+      assert.ok(layout.dom && layout.visual && layout.panels === 3,
+        'Box Blur three-panel preview-first layout: ' + width + ' ' + JSON.stringify(layout));
+      if (width === 1440) {
+        const canvas = widget.locator('[data-vp-box-preview="box"] canvas');
+        const initial = await canvas.evaluate((element) => element.toDataURL());
+        const slider = widget.getByRole('slider', {name: 'Box半径'});
+        await slider.focus();
+        await slider.press('Home');
+        await expect(widget).toHaveAttribute('data-vp-box-radius', '0');
+        await expect.poll(() => canvas.evaluate((element) => element.toDataURL())).not.toBe(initial);
+        await widget.getByRole('combobox', {name: 'テスト画像'}).selectOption('lights');
+        await widget.getByRole('button', {name: '初期値に戻す'}).click();
+        await expect(widget).toHaveAttribute('data-vp-box-radius', '3');
+        await expect(widget.getByRole('combobox', {name: 'テスト画像'})).toHaveValue('edges');
+      }
+      await noOverflow();
+      if (width === 390) await shot('box-blur-mobile');
+    }
+  });
   await check('no-runtime-or-resource-errors', async () => {
     assert.deepEqual(report.pageErrors, []);
     assert.deepEqual(report.resourceErrors, []);
