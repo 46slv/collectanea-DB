@@ -2,7 +2,7 @@
   "schema_version": 1,
   "created": "2026-10-20",
   "scope": "All Fusion pages, DaVinci Resolve 21.1",
-  "status_note": "2026-10-24:public195/763/1138 throughPR129,1759assetsPASS;batch38 LOCAL200/774/1168,6pages35imagesPASS.Whole587/355capture-needed plus remaining_views incomplete;partial retained.",
+  "status_note": "2026-10-24:PR130 merged/QualityPASS,Pages/public pending.Local200/774/1168;public195/763/1138 throughPR129.S122 dHoldout nativeSDK connection exits remain unresolved;S123 ordinary2D WORK progressing,partial retained.",
   "asset_directory_template": "static/img/fusion/captures/{id}/{shot.slug}.png",
   "capture_manifest_name": "capture.json",
   "candidates": [
@@ -7775,6 +7775,30 @@
         "artifacts/fusion-captures/public-batch37-assets.json"
       ],
       "limitations": "Whole587/360capture-needed plus remaining_views incomplete;S121 WORK notaccepted. AO residual sampling artifacts documented."
+    },
+    {
+      "id": "fusion-native-20261024-38",
+      "cases": [
+        "S121"
+      ],
+      "reuses": [
+        "R174",
+        "R175",
+        "R176",
+        "R177",
+        "R178"
+      ],
+      "pr": "https://github.com/46slv/collectanea-DB/pull/130",
+      "candidate": "ce4a5bfbc870b699201ac6f9610aeefc1af1688e",
+      "main": "326a235825bd9d75ad7e9be8bb22ad5485ebc1b3",
+      "tree": "2fb0fa696a86d9b393d03d58f6719a801ce658c8",
+      "quality_run": "https://github.com/46slv/collectanea-DB/actions/runs/40086566453",
+      "pages_run": "https://github.com/46slv/collectanea-DB/actions/runs/40087469130",
+      "merge_owner": "Sol exact-head all jobs/steps,fresh main/head/reviews/comments/inline,expected-head squash,MERGED/equal tree",
+      "new_native_crops": 11,
+      "new_placements": 30,
+      "result": "WAIT_PAGES_PUBLIC",
+      "limitations": "Whole587/355capture-needed plus remaining_views incomplete;dHoldoutS122 blocked on SDK connection host exits,notaccepted."
     }
   ],
   "coverage_inventory": {
@@ -11822,7 +11846,8 @@
             "section": "運用例：柱の奥へ入る煙を隠す",
             "role": "入力と結果を示す箇所"
           }
-        ]
+        ],
+        "blocker": "S122 SDK DeepImage Background/Foreground/Flatten connection sequence coincided with host exit twice,including GUI-bound/locked variant;native output NOT_RUN. Do not repeat same sequence. Alternative GUI delivery not yet tested."
       },
       {
         "article": "manuals/fusion/nodes/deep/drecolor.md",
