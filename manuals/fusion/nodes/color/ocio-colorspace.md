@@ -15,7 +15,7 @@ outputs: [image]
 tasks: [ocio, color-space]
 product_scope: fusion
 suite_surfaces: [fusion]
-updated: "2026-10-11"
+updated: "2026-10-24"
 ---
 
 # OCIO Color Space
@@ -119,10 +119,38 @@ Viewer LUTは**画面での見え方**のための設定であり、OCIO Color S
 - **Viewerは正しいが書き出しが異なる**：Viewer LUTと、MediaOut / Saverに送る実画像の変換を別々に点検します。
 - **半透明の縁に不自然な色が出る**：前後のAlpha処理も確認します。[Premultiplication](../../learn/04-compositing/premultiplication)が関連します。
 
+## 実機例：Config内のGamma2.2とlinearを選ぶ
+
+<!-- capture-case:S112 -->
+
+Resolve Studio21.1.0.14／Windows、1920×1080、Viewer40%、フレーム0で撮影しました。左が入力、右が処理後です。
+
+[![LoaderからOCIO Color Spaceを経てMediaOutへ接続した実機Graph](/img/fusion/captures/S112/graph.png)](/img/fusion/captures/S112/graph.png)
+
+この環境では、Config欄が空のままだとSource／Outputにrawが表示されました。そこでインストール先の`Fusion/LUTs/DefaultConfig.ocio`をノードのOCIO Configから明示的に指定しています。撮影条件には設定ファイルと付属LUTのハッシュを記録しています。環境変数やユーザー設定、インストール済みのファイルは変更していません。
+
+保存Graphは撮影環境のインストール先を参照します。別の環境で開く場合は、その環境の同じ設定ファイルをOCIO Configで選び直してください。設定ファイルと付属LUTはここでは再配布していません。
+
+この設定ファイルにはGamma2.2とlinearが定義されています。テストチャートをSource Space＝Gamma2.2、Output Space＝linearとして扱うと、右の中間調と色パッチが暗く表示されました。LookはNone、DirectionはForwardです。
+
+[![インストール済みConfigを指定し、Source Gamma2.2とOutput linearを選んだ実機Inspector](/img/fusion/captures/S112/inspector.png)](/img/fusion/captures/S112/inspector.png)
+
+[![OCIO ConfigのGamma2.2からlinearへの変換で右が暗くなる実機比較](/img/fusion/captures/S112/compare.png)](/img/fusion/captures/S112/compare.png)
+
+Sourceを保ち、Output SpaceだけをGamma2.2にすると、左右は同じ見え方へ戻りました。最後はOutput linearで保存しています。
+
+[![SourceとOutputの両方をGamma2.2にそろえたOCIO Color Spaceの実機Inspector](/img/fusion/captures/S112/matched-inspector.png)](/img/fusion/captures/S112/matched-inspector.png)
+
+[![同じGamma2.2を入出力に選ぶと左右が同じ見え方へ戻る実機比較](/img/fusion/captures/S112/matched.png)](/img/fusion/captures/S112/matched.png)
+
+この例は指定した色表現として合成チャートを処理した表示比較です。カメラ素材の入力判定、測色・書き出し精度、ACES／RCMとの連携、別ConfigやLook、ほかの色空間・Direction、MaskやAlpha、Edition差と性能は未確認です。
+
+[再現用Graph](/img/fusion/captures/S112/fixture.comp) · [撮影条件と確認範囲](/img/fusion/captures/S112/capture.json)
+
 ## バージョンと出典
 
 - **DaVinci Resolve 21.1 Reference Manual** Chapter 93「Color Nodes」pp.2193–2195：Input / Effect Mask、Controls、config依存のSource / Output、Look、配置例。
 - 同マニュアルChapter 76「Managing Color for Visual Effects」pp.1661–1663：OCIOでのACEScg合成、Fusion Studio Viewer LUT。
 - [OpenColorIO公式](https://opencolorio.org/)および[公式config資料](https://opencolorio.readthedocs.io/en/latest/configurations/_index.html#configurations)。
 
-固有のInspector項目名として確認したのは**OCIO Config / Source Space / Output Space / Look**です。メニューの実際の候補はconfigにより異なります。各候補の全リスト、実機での厳密なデフォルト値、Free / Studioの細かな差はこの文書では未確認です。
+固有のInspector項目名として確認したのは**OCIO Config / Source Space / Output Space / Look**です。メニューの実際の候補はconfigにより異なります。S112で同梱ConfigのGamma2.2／linearの選択と表示を確認しました。各候補の全リスト、厳密なデフォルト値、Free / Studio差は未確認です。

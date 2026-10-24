@@ -1,6 +1,6 @@
 # Fusion 21.1 スクリーンショット計画
 
-更新: 2026-10-24。181ページ685crop1039掲載が公開PASS、1607全素材HTTP/hash一致。S109–S111 local4記事43画像PASS、累計local184/701/1058。全体未完。
+更新: 2026-10-24。184ページ701crop1058掲載が公開PASS、1639全素材HTTP/hash一致。S112–S114 local4記事46画像PASS、累計local187/717/1077。全体未完。
 
 撮影候補は [fusion-screenshot-candidates.json](./fusion-screenshot-candidates.json) に記録する。記事の説明基準は [Fusion Authoring Contract](./fusion-authoring-contract.md)、技術出典はDaVinci Resolve 21.1 Reference Manual（2026年9月）。公式画像の転載ではなく、実機から独自に撮影する。
 
@@ -29,14 +29,14 @@
 ## Active Checkpoint — 2026-10-24
 
 - Mission / Owner: Fusion全体の必要箇所を実機撮影→記事掲載→GitHub→公開確認まで継続。Sol、制作元task `01a1683b-3067-7a40-892a-47a3b30d50b2`が設計・GUI・実装・統合・検証のsingle writer。ユーザーは全体継続・必要なGitHub操作・silvelへの報告を明示許可。Resolve GUIの別writerなし。新規worker/自動Rolloverは不要。
-- Canonical checkout:C:/Users/shiro/Documents/Codex/2026-10-23/task-19/collectanea-screenshot-integration、branch integration/fusion-hue-limiter-file-native-20261024、base3f22897c8912e42bd8a19e563269e196a719a4b6。PR125公開receipt保持、S109–S111 local候補。
-- Public PASS:S01–S108/R01–R158、181ページ685unique crop1039掲載。全587/未図示374/画像不要32、remaining_views未完、partial維持。
-- Latest receipt:PR125 candidate79aa4b4d2cd480f381f262cd60c373829177b84f、main3f22897c8912e42bd8a19e563269e196a719a4b6、treeaa6da16a9eb6a535419981b4c14b477a012cc864一致。Quality40076098635/Pages40076808360全job/step PASS。公開4ページ40画像PC/390px/decode/Alt/原寸リンク/overflow、1607素材HTTP/hash PASS。PR124のCCも1575/1575 failed-only再照合PASS、失敗履歴保持。
+- Canonical checkout:C:/Users/shiro/Documents/Codex/2026-10-23/task-19/collectanea-screenshot-integration、branch integration/fusion-ocio-mapping-native-20261024、base13717d5c3abf069c4f0edc799514604d4ae03624。PR126公開receipt保持、S112–S114 local候補。
+- Public PASS:S01–S111/R01–R161、184ページ701unique crop1058掲載。全587/未図示371/画像不要32、remaining_views未完、partial維持。
+- Latest receipt:PR126 candidate72cb1f9020163930a2e5f39ad9f7f9f0f50545ab、main13717d5c3abf069c4f0edc799514604d4ae03624、treec82e8e2229fbde5791c24f56ea51b7e181b8d7c5一致。Quality40077588885/Pages40078445079全job/step PASS。公開4ページ43画像PC/390px/decode/Alt/原寸リンク/overflow、1639素材HTTP/hash PASS。Hue Curves公開画面を実見・会話掲載。
 - Batch16 PUBLIC PASS: S58–S61/R99–R102、28新crop+12再利用。PR91 initiala18bc59はincoming PR90 Banding/main5d53be9の通常mergeでf452e117へ更新。Reference2パスのincoming差分・祖先を確認しlocalff-only。旧Quality40035383198 cancelledはsuperseded。既存Integratorのmergeをfresh readback、二重mergeなし。
 - Validation/publication contract: scoped prepare/finalize/verifyへcase/entry IDを渡し既存caseを上書きしない。無描画/無拡大crop、source/crop/Graph/readback hashes。Ready integration PRのexact-head Quality全job/step→fresh main/reviews/comments→expected-head merge→Pages→公開UI/全素材hash。incoming mainは通常merge→新head CI、Integratorが先に統合していればreadbackだけ。CI中は凍結candidateへ追加しない。
-- Source/work stage:canonical/work helperS111。S109–S111 build/adopt/prepare/embed/finalize/local verify済み、再実行しない。16crop+3reuse19掲載、4ページ43画像PC/390px/hash/decode/Alt/native links/overflow、build、regressions19/19、helper構文/export PASS。
+- Source/work stage:canonical/work helperS114。S112–S114 build/adopt/prepare/embed/finalize/local verify済み、再実行しない。16crop+3reuse19掲載、4ページ46画像、build、regressions19/19、helper構文とnative export/限定readback PASS。installed config/LUTはhash/依存記録のみ、再配布なし。
 - Native protection: 起動前processなし→Project Managerを実機確認してowned projectだけを開いた。production project/preferences、keyboard/settingsは変更しない。真の終了時はowned scratchを保存しProject Managerへ戻す。旧本番project名を復元先へ流用しない。Viewer screenshotを測色export・Free/別OS/全control/性能やportable Graph再importの証明にしない。
-- **Current host / accepted boundary:**Studio21.1.0.14/Japanese/Windows、PID20156/HWND82647722、owned Collectanea_Captures_20261023_Sol/S110_capture/frame0/GamutLimiter1/両40%/saved、modalなし。Red1 float32、CurrentRec2020/Linear、LimitRec709、PreDividePostMultiply1。
+- **Current host / accepted boundary:**Studio21.1.0.14/Japanese/Windows、PID20156/HWND82647722、owned Collectanea_Captures_20261023_Sol/S113_capture/frame0/OCIODisplay1/両40%/saved、modalなし。installed DefaultConfig、Source linear、Display default、View sRGB、Forward。
 - Accepted method repairs: GetInputはNumber/Text/Point/FuID/Clipだけ、Image/Mask/3D/任意ScriptVal payloadを評価しない。広い列挙でS49時にhost exitし、scalar-onlyへ狭めて以後安定。Maskやrenderの製品不具合とは断定しない。PointのJSON数値keyはPoint inputだけ整数化（S54 Center.65と出力変化で確認）。clean出力はMediaOut選択で操作guideを外す。S62/S63のdetailはnative Viewer100%で撮影しshot別倍率を記録、cropの拡大なし。
 - Cua/session: collectanea-coverage。session失効はstart_session→fresh captureだけで復旧、build/setterを再実行しない。Qt UIA/no-opはfresh画面で判定。Comboはforeground click→単独Up/Down/Return、数値はfocus→hotkey Ctrl+A→type/Return。背景no-opを確認した操作だけforegroundへ。menuが主PNGに出なければfresh owned popupを別capture。旧PID8944/46696/10664へ入力しない。Start-Process Hidden復旧は非表示windowになったため再使用しない。
 - S62 native/local display PASS: Sharpen REGID。Loader→BlurSource1(Size2)→Sharpen→MediaOut、左Blur/右Sharpen。Amount1と3をnative100%で比較、3で太い明暗halo、Amount1/Blend0は40%で入力へ戻る。最後Amount1/Blend1/40%で保存、restored実見。sources restored/detail1/detail3/blend0、8crop。soft_source初回はaction登録漏れのassertでAddTool前に停止、コードを直し既存Blur不在guard下で1回だけ作成。再buildなし。実写/Alpha/Mask/軸別/Clipping/性能未確認。
@@ -45,7 +45,7 @@
 - S65 native/local display PASS: RankFilter REGID、chart/Size7、Rank.5で細格子/小文字が減り、0で暗領域、1で明領域が広がる。最後Rank.5へ復元保存、restored実見。sources restored/rank0/rank1、7crop。実写salt-pepper/Mask/Alpha/境界/内部順位/性能未確認。
 - Batch17/18 PUBLIC PASS: S62–S65/PR93の29新crop+12再利用、S66–S69/PR96の31新crop+4分類比較を公開。累計public133/437/726。batch19 S70–S73は26新crop+4分類比較、local137/463/756まで受理。各exact identityはpublication_batches参照。
 - Dot delivered/readback PASS: fresh title/profile silvel/空入力を確認、event fusion-native-20261024-15でPR87–89公開121/349/610と929素材、PR91 head a18bc59f CI待ち、未図示430＋remaining_views、Sol単一writerを1段落paste→1回Send。送信文・空入力・受領文（121/349/610、PR91はCI待ち、未図示430継続）を確認。dot-batch15-report.jpgは報告本文の画面で会話へ掲載済み。返信画面を撮れたとは扱わず受領はUIテキストで確認。以後のPR91 head更新は別のGitHub readback。Dot返信から実行権限を追加しない。
-- **Next action / KEEP:**S109–S111/R159–R161 local4ページ43画像PASS→inventory/fresh main/open PR→commit/explicit push/Ready PR→exact-head all Quality/main/review gate/expected-head merge/Pages/public4pages43images/全assets。public181/685/1039、local184/701/1058、全体未完。Sol単一GUI writer。
+- **Next action / KEEP:**S112–S114/R162–R164 local4ページ46画像PASS→inventory/fresh main/open PR→commit/explicit push/Ready PR→exact-head all Quality/main/review gate/expected-head merge/Pages/public4pages46images/全assets。public184/701/1058、local187/717/1077、全体未完。Sol単一GUI writer。
 
 ## 第1batchの撮影・統合メモ（履歴）
 
@@ -222,3 +222,14 @@ Batch34 LOCAL PASS:production build、regressions19/19、3helper構文、scoped 
 
 Dot33 PASS:宛先title/profile silvelをfresh確認、event fusion-native-20261024-33を1回paste/send、bubble1544–1546/empty255/send261disabled。更新errorも見えたため再送せずreload。保存済み報告369–371とACK376「PR124・125公開、CDL修復・再照合、次3例未公開を区別、Sol/partial維持、追加workerなし」を確認、empty382/send388disabled。受領画面dot-batch33-report.jpg、更新error画面pre-reloadへ保全。報告時点の374未図示はその後local受理で371へ進んだ。返信から権限追加なし。
 Batch34 inventory:全587、local184/701/1058、未図示371、画像不要32。public181/685/1039。次candidate凍結後WORKだけで次候補へ。
+
+Batch34 GitHub:PR126 candidate72cb1f9020163930a2e5f39ad9f7f9f0f50545ab、Quality40077588885全job/step PASS、fresh main/head/review/comment/inline gate後expected-head squash。main13717d5c3abf069c4f0edc799514604d4ae03624、treec82e8e2229fbde5791c24f56ea51b7e181b8d7c5一致。Pages40078445079待ち、公開画面/assets未確認。次branch integration/fusion-ocio-mapping-native-20261024をfresh main13717から作成。
+S112 native PASS:OCIOColorSpace。Config空の初期raw/rawと、installed C:/Program Files/Blackmagic Design/DaVinci Resolve/Fusion/LUTs/DefaultConfig.ocio明示指定を区別。config sha4db1ce5bc74257291f4985696e082898746c66b23edfd6bf9de60a6c244189a7、profile1、LUTs OCIO/srgb.spi1d存在/hashを記録、vendorfileは再配布しない。metadata enum IDmap空でもnative AXにConfig由来候補があり、SourceGamma2.2/Outputlinearで右暗化3b1、OutputGamma2.2で同見え3b2、linearへ復元3b3、bounded FuID readback/export保存。
+S113 native PASS:OCIODisplay、同じinstalled config、Displaydefault/ViewsRGB/DirectionForward固定。ViewNone試行3b5はnative欄が空で有効選択と確認できず未採用。SourceSpace sRGBで同見え3bc→linearで右明化3bdへ変更。valid ViewとSourceの比較を採用、None指定を再送しない。環境変数/ユーザー設定/Viewer LUT変更なし、他Config/Display/View未確認。
+S114 native PASS:GamutMapping、Background HDRSource1 native float32 RGBA4/1/.25/1をsource Inspector3baで実見しbounded Number readback一致。GammaLinear/GM_NONE、ToneMappingNone3b8からTM_SIMPLE/DynamicRangeCompress3b9へ変更、右が暗い橙へ変化、final3bb。Forward/InverseOOTF0、PreDivide1。Viewer ROI差RGB33/116/6。実写HDR品質/測色/書出し/QCは未確認。
+S112–S114/R162–R164はadopt/prepare/embed/finalize済み、16crop＋3reuse19掲載。config依存と再選択手順を記事/manifestへ記録、実機原画copy2でmtime維持。native全caseframe0/both40%/3visible/saved。現在S113_capture/20156/82647722、Source linear/Display default/View sRGB/Forward/saved/modalなし。local build/display未。
+
+Batch34 PUBLIC PASS:PR126 Pages後、公開4ページ43画像PC/390px/decode/Alt/原寸リンク/overflow、全1639素材HTTP/hash PASS。累計public184/701/1058。
+Batch35 LOCAL PASS:production build、regressions19/19、3helper構文、4ページ46画像PC/390px/source/crop/native links/hash/decode/Alt/overflow PASS。S114 exportでDynamicRange Compress文字列を要求した最初のassertはFAIL、Inspector/限定readbackのCompress既定値はexportで省略されると確認。保存TM_SIMPLEとRGBA4、既定Compress readbackを合わせたscoped check PASS、sourceは変更していない。local187/717/1077、public184/701/1058。
+
+Batch35 inventory:全587、local187/717/1077、未図示368、画像不要32。public184/701/1058。S112 local desktopでGraphとConfigの参照・再選択手順を実見、current main13717を確認。次candidate凍結後WORKだけで次候補へ。

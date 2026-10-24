@@ -2,7 +2,7 @@
   "schema_version": 1,
   "created": "2026-10-20",
   "scope": "All Fusion pages, DaVinci Resolve 21.1",
-  "status_note": "2026-10-24:public181/685/1039 through PR125,1607/1607 HTTP/hash PASS,PR124 CDL repaired. S109–S111/R159–R161 local4pages43images PASS,cumulative184/701/1058.Whole587 and remaining_views incomplete;partial retained.",
+  "status_note": "2026-10-24:public184/701/1058 through PR126,1639/1639 HTTP/hash PASS. S112–S114/R162–R164 local4pages46images PASS,cumulative187/717/1077.Whole587 and remaining_views incomplete;partial retained.",
   "asset_directory_template": "static/img/fusion/captures/{id}/{shot.slug}.png",
   "capture_manifest_name": "capture.json",
   "candidates": [
@@ -5840,7 +5840,7 @@
         "printed_pages": "2188–2190"
       },
       "goal": "Sat curve only;green In2 Out0.262032085561497",
-      "status": "captured-local-display-verified",
+      "status": "published-display-verified",
       "shots": [
         {
           "slug": "graph",
@@ -5885,7 +5885,7 @@
         "printed_pages": "2141–2142"
       },
       "goal": "Native pure-red Background float32,CurrentRec2020/Linear;LimitRec2020 vsRec709",
-      "status": "captured-local-display-verified",
+      "status": "published-display-verified",
       "shots": [
         {
           "slug": "graph",
@@ -5930,7 +5930,7 @@
         "printed_pages": "2196–2198"
       },
       "goal": "Read native S105 CDL file,Forward versusReverse;InterpolationLinear",
-      "status": "captured-local-display-verified",
+      "status": "published-display-verified",
       "shots": [
         {
           "slug": "graph",
@@ -5970,6 +5970,147 @@
         }
       ],
       "capture_manifest": "static/img/fusion/captures/S111/capture.json"
+    },
+    {
+      "id": "S112",
+      "priority": "P1",
+      "article": "manuals/fusion/nodes/color/ocio-colorspace.md",
+      "manual": {
+        "version": "21.1",
+        "chapter": 93,
+        "printed_pages": "2193–2195"
+      },
+      "goal": "Installed DefaultConfig Gamma2.2 tolinear vsGamma2.2 matched;not environment override",
+      "status": "captured-local-display-verified",
+      "shots": [
+        {
+          "slug": "graph",
+          "kind": "node-graph",
+          "target": "OCIOColorSpace",
+          "status": "native-observed"
+        },
+        {
+          "slug": "inspector",
+          "kind": "inspector",
+          "target": "OCIOColorSpace",
+          "status": "native-observed"
+        },
+        {
+          "slug": "compare",
+          "kind": "output",
+          "target": "OCIOColorSpace",
+          "status": "native-observed"
+        },
+        {
+          "slug": "matched-inspector",
+          "kind": "inspector",
+          "target": "OCIOColorSpace",
+          "status": "native-observed"
+        },
+        {
+          "slug": "matched",
+          "kind": "output",
+          "target": "OCIOColorSpace",
+          "status": "native-observed"
+        }
+      ],
+      "capture_manifest": "static/img/fusion/captures/S112/capture.json"
+    },
+    {
+      "id": "S113",
+      "priority": "P1",
+      "article": "manuals/fusion/nodes/color/ocio-display.md",
+      "manual": {
+        "version": "21.1",
+        "chapter": 93,
+        "printed_pages": "2195–2196"
+      },
+      "goal": "Installed DefaultConfig Displaydefault ViewsRGB,SourceSpace sRGB vslinear",
+      "status": "captured-local-display-verified",
+      "shots": [
+        {
+          "slug": "graph",
+          "kind": "node-graph",
+          "target": "OCIODisplay",
+          "status": "native-observed"
+        },
+        {
+          "slug": "inspector",
+          "kind": "inspector",
+          "target": "OCIODisplay",
+          "status": "native-observed"
+        },
+        {
+          "slug": "compare",
+          "kind": "output",
+          "target": "OCIODisplay",
+          "status": "native-observed"
+        },
+        {
+          "slug": "baseline-inspector",
+          "kind": "inspector",
+          "target": "OCIODisplay",
+          "status": "native-observed"
+        },
+        {
+          "slug": "baseline",
+          "kind": "output",
+          "target": "OCIODisplay",
+          "status": "native-observed"
+        }
+      ],
+      "capture_manifest": "static/img/fusion/captures/S113/capture.json"
+    },
+    {
+      "id": "S114",
+      "priority": "P1",
+      "article": "manuals/fusion/nodes/color/gamut-mapping.md",
+      "manual": {
+        "version": "21.1",
+        "chapter": 93,
+        "printed_pages": "2143–2145"
+      },
+      "goal": "Native float32 Background RGBA4/1/.25/1,Linear,TM None vsSimple Compress,GamutMappingNone",
+      "status": "captured-local-display-verified",
+      "shots": [
+        {
+          "slug": "graph",
+          "kind": "node-graph",
+          "target": "GamutMapping",
+          "status": "native-observed"
+        },
+        {
+          "slug": "inspector",
+          "kind": "inspector",
+          "target": "GamutMapping",
+          "status": "native-observed"
+        },
+        {
+          "slug": "compare",
+          "kind": "output",
+          "target": "GamutMapping",
+          "status": "native-observed"
+        },
+        {
+          "slug": "baseline-inspector",
+          "kind": "inspector",
+          "target": "GamutMapping",
+          "status": "native-observed"
+        },
+        {
+          "slug": "baseline",
+          "kind": "output",
+          "target": "GamutMapping",
+          "status": "native-observed"
+        },
+        {
+          "slug": "source-inspector",
+          "kind": "inspector",
+          "target": "GamutMapping",
+          "status": "native-observed"
+        }
+      ],
+      "capture_manifest": "static/img/fusion/captures/S114/capture.json"
     }
   ],
   "publication_batches": [
@@ -7067,27 +7208,58 @@
         "artifacts/fusion-captures/public-batch33-assets.json"
       ],
       "limitations": "Whole587/374capture-needed plus remaining_views incomplete;S109–S111 local gates pending."
+    },
+    {
+      "id": "fusion-native-20261024-34",
+      "cases": [
+        "S109",
+        "S110",
+        "S111"
+      ],
+      "reuses": [
+        "R159",
+        "R160",
+        "R161"
+      ],
+      "pr": "https://github.com/46slv/collectanea-DB/pull/126",
+      "candidate": "72cb1f9020163930a2e5f39ad9f7f9f0f50545ab",
+      "main": "13717d5c3abf069c4f0edc799514604d4ae03624",
+      "tree": "c82e8e2229fbde5791c24f56ea51b7e181b8d7c5",
+      "quality_run": "https://github.com/46slv/collectanea-DB/actions/runs/40077588885",
+      "pages_run": "https://github.com/46slv/collectanea-DB/actions/runs/40078445079",
+      "merge_owner": "Sol exact-head all jobs/steps,fresh main/head/reviews/comments/inline,expected-head squash,MERGED/equal tree",
+      "public_pages": 4,
+      "public_images": 43,
+      "new_native_crops": 16,
+      "new_placements": 19,
+      "public_asset_hashes": 1639,
+      "result": "PASS",
+      "evidence": [
+        "artifacts/fusion-captures/public-batch34-display-report.json",
+        "artifacts/fusion-captures/public-batch34-assets.json"
+      ],
+      "limitations": "Whole587/371capture-needed plus remaining_views incomplete;S112–114 only local accepted."
     }
   ],
   "coverage_inventory": {
-    "checked_at": "2026-10-24T08:16:37.991380+00:00",
+    "checked_at": "2026-10-24T08:42:48.401972+00:00",
     "scope": "All manuals/fusion Markdown and MDX pages; review necessity before adding images.",
     "completion_rule": "Every page has an explicit image decision; necessary images are native-observed, embedded, saved to GitHub and public-display-verified. A native example does not verify all article controls.",
     "summary": {
       "total_pages": 587,
-      "with_images": 184,
-      "with_native_examples": 184,
+      "with_images": 187,
+      "with_native_examples": 187,
       "states": {
         "reviewed-no-standalone-image": 26,
         "no-standalone-image-needed": 6,
         "illustrated-reused-example": 75,
-        "capture-planned": 371,
-        "illustrated-native-example": 109
+        "capture-planned": 368,
+        "illustrated-native-example": 112
       },
       "decisions": {
         "no-standalone-image-needed": 32,
-        "image-required": 184,
-        "capture-needed": 371
+        "image-required": 187,
+        "capture-needed": 368
       }
     },
     "pages": [
@@ -10198,13 +10370,18 @@
         "article": "manuals/fusion/nodes/color/gamut-mapping.md",
         "title": "Gamut Mapping",
         "kind": "node",
-        "image_count": 0,
-        "native_cases": [],
+        "image_count": 6,
+        "native_cases": [
+          "S114"
+        ],
         "reused_cases": [],
         "planned_cases": [],
-        "state": "capture-planned",
-        "decision": "capture-needed",
+        "state": "illustrated-native-example",
+        "decision": "image-required",
         "reason": "本文の対象機能: 明るさの幅や彩度を、出力先で扱いやすい範囲へ再配置するColorノード。。S14の見た目の色補正はencoding変換の証拠にならず、display screenshotだけでは色精度を証明できない。",
+        "remaining_views": [
+          "Other modes/configs/spaces/views,real footage,measured/export fidelity,Mask/Alpha,other platforms/editions/performance"
+        ],
         "required_views": [
           "対象Node名と実際の配線が読めるGraph",
           "対象Nodeを選択した固有Inspector（本文で示すControlを含む）",
@@ -10220,7 +10397,8 @@
             "section": "入力・出力",
             "role": "入力と結果を示す箇所"
           }
-        ]
+        ],
+        "audit_note": "S114 bounded native example accepted;whole article remains partial."
       },
       {
         "article": "manuals/fusion/nodes/color/gamut.md",
@@ -10317,7 +10495,7 @@
         "article": "manuals/fusion/nodes/color/index.md",
         "title": "Colorノード",
         "kind": "index",
-        "image_count": 27,
+        "image_count": 30,
         "native_cases": [],
         "reused_cases": [
           "S14",
@@ -10339,7 +10517,10 @@
           "S108",
           "S109",
           "S110",
-          "S111"
+          "S111",
+          "S112",
+          "S113",
+          "S114"
         ],
         "planned_cases": [],
         "state": "illustrated-reused-example",
@@ -10401,13 +10582,18 @@
         "article": "manuals/fusion/nodes/color/ocio-colorspace.md",
         "title": "OCIO Color Space",
         "kind": "node",
-        "image_count": 0,
-        "native_cases": [],
+        "image_count": 5,
+        "native_cases": [
+          "S112"
+        ],
         "reused_cases": [],
         "planned_cases": [],
-        "state": "capture-planned",
-        "decision": "capture-needed",
+        "state": "illustrated-native-example",
+        "decision": "image-required",
         "reason": "本文の対象機能: OCIO configに従い、入力画像を指定の色空間へ変換するノード。。S14の見た目の色補正はencoding変換の証拠にならず、display screenshotだけでは色精度を証明できない。",
+        "remaining_views": [
+          "Other modes/configs/spaces/views,real footage,measured/export fidelity,Mask/Alpha,other platforms/editions/performance"
+        ],
         "required_views": [
           "対象Node名と実際の配線が読めるGraph",
           "対象Nodeを選択した固有Inspector（本文で示すControlを含む）",
@@ -10433,19 +10619,25 @@
             "section": "運用例：Log素材をACEScgへ変換して合成",
             "role": "入力と結果を示す箇所"
           }
-        ]
+        ],
+        "audit_note": "S112 bounded native example accepted;whole article remains partial."
       },
       {
         "article": "manuals/fusion/nodes/color/ocio-display.md",
         "title": "OCIO Display",
         "kind": "node",
-        "image_count": 0,
-        "native_cases": [],
+        "image_count": 5,
+        "native_cases": [
+          "S113"
+        ],
         "reused_cases": [],
         "planned_cases": [],
-        "state": "capture-planned",
-        "decision": "capture-needed",
+        "state": "illustrated-native-example",
+        "decision": "image-required",
         "reason": "本文の対象機能: OCIOで定義されたDisplay / Viewの表示変換を画像そのものに適用するノード。。S14の見た目の色補正はencoding変換の証拠にならず、display screenshotだけでは色精度を証明できない。",
+        "remaining_views": [
+          "Other modes/configs/spaces/views,real footage,measured/export fidelity,Mask/Alpha,other platforms/editions/performance"
+        ],
         "required_views": [
           "対象Node名と実際の配線が読めるGraph",
           "対象Nodeを選択した固有Inspector（本文で示すControlを含む）",
@@ -10471,7 +10663,8 @@
             "section": "運用例：ACEScgで合成した画像を確認用に書き出す",
             "role": "入力と結果を示す箇所"
           }
-        ]
+        ],
+        "audit_note": "S113 bounded native example accepted;whole article remains partial."
       },
       {
         "article": "manuals/fusion/nodes/color/ocio-filetransform.md",
@@ -27051,7 +27244,7 @@
       "images": [
         "compare.png"
       ],
-      "status": "embedded-local-display-verified",
+      "status": "published-display-verified",
       "scope": "Hue Curvesで緑付近の彩度を弱めた表示;bounded native display only."
     },
     {
@@ -27061,7 +27254,7 @@
       "images": [
         "compare.png"
       ],
-      "status": "embedded-local-display-verified",
+      "status": "published-display-verified",
       "scope": "Rec2020の単色赤をRec709の色域で制限した表示;bounded native display only."
     },
     {
@@ -27071,8 +27264,38 @@
       "images": [
         "compare.png"
       ],
-      "status": "embedded-local-display-verified",
+      "status": "published-display-verified",
       "scope": "OCIO File Transformで実機CDLをForward適用した表示;bounded native display only."
+    },
+    {
+      "id": "R162",
+      "article": "manuals/fusion/nodes/color/index.md",
+      "source_case": "S112",
+      "images": [
+        "compare.png"
+      ],
+      "status": "embedded-local-display-verified",
+      "scope": "OCIO Color SpaceのGamma2.2からlinearへの表示;bounded native display only."
+    },
+    {
+      "id": "R163",
+      "article": "manuals/fusion/nodes/color/index.md",
+      "source_case": "S113",
+      "images": [
+        "compare.png"
+      ],
+      "status": "embedded-local-display-verified",
+      "scope": "OCIO DisplayのSource linearとView sRGBの表示;bounded native display only."
+    },
+    {
+      "id": "R164",
+      "article": "manuals/fusion/nodes/color/index.md",
+      "source_case": "S114",
+      "images": [
+        "compare.png"
+      ],
+      "status": "embedded-local-display-verified",
+      "scope": "float32入力へSimpleとCompressを適用した表示;bounded native display only."
     }
   ],
   "external_reports": [

@@ -250,6 +250,26 @@ Resolve Studio21.1.0.14／Windows、Color／40%。個別記事に記載した範
 
 [OCIOFileTransformのGraph・Inspector・条件と未確認範囲](./ocio-filetransform)を参照してください。
 
+### ConfigとTone Mappingを比べる実機例
+
+<!-- capture-reuse:R162 -->
+
+[![OCIO Color SpaceのGamma2.2からlinearへの表示の実機比較](/img/fusion/captures/S112/compare.png)](/img/fusion/captures/S112/compare.png)
+
+[OCIOColorSpaceのGraph・Inspector・条件と未確認範囲](./ocio-colorspace)を参照してください。
+
+<!-- capture-reuse:R163 -->
+
+[![OCIO DisplayのSource linearとView sRGBの表示の実機比較](/img/fusion/captures/S113/compare.png)](/img/fusion/captures/S113/compare.png)
+
+[OCIODisplayのGraph・Inspector・条件と未確認範囲](./ocio-display)を参照してください。
+
+<!-- capture-reuse:R164 -->
+
+[![float32入力へSimpleとCompressを適用した表示の実機比較](/img/fusion/captures/S114/compare.png)](/img/fusion/captures/S114/compare.png)
+
+[GamutMappingのGraph・Inspector・条件と未確認範囲](./gamut-mapping)を参照してください。
+
 ## 出典と確認範囲
 
 DaVinci Resolve 21.1 Reference Manual Chapter 93 pp.2133–2206とChapter 106 Swizzler pp.2445–2450を基に整理しています。

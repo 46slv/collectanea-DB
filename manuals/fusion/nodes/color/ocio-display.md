@@ -15,7 +15,7 @@ outputs: [image]
 tasks: [ocio, display-transform]
 product_scope: fusion
 suite_surfaces: [fusion]
-updated: "2026-10-11"
+updated: "2026-10-24"
 ---
 
 # OCIO Display
@@ -114,10 +114,36 @@ OCIO Color Spaceの`Look`は、独立して指定する色表現の変換です�
 - **変換済みの画像をさらに出力変換してしまう**：OCIO Display、Resolve側の出力変換、再生システムの表示変換を重ねていないか確認します。
 - **一部の領域だけ見え方が違う**：Effect Maskが接続されていないか確認します。
 
+## 実機例：同じsRGB ViewでSource Spaceを比べる
+
+<!-- capture-case:S113 -->
+
+Resolve Studio21.1.0.14／Windows、1920×1080、Viewer40%、フレーム0で撮影しました。左が入力、右が処理後です。
+
+[![LoaderからOCIO Displayを経てMediaOutへ接続し、表示変換を画像へ適用する実機Graph](/img/fusion/captures/S113/graph.png)](/img/fusion/captures/S113/graph.png)
+
+インストール済みの`Fusion/LUTs/DefaultConfig.ocio`をノードのConfig欄から指定しました。設定ファイルの場所とハッシュは[OCIO Color Spaceの実機例](./ocio-colorspace)を参照してください。同じ環境の設定ファイルと付属LUTを使う例で、環境変数やViewer LUTの設定は変更していません。
+
+Display＝default、View＝sRGB、Direction＝Forwardに固定し、Source SpaceをsRGBにしました。左右のチャートは同じ見え方です。
+
+[![OCIO DisplayでSource sRGB、Display default、View sRGBを選んだ実機Inspector](/img/fusion/captures/S113/baseline-inspector.png)](/img/fusion/captures/S113/baseline-inspector.png)
+
+[![Sourceと表示先がともにsRGBで、入力と出力が同じ見え方になる実機比較](/img/fusion/captures/S113/baseline.png)](/img/fusion/captures/S113/baseline.png)
+
+DisplayとViewを保ち、Source Spaceだけをlinearへ変えました。右の灰色段階と色パッチが明るくなっています。Source Spaceは入力の実際の色表現に合わせる項目であり、好みの見た目を選ぶための切替ではありません。ここでは設定の影響を確認するため、同じ合成チャートを異なる色表現として処理しています。
+
+[![Display defaultとView sRGBを保ち、Sourceだけをlinearへ変えた実機Inspector](/img/fusion/captures/S113/inspector.png)](/img/fusion/captures/S113/inspector.png)
+
+[![SourceをlinearとしてsRGB Viewを適用すると右の階調や色が明るくなる実機比較](/img/fusion/captures/S113/compare.png)](/img/fusion/captures/S113/compare.png)
+
+最後はSource linearで保存しました。Graphを別の環境へ移す場合は、OCIO Configでインストール済みの同じ設定ファイルを選び直してください。この例はノードの画像出力を変換しており、Viewerだけのプレビュー切替ではありません。実写、ディスプレイの校正、測色・書き出し、別Config・Display・ViewやReverse、Mask、Edition差と性能は未確認です。
+
+[再現用Graph](/img/fusion/captures/S113/fixture.comp) · [撮影条件と確認範囲](/img/fusion/captures/S113/capture.json)
+
 ## バージョンと出典
 
 - **Blackmagic Design『DaVinci Resolve 21.1 Reference Manual』Chapter 93「Color Nodes」pp.2195–2196**：OCIO Display [OCD]の入力、Effect Mask、接続例と、`OCIO Config File / Source Space / Display / View`の4つのControls。
 - **同Chapter 76「Managing Color for Visual Effects」pp.1661–1663**：OCIOによるACEScg合成と、Fusion Studioの`OCIO Color Space View LUT`の運用。
 - [OpenColorIO公式「Displays & Views」](https://opencolorio.readthedocs.io/en/latest/guides/authoring/displays_views.html)：Display / View定義、View Transformと表示側の色空間の関係。
 
-本文の項目名は21.1マニュアルで確認したものです。操作例はこの仕様をもとに構成したもので、21.1実機での全設定組み合わせを検証した結果ではありません。Display / Viewの実際の候補、デフォルト値、Free / Studio間の細かな差は、使用するconfigや実機を確認するまで未確定です。
+本文の項目名は21.1マニュアルで確認したものです。操作例はこの仕様をもとに構成したもので、21.1実機での全設定組み合わせを検証した結果ではありません。S113では同梱ConfigのDisplay default／View sRGBとSource Spaceの比較を実機確認しました。別Configの候補や全デフォルト値、Free / Studio差は未確認です。
