@@ -207,3 +207,5 @@ Batch32公開差分:Pages40075474704全job/step PASS、公開4ページ37画像P
 Batch33 local PASS:production build、regressions19/19、3helper構文、native RGB curve export、diff check PASS。実build4ページ40画像PC/390px/source/crop/native-link hash/decode/Alt/overflow PASS。immutable capture manifestは実行済み結果を既存ledgerへ参照し、receipt更新だけで画像/assetを書き換えない。S105 native CCのlocal配信byteを次に照合する。
 
 Batch33 inventory:全587、local181ページ685crop1039掲載、未図示374、画像不要32。PR124のnative CC修復前のためpublic175/653/1001維持。local native CC233byte/hash完全一致。次候補はCI凍結後WORKのみで準備する。
+
+Byte保護後のdiff check:CC原本のCRLF11行と末尾空行はGitがtrailing whitespaceとして検出する。原本保護対象として記録し、この1ファイル以外の差分を別途checkする。XML内容・staged native hash・local HTTP/hashはPASS。古い保全PR17/27/29–31にはColor等の旧差分があるが、現在のWriter PR119/116ほかと今回パス重複なし。旧branchの書換えや成果破棄はしない。
