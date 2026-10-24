@@ -41,6 +41,7 @@ Colorページは、素材の明るさや色の偏りを整え、複数ショッ
 - [HSL Qualifier](./reference/hsl-qualifier) — 色相・彩度・輝度による抽出とMatte Finesse
 - [Power Windows](./reference/power-windows) — 形・位置による局所補正、Qualifierとの併用と追跡時の注意
 - [Color Tracker](./reference/color-tracker) — 動く被写体へのWindow追従
+- [Color Stabilizer](./reference/color-stabilizer) — ショット内の露出・ホワイトバランスの時間変動を基準フレームへ近づける（Studio版）
 - [KeyパレットとMatte](./reference/key-matte) — 選択範囲と補正強度の分離
 - [Gallery／Stills](./reference/gallery-stills) — グレードの保存、比較、ショット間での再利用
 - [Split Screen](./reference/split-screen-comparison) — 複数ショットやVersionを同時表示して比較
@@ -83,7 +84,7 @@ Colorページは、素材の明るさや色の偏りを整え、複数ショッ
 
 ## 次に整備する領域
 
-機能固有の操作、使い分け、実践的な手順を、公式21.1マニュアルと実機確認を基に段階的に追加します。次の候補はColor Stabilizerの機能解説と、既存Layer Mixerレシピの実機検証です。
+機能固有の操作、使い分け、実践的な手順を、公式21.1マニュアルと実機確認を基に段階的に追加します。次の候補は既存Layer Mixerレシピの実機検証と、Color FX機能の実制作例です。
 
 ## Fusionとの差
 
