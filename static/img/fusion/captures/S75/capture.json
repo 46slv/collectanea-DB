@@ -1,0 +1,297 @@
+{
+  "schema_version": 1,
+  "case": "S75",
+  "article": "manuals/fusion/nodes/matte-keying/matte-control.md",
+  "manual": {
+    "version": "21.1",
+    "chapter": 109,
+    "printed_pages": "2539–2544"
+  },
+  "runtime": {
+    "version": "21.1.0.14",
+    "edition": "Studio",
+    "os": "Windows-11-10.0.26200-SP0",
+    "ui_language": "ja-JP (some Shape controls remain English)"
+  },
+  "captured_at": "2026-10-24T00:55:47.357069+00:00",
+  "project": "Collectanea_Captures_20261023_Sol",
+  "timeline": "S75_capture",
+  "frame": 0.0,
+  "resolution": [
+    1920,
+    1080
+  ],
+  "color_management": {
+    "colorScienceMode": "davinciYRGB",
+    "colorSpaceTimeline": "Rec.709 (Scene)",
+    "colorSpaceTimelineGamma": "",
+    "colorSpaceOutput": "Rec.709 (Scene)",
+    "colorSpaceOutputGamma": "ACEScc",
+    "separateColorSpaceAndGamma": "0",
+    "isAutoColorManage": "0",
+    "timelineResolutionWidth": "1920",
+    "timelineResolutionHeight": "1080",
+    "timelineFrameRate": 24.0,
+    "timelinePlaybackFrameRate": "30"
+  },
+  "viewer": {
+    "zoom_percent": 40,
+    "channel": "Color",
+    "background": "checkerboard for transparent pixels",
+    "note": "Viewer screenshots are display evidence, not colorimetric exports."
+  },
+  "graph": "fixture.comp",
+  "settings": "readback.json",
+  "source": {
+    "file": "screen.png",
+    "size": [
+      3352,
+      1910
+    ],
+    "sha256": "c376e144fe0f7c8a20a609508a6fdbf334d1fbf37e148688f6ba884a90677c5e"
+  },
+  "shots": [
+    {
+      "file": "graph.png",
+      "source": "screen.png",
+      "source_sha256": "c376e144fe0f7c8a20a609508a6fdbf334d1fbf37e148688f6ba884a90677c5e",
+      "frame": 0.0,
+      "crop_xyxy": [
+        500,
+        1155,
+        2330,
+        1590
+      ],
+      "resampled": false,
+      "sha256": "85e4efc50fcf7a6ac6a5da097913f2ff60bd19c00d4865e5af9bccb41f785942"
+    },
+    {
+      "file": "inspector.png",
+      "source": "screen.png",
+      "source_sha256": "c376e144fe0f7c8a20a609508a6fdbf334d1fbf37e148688f6ba884a90677c5e",
+      "frame": 0.0,
+      "crop_xyxy": [
+        2830,
+        120,
+        3352,
+        675
+      ],
+      "resampled": false,
+      "sha256": "860e4a60299f521734b3017c0bcba330fbd99087554d404dc3366ebfb6437841"
+    },
+    {
+      "file": "compare.png",
+      "source": "screen.png",
+      "source_sha256": "c376e144fe0f7c8a20a609508a6fdbf334d1fbf37e148688f6ba884a90677c5e",
+      "frame": 0.0,
+      "crop_xyxy": [
+        1146,
+        65,
+        2830,
+        725
+      ],
+      "resampled": false,
+      "sha256": "3e1d938e3c1da9649ff0607c0cbc8638136b5647eebb3be8387492d14fc1e9c7"
+    },
+    {
+      "file": "default-inspector.png",
+      "source": "screen-default.png",
+      "source_sha256": "fa581ca1029507b01e6f86b795440d2310dfaab760de395aa48276b341986ce8",
+      "frame": 0.0,
+      "crop_xyxy": [
+        2830,
+        120,
+        3352,
+        675
+      ],
+      "resampled": false,
+      "sha256": "1d309f8c5ffef71836d30c8f58a8c49308482607b9207ceae5ca1fb914662923"
+    },
+    {
+      "file": "copy-inspector.png",
+      "source": "screen-copy.png",
+      "source_sha256": "83f887fcc5f8a4687c50c6d7eb4f9f9ef05285f34dad5a69257369220a28d274",
+      "frame": 0.0,
+      "crop_xyxy": [
+        2830,
+        120,
+        3352,
+        675
+      ],
+      "resampled": false,
+      "sha256": "860e4a60299f521734b3017c0bcba330fbd99087554d404dc3366ebfb6437841"
+    },
+    {
+      "file": "copy.png",
+      "source": "screen-copy.png",
+      "source_sha256": "83f887fcc5f8a4687c50c6d7eb4f9f9ef05285f34dad5a69257369220a28d274",
+      "frame": 0.0,
+      "crop_xyxy": [
+        1146,
+        65,
+        2830,
+        725
+      ],
+      "resampled": false,
+      "sha256": "613cba83c016ed6f546892d6a7803d1c90093440a11a479e208e90ddcede0f27"
+    },
+    {
+      "file": "source.png",
+      "source": "screen-source.png",
+      "source_sha256": "3feb9c8b204ecbbccab41f9d2069de0575b44be87136b897a63f53c5db9169e5",
+      "frame": 0.0,
+      "crop_xyxy": [
+        1146,
+        65,
+        2830,
+        725
+      ],
+      "resampled": false,
+      "sha256": "68cd54226f3b9a4904ba57815fe1fbae14eb44b4358cc7c1bf9e156223863318"
+    },
+    {
+      "file": "inverse-inspector.png",
+      "source": "screen-inverse.png",
+      "source_sha256": "cf5508a3cd032d82a6e5bc0acd78204ca9ad4867e99d290a9fb76e1bdc446ef7",
+      "frame": 0.0,
+      "crop_xyxy": [
+        2830,
+        120,
+        3352,
+        675
+      ],
+      "resampled": false,
+      "sha256": "e5d61e5c0824116ab2c7678ca20d4f810452afe0cdb8a6982d7740ccce206ffa"
+    },
+    {
+      "file": "inverse.png",
+      "source": "screen-inverse.png",
+      "source_sha256": "cf5508a3cd032d82a6e5bc0acd78204ca9ad4867e99d290a9fb76e1bdc446ef7",
+      "frame": 0.0,
+      "crop_xyxy": [
+        1146,
+        65,
+        2830,
+        725
+      ],
+      "resampled": false,
+      "sha256": "50889a8c9a29129c140af40375799e883324b6e2bf1fff78317000aa65993ede"
+    },
+    {
+      "file": "post-off-inspector.png",
+      "source": "screen-post-off.png",
+      "source_sha256": "b984317407c40412817f3a0876183bc694361fd07923182844d7481b9d6c5cbb",
+      "frame": 0.0,
+      "crop_xyxy": [
+        2830,
+        120,
+        3352,
+        675
+      ],
+      "resampled": false,
+      "sha256": "a795aad982ed3f767ec6462b9d981bde40101e352a07e59743f9555d8053b129"
+    },
+    {
+      "file": "post-off.png",
+      "source": "screen-post-off.png",
+      "source_sha256": "b984317407c40412817f3a0876183bc694361fd07923182844d7481b9d6c5cbb",
+      "frame": 0.0,
+      "crop_xyxy": [
+        1146,
+        65,
+        2830,
+        725
+      ],
+      "resampled": false,
+      "sha256": "b02bff701a2383977e73a1d0bca5c3affa819cc6cc597f970145176dfbe12bc2"
+    },
+    {
+      "file": "garbage-inspector.png",
+      "source": "screen-garbage-inspector.png",
+      "source_sha256": "b495fb5e05c3b44514ca2444e010ea3f5413d55cd84e6e11a7a3d7b42bb5da15",
+      "frame": 0.0,
+      "crop_xyxy": [
+        2830,
+        120,
+        3352,
+        550
+      ],
+      "resampled": false,
+      "sha256": "ddb862c66a5a6f49026e1cc27078ba6f0d5386f623f9f0bec2594bc294a8228e"
+    },
+    {
+      "file": "garbage.png",
+      "source": "screen-garbage.png",
+      "source_sha256": "842991a8754ccf9598d565f4b79763c4b7db849bd139bb4e4bfba39544a05fbd",
+      "frame": 0.0,
+      "crop_xyxy": [
+        1146,
+        65,
+        2830,
+        725
+      ],
+      "resampled": false,
+      "sha256": "9540bfe09d822dc236ee762edb9eda7d7b154ce6ef5e4ac517d2fd9b21c7802b"
+    },
+    {
+      "file": "solid-inspector.png",
+      "source": "screen-solid-inspector.png",
+      "source_sha256": "34f822f2a16df44738334d5b9c0e554c6dfeb61e7b217ff9a4896de9b7bcd28a",
+      "frame": 0.0,
+      "crop_xyxy": [
+        2830,
+        120,
+        3352,
+        550
+      ],
+      "resampled": false,
+      "sha256": "dc33674cb8ffbfb529aaf59db100e0a2dd994e0a020c79bda9e68edd0962fa66"
+    },
+    {
+      "file": "solid.png",
+      "source": "screen-solid.png",
+      "source_sha256": "dba4f1914d4851f830bafc874da4a7a7fd980f5b0dc2928d4ccf0f6e9af054a5",
+      "frame": 0.0,
+      "crop_xyxy": [
+        1146,
+        65,
+        2830,
+        725
+      ],
+      "resampled": false,
+      "sha256": "3fe850241120a8b5b5f7f9175eca23999f6d6c981a7472a5ce0730181a351320"
+    }
+  ],
+  "acceptance": {
+    "gui": "PASS: owner visually inspected node connections, selected Inspector, and output",
+    "article_display": "PASS: local production build;3 distinct pages27 images;1440px/390px/decode/Alt/native links/hash/overflow"
+  },
+  "unverified": [
+    "Free edition and other platforms",
+    "All parameter ranges and performance",
+    "全Combine/演算/色channel・Gamma/Threshold/Blur・Spill・EffectMask・実写・数値/性能",
+    "Exported portable composition reimport"
+  ],
+  "parameter_readback_scope": "Number/Text/Point/FuID/Clip only;Image/Mask input attributes and Graph connections only,no payload evaluation.",
+  "state_variants": {
+    "screen.png": "7nodes,CombineAlpha4/Copy0/Invert0/PostMultiply1,Garbage/SolidLevel1",
+    "screen-default.png": "5nodes,new tool,None0/Copy0/PostMultiply0/FastGaussian",
+    "screen-copy.png": "5nodes,Alpha4/Copy0/PostMultiply1,no garbage/solid",
+    "screen-source.png": "7nodes,both masks Level0,left white matte source/right copied chart",
+    "screen-inverse.png": "5nodes,Alpha copy/Invert1/PostMultiply1",
+    "screen-post-off.png": "5nodes,Alpha copy/Invert0/PostMultiply0",
+    "screen-garbage.png": "7nodes,Garbage1/Solid0;inactive Solid still at earlier location",
+    "screen-solid.png": "7nodes,Garbage0/Solid1 at accepted Center(.15,.3)",
+    "screen-garbage-inspector.png": "final combined state,selected Garbage Rectangle;only Inspector crop adopted",
+    "screen-solid-inspector.png": "final combined state,selected Solid Rectangle;only Inspector crop adopted"
+  },
+  "restoration": "PASS: final7node graph/both masks Level1,AlphaCopy/Invert0/PostMultiply1,both Color40%,frame0,saved.",
+  "native_vs_manual": "New MatteControl Filter Fast Gaussian/PostMultiplyOFF observed;Manual lists Gaussian/default PostMultiplyON. No cross-platform/edition default claim.",
+  "reproduction_action": "build creates5node scaffold;matte_masks adds owned Garbage/Solid once. Set final Alpha4/Copy0/PostMultiply1 and Solid Center(.15,.3)/Height.2;never repeat one-shot on existing case.",
+  "reproduction": {
+    "fixture_sha256": "b9d523a3d71090f37c7f61a02e98a584a958a21a204cbb641c5a5ac8be9a9101",
+    "readback_sha256": "3b4248b1bd0c06a69a69a5ac019d760205638375bd28932820b216d33aa8f5b2",
+    "paths": "Comp:/../_fixtures/ for bundled synthetic fixtures",
+    "reimport": "NOT_RUN: accepted GUI evidence precedes export path normalization"
+  }
+}

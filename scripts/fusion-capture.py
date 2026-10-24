@@ -65,6 +65,8 @@ TARGETS['S71']='ColorMatrix1';LEFT['S71']='Loader1';RIGHT['S71']='ColorMatrix1'
 TARGETS['S72']='ColorSpace1';LEFT['S72']='Loader1';RIGHT['S72']='ColorSpace1'
 TARGETS['S73']='WhiteBalance1';LEFT['S73']='Loader1';RIGHT['S73']='WhiteBalance1'
 TARGETS['S74']='AlphaDivide1';LEFT['S74']='MergeNaive';RIGHT['S74']='MergeCorrect'
+TARGETS['S75']='MatteControl1';LEFT['S75']='Loader1';RIGHT['S75']='MatteControl1'
+TARGETS['S76']='LumaKeyer1';LEFT['S76']='Loader1';RIGHT['S76']='LumaKeyer1'
 r=d.scriptapp('Resolve')
 assert r, 'Resolve scripting unavailable; do not change preferences automatically'
 pm=r.GetProjectManager(); p=pm.GetCurrentProject()
@@ -105,6 +107,10 @@ if action in ['premult_naive','premult_correct','premult_multiply','premult_sour
  TARGETS[case]={'premult_naive':'ColorDirect','premult_correct':'ColorStraight','premult_multiply':'AlphaMultiply1','premult_source':'Foreground1'}[action]
  if action=='premult_source':LEFT[case]='Foreground1';RIGHT[case]='AlphaDivide1'
  action='show'
+if action in ['matte_garbage','matte_solid']:
+ assert case=='S75';TARGETS[case]='Garbage1' if action=='matte_garbage' else 'Solid1';action='show'
+if action=='matte_source':
+ assert case=='S75';LEFT[case]='MatteSource1';action='show'
 if action=='roundtrip_result':
  assert case=='S72';TARGETS[case]='RGBBack1';LEFT[case]='ColorSpace1';RIGHT[case]='RGBBack1';action='show'
 if action=='canvas_source':
@@ -208,6 +214,9 @@ def select(target,left=None):
  for cid in ['S62','S63','S64','S65']:layouts[cid]={'Loader1':(0,0),TARGETS[cid]:(1.5,0),'MediaOut1':(3,0)}
  if case in ['S62','S63'] and 'BlurSource1' in tools:layouts[case]={'Loader1':(0,0),'BlurSource1':(1.5,0),TARGETS[case]:(3,0),'MediaOut1':(4.5,0)}
  if case=='S72' and 'RGBBack1' in tools:layouts[case]={'Loader1':(0,0),'ColorSpace1':(1.5,0),'RGBBack1':(3,0),'MediaOut1':(4.5,0)}
+ layouts['S76']={'Loader1':(0,0),'LumaKeyer1':(1.5,0),'MediaOut1':(3,0)}
+ layouts['S75']={'Loader1':(0,1),'EllipseMatte1':(0,-2),'MatteSource1':(1.5,-2),'MatteControl1':(3,1),'MediaOut1':(4.5,1)}
+ if case=='S75' and 'Garbage1' in tools:layouts['S75'].update({'Garbage1':(3,-2),'Solid1':(4.5,-2),'MediaOut1':(4.5,1)})
  layouts['S74']={'Ellipse1':(0,-2),'Foreground1':(0,0),'ColorDirect':(2,-2),'MergeNaive':(6,-2),'AlphaDivide1':(1.5,1),'ColorStraight':(3,1),'AlphaMultiply1':(4.5,1),'MergeCorrect':(6,1),'Base1':(0,3),'MediaOut1':(7.5,1)}
  layouts['S57']={'Loader1':(0,0),'CustomTool1':(1.5,0),'MediaOut1':(3,0)}
  layouts['S56']={'Loader1':(0,0),'CameraShake1':(1.5,0),'MediaOut1':(3,0)}
@@ -265,6 +274,14 @@ if action=='build':
   rb=add('sRender','RenderBase1',4,-1);connect(rb,'Input',base)
   target=add('sTransform','Transform1',2,1);connect(target,'Input',base)
   rr=add('sRender','RenderChanged1',4,1);connect(rr,'Input',target);connect(mo,'Input',rr)
+ elif case=='S76':
+  loader=add('Loader','Loader1',0,0,Clip=str(REPO/'static/img/fusion/captures/_fixtures/chart.png'))
+  target=add('LumaKeyer','LumaKeyer1',1.5,0);connect(target,'Input',loader);connect(mo,'Input',target)
+ elif case=='S75':
+  loader=add('Loader','Loader1',0,1,Clip=str(REPO/'static/img/fusion/captures/_fixtures/chart.png'))
+  ell=add('EllipseMask','EllipseMatte1',0,-2,Width=.5,Height=.65,SoftEdge=.025)
+  matte=add('Background','MatteSource1',1.5,-2,TopLeftRed=1,TopLeftGreen=1,TopLeftBlue=1,TopLeftAlpha=1);connect(matte,'EffectMask',ell)
+  target=add('MatteControl','MatteControl1',3,1);connect(target,'Background',loader);connect(target,'Foreground',matte);connect(mo,'Input',target)
  elif case=='S74':
   ell=add('EllipseMask','Ellipse1',0,-2,Width=.4,Height=.65,SoftEdge=.08)
   fg=add('Background','Foreground1',0,0,TopLeftRed=.2,TopLeftGreen=.55,TopLeftBlue=.9,TopLeftAlpha=1);connect(fg,'EffectMask',ell)
@@ -486,7 +503,7 @@ if action=='build':
  else: raise ValueError('No fixture defined: '+case)
  c.CurrentFrame.FlowView.SetPos(mo,9,1 if case=='S02' else 0)
  assert pm.SaveProject()
-elif action in ('show','readback','set','masked','canvas_fg','canvas_manual','canvas_reference','soft_source','roundtrip'):
+elif action in ('show','readback','set','masked','canvas_fg','canvas_manual','canvas_reference','soft_source','roundtrip','matte_masks'):
  target=tools.get(TARGETS.get(case,''))
 assert target
 if action in ['canvas_fg','canvas_manual','canvas_reference']:
@@ -514,6 +531,13 @@ if action=='roundtrip':
  assert case=='S72' and 'RGBBack1' not in tools,'one-shot roundtrip already exists'
  back=add('ColorSpace','RGBBack1',3,0,ColorSpaceConversion=2,ColorType=1)
  connect(back,'Input',tools['ColorSpace1']);connect(mo,'Input',back);action='show'
+if action=='matte_masks':
+ assert case=='S75' and 'Garbage1' not in tools and 'Solid1' not in tools, 'Owned mask extension is one-shot;inspect before retry'
+ ports={z.GetAttrs()['INPS_ID'] for z in target.GetInputList().values()}
+ assert {'Garbage.Matte','Solid.Matte'}<=ports
+ garbage=add('RectangleMask','Garbage1',3,-2,Width=.14,Height=.4,Center={1:.55,2:.5})
+ solid=add('RectangleMask','Solid1',4.5,-2,Width=.15,Height=.2,Center={1:.15,2:.3})
+ connect(target,'Garbage.Matte',garbage);connect(target,'Solid.Matte',solid);action='show'
 if action=='soft_source':
  assert case in ['S62','S63'] and 'BlurSource1' not in tools, 'Owned input preparation is one-shot; inspect before retry'
  src=add('Blur','BlurSource1',1.5,0,XBlurSize=2,YBlurSize=2,LockXY=1)
@@ -556,6 +580,8 @@ for n,a in tools.items():
 keep=['colorScienceMode','colorSpaceTimeline','colorSpaceTimelineGamma','colorSpaceOutput','colorSpaceOutputGamma','separateColorSpaceAndGamma','isAutoColorManage','timelineResolutionWidth','timelineResolutionHeight','timelineFrameRate','timelinePlaybackFrameRate']
 settings=p.GetSetting()
 report={'project':p.GetName(),'timeline':t.GetName(),'resolve':r.GetVersionString(),'edition':r.GetProductName(),'os':platform.platform(),'time':datetime.datetime.now(datetime.timezone.utc).isoformat(),'frame':c.CurrentTime,'sampled_frame':c.CurrentTime,'project_settings':{k:settings[k] for k in keep if k in settings},'tools':inputs}
+if case in ['S75','S76']:
+ report['input_ports']=[{k:z.GetAttrs().get(k) for k in ['INPS_ID','INPS_Name','INPS_DataType']} for z in tools['MatteControl1' if case=='S75' else 'LumaKeyer1'].GetInputList().values() if z.GetAttrs().get('INPS_DataType') in ['Image','Mask']]
 if case=='S39':
  report['time_samples']=[{'frame':f,'dynamic_source_time':tools['TimeDynamic'].GetInput('SourceTime',f),'held_source_time':tools['TimeHold'].GetInput('SourceTime',f),'transform_size':tools['TransformHold'].GetInput('Size',f)} for f in [0,12,24]]
 if case=='S37':

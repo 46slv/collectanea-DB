@@ -51,7 +51,7 @@ Keyer内部の調整だけではGraphが複雑になる場合に、Alphaの合�
 
 21.1 Manualには、Matte Controlの処理範囲を限定する任意のEffect Maskも記載されています。
 
-Manual本文は「four inputs」と説明した直後にBackground / Foreground / Garbage Matte / Solid Matte / Effect Maskの5種類を列挙しています。本ページではdocumented connectionの役割をすべて記載し、runtime上で見える厳密な端子数は実機確認へ残します。
+Manual本文は「four inputs」と説明した直後にBackground / Foreground / Garbage Matte / Solid Matte / Effect Maskの5種類を列挙しています。本ページでは5種類の役割を記載しています。下の実機例では入力属性とNode EditorでImage2／Mask3の5入力を確認しました。
 
 ## 出力
 
@@ -110,7 +110,7 @@ Keyerの結果をそのまま仕上げるだけなら、Keyer出力をBackground
 
 ## premultiplicationの注意
 
-Post-Multiply Imageを有効にすると、結果のRGBへAlphaを乗算します。21.1 Manualでは通常有効で、既定もOnと記載されています。
+Post-Multiply Imageを有効にすると、結果のRGBへAlphaを乗算します。21.1 Manualでは通常有効で、既定もOnと記載されています。下の実機例では新規追加時にオフだったため、オンを明示して比較しました。
 
 無効にした結果はpremultiplied Imageとして扱えなくなるため、後段のMerge設定との組み合わせを確認する必要があります。
 
@@ -122,8 +122,70 @@ Post-Multiply Imageを有効にすると、結果のRGBへAlphaを乗算しま�
 - [Difference Keyer](./difference-keyer) — clean backgroundとの差からAlphaを作る
 - [Merge](../compositing/merge) — Matte Controlで整えたImageを合成する
 
+## 実機例：AlphaのCopyとGarbage／Solidを使い分ける
+
+<!-- capture-case:S75 -->
+
+Resolve Studio21.1.0.14／WindowsのFusionページで、1920×1080の固定チャートを使いました。通常の比較は左が入力、右が結果で、両ViewerをColor／40%にしています。内部REGIDは`MatteControl`でした。完成例では、Foreground画像から受け取った楕円のAlphaに、中央を消すGarbageと赤い部分を残すSolidを加えています。
+
+[![チャートをMatte ControlのBackgroundへ、楕円画像をForegroundへ、2つのRectangleをGarbageとSolidへ接続した実機Graph](/img/fusion/captures/S75/graph.png)](/img/fusion/captures/S75/graph.png)
+
+[![Combine AlphaとCopy、Invertオフ、Post-Multiply ImageオンのMatte Control Inspector](/img/fusion/captures/S75/inspector.png)](/img/fusion/captures/S75/inspector.png)
+
+[![右は楕円で切り抜いたチャートに中央の透明穴と左の赤い不透明パッチを加えた結果](/img/fusion/captures/S75/compare.png)](/img/fusion/captures/S75/compare.png)
+
+### まず別画像のAlphaをコピーする
+
+チャートをBackgroundへ接続し、Ellipse付きの白いBackgroundをForegroundへ接続します。CombineをCombine Alpha、Combine OperationをCopyにして、Post-Multiply Imageをオンにすると、チャートが楕円で切り抜かれました。下は追加のGarbageとSolidを使わない段階の比較です。
+
+[![Combine AlphaとCopy、Post-Multiply ImageオンにしたInspector](/img/fusion/captures/S75/copy-inspector.png)](/img/fusion/captures/S75/copy-inspector.png)
+
+[![右のチャートはForeground画像の楕円Alphaで切り抜かれる](/img/fusion/captures/S75/copy.png)](/img/fusion/captures/S75/copy.png)
+
+[![左はAlphaの参照にした白い楕円画像、右はそのAlphaを受け取ったチャート](/img/fusion/captures/S75/source.png)](/img/fusion/captures/S75/source.png)
+
+3枚目だけは左に白い楕円画像、右にAlphaを受け取ったチャートを表示しています。Foregroundの白いRGBでチャートを塗り替える操作ではありません。
+
+初期表示ではCombineはNone、Combine OperationはCopy、FilterはFast Gaussianで、Post-Multiply Imageはオフでした。Manualの「通常有効、既定オン」という説明と、この実機で新規追加したときの表示を区別します。この例ではオンを明示してから比較しています。
+
+[![Matte Control初期表示のCombine None、Copy、Fast GaussianとPost-Multiply Imageオフ](/img/fusion/captures/S75/default-inspector.png)](/img/fusion/captures/S75/default-inspector.png)
+
+### 反転とRGBへの乗算を分けて確認する
+
+同じAlpha CopyでInvert Matteだけをオンにすると、楕円の内側が透明になり、外側が残ります。
+
+[![同じAlpha Copyの設定でInvert MatteをオンにしたInspector](/img/fusion/captures/S75/inverse-inspector.png)](/img/fusion/captures/S75/inverse-inspector.png)
+
+[![Invert Matteをオンにすると右は楕円の内側が透明、外側が残る](/img/fusion/captures/S75/inverse.png)](/img/fusion/captures/S75/inverse.png)
+
+Invertをオフに戻し、Post-Multiply Imageだけをオフにすると、Color Viewerでは透明部分にもRGBが残って明るく見えました。これは前景単体の表示比較です。後段Mergeの演算方式や合成結果まで比較したものではありません。
+
+[![Alpha Copyを保ちPost-Multiply ImageだけオフにしたInspector](/img/fusion/captures/S75/post-off-inspector.png)](/img/fusion/captures/S75/post-off-inspector.png)
+
+[![右のColor表示では透明部分にもチャートのRGBが残って明るく見える](/img/fusion/captures/S75/post-off.png)](/img/fusion/captures/S75/post-off.png)
+
+### GarbageとSolidを個別に足す
+
+GarbageのRectangleはCenter0.55／0.5、Width0.14、Height0.4です。SolidのLevelを0にしてGarbageだけ有効にすると、中央に縦長の透明穴ができました。
+
+[![中央に穴を作るGarbage RectangleのCenter0.55と0.5、Width0.14、Height0.4](/img/fusion/captures/S75/garbage-inspector.png)](/img/fusion/captures/S75/garbage-inspector.png)
+
+[![Garbageだけ有効にすると、楕円で切り抜いたチャート中央に縦長の透明穴ができる](/img/fusion/captures/S75/garbage.png)](/img/fusion/captures/S75/garbage.png)
+
+SolidのRectangleはCenter0.15／0.3、Width0.15、Height0.2です。GarbageのLevelを0にしてSolidだけ有効にすると、元の楕円の外側にある赤いパッチを不透明に残せます。両方のLevelを1へ戻すと、冒頭の完成例になります。
+
+[![赤い領域を残すSolid RectangleのCenter0.15と0.3、Width0.15、Height0.2](/img/fusion/captures/S75/solid-inspector.png)](/img/fusion/captures/S75/solid-inspector.png)
+
+[![Solidだけ有効にすると、楕円の外側にある左の赤いパッチが不透明に残る](/img/fusion/captures/S75/solid.png)](/img/fusion/captures/S75/solid.png)
+
+入力属性ではBackgroundとForegroundの2つのImage、Effect Mask・Solid Matte・Garbage Matteの3つのMaskを確認しました。Node Editorでは画像2本とGarbage／Solidの接続、未接続のEffect Mask端子を確認しています。Effect Maskの描画結果は今回の確認範囲に含めません。
+
+最後はCombine Alpha／Copy、Invertオフ、Post-Multiply Imageオン、両RectangleのLevel1へ戻して保存しました。他のCombineや演算、色チャンネル、Gamma／Threshold／Blur、Spill、実写のキーイング素材、画素値の測定と性能は未確認です。
+
+[再現用Graph](/img/fusion/captures/S75/fixture.comp) · [撮影条件と確認範囲](/img/fusion/captures/S75/capture.json)
+
 ## バージョンと検証状況
 
 DaVinci Resolve 21.1 Reference Manual Chapter 109 pp.2539–2544で、Background / Foreground、Garbage / Solid / Effect Mask、Combine / Combine Operation、matte controls、Post-Multiply Image、Spill tabを確認しています。
 
-Manualで確認できないruntime REGID、実機上の厳密な端子数、処理性能は断定していません。
+S75でREGID、5入力、AlphaのCopy、Invert、Garbage／Solid、Post-Multiplyの表示を確認しました。全Control、実写のキーイング品質、処理性能は未確認です。

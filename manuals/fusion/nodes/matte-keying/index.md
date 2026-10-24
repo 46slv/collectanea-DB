@@ -94,8 +94,28 @@ Matte / Keyingには、マットを**新しく作る**ノードと、作った�
 | Cryptomatteで対象を選べない | 入力EXRに対象のIDとCryptomatte layerが含まれているか確認する |
 | Merge後に半透明の縁だけ暗い／明るい | アルファ乗算の状態、Alpha Divide / Multiply、後段の合成設定を確認する |
 
+### 実機の参考例：作ったAlphaを別画像へ渡す
+
+<!-- capture-reuse:R121 -->
+
+Matte Controlで楕円のAlphaをチャートへCopyし、Garbageで中央を消し、Solidで左の赤い部分を残しました。 [接続・Inspector・比較条件](./matte-control)は個別記事に掲載しています。
+
+[![右は楕円で切り抜いたチャートに中央の透明穴と左の赤い不透明パッチを加えた結果](/img/fusion/captures/S75/compare.png)](/img/fusion/captures/S75/compare.png)
+
+Resolve Studio21.1.0.14／Windows、Viewer40%。各記事に記載した固定例の範囲だけを確認しています。
+
+### 実機の参考例：明るさから作ったAlphaを表示する
+
+<!-- capture-reuse:R122 -->
+
+左は入力Color、右はLuma KeyerのLuminance／Threshold0.25〜0.75で作ったAlphaです。白・灰・黒を確認します。 [接続・Inspector・比較条件](./luma-keyer)は個別記事に掲載しています。
+
+[![左は入力のColor、右はLuminanceとThreshold0.25から0.75で作ったAlphaの白灰黒表示](/img/fusion/captures/S76/alpha.png)](/img/fusion/captures/S76/alpha.png)
+
+Resolve Studio21.1.0.14／Windows、Viewer40%。各記事に記載した固定例の範囲だけを確認しています。
+
 ## 出典と確認範囲
 
 DaVinci Resolve **21.1 Reference Manual**, Chapter 109「Matte Nodes」pp.2504–2568を基に、Alpha Divide / Multiply、Clean Plate、Delta Keyer、Difference Keyer、Magic Mask、Matte Control、Primatte、Cryptomatteの選択基準と接続上の役割を整理しています。個々のInspector項目や端子の詳細は各ノード記事を参照してください。
 
-このページは資料上の機能と推奨する組み合わせを説明したもので、Resolve 21.1実機でのREGID、端子表示、処理品質や速度を検証した結果ではありません。
+上のMatte ControlとLuma Keyerの固定例は実機で撮影しました。他のノードを含む分類全体の処理品質や速度、全Controlを検証した結果ではありません。

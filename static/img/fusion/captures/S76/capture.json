@@ -1,0 +1,231 @@
+{
+  "schema_version": 1,
+  "case": "S76",
+  "article": "manuals/fusion/nodes/matte-keying/luma-keyer.md",
+  "manual": {
+    "version": "21.1",
+    "chapter": 109,
+    "printed_pages": "2530–2533"
+  },
+  "runtime": {
+    "version": "21.1.0.14",
+    "edition": "Studio",
+    "os": "Windows-11-10.0.26200-SP0",
+    "ui_language": "ja-JP (some Shape controls remain English)"
+  },
+  "captured_at": "2026-10-24T00:55:47.451648+00:00",
+  "project": "Collectanea_Captures_20261023_Sol",
+  "timeline": "S76_capture",
+  "frame": 0.0,
+  "resolution": [
+    1920,
+    1080
+  ],
+  "color_management": {
+    "colorScienceMode": "davinciYRGB",
+    "colorSpaceTimeline": "Rec.709 (Scene)",
+    "colorSpaceTimelineGamma": "",
+    "colorSpaceOutput": "Rec.709 (Scene)",
+    "colorSpaceOutputGamma": "ACEScc",
+    "separateColorSpaceAndGamma": "0",
+    "isAutoColorManage": "0",
+    "timelineResolutionWidth": "1920",
+    "timelineResolutionHeight": "1080",
+    "timelineFrameRate": 24.0,
+    "timelinePlaybackFrameRate": "30"
+  },
+  "viewer": {
+    "zoom_percent": 40,
+    "channel": "Color",
+    "background": "checkerboard for transparent pixels",
+    "note": "Viewer screenshots are display evidence, not colorimetric exports. alpha.png only:Left Color/Right Alpha."
+  },
+  "graph": "fixture.comp",
+  "settings": "readback.json",
+  "source": {
+    "file": "screen.png",
+    "size": [
+      3352,
+      1910
+    ],
+    "sha256": "429b2866f723c253892968010a10bb3099bee946272fdf8cb503153c422b6884"
+  },
+  "shots": [
+    {
+      "file": "graph.png",
+      "source": "screen.png",
+      "source_sha256": "429b2866f723c253892968010a10bb3099bee946272fdf8cb503153c422b6884",
+      "frame": 0.0,
+      "crop_xyxy": [
+        480,
+        1300,
+        2380,
+        1450
+      ],
+      "resampled": false,
+      "sha256": "6816a7177313a894859c51eb099d6f2960948ea01172597764f981974d68636b",
+      "viewer_channels": "Color"
+    },
+    {
+      "file": "inspector.png",
+      "source": "screen.png",
+      "source_sha256": "429b2866f723c253892968010a10bb3099bee946272fdf8cb503153c422b6884",
+      "frame": 0.0,
+      "crop_xyxy": [
+        2830,
+        120,
+        3352,
+        585
+      ],
+      "resampled": false,
+      "sha256": "4f1c6ef7a10e6f1b48a838de8d7d03eaf1651f30f7512e957e79db975f0d1315",
+      "viewer_channels": "Color"
+    },
+    {
+      "file": "compare.png",
+      "source": "screen.png",
+      "source_sha256": "429b2866f723c253892968010a10bb3099bee946272fdf8cb503153c422b6884",
+      "frame": 0.0,
+      "crop_xyxy": [
+        1146,
+        65,
+        2830,
+        725
+      ],
+      "resampled": false,
+      "sha256": "3664d9abbacb84582669fef3a44d3d7863d58c71927478c45fc871852b296544",
+      "viewer_channels": "Color"
+    },
+    {
+      "file": "default-inspector.png",
+      "source": "screen-default.png",
+      "source_sha256": "803aed3a9998e50b6e6a803dba888e5afd4d1d29faa03e2b412ffc8f2099f69e",
+      "frame": 0.0,
+      "crop_xyxy": [
+        2830,
+        120,
+        3352,
+        585
+      ],
+      "resampled": false,
+      "sha256": "a7c39dbf0d2b3f9320bb7a73d76c0725cb1c82e43cc647880346c9fcd34a7348",
+      "viewer_channels": "Color"
+    },
+    {
+      "file": "default.png",
+      "source": "screen-default.png",
+      "source_sha256": "803aed3a9998e50b6e6a803dba888e5afd4d1d29faa03e2b412ffc8f2099f69e",
+      "frame": 0.0,
+      "crop_xyxy": [
+        1146,
+        65,
+        2830,
+        725
+      ],
+      "resampled": false,
+      "sha256": "d7a7ca261cf95f190511a1d6d749ce1eadaa5a555744101d0ef84de448b32743",
+      "viewer_channels": "Color"
+    },
+    {
+      "file": "inverse-inspector.png",
+      "source": "screen-inverse.png",
+      "source_sha256": "f29449956c11284a88dce1e0c772fbf759a6493df79b611f81643f7df5ac8d2a",
+      "frame": 0.0,
+      "crop_xyxy": [
+        2830,
+        120,
+        3352,
+        585
+      ],
+      "resampled": false,
+      "sha256": "eb6624893a3ca581cdad3550919eaaad1d34435fc1ae40488ca9030444d0c41a",
+      "viewer_channels": "Color"
+    },
+    {
+      "file": "inverse.png",
+      "source": "screen-inverse.png",
+      "source_sha256": "f29449956c11284a88dce1e0c772fbf759a6493df79b611f81643f7df5ac8d2a",
+      "frame": 0.0,
+      "crop_xyxy": [
+        1146,
+        65,
+        2830,
+        725
+      ],
+      "resampled": false,
+      "sha256": "be40c57d532e1afd3117fb10035137780581766fd04e6e9075d5bebdfa20ee89",
+      "viewer_channels": "Color"
+    },
+    {
+      "file": "blue-inspector.png",
+      "source": "screen-blue.png",
+      "source_sha256": "db18798dc189b88b39749a4a576d55e024d1130e7f213b2f201371fbcd523ea2",
+      "frame": 0.0,
+      "crop_xyxy": [
+        2830,
+        120,
+        3352,
+        585
+      ],
+      "resampled": false,
+      "sha256": "a8fc9f7443c1c5e452234f002bd99bc26243d9c9ebb03aceb8a84093d360b7d6",
+      "viewer_channels": "Color"
+    },
+    {
+      "file": "blue.png",
+      "source": "screen-blue.png",
+      "source_sha256": "db18798dc189b88b39749a4a576d55e024d1130e7f213b2f201371fbcd523ea2",
+      "frame": 0.0,
+      "crop_xyxy": [
+        1146,
+        65,
+        2830,
+        725
+      ],
+      "resampled": false,
+      "sha256": "57dec204148100ad500227582ab3d36730fa35cc6d132cee4c8fcf7add62ecd0",
+      "viewer_channels": "Color"
+    },
+    {
+      "file": "alpha.png",
+      "source": "screen-alpha.png",
+      "source_sha256": "127b734b289cb20987278a2ccfabd0ca0fa1d447814e76bd9adfe9c95501cd19",
+      "frame": 0.0,
+      "crop_xyxy": [
+        1146,
+        65,
+        2830,
+        725
+      ],
+      "resampled": false,
+      "sha256": "c90e86a641859e44b3e29a7460d54f3a55339d65c157e0fe5fcd4e3e61c61a41",
+      "viewer_channels": "Left Color / Right Alpha"
+    }
+  ],
+  "acceptance": {
+    "gui": "PASS: owner visually inspected node connections, selected Inspector, and output",
+    "article_display": "PASS: local production build;3 distinct pages27 images;1440px/390px/decode/Alt/native links/hash/overflow"
+  },
+  "unverified": [
+    "Free edition and other platforms",
+    "All parameter ranges and performance",
+    "他Channel・Blur/Contract/Gamma・補助Mask/EffectMask出力利用・DoD・実写・数値/性能",
+    "Exported portable composition reimport"
+  ],
+  "parameter_readback_scope": "Number/Text/Point/FuID/Clip only;Image/Mask input attributes and Graph connections only,no payload evaluation.",
+  "state_variants": {
+    "screen.png": "finalLuminance4/Low.25/High.75/Invert0/PostMultiply1,both Color40%",
+    "screen-default.png": "initialLuminance4/Low0/High1/PostMultiply1/FastGaussian",
+    "screen-inverse.png": "Luminance4/Low.25/High.75/Invert1",
+    "screen-blue.png": "Channel0 native label Blue,not Red;other settings final",
+    "screen-alpha.png": "final controls;left Color/right Alpha40%"
+  },
+  "restoration": "PASS: Luminance4/Low.25/High.75/Invert0/PostMultiply1,frame0,both Color40%,no popup,saved;prior ChatGPT HWND133458 foreground restored/readback.",
+  "gui_repair": "Initial A/B wipe mistaken for channel selector was immediately restored and rejected. Channel menu is near2695,81 at native3352px. Popup PID28008 changed MainWindowHandle temporarily;bound exact owner/main+popup. Background UIA menu invoke no-op;foreground popup Alpha selection native PASS. Color restore tool reported foreground_unavailable after returning to main HWND2104226;fresh screenshot showed Color and popup absent,so no blind retry. Prior ChatGPT restored explicitly. Work S76-red.png actually nativeBlue;adopted as screen-blue.png.",
+  "reproduction": {
+    "fixture_sha256": "f04f9e307dbf77cfebb13eade5b9541ec2d89bddb786c88060e97aec126c1695",
+    "readback_sha256": "d496f3a8aea10081f1c38fa5f4eab499182c3883338e9a5e5b53eb935334d404",
+    "paths": "Comp:/../_fixtures/ for bundled synthetic fixtures",
+    "reimport": "NOT_RUN: accepted GUI evidence precedes export path normalization"
+  }
+}
