@@ -2,7 +2,7 @@
   "schema_version": 1,
   "created": "2026-10-20",
   "scope": "All Fusion pages, DaVinci Resolve 21.1",
-  "status_note": "2026-10-24:public192/738/1106 through PR128,1711/1711 HTTP/hash PASS. S118–S120/R169–R173 local5pages37images PASS,cumulative195/763/1138.Whole587/360capture-needed and remaining_views incomplete;partial retained.",
+  "status_note": "2026-10-24:public195/763/1138 through PR129,1759/1759 HTTP/hash PASS.Whole587/360capture-needed and remaining_views incomplete;partial retained. S121 WORK only;owned host recovered after unexplained exit.",
   "asset_directory_template": "static/img/fusion/captures/{id}/{shot.slug}.png",
   "capture_manifest_name": "capture.json",
   "candidates": [
@@ -6290,7 +6290,7 @@
         "printed_pages": "2263–2266"
       },
       "goal": "Normal-based Shader Ambient.1 Diffuse.5 Specular0 Reflection0 Polar30,Equator45 vs-45",
-      "status": "captured-local-display-verified",
+      "status": "published-display-verified",
       "shots": [
         {
           "slug": "graph",
@@ -6352,7 +6352,7 @@
         "printed_pages": "2266–2268"
       },
       "goal": "Software Renderer UV+RGBA,chart on Texture port,FlipHoriz0 vs1;UV diagnostic",
-      "status": "captured-local-display-verified",
+      "status": "published-display-verified",
       "shots": [
         {
           "slug": "graph",
@@ -6414,7 +6414,7 @@
         "printed_pages": "2256–2259"
       },
       "goal": "Sphere/ground,RGBA+Z+Normal and connected Camera,AO512 Radius1 Hemisphere,Color/Blend0 vs1 andAO-only",
-      "status": "captured-local-display-verified",
+      "status": "published-display-verified",
       "shots": [
         {
           "slug": "graph",
@@ -7662,6 +7662,39 @@
         "artifacts/fusion-captures/public-batch36-assets.json"
       ],
       "limitations": "Whole587/360capture-needed plus remaining_views incomplete;S118–120 local accepted only. One fixture HTTP503 recovered with failed-only retry;history preserved."
+    },
+    {
+      "id": "fusion-native-20261024-37",
+      "cases": [
+        "S118",
+        "S119",
+        "S120"
+      ],
+      "reuses": [
+        "R169",
+        "R170",
+        "R171",
+        "R172",
+        "R173"
+      ],
+      "pr": "https://github.com/46slv/collectanea-DB/pull/129",
+      "candidate": "527719c61abaa69374091d089ebc2600b23919ec",
+      "main": "0231832b8c5eede692628577374d527b1ff1449e",
+      "tree": "926d0e87dff1946884d2214d6022604ce99e25fc",
+      "quality_run": "https://github.com/46slv/collectanea-DB/actions/runs/40082878247",
+      "pages_run": "https://github.com/46slv/collectanea-DB/actions/runs/40083898498",
+      "merge_owner": "Sol exact-head all jobs/steps,fresh main/head/reviews/comments/inline,expected-head squash,MERGED/equal tree",
+      "public_pages": 5,
+      "public_images": 37,
+      "new_native_crops": 25,
+      "new_placements": 32,
+      "public_asset_hashes": 1759,
+      "result": "PASS",
+      "evidence": [
+        "artifacts/fusion-captures/public-batch37-display-report.json",
+        "artifacts/fusion-captures/public-batch37-assets.json"
+      ],
+      "limitations": "Whole587/360capture-needed plus remaining_views incomplete;S121 WORK notaccepted. AO residual sampling artifacts documented."
     }
   ],
   "coverage_inventory": {
@@ -27827,7 +27860,7 @@
       "images": [
         "compare.png"
       ],
-      "status": "embedded-local-display-verified",
+      "status": "published-display-verified",
       "scope": "Normalを使って球の陰影を変えるShader;ordinary2D aux only,nottrueDeep."
     },
     {
@@ -27837,7 +27870,7 @@
       "images": [
         "compare.png"
       ],
-      "status": "embedded-local-display-verified",
+      "status": "published-display-verified",
       "scope": "UVを使ってチャートを球面へ貼るTexture;ordinary2D aux only,nottrueDeep."
     },
     {
@@ -27847,7 +27880,7 @@
       "images": [
         "compare.png"
       ],
-      "status": "embedded-local-display-verified",
+      "status": "published-display-verified",
       "scope": "Z・Normal・Cameraから接触部の陰影を加えるAmbient Occlusion;ordinary2D aux only,nottrueDeep."
     },
     {
@@ -27858,7 +27891,7 @@
         "normal-inspector.png",
         "normal.png"
       ],
-      "status": "embedded-local-display-verified",
+      "status": "published-display-verified",
       "scope": "Normalを方向の色として確認する;ordinary2D aux only,nottrueDeep."
     },
     {
@@ -27869,7 +27902,7 @@
         "uv-inspector.png",
         "uv.png"
       ],
-      "status": "embedded-local-display-verified",
+      "status": "published-display-verified",
       "scope": "UVを赤と緑で確認する;ordinary2D aux only,nottrueDeep."
     }
   ],
