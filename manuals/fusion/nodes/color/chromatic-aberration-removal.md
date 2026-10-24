@@ -15,7 +15,7 @@ outputs: [image]
 tasks: [chromatic-aberration, lens-correction]
 product_scope: fusion
 suite_surfaces: [fusion]
-updated: "2026-10-11"
+updated: "2026-10-24"
 ---
 
 # Chromatic Aberration Removal
@@ -128,6 +128,34 @@ CGの合成でレンズ歪みと色収差の両方がある場合は、幾何学
 - **画面の一部しか変わらない**：Effect Maskが接続されていないか、必要な領域を覆っているか確認します。
 - **診断表示で改善したのに仕上がりが変わらない**：Estimation Optionsは表示用です。実際の補正値であるScale / Edgeを確認します。
 
+## 実機例：Scaleの作用と推定フリンジ表示
+
+<!-- capture-case:S107 -->
+
+Resolve Studio21.1.0.14／Windows、1920×1080、Viewer40%、フレーム0で撮影しました。左がLoaderのテストチャート、右が処理後です。
+
+[![LoaderからChromatic Aberration Removalを経てMediaOutへ接続した実機Graph](/img/fusion/captures/S107/graph.png)](/img/fusion/captures/S107/graph.png)
+
+まず各Scale／Edgeを0、Show Estimated FringesをOFFにすると、左右は同じ見え方でした。
+
+[![各ScaleとEdgeが0で推定フリンジ表示をOFFにしたときの入力と出力の実機比較](/img/fusion/captures/S107/baseline.png)](/img/fusion/captures/S107/baseline.png)
+
+赤／シアンのScaleだけを0.8へ変更しました。右の白い外枠や点の輪郭に赤とシアンのずれが見えます。色ずれのないチャートへ強めの補正を加えたために生じた変化です。この値を補正の推奨値にしたり、色収差が改善した例として扱ったりしないでください。ほかのScale／Edgeは0のままです。
+
+[![赤シアンScaleだけを0.8、各Edgeと他Scaleを0、推定フリンジOFFにした実機Inspector](/img/fusion/captures/S107/inspector.png)](/img/fusion/captures/S107/inspector.png)
+
+[![強めの赤シアンScaleで右の白い輪郭に赤とシアンのずれが生じた実機比較](/img/fusion/captures/S107/compare.png)](/img/fusion/captures/S107/compare.png)
+
+同じ設定で赤／シアンのShow Estimated FringesをONにすると、右は灰色を基調とした診断表示へ変わりました。入力が色ずれのないチャートなので、ここでは診断表示への切替を確認しています。中央の赤い印はViewerの操作ガイドです。
+
+[![赤シアンの推定フリンジを表示にチェックを入れた実機Inspector](/img/fusion/captures/S107/estimate-inspector.png)](/img/fusion/captures/S107/estimate-inspector.png)
+
+[![入力のチャートと、灰色を基調とした推定フリンジ診断表示の実機比較](/img/fusion/captures/S107/estimate.png)](/img/fusion/captures/S107/estimate.png)
+
+最後はShow Estimated FringesをOFFへ戻し、赤／シアンScale0.8で保存しました。実写レンズの色収差を除去した効果、適切な補正値、Lens CenterやEdge、Estimation Optionsの各調整、別フレーム、Mask、Edition差と性能は未確認です。
+
+[再現用Graph](/img/fusion/captures/S107/fixture.comp) · [撮影条件と確認範囲](/img/fusion/captures/S107/capture.json)
+
 ## 出典・バージョンと確認範囲
 
 - Blackmagic Design『DaVinci Resolve 21.1 Reference Manual』（September 2026）、Chapter 93「Color Nodes」pp.2146–2148：Fusionノードの入出力、Inspector内のAdvanced Options / Estimation Options / Aberration Correctionを確認。
@@ -135,4 +163,4 @@ CGの合成でレンズ歪みと色収差の両方がある場合は、幾何学
 
 **版・製品の区別**：Chapter 163にある「Studio Version Only」はResolve FX Revivalの同名エフェクトに付く表記です。Chapter 93のFusionノードについて、これだけを根拠にFree / Studioの利用可否を断定しません。
 
-本記事では21.1マニュアル記載の操作を説明しています。ノードの内部REGID、全設定値の初期値と範囲、Fusion Studio / Resolve Free / Resolve Studioそれぞれの実機での表示差、補正アルゴリズムやレンダリング結果は未検証です。
+S107で内部REGID、Scaleの作用と推定フリンジ表示を実機確認しました。全設定値の初期値・範囲、各Editionでの表示差、補正アルゴリズム、実写での補正効果は未確認です。

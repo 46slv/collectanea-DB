@@ -1,0 +1,190 @@
+{
+  "schema_version": 1,
+  "case": "S107",
+  "article": "manuals/fusion/nodes/color/chromatic-aberration-removal.md",
+  "manual": {
+    "version": "21.1",
+    "chapter": 93,
+    "printed_pages": "2146–2148"
+  },
+  "runtime": {
+    "version": "21.1.0.14",
+    "edition": "Studio",
+    "os": "Windows-11-10.0.26200-SP0",
+    "ui_language": "ja-JP (some Shape controls remain English)"
+  },
+  "captured_at": "2026-10-24T07:37:44.130194+00:00",
+  "project": "Collectanea_Captures_20261023_Sol",
+  "timeline": "S107_capture",
+  "frame": 0.0,
+  "resolution": [
+    1920,
+    1080
+  ],
+  "color_management": {
+    "colorScienceMode": "davinciYRGB",
+    "colorSpaceTimeline": "Rec.709 (Scene)",
+    "colorSpaceTimelineGamma": "",
+    "colorSpaceOutput": "Rec.709 (Scene)",
+    "colorSpaceOutputGamma": "ACEScc",
+    "separateColorSpaceAndGamma": "0",
+    "isAutoColorManage": "0",
+    "timelineResolutionWidth": "1920",
+    "timelineResolutionHeight": "1080",
+    "timelineFrameRate": 24.0,
+    "timelinePlaybackFrameRate": "30"
+  },
+  "viewer": {
+    "zoom_percent": 40,
+    "channel": "Color",
+    "background": "checkerboard for transparent pixels",
+    "note": "Viewer screenshots are display evidence, not colorimetric exports."
+  },
+  "graph": "fixture.comp",
+  "settings": "readback.json",
+  "source": {
+    "file": "screen.png",
+    "size": [
+      3352,
+      1910
+    ],
+    "sha256": "1e21d0efb732ea9022d7eaf309a7eaa3eacfb002cee0dedbebe2b20d643638ff"
+  },
+  "shots": [
+    {
+      "file": "graph.png",
+      "source": "screen.png",
+      "source_sha256": "1e21d0efb732ea9022d7eaf309a7eaa3eacfb002cee0dedbebe2b20d643638ff",
+      "frame": 0,
+      "crop_xyxy": [
+        930,
+        1320,
+        1920,
+        1425
+      ],
+      "resampled": false,
+      "sha256": "11eb81e494428b35bf82cf8621e2dc62ea5bab12222b6dd47a9fa40abc456388",
+      "viewer_guides": false,
+      "viewer_contents": "Left clean chart / Right R/C Scale0.8,overcorrection example"
+    },
+    {
+      "file": "inspector.png",
+      "source": "screen.png",
+      "source_sha256": "1e21d0efb732ea9022d7eaf309a7eaa3eacfb002cee0dedbebe2b20d643638ff",
+      "frame": 0,
+      "crop_xyxy": [
+        2830,
+        120,
+        3352,
+        590
+      ],
+      "resampled": false,
+      "sha256": "f84dbc6c1087e615ecc447cdf1a5ca3febf524c25efbe92a6db9bcaa6724ac24",
+      "viewer_guides": false,
+      "viewer_contents": "Left clean chart / Right R/C Scale0.8,overcorrection example"
+    },
+    {
+      "file": "compare.png",
+      "source": "screen.png",
+      "source_sha256": "1e21d0efb732ea9022d7eaf309a7eaa3eacfb002cee0dedbebe2b20d643638ff",
+      "frame": 0,
+      "crop_xyxy": [
+        1146,
+        65,
+        2830,
+        725
+      ],
+      "resampled": false,
+      "sha256": "1051173ff452523e1fa34f259b5d6e04c79e627d7c5c1bec8b63335f2c0a7b4f",
+      "viewer_guides": false,
+      "viewer_contents": "Left clean chart / Right R/C Scale0.8,overcorrection example"
+    },
+    {
+      "file": "baseline.png",
+      "source": "screen-baseline.png",
+      "source_sha256": "77f19493e83ca4616a92ceb2e152a9c114a61c441c3ac63d5f211aad9b6799e3",
+      "frame": 0,
+      "crop_xyxy": [
+        1146,
+        65,
+        2830,
+        725
+      ],
+      "resampled": false,
+      "sha256": "9a2d7b1bb2a94cf51c0c6f9460b525a866b540c800fb56622499a1a93e16c43a",
+      "viewer_guides": false,
+      "viewer_contents": "Left clean chart / Right identity"
+    },
+    {
+      "file": "estimate-inspector.png",
+      "source": "screen-estimate.png",
+      "source_sha256": "ffbddcf8986ae9022b384a22f9ba615f8fca2018408d773f846835ab45baf061",
+      "frame": 0,
+      "crop_xyxy": [
+        2830,
+        120,
+        3352,
+        590
+      ],
+      "resampled": false,
+      "sha256": "def4d8a89cdc6f2376d0e170d217019bf1716a9c431d7343abfc9e7238933973",
+      "viewer_guides": true,
+      "viewer_contents": "Left clean chart / Right R/C estimate diagnostic,Scale0.8"
+    },
+    {
+      "file": "estimate.png",
+      "source": "screen-estimate.png",
+      "source_sha256": "ffbddcf8986ae9022b384a22f9ba615f8fca2018408d773f846835ab45baf061",
+      "frame": 0,
+      "crop_xyxy": [
+        1146,
+        65,
+        2830,
+        725
+      ],
+      "resampled": false,
+      "sha256": "164a227a313a29c62aaf1d7cca3f528175ccb95faea68ed112ae62c8447c09e3",
+      "viewer_guides": true,
+      "viewer_contents": "Left clean chart / Right R/C estimate diagnostic,Scale0.8"
+    }
+  ],
+  "acceptance": {
+    "gui": "PASS: owner visually inspected node connections, selected Inspector, and output",
+    "article_display": "Executed local/public outcomes recorded in docs/fusion-screenshot-candidates.json;capture provenance fixed."
+  },
+  "unverified": [
+    "Free edition and other platforms",
+    "All parameter ranges and performance",
+    "Real footage,colorimetric fidelity,all controls/modes,other platforms/editions,performance,portable reimport",
+    "Exported portable composition reimport"
+  ],
+  "parameter_readback_scope": "No Image/Mask/LookUpTable/ScriptVal GetInput;exact-tool metadata,bounded Number/FuID and native GUI/export.",
+  "gui_authoring": {
+    "host": {
+      "pid": 20156,
+      "hwnd": 82647722,
+      "source_pixels": [
+        3352,
+        1910
+      ]
+    },
+    "tool": "ChromaticAberrationRemoval1",
+    "regid": "ChromaticAberrationRemoval",
+    "visible_flow_tools": 3,
+    "delivery": "SDK and Cua synthetic input;physical input NOT_PROVEN;native UI/export establish outcome"
+  },
+  "restoration": "PASS:frame0,both40%,compact Flow,owned scratch saved,native final inspected",
+  "native_values": {
+    "CurvatureRed": 0.8,
+    "Curvature4thRed": 0,
+    "IsEstRedFringes": 0,
+    "IsEstRedFringes_diagnostic": 1
+  },
+  "fixture_limit": "Clean synthetic chart;overcorrection demonstration,not successful lens correction.",
+  "reproduction": {
+    "fixture_sha256": "1741d6dab3d0b731efd6841eedf5756f31efee23dad0dc3542c7dbd5f8a3fc06",
+    "readback_sha256": "218f0485cb3e25734e76c37ed0a59d0b372384699a08c0d07be6d32bb8855a92",
+    "paths": "Comp:/../_fixtures/ for bundled synthetic fixtures",
+    "reimport": "NOT_RUN: accepted GUI evidence precedes export path normalization"
+  }
+}

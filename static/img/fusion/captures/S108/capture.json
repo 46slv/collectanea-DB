@@ -1,0 +1,189 @@
+{
+  "schema_version": 1,
+  "case": "S108",
+  "article": "manuals/fusion/nodes/color/color-curves.md",
+  "manual": {
+    "version": "21.1",
+    "chapter": 93,
+    "printed_pages": "2168–2171"
+  },
+  "runtime": {
+    "version": "21.1.0.14",
+    "edition": "Studio",
+    "os": "Windows-11-10.0.26200-SP0",
+    "ui_language": "ja-JP (some Shape controls remain English)"
+  },
+  "captured_at": "2026-10-24T07:40:58.600852+00:00",
+  "project": "Collectanea_Captures_20261023_Sol",
+  "timeline": "S108_capture",
+  "frame": 0.0,
+  "resolution": [
+    1920,
+    1080
+  ],
+  "color_management": {
+    "colorScienceMode": "davinciYRGB",
+    "colorSpaceTimeline": "Rec.709 (Scene)",
+    "colorSpaceTimelineGamma": "",
+    "colorSpaceOutput": "Rec.709 (Scene)",
+    "colorSpaceOutputGamma": "ACEScc",
+    "separateColorSpaceAndGamma": "0",
+    "isAutoColorManage": "0",
+    "timelineResolutionWidth": "1920",
+    "timelineResolutionHeight": "1080",
+    "timelineFrameRate": 24.0,
+    "timelinePlaybackFrameRate": "30"
+  },
+  "viewer": {
+    "zoom_percent": 40,
+    "channel": "Color",
+    "background": "checkerboard for transparent pixels",
+    "note": "Viewer screenshots are display evidence, not colorimetric exports."
+  },
+  "graph": "fixture.comp",
+  "settings": "readback.json",
+  "source": {
+    "file": "screen.png",
+    "size": [
+      3352,
+      1910
+    ],
+    "sha256": "488b35e257b2cc2629d25a110e2293f3b25798c22c56a905efc1bcf6e4cf20f0"
+  },
+  "shots": [
+    {
+      "file": "graph.png",
+      "source": "screen.png",
+      "source_sha256": "488b35e257b2cc2629d25a110e2293f3b25798c22c56a905efc1bcf6e4cf20f0",
+      "frame": 0,
+      "crop_xyxy": [
+        930,
+        1320,
+        1920,
+        1425
+      ],
+      "resampled": false,
+      "sha256": "338d6890d9456755a15689062ffae2feeba248f21994f99199e261353f57a18a",
+      "viewer_guides": false,
+      "viewer_contents": "Left chart / Right RGB midpoint0.5 to0.742712;Alpha unchanged"
+    },
+    {
+      "file": "inspector.png",
+      "source": "screen.png",
+      "source_sha256": "488b35e257b2cc2629d25a110e2293f3b25798c22c56a905efc1bcf6e4cf20f0",
+      "frame": 0,
+      "crop_xyxy": [
+        2830,
+        120,
+        3352,
+        640
+      ],
+      "resampled": false,
+      "sha256": "6c1015d34769443fa81bd05772ff5307cd1e60e3ad2f6b0db5ec7f26704dde01",
+      "viewer_guides": false,
+      "viewer_contents": "Left chart / Right RGB midpoint0.5 to0.742712;Alpha unchanged"
+    },
+    {
+      "file": "compare.png",
+      "source": "screen.png",
+      "source_sha256": "488b35e257b2cc2629d25a110e2293f3b25798c22c56a905efc1bcf6e4cf20f0",
+      "frame": 0,
+      "crop_xyxy": [
+        1146,
+        65,
+        2830,
+        725
+      ],
+      "resampled": false,
+      "sha256": "b715cefeab54d370c5b06fffded21a0d252f10bce9ed51f7fe54a8758cc87cd0",
+      "viewer_guides": false,
+      "viewer_contents": "Left chart / Right RGB midpoint0.5 to0.742712;Alpha unchanged"
+    },
+    {
+      "file": "baseline-inspector.png",
+      "source": "screen-baseline.png",
+      "source_sha256": "0e4ba9bbb595eb22bde14431ce8518aa2d6f796218535c74cbd343a3a9a48239",
+      "frame": 0,
+      "crop_xyxy": [
+        2830,
+        120,
+        3352,
+        640
+      ],
+      "resampled": false,
+      "sha256": "4c79dfc56755f4237e23685b6b05febdf8af98ec9c83af952de79e975b81163f",
+      "viewer_guides": false,
+      "viewer_contents": "Left chart / Right identity RGB curves"
+    },
+    {
+      "file": "baseline.png",
+      "source": "screen-baseline.png",
+      "source_sha256": "0e4ba9bbb595eb22bde14431ce8518aa2d6f796218535c74cbd343a3a9a48239",
+      "frame": 0,
+      "crop_xyxy": [
+        1146,
+        65,
+        2830,
+        725
+      ],
+      "resampled": false,
+      "sha256": "b7472fbd13c400283669c0af06062bae66ca21a1ebeda85d8cda6ac9b4c88168",
+      "viewer_guides": false,
+      "viewer_contents": "Left chart / Right identity RGB curves"
+    }
+  ],
+  "acceptance": {
+    "gui": "PASS: owner visually inspected node connections, selected Inspector, and output",
+    "article_display": "Executed local/public outcomes recorded in docs/fusion-screenshot-candidates.json;capture provenance fixed."
+  },
+  "unverified": [
+    "Free edition and other platforms",
+    "All parameter ranges and performance",
+    "Real footage,colorimetric fidelity,all controls/modes,other platforms/editions,performance,portable reimport",
+    "Exported portable composition reimport"
+  ],
+  "parameter_readback_scope": "No Image/Mask/LookUpTable/ScriptVal GetInput;exact-tool metadata,bounded Number/FuID and native GUI/export.",
+  "gui_authoring": {
+    "host": {
+      "pid": 20156,
+      "hwnd": 82647722,
+      "source_pixels": [
+        3352,
+        1910
+      ]
+    },
+    "tool": "ColorCurves1",
+    "regid": "ColorCurves",
+    "visible_flow_tools": 3,
+    "delivery": "SDK and Cua synthetic input;physical input NOT_PROVEN;native UI/export establish outcome"
+  },
+  "restoration": "PASS:frame0,both40%,compact Flow,owned scratch saved,native final inspected",
+  "native_curve_edit": {
+    "case": "S108",
+    "bounded": {
+      "EditRed": 1.0,
+      "EditGreen": 1.0,
+      "EditBlue": 1.0,
+      "EditAlpha": 0.0,
+      "PreDividePostMultiply": 0.0
+    },
+    "native_drag": "s0000039a -> s0000039b;unknown/global_input,physical input NOT_PROVEN",
+    "final_capture": "S108-final.png s0000039e",
+    "curve_evidence": "fixture.comp KeyColorSplines: RGB each (0,0),(.5,.742712110440361),(1,1);Alpha unchanged endpoints",
+    "rejected": "UIA Out0.75 appeared only transiently;after show/export reverted .742712110440361;0.75 NOT_ACCEPTED",
+    "limits": [
+      "Reference Match",
+      "Match Mask",
+      "other spaces",
+      "Animated/Dissolve",
+      "HDR/real footage",
+      "portable reimport"
+    ]
+  },
+  "reproduction": {
+    "fixture_sha256": "a9d632033ccfebcdb53e129c0a2c4017bb93d071ae0b450f0d181bd6a44339a5",
+    "readback_sha256": "098046ff3cc1fa3297d08959ed7160dd867b43e89b51839e5a3eb285cc68c0c8",
+    "paths": "Comp:/../_fixtures/ for bundled synthetic fixtures",
+    "reimport": "NOT_RUN: accepted GUI evidence precedes export path normalization"
+  }
+}

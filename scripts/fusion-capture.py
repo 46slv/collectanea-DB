@@ -94,6 +94,9 @@ TARGETS.update({'S100':'LayerRemover1','S101':'LayerRegex1','S102':'LayerMuxer1'
 TARGETS['S103']='ColorSpaceTransform1';LEFT['S103']='Loader1'
 TARGETS['S104']='ChromaticAdaptation1';LEFT['S104']='Loader1'
 TARGETS['S105']='OCIOCDLTransform1';LEFT['S105']='Loader1'
+TARGETS['S106']='AcesTransform1';LEFT['S106']='Loader1'
+TARGETS['S107']='ChromaticAberrationRemoval1';LEFT['S107']='Loader1'
+TARGETS['S108']='ColorCurves1';LEFT['S108']='Loader1'
 LEFT.update({'S100':'Swizzler1','S101':'Swizzler1','S102':'SwizzlerA1'})
 r=d.scriptapp('Resolve')
 assert r, 'Resolve scripting unavailable; do not change preferences automatically'
@@ -306,7 +309,7 @@ def select(target,left=None):
  for cid in ['S100','S101']:
   layouts[cid]={'ChartSource1' if cid=='S100' else 'Loader1':(0,0),'Gold1':(0,-1.5),'Swizzler1':(1,0),TARGETS[cid]:(2,0),'MediaOut1':(3,0)}
  layouts['S102']={'Loader1':(0,0),'Gold1':(0,-1.5),'Blue1':(0,1.5),'SwizzlerA1':(1,-.75),'SwizzlerB1':(1,.75),'LayerMuxer1':(2,0),'MediaOut1':(3,0)}
- for cid in ['S103','S104','S105']:layouts[cid]={'Loader1':(0,0),TARGETS[cid]:(1,0),'MediaOut1':(2,0)}
+ for cid in ['S103','S104','S105','S106','S107','S108']:layouts[cid]={'Loader1':(0,0),TARGETS[cid]:(1,0),'MediaOut1':(2,0)}
  for n,pos in layouts.get(case,{}).items():
   if n in tools:flow.SetPos(tools[n],*pos)
  if case=='S27':flow.SetScale(1.0)
@@ -345,9 +348,9 @@ if action=='build':
   rb=add('sRender','RenderBase1',4,-1);connect(rb,'Input',base)
   target=add('sTransform','Transform1',2,1);connect(target,'Input',base)
   rr=add('sRender','RenderChanged1',4,1);connect(rr,'Input',target);connect(mo,'Input',rr)
- elif case in ['S104','S105']:
+ elif case in ['S104','S105','S106','S107','S108']:
   loader=add('Loader','Loader1',0,0,Clip=str(REPO/'static/img/fusion/captures/_fixtures/chart.png'))
-  reg='ChromaticAdaptation' if case=='S104' else 'OCIOCDLTransform'
+  reg={'S104':'ChromaticAdaptation','S105':'OCIOCDLTransform','S106':'AcesTransform','S107':'ChromaticAberrationRemoval','S108':'ColorCurves'}[case]
   target=add(reg,TARGETS[case],1,0)
   ports={z.GetAttrs()['INPS_ID'] for z in target.GetInputList().values() if z and callable(z.GetAttrs) and z.GetAttrs().get('INPS_DataType')=='Image'}
   assert 'Input' in ports,ports

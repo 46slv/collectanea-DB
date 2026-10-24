@@ -1,3 +1,6 @@
 # Keep exported evidence bytes stable across Windows and Linux checkouts.
 static/img/fusion/captures/**/*.json text eol=lf
 static/img/fusion/captures/**/*.comp text eol=lf
+
+# Keep the native CDL export byte-identical to its recorded source hash.
+static/img/fusion/captures/S105/red-slope05.cc -text
