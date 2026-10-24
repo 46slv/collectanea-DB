@@ -69,6 +69,8 @@ TARGETS['S75']='MatteControl1';LEFT['S75']='Loader1';RIGHT['S75']='MatteControl1
 TARGETS['S76']='LumaKeyer1';LEFT['S76']='Loader1';RIGHT['S76']='LumaKeyer1'
 TARGETS['S77']='BitmapMask1';LEFT['S77']='Loader1';RIGHT['S77']='Gold1'
 TARGETS['S78']='RangesMask1';LEFT['S78']='Loader1';RIGHT['S78']='Gold1'
+TARGETS['S79']='WandMask1';LEFT['S79']='Loader1';RIGHT['S79']='Gold1'
+TARGETS['S80']='Triangle1';LEFT['S80']='Triangle1';RIGHT['S80']='Gold1'
 r=d.scriptapp('Resolve')
 assert r, 'Resolve scripting unavailable; do not change preferences automatically'
 pm=r.GetProjectManager(); p=pm.GetCurrentProject()
@@ -111,6 +113,10 @@ if action in ['premult_naive','premult_correct','premult_multiply','premult_sour
  action='show'
 if action in ['matte_garbage','matte_solid']:
  assert case=='S75';TARGETS[case]='Garbage1' if action=='matte_garbage' else 'Solid1';action='show'
+if action=='wand_mask':
+ assert case=='S79';RIGHT[case]='WandMask1';action='show'
+if action=='wand_result':
+ assert case=='S79';LEFT[case]='WandMask1';action='show'
 if action=='ranges_mask':
  assert case=='S78';RIGHT[case]='RangesMask1';action='show'
 if action=='ranges_result':
@@ -224,6 +230,8 @@ def select(target,left=None):
  for cid in ['S62','S63','S64','S65']:layouts[cid]={'Loader1':(0,0),TARGETS[cid]:(1.5,0),'MediaOut1':(3,0)}
  if case in ['S62','S63'] and 'BlurSource1' in tools:layouts[case]={'Loader1':(0,0),'BlurSource1':(1.5,0),TARGETS[case]:(3,0),'MediaOut1':(4.5,0)}
  if case=='S72' and 'RGBBack1' in tools:layouts[case]={'Loader1':(0,0),'ColorSpace1':(1.5,0),'RGBBack1':(3,0),'MediaOut1':(4.5,0)}
+ layouts['S80']={'Triangle1':(0,-1),'Gold1':(1.5,1),'MediaOut1':(3,1)}
+ layouts['S79']={'Loader1':(0,-1),'WandMask1':(1.5,-1),'Gold1':(3,1),'MediaOut1':(4.5,1)}
  layouts['S78']={'Loader1':(0,-1),'RangesMask1':(1.5,-1),'Gold1':(3,1),'MediaOut1':(4.5,1)}
  layouts['S77']={'Loader1':(0,-1),'BitmapMask1':(1.5,-1),'Gold1':(3,1),'MediaOut1':(4.5,1)}
  layouts['S76']={'Loader1':(0,0),'LumaKeyer1':(1.5,0),'MediaOut1':(3,0)}
@@ -286,6 +294,15 @@ if action=='build':
   rb=add('sRender','RenderBase1',4,-1);connect(rb,'Input',base)
   target=add('sTransform','Transform1',2,1);connect(target,'Input',base)
   rr=add('sRender','RenderChanged1',4,1);connect(rr,'Input',target);connect(mo,'Input',rr)
+ elif case=='S80':
+  target=add('TriangleMask','Triangle1',0,-1,ShowViewControls=0)
+  gold=add('Background','Gold1',1.5,1,TopLeftRed=1,TopLeftGreen=.5,TopLeftBlue=.05,TopLeftAlpha=1);connect(gold,'EffectMask',target);connect(mo,'Input',gold)
+ elif case=='S79':
+  loader=add('Loader','Loader1',0,-1,Clip=str(ROOT/'static/img/fusion/captures/_fixtures/wand-patches.png'))
+  target=add('WandMask','WandMask1',1.5,-1,ShowViewControls=0)
+  image_keys=[z.GetAttrs()['INPS_ID'] for z in target.GetInputList().values() if z.GetAttrs().get('INPS_DataType')=='Image'];assert len(image_keys)==1,image_keys
+  connect(target,image_keys[0],loader)
+  gold=add('Background','Gold1',3,1,TopLeftRed=1,TopLeftGreen=.5,TopLeftBlue=.05,TopLeftAlpha=1);connect(gold,'EffectMask',target);connect(mo,'Input',gold)
  elif case=='S78':
   loader=add('Loader','Loader1',0,-1,Clip=str(REPO/'static/img/fusion/captures/_fixtures/chart.png'))
   target=add('RangesMask','RangesMask1',1.5,-1,ShowViewControls=0)
@@ -606,6 +623,8 @@ for n,a in tools.items():
 keep=['colorScienceMode','colorSpaceTimeline','colorSpaceTimelineGamma','colorSpaceOutput','colorSpaceOutputGamma','separateColorSpaceAndGamma','isAutoColorManage','timelineResolutionWidth','timelineResolutionHeight','timelineFrameRate','timelinePlaybackFrameRate']
 settings=p.GetSetting()
 report={'project':p.GetName(),'timeline':t.GetName(),'resolve':r.GetVersionString(),'edition':r.GetProductName(),'os':platform.platform(),'time':datetime.datetime.now(datetime.timezone.utc).isoformat(),'frame':c.CurrentTime,'sampled_frame':c.CurrentTime,'project_settings':{k:settings[k] for k in keep if k in settings},'tools':inputs}
+if case=='S79':
+ report['input_ports']=[{k:z.GetAttrs().get(k) for k in ['INPS_ID','INPS_Name','INPS_DataType']} for z in tools['WandMask1'].GetInputList().values() if z.GetAttrs().get('INPS_DataType') in ['Image','Mask']]
 if case=='S78':
  report['input_ports']=[{k:z.GetAttrs().get(k) for k in ['INPS_ID','INPS_Name','INPS_DataType']} for z in tools['RangesMask1'].GetInputList().values() if z.GetAttrs().get('INPS_DataType') in ['Image','Mask']]
 if case=='S77':

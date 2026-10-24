@@ -1,0 +1,282 @@
+{
+  "schema_version": 1,
+  "case": "S79",
+  "article": "manuals/fusion/nodes/masks/wand-mask.md",
+  "manual": {
+    "version": "21.1",
+    "chapter": 108,
+    "printed_pages": "2496–2499"
+  },
+  "runtime": {
+    "version": "21.1.0.14",
+    "edition": "Studio",
+    "os": "Windows-11-10.0.26200-SP0",
+    "ui_language": "ja-JP (some Shape controls remain English)"
+  },
+  "captured_at": "2026-10-24T01:48:25.522119+00:00",
+  "project": "Collectanea_Captures_20261023_Sol",
+  "timeline": "S79_capture",
+  "frame": 0.0,
+  "resolution": [
+    1920,
+    1080
+  ],
+  "color_management": {
+    "colorScienceMode": "davinciYRGB",
+    "colorSpaceTimeline": "Rec.709 (Scene)",
+    "colorSpaceTimelineGamma": "",
+    "colorSpaceOutput": "Rec.709 (Scene)",
+    "colorSpaceOutputGamma": "ACEScc",
+    "separateColorSpaceAndGamma": "0",
+    "isAutoColorManage": "0",
+    "timelineResolutionWidth": "1920",
+    "timelineResolutionHeight": "1080",
+    "timelineFrameRate": 24.0,
+    "timelinePlaybackFrameRate": "30"
+  },
+  "viewer": {
+    "zoom_percent": 40,
+    "channel": "Color",
+    "background": "checkerboard for transparent pixels",
+    "note": "Viewer screenshots are display evidence, not colorimetric exports."
+  },
+  "graph": "fixture.comp",
+  "settings": "readback.json",
+  "source": {
+    "file": "screen.png",
+    "size": [
+      3352,
+      1910
+    ],
+    "sha256": "af890bf15a1f2fce7b7cb63b24d62484c31c988ef7fdc1c11ca20461ee9e6e89"
+  },
+  "shots": [
+    {
+      "file": "graph.png",
+      "source": "screen.png",
+      "source_sha256": "af890bf15a1f2fce7b7cb63b24d62484c31c988ef7fdc1c11ca20461ee9e6e89",
+      "frame": 0.0,
+      "crop_xyxy": [
+        500,
+        1210,
+        2330,
+        1530
+      ],
+      "resampled": false,
+      "sha256": "eb66811a99620edd9a47415b7f0013e2404ac74d5663ab54954c974651821326",
+      "viewer_contents": "Left Wand Mask / Right masked Gold Color"
+    },
+    {
+      "file": "inspector.png",
+      "source": "screen.png",
+      "source_sha256": "af890bf15a1f2fce7b7cb63b24d62484c31c988ef7fdc1c11ca20461ee9e6e89",
+      "frame": 0.0,
+      "crop_xyxy": [
+        2830,
+        120,
+        3352,
+        520
+      ],
+      "resampled": false,
+      "sha256": "eb210199e7acf49011efbf54e474bf24fa3167897ea0ac9f9ac63e88945a5392",
+      "viewer_contents": "Left Wand Mask / Right masked Gold Color"
+    },
+    {
+      "file": "compare.png",
+      "source": "screen.png",
+      "source_sha256": "af890bf15a1f2fce7b7cb63b24d62484c31c988ef7fdc1c11ca20461ee9e6e89",
+      "frame": 0.0,
+      "crop_xyxy": [
+        1146,
+        65,
+        2830,
+        725
+      ],
+      "resampled": false,
+      "sha256": "a9111325f16a81b9c5b40561c284a53185698ae531924fd5f18fc176d400d896",
+      "viewer_contents": "Left Wand Mask / Right masked Gold Color"
+    },
+    {
+      "file": "default-inspector.png",
+      "source": "screen-default.png",
+      "source_sha256": "1390d1d7b8530d12aa1fc2bb51736a0f0bab8cb8a2a158320f7de97a1d61affa",
+      "frame": 0.0,
+      "crop_xyxy": [
+        2830,
+        120,
+        3352,
+        520
+      ],
+      "resampled": false,
+      "sha256": "162dfa4ffe3cdbc6ca07fd1229094b78bc0c95c7afb6fbaa2f38b5c740a7358e",
+      "viewer_contents": "Left source Color / Right masked Gold Color"
+    },
+    {
+      "file": "default.png",
+      "source": "screen-default.png",
+      "source_sha256": "1390d1d7b8530d12aa1fc2bb51736a0f0bab8cb8a2a158320f7de97a1d61affa",
+      "frame": 0.0,
+      "crop_xyxy": [
+        1146,
+        65,
+        2830,
+        725
+      ],
+      "resampled": false,
+      "sha256": "3a8de311031161d6aa4960798a1eeac28e1dc43086013cc0c98e1486d30da20e",
+      "viewer_contents": "Left source Color / Right masked Gold Color"
+    },
+    {
+      "file": "left.png",
+      "source": "screen-left.png",
+      "source_sha256": "0cd961c885a7b12c7e53f0170c9949708131d0b5201597784b9fce0a41b2ce97",
+      "frame": 0.0,
+      "crop_xyxy": [
+        1146,
+        65,
+        2830,
+        725
+      ],
+      "resampled": false,
+      "sha256": "2d89ce408a4383f7549cc76ccf8bb906661fb812107884cee9a944833372b9cb",
+      "viewer_contents": "Left source Color / Right masked Gold Color"
+    },
+    {
+      "file": "right-inspector.png",
+      "source": "screen-right.png",
+      "source_sha256": "18c44728ec0cfa12755dee35f28af7e492d04d5c7a93949490fae6bc30f69647",
+      "frame": 0.0,
+      "crop_xyxy": [
+        2830,
+        120,
+        3352,
+        520
+      ],
+      "resampled": false,
+      "sha256": "78014b735d9e082a759412e40d98483d1fd83750d46a5d6192c26b2d866eff39",
+      "viewer_contents": "Left source Color / Right masked Gold Color"
+    },
+    {
+      "file": "right.png",
+      "source": "screen-right.png",
+      "source_sha256": "18c44728ec0cfa12755dee35f28af7e492d04d5c7a93949490fae6bc30f69647",
+      "frame": 0.0,
+      "crop_xyxy": [
+        1146,
+        65,
+        2830,
+        725
+      ],
+      "resampled": false,
+      "sha256": "824b5937762e90f5097b19f9c1589736e8550606b8efb5fc81f4228b0edb1f40",
+      "viewer_contents": "Left source Color / Right masked Gold Color"
+    },
+    {
+      "file": "inverse-inspector.png",
+      "source": "screen-inverse.png",
+      "source_sha256": "b6a0b37c1011cb347e16cdc6ead98c5805e9dfe54284aadb1107a22b7deae707",
+      "frame": 0.0,
+      "crop_xyxy": [
+        2830,
+        120,
+        3352,
+        520
+      ],
+      "resampled": false,
+      "sha256": "fe090fa9a4775a1cf5a6e94a351c3d3e3ee8bea2dd7b0470764a7a86769526b7",
+      "viewer_contents": "Left source Color / Right masked Gold Color"
+    },
+    {
+      "file": "inverse.png",
+      "source": "screen-inverse.png",
+      "source_sha256": "b6a0b37c1011cb347e16cdc6ead98c5805e9dfe54284aadb1107a22b7deae707",
+      "frame": 0.0,
+      "crop_xyxy": [
+        1146,
+        65,
+        2830,
+        725
+      ],
+      "resampled": false,
+      "sha256": "10714cc9d0a3100c66c4e0bd93fbc8a49976277b0bd64886f09520cecbad10d5",
+      "viewer_contents": "Left source Color / Right masked Gold Color"
+    },
+    {
+      "file": "mask.png",
+      "source": "screen-mask.png",
+      "source_sha256": "d41552c36f00c0ab6c2c38c039e79f4a165d6252b2a3c76157d7afe8853d3bb7",
+      "frame": 0.0,
+      "crop_xyxy": [
+        1146,
+        65,
+        2830,
+        725
+      ],
+      "resampled": false,
+      "sha256": "c99cbd2c0f95ed3fba31378ac2ec1781d1ee3df6af657bc8996d110e5b496df2",
+      "viewer_contents": "Left source Color / Right Wand Mask"
+    }
+  ],
+  "acceptance": {
+    "gui": "PASS: owner visually inspected node connections, selected Inspector, and output",
+    "article_display": "PASS: local production build;3 distinct pages26 images;1440px/390px/decode/Alt/native links/hash/overflow"
+  },
+  "unverified": [
+    "Free edition and other platforms",
+    "All parameter ranges and performance",
+    "他ColorSpace/Channel・Range/RangeSoftEdge変更・SoftEdge/Level・別Mask合成・Tracker/Path・実写/数値/性能",
+    "Exported portable composition reimport"
+  ],
+  "parameter_readback_scope": "Number/Text/Point/FuID/Clip only;Image/Mask payload not evaluated.",
+  "synthetic_fixture": {
+    "file": "../_fixtures/wand-patches.png",
+    "RGB_background": [
+      35,
+      40,
+      48
+    ],
+    "RGB_both_rectangles": [
+      220,
+      55,
+      65
+    ],
+    "rectangles_xyxy_inclusive": [
+      [
+        220,
+        300,
+        700,
+        780
+      ],
+      [
+        1220,
+        300,
+        1700,
+        780
+      ]
+    ],
+    "size": [
+      1920,
+      1080
+    ],
+    "purpose": "Two equal colors separated by a different background;not a Resolve screenshot."
+  },
+  "rejected_attempts": [
+    "Range1/RangeSoftEdge0 did not visibly expand selection in this fixture;excluded from accepted comparison."
+  ],
+  "restoration": "PASS:SelectionPoint(.25,.5),ColorSpace0/RGB,Channel0/RGB,Range.1/RangeSoftEdge.1,Invert0/Level1/SoftEdge0/ShowViewControls0/frame0;Left WandMask/Right Gold40%,saved and visually confirmed.",
+  "reproduction_action": "build owned4node fixture;set SelectionPoint(.25,.5),then wand_result.",
+  "state_variants": {
+    "screen.png": "Left WandMask/Right Gold;point(.25,.5)/Invert0",
+    "screen-default.png": "Left chart/Right Gold;point(.5,.5)/Invert0",
+    "screen-left.png": "Left chart/Right Gold;point(.25,.5)/Invert0",
+    "screen-right.png": "Left chart/Right Gold;point(.75,.5)/Invert0",
+    "screen-inverse.png": "Left chart/Right Gold;point(.25,.5)/Invert1",
+    "screen-mask.png": "Left chart/Right WandMask;point(.25,.5)/Invert0"
+  },
+  "reproduction": {
+    "fixture_sha256": "fb490a8b5c744741867e76ce8084ea74e86416a063b028aa04bc5dcbf9043341",
+    "readback_sha256": "403467b1a99c7cb4851404d29fd5a4b9abb46d9001945706ecfea3ffa8de9575",
+    "paths": "Comp:/../_fixtures/ for bundled synthetic fixtures",
+    "reimport": "NOT_RUN: accepted GUI evidence precedes export path normalization"
+  }
+}

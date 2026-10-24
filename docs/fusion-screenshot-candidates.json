@@ -2,7 +2,7 @@
   "schema_version": 1,
   "created": "2026-10-20",
   "scope": "All Fusion pages, DaVinci Resolve 21.1",
-  "status_note": "2026-10-24:146/500/813 public through PR102;1215 assets HTTP/hash PASS. S77/S78/R123–125 local4 distinct pages30 images PASS;19 native crops+4 reused placements,cumulative148/519/836. Whole587 and remaining_views incomplete;partial retained.",
+  "status_note": "2026-10-24:148/519/836 public through PR105;1250 assets HTTP/hash PASS. S79/S80/R126–127 local3 distinct pages26 images PASS;20 native crops+2 reused placements,cumulative150/539/858. Whole587 and remaining_views incomplete;partial retained.",
   "asset_directory_template": "static/img/fusion/captures/{id}/{shot.slug}.png",
   "capture_manifest_name": "capture.json",
   "candidates": [
@@ -4227,7 +4227,7 @@
         "printed_pages": "2463–2467"
       },
       "goal": "Compare opaque Alpha and Luminance conversion to Mask,threshold,invert and downstream Effect Mask result",
-      "status": "captured-local-display-verified",
+      "status": "published-display-verified",
       "shots": [
         {
           "slug": "graph",
@@ -4290,7 +4290,8 @@
           "status": "native-observed"
         }
       ],
-      "capture_manifest": "static/img/fusion/captures/S77/capture.json"
+      "capture_manifest": "static/img/fusion/captures/S77/capture.json",
+      "published_batch": "fusion-native-20261024-22"
     },
     {
       "id": "S78",
@@ -4302,7 +4303,7 @@
         "printed_pages": "2485–2490"
       },
       "goal": "Compare Luminance Shadows/Midtones/Highlights,intermediate Mask and downstream Effect Mask result",
-      "status": "captured-local-display-verified",
+      "status": "published-display-verified",
       "shots": [
         {
           "slug": "graph",
@@ -4359,7 +4360,158 @@
           "status": "native-observed"
         }
       ],
-      "capture_manifest": "static/img/fusion/captures/S78/capture.json"
+      "capture_manifest": "static/img/fusion/captures/S78/capture.json",
+      "published_batch": "fusion-native-20261024-22"
+    },
+    {
+      "id": "S79",
+      "priority": "P1",
+      "article": "manuals/fusion/nodes/masks/wand-mask.md",
+      "manual": {
+        "version": "21.1",
+        "chapter": 108,
+        "printed_pages": "2496–2499"
+      },
+      "goal": "Compare selection points on two disconnected identical color regions and inverse",
+      "status": "captured-local-display-verified",
+      "shots": [
+        {
+          "slug": "graph",
+          "kind": "node-graph",
+          "target": "wand-mask",
+          "status": "native-observed"
+        },
+        {
+          "slug": "inspector",
+          "kind": "inspector",
+          "target": "wand-mask",
+          "status": "native-observed"
+        },
+        {
+          "slug": "compare",
+          "kind": "output",
+          "target": "wand-mask",
+          "status": "native-observed"
+        },
+        {
+          "slug": "default-inspector",
+          "kind": "inspector",
+          "target": "wand-mask",
+          "status": "native-observed"
+        },
+        {
+          "slug": "default",
+          "kind": "output",
+          "target": "wand-mask",
+          "status": "native-observed"
+        },
+        {
+          "slug": "left",
+          "kind": "output",
+          "target": "wand-mask",
+          "status": "native-observed"
+        },
+        {
+          "slug": "right-inspector",
+          "kind": "inspector",
+          "target": "wand-mask",
+          "status": "native-observed"
+        },
+        {
+          "slug": "right",
+          "kind": "output",
+          "target": "wand-mask",
+          "status": "native-observed"
+        },
+        {
+          "slug": "inverse-inspector",
+          "kind": "inspector",
+          "target": "wand-mask",
+          "status": "native-observed"
+        },
+        {
+          "slug": "inverse",
+          "kind": "output",
+          "target": "wand-mask",
+          "status": "native-observed"
+        },
+        {
+          "slug": "mask",
+          "kind": "output",
+          "target": "wand-mask",
+          "status": "native-observed"
+        }
+      ],
+      "capture_manifest": "static/img/fusion/captures/S79/capture.json"
+    },
+    {
+      "id": "S80",
+      "priority": "P1",
+      "article": "manuals/fusion/nodes/masks/triangle-mask.md",
+      "manual": {
+        "version": "21.1",
+        "chapter": 108,
+        "printed_pages": "2493–2496"
+      },
+      "goal": "Compare one moved corner,filled triangle,outline and softened edge",
+      "status": "captured-local-display-verified",
+      "shots": [
+        {
+          "slug": "graph",
+          "kind": "node-graph",
+          "target": "triangle-mask",
+          "status": "native-observed"
+        },
+        {
+          "slug": "inspector",
+          "kind": "inspector",
+          "target": "triangle-mask",
+          "status": "native-observed"
+        },
+        {
+          "slug": "compare",
+          "kind": "output",
+          "target": "triangle-mask",
+          "status": "native-observed"
+        },
+        {
+          "slug": "default-inspector",
+          "kind": "inspector",
+          "target": "triangle-mask",
+          "status": "native-observed"
+        },
+        {
+          "slug": "default",
+          "kind": "output",
+          "target": "triangle-mask",
+          "status": "native-observed"
+        },
+        {
+          "slug": "outline-inspector",
+          "kind": "inspector",
+          "target": "triangle-mask",
+          "status": "native-observed"
+        },
+        {
+          "slug": "outline",
+          "kind": "output",
+          "target": "triangle-mask",
+          "status": "native-observed"
+        },
+        {
+          "slug": "soft-inspector",
+          "kind": "inspector",
+          "target": "triangle-mask",
+          "status": "native-observed"
+        },
+        {
+          "slug": "soft",
+          "kind": "output",
+          "target": "triangle-mask",
+          "status": "native-observed"
+        }
+      ],
+      "capture_manifest": "static/img/fusion/captures/S80/capture.json"
     }
   ],
   "publication_batches": [
@@ -5078,27 +5230,57 @@
         "artifacts/fusion-captures/public-batch21-assets.json"
       ],
       "limitations": "Whole587 and remaining_views incomplete;S77/S78 native/article work continues."
+    },
+    {
+      "id": "fusion-native-20261024-22",
+      "cases": [
+        "S77",
+        "S78"
+      ],
+      "reuses": [
+        "R123",
+        "R124",
+        "R125"
+      ],
+      "pr": "https://github.com/46slv/collectanea-DB/pull/105",
+      "candidate": "a885f509d03674d97ead15dd96c06d6469f221de",
+      "main": "064d87f9472185f8261fd2cd2a1cd65739553618",
+      "tree": "9f4ec8dd7615194cebcc4106bdb879698b36130e",
+      "quality_run": "https://github.com/46slv/collectanea-DB/actions/runs/40050240745",
+      "pages_run": "https://github.com/46slv/collectanea-DB/actions/runs/40051032024",
+      "merge_owner": "Sol;fresh main/reviews/comments and exact-head Quality alljob/step PASS;expected-head squash;candidate/main tree equal",
+      "public_pages": 4,
+      "public_images": 30,
+      "new_placements": 23,
+      "new_native_crops": 19,
+      "public_asset_hashes": 1250,
+      "result": "PASS",
+      "evidence": [
+        "artifacts/fusion-captures/public-batch22-display-report.json",
+        "artifacts/fusion-captures/public-batch22-assets.json"
+      ],
+      "limitations": "S77 first navigation retained pre-deploy cached article;targeted reload restored correct10images and full checks PASS;prior observation retained. Whole587 and remaining_views incomplete."
     }
   ],
   "coverage_inventory": {
-    "checked_at": "2026-10-24T01:31:03.732269+00:00",
+    "checked_at": "2026-10-24T01:50:36.585150+00:00",
     "scope": "All manuals/fusion Markdown and MDX pages; review necessity before adding images.",
     "completion_rule": "Every page has an explicit image decision; necessary images are native-observed, embedded, saved to GitHub and public-display-verified. A native example does not verify all article controls.",
     "summary": {
       "total_pages": 587,
-      "with_images": 148,
-      "with_native_examples": 148,
+      "with_images": 150,
+      "with_native_examples": 150,
       "states": {
         "reviewed-no-standalone-image": 26,
         "no-standalone-image-needed": 6,
         "illustrated-reused-example": 72,
-        "capture-planned": 407,
-        "illustrated-native-example": 76
+        "capture-planned": 405,
+        "illustrated-native-example": 78
       },
       "decisions": {
         "no-standalone-image-needed": 32,
-        "image-required": 148,
-        "capture-needed": 407
+        "image-required": 150,
+        "capture-needed": 405
       }
     },
     "pages": [
@@ -13320,12 +13502,14 @@
         "article": "manuals/fusion/nodes/masks/index.md",
         "title": "Maskノード",
         "kind": "index",
-        "image_count": 4,
+        "image_count": 6,
         "native_cases": [],
         "reused_cases": [
           "S07",
           "S77",
-          "S78"
+          "S78",
+          "S79",
+          "S80"
         ],
         "planned_cases": [],
         "state": "illustrated-reused-example",
@@ -13503,13 +13687,18 @@
         "article": "manuals/fusion/nodes/masks/triangle-mask.md",
         "title": "Triangle Mask",
         "kind": "node",
-        "image_count": 0,
-        "native_cases": [],
+        "image_count": 9,
+        "native_cases": [
+          "S80"
+        ],
         "reused_cases": [],
         "planned_cases": [],
-        "state": "capture-planned",
-        "decision": "capture-needed",
+        "state": "illustrated-native-example",
+        "decision": "image-required",
         "reason": "本文の対象機能: 3つの頂点を個別に動かせる三角形Mask。画像処理への接続、Inspector、追従と合成の使い方を説明。。S07 Ellipseは各Mask固有の作成・選択・List/色連結/curveを示さない。",
+        "remaining_views": [
+          "Point1/2変更・Tracker/Path/animation・BorderStyle/Length・他Filter・別Mask合成・実写/数値/性能"
+        ],
         "required_views": [
           "対象名と実接続が読めるGraph",
           "対象自身を選択したInspectorの該当Control",
@@ -13539,19 +13728,25 @@
             "role": "入力/結果または実UIの具体箇所"
           }
         ],
-        "hold_conditions": []
+        "hold_conditions": [],
+        "audit_note": "S80 fixed native fixture;partial retained."
       },
       {
         "article": "manuals/fusion/nodes/masks/wand-mask.md",
         "title": "Wand Mask",
         "kind": "node",
-        "image_count": 0,
-        "native_cases": [],
+        "image_count": 11,
+        "native_cases": [
+          "S79"
+        ],
         "reused_cases": [],
         "planned_cases": [],
-        "state": "capture-planned",
-        "decision": "capture-needed",
+        "state": "illustrated-native-example",
+        "decision": "image-required",
         "reason": "本文の対象機能: 選択点の色に近い画素を、つながっている範囲だけマスクにする。。S07 Ellipseは各Mask固有の作成・選択・List/色連結/curveを示さない。",
+        "remaining_views": [
+          "他ColorSpace/Channel・Range/RangeSoftEdge変更・SoftEdge/Level・別Mask合成・Tracker/Path・実写/数値/性能"
+        ],
         "required_views": [
           "対象名と実接続が読めるGraph",
           "対象自身を選択したInspectorの該当Control",
@@ -13581,7 +13776,8 @@
             "role": "入力/結果または実UIの具体箇所"
           }
         ],
-        "hold_conditions": []
+        "hold_conditions": [],
+        "audit_note": "S79 fixed native fixture;partial retained."
       },
       {
         "article": "manuals/fusion/nodes/materials-lights/ambient-light.md",
@@ -24430,8 +24626,9 @@
       "images": [
         "compare.png"
       ],
-      "status": "embedded-local-display-verified",
-      "scope": "Image-to-Mask conversion and downstream effect-area result;full conditions in Bitmap Mask article."
+      "status": "published-display-verified",
+      "scope": "Image-to-Mask conversion and downstream effect-area result;full conditions in Bitmap Mask article.",
+      "published_batch": "fusion-native-20261024-22"
     },
     {
       "id": "R124",
@@ -24441,8 +24638,9 @@
         "mask.png",
         "compare.png"
       ],
-      "status": "embedded-local-display-verified",
-      "scope": "Image-to-Mask conversion and downstream effect-area result;full conditions in Bitmap Mask article."
+      "status": "published-display-verified",
+      "scope": "Image-to-Mask conversion and downstream effect-area result;full conditions in Bitmap Mask article.",
+      "published_batch": "fusion-native-20261024-22"
     },
     {
       "id": "R125",
@@ -24451,8 +24649,29 @@
       "images": [
         "compare.png"
       ],
+      "status": "published-display-verified",
+      "scope": "Luminance Highlights Mask and downstream Background result;other ranges in linked article.",
+      "published_batch": "fusion-native-20261024-22"
+    },
+    {
+      "id": "R126",
+      "article": "manuals/fusion/nodes/masks/index.md",
+      "source_case": "S79",
+      "images": [
+        "compare.png"
+      ],
       "status": "embedded-local-display-verified",
-      "scope": "Luminance Highlights Mask and downstream Background result;other ranges in linked article."
+      "scope": "One fixed Mask/result comparison;full conditions in linked node article."
+    },
+    {
+      "id": "R127",
+      "article": "manuals/fusion/nodes/masks/index.md",
+      "source_case": "S80",
+      "images": [
+        "compare.png"
+      ],
+      "status": "embedded-local-display-verified",
+      "scope": "One fixed Mask/result comparison;full conditions in linked node article."
     }
   ]
 }

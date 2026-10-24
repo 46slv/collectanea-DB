@@ -89,6 +89,30 @@ Resolve Studio21.1.0.14／Windows、1920×1080、Viewer40%。[Ranges Maskの3領
 
 [再現用Graph](/img/fusion/captures/S78/fixture.comp) · [撮影条件と確認範囲](/img/fusion/captures/S78/capture.json)
 
+### 実機の参考例：同じ色の連続領域を選ぶ
+
+<!-- capture-reuse:R126 -->
+
+Wand Maskの左表示では指定した左矩形だけが白く、右はその範囲にだけオレンジが残っています。離れた右矩形は同じ赤でも選ばれていません。[選択点を左右へ動かす比較](./wand-mask)で、入力画像との関係を確認できます。
+
+[![左のWand Maskは左矩形だけ白く、右のオレンジBackgroundも左矩形だけが残っている](/img/fusion/captures/S79/compare.png)](/img/fusion/captures/S79/compare.png)
+
+Resolve Studio21.1.0.14／Windows、1920×1080、両Viewer40%で撮影しました。全Controlや実写への追従を確認した例ではありません。
+
+[再現用Graph](/img/fusion/captures/S79/fixture.comp) · [撮影条件と確認範囲](/img/fusion/captures/S79/capture.json)
+
+### 実機の参考例：3点で形を指定する
+
+<!-- capture-reuse:R127 -->
+
+左のTriangle Maskと右のオレンジBackgroundが同じ三角形になっています。色はBackground、形はMaskが指定しています。[頂点・輪郭・Soft Edgeの比較](./triangle-mask)に設定を掲載しています。
+
+[![左の白いTriangle Maskと同じ形のオレンジ三角形が右に表示され外側は透明になっている](/img/fusion/captures/S80/compare.png)](/img/fusion/captures/S80/compare.png)
+
+Resolve Studio21.1.0.14／Windows、1920×1080、両Viewer40%で撮影しました。全Controlや実写への追従を確認した例ではありません。
+
+[再現用Graph](/img/fusion/captures/S80/fixture.comp) · [撮影条件と確認範囲](/img/fusion/captures/S80/capture.json)
+
 ## Mask PaintとPaintを使い分ける
 
 [Mask Paint](./mask-paint)は画像入力なしでもマスクを手描きできます。Bitmap Maskの人物領域に小さな穴があるときは、その出力をMask Paintの青いEffect Mask入力につなぎ、穴を白く描いて埋めます。出力は単一チャンネルのマスクです。

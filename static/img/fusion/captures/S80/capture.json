@@ -1,0 +1,215 @@
+{
+  "schema_version": 1,
+  "case": "S80",
+  "article": "manuals/fusion/nodes/masks/triangle-mask.md",
+  "manual": {
+    "version": "21.1",
+    "chapter": 108,
+    "printed_pages": "2493–2496"
+  },
+  "runtime": {
+    "version": "21.1.0.14",
+    "edition": "Studio",
+    "os": "Windows-11-10.0.26200-SP0",
+    "ui_language": "ja-JP (some Shape controls remain English)"
+  },
+  "captured_at": "2026-10-24T01:48:25.539266+00:00",
+  "project": "Collectanea_Captures_20261023_Sol",
+  "timeline": "S80_capture",
+  "frame": 0.0,
+  "resolution": [
+    1920,
+    1080
+  ],
+  "color_management": {
+    "colorScienceMode": "davinciYRGB",
+    "colorSpaceTimeline": "Rec.709 (Scene)",
+    "colorSpaceTimelineGamma": "",
+    "colorSpaceOutput": "Rec.709 (Scene)",
+    "colorSpaceOutputGamma": "ACEScc",
+    "separateColorSpaceAndGamma": "0",
+    "isAutoColorManage": "0",
+    "timelineResolutionWidth": "1920",
+    "timelineResolutionHeight": "1080",
+    "timelineFrameRate": 24.0,
+    "timelinePlaybackFrameRate": "30"
+  },
+  "viewer": {
+    "zoom_percent": 40,
+    "channel": "Color",
+    "background": "checkerboard for transparent pixels",
+    "note": "Viewer screenshots are display evidence, not colorimetric exports."
+  },
+  "graph": "fixture.comp",
+  "settings": "readback.json",
+  "source": {
+    "file": "screen.png",
+    "size": [
+      3352,
+      1910
+    ],
+    "sha256": "078a1506ae50eb042addf24856392af62c9b4d18ca9ce18a95d62d979d97d05e"
+  },
+  "shots": [
+    {
+      "file": "graph.png",
+      "source": "screen.png",
+      "source_sha256": "078a1506ae50eb042addf24856392af62c9b4d18ca9ce18a95d62d979d97d05e",
+      "frame": 0.0,
+      "crop_xyxy": [
+        770,
+        1205,
+        2050,
+        1530
+      ],
+      "resampled": false,
+      "sha256": "5b484d09fd23cf6375fb7756316b1e0acc07889ff00141b4326b91bb1e9e06bc",
+      "viewer_contents": "Left Triangle Mask / Right masked Gold Color"
+    },
+    {
+      "file": "inspector.png",
+      "source": "screen.png",
+      "source_sha256": "078a1506ae50eb042addf24856392af62c9b4d18ca9ce18a95d62d979d97d05e",
+      "frame": 0.0,
+      "crop_xyxy": [
+        2830,
+        120,
+        3352,
+        565
+      ],
+      "resampled": false,
+      "sha256": "2e92fc086dbb6f6e7be2e810c7ecbfe5142358feaa00935641556d8691ba8591",
+      "viewer_contents": "Left Triangle Mask / Right masked Gold Color"
+    },
+    {
+      "file": "compare.png",
+      "source": "screen.png",
+      "source_sha256": "078a1506ae50eb042addf24856392af62c9b4d18ca9ce18a95d62d979d97d05e",
+      "frame": 0.0,
+      "crop_xyxy": [
+        1146,
+        65,
+        2830,
+        725
+      ],
+      "resampled": false,
+      "sha256": "73a0f73ec4dc03102eb485bc42083d1b7c6a7895eb02c6e3a97e3fb2b21ae304",
+      "viewer_contents": "Left Triangle Mask / Right masked Gold Color"
+    },
+    {
+      "file": "default-inspector.png",
+      "source": "screen-default.png",
+      "source_sha256": "0920c6aa53addee8418ddd1a99a98f884a912f94a5d3444e4bd2dbbfc1163156",
+      "frame": 0.0,
+      "crop_xyxy": [
+        2830,
+        120,
+        3352,
+        565
+      ],
+      "resampled": false,
+      "sha256": "b5b6582d23790cf4ad68bbbede6576b2b77a67685e9b107eb8a6952049bf9b68",
+      "viewer_contents": "Left Triangle Mask / Right masked Gold Color"
+    },
+    {
+      "file": "default.png",
+      "source": "screen-default.png",
+      "source_sha256": "0920c6aa53addee8418ddd1a99a98f884a912f94a5d3444e4bd2dbbfc1163156",
+      "frame": 0.0,
+      "crop_xyxy": [
+        1146,
+        65,
+        2830,
+        725
+      ],
+      "resampled": false,
+      "sha256": "d331152222bf8be1a2474f2ec9b3fb43be7f6223999faef7dc237e8249d39971",
+      "viewer_contents": "Left Triangle Mask / Right masked Gold Color"
+    },
+    {
+      "file": "outline-inspector.png",
+      "source": "screen-outline.png",
+      "source_sha256": "d72ddd8cf4dd7f39216896e9e9c71242279626d688ae826ef9c6d18c500e599d",
+      "frame": 0.0,
+      "crop_xyxy": [
+        2830,
+        120,
+        3352,
+        565
+      ],
+      "resampled": false,
+      "sha256": "2812a2ecf1c057c10101a07557d1363d7face0c8d29a35ad925d747af03006ef",
+      "viewer_contents": "Left Triangle Mask / Right masked Gold Color"
+    },
+    {
+      "file": "outline.png",
+      "source": "screen-outline.png",
+      "source_sha256": "d72ddd8cf4dd7f39216896e9e9c71242279626d688ae826ef9c6d18c500e599d",
+      "frame": 0.0,
+      "crop_xyxy": [
+        1146,
+        65,
+        2830,
+        725
+      ],
+      "resampled": false,
+      "sha256": "b77db6e33c4539efc0cef755a74d4b6b29fd755854f04a48a749c3766635de07",
+      "viewer_contents": "Left Triangle Mask / Right masked Gold Color"
+    },
+    {
+      "file": "soft-inspector.png",
+      "source": "screen-soft.png",
+      "source_sha256": "ae0cda14827ffbca603710a45fc8f72f56dfd6432b83fca22a630f8c6971dba4",
+      "frame": 0.0,
+      "crop_xyxy": [
+        2830,
+        120,
+        3352,
+        565
+      ],
+      "resampled": false,
+      "sha256": "6d9f75756a58ab6059643285802f2b6ade547a096c461e5cd4c2831d66c7837a",
+      "viewer_contents": "Left Triangle Mask / Right masked Gold Color"
+    },
+    {
+      "file": "soft.png",
+      "source": "screen-soft.png",
+      "source_sha256": "ae0cda14827ffbca603710a45fc8f72f56dfd6432b83fca22a630f8c6971dba4",
+      "frame": 0.0,
+      "crop_xyxy": [
+        1146,
+        65,
+        2830,
+        725
+      ],
+      "resampled": false,
+      "sha256": "b999318a2213647ac85aa73fb7f6680abdf64c7021b0018e5bffbb7699ce5f69",
+      "viewer_contents": "Left Triangle Mask / Right masked Gold Color"
+    }
+  ],
+  "acceptance": {
+    "gui": "PASS: owner visually inspected node connections, selected Inspector, and output",
+    "article_display": "PASS: local production build;3 distinct pages26 images;1440px/390px/decode/Alt/native links/hash/overflow"
+  },
+  "unverified": [
+    "Free edition and other platforms",
+    "All parameter ranges and performance",
+    "Point1/2変更・Tracker/Path/animation・BorderStyle/Length・他Filter・別Mask合成・実写/数値/性能",
+    "Exported portable composition reimport"
+  ],
+  "parameter_readback_scope": "Number/Text/Point/FuID/Clip only;Image/Mask payload not evaluated.",
+  "restoration": "PASS:Point1(.1,.1)/Point2(.9,.1)/Point3(.7,.75),Solid1/BorderWidth0/SoftEdge0/Invert0/Level1/ShowViewControls0/frame0;Left TriangleMask/Right Gold40%,saved and visually confirmed.",
+  "reproduction_action": "build owned3node fixture;set Point3(.7,.75),Solid1/BorderWidth0/SoftEdge0.",
+  "state_variants": {
+    "screen.png": "Point3(.7,.75)/Solid1/Border0/Soft0",
+    "screen-default.png": "Point3(.5,.9)/Solid1/Border0/Soft0",
+    "screen-outline.png": "Point3(.7,.75)/Solid0/Border.02/Soft0",
+    "screen-soft.png": "Point3(.7,.75)/Solid1/Border0/Soft.025"
+  },
+  "reproduction": {
+    "fixture_sha256": "c06450213743db6c2278a1dd9735b98ffe215b822171fbd31bb4feec82a1ced8",
+    "readback_sha256": "794679428c20e9b58ead8ce71d4bf94f25320e37834816a490d8c91ff3ee4561",
+    "paths": "Comp:/../_fixtures/ for bundled synthetic fixtures",
+    "reimport": "NOT_RUN: accepted GUI evidence precedes export path normalization"
+  }
+}

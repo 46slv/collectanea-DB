@@ -139,8 +139,52 @@ Wand Maskは選択点から連続する色領域を探します。離れた場�
 - [Image / Mask / Dataを分ける](../../learn/02-data/image-mask-data)
 - [Maskで処理範囲を限定する](../../patterns/masking/limit-effect-with-mask)
 
+## 実機例：同じ色でも離れた領域を区別する
+
+<!-- capture-case:S79 -->
+
+Resolve Studio21.1.0.14／Windows、1920×1080、両Viewer40%で撮影しました。暗い背景に、同じRGB値の赤い矩形を2つ離して描いた専用チャートを使います。Wand Maskの出力をオレンジ色のBackgroundのEffect Maskへ接続しました。内部REGIDは`WandMask`、ImageとEffect Maskの2入力を確認しています。
+
+[![同じ赤の2矩形を持つチャートからWand Maskを作りGold BackgroundのEffect Maskへ渡す実機Graph](/img/fusion/captures/S79/graph.png)](/img/fusion/captures/S79/graph.png)
+
+[![選択点X0.25とY0.5、RGB、RangeとRange Soft Edge各0.1のWand Mask Inspector](/img/fusion/captures/S79/inspector.png)](/img/fusion/captures/S79/inspector.png)
+
+[![左のWand Maskは左矩形だけ白く、右のオレンジBackgroundも左矩形だけが残っている](/img/fusion/captures/S79/compare.png)](/img/fusion/captures/S79/compare.png)
+
+上の左はWand Mask、右はMaskを適用したBackgroundです。選択点を左の赤矩形内のX0.25／Y0.5に置くと、左の矩形だけが選ばれました。同じ赤でも、離れた右の矩形へ選択は広がっていません。
+
+初期の選択点X0.5／Y0.5は、2つの矩形の間にある暗い背景上でした。この状態では背景が選ばれ、右の出力では赤い矩形に対応する2か所が透明になります。
+
+[![選択点が中央X0.5とY0.5にある初期Wand Mask Inspector](/img/fusion/captures/S79/default-inspector.png)](/img/fusion/captures/S79/default-inspector.png)
+
+[![中央の暗い背景を指定すると右は背景側がオレンジで埋まり赤い2矩形部分が透明になる](/img/fusion/captures/S79/default.png)](/img/fusion/captures/S79/default.png)
+
+次の2枚は、左を入力チャート、右をBackgroundに揃えた比較です。選択点X0.25では左、X0.75では右の矩形だけがオレンジになります。Y0.5、Color Space RGB、Channel RGB、Range0.1、Range Soft Edge0.1を保っています。
+
+[![左の赤矩形を選択点X0.25で指定すると右は左矩形だけオレンジになり右矩形は選ばれない](/img/fusion/captures/S79/left.png)](/img/fusion/captures/S79/left.png)
+
+[![選択点Xだけ0.75へ動かし他の設定を保ったWand Mask Inspector](/img/fusion/captures/S79/right-inspector.png)](/img/fusion/captures/S79/right-inspector.png)
+
+[![右の赤矩形を指定すると右出力の右矩形だけがオレンジになり左矩形は選ばれない](/img/fusion/captures/S79/right.png)](/img/fusion/captures/S79/right.png)
+
+選択点を左へ戻しInvertをオンにすると、左矩形だけが透明になり、それ以外がオレンジになりました。右の赤矩形を同時に選ぶ操作とは異なり、Mask全体の反転です。
+
+[![選択点を左矩形へ戻しInvertをオンにしたWand Mask Inspector](/img/fusion/captures/S79/inverse-inspector.png)](/img/fusion/captures/S79/inverse-inspector.png)
+
+[![Invertをオンにすると左矩形だけが透明になりそれ以外がオレンジになる](/img/fusion/captures/S79/inverse.png)](/img/fusion/captures/S79/inverse.png)
+
+下はInvertをオフへ戻し、右にWand Mask単体を表示しています。入力の赤2か所に対し、Maskの白は左1か所です。結果が広がりすぎたときは、選択点とつながった領域をこの表示で確認します。
+
+[![左の入力には同じ赤の離れた2矩形があり右のWand Maskは指定した左矩形だけ白い](/img/fusion/captures/S79/mask.png)](/img/fusion/captures/S79/mask.png)
+
+Level1、Soft Edge0、Show View Controlsオフを保ちました。最後は選択点X0.25／Y0.5、RGB、Range0.1、Range Soft Edge0.1、Invertオフ、左Wand Mask／右Background、フレーム0へ戻して保存しています。
+
+Rangeの変更による選択拡大、他のColor Space／Channel、Range Soft Edgeの減衰、別Maskとの合成、Tracker／Path、照明ムラや実写の輪郭、数値出力と性能は未確認です。
+
+[再現用Graph](/img/fusion/captures/S79/fixture.comp) · [撮影条件と確認範囲](/img/fusion/captures/S79/capture.json)
+
 ## 出典と確認範囲
 
 Blackmagic Design『DaVinci Resolve 21.1 Reference Manual』（September 2026）、Chapter 108「Mask Nodes」pp.2496–2499で、連続色領域の探索、Image / Effect Mask入力、Selection Point、Color Space、Channel、Range、Range Soft Edge、Level、Soft Edge、Filter、Paint Mode、Invertを確認しました。Image / Settingsタブの共通項目は同Chapter pp.2500–2502に基づきます。
 
-運用例は確認済みの機能から組み立てた接続例です。21.1実機での描画結果、内部REGID、すべての既定値・数値範囲、Free / Studioの差は未検証のため、`verification: partial` としています。
+S79でREGID、固定チャートのSelection Point、連続領域の選択、Invert、後段のEffect Mask接続を実機確認しました。運用例の実写・追従、全Control・数値範囲、Free／Studio差は未確認のため、`verification: partial`を維持しています。
