@@ -1,0 +1,212 @@
+{
+  "schema_version": 1,
+  "case": "S84",
+  "article": "manuals/fusion/nodes/masks/mask-paint.md",
+  "manual": {
+    "version": "21.1",
+    "chapter": 108,
+    "printed_pages": "2475–2478"
+  },
+  "runtime": {
+    "version": "21.1.0.14",
+    "edition": "Studio",
+    "os": "Windows-11-10.0.26200-SP0",
+    "ui_language": "ja-JP (some Shape controls remain English)"
+  },
+  "captured_at": "2026-10-24T03:01:01.486651+00:00",
+  "project": "Collectanea_Captures_20261023_Sol",
+  "timeline": "S84_capture",
+  "frame": 0.0,
+  "resolution": [
+    1920,
+    1080
+  ],
+  "color_management": {
+    "colorScienceMode": "davinciYRGB",
+    "colorSpaceTimeline": "Rec.709 (Scene)",
+    "colorSpaceTimelineGamma": "",
+    "colorSpaceOutput": "Rec.709 (Scene)",
+    "colorSpaceOutputGamma": "ACEScc",
+    "separateColorSpaceAndGamma": "0",
+    "isAutoColorManage": "0",
+    "timelineResolutionWidth": "1920",
+    "timelineResolutionHeight": "1080",
+    "timelineFrameRate": 24.0,
+    "timelinePlaybackFrameRate": "30"
+  },
+  "viewer": {
+    "zoom_percent": 40,
+    "channel": "Color",
+    "background": "checkerboard for transparent pixels",
+    "note": "Viewer screenshots are display evidence, not colorimetric exports."
+  },
+  "graph": "fixture.comp",
+  "settings": "readback.json",
+  "source": {
+    "file": "screen.png",
+    "size": [
+      3352,
+      1910
+    ],
+    "sha256": "a313f290209728f1016996506d3b1d992562546271d66930f5116aa8e4e6e3ad"
+  },
+  "shots": [
+    {
+      "file": "graph.png",
+      "source": "screen.png",
+      "source_sha256": "a313f290209728f1016996506d3b1d992562546271d66930f5116aa8e4e6e3ad",
+      "frame": 0.0,
+      "crop_xyxy": [
+        770,
+        1205,
+        2050,
+        1530
+      ],
+      "resampled": false,
+      "sha256": "82fcab4e0b8caa6be266d9850a9a8abdf2c97fe87cbe54bbdad5ebc781c78b76",
+      "viewer_contents": "Left Mask / Right masked Gold Color,both1920x1080/40%",
+      "show_view_controls": 0
+    },
+    {
+      "file": "inspector.png",
+      "source": "screen.png",
+      "source_sha256": "a313f290209728f1016996506d3b1d992562546271d66930f5116aa8e4e6e3ad",
+      "frame": 0.0,
+      "crop_xyxy": [
+        2830,
+        120,
+        3352,
+        705
+      ],
+      "resampled": false,
+      "sha256": "52127fb954c38713ceed91997e11f18ea2e998b3e85ff642b41a9a6cefa4f463",
+      "viewer_contents": "Left Mask / Right masked Gold Color,both1920x1080/40%",
+      "show_view_controls": 0
+    },
+    {
+      "file": "compare.png",
+      "source": "screen.png",
+      "source_sha256": "a313f290209728f1016996506d3b1d992562546271d66930f5116aa8e4e6e3ad",
+      "frame": 0.0,
+      "crop_xyxy": [
+        1146,
+        65,
+        2830,
+        725
+      ],
+      "resampled": false,
+      "sha256": "96ea7dc578076695ef3a7a2aaf3a2d4d558e7f2e393882987d0c9cd571bdc5f7",
+      "viewer_contents": "Left Mask / Right masked Gold Color,both1920x1080/40%",
+      "show_view_controls": 0
+    },
+    {
+      "file": "mask-inspector.png",
+      "source": "screen-mask.png",
+      "source_sha256": "41125e3bbd677ed746b89bca0b0e9a883a3849a2616fc18d9147c04fd7024f46",
+      "frame": 0.0,
+      "crop_xyxy": [
+        2830,
+        120,
+        3352,
+        410
+      ],
+      "resampled": false,
+      "sha256": "e4be474fa83214cac10b237fb84a8fbf5b6729229c6d39ebb4a0e719f2491876",
+      "viewer_contents": "Left Mask / Right masked Gold Color,both1920x1080/40%",
+      "show_view_controls": 0
+    },
+    {
+      "file": "inverse-inspector.png",
+      "source": "screen-inverse.png",
+      "source_sha256": "01364c97f056bc238c4e2212f85f340c7571b23478043f85a7d014481f87dae1",
+      "frame": 0.0,
+      "crop_xyxy": [
+        2830,
+        120,
+        3352,
+        410
+      ],
+      "resampled": false,
+      "sha256": "dfa6badbb6c8522c47fc8ec7929620cadffa702167193e3c2aff96bac6fea149",
+      "viewer_contents": "Left Mask / Right masked Gold Color,both1920x1080/40%",
+      "show_view_controls": 0
+    },
+    {
+      "file": "inverse.png",
+      "source": "screen-inverse.png",
+      "source_sha256": "01364c97f056bc238c4e2212f85f340c7571b23478043f85a7d014481f87dae1",
+      "frame": 0.0,
+      "crop_xyxy": [
+        1146,
+        65,
+        2830,
+        725
+      ],
+      "resampled": false,
+      "sha256": "00d410ac5965caf5d31ba4cc98ae1a01a44467c36396fd89f2f13deaade8cf0c",
+      "viewer_contents": "Left Mask / Right masked Gold Color,both1920x1080/40%",
+      "show_view_controls": 0
+    },
+    {
+      "file": "frame1.png",
+      "source": "screen-frame1.png",
+      "source_sha256": "3c500e751f5d3f71a076f6b1bd1fab07fe9a5a8d175efcf7f3dcc40b5615b15f",
+      "frame": 1,
+      "crop_xyxy": [
+        1146,
+        65,
+        2830,
+        725
+      ],
+      "resampled": false,
+      "sha256": "0b5ecdfaeae2a0551e4866d31283dad73ba4e5acc4d6265f8441a944133169e2",
+      "viewer_contents": "Left Mask / Right masked Gold Color,both1920x1080/40%",
+      "show_view_controls": 0
+    }
+  ],
+  "acceptance": {
+    "gui": "PASS: owner visually inspected node connections, selected Inspector, and output",
+    "article_display": "PASS: local production build;4 distinct pages31 images at1440px/390px;decode/Alt/native links/hash/overflow"
+  },
+  "unverified": [
+    "Free edition and other platforms",
+    "All parameter ranges and performance",
+    "Duration change,Stroke/Polyline Stroke,Make Editable,Write On/Off",
+    "Other brushes/Apply Modes,existing-mask repairs,real footage and performance",
+    "Exported portable composition reimport"
+  ],
+  "parameter_readback_scope": "Number/Text/Point/FuID/Clip only;no Image/Mask/ScriptVal/Polyline payload evaluation.",
+  "state_variants": {
+    "screen.png": "frame0/Invert0/Controls tab",
+    "screen-mask.png": "frame0/Invert0/Mask tab",
+    "screen-inverse.png": "frame0/Invert1/Mask tab",
+    "screen-frame1.png": "frame1/Invert0/Controls tab;stroke absent"
+  },
+  "gui_authoring": {
+    "delivery": "foreground synthetic Cua drag after initial background-path contamination;not physical input",
+    "from_window_xy": [
+      1350,
+      400
+    ],
+    "to_window_xy": [
+      1810,
+      400
+    ],
+    "duration_ms": 650,
+    "export": "one stroke Time0,all exported Y=.0208333",
+    "hidden_modifier": "Multistroke1",
+    "Duration": 1
+  },
+  "restoration": "PASS:frame0/Invert0/ShowViewControls0/Level1/Soft0/Controls tab/both40%,saved and visually confirmed.",
+  "rejected_attempts": [
+    "Initial background drag had an extraneous point outside the image;all initial stroke captures excluded.",
+    "Background Undo was a verified no-op;one foreground Undo restored empty,then one foreground redraw produced the accepted horizontal stroke."
+  ],
+  "reproduction_action": "build creates an EMPTY scaffold;native Viewer authoring is required before acceptance. Never rebuild an existing owned case.",
+  "reproduction": {
+    "fixture_sha256": "5ba19b33ab9eaacb361b2c143b0283aaac59a1bf4d3bc6226aff1580aec2e50f",
+    "readback_sha256": "bc2e3171a895dbd92c58951722308217188b65e4dde944d421cb9557cd959eee",
+    "paths": "Comp:/../_fixtures/ for bundled synthetic fixtures",
+    "reimport": "NOT_RUN: accepted GUI evidence precedes export path normalization"
+  }
+}

@@ -13,7 +13,7 @@ outputs: [mask]
 tasks: [create-mask, roto, manage-masks]
 product_scope: fusion
 suite_surfaces: [fusion]
-updated: "2026-10-11"
+updated: "2026-10-24"
 ---
 
 # MultiPoly
@@ -116,8 +116,38 @@ MediaIn ────────────────────────
 
 解像度、Clipping Mode、Motion Blurなど、形状そのもの以外の設定は[Mask共通Controls](./common-controls)を参照してください。マスクとRGBA画像の違いは[Image / Mask / Data](../../learn/02-data/image-mask-data)で説明しています。
 
+## 実機例：2つの輪郭をListで管理する
+
+<!-- capture-case:S85 -->
+
+Resolve Studio21.1.0.14／Windows、1920×1080、Viewer40%で撮影しました。MultiPolyをBackgroundのEffect Maskへ接続し、左にMask、右に適用後のオレンジBackgroundを表示しています。実機の内部REGIDは`MultiPoly`でした。
+
+[![1つのMultiPolyからGold BackgroundのEffect Maskへ接続した実機Graph](/img/fusion/captures/S85/graph.png)](/img/fusion/captures/S85/graph.png)
+
+[![Right B-SplineとLeft Polygonを同じListに保持したMultiPoly Inspector](/img/fusion/captures/S85/inspector.png)](/img/fusion/captures/S85/inspector.png)
+
+[![左の三角Polygonと丸みのあるB-Splineが同じ白いMaskとして出力され右にオレンジで現れる](/img/fusion/captures/S85/compare.png)](/img/fusion/captures/S85/compare.png)
+
+最初のPolygonは、Viewerへ3点を置き、最初の点を再クリックして閉じました。続いてInspectorのB-Splineボタンで別の形状を追加し、右側に4点を置いて閉じています。名前をLeft PolygonとRight B-Splineへ変え、同じListで管理しています。名前の変更はスクリプトから設定し、実機Listへの反映を確認しました。
+
+下はRight B-Splineを選択した状態です。制御点を結ぶ四角い線の内側に曲線ができます。Left Polygonの三角形も、同じMaskの出力に残っています。書き出したGraphでは、閉じたPolygonの3点とB-Splineの4点を確認しました。
+
+[![選択したB-Splineの4点と曲線、別のPolygonの三角形を同じViewerへ表示](/img/fusion/captures/S85/guides.png)](/img/fusion/captures/S85/guides.png)
+
+ListのRight B-Splineのチェックだけを外すと、丸みのある形だけがMaskとBackgroundの出力から消え、三角形が残りました。選択中の制御線はViewerに残るため、出力比較ではMediaOutを選び、操作用の線を隠して撮影しています。
+
+[![ListのRight B-Splineのチェックだけを外したMultiPoly Inspector](/img/fusion/captures/S85/off-inspector.png)](/img/fusion/captures/S85/off-inspector.png)
+
+[![Right B-Splineを無効にすると左の白Maskと右のオレンジ出力から丸い形だけが消える](/img/fusion/captures/S85/off.png)](/img/fusion/captures/S85/off.png)
+
+最後はRight B-Splineを再び有効にし、両方の形が出る状態へ戻しました。両形状はLevel1、Solidオン、Soft Edge0、Border Width0、Size1、Center0.5／0.5、Angle0、Paint ModeはMergeです。Right B-Splineを選択し、フレーム0と両Viewer40%で保存しました。
+
+この2形状は重ねていません。重なった領域のPaint Mode演算、Listの並べ替え、個別のSize変更、Duplicate／Split here／Delete／Reset、複数フレームの形状補間、実写ロトと性能は未確認です。
+
+[再現用Graph](/img/fusion/captures/S85/fixture.comp) · [撮影条件と確認範囲](/img/fusion/captures/S85/capture.json)
+
 ## バージョン・出典・未確認範囲
 
 Blackmagic Design『DaVinci Resolve 21.1 Reference Manual』（September 2026）、Chapter 108「Mask Nodes」**pp.2478–2480**「MultiPoly [MPly]」を参照しました。Polygon / BSplineの追加、Viewerでの閉じ方、List viewの選択・改名・並べ替え・表示、Shape Animationの開始操作、右クリックメニューの5項目は同節の説明に基づきます。
 
-`MPly`はマニュアル内の選択用略号で、内部REGIDだとは確認していません。上記の接続例はMaskノードの一般的な働きを踏まえた構成例です。**21.1実機での個々の入力端子、MultiPoly内部の形状合成順、キー補間・Free／Studio差は未検証**のため、`verification: partial`を維持します。
+S85で内部REGID `MultiPoly`、2形状の作図とClose、Listの表示切り替え、BackgroundへのMask出力を実機確認しました。追加入力端子の全仕様、重なる形状の合成順、キー補間、Free／Studio差は未確認のため、`verification: partial`を維持します。

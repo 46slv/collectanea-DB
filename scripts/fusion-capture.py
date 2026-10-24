@@ -73,6 +73,9 @@ TARGETS['S79']='WandMask1';LEFT['S79']='Loader1';RIGHT['S79']='Gold1'
 TARGETS['S80']='Triangle1';LEFT['S80']='Triangle1';RIGHT['S80']='Gold1'
 TARGETS['S81']='Rectangle1';LEFT['S81']='Rectangle1';RIGHT['S81']='Gold1'
 TARGETS['S82']='Polygon1';LEFT['S82']='Polygon1';RIGHT['S82']='Gold1'
+TARGETS['S83']='BSpline1';LEFT['S83']='BSpline1';RIGHT['S83']='Gold1'
+TARGETS['S84']='MaskPaint1';LEFT['S84']='MaskPaint1';RIGHT['S84']='Gold1'
+TARGETS['S85']='MultiPoly1';LEFT['S85']='MultiPoly1';RIGHT['S85']='Gold1'
 r=d.scriptapp('Resolve')
 assert r, 'Resolve scripting unavailable; do not change preferences automatically'
 pm=r.GetProjectManager(); p=pm.GetCurrentProject()
@@ -85,6 +88,8 @@ if detail_view:assert case in ['S62','S63','S69'];action='show'
 requested_frame=int(sys.argv[3]) if action=='frame' else 24 if case in ['S40','S42'] else 0
 if action=='preview':
  assert case=='S49';requested_frame=int(sys.argv[3]) if len(sys.argv)>3 else 0;assert requested_frame in [0,24];action='show'
+if action=='paint_frame':
+ assert case=='S84';requested_frame=int(sys.argv[3]);assert requested_frame in [0,1];action='show'
 if action=='frame':
  assert case in ['S35','S36','S39','S40','S42','S45','S49','S56'] and requested_frame in ([0,48] if case=='S35' else [0,3,6,9,12,18,24]);action='show'
 if action=='hold':
@@ -157,8 +162,8 @@ for _ in range(50):
  time.sleep(.1)
 else:raise RuntimeError('Requested composition did not become the active GUI composition')
 t.SetCurrentTimecode('01:00:02:00' if case=='S09' else '01:00:00:00')
-c.CurrentTime=requested_frame if case in ['S35','S36','S39','S40','S42','S45','S49','S56'] else 48 if case=='S09' else 0
-if case in ['S36','S39','S40','S42','S45','S49','S56']:t.SetCurrentTimecode(f'01:00:{requested_frame//24:02d}:{requested_frame%24:02d}')
+c.CurrentTime=requested_frame if case in ['S35','S36','S39','S40','S42','S45','S49','S56','S84'] else 48 if case=='S09' else 0
+if case in ['S36','S39','S40','S42','S45','S49','S56','S84']:t.SetCurrentTimecode(f'01:00:{requested_frame//24:02d}:{requested_frame%24:02d}')
 if case=='S35':t.SetCurrentTimecode('01:00:02:00' if requested_frame==48 else '01:00:00:00')
 time.sleep(.3)
 tools={x.GetAttrs()['TOOLS_Name']:x for x in c.GetToolList().values()}
@@ -232,6 +237,9 @@ def select(target,left=None):
  for cid in ['S62','S63','S64','S65']:layouts[cid]={'Loader1':(0,0),TARGETS[cid]:(1.5,0),'MediaOut1':(3,0)}
  if case in ['S62','S63'] and 'BlurSource1' in tools:layouts[case]={'Loader1':(0,0),'BlurSource1':(1.5,0),TARGETS[case]:(3,0),'MediaOut1':(4.5,0)}
  if case=='S72' and 'RGBBack1' in tools:layouts[case]={'Loader1':(0,0),'ColorSpace1':(1.5,0),'RGBBack1':(3,0),'MediaOut1':(4.5,0)}
+ layouts['S85']={'MultiPoly1':(0,-1),'Gold1':(1.5,1),'MediaOut1':(3,1)}
+ layouts['S84']={'MaskPaint1':(0,-1),'Gold1':(1.5,1),'MediaOut1':(3,1)}
+ layouts['S83']={'BSpline1':(0,-1),'Gold1':(1.5,1),'MediaOut1':(3,1)}
  layouts['S82']={'Polygon1':(0,-1),'Gold1':(1.5,1),'MediaOut1':(3,1)}
  layouts['S81']={'Rectangle1':(0,-1),'Gold1':(1.5,1),'MediaOut1':(3,1)}
  layouts['S80']={'Triangle1':(0,-1),'Gold1':(1.5,1),'MediaOut1':(3,1)}
@@ -298,6 +306,18 @@ if action=='build':
   rb=add('sRender','RenderBase1',4,-1);connect(rb,'Input',base)
   target=add('sTransform','Transform1',2,1);connect(target,'Input',base)
   rr=add('sRender','RenderChanged1',4,1);connect(rr,'Input',target);connect(mo,'Input',rr)
+ # S85 creates an empty MultiPoly;native list/shape creation and closing are required.
+ elif case=='S85':
+  target=add('MultiPoly','MultiPoly1',0,-1)
+  gold=add('Background','Gold1',1.5,1,TopLeftRed=1,TopLeftGreen=.5,TopLeftBlue=.05,TopLeftAlpha=1);connect(gold,'EffectMask',target);connect(mo,'Input',gold)
+ # S84 creates an empty PaintMask;native stroke creation and duration readback are required.
+ elif case=='S84':
+  target=add('PaintMask','MaskPaint1',0,-1)
+  gold=add('Background','Gold1',1.5,1,TopLeftRed=1,TopLeftGreen=.5,TopLeftBlue=.05,TopLeftAlpha=1);connect(gold,'EffectMask',target);connect(mo,'Input',gold)
+ # S83 creates an empty B-Spline;draw and close it in the native Viewer before acceptance.
+ elif case=='S83':
+  target=add('BSplineMask','BSpline1',0,-1,ShowViewControls=1)
+  gold=add('Background','Gold1',1.5,1,TopLeftRed=1,TopLeftGreen=.5,TopLeftBlue=.05,TopLeftAlpha=1);connect(gold,'EffectMask',target);connect(mo,'Input',gold)
  # S82 creates an empty polygon;draw and close it in the native Viewer before acceptance.
  elif case=='S82':
   target=add('PolylineMask','Polygon1',0,-1,ShowViewControls=1)

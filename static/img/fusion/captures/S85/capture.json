@@ -1,0 +1,230 @@
+{
+  "schema_version": 1,
+  "case": "S85",
+  "article": "manuals/fusion/nodes/masks/multipoly.md",
+  "manual": {
+    "version": "21.1",
+    "chapter": 108,
+    "printed_pages": "2478–2480"
+  },
+  "runtime": {
+    "version": "21.1.0.14",
+    "edition": "Studio",
+    "os": "Windows-11-10.0.26200-SP0",
+    "ui_language": "ja-JP (some Shape controls remain English)"
+  },
+  "captured_at": "2026-10-24T03:01:59.511189+00:00",
+  "project": "Collectanea_Captures_20261023_Sol",
+  "timeline": "S85_capture",
+  "frame": 0.0,
+  "resolution": [
+    1920,
+    1080
+  ],
+  "color_management": {
+    "colorScienceMode": "davinciYRGB",
+    "colorSpaceTimeline": "Rec.709 (Scene)",
+    "colorSpaceTimelineGamma": "",
+    "colorSpaceOutput": "Rec.709 (Scene)",
+    "colorSpaceOutputGamma": "ACEScc",
+    "separateColorSpaceAndGamma": "0",
+    "isAutoColorManage": "0",
+    "timelineResolutionWidth": "1920",
+    "timelineResolutionHeight": "1080",
+    "timelineFrameRate": 24.0,
+    "timelinePlaybackFrameRate": "30"
+  },
+  "viewer": {
+    "zoom_percent": 40,
+    "channel": "Color",
+    "background": "checkerboard for transparent pixels",
+    "note": "Viewer screenshots are display evidence, not colorimetric exports."
+  },
+  "graph": "fixture.comp",
+  "settings": "readback.json",
+  "source": {
+    "file": "screen.png",
+    "size": [
+      3352,
+      1910
+    ],
+    "sha256": "2d81cda5db110f1a2c4fef5960831303e668912eb5c8be140e580a103b19bb1f"
+  },
+  "shots": [
+    {
+      "file": "graph.png",
+      "source": "screen.png",
+      "source_sha256": "2d81cda5db110f1a2c4fef5960831303e668912eb5c8be140e580a103b19bb1f",
+      "frame": 0.0,
+      "crop_xyxy": [
+        770,
+        1205,
+        2050,
+        1530
+      ],
+      "resampled": false,
+      "sha256": "22e60001180c4b58db4038b20a659026835ec8905da7ba29de753f5e40be0466",
+      "viewer_contents": "Left MultiPoly Mask / Right masked Gold,both1920x1080/40%",
+      "viewer_guides": true,
+      "active_tool": "MultiPoly1"
+    },
+    {
+      "file": "inspector.png",
+      "source": "screen.png",
+      "source_sha256": "2d81cda5db110f1a2c4fef5960831303e668912eb5c8be140e580a103b19bb1f",
+      "frame": 0.0,
+      "crop_xyxy": [
+        2830,
+        120,
+        3352,
+        830
+      ],
+      "resampled": false,
+      "sha256": "a49600decfe90bcbc42eac5456dac249f93eab0098037eacca68c35c6d31c756",
+      "viewer_contents": "Left MultiPoly Mask / Right masked Gold,both1920x1080/40%",
+      "viewer_guides": true,
+      "active_tool": "MultiPoly1"
+    },
+    {
+      "file": "compare.png",
+      "source": "screen-clean.png",
+      "source_sha256": "76bdc71b0837b0ab127b3b766c928742ad90806a202053a2ca28cd01518d71dd",
+      "frame": 0.0,
+      "crop_xyxy": [
+        1146,
+        65,
+        2830,
+        725
+      ],
+      "resampled": false,
+      "sha256": "e18b388bdbce18e127464e3f986e8d546f5153d18457e353620a87b05b7e7300",
+      "viewer_contents": "Left MultiPoly Mask / Right masked Gold,both1920x1080/40%",
+      "viewer_guides": false,
+      "active_tool": "MediaOut1"
+    },
+    {
+      "file": "guides.png",
+      "source": "screen.png",
+      "source_sha256": "2d81cda5db110f1a2c4fef5960831303e668912eb5c8be140e580a103b19bb1f",
+      "frame": 0.0,
+      "crop_xyxy": [
+        1146,
+        65,
+        2830,
+        725
+      ],
+      "resampled": false,
+      "sha256": "0a8e9d054d20a498044a73ad71d6893928998e7b2dfa1374100f17ee9c6e5952",
+      "viewer_contents": "Left MultiPoly Mask / Right masked Gold,both1920x1080/40%",
+      "viewer_guides": true,
+      "active_tool": "MultiPoly1"
+    },
+    {
+      "file": "off-inspector.png",
+      "source": "screen-off.png",
+      "source_sha256": "3c31a5c10cc0bda4c4f9f672bfa28f43ec54ca6922aa2fc192cd11c88f2a9ed1",
+      "frame": 0.0,
+      "crop_xyxy": [
+        2830,
+        120,
+        3352,
+        830
+      ],
+      "resampled": false,
+      "sha256": "44a10fb4ea1d8f851ab55f87dabb2bf7d8f4baa8a0b7e4502bc74aee614cd2a9",
+      "viewer_contents": "Left MultiPoly Mask / Right masked Gold,both1920x1080/40%",
+      "viewer_guides": true,
+      "active_tool": "MultiPoly1"
+    },
+    {
+      "file": "off.png",
+      "source": "screen-off-clean.png",
+      "source_sha256": "0f903fc985cb82d4503f6c67292bab0c2471561aae3f7765b2164d93a25d71e6",
+      "frame": 0.0,
+      "crop_xyxy": [
+        1146,
+        65,
+        2830,
+        725
+      ],
+      "resampled": false,
+      "sha256": "160944a31eda6705547908ca90cbae85549b24dbbdd75643026c9bb1285a7d08",
+      "viewer_contents": "Left MultiPoly Mask / Right masked Gold,both1920x1080/40%",
+      "viewer_guides": false,
+      "active_tool": "MediaOut1"
+    }
+  ],
+  "acceptance": {
+    "gui": "PASS: owner visually inspected node connections, selected Inspector, and output",
+    "article_display": "PASS: local production build;4 distinct pages31 images at1440px/390px;decode/Alt/native links/hash/overflow"
+  },
+  "unverified": [
+    "Free edition and other platforms",
+    "All parameter ranges and performance",
+    "Overlapping shape Paint Mode,individual transforms,List reorder/duplicate/split/delete/reset,multiple-frame animation,real roto/performance",
+    "Exported portable composition reimport"
+  ],
+  "state_variants": {
+    "screen.png": "Both Enabled1,MultiPoly selected,Right B-Spline guides",
+    "screen-clean.png": "Both Enabled1,MediaOut selected,no guides",
+    "screen-off.png": "Right B-Spline Enabled0,MultiPoly selected,guides retained",
+    "screen-off-clean.png": "Right B-Spline Enabled0,MediaOut selected,no guides"
+  },
+  "parameter_readback_scope": "Number/Text/Point/FuID/Clip only;Polyline/ScriptVal/Image/Mask payload not evaluated.",
+  "gui_authoring": {
+    "delivery": "background synthetic Cua point clicks;checkbox needed foreground after background no-op",
+    "polygon_points_window_xy": [
+      [
+        1300,
+        500
+      ],
+      [
+        1520,
+        500
+      ],
+      [
+        1410,
+        280
+      ]
+    ],
+    "bspline_points_window_xy": [
+      [
+        1650,
+        500
+      ],
+      [
+        1880,
+        500
+      ],
+      [
+        1880,
+        280
+      ],
+      [
+        1650,
+        280
+      ]
+    ],
+    "close": "click first point",
+    "export_closed_shapes": 2,
+    "export_point_counts": [
+      3,
+      4
+    ],
+    "shape_animation": "No multiple-frame animation accepted",
+    "rename": "Script scalar PolyMaskName1/2;native List readback"
+  },
+  "rejected_attempts": [
+    "Background checkbox UIA click selected row but did not toggle;foreground same click established Enabled2=0.",
+    "ShowViewControls does not exist on this node;setter asserted before any change.Clean output instead selected MediaOut.",
+    "Empty and open-path intermediate captures excluded."
+  ],
+  "restoration": "PASS:both Enabled1,PolySelection2,Level1/Solid1/Soft0/Border0/Size1/Center(.5,.5)/Angle0/frame0/both40%,saved and visually confirmed.",
+  "reproduction_action": "build creates EMPTY MultiPoly scaffold;native GUI polygon and B-Spline authoring+Close mandatory. Never rebuild existing case.",
+  "reproduction": {
+    "fixture_sha256": "8797e3ae60d02e4c6e05ab70ffb913501023441f586bf5cff3e55db7d1102bfb",
+    "readback_sha256": "6f9bd6b3ef33677b817fddfb0b410003ee0e25be27752cacdf0bac9dc2640487",
+    "paths": "Comp:/../_fixtures/ for bundled synthetic fixtures",
+    "reimport": "NOT_RUN: accepted GUI evidence precedes export path normalization"
+  }
+}

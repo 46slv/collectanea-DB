@@ -14,7 +14,7 @@ outputs: [mask]
 tasks: [create-mask, roto, spline-mask]
 product_scope: fusion
 suite_surfaces: [fusion]
-updated: "2026-10-10"
+updated: "2026-10-24"
 ---
 
 # B-Spline Mask
@@ -158,8 +158,42 @@ B-Splineの出力をRectangle Maskの青い入力へ接続し、Rectangle側のP
 
 B-Splineは少ない点で滑らかな領域を扱うのに向きますが、どの場面でもPolygonより高精度という意味ではありません。輪郭の形と、フレームをまたぐ編集のしやすさで選びます。
 
+## 実機例：4点の位置と滑らかな輪郭
+
+<!-- capture-case:S83 -->
+
+Resolve Studio21.1.0.14／Windows、1920×1080、Viewer40%で撮影しました。画像入力のないB-Spline MaskをBackgroundのEffect Maskへ接続し、左にMask、右に適用後のオレンジBackgroundを表示しています。実機の内部REGIDは`BSplineMask`でした。
+
+[![B-Spline MaskをGold BackgroundのEffect Maskへ接続した実機Graph](/img/fusion/captures/S83/graph.png)](/img/fusion/captures/S83/graph.png)
+
+[![Solidオン、Size1、Center0.5と0.5、回転各0のB-Spline Mask Inspector](/img/fusion/captures/S83/inspector.png)](/img/fusion/captures/S83/inspector.png)
+
+[![同じ4点から作った滑らかな白いB-Spline Maskとオレンジの適用結果](/img/fusion/captures/S83/compare.png)](/img/fusion/captures/S83/compare.png)
+
+Viewerで4点を置いて最初の点をクリックし、輪郭を閉じました。下の画面ではShow View Controlsをオンにしています。点を結ぶ制御用の線と、実際の白い輪郭は一致せず、滑らかな輪郭がその内側にできます。
+
+[![4つの制御点を結ぶ線の内側に滑らかなB-Splineの輪郭が表示されている](/img/fusion/captures/S83/guides.png)](/img/fusion/captures/S83/guides.png)
+
+比較のため、Polygonの実機例と同じ4点を使いました。書き出したGraphでも4点の座標が一致していることを照合しています。下は直線の辺を使ったPolygonです。点の位置をそろえても、B-Splineとは輪郭が異なります。
+
+[![B-Splineと同じ4点を直線で結んだPolygonの制御点と白い輪郭](/img/fusion/captures/S82/guides.png)](/img/fusion/captures/S82/guides.png)
+
+[![同じ4点のPolygonでは角のある白いMaskとオレンジの図形になる](/img/fusion/captures/S82/compare.png)](/img/fusion/captures/S82/compare.png)
+
+続いてSolidをオフ、Border Widthを0.02にすると、塗りつぶしの代わりに輪郭だけが残ります。これはB-SplineのTensionを変更した比較ではありません。
+
+[![Solidオフ、Border Width0.02のB-Spline Mask Inspector](/img/fusion/captures/S83/outline-inspector.png)](/img/fusion/captures/S83/outline-inspector.png)
+
+[![Solidをオフにすると白とオレンジの塗りつぶしが曲線の輪郭だけになる](/img/fusion/captures/S83/outline.png)](/img/fusion/captures/S83/outline.png)
+
+最後はSolidオン、Border Width0、Soft Edge0、Level1、Size1、Center0.5／0.5、回転各0、Show View Controlsオフ、フレーム0へ戻して保存しました。GraphはClosedがtrue、制御点4個、Shapeのキーフレームはフレーム0だけです。
+
+Tensionの編集、個々の制御点の移動、複数フレームの形状補間、交差した輪郭のFill Method、他Maskとの合成、実写ロトと性能は未確認です。
+
+[再現用Graph](/img/fusion/captures/S83/fixture.comp) · [撮影条件と確認範囲](/img/fusion/captures/S83/capture.json)
+
 ## バージョン・出典・未確認範囲
 
 Blackmagic Design『DaVinci Resolve 21.1 Reference Manual』（2026年9月）Chapter 108「Mask Nodes」pp.2468–2471を基準に、入力、Inspector、Fill Method、Shape Animation、制御点の追加・編集、TensionのWキー操作を確認しました。Chapter 79「Rotoscoping with Masks」（p.1725以降）もPolygonとB-Splineの比較に参照しています。
 
-Manualの**[BSp]**は選択用の略号であり、内部REGIDとは断定しません。各パラメータの値域、Free／Studioの差、実機固有の細かな操作は全件確認していないため、verificationはpartialです。
+S83で内部REGID `BSplineMask`、4点の作図とClose、Solid／Border Widthの出力を実機確認しました。Tension、個別点編集、複数フレーム補間、各値域とFree／Studio差は未確認のため、`verification: partial`を維持します。
