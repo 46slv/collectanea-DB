@@ -1,0 +1,279 @@
+{
+  "schema_version": 1,
+  "case": "S125",
+  "article": "manuals/fusion/nodes/effects-film/hot-spot.md",
+  "manual": {
+    "version": "21.1",
+    "chapter": 97,
+    "printed_pages": "2281–2287"
+  },
+  "runtime": {
+    "version": "21.1.0.14",
+    "edition": "DaVinci Resolve Studio",
+    "os": "Windows-11-10.0.26200-SP0"
+  },
+  "captured_at": "2026-10-24T11:13:48.823925+00:00",
+  "project": "Collectanea_Captures_20261023_Sol",
+  "timeline": "S125_capture",
+  "frame": 0.0,
+  "resolution": [
+    1920,
+    1080
+  ],
+  "color_management": {
+    "colorScienceMode": "davinciYRGB",
+    "colorSpaceTimeline": "Rec.709 (Scene)",
+    "colorSpaceTimelineGamma": "",
+    "colorSpaceOutput": "Rec.709 (Scene)",
+    "colorSpaceOutputGamma": "ACEScc",
+    "separateColorSpaceAndGamma": "0",
+    "isAutoColorManage": "0",
+    "timelineResolutionWidth": "1920",
+    "timelineResolutionHeight": "1080",
+    "timelineFrameRate": 24.0,
+    "timelinePlaybackFrameRate": "30"
+  },
+  "viewer": {
+    "zoom_percent": 40,
+    "channel": "Color",
+    "background": "checkerboard for transparent pixels",
+    "left": "Loader1 chart.png at40%",
+    "right": "HotSpot1 output at40%",
+    "note": "The final output screenshot selects MediaOut1 to hide controls; the right Viewer header remains HotSpot1. Viewer screenshots are display evidence, not colorimetric exports."
+  },
+  "graph": "fixture.comp",
+  "settings": "readback.json",
+  "source": {
+    "file": "screen.png",
+    "size": [
+      3352,
+      1910
+    ],
+    "sha256": "8ebf5fa82e2af2752d4a1ff86b70078444becd46b1c90b3e79249f1c989fe7b5"
+  },
+  "source_screens": [
+    {
+      "file": "screen.png",
+      "sha256": "8ebf5fa82e2af2752d4a1ff86b70078444becd46b1c90b3e79249f1c989fe7b5",
+      "bytes": 488942,
+      "pixels": [
+        3352,
+        1910
+      ],
+      "original_packet_file": "S125-final.png"
+    },
+    {
+      "file": "screen-baseline.png",
+      "sha256": "204371b68b08aeae240a4cec584c237c1807f08af3a88ad81c36fc993026f0d5",
+      "bytes": 434313,
+      "pixels": [
+        3352,
+        1910
+      ],
+      "original_packet_file": "S125-baseline.png"
+    },
+    {
+      "file": "screen-baseline-inspector.png",
+      "sha256": "c8d8e1c024b615fcacebc1184939f3a5280d4c587cb515759e368f7d3991c316",
+      "bytes": 505718,
+      "pixels": [
+        3352,
+        1910
+      ],
+      "original_packet_file": "S125-baseline-inspector.png"
+    },
+    {
+      "file": "screen-final-inspector.png",
+      "sha256": "7d6cd1e92d118995c67b9dc883daffa70b549c905b35be1f7ecfe34f7ad623c4",
+      "bytes": 555785,
+      "pixels": [
+        3352,
+        1910
+      ],
+      "original_packet_file": "S125-final-inspector.png"
+    }
+  ],
+  "shots": [
+    {
+      "file": "graph.png",
+      "source": "screen.png",
+      "source_sha256": "8ebf5fa82e2af2752d4a1ff86b70078444becd46b1c90b3e79249f1c989fe7b5",
+      "frame": 0,
+      "crop_xyxy": [
+        430,
+        1100,
+        2400,
+        1650
+      ],
+      "resampled": false,
+      "sha256": "8c676e5168585a82a8c21c8feb6e37f77915a7c02ad63ff67ad740795587ec56",
+      "pixels": [
+        1970,
+        550
+      ],
+      "viewer_guides": false,
+      "active_tool": "MediaOut1",
+      "viewer_contents": "Loader1 chart.png -> HotSpot1 -> MediaOut1; three visible nodes."
+    },
+    {
+      "file": "baseline-inspector.png",
+      "source": "screen-baseline-inspector.png",
+      "source_sha256": "c8d8e1c024b615fcacebc1184939f3a5280d4c587cb515759e368f7d3991c316",
+      "frame": 0,
+      "crop_xyxy": [
+        2830,
+        120,
+        3352,
+        650
+      ],
+      "resampled": false,
+      "sha256": "c071778ab6a07370cc4c285c6a7308c2caa433874800430085b00fe4aa4cee00",
+      "pixels": [
+        522,
+        530
+      ],
+      "viewer_guides": true,
+      "active_tool": "HotSpot1",
+      "viewer_contents": "HotSpot1 Inspector with PrimaryStrength0; Viewer controls may be present outside this crop."
+    },
+    {
+      "file": "baseline.png",
+      "source": "screen-baseline.png",
+      "source_sha256": "204371b68b08aeae240a4cec584c237c1807f08af3a88ad81c36fc993026f0d5",
+      "frame": 0,
+      "crop_xyxy": [
+        1146,
+        65,
+        2830,
+        800
+      ],
+      "resampled": false,
+      "sha256": "6a31990339a37a7ebc2a6141b6ea612af10b5cdcf3dd1d6f916b30235b7f16c5",
+      "pixels": [
+        1684,
+        735
+      ],
+      "viewer_guides": false,
+      "active_tool": "MediaOut1",
+      "viewer_contents": "Left Loader1 chart.png and right HotSpot1 at40%; PrimaryStrength0 baseline."
+    },
+    {
+      "file": "final-inspector.png",
+      "source": "screen-final-inspector.png",
+      "source_sha256": "7d6cd1e92d118995c67b9dc883daffa70b549c905b35be1f7ecfe34f7ad623c4",
+      "frame": 0,
+      "crop_xyxy": [
+        2830,
+        120,
+        3352,
+        650
+      ],
+      "resampled": false,
+      "sha256": "504d1c76de2a247df0fc1a16ea3b013f67251a9357cce82fa5bac8991c104f1c",
+      "pixels": [
+        522,
+        530
+      ],
+      "viewer_guides": true,
+      "active_tool": "HotSpot1",
+      "viewer_contents": "HotSpot1 Inspector with PrimaryStrength1; Viewer controls may be present outside this crop."
+    },
+    {
+      "file": "final.png",
+      "source": "screen.png",
+      "source_sha256": "8ebf5fa82e2af2752d4a1ff86b70078444becd46b1c90b3e79249f1c989fe7b5",
+      "frame": 0,
+      "crop_xyxy": [
+        1146,
+        65,
+        2830,
+        800
+      ],
+      "resampled": false,
+      "sha256": "411b1e8e78722ba2364964d7f62557fc459f576f08fd50fec13e95ba5ccc2e8b",
+      "pixels": [
+        1684,
+        735
+      ],
+      "viewer_guides": false,
+      "active_tool": "MediaOut1",
+      "viewer_contents": "Left Loader1 chart.png and right HotSpot1 at40%; MediaOut1 selected to hide guides."
+    }
+  ],
+  "acceptance": {
+    "gui": "PASS: existing saved screenshot and bounded proof inspected; no new capture was made.",
+    "article_display": "NOT_RUN: local production build and scoped display verification are pending.",
+    "public": "NOT_RUN: no deployment or public verification has occurred."
+  },
+  "native_proof": {
+    "file": "native-proof.json",
+    "sha256": "22cb94e1deffaca3c89ba190567b8f06839745183c70a2b63eae426e672a6ef3",
+    "regid": "HotSpot",
+    "final": {
+      "PrimaryCenter": [
+        0.35,
+        0.5
+      ],
+      "PrimaryStrength": 1.0,
+      "HotSpotSize": 0.35,
+      "Aspect": 1.0,
+      "AspectAngle": 0.0,
+      "SecondaryStrength": 0.0,
+      "ApplyMode_UI": "Add (Burn)",
+      "Occlude": 0.0,
+      "LensAberration": 0.0,
+      "ElementStrength1": 0.0,
+      "ElementStrength2": 0.0,
+      "ElementStrength3": 0.0
+    },
+    "baseline": {
+      "PrimaryStrength": 0.0
+    },
+    "connections": {
+      "Input": "Loader1",
+      "EffectMask": null,
+      "Occlusion": null
+    },
+    "native_rgb_delta": {
+      "bbox": [
+        129,
+        81,
+        397,
+        349
+      ],
+      "extrema": [
+        [
+          0,
+          231
+        ],
+        [
+          0,
+          227
+        ],
+        [
+          0,
+          219
+        ]
+      ]
+    }
+  },
+  "limits": [
+    "Synthetic static chart only; mask and Occlusion behavior, alternate controls/color curves, animation, physical optical fidelity, platform/edition/performance are unverified.",
+    "Broad input enumeration NOT_RUN; the saved proof is limited to its listed scalar and connection evidence.",
+    "Curve editing NOT_RUN; no LUT/Bezier payload was read.",
+    "Portable export reimport NOT_RUN."
+  ],
+  "portable_transform": [
+    "Public fixture.comp is a distribution copy: ResolveCaches/LastFile lines are removed, fixture paths under _fixtures are normalized to Comp:/../_fixtures/, and line endings are LF. Original fixture bytes remain in the task source packet.",
+    "readback.json is serialized as UTF-8 JSON after normalizing fixture paths; its source copy remains in the task packet.",
+    "PNG crops are exact native-pixel rectangles from saved screenshots; no resizing or painted UI."
+  ],
+  "reproduction": {
+    "source_fixture_sha256": "b9b0e94fa39c45b62dba103adffd0154d322d2a3cebbb2e648a3839a8485872e",
+    "fixture_sha256": "9e8f9e715a05cd7f9bf8b152eb7a4c00b6630927ff52b51d011cac972ae89a27",
+    "source_readback_sha256": "8267e729a533d391553e53f465c313c7c01f54cbc446ef5f5f40be7774ffa0e7",
+    "readback_sha256": "a00f32358b276c62d1ff4ddaf88745b55e27cdcd7845f681212ea4505c36f47e",
+    "paths": "Comp:/../_fixtures/ for bundled synthetic fixtures",
+    "reimport": "NOT_RUN: accepted GUI evidence precedes public-copy path normalization."
+  }
+}

@@ -15,7 +15,7 @@ outputs: ["image"]
 tasks: ["stylize-image"]
 product_scope: fusion
 suite_surfaces: ["fusion"]
-updated: "2026-10-09"
+updated: "2026-10-24"
 ---
 
 # Hot Spot
@@ -129,6 +129,26 @@ L1・L2・L3の3タブでは、主光源・副光源とは別の反射要素を�
 - **[Rays](./rays.md)**：画像のAlphaや明るい領域をもとに、放射状の光条を伸ばす。輪や複数の反射要素を作るHot Spotとは用途が異なる。
 - **Effect MaskとOcclusion**：前者は適用後の表示範囲、後者は白黒画像による遮光。どちらも任意入力だが役割は同じではない。
 - **素材との一致**：反射の色・大きさ・向きは、元映像の実際の光源やレンズの見た目に合わせて調整します。特定の実在レンズの完全な光学再現や、自動的な3D遮蔽を保証するNodeではありません。
+
+## 実機例：テストチャートへ光を加える
+
+<!-- capture-case:S125 -->
+
+既存のテストチャートを`Loader1`から`HotSpot1`へ渡し、`MediaOut1`へ出力しました。`Effect Mask`と`Occlusion`は接続していません。
+
+[![Loader1 chart.pngからHotSpot1、MediaOut1へ続く3ノードのGraph](/img/fusion/captures/S125/graph.png)](/img/fusion/captures/S125/graph.png)
+
+比較では`PrimaryStrength=0`から`1`へ変えました。最終Inspectorには`Primary Center=(0.35, 0.5)`、`Hot Spot Size=0.35`、`Aspect=1`、`Apply Mode=Add (Burn)`、`Secondary Strength=0`が表示されています。出力では指定位置の周囲が明るくなり、近くの色票にも光が広がっています。
+
+[![HotSpot1のInspectorでPrimary Strengthが0.0の状態](/img/fusion/captures/S125/baseline-inspector.png)](/img/fusion/captures/S125/baseline-inspector.png)
+
+[![左のLoader1チャートとPrimary Strength 0の右出力](/img/fusion/captures/S125/baseline.png)](/img/fusion/captures/S125/baseline.png)
+
+[![HotSpot1のInspectorでPrimary Strengthが1.0、中心が0.35と0.5の状態](/img/fusion/captures/S125/final-inspector.png)](/img/fusion/captures/S125/final-inspector.png)
+
+[![左の元チャートと、中心から光が広がった右出力](/img/fusion/captures/S125/final.png)](/img/fusion/captures/S125/final.png)
+
+これは合成チャートを使った静止例です。実レンズの光学特性やOcclusionの効果を確認したものではありません。保存Graphと条件は[fixture.comp](/img/fusion/captures/S125/fixture.comp)と[capture.json](/img/fusion/captures/S125/capture.json)にあります。
 
 ## 関連
 

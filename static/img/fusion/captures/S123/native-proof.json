@@ -1,0 +1,84 @@
+{
+  "frame": 0,
+  "regid": "Fuse.Duplicate",
+  "visible_flow_tools": 4,
+  "final": {
+    "Copies": 5.0,
+    "TimeOffset": 0.0,
+    "Center": {
+      "1": 0.62,
+      "2": 0.5,
+      "3": 0.0
+    },
+    "Pivot": {
+      "1": 0.5,
+      "2": 0.5,
+      "3": 0.0
+    },
+    "XSize": 1.0,
+    "YSize": 1.0,
+    "Angle": 0.0,
+    "ApplyMode": "Merge",
+    "Operator": "Over",
+    "JitterMode": "Fixed",
+    "RandomSeed": 0.0,
+    "JitterCenter": {
+      "1": 0.0,
+      "2": 0.0,
+      "3": 0.0
+    },
+    "JitterXSize": 0.0,
+    "JitterYSize": 0.0,
+    "JitterAngle": 0.0
+  },
+  "image_input": {
+    "port": "Background",
+    "datatype": "Image",
+    "source": "Circle1"
+  },
+  "native_object_count": {
+    "scanline_y": 410,
+    "x_interval": [
+      2048,
+      2815
+    ],
+    "orange_condition": "R>230,100<G<190,B<50",
+    "segments": {
+      "final": [
+        [
+          2160,
+          2212
+        ],
+        [
+          2252,
+          2304
+        ],
+        [
+          2344,
+          2396
+        ],
+        [
+          2436,
+          2488
+        ],
+        [
+          2528,
+          2580
+        ]
+      ],
+      "one-output": [
+        [
+          2160,
+          2212
+        ]
+      ]
+    },
+    "result": "Copies1 shows1 oval;Copies5 shows5 including source,not6 in this installed21.1 implementation"
+  },
+  "view": "Both40%,leftsource/rightDuplicate;source and final output captures selectMediaOut to remove overlays,Inspector captures selectDuplicate and may contain guides outside crops.",
+  "limits": [
+    "Static opaque oval only;TimeOffset animation,Jitter/Path/other merge modes,edge/alpha quality,edition/platform/performance unverified.",
+    "Viewer controls API/menu OFF did not remove visible selected-tool overlays;accepted output uses MediaOut selection,not overlay pixels.",
+    "Portable export reimport NOT_RUN."
+  ]
+}

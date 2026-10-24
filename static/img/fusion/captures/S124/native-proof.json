@@ -1,0 +1,56 @@
+{
+  "frame": 0,
+  "target": "Highlight1",
+  "regid": "Highlight",
+  "final": {
+    "Low": 0.9,
+    "High": 1.0,
+    "Curve": 0.2,
+    "Length": 0.8,
+    "NumberOfPoints": 6.0,
+    "Angle": 0.0,
+    "MergeOver": 1.0
+  },
+  "connections": {
+    "Input": "MergeSource1",
+    "EffectMask": null,
+    "HighlightMask": null
+  },
+  "visible_flow_tools": 6,
+  "internal_LUTBezier_modifiers": [],
+  "curve_edit": "NOT_RUN:internal modifiers automatically instantiated;no LUT value/curve payload read",
+  "comparison": "four",
+  "roi_xyxy": [
+    2312,
+    290,
+    2552,
+    530
+  ],
+  "native_rgb_delta": {
+    "bbox": [
+      93,
+      72,
+      147,
+      166
+    ],
+    "extrema": [
+      [
+        0,
+        254
+      ],
+      [
+        0,
+        254
+      ],
+      [
+        0,
+        254
+      ]
+    ]
+  },
+  "physical_input": "NOT_PROVEN:SDK/synthetic;native UI/export and bounded readback establish outcome",
+  "limits": [
+    "Synthetic static input only;mask/optional-input behavior,alternate controls and color curves,animation,physical optical fidelity,platform/edition/performance and portable reimport NOT_RUN."
+  ],
+  "detail_crop": "Native unresampled264px crop around right glint;not a changed Viewer zoom or synthetic image."
+}
