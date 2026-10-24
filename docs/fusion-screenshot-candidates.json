@@ -2,7 +2,7 @@
   "schema_version": 1,
   "created": "2026-10-20",
   "scope": "All Fusion pages, DaVinci Resolve 21.1",
-  "status_note": "2026-10-24:143/475/786 public through PR101;1169 assets HTTP/hash PASS. S75/S76/R121/R122 local3 distinct pages27 images PASS;25 native crops+2 index placements,cumulative146/500/813. Whole587/409 capture-needed+remaining_views incomplete;partial retained.",
+  "status_note": "2026-10-24:146/500/813 public through PR102;1215 assets HTTP/hash PASS. S77/S78/R123–125 local4 distinct pages30 images PASS;19 native crops+4 reused placements,cumulative148/519/836. Whole587 and remaining_views incomplete;partial retained.",
   "asset_directory_template": "static/img/fusion/captures/{id}/{shot.slug}.png",
   "capture_manifest_name": "capture.json",
   "candidates": [
@@ -4045,7 +4045,7 @@
         "printed_pages": "2539–2544"
       },
       "goal": "Copy image Alpha and compare independent Garbage/Solid masks",
-      "status": "captured-local-display-verified",
+      "status": "published-display-verified",
       "shots": [
         {
           "slug": "graph",
@@ -4138,7 +4138,8 @@
           "status": "native-observed"
         }
       ],
-      "capture_manifest": "static/img/fusion/captures/S75/capture.json"
+      "capture_manifest": "static/img/fusion/captures/S75/capture.json",
+      "published_batch": "fusion-native-20261024-21"
     },
     {
       "id": "S76",
@@ -4150,7 +4151,7 @@
         "printed_pages": "2530–2533"
       },
       "goal": "Compare luminance thresholds,inversion,Blue channel and native Alpha Viewer",
-      "status": "captured-local-display-verified",
+      "status": "published-display-verified",
       "shots": [
         {
           "slug": "graph",
@@ -4213,7 +4214,152 @@
           "status": "native-observed"
         }
       ],
-      "capture_manifest": "static/img/fusion/captures/S76/capture.json"
+      "capture_manifest": "static/img/fusion/captures/S76/capture.json",
+      "published_batch": "fusion-native-20261024-21"
+    },
+    {
+      "id": "S77",
+      "priority": "P1",
+      "article": "manuals/fusion/nodes/masks/bitmap-mask.md",
+      "manual": {
+        "version": "21.1",
+        "chapter": 108,
+        "printed_pages": "2463–2467"
+      },
+      "goal": "Compare opaque Alpha and Luminance conversion to Mask,threshold,invert and downstream Effect Mask result",
+      "status": "captured-local-display-verified",
+      "shots": [
+        {
+          "slug": "graph",
+          "kind": "node-graph",
+          "target": "Bitmap Mask",
+          "status": "native-observed"
+        },
+        {
+          "slug": "inspector",
+          "kind": "inspector",
+          "target": "Bitmap Mask",
+          "status": "native-observed"
+        },
+        {
+          "slug": "compare",
+          "kind": "output",
+          "target": "Bitmap Mask",
+          "status": "native-observed"
+        },
+        {
+          "slug": "default-inspector",
+          "kind": "inspector",
+          "target": "Bitmap Mask",
+          "status": "native-observed"
+        },
+        {
+          "slug": "default",
+          "kind": "output",
+          "target": "Bitmap Mask",
+          "status": "native-observed"
+        },
+        {
+          "slug": "luminance-inspector",
+          "kind": "inspector",
+          "target": "Bitmap Mask",
+          "status": "native-observed"
+        },
+        {
+          "slug": "luminance",
+          "kind": "output",
+          "target": "Bitmap Mask",
+          "status": "native-observed"
+        },
+        {
+          "slug": "inverse-inspector",
+          "kind": "inspector",
+          "target": "Bitmap Mask",
+          "status": "native-observed"
+        },
+        {
+          "slug": "inverse",
+          "kind": "output",
+          "target": "Bitmap Mask",
+          "status": "native-observed"
+        },
+        {
+          "slug": "mask",
+          "kind": "output",
+          "target": "Bitmap Mask",
+          "status": "native-observed"
+        }
+      ],
+      "capture_manifest": "static/img/fusion/captures/S77/capture.json"
+    },
+    {
+      "id": "S78",
+      "priority": "P1",
+      "article": "manuals/fusion/nodes/masks/ranges-mask.md",
+      "manual": {
+        "version": "21.1",
+        "chapter": 108,
+        "printed_pages": "2485–2490"
+      },
+      "goal": "Compare Luminance Shadows/Midtones/Highlights,intermediate Mask and downstream Effect Mask result",
+      "status": "captured-local-display-verified",
+      "shots": [
+        {
+          "slug": "graph",
+          "kind": "node-graph",
+          "target": "Ranges Mask",
+          "status": "native-observed"
+        },
+        {
+          "slug": "inspector",
+          "kind": "inspector",
+          "target": "Ranges Mask",
+          "status": "native-observed"
+        },
+        {
+          "slug": "compare",
+          "kind": "output",
+          "target": "Ranges Mask",
+          "status": "native-observed"
+        },
+        {
+          "slug": "shadows-inspector",
+          "kind": "inspector",
+          "target": "Ranges Mask",
+          "status": "native-observed"
+        },
+        {
+          "slug": "shadows",
+          "kind": "output",
+          "target": "Ranges Mask",
+          "status": "native-observed"
+        },
+        {
+          "slug": "midtones-inspector",
+          "kind": "inspector",
+          "target": "Ranges Mask",
+          "status": "native-observed"
+        },
+        {
+          "slug": "midtones",
+          "kind": "output",
+          "target": "Ranges Mask",
+          "status": "native-observed"
+        },
+        {
+          "slug": "highlights",
+          "kind": "output",
+          "target": "Ranges Mask",
+          "status": "native-observed"
+        },
+        {
+          "slug": "mask",
+          "kind": "output",
+          "target": "Ranges Mask",
+          "status": "native-observed"
+        }
+      ],
+      "capture_manifest": "static/img/fusion/captures/S78/capture.json"
     }
   ],
   "publication_batches": [
@@ -4903,27 +5049,56 @@
         "artifacts/fusion-captures/public-batch20-assets.json"
       ],
       "limitations": "Original82a Quality40045306426 superseded by normal incoming-main merge. Whole587/remaining_views incomplete;S75/S76 local acceptance in progress."
+    },
+    {
+      "id": "fusion-native-20261024-21",
+      "cases": [
+        "S75",
+        "S76"
+      ],
+      "reuses": [
+        "R121",
+        "R122"
+      ],
+      "pr": "https://github.com/46slv/collectanea-DB/pull/102",
+      "candidate": "c77ab6e66ae3c058900cbb73d5030a3070b785a7",
+      "main": "f45a55d34fc40e63ac2c8d5497d0a40be1a5a359",
+      "tree": "f65b0a02c47ea0c677a89b6e3d555db4ba8acf62",
+      "quality_run": "https://github.com/46slv/collectanea-DB/actions/runs/40047991648",
+      "pages_run": "https://github.com/46slv/collectanea-DB/actions/runs/40049041600",
+      "merge_owner": "Sol;fresh main/reviews/comments and exact-head Quality alljob/step PASS;expected-head squash;candidate/main tree equal",
+      "public_pages": 3,
+      "public_images": 27,
+      "new_placements": 27,
+      "new_native_crops": 25,
+      "public_asset_hashes": 1215,
+      "result": "PASS",
+      "evidence": [
+        "artifacts/fusion-captures/public-batch21-display-report.json",
+        "artifacts/fusion-captures/public-batch21-assets.json"
+      ],
+      "limitations": "Whole587 and remaining_views incomplete;S77/S78 native/article work continues."
     }
   ],
   "coverage_inventory": {
-    "checked_at": "2026-10-24T01:00:58.965983+00:00",
+    "checked_at": "2026-10-24T01:31:03.732269+00:00",
     "scope": "All manuals/fusion Markdown and MDX pages; review necessity before adding images.",
     "completion_rule": "Every page has an explicit image decision; necessary images are native-observed, embedded, saved to GitHub and public-display-verified. A native example does not verify all article controls.",
     "summary": {
       "total_pages": 587,
-      "with_images": 146,
-      "with_native_examples": 146,
+      "with_images": 148,
+      "with_native_examples": 148,
       "states": {
         "reviewed-no-standalone-image": 26,
         "no-standalone-image-needed": 6,
         "illustrated-reused-example": 72,
-        "capture-planned": 409,
-        "illustrated-native-example": 74
+        "capture-planned": 407,
+        "illustrated-native-example": 76
       },
       "decisions": {
         "no-standalone-image-needed": 32,
-        "image-required": 146,
-        "capture-needed": 409
+        "image-required": 148,
+        "capture-needed": 407
       }
     },
     "pages": [
@@ -5410,12 +5585,13 @@
         "article": "manuals/fusion/learn/02-data/mask.md",
         "title": "マスク（Mask）",
         "kind": "concept",
-        "image_count": 5,
+        "image_count": 7,
         "native_cases": [
           "S33"
         ],
         "reused_cases": [
-          "S07"
+          "S07",
+          "S77"
         ],
         "planned_cases": [],
         "state": "illustrated-native-example",
@@ -13056,13 +13232,18 @@
         "article": "manuals/fusion/nodes/masks/bitmap-mask.md",
         "title": "Bitmap Mask",
         "kind": "node",
-        "image_count": 0,
-        "native_cases": [],
+        "image_count": 10,
+        "native_cases": [
+          "S77"
+        ],
         "reused_cases": [],
         "planned_cases": [],
-        "state": "capture-planned",
-        "decision": "capture-needed",
+        "state": "illustrated-native-example",
+        "decision": "image-required",
         "reason": "本文の対象機能: Bitmap Maskは、ImageのchannelやID情報からMaskを作り、threshold・softness・combineも調整できるNode。。S07のEllipseではB-Spline Tension、Bitmap channel/threshold、Mask Paint strokeを示せない。",
+        "remaining_views": [
+          "SoftEdge/Filter/Level変更・PaintMode/別Mask合成・FitInput/Center/異寸法・ID/Coverage・Shape/sRender・実写/数値/性能"
+        ],
         "required_views": [
           "対象Node名と実際の配線が読めるGraph",
           "対象Nodeを選択した固有Inspector（本文で示すControlを含む）",
@@ -13088,7 +13269,8 @@
             "section": "入力",
             "role": "入力と結果を示す箇所"
           }
-        ]
+        ],
+        "audit_note": "S77 fixed Image-to-Mask conversion example;partial retained."
       },
       {
         "article": "manuals/fusion/nodes/masks/common-controls.md",
@@ -13138,10 +13320,12 @@
         "article": "manuals/fusion/nodes/masks/index.md",
         "title": "Maskノード",
         "kind": "index",
-        "image_count": 2,
+        "image_count": 4,
         "native_cases": [],
         "reused_cases": [
-          "S07"
+          "S07",
+          "S77",
+          "S78"
         ],
         "planned_cases": [],
         "state": "illustrated-reused-example",
@@ -13262,13 +13446,18 @@
         "article": "manuals/fusion/nodes/masks/ranges-mask.md",
         "title": "Ranges Mask",
         "kind": "node",
-        "image_count": 0,
-        "native_cases": [],
+        "image_count": 9,
+        "native_cases": [
+          "S78"
+        ],
         "reused_cases": [],
         "planned_cases": [],
-        "state": "capture-planned",
-        "decision": "capture-needed",
+        "state": "illustrated-native-example",
+        "decision": "image-required",
         "reason": "本文の対象機能: 画像の暗部・中間調・明部の範囲を曲線で調整し、効果の適用範囲をMaskとして出力するノード。。S07 Ellipseは各Mask固有の作成・選択・List/色連結/curveを示さない。",
+        "remaining_views": [
+          "Spline手動編集・Simple/Smooth切替・他Channel・Invert・SoftEdge/Level変更・別Mask合成・異寸法・実写/数値/性能"
+        ],
         "required_views": [
           "対象名と実接続が読めるGraph",
           "対象自身を選択したInspectorの該当Control",
@@ -13293,7 +13482,8 @@
             "role": "入力/結果または実UIの具体箇所"
           }
         ],
-        "hold_conditions": []
+        "hold_conditions": [],
+        "audit_note": "S78 fixed Luminance three ranges;partial retained."
       },
       {
         "article": "manuals/fusion/nodes/masks/rectangle-mask.md",
@@ -24218,8 +24408,9 @@
       "images": [
         "compare.png"
       ],
-      "status": "embedded-local-display-verified",
-      "scope": "One fixed comparison linked to full native graph/Inspector/conditions in node article."
+      "status": "published-display-verified",
+      "scope": "One fixed comparison linked to full native graph/Inspector/conditions in node article.",
+      "published_batch": "fusion-native-20261024-21"
     },
     {
       "id": "R122",
@@ -24228,8 +24419,40 @@
       "images": [
         "alpha.png"
       ],
+      "status": "published-display-verified",
+      "scope": "One fixed comparison linked to full native graph/Inspector/conditions in node article.",
+      "published_batch": "fusion-native-20261024-21"
+    },
+    {
+      "id": "R123",
+      "article": "manuals/fusion/nodes/masks/index.md",
+      "source_case": "S77",
+      "images": [
+        "compare.png"
+      ],
       "status": "embedded-local-display-verified",
-      "scope": "One fixed comparison linked to full native graph/Inspector/conditions in node article."
+      "scope": "Image-to-Mask conversion and downstream effect-area result;full conditions in Bitmap Mask article."
+    },
+    {
+      "id": "R124",
+      "article": "manuals/fusion/learn/02-data/mask.md",
+      "source_case": "S77",
+      "images": [
+        "mask.png",
+        "compare.png"
+      ],
+      "status": "embedded-local-display-verified",
+      "scope": "Image-to-Mask conversion and downstream effect-area result;full conditions in Bitmap Mask article."
+    },
+    {
+      "id": "R125",
+      "article": "manuals/fusion/nodes/masks/index.md",
+      "source_case": "S78",
+      "images": [
+        "compare.png"
+      ],
+      "status": "embedded-local-display-verified",
+      "scope": "Luminance Highlights Mask and downstream Background result;other ranges in linked article."
     }
   ]
 }
