@@ -14,99 +14,60 @@ outputs: []
 tasks: [paint, cleanup, clone]
 product_scope: fusion
 suite_surfaces: [fusion]
-updated: "2026-10-10"
+updated: "2026-10-24"
 ---
 
 # Copy Rectangle（Paintの矩形コピー）
 
-**Copy Rectangleは、[Paint](./paint.md)の内部で四角い領域を指定し、元画像の別の位置や別画像の画素をそこへコピーする描画要素**です。例えば、壁に貼られた小さな長方形のラベルを消す場合、ラベルのない壁の模様を矩形の範囲に移して覆えます。単色で塗るのと違い、元の明暗や模様を利用して補修できます。
+Copy Rectangleは[Paint](./paint.md)の内部で矩形の範囲を作り、別の位置の画素をそこへ複製する描画要素です。壁に貼られた長方形のラベルを、近くの壁の画素で覆うような補修に使います。FlowではPaintの画像出力を後段へ渡します。
 
-DaVinci Resolve 21.1 Reference Manualでは、Paintのツール一覧に**Copy Circle/Rectangle**、ショートカットの節に**Copy Rect/Ellipse**という表記があります。本記事はそのうち矩形のコピー範囲を扱います。「Copy Rectangle」という独立したFlowノードが存在するという意味ではありません。
+## 入力とコピー元
 
-## 入力と出力
-
-Copy Rectangleは**Paint内部の描画要素であり、自分専用のFlow端子を持ちません**。画像を受け渡すのは親のPaintノードです。
-
-- **PaintのInput（オレンジ）**：必須の2D画像入力。映像そのものか、別レイヤーとして描画するための透明なBackgroundを接続します。入力画像の解像度が作業キャンバスの大きさになります。
-- **PaintのEffect Mask（青）**：任意のマスク入力。Paintの適用範囲を制限します。Copy Rectangleがコピーする画像の参照元ではありません。
-- **複製元画像**：Paintの入力画像をそのまま参照するか、別の画像ノードをPaintの**Source Tool**に指定します。コピー形状では**Fill TypeをImage**に設定します。
-- **Paintの出力**：矩形内のコピー結果を描き込んだ2D画像。後段のMerge、Color系ノード、MediaOutなどへ接続できます。
-
-接続例は次のとおりです。Copy RectangleをPaintの後段に別ノードとして置くわけではありません。
+描画先の画像をPaintのInputへ接続し、Paintの出力をMediaOutなどへ渡します。PaintのEffect Maskは処理範囲を制限する入力で、複製元の入力ではありません。
 
 ~~~text
-MediaIn → Paint（内部でCopy Rectangleを作成）→ MediaOut
+Loader / MediaIn → Paint → MediaOut
 ~~~
 
-### コピー元と描画先は別の役割
+21.1 Manual Chapter 80のShape Drawing Tools節は、Copy系の形状について、元ノードをPaintへ接続し、Fill TypeをImageにするよう説明しています。今回の実機では、この接続とInspectorの「塗りつぶしの種類：イメージ」で、同じ入力画像内からコピーできました。
 
-Paintは通常、入力に接続した画像をクローン元として利用します。別画像や別時刻の画像を明示的に参照したいときは、InspectorのSource Toolで参照ノードを指定します。
+このCopy要素の「ソース」はX／Y座標です。別画像を指定するSource Tool欄は、今回のCopy Rectangleと親Paintには表示されていません。Clone Apply ModeのSource Tool説明をそのままCopy Rectangleの操作手順へ置き換えないでください。別画像や透明Background上へのコピーは未確認です。
 
-特に**透明なBackgroundをPaintの入力にする場合**は、透明な画素を複製しても映像の補修にはなりません。修正対象のMediaInなどをSource Toolへ指定してください。MergeのBackgroundへMediaInをつないだだけでは、PaintのSourceが自動でその映像へ切り替わるわけではありません。
+## 実機例：白いパッチを矩形内へコピーする
 
-## 矩形コピーの作り方と編集
+<!-- capture-case:S94 -->
 
-### Fill TypeとOffset
+Resolve Studio21.1.0.14／Windows、1920×1080、Viewer40%で撮影しました。LoaderのチャートをPaintへ入力し、Paintの画像出力をMediaOutへ接続しています。左が入力、右が描画後の画像です。
 
-21.1 Manual Chapter 80の「Shape Drawing Tools」では、Copy系の形状は**画像を複製元として接続し、Fill Type = Image**にするよう説明されています。これが色付きのRectangleとの違いです。
+[![LoaderからPaintを経てMediaOutへ渡す実機Graph、CopyRectangleはPaint内部に保持](/img/fusion/captures/S94/graph.png)](/img/fusion/captures/S94/graph.png)
 
-**Offset**は、コピー元画像のどの場所の画素を矩形へ持ってくるかを調整する値です。矩形を覆いたい不要物の位置に置き、Offsetを変えてきれいな画素が収まる場所を探します。21.1 ManualではCopy Circle/RectangleのOffsetをアニメーション可能としています。
+[![実機CopyRectangleのInspector、今回変更した座標と描画設定を表示](/img/fusion/captures/S94/inspector.png)](/img/fusion/captures/S94/inspector.png)
 
-矩形の位置と大きさはViewerで作成・編集できます。ショートカット一覧には、Copy Rect/Ellipseを**Shiftを押しながらドラッグすると形状が制約される**操作が記載されています。制約の細かな挙動や矩形固有のInspector名称・数値範囲は実機未確認のため、ここでは固定しません。
+ViewerでCopy Rectangleを選び、赤いパッチの上へ矩形をドラッグしました。描画後にSourceをX0.875／Y0.3125、WidthとHeightを各0.12へ変更しています。CenterはX約0.1197916／Y約0.2777778、塗りつぶしの種類はイメージ、Angle0、Size1、Softness0、Opacity1です。
 
-### 表示期間
+[![フレーム0、右の赤いパッチへ白いパッチとその端の暗い画素を矩形内に複製した実機比較](/img/fusion/captures/S94/compare.png)](/img/fusion/captures/S94/compare.png)
 
-Copy Rectangleの初期表示期間は**コンポジション全体**です。1フレームの補修だけが必要なら、**Keyframes Editorでその描画要素の表示期間を短く**します。これはOffsetを変えて別の画素を取る操作とは独立しています。
+右の矩形には、白いパッチだけでなく右端の暗い画素も入っています。別の位置にある画像の画素を複製した結果で、白の単色で覆うRectangleとは異なります。
 
-[Clone Multistroke](./clone-multistroke)は初期表示が1フレームで描画後の個別編集もできません。一方、Copy RectangleなどのShape Drawing Toolsは、作成後に形状を編集でき、表示期間もKeyframes Editorで調整できます。繰り返し位置合わせをする補修に向きます。
+[![フレーム119でもPaint内部のCopyRectangleによる描画結果が残る実機比較](/img/fusion/captures/S94/frame119.png)](/img/fusion/captures/S94/frame119.png)
 
-## 制作例1：壁に貼られた矩形ラベルを隠す
+フレーム0と119で同じ結果が残ることを確認し、最後は0へ戻して保存しました。全120フレームを個別に検査した例ではありません。内部REGIDは`CopyRectangle`、描画要素は`CopyRectangle1`でした。
 
-撮影した壁に小さなラベルが写り、その横には同じ材質・明るさの壁があるとします。
+別画像のSource指定、透明キャンバス、反転、Softness、参照位置や形状のアニメーション、期間変更、Shiftによる形状制約、実写、筆圧、他OS・Edition差と性能は未確認です。`verification: partial`を維持します。
 
-1. **MediaIn → Paint → MediaOut**を接続し、Paintの出力をViewerに表示します。
-2. Paintのツールバーで矩形のCopy系描画を選び、ラベル全体を覆う範囲を作ります。必要以上に広く取らず、四辺付近の模様も見ながら調整します。
-3. Copy形状の**Fill TypeをImage**に設定します。別の画像をコピーしたい場合は、PaintのSource Toolへその画像ノードを指定します。
-4. **Offset**を調整し、ラベルのない壁の画素を矩形内へ移します。壁の目地やグラデーションがつながる位置を探します。
-5. 数フレーム進めて、コピーした模様が不自然に動かないか確認します。必要なら矩形の位置とOffsetをアニメーションさせます。
-6. ラベルが現れる区間だけの補修なら、Keyframes Editorでコピー要素の表示期間を指定します。
+[再現用Graph](/img/fusion/captures/S94/fixture.comp) · [撮影条件と確認範囲](/img/fusion/captures/S94/capture.json)
 
-この補修は**周辺の画素をコピーする処理**であり、ラベルの向こう側を推定して復元する機能ではありません。壁に遠近が付く、カメラが動く、光が変化する場合は、矩形の移動だけでは境界や模様がずれることがあります。
+## 位置・形状・期間
 
-## 制作例2：補修を透明レイヤーに分ける
+コピー先の矩形はCenter、Width、Heightで指定し、Sourceで参照位置を変えます。補修では元画像の模様や明暗が周囲とつながる位置を探します。Shiftドラッグによる形状制約や、Keyframes Editorによる期間変更もManualに記載されていますが、今回の実機例では試していません。
 
-後から補修の合成量を変えたい場合は、コピーした画素だけを別レイヤーに描きます。
+ManualがOffsetとして説明する参照位置はアニメーション可能です。今回確認したのは静止画像内のSource変更までで、動く対象や別時刻の画像参照を確認した例ではありません。
 
-~~~text
-Background（同じ解像度、Alpha 0）→ Paint ─→ MergeのForeground
-MediaIn ─────────────────────────────────→ MergeのBackground
-   └─────────→ PaintのSource Toolにも指定
-Merge → MediaOut
-~~~
-
-1. 修正対象の映像と同じ解像度で、**Alphaを0**にしたBackgroundを作ります。
-2. BackgroundをPaintのInputへ接続し、Paintの出力をMergeのForegroundへ、MediaInをMergeのBackgroundへつなぎます。
-3. **PaintのSource ToolにMediaInを指定**し、Copy RectangleのFill TypeをImageにします。
-4. Viewerで矩形を作り、Offsetでコピー元の画素を合わせます。
-5. Mergeの出力で継ぎ目を確認します。Mergeの合成量を調整する場合も、コピーした位置と透明部分のAlphaが意図どおりか確認します。
-
-透明Backgroundを使う構成は21.1 ManualのPaint章に記載されています。Copy Rectangleを使って矩形の補修だけを分けるのは、その構成を応用した制作例です。
-
-## 似た描画要素との使い分け
-
-- [Copy Ellipse](./copy-ellipse)：円・楕円の範囲から画素を複製します。丸いマーカーや、四隅のない補修範囲に向きます。
-- [Copy Polyline](./copy-polyline)：自由な輪郭を制御点で囲んで複製します。曲がった境界や斜めの輪郭を細かく合わせたい場合に使います。
-- [Circle](./circle-stroke)：円形の色や塗りを描く要素であり、別の位置の画素をコピーするものではありません。
-- [Clone Multistroke](./clone-multistroke)：多数の小さなブラシ補修を素早く行いますが、描いた個々の線は後から編集できません。
-- [Paint Group](./paint-group)：複数の描画要素をまとめて移動・調整するときに使います。
-
-Copy Rectangleは**「矩形領域へ何を複製するか」**を決めるPaint内部の操作です。別ノードの処理範囲を制限するMask Rectangleとは、出力するデータと接続先が異なります。Paint全体の選び方は[カテゴリ概要](./index.md)を参照してください。
+円形の範囲には[Copy Ellipse](./copy-ellipse)、自由な輪郭には[Copy Polyline](./copy-polyline)、ブラシで描く短いコピーには[Clone Multistroke](./clone-multistroke)を使います。
 
 ## 出典と確認範囲
 
-- Blackmagic Design『DaVinci Resolve 21.1 Reference Manual』（2026年9月）、Chapter 80「Paint」pp.1748–1751：Paintの画像入力、Source Tool、Shape Drawing Tools、Copy系の**Fill Type = Image**と後編集。
-- 同Chapter 113「Paint Node」pp.2638–2640：Input／Effect Mask、透明Backgroundの構成、Copy Circle/Rectangleの**animatable Offset**と全期間表示。
-- 同Chapter 113 pp.2645：Copy Rect/Ellipseの**Shift＋ドラッグ**操作。
-- 同Chapter 80 p.1766：Paintは通常Input画像をクローン元に利用し、別のノードをSource Toolに指定できる説明。
+- Blackmagic Design『DaVinci Resolve 21.1 Reference Manual』（2026年9月）、Chapter 80「Paint」p.1751：Shape Drawing Tools、元ノードの接続、Fill Type = Image。
+- 同Chapter 113「Paint Node」pp.2638–2645：Paintの入出力、Copy系のOffset・表示期間、形状制約とコピー元表示。
 
-このページの図と操作手順は上記Manualの説明を組み合わせた制作例です。**Resolve 21.1実機でのツールバーの正確な表記、内部REGID、矩形固有のInspector全項目・初期値・範囲、Edition差は未検証**のため、`verification: partial`を維持します。
+掲載したGraph、Inspector、Sourceと幅・高さの変更後の出力、フレーム0／119を実機確認しました。全Controlの初期値・値域や上記未確認範囲を含め、`verification: partial`を維持します。

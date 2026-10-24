@@ -15,7 +15,7 @@ outputs: []
 tasks: [paint, cleanup]
 product_scope: fusion
 suite_surfaces: [fusion]
-updated: "2026-10-10"
+updated: "2026-10-24"
 ---
 
 # Fill（つながった色領域を塗る）
@@ -97,10 +97,38 @@ Loader / MediaIn（透明背景のアイコン）→ Paint（Fill）→ MediaOut
 
 Paint内部のほかの描画方法との選び分けは[Paintカテゴリ概要](./index.md)を参照してください。
 
+## 実機例：基準点を移して塗る領域を変える
+
+<!-- capture-case:S95 -->
+
+Resolve Studio21.1.0.14／Windows、1920×1080、Viewer40%で撮影しました。LoaderのチャートをPaintへ入力し、Paintの画像出力をMediaOutへ接続しています。左が入力、右が描画後の画像です。
+
+[![LoaderからPaintを経てMediaOutへ渡す実機Graph、FillはPaint内部に保持](/img/fusion/captures/S95/graph.png)](/img/fusion/captures/S95/graph.png)
+
+[![実機FillのInspector、今回変更した座標と描画設定を表示](/img/fusion/captures/S95/inspector.png)](/img/fusion/captures/S95/inspector.png)
+
+Fillを選び、赤いパッチの内部をクリックしました。実際に描いたFill1を選択するとCenter X0.11328125／Y0.3125、Color Space RGB、Channel RGB、Range0.1、Soft Edgeの範囲0.05、白のRGBA各1、Opacity1が表示されました。下の出力では赤いパッチだけが白くなり、隣の黄色いパッチは残っています。
+
+[![フレーム0、Fillの基準点を赤いパッチに置くと、その領域だけが白くなる実機比較](/img/fusion/captures/S95/compare.png)](/img/fusion/captures/S95/compare.png)
+
+同じFill1のCenterをX0.27／Y0.3125へ移すと、今度は黄色いパッチが白くなり、赤いパッチは入力の色へ戻りました。Color SpaceやChannelを変えずに、判定の基準点を移した比較です。
+
+[![FillのCenter Xを0.27へ移すと黄色いパッチだけが白くなり、赤は元の色に戻る実機比較](/img/fusion/captures/S95/yellow.png)](/img/fusion/captures/S95/yellow.png)
+
+最後はCenterをX0.11328125／Y0.3125へ戻しています。
+
+[![フレーム119でもPaint内部のFillによる描画結果が残る実機比較](/img/fusion/captures/S95/frame119.png)](/img/fusion/captures/S95/frame119.png)
+
+フレーム0と119で同じ結果が残ることを確認し、最後は0へ戻して保存しました。全120フレームを個別に検査した例ではありません。内部REGIDは`Fill`、描画要素は`Fill1`でした。
+
+Color Space・Channel・Range・Soft Edgeの変更、Alphaを使った判定、同じ色の離れた複数領域、期間変更、実写、筆圧、他OS・Edition差と性能は未確認です。`verification: partial`を維持します。
+
+[再現用Graph](/img/fusion/captures/S95/fixture.comp) · [撮影条件と確認範囲](/img/fusion/captures/S95/capture.json)
+
 ## 出典と確認範囲
 
 - Blackmagic Design『DaVinci Resolve 21.1 Reference Manual』（2026年9月）、Chapter 113「Paint Node」**p.2640**：FillがWand Maskに似た方式で、選んだ色チャンネルに基づき似た色の隣接画素を塗ること、初期表示期間がコンポジション全体でKeyframes Editorから変更できること。
 - 同Chapter 113 **pp.2638、2642–2643**：Paintの画像入力・Effect Mask、InspectorのColor Space / Channel、Color Apply Modeの説明。
 - 同Chapter 80「Paint」**pp.1747–1749、1752–1753**：PaintとMask Paintの違い、キャンバス解像度、Paintの描画色とApply Modeの扱い。
 
-このページは21.1 Manualに記載された挙動を基に、接続例と使い分けを独自に説明しています。Fill固有の内部REGID、Color Space / Channelの全選択肢と初期値、個別の判定閾値、Free／Studioの差、21.1実機での表示・塗り結果は未検証のため、verificationはpartialです。
+このページは21.1 Manualに記載された挙動を基に、接続例と使い分けを独自に説明しています。S95で内部REGID `Fill`、掲載したRGB／RGBと範囲設定、Center変更による塗り領域、フレーム0／119の出力を実機確認しました。Color Space／Channelの全選択肢、判定閾値の変更、Free／Studio差と上記未確認範囲は残るため、`verification: partial`を維持します。

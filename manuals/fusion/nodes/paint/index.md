@@ -149,6 +149,28 @@ Clone Multistrokeはブラシで短い線を描き、Copy PolylineとCopy Ellips
 
 [CopyEllipseのGraph・Inspector・表示期間](./copy-ellipse)。
 
+### コピー・領域の塗り・グループ移動
+
+次の3例は、同じ入力チャートを使った実機結果です。Copy Rectangleは画素の複製、Fillは基準点からの塗り、Paint Groupは2つの描画をまとめた移動です。
+
+<!-- capture-reuse:R144 -->
+
+[![入力チャートとPaint内部のCopyRectangleを使った画像出力の実機比較](/img/fusion/captures/S94/compare.png)](/img/fusion/captures/S94/compare.png)
+
+[CopyRectangleのGraph・Inspector・フレーム119](./copy-rectangle)。
+
+<!-- capture-reuse:R145 -->
+
+[![入力チャートとPaint内部のFillを使った画像出力の実機比較](/img/fusion/captures/S95/compare.png)](/img/fusion/captures/S95/compare.png)
+
+[FillのGraph・Inspector・フレーム119](./fill)。
+
+<!-- capture-reuse:R146 -->
+
+[![入力チャートとPaint内部のPaintGroupを使った画像出力の実機比較](/img/fusion/captures/S96/compare.png)](/img/fusion/captures/S96/compare.png)
+
+[PaintGroupのGraph・Inspector・フレーム119](./paint-group)。
+
 ## 出典と確認範囲
 
 Blackmagic Design『DaVinci Resolve 21.1 Reference Manual』（2026年9月）、Chapter 80「Paint」pp.1747–1751、およびChapter 113「Paint Node」pp.2638–2643に基づきます。PaintとMask Paint、入出力、透明キャンバスの構成、Source、描画要素の分類、表示期間と後編集の違いを確認しました。

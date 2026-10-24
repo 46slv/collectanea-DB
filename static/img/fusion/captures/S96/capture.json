@@ -1,0 +1,211 @@
+{
+  "schema_version": 1,
+  "case": "S96",
+  "article": "manuals/fusion/nodes/paint/paint-group.md",
+  "manual": {
+    "version": "21.1",
+    "chapter": 113,
+    "printed_pages": "2638–2645",
+    "additional_chapter": 80,
+    "additional_printed_pages": "1751–1760"
+  },
+  "runtime": {
+    "version": "21.1.0.14",
+    "edition": "Studio",
+    "os": "Windows-11-10.0.26200-SP0",
+    "ui_language": "ja-JP (some Shape controls remain English)"
+  },
+  "captured_at": "2026-10-24T05:30:10.568930+00:00",
+  "project": "Collectanea_Captures_20261023_Sol",
+  "timeline": "S96_capture",
+  "frame": 0.0,
+  "resolution": [
+    1920,
+    1080
+  ],
+  "color_management": {
+    "colorScienceMode": "davinciYRGB",
+    "colorSpaceTimeline": "Rec.709 (Scene)",
+    "colorSpaceTimelineGamma": "",
+    "colorSpaceOutput": "Rec.709 (Scene)",
+    "colorSpaceOutputGamma": "ACEScc",
+    "separateColorSpaceAndGamma": "0",
+    "isAutoColorManage": "0",
+    "timelineResolutionWidth": "1920",
+    "timelineResolutionHeight": "1080",
+    "timelineFrameRate": 24.0,
+    "timelinePlaybackFrameRate": "30"
+  },
+  "viewer": {
+    "zoom_percent": 40,
+    "channel": "Color",
+    "background": "checkerboard for transparent pixels",
+    "note": "Viewer screenshots are display evidence, not colorimetric exports."
+  },
+  "graph": "fixture.comp",
+  "settings": "readback.json",
+  "source": {
+    "file": "screen.png",
+    "size": [
+      3352,
+      1910
+    ],
+    "sha256": "f44ed6db6028db2006411a7d083d38543fcf48a71c52a8ece99808aaf298b961"
+  },
+  "shots": [
+    {
+      "file": "graph.png",
+      "source": "screen.png",
+      "source_sha256": "f44ed6db6028db2006411a7d083d38543fcf48a71c52a8ece99808aaf298b961",
+      "frame": 0,
+      "crop_xyxy": [
+        770,
+        1300,
+        2050,
+        1450
+      ],
+      "resampled": false,
+      "sha256": "65dae31b90f03771a53d4b4a6d164b51ab90074d663fb104eccd8fd73ee8c533",
+      "viewer_contents": "Left input chart / Right Paint result,both1920x1080/40%",
+      "viewer_guides": true,
+      "active_tool": "Paint1"
+    },
+    {
+      "file": "inspector.png",
+      "source": "screen.png",
+      "source_sha256": "f44ed6db6028db2006411a7d083d38543fcf48a71c52a8ece99808aaf298b961",
+      "frame": 0,
+      "crop_xyxy": [
+        2830,
+        120,
+        3352,
+        420
+      ],
+      "resampled": false,
+      "sha256": "2d1e5f886c5478a3e097048df6a12be9297bf2084e31ae9124ae69548b9fda96",
+      "viewer_contents": "Left input chart / Right Paint result,both1920x1080/40%",
+      "viewer_guides": true,
+      "active_tool": "Paint1"
+    },
+    {
+      "file": "compare.png",
+      "source": "screen-clean0.png",
+      "source_sha256": "eb21aedd21e13136360a5e3e59de7709754e4472a6a2c6b798e03cd31ae85c14",
+      "frame": 0,
+      "crop_xyxy": [
+        1146,
+        65,
+        2830,
+        725
+      ],
+      "resampled": false,
+      "sha256": "bd881c7f8b1759893420b4c59aace2a44037c160858f48ee4f4ffcd350aa324c",
+      "viewer_contents": "Left input chart / Right Paint result,both1920x1080/40%",
+      "viewer_guides": false,
+      "active_tool": "MediaOut1"
+    },
+    {
+      "file": "frame119.png",
+      "source": "screen-clean119.png",
+      "source_sha256": "a60b91ab53d1d2028da4f373d83b8b8248688b53c90a32a98a344706d17ed6a5",
+      "frame": 119,
+      "crop_xyxy": [
+        1146,
+        65,
+        2830,
+        725
+      ],
+      "resampled": false,
+      "sha256": "df1e79232db9fcbed8b6c3a6193fad09897bade316038c0298229f2dce41f1d2",
+      "viewer_contents": "Left input chart / Right Paint result,both1920x1080/40%",
+      "viewer_guides": false,
+      "active_tool": "MediaOut1"
+    },
+    {
+      "file": "before.png",
+      "source": "screen-before.png",
+      "source_sha256": "d149f80611cbe4607e9eee442dd98b94e64516c6b93dc278182a19f9e854ae86",
+      "frame": 0,
+      "crop_xyxy": [
+        1146,
+        65,
+        2830,
+        725
+      ],
+      "resampled": false,
+      "sha256": "deaad55ce18d5f8e46e4b60874372f78354596ca7c7db83c2733f2c6246579f8",
+      "viewer_contents": "Left input chart / Right Paint result,both1920x1080/40%",
+      "viewer_guides": true,
+      "active_tool": "Paint1"
+    }
+  ],
+  "acceptance": {
+    "gui": "PASS: owner visually inspected node connections, selected Inspector, and output",
+    "article_display": "Local/public outcomes recorded after execution in docs/fusion-screenshot-candidates.json per-case status and publication_batches;capture provenance fixed."
+  },
+  "unverified": [
+    "Free edition and other platforms",
+    "All parameter ranges and performance",
+    "Angle・Sizeの変更、中心だけの変更、サブグループ操作、グループ解除、Multistroke系のグループ化、Tracker接続、アニメーション",
+    "Real footage,tablet,all control ranges/performance,portable Graph reimport",
+    "Exported portable composition reimport"
+  ],
+  "parameter_readback_scope": "Broad tool GetInputList/GetInput NOT_RUN. REGID/project/runtime identity,native Inspector and exported text only. Existing exported Point/Number keys changed with guard;no Image/Mask/ScriptVal payload read.",
+  "gui_authoring": {
+    "host": {
+      "pid": 20156,
+      "hwnd": 82647722,
+      "source_pixels": [
+        3352,
+        1910
+      ]
+    },
+    "modifier": "PaintGroup1",
+    "regid": "PaintGroup",
+    "visible_flow_tools": 3,
+    "delivery": "synthetic Cua,physical input NOT_PROVEN;native GUI/export are result evidence"
+  },
+  "restoration": "PASS:frame0,both40%,owned scratch saved,native final visually inspected",
+  "reproduction_action": "build creates EMPTY Paint scaffold;native style/drawing/grouping and bounded coordinate changes required. Never rebuild saved cases.",
+  "native_inspector_values": {
+    "Center": [
+      0.458333343267441,
+      0.32
+    ],
+    "Angle": 0,
+    "Size": 1,
+    "ShowSubgroupControls": false
+  },
+  "group_export": {
+    "regid": "PaintGroup",
+    "children": [
+      "Circle1",
+      "Circle2"
+    ],
+    "Center_before": [
+      0.458333343267441,
+      0.520833313465118
+    ],
+    "Center_after": [
+      0.458333343267441,
+      0.32
+    ],
+    "GroupCenter": [
+      0.458333343267441,
+      0.520833313465118
+    ]
+  },
+  "gui_sequence": "Circle2205,110;drags2300,400–2340,440 and2500,400–2540,440;Select2048,110;marquee2230,320–2580,465;PaintGroup2396,110;native/export group accepted. CenterY changed once via exact exported Point key.",
+  "state_variants": {
+    "screen-before.png": "group created at originalCenter,0/Paint",
+    "screen.png": "CenterY.32,0/Paint",
+    "screen-clean0.png": "CenterY.32,0/MediaOut",
+    "screen-clean119.png": "CenterY.32,119/MediaOut"
+  },
+  "reproduction": {
+    "fixture_sha256": "378cb60c4ee4ff222db19e535a18bfdc0523f9245c3d7d09026ef24429159164",
+    "readback_sha256": "382fc8924ece68ceb8edecf9a8a216352e0f963872698c6f974a8bdc5451d962",
+    "paths": "Comp:/../_fixtures/ for bundled synthetic fixtures",
+    "reimport": "NOT_RUN: accepted GUI evidence precedes export path normalization"
+  }
+}

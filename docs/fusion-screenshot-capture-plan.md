@@ -1,6 +1,6 @@
 # Fusion 21.1 スクリーンショット計画
 
-更新: 2026-10-24。162ページ・598原画crop・934掲載は公開確認済み。S91／S92を実機確認・保存し、Copy系の撮影へ継続。Fusion全体は未完了。
+更新: 2026-10-24。165ページ・611原画crop・950掲載を公開確認済み。S94–S96を次の掲載候補へ採用し、S97 Channel Booleansもnative確認まで継続。Fusion全体は未完了。
 
 撮影候補は [fusion-screenshot-candidates.json](./fusion-screenshot-candidates.json) に記録する。記事の説明基準は [Fusion Authoring Contract](./fusion-authoring-contract.md)、技術出典はDaVinci Resolve 21.1 Reference Manual（2026年9月）。公式画像の転載ではなく、実機から独自に撮影する。
 
@@ -29,14 +29,14 @@
 ## Active Checkpoint — 2026-10-24
 
 - Mission / Owner: Fusion全体の必要箇所を実機撮影→記事掲載→GitHub→公開確認まで継続。Sol、制作元task `01a1683b-3067-7a40-892a-47a3b30d50b2`が設計・GUI・実装・統合・検証のsingle writer。ユーザーは全体継続・必要なGitHub操作・silvelへの報告を明示許可。Resolve GUIの別writerなし。新規worker/自動Rolloverは不要。
-- Canonical checkout: C:/Users/shiro/Documents/Codex/2026-10-23/task-19/collectanea-screenshot-integration、branch integration/fusion-paint-copy-native-20261024、base ae7c81549a59fd315d2314327c22eaee9dd7001a。incoming Viewer記事を通常fast-forward、PR113公開receipt保持、S91 onwardへ継続。pushは明示branch。
-- Public PASS: S01–S90 / R01–R140、162ページ・598 unique crop・934掲載。全587/未図示393/画像不要32、remaining_views未完、verification partial維持。exact identityはpublication_batches、原画/設定/未確認範囲は各capture.json。
-- Latest receipt: PR113 candidate8654d8fcd7e6a4cf848fa3229fa8ef329bc47f10、main dcad745af1ed24b7a9f3fcadc9361b63d64017ea、tree ff4e2a9005dc470ac6e598ed0b78813f100df673一致。Quality40061204139全job/step、Pages40061963498 build/deploy全step成功。Sol fresh main/head/reviews/comments→expected-head squash→MERGED/tree一致。公開4記事18画像PC/390px/decode/Alt/原寸リンク/overflow PASS、1415全素材HTTP/hash PASS。public-batch27-display-report/assets、8画面保存、Rectangle公開画面を実見・会話へ掲載。
+- Canonical checkout:C:/Users/shiro/Documents/Codex/2026-10-23/task-19/collectanea-screenshot-integration、branch integration/fusion-paint-final-native-20261024、base8d217dd9bbc93828f23c3b540b40cf6f6cb53a99。incoming DifferenceKeyerを通常fast-forward、PR115公開receipt保持、S94–S96へ継続。pushは明示branch。
+- Public PASS:S01–S93/R01–R143、165ページ・611unique crop・950掲載。全587/未図示390/画像不要32、remaining_views未完、verification partial維持。各exact identityはpublication_batches、原画/設定/未確認範囲は各capture.json。
+- Latest receipt:PR115 candidate4ae125a6f1c8f5b7148e3ca6fc93a519ffdc3504、main8215d118f4187b054fba43cf7a5e15bc0ef491bc、tree8eb0aea25d5f4c70347a10365ffc8d15b26500a8一致。Quality40065516616/Pages40066337704全job/step PASS。fresh main/head/reviews/comments→Sol expected-head squash→MERGED。公開4記事21画像PC/390px/decode/Alt/原寸リンク/overflow PASS、1447全素材HTTP/hash PASS。public-batch28-display-report/assetsと8画面保存、CopyEllipse公開画面を実見・会話掲載。
 - Batch16 PUBLIC PASS: S58–S61/R99–R102、28新crop+12再利用。PR91 initiala18bc59はincoming PR90 Banding/main5d53be9の通常mergeでf452e117へ更新。Reference2パスのincoming差分・祖先を確認しlocalff-only。旧Quality40035383198 cancelledはsuperseded。既存Integratorのmergeをfresh readback、二重mergeなし。
 - Validation/publication contract: scoped prepare/finalize/verifyへcase/entry IDを渡し既存caseを上書きしない。無描画/無拡大crop、source/crop/Graph/readback hashes。Ready integration PRのexact-head Quality全job/step→fresh main/reviews/comments→expected-head merge→Pages→公開UI/全素材hash。incoming mainは通常merge→新head CI、Integratorが先に統合していればreadbackだけ。CI中は凍結candidateへ追加しない。
-- Source/work stage: canonical helper/work S96。S91–S93各build1回、native確認後13crop＋3reuse採用、ローカル表示・公開未。S94–S96未build。広い入力値列挙は省略。S93診断のみexact CopyEllipse1/Paint1のmetadataとFillType/Blend/Opacity/ShowSourceの限定Number読取、payloadなし。
+- Source/work stage:canonical helperS96/workS98。S94–S96 native確認・14crop＋3reuse採用、local/public未。S97 ChannelBoolean native/export/限定Number readbackまで確認、adopt未。広い入力値列挙省略、Image/Mask/3D/ScriptVal payload評価なし。
 - Native protection: 起動前processなし→Project Managerを実機確認してowned projectだけを開いた。production project/preferences、keyboard/settingsは変更しない。真の終了時はowned scratchを保存しProject Managerへ戻す。旧本番project名を復元先へ流用しない。Viewer screenshotを測色export・Free/別OS/全control/性能やportable Graph再importの証明にしない。
-- **Current host / accepted boundary:** Studio21.1.0.14/Japanese/Windows、PID20156/HWND82647722、owned Collectanea_Captures_20261023_Sol/Fusion/S96_capture/frame0/Paint選択/両40%/保存。native Circle2個をSelect marqueeで選びPaintGroup1へgroup、REGID/内部接続/export/native Inspector確認322。group変形/期間比較は未。S94/S95 native完了/workのみ、S91–S93 localPASS。production/preferences変更なし。
+- **Current host / accepted boundary:**Studio21.1.0.14/Japanese/Windows、PID20156/HWND82647722、owned Collectanea_Captures_20261023_Sol/Fusion/S98_capture/frame0/Gamut1選択/両40%/保存。SourceSpaceRec709(native ITU-R BT.709(scene))/RemoveGamma1/OutputNoChange/AddGamma1、GammaOFFで入力表示へ戻る比較後ONへ復元しnative darkened outputを実見338。production/preferences変更なし。
 - Accepted method repairs: GetInputはNumber/Text/Point/FuID/Clipだけ、Image/Mask/3D/任意ScriptVal payloadを評価しない。広い列挙でS49時にhost exitし、scalar-onlyへ狭めて以後安定。Maskやrenderの製品不具合とは断定しない。PointのJSON数値keyはPoint inputだけ整数化（S54 Center.65と出力変化で確認）。clean出力はMediaOut選択で操作guideを外す。S62/S63のdetailはnative Viewer100%で撮影しshot別倍率を記録、cropの拡大なし。
 - Cua/session: collectanea-coverage。session失効はstart_session→fresh captureだけで復旧、build/setterを再実行しない。Qt UIA/no-opはfresh画面で判定。Comboはforeground click→単独Up/Down/Return、数値はfocus→hotkey Ctrl+A→type/Return。背景no-opを確認した操作だけforegroundへ。menuが主PNGに出なければfresh owned popupを別capture。旧PID8944/46696/10664へ入力しない。Start-Process Hidden復旧は非表示windowになったため再使用しない。
 - S62 native/local display PASS: Sharpen REGID。Loader→BlurSource1(Size2)→Sharpen→MediaOut、左Blur/右Sharpen。Amount1と3をnative100%で比較、3で太い明暗halo、Amount1/Blend0は40%で入力へ戻る。最後Amount1/Blend1/40%で保存、restored実見。sources restored/detail1/detail3/blend0、8crop。soft_source初回はaction登録漏れのassertでAddTool前に停止、コードを直し既存Blur不在guard下で1回だけ作成。再buildなし。実写/Alpha/Mask/軸別/Clipping/性能未確認。
@@ -45,7 +45,7 @@
 - S65 native/local display PASS: RankFilter REGID、chart/Size7、Rank.5で細格子/小文字が減り、0で暗領域、1で明領域が広がる。最後Rank.5へ復元保存、restored実見。sources restored/rank0/rank1、7crop。実写salt-pepper/Mask/Alpha/境界/内部順位/性能未確認。
 - Batch17/18 PUBLIC PASS: S62–S65/PR93の29新crop+12再利用、S66–S69/PR96の31新crop+4分類比較を公開。累計public133/437/726。batch19 S70–S73は26新crop+4分類比較、local137/463/756まで受理。各exact identityはpublication_batches参照。
 - Dot delivered/readback PASS: fresh title/profile silvel/空入力を確認、event fusion-native-20261024-15でPR87–89公開121/349/610と929素材、PR91 head a18bc59f CI待ち、未図示430＋remaining_views、Sol単一writerを1段落paste→1回Send。送信文・空入力・受領文（121/349/610、PR91はCI待ち、未図示430継続）を確認。dot-batch15-report.jpgは報告本文の画面で会話へ掲載済み。返信画面を撮れたとは扱わず受領はUIテキストで確認。以後のPR91 head更新は別のGitHub readback。Dot返信から実行権限を追加しない。
-- **Next action / KEEP:** S91–S93 prepare/embed済→finalize/build/local/inventory→fresh main/open PR→commit/explicit push/Ready PR→exact-head Quality/merge/Pages/public/assets。保存済みcase再build禁止。S94–S96 onwardへ継続、public162/598/934、全体未完、Sol単一担当KEEP。
+- **Next action / KEEP:**S94–S96 local4記事25画像→inventory→fresh main/open PR→commit/explicit push/Ready PR→exact-head Quality/merge/Pages/public/assets。S97 work stage採用はその後。保存済みcase再build禁止。public165/611/950、全体未完、Sol単一担当KEEP。
 
 ## 第1batchの撮影・統合メモ（履歴）
 
@@ -160,3 +160,15 @@ Batch28 local PASS:S91–S93/R141–R143、13新crop＋3再利用16掲載、4記
 S95 native conditional PASS/work未adopt:Fill1 REGFill。toolbar2364,110→赤パッチ2135,490を1click、Center(.11328125,.3125)、RGB/ChannelRGB/Range.1/SoftRange.05/whiteRGBA1/Opacity1、赤だけ白。待機Fill2のInspectorは採用せずexactFill1 bind後実見。既存export Point key限定でCenter(.27,.3125)1回→黄色だけ白/赤復元を実見、元Centerへ1回復元。clean0/119両白塗り、final0/exactFill1/40/save実見31b。Fill2はhelper再選択後のexportに残らず、最終Fill1のみ。ColorSpace/Channel/Range変更/Alpha素材/実写/性能は未確認。採用候補final/center-yellow/clean0/clean119、再build禁止。
 
 S96 in-progress/work:Circle toolbar2205,110、drag2300,400–2340,440と2500,400–2540,440で白Circle2個。Select2048,110→marquee2230,320–2580,465で両green guide→PaintGroup2396,110。PaintGroup1 REGPaintGroup、Paint.Paint←PaintGroup1.Out、PaintGroup.PaintGroup←Circle2.Out←Circle1.Out、Center=GroupCenter(.4583333433,.5208333135)。group-created322を実見。変形/clean期間確認は次、再build禁止。
+
+S96 native conditional PASS:PaintGroup1 CenterY初期.520833313465118→.32を既存export Point keyへ1回変更。2つの白Circleが同間隔のまま一緒に下へ移動、inputchart固定。native moved323、clean0/119、final0/Paint/40/save326実見。Angle0/Size1/ShowSubgroupControlsOFFは表示だけ、各変更/解除/Tracker/他描画方式/実写/performance未確認。S94–S96は14crop＋3reuse採用、local/public未。
+
+S97 native conditional PASS/work未adopt:ChannelBoolean REGID、Loader BG/EllipseMask→whiteBackground AlphaSource FG→ChannelBooleans→AlphaMultiply→MediaOut。初期全FG Copy出力は白円（builtはleftFitで不採用）。UIA combo/list Invoke no-op、foreground combo popupはfocus復元後消失、未設定のまま確認して盲目的再送なし。exact Color Channel inputs metadataのComboControl_String/defaultと限定Number5項目を読み、ToRed5/Green6/Blue7 BGへ各1回、Alpha3FG/Operation0Copy保持。numeric readback/native JapaneseInspector/export一致。RGBを保持してAlphaだけ差替えたraw32bでは透明域RGBが残る表示を確認、AlphaMultiplyをguarded1回追加し新AlphaをRGBへ乗算。helperはpreview選択前にAlphaMultiplyをbindするよう修正、初回遅延bindのpremultiplied.pngはrawが映り不採用、final32dは右titleAlphaMultiply/円形画像/外checkerを実見。S97-final/alpha-copyを採用候補、metadataはwork/S97-controls-metadata.json、source変更前/乗算前compはprivatework保全。全Aux/他Operation/Matte/EffectMask/別Alpha/実写/測色/性能未確認。
+
+PR115 PUBLIC PASS:13新crop＋3再利用16掲載、公開4記事21画像・1447全素材HTTP/hash PASS、累計165/611/950。capture provenance固定/検証receipt既存ledgerという方法で、docsがbuild/catalogに含まれないことも確認し、receipt追記だけの再buildを省いた。内容変更は別途fresh build/表示確認する。
+
+Batch29 local PASS:S94–S96/R144–R146、14新crop＋3reuse17掲載、4記事25画像/PC390px/decode/Alt/native links/asset hashes/overflow PASS。local168/625/967、public165/611/950。Fill末尾の旧未検証範囲をS95確認範囲へ修正後freshbuild/scoped表示PASS。main8d217dd DifferenceKeyerのみをfast-forward、候補凍結前の最終buildへ。S98GamutConvert baseline/native default NoChange両側は確認、Source選択GUI no-opは未受入、FuID enum metadataでRec709を特定し限定setter/native確認中。
+
+S98 native conditional PASS/work未adopt:Gamut1 REGGamutConvert、Loader chart→Gamut→MediaOut。初期Source/Output NoChange、Remove/AddGammaON、WhitePointAdaptationON、PreDividePostMultiplyOFFをnative実見330、両40%。Source combo UIA/foregroundDownReturn no-op、未設定と確認し反復なし。exact Gamut metadata INPIDT_ComboControl_IDでRec709を特定、bounded FuID currentNoChange→Rec7091回、native ITU-R BT.709(scene)/色度図＋暗いoutput実見336。RemoveGamma1→0のNumber変更でnative入力同じ表示337、1へ1回復元し338実見保存。原画default/rec709-remove/remove-off/restored、adopt未。AddGammaやOutputSpace変更、色域roundtrip/測色/RCM/実写/PreDivide/Mask/他色域/性能は未確認。metadata work/S98-gamut-combo-metadata.json、beforeSourcecompはprivatework、再build禁止。
+
+Batch29 freeze readiness:incoming8d217dd後fresh production buildと4記事25画像/asset hashes/PC390px全確認PASS。local168/625/967、public165/611/950。既存engine/regressions19/content51はPR115で受理済み、次候補もexact-head全Qualityを必要とする。
