@@ -2,7 +2,7 @@
   "schema_version": 1,
   "created": "2026-10-20",
   "scope": "All Fusion pages, DaVinci Resolve 21.1",
-  "status_note": "2026-10-24:public171/639/984 through PR120 and1511 assets PASS;S100–S102 local4pages17images PASS,14newcrop+3reuse17placements;whole Fusion incomplete.",
+  "status_note": "2026-10-24:public175/653/1001 through PR123 and1542assets PASS;S103–S105 local4pages37images PASS,16newcrop+3reuse19placements;whole Fusion incomplete.",
   "asset_directory_template": "static/img/fusion/captures/{id}/{shot.slug}.png",
   "capture_manifest_name": "capture.json",
   "candidates": [
@@ -5432,7 +5432,7 @@
         "printed_pages": "2444–2445"
       },
       "goal": "Remove checked Gold,retain Chart",
-      "status": "captured-local-display-verified",
+      "status": "published-display-verified",
       "shots": [
         {
           "slug": "graph",
@@ -5458,7 +5458,8 @@
           "target": "LayerRemover",
           "status": "native-observed"
         }
-      ]
+      ],
+      "published_batch": "fusion-native-20261024-31"
     },
     {
       "id": "S101",
@@ -5470,7 +5471,7 @@
         "printed_pages": "2441–2444"
       },
       "goal": "Transform Gold to Warm,keep unmatched Chart",
-      "status": "captured-local-display-verified",
+      "status": "published-display-verified",
       "shots": [
         {
           "slug": "graph",
@@ -5502,7 +5503,8 @@
           "target": "LayerRegex",
           "status": "native-observed"
         }
-      ]
+      ],
+      "published_batch": "fusion-native-20261024-31"
     },
     {
       "id": "S102",
@@ -5514,7 +5516,7 @@
         "printed_pages": "2440–2441"
       },
       "goal": "Combine four named layers from two sources and view Blue",
-      "status": "captured-local-display-verified",
+      "status": "published-display-verified",
       "shots": [
         {
           "slug": "graph",
@@ -5544,6 +5546,145 @@
           "slug": "layers",
           "kind": "menu",
           "target": "LayerMuxer",
+          "status": "native-observed"
+        }
+      ],
+      "published_batch": "fusion-native-20261024-31"
+    },
+    {
+      "id": "S103",
+      "priority": "P1",
+      "article": "manuals/fusion/nodes/color/color-space-transform.md",
+      "manual": {
+        "version": "21.1",
+        "chapter": 93,
+        "printed_pages": "2138–2141"
+      },
+      "goal": "Gamma2.4 to Linear versus matched2.4,Rec709 and MappingNone",
+      "status": "captured-local-display-verified",
+      "shots": [
+        {
+          "slug": "graph",
+          "kind": "node-graph",
+          "target": "ColorSpaceTransform",
+          "status": "native-observed"
+        },
+        {
+          "slug": "inspector",
+          "kind": "inspector",
+          "target": "ColorSpaceTransform",
+          "status": "native-observed"
+        },
+        {
+          "slug": "compare",
+          "kind": "output",
+          "target": "ColorSpaceTransform",
+          "status": "native-observed"
+        },
+        {
+          "slug": "matched-inspector",
+          "kind": "inspector",
+          "target": "ColorSpaceTransform",
+          "status": "native-observed"
+        },
+        {
+          "slug": "matched",
+          "kind": "output",
+          "target": "ColorSpaceTransform",
+          "status": "native-observed"
+        }
+      ]
+    },
+    {
+      "id": "S104",
+      "priority": "P1",
+      "article": "manuals/fusion/nodes/color/chromatic-adaptation.md",
+      "manual": {
+        "version": "21.1",
+        "chapter": 93,
+        "printed_pages": "2136–2138"
+      },
+      "goal": "CAT02 SourceD65 TargetD50 versus sameD65",
+      "status": "captured-local-display-verified",
+      "shots": [
+        {
+          "slug": "graph",
+          "kind": "node-graph",
+          "target": "ChromaticAdaptation",
+          "status": "native-observed"
+        },
+        {
+          "slug": "inspector",
+          "kind": "inspector",
+          "target": "ChromaticAdaptation",
+          "status": "native-observed"
+        },
+        {
+          "slug": "compare",
+          "kind": "output",
+          "target": "ChromaticAdaptation",
+          "status": "native-observed"
+        },
+        {
+          "slug": "default-inspector",
+          "kind": "inspector",
+          "target": "ChromaticAdaptation",
+          "status": "native-observed"
+        },
+        {
+          "slug": "default",
+          "kind": "output",
+          "target": "ChromaticAdaptation",
+          "status": "native-observed"
+        }
+      ]
+    },
+    {
+      "id": "S105",
+      "priority": "P1",
+      "article": "manuals/fusion/nodes/color/ocio-cdl-transform.md",
+      "manual": {
+        "version": "21.1",
+        "chapter": 93,
+        "printed_pages": "2190–2193"
+      },
+      "goal": "Controls RedSlope0.5,native CDL export/reload with independent identity Controls",
+      "status": "captured-local-display-verified",
+      "shots": [
+        {
+          "slug": "graph",
+          "kind": "node-graph",
+          "target": "OCIOCDLTransform",
+          "status": "native-observed"
+        },
+        {
+          "slug": "inspector",
+          "kind": "inspector",
+          "target": "OCIOCDLTransform",
+          "status": "native-observed"
+        },
+        {
+          "slug": "compare",
+          "kind": "output",
+          "target": "OCIOCDLTransform",
+          "status": "native-observed"
+        },
+        {
+          "slug": "baseline",
+          "kind": "output",
+          "target": "OCIOCDLTransform",
+          "status": "native-observed"
+        },
+        {
+          "slug": "file-inspector",
+          "kind": "inspector",
+          "target": "OCIOCDLTransform",
+          "status": "native-observed"
+        },
+        {
+          "slug": "file",
+          "kind": "output",
+          "target": "OCIOCDLTransform",
           "status": "native-observed"
         }
       ]
@@ -6547,27 +6688,58 @@
         "artifacts/fusion-captures/public-batch30-assets.json"
       ],
       "limitations": "Whole587/384capture-needed plus remaining_views incomplete;S100/S101 WORK only."
+    },
+    {
+      "id": "fusion-native-20261024-31",
+      "cases": [
+        "S100",
+        "S101",
+        "S102"
+      ],
+      "reuses": [
+        "R150",
+        "R151",
+        "R152"
+      ],
+      "pr": "https://github.com/46slv/collectanea-DB/pull/123",
+      "candidate": "2908ea23c26f83e5f569fa725ef349c686dd8216",
+      "main": "513e457f613b7d599e076c4be080f232e9a15223",
+      "tree": "4b2c74830eebd4c1cca981d9fd560a34f98cba88",
+      "quality_run": "https://github.com/46slv/collectanea-DB/actions/runs/40072089520",
+      "pages_run": "https://github.com/46slv/collectanea-DB/actions/runs/40073065317",
+      "merge_owner": "Sol fresh exact-head Quality/main/reviews/comments/inline PASS,expected-head squash,MERGED/equal tree readback",
+      "public_pages": 4,
+      "public_images": 17,
+      "new_placements": 17,
+      "new_native_crops": 14,
+      "public_asset_hashes": 1542,
+      "result": "PASS",
+      "evidence": [
+        "artifacts/fusion-captures/public-batch31-display-report.json",
+        "artifacts/fusion-captures/public-batch31-assets.json"
+      ],
+      "limitations": "Whole587/380capture-needed plus remaining_views incomplete;S103–S105 native WORK only."
     }
   ],
   "coverage_inventory": {
-    "checked_at": "2026-10-24T06:53:15.169890+00:00",
+    "checked_at": "2026-10-24T07:26:25.066759+00:00",
     "scope": "All manuals/fusion Markdown and MDX pages; review necessity before adding images.",
     "completion_rule": "Every page has an explicit image decision; necessary images are native-observed, embedded, saved to GitHub and public-display-verified. A native example does not verify all article controls.",
     "summary": {
       "total_pages": 587,
-      "with_images": 175,
-      "with_native_examples": 175,
+      "with_images": 178,
+      "with_native_examples": 178,
       "states": {
         "reviewed-no-standalone-image": 26,
         "no-standalone-image-needed": 6,
         "illustrated-reused-example": 75,
-        "capture-planned": 380,
-        "illustrated-native-example": 100
+        "capture-planned": 377,
+        "illustrated-native-example": 103
       },
       "decisions": {
         "no-standalone-image-needed": 32,
-        "image-required": 175,
-        "capture-needed": 380
+        "image-required": 178,
+        "capture-needed": 377
       }
     },
     "pages": [
@@ -9311,13 +9483,18 @@
         "article": "manuals/fusion/nodes/color/chromatic-adaptation.md",
         "title": "Chromatic Adaptation",
         "kind": "node",
-        "image_count": 0,
-        "native_cases": [],
+        "image_count": 5,
+        "native_cases": [
+          "S104"
+        ],
         "reused_cases": [],
         "planned_cases": [],
-        "state": "capture-planned",
-        "decision": "capture-needed",
+        "state": "illustrated-native-example",
+        "decision": "image-required",
         "reason": "本文の対象機能: 異なる照明条件や表示白色点の間で、色の見え方を合わせる色順応変換ノード。。S14の見た目の色補正はencoding変換の証拠にならず、display screenshotだけでは色精度を証明できない。",
+        "remaining_views": [
+          "Other presets/modes/controls,real footage/colorimetric precision,RCM/Alpha/masks,other editions/platforms/performance"
+        ],
         "required_views": [
           "対象Node名と実際の配線が読めるGraph",
           "対象Nodeを選択した固有Inspector（本文で示すControlを含む）",
@@ -9343,7 +9520,8 @@
             "section": "Current Color Space / Gamma — 入力RGBの解釈",
             "role": "入力と結果を示す箇所"
           }
-        ]
+        ],
+        "audit_note": "S104 native bounded comparison accepted;S105 includes native CDL export/readback."
       },
       {
         "article": "manuals/fusion/nodes/color/color-corrector.md",
@@ -9494,13 +9672,18 @@
         "article": "manuals/fusion/nodes/color/color-space-transform.md",
         "title": "Color Space Transform",
         "kind": "node",
-        "image_count": 0,
-        "native_cases": [],
+        "image_count": 5,
+        "native_cases": [
+          "S103"
+        ],
         "reused_cases": [],
         "planned_cases": [],
-        "state": "capture-planned",
-        "decision": "capture-needed",
+        "state": "illustrated-native-example",
+        "decision": "image-required",
         "reason": "本文の対象機能: 入出力の色空間とガンマを指定してRGB画像を変換し、必要なら階調や彩度も調整するノード。。S14の見た目の色補正はencoding変換の証拠にならず、display screenshotだけでは色精度を証明できない。",
+        "remaining_views": [
+          "Other presets/modes/controls,real footage/colorimetric precision,RCM/Alpha/masks,other editions/platforms/performance"
+        ],
         "required_views": [
           "対象Node名と実際の配線が読めるGraph",
           "対象Nodeを選択した固有Inspector（本文で示すControlを含む）",
@@ -9526,7 +9709,8 @@
             "section": "Gamut Mapping：出力側で表せない色を扱う",
             "role": "入力と結果を示す箇所"
           }
-        ]
+        ],
+        "audit_note": "S103 native bounded comparison accepted;S105 includes native CDL export/readback."
       },
       {
         "article": "manuals/fusion/nodes/color/color-space.md",
@@ -9755,7 +9939,7 @@
         "article": "manuals/fusion/nodes/color/index.md",
         "title": "Colorノード",
         "kind": "index",
-        "image_count": 18,
+        "image_count": 21,
         "native_cases": [],
         "reused_cases": [
           "S14",
@@ -9768,7 +9952,10 @@
           "S73",
           "S97",
           "S98",
-          "S99"
+          "S99",
+          "S103",
+          "S104",
+          "S105"
         ],
         "planned_cases": [],
         "state": "illustrated-reused-example",
@@ -9786,13 +9973,18 @@
         "article": "manuals/fusion/nodes/color/ocio-cdl-transform.md",
         "title": "OCIO CDL Transform",
         "kind": "node",
-        "image_count": 0,
-        "native_cases": [],
+        "image_count": 6,
+        "native_cases": [
+          "S105"
+        ],
         "reused_cases": [],
         "planned_cases": [],
-        "state": "capture-planned",
-        "decision": "capture-needed",
+        "state": "illustrated-native-example",
+        "decision": "image-required",
         "reason": "本文の対象機能: ASC CDL形式の色補正値を手動設定またはファイルから適用するノード。。S14の見た目の色補正はencoding変換の証拠にならず、display screenshotだけでは色精度を証明できない。",
+        "remaining_views": [
+          "Other presets/modes/controls,real footage/colorimetric precision,RCM/Alpha/masks,other editions/platforms/performance"
+        ],
         "required_views": [
           "対象Node名と実際の配線が読めるGraph",
           "対象Nodeを選択した固有Inspector（本文で示すControlを含む）",
@@ -9818,7 +10010,8 @@
             "section": "運用例：撮影現場から渡されたCDLで色を合わせる",
             "role": "入力と結果を示す箇所"
           }
-        ]
+        ],
+        "audit_note": "S105 native bounded comparison accepted;S105 includes native CDL export/readback."
       },
       {
         "article": "manuals/fusion/nodes/color/ocio-colorspace.md",
@@ -26375,8 +26568,9 @@
       "images": [
         "compare.png"
       ],
-      "status": "embedded-local-display-verified",
-      "scope": "Goldにチェックを入れて除外するとChartが残る;bounded native example,no EXR/Aux/output guarantees."
+      "status": "published-display-verified",
+      "scope": "Goldにチェックを入れて除外するとChartが残る;bounded native example,no EXR/Aux/output guarantees.",
+      "published_batch": "fusion-native-20261024-31"
     },
     {
       "id": "R151",
@@ -26385,8 +26579,9 @@
       "images": [
         "compare.png"
       ],
-      "status": "embedded-local-display-verified",
-      "scope": "GoldをWarmへ改名してもオレンジ色の画像内容は変わらない;bounded native example,no EXR/Aux/output guarantees."
+      "status": "published-display-verified",
+      "scope": "GoldをWarmへ改名してもオレンジ色の画像内容は変わらない;bounded native example,no EXR/Aux/output guarantees.",
+      "published_batch": "fusion-native-20261024-31"
     },
     {
       "id": "R152",
@@ -26395,8 +26590,39 @@
       "images": [
         "compare.png"
       ],
+      "status": "published-display-verified",
+      "scope": "2入力をまとめた出力のBlueを選ぶと青い画像が見える;bounded native example,no EXR/Aux/output guarantees.",
+      "published_batch": "fusion-native-20261024-31"
+    },
+    {
+      "id": "R153",
+      "article": "manuals/fusion/nodes/color/index.md",
+      "source_case": "S103",
+      "images": [
+        "compare.png"
+      ],
       "status": "embedded-local-display-verified",
-      "scope": "2入力をまとめた出力のBlueを選ぶと青い画像が見える;bounded native example,no EXR/Aux/output guarantees."
+      "scope": "CSTで入力Gamma2.4から出力Linearへ変換した表示;not real footage/colorimetric or full control validation."
+    },
+    {
+      "id": "R154",
+      "article": "manuals/fusion/nodes/color/index.md",
+      "source_case": "S104",
+      "images": [
+        "compare.png"
+      ],
+      "status": "embedded-local-display-verified",
+      "scope": "CAT02でSource D65からTarget D50へ変えた表示;not real footage/colorimetric or full control validation."
+    },
+    {
+      "id": "R155",
+      "article": "manuals/fusion/nodes/color/index.md",
+      "source_case": "S105",
+      "images": [
+        "compare.png"
+      ],
+      "status": "embedded-local-display-verified",
+      "scope": "OCIO CDL Controlsで赤Slopeだけを0.5にした表示;not real footage/colorimetric or full control validation."
     }
   ],
   "external_reports": [
@@ -26417,6 +26643,15 @@
       "readback": "PASS:sent1197/formatted1204/1206,empty input255/Send261 disabled;ACK1211 explicitly separates PR115 public165/611/950 and PR118 CI pending168/625/967,Sol sole owner/no duplicate workers",
       "evidence": "artifacts/fusion-captures/dot-batch29-report.jpg",
       "scope": "Report preceded PR118 publication;ACK is not publication proof or new authority."
+    },
+    {
+      "event": "fusion-native-20261024-31",
+      "destination": "verified silvel profile at https://chatgpt.com/dots/home",
+      "source_task": "01a1683b-3067-7a40-892a-47a3b30d50b2",
+      "sent_once": true,
+      "readback": "PASS:sent1428/formatted1447–1453,empty255/disabled261;ACK1458 separates PR118/120 public171/639/984,PR123 CI pending175/653/1001,S103 native in progress,Sol single owner/no duplicate workers",
+      "evidence": "artifacts/fusion-captures/dot-batch31-report.jpg",
+      "scope": "Report preceded PR123 publication;ACK does not prove publication or grant new authority."
     }
   ]
 }

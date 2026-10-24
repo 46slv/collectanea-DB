@@ -1,0 +1,184 @@
+{
+  "schema_version": 1,
+  "case": "S104",
+  "article": "manuals/fusion/nodes/color/chromatic-adaptation.md",
+  "manual": {
+    "version": "21.1",
+    "chapter": 93,
+    "printed_pages": "2136–2138"
+  },
+  "runtime": {
+    "version": "21.1.0.14",
+    "edition": "Studio",
+    "os": "Windows-11-10.0.26200-SP0",
+    "ui_language": "ja-JP (some Shape controls remain English)"
+  },
+  "captured_at": "2026-10-24T07:18:26.813928+00:00",
+  "project": "Collectanea_Captures_20261023_Sol",
+  "timeline": "S104_capture",
+  "frame": 0.0,
+  "resolution": [
+    1920,
+    1080
+  ],
+  "color_management": {
+    "colorScienceMode": "davinciYRGB",
+    "colorSpaceTimeline": "Rec.709 (Scene)",
+    "colorSpaceTimelineGamma": "",
+    "colorSpaceOutput": "Rec.709 (Scene)",
+    "colorSpaceOutputGamma": "ACEScc",
+    "separateColorSpaceAndGamma": "0",
+    "isAutoColorManage": "0",
+    "timelineResolutionWidth": "1920",
+    "timelineResolutionHeight": "1080",
+    "timelineFrameRate": 24.0,
+    "timelinePlaybackFrameRate": "30"
+  },
+  "viewer": {
+    "zoom_percent": 40,
+    "channel": "Color",
+    "background": "checkerboard for transparent pixels",
+    "note": "Viewer screenshots are display evidence, not colorimetric exports."
+  },
+  "graph": "fixture.comp",
+  "settings": "readback.json",
+  "source": {
+    "file": "screen.png",
+    "size": [
+      3352,
+      1910
+    ],
+    "sha256": "41fb923f914bc821b243f7fd4fe9afcd93ebc76ffa3c21185955d82b2da3a5ab"
+  },
+  "shots": [
+    {
+      "file": "graph.png",
+      "source": "screen.png",
+      "source_sha256": "41fb923f914bc821b243f7fd4fe9afcd93ebc76ffa3c21185955d82b2da3a5ab",
+      "frame": 0,
+      "crop_xyxy": [
+        930,
+        1320,
+        1920,
+        1425
+      ],
+      "resampled": false,
+      "sha256": "ee7ee3e4af6e528681cf4cc2dfd824d6965e0c0eb757ebe596a97d6e8447d32f",
+      "viewer_guides": false,
+      "viewer_contents": "Left chart / Right CAT02 D65 to D50"
+    },
+    {
+      "file": "inspector.png",
+      "source": "screen.png",
+      "source_sha256": "41fb923f914bc821b243f7fd4fe9afcd93ebc76ffa3c21185955d82b2da3a5ab",
+      "frame": 0,
+      "crop_xyxy": [
+        2830,
+        120,
+        3352,
+        550
+      ],
+      "resampled": false,
+      "sha256": "afdc586a6b004a798786362fafb058e0c886810dd691591bbe948456ac0aa4fb",
+      "viewer_guides": false,
+      "viewer_contents": "Left chart / Right CAT02 D65 to D50"
+    },
+    {
+      "file": "compare.png",
+      "source": "screen.png",
+      "source_sha256": "41fb923f914bc821b243f7fd4fe9afcd93ebc76ffa3c21185955d82b2da3a5ab",
+      "frame": 0,
+      "crop_xyxy": [
+        1146,
+        65,
+        2830,
+        725
+      ],
+      "resampled": false,
+      "sha256": "678cb6e89b327b0826f3716fb62bf13f795e2697a75a3d256dab5beddfec3e13",
+      "viewer_guides": false,
+      "viewer_contents": "Left chart / Right CAT02 D65 to D50"
+    },
+    {
+      "file": "default-inspector.png",
+      "source": "screen-default.png",
+      "source_sha256": "0d849b9b348746044e37088e5cd678d0d8cf11f5482f2e6ee0f935bcc3132559",
+      "frame": 0,
+      "crop_xyxy": [
+        2830,
+        120,
+        3352,
+        550
+      ],
+      "resampled": false,
+      "sha256": "4a8c8006a017c52dfaae3002b49308f9c138a925edaa656848574d08f3e4b113",
+      "viewer_guides": false,
+      "viewer_contents": "Left chart / Right CAT02 D65 to D65"
+    },
+    {
+      "file": "default.png",
+      "source": "screen-default.png",
+      "source_sha256": "0d849b9b348746044e37088e5cd678d0d8cf11f5482f2e6ee0f935bcc3132559",
+      "frame": 0,
+      "crop_xyxy": [
+        1146,
+        65,
+        2830,
+        725
+      ],
+      "resampled": false,
+      "sha256": "52f133a5c9b2aa09ab5e29f6d0bed6d38266eac611784bb2ddc09c50bae175d5",
+      "viewer_guides": false,
+      "viewer_contents": "Left chart / Right CAT02 D65 to D65"
+    }
+  ],
+  "acceptance": {
+    "gui": "PASS: owner visually inspected node connections, selected Inspector, and output",
+    "article_display": "Executed local/public outcomes recorded in docs/fusion-screenshot-candidates.json per-case status/publication_batches;capture provenance fixed."
+  },
+  "unverified": [
+    "Free edition and other platforms",
+    "All parameter ranges and performance",
+    "Real footage,colorimetric accuracy,all parameter ranges/other editions/platforms/performance,Effect Mask and Alpha edges",
+    "Exported portable composition reimport"
+  ],
+  "parameter_readback_scope": "No broad input value enumeration or Image/Mask/ScriptVal GetInput. Exact-tool runtime metadata and bounded FuID/Number/Text readbacks plus native GUI/export.",
+  "gui_authoring": {
+    "host": {
+      "pid": 20156,
+      "hwnd": 82647722,
+      "source_pixels": [
+        3352,
+        1910
+      ]
+    },
+    "tool": "ChromaticAdaptation1",
+    "regid": "ChromaticAdaptation",
+    "visible_flow_tools": 3,
+    "delivery": "SDK settings and synthetic native Cua;physical input NOT_PROVEN;native UI/export establish result"
+  },
+  "restoration": "PASS:frame0,both40%,compact Flow,owned scratch saved,native final inspected",
+  "reproduction_action": "build creates scaffold only;apply documented settings/native CDL workflow. Do not rebuild saved cases. Portable Graph reimport NOT_RUN.",
+  "native_values": {
+    "CATMethod": "CAT_CAT02",
+    "SourceIlluminantType": "Standard",
+    "SourceStdIlluminant": "Illuminant::D65",
+    "TargetIlluminantType": "Standard",
+    "TargetStdIlluminant": "Illuminant::D50",
+    "ColorSpace": "REC709_COLORSPACE",
+    "Gamma": "LINEAR_GAMMA"
+  },
+  "state_variants": {
+    "screen.png": "Final TargetD50 only changed",
+    "screen-default.png": "Source/Target D65"
+  },
+  "unverified_extra": [
+    "Other CAT methods,Kelvin/xy source/target,measured illuminant matching,RCM"
+  ],
+  "reproduction": {
+    "fixture_sha256": "fbf5828738f2870e1522b31ebc79532166cbe05460a3b5265a54b9e3bad01b17",
+    "readback_sha256": "b6885f9c2392cb49f9d8dff565eeb8113778a4a72840f9d5d97bdc11ee8a00d6",
+    "paths": "Comp:/../_fixtures/ for bundled synthetic fixtures",
+    "reimport": "NOT_RUN: accepted GUI evidence precedes export path normalization"
+  }
+}
