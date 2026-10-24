@@ -2,7 +2,7 @@
   "schema_version": 1,
   "created": "2026-10-20",
   "scope": "All Fusion pages, DaVinci Resolve 21.1",
-  "status_note": "2026-10-24:148/519/836 public through PR105;1250 assets HTTP/hash PASS. S79/S80/R126–127 local3 distinct pages26 images PASS;20 native crops+2 reused placements,cumulative150/539/858. Whole587 and remaining_views incomplete;partial retained.",
+  "status_note": "2026-10-24:150/539/858 public through PR106;1287 assets HTTP/hash PASS. S81/S82/R128 local3 distinct pages24 images PASS;17 native crops+1 reuse,cumulative152/556/876. Whole587 and remaining_views incomplete;partial retained.",
   "asset_directory_template": "static/img/fusion/captures/{id}/{shot.slug}.png",
   "capture_manifest_name": "capture.json",
   "candidates": [
@@ -4373,7 +4373,7 @@
         "printed_pages": "2496–2499"
       },
       "goal": "Compare selection points on two disconnected identical color regions and inverse",
-      "status": "captured-local-display-verified",
+      "status": "published-display-verified",
       "shots": [
         {
           "slug": "graph",
@@ -4442,7 +4442,8 @@
           "status": "native-observed"
         }
       ],
-      "capture_manifest": "static/img/fusion/captures/S79/capture.json"
+      "capture_manifest": "static/img/fusion/captures/S79/capture.json",
+      "published_batch": "fusion-native-20261024-23"
     },
     {
       "id": "S80",
@@ -4454,7 +4455,7 @@
         "printed_pages": "2493–2496"
       },
       "goal": "Compare one moved corner,filled triangle,outline and softened edge",
-      "status": "captured-local-display-verified",
+      "status": "published-display-verified",
       "shots": [
         {
           "slug": "graph",
@@ -4511,7 +4512,140 @@
           "status": "native-observed"
         }
       ],
-      "capture_manifest": "static/img/fusion/captures/S80/capture.json"
+      "capture_manifest": "static/img/fusion/captures/S80/capture.json",
+      "published_batch": "fusion-native-20261024-23"
+    },
+    {
+      "id": "S81",
+      "priority": "P1",
+      "article": "manuals/fusion/nodes/masks/common-controls.md",
+      "manual": {
+        "version": "21.1",
+        "chapter": 108,
+        "printed_pages": "2500–2502"
+      },
+      "goal": "Show native Mask Image/Settings tabs,Default/Custom frame format and independent960x540 output;Motion Blur dependent controls only",
+      "status": "captured-local-display-verified",
+      "shots": [
+        {
+          "slug": "graph",
+          "kind": "node-graph",
+          "target": "Rectangle Mask common controls",
+          "status": "native-observed"
+        },
+        {
+          "slug": "controls-inspector",
+          "kind": "inspector",
+          "target": "Rectangle Mask common controls",
+          "status": "native-observed"
+        },
+        {
+          "slug": "compare",
+          "kind": "output",
+          "target": "Rectangle Mask common controls",
+          "status": "native-observed"
+        },
+        {
+          "slug": "image-default-inspector",
+          "kind": "inspector",
+          "target": "Rectangle Mask common controls",
+          "status": "native-observed"
+        },
+        {
+          "slug": "image-custom-inspector",
+          "kind": "inspector",
+          "target": "Rectangle Mask common controls",
+          "status": "native-observed"
+        },
+        {
+          "slug": "image960-inspector",
+          "kind": "inspector",
+          "target": "Rectangle Mask common controls",
+          "status": "native-observed"
+        },
+        {
+          "slug": "custom960",
+          "kind": "output",
+          "target": "Rectangle Mask common controls",
+          "status": "native-observed"
+        },
+        {
+          "slug": "settings-off-inspector",
+          "kind": "inspector",
+          "target": "Rectangle Mask common controls",
+          "status": "native-observed"
+        },
+        {
+          "slug": "settings-on-inspector",
+          "kind": "inspector",
+          "target": "Rectangle Mask common controls",
+          "status": "native-observed"
+        }
+      ],
+      "capture_manifest": "static/img/fusion/captures/S81/capture.json"
+    },
+    {
+      "id": "S82",
+      "priority": "P1",
+      "article": "manuals/fusion/nodes/masks/polygon-mask.md",
+      "manual": {
+        "version": "21.1",
+        "chapter": 108,
+        "printed_pages": "2480–2484"
+      },
+      "goal": "Native Viewer4-point closed polygon and whole-shape Size/ZRotation with Mask/result comparison",
+      "status": "captured-local-display-verified",
+      "shots": [
+        {
+          "slug": "graph",
+          "kind": "node-graph",
+          "target": "Polygon Mask",
+          "status": "native-observed"
+        },
+        {
+          "slug": "inspector",
+          "kind": "inspector",
+          "target": "Polygon Mask",
+          "status": "native-observed"
+        },
+        {
+          "slug": "compare",
+          "kind": "output",
+          "target": "Polygon Mask",
+          "status": "native-observed"
+        },
+        {
+          "slug": "guides",
+          "kind": "output",
+          "target": "Polygon Mask",
+          "status": "native-observed"
+        },
+        {
+          "slug": "size-inspector",
+          "kind": "inspector",
+          "target": "Polygon Mask",
+          "status": "native-observed"
+        },
+        {
+          "slug": "size",
+          "kind": "output",
+          "target": "Polygon Mask",
+          "status": "native-observed"
+        },
+        {
+          "slug": "rotate-inspector",
+          "kind": "inspector",
+          "target": "Polygon Mask",
+          "status": "native-observed"
+        },
+        {
+          "slug": "rotate",
+          "kind": "output",
+          "target": "Polygon Mask",
+          "status": "native-observed"
+        }
+      ],
+      "capture_manifest": "static/img/fusion/captures/S82/capture.json"
     }
   ],
   "publication_batches": [
@@ -5260,27 +5394,56 @@
         "artifacts/fusion-captures/public-batch22-assets.json"
       ],
       "limitations": "S77 first navigation retained pre-deploy cached article;targeted reload restored correct10images and full checks PASS;prior observation retained. Whole587 and remaining_views incomplete."
+    },
+    {
+      "id": "fusion-native-20261024-23",
+      "cases": [
+        "S79",
+        "S80"
+      ],
+      "reuses": [
+        "R126",
+        "R127"
+      ],
+      "pr": "https://github.com/46slv/collectanea-DB/pull/106",
+      "candidate": "e88c726e089d18f339889fb87280aa26f19c28d8",
+      "main": "fc7dfed05c55098efae64fafb4466859265e4f3e",
+      "tree": "a69b0bf53b2a9bd601486cd8e172b0b5cd804c0f",
+      "quality_run": "https://github.com/46slv/collectanea-DB/actions/runs/40051667731",
+      "pages_run": "https://github.com/46slv/collectanea-DB/actions/runs/40052414296",
+      "merge_owner": "Sol;fresh main/reviews/comments and exact-head Quality alljob/step PASS;expected-head squash;candidate/main tree equal",
+      "public_pages": 3,
+      "public_images": 26,
+      "new_placements": 22,
+      "new_native_crops": 20,
+      "public_asset_hashes": 1287,
+      "result": "PASS",
+      "evidence": [
+        "artifacts/fusion-captures/public-batch23-display-report.json",
+        "artifacts/fusion-captures/public-batch23-assets.json"
+      ],
+      "limitations": "Whole587 and remaining_views incomplete;S81/S82 native ready,next article batch."
     }
   ],
   "coverage_inventory": {
-    "checked_at": "2026-10-24T01:50:36.585150+00:00",
+    "checked_at": "2026-10-24T02:12:20.832068+00:00",
     "scope": "All manuals/fusion Markdown and MDX pages; review necessity before adding images.",
     "completion_rule": "Every page has an explicit image decision; necessary images are native-observed, embedded, saved to GitHub and public-display-verified. A native example does not verify all article controls.",
     "summary": {
       "total_pages": 587,
-      "with_images": 150,
-      "with_native_examples": 150,
+      "with_images": 152,
+      "with_native_examples": 152,
       "states": {
         "reviewed-no-standalone-image": 26,
         "no-standalone-image-needed": 6,
         "illustrated-reused-example": 72,
-        "capture-planned": 405,
-        "illustrated-native-example": 78
+        "capture-planned": 403,
+        "illustrated-native-example": 80
       },
       "decisions": {
         "no-standalone-image-needed": 32,
-        "image-required": 150,
-        "capture-needed": 405
+        "image-required": 152,
+        "capture-needed": 403
       }
     },
     "pages": [
@@ -13458,13 +13621,18 @@
         "article": "manuals/fusion/nodes/masks/common-controls.md",
         "title": "Mask共通Controls（Image / Settings）",
         "kind": "concept",
-        "image_count": 0,
-        "native_cases": [],
+        "image_count": 9,
+        "native_cases": [
+          "S81"
+        ],
         "reused_cases": [],
         "planned_cases": [],
-        "state": "capture-planned",
-        "decision": "capture-needed",
+        "state": "illustrated-native-example",
+        "decision": "image-required",
         "reason": "本文の対象機能: Maskの解像度、画面端の処理、動きのブレやGPU使用を調整する共通設定。。既存S07はEllipse固有Controls中心で、共通Image/Settingsや動くMaskの結果を代用しない。",
+        "remaining_views": [
+          "Source解像度モード・他Mask種類・Depth/PixelAspect/Clipping変更・動的MotionBlur・GPU性能・Comments/Scripts"
+        ],
         "required_views": [
           "ImageタブのOutput Size/Clipping Mode等",
           "SettingsタブのMotion Blur等",
@@ -13482,7 +13650,8 @@
             "section": "Settingsタブ：動きと実行環境",
             "role": "Controlと操作を示す箇所"
           }
-        ]
+        ],
+        "audit_note": "S81 Rectangle fixed native example;Image/Settings and output-size change only;partial retained."
       },
       {
         "article": "manuals/fusion/nodes/masks/ellipse-mask.md",
@@ -13502,14 +13671,15 @@
         "article": "manuals/fusion/nodes/masks/index.md",
         "title": "Maskノード",
         "kind": "index",
-        "image_count": 6,
+        "image_count": 7,
         "native_cases": [],
         "reused_cases": [
           "S07",
           "S77",
           "S78",
           "S79",
-          "S80"
+          "S80",
+          "S82"
         ],
         "planned_cases": [],
         "state": "illustrated-reused-example",
@@ -13593,13 +13763,18 @@
         "article": "manuals/fusion/nodes/masks/polygon-mask.md",
         "title": "Polygon Mask",
         "kind": "node",
-        "image_count": 0,
-        "native_cases": [],
+        "image_count": 8,
+        "native_cases": [
+          "S82"
+        ],
         "reused_cases": [],
         "planned_cases": [],
-        "state": "capture-planned",
-        "decision": "capture-needed",
+        "state": "illustrated-native-example",
+        "decision": "image-required",
         "reason": "本文の対象機能: 自由なBézier輪郭を描き、映像の処理範囲をフレームごとに変えられるマスクノード。。S07 Ellipseは各Mask固有の作成・選択・List/色連結/curveを示さない。",
+        "remaining_views": [
+          "Bezierハンドル曲率編集・ShapeAnimation複数frame・交差FillMethod・部分SoftEdge・他Mask合成・実写roto/数値/性能"
+        ],
         "required_views": [
           "対象名と実接続が読めるGraph",
           "対象自身を選択したInspectorの該当Control",
@@ -13624,7 +13799,8 @@
             "role": "入力/結果または実UIの具体箇所"
           }
         ],
-        "hold_conditions": []
+        "hold_conditions": [],
+        "audit_note": "S82 native GUI4point straight closed polygon,Size/ZRotation;partial retained."
       },
       {
         "article": "manuals/fusion/nodes/masks/ranges-mask.md",
@@ -24660,8 +24836,9 @@
       "images": [
         "compare.png"
       ],
-      "status": "embedded-local-display-verified",
-      "scope": "One fixed Mask/result comparison;full conditions in linked node article."
+      "status": "published-display-verified",
+      "scope": "One fixed Mask/result comparison;full conditions in linked node article.",
+      "published_batch": "fusion-native-20261024-23"
     },
     {
       "id": "R127",
@@ -24670,8 +24847,19 @@
       "images": [
         "compare.png"
       ],
+      "status": "published-display-verified",
+      "scope": "One fixed Mask/result comparison;full conditions in linked node article.",
+      "published_batch": "fusion-native-20261024-23"
+    },
+    {
+      "id": "R128",
+      "article": "manuals/fusion/nodes/masks/index.md",
+      "source_case": "S82",
+      "images": [
+        "compare.png"
+      ],
       "status": "embedded-local-display-verified",
-      "scope": "One fixed Mask/result comparison;full conditions in linked node article."
+      "scope": "GUI-authored closed4point straight polygon Mask and Background result;curvature/animation not verified."
     }
   ]
 }

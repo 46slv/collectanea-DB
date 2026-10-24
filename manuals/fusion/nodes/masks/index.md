@@ -113,6 +113,18 @@ Resolve Studio21.1.0.14／Windows、1920×1080、両Viewer40%で撮影しまし�
 
 [再現用Graph](/img/fusion/captures/S80/fixture.comp) · [撮影条件と確認範囲](/img/fusion/captures/S80/capture.json)
 
+### 実機の参考例：自由な輪郭からMaskを作る
+
+<!-- capture-reuse:R128 -->
+
+左はViewerで4点を置いて閉じたPolygon Mask、右はそれを適用したオレンジBackgroundです。形状を指定する段階と、色を付けた結果を分けて確認できます。
+
+[![左の四角い不規則な白Maskと同じ形のオレンジBackgroundが右に残っている](/img/fusion/captures/S82/compare.png)](/img/fusion/captures/S82/compare.png)
+
+Resolve Studio21.1.0.14／Windows、1920×1080、Viewer40%。[Polygonの作図・Size・回転比較](./polygon-mask)に設定を掲載しています。曲率編集や実写ロトを確認した例ではありません。
+
+[再現用Graph](/img/fusion/captures/S82/fixture.comp) · [撮影条件と確認範囲](/img/fusion/captures/S82/capture.json)
+
 ## Mask PaintとPaintを使い分ける
 
 [Mask Paint](./mask-paint)は画像入力なしでもマスクを手描きできます。Bitmap Maskの人物領域に小さな穴があるときは、その出力をMask Paintの青いEffect Mask入力につなぎ、穴を白く描いて埋めます。出力は単一チャンネルのマスクです。

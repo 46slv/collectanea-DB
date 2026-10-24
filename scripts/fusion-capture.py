@@ -71,6 +71,8 @@ TARGETS['S77']='BitmapMask1';LEFT['S77']='Loader1';RIGHT['S77']='Gold1'
 TARGETS['S78']='RangesMask1';LEFT['S78']='Loader1';RIGHT['S78']='Gold1'
 TARGETS['S79']='WandMask1';LEFT['S79']='Loader1';RIGHT['S79']='Gold1'
 TARGETS['S80']='Triangle1';LEFT['S80']='Triangle1';RIGHT['S80']='Gold1'
+TARGETS['S81']='Rectangle1';LEFT['S81']='Rectangle1';RIGHT['S81']='Gold1'
+TARGETS['S82']='Polygon1';LEFT['S82']='Polygon1';RIGHT['S82']='Gold1'
 r=d.scriptapp('Resolve')
 assert r, 'Resolve scripting unavailable; do not change preferences automatically'
 pm=r.GetProjectManager(); p=pm.GetCurrentProject()
@@ -230,6 +232,8 @@ def select(target,left=None):
  for cid in ['S62','S63','S64','S65']:layouts[cid]={'Loader1':(0,0),TARGETS[cid]:(1.5,0),'MediaOut1':(3,0)}
  if case in ['S62','S63'] and 'BlurSource1' in tools:layouts[case]={'Loader1':(0,0),'BlurSource1':(1.5,0),TARGETS[case]:(3,0),'MediaOut1':(4.5,0)}
  if case=='S72' and 'RGBBack1' in tools:layouts[case]={'Loader1':(0,0),'ColorSpace1':(1.5,0),'RGBBack1':(3,0),'MediaOut1':(4.5,0)}
+ layouts['S82']={'Polygon1':(0,-1),'Gold1':(1.5,1),'MediaOut1':(3,1)}
+ layouts['S81']={'Rectangle1':(0,-1),'Gold1':(1.5,1),'MediaOut1':(3,1)}
  layouts['S80']={'Triangle1':(0,-1),'Gold1':(1.5,1),'MediaOut1':(3,1)}
  layouts['S79']={'Loader1':(0,-1),'WandMask1':(1.5,-1),'Gold1':(3,1),'MediaOut1':(4.5,1)}
  layouts['S78']={'Loader1':(0,-1),'RangesMask1':(1.5,-1),'Gold1':(3,1),'MediaOut1':(4.5,1)}
@@ -294,6 +298,13 @@ if action=='build':
   rb=add('sRender','RenderBase1',4,-1);connect(rb,'Input',base)
   target=add('sTransform','Transform1',2,1);connect(target,'Input',base)
   rr=add('sRender','RenderChanged1',4,1);connect(rr,'Input',target);connect(mo,'Input',rr)
+ # S82 creates an empty polygon;draw and close it in the native Viewer before acceptance.
+ elif case=='S82':
+  target=add('PolylineMask','Polygon1',0,-1,ShowViewControls=1)
+  gold=add('Background','Gold1',1.5,1,TopLeftRed=1,TopLeftGreen=.5,TopLeftBlue=.05,TopLeftAlpha=1);connect(gold,'EffectMask',target);connect(mo,'Input',gold)
+ elif case=='S81':
+  target=add('RectangleMask','Rectangle1',0,-1,ShowViewControls=0)
+  gold=add('Background','Gold1',1.5,1,TopLeftRed=1,TopLeftGreen=.5,TopLeftBlue=.05,TopLeftAlpha=1);connect(gold,'EffectMask',target);connect(mo,'Input',gold)
  elif case=='S80':
   target=add('TriangleMask','Triangle1',0,-1,ShowViewControls=0)
   gold=add('Background','Gold1',1.5,1,TopLeftRed=1,TopLeftGreen=.5,TopLeftBlue=.05,TopLeftAlpha=1);connect(gold,'EffectMask',target);connect(mo,'Input',gold)

@@ -14,7 +14,7 @@ const channel=process.env.CAPTURE_BROWSER_CHANNEL||(process.platform==='win32'?'
 const browser=await chromium.launch({...(channel?{channel}:{}),headless:true});
 const context=await browser.newContext({viewport:{width:1440,height:1000},colorScheme:'dark'});
 const page=await context.newPage();
-const report={checked_at:new Date().toISOString(),origin:(process.env.CAPTURE_ORIGIN||'http://127.0.0.1:3017').replace(/\/$/,''),checks:[],errors:[]};
+const report={checked_at:new Date().toISOString(),origin:(process.env.CAPTURE_ORIGIN||'http://127.0.0.1:3017').replace(/\/$/,''),expected_pages:ids.length,status:'RUNNING',checks:[],errors:[]};
 const digest=b=>createHash('sha256').update(b).digest('hex');
 page.on('pageerror',e=>report.errors.push(String(e)));
 try {
@@ -68,8 +68,11 @@ try {
    assert.equal(digest(await asset.body()),digest(await fs.readFile(`static/img/fusion/captures/${sourceCase}/${filename}`)),id+'/'+filename+' must match final local source');
   }
   report.checks.push({id,ids:articleEntries.map(c=>c.id),status:'PASS',route,images});
+  // Preserve completed pages if the runner reaches its deadline before finally can run.
+  await fs.writeFile(path.join(out,'display-report.json'),JSON.stringify(report,null,2));
+  console.log(`Capture PASS ${report.checks.length}/${ids.length}: ${id} ${route} (${images.length} images)`);
  }
  assert.equal(report.errors.length,0);
 } catch(e){report.errors.push(String(e));process.exitCode=1;}
-finally{await fs.writeFile(path.join(out,'display-report.json'),JSON.stringify(report,null,2));await browser.close();}
+finally{report.status=report.errors.length||process.exitCode?'FAIL':'PASS';await fs.writeFile(path.join(out,'display-report.json'),JSON.stringify(report,null,2));await browser.close();}
 console.log(JSON.stringify({checks:report.checks.map(c=>({id:c.id,status:c.status,images:c.images.length})),errors:report.errors},null,2));
