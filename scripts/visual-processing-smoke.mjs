@@ -521,18 +521,7 @@ try {
   await check('box-blur-preview-controls-and-mobile', async () => {
     await go(route);
     await page.getByRole('link', {name: '操作してGaussian Blurと比較'}).click();
-    await expect(page).toHaveURL(new RegExp('/reference/visual-processing/filters/box-blur/?
-    assert.deepEqual(report.pageErrors, []);
-    assert.deepEqual(report.resourceErrors, []);
-  });
-} finally {
-  report.status = report.checks.every((entry) => entry.status === 'PASS') ? 'PASS' : 'FAIL';
-  await fs.writeFile(path.join(out, 'reference-smoke-report.json'), JSON.stringify(report, null, 2));
-  await browser.close();
-}
-console.log(JSON.stringify(report, null, 2));
-if (report.status !== 'PASS') process.exitCode = 1;
-));
+    await expect(page).toHaveURL(new RegExp('/reference/visual-processing/filters/box-blur/?$'));
     for (const width of [1440, 390, 320]) {
       await page.setViewportSize({width, height: width === 1440 ? 1000 : 844});
       await go('/reference/visual-processing/filters/box-blur');
