@@ -150,10 +150,28 @@ Alpha Multiplyは「透明にするNode」ではなく、**Color処理後のRGB�
 - [Color Corrector](../color/color-corrector)
 - [Matte / Keying Family Overview](./)
 
+## 実機例：色補正後にMultiplyして合成へ戻す
+
+<!-- capture-reuse:R115 -->
+
+下段はAlpha Divide→ColorStraight→Alpha Multiply→Mergeです。ColorStraightのLevelsでMaster RGBの出力下限を0.2へ上げ、内部Pre-Divide / Post-Multiplyはオフにしました。左の直接補正は背景まで灰色になりますが、右はMultiplyを通して暗い背景を保ちます。
+
+[![共通の楕円前景を直接補正とAlpha DivideからAlpha Multiplyまでの補正へ分け、同じ背景へ合成した実機Graph](/img/fusion/captures/S74/graph.png)](/img/fusion/captures/S74/graph.png)
+
+[![AlphaMultiply1も固有の補正パラメーターはなく、共通Settingsが表示される](/img/fusion/captures/S74/multiply-inspector.png)](/img/fusion/captures/S74/multiply-inspector.png)
+
+[![左の直接補正では背景が灰色に持ち上がり、右のDivideとMultiplyを通す補正では暗い背景を保つ](/img/fusion/captures/S74/compare.png)](/img/fusion/captures/S74/compare.png)
+
+Alpha Multiplyの固有補正値はなく、共通Settingsが表示されました。内部REGIDは`AlphaMultiply`です。入力がすでにpremultipliedな場合へ追加する比較や二重乗算は、この例では検証していません。
+
+Resolve Studio21.1.0.14／WindowsのFusionページで、1920×1080の合成を作りました。両ViewerはColor／40%。左のMergeNaiveは直接補正、右のMergeCorrectはAlpha Divide→補正→Alpha Multiplyの結果です。 この固定例の表示と保存Graphを確認しました。実写のキーイング素材、外部OFX、Effect Mask、Alphaが0に近い画素の数値、HDRと性能は未確認です。 詳しい[接続と比較条件](./alpha-divide)はAlpha Divideの実機例に記録しています。
+
+[再現用Graph](/img/fusion/captures/S74/fixture.comp) · [撮影条件と確認範囲](/img/fusion/captures/S74/capture.json)
+
 ## バージョンと出典
 
 DaVinci Resolve 21.1 Reference Manual（September 2026）Chapter 109「Matte Nodes」p.2505を基準に、Alpha Multiplyの目的、Input / Effect Mask、基本Node構成、固有Inspector Controlがないことを確認しています。
 
 premultiplicationをColor処理するときの考え方、二重premultiplyで暗いedgeが生じる注意、Pre-Divide / Post-Multiplyとの使い分け、複数処理をAlpha Divide / Alpha Multiplyで挟む構成は、同Manual Chapter 77「Understanding Image Channels」pp.1679–1681で確認しています。
 
-current runtimeのREGID、内部Parameter ID、Manualに記載されていないedition差はこのページでは確定していません。
+上の実機例でREGIDと接続、Inspector、補正後の合成を確認しました。全Parameter、Manualに記載されていないedition差は未確認です。

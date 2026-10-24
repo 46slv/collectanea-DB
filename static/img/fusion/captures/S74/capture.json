@@ -1,0 +1,255 @@
+{
+  "schema_version": 1,
+  "case": "S74",
+  "article": "manuals/fusion/nodes/matte-keying/alpha-divide.md",
+  "manual": {
+    "version": "21.1",
+    "chapter": 109,
+    "printed_pages": "2504–2505;chapter77 pp.1680–1681"
+  },
+  "runtime": {
+    "version": "21.1.0.14",
+    "edition": "Studio",
+    "os": "Windows-11-10.0.26200-SP0",
+    "ui_language": "ja-JP (some Shape controls remain English)"
+  },
+  "captured_at": "2026-10-24T00:22:40.482849+00:00",
+  "project": "Collectanea_Captures_20261023_Sol",
+  "timeline": "S74_capture",
+  "frame": 0.0,
+  "resolution": [
+    1920,
+    1080
+  ],
+  "color_management": {
+    "colorScienceMode": "davinciYRGB",
+    "colorSpaceTimeline": "Rec.709 (Scene)",
+    "colorSpaceTimelineGamma": "",
+    "colorSpaceOutput": "Rec.709 (Scene)",
+    "colorSpaceOutputGamma": "ACEScc",
+    "separateColorSpaceAndGamma": "0",
+    "isAutoColorManage": "0",
+    "timelineResolutionWidth": "1920",
+    "timelineResolutionHeight": "1080",
+    "timelineFrameRate": 24.0,
+    "timelinePlaybackFrameRate": "30"
+  },
+  "viewer": {
+    "zoom_percent": 40,
+    "channel": "Color",
+    "background": "checkerboard for transparent pixels",
+    "note": "Viewer screenshots are display evidence, not colorimetric exports."
+  },
+  "graph": "fixture.comp",
+  "settings": "readback.json",
+  "source": {
+    "file": "screen.png",
+    "size": [
+      3352,
+      1910
+    ],
+    "sha256": "47b0cd61c6320fd331b7c239988dce9e0d76cd8c1f85efc3cb31e045a6d1eaa5"
+  },
+  "shots": [
+    {
+      "file": "graph.png",
+      "source": "screen.png",
+      "source_sha256": "47b0cd61c6320fd331b7c239988dce9e0d76cd8c1f85efc3cb31e045a6d1eaa5",
+      "frame": 0.0,
+      "crop_xyxy": [
+        20,
+        1045,
+        2830,
+        1680
+      ],
+      "resampled": false,
+      "sha256": "afee2f9cd1979bbf3b00b340ccd7b2edc92a9a05a3a85d6a36cc43a9f7a824d1"
+    },
+    {
+      "file": "inspector.png",
+      "source": "screen.png",
+      "source_sha256": "47b0cd61c6320fd331b7c239988dce9e0d76cd8c1f85efc3cb31e045a6d1eaa5",
+      "frame": 0.0,
+      "crop_xyxy": [
+        2830,
+        120,
+        3352,
+        520
+      ],
+      "resampled": false,
+      "sha256": "1967ff214f4a7d303bf7a96e778d0a35276aadb69c6be6b44f30bd68ce442f12"
+    },
+    {
+      "file": "compare.png",
+      "source": "screen.png",
+      "source_sha256": "47b0cd61c6320fd331b7c239988dce9e0d76cd8c1f85efc3cb31e045a6d1eaa5",
+      "frame": 0.0,
+      "crop_xyxy": [
+        1146,
+        65,
+        2830,
+        725
+      ],
+      "resampled": false,
+      "sha256": "cb3e90afe4b6359217dd8f37f781d54166bda37248bb2179b703f970d83b19c9"
+    },
+    {
+      "file": "correct-inspector.png",
+      "source": "screen-correct.png",
+      "source_sha256": "d89868b7d4c22814de909bc007ecbcd8f35d0fb241d5ecf9ef95370fd63d1fe8",
+      "frame": 0.0,
+      "crop_xyxy": [
+        2830,
+        120,
+        3352,
+        625
+      ],
+      "resampled": false,
+      "sha256": "b24c24a322640f5f8964f51f5955b87f00b1276f6adeb9e83198af9e5fff55fb"
+    },
+    {
+      "file": "direct-inspector.png",
+      "source": "screen-direct.png",
+      "source_sha256": "8c79f5f1fb2d9bebb8dca5fbe98bba3e49367a1b7ad8455423ecb0ff6649934f",
+      "frame": 0.0,
+      "crop_xyxy": [
+        2830,
+        120,
+        3352,
+        625
+      ],
+      "resampled": false,
+      "sha256": "2b4a96e473e880c275ec1306225e746451dbb37bb48ff252e8753b5e64072946"
+    },
+    {
+      "file": "multiply-inspector.png",
+      "source": "screen-multiply.png",
+      "source_sha256": "7bd515946752841cf295fcd025d6107a2d8ac1de1be828ff56843c13c81eec76",
+      "frame": 0.0,
+      "crop_xyxy": [
+        2830,
+        120,
+        3352,
+        520
+      ],
+      "resampled": false,
+      "sha256": "a4c3d682434b7e166ad410bb3f29e213e9a2b8181c78860bb2df9fa480092212"
+    },
+    {
+      "file": "source-inspector.png",
+      "source": "screen-source.png",
+      "source_sha256": "4ae13b6eae41c97163193765b86df41c7cdb842a677071add57f6cd4b68010f9",
+      "frame": 0.0,
+      "crop_xyxy": [
+        2830,
+        120,
+        3352,
+        485
+      ],
+      "resampled": false,
+      "sha256": "afc6c6384e8492e9613d2664afe0307629fe422d1025054e98f2a01be0ae6278"
+    },
+    {
+      "file": "source.png",
+      "source": "screen-source.png",
+      "source_sha256": "4ae13b6eae41c97163193765b86df41c7cdb842a677071add57f6cd4b68010f9",
+      "frame": 0.0,
+      "crop_xyxy": [
+        1146,
+        65,
+        2830,
+        725
+      ],
+      "resampled": false,
+      "sha256": "d7a1fe42f6251213d991f3cf7ee0d15cfb38db43685aee7b8499650d57474677"
+    },
+    {
+      "file": "baseline.png",
+      "source": "screen-baseline.png",
+      "source_sha256": "ddb54f8f3109ad6b8417c71d094a6fad797f9ecba4604ee4eb22621f7dc0132b",
+      "frame": 0.0,
+      "crop_xyxy": [
+        1146,
+        65,
+        2830,
+        725
+      ],
+      "resampled": false,
+      "sha256": "78bf105cce067d91d7036828fa681f6067e8f0260736f7103d0fead84d536f01"
+    },
+    {
+      "file": "builtin-options.png",
+      "source": "screen-builtin.png",
+      "source_sha256": "4fe3b791c8e9550dd75e5e53692db2363c286844f34812bbaa4f45bf4b1fc65c",
+      "frame": 0.0,
+      "crop_xyxy": [
+        2830,
+        120,
+        3352,
+        350
+      ],
+      "resampled": false,
+      "sha256": "d5d40cb3cd9f95402ea04c142b6660106e9d9fa20f6380e58a1ecf4a5cac3568"
+    },
+    {
+      "file": "builtin.png",
+      "source": "screen-builtin.png",
+      "source_sha256": "4fe3b791c8e9550dd75e5e53692db2363c286844f34812bbaa4f45bf4b1fc65c",
+      "frame": 0.0,
+      "crop_xyxy": [
+        1146,
+        65,
+        2830,
+        725
+      ],
+      "resampled": false,
+      "sha256": "371126f0b87935e09a218776124aedc58567c520080eed8775bfabb2992509ed"
+    },
+    {
+      "file": "direct-options.png",
+      "source": "screen-direct-options.png",
+      "source_sha256": "f5da3755d1d8a4a1a74a0d21b3e47d24f2bf4380e2b50d7f6515007e778f078e",
+      "frame": 0.0,
+      "crop_xyxy": [
+        2830,
+        120,
+        3352,
+        350
+      ],
+      "resampled": false,
+      "sha256": "02f04283b40fdbf2e7a3555e6465cb81b8d40507746fbf346c662f9306b2162b"
+    }
+  ],
+  "acceptance": {
+    "gui": "PASS: owner visually inspected node connections, selected Inspector, and output",
+    "article_display": "PASS: local production build;7 distinct pages33 images;1440px/390px/decode/Alt/native links/hash/overflow"
+  },
+  "unverified": [
+    "Free edition and other platforms",
+    "All parameter ranges and performance",
+    "実写/キーイング素材・外部OFX・Effect Mask・Alpha0近傍の数値・HDR・性能",
+    "Numerical equality of explicit pair and built-in processing",
+    "Double-premultiply comparison",
+    "Viewer Alpha channel measurement",
+    "Exported portable composition reimport"
+  ],
+  "restoration": "PASS: S74 saved/frame0/both Color40%;both CC OutputLow.2/High1,internal PreDivide0/ProcessAlpha0;AlphaDivide Inspector,no popup.",
+  "parameter_readback_scope": "Number/Text/Point/FuID/Clip only;no Image/Mask/3D/ScriptVal payload evaluation.",
+  "state_variants": {
+    "screen.png": "Final explicit pair vs direct;OutputLow.2/both internal predivide OFF;InspectorAlphaDivide",
+    "screen-correct.png": "same pair,InspectorColorStraight Levels",
+    "screen-direct.png": "same pair,InspectorColorDirect Levels",
+    "screen-multiply.png": "same pair,InspectorAlphaMultiply common Settings",
+    "screen-source.png": "left masked Background,right AlphaDivide intermediate;InspectorForeground",
+    "screen-baseline.png": "both CC OutputLow0/both internal predivide OFF",
+    "screen-builtin.png": "both OutputLow.2;left internal PreDivideON/right explicit pair PreDivideOFF;OptionsON visible",
+    "screen-direct-options.png": "final comparison,left internal PreDivideOFF visible"
+  },
+  "rejected_diagnostics": "Initial Gamma2/Mid2 probes and Fit views did not show a sufficiently clear explanatory comparison;not adopted. Owned node names migrated once to ColorDirect/ColorStraight before accepted shots.",
+  "reproduction": {
+    "fixture_sha256": "3923aea05a2eaf1340b5f832b5f0826a2002d553ece0a2db7774dbdd4dbd0e99",
+    "readback_sha256": "c64cf42bc0ac12aa4fb1ca4f29625645802785def71bc4ffc2463fb9b8e2a77f",
+    "paths": "Comp:/../_fixtures/ for bundled synthetic fixtures",
+    "reimport": "NOT_RUN: accepted GUI evidence precedes export path normalization"
+  }
+}

@@ -78,6 +78,7 @@ CONFIG={
  'S71':{'graph': (480, 1300, 2380, 1450), 'inspector': (2830, 120, 3352, 405), 'compare': (1146, 65, 2830, 725), 'identity-inspector': (2830, 120, 3352, 405), 'identity': (1146, 65, 2830, 725), 'add02-inspector': (2830, 120, 3352, 405), 'add02': (1146, 65, 2830, 725)},
  'S72':{'graph': (480, 1300, 2380, 1450), 'inspector': (2830, 120, 3352, 300), 'compare': (1146, 65, 2830, 725), 'converted-inspector': (2830, 120, 3352, 300), 'converted': (1146, 65, 2830, 725)},
  'S73':{'graph': (480, 1300, 2380, 1450), 'inspector': (2830, 120, 3352, 395), 'compare': (1146, 65, 2830, 725), 'inverse-inspector': (2830, 120, 3352, 395), 'inverse': (1146, 65, 2830, 725), 'neutral-inspector': (2830, 120, 3352, 395), 'neutral': (1146, 65, 2830, 725)},
+ 'S74':{'graph': (20, 1045, 2830, 1680), 'inspector': (2830, 120, 3352, 520), 'compare': (1146, 65, 2830, 725), 'correct-inspector': (2830, 120, 3352, 625), 'direct-inspector': (2830, 120, 3352, 625), 'multiply-inspector': (2830, 120, 3352, 520), 'source-inspector': (2830, 120, 3352, 485), 'source': (1146, 65, 2830, 725), 'baseline': (1146, 65, 2830, 725), 'builtin-options': (2830, 120, 3352, 350), 'builtin': (1146, 65, 2830, 725), 'direct-options': (2830, 120, 3352, 350)},
 }
 def sha(p):return hashlib.sha256(p.read_bytes()).hexdigest()
 candidates=json.loads((ROOT/'docs/fusion-screenshot-candidates.json').read_text(encoding='utf-8'))
@@ -155,6 +156,7 @@ for case in args.cases:
   if case=='S71':extra.update({('S71', 'identity-inspector'): 'screen-identity.png', ('S71', 'identity'): 'screen-identity.png', ('S71', 'add02-inspector'): 'screen-add02.png', ('S71', 'add02'): 'screen-add02.png'})
   if case=='S72':extra.update({('S72', 'converted-inspector'): 'screen-converted.png', ('S72', 'converted'): 'screen-converted.png'})
   if case=='S73':extra.update({('S73', 'inverse-inspector'): 'screen-inverse.png', ('S73', 'inverse'): 'screen-inverse.png', ('S73', 'neutral-inspector'): 'screen-neutral.png', ('S73', 'neutral'): 'screen-neutral.png'})
+  if case=='S74':extra.update({('S74', 'correct-inspector'): 'screen-correct.png', ('S74', 'direct-inspector'): 'screen-direct.png', ('S74', 'multiply-inspector'): 'screen-multiply.png', ('S74', 'source-inspector'): 'screen-source.png', ('S74', 'source'): 'screen-source.png', ('S74', 'baseline'): 'screen-baseline.png', ('S74', 'builtin-options'): 'screen-builtin.png', ('S74', 'builtin'): 'screen-builtin.png', ('S74', 'direct-options'): 'screen-direct-options.png'})
   src=folder/extra.get((case,slug),variants.get((case,slug),'screen.png'))
   assert 0<=box[0]<box[2]<=im.width and 0<=box[1]<box[3]<=im.height, (case,slug,box)
   path=folder/(slug+'.png');Image.open(src).crop(box).save(path)

@@ -64,6 +64,7 @@ TARGETS['S70']='AutoGain1';LEFT['S70']='Loader1';RIGHT['S70']='AutoGain1'
 TARGETS['S71']='ColorMatrix1';LEFT['S71']='Loader1';RIGHT['S71']='ColorMatrix1'
 TARGETS['S72']='ColorSpace1';LEFT['S72']='Loader1';RIGHT['S72']='ColorSpace1'
 TARGETS['S73']='WhiteBalance1';LEFT['S73']='Loader1';RIGHT['S73']='WhiteBalance1'
+TARGETS['S74']='AlphaDivide1';LEFT['S74']='MergeNaive';RIGHT['S74']='MergeCorrect'
 r=d.scriptapp('Resolve')
 assert r, 'Resolve scripting unavailable; do not change preferences automatically'
 pm=r.GetProjectManager(); p=pm.GetCurrentProject()
@@ -99,6 +100,11 @@ if action=='mask_inspector':
  assert case=='S49';TARGETS[case]='Ellipse1';action='show'
 if action=='image':
  assert case in ['S50','S51','S54','S55','S57','S58','S59','S60','S61'];TARGETS[case]='MediaOut1';action='show'
+if action in ['premult_naive','premult_correct','premult_multiply','premult_source']:
+ assert case=='S74'
+ TARGETS[case]={'premult_naive':'ColorDirect','premult_correct':'ColorStraight','premult_multiply':'AlphaMultiply1','premult_source':'Foreground1'}[action]
+ if action=='premult_source':LEFT[case]='Foreground1';RIGHT[case]='AlphaDivide1'
+ action='show'
 if action=='roundtrip_result':
  assert case=='S72';TARGETS[case]='RGBBack1';LEFT[case]='ColorSpace1';RIGHT[case]='RGBBack1';action='show'
 if action=='canvas_source':
@@ -202,6 +208,7 @@ def select(target,left=None):
  for cid in ['S62','S63','S64','S65']:layouts[cid]={'Loader1':(0,0),TARGETS[cid]:(1.5,0),'MediaOut1':(3,0)}
  if case in ['S62','S63'] and 'BlurSource1' in tools:layouts[case]={'Loader1':(0,0),'BlurSource1':(1.5,0),TARGETS[case]:(3,0),'MediaOut1':(4.5,0)}
  if case=='S72' and 'RGBBack1' in tools:layouts[case]={'Loader1':(0,0),'ColorSpace1':(1.5,0),'RGBBack1':(3,0),'MediaOut1':(4.5,0)}
+ layouts['S74']={'Ellipse1':(0,-2),'Foreground1':(0,0),'ColorDirect':(2,-2),'MergeNaive':(6,-2),'AlphaDivide1':(1.5,1),'ColorStraight':(3,1),'AlphaMultiply1':(4.5,1),'MergeCorrect':(6,1),'Base1':(0,3),'MediaOut1':(7.5,1)}
  layouts['S57']={'Loader1':(0,0),'CustomTool1':(1.5,0),'MediaOut1':(3,0)}
  layouts['S56']={'Loader1':(0,0),'CameraShake1':(1.5,0),'MediaOut1':(3,0)}
  layouts['S55']={'Loader1':(0,0),'DVE1':(1.5,0),'MediaOut1':(3,0)}
@@ -258,12 +265,23 @@ if action=='build':
   rb=add('sRender','RenderBase1',4,-1);connect(rb,'Input',base)
   target=add('sTransform','Transform1',2,1);connect(target,'Input',base)
   rr=add('sRender','RenderChanged1',4,1);connect(rr,'Input',target);connect(mo,'Input',rr)
+ elif case=='S74':
+  ell=add('EllipseMask','Ellipse1',0,-2,Width=.4,Height=.65,SoftEdge=.08)
+  fg=add('Background','Foreground1',0,0,TopLeftRed=.2,TopLeftGreen=.55,TopLeftBlue=.9,TopLeftAlpha=1);connect(fg,'EffectMask',ell)
+  bg=add('Background','Base1',0,3,TopLeftRed=.025,TopLeftGreen=.025,TopLeftBlue=.025,TopLeftAlpha=1)
+  naive=add('ColorCorrector','ColorDirect',2,-2,MasterRGBOutputLow=.2,PreDividePostMultiply=0,ProcessAlpha=0,Menu=1);connect(naive,'Input',fg)
+  target=add('AlphaDivide','AlphaDivide1',1.5,1);connect(target,'Input',fg)
+  correct=add('ColorCorrector','ColorStraight',3,1,MasterRGBOutputLow=.2,PreDividePostMultiply=0,ProcessAlpha=0,Menu=1);connect(correct,'Input',target)
+  multiply=add('AlphaMultiply','AlphaMultiply1',4.5,1);connect(multiply,'Input',correct)
+  for name,source,y in [('MergeNaive',naive,-2),('MergeCorrect',multiply,1)]:
+   merge=add('Merge',name,6,y);connect(merge,'Background',bg);connect(merge,'Foreground',source)
+  connect(mo,'Input',tools['MergeCorrect'])
  # S71 matrix edits require native GUI commit and exported FilterTable readback.
  elif case in ['S70','S71','S72','S73']:
   loader=add('Loader','Loader1',0,0,Clip=str(REPO/'static/img/fusion/captures/_fixtures/chart.png'))
   reg={'S70':'AutoGain','S71':'CustomColorMatrix','S72':'ColorSpace','S73':'WhiteBalance'}[case]
   target=add(reg,TARGETS[case],1.5,0);connect(target,'Input',loader);connect(mo,'Input',target)
- # S69 matrix edits require native GUI commit; UIA text alone is insufficient.
+ # S69 matrix edits require native GUI commit and exported FilterTable readback.
  elif case in ['S66','S67','S68','S69']:
   loader=add('Loader','Loader1',0,0,Clip=str(REPO/'static/img/fusion/captures/_fixtures/chart.png'))
   reg={'S66':'Filter','S67':'SoftGlow','S68':'CreateBumpMap','S69':'CustomFilter'}[case]

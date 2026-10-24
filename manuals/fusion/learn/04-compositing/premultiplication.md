@@ -183,6 +183,26 @@ MediaInとLoaderの設定名や場所を同一視しません。素材を書き�
 - [Brightness Contrast](../../nodes/color/brightness-contrast.md) / [Color Curves](../../nodes/color/color-curves.md) / [Color Corrector](../../nodes/color/color-corrector.md)：内部Pre-Divide / Post-Multiplyを使う場合。
 - [合成量と演算](./blend-operator.md)：Blend・Apply Mode・Operatorの違い。
 
+## 実機例：前景単体と合成後を見分ける
+
+<!-- capture-reuse:R116 -->
+
+最初の比較は左がマスク付き前景、右がAlpha Divide直後です。後者の中間表示が明るく見えても、それだけで補正失敗とは判断できません。次の合成後の比較では、同じLevels出力下限0.2でも、直接補正する左は背景まで灰色になり、Divide→補正→Multiplyを通す右は暗い背景を保ちます。
+
+[![左はマスク付き前景、右はAlpha Divide直後をColor表示した中間画像](/img/fusion/captures/S74/source.png)](/img/fusion/captures/S74/source.png)
+
+[![左の直接補正では背景が灰色に持ち上がり、右のDivideとMultiplyを通す補正では暗い背景を保つ](/img/fusion/captures/S74/compare.png)](/img/fusion/captures/S74/compare.png)
+
+[![ColorDirectのOptionsで処理前に除算、処理後に乗算のチェックをオンにしたInspector](/img/fusion/captures/S74/builtin-options.png)](/img/fusion/captures/S74/builtin-options.png)
+
+[![左のColor Corrector内蔵前後処理と、右の明示的なDivideとMultiply構成が同じ見た目になる](/img/fusion/captures/S74/builtin.png)](/img/fusion/captures/S74/builtin.png)
+
+最後の比較では左のColor Corrector内蔵Pre-Divide / Post-Multiplyをオンにし、明示的な構成と同じ見た目を確認しました。この設定はOptionsにあります。単一の補正と複数ノードを挟む構成を使い分け、両方を重ねる前に入力状態を確認します。
+
+Resolve Studio21.1.0.14／WindowsのFusionページで、1920×1080の合成を作りました。両ViewerはColor／40%。左のMergeNaiveは直接補正、右のMergeCorrectはAlpha Divide→補正→Alpha Multiplyの結果です。 この固定例の表示と保存Graphを確認しました。実写のキーイング素材、外部OFX、Effect Mask、Alphaが0に近い画素の数値、HDRと性能は未確認です。 詳しい[接続と比較条件](../../nodes/matte-keying/alpha-divide)はAlpha Divideの実機例に記録しています。
+
+[再現用Graph](/img/fusion/captures/S74/fixture.comp) · [撮影条件と確認範囲](/img/fusion/captures/S74/capture.json)
+
 ## 出典と確認範囲
 
 - **Blackmagic Design, DaVinci Resolve 21.1 Reference Manual**（September 2026）、Chapter 77 pp.1676–1679「Understanding Premultiplication」「The Rules of Premultiplication」：StraightとPremultiplied、Merge、色補正、二重乗算。
