@@ -100,6 +100,9 @@ TARGETS['S108']='ColorCurves1';LEFT['S108']='Loader1'
 TARGETS['S109']='HueCurves1';LEFT['S109']='Loader1'
 TARGETS['S110']='GamutLimiter1';LEFT['S110']='Red1'
 TARGETS['S111']='OCIOFileTransform1';LEFT['S111']='Loader1'
+TARGETS['S112']='OCIOColorSpace1';LEFT['S112']='Loader1'
+TARGETS['S113']='OCIODisplay1';LEFT['S113']='Loader1'
+TARGETS['S114']='GamutMapping1';LEFT['S114']='HDRSource1'
 LEFT.update({'S100':'Swizzler1','S101':'Swizzler1','S102':'SwizzlerA1'})
 r=d.scriptapp('Resolve')
 assert r, 'Resolve scripting unavailable; do not change preferences automatically'
@@ -312,7 +315,8 @@ def select(target,left=None):
  for cid in ['S100','S101']:
   layouts[cid]={'ChartSource1' if cid=='S100' else 'Loader1':(0,0),'Gold1':(0,-1.5),'Swizzler1':(1,0),TARGETS[cid]:(2,0),'MediaOut1':(3,0)}
  layouts['S102']={'Loader1':(0,0),'Gold1':(0,-1.5),'Blue1':(0,1.5),'SwizzlerA1':(1,-.75),'SwizzlerB1':(1,.75),'LayerMuxer1':(2,0),'MediaOut1':(3,0)}
- for cid in ['S103','S104','S105','S106','S107','S108','S109','S110','S111']:layouts[cid]={'Loader1':(0,0),TARGETS[cid]:(1,0),'MediaOut1':(2,0)}
+ for cid in ['S103','S104','S105','S106','S107','S108','S109','S110','S111','S112','S113']:layouts[cid]={'Loader1':(0,0),TARGETS[cid]:(1,0),'MediaOut1':(2,0)}
+ if case=='S114':layouts[case]={'HDRSource1':(0,0),'GamutMapping1':(1,0),'MediaOut1':(2,0)}
  if case=='S110':layouts[case]={'Red1':(0,0),'GamutLimiter1':(1,0),'MediaOut1':(2,0)}
  for n,pos in layouts.get(case,{}).items():
   if n in tools:flow.SetPos(tools[n],*pos)
@@ -352,15 +356,21 @@ if action=='build':
   rb=add('sRender','RenderBase1',4,-1);connect(rb,'Input',base)
   target=add('sTransform','Transform1',2,1);connect(target,'Input',base)
   rr=add('sRender','RenderChanged1',4,1);connect(rr,'Input',target);connect(mo,'Input',rr)
+ elif case=='S114':
+  src=add('Background','HDRSource1',0,0,TopLeftRed=4,TopLeftGreen=1,TopLeftBlue=.25,TopLeftAlpha=1)
+  target=add('GamutMapping','GamutMapping1',1,0)
+  ports={z.GetAttrs()['INPS_ID'] for z in target.GetInputList().values() if z and callable(z.GetAttrs) and z.GetAttrs().get('INPS_DataType')=='Image'}
+  assert 'Input' in ports,ports
+  connect(target,'Input',src);connect(mo,'Input',target)
  elif case=='S110':
   red=add('Background','Red1',0,0,TopLeftRed=1,TopLeftGreen=0,TopLeftBlue=0,TopLeftAlpha=1)
   target=add('GamutLimiter','GamutLimiter1',1,0)
   ports={z.GetAttrs()['INPS_ID'] for z in target.GetInputList().values() if z and callable(z.GetAttrs) and z.GetAttrs().get('INPS_DataType')=='Image'}
   assert 'Input' in ports,ports
   connect(target,'Input',red);connect(mo,'Input',target)
- elif case in ['S104','S105','S106','S107','S108','S109','S111']:
+ elif case in ['S104','S105','S106','S107','S108','S109','S111','S112','S113']:
   loader=add('Loader','Loader1',0,0,Clip=str(REPO/'static/img/fusion/captures/_fixtures/chart.png'))
-  reg={'S104':'ChromaticAdaptation','S105':'OCIOCDLTransform','S106':'AcesTransform','S107':'ChromaticAberrationRemoval','S108':'ColorCurves','S109':'HueCurves','S110':'GamutLimiter','S111':'OCIOFileTransform'}[case]
+  reg={'S104':'ChromaticAdaptation','S105':'OCIOCDLTransform','S106':'AcesTransform','S107':'ChromaticAberrationRemoval','S108':'ColorCurves','S109':'HueCurves','S110':'GamutLimiter','S111':'OCIOFileTransform','S112':'OCIOColorSpace','S113':'OCIODisplay'}[case]
   target=add(reg,TARGETS[case],1,0)
   ports={z.GetAttrs()['INPS_ID'] for z in target.GetInputList().values() if z and callable(z.GetAttrs) and z.GetAttrs().get('INPS_DataType')=='Image'}
   assert 'Input' in ports,ports

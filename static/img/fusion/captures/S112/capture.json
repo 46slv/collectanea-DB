@@ -1,0 +1,236 @@
+{
+  "schema_version": 1,
+  "case": "S112",
+  "article": "manuals/fusion/nodes/color/ocio-colorspace.md",
+  "manual": {
+    "version": "21.1",
+    "chapter": 93,
+    "printed_pages": "2193–2195"
+  },
+  "runtime": {
+    "version": "21.1.0.14",
+    "edition": "Studio",
+    "os": "Windows-11-10.0.26200-SP0",
+    "ui_language": "ja-JP (some Shape controls remain English)"
+  },
+  "captured_at": "2026-10-24T08:24:25.386299+00:00",
+  "project": "Collectanea_Captures_20261023_Sol",
+  "timeline": "S112_capture",
+  "frame": 0.0,
+  "resolution": [
+    1920,
+    1080
+  ],
+  "color_management": {
+    "colorScienceMode": "davinciYRGB",
+    "colorSpaceTimeline": "Rec.709 (Scene)",
+    "colorSpaceTimelineGamma": "",
+    "colorSpaceOutput": "Rec.709 (Scene)",
+    "colorSpaceOutputGamma": "ACEScc",
+    "separateColorSpaceAndGamma": "0",
+    "isAutoColorManage": "0",
+    "timelineResolutionWidth": "1920",
+    "timelineResolutionHeight": "1080",
+    "timelineFrameRate": 24.0,
+    "timelinePlaybackFrameRate": "30"
+  },
+  "viewer": {
+    "zoom_percent": 40,
+    "channel": "Color",
+    "background": "checkerboard for transparent pixels",
+    "note": "Viewer screenshots are display evidence, not colorimetric exports."
+  },
+  "graph": "fixture.comp",
+  "settings": "readback.json",
+  "source": {
+    "file": "screen.png",
+    "size": [
+      3352,
+      1910
+    ],
+    "sha256": "2e5dd3b2461592b322fcf7a853ef562de6121f72413be2257818b9ba4af1538d"
+  },
+  "shots": [
+    {
+      "file": "graph.png",
+      "source": "screen.png",
+      "source_sha256": "2e5dd3b2461592b322fcf7a853ef562de6121f72413be2257818b9ba4af1538d",
+      "frame": 0,
+      "crop_xyxy": [
+        930,
+        1320,
+        1920,
+        1425
+      ],
+      "resampled": false,
+      "sha256": "a8ed4958214de902c4fb1dddd971c04a22269cde3e0a085bcd5cc26d10544b82",
+      "viewer_guides": false,
+      "viewer_contents": "Left chart / Right Gamma2.2 tolinear"
+    },
+    {
+      "file": "inspector.png",
+      "source": "screen.png",
+      "source_sha256": "2e5dd3b2461592b322fcf7a853ef562de6121f72413be2257818b9ba4af1538d",
+      "frame": 0,
+      "crop_xyxy": [
+        2830,
+        120,
+        3352,
+        400
+      ],
+      "resampled": false,
+      "sha256": "d9442e490af15bfc7a3d7fb4d90b05f3c61a6707c0c685a74dd6e5c1334a974f",
+      "viewer_guides": false,
+      "viewer_contents": "Left chart / Right Gamma2.2 tolinear"
+    },
+    {
+      "file": "compare.png",
+      "source": "screen.png",
+      "source_sha256": "2e5dd3b2461592b322fcf7a853ef562de6121f72413be2257818b9ba4af1538d",
+      "frame": 0,
+      "crop_xyxy": [
+        1146,
+        65,
+        2830,
+        725
+      ],
+      "resampled": false,
+      "sha256": "f31c309655170b05fa7d144ddb28127e1c055f5551f74a3a0074b9bb0562c3d7",
+      "viewer_guides": false,
+      "viewer_contents": "Left chart / Right Gamma2.2 tolinear"
+    },
+    {
+      "file": "matched-inspector.png",
+      "source": "screen-matched.png",
+      "source_sha256": "817a00341f356d1f40d560c4c2ebefa0c25b8f6b874cb52fe164958bacc28b40",
+      "frame": 0,
+      "crop_xyxy": [
+        2830,
+        120,
+        3352,
+        400
+      ],
+      "resampled": false,
+      "sha256": "f5d777fba446488931b2db9951c54ab061ac7f6bf78917b0072d6a46bc295b06",
+      "viewer_guides": false,
+      "viewer_contents": "Left chart / Right Gamma2.2 toGamma2.2"
+    },
+    {
+      "file": "matched.png",
+      "source": "screen-matched.png",
+      "source_sha256": "817a00341f356d1f40d560c4c2ebefa0c25b8f6b874cb52fe164958bacc28b40",
+      "frame": 0,
+      "crop_xyxy": [
+        1146,
+        65,
+        2830,
+        725
+      ],
+      "resampled": false,
+      "sha256": "d11df6c5dbb30785b01f181f9c1fc00ac35cdd3ab3124b27888567e5c7eed02a",
+      "viewer_guides": false,
+      "viewer_contents": "Left chart / Right Gamma2.2 toGamma2.2"
+    }
+  ],
+  "acceptance": {
+    "gui": "PASS: owner visually inspected node connections, selected Inspector, and output",
+    "article_display": "Executed outcomes recorded in docs/fusion-screenshot-candidates.json;provenance fixed."
+  },
+  "unverified": [
+    "Free edition and other platforms",
+    "All parameter ranges and performance",
+    "Real footage/colorimetric or export fidelity",
+    "Other modes/spaces/views/masks/Alpha",
+    "Portable Graph reimport and other platforms/editions",
+    "Full parameter ranges/performance",
+    "Exported portable composition reimport"
+  ],
+  "gui_authoring": {
+    "host": {
+      "pid": 20156,
+      "hwnd": 82647722,
+      "source_pixels": [
+        3352,
+        1910
+      ]
+    },
+    "tool": "OCIOColorSpace1",
+    "regid": "OCIOColorSpace",
+    "visible_flow_tools": 3,
+    "delivery": "SDK/synthetic Cua,physicalNOT_PROVEN;native UI/export establish outcome"
+  },
+  "native_proof": {
+    "final": {
+      "SourceSpace": "Gamma2.2",
+      "OutputSpace": "linear",
+      "Look": "None",
+      "Direction": "Forward"
+    },
+    "comparison": {
+      "SourceSpace": "Gamma2.2",
+      "OutputSpace": "Gamma2.2"
+    },
+    "sources": [
+      "screen.png",
+      "screen-matched.png"
+    ],
+    "delta": {
+      "bbox": [
+        0,
+        0,
+        755,
+        410
+      ],
+      "extrema": [
+        [
+          0,
+          72
+        ],
+        [
+          0,
+          72
+        ],
+        [
+          0,
+          72
+        ]
+      ]
+    },
+    "config_dependency": {
+      "config": "C:\\Program Files\\Blackmagic Design\\DaVinci Resolve\\Fusion\\LUTs\\DefaultConfig.ocio",
+      "sha256": "4db1ce5bc74257291f4985696e082898746c66b23edfd6bf9de60a6c244189a7",
+      "copied_to_repository": false,
+      "used_by": "Node OCIOConfig only;environment/preferences unchanged",
+      "profile": 1,
+      "srgb_lut": {
+        "file": "C:\\Program Files\\Blackmagic Design\\DaVinci Resolve\\Fusion\\LUTs\\OCIO\\srgb.spi1d",
+        "sha256": "4240e29bd6638d46d68bdcb83ea321428c1a00e4360e44dd84864f78b86ff0e9"
+      }
+    },
+    "roi_xyxy": [
+      2055,
+      205,
+      2810,
+      615
+    ],
+    "limits": [
+      "Real footage/colorimetric or export fidelity",
+      "Other modes/spaces/views/masks/Alpha",
+      "Portable Graph reimport and other platforms/editions",
+      "Full parameter ranges/performance"
+    ],
+    "bounded_readback": {
+      "SourceSpace": "Gamma2.2",
+      "OutputSpace": "linear",
+      "Look": "None",
+      "Direction": "Forward"
+    }
+  },
+  "restoration": "PASS:frame0,both40%,compact Flow,owned scratch saved,native final inspected",
+  "reproduction": {
+    "fixture_sha256": "9fc084406f8bef1937f85dfe6c5bbc5b704190eaa876491903750f018771f184",
+    "readback_sha256": "0cd4a378533153c847f195696d86d55590820297be0799543e1a13b5e91fecb9",
+    "paths": "Comp:/../_fixtures/ for bundled synthetic fixtures",
+    "reimport": "NOT_RUN: accepted GUI evidence precedes export path normalization"
+  }
+}

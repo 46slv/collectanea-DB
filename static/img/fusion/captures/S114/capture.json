@@ -1,0 +1,250 @@
+{
+  "schema_version": 1,
+  "case": "S114",
+  "article": "manuals/fusion/nodes/color/gamut-mapping.md",
+  "manual": {
+    "version": "21.1",
+    "chapter": 93,
+    "printed_pages": "2143–2145"
+  },
+  "runtime": {
+    "version": "21.1.0.14",
+    "edition": "Studio",
+    "os": "Windows-11-10.0.26200-SP0",
+    "ui_language": "ja-JP (some Shape controls remain English)"
+  },
+  "captured_at": "2026-10-24T08:29:56.552926+00:00",
+  "project": "Collectanea_Captures_20261023_Sol",
+  "timeline": "S114_capture",
+  "frame": 0.0,
+  "resolution": [
+    1920,
+    1080
+  ],
+  "color_management": {
+    "colorScienceMode": "davinciYRGB",
+    "colorSpaceTimeline": "Rec.709 (Scene)",
+    "colorSpaceTimelineGamma": "",
+    "colorSpaceOutput": "Rec.709 (Scene)",
+    "colorSpaceOutputGamma": "ACEScc",
+    "separateColorSpaceAndGamma": "0",
+    "isAutoColorManage": "0",
+    "timelineResolutionWidth": "1920",
+    "timelineResolutionHeight": "1080",
+    "timelineFrameRate": 24.0,
+    "timelinePlaybackFrameRate": "30"
+  },
+  "viewer": {
+    "zoom_percent": 40,
+    "channel": "Color",
+    "background": "checkerboard for transparent pixels",
+    "note": "Viewer screenshots are display evidence, not colorimetric exports."
+  },
+  "graph": "fixture.comp",
+  "settings": "readback.json",
+  "source": {
+    "file": "screen.png",
+    "size": [
+      3352,
+      1910
+    ],
+    "sha256": "4a8a148c0b2ebed439353c9ad4f7a380726d60c370393ec2e1adff26ba40254a"
+  },
+  "shots": [
+    {
+      "file": "graph.png",
+      "source": "screen.png",
+      "source_sha256": "4a8a148c0b2ebed439353c9ad4f7a380726d60c370393ec2e1adff26ba40254a",
+      "frame": 0,
+      "crop_xyxy": [
+        930,
+        1320,
+        1920,
+        1425
+      ],
+      "resampled": false,
+      "sha256": "44c32423eaa1626393b392294f2779b2413b9288641103497d199cf207879873",
+      "viewer_guides": false,
+      "viewer_contents": "Left float32 RGBA4/1/.25/1 / Right Simple Compress,GamutMappingNone"
+    },
+    {
+      "file": "inspector.png",
+      "source": "screen.png",
+      "source_sha256": "4a8a148c0b2ebed439353c9ad4f7a380726d60c370393ec2e1adff26ba40254a",
+      "frame": 0,
+      "crop_xyxy": [
+        2830,
+        120,
+        3352,
+        500
+      ],
+      "resampled": false,
+      "sha256": "c90140591f1538fa1f59ca6e86436daa2907bb6739b192ef8ee5c19b7a80d76e",
+      "viewer_guides": false,
+      "viewer_contents": "Left float32 RGBA4/1/.25/1 / Right Simple Compress,GamutMappingNone"
+    },
+    {
+      "file": "compare.png",
+      "source": "screen.png",
+      "source_sha256": "4a8a148c0b2ebed439353c9ad4f7a380726d60c370393ec2e1adff26ba40254a",
+      "frame": 0,
+      "crop_xyxy": [
+        1146,
+        65,
+        2830,
+        725
+      ],
+      "resampled": false,
+      "sha256": "076487095e3debc2d19b52800759ec7c8552738112b48bfbb3697c2abbc776dd",
+      "viewer_guides": false,
+      "viewer_contents": "Left float32 RGBA4/1/.25/1 / Right Simple Compress,GamutMappingNone"
+    },
+    {
+      "file": "baseline-inspector.png",
+      "source": "screen-baseline.png",
+      "source_sha256": "edc5b264e38d084f33351901b62c157312e3d0e119ad7a9cbadcb36dd30a529b",
+      "frame": 0,
+      "crop_xyxy": [
+        2830,
+        120,
+        3352,
+        500
+      ],
+      "resampled": false,
+      "sha256": "9a7e74a9dc3cb72140365b654bdf4d2c5155d39ecc8bb6f4618471856832ea43",
+      "viewer_guides": false,
+      "viewer_contents": "Left float32 RGBA4/1/.25/1 / Right ToneMappingNone"
+    },
+    {
+      "file": "baseline.png",
+      "source": "screen-baseline.png",
+      "source_sha256": "edc5b264e38d084f33351901b62c157312e3d0e119ad7a9cbadcb36dd30a529b",
+      "frame": 0,
+      "crop_xyxy": [
+        1146,
+        65,
+        2830,
+        725
+      ],
+      "resampled": false,
+      "sha256": "4c92a18bab1afcfb44aeaf8fa7df3dc161cc4c1cf996a005a11691454997952c",
+      "viewer_guides": false,
+      "viewer_contents": "Left float32 RGBA4/1/.25/1 / Right ToneMappingNone"
+    },
+    {
+      "file": "source-inspector.png",
+      "source": "screen-source.png",
+      "source_sha256": "ec97177cf6a824bce8b67de51c2be3ff751a4e43a5534d6b40374027877d1a91",
+      "frame": 0,
+      "crop_xyxy": [
+        2830,
+        120,
+        3352,
+        500
+      ],
+      "resampled": false,
+      "sha256": "d82f1bb7357ab3db42f1bff4778babf93c2b76d47661b8e0eed7aac6b2b6efde",
+      "viewer_guides": false,
+      "viewer_contents": "Left float32 RGBA4/1/.25/1 / Right Simple Compress,GamutMappingNone"
+    }
+  ],
+  "acceptance": {
+    "gui": "PASS: owner visually inspected node connections, selected Inspector, and output",
+    "article_display": "Executed outcomes recorded in docs/fusion-screenshot-candidates.json;provenance fixed."
+  },
+  "unverified": [
+    "Free edition and other platforms",
+    "All parameter ranges and performance",
+    "Real footage/colorimetric or export fidelity",
+    "Other modes/spaces/views/masks/Alpha",
+    "Portable Graph reimport and other platforms/editions",
+    "Full parameter ranges/performance",
+    "Exported portable composition reimport"
+  ],
+  "gui_authoring": {
+    "host": {
+      "pid": 20156,
+      "hwnd": 82647722,
+      "source_pixels": [
+        3352,
+        1910
+      ]
+    },
+    "tool": "GamutMapping1",
+    "regid": "GamutMapping",
+    "visible_flow_tools": 3,
+    "delivery": "SDK/synthetic Cua,physicalNOT_PROVEN;native UI/export establish outcome"
+  },
+  "native_proof": {
+    "final": {
+      "Gamma": "LINEAR_GAMMA",
+      "ToneMappingMethod": "TM_SIMPLE",
+      "DynamicRange": "Compress",
+      "GamutMappingMethod": "GM_NONE",
+      "ApplyForwardOOTF": 0,
+      "ApplyInverseOOTF": 0
+    },
+    "input_rgba": [
+      4,
+      1,
+      0.25,
+      1
+    ],
+    "input_depth": "native float32",
+    "comparison": "ToneMappingMethod TM_NONE",
+    "sources": [
+      "screen.png",
+      "screen-baseline.png",
+      "screen-source.png"
+    ],
+    "delta": {
+      "bbox": [
+        0,
+        0,
+        755,
+        410
+      ],
+      "extrema": [
+        [
+          33,
+          33
+        ],
+        [
+          116,
+          116
+        ],
+        [
+          6,
+          6
+        ]
+      ]
+    },
+    "roi_xyxy": [
+      2055,
+      205,
+      2810,
+      615
+    ],
+    "limits": [
+      "Real footage/colorimetric or export fidelity",
+      "Other modes/spaces/views/masks/Alpha",
+      "Portable Graph reimport and other platforms/editions",
+      "Full parameter ranges/performance"
+    ],
+    "bounded_readback": {
+      "Gamma": "LINEAR_GAMMA",
+      "ToneMappingMethod": "TM_SIMPLE",
+      "DynamicRange": "Compress",
+      "GamutMappingMethod": "GM_NONE",
+      "ApplyForwardOOTF": 0.0,
+      "ApplyInverseOOTF": 0.0
+    }
+  },
+  "restoration": "PASS:frame0,both40%,compact Flow,owned scratch saved,native final inspected",
+  "reproduction": {
+    "fixture_sha256": "b2ff441a924b7add1403b363ac9de5b84176bf76df0bc63556310c382665fe93",
+    "readback_sha256": "88289f9e9c22751249d329ccc40eba3b10a43003ab8022445a33f1301d5d70b2",
+    "paths": "Comp:/../_fixtures/ for bundled synthetic fixtures",
+    "reimport": "NOT_RUN: accepted GUI evidence precedes export path normalization"
+  }
+}
