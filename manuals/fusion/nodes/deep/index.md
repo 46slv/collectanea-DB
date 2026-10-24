@@ -145,6 +145,16 @@ Depth BlurはRendererが出した通常のRGBA画像と補助Zを使っていま
 
 [Graph・Inspector・条件と未確認範囲](./ambient-occlusion-deep-pixel)を参照してください。
 
+## 実機例：Deep Imageの2層を統合する
+
+<!-- capture-reuse:R178 -->
+
+Image to Deepで作ったZ＝2の赤とZ＝5の青をdMergeで統合し、Deep to Imageで表示しました。dCropを使うと奥に隠れた青も取り出せます。通常の2D画像にZを添えたDeep Pixelの例と区別し、DeepImage接続で確認しています。外部Deep EXRや体積の検証は含みません。
+
+[![Deep Imageの2層を統合するの実機画面：compare](/img/fusion/captures/S121/compare.png)](/img/fusion/captures/S121/compare.png)
+
+[Graph・Inspector・条件と未確認範囲](./d-merge)を参照してください。
+
 ## 関連する考え方と出典
 
 - [Deep Image：1画素に複数の奥行きサンプルを持つ形式](../../learn/02-data/deep-image.md)

@@ -15,7 +15,7 @@ outputs: [deep-image]
 tasks: [deep, convert-domain, insert-2d]
 product_scope: fusion
 suite_surfaces: [fusion]
-updated: "2026-10-16"
+updated: "2026-10-24"
 ---
 
 # Image to Deep
@@ -110,6 +110,34 @@ Z補助チャンネルを1つ持つ2D画像と、複数サンプルを保持で�
 - **Nodeが見つからない**：21.1 ManualではDeep Image Compositing Toolsetは**Studio Version Only**です。Editionを確認します。
 - **色や半透明部分が不自然**：ManualはDeep合成に**linear colorspace**を要求しています。入力素材の色空間、Alpha、Deepから2Dへの変換位置を確認します。Alpha変換の内部方式は未確認です。
 
+## 実機例：赤をZ＝2、青をZ＝5へ置く
+
+<!-- capture-reuse:R174 -->
+
+Resolve Studio21.1.0.14／Windows、1920×1080、フレーム0、右Viewer40%で撮影しました。赤と青はそれぞれ不透明な単色の楕円です。外部Deep EXRは使っていません。
+
+[![赤と青をImage to Deepへ渡し、dMergeからdCrop、Deep to Image、MediaOutへつないだ実機Graph](/img/fusion/captures/S121/graph.png)](/img/fusion/captures/S121/graph.png)
+
+2枚の2D画像を、それぞれImage to Deepのオレンジの画像入力へ渡しました。実機で観測した入力IDはImage、データ型はImageです。
+
+[![赤のImage to DeepでSpecify ZをON、Zを2にした実機Inspector](/img/fusion/captures/S121/red-inspector.png)](/img/fusion/captures/S121/red-inspector.png)
+
+[![青のImage to DeepでSpecify ZをON、Zを5にした実機Inspector](/img/fusion/captures/S121/blue-inspector.png)](/img/fusion/captures/S121/blue-inspector.png)
+
+Specify ZがONのとき、今回の日本語InspectorにはZ欄が表示され、Z Scaleは表示されません。赤を2、青を5にしてdMergeへ接続し、Deep to Imageで平面化すると赤が青を覆いました。これは今回の入力・設定での前後関係です。
+
+[![深度範囲を制限しない出力で赤が青の重なりを覆う実機結果](/img/fusion/captures/S121/compare.png)](/img/fusion/captures/S121/compare.png)
+
+dCropで4〜6だけを残すと、隠れていた青も取り出せました。Image to Deepが各入力へ一定の深度を与え、dMergeへ渡せたことを確認しています。
+
+[![深度4から6だけを残すと隠れていた重なり部分も含め青が現れる実機結果](/img/fusion/captures/S121/far.png)](/img/fusion/captures/S121/far.png)
+
+Sample、Specify ZがOFFのZ Scale、Centerの移動、Zの一般的な単位や符号規約は、この例では検証していません。
+
+この例は、一定のZを持つ不透明な2枚の入力に限った確認です。外部Deep EXR、半透明・体積の合成、境界値ちょうどの扱い、サンプル数や入力数の上限、Edition差と性能は未確認です。色の数値精度を評価した例ではありません。
+
+[再現用Graph](/img/fusion/captures/S121/fixture.comp) · [撮影条件と確認範囲](/img/fusion/captures/S121/capture.json)
+
 ## バージョン・出典・確認範囲
 
 一次資料：**Blackmagic Design『DaVinci Resolve 21.1 Reference Manual』（2026年9月）Chapter 95「Deep Image Nodes」**。
@@ -118,4 +146,4 @@ Z補助チャンネルを1つ持つ2D画像と、複数サンプルを保持で�
 - **pp.2226–2227**：Deep Imageの複数サンプル、Studio限定、linear colorspace要件、Deep EXR入出力。
 - **pp.2238–2240、2246–2247**：Deep to ImageとdMergeによる合成・2D変換。
 
-**未確認**：Specify Zでの数値フィールドの表示条件、Z Scaleの基準値、Z Offsetの正負方向、2D ImageのAlphaからDeepサンプルを作るときの内部規則、21.1実機での個別素材の結果。このためverificationはpartialのままです。
+S121でREGID＝ImageToDeep、Image入力、Specify ZがONのZ欄と、Z＝2／5の不透明入力の結果を実機確認しました。Z Scale、一般的な深度の方向と単位、AlphaからDeepサンプルを作る内部規則は未確認のため、verificationはpartialのままです。
