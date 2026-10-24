@@ -125,8 +125,44 @@ Maskを通るのは位置指定の結果だけで、映像の画像データはM
 
 Triangle Maskは**3つの位置を独立して操作する用途**に適しています。任意形状を細かく追う場合や曲線の境界が必要な場合は、Polygon／B-Spline系が適します。
 
+## 実機例：1点の移動・輪郭・ぼかしを比べる
+
+<!-- capture-case:S80 -->
+
+Resolve Studio21.1.0.14／Windows、1920×1080、両Viewer40%で撮影しました。Triangle MaskでBackgroundの表示範囲を三角形にしました。左はMask単体、右はオレンジ色のBackgroundです。内部REGIDは`TriangleMask`でした。
+
+[![Triangle Maskの出力をオレンジBackgroundの青いEffect Mask入力へつなぐ実機Graph](/img/fusion/captures/S80/graph.png)](/img/fusion/captures/S80/graph.png)
+
+[![Point1が0.1と0.1、Point2が0.9と0.1、Point3が0.7と0.75のTriangle Mask Inspector](/img/fusion/captures/S80/inspector.png)](/img/fusion/captures/S80/inspector.png)
+
+[![左の白いTriangle Maskと同じ形のオレンジ三角形が右に表示され外側は透明になっている](/img/fusion/captures/S80/compare.png)](/img/fusion/captures/S80/compare.png)
+
+Point1をX0.1／Y0.1、Point2をX0.9／Y0.1に保ち、Point3だけを初期のX0.5／Y0.9からX0.7／Y0.75へ動かしています。底辺の2点を保ったまま頂点が右下へ移り、三角形の輪郭が変わりました。下はPoint3を動かす前の初期形状です。
+
+[![Point3が初期位置X0.5とY0.9にあるTriangle Mask Inspector](/img/fusion/captures/S80/default-inspector.png)](/img/fusion/captures/S80/default-inspector.png)
+
+[![初期の左右対称な白い三角形Maskとオレンジの結果が左右に表示されている](/img/fusion/captures/S80/default.png)](/img/fusion/captures/S80/default.png)
+
+Point3をX0.7／Y0.75に保ち、Solidをオフ、Border Widthを0.02にすると輪郭だけが残ります。Maskの内側は黒、右のBackgroundでは内側が透明になっています。
+
+[![SolidオフとBorder Width0.02を示すTriangle Mask Inspector](/img/fusion/captures/S80/outline-inspector.png)](/img/fusion/captures/S80/outline-inspector.png)
+
+[![Solidオフでは三角形の内側が透明となり右にオレンジの輪郭だけが残る](/img/fusion/captures/S80/outline.png)](/img/fusion/captures/S80/outline.png)
+
+Solidをオン、Border Widthを0へ戻し、Soft Edgeだけを0.025にすると、塗られた三角形の縁がぼけました。左のMaskに現れた中間の灰色が、右では透明へ変わる柔らかい縁として見えます。
+
+[![Solidオン、Border Width0、Soft Edge0.025のTriangle Mask Inspector](/img/fusion/captures/S80/soft-inspector.png)](/img/fusion/captures/S80/soft-inspector.png)
+
+[![左のMask境界が灰色へぼけ右のオレンジ三角形の縁も透明へ柔らかく変わる](/img/fusion/captures/S80/soft.png)](/img/fusion/captures/S80/soft.png)
+
+今回作成したノードのFilter初期表示はFast Gaussianでした。操作ガイドをShow View Controlsでオフにし、最後はPoint3がX0.7／Y0.75、Solidオン、Border Width0、Soft Edge0、Invertオフ、Level1、フレーム0へ戻して保存しています。
+
+Point1／2の移動、Tracker／Pathとの接続、アニメーション、Border Style／Length、他Filter、別Maskとの合成、実写への追従、数値出力と性能は未確認です。
+
+[再現用Graph](/img/fusion/captures/S80/fixture.comp) · [撮影条件と確認範囲](/img/fusion/captures/S80/capture.json)
+
 ## バージョン・出典・未確認範囲
 
 Blackmagic Design『DaVinci Resolve 21.1 Reference Manual』（2026年9月）Chapter 108「Mask Nodes」pp.2493–2496を基に、Effect Mask入力、Point 1〜3、Show View Controls、Filter、Paint Mode、Invert、Solid、位置の追従を確認しました。
 
-Manualの**[Tri]**はUI上の略号であり、内部REGIDを示すとは限りません。Pointの内部ID、各パラメータの値域、Free／Studio差や実機ごとのトラッカー接続手順までは検証していないため、`verification: partial`です。
+S80でREGID、Point3の移動、Solid／Border Width、Soft EdgeとBackgroundへの接続を実機確認しました。Pointの内部IDはPoint1／Point2／Point3でした。全値域、Free／Studio差、Tracker接続などは未確認のため、`verification: partial`を維持しています。
