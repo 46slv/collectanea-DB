@@ -1,0 +1,251 @@
+{
+  "schema_version": 1,
+  "case": "S82",
+  "article": "manuals/fusion/nodes/masks/polygon-mask.md",
+  "manual": {
+    "version": "21.1",
+    "chapter": 108,
+    "printed_pages": "2480–2484"
+  },
+  "runtime": {
+    "version": "21.1.0.14",
+    "edition": "Studio",
+    "os": "Windows-11-10.0.26200-SP0",
+    "ui_language": "ja-JP (some Shape controls remain English)"
+  },
+  "captured_at": "2026-10-24T02:10:11.468604+00:00",
+  "project": "Collectanea_Captures_20261023_Sol",
+  "timeline": "S82_capture",
+  "frame": 0.0,
+  "resolution": [
+    1920,
+    1080
+  ],
+  "color_management": {
+    "colorScienceMode": "davinciYRGB",
+    "colorSpaceTimeline": "Rec.709 (Scene)",
+    "colorSpaceTimelineGamma": "",
+    "colorSpaceOutput": "Rec.709 (Scene)",
+    "colorSpaceOutputGamma": "ACEScc",
+    "separateColorSpaceAndGamma": "0",
+    "isAutoColorManage": "0",
+    "timelineResolutionWidth": "1920",
+    "timelineResolutionHeight": "1080",
+    "timelineFrameRate": 24.0,
+    "timelinePlaybackFrameRate": "30"
+  },
+  "viewer": {
+    "zoom_percent": 40,
+    "channel": "Color",
+    "background": "checkerboard for transparent pixels",
+    "note": "Viewer screenshots are display evidence, not colorimetric exports."
+  },
+  "graph": "fixture.comp",
+  "settings": "readback.json",
+  "source": {
+    "file": "screen.png",
+    "size": [
+      3352,
+      1910
+    ],
+    "sha256": "678a1aabf4a6671d15f3c73c9fc46e7717d050e3ae7f6e742fa12e08442f38a9"
+  },
+  "shots": [
+    {
+      "file": "graph.png",
+      "source": "screen.png",
+      "source_sha256": "678a1aabf4a6671d15f3c73c9fc46e7717d050e3ae7f6e742fa12e08442f38a9",
+      "frame": 0.0,
+      "crop_xyxy": [
+        770,
+        1205,
+        2050,
+        1530
+      ],
+      "resampled": false,
+      "sha256": "30e6ea05685c7efcaaf0acee77cb8ad8fa1164c9c0dbfe834aac2b9d2e001d0f",
+      "viewer_contents": "Left Polygon Mask / Right masked Gold Color,both1920x1080/40%",
+      "show_view_controls": 0
+    },
+    {
+      "file": "inspector.png",
+      "source": "screen.png",
+      "source_sha256": "678a1aabf4a6671d15f3c73c9fc46e7717d050e3ae7f6e742fa12e08442f38a9",
+      "frame": 0.0,
+      "crop_xyxy": [
+        2830,
+        120,
+        3352,
+        610
+      ],
+      "resampled": false,
+      "sha256": "54a975ec2a24fd6fec1672a31c5b233a6b05a84e90ca20770699ec7f74cbd7d2",
+      "viewer_contents": "Left Polygon Mask / Right masked Gold Color,both1920x1080/40%",
+      "show_view_controls": 0
+    },
+    {
+      "file": "compare.png",
+      "source": "screen.png",
+      "source_sha256": "678a1aabf4a6671d15f3c73c9fc46e7717d050e3ae7f6e742fa12e08442f38a9",
+      "frame": 0.0,
+      "crop_xyxy": [
+        1146,
+        65,
+        2830,
+        725
+      ],
+      "resampled": false,
+      "sha256": "5f69f9bc381c1129bf20ca1fb1567dbe7baf1a58ca246c442310d8a4677e3b0f",
+      "viewer_contents": "Left Polygon Mask / Right masked Gold Color,both1920x1080/40%",
+      "show_view_controls": 0
+    },
+    {
+      "file": "guides.png",
+      "source": "screen-guides.png",
+      "source_sha256": "6f6b756b064139fd0f2432e7f6d8b180061260e111b8c41b88e8c0547e1a7a0d",
+      "frame": 0.0,
+      "crop_xyxy": [
+        1146,
+        65,
+        2830,
+        725
+      ],
+      "resampled": false,
+      "sha256": "f8c101b7e10f4be8f099d2f03ea5f06b775f62e1cfa396bf5622eba3f3f76c7e",
+      "viewer_contents": "Left Polygon Mask / Right masked Gold Color,both1920x1080/40%",
+      "show_view_controls": 1
+    },
+    {
+      "file": "size-inspector.png",
+      "source": "screen-size.png",
+      "source_sha256": "8a9cff658f142212e04b59fb762614c036f93bbc58f96ce276810803d2272350",
+      "frame": 0.0,
+      "crop_xyxy": [
+        2830,
+        120,
+        3352,
+        610
+      ],
+      "resampled": false,
+      "sha256": "47ec64ae3f093bf5c5ef0cbfdec2a8927af402b714be454fa3d1af992671bba0",
+      "viewer_contents": "Left Polygon Mask / Right masked Gold Color,both1920x1080/40%",
+      "show_view_controls": 0
+    },
+    {
+      "file": "size.png",
+      "source": "screen-size.png",
+      "source_sha256": "8a9cff658f142212e04b59fb762614c036f93bbc58f96ce276810803d2272350",
+      "frame": 0.0,
+      "crop_xyxy": [
+        1146,
+        65,
+        2830,
+        725
+      ],
+      "resampled": false,
+      "sha256": "27e5f8f5c4980daff42902dd8ae32ea31767df70a5178f9ead5b5aa01e1a3d14",
+      "viewer_contents": "Left Polygon Mask / Right masked Gold Color,both1920x1080/40%",
+      "show_view_controls": 0
+    },
+    {
+      "file": "rotate-inspector.png",
+      "source": "screen-rotate.png",
+      "source_sha256": "959b37e566be942102ec38b5ce09a725c2a0e6efc91ddb729e00421831b65d3d",
+      "frame": 0.0,
+      "crop_xyxy": [
+        2830,
+        120,
+        3352,
+        610
+      ],
+      "resampled": false,
+      "sha256": "87068dc81eb186c62592e44dd4d4eeb54160930ba6abad5a642b4d8a61a634ac",
+      "viewer_contents": "Left Polygon Mask / Right masked Gold Color,both1920x1080/40%",
+      "show_view_controls": 0
+    },
+    {
+      "file": "rotate.png",
+      "source": "screen-rotate.png",
+      "source_sha256": "959b37e566be942102ec38b5ce09a725c2a0e6efc91ddb729e00421831b65d3d",
+      "frame": 0.0,
+      "crop_xyxy": [
+        1146,
+        65,
+        2830,
+        725
+      ],
+      "resampled": false,
+      "sha256": "feda94e99b8dbb302089e31dc71f667c0fad7862fca9d0162e017bb0036a61f7",
+      "viewer_contents": "Left Polygon Mask / Right masked Gold Color,both1920x1080/40%",
+      "show_view_controls": 0
+    }
+  ],
+  "acceptance": {
+    "gui": "PASS: owner visually inspected node connections, selected Inspector, and output",
+    "article_display": "PASS: local production build;3 distinct pages24 images;1440px/390px/decode/Alt/native links/hash/overflow"
+  },
+  "unverified": [
+    "Free edition and other platforms",
+    "All parameter ranges and performance",
+    "Bezierハンドル曲率編集・ShapeAnimation複数frame・交差FillMethod・部分SoftEdge・他Mask合成・実写roto/数値/性能",
+    "Exported portable composition reimport"
+  ],
+  "parameter_readback_scope": "Number/Text/Point/FuID/Clip only;Polyline/Image/Mask payload not evaluated. Shape checked in exported text.",
+  "state_variants": {
+    "screen.png": "Closed4point/Size1/ZRotation0/ShowViewControls0",
+    "screen-guides.png": "Closed4point/Size1/ZRotation0/ShowViewControls1,native GUI just closed",
+    "screen-size.png": "Closed4point/Size.65/ZRotation0/ShowViewControls0",
+    "screen-rotate.png": "Closed4point/Size1/ZRotation20/ShowViewControls0"
+  },
+  "restoration": "PASS:Size1/Center(.5,.5)/X,Y,ZRotation0/Solid1/Border0/Soft0/Level1/ShowViewControls0/frame0/both40%,saved and visually confirmed.",
+  "reproduction_action": "build creates EMPTY Polygon scaffold;native Viewer4point authoring+Close mandatory before show acceptance. Do not rebuild an existing case.",
+  "gui_authoring": {
+    "delivery": "background synthetic Cua clicks,not physical input",
+    "window": {
+      "pid": 28008,
+      "hwnd": 2104226,
+      "native_pixels": [
+        3352,
+        1910
+      ]
+    },
+    "points_window_xy": [
+      [
+        1358,
+        538
+      ],
+      [
+        1818,
+        538
+      ],
+      [
+        1759,
+        301
+      ],
+      [
+        1398,
+        258
+      ]
+    ],
+    "close_window_xy": [
+      1358,
+      538
+    ],
+    "export_closed": true,
+    "export_point_count": 4,
+    "shape_keyframes": [
+      0
+    ],
+    "visible_tools": 3,
+    "additional_parameter_modifier": "BezierSpline"
+  },
+  "rejected_attempts": [
+    "Empty scaffold and intermediate1–4point open-path screenshots not accepted as completed output."
+  ],
+  "reproduction": {
+    "fixture_sha256": "a80e04eb71f00f2b53c4df74b1ef2aeb5cf1d5cb1593b6b90d8a332057f941d5",
+    "readback_sha256": "0fc0d66287462b81cb50c4f0baaa341ce51f52567a54d1c8393e83870bc8a638",
+    "paths": "Comp:/../_fixtures/ for bundled synthetic fixtures",
+    "reimport": "NOT_RUN: accepted GUI evidence precedes export path normalization"
+  }
+}

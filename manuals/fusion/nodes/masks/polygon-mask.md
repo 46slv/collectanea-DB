@@ -146,8 +146,44 @@ Polygon A（人物全体） ─→ Polygon B（標識）
 - [Maskで処理範囲を限定する](../../patterns/masking/limit-effect-with-mask)
 - [Mask Paint](./mask-paint) — 手描きでマスクを補修する
 
+## 実機例：4点の輪郭と全体変形を比べる
+
+<!-- capture-case:S82 -->
+
+Resolve Studio21.1.0.14／Windows、1920×1080、Viewer40%で撮影しました。Polygon MaskをBackgroundのEffect Maskへ接続し、色を持つ結果とMask単体を左右に表示しています。内部REGIDは`PolylineMask`でした。
+
+[![Polygon Maskの出力をオレンジBackgroundのEffect Maskへ渡す実機Graph](/img/fusion/captures/S82/graph.png)](/img/fusion/captures/S82/graph.png)
+
+[![Size1、Center0.5と0.5、回転各0、SolidオンのPolygon Mask Inspector](/img/fusion/captures/S82/inspector.png)](/img/fusion/captures/S82/inspector.png)
+
+[![左の四角い不規則な白Maskと同じ形のオレンジBackgroundが右に残っている](/img/fusion/captures/S82/compare.png)](/img/fusion/captures/S82/compare.png)
+
+実機のViewerで4点を順に置き、最初の点を再びクリックして輪郭を閉じました。下はShow View Controlsをオンにした作図直後です。閉じた輪郭の内側が左では白、右ではオレンジになっています。この例では直線の辺だけを使っています。
+
+[![実機Viewerで4点を置いて閉じたPolygonの輪郭と制御点を表示した状態](/img/fusion/captures/S82/guides.png)](/img/fusion/captures/S82/guides.png)
+
+書き出したGraphでもClosedがtrue、制御点が4個、Shapeのキーフレームはフレーム0だけであることを確認しました。複数フレームの形状補間を確認した例ではありません。後の比較ではShow View Controlsをオフにして、ハンドルと出力を見分けやすくしています。
+
+Sizeだけを1から0.65へ下げると、輪郭全体が同じ形のまま小さくなりました。制御点を個別に動かす編集と区別します。
+
+[![各制御点を動かさずSizeだけ0.65にしたPolygon Mask Inspector](/img/fusion/captures/S82/size-inspector.png)](/img/fusion/captures/S82/size-inspector.png)
+
+[![Size0.65では左の白Maskと右のオレンジ図形が同じ形のまま小さくなる](/img/fusion/captures/S82/size.png)](/img/fusion/captures/S82/size.png)
+
+Sizeを1へ戻し、Z Rotationだけを20へ変えると、MaskとBackgroundの表示範囲が一緒に傾きます。Backgroundの画像そのものを変形した例ではなく、Maskの領域を回転しています。
+
+[![Size1へ戻しZ Rotationだけ20にしたPolygon Mask Inspector](/img/fusion/captures/S82/rotate-inspector.png)](/img/fusion/captures/S82/rotate-inspector.png)
+
+[![Z Rotation20で左のMaskと右のオレンジ図形が一緒に傾いている](/img/fusion/captures/S82/rotate.png)](/img/fusion/captures/S82/rotate.png)
+
+最後はSize1、Center0.5／0.5、回転各0、Solidオン、Border Width0、Soft Edge0、Level1、フレーム0、Show View Controlsオフへ戻して保存しました。4点の形状は維持しています。
+
+Bézierハンドルによる曲率編集、複数フレームのShape Animation、交差した輪郭のFill Method比較、部分Soft Edge、他Maskとの合成、実写のロトスコーピング、数値出力と性能は未確認です。
+
+[再現用Graph](/img/fusion/captures/S82/fixture.comp) · [撮影条件と確認範囲](/img/fusion/captures/S82/capture.json)
+
 ## バージョン・出典・未確認範囲
 
 Blackmagic Design『DaVinci Resolve 21.1 Reference Manual』（2026年9月）、Chapter 108「Mask Nodes」pp.2480–2484を基準にしました。Effect Mask入出力、Shape Animation、Center／Size／X・Y・Z Rotation、Fill Method、Click・Modify・Done、Multiframe、Onion Skinning、Double Polyを確認しています。
 
-マニュアルの**[Ply]**は選択用の略号であり、内部REGIDとは断定しません。実機での詳細ショートカット、個々の値の有効範囲、Free／Studioの差は未検証のため、verificationはpartialです。
+S82でREGID `PolylineMask`、4点の作図・Close、Size／Z RotationとMask出力を実機確認しました。曲率・複数フレーム補間、詳細ショートカット、全値域、Free／Studio差は未確認のため、`verification: partial`を維持しています。

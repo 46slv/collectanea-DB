@@ -42,7 +42,7 @@ Depthを高くすると階調計算の精度を確保できますが、メモリ
 
 | Mode | 21.1マニュアルで説明される動作 |
 | --- | --- |
-| **Frame**（既定） | 出力のDoDをフレーム全体として扱う。入力側のDoDがそれより小さければ、残りの部分は黒／透明として扱う |
+| **Frame**（マニュアルの既定） | 出力のDoDをフレーム全体として扱う。入力側のDoDがそれより小さければ、残りの部分は黒／透明として扱う |
 | **None** | 入力画像のクリッピングを行わない。ただし、処理に必要な位置が上流のDoDの外なら、その領域のデータは黒／透明として扱う |
 
 どちらも「元画像に存在しない画素を自動生成する」設定ではありません。**Soft Edge**で境界をぼかす場合は、輪郭の外側にある画素も計算に使うため、DoDの扱いが結果に影響します。
@@ -108,8 +108,48 @@ Ellipse Mask（Centerをアニメーション）
 
 ここで扱うのは共通の生成・描画設定です。どの領域を選ぶか、複数マスクをどう合成するかは、各ノードの**Controls**と**Paint Mode**で決めます。[Maskカテゴリ概要](./index.md)で目的から選んでください。
 
+## 実機例：Maskの解像度と共通タブを確認する
+
+<!-- capture-case:S81 -->
+
+Resolve Studio21.1.0.14／Windowsで、Rectangle MaskをBackgroundへ接続した静止例を使いました。矩形の位置や形を変えるControlsと、Maskの解像度・描画条件を変えるImage／Settingsを分けて見ます。左右のViewerは40%です。
+
+[![Rectangle Maskの出力をGold BackgroundのEffect Maskへ渡す共通Controls撮影用Graph](/img/fusion/captures/S81/graph.png)](/img/fusion/captures/S81/graph.png)
+
+[![Center0.5と0.5、WidthとHeight各0.5のRectangle Mask Controls](/img/fusion/captures/S81/controls-inspector.png)](/img/fusion/captures/S81/controls-inspector.png)
+
+[![左の白黒Maskと右のオレンジBackgroundを1920×1080、40%で表示した比較](/img/fusion/captures/S81/compare.png)](/img/fusion/captures/S81/compare.png)
+
+最初は左Mask、右Backgroundとも1920×1080でした。ImageタブのOutput SizeはDefault、今回作成したノードのClipping ModeはNoneでした。上の表にあるFrameの既定値は21.1マニュアルの記述であり、この実機例の初期表示とは区別します。
+
+[![ImageタブでOutput Size DefaultとClipping Mode Noneが選ばれている](/img/fusion/captures/S81/image-default-inspector.png)](/img/fusion/captures/S81/image-default-inspector.png)
+
+Output SizeをCustomへ切り替えると、Width1920、Height1080、Pixel Aspect1／1、Frame Format設定を使用オン、Depth Defaultが現れました。この段階では寸法を変えていません。
+
+[![Output Size Customで1920×1080とFrame Format設定を使用オンが現れたImage Inspector](/img/fusion/captures/S81/image-custom-inspector.png)](/img/fusion/captures/S81/image-custom-inspector.png)
+
+Frame Format設定を使用をオフにし、Width960、Height540へ変更しました。下の左Viewerには960×540、右には1920×1080と表示されています。両方40%でも、左のMask画像は小さく表示されます。MaskのOutput Sizeを変える操作で、後段Backgroundや合成全体の解像度まで変わったわけではありません。この接続では右のオレンジの範囲は同じ見た目を保ちました。寸法が異なるMaskの接続すべてで同じ結果になるとは限りません。
+
+[![Frame Format設定の使用をオフにしWidth960とHeight540にしたImage Inspector](/img/fusion/captures/S81/image960-inspector.png)](/img/fusion/captures/S81/image960-inspector.png)
+
+[![左のMaskは960×540、右のBackgroundは1920×1080であり両Viewer40%でも表示寸法が異なる](/img/fusion/captures/S81/custom960.png)](/img/fusion/captures/S81/custom960.png)
+
+Default／1920×1080へ戻し、Settingsタブを開きました。Motion BlurオフではGPUの使用方針がAutoと表示されています。Auto表示の確認であり、GPU切替や速度比較はしていません。
+
+[![SettingsタブのMotion Blurオフ、GPU Auto、Layer設定を示すInspector](/img/fusion/captures/S81/settings-off-inspector.png)](/img/fusion/captures/S81/settings-off-inspector.png)
+
+Motion Blurをオンにすると、Quality2、Shutter Angle180、Center Bias0、Sample Spread1が現れました。今回は静止Maskのため、アニメーションに対するブラーの品質や時間方向の軌跡を確認した例ではありません。
+
+[![Motion BlurオンでQuality2、Shutter Angle180、Center Bias0、Sample Spread1が表示されたInspector](/img/fusion/captures/S81/settings-on-inspector.png)](/img/fusion/captures/S81/settings-on-inspector.png)
+
+最後はOutput Size Default、Mask1920×1080、Frame Format設定を使用オン、Motion Blurオフ、Clipping Mode None、GPU Auto、フレーム0、Controlsタブへ戻して保存しました。設定変更は撮影用のRectangleノードだけで行っています。
+
+入力画像の解像度を使うモード、他のMask種類、Depth／Pixel Aspect／Clipping Modeの変更、動くMaskのMotion Blur、GPU性能、Comments／Scriptsは未確認です。
+
+[再現用Graph](/img/fusion/captures/S81/fixture.comp) · [撮影条件と確認範囲](/img/fusion/captures/S81/capture.json)
+
 ## 出典と確認範囲
 
 Blackmagic Design『DaVinci Resolve 21.1 Reference Manual』（September 2026）、Chapter 108「Mask Nodes」**pp.2500–2502「The Common Controls」**。Output Size、Custom / Width / Height / Pixel Aspect / Depth、Clipping Mode（Frame / None）、Motion Blur（Quality / Shutter Angle / Center Bias / Sample Spread）、Use GPU、Comments、Scriptsの説明を基にしています。
 
-設定同士の使い分けと接続例はマニュアルの機能説明から組み立てた例です。21.1実機でのInspector表示・レンダリング結果、個々のノードの処理差、Free / Studioの詳細差は未検証のため、`verification: partial`を維持します。
+S81でRectangle MaskのImage／Settings表示、Custom960×540と復元、Motion Blurの関連Control表示を実機確認しました。上の運用例のアニメーション、個々のMaskの処理差、GPU性能、Free／Studio差は未確認のため、`verification: partial`を維持します。

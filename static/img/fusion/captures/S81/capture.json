@@ -1,0 +1,310 @@
+{
+  "schema_version": 1,
+  "case": "S81",
+  "article": "manuals/fusion/nodes/masks/common-controls.md",
+  "manual": {
+    "version": "21.1",
+    "chapter": 108,
+    "printed_pages": "2500–2502"
+  },
+  "runtime": {
+    "version": "21.1.0.14",
+    "edition": "Studio",
+    "os": "Windows-11-10.0.26200-SP0",
+    "ui_language": "ja-JP (some Shape controls remain English)"
+  },
+  "captured_at": "2026-10-24T02:08:51.591291+00:00",
+  "project": "Collectanea_Captures_20261023_Sol",
+  "timeline": "S81_capture",
+  "frame": 0.0,
+  "resolution": [
+    1920,
+    1080
+  ],
+  "color_management": {
+    "colorScienceMode": "davinciYRGB",
+    "colorSpaceTimeline": "Rec.709 (Scene)",
+    "colorSpaceTimelineGamma": "",
+    "colorSpaceOutput": "Rec.709 (Scene)",
+    "colorSpaceOutputGamma": "ACEScc",
+    "separateColorSpaceAndGamma": "0",
+    "isAutoColorManage": "0",
+    "timelineResolutionWidth": "1920",
+    "timelineResolutionHeight": "1080",
+    "timelineFrameRate": 24.0,
+    "timelinePlaybackFrameRate": "30"
+  },
+  "viewer": {
+    "zoom_percent": 40,
+    "channel": "Color",
+    "background": "checkerboard for transparent pixels",
+    "note": "Viewer screenshots are display evidence, not colorimetric exports."
+  },
+  "graph": "fixture.comp",
+  "settings": "readback.json",
+  "source": {
+    "file": "screen.png",
+    "size": [
+      3352,
+      1910
+    ],
+    "sha256": "cf708b718e5138ffceaf3926a5959b957e554ebf1150e9d09cbe9a3af0d1f597"
+  },
+  "shots": [
+    {
+      "file": "graph.png",
+      "source": "screen.png",
+      "source_sha256": "cf708b718e5138ffceaf3926a5959b957e554ebf1150e9d09cbe9a3af0d1f597",
+      "frame": 0.0,
+      "crop_xyxy": [
+        770,
+        1205,
+        2050,
+        1530
+      ],
+      "resampled": false,
+      "sha256": "9a648b7b03d41fd750a448bc8fb073f32e661ae9a484e7a8924599a94ed5dd28",
+      "viewer_contents": "Left Rectangle Mask / Right masked Gold Color,both1920x1080/40%",
+      "viewer_resolution": {
+        "left": [
+          1920,
+          1080
+        ],
+        "right": [
+          1920,
+          1080
+        ]
+      }
+    },
+    {
+      "file": "controls-inspector.png",
+      "source": "screen.png",
+      "source_sha256": "cf708b718e5138ffceaf3926a5959b957e554ebf1150e9d09cbe9a3af0d1f597",
+      "frame": 0.0,
+      "crop_xyxy": [
+        2830,
+        120,
+        3352,
+        550
+      ],
+      "resampled": false,
+      "sha256": "7ba81ced5eada9f64332a1c97b8dbda166a0ade4cd776d8695f1bef5c886e4d4",
+      "viewer_contents": "Left Rectangle Mask / Right masked Gold Color,both1920x1080/40%",
+      "viewer_resolution": {
+        "left": [
+          1920,
+          1080
+        ],
+        "right": [
+          1920,
+          1080
+        ]
+      }
+    },
+    {
+      "file": "compare.png",
+      "source": "screen.png",
+      "source_sha256": "cf708b718e5138ffceaf3926a5959b957e554ebf1150e9d09cbe9a3af0d1f597",
+      "frame": 0.0,
+      "crop_xyxy": [
+        1146,
+        65,
+        2830,
+        725
+      ],
+      "resampled": false,
+      "sha256": "d76f4d3f3c0ee8a4f6c60f3908d91a5bd42fe2f1d5d8f9512736b87a76d10846",
+      "viewer_contents": "Left Rectangle Mask / Right masked Gold Color,both1920x1080/40%",
+      "viewer_resolution": {
+        "left": [
+          1920,
+          1080
+        ],
+        "right": [
+          1920,
+          1080
+        ]
+      }
+    },
+    {
+      "file": "image-default-inspector.png",
+      "source": "screen-image.png",
+      "source_sha256": "53a59e000f8d9c13e845fbc777a58848bfa4de288800e24f349310f121b4c4ea",
+      "frame": 0.0,
+      "crop_xyxy": [
+        2830,
+        120,
+        3352,
+        450
+      ],
+      "resampled": false,
+      "sha256": "13eeaeaa37e8d9dbe00e7f16b238efa6071f95ef2460a2fddf42fe8cbcc9dc1d",
+      "viewer_contents": "Left Rectangle Mask / Right masked Gold Color,both1920x1080/40%",
+      "viewer_resolution": {
+        "left": [
+          1920,
+          1080
+        ],
+        "right": [
+          1920,
+          1080
+        ]
+      }
+    },
+    {
+      "file": "image-custom-inspector.png",
+      "source": "screen-custom.png",
+      "source_sha256": "a650efb12474724001ea21e5b3ca9e87fa3810240240489538400c6c68425a6d",
+      "frame": 0.0,
+      "crop_xyxy": [
+        2830,
+        120,
+        3352,
+        450
+      ],
+      "resampled": false,
+      "sha256": "0358f13d493b9082a4c7bd3a6ac4ddfa738875c9a99f43df99abf3e10910e86b",
+      "viewer_contents": "Left Rectangle Mask / Right masked Gold Color,both1920x1080/40%",
+      "viewer_resolution": {
+        "left": [
+          1920,
+          1080
+        ],
+        "right": [
+          1920,
+          1080
+        ]
+      }
+    },
+    {
+      "file": "image960-inspector.png",
+      "source": "screen-custom960.png",
+      "source_sha256": "f1f9edee1d03bf95acbb121334ff158b807f74f5ceb2ab80122053ff1824d7b2",
+      "frame": 0.0,
+      "crop_xyxy": [
+        2830,
+        120,
+        3352,
+        450
+      ],
+      "resampled": false,
+      "sha256": "76ed185fdb234f80a676bbc50e7f4be639c3094d1911f6b67e8b5c99948686fd",
+      "viewer_contents": "Left Rectangle Mask960x540 / Right masked Gold1920x1080,both40%",
+      "viewer_resolution": {
+        "left": [
+          960,
+          540
+        ],
+        "right": [
+          1920,
+          1080
+        ]
+      }
+    },
+    {
+      "file": "custom960.png",
+      "source": "screen-custom960.png",
+      "source_sha256": "f1f9edee1d03bf95acbb121334ff158b807f74f5ceb2ab80122053ff1824d7b2",
+      "frame": 0.0,
+      "crop_xyxy": [
+        1146,
+        65,
+        2830,
+        725
+      ],
+      "resampled": false,
+      "sha256": "f390ab987915cbb407c3907cb3adbacdb2492e1d2d4391fb2ad4d1f30bbcb4b6",
+      "viewer_contents": "Left Rectangle Mask960x540 / Right masked Gold1920x1080,both40%",
+      "viewer_resolution": {
+        "left": [
+          960,
+          540
+        ],
+        "right": [
+          1920,
+          1080
+        ]
+      }
+    },
+    {
+      "file": "settings-off-inspector.png",
+      "source": "screen-settings-off.png",
+      "source_sha256": "a8b6b3d6d4d6bffd66e26f17ee17ea1beb1494abfff940adb709b1ae444fcf06",
+      "frame": 0.0,
+      "crop_xyxy": [
+        2830,
+        120,
+        3352,
+        450
+      ],
+      "resampled": false,
+      "sha256": "52f789910306faaf4fcc78f8bbc705450be6392c3bd96cc07ede21b35df02dfb",
+      "viewer_contents": "Left Rectangle Mask / Right masked Gold Color,both1920x1080/40%",
+      "viewer_resolution": {
+        "left": [
+          1920,
+          1080
+        ],
+        "right": [
+          1920,
+          1080
+        ]
+      }
+    },
+    {
+      "file": "settings-on-inspector.png",
+      "source": "screen-settings-on.png",
+      "source_sha256": "8048515fbb9942009d3e137d7aaaf41d1b105b739b1086e69057c430069cb880",
+      "frame": 0.0,
+      "crop_xyxy": [
+        2830,
+        120,
+        3352,
+        550
+      ],
+      "resampled": false,
+      "sha256": "b944fbcb80b626be348d2fcec2506ee997430292e68cc01db44b13c32ad9edaf",
+      "viewer_contents": "Left Rectangle Mask / Right masked Gold Color,both1920x1080/40%",
+      "viewer_resolution": {
+        "left": [
+          1920,
+          1080
+        ],
+        "right": [
+          1920,
+          1080
+        ]
+      }
+    }
+  ],
+  "acceptance": {
+    "gui": "PASS: owner visually inspected node connections, selected Inspector, and output",
+    "article_display": "PASS: local production build;3 distinct pages24 images;1440px/390px/decode/Alt/native links/hash/overflow"
+  },
+  "unverified": [
+    "Free edition and other platforms",
+    "All parameter ranges and performance",
+    "Source解像度モード・他Mask種類・Depth/PixelAspect/Clipping変更・動的MotionBlur・GPU性能・Comments/Scripts",
+    "Exported portable composition reimport"
+  ],
+  "parameter_readback_scope": "Number/Text/Point/FuID/Clip only;Image/Mask payload not evaluated.",
+  "state_variants": {
+    "screen.png": "Controls tab,OutputSizeDefault/1920x1080/MotionBlur0",
+    "screen-image.png": "Image tab,OutputSizeDefault/ClippingNone",
+    "screen-custom.png": "Image tab,Custom1920x1080/UseFrameFormatSettings1",
+    "screen-custom960.png": "Image tab,Custom960x540/UseFrameFormatSettings0;Right Gold1920x1080;both40%",
+    "screen-settings-off.png": "Settings tab,MotionBlur0/UseGPU1(Auto)",
+    "screen-settings-on.png": "Settings tab,MotionBlur1/Quality2/Shutter180/CenterBias0/SampleSpread1;static fixture,no motion acceptance"
+  },
+  "restoration": "PASS:OutputSizeDefault/1920x1080/UseFrameFormatSettings1/MotionBlur0/ClippingNone/UseGPU1(Auto)/frame0/Controls tab/Left Mask Right Gold40%,saved and visually confirmed.",
+  "reproduction_action": "build3node fixed Rectangle fixture;Image/Settings tabs require native GUI selection;Custom960x540 uses OutputSize Custom,UseFrameFormatSettings0,MaskWidth960/MaskHeight540;restore final before save.",
+  "rejected_attempts": [
+    "Settings background click refused UIA busy;fresh native Image state confirmed and only that click retried foreground. Refusal screenshot not adopted."
+  ],
+  "reproduction": {
+    "fixture_sha256": "57e0dfa1530cce527ef450c041ff2033b12e51e3e8224ffb1a25f3a9752d6512",
+    "readback_sha256": "b0bbf4b08d5cca220258f41e1abb1947cb4eb470941da37e3b953719eb65a13e",
+    "paths": "Comp:/../_fixtures/ for bundled synthetic fixtures",
+    "reimport": "NOT_RUN: accepted GUI evidence precedes export path normalization"
+  }
+}
