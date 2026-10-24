@@ -15,7 +15,7 @@ outputs: [image]
 tasks: [paint, cleanup, clone]
 product_scope: fusion
 suite_surfaces: [fusion]
-updated: "2026-10-10"
+updated: "2026-10-24"
 ---
 
 # Paint
@@ -139,6 +139,32 @@ PaintはRGBやAlphaを含む2D画像に描きます。色を足す、元画像�
 一方、[Mask Paint](../masks/mask-paint)は単一チャンネルのマスク値を描き、別ノードのEffect Maskなどへ渡します。透明・不透明の範囲を手で補修したい場合はこちらが適しています。Mask PaintはPaintと異なり、キャンバス用の画像入力を必須としません。
 2D画像とマスクの違いは[Imageの基礎](../../learn/02-data/image)と[Maskの基礎](../../learn/02-data/mask)を参照してください。
 
+## 実機例：入力画像に白い線を描く
+
+<!-- capture-case:S86 -->
+
+Resolve Studio21.1.0.14／Windows、1920×1080、Viewer40%で撮影しました。LoaderのテストチャートをPaintのInputへ接続し、出力をMediaOutへ渡しています。左は入力、右はPaint後の画像です。実機の内部REGIDは`Paint`でした。
+
+[![Loaderの画像をPaintのInputへ入れ、Paint出力をMediaOutへ渡す実機Graph](/img/fusion/captures/S86/graph.png)](/img/fusion/captures/S86/graph.png)
+
+[![PaintのSoft Brush Size0.02、Softness1、RGBA各1、Opacity1、ストロークの長さ1のInspector](/img/fusion/captures/S86/inspector.png)](/img/fusion/captures/S86/inspector.png)
+
+[![左は入力テストチャート、右はフレーム0で白いMultistrokeを重ねたPaintの画像出力](/img/fusion/captures/S86/compare.png)](/img/fusion/captures/S86/compare.png)
+
+Paintを選択し、Viewer上部のMultistrokeから、色パッチを横切る白い線を描きました。後段へ渡るのは、元のチャートに線が重なった画像です。Maskだけを生成した例ではありません。
+
+InspectorではSoft Brush、Size0.02、Softness1、ColorのRGBA各1、Opacity1、ストロークの長さ1を確認しました。この「ストロークの長さ」はMultistrokeのDurationです。描画内容は内部のMultistrokeに記録され、Flowに独立した描画ノードは増えていません。書き出しGraphにもフレーム0の水平な点列が保存されています。
+
+同じGraphでフレーム1へ進めると、白い線が消え、左右とも入力チャートの表示へ戻りました。初期Multistrokeの表示が1フレームであることを、フレーム0と1で確認した例です。
+
+[![フレーム1ではPaintの白い線が消え、入力と同じテストチャートが左右に現れる](/img/fusion/captures/S86/frame1.png)](/img/fusion/captures/S86/frame1.png)
+
+最後はフレーム0へ戻し、白い線が表示された状態、両Viewer40%、Paint選択で保存しました。
+
+RGB値やDurationを変更した描画、Stroke／Clone／Fill、透明キャンバス、Effect Mask、筆圧、実写の補修、数値出力と性能は未確認です。掲載した設定値は実機Inspectorで確認した範囲に限ります。
+
+[再現用Graph](/img/fusion/captures/S86/fixture.comp) · [撮影条件と確認範囲](/img/fusion/captures/S86/capture.json)
+
 ## 注意点と確認範囲
 
 - Paintの**入力・出力は画像**です。内部ストロークの一覧を、独立したFlowのデータ端子と混同しないでください。
@@ -146,4 +172,4 @@ PaintはRGBやAlphaを含む2D画像に描きます。色を足す、元画像�
 - Cloneの参照元、ストロークの表示期間、Effect Maskの範囲は独立して確認します。Effect MaskをつないでもClone元の画像が指定されるわけではありません。
 - 数百本の個別Strokeは処理が重くなることがあるため、後編集が不要な大量の補修はMultistroke系を検討します。
 
-**出典**：Blackmagic Design『DaVinci Resolve 21.1 Reference Manual』（2026年9月）、Chapter 113「Paint Node」pp.2638–2645、およびChapter 80「Paint」pp.1747–1751。入力、Stroke種別、主要Inspector項目、時間制御、透明Backgroundを使う構成を確認しました。実機21.1での描画結果・端子の内部ID・初期値の全件照合は行っていないため、verificationはpartialです。
+**出典**：Blackmagic Design『DaVinci Resolve 21.1 Reference Manual』（2026年9月）、Chapter 113「Paint Node」pp.2638–2645、およびChapter 80「Paint」pp.1747–1751。入力、Stroke種別、主要Inspector項目、時間制御、透明Backgroundを使う構成を確認しました。S86で内部REGID `Paint`、画像入力のGraph、初期Multistrokeの描画とフレーム0／1、掲載したInspectorの値を実機確認しました。全描画方式、全端子ID、全初期値と各値域は未確認のため、`verification: partial`を維持します。

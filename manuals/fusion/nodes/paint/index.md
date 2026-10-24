@@ -85,6 +85,26 @@ Stroke、Polyline Stroke、Circle、Rectangle、Copy系、Fillは、初期状態
 
 基礎概念は[Image](../../learn/02-data/image)、[Mask](../../learn/02-data/mask)、[Shape](../../learn/02-data/shape)を参照してください。名称から探す場合は[用語集](../../index/glossary)も使えます。
 
+## 実機の参考例：入力画像に描く
+
+<!-- capture-reuse:R133 -->
+
+左はLoaderの入力チャート、右はPaintで白いMultistrokeを重ねた画像です。初期のDuration1では、フレーム0の線がフレーム1では消えました。描画方式を選ぶ段階と、画像としての出力を分けて確認できます。
+
+[![左は入力テストチャート、右はフレーム0で白いMultistrokeを重ねたPaintの画像出力](/img/fusion/captures/S86/compare.png)](/img/fusion/captures/S86/compare.png)
+
+Resolve Studio21.1.0.14／Windows、1920×1080、Viewer40%。[PaintのGraphとInspector](./paint.md)と[Multistrokeの期間比較](./multistroke)に詳細を掲載しています。Cloneや他の描画方式を確認した例ではありません。
+
+[再現用Graph](/img/fusion/captures/S86/fixture.comp) · [撮影条件と確認範囲](/img/fusion/captures/S86/capture.json)
+
+### 通常のStrokeを選んだ例
+
+<!-- capture-reuse:R137 -->
+
+下はS87で通常のStrokeを選び、白い線を描いたフレーム0です。全フレーム設定のままフレーム1・119でも線が残ることを確認しました。[Strokeの実機例](./stroke)にInspector、期間比較、Make Editableの確認範囲を掲載しています。
+
+[![フレーム0、左の入力チャートに対し右のPaint出力には白いStrokeが重なっている](/img/fusion/captures/S87/compare.png)](/img/fusion/captures/S87/compare.png)
+
 ## 出典と確認範囲
 
 Blackmagic Design『DaVinci Resolve 21.1 Reference Manual』（2026年9月）、Chapter 80「Paint」pp.1747–1751、およびChapter 113「Paint Node」pp.2638–2643に基づきます。PaintとMask Paint、入出力、透明キャンバスの構成、Source、描画要素の分類、表示期間と後編集の違いを確認しました。

@@ -15,7 +15,7 @@ outputs: []
 tasks: [paint, cleanup, clone]
 product_scope: fusion
 suite_surfaces: [fusion]
-updated: "2026-10-10"
+updated: "2026-10-24"
 ---
 
 # Multistroke
@@ -85,6 +85,36 @@ MediaIn（汚れがある素材）→ Paint → MediaOut
 - ブラシ設定はすべての描画方式で同一表示ではありません。Multistrokeで使う設定を確認してから描きます。
 - [Paint全体の解説](./paint.md)と[Paintツールの一覧](./)で、Stroke・Clone・Fillなどの選択基準を確認できます。
 
+## 実機例：同じ線をフレーム0と1で比べる
+
+<!-- capture-reuse:R134 -->
+
+Paint内部の初期Multistrokeで、入力画像へ白い線を1本描きました。Flowに見えるのはLoader・Paint・MediaOutの3ノードで、MultistrokeはPaint内部に保持されています。
+
+[![Loaderの画像をPaintのInputへ入れ、Paint出力をMediaOutへ渡す実機Graph](/img/fusion/captures/S86/graph.png)](/img/fusion/captures/S86/graph.png)
+
+[![PaintのSoft Brush Size0.02、Softness1、RGBA各1、Opacity1、ストロークの長さ1のInspector](/img/fusion/captures/S86/inspector.png)](/img/fusion/captures/S86/inspector.png)
+
+[![左は入力テストチャート、右はフレーム0で白いMultistrokeを重ねたPaintの画像出力](/img/fusion/captures/S86/compare.png)](/img/fusion/captures/S86/compare.png)
+
+上はフレーム0です。Inspectorのストロークの長さは1で、フレーム1へ進めると下のように線が消えます。Durationを変更してから描く操作や、描画後の編集を検証した例ではありません。
+
+[![フレーム1ではPaintの白い線が消え、入力と同じテストチャートが左右に現れる](/img/fusion/captures/S86/frame1.png)](/img/fusion/captures/S86/frame1.png)
+
+Resolve Studio21.1.0.14／Windows、1920×1080、Viewer40%。[Paintの実機例](./paint.md)に保存状態と未確認範囲を掲載しています。
+
+[再現用Graph](/img/fusion/captures/S86/fixture.comp) · [撮影条件と確認範囲](/img/fusion/captures/S86/capture.json)
+
+### 通常のStrokeとの比較
+
+<!-- capture-reuse:R136 -->
+
+下は別のS87 Graphで通常のStrokeを描き、フレーム1へ進めた実機出力です。Stroke Animationは全フレームで、白い線が残っています。初期MultistrokeのDuration1で線が消えた上の例と比べると、初期の表示期間の違いが分かります。
+
+[![フレーム1でも右のPaint出力に白いStrokeが残り、左の入力チャートと比較できる](/img/fusion/captures/S87/frame1.png)](/img/fusion/captures/S87/frame1.png)
+
+[StrokeのGraph・Inspectorとフレーム119](./stroke)も参照してください。各方式の初期設定を比べた例で、Duration変更や後編集は検証していません。
+
 ## バージョンと出典
 
-Blackmagic Design『DaVinci Resolve 21.1 Reference Manual』Chapter 113「Paint Node」pp.2638–2645（特にp.2639のMultistroke、p.2644のDuration、p.2645のModifiers）、Chapter 80「Paint」pp.1748–1750、1756を確認。独立端子ではなくPaint内部の描画方式であること、初期Duration 1フレーム、描画後の編集制限、Paint Groupとの関係を根拠付きで記載しました。Resolve 21.1実機でのREGID・全パラメータ初期値や挙動の確認は未実施のため、verificationはpartialです。
+Blackmagic Design『DaVinci Resolve 21.1 Reference Manual』Chapter 113「Paint Node」pp.2638–2645（特にp.2639のMultistroke、p.2644のDuration、p.2645のModifiers）、Chapter 80「Paint」pp.1748–1750、1756を確認。独立端子ではなくPaint内部の描画方式であること、初期Duration 1フレーム、描画後の編集制限、Paint Groupとの関係を根拠付きで記載しました。S86でPaint内部のMultistroke、掲載したInspector設定、白い線のフレーム0／1を実機確認しました。Duration変更、個別編集、Clone、Paint Group、全初期値や性能は未確認のため、`verification: partial`を維持します。

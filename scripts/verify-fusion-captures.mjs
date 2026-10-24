@@ -4,6 +4,9 @@ import path from 'node:path';
 import assert from 'node:assert/strict';
 import {createHash} from 'node:crypto';
 const candidates=JSON.parse(await fs.readFile('docs/fusion-screenshot-candidates.json','utf8'));
+// Docusaurus owns routes: same-name documents and explicit slugs need not match filenames.
+const catalog=JSON.parse(await fs.readFile('build/catalog.json','utf8'));
+const articleRoutes=new Map(catalog.pages.map(p=>[p.source,p.href]));
 const entries=[...candidates.candidates.filter(c=>['captured-embedded-unverified','captured-local-display-verified','published-display-verified'].includes(c.status)),...(candidates.reuses||[]).filter(c=>c.status!=='planned')];
 // An article can explain several accepted cases. Verify its complete set once,
 // rather than treating each source entry as the article's entire image list.
@@ -23,8 +26,10 @@ try {
   assert.ok(candidate,id+' is not an embedded capture or reuse entry');
   const articleEntries=entries.filter(c=>c.article===candidate.article);
   const sourceCases=[...new Set(articleEntries.map(c=>c.source_case||c.id))];
-  const route=candidate.article.replace(/\.mdx?$/,'').replace(/\/index$/,'');
-  const response=await page.goto(`${report.origin}/collectanea-DB/${route}`,{waitUntil:'networkidle'});
+  const href=articleRoutes.get(candidate.article);
+  assert.ok(href?.startsWith('/collectanea-DB/'),id+' missing canonical route in the production catalog');
+  const route=href.replace(/^\/collectanea-DB\//,'').replace(/\/$/,'');
+  const response=await page.goto(`${report.origin}${href}`,{waitUntil:'networkidle'});
   assert.equal(response.status(),200,route);
   const shots=page.locator('article img');
   const expectedFiles=[];
