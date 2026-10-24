@@ -1,0 +1,402 @@
+{
+  "schema_version": 1,
+  "case": "S121",
+  "article": "manuals/fusion/nodes/deep/d-merge.md",
+  "manual": {
+    "version": "21.1",
+    "chapter": 95,
+    "printed_pages": "2237–2240,2246–2247,2252–2253"
+  },
+  "runtime": {
+    "version": "21.1.0.14",
+    "edition": "Studio",
+    "os": "Windows-11-10.0.26200-SP0",
+    "ui_language": "ja-JP (some Shape controls remain English)"
+  },
+  "captured_at": "2026-10-24T10:23:35.998184+00:00",
+  "project": "Collectanea_Captures_20261023_Sol",
+  "timeline": "S121_capture",
+  "frame": 0.0,
+  "resolution": [
+    1920,
+    1080
+  ],
+  "color_management": {
+    "colorScienceMode": "davinciYRGB",
+    "colorSpaceTimeline": "Rec.709 (Scene)",
+    "colorSpaceTimelineGamma": "",
+    "colorSpaceOutput": "Rec.709 (Scene)",
+    "colorSpaceOutputGamma": "ACEScc",
+    "separateColorSpaceAndGamma": "0",
+    "isAutoColorManage": "0",
+    "timelineResolutionWidth": "1920",
+    "timelineResolutionHeight": "1080",
+    "timelineFrameRate": 24.0,
+    "timelinePlaybackFrameRate": "30"
+  },
+  "viewer": {
+    "zoom_percent": 40,
+    "channel": "Color",
+    "background": "checkerboard for transparent pixels",
+    "note": "Viewer screenshots are display evidence, not colorimetric exports.",
+    "left": "empty100%",
+    "right": "MediaOut1 at40%,all selected-source/flatten Inspector shots show dCrop1..3 and are used only for Inspector crops"
+  },
+  "graph": "fixture.comp",
+  "settings": "readback.json",
+  "source": {
+    "file": "screen.png",
+    "size": [
+      3352,
+      1910
+    ],
+    "sha256": "26b9fb9a739eaf4b8ca059b66a914c9dad92d1be0eca12f62b5406976275a9e3"
+  },
+  "shots": [
+    {
+      "file": "graph.png",
+      "source": "screen.png",
+      "source_sha256": "26b9fb9a739eaf4b8ca059b66a914c9dad92d1be0eca12f62b5406976275a9e3",
+      "frame": 0,
+      "crop_xyxy": [
+        430,
+        1100,
+        2400,
+        1650
+      ],
+      "resampled": false,
+      "sha256": "1f18acc90c955ff55d4f18f2c00bf92d72591279896659102831335676b89085",
+      "viewer_guides": false,
+      "active_tool": "dMerge1",
+      "viewer_contents": "Left empty100% / Right MediaOut40%,limitsOFF red occludes blue"
+    },
+    {
+      "file": "inspector.png",
+      "source": "screen.png",
+      "source_sha256": "26b9fb9a739eaf4b8ca059b66a914c9dad92d1be0eca12f62b5406976275a9e3",
+      "frame": 0,
+      "crop_xyxy": [
+        2830,
+        120,
+        3352,
+        450
+      ],
+      "resampled": false,
+      "sha256": "6b2f3321475c6d980aeb457e5238b19127c11ba42b5257ababd3bd453bd27dcc",
+      "viewer_guides": false,
+      "active_tool": "dMerge1",
+      "viewer_contents": "Left empty100% / Right MediaOut40%,limitsOFF red occludes blue"
+    },
+    {
+      "file": "compare.png",
+      "source": "screen.png",
+      "source_sha256": "26b9fb9a739eaf4b8ca059b66a914c9dad92d1be0eca12f62b5406976275a9e3",
+      "frame": 0,
+      "crop_xyxy": [
+        2035,
+        65,
+        2830,
+        725
+      ],
+      "resampled": false,
+      "sha256": "f6d45fc2778c33af9e4ef6ab735ebf56b9379255ccb08b5525dd3c2ac5b66313",
+      "viewer_guides": false,
+      "active_tool": "dMerge1",
+      "viewer_contents": "Left empty100% / Right MediaOut40%,limitsOFF red occludes blue"
+    },
+    {
+      "file": "red-inspector.png",
+      "source": "screen-red.png",
+      "source_sha256": "fbdd6c8fd565f66c2522d3e0165ae36b3a5e9d63f1844aa978cf5fa6a6ef5012",
+      "frame": 0,
+      "crop_xyxy": [
+        2830,
+        120,
+        3352,
+        350
+      ],
+      "resampled": false,
+      "sha256": "dc0a1b6b9fb377c0eabf482ee59a639ed96b0695f4c9841721b8f7fc4701e0b4",
+      "viewer_guides": true,
+      "active_tool": "RedDeep1",
+      "viewer_contents": "Left empty100% / Right MediaOut40%,Z1..3 red only;Inspector crop only for source/flatten shots"
+    },
+    {
+      "file": "blue-inspector.png",
+      "source": "screen-blue.png",
+      "source_sha256": "88154aa728dbfac9124a0770d1b4b9e99636d7f0d16d693986f9f00d5497a199",
+      "frame": 0,
+      "crop_xyxy": [
+        2830,
+        120,
+        3352,
+        350
+      ],
+      "resampled": false,
+      "sha256": "b504b35a3a54334540fd4acbe2bf2135e7ca75893e4401eb3ccd53340d5c604a",
+      "viewer_guides": true,
+      "active_tool": "BlueDeep1",
+      "viewer_contents": "Left empty100% / Right MediaOut40%,Z1..3 red only;Inspector crop only for source/flatten shots"
+    },
+    {
+      "file": "all-inspector.png",
+      "source": "screen-all.png",
+      "source_sha256": "e53d525f119004368184ecdbddf28be62cc7131d6d0ed92ae9a7149493f4a484",
+      "frame": 0,
+      "crop_xyxy": [
+        2830,
+        120,
+        3352,
+        450
+      ],
+      "resampled": false,
+      "sha256": "bf14507237179d0f4afa572643d97e46455a17d2fc820df274e52e2c31dbbf14",
+      "viewer_guides": false,
+      "active_tool": "dCrop1",
+      "viewer_contents": "Left empty100% / Right MediaOut40%,limitsOFF red occludes blue"
+    },
+    {
+      "file": "near-inspector.png",
+      "source": "screen-near.png",
+      "source_sha256": "0c9ff2beb873939f3a1d0c1b7d7178d24c5ded3c7dab8de17144a4d2a5997118",
+      "frame": 0,
+      "crop_xyxy": [
+        2830,
+        120,
+        3352,
+        450
+      ],
+      "resampled": false,
+      "sha256": "008b3b82728a57e9131699ad107078cc4dfa58a596cd38a1e6c7e1301b646cdc",
+      "viewer_guides": false,
+      "active_tool": "dCrop1",
+      "viewer_contents": "Left empty100% / Right MediaOut40%,Z1..3 red only;Inspector crop only for source/flatten shots"
+    },
+    {
+      "file": "near.png",
+      "source": "screen-near.png",
+      "source_sha256": "0c9ff2beb873939f3a1d0c1b7d7178d24c5ded3c7dab8de17144a4d2a5997118",
+      "frame": 0,
+      "crop_xyxy": [
+        2035,
+        65,
+        2830,
+        725
+      ],
+      "resampled": false,
+      "sha256": "365d8075946471a3161ac810a998ae128b101ec3ac9df335b967cfc63a6fc637",
+      "viewer_guides": false,
+      "active_tool": "dCrop1",
+      "viewer_contents": "Left empty100% / Right MediaOut40%,Z1..3 red only;Inspector crop only for source/flatten shots"
+    },
+    {
+      "file": "far-inspector.png",
+      "source": "screen-far.png",
+      "source_sha256": "e5927099fe9cb8e85c95dbcb814eb27dacc51df2c54637d11374ff837197c0f1",
+      "frame": 0,
+      "crop_xyxy": [
+        2830,
+        120,
+        3352,
+        450
+      ],
+      "resampled": false,
+      "sha256": "38fd3668cf3cf6dabbf2c711b815cf276f4dde951dc413d57089e1ebd07aa6e7",
+      "viewer_guides": false,
+      "active_tool": "dCrop1",
+      "viewer_contents": "Left empty100% / Right MediaOut40%,Z4..6 blue only"
+    },
+    {
+      "file": "far.png",
+      "source": "screen-far.png",
+      "source_sha256": "e5927099fe9cb8e85c95dbcb814eb27dacc51df2c54637d11374ff837197c0f1",
+      "frame": 0,
+      "crop_xyxy": [
+        2035,
+        65,
+        2830,
+        725
+      ],
+      "resampled": false,
+      "sha256": "40b1f6071b83918e1591b4945e45ff8d6d76afae110d4ea4745992dbe0ec1716",
+      "viewer_guides": false,
+      "active_tool": "dCrop1",
+      "viewer_contents": "Left empty100% / Right MediaOut40%,Z4..6 blue only"
+    },
+    {
+      "file": "flatten-inspector.png",
+      "source": "screen-flatten.png",
+      "source_sha256": "2fd77eca4e6bbe3f6e2a68e096af89b1f5ae2152b370d1e1aac9d44b48129ed0",
+      "frame": 0,
+      "crop_xyxy": [
+        2830,
+        120,
+        3352,
+        300
+      ],
+      "resampled": false,
+      "sha256": "9bf4644381a2caa1a8c0b982f96ca6c2c9055a9affddac8d1a62d9220126816b",
+      "viewer_guides": false,
+      "active_tool": "Flatten1",
+      "viewer_contents": "Left empty100% / Right MediaOut40%,Z1..3 red only;Inspector crop only for source/flatten shots"
+    }
+  ],
+  "acceptance": {
+    "gui": "PASS: owner visually inspected node connections, selected Inspector, and output",
+    "article_display": "Executed outcomes recorded in docs/fusion-screenshot-candidates.json;provenance fixed."
+  },
+  "unverified": [
+    "Free edition and other platforms",
+    "All parameter ranges and performance",
+    "Only two opaque flat-Z synthetic inputs;not external Deep EXR,semi-transparent/volumetric behavior,depth boundary precision or maximum sample/Foreground count.",
+    "No DeepImage/Image/Mask/3D payload GetInput;no numeric sample storage claim.",
+    "Portable export reimport,alternate controls,platform/edition/performance NOT_RUN.",
+    "Prior left-viewer branch assignment coincided with host exit;cause unknown. Accepted method uses existing single Right MediaOut.",
+    "Exported portable composition reimport"
+  ],
+  "gui_authoring": {
+    "host": {
+      "pid": 60420,
+      "hwnd": 93854250,
+      "source_pixels": [
+        3352,
+        1910
+      ]
+    },
+    "tool": "dMerge1",
+    "regid": "dMerge",
+    "visible_flow_tools": 10,
+    "delivery": "SDK/synthetic Cua,physicalNOT_PROVEN;native UI/export establish outcome"
+  },
+  "native_proof": {
+    "frame": 0,
+    "visible_flow_tools": 10,
+    "final": {
+      "RedDeep1": {
+        "SpecifyDepth": 1.0,
+        "Offset": 2.0
+      },
+      "BlueDeep1": {
+        "SpecifyDepth": 1.0,
+        "Offset": 5.0
+      },
+      "dCrop1": {
+        "UseMinDepth": 0.0,
+        "Min": 1.0,
+        "UseMaxDepth": 0.0,
+        "Max": 3.0,
+        "KeepOutsideRange": 0.0
+      },
+      "Flatten1": {
+        "FlipDepth": 0.0,
+        "VolumetricComposition": 0.0
+      },
+      "EllipseRed1": {
+        "Width": 0.35,
+        "Height": 0.35,
+        "Center": {
+          "1": 0.45,
+          "2": 0.5,
+          "3": 0.0
+        }
+      },
+      "EllipseBlue1": {
+        "Width": 0.35,
+        "Height": 0.35,
+        "Center": {
+          "1": 0.55,
+          "2": 0.5,
+          "3": 0.0
+        }
+      },
+      "PatchRed1": {
+        "TopLeftRed": 1.0,
+        "TopLeftGreen": 0.2,
+        "TopLeftBlue": 0.05,
+        "TopLeftAlpha": 1.0
+      },
+      "PatchBlue1": {
+        "TopLeftRed": 0.05,
+        "TopLeftGreen": 0.2,
+        "TopLeftBlue": 0.8,
+        "TopLeftAlpha": 1.0
+      }
+    },
+    "connections": {
+      "RedDeep1.Image": {
+        "source": "PatchRed1",
+        "datatype": "Image"
+      },
+      "BlueDeep1.Image": {
+        "source": "PatchBlue1",
+        "datatype": "Image"
+      },
+      "dMerge1.Background": {
+        "source": "BlueDeep1",
+        "datatype": "DeepImage"
+      },
+      "dMerge1.Foreground1": {
+        "source": "RedDeep1",
+        "datatype": "DeepImage"
+      },
+      "dCrop1.Image": {
+        "source": "dMerge1",
+        "datatype": "DeepImage"
+      },
+      "Flatten1.Image": {
+        "source": "dCrop1",
+        "datatype": "DeepImage"
+      },
+      "MediaOut1.Input": {
+        "source": "Flatten1",
+        "datatype": "Image"
+      }
+    },
+    "overlap_pixel": {
+      "xy": [
+        2432,
+        410
+      ],
+      "rgb": {
+        "final": [
+          255,
+          51,
+          13
+        ],
+        "near": [
+          255,
+          51,
+          13
+        ],
+        "far": [
+          13,
+          51,
+          204
+        ]
+      },
+      "result": "all == near red; far blue is revealed at same overlap position"
+    },
+    "native_variants": {
+      "all": "both depth limits OFF",
+      "near": "Use Minimum/Maximum ON,Min1 Max3",
+      "far": "Use Minimum/Maximum ON,Min4 Max6",
+      "all_variants": "Keep Outside OFF,same source inputs and graph,FlipDepth0 Volumetric0"
+    },
+    "domain": "true DeepImage connections; two opaque flat-Z sources, hidden rear source retained by dMerge and recoverable through dCrop",
+    "view": "Single initialized Right MediaOut40%,Left empty100%;no ViewOn during accepted variants",
+    "physical_input": "NOT_PROVEN:SDK/synthetic;native GUI and bounded scalar/port metadata establish result",
+    "limits": [
+      "Only two opaque flat-Z synthetic inputs;not external Deep EXR,semi-transparent/volumetric behavior,depth boundary precision or maximum sample/Foreground count.",
+      "No DeepImage/Image/Mask/3D payload GetInput;no numeric sample storage claim.",
+      "Portable export reimport,alternate controls,platform/edition/performance NOT_RUN.",
+      "Prior left-viewer branch assignment coincided with host exit;cause unknown. Accepted method uses existing single Right MediaOut."
+    ]
+  },
+  "restoration": "PASS:frame0,existingRight40%,Leftempty,compact10tool Flow,all depth limitsOFF,owned scratch saved;no new ViewOn",
+  "reproduction": {
+    "fixture_sha256": "d43d95293270024287ab688c3bb220949bd5e5d7d8915293b7fed4ebeed38182",
+    "readback_sha256": "f8d799ec439b0a4904b8865bb746b0ab4e5d9122b1e74e0b719765e52db51478",
+    "paths": "Comp:/../_fixtures/ for bundled synthetic fixtures",
+    "reimport": "NOT_RUN: accepted GUI evidence precedes export path normalization"
+  }
+}

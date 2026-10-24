@@ -15,7 +15,7 @@ tasks: [deep, composite, merge]
 level: advanced
 product_scope: fusion
 suite_surfaces: [fusion]
-updated: "2026-10-16"
+updated: "2026-10-24"
 ---
 
 # dMerge
@@ -104,6 +104,48 @@ dMergeはそれぞれの素材に含まれるDeepサンプルを統合するた�
 - **計算が重い**：21.1 ManualはDeep合成用の**Cache to Disk**を案内しています。Nodeを右クリックして保存先を選び、ディスク容量も確保します。
 - **dMergeが見つからない**：21.1 ManualではDeep Image Compositing Toolsetは**Studio Version Only**です。Editionを確認します。
 
+## 実機例：隠れた青をDeepのまま残す
+
+<!-- capture-case:S121 -->
+
+Resolve Studio21.1.0.14／Windows、1920×1080、フレーム0、右Viewer40%で撮影しました。赤と青はそれぞれ不透明な単色の楕円です。外部Deep EXRは使っていません。
+
+[![赤と青をImage to Deepへ渡し、dMergeからdCrop、Deep to Image、MediaOutへつないだ実機Graph](/img/fusion/captures/S121/graph.png)](/img/fusion/captures/S121/graph.png)
+
+2枚のBackgroundをEllipseで切り抜き、Image to DeepのSpecify ZをONにして、赤のZ＝2、青のZ＝5を設定しました。Z Scaleはこのモードでは表示されません。Inspectorの「Z」に対応するスクリプト上の値はOffsetです。
+
+[![赤のImage to DeepでSpecify ZをON、Zを2にした実機Inspector](/img/fusion/captures/S121/red-inspector.png)](/img/fusion/captures/S121/red-inspector.png)
+
+[![青のImage to DeepでSpecify ZをON、Zを5にした実機Inspector](/img/fusion/captures/S121/blue-inspector.png)](/img/fusion/captures/S121/blue-inspector.png)
+
+青をdMergeのBackground、赤をForegroundへ接続します。今回観測した入力IDはBackgroundとForeground1で、どちらもDeepImageでした。Inspectorは共通Settingsを表示しており、ここにZを設定する欄はありません。
+
+[![dMergeの共通Settingsにレイヤーと入力の設定が表示された実機Inspector](/img/fusion/captures/S121/inspector.png)](/img/fusion/captures/S121/inspector.png)
+
+dCropのMinimum／Maximumを両方OFFにし、Deep to ImageのFlip DepthとVolumetric CompositionもOFFにしました。右のMediaOutでは赤が手前に見え、青の重なり部分を覆います。
+
+[![dCropの最小と最大の深度制限を両方OFFにした実機Inspector](/img/fusion/captures/S121/all-inspector.png)](/img/fusion/captures/S121/all-inspector.png)
+
+[![Deep to ImageのFlip DepthとVolumetric CompositionをOFFにした実機Inspector](/img/fusion/captures/S121/flatten-inspector.png)](/img/fusion/captures/S121/flatten-inspector.png)
+
+[![深度範囲を制限しない出力で赤が青の重なりを覆う実機結果](/img/fusion/captures/S121/compare.png)](/img/fusion/captures/S121/compare.png)
+
+次に、入力と接続を変えず、dCropのMinimum／MaximumをONにして1〜3を残すと、赤だけが表示されました。
+
+[![dCropの深度範囲を1から3、範囲反転OFFにした実機Inspector](/img/fusion/captures/S121/near-inspector.png)](/img/fusion/captures/S121/near-inspector.png)
+
+[![深度1から3だけを残すと赤だけが表示される実機結果](/img/fusion/captures/S121/near.png)](/img/fusion/captures/S121/near.png)
+
+同じdCropで4〜6を残すと、青だけが現れます。赤に隠れていた位置も青に戻りました。同じ画面座標のRGBは、全範囲と1〜3で赤、4〜6で青でした。dMergeの段階では奥の情報が残り、2Dへ平面化する前に深度で取り出せることを、この構成で確認しています。最後は深度制限を両方OFFに戻して保存しました。
+
+[![dCropの深度範囲を4から6、範囲反転OFFにした実機Inspector](/img/fusion/captures/S121/far-inspector.png)](/img/fusion/captures/S121/far-inspector.png)
+
+[![深度4から6だけを残すと隠れていた重なり部分も含め青が現れる実機結果](/img/fusion/captures/S121/far.png)](/img/fusion/captures/S121/far.png)
+
+この例は、一定のZを持つ不透明な2枚の入力に限った確認です。外部Deep EXR、半透明・体積の合成、境界値ちょうどの扱い、サンプル数や入力数の上限、Edition差と性能は未確認です。色の数値精度を評価した例ではありません。
+
+[再現用Graph](/img/fusion/captures/S121/fixture.comp) · [撮影条件と確認範囲](/img/fusion/captures/S121/capture.json)
+
 ## バージョン・出典・未確認範囲
 
 一次資料はBlackmagic Design『**DaVinci Resolve 21.1 Reference Manual**』（2026年9月）、Chapter 95「Deep Image Nodes」です。
@@ -112,6 +154,6 @@ dMergeはそれぞれの素材に含まれるDeepサンプルを統合するた�
 - **p.2227**：複数の奥行きサンプル、Deep EXR入出力、2D入力の自動Deep変換、Linear colorspace要件、Cache to Disk、Studio限定。
 - **pp.2238–2240、2252–2253**：Deep to Imageへの変換とImage to DeepのZ位置指定。
 
-**未確認**：21.1実機でのREGID、端子の実表示順、複数Foreground接続数の上限、2D自動変換時のZ配置、半透明サンプルの内部演算順序と式、個々の素材での描画結果。未検証値を補わず、`verification: partial`を維持しています。
+S121でREGID＝dMerge、2入力の接続、奥の不透明サンプルを後段で取り出せることを実機確認しました。複数Foregroundの上限、2D自動変換時のZ配置、半透明サンプルの演算と実素材の結果は未確認です。`verification: partial`を維持します。
 
 関連：[Deep Imageの基本](../../learn/02-data/deep-image.md) / [補助チャンネルとAOV](../../learn/02-data/auxiliary-channels.md)。

@@ -128,6 +128,24 @@ Ambient Occlusion、Depth Blur、Fog、Shader、Texture等は、Z / Normal / UV 
 - [接続互換性](./connection-compatibility.md) — Deep / Imageの接続境界を整理する
 - [Image](./image.md) — 2D Imageの構造を確認する
 
+## 実機例：手前に隠れた情報を残す
+
+<!-- capture-reuse:R177 -->
+
+Resolve Studio21.1.0.14／Windows、1920×1080、フレーム0、右Viewer40%で撮影しました。赤と青はそれぞれ不透明な単色の楕円です。外部Deep EXRは使っていません。
+
+Image to Deepで赤をZ＝2、青をZ＝5へ置き、dMergeで統合しました。Deep to Imageで平面化すると赤が青を覆います。その手前のdCropで4〜6だけを残すと、隠れた重なりも含め青が現れました。入力をつなぎ直さず、同じDeepデータから範囲を選んだ実機例です。
+
+この例は、一定のZを持つ不透明な2枚の入力に限った確認です。外部Deep EXR、半透明・体積の合成、境界値ちょうどの扱い、サンプル数や入力数の上限、Edition差と性能は未確認です。色の数値精度を評価した例ではありません。
+
+[![手前に隠れた情報を残すの実機画面：graph](/img/fusion/captures/S121/graph.png)](/img/fusion/captures/S121/graph.png)
+
+[![手前に隠れた情報を残すの実機画面：compare](/img/fusion/captures/S121/compare.png)](/img/fusion/captures/S121/compare.png)
+
+[![手前に隠れた情報を残すの実機画面：far](/img/fusion/captures/S121/far.png)](/img/fusion/captures/S121/far.png)
+
+[Graph・Inspector・条件と未確認範囲](../../nodes/deep/d-merge)を参照してください。
+
 ## 出典と確認範囲
 
 Blackmagic Design『DaVinci Resolve 21.1 Reference Manual』（September 2026）、Chapter 95 pp.2226–2254を参照しました。特にpp.2227（Deep EXR、Studio限定、linear、cache）、2238–2240（Deep to ImageとVolumetric Composition）、2245–2247（dHoldout・dMergeの入出力）、2247–2248（dRecolor）、2252–2253（Image to DeepのZ設定）と照合しています。

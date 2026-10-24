@@ -15,7 +15,7 @@ outputs: [deep-image]
 tasks: [deep, crop-depth, isolate-depth]
 product_scope: fusion
 suite_surfaces: [fusion]
-updated: "2026-10-16"
+updated: "2026-10-24"
 ---
 
 # dCrop
@@ -117,8 +117,40 @@ dCropは**Z値で何を残すか**を決めます。dTransformは位置を変え
 - [dMerge](./d-merge.md) — サンプルを保ったまま複数のDeep Imageを組み合わせる。
 - [Deep to Image](./deep-to-image.md) — Deep処理を終え、通常の画像処理へ渡す。
 
+## 実機例：同じ重なりから手前と奥を選ぶ
+
+<!-- capture-reuse:R175 -->
+
+Resolve Studio21.1.0.14／Windows、1920×1080、フレーム0、右Viewer40%で撮影しました。赤と青はそれぞれ不透明な単色の楕円です。外部Deep EXRは使っていません。
+
+[![赤と青をImage to Deepへ渡し、dMergeからdCrop、Deep to Image、MediaOutへつないだ実機Graph](/img/fusion/captures/S121/graph.png)](/img/fusion/captures/S121/graph.png)
+
+赤をZ＝2、青をZ＝5にしてdMergeへまとめた入力です。dCropの画像入力IDはImage、データ型はDeepImageでした。Effect Maskは接続していません。まず最小・最大の制限を両方OFFにすると、赤が青の重なりを覆います。
+
+[![dCropの深度範囲の最小と最大をOFFにした実機Inspector](/img/fusion/captures/S121/all-inspector.png)](/img/fusion/captures/S121/all-inspector.png)
+
+[![深度範囲を制限しない出力で赤が青の重なりを覆う実機結果](/img/fusion/captures/S121/compare.png)](/img/fusion/captures/S121/compare.png)
+
+Use Minimum ZとUse Maximum ZをONにし、Minimum＝1、Maximum＝3、Keep Outside Depth Range＝OFFにすると、赤だけが残りました。
+
+[![dCropで最小1と最大3を有効にして範囲反転をOFFにした実機Inspector](/img/fusion/captures/S121/near-inspector.png)](/img/fusion/captures/S121/near-inspector.png)
+
+[![深度1から3だけを残すと赤だけが表示される実機結果](/img/fusion/captures/S121/near.png)](/img/fusion/captures/S121/near.png)
+
+最小4、最大6へ変えると、青だけが残ります。元の画像・接続を変えず、赤に覆われていた青まで現れました。後段のDeep to Imageの設定は同じままです。最後は最小・最大の制限を両方OFFに戻しました。
+
+[![dCropで最小4と最大6を有効にして範囲反転をOFFにした実機Inspector](/img/fusion/captures/S121/far-inspector.png)](/img/fusion/captures/S121/far-inspector.png)
+
+[![深度4から6だけを残すと隠れていた重なり部分も含め青が現れる実機結果](/img/fusion/captures/S121/far.png)](/img/fusion/captures/S121/far.png)
+
+範囲反転、片側だけの制限、Sample、Effect Mask、境界値ちょうどの判定は未確認です。
+
+この例は、一定のZを持つ不透明な2枚の入力に限った確認です。外部Deep EXR、半透明・体積の合成、境界値ちょうどの扱い、サンプル数や入力数の上限、Edition差と性能は未確認です。色の数値精度を評価した例ではありません。
+
+[再現用Graph](/img/fusion/captures/S121/fixture.comp) · [撮影条件と確認範囲](/img/fusion/captures/S121/capture.json)
+
 ## バージョンと出典
 
 **一次資料**：Blackmagic Design『DaVinci Resolve 21.1 Reference Manual』（2026年9月）、Chapter 95「Deep Image Nodes」。**pp.2237–2238**でdCrop [dCr]のInput（オレンジ）・任意のEffect Mask（青）・Depth Crop・Sample・Keep Outside Depth Rangeを確認しました。**pp.2226–2227**でDeep Imageの仕組みと、Deep Image Compositing Toolsetが**Studio Version Only**であること、Deep合成にはlinear colorspaceが必要なことを確認しています。
 
-本記事の運用例はManualで確認した入出力と設定を組み合わせた**構成例**であり、21.1実機でレンダリング結果を確認したものではありません。Inspectorの初期値・Z値の数値範囲・境界ちょうどのサンプルの扱い・深度表現による差は未検証のため、`verification: partial`としています。
+Manualに基づく構成例と、S121の実機例を分けて記載しています。S121でREGID＝dCrop、DeepImage入力、不透明2層の範囲選別を確認しました。初期値・数値範囲・境界ちょうどの扱い・ほかの深度表現は未確認のため、`verification: partial`を維持します。
