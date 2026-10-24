@@ -90,6 +90,8 @@ TARGETS['S96']='Paint1';LEFT['S96']='Loader1';RIGHT['S96']='Paint1'
 TARGETS['S97']='ChannelBooleans1';LEFT['S97']='Loader1';RIGHT['S97']='ChannelBooleans1'
 TARGETS['S98']='Gamut1';LEFT['S98']='Loader1';RIGHT['S98']='Gamut1'
 TARGETS['S99']='Swizzler1';LEFT['S99']='Loader1';RIGHT['S99']='Swizzler1'
+TARGETS.update({'S100':'LayerRemover1','S101':'LayerRegex1','S102':'LayerMuxer1'})
+LEFT.update({'S100':'Swizzler1','S101':'Swizzler1','S102':'SwizzlerA1'})
 r=d.scriptapp('Resolve')
 assert r, 'Resolve scripting unavailable; do not change preferences automatically'
 pm=r.GetProjectManager(); p=pm.GetCurrentProject()
@@ -159,6 +161,9 @@ if action=='canvas_source':
  assert case=='S52';TARGETS[case]='GoldCanvas1';action='show'
 if action=='map':
  assert case in ['S30','S49'];TARGETS[case]='NoiseMap1';LEFT[case]='NoiseMap1';action='show'
+if case in ['S100','S101','S102']:
+ assert action!='build', 'Layer cases use accepted fixture.comp;never rebuild existing authored examples'
+ assert r.GetCurrentPage() is not None,'Resolve has no active page;inspect child modal dialogs first'
 timelines={p.GetTimelineByIndex(i).GetName().split('_')[0]:p.GetTimelineByIndex(i) for i in range(1,p.GetTimelineCount()+1)}
 if case not in timelines:
  assert action=='build'
@@ -295,6 +300,9 @@ def select(target,left=None):
  if case=='S97' and 'AlphaMultiply1' in tools:
   layouts['S97'].update({'AlphaMultiply1':(4.5,0),'MediaOut1':(6,0)});RIGHT['S97']='AlphaMultiply1'
  layouts['S99']={'Loader1':(0,0),'Gold1':(0,-2),'Swizzler1':(2,0),'MediaOut1':(4,0)}
+ for cid in ['S100','S101']:
+  layouts[cid]={'ChartSource1' if cid=='S100' else 'Loader1':(0,0),'Gold1':(0,-1.5),'Swizzler1':(1,0),TARGETS[cid]:(2,0),'MediaOut1':(3,0)}
+ layouts['S102']={'Loader1':(0,0),'Gold1':(0,-1.5),'Blue1':(0,1.5),'SwizzlerA1':(1,-.75),'SwizzlerB1':(1,.75),'LayerMuxer1':(2,0),'MediaOut1':(3,0)}
  for n,pos in layouts.get(case,{}).items():
   if n in tools:flow.SetPos(tools[n],*pos)
  if case=='S27':flow.SetScale(1.0)
@@ -702,7 +710,7 @@ for n,a in tools.items():
  inputs[n]={'regid':a.GetAttrs()['TOOLS_RegID'],'inputs':{}}
  # The first Paint scaffold saved successfully, then broad scalar introspection coincided
  # with host exit. For S86 onward use native Inspector and exported text; do not retry that probe.
- if case in ['S86','S87','S88','S89','S90','S91','S92','S93','S94','S95','S96','S97','S98','S99']:
+ if int(case[1:])>=86:
   inputs[n]['readback_scope']='NOT_RUN: broad input enumeration avoided after observed host exit;native GUI/export required'
   continue
  for z in a.GetInputList().values():

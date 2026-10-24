@@ -1,0 +1,174 @@
+{
+  "schema_version": 1,
+  "case": "S100",
+  "article": "manuals/fusion/nodes/layers/layer-remover.md",
+  "manual": {
+    "version": "21.1",
+    "chapter": 106,
+    "printed_pages": "2444–2445"
+  },
+  "runtime": {
+    "version": "21.1.0.14",
+    "edition": "Studio",
+    "os": "Windows-11-10.0.26200-SP0",
+    "ui_language": "ja-JP (some Shape controls remain English)"
+  },
+  "captured_at": "2026-10-24T06:48:18.050216+00:00",
+  "project": "Collectanea_Captures_20261023_Sol",
+  "timeline": "S100_capture",
+  "frame": 0,
+  "resolution": [
+    1920,
+    1080
+  ],
+  "color_management": {
+    "colorScienceMode": "davinciYRGB",
+    "colorSpaceTimeline": "Rec.709 (Scene)",
+    "colorSpaceTimelineGamma": "",
+    "colorSpaceOutput": "Rec.709 (Scene)",
+    "colorSpaceOutputGamma": "ACEScc",
+    "separateColorSpaceAndGamma": "0",
+    "isAutoColorManage": "0",
+    "timelineResolutionWidth": "1920",
+    "timelineResolutionHeight": "1080",
+    "timelineFrameRate": 24.0,
+    "timelinePlaybackFrameRate": "30"
+  },
+  "viewer": {
+    "zoom_percent": 40,
+    "channel": "Color",
+    "background": "checkerboard for transparent pixels",
+    "note": "Viewer screenshots are display evidence, not colorimetric exports."
+  },
+  "graph": "fixture.comp",
+  "settings": "readback.json",
+  "source": {
+    "file": "screen.png",
+    "size": [
+      3352,
+      1910
+    ],
+    "sha256": "964d4064dff533d2b5f3c661f0ac4d7be1545dc3b41a952316c48b3b5dc00835"
+  },
+  "shots": [
+    {
+      "file": "graph.png",
+      "source": "screen.png",
+      "source_sha256": "964d4064dff533d2b5f3c661f0ac4d7be1545dc3b41a952316c48b3b5dc00835",
+      "frame": 0,
+      "crop_xyxy": [
+        770,
+        1200,
+        2070,
+        1530
+      ],
+      "resampled": false,
+      "sha256": "758e3bdd549c1512caf8c87ad4a511cb79e22e03d700c363db31d506ff6864da",
+      "viewer_guides": false,
+      "viewer_contents": "Left Swizzler Gold / Right retained Chart"
+    },
+    {
+      "file": "inspector.png",
+      "source": "screen.png",
+      "source_sha256": "964d4064dff533d2b5f3c661f0ac4d7be1545dc3b41a952316c48b3b5dc00835",
+      "frame": 0,
+      "crop_xyxy": [
+        2830,
+        120,
+        3352,
+        300
+      ],
+      "resampled": false,
+      "sha256": "8f7ddeb3c3776eb70ce36bb1642ddbcfdd41bcb560f9e50cd281231f4e9567f4",
+      "viewer_guides": false,
+      "viewer_contents": "Left Swizzler Gold / Right retained Chart"
+    },
+    {
+      "file": "compare.png",
+      "source": "screen.png",
+      "source_sha256": "964d4064dff533d2b5f3c661f0ac4d7be1545dc3b41a952316c48b3b5dc00835",
+      "frame": 0,
+      "crop_xyxy": [
+        1146,
+        65,
+        2830,
+        725
+      ],
+      "resampled": false,
+      "sha256": "3368d90c4e8b84ecfc63ca8163a90ed5a416be086cc08b24c4f2957f8b1938a1",
+      "viewer_guides": false,
+      "viewer_contents": "Left Swizzler Gold / Right retained Chart"
+    },
+    {
+      "file": "before.png",
+      "source": "screen-before.png",
+      "source_sha256": "bbb330260fbdb53694bc4c21b8128e3e9fce38c0a895dfd4ebc8fdd6d66f0e8b",
+      "frame": 0,
+      "crop_xyxy": [
+        1146,
+        65,
+        2830,
+        725
+      ],
+      "resampled": false,
+      "sha256": "6bf97f30b8820519e6b5061909f3f6fd3f0000baa5460e79c5259a5dd2a414a7",
+      "viewer_guides": false,
+      "viewer_contents": "Left Swizzler Gold / Right same Gold before removal"
+    }
+  ],
+  "acceptance": {
+    "gui": "PASS: owner visually inspected node connections, selected Inspector, and output",
+    "article_display": "Executed local/public outcomes stored in docs/fusion-screenshot-candidates.json per-case status/publication_batches;capture provenance fixed."
+  },
+  "unverified": [
+    "Free edition and other platforms",
+    "All parameter ranges and performance",
+    "External EXR/Aux,file output retention,all parameter ranges,other editions/platforms/performance",
+    "Exported portable composition reimport"
+  ],
+  "parameter_readback_scope": "No broad value enumeration and no Image/Mask/ScriptVal GetInput. Exact runtime metadata,limited Text/FuID values,native UI and exported text only.",
+  "gui_authoring": {
+    "host": {
+      "pid": 20156,
+      "hwnd": 82647722,
+      "source_pixels": [
+        3352,
+        1910
+      ]
+    },
+    "tool": "LayerRemover1",
+    "regid": "LayerRemover",
+    "visible_flow_tools": 5,
+    "delivery": "synthetic Cua/SDK;physical input NOT_PROVEN;native UI/export prove outcome"
+  },
+  "restoration": "PASS:frame0,both40%,compact native Flow,owned scratch saved,native final inspected",
+  "reproduction_action": "Accepted portable fixture available;reimport NOT_RUN. Helper show/readback only for existing owned cases;build refused.",
+  "mechanical_improvements": [
+    "Construct new Loader under c.Lock/Unlock to prevent automatic Open File dialog",
+    "Use absolute composition export path",
+    "Check child dialog AX before accepting parent-HWND screenshot",
+    "Use native tool .setting SaveSettings/LoadSettings instead of CopySettings/Paste or full-comp import",
+    "Compact native graph positions reduce article whitespace"
+  ],
+  "native_values": {
+    "Gold_checked_remove": true,
+    "Chart_checked_remove": false
+  },
+  "state_variants": {
+    "screen.png": "Compact final,left Gold/right retained Chart",
+    "screen-before.png": "Both unchecked,left/right Gold"
+  },
+  "rejected_attempts": [
+    "CopySettings/Paste OrderedDict conversion left new owned composition empty,no retry",
+    "ImportFusionComp replaced same-name Composition1 and converted Loader to MediaIn;repaired in owned S100 with actual Loader,removed only generated MediaIn",
+    "Relative save raised child alert omitted from parent screenshot;stopped exact own helper40656,Cancel OpenFile/OK save alert,page=fusion and SaveProject True independently restored",
+    "Earlier checkbox actions while dialog blocked were not accepted;fresh unblocked foreground click and native output accepted"
+  ],
+  "export_evidence": "Layers=ScriptVal{{Gold}} observed in exported text,no ScriptVal payload GetInput",
+  "reproduction": {
+    "fixture_sha256": "eb0fc148640b675d12cc1e8e63b17470e6143b000dab6b491e487d0d2443d1de",
+    "readback_sha256": "f566c28c92693658ba6a24bc5c4b8ce85609a9e7bdbc5ddb1d9af410dbefced9",
+    "paths": "Comp:/../_fixtures/ for bundled synthetic fixtures",
+    "reimport": "NOT_RUN: accepted GUI evidence precedes export path normalization"
+  }
+}

@@ -14,7 +14,7 @@ outputs: [image]
 tasks: [multilayer, regex, rename-layers, filter-layers]
 product_scope: fusion
 suite_surfaces: [fusion]
-updated: "2026-10-10"
+updated: "2026-10-24"
 ---
 
 # Layer Regex
@@ -109,8 +109,34 @@ Mode:       Remove
 
 **Conflicts**は、出力のDefault / [Main] LayerとしてImage 1とImage 2のどちらを選ぶかの設定です。同名の補助Layerの全衝突について、優先順位が一律に保証されると解釈しないでください。
 
+## 実機例：GoldをWarmへ改名し、Chartを残す
+
+<!-- capture-case:S101 -->
+
+Resolve Studio21.1.0.14／Windows、1920×1080、Viewer40%、フレーム0で撮影しました。Layerの入力は外部EXRではなく、LoaderのチャートとBackgroundをSwizzlerでまとめたテスト画像です。
+
+GoldとChartを持つSwizzlerをImage 1へ接続しました。Image 2は未接続です。Layer Regexの出力をMediaOutへ渡しています。
+
+[![Swizzlerの2つのLayerをLayer RegexのImage1へ接続し、Image2は未接続とした実機Graph](/img/fusion/captures/S101/graph.png)](/img/fusion/captures/S101/graph.png)
+
+[![改名前は右のLayer Regex出力にもGoldという名前のオレンジ色のLayerが見える実機画面](/img/fusion/captures/S101/before.png)](/img/fusion/captures/S101/before.png)
+
+Image 1のExpressionを`^Gold$`、ModeをTransform、Name Templateを`Warm`、UnmatchedをKeepにしました。名前全体がGoldと一致するLayerだけを改名する設定です。
+
+[![Layer Regexの実機Inspector、ExpressionはGoldへの完全一致、TransformでWarmへ改名しUnmatchedはKeep](/img/fusion/captures/S101/inspector.png)](/img/fusion/captures/S101/inspector.png)
+
+[![左はGold、右はWarmというLayer名になり、オレンジ色の画像内容は変わらない実機比較](/img/fusion/captures/S101/compare.png)](/img/fusion/captures/S101/compare.png)
+
+右Viewerの画像情報はWarmになり、オレンジ色の画像自体は変わりませんでした。ViewerのLayerメニューにもWarmとChartが現れています。Chartを選ぶと、変更せず残したチャートが表示されました。
+
+[![右ViewerでChartを選ぶと元のチャートが表示され、左のGoldはオレンジ色のまま残る実機比較](/img/fusion/captures/S101/chart.png)](/img/fusion/captures/S101/chart.png)
+
+最後は右ViewerをChartにして保存しました。確認したのはImage 1の名前の完全一致、Transformによる改名とUnmatched Keepまでです。2入力の競合、Keep／Removeモード、Tester、キャプチャ参照や大文字小文字など他の正規表現、外部EXR・Aux、書き出し、他OS・Edition差と性能は未確認です。`verification: partial`を維持します。
+
+[再現用Graph](/img/fusion/captures/S101/fixture.comp) · [撮影条件と確認範囲](/img/fusion/captures/S101/capture.json)
+
 ## バージョンと出典
 
 **DaVinci Resolve 21.1 Reference Manual、Chapter 106「Layer Nodes」、pp.2441–2444**で、Image 1 / Image 2、Expression、Mode、Name Template、Unmatched、Tester、Conflictsと、接頭辞・置換・選別のRegEx例を確認しました。
 
-実際のマルチレイヤー素材に対する出力Layer一覧、正規表現エンジンの全機能、Free / Studio差は21.1実機では未検証です。
+外部EXR素材に対する出力Layer一覧、正規表現エンジンの全機能、Free / Studio差は21.1実機では未検証です。

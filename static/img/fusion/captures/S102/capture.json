@@ -1,0 +1,207 @@
+{
+  "schema_version": 1,
+  "case": "S102",
+  "article": "manuals/fusion/nodes/layers/layer-muxer.md",
+  "manual": {
+    "version": "21.1",
+    "chapter": 106,
+    "printed_pages": "2440–2441"
+  },
+  "runtime": {
+    "version": "21.1.0.14",
+    "edition": "Studio",
+    "os": "Windows-11-10.0.26200-SP0",
+    "ui_language": "ja-JP (some Shape controls remain English)"
+  },
+  "captured_at": "2026-10-24T06:48:18.104943+00:00",
+  "project": "Collectanea_Captures_20261023_Sol",
+  "timeline": "S102_capture",
+  "frame": 0,
+  "resolution": [
+    1920,
+    1080
+  ],
+  "color_management": {
+    "colorScienceMode": "davinciYRGB",
+    "colorSpaceTimeline": "Rec.709 (Scene)",
+    "colorSpaceTimelineGamma": "",
+    "colorSpaceOutput": "Rec.709 (Scene)",
+    "colorSpaceOutputGamma": "ACEScc",
+    "separateColorSpaceAndGamma": "0",
+    "isAutoColorManage": "0",
+    "timelineResolutionWidth": "1920",
+    "timelineResolutionHeight": "1080",
+    "timelineFrameRate": 24.0,
+    "timelinePlaybackFrameRate": "30"
+  },
+  "viewer": {
+    "zoom_percent": 40,
+    "channel": "Color",
+    "background": "checkerboard for transparent pixels",
+    "note": "Viewer screenshots are display evidence, not colorimetric exports."
+  },
+  "graph": "fixture.comp",
+  "settings": "readback.json",
+  "source": {
+    "file": "screen.png",
+    "size": [
+      3352,
+      1910
+    ],
+    "sha256": "ea779b5e0d176a12ed3bfad725de6a311397e1b20d9060951b740e9e11072ab9"
+  },
+  "shots": [
+    {
+      "file": "graph.png",
+      "source": "screen.png",
+      "source_sha256": "ea779b5e0d176a12ed3bfad725de6a311397e1b20d9060951b740e9e11072ab9",
+      "frame": 0,
+      "crop_xyxy": [
+        770,
+        1150,
+        2070,
+        1580
+      ],
+      "resampled": false,
+      "sha256": "902625d8afed8d1b745174e6e4bd4d685941eecf12cd16d5800b71ad2b98133d",
+      "viewer_guides": false,
+      "viewer_contents": "Left SwizzlerA Gold / Right LayerMuxer selected Blue"
+    },
+    {
+      "file": "inspector.png",
+      "source": "screen.png",
+      "source_sha256": "ea779b5e0d176a12ed3bfad725de6a311397e1b20d9060951b740e9e11072ab9",
+      "frame": 0,
+      "crop_xyxy": [
+        2830,
+        120,
+        3352,
+        300
+      ],
+      "resampled": false,
+      "sha256": "989dad43bc2f6a3f3b065a08b0222e93ff0dce03b24866dcfd4b73d89cfc09a3",
+      "viewer_guides": false,
+      "viewer_contents": "Left SwizzlerA Gold / Right LayerMuxer selected Blue"
+    },
+    {
+      "file": "compare.png",
+      "source": "screen.png",
+      "source_sha256": "ea779b5e0d176a12ed3bfad725de6a311397e1b20d9060951b740e9e11072ab9",
+      "frame": 0,
+      "crop_xyxy": [
+        1146,
+        65,
+        2830,
+        725
+      ],
+      "resampled": false,
+      "sha256": "9999b71b03ea73369421094a343985dcf95b4fd1d3041881961e2f706ec5c272",
+      "viewer_guides": false,
+      "viewer_contents": "Left SwizzlerA Gold / Right LayerMuxer selected Blue"
+    },
+    {
+      "file": "before.png",
+      "source": "screen-before.png",
+      "source_sha256": "eca1f3903e2e0fd1687c9ad77b4c1db11cf83f9d324f7dd6f05a6932e1cef125",
+      "frame": 0,
+      "crop_xyxy": [
+        1146,
+        65,
+        2830,
+        725
+      ],
+      "resampled": false,
+      "sha256": "cd3459730879bb96eecfed96e0060212616e8a857305d875199ae2996fff4cfc",
+      "viewer_guides": false,
+      "viewer_contents": "Left SwizzlerA Gold / Right LayerMuxer Gold"
+    },
+    {
+      "file": "layers.png",
+      "source": "screen-layers.png",
+      "source_sha256": "352ff2493110cd4094e4121b6d52fcc30779c20cc8123374a323890240f024c0",
+      "frame": 0,
+      "crop_xyxy": [
+        0,
+        0,
+        155,
+        117
+      ],
+      "resampled": false,
+      "sha256": "40e45cafb182ac9fb3043e831d7b552fc67b84b69b5503b6d670eaafff43b38c",
+      "viewer_guides": false,
+      "viewer_contents": "Native popup only:Default,Gold,Chart,Blue,Reference"
+    }
+  ],
+  "acceptance": {
+    "gui": "PASS: owner visually inspected node connections, selected Inspector, and output",
+    "article_display": "Executed local/public outcomes stored in docs/fusion-screenshot-candidates.json per-case status/publication_batches;capture provenance fixed."
+  },
+  "unverified": [
+    "Free edition and other platforms",
+    "All parameter ranges and performance",
+    "External EXR/Aux,file output retention,all parameter ranges,other editions/platforms/performance",
+    "Exported portable composition reimport"
+  ],
+  "parameter_readback_scope": "No broad value enumeration and no Image/Mask/ScriptVal GetInput. Exact runtime metadata,limited Text/FuID values,native UI and exported text only.",
+  "gui_authoring": {
+    "host": {
+      "pid": 20156,
+      "hwnd": 82647722,
+      "source_pixels": [
+        3352,
+        1910
+      ]
+    },
+    "tool": "LayerMuxer1",
+    "regid": "LayerMuxer",
+    "visible_flow_tools": 7,
+    "delivery": "synthetic Cua/SDK;physical input NOT_PROVEN;native UI/export prove outcome"
+  },
+  "restoration": "PASS:frame0,both40%,compact native Flow,owned scratch saved,native final inspected",
+  "reproduction_action": "Accepted portable fixture available;reimport NOT_RUN. Helper show/readback only for existing owned cases;build refused.",
+  "mechanical_improvements": [
+    "Construct new Loader under c.Lock/Unlock to prevent automatic Open File dialog",
+    "Use absolute composition export path",
+    "Check child dialog AX before accepting parent-HWND screenshot",
+    "Use native tool .setting SaveSettings/LoadSettings instead of CopySettings/Paste or full-comp import",
+    "Compact native graph positions reduce article whitespace"
+  ],
+  "native_values": {
+    "Layer": ":All",
+    "Layer_display": "すべてのレイヤー",
+    "Conflicts": "Imagea",
+    "Conflicts_display": "Use Image1",
+    "Viewer_selected_layer": "Blue"
+  },
+  "native_menu_observed": [
+    "Gold",
+    "Chart",
+    "Blue",
+    "Reference"
+  ],
+  "source_layers": {
+    "Image1": [
+      "Gold",
+      "Chart"
+    ],
+    "Image2": [
+      "Blue",
+      "Reference"
+    ]
+  },
+  "state_variants": {
+    "screen.png": "Compact final,left Gold/right selected Blue,UseImage1",
+    "screen-before.png": "UseImage1,right Gold",
+    "screen-layers.png": "155x117 native popup,Default+four named layers"
+  },
+  "conflicts_scope": "Image2 setter/readback and native button observed,but displayed Gold in named-only source. Main-switch result NOT_ESTABLISHED;restored Imagea. Do not attribute Blue Viewer selection to Conflicts.",
+  "unverified_extra": [
+    "Custom/Default Layer,Main conflicts,same-named layer precedence"
+  ],
+  "reproduction": {
+    "fixture_sha256": "8ec5d74bd9497724fd5f5274a9dd0ec2d6e20ee920beb4b9245a4a66e42240ef",
+    "readback_sha256": "6c2fe74364fef4adc3623f41075a7fb8840955a5fa8fcb23d4d221ce4b8ade08",
+    "paths": "Comp:/../_fixtures/ for bundled synthetic fixtures",
+    "reimport": "NOT_RUN: accepted GUI evidence precedes export path normalization"
+  }
+}

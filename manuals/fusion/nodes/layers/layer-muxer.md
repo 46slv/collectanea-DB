@@ -14,7 +14,7 @@ outputs: [image]
 tasks: [multilayer, combine-layers, exr]
 product_scope: fusion
 suite_surfaces: [fusion]
-updated: "2026-10-10"
+updated: "2026-10-24"
 ---
 
 # Layer Muxer
@@ -82,6 +82,34 @@ Beauty・Depthを含むレンダーAと、Motion・Normalを含むレンダーB�
 - [Merge](../compositing/merge) — ForegroundとBackgroundを画像として合成する。Layerの一覧を統合する操作とは異なります。
 
 Image 2で期待するLayerが選択できない場合は、まず入力ファイルにそのLayerが含まれているか、別の名前になっていないかを確認します。Inspectorの選択肢と出力のLayer構成を合わせて確認すると、接続ミスと命名ミスを切り分けられます。
+
+## 実機例：2入力から4つのLayerをまとめる
+
+<!-- capture-case:S102 -->
+
+Resolve Studio21.1.0.14／Windows、1920×1080、Viewer40%、フレーム0で撮影しました。Layerの入力は外部EXRではなく、LoaderのチャートとBackgroundをSwizzlerでまとめたテスト画像です。
+
+Swizzler AにGoldとChart、Swizzler BにBlueとReferenceを作りました。AとBをLayer MuxerのImage 1とImage 2へ接続しています。GoldとBlueは別のBackground、ChartとReferenceは同じLoaderのチャートを供給元にしています。
+
+[![GoldとChartを持つSwizzler A、BlueとReferenceを持つSwizzler BをLayer Muxerの2入力へ接続した7ノードの実機Graph](/img/fusion/captures/S102/graph.png)](/img/fusion/captures/S102/graph.png)
+
+[![実機Layer MuxerのInspector、Layerはすべてのレイヤー、ConflictsはUse Image1](/img/fusion/captures/S102/inspector.png)](/img/fusion/captures/S102/inspector.png)
+
+LayerはAll Layers、日本語UIでは「すべてのレイヤー」です。出力のViewerメニューにはGold、Chart、Blue、Referenceが並びました。入力2のLayerを追加しても、入力1の名前付きLayerが残っています。
+
+[![Layer Muxer出力の実機ViewerメニューにGold、Chart、Blue、Referenceの4つのLayerが並ぶ](/img/fusion/captures/S102/layers.png)](/img/fusion/captures/S102/layers.png)
+
+[![出力のGoldを見ている状態では、左のSwizzler Aと右のLayer Muxerに同じオレンジ色が見える実機画面](/img/fusion/captures/S102/before.png)](/img/fusion/captures/S102/before.png)
+
+右ViewerでBlueを選ぶと、入力2側の青いBackgroundが表示されました。左は入力1側のGoldを表示したままです。2色をMergeで重ねた画像ではなく、出力に含まれる別のLayerを選んでいます。
+
+[![左は入力1側のGold、右はLayer Muxerの出力からBlueを選んだ実機比較](/img/fusion/captures/S102/compare.png)](/img/fusion/captures/S102/compare.png)
+
+最後はConflictsをUse Image1、右ViewerをBlueにして保存しました。この例で確認したのはAll Layersによる名前付きLayerの統合とViewerでの選択です。Conflictsの設定と、Viewerで個別のLayerを見る操作は分けて扱います。
+
+Default／Mainが競合する素材でのConflictsの結果、同名Layerの競合、CustomやDefault Layer、外部EXR・Aux、書き出し後の保持、他OS・Edition差と性能は未確認です。`verification: partial`を維持します。
+
+[再現用Graph](/img/fusion/captures/S102/fixture.comp) · [撮影条件と確認範囲](/img/fusion/captures/S102/capture.json)
 
 ## バージョンと出典
 
