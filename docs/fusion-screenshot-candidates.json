@@ -27911,6 +27911,15 @@
       "evidence": "artifacts/fusion-captures/dot-batch33-report.jpg",
       "ack": "PR124/125 public,CDL fix and next three unpublished distinguished;Sol/partial retained,no extra workers",
       "authority": "Standing user authorization;reply adds no new execution authority"
+    },
+    {
+      "event_id": "fusion-native-20261024-36",
+      "destination": "verified silvel UI https://chatgpt.com/dots/home",
+      "status": "SENT_ACKNOWLEDGED",
+      "public_scope": "PR126–128,192/738/1106,1711assetsPASS",
+      "pending_scope": "PR129local195/763/1138,notpublic",
+      "receipt": "artifacts/fusion-captures/dot-batch36-report.jpg",
+      "ack": "Native UI588;public192 andPR129 distinguished,Solonly/no duplicate worker"
     }
   ]
 }
