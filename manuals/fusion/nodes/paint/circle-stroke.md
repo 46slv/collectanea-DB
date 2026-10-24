@@ -14,7 +14,7 @@ outputs: []
 tasks: [paint, animate]
 product_scope: fusion
 suite_surfaces: [fusion]
-updated: "2026-10-10"
+updated: "2026-10-24"
 ---
 
 # Circle Stroke（PaintのCircle）
@@ -103,10 +103,36 @@ Copy系の形状では、Manualに従って複製元の画像をPaintに指定�
 
 「円」を作りたいだけならCircleが適していますが、**別ノードの処理範囲を制限するマスク**を作りたい場合は、Paintの描画要素ではなくMask系を選びます。Paintの2D画像出力とMaskの単一チャンネル出力は同じデータではありません。
 
+## 実機例：入力画像へ白い円を描く
+
+<!-- capture-case:S89 -->
+
+Resolve Studio21.1.0.14／Windows、1920×1080、Viewer40%で撮影しました。LoaderのテストチャートをPaintへ入力し、Paintの画像出力をMediaOutへ接続しています。左が入力、右が描画後の画像です。
+
+Viewer上部でCircleを選び、入力チャートの中央付近からドラッグして白い円を作りました。元画像は円の外側に残り、円の内側を白で覆った画像がPaintから出力されています。
+
+[![Loaderの画像をPaintへ入れてMediaOutへ渡す実機Graph、CircleはPaint内部に保持](/img/fusion/captures/S89/graph.png)](/img/fusion/captures/S89/graph.png)
+
+[![実機Circle1のInspector、形状とColorの設定を表示](/img/fusion/captures/S89/inspector.png)](/img/fusion/captures/S89/inspector.png)
+
+描いたCircle1を明示的に選び、InspectorでCenter X約0.4973958／Y約0.5208333、Radius約0.2400923、白のRGBA各1、Opacity1を確認しました。保存GraphにもCircle1のCenterとRadiusが記録されています。Copy Circleの画素複製や、Maskノードの出力を確認した例ではありません。
+
+[![フレーム0、左は入力チャート、右はPaint内部のCircleを白で描いた画像出力](/img/fusion/captures/S89/compare.png)](/img/fusion/captures/S89/compare.png)
+
+上がフレーム0、下がコンポジション終端のフレーム119です。両フレームで同じ描画が残ることを確認しました。全120フレームを個別に検査した例ではありません。
+
+[![フレーム119でもPaint内部のCircleによる白い描画が残る実機比較](/img/fusion/captures/S89/frame119.png)](/img/fusion/captures/S89/frame119.png)
+
+Flowに見えるノードはLoader・Paint・MediaOutの3つで、描画要素はPaint内部の`Circle1`、実機の内部REGIDは`Circle`でした。最後はフレーム0、両Viewer40%で保存しています。
+
+中心や半径の描画後変更・アニメーション、期間の短縮、Copy Circle、Effect Mask、透明Backgroundとの合成、追跡、実写の補修、筆圧、性能と全初期値は未確認です。`verification: partial`を維持します。
+
+[再現用Graph](/img/fusion/captures/S89/fixture.comp) · [撮影条件と確認範囲](/img/fusion/captures/S89/capture.json)
+
 ## 出典と確認範囲
 
 - Blackmagic Design『DaVinci Resolve 21.1 Reference Manual』（September 2026）、Chapter 80「Paint」pp.1750–1752：Shape Drawing Tools、編集可能な表示期間、Copy Shapeでの画像参照。
 - 同Chapter 113「Paint Node」pp.2638–2640：PaintのInput／Effect Mask、透明Backgroundを使った構成、Circleのcenter・radius、初期表示期間。
 - 同Chapter 113 pp.2642–2645：InspectorのBrush／Apply／Stroke Controls、Modifiers、Write Onが対象とするストローク。
 
-本文の「Circle」は21.1 Manualで確認できたツール名です。**個々のInspector項目の正確な内部ID、既定値、設定可能範囲、Trackerとの実機接続手順、製品Edition差は確認していない**ため、`verification: partial`のままにしています。
+本文の「Circle」は21.1 Manualで確認できたツール名です。S89で内部REGID `Circle`、掲載したCenter・RadiusとColor設定、フレーム0／119の画像出力を実機確認しました。個々のControl内部ID、全既定値・値域、Tracker接続、Edition差は未確認のため、`verification: partial`を維持します。

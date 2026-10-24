@@ -1,0 +1,240 @@
+{
+  "schema_version": 1,
+  "case": "S88",
+  "article": "manuals/fusion/nodes/paint/polyline-stroke.md",
+  "manual": {
+    "version": "21.1",
+    "chapter": 113,
+    "printed_pages": "2638–2645"
+  },
+  "runtime": {
+    "version": "21.1.0.14",
+    "edition": "Studio",
+    "os": "Windows-11-10.0.26200-SP0",
+    "ui_language": "ja-JP (some Shape controls remain English)"
+  },
+  "captured_at": "2026-10-24T04:00:41.741772+00:00",
+  "project": "Collectanea_Captures_20261023_Sol",
+  "timeline": "S88_capture",
+  "frame": 0.0,
+  "resolution": [
+    1920,
+    1080
+  ],
+  "color_management": {
+    "colorScienceMode": "davinciYRGB",
+    "colorSpaceTimeline": "Rec.709 (Scene)",
+    "colorSpaceTimelineGamma": "",
+    "colorSpaceOutput": "Rec.709 (Scene)",
+    "colorSpaceOutputGamma": "ACEScc",
+    "separateColorSpaceAndGamma": "0",
+    "isAutoColorManage": "0",
+    "timelineResolutionWidth": "1920",
+    "timelineResolutionHeight": "1080",
+    "timelineFrameRate": 24.0,
+    "timelinePlaybackFrameRate": "30"
+  },
+  "viewer": {
+    "zoom_percent": 40,
+    "channel": "Color",
+    "background": "checkerboard for transparent pixels",
+    "note": "Viewer screenshots are display evidence, not colorimetric exports."
+  },
+  "graph": "fixture.comp",
+  "settings": "readback.json",
+  "source": {
+    "file": "screen.png",
+    "size": [
+      3352,
+      1910
+    ],
+    "sha256": "95b81cee7129cc4fa086fd878cce0b6f6b07d355ff788a0bca06b5a27937bc9a"
+  },
+  "shots": [
+    {
+      "file": "graph.png",
+      "source": "screen.png",
+      "source_sha256": "95b81cee7129cc4fa086fd878cce0b6f6b07d355ff788a0bca06b5a27937bc9a",
+      "frame": 0,
+      "crop_xyxy": [
+        770,
+        1300,
+        2050,
+        1450
+      ],
+      "resampled": false,
+      "sha256": "65dae31b90f03771a53d4b4a6d164b51ab90074d663fb104eccd8fd73ee8c533",
+      "viewer_contents": "Left input chart / Right Paint image,both1920x1080/40%",
+      "viewer_guides": true,
+      "active_tool": "Paint1"
+    },
+    {
+      "file": "inspector.png",
+      "source": "screen-controls.png",
+      "source_sha256": "35348e6124493dd84ab0bfa6146e00a906c9f9b55c621abc66d6a031c3ac2abc",
+      "frame": 0,
+      "crop_xyxy": [
+        2830,
+        120,
+        3352,
+        790
+      ],
+      "resampled": false,
+      "sha256": "ce7aa85609d4c852d0789389e87000a03478ce3798258db3fc81062455e2eb14",
+      "viewer_contents": "Left input chart / Right Paint image,both1920x1080/40%",
+      "viewer_guides": true,
+      "active_tool": "Paint1"
+    },
+    {
+      "file": "compare.png",
+      "source": "screen-clean0.png",
+      "source_sha256": "e0c09dc8e383f3c38d047d569c35f0eb1a8959ea0467b02b45a561b1ea029fa8",
+      "frame": 0,
+      "crop_xyxy": [
+        1146,
+        65,
+        2830,
+        725
+      ],
+      "resampled": false,
+      "sha256": "04735b372215695c7cea4d186fce06871396b9a57770025e8a3e1b40f03671a4",
+      "viewer_contents": "Left input chart / Right Paint image,both1920x1080/40%",
+      "viewer_guides": false,
+      "active_tool": "MediaOut1"
+    },
+    {
+      "file": "guides.png",
+      "source": "screen.png",
+      "source_sha256": "95b81cee7129cc4fa086fd878cce0b6f6b07d355ff788a0bca06b5a27937bc9a",
+      "frame": 0,
+      "crop_xyxy": [
+        1146,
+        65,
+        2830,
+        725
+      ],
+      "resampled": false,
+      "sha256": "fb2eeca4af54255d7147b13252929f7f6a9732641f4a999199d4c7cc3e7d1114",
+      "viewer_contents": "Left input chart / Right Paint image,both1920x1080/40%",
+      "viewer_guides": true,
+      "active_tool": "Paint1"
+    },
+    {
+      "file": "frame119.png",
+      "source": "screen-clean119.png",
+      "source_sha256": "ec9464e8eeb64e8798dce9d7d1160ebc75467fbb9911de9a990eee166380985e",
+      "frame": 119,
+      "crop_xyxy": [
+        1146,
+        65,
+        2830,
+        725
+      ],
+      "resampled": false,
+      "sha256": "e24aa4d7b5bd6a3acebe1346d9cebadd8e64a713517d0bcbd51902602825fc00",
+      "viewer_contents": "Left input chart / Right Paint image,both1920x1080/40%",
+      "viewer_guides": false,
+      "active_tool": "MediaOut1"
+    }
+  ],
+  "acceptance": {
+    "gui": "PASS: owner visually inspected node connections, selected Inspector, and output",
+    "article_display": "PASS: local production build;4 distinct pages18 images at1440px/390px;canonical routes/decode/Alt/native links/hash/overflow"
+  },
+  "unverified": [
+    "Free edition and other platforms",
+    "All parameter ranges and performance",
+    "個々の点の移動・追加・削除、Closed、Smooth、Draw Append、PathやMaskへのConnect To、Write On、Roto Assist、追跡",
+    "Individual check of all120 frames;only0/119 accepted",
+    "Other platforms/edition,real footage,tablet,all control ranges and performance",
+    "Exported portable composition reimport"
+  ],
+  "parameter_readback_scope": "All tool GetInputList/GetInput NOT_RUN after S86 observed host exit;REGID/runtime/project identity only. Native GUI and exported text are acceptance evidence.",
+  "native_inspector_values": {
+    "source": "screen-controls.png",
+    "target": "PolylineStroke1",
+    "StrokeAnimation": "All Frames",
+    "Length": 1,
+    "WriteOn": [
+      0,
+      1
+    ],
+    "Center": [
+      0.5,
+      0.5
+    ],
+    "Angle": 0,
+    "Size": 1,
+    "Spacing": 0.2
+  },
+  "state_variants": {
+    "screen.png": "frame0/Paint or exact modifier selected/native Inspector and guides",
+    "screen-controls.png": "frame0/Paint or exact modifier selected/native Inspector and guides",
+    "screen-clean0.png": "frame0/MediaOut selected/guides absent",
+    "screen-clean119.png": "frame119/MediaOut selected/guides absent"
+  },
+  "gui_authoring": {
+    "visible_flow_tools": 3,
+    "drawn_modifier": "PolylineStroke1",
+    "regid": "PolylineStroke",
+    "host": {
+      "pid": 42776,
+      "hwnd": 43648076,
+      "source_pixels": [
+        3352,
+        1910
+      ]
+    },
+    "delivery": "synthetic Cua;physical input NOT_PROVEN;native screenshot/export prove result",
+    "gesture": {
+      "toolbar": [
+        2174,
+        110
+      ],
+      "points": [
+        [
+          2200,
+          500
+        ],
+        [
+          2440,
+          300
+        ],
+        [
+          2680,
+          500
+        ]
+      ]
+    }
+  },
+  "restoration": "PASS:frame0/both40%,owned scratch saved and native image visually inspected",
+  "reproduction_action": "build creates EMPTY Paint scaffold;native toolbar and drawing required. Bind exact drawn modifier before Inspector acceptance. Never rebuild existing case or broadly enumerate tool inputs.",
+  "shape_export": {
+    "open": true,
+    "linear_points": 3,
+    "xy": [
+      [
+        -0.302083333333333,
+        -0.210648148148148
+      ],
+      [
+        0.0104166666666666,
+        0.252314814814815
+      ],
+      [
+        0.322916666666667,
+        -0.210648148148148
+      ]
+    ],
+    "shape_keyframes": "none exported"
+  },
+  "rejected_attempts": [
+    "Click with snapshot_id passed as capture_id refused before input;fresh screenshot used. AX-only query cleared screenshot context and next pixel call refused;fresh screenshot then single admitted click. No repeated drawing."
+  ],
+  "reproduction": {
+    "fixture_sha256": "d009c9ebc5b7d41bcd04f69d43d1336d919396ec38574a3cef332189901c55a5",
+    "readback_sha256": "3a69c6f6225670ee7bb27b5c198424a099fe27749e6b86dfa33988e62f406f4c",
+    "paths": "Comp:/../_fixtures/ for bundled synthetic fixtures",
+    "reimport": "NOT_RUN: accepted GUI evidence precedes export path normalization"
+  }
+}

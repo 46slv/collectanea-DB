@@ -2,7 +2,7 @@
   "schema_version": 1,
   "created": "2026-10-20",
   "scope": "All Fusion pages, DaVinci Resolve 21.1",
-  "status_note": "2026-10-24:155/575/900 public through PR110;1359 assets HTTP/hash PASS. S86/S87/R133–R137 local4 distinct pages18 images PASS;10 native crops+8 reuse placements,cumulative159/585/918. Whole587 and remaining_views incomplete;partial retained.",
+  "status_note": "2026-10-24:159/585/918 public through PR112;1383 assets HTTP/hash PASS. S88–S90/R138–R140 local4 distinct pages18 images PASS;13 native crops+3 reuse placements,cumulative162/598/934. Whole587 and remaining_views incomplete;partial retained.",
   "asset_directory_template": "static/img/fusion/captures/{id}/{shot.slug}.png",
   "capture_manifest_name": "capture.json",
   "candidates": [
@@ -4821,7 +4821,7 @@
         "printed_pages": "2638–2645"
       },
       "goal": "Native Paint image input and default white Multistroke/frame0-1;GUI/export evidence without broad parameter enumeration",
-      "status": "captured-local-display-verified",
+      "status": "published-display-verified",
       "shots": [
         {
           "slug": "graph",
@@ -4848,7 +4848,8 @@
           "status": "native-observed"
         }
       ],
-      "capture_manifest": "static/img/fusion/captures/S86/capture.json"
+      "capture_manifest": "static/img/fusion/captures/S86/capture.json",
+      "published_batch": "fusion-native-20261024-26"
     },
     {
       "id": "S87",
@@ -4860,7 +4861,7 @@
         "printed_pages": "2638–2645"
       },
       "goal": "Native white Stroke on image;All Frames at0/1/119 and exact Stroke1 Make Editable/exported25-point Polyline",
-      "status": "captured-local-display-verified",
+      "status": "published-display-verified",
       "shots": [
         {
           "slug": "graph",
@@ -4899,7 +4900,131 @@
           "status": "native-observed"
         }
       ],
-      "capture_manifest": "static/img/fusion/captures/S87/capture.json"
+      "capture_manifest": "static/img/fusion/captures/S87/capture.json",
+      "published_batch": "fusion-native-20261024-26"
+    },
+    {
+      "id": "S88",
+      "priority": "P1",
+      "article": "manuals/fusion/nodes/paint/polyline-stroke.md",
+      "manual": {
+        "version": "21.1",
+        "chapter": 113,
+        "printed_pages": "2638–2645"
+      },
+      "goal": "Native Paint PolylineStroke,Graph/exact Inspector/output at0/119;GUI/export scope only",
+      "status": "captured-local-display-verified",
+      "shots": [
+        {
+          "slug": "graph",
+          "kind": "node-graph",
+          "target": "PolylineStroke",
+          "status": "native-observed"
+        },
+        {
+          "slug": "inspector",
+          "kind": "inspector",
+          "target": "PolylineStroke",
+          "status": "native-observed"
+        },
+        {
+          "slug": "compare",
+          "kind": "output",
+          "target": "PolylineStroke",
+          "status": "native-observed"
+        },
+        {
+          "slug": "guides",
+          "kind": "output",
+          "target": "PolylineStroke",
+          "status": "native-observed"
+        },
+        {
+          "slug": "frame119",
+          "kind": "output",
+          "target": "PolylineStroke",
+          "status": "native-observed"
+        }
+      ],
+      "capture_manifest": "static/img/fusion/captures/S88/capture.json"
+    },
+    {
+      "id": "S89",
+      "priority": "P1",
+      "article": "manuals/fusion/nodes/paint/circle-stroke.md",
+      "manual": {
+        "version": "21.1",
+        "chapter": 113,
+        "printed_pages": "2638–2645"
+      },
+      "goal": "Native Paint Circle,Graph/exact Inspector/output at0/119;GUI/export scope only",
+      "status": "captured-local-display-verified",
+      "shots": [
+        {
+          "slug": "graph",
+          "kind": "node-graph",
+          "target": "Circle",
+          "status": "native-observed"
+        },
+        {
+          "slug": "inspector",
+          "kind": "inspector",
+          "target": "Circle",
+          "status": "native-observed"
+        },
+        {
+          "slug": "compare",
+          "kind": "output",
+          "target": "Circle",
+          "status": "native-observed"
+        },
+        {
+          "slug": "frame119",
+          "kind": "output",
+          "target": "Circle",
+          "status": "native-observed"
+        }
+      ],
+      "capture_manifest": "static/img/fusion/captures/S89/capture.json"
+    },
+    {
+      "id": "S90",
+      "priority": "P1",
+      "article": "manuals/fusion/nodes/paint/rectangle.md",
+      "manual": {
+        "version": "21.1",
+        "chapter": 113,
+        "printed_pages": "2638–2645"
+      },
+      "goal": "Native Paint Rectangle,Graph/exact Inspector/output at0/119;GUI/export scope only",
+      "status": "captured-local-display-verified",
+      "shots": [
+        {
+          "slug": "graph",
+          "kind": "node-graph",
+          "target": "Rectangle",
+          "status": "native-observed"
+        },
+        {
+          "slug": "inspector",
+          "kind": "inspector",
+          "target": "Rectangle",
+          "status": "native-observed"
+        },
+        {
+          "slug": "compare",
+          "kind": "output",
+          "target": "Rectangle",
+          "status": "native-observed"
+        },
+        {
+          "slug": "frame119",
+          "kind": "output",
+          "target": "Rectangle",
+          "status": "native-observed"
+        }
+      ],
+      "capture_manifest": "static/img/fusion/captures/S90/capture.json"
     }
   ],
   "publication_batches": [
@@ -5744,27 +5869,59 @@
         "2add/40057000871 cancelled after incoming Color PR109 main merge;not publication PASS"
       ],
       "limitations": "Whole587/400 capture-needed and remaining_views incomplete;S86 limited GUI/export native evidence pending article adoption."
+    },
+    {
+      "id": "fusion-native-20261024-26",
+      "cases": [
+        "S86",
+        "S87"
+      ],
+      "reuses": [
+        "R133",
+        "R134",
+        "R135",
+        "R136",
+        "R137"
+      ],
+      "pr": "https://github.com/46slv/collectanea-DB/pull/112",
+      "candidate": "a1bb8917af2b0e8b81b29c5703b3fd21231eb47e",
+      "main": "3ecc14b49d3687a79241582b09e444bd8ea974a8",
+      "tree": "3ec0ecf9ec692d1b878f6c40457886bc902570a2",
+      "quality_run": "https://github.com/46slv/collectanea-DB/actions/runs/40059878958",
+      "pages_run": "https://github.com/46slv/collectanea-DB/actions/runs/40060545138",
+      "merge_owner": "Sol fresh main/head/reviews/comments and all exact-head CI steps verified;expected-head squash;fresh MERGED/main tree equality readback",
+      "public_pages": 4,
+      "public_images": 18,
+      "new_placements": 18,
+      "new_native_crops": 10,
+      "public_asset_hashes": 1383,
+      "result": "PASS",
+      "evidence": [
+        "artifacts/fusion-captures/public-batch26-display-report.json",
+        "artifacts/fusion-captures/public-batch26-assets.json"
+      ],
+      "limitations": "Whole587/396 capture-needed and remaining_views incomplete. Tool parameter enumeration NOT_RUN;GUI/export scope. S88–S90 native/adopted,local/public pending."
     }
   ],
   "coverage_inventory": {
-    "checked_at": "2026-10-24T03:47:00.569310+00:00",
+    "checked_at": "2026-10-24T04:06:38.674781+00:00",
     "scope": "All manuals/fusion Markdown and MDX pages; review necessity before adding images.",
     "completion_rule": "Every page has an explicit image decision; necessary images are native-observed, embedded, saved to GitHub and public-display-verified. A native example does not verify all article controls.",
     "summary": {
       "total_pages": 587,
-      "with_images": 159,
-      "with_native_examples": 159,
+      "with_images": 162,
+      "with_native_examples": 162,
       "states": {
         "reviewed-no-standalone-image": 26,
         "no-standalone-image-needed": 6,
         "illustrated-reused-example": 74,
-        "capture-planned": 396,
-        "illustrated-native-example": 85
+        "capture-planned": 393,
+        "illustrated-native-example": 88
       },
       "decisions": {
         "no-standalone-image-needed": 32,
-        "image-required": 159,
-        "capture-needed": 396
+        "image-required": 162,
+        "capture-needed": 393
       }
     },
     "pages": [
@@ -17011,13 +17168,18 @@
         "article": "manuals/fusion/nodes/paint/circle-stroke.md",
         "title": "Circle Stroke",
         "kind": "node",
-        "image_count": 0,
-        "native_cases": [],
+        "image_count": 4,
+        "native_cases": [
+          "S89"
+        ],
         "reused_cases": [],
         "planned_cases": [],
-        "state": "capture-planned",
-        "decision": "capture-needed",
+        "state": "illustrated-native-example",
+        "decision": "image-required",
         "reason": "本文の対象機能: Paint内のCircleは、中心と半径を変更できる円形描画要素。独立したFlowノードではない。。独立Flow Nodeではない。別stroke/Mask画像は対象要素の実操作を示せない。",
+        "remaining_views": [
+          "中心や半径の描画後変更・アニメーション、期間の短縮、Copy Circle、Effect Mask、透明Backgroundとの合成、追跡,real footage,tablet,all controls/performance"
+        ],
         "required_views": [
           "Paint内部の対象選択toolbar/List/Controls",
           "形/brushまたはclone source/offset",
@@ -17044,7 +17206,8 @@
         ],
         "hold_conditions": [
           "存在しないFlow端子や個別編集Controlを要求しない。Duration/編集可否は実要素ごとに確認。"
-        ]
+        ],
+        "audit_note": "S89 native GUI/export acceptance;tool parameter enumeration NOT_RUN."
       },
       {
         "article": "manuals/fusion/nodes/paint/clone-multistroke.md",
@@ -17230,11 +17393,14 @@
         "article": "manuals/fusion/nodes/paint/index.md",
         "title": "Paintノード：描画要素の使い分け",
         "kind": "index",
-        "image_count": 2,
+        "image_count": 5,
         "native_cases": [],
         "reused_cases": [
           "S86",
-          "S87"
+          "S87",
+          "S88",
+          "S89",
+          "S90"
         ],
         "planned_cases": [],
         "state": "illustrated-reused-example",
@@ -17374,13 +17540,18 @@
         "article": "manuals/fusion/nodes/paint/polyline-stroke.md",
         "title": "Polyline Stroke",
         "kind": "node",
-        "image_count": 0,
-        "native_cases": [],
+        "image_count": 5,
+        "native_cases": [
+          "S88"
+        ],
         "reused_cases": [],
         "planned_cases": [],
-        "state": "capture-planned",
-        "decision": "capture-needed",
+        "state": "illustrated-native-example",
+        "decision": "image-required",
         "reason": "本文の対象機能: Paintの中で制御点を置いて経路を作り、ブラシで線を描く編集可能なストローク。。独立Flow Nodeではない。別stroke/Mask画像は対象要素の実操作を示せない。",
+        "remaining_views": [
+          "個々の点の移動・追加・削除、Closed、Smooth、Draw Append、PathやMaskへのConnect To、Write On、Roto Assist、追跡,real footage,tablet,all controls/performance"
+        ],
         "required_views": [
           "Paint内部の対象選択toolbar/List/Controls",
           "形/brushまたはclone source/offset",
@@ -17407,19 +17578,25 @@
         ],
         "hold_conditions": [
           "存在しないFlow端子や個別編集Controlを要求しない。Duration/編集可否は実要素ごとに確認。"
-        ]
+        ],
+        "audit_note": "S88 native GUI/export acceptance;tool parameter enumeration NOT_RUN."
       },
       {
         "article": "manuals/fusion/nodes/paint/rectangle.md",
         "title": "Rectangle（Paint）",
         "kind": "node",
-        "image_count": 0,
-        "native_cases": [],
+        "image_count": 4,
+        "native_cases": [
+          "S90"
+        ],
         "reused_cases": [],
         "planned_cases": [],
-        "state": "capture-planned",
-        "decision": "capture-needed",
+        "state": "illustrated-native-example",
+        "decision": "image-required",
         "reason": "本文の対象機能: Paintノードの内部で四角い領域を描く要素。画像のコピーやMask出力を行う独立Flowノードではない。。独立Flow Nodeではない。別stroke/Mask画像は対象要素の実操作を示せない。",
+        "remaining_views": [
+          "位置や幅・高さの描画後変更・アニメーション、期間の短縮、Copy Rectangle、Effect Mask、透明Backgroundとの合成、追跡,real footage,tablet,all controls/performance"
+        ],
         "required_views": [
           "Paint内部の対象選択toolbar/List/Controls",
           "形/brushまたはclone source/offset",
@@ -17446,7 +17623,8 @@
         ],
         "hold_conditions": [
           "存在しないFlow端子や個別編集Controlを要求しない。Duration/編集可否は実要素ごとに確認。"
-        ]
+        ],
+        "audit_note": "S90 native GUI/export acceptance;tool parameter enumeration NOT_RUN."
       },
       {
         "article": "manuals/fusion/nodes/paint/stroke.md",
@@ -25280,8 +25458,9 @@
       "images": [
         "compare.png"
       ],
-      "status": "embedded-local-display-verified",
-      "scope": "Native default white Paint Multistroke on input chart,frames0/1;Duration/RGB changes and performance unverified."
+      "status": "published-display-verified",
+      "scope": "Native default white Paint Multistroke on input chart,frames0/1;Duration/RGB changes and performance unverified.",
+      "published_batch": "fusion-native-20261024-26"
     },
     {
       "id": "R134",
@@ -25293,8 +25472,9 @@
         "compare.png",
         "frame1.png"
       ],
-      "status": "embedded-local-display-verified",
-      "scope": "Native default white Paint Multistroke on input chart,frames0/1;Duration/RGB changes and performance unverified."
+      "status": "published-display-verified",
+      "scope": "Native default white Paint Multistroke on input chart,frames0/1;Duration/RGB changes and performance unverified.",
+      "published_batch": "fusion-native-20261024-26"
     },
     {
       "id": "R135",
@@ -25303,8 +25483,9 @@
       "images": [
         "frame1.png"
       ],
-      "status": "embedded-local-display-verified",
-      "scope": "Native default Stroke versus Multistroke display at frames0/1/119;exact path equality and timing edits unverified."
+      "status": "published-display-verified",
+      "scope": "Native default Stroke versus Multistroke display at frames0/1/119;exact path equality and timing edits unverified.",
+      "published_batch": "fusion-native-20261024-26"
     },
     {
       "id": "R136",
@@ -25313,8 +25494,9 @@
       "images": [
         "frame1.png"
       ],
-      "status": "embedded-local-display-verified",
-      "scope": "Native default Stroke versus Multistroke display at frames0/1/119;exact path equality and timing edits unverified."
+      "status": "published-display-verified",
+      "scope": "Native default Stroke versus Multistroke display at frames0/1/119;exact path equality and timing edits unverified.",
+      "published_batch": "fusion-native-20261024-26"
     },
     {
       "id": "R137",
@@ -25323,8 +25505,39 @@
       "images": [
         "compare.png"
       ],
+      "status": "published-display-verified",
+      "scope": "Native default Stroke versus Multistroke display at frames0/1/119;exact path equality and timing edits unverified.",
+      "published_batch": "fusion-native-20261024-26"
+    },
+    {
+      "id": "R138",
+      "article": "manuals/fusion/nodes/paint/index.md",
+      "source_case": "S88",
+      "images": [
+        "compare.png"
+      ],
       "status": "embedded-local-display-verified",
-      "scope": "Native default Stroke versus Multistroke display at frames0/1/119;exact path equality and timing edits unverified."
+      "scope": "Native Paint PolylineStroke on chart;other styles and animation unverified."
+    },
+    {
+      "id": "R139",
+      "article": "manuals/fusion/nodes/paint/index.md",
+      "source_case": "S89",
+      "images": [
+        "compare.png"
+      ],
+      "status": "embedded-local-display-verified",
+      "scope": "Native Paint Circle on chart;other styles and animation unverified."
+    },
+    {
+      "id": "R140",
+      "article": "manuals/fusion/nodes/paint/index.md",
+      "source_case": "S90",
+      "images": [
+        "compare.png"
+      ],
+      "status": "embedded-local-display-verified",
+      "scope": "Native Paint Rectangle on chart;other styles and animation unverified."
     }
   ]
 }

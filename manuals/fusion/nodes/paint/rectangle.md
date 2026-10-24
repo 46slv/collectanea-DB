@@ -14,7 +14,7 @@ outputs: []
 tasks: [paint, animate]
 product_scope: fusion
 suite_surfaces: [fusion]
-updated: "2026-10-10"
+updated: "2026-10-24"
 ---
 
 # Rectangle（Paintの矩形描画）
@@ -87,6 +87,32 @@ Merge → MediaOut
 
 PaintのRectangleを作っても、Shapeノード群のShapeデータや独立したMask出力が生まれるわけではありません。画像とマスクの違いは[Image](../../learn/02-data/image)・[Mask](../../learn/02-data/mask)、Paintの描画要素全体の選び方は[カテゴリ概要](./index.md)を参照してください。
 
+## 実機例：入力画像へ白い長方形を描く
+
+<!-- capture-case:S90 -->
+
+Resolve Studio21.1.0.14／Windows、1920×1080、Viewer40%で撮影しました。LoaderのテストチャートをPaintへ入力し、Paintの画像出力をMediaOutへ接続しています。左が入力、右が描画後の画像です。
+
+Viewer上部でRectangleを選び、色パッチを横切る長方形をドラッグして作りました。右は入力チャートの一部を白い矩形で覆った画像出力です。元画像の画素を別の場所から複製した例ではありません。
+
+[![Loaderの画像をPaintへ入れてMediaOutへ渡す実機Graph、RectangleはPaint内部に保持](/img/fusion/captures/S90/graph.png)](/img/fusion/captures/S90/graph.png)
+
+[![実機Rectangle1のInspector、形状とColorの設定を表示](/img/fusion/captures/S90/inspector.png)](/img/fusion/captures/S90/inspector.png)
+
+描いたRectangle1を明示的に選び、InspectorでCenter X約0.4973958／Y0.3125、Width約0.625、Height約0.2777778、白のRGBA各1、Opacity1を確認しました。「サブピクセルを描画」のチェックも有効でした。保存GraphのCenter・Width・Heightを照合しています。
+
+[![フレーム0、左は入力チャート、右はPaint内部のRectangleを白で描いた画像出力](/img/fusion/captures/S90/compare.png)](/img/fusion/captures/S90/compare.png)
+
+上がフレーム0、下がコンポジション終端のフレーム119です。両フレームで同じ描画が残ることを確認しました。全120フレームを個別に検査した例ではありません。
+
+[![フレーム119でもPaint内部のRectangleによる白い描画が残る実機比較](/img/fusion/captures/S90/frame119.png)](/img/fusion/captures/S90/frame119.png)
+
+Flowに見えるノードはLoader・Paint・MediaOutの3つで、描画要素はPaint内部の`Rectangle1`、実機の内部REGIDは`Rectangle`でした。最後はフレーム0、両Viewer40%で保存しています。
+
+位置や幅・高さの描画後変更・アニメーション、期間の短縮、Copy Rectangle、Effect Mask、透明Backgroundとの合成、追跡、実写の補修、筆圧、性能と全初期値は未確認です。`verification: partial`を維持します。
+
+[再現用Graph](/img/fusion/captures/S90/fixture.comp) · [撮影条件と確認範囲](/img/fusion/captures/S90/capture.json)
+
 ## 出典と確認範囲
 
 Blackmagic Design『DaVinci Resolve 21.1 Reference Manual』（2026年9月）を参照。
@@ -95,4 +121,4 @@ Blackmagic Design『DaVinci Resolve 21.1 Reference Manual』（2026年9月）を
 - Chapter 113「Paint Node」pp.2638–2640：PaintのInput／Effect Mask、Rectangleという正式な描画要素名、全期間表示とKeyframes Editorでの期間変更。
 - Chapter 113 pp.2642–2645：Controls／Modifiers、Color Apply Mode、描画要素の選択と変更。
 
-この記事は**21.1 Manualで確認できたPaint内部のRectangle**を対象とします。独立したFlowノードの存在、矩形専用の内部ID、Inspectorの全パラメータ名・既定値・値域、Free／Studio差、実機のキー操作については検証済みと扱わず、`verification: partial`を維持しています。
+この記事は**21.1 Manualで確認できたPaint内部のRectangle**を対象とします。S90でPaint内部のREGID `Rectangle`、掲載したCenter・Width・HeightとColor設定、フレーム0／119の画像出力を実機確認しました。独立したFlowノード、Controlの全内部ID・既定値・値域、Free／Studio差、キー操作は未確認のため、`verification: partial`を維持します。
