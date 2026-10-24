@@ -1,0 +1,14 @@
+.vp-bilateral { margin: 1.25rem 0 2rem; max-width: 100%; }
+.vp-bilateral__previews { display: grid; grid-template-columns: repeat(auto-fit, minmax(min(100%, 220px), 1fr)); gap: 0.8rem; margin: 1rem 0; }
+.vp-bilateral__preview { min-width: 0; margin: 0; padding: 0.7rem; border: 1px solid var(--ifm-color-emphasis-300); border-radius: 0.5rem; }
+.vp-bilateral__preview figcaption { display: flex; flex-direction: column; min-height: 3.5rem; gap: 0.2rem; font-size: 0.85rem; }
+.vp-bilateral__preview canvas { display: block; width: 100%; height: auto; image-rendering: pixelated; margin-top: 0.45rem; border: 1px solid var(--ifm-color-emphasis-300); }
+.vp-bilateral__previews span { color: var(--ifm-font-color-secondary); }
+.vp-bilateral__mae { margin: 1rem 0 0.6rem; overflow-wrap: anywhere; }
+.vp-bilateral__note { font-size: 0.88rem; }
+.vp-bilateral__controls { display: grid; grid-template-columns: repeat(auto-fit, minmax(min(100%, 220px), 1fr)); gap: 1rem; margin: 1.25rem 0; }
+.vp-bilateral__controls label { display: flex; flex-direction: column; min-width: 0; gap: 0.4rem; font-size: 0.95rem; }
+.vp-bilateral__controls select, .vp-bilateral__controls input { width: 100%; min-width: 0; }
+.vp-bilateral__controls input[type='range'] { accent-color: var(--ifm-color-primary); }
+.vp-bilateral__reset { cursor: pointer; border: 1px solid var(--ifm-color-emphasis-400); border-radius: 0.4rem; padding: 0.5rem 0.9rem; background: var(--ifm-background-surface-color); color: var(--ifm-font-color-base); }
+.vp-bilateral__reset:focus-visible { outline: 2px solid var(--ifm-color-primary); outline-offset: 2px; }

@@ -354,6 +354,39 @@ try {
       if (width === 390) await shot('median-filter-mobile');
     }
   });
+  await check('bilateral-filter-preview-controls-and-mobile', async () => {
+    for (const width of [1440, 390, 320]) {
+      await page.setViewportSize({width, height: width === 1440 ? 1000 : 844});
+      await go('/reference/visual-processing/filters/bilateral-filter');
+      await expect(page.locator('.theme-doc-markdown h1')).toHaveText('Bilateral Filter（バイラテラルフィルタ）');
+      const widget = page.locator('[data-vp-bilateral="ready"]');
+      await expect(widget).toBeVisible();
+      const layout = await widget.evaluate((element) => {
+        const previews = element.querySelector('.vp-bilateral__previews');
+        const controls = element.querySelector('.vp-bilateral__controls');
+        return {
+          dom: Boolean(previews && controls && (previews.compareDocumentPosition(controls) & Node.DOCUMENT_POSITION_FOLLOWING)),
+          visual: Boolean(previews && controls && previews.getBoundingClientRect().bottom <= controls.getBoundingClientRect().top),
+          panels: element.querySelectorAll('[data-vp-bilateral-preview]').length,
+        };
+      });
+      assert.ok(layout.dom && layout.visual && layout.panels === 4,
+        'Bilateral four-panel preview-first layout: ' + width + ' ' + JSON.stringify(layout));
+      const range = widget.getByRole('slider', {name: '輝度差シグマ'});
+      const canvas = widget.locator('[data-vp-bilateral-preview="bilateral"] canvas');
+      if (width === 1440) {
+        const initial = await canvas.evaluate((element) => element.toDataURL());
+        await range.focus();
+        await range.press('Home');
+        await expect(widget).toHaveAttribute('data-vp-bilateral-range-sigma', '10');
+        await expect.poll(() => canvas.evaluate((element) => element.toDataURL())).not.toBe(initial);
+        await widget.getByRole('button', {name: '初期値に戻す'}).click();
+        await expect(widget).toHaveAttribute('data-vp-bilateral-range-sigma', '25');
+      }
+      await noOverflow();
+      if (width === 390) await shot('bilateral-filter-mobile');
+    }
+  });
   await check('no-runtime-or-resource-errors', async () => {
     assert.deepEqual(report.pageErrors, []);
     assert.deepEqual(report.resourceErrors, []);
