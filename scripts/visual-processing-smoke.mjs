@@ -606,6 +606,62 @@ try {
       if (width === 390) await shot('contrast-mobile');
     }
   });
+  await check('directional-blur-preview-controls-and-mobile', async () => {
+    await go(route);
+    await page.getByRole('link', {name: '角度と半径を操作して比較'}).click();
+    await expect(page).toHaveURL(/\/reference\/visual-processing\/filters\/directional-blur\/?$/);
+    for (const width of [1440, 390, 320]) {
+      await page.setViewportSize({width, height: width === 1440 ? 1000 : 844});
+      await go('/reference/visual-processing/filters/directional-blur');
+      await expect(page.locator('.theme-doc-markdown h1')).toHaveText('方向性ブラー（Directional Blur）');
+      const widget = page.locator('[data-vp-dir="ready"]');
+      await expect(widget).toBeVisible();
+      const layout = await widget.evaluate((element) => {
+        const previews = element.querySelector('.vp-dir__previews');
+        const controls = element.querySelector('.vp-dir__controls');
+        return {
+          dom: Boolean(previews && controls && (previews.compareDocumentPosition(controls) & Node.DOCUMENT_POSITION_FOLLOWING)),
+          visual: Boolean(previews && controls && previews.getBoundingClientRect().bottom <= controls.getBoundingClientRect().top),
+          panels: element.querySelectorAll('[data-vp-dir-preview]').length,
+        };
+      });
+      assert.ok(layout.dom && layout.visual && layout.panels === 3,
+        'Directional Blur three-panel preview-first: ' + width + ' ' + JSON.stringify(layout));
+      await expect(widget).toHaveAttribute('data-vp-dir-angle', '0');
+      await expect(widget).toHaveAttribute('data-vp-dir-radius', '7');
+      const picture = (name) => widget.locator('[data-vp-dir-preview="' + name + '"] canvas')
+        .evaluate((canvas) => canvas.toDataURL());
+      await expect.poll(async () => (await picture('along')) !== (await picture('across'))).toBe(true);
+      if (width === 1440) {
+        const initial = await picture('along');
+        const before = await picture('before');
+        const angle = widget.getByRole('slider', {name: '方向'});
+        await angle.focus();
+        for (let i = 0; i < 3; i += 1) await angle.press('ArrowRight');
+        await expect(widget).toHaveAttribute('data-vp-dir-angle', '45');
+        await expect.poll(() => picture('along')).not.toBe(initial);
+        for (let i = 0; i < 3; i += 1) await angle.press('ArrowRight');
+        await expect(widget).toHaveAttribute('data-vp-dir-angle', '90');
+        const radius = widget.getByRole('slider', {name: '線の半径'});
+        await radius.focus();
+        await radius.press('Home');
+        await expect(widget).toHaveAttribute('data-vp-dir-radius', '0');
+        await expect.poll(() => picture('along')).toBe(before);
+        await expect.poll(() => picture('across')).toBe(before);
+        await radius.press('End');
+        await expect(widget).toHaveAttribute('data-vp-dir-radius', '16');
+        await widget.getByRole('combobox', {name: 'テスト画像'}).selectOption('edges');
+        await expect.poll(() => picture('before')).not.toBe(before);
+        await widget.getByRole('button', {name: '初期値に戻す'}).click();
+        await expect(widget).toHaveAttribute('data-vp-dir-angle', '0');
+        await expect(widget).toHaveAttribute('data-vp-dir-radius', '7');
+        await expect(widget.getByRole('combobox', {name: 'テスト画像'})).toHaveValue('lights');
+        await expect.poll(() => picture('along')).toBe(initial);
+      }
+      await noOverflow();
+      if (width === 390) await shot('directional-blur-mobile');
+    }
+  });
   await check('no-runtime-or-resource-errors', async () => {
     assert.deepEqual(report.pageErrors, []);
     assert.deepEqual(report.resourceErrors, []);

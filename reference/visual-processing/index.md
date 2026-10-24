@@ -62,7 +62,7 @@ import '@site/src/css/visual-processing.css';
 | --- | --- |
 | **ガウシアンブラー（Gaussian Blur）** | 周囲の画素を距離に応じて混ぜ、画像全体をなめらかにぼかす。[操作して比較する](./filters/gaussian-blur.mdx)。 |
 | **ボックスブラー（Box Blur）** | 一定範囲の画素を均等に平均し、輪郭をぼかす。[操作してGaussian Blurと比較](./filters/box-blur.mdx)。 |
-| **方向性ブラー（Directional Blur）** | 決めた方向へ画像を引き延ばしたようなぼけを作る。 |
+| **方向性ブラー（Directional Blur）** | 決めた方向へ画像を引き延ばしたようなぼけを作る。[角度と半径を操作して比較](./filters/directional-blur.mdx)。 |
 | **バイラテラルフィルタ（Bilateral Filter）** | 距離だけでなく明るさの近さも見て平均し、輪郭を残しながら平滑化する。[Gaussian Blurと操作して比較](./filters/bilateral-filter.mdx)。 |
 | **ガイド付きフィルタ（Guided Filter）** | 同じ画像や別のガイド画像の構造を利用して、輪郭を保ちながら平滑化する。[自己ガイドと理想ガイドを操作して比較](./filters/guided-filter.mdx)。 |
 | **メディアンフィルタ（Median Filter）** | 近傍の中央値へ置き換え、孤立した明暗のノイズなどを除去する。[塩胡椒ノイズとGaussian Blurを比較](./filters/median-filter.mdx)。 |
