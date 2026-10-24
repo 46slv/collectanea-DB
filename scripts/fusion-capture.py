@@ -81,6 +81,12 @@ TARGETS['S87']='Paint1';LEFT['S87']='Loader1';RIGHT['S87']='Paint1'
 TARGETS['S88']='Paint1';LEFT['S88']='Loader1';RIGHT['S88']='Paint1'
 TARGETS['S89']='Paint1';LEFT['S89']='Loader1';RIGHT['S89']='Paint1'
 TARGETS['S90']='Paint1';LEFT['S90']='Loader1';RIGHT['S90']='Paint1'
+TARGETS['S91']='Paint1';LEFT['S91']='Loader1';RIGHT['S91']='Paint1'
+TARGETS['S92']='Paint1';LEFT['S92']='Loader1';RIGHT['S92']='Paint1'
+TARGETS['S93']='Paint1';LEFT['S93']='Loader1';RIGHT['S93']='Paint1'
+TARGETS['S94']='Paint1';LEFT['S94']='Loader1';RIGHT['S94']='Paint1'
+TARGETS['S95']='Paint1';LEFT['S95']='Loader1';RIGHT['S95']='Paint1'
+TARGETS['S96']='Paint1';LEFT['S96']='Loader1';RIGHT['S96']='Paint1'
 r=d.scriptapp('Resolve')
 assert r, 'Resolve scripting unavailable; do not change preferences automatically'
 pm=r.GetProjectManager(); p=pm.GetCurrentProject()
@@ -92,12 +98,12 @@ detail_view=action=='detail'
 if detail_view:assert case in ['S62','S63','S69'];action='show'
 requested_frame=int(sys.argv[3]) if action=='frame' else 24 if case in ['S40','S42'] else 0
 if action=='paint_clean':
- assert case in ['S87','S88','S89','S90'];requested_frame=int(sys.argv[3]);assert requested_frame in [0,1,119]
+ assert case in ['S87','S88','S89','S90','S91','S92','S93','S94','S95','S96'];requested_frame=int(sys.argv[3]);assert requested_frame in [0,1,119]
  TARGETS[case]='MediaOut1';action='show'
 if action=='preview':
  assert case=='S49';requested_frame=int(sys.argv[3]) if len(sys.argv)>3 else 0;assert requested_frame in [0,24];action='show'
 if action=='paint_frame':
- assert case in ['S84','S86','S87','S88','S89','S90'];requested_frame=int(sys.argv[3]);assert requested_frame in ([0,1,119] if case in ['S87','S88','S89','S90'] else [0,1]);action='show'
+ assert case in ['S84','S86','S87','S88','S89','S90','S91','S92','S93','S94','S95','S96'];requested_frame=int(sys.argv[3]);assert requested_frame in ([0,1,119] if case in ['S87','S88','S89','S90','S91','S92','S93','S94','S95','S96'] else [0,1]);action='show'
 if action=='frame':
  assert case in ['S35','S36','S39','S40','S42','S45','S49','S56'] and requested_frame in ([0,48] if case=='S35' else [0,3,6,9,12,18,24]);action='show'
 if action=='hold':
@@ -170,8 +176,8 @@ for _ in range(50):
  time.sleep(.1)
 else:raise RuntimeError('Requested composition did not become the active GUI composition')
 t.SetCurrentTimecode('01:00:02:00' if case=='S09' else '01:00:00:00')
-c.CurrentTime=requested_frame if case in ['S35','S36','S39','S40','S42','S45','S49','S56','S84','S86','S87','S88','S89','S90'] else 48 if case=='S09' else 0
-if case in ['S36','S39','S40','S42','S45','S49','S56','S84','S86','S87','S88','S89','S90']:t.SetCurrentTimecode(f'01:00:{requested_frame//24:02d}:{requested_frame%24:02d}')
+c.CurrentTime=requested_frame if case in ['S35','S36','S39','S40','S42','S45','S49','S56','S84','S86','S87','S88','S89','S90','S91','S92','S93','S94','S95','S96'] else 48 if case=='S09' else 0
+if case in ['S36','S39','S40','S42','S45','S49','S56','S84','S86','S87','S88','S89','S90','S91','S92','S93','S94','S95','S96']:t.SetCurrentTimecode(f'01:00:{requested_frame//24:02d}:{requested_frame%24:02d}')
 if case=='S35':t.SetCurrentTimecode('01:00:02:00' if requested_frame==48 else '01:00:00:00')
 time.sleep(.3)
 tools={x.GetAttrs()['TOOLS_Name']:x for x in c.GetToolList().values()}
@@ -245,7 +251,7 @@ def select(target,left=None):
  for cid in ['S62','S63','S64','S65']:layouts[cid]={'Loader1':(0,0),TARGETS[cid]:(1.5,0),'MediaOut1':(3,0)}
  if case in ['S62','S63'] and 'BlurSource1' in tools:layouts[case]={'Loader1':(0,0),'BlurSource1':(1.5,0),TARGETS[case]:(3,0),'MediaOut1':(4.5,0)}
  if case=='S72' and 'RGBBack1' in tools:layouts[case]={'Loader1':(0,0),'ColorSpace1':(1.5,0),'RGBBack1':(3,0),'MediaOut1':(4.5,0)}
- for cid in ['S88','S89','S90']:layouts[cid]={'Loader1':(0,0),'Paint1':(1.5,0),'MediaOut1':(3,0)}
+ for cid in ['S88','S89','S90','S91','S92','S93','S94','S95','S96']:layouts[cid]={'Loader1':(0,0),'Paint1':(1.5,0),'MediaOut1':(3,0)}
  layouts['S87']={'Loader1':(0,0),'Paint1':(1.5,0),'MediaOut1':(3,0)}
  layouts['S86']={'Loader1':(0,0),'Paint1':(1.5,0),'MediaOut1':(3,0)}
  layouts['S85']={'MultiPoly1':(0,-1),'Gold1':(1.5,1),'MediaOut1':(3,1)}
@@ -317,8 +323,8 @@ if action=='build':
   rb=add('sRender','RenderBase1',4,-1);connect(rb,'Input',base)
   target=add('sTransform','Transform1',2,1);connect(target,'Input',base)
   rr=add('sRender','RenderChanged1',4,1);connect(rr,'Input',target);connect(mo,'Input',rr)
- # S88-90 create empty Paint scaffolds;native Polyline/Circle/Rectangle authoring required.
- elif case in ['S88','S89','S90']:
+ # S88-96 create empty Paint scaffolds;native style selection and authoring required.
+ elif case in ['S88','S89','S90','S91','S92','S93','S94','S95','S96']:
   loader=add('Loader','Loader1',0,0,Clip=str(REPO/'static/img/fusion/captures/_fixtures/chart.png'))
   target=add('Paint','Paint1',1.5,0);connect(target,'Input',loader);connect(mo,'Input',target)
  # S87 creates an empty Paint scaffold;native Stroke selection/drawing/editability are required.
@@ -668,7 +674,7 @@ for n,a in tools.items():
  inputs[n]={'regid':a.GetAttrs()['TOOLS_RegID'],'inputs':{}}
  # The first Paint scaffold saved successfully, then broad scalar introspection coincided
  # with host exit. For S86 onward Paint cases use native Inspector and exported text; do not retry that probe.
- if case in ['S86','S87','S88','S89','S90']:
+ if case in ['S86','S87','S88','S89','S90','S91','S92','S93','S94','S95','S96']:
   inputs[n]['readback_scope']='NOT_RUN: broad input enumeration avoided after observed host exit;native GUI/export required'
   continue
  for z in a.GetInputList().values():

@@ -1,0 +1,199 @@
+{
+  "schema_version": 1,
+  "case": "S92",
+  "article": "manuals/fusion/nodes/paint/copy-polyline.md",
+  "manual": {
+    "version": "21.1",
+    "chapter": 113,
+    "printed_pages": "2638–2645",
+    "additional_chapter": 80,
+    "additional_printed_pages": "1749–1755"
+  },
+  "runtime": {
+    "version": "21.1.0.14",
+    "edition": "Studio",
+    "os": "Windows-11-10.0.26200-SP0",
+    "ui_language": "ja-JP (some Shape controls remain English)"
+  },
+  "captured_at": "2026-10-24T04:55:49.237212+00:00",
+  "project": "Collectanea_Captures_20261023_Sol",
+  "timeline": "S92_capture",
+  "frame": 0.0,
+  "resolution": [
+    1920,
+    1080
+  ],
+  "color_management": {
+    "colorScienceMode": "davinciYRGB",
+    "colorSpaceTimeline": "Rec.709 (Scene)",
+    "colorSpaceTimelineGamma": "",
+    "colorSpaceOutput": "Rec.709 (Scene)",
+    "colorSpaceOutputGamma": "ACEScc",
+    "separateColorSpaceAndGamma": "0",
+    "isAutoColorManage": "0",
+    "timelineResolutionWidth": "1920",
+    "timelineResolutionHeight": "1080",
+    "timelineFrameRate": 24.0,
+    "timelinePlaybackFrameRate": "30"
+  },
+  "viewer": {
+    "zoom_percent": 40,
+    "channel": "Color",
+    "background": "checkerboard for transparent pixels",
+    "note": "Viewer screenshots are display evidence, not colorimetric exports."
+  },
+  "graph": "fixture.comp",
+  "settings": "readback.json",
+  "source": {
+    "file": "screen.png",
+    "size": [
+      3352,
+      1910
+    ],
+    "sha256": "cef5828ab44dfc0d7ef943d2ad0561c0f630c7459e7a19c20eaef938c8f6ba31"
+  },
+  "shots": [
+    {
+      "file": "graph.png",
+      "source": "screen.png",
+      "source_sha256": "cef5828ab44dfc0d7ef943d2ad0561c0f630c7459e7a19c20eaef938c8f6ba31",
+      "frame": 0,
+      "crop_xyxy": [
+        770,
+        1300,
+        2050,
+        1450
+      ],
+      "resampled": false,
+      "sha256": "65dae31b90f03771a53d4b4a6d164b51ab90074d663fb104eccd8fd73ee8c533",
+      "viewer_contents": "Left input chart / Right Paint copy result,both1920x1080/40%",
+      "viewer_guides": true,
+      "active_tool": "Paint1",
+      "show_source": null
+    },
+    {
+      "file": "inspector.png",
+      "source": "screen.png",
+      "source_sha256": "cef5828ab44dfc0d7ef943d2ad0561c0f630c7459e7a19c20eaef938c8f6ba31",
+      "frame": 0,
+      "crop_xyxy": [
+        2830,
+        120,
+        3352,
+        590
+      ],
+      "resampled": false,
+      "sha256": "2e4dc090b25f9e7d1c6b2c15f53b734af8c8f556bf927da3a0ba7c743477f841",
+      "viewer_contents": "Left input chart / Right Paint copy result,both1920x1080/40%",
+      "viewer_guides": true,
+      "active_tool": "Paint1",
+      "show_source": null
+    },
+    {
+      "file": "compare.png",
+      "source": "screen-clean0.png",
+      "source_sha256": "81bff94580bc1e1ce28d0a1f03f427547088c2e52215b4c4285ebf82b5c50512",
+      "frame": 0,
+      "crop_xyxy": [
+        1146,
+        65,
+        2830,
+        725
+      ],
+      "resampled": false,
+      "sha256": "460b8acd7c35beaf27b42952c957ad51c9c5d4349a332df465882fae7a10a2bf",
+      "viewer_contents": "Left input chart / Right Paint copy result,both1920x1080/40%",
+      "viewer_guides": false,
+      "active_tool": "Paint1",
+      "show_source": null
+    },
+    {
+      "file": "frame119.png",
+      "source": "screen-clean119.png",
+      "source_sha256": "8a7f3e7355b4e11387ca4906450c9e04dd06a3308f580a7a990e5b10b572adf4",
+      "frame": 119,
+      "crop_xyxy": [
+        1146,
+        65,
+        2830,
+        725
+      ],
+      "resampled": false,
+      "sha256": "3e8da1a3f9093ca2f2af5d03715189566e8641685106dde4db271e87863b9702",
+      "viewer_contents": "Left input chart / Right Paint copy result,both1920x1080/40%",
+      "viewer_guides": false,
+      "active_tool": "Paint1",
+      "show_source": null
+    }
+  ],
+  "acceptance": {
+    "gui": "PASS: owner visually inspected node connections, selected Inspector, and output",
+    "article_display": "Local/publication outcomes are recorded after execution in docs/fusion-screenshot-candidates.json publication_batches and per-case status;this manifest preserves capture provenance."
+  },
+  "unverified": [
+    "Free edition and other platforms",
+    "All parameter ranges and performance",
+    "External source node,transparent canvas,source time offset,shape/stroke edits and animation,tablet,real footage and performance",
+    "Portable composition reimport",
+    "Exported portable composition reimport"
+  ],
+  "parameter_readback_scope": "Broad GetInputList/GetInput NOT_RUN. GUI/export accepted. S93 diagnostic queried metadata of exact CopyEllipse1 and Paint1 only, then bounded Number values FillType/Blend/Opacity/ShowSource;no Image/Mask/ScriptVal payload evaluation.",
+  "gui_authoring": {
+    "visible_flow_tools": 3,
+    "modifier": "CopyPolyLine1",
+    "regid": "CopyPolyLine",
+    "host": {
+      "pid": 42776,
+      "hwnd": 43648076,
+      "source_pixels": [
+        3352,
+        1910
+      ]
+    },
+    "delivery": "synthetic Cua;physical input NOT_PROVEN;native screenshot/export are result evidence"
+  },
+  "restoration": "PASS:frame0,both40%,owned scratch saved and native image visually inspected",
+  "reproduction_action": "build creates EMPTY Paint scaffold. Native toolbar/style/drawing and source choice required. Never rebuild saved cases.",
+  "native_inspector_values": {
+    "FillType": "Image",
+    "Source": [
+      0.875,
+      0.5
+    ],
+    "Center": [
+      0.5,
+      0.5
+    ],
+    "Angle": 0,
+    "Size": 1,
+    "Softness": 0,
+    "Opacity": 1
+  },
+  "shape_export": {
+    "closed": true,
+    "linear_points": 4
+  },
+  "source_change": {
+    "before": [
+      0.5,
+      0.5
+    ],
+    "after": [
+      0.875,
+      0.5
+    ],
+    "method": "Exact exported Point key/type;one guarded SetInput;GUI/output acceptance"
+  },
+  "viewer_control_note": "Both Show Controls OFF for output0/119,then both True verified and popup closed before final0/Paint/save.",
+  "state_variants": {
+    "screen-clean0.png": "frame0",
+    "screen-clean119.png": "frame119",
+    "screen.png": "frame0"
+  },
+  "reproduction": {
+    "fixture_sha256": "cdffbfe71910ae98b378a3e35241556023091d8447af586752fa562a22a4e5f4",
+    "readback_sha256": "fb72798fb312d99e768081bae258dd36a8301c3a084db6a778d412fa15e18422",
+    "paths": "Comp:/../_fixtures/ for bundled synthetic fixtures",
+    "reimport": "NOT_RUN: accepted GUI evidence precedes export path normalization"
+  }
+}
