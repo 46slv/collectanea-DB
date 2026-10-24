@@ -1,118 +1,149 @@
 ---
 title: Difference Keyer
-description: 被写体入りImageとclean backgroundを比較し、画素差からforeground matteを作るKeyer。
+description: 人物入り映像と背景だけの映像を比較してアルファを作る。撮影条件のずれとマット調整の限界も解説する。
 doc_type: node
 term_id: difference-keyer
-term_short: "Difference Keyerは、被写体入りshotと背景だけのImageとの差からmatteを作るKeyer。"
+term_short: "Difference Keyerは、人物入り映像と背景だけの画像との差を使ってマットを作るノード。"
 verification: partial
 aliases: [Difference Keyer, DFK]
 concepts: [image-data, alpha, premultiplication]
 nodes: [Difference Keyer]
 node_family: matte-keying
-controls: [Threshold, Filter, Blur, Clipping Mode, Contract/Expand, Gamma, Invert, Post-Multiply Image]
+controls: [Threshold, Filter, Num Passes, Blur, Clipping Mode, Contract/Expand, Gamma, Invert, Post-Multiply Image]
 inputs: [image, image, mask, mask, mask]
 outputs: [image]
 tasks: [create-matte, difference-key, clean-plate]
 level: intermediate
 product_scope: fusion
 suite_surfaces: [fusion]
-updated: "2026-10-05"
+updated: "2026-10-24"
 ---
 
 # Difference Keyer
 
-Difference Keyerは、被写体が写ったImageと、同じ背景だけを撮ったclean backgroundを比較し、両者の違いからAlpha matteを作るNodeです。green / blue screenがなくても使えますが、背景側の条件が2枚でよく一致していることが重要です。
+Difference Keyerは、**被写体が写っている映像と、同じ場所を被写体なしで撮った背景画像の差**を調べ、被写体を残すためのアルファ（透明度）を作るノードです。背景と変わらない画素を透明に、違いの大きい画素を不透明に近づけます。
 
-## 役割
+ブルー・グリーンスクリーンを使わない撮影でも試せます。ただし、背景の模様や照明、カメラ位置が少し変わっただけでも差として検出されるため、**最終的な切り抜きより、後段で整えるための粗いマットを作る用途**が中心です。
 
-色や明るさの絶対値ではなく、2枚のImageの「差」をforeground候補として扱います。
+## 役割と出力
 
-背景だけのImageとほぼ同じpixelはtransparent側へ、差が大きいpixelはopaque側へ寄せます。そのため、固定cameraでclean backgroundを用意できるshotでは有効ですが、camera位置が少し変わるだけでも背景の構造自体が差として出やすくなります。
+入力するのは比較用の**2枚の2D Image**です。Difference Keyerは画素の色を単独で判定せず、背景だけの画像との差をThresholdで透明度へ変換します。出力は生成されたアルファを含む2D Imageで、後段の[Matte Control](./matte-control)で整えたり、[Merge](../compositing/merge)で別背景へ合成したりできます。
 
-21.1 Manualも、Difference Keyerだけで完全なkeyを作るより、rough matteを作って他のNodeと組み合わせる使い方を案内しています。
+マットの白は不透明、黒は透明、灰色は半透明です。**マットが白黒に見えることと、髪や輪郭が自然に合成できることは別**なので、最後は実際の合成背景上でも確認します。
 
 ## 入力
 
-### Background
+| 入力 | 接続するもの | 役割 |
+| --- | --- | --- |
+| **Background（オレンジ）** | 被写体がいない背景の2D Image | 差を測る基準になる画像。 |
+| **Foreground（緑）** | 被写体が写った2D Image | 背景との違いから残す領域を判定する画像。 |
+| **Garbage Matte（灰色）** | Mask | 指定した領域を透明にし、不要な物体を除外する。 |
+| **Solid Matte（白）** | Mask | 指定した領域を不透明にし、必要な部分を保護する。 |
+| **Effect Mask（青、任意）** | Mask | このノードの処理結果を適用する範囲を限定する。 |
 
-オレンジ色のBackgroundへ、被写体がいない背景だけの2D Imageを接続します。
+**BackgroundとForegroundを逆にしない**ことが出発点です。また、Garbage Matteは「マスク内を透明にする」入力で、Effect Maskは「処理結果を適用する領域を指定する」入力です。領域を絞る目的でも働きが異なります。
 
-### Foreground
+公式21.1 Manualには「four inputs」と記した直後に、この5種類の入力が列挙されています。ここでは各入力の記述に従い、実機で表示される正確な端子数は未確認とします。
 
-緑色のForegroundへ、同じ背景上に被写体が写った2D Imageを接続します。
+## 主な設定項目
 
-### Garbage Matte
+### Threshold：どの程度の差を残すか
 
-Garbage MatteへMaskを接続すると、その領域をtransparent側へ除外できます。比較する必要がないframe端や不要物を先に切る用途に使えます。
+**Threshold**は2つのハンドルで差の下限と上限を指定します。
 
-### Solid Matte
+- **下限より小さい差**：黒（透明）。
+- **上限より大きい差**：白（不透明）。
+- **下限と上限の間**：灰色（半透明）。
 
-Solid MatteへMaskを接続すると、その領域をopaque側へ固定できます。
+壁の細かい模様がまだ白っぽく残る場合は、背景に生じた小さな差がマットに入っていないか確認します。Thresholdで細かな差を除けても、**背景全体の位置ずれを修正する機能ではありません**。必要な被写体まで黒くなる場合は、先に2枚の位置・明るさを点検します。
 
-### Effect Mask
+### FilterとBlur：マットの境界を整える
 
-21.1 Manualには、Difference Keyerの処理範囲を限定する任意のEffect Maskも記載されています。処理後に適用されます。
+**Blur**を0にすると硬い境界になり、増やすとマットが柔らかくなります。**Filter**では、ぼかしの計算法を選びます。
 
-## 出力
+| Filter | 主な特徴 |
+| --- | --- |
+| **Box** | 速いが品質は控えめ。少量のぼかし向け。 |
+| **Bartlett** | 速度と品質の中間。Pyramidフィルターとも呼ばれる。 |
+| **Multi-box** | Num Passesで反復回数を指定。1回でBox、2回でBartlettに相当し、4回以上ではGaussianに近い品質を比較的軽く得やすい。 |
+| **Gaussian** | 滑らかな結果を得やすい一方、ほかの方式より遅く、浮動小数点画像ではごくわずかなリンギングが出る場合がある。 |
 
-BackgroundとForegroundの差から作ったAlpha matteを含む結果を出力します。単独で最終合成へ使うだけでなく、[Matte Control](./matte-control)などへ渡してrough matteを整える使い方ができます。
+ぼかし過ぎると背景が被写体側へにじむため、マットをAlpha表示で確認してから合成結果を見比べます。
 
-Post-Multiply Imageを有効にすると、生成したAlphaをRGBへ乗算してpremultiplied状態にします。
+### Clipping Mode：画像の端をどう扱うか
 
-## Thresholdで差をmatteへ変える
+上流画像のDoD（データがある領域）がフレーム全体より狭い場合、BlurがDoDの外側をどう参照するかで端の結果が変わります。
 
-Thresholdの下限と上限で、2枚のImageの差をどのAlphaへ変換するか決めます。
+- **Frame**：フレーム全体を処理領域にし、上流DoDの外側を黒／透明として扱う。Manual記載の既定値。
+- **Domain**：上流のDoDを尊重する。大きなBlurで境界が切れる場合がある。
+- **None**：元画像のクリッピングを行わず、必要な画像領域のうち上流DoD外を黒／透明として扱う。
 
-- 下限より小さい差は黒、つまりtransparent側
-- 上限より大きい差は白、つまりopaque側
-- その間の差はgrayscale matte
+フレーム端や切り抜き境界に不自然な直線が出るときは、Blur量だけでなくClipping Modeと上流のDoDを確認します。
 
-背景の細かな差までforegroundとして拾ってしまう場合は、Thresholdを見ながら不要な差を黒へ寄せます。ただしthresholdだけで背景の位置ずれを直すことはできません。
+### Contract/ExpandとGamma：半透明部分を調整する
 
-## matteを整える
+**Contract/Expand**は正の値でマットを広げ、負の値で縮めます。ただし、**作用するのは半透明の領域だけ**です。完全に硬い白黒境界には効かないため、必要ならBlurで半透明の境界を作ってから調整します。
 
-FilterとBlurでmatte edgeを柔らかくできます。Contract/Expandは半透明部分を縮小・拡張し、Gammaは中間Alphaを調整します。逆向きのmatteが必要ならInvertを使います。
+**Gamma**は灰色のマットを調整します。値を上げると不透明側へ、下げると透明側へ近づき、完全な白や黒は変わりません。
 
-Blurを大きくしたときにedgeが切れる場合は、Clipping ModeのFrame / Domain / Noneも確認します。
+**Invert**は生成したマットの白と黒を反転します。Solid MatteとGarbage Matteにも、接続したマスクを合成する前に反転する設定があります。どの段階を反転しているかを区別します。
 
-## 主な用途
+### Post-Multiply Image：合成前のRGBとアルファ
 
-- 固定cameraで撮ったclean backgroundと本番shotを比較し、被写体のrough matteを作る
-- blue / green screenを使えない素材で、別のkeyerやMaskを組み合わせるための初期matteを作る
-- Garbage Matteで比較範囲を絞り、背景との差が明確な領域だけを抽出する
+**Post-Multiply Image**は、生成したアルファをRGBへ乗算する設定です。21.1 Manualでは既定で有効になっています。
+
+無効にした画像はプリマルチプライ済みとして扱えないため、後段のMerge方式にも注意が必要です。Manualは無効時に、Mergeの**AdditiveではなくSubtractive**を使うよう説明しています。通常の合成では既定値を保ち、変更するときだけ[プリマルチプライの説明](../../learn/04-compositing/premultiplication)とMerge設定をあわせて確認します。
 
 ## 最小構成
 
-    Clean Background ─→ Background
-                         Difference Keyer → Matte Control → Merge
-    Shot with Subject ─→ Foreground
-    B-Splineなど ─────→ Garbage Matte
+固定カメラで撮った2枚を比較する、最小のノード構成です。
 
-Manualの基本例でも、被写体入りshotとclean backgroundを比較し、B-SplineでDifference Keyerが扱う範囲を限定しています。
+    背景のみの映像 ─────→ Difference Keyer（Background）
+                              │
+    人物入りの映像 ─────→ Difference Keyer（Foreground）
+                              │
+                              ↓
+                         Matte Control → Merge（Foreground） → MediaOut
+    合成先の背景 ─────────────────────→ Merge（Background）
 
-## Chroma / Luma Keyerとの違い
+Matte Controlは追加の調整が不要なら省けます。B-SplineなどのマスクをEffect Maskへつないで処理範囲を絞ったり、不要な領域をGarbage Matteへ渡したりする構成も取れます。
 
-- **Difference Keyer**: clean backgroundとの差を使う
-- **Chroma Keyer**: 選択した色域を使う
-- **Luma Keyer**: Luminanceなど選んだchannel値を使う
+## 運用例：固定カメラの人物を別背景へ合成する
 
-背景plateを用意できるか、色差が明確か、明暗差が明確かで最初のKeyerを選びます。
+壁の前で話す人物を、同じ画角で撮った空の壁と比較する例です。
 
-## 挙動と注意点
+1. **背景画像を用意する**：人物のいない壁を撮り、カメラの位置・画角・ピント・照明が人物入りの映像とできるだけ一致しているか確認します。背景の撮影条件のずれがマットに出るためです。
+2. **2枚を別入力へ接続する**：空の壁をBackground、人物入りの映像をForegroundへつなぎ、Difference Keyerの出力をViewerで確認します。
+3. **Thresholdを調整する**：人物の胴体が白、壁が黒に近づくよう下限と上限を動かします。髪の毛や服の縁は、硬い白黒だけにしようとせず灰色の残り方も見ます。
+4. **不要な場所を限定する**：壁の外側や画面端に差が出る場合は、B-Splineなどで範囲を指定します。Garbage Matteを使うなら**消したい領域がマスク内**になるよう作ります。Effect Maskなら適用したい範囲を指定します。
+5. **マットを仕上げる**：Blurで輪郭を少し柔らかくし、必要な場合だけContract/ExpandとGammaを調整します。残したい服の部分が欠ける場合はSolid Matteで保護します。
+6. **合成背景上で確認する**：Matte ControlとMergeを通して別背景へ重ね、輪郭の二重像、壁の模様の残り、RGBとアルファの境界を見ます。
 
-Difference Keyerは2枚のpixel差を使うため、camera位置がずれると、本来backgroundである壁や細かな模様までmatteへ混ざります。Manualではこの制約を明示し、Difference Keyerをrough matte作成に使う例を示しています。
+この手順はManualにあるDifference Keyerの機能とB-Splineを使う例から組み立てた**構成案**です。特定の素材で実際に成功した検証結果ではありません。
 
-21.1 Manual本文には「four inputs」と書かれている一方、直後の入力説明ではBackground / Foreground / Garbage Matte / Solid Matte / Effect Maskの5種類が列挙されています。本ページでは個々の接続名はManualどおり記載し、runtime上の厳密な端子数は実機確認へ残します。
+## うまく抜けないとき
 
-## 関連Node
+| 症状 | 確認すること |
+| --- | --- |
+| 壁や床の模様まで白く残る | 2枚のカメラ位置・画角・照明が合っているか。Thresholdだけで位置ずれは直せない。 |
+| 人物の一部まで透明になる | BackgroundとForegroundの接続、Threshold、Solid Matteを確認する。 |
+| 周囲の不要物も残る | Garbage Matteで不要な領域を透明にするか、Effect Maskで処理範囲を限定する。 |
+| 髪や細い輪郭が硬い | 少量のBlurで半透明境界を作り、GammaやContract/Expandを調整する。 |
+| Blurで端が切れる | Clipping Modeと上流DoDを確認する。 |
+| 合成後の縁の明るさが不自然 | Post-Multiply ImageとMergeの合成方式を確認する。 |
 
-- [Chroma Keyer](./chroma-keyer) — 任意色を基準にmatteを作る
-- [Luma Keyer](./luma-keyer) — channel値を基準にmatteを作る
-- [Matte Control](./matte-control) — rough matteを後段で整える
-- [Delta Keyer](./delta-keyer) — green / blue screen向け
+Difference Keyerの背景比較は、煙・透明物・反射・動く影・カメラ移動などで差が背景そのものにも生じると不安定になります。21.1 Manualも、レンガ壁の前の煙を背景画像との差だけで綺麗に切り出す難しさを例示しています。こうした素材では、Difference Keyerを**補助マットの作成**に使い、別手法と組み合わせます。
+
+## 似たノードとの選び分け
+
+- [Chroma Keyer](./chroma-keyer)：**選んだ色域**を透明にしたいとき。空の背景画像は不要です。
+- [Luma Keyer](./luma-keyer)：**明るさや特定の色チャンネル**からアルファを作りたいとき。
+- [Delta Keyer](./delta-keyer)：ブルー・グリーンスクリーンを専用のキーイング処理で抜きたいとき。
+- [Clean Plate](./clean-plate)：スクリーン色のむらを補う**Delta Keyer向けの参照画像**を作りたいとき。Difference Keyerへ必要な「被写体なしの背景撮影」と同じ工程ではありません。
+- [Matte Control](./matte-control)：作成済みマットをほかの画像のアルファへ合成したり、境界を追加調整したいとき。
 
 ## バージョンと検証状況
 
-DaVinci Resolve 21.1 Reference Manual Chapter 109 pp.2527–2530で、Background / Foreground、Garbage / Solid / Effect Mask、Threshold、Filter / Blur、Contract/Expand、Gamma、Invert、Post-Multiply Imageを確認しています。
+出典：Blackmagic Design『**DaVinci Resolve 21.1 Reference Manual**』（September 2026）、Chapter 109「Matte Nodes」、**pp.2527–2530**。背景比較の目的と制約、各入力の用途、Threshold、Filter、Blur、Clipping Mode、Contract/Expand、Gamma、Invert、Post-Multiply ImageについてManual本文と照合しました。公式資料の公開元は[Blackmagic Designサポート](https://www.blackmagicdesign.com/support)です。
 
-Manualで確認できないruntime REGID、実機上の厳密な端子数、処理性能は断定していません。
+背景撮影から合成までの具体的な手順は説明用の構成案です。Resolve/Fusion 21.1実機での端子数・内部REGID・既定値の全数値・レンダー結果・処理性能・Free/Studio差は確認していないため、`verification: partial`を維持します。
