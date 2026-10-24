@@ -170,6 +170,26 @@ Resolve Studio21.1.0.14／Windows、Color／40%。個別記事に記載した範
 
 Resolve Studio21.1.0.14／Windows、Color／40%。個別記事に記載した範囲だけを確認しています。
 
+### チャンネル・ガンマ・Layerを扱う実機例
+
+<!-- capture-reuse:R147 -->
+
+[![RGBとAlphaを別入力から取り、後段のAlpha Multiplyを通した楕円の切り抜きの実機画面](/img/fusion/captures/S97/compare.png)](/img/fusion/captures/S97/compare.png)
+
+[channel-booleanの接続・Inspector・比較条件](./channel-boolean)を参照してください。
+
+<!-- capture-reuse:R148 -->
+
+[![SourceをBT.709 sceneにしてRemove GammaをONにした比較の実機画面](/img/fusion/captures/S98/compare.png)](/img/fusion/captures/S98/compare.png)
+
+[gamutの接続・Inspector・比較条件](./gamut)を参照してください。
+
+<!-- capture-reuse:R149 -->
+
+[![Swizzlerで2入力をGoldとChartのLayerへ分け、Goldを表示した比較の実機画面](/img/fusion/captures/S99/compare.png)](/img/fusion/captures/S99/compare.png)
+
+[swizzlerの接続・Inspector・比較条件](./swizzler)を参照してください。
+
 ## 出典と確認範囲
 
 DaVinci Resolve 21.1 Reference Manual Chapter 93 pp.2133–2206とChapter 106 Swizzler pp.2445–2450を基に整理しています。

@@ -15,7 +15,7 @@ outputs: [image]
 tasks: [color-space, linear-workflow, gamut-convert]
 product_scope: fusion
 suite_surfaces: [fusion]
-updated: "2026-10-11"
+updated: "2026-10-24"
 ---
 
 # Gamut
@@ -120,10 +120,36 @@ Viewer LUTはプレビュー表示の変換です。Viewerの表示を変える�
 - **Viewerだけ色が違う**：Viewer LUTの有無を確認します。
 - **変換が一部分だけにかかる**：Effect Maskが接続されていないか確認します。
 
+## 実機例：Remove GammaのONとOFFを比べる
+
+<!-- capture-case:S98 -->
+
+Resolve Studio21.1.0.14／Windows、1920×1080、Viewer40%、フレーム0で撮影しました。テスト用チャートを使った設定例です。
+
+Loader → Gamut → MediaOutの順に接続し、左へ入力、右へGamutの出力を表示しました。Source SpaceをITU-R BT.709 (scene)、Output SpaceをNo Changeにしています。
+
+[![LoaderからGamutを経てMediaOutへ接続した3ノードの実機Graph](/img/fusion/captures/S98/graph.png)](/img/fusion/captures/S98/graph.png)
+
+[![Gamutの実機Inspector、SourceはITU-R BT.709 scene、Outputは変更なし、Remove GammaがON](/img/fusion/captures/S98/inspector.png)](/img/fusion/captures/S98/inspector.png)
+
+Remove GammaをONにした出力では、入力と比べて色パッチや暗い階調が暗く表示されました。Add GammaとUse White Point AdaptationはON、Pre-Divide/Post-MultiplyはOFFのままです。Output SpaceはNo Changeなので、出力先の色空間を指定してガンマを付け直した例ではありません。
+
+[![Source BT.709 sceneでRemove GammaをONにし、右の色パッチと暗部が暗く表示された実機比較](/img/fusion/captures/S98/compare.png)](/img/fusion/captures/S98/compare.png)
+
+SourceとOutputを保ち、Remove GammaだけをOFFにすると、右の表示は左のチャートと同じ見え方へ戻りました。
+
+[![同じSourceとOutputを保ち、Remove GammaだけをOFFにしたGamutの実機Inspector](/img/fusion/captures/S98/off-inspector.png)](/img/fusion/captures/S98/off-inspector.png)
+
+[![Remove GammaをOFFにすると右のチャートが入力と同じ見え方へ戻る実機比較](/img/fusion/captures/S98/off.png)](/img/fusion/captures/S98/off.png)
+
+最後はRemove GammaをONへ戻して保存しました。このチャートにはカメラの記録特性を持たせていないため、実写の入力色空間を正しく判定した例ではありません。カメラ素材、測色値、往復変換、RCM、Output SpaceやAdd Gammaの変更、半透明エッジ、他プリセット・OS・Edition差と性能は未確認です。`verification: partial`を維持します。
+
+[再現用Graph](/img/fusion/captures/S98/fixture.comp) · [撮影条件と確認範囲](/img/fusion/captures/S98/capture.json)
+
 ## 出典と確認範囲
 
 - Blackmagic Design『DaVinci Resolve 21.1 Reference Manual』Chapter 93「Color Nodes」pp.2185–2187：入出力、Inspector、Custom、Gamma、Pre-Divide/Post-Multiply。
 - 同Chapter 76「Managing Color for Visual Effects」pp.1654–1659：リニア化と出力の接続例、MediaIn / Loaderでのガンマ除去、Viewer LUT、RCMでの自動変換。
 - 同Chapter 77「Understanding Image Channels」pp.1679–1680：premultiplied Alphaの色補正。
 
-現在の21.1マニュアルに記載された操作を整理しています。全プリセット・既定値・range、Free / Studio差、および実機でのレンダリング結果は網羅検証していません。
+S98のGraph、Inspector、Remove GammaのON／OFFと保存状態を実機確認しました。全プリセット・値域、実写や測色、Free / Studio差は未確認です。
