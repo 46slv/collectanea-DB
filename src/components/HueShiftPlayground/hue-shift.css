@@ -1,0 +1,40 @@
+.vp-hue {
+  margin: 24px 0 32px; padding: clamp(14px, 2.5vw, 24px);
+  border: 1px solid var(--cc-line); border-radius: var(--cc-radius);
+  background: var(--cc-surface); color: var(--cc-text);
+  font: 14px/1.65 var(--cc-body-font);
+}
+.vp-hue h3 {margin: 0 0 8px; font-size: 19px; line-height: 1.45;}
+.vp-hue__intro, .vp-hue__hint {color: var(--cc-secondary);}
+.vp-hue__intro {margin: 0 0 14px;}
+.vp-hue__previews {display: grid; grid-template-columns: repeat(2, minmax(0, 1fr)); gap: 12px;}
+.vp-hue__preview {margin: 0; min-width: 0; overflow: hidden; border: 1px solid var(--cc-line); border-radius: var(--cc-radius);}
+.vp-hue__preview figcaption {display: flex; flex-direction: column; gap: 2px; padding: 9px 10px; line-height: 1.4;}
+.vp-hue__preview figcaption strong {font-size: 13px; font-weight: 600;}
+.vp-hue__preview figcaption span {font-size: 11px; color: var(--cc-secondary);}
+.vp-hue__viewport {max-width: 100%; overflow-x: auto; background: var(--cc-canvas);}
+.vp-hue__viewport canvas {display: block; max-width: none; height: auto; image-rendering: pixelated;}
+.vp-hue__readout {margin-top: 14px; min-width: 0; font-variant-numeric: tabular-nums;}
+.vp-hue__readout p {margin: 0 0 8px;}
+.vp-hue__readout table {width: 100%; border-collapse: collapse; font-size: 12px;}
+.vp-hue__readout caption {text-align: left; color: var(--cc-secondary); font-size: 12px; margin-bottom: 5px;}
+.vp-hue__readout th, .vp-hue__readout td {padding: 5px 7px; border: 1px solid var(--cc-line); text-align: left;}
+.vp-hue__readout td {white-space: nowrap;}
+.vp-hue__chip {display: inline-block; height: 15px; width: 15px; margin-right: 6px; border: 1px solid var(--cc-control-line); vertical-align: -3px;}
+.vp-hue__controls {display: grid; grid-template-columns: repeat(2, minmax(0, 1fr)); gap: 14px; margin-top: 20px; padding-top: 18px; border-top: 1px solid var(--cc-line);}
+.vp-hue__control {display: flex; min-width: 0; flex-direction: column; gap: 6px; font-size: 12px; color: var(--cc-secondary);}
+.vp-hue__control > span {display: flex; flex-wrap: wrap; justify-content: space-between; gap: 8px;}
+.vp-hue__control output {font-weight: 600; color: var(--cc-text);}
+.vp-hue__control select {width: 100%; min-width: 0; min-height: 40px; padding: 8px 10px; color: var(--cc-text); border: 1px solid var(--cc-control-line); border-radius: var(--cc-radius); background: var(--cc-canvas); font-size: 13px;}
+.vp-hue__control input[type='range'] {width: 100%; min-height: 40px; margin: 0; accent-color: var(--cc-text);}
+.vp-hue__actions {display: flex; justify-content: flex-end; margin-top: 12px;}
+.vp-hue__actions button {min-height: 38px; padding: 7px 11px; border: 1px solid var(--cc-control-line); border-radius: var(--cc-radius); background: var(--cc-surface); color: var(--cc-text); font-size: 12px;}
+.vp-hue__actions button:hover {background: var(--cc-raised);}
+.vp-hue__hint {font-size: 12px; margin: 12px 0 0;}
+@media (max-width: 700px) {
+  .vp-hue__previews, .vp-hue__controls {grid-template-columns: minmax(0, 1fr);}
+}
+@media (max-width: 380px) {
+  .vp-hue__readout {overflow-x: auto;}
+  .vp-hue__readout table {min-width: 300px;}
+}
