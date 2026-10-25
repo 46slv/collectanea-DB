@@ -84,6 +84,7 @@ Colorページは、素材の明るさや色の偏りを整え、複数ショッ
 
 - [二次補正がちらつく・範囲が揺れるとき](./troubleshooting/secondary-matte-flicker) — Qualifier、Window、Tracker、Keyの原因を分ける
 - [書き出し後に色や明るさが違うとき](./troubleshooting/export-color-mismatch) — 出力変換、色タグ、Levels、再生環境を切り分ける
+- [BRAWのRAW設定が編集できない・コピーで色が変わるとき](./troubleshooting/braw-raw-settings-copy-scope) — Clip単位のRAW設定、グレードコピー、sidecarの影響を切り分ける
 - [同じ素材の別カットまで色が変わるとき（Remote Grades）](./troubleshooting/remote-grades-linked-clips) — Local／Remote Versionsと共通補正の共有範囲を切り分ける
 - [ノード無効化とグレードバイパス](./troubleshooting/node-bypass-diagnostics) — 調整がどこで変化したかを診断する
 - [白飛び・黒つぶれの診断](./troubleshooting/highlight-shadow-clipping) — Scopesとノード比較から原因を分ける
