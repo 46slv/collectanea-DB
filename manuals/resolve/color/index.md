@@ -39,6 +39,7 @@ Colorページは、素材の明るさや色の偏りを整え、複数ショッ
 - [Custom Curves](./reference/custom-curves) — YRGBとチャンネル別カーブ、階調の形の調整
 - [HSL Curves](./reference/hsl-curves) — 色相・彩度・輝度を条件にした6種類のカーブ
 - [HSL Qualifier](./reference/hsl-qualifier) — 色相・彩度・輝度による抽出とMatte Finesse
+- [3D Qualifier](./reference/3d-qualifier) — Viewerに描く加算・減算ストロークで色を採取し、Matte Finesseでキーを調整
 - [Power Windows](./reference/power-windows) — 形・位置による局所補正、Qualifierとの併用と追跡時の注意
 - [Color Tracker](./reference/color-tracker) — 動く被写体へのWindow追従
 - [Color Stabilizer](./reference/color-stabilizer) — ショット内の露出・ホワイトバランスの時間変動を基準フレームへ近づける（Studio版）
