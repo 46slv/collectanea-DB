@@ -70,6 +70,7 @@ Colorページは、素材の明るさや色の偏りを整え、複数ショッ
 ## 実践する（Recipes）
 
 - [3カメラのインタビューをショットマッチングする](./recipes/matching-multicamera-interview) — 基準StillとScopesを使ってカット間の色を整える
+- [インタビュー中のホワイトバランスの揺れを整える](./recipes/stabilize-interview-white-balance) — Color Stabilizerで安定した壁を分析基準に色の揺れを抑える（Studio版）
 - [Power Windowで局所ハイライト補正](./recipes/window-highlight-isolation) — 逆光の窓を分離して人物を保護
 - [肌の色を整える：Qualifier・Power Window・Scopes](./recipes/skin-tone-secondary-grading) — 肌の必要な領域だけを抽出して自然な補正にする
 - [背景のLookから人物を守る：Layer Mixer](./recipes/layer-mixer-subject-protection) — 同じベースの分岐で背景と人物を調整し、優先順とMatteを確認する
