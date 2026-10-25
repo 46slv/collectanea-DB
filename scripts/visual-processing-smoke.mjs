@@ -721,6 +721,68 @@ try {
       if (width === 390) await shot('tone-curve-mobile');
     }
   });
+  await check('vignetting-three-panel-controls-and-mobile', async () => {
+    await go(route);
+    await page.getByRole('link', {name: '中心位置と減衰を操作して比較'}).click();
+    await expect(page).toHaveURL(/\/reference\/visual-processing\/optics\/vignetting\/?$/);
+    for (const width of [1440, 390, 320]) {
+      await page.setViewportSize({width, height: width === 1440 ? 1000 : 844});
+      await go('/reference/visual-processing/optics/vignetting');
+      await expect(page.locator('.theme-doc-markdown h1')).toHaveText('周辺減光（Vignetting）');
+      const widget = page.locator('[data-vp-vignette="ready"]');
+      await expect(widget).toBeVisible();
+      const layout = await widget.evaluate((element) => {
+        const previews = element.querySelector('.vp-vig__previews');
+        const controls = element.querySelector('.vp-vig__controls');
+        return {
+          dom: Boolean(previews && controls &&
+            (previews.compareDocumentPosition(controls) & Node.DOCUMENT_POSITION_FOLLOWING)),
+          visual: Boolean(previews && controls &&
+            previews.getBoundingClientRect().bottom <= controls.getBoundingClientRect().top),
+          panels: element.querySelectorAll('[data-vp-vig-preview]').length,
+        };
+      });
+      assert.ok(layout.dom && layout.visual && layout.panels === 3,
+        'Vignetting 3-panel preview-first layout: ' + width + ' ' + JSON.stringify(layout));
+      await expect(widget).toHaveAttribute('data-vp-vig-strength', '65');
+      await expect(widget).toHaveAttribute('data-vp-vig-center', '50');
+      const picture = (kind) => widget.locator('[data-vp-vig-preview="' + kind + '"] canvas')
+        .evaluate((canvas) => canvas.toDataURL());
+      await expect.poll(async () => (await picture('smooth')) !== (await picture('before'))).toBe(true);
+      if (width === 1440) {
+        const initial = await picture('smooth');
+        const before = await picture('before');
+        const strength = widget.getByRole('slider', {name: '暗さの強さ'});
+        await strength.focus();
+        await strength.press('Home');
+        await expect(widget).toHaveAttribute('data-vp-vig-strength', '0');
+        await expect.poll(() => picture('smooth')).toBe(before);
+        await expect.poll(() => picture('quadratic')).toBe(before);
+        await strength.press('End');
+        await expect(widget).toHaveAttribute('data-vp-vig-strength', '100');
+        await expect.poll(() => picture('smooth')).not.toBe(before);
+        const protectedRadius = widget.getByRole('slider', {name: '中心の保護範囲'});
+        await protectedRadius.focus();
+        await protectedRadius.press('End');
+        await expect(protectedRadius).toHaveValue('80');
+        const center = widget.getByRole('slider', {name: '中心の横位置'});
+        await center.focus();
+        await center.press('End');
+        await expect(widget).toHaveAttribute('data-vp-vig-center', '80');
+        await widget.getByRole('combobox', {name: 'テスト画像'}).selectOption('gradient');
+        await expect.poll(() => picture('before')).not.toBe(before);
+        await widget.getByRole('button', {name: '初期値に戻す'}).click();
+        await expect(widget).toHaveAttribute('data-vp-vig-strength', '65');
+        await expect(widget).toHaveAttribute('data-vp-vig-center', '50');
+        await expect(protectedRadius).toHaveValue('35');
+        await expect(widget.getByRole('combobox', {name: 'テスト画像'})).toHaveValue('grid');
+        await expect.poll(() => picture('smooth')).toBe(initial);
+      }
+      await noOverflow();
+      if (width === 390) await shot('vignetting-mobile');
+    }
+  });
+
   await check('no-runtime-or-resource-errors', async () => {
     assert.deepEqual(report.pageErrors, []);
     assert.deepEqual(report.resourceErrors, []);
