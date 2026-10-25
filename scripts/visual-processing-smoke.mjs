@@ -662,6 +662,65 @@ try {
       if (width === 390) await shot('directional-blur-mobile');
     }
   });
+
+  await check('tone-curve-preview-controls-and-mobile', async () => {
+    await go(route);
+    await page.getByRole('link', {name: '中間点を操作して比較'}).click();
+    await expect(page).toHaveURL(/\/reference\/visual-processing\/tone-curve\/?$/);
+    for (const width of [1440, 390, 320]) {
+      await page.setViewportSize({width, height: width === 1440 ? 1000 : 844});
+      await go('/reference/visual-processing/tone-curve');
+      await expect(page.locator('.theme-doc-markdown h1'))
+        .toHaveText('トーンカーブ（Tone Curve）と区分線形補間');
+      const widget = page.locator('[data-vp-tone-curve="ready"]');
+      await expect(widget).toBeVisible();
+      const layout = await widget.evaluate((element) => {
+        const previews = element.querySelector('.vp-tone-curve__previews');
+        const controls = element.querySelector('.vp-tone-curve__controls');
+        return {
+          dom: Boolean(previews && controls &&
+            (previews.compareDocumentPosition(controls) & Node.DOCUMENT_POSITION_FOLLOWING)),
+          visual: Boolean(previews && controls &&
+            previews.getBoundingClientRect().bottom <= controls.getBoundingClientRect().top),
+          panels: element.querySelectorAll('[data-vp-tone-preview]').length,
+        };
+      });
+      assert.ok(layout.dom && layout.visual && layout.panels === 2,
+        'Tone Curve two-panel preview-first layout: ' + width + ' ' + JSON.stringify(layout));
+      const readout = widget.locator('.vp-tone-curve__readout');
+      const slider = widget.getByRole('slider', {name: '中間点の出力値'});
+      const plot = widget.locator('.vp-tone-curve__plot svg');
+      await expect(widget).toHaveAttribute('data-vp-tone-middle', '128');
+      await expect(readout).toContainText('入力64 → 64');
+      await expect(plot).toHaveAttribute('aria-label', /入力128→128/);
+      if (width === 1440) {
+        const output = widget.locator('[data-vp-tone-preview="output"] canvas');
+        const picture = () => output.evaluate((canvas) => canvas.toDataURL());
+        const original = await picture();
+        await slider.focus();
+        await slider.press('Home');
+        for (let i = 0; i < 2; i += 1) await slider.press('ArrowRight');
+        await expect(widget).toHaveAttribute('data-vp-tone-middle', '64');
+        await expect(readout).toContainText('入力64 → 32');
+        await expect(readout).toContainText('入力192 → 160');
+        await expect.poll(() => picture()).not.toBe(original);
+        await slider.press('End');
+        for (let i = 0; i < 2; i += 1) await slider.press('ArrowLeft');
+        await expect(widget).toHaveAttribute('data-vp-tone-middle', '192');
+        await expect(readout).toContainText('入力192 → 224');
+        await expect(plot).toHaveAttribute('aria-label', /入力128→192/);
+        await widget.getByRole('combobox', {name: '元画像'}).selectOption('radial');
+        await widget.getByRole('combobox', {name: '表示倍率'}).selectOption('2');
+        await widget.getByRole('button', {name: '初期値に戻す'}).click();
+        await expect(widget).toHaveAttribute('data-vp-tone-middle', '128');
+        await expect(widget.getByRole('combobox', {name: '元画像'})).toHaveValue('ramp');
+        await expect(widget.getByRole('combobox', {name: '表示倍率'})).toHaveValue('1');
+        await expect.poll(() => picture()).toBe(original);
+      }
+      await noOverflow();
+      if (width === 390) await shot('tone-curve-mobile');
+    }
+  });
   await check('no-runtime-or-resource-errors', async () => {
     assert.deepEqual(report.pageErrors, []);
     assert.deepEqual(report.resourceErrors, []);

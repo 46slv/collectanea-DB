@@ -1,0 +1,38 @@
+.vp-tone-curve {
+  margin: 24px 0 32px; padding: clamp(14px, 2.5vw, 24px);
+  border: 1px solid var(--cc-line); border-radius: var(--cc-radius);
+  background: var(--cc-surface); color: var(--cc-text);
+  font: 14px/1.65 var(--cc-body-font);
+}
+.vp-tone-curve h3 {margin: 0 0 8px; font-size: 19px; line-height: 1.45;}
+.vp-tone-curve__intro {margin: 0 0 15px; color: var(--cc-secondary);}
+.vp-tone-curve__previews {display: grid; grid-template-columns: repeat(2, minmax(0, 1fr)); gap: 12px;}
+.vp-tone-curve__preview {margin: 0; min-width: 0; overflow: hidden; border: 1px solid var(--cc-line); border-radius: var(--cc-radius);}
+.vp-tone-curve__preview figcaption, .vp-tone-curve__plot figcaption {
+  display: flex; flex-direction: column; gap: 2px; padding: 9px 10px; line-height: 1.4;
+}
+.vp-tone-curve__preview figcaption strong, .vp-tone-curve__plot figcaption strong {font-size: 13px; font-weight: 600;}
+.vp-tone-curve__preview figcaption span, .vp-tone-curve__plot figcaption span {font-size: 11px; color: var(--cc-secondary);}
+.vp-tone-curve__viewport {max-width: 100%; overflow-x: auto; background: #808080;}
+.vp-tone-curve__viewport canvas {display: block; height: auto; max-width: none; image-rendering: pixelated;}
+.vp-tone-curve__analysis {display: grid; grid-template-columns: minmax(0, 220px) minmax(0, 1fr); align-items: center; gap: 18px; margin-top: 14px;}
+.vp-tone-curve__plot {min-width: 0; margin: 0; border: 1px solid var(--cc-line); border-radius: var(--cc-radius);}
+.vp-tone-curve__plot svg {display: block; width: min(100%, 220px); height: auto; margin: 0 auto 10px; background: var(--cc-canvas);}
+.vp-tone-curve__plot svg text {font-size: 10px; fill: var(--cc-secondary);}
+.vp-tone-curve__identity {stroke: var(--cc-secondary); stroke-width: 1; stroke-dasharray: 5 5;}
+.vp-tone-curve__line {stroke: var(--cc-text); stroke-width: 3; fill: none;}
+.vp-tone-curve__point {fill: var(--cc-text);}
+.vp-tone-curve__readout {margin: 0; font-variant-numeric: tabular-nums;}
+.vp-tone-curve__hint {margin: 10px 0 0; color: var(--cc-secondary); font-size: 12px;}
+.vp-tone-curve__controls {display: grid; grid-template-columns: repeat(2, minmax(0, 1fr)); gap: 14px; margin-top: 20px; padding-top: 18px; border-top: 1px solid var(--cc-line);}
+.vp-tone-curve__control {display: flex; min-width: 0; flex-direction: column; justify-content: flex-end; gap: 6px; font-size: 12px; color: var(--cc-secondary);}
+.vp-tone-curve__control > span {display: flex; flex-wrap: wrap; justify-content: space-between; gap: 4px 8px;}
+.vp-tone-curve__control output {font-weight: 600; color: var(--cc-text); font-variant-numeric: tabular-nums;}
+.vp-tone-curve__control select {min-width: 0; width: 100%; min-height: 40px; padding: 8px 10px; color: var(--cc-text); border: 1px solid var(--cc-control-line); border-radius: var(--cc-radius); background: var(--cc-canvas); font-size: 13px;}
+.vp-tone-curve__control input[type='range'] {width: 100%; min-height: 40px; margin: 0; accent-color: var(--cc-text); cursor: pointer;}
+.vp-tone-curve__actions {display: flex; justify-content: flex-end; margin-top: 12px;}
+.vp-tone-curve__reset {min-height: 38px; padding: 7px 11px; background: var(--cc-surface); color: var(--cc-text); border: 1px solid var(--cc-control-line); border-radius: var(--cc-radius); font-size: 12px;}
+.vp-tone-curve__reset:hover {background: var(--cc-raised);}
+@media (max-width: 700px) {
+  .vp-tone-curve__previews, .vp-tone-curve__controls, .vp-tone-curve__analysis {grid-template-columns: minmax(0, 1fr);}
+}
