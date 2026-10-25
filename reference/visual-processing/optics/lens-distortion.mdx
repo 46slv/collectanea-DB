@@ -1,0 +1,44 @@
+---
+sidebar_position: 5
+sidebar_label: レンズ歪曲
+title: レンズ歪曲（Lens Distortion）
+description: 直線が樽型・糸巻き型に曲がる違いを、格子と歪曲中心の操作で観察する。
+tags: [image-processing, optics, lens-distortion, reference]
+---
+
+import LensDistortionPlayground from '@site/src/components/LensDistortionPlayground';
+
+# レンズ歪曲（Lens Distortion）
+
+**レンズ歪曲は、実際には直線である被写体が画像の中では曲線として写る幾何学的なずれ**です。画面の端ほど目立ち、樽型（Barrel）では線が外側に膨らみ、糸巻き型（Pincushion）では内側へ引かれて見えます。色収差や焦点のぼけとは異なり、画素の位置が変わります。
+
+## 三画面で操作する {#try-it}
+
+<LensDistortionPlayground />
+
+まず**歪曲の強さを0 → 0.15 → 0.30**と動かし、直線格子の外側を見比べます。次に**歪曲中心の横位置を50 → 70%**へ動かし、変形の基準点が移る様子を確認します。「長方形の枠と斜線」では四辺の曲がりが分かりやすくなります。リセットすると初期値に戻ります。
+
+## 入力・出力・計算
+
+- **入力**：ページ内で生成する384×192 px・8-bitグレースケールの格子、または長方形の枠と斜線。外部画像は使用しません。
+- **操作**：強さ0.00〜0.30（初期0.22）、歪曲中心の横位置25〜75%（初期50%）、画像2種類、リセット。
+- **出力**：未変形・樽型・糸巻き型の三画面Canvas。強さ0では全画面が一致します。
+- **計算**：出力画素と中心との差を dx, dy、最も遠い隅までの距離を D として、r²=(dx²+dy²)/D² を求めます。入力参照座標は (cx+dx(1+s r²), cy+dy(1+s r²))。樽型には正の s、糸巻き型には負の s を使います。画素間を双線形補間し、画像外を参照する領域は値16の暗い背景で示します。
+
+この式は**出力画素から入力画像を引く逆向きの参照式**です。OpenCV等のレンズ校正で使う前向きの歪曲係数とは符号や意味が直接一致しません。強さは学習用の無次元値であり、レンズから測定した係数ではありません。
+
+## 用途・制約
+
+建物の柱や格子のような、本来まっすぐな物体を基準にすると歪曲が分かります。実写映像とCGを合成するとき、同じ歪曲を適用しなければ線や物体の形が合いません。
+
+**この教材は単一係数による教育用近似**です。レンズの焦点距離や撮影距離、高次の放射歪曲、接線歪曲、非対称な収差、フィッシュアイ投影は模しません。暗い領域は入力画像外の参照によるもので、周辺減光とは異なります。実際の歪曲補正では切り抜き・画角・補間品質も検討します。
+
+8-bitの表示エンコード値を直接補間します。RAW・HDR・レンズプロファイル・After Effects/DaVinci Resolveの特定処理との厳密な数値一致は保証しません。Canvas非対応端末では画像を描画できません。
+
+[画像処理索引に戻る](../index.md#optics)。
+
+## 参考資料
+
+- [OpenCV — Camera Calibration](https://docs.opencv.org/5.0/py_tutorials/py_calib3d/py_calibration.html) — 放射方向・接線方向の歪曲と内部パラメータ。
+- [OpenCV — Camera Calibration With OpenCV](https://docs.opencv.org/5.0/tutorials/calib3d/camera_calibration/camera_calibration.html) — レンズ校正で使われる前向き放射歪曲式。
+- [MDN — putImageData()](https://developer.mozilla.org/en-US/docs/Web/API/CanvasRenderingContext2D/putImageData) — RGBA処理結果のCanvas表示API。
