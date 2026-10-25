@@ -1057,6 +1057,68 @@ try {
     }
   });
 
+
+  await check('lens-distortion-three-panel-controls-and-mobile', async () => {
+    await go(route);
+    await page.getByRole('link', {name: '樽型と糸巻き型を操作して比較'}).click();
+    await expect(page).toHaveURL(/\/reference\/visual-processing\/optics\/lens-distortion\/?$/);
+    for (const width of [1440, 390, 320]) {
+      await page.setViewportSize({width, height: width === 1440 ? 1000 : 844});
+      await go('/reference/visual-processing/optics/lens-distortion');
+      await expect(page.locator('.theme-doc-markdown h1')).toHaveText('レンズ歪曲（Lens Distortion）');
+      const widget = page.locator('[data-vp-lens-distortion="ready"]');
+      await expect(widget).toBeVisible();
+      await expect(widget).toHaveAttribute('data-vp-ld-strength', '0.22');
+      await expect(widget).toHaveAttribute('data-vp-ld-center', '50');
+      const layout = await widget.evaluate((element) => {
+        const previews = element.querySelector('.vp-ld__previews');
+        const controls = element.querySelector('.vp-ld__controls');
+        return {
+          previewFirst: Boolean(previews && controls &&
+            (previews.compareDocumentPosition(controls) & Node.DOCUMENT_POSITION_FOLLOWING)),
+          panels: element.querySelectorAll('[data-vp-ld-panel]').length,
+        };
+      });
+      assert.ok(layout.previewFirst && layout.panels === 3,
+        'Lens distortion must be preview-first with three panels: ' + width + ' ' + JSON.stringify(layout));
+      const picture = (kind) => widget.locator('[data-vp-ld-panel="' + kind + '"] canvas')
+        .evaluate((canvas) => canvas.toDataURL());
+      const original = await picture('original');
+      const initialBarrel = await picture('barrel');
+      const initialPin = await picture('pincushion');
+      assert.notEqual(initialBarrel, original, 'Barrel visibly changes geometry');
+      assert.notEqual(initialPin, original, 'Pincushion visibly changes geometry');
+      if (width === 1440) {
+        const strength = widget.getByRole('slider', {name: '歪曲の強さ'});
+        await strength.focus();
+        await strength.press('Home');
+        await expect(widget).toHaveAttribute('data-vp-ld-strength', '0');
+        await expect.poll(() => picture('barrel')).toBe(original);
+        await expect.poll(() => picture('pincushion')).toBe(original);
+        await strength.press('End');
+        await expect(widget).toHaveAttribute('data-vp-ld-strength', '0.3');
+        await expect.poll(() => picture('barrel')).not.toBe(original);
+        const barrelBeforeCenter = await picture('barrel');
+        const center = widget.getByRole('slider', {name: '歪曲中心の横位置'});
+        await center.focus();
+        await center.press('End');
+        await expect(widget).toHaveAttribute('data-vp-ld-center', '75');
+        await expect.poll(() => picture('barrel')).not.toBe(barrelBeforeCenter);
+        await widget.getByRole('combobox', {name: 'テスト画像'}).selectOption('frames');
+        await expect.poll(() => picture('original')).not.toBe(original);
+        await widget.getByRole('button', {name: '初期値に戻す'}).click();
+        await expect(widget).toHaveAttribute('data-vp-ld-strength', '0.22');
+        await expect(widget).toHaveAttribute('data-vp-ld-center', '50');
+        await expect(widget.getByRole('combobox', {name: 'テスト画像'})).toHaveValue('grid');
+        await expect.poll(() => picture('original')).toBe(original);
+        await expect.poll(() => picture('barrel')).toBe(initialBarrel);
+        await expect.poll(() => picture('pincushion')).toBe(initialPin);
+      }
+      await noOverflow();
+      if (width === 390) await shot('lens-distortion-mobile');
+    }
+  });
+
   await check('no-runtime-or-resource-errors', async () => {
     assert.deepEqual(report.pageErrors, []);
     assert.deepEqual(report.resourceErrors, []);
