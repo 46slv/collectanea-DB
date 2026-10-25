@@ -995,6 +995,68 @@ try {
     }
   });
 
+
+  await check('saturation-rgb-gray-axis-slider-and-mobile', async () => {
+    await go(route);
+    await page.getByRole('link', {name: 'RGBの灰色軸と彩度係数を操作して比較'}).click();
+    await expect(page).toHaveURL(/\/reference\/visual-processing\/saturation\/?$/);
+    for (const width of [1440, 390, 320]) {
+      await page.setViewportSize({width, height: width === 1440 ? 1000 : 844});
+      await go('/reference/visual-processing/saturation');
+      await expect(page.locator('.theme-doc-markdown h1')).toHaveText('彩度（Saturation）とRGBの灰色軸');
+      const widget = page.locator('[data-vp-saturation="ready"]');
+      await expect(widget).toBeVisible();
+      await expect(widget).toHaveAttribute('data-vp-saturation-amount', '1');
+      const layout = await widget.evaluate((element) => {
+        const previews = element.querySelector('.vp-sat__previews');
+        const controls = element.querySelector('.vp-sat__controls');
+        return {
+          dom: Boolean(previews && controls &&
+            (previews.compareDocumentPosition(controls) & Node.DOCUMENT_POSITION_FOLLOWING)),
+          panels: element.querySelectorAll('[data-vp-saturation-preview]').length,
+        };
+      });
+      assert.ok(layout.dom && layout.panels === 2,
+        'Saturation preview-first two-panel layout: ' + width + ' ' + JSON.stringify(layout));
+      const picture = (kind) => widget.locator('[data-vp-saturation-preview="' + kind + '"] canvas')
+        .evaluate((canvas) => canvas.toDataURL());
+      const original = await picture('source');
+      await expect.poll(() => picture('processed')).toBe(original);
+      if (width === 1440) {
+        const slider = widget.getByRole('slider', {name: '彩度係数（0から2倍）'});
+        await slider.focus();
+        await slider.press('Home');
+        await expect(widget).toHaveAttribute('data-vp-saturation-amount', '0');
+        await expect.poll(() => picture('processed')).not.toBe(original);
+        const isGray = await widget.locator('[data-vp-saturation-preview="processed"] canvas')
+          .evaluate((canvas) => {
+            const data = canvas.getContext('2d').getImageData(0, 0, canvas.width, canvas.height).data;
+            for (let i = 0; i < data.length; i += 4) {
+              if (data[i] !== data[i + 1] || data[i + 1] !== data[i + 2]) return false;
+            }
+            return true;
+          });
+        assert.ok(isGray, 'Saturation zero becomes grayscale');
+        await slider.press('End');
+        await expect(widget).toHaveAttribute('data-vp-saturation-amount', '2');
+        await expect.poll(() => picture('processed')).not.toBe(original);
+        await widget.getByRole('combobox', {name: '入力パターン'}).selectOption('patches');
+        await expect.poll(() => picture('source')).not.toBe(original);
+        await widget.getByRole('combobox', {name: '表示倍率'}).selectOption('4');
+        await expect(widget.locator('[data-vp-saturation-preview="source"] canvas'))
+          .toHaveAttribute('style', 'width: 400%;');
+        await widget.getByRole('button', {name: '初期値に戻す'}).click();
+        await expect(widget).toHaveAttribute('data-vp-saturation-amount', '1');
+        await expect(widget.getByRole('combobox', {name: '入力パターン'})).toHaveValue('hues');
+        await expect(widget.getByRole('combobox', {name: '表示倍率'})).toHaveValue('1');
+        await expect.poll(() => picture('source')).toBe(original);
+        await expect.poll(() => picture('processed')).toBe(original);
+      }
+      await noOverflow();
+      if (width === 390) await shot('saturation-mobile');
+    }
+  });
+
   await check('no-runtime-or-resource-errors', async () => {
     assert.deepEqual(report.pageErrors, []);
     assert.deepEqual(report.resourceErrors, []);
