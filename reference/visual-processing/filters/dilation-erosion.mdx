@@ -1,0 +1,44 @@
+---
+sidebar_position: 11
+sidebar_label: 膨張・収縮
+title: 膨張・収縮（Dilation / Erosion）
+description: 二値マスクを近傍の最大・最小で広げたり削ったりする処理を三画面で比較する。
+tags: [image-processing, morphology, mask, filters, reference]
+---
+
+import MorphologyPlayground from '@site/src/components/MorphologyPlayground';
+
+# 膨張・収縮（Dilation / Erosion）
+
+**膨張は白い領域を外へ広げ、収縮は白い領域を内側から削る処理**です。白黒のマスクで穴を小さくしたり、細い線や孤立点を除去したりするための基本操作です。ぼかしとは異なり、この教材では白か黒の二値を維持します。
+
+## 三画面で操作する {#try-it}
+
+<MorphologyPlayground />
+
+初期値は**半径3 px**、テスト画像は「穴のある楕円・細い棒・孤立点」です。半径を **0 → 1 → 3 → 8 px** と変更してください。半径0では三画面が一致します。膨張では穴が小さくなり、収縮では細い棒や孤立点が消えます。「途切れた線・点列」に切り替えると、膨張による隙間の縮小と、収縮による細い線の消失が分かります。「初期値に戻す」で最初の比較へ戻せます。
+
+## 入出力と処理モデル
+
+- **入力**：このページ内で生成する384×160 pxの8-bit二値マスク。白（255）が選択領域、黒（0）が非選択領域。
+- **操作**：近傍半径0〜8 px（1 px刻み）、2種類のテストマスク切替、リセット。
+- **出力**：元画像／膨張／収縮の三画面と各画面の白画素数。入力配列は変更しません。
+- **仕組み**：画素の周りの一辺 (2r+1) pxの**正方形**を調べます。膨張は近傍に白が一つでもあれば白（最大値）、収縮は近傍がすべて白なら白（最小値）にします。rは半径です。画像の外側は**黒**とみなすため、端に接した白は収縮で削られます。
+
+この正方形は**構造要素（structuring element / footprint）**の一例です。円形や十字形の構造要素を使えば角や線の太り方が変わります。ここでは二つの処理に同じ正方形を用い、違いだけを比べます。
+
+## 用途・制約
+
+マスクの境界を少し広げる、穴を目立ちにくくする、孤立した白点を除去するといった操作の理解に使えます。一方、膨張しすぎると離れた領域が連結し、収縮しすぎると細部が失われます。収縮→膨張を**オープニング**、膨張→収縮を**クロージング**と呼びますが、**このデモは二段階の複合処理を行いません**。
+
+[Sobelによるエッジ検出](./sobel-edge-detection.mdx)は近傍の明るさの変化を測り、[メディアンフィルタ](./median-filter.mdx)は近傍の中央値を使います。いずれも似た用途に使われる場合がありますが、計算結果は異なります。
+
+**制約**：静止画の二値マスクだけを扱い、半透明アルファ、グレースケールのモルフォロジー、時間方向処理、実際のキーイング画質、HDRは対象外です。After EffectsやResolveの機能・ノードと数値が一致する保証もありません。Canvas非対応端末では結果画像を描けません。画像素材はすべてコード生成で、外部素材はありません。
+
+[画像処理索引に戻る](../index.md#filters)。
+
+## 参考資料
+
+- [scikit-image — Morphological Filtering](https://scikit-image.org/docs/stable/auto_examples/applications/plot_morphology.html) — 構造要素と各種モルフォロジー操作。
+- [scikit-image — morphology API](https://scikit-image.org/docs/stable/api/skimage.morphology) — 最大／最小演算、構造要素と境界処理の違い。
+- [MDN — CanvasRenderingContext2D.putImageData](https://developer.mozilla.org/en-US/docs/Web/API/CanvasRenderingContext2D/putImageData) — 画素配列のCanvas表示。

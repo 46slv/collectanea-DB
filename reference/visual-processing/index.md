@@ -71,7 +71,7 @@ import '@site/src/css/visual-processing.css';
 | **ハイパスフィルタ（High-pass Filter）** | ゆっくり変化する成分を抑え、輪郭や細部のような急な変化を取り出す。 |
 | **エッジ検出（Edge Detection）** | 隣り合う画素の変化が大きい場所を取り出し、輪郭線に近い画像を作る。[Sobel輪郭抽出を試す](./filters/sobel-edge-detection.mdx)。 |
 | **ガウス差分（Difference of Gaussians / DoG）** | ぼかし幅の異なる2つの画像の差から局所的な明暗変化を取り出す。[2種類のぼかしを比較する](./filters/difference-of-gaussians.mdx)。 |
-| **膨張・収縮（Dilation / Erosion）** | マスクや画像内の明るい領域を広げたり狭めたりする。 |
+| **膨張・収縮（Dilation / Erosion）** | マスクや画像内の明るい領域を広げたり狭めたりする。[二値マスクの膨張・収縮を操作して比較](./filters/dilation-erosion.mdx)。 |
 | **空間ノイズ除去（Spatial Noise Reduction）** | 同じフレーム内の画素を比較し、細部を残すこととノイズを減らすことのバランスを取る。 |
 | **エンボス（Emboss）** | 明暗の差に方向性をつけ、表面が浮き彫りのように見える陰影を作る。 |
 

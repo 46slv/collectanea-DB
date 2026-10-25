@@ -833,6 +833,56 @@ try {
     }
   });
 
+  await check('binary-morphology-three-panel-radius-scenes-mobile', async () => {
+    await go(route);
+    await page.getByRole('link', {name: '二値マスクの膨張・収縮を操作して比較'}).click();
+    await expect(page).toHaveURL(/\/reference\/visual-processing\/filters\/dilation-erosion\/?$/);
+    for (const width of [1440, 390, 320]) {
+      await page.setViewportSize({width, height: width === 1440 ? 1000 : 844});
+      await go('/reference/visual-processing/filters/dilation-erosion');
+      const widget = page.locator('[data-vp-morphology="ready"]');
+      await expect(widget).toBeVisible();
+      const layout = await widget.evaluate((element) => {
+        const previews = element.querySelector('.vp-morph__previews');
+        const controls = element.querySelector('.vp-morph__controls');
+        return {
+          dom: Boolean(previews && controls &&
+            (previews.compareDocumentPosition(controls) & Node.DOCUMENT_POSITION_FOLLOWING)),
+          visual: Boolean(previews && controls &&
+            previews.getBoundingClientRect().bottom <= controls.getBoundingClientRect().top),
+          panels: element.querySelectorAll('[data-vp-morph-preview]').length,
+        };
+      });
+      assert.ok(layout.dom && layout.visual && layout.panels === 3,
+        'Morphology three-panel preview-first layout: ' + width + ' ' + JSON.stringify(layout));
+      await expect(widget).toHaveAttribute('data-vp-morph-radius', '3');
+      const picture = (kind) => widget.locator('[data-vp-morph-preview="' + kind + '"] canvas')
+        .evaluate((canvas) => canvas.toDataURL());
+      const before = await picture('before');
+      await expect.poll(() => picture('dilation')).not.toBe(before);
+      await expect.poll(() => picture('erosion')).not.toBe(before);
+      if (width === 1440) {
+        const slider = widget.getByRole('slider', {name: '近傍の半径'});
+        await slider.focus();
+        await slider.press('Home');
+        await expect(widget).toHaveAttribute('data-vp-morph-radius', '0');
+        await expect.poll(() => picture('dilation')).toBe(before);
+        await expect.poll(() => picture('erosion')).toBe(before);
+        await slider.press('End');
+        await expect(widget).toHaveAttribute('data-vp-morph-radius', '8');
+        await expect.poll(() => picture('dilation')).not.toBe(before);
+        await widget.getByRole('combobox', {name: 'テストマスク'}).selectOption('lines');
+        await expect.poll(() => picture('before')).not.toBe(before);
+        await widget.getByRole('button', {name: '初期値に戻す'}).click();
+        await expect(widget).toHaveAttribute('data-vp-morph-radius', '3');
+        await expect(widget.getByRole('combobox', {name: 'テストマスク'})).toHaveValue('shapes');
+        await expect.poll(() => picture('before')).toBe(before);
+      }
+      await noOverflow();
+      if (width === 390) await shot('morphology-mobile');
+    }
+  });
+
   await check('no-runtime-or-resource-errors', async () => {
     assert.deepEqual(report.pageErrors, []);
     assert.deepEqual(report.resourceErrors, []);
