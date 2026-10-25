@@ -783,6 +783,56 @@ try {
     }
   });
 
+
+  await check('exposure-srgb-ev-clipping-and-mobile', async () => {
+    await go(route);
+    await page.getByRole('link', {name: '線形光のEV・ハイライトクリップを操作して比較'}).click();
+    await expect(page).toHaveURL(/\/reference\/visual-processing\/exposure\/?$/);
+    for (const width of [1440, 390, 320]) {
+      await page.setViewportSize({width, height: width === 1440 ? 1000 : 844});
+      await go('/reference/visual-processing/exposure');
+      const widget = page.locator('[data-vp-exposure="ready"]');
+      await expect(widget).toBeVisible();
+      const layout = await widget.evaluate((element) => {
+        const previews = element.querySelector('.vp-exposure__previews');
+        const controls = element.querySelector('.vp-exposure__controls');
+        return {
+          dom: Boolean(previews && controls &&
+            (previews.compareDocumentPosition(controls) & Node.DOCUMENT_POSITION_FOLLOWING)),
+          panels: element.querySelectorAll('[data-vp-exposure-preview]').length,
+        };
+      });
+      assert.ok(layout.dom && layout.panels === 2,
+        'Exposure preview-first panels: ' + width + ' ' + JSON.stringify(layout));
+      await expect(widget).toHaveAttribute('data-vp-exposure-ev', '0');
+      const picture = (kind) => widget.locator('[data-vp-exposure-preview="' + kind + '"] canvas')
+        .evaluate((canvas) => canvas.toDataURL());
+      const initial = await picture('original');
+      await expect.poll(() => picture('output')).toBe(initial);
+      await expect(widget.locator('.vp-exposure__readout')).toContainText('入力128 → 128');
+      if (width === 1440) {
+        const slider = widget.getByRole('slider', {name: '露出補正（EV）'});
+        await slider.focus();
+        await slider.press('End');
+        await expect(widget).toHaveAttribute('data-vp-exposure-ev', '2');
+        await expect(widget.locator('.vp-exposure__readout')).toContainText('入力224 → 255');
+        await expect.poll(() => picture('output')).not.toBe(initial);
+        await slider.press('Home');
+        await expect(widget).toHaveAttribute('data-vp-exposure-ev', '-2');
+        await widget.getByRole('combobox', {name: '元画像'}).selectOption('radial');
+        await expect.poll(() => picture('original')).not.toBe(initial);
+        await widget.getByRole('combobox', {name: '表示倍率'}).selectOption('4');
+        await widget.getByRole('button', {name: '初期値に戻す'}).click();
+        await expect(widget).toHaveAttribute('data-vp-exposure-ev', '0');
+        await expect(widget.getByRole('combobox', {name: '元画像'})).toHaveValue('ramp');
+        await expect(widget.getByRole('combobox', {name: '表示倍率'})).toHaveValue('1');
+        await expect.poll(() => picture('output')).toBe(initial);
+      }
+      await noOverflow();
+      if (width === 390) await shot('exposure-mobile');
+    }
+  });
+
   await check('no-runtime-or-resource-errors', async () => {
     assert.deepEqual(report.pageErrors, []);
     assert.deepEqual(report.resourceErrors, []);
