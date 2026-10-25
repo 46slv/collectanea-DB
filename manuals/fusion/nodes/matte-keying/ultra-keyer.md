@@ -9,14 +9,14 @@ aliases: [Ultra Keyer, UKY]
 concepts: [image-data, alpha, premultiplication, keying]
 nodes: [Ultra Keyer]
 node_family: matte-keying
-controls: [Background Color, Red Level, Green Level, Blue Level, Background Correction, Matte Separation, Pre-Matte Range, Lock Color Picking, Pre Matte Size, Spill Suppression, Spill Method, Fringe Gamma, Fringe Size, Fringe Shape, Filter, Blur, Clipping Mode, Contract/Expand, Gamma, Threshold, Restore Fringe, Invert Matte, Post-Multiply Image, Subtract Background]
+controls: [Background Color, Red Level, Green Level, Blue Level, Background Correction, Matte Separation, Pre-Matte Range, Lock Color Picking, Pre Matte Size, Reset Pre Matte Ranges, Spill Suppression, Spill Method, Fringe Gamma, Fringe Size, Fringe Shape, Filter, Num Passes, Blur, Clipping Mode, Contract/Expand, Gamma, Threshold, Restore Fringe, Invert Matte, Solid Matte Invert, Garbage Matte Invert, Post-Multiply Image, Subtract Background]
 inputs: [image, mask, mask, mask]
 outputs: [image]
 tasks: [create-matte, keying, green-screen, blue-screen, despill]
 level: intermediate
 product_scope: fusion
 suite_surfaces: [fusion]
-updated: "2026-10-05"
+updated: "2026-10-25"
 ---
 
 # Ultra Keyer
@@ -57,7 +57,9 @@ key処理で作ったAlphaと、spill補正を含むRGBを持つ2D Imageを出�
 
 Pre-Matte tabはscreen色を選び、後段の細かなkey処理に入る前に背景を整理する場所です。
 
-**Background Color**で、被写体の近くにある代表的なgreen / blue screen色を選びます。Red Level / Green Level / Blue Levelは、選んだscreen色に応じてcolor-differenceの比較に使うchannelを調整します。Background Correctionは、pre-keyされたImageをgreenまたはblueの背景へ反復的に合成してから後段へ渡す処理で、shotによってはedgeを自然にできます。
+**Background Color**で、被写体の近くにある代表的なgreen / blue screen色を選びます。色選択後に調整する**Red Level / Green Level / Blue Level**は、screen色と被写体を比較する色channelの差を調整します。green screenを選んだときはRed / Blue Level、blue screenではRed / Green Levelが表示され、常に3つのControlが並ぶわけではありません。
+
+**Background Correction**は、pre-keyされたImageを選択したgreenまたはblueの背景へ繰り返し重ねてから、後段のkey処理へ渡します。shotによってはedgeを柔らかくできますが、適用前後の違いは髪やmotion blurなどの境界で確認します。
 
 **Matte Separation**は、foregroundとbackgroundを大きく分けるための前処理です。Alphaを見ながら上げ、背景の大部分が消えるところまで進めます。ただし、被写体に穴が開いたり、髪などの細いedgeが削れ始める前で止めます。
 
@@ -65,11 +67,13 @@ Pre-Matte RangeのR / G / B / Luminance範囲はViewerで選んだ色に合わ�
 
 **Pre Matte Size**は、keyed領域の周囲を柔らかくして、spillの影響で半透明部分にできた穴を閉じるために使えます。値を強くすると被写体の周囲にhaloが出ることがあるため、後段のMatte controlsと合わせて確認します。
 
+**Reset Pre Matte Ranges**は、Viewerで選んだ色域のR / G / B / Luminanceの範囲をリセットします。Matte SeparationやPre Matte Sizeなど、ほかのslider設定は維持されます。色の選択をやり直したいときに、Node全体の設定を消さずに戻せます。
+
 ## Image tabでspillを整える
 
 spillは、green / blue screenの色が髪やmotion blurなどの半透明edgeへ残る現象です。Image tabでは、この色かぶりを主に調整します。
 
-**Spill Suppression**は除去量を調整し、**Spill Method**で処理方法を選びます。21.1 Manualでは、Mediumはgreen screen、Well Doneはblue screen向け、Burntは扱いにくいblue-screen shot向けとして説明されています。
+**Spill Suppression**は除去量を調整し、0では補正を適用しません。**Spill Method**は補正方法を選びます。21.1 Manualの目安は、None（補正なし）、Rare（最も軽い補正）、Medium（green screen向け）、Well Done（blue screen向け）、Burnt（問題の大きいblue-screen shot向け）です。強い方式ほど常に良いわけではないため、screen colorと被写体の色を見ながら選びます。
 
 Fringe Gammaはedgeの明るさ、Fringe Sizeはhaloの幅、Fringe Shapeはfringeを内側または外側へ寄せる方向を調整します。Cyan/Red、Magenta/Green、Yellow/Blueの補正は、元screen色が残った半透明pixelを新しい背景になじませるときに使います。
 
@@ -77,13 +81,21 @@ Fringe Gammaはedgeの明るさ、Fringe Sizeはhaloの幅、Fringe Shapeはfrin
 
 Matte tabでは、Pre-Matteとcolor-difference処理で得たAlphaを整えます。調整時はViewerをAlpha表示にして、白いforeground、黒いbackground、灰色の半透明edgeを直接確認すると判断しやすくなります。
 
-- **Filter / Blur**: matte edgeをぼかす方法と量を選びます。
+- **Filter / Blur**: matte edgeをぼかす方式と量を選びます。Blurが0ならぼかしません。
 - **Clipping Mode**: Blur時にDomain of Definitionの外側をどう扱うかを選びます。Frameはfull frame、Domainは上流DoDを尊重し、Noneは範囲外をblack / transparentとして扱います。
 - **Contract/Expand**: 半透明edgeを縮小・拡大します。21.1 Manualでは0より大きい値でexpand、0より小さい値でcontractします。
 - **Gamma**: 半透明部分のAlphaだけを明るく、または暗くします。完全なblack / white領域は変えません。
 - **Threshold**: 下側より小さいAlphaをtransparent、上側より大きいAlphaをopaqueへ寄せます。
 - **Restore Fringe**: keyで削れた髪などのedgeを戻すために使います。
 - **Invert Matte**: opaqueとtransparentを反転します。
+
+### Filterの違いと調整順
+
+21.1 Manualの**Filter**には、Box、Bartlett、Multi-Box、Gaussianがあります。**Box**は軽い処理向き、**Bartlett**は速度と品質の中間、**Multi-Box**はNum Passesで繰り返し回数を指定でき、**Gaussian**は滑らかなぼかしが得られる方式です。ManualではMulti-Boxの1 passがBox、2 passesがBartlettと同じ結果で、4 passes以上はGaussianに近い結果をより短時間で得やすいと説明しています。これはManualの一般的な比較であり、この環境での実測速度ではありません。
+
+**Contract/Expand**と**Gamma**は、どちらも半透明のmatte領域へ働き、完全に硬い境界だけで構成されたmatteには効果がありません。前者は境界の広がりを、後者は灰色部分の不透明度を変えます。**Threshold**は左右のhandleで下限・上限を指定し、下限未満を透明、上限超を不透明にし、その間の半透明度を保ちます。強く絞りすぎると髪やmotion blurの透明度が失われるため、Restore Fringeで戻す前にもAlpha表示を確認します。
+
+**Clipping Mode**をDomainにした場合、Blurが上流のデータ領域（DoD）の外へ必要とするpixelを参照できず、edgeが切れることがあります。Frameはfull frameを対象とし、DoD外をblack / transparentとして扱います。Noneはsource Imageのclippingを行わず、上流DoD外で必要なpixelをblack / transparentとして扱います。元のImageがfull frameであるかと、Blurに必要な領域が確保できているかを区別して確認します。
 
 ## 主な用途
 
@@ -111,6 +123,12 @@ Matte tabでは、Pre-Matteとcolor-difference処理で得たAlphaを整えま�
 5. Matte tabでBlur、Contract/Expand、Gamma、Thresholdを必要な範囲だけ調整します。
 6. Image tabでspillとfringe colorを整え、Mergeで実際の背景へ重ねて最終的なedgeを確認します。
 
+## Solid MatteとGarbage Matteの反転・併用
+
+Matte tabの**Solid Matte**に接続したMaskは、keyで消したくない領域のAlphaを不透明にします。**Garbage Matte**は不要な領域を透明にします。それぞれの**Invert**は、元画像のAlphaへ合成する前に、そのMaskの内外を反転するControlです。
+
+21.1 Manualでは、1つのUltra Keyer内に異なるmodeのGarbage Matteを混在させないことが明記されています。保護する範囲と除去する範囲の組み合わせで意図したmatteにならない場合は、Keyerの後ろに[Matte Control](./matte-control)を追加し、別段階で必要なmatte処理を行います。これは必要な範囲だけを明確に分ける構成案で、特定shotの実機比較結果ではありません。
+
 ## premultiplicationとedge colorの注意
 
 **Post-Multiply Image**を有効にすると、生成したAlphaをRGBへ乗算します。21.1 Manualでは通常有効で、既定もOnと記載されています。
@@ -129,6 +147,6 @@ Matte tabでは、Pre-Matteとcolor-difference処理で得たAlphaを整えま�
 
 ## バージョンと検証状況
 
-DaVinci Resolve 21.1 Reference Manual Chapter 109 pp.2561–2568で、Ultra KeyerがPre-Matteとcolor-differenceの2段階を持つこと、Input / Garbage Matte / Solid Matte / Effect Maskの4入力、Pre-Matte / Image / Matte各tabのControl、Post-Multiply Image、Subtract Backgroundを確認しています。
+DaVinci Resolve 21.1 Reference Manual（September 2026）Chapter 109 pp.2561–2568を直接参照しました。2段階のkey処理、4入力、Pre-Matte / Image / MatteのControlに加え、screen色によるLevel表示の違い、Reset Pre Matte Ranges、5種のSpill Method、4種のMatte FilterとNum Passes、半透明領域に限るControlの作用、MaskのInvertとmodeの制約、Post-Multiply Image、Subtract Backgroundを確認しています。
 
 このページではManualで確認できないruntime REGID、実機上の処理性能、hostごとの表示差は断定していません。
