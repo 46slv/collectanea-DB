@@ -1,0 +1,39 @@
+.vp-sat {
+  margin: 24px 0 32px; padding: clamp(14px, 2.5vw, 24px);
+  border: 1px solid var(--cc-line); border-radius: var(--cc-radius);
+  background: var(--cc-surface); color: var(--cc-text);
+  font: 14px/1.65 var(--cc-body-font);
+}
+.vp-sat h3 {margin: 0 0 8px; font-size: 19px; line-height: 1.45;}
+.vp-sat__intro {margin: 0 0 15px; color: var(--cc-secondary);}
+.vp-sat__previews {display: grid; grid-template-columns: repeat(2, minmax(0, 1fr)); gap: 12px;}
+.vp-sat__preview {margin: 0; min-width: 0; overflow: hidden; border: 1px solid var(--cc-line); border-radius: var(--cc-radius);}
+.vp-sat__preview figcaption {display: flex; flex-direction: column; gap: 2px; padding: 9px 10px; line-height: 1.4;}
+.vp-sat__preview figcaption strong {font-size: 13px; font-weight: 600;}
+.vp-sat__preview figcaption span {font-size: 11px; color: var(--cc-secondary);}
+.vp-sat__viewport {max-width: 100%; overflow-x: auto; background: var(--cc-canvas);}
+.vp-sat__viewport canvas {display: block; max-width: none; height: auto; image-rendering: pixelated;}
+.vp-sat__readout {margin-top: 14px; font-variant-numeric: tabular-nums; min-width: 0;}
+.vp-sat__readout p {margin: 0 0 8px;}
+.vp-sat__readout table {border-collapse: collapse; width: 100%; font-size: 12px;}
+.vp-sat__readout caption {text-align: left; font-size: 12px; margin-bottom: 5px; color: var(--cc-secondary);}
+.vp-sat__readout th, .vp-sat__readout td {padding: 5px 7px; border: 1px solid var(--cc-line); text-align: left; vertical-align: middle;}
+.vp-sat__readout td {white-space: nowrap;}
+.vp-sat__swatch {display: inline-block; width: 15px; height: 15px; margin-right: 6px; border: 1px solid var(--cc-control-line); vertical-align: -3px;}
+.vp-sat__hint {margin: 10px 0 0; color: var(--cc-secondary); font-size: 12px;}
+.vp-sat__controls {display: grid; grid-template-columns: repeat(2, minmax(0, 1fr)); gap: 14px; margin-top: 20px; padding-top: 18px; border-top: 1px solid var(--cc-line);}
+.vp-sat__control {display: flex; min-width: 0; flex-direction: column; justify-content: flex-end; gap: 6px; font-size: 12px; color: var(--cc-secondary);}
+.vp-sat__control > span {display: flex; flex-wrap: wrap; justify-content: space-between; gap: 4px 8px;}
+.vp-sat__control output {font-weight: 600; color: var(--cc-text); font-variant-numeric: tabular-nums;}
+.vp-sat__control select {min-width: 0; width: 100%; min-height: 40px; padding: 8px 10px; color: var(--cc-text); border: 1px solid var(--cc-control-line); border-radius: var(--cc-radius); background: var(--cc-canvas); font-size: 13px;}
+.vp-sat__control input[type='range'] {width: 100%; min-height: 40px; margin: 0; accent-color: var(--cc-text); cursor: pointer;}
+.vp-sat__actions {display: flex; justify-content: flex-end; margin-top: 12px;}
+.vp-sat__reset {min-height: 38px; padding: 7px 11px; background: var(--cc-surface); color: var(--cc-text); border: 1px solid var(--cc-control-line); border-radius: var(--cc-radius); font-size: 12px;}
+.vp-sat__reset:hover {background: var(--cc-raised);}
+@media (max-width: 700px) {
+  .vp-sat__previews, .vp-sat__controls {grid-template-columns: minmax(0, 1fr);}
+}
+@media (max-width: 380px) {
+  .vp-sat__readout {overflow-x: auto;}
+  .vp-sat__readout table {min-width: 300px;}
+}
