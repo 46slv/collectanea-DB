@@ -934,6 +934,67 @@ try {
     }
   });
 
+
+  await check('chromatic-aberration-three-panel-channel-shift-and-mobile', async () => {
+    await go(route);
+    await page.getByRole('link', {name: '放射方向と水平ずれを操作して比較'}).click();
+    await expect(page).toHaveURL(/\/reference\/visual-processing\/optics\/chromatic-aberration\/?$/);
+    for (const width of [1440, 390, 320]) {
+      await page.setViewportSize({width, height: width === 1440 ? 1000 : 844});
+      await go('/reference/visual-processing/optics/chromatic-aberration');
+      const widget = page.locator('[data-vp-chromatic="ready"]');
+      await expect(widget).toBeVisible();
+      await expect(widget).toHaveAttribute('data-vp-ca-shift', '7');
+      await expect(widget).toHaveAttribute('data-vp-ca-center', '50');
+      const layout = await widget.evaluate((element) => {
+        const previews = element.querySelector('.vp-ca__previews');
+        const controls = element.querySelector('.vp-ca__controls');
+        return {
+          dom: Boolean(previews && controls &&
+            (previews.compareDocumentPosition(controls) & Node.DOCUMENT_POSITION_FOLLOWING)),
+          panels: element.querySelectorAll('[data-vp-ca-panel]').length,
+        };
+      });
+      assert.ok(layout.dom && layout.panels === 3,
+        'Chromatic aberration preview-first layout: ' + width + ' ' + JSON.stringify(layout));
+      const picture = (kind) => widget.locator('[data-vp-ca-panel="' + kind + '"] canvas')
+        .evaluate((canvas) => canvas.toDataURL());
+      const initialBefore = await picture('before');
+      const initialRadial = await picture('radial');
+      await expect.poll(() => picture('radial')).not.toBe(initialBefore);
+      await expect.poll(() => picture('horizontal')).not.toBe(initialBefore);
+      if (width === 1440) {
+        const shift = widget.getByRole('slider', {name: '各色チャンネルの最大ずれ量'});
+        await shift.focus();
+        await shift.press('Home');
+        await expect(widget).toHaveAttribute('data-vp-ca-shift', '0');
+        await expect.poll(() => picture('radial')).toBe(initialBefore);
+        await expect.poll(() => picture('horizontal')).toBe(initialBefore);
+        await shift.press('End');
+        await expect(widget).toHaveAttribute('data-vp-ca-shift', '12');
+        await expect.poll(() => picture('radial')).not.toBe(initialBefore);
+        const horizontalAt12 = await picture('horizontal');
+        const radialAtCenter50 = await picture('radial');
+        const center = widget.getByRole('slider', {name: '放射方向の横中心'});
+        await center.focus();
+        await center.press('End');
+        await expect(widget).toHaveAttribute('data-vp-ca-center', '80');
+        await expect.poll(() => picture('radial')).not.toBe(radialAtCenter50);
+        await expect.poll(() => picture('horizontal')).toBe(horizontalAt12);
+        await widget.getByRole('combobox', {name: 'テスト画像'}).selectOption('bars');
+        await expect.poll(() => picture('before')).not.toBe(initialBefore);
+        await widget.getByRole('button', {name: '初期値に戻す'}).click();
+        await expect(widget).toHaveAttribute('data-vp-ca-shift', '7');
+        await expect(widget).toHaveAttribute('data-vp-ca-center', '50');
+        await expect(widget.getByRole('combobox', {name: 'テスト画像'})).toHaveValue('grid');
+        await expect.poll(() => picture('before')).toBe(initialBefore);
+        await expect.poll(() => picture('radial')).toBe(initialRadial);
+      }
+      await noOverflow();
+      if (width === 390) await shot('chromatic-aberration-mobile');
+    }
+  });
+
   await check('no-runtime-or-resource-errors', async () => {
     assert.deepEqual(report.pageErrors, []);
     assert.deepEqual(report.resourceErrors, []);
