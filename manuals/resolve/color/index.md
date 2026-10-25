@@ -83,6 +83,7 @@ Colorページは、素材の明るさや色の偏りを整え、複数ショッ
 - [ノード無効化とグレードバイパス](./troubleshooting/node-bypass-diagnostics) — 調整がどこで変化したかを診断する
 - [白飛び・黒つぶれの診断](./troubleshooting/highlight-shadow-clipping) — Scopesとノード比較から原因を分ける
 - [暗部を持ち上げるとノイズが増える・黒が浮くとき](./troubleshooting/shadow-noise-and-lifted-blacks) — 収録ノイズ、暗部補正、表示変換、Studio版NRの原因を切り分ける
+- [Temporal NRで動く輪郭に残像・にじみが出るとき](./troubleshooting/temporal-nr-motion-artifacts) — フレーム数、Motion Threshold、Luma／Chromaの処理量を順に切り分ける
 
 ## 次に整備する領域
 
