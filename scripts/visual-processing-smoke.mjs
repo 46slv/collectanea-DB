@@ -883,6 +883,57 @@ try {
     }
   });
 
+
+  await check('tone-mapping-clipping-reinhard-ev-and-mobile', async () => {
+    await go(route);
+    await page.getByRole('link', {name: 'クリップとReinhard圧縮を操作して比較'}).click();
+    await expect(page).toHaveURL(/\/reference\/visual-processing\/tone-mapping\/?$/);
+    for (const width of [1440, 390, 320]) {
+      await page.setViewportSize({width, height: width === 1440 ? 1000 : 844});
+      await go('/reference/visual-processing/tone-mapping');
+      const widget = page.locator('[data-vp-tonemap="ready"]');
+      await expect(widget).toBeVisible();
+      await expect(widget).toHaveAttribute('data-vp-tonemap-ev', '0');
+      const layout = await widget.evaluate((element) => {
+        const previews = element.querySelector('.vp-tonemap__previews');
+        const controls = element.querySelector('.vp-tonemap__controls');
+        return {
+          dom: Boolean(previews && controls &&
+            (previews.compareDocumentPosition(controls) & Node.DOCUMENT_POSITION_FOLLOWING)),
+          panels: element.querySelectorAll('[data-vp-tonemap-preview]').length,
+        };
+      });
+      assert.ok(layout.dom && layout.panels === 2,
+        'Tone Mapping two-panel preview-first layout: ' + width + ' ' + JSON.stringify(layout));
+      const picture = (kind) => widget.locator('[data-vp-tonemap-preview="' + kind + '"] canvas')
+        .evaluate((canvas) => canvas.toDataURL());
+      const firstClip = await picture('clip');
+      const firstCompressed = await picture('reinhard');
+      await expect.poll(() => picture('reinhard')).not.toBe(firstClip);
+      if (width === 1440) {
+        const peak = widget.getByRole('combobox', {name: '入力ピーク'});
+        await peak.selectOption('8');
+        await expect(widget.locator('.vp-tonemap__intro')).toContainText('0〜8');
+        await expect.poll(() => picture('clip')).not.toBe(firstClip);
+        const ev = widget.getByRole('slider', {name: '圧縮前の露出補正（EV）'});
+        await ev.focus();
+        await ev.press('End');
+        await expect(widget).toHaveAttribute('data-vp-tonemap-ev', '2');
+        await expect.poll(() => picture('reinhard')).not.toBe(firstCompressed);
+        await widget.getByRole('combobox', {name: '入力パターン'}).selectOption('radial');
+        await expect.poll(() => picture('clip')).not.toBe(firstClip);
+        await widget.getByRole('button', {name: '初期値に戻す'}).click();
+        await expect(widget).toHaveAttribute('data-vp-tonemap-ev', '0');
+        await expect(peak).toHaveValue('4');
+        await expect(widget.getByRole('combobox', {name: '入力パターン'})).toHaveValue('ramp');
+        await expect.poll(() => picture('clip')).toBe(firstClip);
+        await expect.poll(() => picture('reinhard')).toBe(firstCompressed);
+      }
+      await noOverflow();
+      if (width === 390) await shot('tone-mapping-mobile');
+    }
+  });
+
   await check('no-runtime-or-resource-errors', async () => {
     assert.deepEqual(report.pageErrors, []);
     assert.deepEqual(report.resourceErrors, []);

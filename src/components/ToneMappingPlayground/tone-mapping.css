@@ -1,0 +1,42 @@
+.vp-tonemap {
+  margin: 24px 0 32px; padding: clamp(14px, 2.5vw, 24px);
+  border: 1px solid var(--cc-line); border-radius: var(--cc-radius);
+  background: var(--cc-surface); color: var(--cc-text);
+  font: 14px/1.65 var(--cc-body-font);
+}
+.vp-tonemap h3 {margin: 0 0 8px; font-size: 19px; line-height: 1.45;}
+.vp-tonemap__intro {margin: 0 0 15px; color: var(--cc-secondary);}
+.vp-tonemap__previews {display: grid; grid-template-columns: repeat(2, minmax(0, 1fr)); gap: 12px;}
+.vp-tonemap__preview {margin: 0; min-width: 0; overflow: hidden; border: 1px solid var(--cc-line); border-radius: var(--cc-radius);}
+.vp-tonemap__preview figcaption, .vp-tonemap__plot figcaption {
+  display: flex; flex-direction: column; gap: 2px; padding: 9px 10px; line-height: 1.4;
+}
+.vp-tonemap__preview figcaption strong, .vp-tonemap__plot figcaption strong {font-size: 13px; font-weight: 600;}
+.vp-tonemap__preview figcaption span, .vp-tonemap__plot figcaption span {font-size: 11px; color: var(--cc-secondary);}
+.vp-tonemap__viewport {max-width: 100%; overflow-x: auto; background: #808080;}
+.vp-tonemap__viewport canvas {display: block; max-width: none; height: auto; image-rendering: pixelated;}
+.vp-tonemap__analysis {display: grid; grid-template-columns: minmax(0, 230px) minmax(0, 1fr); align-items: start; gap: 15px; margin-top: 14px;}
+.vp-tonemap__plot {min-width: 0; margin: 0; border: 1px solid var(--cc-line); border-radius: var(--cc-radius);}
+.vp-tonemap__plot svg {display: block; width: min(100%, 230px); margin: 0 auto 10px; background: var(--cc-canvas);}
+.vp-tonemap__plot svg text {font-size: 10px; fill: var(--cc-secondary);}
+.vp-tonemap__axis {stroke: var(--cc-secondary); stroke-width: 1;}
+.vp-tonemap__clip-curve {stroke: var(--cc-secondary); stroke-width: 2; stroke-dasharray: 6 4; fill: none;}
+.vp-tonemap__curve {stroke: var(--cc-text); stroke-width: 3; fill: none;}
+.vp-tonemap__readout {font-variant-numeric: tabular-nums; min-width: 0;}
+.vp-tonemap__readout p {margin: 0 0 7px;}
+.vp-tonemap__readout table {border-collapse: collapse; font-size: 12px; width: 100%; margin: 8px 0;}
+.vp-tonemap__readout th, .vp-tonemap__readout td {padding: 5px 7px; border: 1px solid var(--cc-line); text-align: right;}
+.vp-tonemap__readout caption {text-align: left; font-size: 12px; margin-bottom: 5px; color: var(--cc-secondary);}
+.vp-tonemap__hint {margin: 10px 0 0; color: var(--cc-secondary); font-size: 12px;}
+.vp-tonemap__controls {display: grid; grid-template-columns: repeat(2, minmax(0, 1fr)); gap: 14px; margin-top: 20px; padding-top: 18px; border-top: 1px solid var(--cc-line);}
+.vp-tonemap__control {display: flex; min-width: 0; flex-direction: column; justify-content: flex-end; gap: 6px; font-size: 12px; color: var(--cc-secondary);}
+.vp-tonemap__control > span {display: flex; flex-wrap: wrap; justify-content: space-between; gap: 4px 8px;}
+.vp-tonemap__control output {font-weight: 600; color: var(--cc-text); font-variant-numeric: tabular-nums;}
+.vp-tonemap__control select {min-width: 0; width: 100%; min-height: 40px; padding: 8px 10px; color: var(--cc-text); border: 1px solid var(--cc-control-line); border-radius: var(--cc-radius); background: var(--cc-canvas); font-size: 13px;}
+.vp-tonemap__control input[type='range'] {width: 100%; min-height: 40px; margin: 0; accent-color: var(--cc-text); cursor: pointer;}
+.vp-tonemap__actions {display: flex; justify-content: flex-end; margin-top: 12px;}
+.vp-tonemap__reset {min-height: 38px; padding: 7px 11px; background: var(--cc-surface); color: var(--cc-text); border: 1px solid var(--cc-control-line); border-radius: var(--cc-radius); font-size: 12px;}
+.vp-tonemap__reset:hover {background: var(--cc-raised);}
+@media (max-width: 700px) {
+  .vp-tonemap__previews, .vp-tonemap__controls, .vp-tonemap__analysis {grid-template-columns: minmax(0, 1fr);}
+}
