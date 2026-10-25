@@ -56,6 +56,7 @@ Colorページは、素材の明るさや色の偏りを整え、複数ショッ
 - [Color Sizing](./reference/color-sizing) — Edit／Input／Output／Node／Referenceの適用範囲
 - [Keyframes](./reference/color-keyframes) — 色補正を時間とともに変化させる
 - [Color Match／Color Chart](./reference/color-match-chart) — カラーチャートを基準にした補正とShot Matchとの使い分け
+- [Shot Match](./reference/shot-match) — 基準クリップに他のショットの色とコントラストを近づける自動補正と限界
 - [Noise Reduction](./reference/noise-reduction) — Temporal／SpatialとLuma／Chromaの調整、細部を残す判断
 - [Camera RAW](./reference/camera-raw) — RAWの現像解釈、WB・露出・ハイライトとColorノードの役割分担
 - [Group Pre-Clip／Clip／Post-Clip](./reference/group-grading) — 共通補正とショット別補正を分ける
