@@ -1,0 +1,14 @@
+.vp-morph{margin:1.25rem 0;padding:1rem;border:1px solid var(--ifm-color-emphasis-300);border-radius:10px}
+.vp-morph__previews{display:grid;grid-template-columns:repeat(3,minmax(0,1fr));gap:.75rem}
+.vp-morph__panel{min-width:0;margin:0}
+.vp-morph__panel figcaption{display:flex;flex-direction:column;gap:.15rem;min-height:3.3rem;font-size:.8rem}
+.vp-morph__panel figcaption strong{font-size:.92rem}
+.vp-morph__panel canvas{display:block;width:100%;height:auto;image-rendering:pixelated;border:1px solid var(--ifm-color-emphasis-300);background:#111}
+.vp-morph__metric{font-size:.88rem;margin:.8rem 0}
+.vp-morph__controls{display:grid;grid-template-columns:repeat(2,minmax(0,1fr));gap:.75rem}
+.vp-morph__controls label{display:flex;flex-direction:column;gap:.35rem;min-width:0;font-size:.9rem}
+.vp-morph__controls select,.vp-morph__controls input{width:100%;min-height:44px}
+.vp-morph__controls input[type=range]{touch-action:pan-y}
+.vp-morph__reset{display:block;margin:.75rem 0 0 auto;min-height:44px;padding:.5rem .9rem;border:1px solid var(--ifm-color-emphasis-400);border-radius:6px;background:var(--ifm-background-color);color:var(--ifm-font-color-base);cursor:pointer}
+.vp-morph :is(button,input,select):focus-visible{outline:2px solid var(--ifm-color-primary);outline-offset:2px}
+@media(max-width:820px){.vp-morph__previews,.vp-morph__controls{grid-template-columns:1fr}.vp-morph__panel figcaption{min-height:auto}}
