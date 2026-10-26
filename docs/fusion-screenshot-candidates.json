@@ -2,7 +2,7 @@
   "schema_version": 1,
   "created": "2026-10-20",
   "scope": "All Fusion pages, DaVinci Resolve 21.1",
-  "status_note": "2026-10-27: Current task owns Fusion capture/integration. PR #229 was squash-merged at 4afa4c77bec8b09771930abd6a517ad869336101; S126 Pages and public display were verified. S127 native capture, portable fixture, bounded readback, and article embedding are complete. Local production build, content integration (51 fixtures), and scoped 1440px/390px display verification PASS (1 article, 15 images; artifacts/fusion-captures/S127-production-20261027/). PR #232 was squash-merged at ef85bb35caa1b0b7dab25339f21a02fceb5af356; exact-head Quality run 40347277378 and current-main Pages build/deploy run 40349253752 PASS. Public S127 display verification PASS at desktop 1440px and mobile 390px (1 route, 15 images; artifacts/fusion-captures/S127-public-20261027/). The Auto Resolution-on observation and 1920x1080 Viewer labels are documented without a 4K output claim. Portable reimport remains NOT_RUN. S122 dHoldout remains unresolved; full Fusion coverage is incomplete.",
+  "status_note": "2026-10-27: Current task owns Fusion capture/integration. PR #229 was squash-merged at 4afa4c77bec8b09771930abd6a517ad869336101; S126 Pages and public display were verified. S127 native capture, portable fixture, bounded readback, and article embedding are complete. Local production build, content integration (51 fixtures), and scoped 1440px/390px display verification PASS (1 article, 15 images; artifacts/fusion-captures/S127-production-20261027/). PR #232 was squash-merged at ef85bb35caa1b0b7dab25339f21a02fceb5af356; exact-head Quality run 40347277378 and current-main Pages build/deploy run 40349253752 PASS. Public S127 display verification PASS at desktop 1440px and mobile 390px (1 route, 15 images; artifacts/fusion-captures/S127-public-20261027/). Rechecked after PR #233 deployment on main 16b062bd62df846f6adb0763f8d9de54aa5d2b5b at 2026-10-26T15:57:28.225Z: PASS, 1 route / 15 images at desktop 1440px and mobile 390px (artifacts/fusion-captures/S127-public-20261027-recheck-main-16b062b/display-report.json). The Auto Resolution-on observation and 1920x1080 Viewer labels are documented without a 4K output claim. Portable reimport remains NOT_RUN. S122 dHoldout remains unresolved; full Fusion coverage is incomplete.",
   "asset_directory_template": "static/img/fusion/captures/{id}/{shot.slug}.png",
   "capture_manifest_name": "capture.json",
   "candidates": [
@@ -8149,7 +8149,20 @@
         "artifacts/fusion-captures/S127-public-20261027/S127-desktop.png",
         "artifacts/fusion-captures/S127-public-20261027/S127-mobile.png"
       ],
-      "limitations": "Portable composition reimport NOT_RUN. Resolve Studio 21.1.0.14 on Windows only; Auto Resolution-on cause and 4K rendered output remain unestablished. Article verification remains partial; whole Fusion coverage and remaining_views incomplete; S122 dHoldout remains unresolved and unaccepted."
+      "limitations": "Portable composition reimport NOT_RUN. Resolve Studio 21.1.0.14 on Windows only; Auto Resolution-on cause and 4K rendered output remain unestablished. Article verification remains partial; whole Fusion coverage and remaining_views incomplete; S122 dHoldout remains unresolved and unaccepted.",
+      "public_recheck_after_main": {
+        "main": "16b062bd62df846f6adb0763f8d9de54aa5d2b5b",
+        "pages_run": "https://github.com/46slv/collectanea-DB/actions/runs/40353788771",
+        "checked_at": "2026-10-26T15:57:28.225Z",
+        "result": "PASS",
+        "public_pages": 1,
+        "public_images": 15,
+        "evidence": [
+          "artifacts/fusion-captures/S127-public-20261027-recheck-main-16b062b/display-report.json",
+          "artifacts/fusion-captures/S127-public-20261027-recheck-main-16b062b/S127-desktop.png",
+          "artifacts/fusion-captures/S127-public-20261027-recheck-main-16b062b/S127-mobile.png"
+        ]
+      }
     }
   ],
   "coverage_inventory": {
