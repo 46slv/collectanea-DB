@@ -16,7 +16,7 @@ tasks: ["create-matte", "keying", "green-screen", "blue-screen"]
 level: intermediate
 product_scope: fusion
 suite_surfaces: ["fusion"]
-updated: "2026-10-05"
+updated: "2026-10-26"
 ---
 
 # Clean Plate
@@ -137,6 +137,30 @@ screenの照明ムラが大きいshotでは、次の順で確認すると役割�
 5. Delta Keyer側で最終Alpha、hair / fringe、spillを調整する。
 
 Clean Plate側で最終Alphaを完成させようとせず、「background referenceを作る工程」と「被写体をkeyする工程」を分けるのが基本です。
+
+## Clean Plateの参照画像がうまく使えないとき
+
+Clean Plateの出力は、被写体を抜いた完成映像ではなく、**Delta Keyerが背景色を判断するための参照Image**です。Viewerで「緑色の背景だけが残り、人物のいた場所も周囲のscreen colorで埋まっているか」を先に見ます。そこに問題がなければ、次にDelta Keyer側のAlphaと合成結果を確認します。
+
+| 見えている症状 | 最初に確認する場所 | 何を分けて考えるか |
+| --- | --- | --- |
+| 人物の輪郭や撮影機材の形が参照Imageに残る | Clean Plateのscreen選択、Garbage Matte、Erode | screenとして残すべきでない部分を、Grow EdgesやFillの参照へ混ぜていないか。 |
+| 人物を除外した場所が穴のまま残る | Grow EdgesとFill | 周囲のscreen colorを穴の内側まで広げ、残った場所を埋められているか。 |
+| 暗いscreenの一部が参照から抜ける | Method（Color / Ranges）、Matte Threshold | 照明ムラのあるscreenを十分に選べているか。範囲を広げすぎて人物までscreenと判定しないかも確認する。 |
+| 時間が進むと参照Imageの明るさや色が合わない | Time Mode（Sequence / Hold Frame） | frameごとに変わるscreenを、固定した1 frameの参照で扱おうとしていないか。 |
+| 参照Imageは埋まっているのに、合成した人物の輪郭に緑が残る | Delta KeyerのAlphaとFringe / spill処理 | 背景参照を作る問題か、key後の輪郭やRGBの色かぶりを整える問題か。 |
+
+### 同じ素材で時間方向の設定を比較する
+
+例えば、人物が横切るグリーンスクリーンの上部に照明ムラがあり、撮影中にscreenの明るさも少し変化する素材を想定します。
+
+1. 元映像をClean PlateとDelta Keyerへ分岐させ、Clean PlateをDelta Keyerの**Clean Plate入力**へ接続します。Clean Plateを完成映像としてMergeへ直接渡す構成とは区別します。
+2. Clean Plateでscreen色を選び、人物などscreen以外の部分を除外してから、Grow EdgesとFillで参照Imageを埋めます。まずその出力をViewerで確認します。
+3. Time Modeを**Hold Frame**にして、前半と後半の同じ位置で参照ImageとDelta KeyerのAlphaを確認します。
+4. ほかの設定を変えず**Sequence**へ切り替え、同じframeを見直します。screenの変化へ追従する利点と、frameごとの参照の揺れのどちらが問題になるかを比較します。
+5. 最後にDelta Keyerの最終結果を別背景へ合成し、髪の縁やspillを確認します。Alphaの穴や色かぶりまでClean Plateだけで解決しようとしません。
+
+これは21.1 ManualにあるTime ModeとClean Plate / Delta Keyerの接続方法を用いた**比較手順の提案**です。上記素材での21.1実機比較、方式間の画質優劣、処理速度は検証していません。
 
 ## 似た「clean plate」との違い
 
