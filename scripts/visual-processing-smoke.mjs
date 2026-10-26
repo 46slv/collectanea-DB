@@ -1119,6 +1119,62 @@ try {
     }
   });
 
+  await check('hue-shift-two-panel-hsl-angle-gray-reset-and-mobile', async () => {
+    await go(route);
+    await page.getByRole('link', {name: 'HSL色相角度を操作して比較'}).click();
+    await expect(page).toHaveURL(/\/reference\/visual-processing\/hue-shift\/?$/);
+    for (const width of [1440, 390, 320]) {
+      await page.setViewportSize({width, height: width === 1440 ? 1000 : 844});
+      await go('/reference/visual-processing/hue-shift');
+      await expect(page.locator('.theme-doc-markdown h1')).toHaveText('色相の変更（Hue Shift）');
+      const widget = page.locator('[data-vp-hue-shift="ready"]');
+      await expect(widget).toBeVisible();
+      await expect(widget).toHaveAttribute('data-vp-hue-shift-angle', '0');
+      const layout = await widget.evaluate((element) => {
+        const previews = element.querySelector('.vp-hue__previews');
+        const controls = element.querySelector('.vp-hue__controls');
+        return {
+          previewFirst: Boolean(previews && controls &&
+            (previews.compareDocumentPosition(controls) & Node.DOCUMENT_POSITION_FOLLOWING)),
+          panels: element.querySelectorAll('[data-vp-hue-preview]').length,
+        };
+      });
+      assert.ok(layout.previewFirst && layout.panels === 2,
+        'Hue Shift previews must precede controls: ' + width + ' ' + JSON.stringify(layout));
+      const picture = (kind) => widget.locator('[data-vp-hue-preview="' + kind + '"] canvas')
+        .evaluate((canvas) => canvas.toDataURL());
+      const source = await picture('source');
+      await expect.poll(() => picture('processed')).toBe(source);
+      if (width === 1440) {
+        const angle = widget.getByRole('slider', {name: '色相回転（マイナス180度からプラス180度）'});
+        await angle.focus();
+        await angle.press('End');
+        await expect(widget).toHaveAttribute('data-vp-hue-shift-angle', '180');
+        await expect.poll(() => picture('processed')).not.toBe(source);
+        await widget.getByRole('combobox', {name: '入力パターン'}).selectOption('patches');
+        await expect.poll(() => picture('source')).not.toBe(source);
+        const grayscale = await widget.locator('[data-vp-hue-preview] canvas').evaluateAll(
+          (canvases) => canvases.map((canvas) => {
+            const data = canvas.getContext('2d').getImageData(355, 80, 1, 1).data;
+            return [data[0], data[1], data[2]];
+          }));
+        assert.deepEqual(grayscale, [[128, 128, 128], [128, 128, 128]],
+          'Hue rotation leaves neutral patch unchanged');
+        await widget.getByRole('combobox', {name: '表示倍率'}).selectOption('4');
+        await expect(widget.locator('[data-vp-hue-preview="source"] canvas'))
+          .toHaveAttribute('style', 'width: 400%;');
+        await widget.getByRole('button', {name: '初期値に戻す'}).click();
+        await expect(widget).toHaveAttribute('data-vp-hue-shift-angle', '0');
+        await expect(widget.getByRole('combobox', {name: '入力パターン'})).toHaveValue('hues');
+        await expect(widget.getByRole('combobox', {name: '表示倍率'})).toHaveValue('1');
+        await expect.poll(() => picture('source')).toBe(source);
+        await expect.poll(() => picture('processed')).toBe(source);
+      }
+      await noOverflow();
+      if (width === 390) await shot('hue-shift-mobile');
+    }
+  });
+
   await check('no-runtime-or-resource-errors', async () => {
     assert.deepEqual(report.pageErrors, []);
     assert.deepEqual(report.resourceErrors, []);
