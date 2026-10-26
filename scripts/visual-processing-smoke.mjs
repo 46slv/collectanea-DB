@@ -1421,6 +1421,70 @@ try {
   });
 
 
+  await check('bit-depth-codes-preview-and-mobile', async () => {
+    await go(route);
+    await page.getByRole('link', {name: '整数コードと段階数を操作して比較'}).click();
+    await expect(page).toHaveURL(/\/reference\/visual-processing\/bit-depth\/?$/);
+    for (const width of [1440, 390, 320]) {
+      await page.setViewportSize({width, height: width === 1440 ? 1000 : 844});
+      await go('/reference/visual-processing/bit-depth');
+      await expect(page.locator('.theme-doc-markdown h1')).toHaveText('ビット深度（Bit Depth）');
+      const widget = page.locator('[data-vp-bit-depth="ready"]');
+      await expect(widget).toBeVisible();
+      const order = await widget.evaluate(element => {
+        const previews = element.querySelector('.vp-bit-depth__previews');
+        const controls = element.querySelector('.vp-bit-depth__controls');
+        return {
+          panels: element.querySelectorAll('[data-vp-bit-depth-preview]').length,
+          dom: Boolean(previews && controls &&
+            (previews.compareDocumentPosition(controls) & Node.DOCUMENT_POSITION_FOLLOWING)),
+          visual: Boolean(previews && controls &&
+            previews.getBoundingClientRect().bottom <= controls.getBoundingClientRect().top),
+        };
+      });
+      assert.ok(order.panels === 2 && order.dom && order.visual,
+        'Bit depth preview-first layout: ' + width + ' ' + JSON.stringify(order));
+      const bits = widget.getByRole('combobox', {name: 'ビット深度'});
+      const readouts = widget.locator('.vp-bit-depth__readouts');
+      const processed = widget.locator('[data-vp-bit-depth-preview="output"] canvas');
+      const original = await processed.evaluate(canvas => canvas.toDataURL());
+      await expect(widget).toHaveAttribute('data-vp-bit-depth-bits', '4');
+      await expect(readouts).toContainText('16 段階');
+      await expect(readouts).toContainText('50.0% → 8 / 15');
+      await bits.selectOption('8');
+      await expect(readouts).toContainText('256 段階');
+      await expect(readouts).toContainText('50.0% → 128 / 255');
+      await expect.poll(() => processed.evaluate(canvas => canvas.toDataURL())).not.toBe(original);
+      await bits.selectOption('10');
+      await expect(readouts).toContainText('1,024 段階');
+      await expect(readouts).toContainText('50.0% → 512 / 1023');
+      await bits.selectOption('12');
+      await expect(readouts).toContainText('4,096 段階');
+      await expect(readouts).toContainText('50.0% → 2048 / 4095');
+      if (width === 1440) {
+        const sample = widget.getByRole('slider', {name: '入力標本値'});
+        await sample.focus();
+        await sample.press('End');
+        await expect(readouts).toContainText('100.0% → 4095 / 4095');
+        await sample.press('Home');
+        await expect(readouts).toContainText('0.0% → 0 / 4095');
+        const before = await widget.locator('[data-vp-bit-depth-preview="input"] canvas')
+          .evaluate(canvas => canvas.toDataURL());
+        await widget.getByRole('combobox', {name: '入力パターン'}).selectOption('radial');
+        await expect.poll(() => widget.locator('[data-vp-bit-depth-preview="input"] canvas')
+          .evaluate(canvas => canvas.toDataURL())).not.toBe(before);
+        await widget.getByRole('combobox', {name: '表示倍率'}).selectOption('4');
+        await expect(widget.getByRole('combobox', {name: '表示倍率'})).toHaveValue('4');
+      }
+      await widget.getByRole('button', {name: '初期値に戻す'}).click();
+      await expect(bits).toHaveValue('4');
+      await expect(readouts).toContainText('50.0% → 8 / 15');
+      await expect(widget.getByRole('combobox', {name: '入力パターン'})).toHaveValue('ramp');
+      await expect(widget.getByRole('combobox', {name: '表示倍率'})).toHaveValue('1');
+      await noOverflow();
+    }
+  });
+
   await check('emboss-preview-controls-and-mobile', async () => {
     await go(route);
     await page.getByRole('link', {name: '方向と距離を操作して比較'}).click();
