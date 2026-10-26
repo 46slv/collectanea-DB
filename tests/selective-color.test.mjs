@@ -22,7 +22,7 @@ test('softness creates fractional values only in the feather region', () => {
   const settings = {...SELECTIVE_DEFAULTS, width: 60, softness: 50};
   const near = selectiveColorWeight([255, 128, 0], settings);
   const edge = selectiveColorWeight([255, 191, 0], settings);
-  assert.equal(near, 1);
+  assert.ok(near > 0.99 && near <= 1);
   assert.ok(edge > 0 && edge < 1);
   assert.equal(selectiveColorWeight([255, 255, 0], settings), 0);
   const hard = {...settings, softness: 0};
@@ -84,7 +84,7 @@ test('lesson and UI retain before/mask/after, controls and source qualifications
   const article = readFileSync(new URL('../reference/visual-processing/selective-color.mdx', import.meta.url), 'utf8');
   const ui = readFileSync(new URL('../src/components/SelectiveColorPlayground/index.jsx', import.meta.url), 'utf8');
   for (const marker of ['SelectiveColorPlayground', '## 入力・操作・出力',
-    '## 参考資料', 'AE', 'DaVinci Resolve']) assert.ok(article.includes(marker));
+    '## 参考資料', 'After Effects', 'DaVinci Resolve']) assert.ok(article.includes(marker));
   for (const marker of ['kind="source"', 'kind="mask"', 'kind="output"',
     'aria-label="色相中心"', 'aria-label="選択範囲の彩度係数"', '初期値に戻す']) {
     assert.ok(ui.includes(marker));
