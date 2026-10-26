@@ -16,7 +16,7 @@ tasks: [create-matte, keying, despill]
 level: intermediate
 product_scope: fusion
 suite_surfaces: [fusion]
-updated: "2026-10-24"
+updated: "2026-10-26"
 ---
 
 # Chroma Keyer
@@ -116,6 +116,27 @@ Solid MatteとGarbage MatteはAlphaへ直接作用し、それぞれ接続した
 3. ViewerでAlphaを表示し、布に残る灰色の領域と商品の輪郭を確認します。必要な場合だけSoft RangeとThresholdを調整し、縁の滑らかさはBlurとContract/Expandで整えます。
 4. 画面端に布以外の機材が映る場合はGarbage Matteを接続します。商品に紫色が含まれ、その部分まで消える場合はSolid Matteで保護する範囲を指定します。
 5. Mergeの結果を見ながら、商品に残る紫色の反射をSpill SuppressionとFringeの設定で調整します。**Alpha表示だけで終わらず、実際の合成背景上で縁を確認**します。
+
+## 問題を切り分ける：色の選択、マット、色かぶり
+
+Chroma Keyerで抜けが不十分なときは、どの段階に問題があるかを分けて確認します。最初からBlurやSpill Suppressionを同時に動かすと、色域の選択が原因なのか、輪郭の調整が原因なのか判断しにくくなります。
+
+| Viewerで見える症状 | 最初に確認する設定 | 確認の狙い |
+| --- | --- | --- |
+| 背景に灰色のマットが広く残る | **Key Type / Color Range / Soft Range** | 抜きたい背景色が選択範囲へ入っているか。Spillの量だけではアルファの選択範囲は決められません。 |
+| 被写体の一部が透明になる | **Color Range / Solid Matte** | 背景と似た色まで選んでいないか。必要な領域をMaskで保護できるか。 |
+| フレーム端の機材まで残る | **Garbage Matte / Effect Mask** | 色の選択を変えるべきか、処理する位置を限定すべきか。 |
+| 髪や細い輪郭が欠ける・硬い | **Threshold / Blur / Contract/Expand / Restore Fringe** | アルファの密度と境界を分けて確認する。完全に硬い境界にはContract/Expandだけでは効果がありません。 |
+| アルファはよいが合成すると背景色が縁に残る | **Spill Color / Spill Suppression / Fringe** | マットの形ではなくRGB側の色かぶりを調整する。 |
+| 合成後に半透明部分が暗くなる・明るくなる | **Post-Multiply Image / Merge Operator** | RGBがアルファで乗算済みか、後段の合成方式と対応しているか。 |
+
+### 同じ素材でKey Typeを比較する
+
+例えば、明るい紫色と暗い紫色が混在する布の前に白い箱を置いた素材を考えます。まず**Chroma**で背景色を選び、ViewerをAlpha表示にして、布の明暗ごとの抜け方と箱の残り方を確認します。次に**Color**へ切り替えて色を選び直し、同じ場所を比較します。
+
+ChromaはRGB値、ColorはHueを使うため、同じ「紫」に見える部分でも選択のされ方が異なる可能性があります。切り替えた後に以前の選択範囲をそのまま正解とみなさず、Color RangeとSoft Rangeを確認してください。必要ならReset Color Rangesで選択をやり直します。
+
+色域が決まったらLock Color Pickingで意図しない追加選択を防ぎ、**Alphaで形を確認してから、Mergeで色の縁を確認**します。この比較は21.1 ManualのControl説明から組み立てた確認案であり、上記の素材での実機結果を記述したものではありません。
 
 ## 挙動と注意点
 
