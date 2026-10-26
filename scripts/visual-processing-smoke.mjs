@@ -1243,6 +1243,63 @@ try {
     }
   });
 
+  await check('selective-color-preview-controls-and-mobile', async () => {
+    await go(route);
+    await page.getByRole('link', {name: '色相マスクと彩度を操作して比較'}).click();
+    await expect(page).toHaveURL(new RegExp('/reference/visual-processing/selective-color/?$'));
+    for (const width of [1440, 390, 320]) {
+      await page.setViewportSize({width, height: width === 1440 ? 1000 : 844});
+      await go('/reference/visual-processing/selective-color');
+      await expect(page.locator('.theme-doc-markdown h1')).toHaveText('特定色の調整（Selective Color）');
+      const widget = page.locator('[data-vp-selective-color="ready"]');
+      await expect(widget).toBeVisible();
+      const layout = await widget.evaluate((element) => {
+        const previews = element.querySelector('.vp-selective__previews');
+        const controls = element.querySelector('.vp-selective__controls');
+        return {
+          dom: Boolean(previews && controls &&
+            (previews.compareDocumentPosition(controls) & Node.DOCUMENT_POSITION_FOLLOWING)),
+          visual: Boolean(previews && controls &&
+            previews.getBoundingClientRect().bottom <= controls.getBoundingClientRect().top),
+          panels: element.querySelectorAll('[data-vp-selective-preview]').length,
+        };
+      });
+      assert.ok(layout.dom && layout.visual && layout.panels === 3,
+        'Selective Color preview-first three-panel layout: ' + width + ' ' + JSON.stringify(layout));
+      const picture = kind => widget.locator('[data-vp-selective-preview="' + kind + '"] canvas')
+        .evaluate(canvas => canvas.toDataURL());
+      if (width === 1440) {
+        const originalOutput = await picture('output');
+        const originalMask = await picture('mask');
+        const originalSource = await picture('source');
+        const amount = widget.getByRole('slider', {name: '選択範囲の彩度係数'});
+        await amount.focus();
+        await amount.press('Home');
+        await expect(amount).toHaveValue('0');
+        await expect.poll(() => picture('output')).not.toBe(originalOutput);
+        await expect.poll(() => picture('mask')).toBe(originalMask);
+        const center = widget.getByRole('slider', {name: '色相中心'});
+        await center.focus();
+        await center.press('End');
+        await expect(widget).toHaveAttribute('data-vp-selective-center', '330');
+        await expect.poll(() => picture('mask')).not.toBe(originalMask);
+        await widget.getByRole('combobox', {name: '入力パターン'}).selectOption('spectrum');
+        await expect.poll(() => picture('source')).not.toBe(originalSource);
+        await widget.getByRole('combobox', {name: '表示倍率'}).selectOption('2');
+        await widget.getByRole('button', {name: '初期値に戻す'}).click();
+        await expect(widget).toHaveAttribute('data-vp-selective-center', '0');
+        await expect(amount).toHaveValue('1.5');
+        await expect(widget.getByRole('combobox', {name: '入力パターン'})).toHaveValue('patches');
+        await expect(widget.getByRole('combobox', {name: '表示倍率'})).toHaveValue('1');
+        await expect.poll(() => picture('source')).toBe(originalSource);
+        await expect.poll(() => picture('mask')).toBe(originalMask);
+        await expect.poll(() => picture('output')).toBe(originalOutput);
+      }
+      await noOverflow();
+      if (width === 390) await shot('selective-color-mobile');
+    }
+  });
+
   await check('no-runtime-or-resource-errors', async () => {
     assert.deepEqual(report.pageErrors, []);
     assert.deepEqual(report.resourceErrors, []);
