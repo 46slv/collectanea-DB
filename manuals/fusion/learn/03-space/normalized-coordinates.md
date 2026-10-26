@@ -13,7 +13,7 @@ prerequisites: [image-data, parameter-data]
 level: foundation
 product_scope: fusion
 suite_surfaces: [fusion]
-updated: "2026-10-24"
+updated: "2026-10-26"
 ---
 
 # 正規化座標（Normalized Coordinates）
@@ -85,6 +85,24 @@ Resolve Studio 21.1.0.14／Windowsで撮影済みのS06を再利用した参考�
 | `(0.25, 0.5)` | 1920 × 1080 | `(480, 540)` |
 
 Inspectorで`(960, 540)`と見えても、**内部でのCenterは`(0.5, 0.5)`のまま**です。Reference Width/Heightを変更したときに数値欄の見え方が変わることと、映像が動くことは区別してください。
+
+### 実機で表示を切り替えた比較
+
+S126では、同じTransform1・同じフレームのままReference Sizeだけを切り替えています。数値を読むInspectorと、位置が変わっていないことを見るMediaOut1のViewerを、各状態ごとに分けて示します。
+
+**正規化表示（Reference Size 1 × 1）**
+
+[![S126のInspector。Reference Sizeは1×1、Auto Resolutionはオフ、Center表示は0.5と0.5](/img/fusion/captures/S126/normalized-inspector.png)](/img/fusion/captures/S126/normalized-inspector.png)
+
+[![S126のMediaOut1 Viewer。透過チェッカーボード中央にオレンジ色の楕円がある](/img/fusion/captures/S126/normalized-viewer.png)](/img/fusion/captures/S126/normalized-viewer.png)
+
+**ピクセル表示（Reference Size 1920 × 1080）**
+
+[![S126のInspector。Reference Sizeは1920×1080、Auto Resolutionはオフ、Center表示は960と540](/img/fusion/captures/S126/reference-inspector.png)](/img/fusion/captures/S126/reference-inspector.png)
+
+[![S126のMediaOut1 Viewer。透過チェッカーボード中央に、正規化表示と同じオレンジ色の楕円がある](/img/fusion/captures/S126/reference-viewer.png)](/img/fusion/captures/S126/reference-viewer.png)
+
+2組は同じプロジェクト・タイムライン・フレーム・Graphで撮影しました。SDKで読み出した内部Centerは両方とも`(0.5, 0.5)`で、比較したViewer領域のピクセル差はありません。 [S126の読み出し値](/img/fusion/captures/S126/readback.json) · [撮影条件と確認範囲](/img/fusion/captures/S126/capture.json) · [Graph export（再import未確認）](/img/fusion/captures/S126/fixture.comp)
 
 DaVinci Resolve 21.1 Reference ManualのTransformの項目では、スクリプトからCenterを取得した場合や、他のNodeで使用するためにPublishした場合、取得されるのは元の正規化値だと説明されています。Reference Sizeのピクセル表示を、Expressionで参照する値へそのまま持ち込まないことが重要です。
 
