@@ -1,0 +1,80 @@
+{
+  "project": "Collectanea_Mandelbrot_Zoom_20261025",
+  "timeline": "S126_capture",
+  "resolve": "21.1.0.14",
+  "edition": "DaVinci Resolve Studio",
+  "os": "Windows-11-10.0.26200-SP0",
+  "time": "2026-10-26T11:14:45.326934+00:00",
+  "frame": 0.0,
+  "sampled_frame": 0.0,
+  "project_settings": {
+    "colorScienceMode": "davinciYRGB",
+    "colorSpaceTimeline": "Rec.709 (Scene)",
+    "colorSpaceTimelineGamma": "",
+    "colorSpaceOutput": "Rec.709 (Scene)",
+    "colorSpaceOutputGamma": "ACEScc",
+    "separateColorSpaceAndGamma": "0",
+    "isAutoColorManage": "0",
+    "timelineResolutionWidth": "1920",
+    "timelineResolutionHeight": "1080",
+    "timelineFrameRate": 30.0,
+    "timelinePlaybackFrameRate": "30"
+  },
+  "timelines": [
+    "Timeline 1",
+    "S126_capture"
+  ],
+  "tools": {
+    "Ellipse1": {
+      "regid": "EllipseMask",
+      "inputs": {
+        "Center": {
+          "1": 0.5,
+          "2": 0.5,
+          "3": 0.0
+        },
+        "Width": 0.34,
+        "Height": 0.46
+      }
+    },
+    "Background1": {
+      "regid": "Background",
+      "inputs": {
+        "TopLeftRed": 0.92,
+        "TopLeftGreen": 0.32,
+        "TopLeftBlue": 0.08,
+        "TopLeftAlpha": 1.0
+      }
+    },
+    "Transform1": {
+      "regid": "Transform",
+      "inputs": {
+        "Center": {
+          "1": 0.5,
+          "2": 0.5,
+          "3": 0.0
+        },
+        "Pivot": {
+          "1": 0.5,
+          "2": 0.5,
+          "3": 0.0
+        },
+        "Width": 1920.0,
+        "Height": 1080.0,
+        "UseFrameFormatSettings": 0.0,
+        "Size": 1.0,
+        "Angle": 0.0
+      }
+    },
+    "MediaOut1": {
+      "regid": "MediaOut",
+      "inputs": {}
+    }
+  },
+  "connections": {
+    "Background1.EffectMask": "Ellipse1",
+    "Transform1.Input": "Background1",
+    "MediaOut1.Input": "Transform1"
+  },
+  "save_project": true
+}
