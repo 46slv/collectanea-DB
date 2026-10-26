@@ -1368,6 +1368,58 @@ try {
     }
   });
 
+  await check('white-balance-gains-and-mobile', async () => {
+    for (const width of [1440, 390, 320]) {
+      await page.setViewportSize({width, height: width === 1440 ? 1000 : 844});
+      await go('/reference/visual-processing/white-balance');
+      await expect(page.locator('.theme-doc-markdown h1')).toHaveText('ホワイトバランス（White Balance）');
+      const widget = page.locator('[data-vp-white-balance="ready"]');
+      await expect(widget).toBeVisible();
+      const layout = await widget.evaluate(element => {
+        const previews = element.querySelector('.vp-wb__previews');
+        const readout = element.querySelector('.vp-wb__readout');
+        const controls = element.querySelector('.vp-wb__controls');
+        return {
+          count: element.querySelectorAll('[data-vp-white-balance-preview]').length,
+          dom: Boolean(previews && controls && readout &&
+            (previews.compareDocumentPosition(readout) & Node.DOCUMENT_POSITION_FOLLOWING) &&
+            (readout.compareDocumentPosition(controls) & Node.DOCUMENT_POSITION_FOLLOWING)),
+          visual: Boolean(previews && controls &&
+            previews.getBoundingClientRect().bottom <= controls.getBoundingClientRect().top),
+        };
+      });
+      assert.ok(layout.count === 2 && layout.dom && layout.visual,
+        'White Balance preview-first two-panel layout: ' + width + ' ' + JSON.stringify(layout));
+      const picture = kind => widget.locator('[data-vp-white-balance-preview="' + kind + '"] canvas')
+        .evaluate(canvas => canvas.toDataURL());
+      const sourceImage = await picture('source');
+      await expect.poll(() => picture('output')).toBe(sourceImage);
+      await widget.getByRole('button', {name: 'テスト色かぶりを打ち消す'}).click();
+      await expect(widget).toHaveAttribute('data-vp-white-balance-temperature', '-40');
+      await expect(widget).toHaveAttribute('data-vp-white-balance-tint', '20');
+      await expect.poll(() => picture('output')).not.toBe(sourceImage);
+      if (width === 1440) {
+        const warm = widget.getByRole('slider', {name: '寒色と暖色のゲイン軸（ケルビンではありません）'});
+        await warm.focus();
+        await warm.press('End');
+        await expect(widget).toHaveAttribute('data-vp-white-balance-temperature', '100');
+        await widget.getByRole('combobox', {name: '入力パターン'}).selectOption('neutral');
+        await expect.poll(() => picture('source')).not.toBe(sourceImage);
+        await widget.getByRole('combobox', {name: '表示倍率'}).selectOption('4');
+        await expect(widget.locator('[data-vp-white-balance-preview="output"] canvas'))
+          .toHaveAttribute('style', /width: 400%/);
+      }
+      await widget.getByRole('button', {name: '初期値に戻す'}).click();
+      await expect(widget).toHaveAttribute('data-vp-white-balance-temperature', '0');
+      await expect(widget).toHaveAttribute('data-vp-white-balance-tint', '0');
+      await expect(widget.getByRole('combobox', {name: '入力パターン'})).toHaveValue('warm');
+      await expect(widget.getByRole('combobox', {name: '表示倍率'})).toHaveValue('1');
+      await expect.poll(() => picture('output')).toBe(sourceImage);
+      await noOverflow();
+      if (width === 390) await shot('white-balance-mobile');
+    }
+  });
+
   await check('no-runtime-or-resource-errors', async () => {
     assert.deepEqual(report.pageErrors, []);
     assert.deepEqual(report.resourceErrors, []);
