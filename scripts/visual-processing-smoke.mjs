@@ -1553,6 +1553,66 @@ try {
     }
   });
 
+
+  await check('kernel-sharpening-preview-controls-and-mobile', async () => {
+    await go(route);
+    await page.getByRole('link', {name: '4/8近傍と強さを操作して比較'}).click();
+    await expect(page).toHaveURL(new RegExp('/reference/visual-processing/filters/sharpening/?$'));
+    for (const width of [1440, 390, 320]) {
+      await page.setViewportSize({width, height: width === 1440 ? 1000 : 844});
+      await go('/reference/visual-processing/filters/sharpening');
+      await expect(page.locator('.theme-doc-markdown h1')).toHaveText('シャープニング（Sharpening）');
+      const widget = page.locator('[data-vp-ksharpen="ready"]');
+      await expect(widget).toBeVisible();
+      const layout = await widget.evaluate(element => {
+        const previews = element.querySelector('.vp-ksharpen__previews');
+        const controls = element.querySelector('.vp-ksharpen__controls');
+        return {
+          panels: element.querySelectorAll('[data-vp-ksharpen-preview]').length,
+          dom: Boolean(previews && controls &&
+            (previews.compareDocumentPosition(controls) & Node.DOCUMENT_POSITION_FOLLOWING)),
+          visual: Boolean(previews && controls &&
+            previews.getBoundingClientRect().bottom <= controls.getBoundingClientRect().top),
+        };
+      });
+      assert.ok(layout.panels === 3 && layout.dom && layout.visual,
+        'Kernel sharpening preview-first three-panel layout: ' + width + ' ' + JSON.stringify(layout));
+      const picture = kind => widget.locator('[data-vp-ksharpen-preview="' + kind + '"] canvas')
+        .evaluate(canvas => canvas.toDataURL());
+      const before = await picture('before');
+      const detail = await picture('detail');
+      const after = await picture('after');
+      assert.notEqual(after, before, 'Initial sharpening must visibly change pixels');
+      const gain = widget.getByRole('slider', {name: '差分を加える強さ'});
+      const neighbors = widget.getByRole('combobox', {name: '比較する近傍'});
+      const pattern = widget.getByRole('combobox', {name: 'テスト画像'});
+      await gain.focus();
+      await gain.press('Home');
+      await expect(gain).toHaveValue('0');
+      await expect.poll(() => picture('after')).toBe(before);
+      await expect(widget.locator('.vp-ksharpen__status')).toContainText('0 /');
+      await neighbors.selectOption('square');
+      await expect.poll(() => picture('detail')).not.toBe(detail);
+      if (width === 1440) {
+        await gain.focus();
+        await gain.press('End');
+        await expect(gain).toHaveValue('3');
+        await expect.poll(() => picture('after')).not.toBe(before);
+      }
+      await pattern.selectOption('texture');
+      await expect.poll(() => picture('before')).not.toBe(before);
+      await widget.getByRole('button', {name: '初期値に戻す'}).click();
+      await expect(neighbors).toHaveValue('cross');
+      await expect(pattern).toHaveValue('edges');
+      await expect(gain).toHaveValue('1');
+      await expect.poll(() => picture('before')).toBe(before);
+      await expect.poll(() => picture('detail')).toBe(detail);
+      await expect.poll(() => picture('after')).toBe(after);
+      await noOverflow();
+      if (width === 390) await shot('kernel-sharpening-mobile');
+    }
+  });
+
   await check('no-runtime-or-resource-errors', async () => {
     assert.deepEqual(report.pageErrors, []);
     assert.deepEqual(report.resourceErrors, []);
