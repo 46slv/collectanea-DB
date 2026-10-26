@@ -142,13 +142,13 @@
   ],
   "acceptance": {
     "gui": "PASS: Native Resolve Studio 21.1.0.14 screen shows Loader1 → TransformReference → MediaOut1 at frame 0. Inspector shows Manual Reference Size 3840×2160, Center 2016/1080, Pivot 1920/1080, Auto Resolution off. Bounded SDK readback is Center (0.525, 0.5); SaveProject returned true at 2026-10-26T14:19:59.668063Z. Viewer labels remain 1920×1080 int8.",
-    "article_display": "PASS: local production build (build-s127-verify); content integration PASS (51 fixtures); 1 article and 15 images verified at 1440px/390px for canonical route, native links, SHA-256, decode, descriptive Alt, and overflow. Evidence: artifacts/fusion-captures/S127-production-20261027/display-report.json (checked_at 2026-10-26T15:00:54Z). Public display remains NOT_RUN."
+    "article_display": "PASS: local production build (build-s127-verify); content integration PASS (51 fixtures); 1 article and 15 images verified at 1440px/390px for canonical route, native links, SHA-256, decode, descriptive Alt, and overflow. Evidence: artifacts/fusion-captures/S127-production-20261027/display-report.json (checked_at 2026-10-26T15:00:54Z).",
+    "public_display": "PASS: current public Pages deployment at https://46slv.github.io/collectanea-DB/; canonical route manuals/fusion/learn/03-space/center-pivot-size-angle, checked 2026-10-26T15:28:29.131Z. 1 route and 15 images verified at desktop 1440px and mobile 390px; linked asset hashes, image decode, native links, descriptive Alt, and overflow PASS. Evidence: artifacts/fusion-captures/S127-public-20261027/display-report.json and S127-desktop.png/S127-mobile.png."
   },
   "unverified": [
     "In this exact S127 composition, the Auto Resolution-on screenshot shows Reference Size 1920×1080 while SDK timeline settings are 3840×2160; cause not established.",
     "4K rendered Viewer output: NOT_ESTABLISHED; both Viewer labels report 1920×1080 int8.",
     "Exported portable composition reimport NOT_RUN.",
-    "Public article route, asset hashes, and public desktop/mobile display NOT_RUN.",
     "Other Resolve editions, platforms, and parameter ranges NOT_RUN.",
     "Exported portable composition reimport"
   ],
