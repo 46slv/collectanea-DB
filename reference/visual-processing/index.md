@@ -34,7 +34,7 @@ import '@site/src/css/visual-processing.css';
 | **ガンマ（Gamma）** | 主に中間調の明るさの変化を扱う。どの色空間・処理位置で行うかによって挙動は異なる。[べき乗カーブを操作して比較](./gamma.mdx)。 |
 | **トーンカーブ（Tone Curve）** | 入力の明るさや色の値を、曲線で別の出力値に対応させる。[中間点を操作して比較](./tone-curve.mdx)。 |
 | **トーンマッピング（Tone Mapping）** | 広い輝度範囲を、表示可能な範囲へ圧縮・再配置する。[クリップとReinhard圧縮を操作して比較](./tone-mapping.mdx)。 |
-| **ホワイトバランス（White Balance）** | 光源の色かぶりを補正し、白や灰色の見え方を調整する。 |
+| **ホワイトバランス（White Balance）** | 光源の色かぶりを補正し、白や灰色の見え方を調整する。[線形光RGBゲインで色かぶりを比較](./white-balance.mdx)。 |
 | **彩度（Saturation）** | 色の鮮やかさを上げ下げする。[RGBの灰色軸と彩度係数を操作して比較](./saturation.mdx)。 |
 | **色相の変更（Hue Shift）** | 色の方向を回転させ、赤を橙にするなど色味を移動する。[HSL色相角度を操作して比較](./hue-shift.mdx)。 |
 | **特定色の調整（Selective Color）** | ある色域だけを選んで色相・彩度・明るさなどを変える。[色相マスクと彩度を操作して比較](./selective-color.mdx)。 |
