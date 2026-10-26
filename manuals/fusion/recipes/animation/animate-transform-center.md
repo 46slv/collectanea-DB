@@ -84,7 +84,7 @@ Linearの結果を確認したら、同じキーを選んで**Smooth**を試し�
 
 <!-- capture-reuse:R65 -->
 
-既存のS35では、Text+→TransformAnimatedの構成でCenterをフレーム0の`(0.25, 0.5)`から48の`(0.75, 0.5)`へ動かしています。フレーム24の`(0.5, 0.5)`も確認済みです。Splineに表示されているのはCenter Xの生の値ではなく、**Path1のDisplacement（0～1）**です。
+既存のS35では、Text+→TransformAnimatedの構成でCenterをフレーム0の`(0.25, 0.5)`から48の`(0.75, 0.5)`へ動かしています。フレーム24の`(0.5, 0.5)`も確認済みです。Splineに表示されているのはCenter Xの生の値ではなく、Path1のDisplacement（0～1）です。
 
 [![S35の実機撮影。画像の接続Graph](/img/fusion/captures/S35/graph.png)](/img/fusion/captures/S35/graph.png)
 
@@ -98,7 +98,7 @@ Linearの結果を確認したら、同じキーを選んで**Smooth**を試し�
 
 [![S35の実機撮影。Path1のDisplacement曲線0から1](/img/fusion/captures/S35/spline.png)](/img/fusion/captures/S35/spline.png)
 
-撮影環境は**Resolve Studio 21.1.0.14／Windows、1920×1080、Viewer 40%**です。Viewer上の緑の線や赤い軸は操作表示で、文字画像に描き込まれた線ではありません。[S35の撮影条件と確認範囲](/img/fusion/captures/S35/capture.json)を参照してください。S35は上記の位置とキー、表示されたPathを裏付けますが、**今回記述したLinear→Smoothの切替手順を新たに実機再現した証拠ではありません**。
+撮影環境はResolve Studio 21.1.0.14／Windows、1920×1080、Viewer 40%です。Viewer上の緑の線や赤い軸は操作表示で、文字画像に描き込まれた線ではありません。[S35の撮影条件と確認範囲](/img/fusion/captures/S35/capture.json)を参照してください。S35は上記の位置とキー、表示されたPathを裏付けますが、**今回記述したLinear→Smoothの切替手順を新たに実機再現した証拠ではありません**。
 
 ## この構成にする理由
 
