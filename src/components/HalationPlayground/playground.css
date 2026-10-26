@@ -1,0 +1,19 @@
+.vp-halation {margin:24px 0 32px; padding:clamp(14px,2.5vw,24px); border:1px solid var(--cc-line); border-radius:var(--cc-radius); background:var(--cc-surface); color:var(--cc-text); font:14px/1.65 var(--cc-body-font);}
+.vp-halation h3 {margin:0 0 6px; font-size:19px;}
+.vp-halation p {margin:0 0 14px; font-size:12px; color:var(--cc-secondary);}
+.vp-halation__previews {display:grid; grid-template-columns:repeat(3,minmax(0,1fr)); gap:10px;}
+.vp-halation__preview {min-width:0; margin:0; border:1px solid var(--cc-line); border-radius:var(--cc-radius); overflow:hidden;}
+.vp-halation__preview figcaption {display:flex; flex-direction:column; gap:3px; min-height:60px; padding:10px; line-height:1.4;}
+.vp-halation__preview figcaption strong {font-size:13px;}
+.vp-halation__preview figcaption span {font-size:11px; color:var(--cc-secondary);}
+.vp-halation__preview canvas {display:block; width:100%; height:auto; background:#0e1522;}
+.vp-halation__preview p {margin:8px 10px;}
+.vp-halation .vp-halation__hint {margin:12px 0;}
+.vp-halation__controls {display:grid; grid-template-columns:repeat(2,minmax(0,1fr)); gap:14px; margin-top:18px; padding-top:18px; border-top:1px solid var(--cc-line);}
+.vp-halation__controls label {display:flex; flex-direction:column; min-width:0; gap:6px; font-size:12px; color:var(--cc-secondary);}
+.vp-halation__controls label > span {display:flex; flex-wrap:wrap; justify-content:space-between; gap:4px 8px;}
+.vp-halation__controls output {font-weight:600; color:var(--cc-text); font-variant-numeric:tabular-nums;}
+.vp-halation__controls select {width:100%; min-height:44px; padding:8px; border:1px solid var(--cc-control-line); border-radius:var(--cc-radius); background:var(--cc-canvas); color:var(--cc-text);}
+.vp-halation__controls input[type='range'] {width:100%; min-height:44px; margin:0; accent-color:var(--cc-text);}
+.vp-halation__reset {display:block; margin:14px 0 0 auto; min-height:44px; padding:8px 12px; border:1px solid var(--cc-control-line); border-radius:var(--cc-radius); background:var(--cc-surface); color:var(--cc-text);}
+@media (max-width:700px) {.vp-halation__previews,.vp-halation__controls {grid-template-columns:minmax(0,1fr);} .vp-halation__preview figcaption {min-height:0;}}
