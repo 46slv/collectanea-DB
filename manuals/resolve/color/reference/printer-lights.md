@@ -1,6 +1,6 @@
 ---
 title: Printer Lights（Printer Points）によるショットの微調整
-description: DaVinci ResolveのPrinter Lightsを、RGB・CMY・Masterの増減、ショット比較、色管理との関係から理解する。
+description: Resolve 21.1のPrinter Pointsを、Offset Barsの矢印、数字キーパッド、専用パネルから操作する方法と判断例で解説。
 doc_type: reference
 verification: partial
 product_scope: color
@@ -8,14 +8,14 @@ suite_surfaces: [color]
 controls: [Printer Lights, Printer Points, P/LITE, RGB, CMY, Master, Scopes]
 tasks: [primary-correction, shot-matching, balance-image, troubleshoot]
 level: intermediate
-updated: "2026-10-22"
+updated: "2026-10-27"
 ---
 
 # Printer Lights：ショット間の明るさと色かぶりを少しずつ合わせる
 
-Printer Lights（Printer Points）は、色調整を「赤を少し上げる」「全体を少し暗くする」といった**増減の指示**として扱うための考え方です。フィルムのプリント工程に由来する名称ですが、デジタル映像では操作対象の信号やカラーマネージメントによって見え方が変わります。**1 pointが露出の何stopに相当するか、すべてのColorモードで同じ変化になるかは、この資料だけでは確定しません。**
+Printer Lights（Printer Points）は、色調整を「赤を少し上げる」「全体を少し暗くする」といった**増減の指示**として扱うための考え方です。フィルムのプリント工程に由来する名称ですが、デジタル映像では操作対象の信号やカラーマネージメントによって見え方が変わります。21.1 Manualによれば1 pointの増減幅はユーザー設定のStep／Densityで調整できます。**1 pointを固定した露出stopや画素値へ換算することはできません。**
 
-このページで直接確認できた操作資料は、Blackmagic Designの公式『DaVinci Resolve Advanced Panel』マニュアル53ページの **Making Printer Points Adjustments** です。同書はAdvanced Panelの専用キーによる操作を説明しています。21.1ソフトウェアのキーボードショートカットや各UI項目の現行配置を保証するものではありません。
+Colorページ側の操作は、Blackmagic Design『DaVinci Resolve 21.1 Reference Manual』Chapter 131「Primaries Palette」pp.3157–3159で確認しました。物理パネルは別資料『DaVinci Resolve Advanced Panel』p.53に基づきます。実機での操作結果は未検証です。
 
 Printer Lightsの使いどころは、ベースになるショットを決めた後の小さなずれを、比較しながら繰り返し整える場面です。最初の色管理や大きな露出補正を済ませる前に使うことは前提にしません。[最初のグレーディング](../learn/first-grade)、[Primaries](./primaries-color-wheels)、[Scopes](./scopes)を先に確認してください。
 
@@ -37,7 +37,35 @@ Blackmagic DesignのAdvanced Panel公式マニュアルは、Printer Pointsモ�
 
 MasterはRGBをそろえて動かすものとして記載されています。色の偏りを直したいときにMasterだけを動かしても、RGB間の相対的なずれは通常解決しません。一方、色を調整した結果として全体の明るさが動いて見える場合もあります。
 
-先に「全体が暗い」のか「ニュートラルな部分が緑に寄る」のかを分け、必要な系統を選びます。[Primaries Bars](./primaries-color-wheels)もRGB成分を観察しながら調整できるため、Printer Points操作そのものが利用できない環境では、同じ**目的の確認方法**として比較できます。両者の数値や処理結果が完全一致するという意味ではありません。
+先に「全体が暗い」のか「ニュートラルな部分が緑に寄る」のかを分け、必要な系統を選びます。21.1では[Primaries Bars](./primaries-color-wheels)のOffsetスライダーにPrinter Point用の上下矢印があり、連続調整と段階調整を使い分けられます。
+
+## Colorページでの操作：Primaries Bars
+
+21.1 Manual Chapter 131は、**Printer PointsをPrimariesパレットのBarsモードにあるOffsetの操作**として説明しています。専用パネルがなくても調整できます。
+
+1. Colorページで対象クリップを選び、Primariesパレットを**Bars**表示にします。
+2. **OffsetのRed／Green／Blueスライダー**を確認します。スライダーをドラッグすると、そのチャンネル全体を連続的に調整できます。
+3. 各スライダーの**上端・下端の矢印**はPrinter Point単位で増減します。まず1回ずつ変え、[Scopes](./scopes)のRGB ParadeとViewerで結果を確認します。
+4. Offsetスライダーの下の**Offset wheel**は、3チャンネルをまとめて動かすマスター調整です。色の偏りなら個別チャンネル、全体の明るさならマスターを検討します。
+
+同章によれば、OffsetやPrinter Pointsは**Lum Mixで他チャンネルを自動補正しません**。Redを動かした場合はRedチャンネルだけに作用します。輝度を一定に保つ処理だと誤解しないようにします。
+
+### 1 pointの増減幅
+
+21.1 Manualは、**User PreferencesのColorパネルにあるPrinter Light Step Calibration**で増分を設定でき、**Step／Density**の値を変更できると説明しています。既定値はフィルムプリンターの調整を模したものですが、露出stopへの一律換算値ではありません。他の編集端末とpoint数をそろえるときも、このユーザー設定を確認します。
+
+## 数字キーパッドでの操作：Printer Light Hotkeys
+
+21.1 Manualでは、**Color → Printer Light Hotkeys**で数字キーパッドの専用操作を有効にできます。Macの切替ショートカットは**Option–Command–グレーブアクセント（`）**です。Windows版の切替ショートカットはこの資料箇所で確認できなかったため、メニューから有効にする方法を示します。
+
+| 数字キーパッド | 操作 |
+| --- | --- |
+| 7／8／9 | Red／Green／Blueをそれぞれ増やす |
+| 4／5／6 | Red／Green／Blueをそれぞれ減らす |
+| 1／2／3 | Cyan／Magenta／Yellow方向をそれぞれ増やす |
+| −／0／. | Cyan／Magenta／Yellow方向をそれぞれ減らす |
+
+この割当はHotkeysが有効なときのものです。ManualはMacで**Commandを押しながら操作するとquarter increment（1/4単位）**になり、**half increment（1/2単位）はショートカットの手動割当が必要**と説明しています。独自の割当を増やしたくなければBarsの矢印を使う方法もあります。Windows固有の修飾キー、数値キーパッドのないキーボード、カスタマイズ済みのショートカット構成での動作は未検証です。
 
 ## Advanced Panelで公式に説明されている操作
 
@@ -49,15 +77,15 @@ MasterはRGBをそろえて動かすものとして記載されています。�
 4. 細かい増減が必要な場合、同書は **SHIFT UP＋P/LITE** をhalf point、**SHIFT DOWN＋P/LITE** をquarter pointのモードとして説明しています。この指定はパネルマニュアルの操作であり、映像信号上の普遍的な単位ではありません。
 5. 調整後は同じフレームのViewerとScopesを見て、隣接ショットとのつながりを確認します。P/LITEを再度押してPrinter Pointsモードから出ます。
 
-出典のPDFは現行21.1専用の操作資料ではなく、物理パネルのマニュアルです。21.1におけるパネルの割当変更、設定項目や接続構成、ソフトウェア側のUndo単位は未検証です。したがって、プロジェクトの元状態を失わないよう、調整前のStillや[Version](./versions-and-grade-comparison)を参照点として保持します。
+この物理パネル手順の出典は21.1専用資料ではありません。21.1でのパネル割当変更、接続構成、ソフトウェア側のUndo単位は未検証です。したがって、プロジェクトの元状態を失わないよう、調整前のStillや[Version](./versions-and-grade-comparison)を参照点として保持します。
 
-## Printer LightsとPrimaries、Offsetを混同しない
+## Printer PointsとOffset・ほかのPrimariesの関係
 
-Blackmagic Design公式Colorページでは、PrimariesのLift／Gamma／Gainは主に異なるトーン範囲、Offsetは画像全体の調整として紹介されています。Printer Pointsは「決められた単位の増減でカラーバランスを追う」操作概念であり、OffsetはColorページ内で画像全体を調整するコントロールです。
+21.1 Manual Chapter 131ではPrinter Pointsの矢印を**Primaries BarsのOffsetスライダーを段階的に動かす操作**と説明しています。別のColorエフェクトではなく、Offset調整の入力方法の一つです。Offset wheelはRGB全体を動かし、OffsetのRGB個別調整は各チャンネルへ独立に作用します。ただし「1 point＝Offsetの一定数値／露出stop」という普遍的な換算は、Calibration設定と信号条件を確認するまで置けません。
 
-どちらも全体の見た目を変える場面で使えますが、**Printer Lights＝Offsetの特定数値**という対応は、21.1の処理方式・作業色空間・操作経路を照合するまで断定しません。Lift／Gamma／Gainのようなトーン範囲を分けた補正や、[Log Wheels](./log-wheels)・[HDR Palette](./hdr-palette)による範囲別調整とも区別します。
+一方、Lift／Gamma／Gainは主に異なるトーン範囲を調整するコントロールです。画面全体を動かすか、[Log Wheels](./log-wheels)・[HDR Palette](./hdr-palette)などで範囲を絞るかは、ずれが生じている場所で判断します。
 
-色かぶりの原因が入力色域やGammaの解釈違いであれば、RGBを動かして見た目だけ近づける前に[Color Management](../learn/color-management-basics)と[CST](./color-space-transform)を調べます。異なる信号条件のまま同じポイント操作を行っても、同じ出力結果になる保証はありません。
+色かぶりの原因が入力色域やGammaの解釈違いなら、RGBを動かして見た目だけ近づける前に[Color Management](../learn/color-management-basics)と[CST](./color-space-transform)を調べます。異なる信号条件で同じpoint数を使っても同じ出力結果になる保証はありません。
 
 ## 実践例1：カメラBの緑かぶりを少し抑える
 
@@ -96,9 +124,9 @@ Printer Lightsは小さな修正を素早く反復するための方法であり
 
 ## 出典・対象版・確認範囲
 
-- **対象版：DaVinci Resolve 21.1。** Blackmagic Design『[DaVinci Resolve 21.1 Reference Manual](https://documents.blackmagicdesign.com/UserManuals/DaVinci_Resolve_21.1_Reference_Manual.pdf)』（[公式サポート](https://www.blackmagicdesign.com/support)）。公開は確認済みですが、大容量PDFの該当章をこの環境で直接取得できず、21.1実機と照合できていません。
-- **Printer Points操作の直接根拠：** Blackmagic Design『[DaVinci Resolve Advanced Panel](https://documents.blackmagicdesign.com/UserManuals/DaVinciResolveAdvancedPanel.pdf)』53ページ「Making Printer Points Adjustments」。P/LITE、whole／half／quarter、RGB／Master／CMYの三系統とCMYの対応チャンネルを確認（2026年10月22日）。**物理パネルの資料**であり、21.1ソフトウェアのメニュー・ショートカット配置は未確認です。
-- **Primaries・Scopes・比較方法の根拠：** Blackmagic Design『[DaVinci Resolve — Color](https://www.blackmagicdesign.com/jp/products/davinciresolve/color)』のPrimaries、Scopes、Gallery／Still、ショット比較の公式説明（2026年10月22日）。
-- **verification: partial。** 21.1 Reference ManualのPrinter Lights該当章、ホスト実機のパネル動作、Free／Studio差、1 pointと具体的な画素値・露出量の対応は未検証です。本記事の操作例は確認済みの機能概念を用いた判断例で、実測結果ではありません。
+- **21.1の直接根拠：** Blackmagic Design『[DaVinci Resolve 21.1 Reference Manual](https://documents.blackmagicdesign.com/UserManuals/DaVinci_Resolve_21.1_Reference_Manual.pdf)』（September 2026）、**Chapter 131「Primaries Palette」pp.3157–3159**。Offset BarsのRGB／上下矢印／マスター調整、Lum Mix非適用、Printer Light Hotkeys、数字キーパッド割当、quarter／half単位、User PreferencesのPrinter Light Step Calibrationを2026年10月27日に本文確認。
+- **物理パネルの補助資料：** Blackmagic Design『[DaVinci Resolve Advanced Panel](https://documents.blackmagicdesign.com/UserManuals/DaVinciResolveAdvancedPanel.pdf)』p.53「Making Printer Points Adjustments」。P/LITE、whole／half／quarter、RGB／Master／CMYの物理操作。21.1実機での動作は未確認。
+- **関連する公式製品説明：** [DaVinci Resolve — Color](https://www.blackmagicdesign.com/jp/products/davinciresolve/color)。Primaries、Scopes、Galleryの説明。
+- **verification: partial。** 21.1実機でのメニュー・数字キーパッド・パネル操作、Windows固有の修飾キー、Calibration数値と実画素／露出stopの対応、Free／Studio差は未検証です。判断例は実測報告ではありません。
 
 関連：[Primaries](./primaries-color-wheels)／[Scopes](./scopes)／[Gallery](./gallery-stills)／[ショットマッチ](../recipes/matching-multicamera-interview)。
