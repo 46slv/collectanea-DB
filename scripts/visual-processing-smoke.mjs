@@ -1420,6 +1420,75 @@ try {
     }
   });
 
+
+  await check('emboss-preview-controls-and-mobile', async () => {
+    await go(route);
+    await page.getByRole('link', {name: '方向と距離を操作して比較'}).click();
+    await expect(page).toHaveURL(/\/reference\/visual-processing\/filters\/emboss\/?$/);
+    for (const width of [1440, 390, 320]) {
+      await page.setViewportSize({width, height: width === 1440 ? 1000 : 844});
+      await go('/reference/visual-processing/filters/emboss');
+      await expect(page.locator('.theme-doc-markdown h1')).toHaveText('エンボス（Emboss）');
+      const widget = page.locator('[data-vp-emboss="ready"]');
+      await expect(widget).toBeVisible();
+      const layout = await widget.evaluate(element => {
+        const previews = element.querySelector('.vp-emboss__previews');
+        const controls = element.querySelector('.vp-emboss__controls');
+        return {
+          count: element.querySelectorAll('[data-vp-emboss-preview]').length,
+          dom: Boolean(previews && controls &&
+            (previews.compareDocumentPosition(controls) & Node.DOCUMENT_POSITION_FOLLOWING)),
+          visual: Boolean(previews && controls &&
+            previews.getBoundingClientRect().bottom <= controls.getBoundingClientRect().top),
+        };
+      });
+      assert.ok(layout.count === 3 && layout.dom && layout.visual,
+        'Emboss preview-first three-panel layout: ' + width + ' ' + JSON.stringify(layout));
+      const picture = kind => widget.locator('[data-vp-emboss-preview="' + kind + '"] canvas')
+        .evaluate(canvas => canvas.toDataURL());
+      const originalBefore = await picture('before');
+      const originalRelief = await picture('relief');
+      const originalAfter = await picture('after');
+      const direction = widget.getByRole('combobox', {name: '差分方向'});
+      await direction.selectOption('left');
+      await expect.poll(() => picture('relief')).not.toBe(originalRelief);
+      await direction.selectOption('right');
+      await expect.poll(() => picture('relief')).toBe(originalRelief);
+      if (width === 1440) {
+        const radius = widget.getByRole('slider', {name: '差分の距離'});
+        await radius.focus();
+        await radius.press('End');
+        await expect(radius).toHaveValue('5');
+        await expect.poll(() => picture('relief')).not.toBe(originalRelief);
+        const strength = widget.getByRole('slider', {name: '陰影強度'});
+        const texture = widget.getByRole('slider', {name: '元の階調'});
+        await strength.focus();
+        await strength.press('Home');
+        await texture.focus();
+        await texture.press('Home');
+        await expect(strength).toHaveValue('0');
+        await expect(texture).toHaveValue('0');
+        await expect.poll(() => widget.locator('[data-vp-emboss-preview="after"] canvas')
+          .evaluate(canvas => {
+            const bytes = canvas.getContext('2d').getImageData(0, 0, canvas.width, canvas.height).data;
+            return bytes.every((value, index) => index % 4 === 3 ? value === 255 : value === 128);
+          })).toBe(true);
+      }
+      await widget.getByRole('combobox', {name: 'テスト画像'}).selectOption('rings');
+      await expect.poll(() => picture('before')).not.toBe(originalBefore);
+      await widget.getByRole('button', {name: '初期値に戻す'}).click();
+      await expect(direction).toHaveValue('right');
+      await expect(widget.getByRole('slider', {name: '差分の距離'})).toHaveValue('2');
+      await expect(widget.getByRole('slider', {name: '陰影強度'})).toHaveValue('1.5');
+      await expect(widget.getByRole('slider', {name: '元の階調'})).toHaveValue('0.15');
+      await expect(widget.getByRole('combobox', {name: 'テスト画像'})).toHaveValue('blocks');
+      await expect.poll(() => picture('before')).toBe(originalBefore);
+      await expect.poll(() => picture('after')).toBe(originalAfter);
+      await noOverflow();
+      if (width === 390) await shot('emboss-mobile');
+    }
+  });
+
   await check('no-runtime-or-resource-errors', async () => {
     assert.deepEqual(report.pageErrors, []);
     assert.deepEqual(report.resourceErrors, []);
