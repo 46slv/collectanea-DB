@@ -73,7 +73,7 @@ import '@site/src/css/visual-processing.css';
 | **ガウス差分（Difference of Gaussians / DoG）** | ぼかし幅の異なる2つの画像の差から局所的な明暗変化を取り出す。[2種類のぼかしを比較する](./filters/difference-of-gaussians.mdx)。 |
 | **膨張・収縮（Dilation / Erosion）** | マスクや画像内の明るい領域を広げたり狭めたりする。[二値マスクの膨張・収縮を操作して比較](./filters/dilation-erosion.mdx)。 |
 | **空間ノイズ除去（Spatial Noise Reduction）** | 同じフレーム内の画素を比較し、細部を残すこととノイズを減らすことのバランスを取る。 |
-| **エンボス（Emboss）** | 明暗の差に方向性をつけ、表面が浮き彫りのように見える陰影を作る。 |
+| **エンボス（Emboss）** | 明暗の差に方向性をつけ、表面が浮き彫りのように見える陰影を作る。[方向と距離を操作して比較](./filters/emboss.mdx)。 |
 
 ## 光・レンズ・フィルム {#optics}
 

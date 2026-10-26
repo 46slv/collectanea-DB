@@ -1,0 +1,19 @@
+.vp-emboss {margin:24px 0 32px; padding:clamp(14px,2.5vw,24px); border:1px solid var(--cc-line); border-radius:var(--cc-radius); background:var(--cc-surface); color:var(--cc-text); font:14px/1.65 var(--cc-body-font);}
+.vp-emboss h3 {margin:0 0 6px; font-size:19px;}
+.vp-emboss p {margin:0 0 14px; font-size:12px; color:var(--cc-secondary);}
+.vp-emboss__previews {display:grid; grid-template-columns:repeat(3,minmax(0,1fr)); gap:10px;}
+.vp-emboss__preview {min-width:0; margin:0; border:1px solid var(--cc-line); border-radius:var(--cc-radius); overflow:hidden;}
+.vp-emboss__preview figcaption {display:flex; flex-direction:column; gap:3px; min-height:60px; padding:10px; line-height:1.4;}
+.vp-emboss__preview figcaption strong {font-size:13px;}
+.vp-emboss__preview figcaption span {font-size:11px; color:var(--cc-secondary);}
+.vp-emboss__preview canvas {display:block; width:100%; height:auto; background:#808080; image-rendering:auto;}
+.vp-emboss__preview p {margin:8px 10px;}
+.vp-emboss .vp-emboss__hint {margin:12px 0;}
+.vp-emboss__controls {display:grid; grid-template-columns:repeat(2,minmax(0,1fr)); gap:14px; margin-top:18px; padding-top:18px; border-top:1px solid var(--cc-line);}
+.vp-emboss__controls label {display:flex; flex-direction:column; min-width:0; gap:6px; font-size:12px; color:var(--cc-secondary);}
+.vp-emboss__controls label > span {display:flex; flex-wrap:wrap; justify-content:space-between; gap:4px 8px;}
+.vp-emboss__controls output {font-weight:600; color:var(--cc-text); font-variant-numeric:tabular-nums;}
+.vp-emboss__controls select {width:100%; min-height:44px; padding:8px; border:1px solid var(--cc-control-line); border-radius:var(--cc-radius); background:var(--cc-canvas); color:var(--cc-text);}
+.vp-emboss__controls input[type='range'] {width:100%; min-height:44px; margin:0; accent-color:var(--cc-text);}
+.vp-emboss__reset {display:block; margin:14px 0 0 auto; min-height:44px; padding:8px 12px; border:1px solid var(--cc-control-line); border-radius:var(--cc-radius); background:var(--cc-surface); color:var(--cc-text);}
+@media (max-width:700px) {.vp-emboss__previews,.vp-emboss__controls {grid-template-columns:minmax(0,1fr);} .vp-emboss__preview figcaption {min-height:0;}}
