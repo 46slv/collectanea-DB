@@ -2,7 +2,7 @@
   "schema_version": 1,
   "created": "2026-10-20",
   "scope": "All Fusion pages, DaVinci Resolve 21.1",
-  "status_note": "2026-10-26: user assigned the current task as the sole Fusion capture and Integrator owner after the prior Integrator chat was observed idle. PR225 exact-head Quality succeeded and was squash-merged as 55db3f5a062f36f69813a7a0a4af78b6552e3c35; Pages run 40322077503 build/deploy PASS and public Film Look Creator route desktop/mobile display PASS. Source PR214 is closed after its article blob eb5d70e46b80f9ed4b9f0954ded9ec5c17ab5386 matched main. S126 source b7a448551e51d91475787121e22e7e7637bbcef2 was cherry-picked to integration/fusion-s126-reference-size-20261026; production build, content fixtures (51), regressions (19/19), and scoped local verifier (6 article images, 1440/390, hashes/Alt/native links/overflow) PASS. Exact-head integration CI and S126 public display are pending. S122 dHoldout remains unresolved and unaccepted.",
+  "status_note": "2026-10-27: Current task owns Fusion capture/integration. PR #229 squash-merged at 4afa4c77bec8b09771930abd6a517ad869336101; Pages and S126 public display are verified. Current main advanced to 8c1c673be0cc87548e0d195557f5c61043fb1b18 via PR #228. S127 native capture, portable fixture, bounded readback, and article embedding are complete. Production build, content integration (51 fixtures), and scoped local 1440px/390px display verification PASS (1 article, 15 images; artifacts/fusion-captures/S127-production-20261027/display-report.json). The Auto Resolution-on observation and 1920×1080 Viewer labels are documented without a 4K output claim. Portable reimport and public S127 verification remain NOT_RUN. S122 dHoldout remains unresolved; full Fusion coverage is incomplete.",
   "asset_directory_template": "static/img/fusion/captures/{id}/{shot.slug}.png",
   "capture_manifest_name": "capture.json",
   "candidates": [
@@ -6692,7 +6692,7 @@
       },
       "goal": "Show Reference Size as a display-only switch: identical internal Center (0.5,0.5) appears as 0.5/0.5 at 1x1 and 960/540 at 1920x1080, with the same output.",
       "suggested_graph": "EllipseMask -> Background1 -> Transform1 -> MediaOut1",
-      "status": "captured-local-display-verified",
+      "status": "published-display-verified",
       "capture_manifest": "static/img/fusion/captures/S126/capture.json",
       "images": [
         "normalized-inspector.png",
@@ -6730,6 +6730,55 @@
       "limitations": [
         "Portable composition reimport NOT_RUN",
         "Studio 21.1.0.14 on Windows only; other editions and platforms NOT_RUN",
+        "Article verification remains partial"
+      ],
+      "published_batch": "fusion-native-20261026-40"
+    },
+    {
+      "id": "S127",
+      "priority": "P1",
+      "article": "manuals/fusion/learn/03-space/center-pivot-size-angle.md",
+      "manual": {
+        "version": "21.1",
+        "chapter": 120,
+        "printed_pages": "2882–2883"
+      },
+      "goal": "Show manual Center pixel entry with a 1920×1080 Loader input and 3840×2160 S127 timeline; record the Auto Resolution-on discrepancy without generalizing it, and confirm normalized Center by bounded SDK readback.",
+      "suggested_graph": "Loader1 (1920×1080 chart.png) → TransformReference (manual Reference Size 3840×2160) → MediaOut1; active S127_capture timeline settings 3840×2160 at 30 fps. Auto Resolution-on state captured separately.",
+      "status": "captured-local-display-verified",
+      "capture_manifest": "static/img/fusion/captures/S127/capture.json",
+      "shots": [
+        {
+          "slug": "graph",
+          "kind": "node-graph",
+          "target": "1920×1080 Loader1 → TransformReference → MediaOut1",
+          "status": "captured"
+        },
+        {
+          "slug": "auto-inspector",
+          "kind": "inspector",
+          "target": "Auto Resolution checked; Reference Size 1920×1080 and Center 960/540 observed despite 3840×2160 active timeline settings",
+          "status": "captured"
+        },
+        {
+          "slug": "pixel-entry-inspector",
+          "kind": "inspector",
+          "target": "Auto Resolution off; manual Reference Size 3840×2160; Inspector Center 2016/1080; SDK Center 0.525/0.5",
+          "status": "captured"
+        },
+        {
+          "slug": "input-output",
+          "kind": "output",
+          "target": "Both Viewer labels report [Main]: 1920×1080 int8; no 4K rendered output claim",
+          "status": "captured"
+        }
+      ],
+      "scope": "Local native capture uses the existing Collectanea_Mandelbrot_Zoom_20261025 project and S127_capture timeline. Project defaults remain 1920×1080; active timeline settings are custom 3840×2160. Manual Reference Size and Inspector pixel entry were visually checked and bounded SDK values read back.",
+      "limitations": [
+        "Auto Resolution-on displayed Reference Size 1920×1080 in this exact composition while the active timeline settings are 3840×2160; cause not established.",
+        "Both Viewer labels report 1920×1080 int8; 4K rendered output not established.",
+        "Portable composition reimport NOT_RUN",
+        "Public S127 route, assets, and display NOT_RUN",
         "Article verification remains partial"
       ]
     }
@@ -8042,10 +8091,41 @@
         "artifacts/fusion-captures/public-assets-recheck-post-deploy.json"
       ],
       "limitations": "S123 is built-in Fuse.Duplicate in Resolve Studio 21.1.0.14; observed Copies=5 means five total including source, not six. Static opaque oval only; TimeOffset, Jitter, Duplicate Path, other merge modes, edge/alpha quality, and platform/performance remain unverified. Broad input enumeration NOT_RUN after saved host exit; proof covers listed values/connections only. Portable export reimport NOT_RUN. S124 uses a static synthetic point on black; masks/optional inputs, alternate controls and color curves, animation, optical fidelity, and platform/performance remain unverified; broad input enumeration, curve payload readback, and portable export reimport NOT_RUN. S125 uses a static synthetic chart; masks/Occlusion, alternate controls and color curves, animation, optical fidelity, and platform/performance remain unverified; broad input enumeration, curve payload readback, and portable export reimport NOT_RUN. Public live browser NOT_RUN; CI browser PASS applies to the local production build. Whole 587 pages/352 capture-needed plus remaining_views incomplete; S122 dHoldout remains unresolved and unaccepted."
+    },
+    {
+      "id": "fusion-native-20261026-40",
+      "cases": [
+        "S126"
+      ],
+      "reuses": [
+        "R22"
+      ],
+      "pr": "https://github.com/46slv/collectanea-DB/pull/229",
+      "candidate": "4428b66f317912a96ec03ea01e169e32f516f40b",
+      "merge_commit": "4afa4c77bec8b09771930abd6a517ad869336101",
+      "main": "4afa4c77bec8b09771930abd6a517ad869336101",
+      "tree": "b1e5e3780a73cbfa206cd57ae29b3eb478c995e5",
+      "quality_run": "https://github.com/46slv/collectanea-DB/actions/runs/40325246087",
+      "pages_run": "https://github.com/46slv/collectanea-DB/actions/runs/40327242323",
+      "merge_owner": "Integrator expected-head squash merge at 2026-10-26T13:02:36Z; exact-head Quality and current-main Pages deployment verified.",
+      "public_pages": 1,
+      "public_images": 6,
+      "new_native_crops": 4,
+      "new_placements": 4,
+      "public_asset_hashes": 9,
+      "result": "PASS",
+      "ci_browser_checks": "PASS: exact-head PR Quality succeeded for 4428b66f317912a96ec03ea01e169e32f516f40b.",
+      "public_browser_session": "PASS: live S126 article at desktop 1440px and mobile 390px; target images decoded, correct native links and descriptive Alt, no horizontal overflow or page errors.",
+      "evidence": [
+        "artifacts/fusion-captures/S126-public-20261026/display-report.json",
+        "artifacts/fusion-captures/S126-public-20261026/all-assets.json",
+        "artifacts/fusion-captures/S126-public-20261026/visible-layout-report.json"
+      ],
+      "limitations": "Article verification remains partial; portable composition reimport NOT_RUN; only Resolve Studio 21.1.0.14 on Windows verified; whole Fusion coverage and remaining_views incomplete; S122 dHoldout remains unresolved and unaccepted."
     }
   ],
   "coverage_inventory": {
-    "checked_at": "2026-10-26T12:28:26.322203+00:00",
+    "checked_at": "2026-10-26T15:04:50.698422+00:00",
     "scope": "All manuals/fusion Markdown and MDX pages; review necessity before adding images.",
     "completion_rule": "Every page has an explicit image decision; necessary images are native-observed, embedded, saved to GitHub and public-display-verified. A native example does not verify all article controls.",
     "summary": {
@@ -8660,10 +8740,11 @@
         "article": "manuals/fusion/learn/03-space/center-pivot-size-angle.md",
         "title": "Center / Pivot / Size / Angle",
         "kind": "concept",
-        "image_count": 11,
+        "image_count": 15,
         "native_cases": [
           "S34",
-          "S38"
+          "S38",
+          "S127"
         ],
         "reused_cases": [
           "S06"
@@ -8673,8 +8754,7 @@
         "decision": "image-required",
         "reason": "本文の接続・設定・出力を、撮影済みの固定例で図示する。記事全体の検証とは区別する。",
         "remaining_views": [
-          "本文タイトル配置と連続回転の例",
-          "Reference Sizeの表示欄から位置を入力する操作と異なる入力解像度"
+          "本文タイトル配置と連続回転の例"
         ],
         "audit_note": "S36/S37/S38の固定例を掲載。確認済みの差分と未確認操作を区別しpartial維持。"
       },

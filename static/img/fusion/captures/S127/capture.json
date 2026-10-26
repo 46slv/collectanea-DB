@@ -1,0 +1,161 @@
+{
+  "schema_version": 1,
+  "case": "S127",
+  "article": "manuals/fusion/learn/03-space/center-pivot-size-angle.md",
+  "manual": {
+    "version": "21.1",
+    "chapter": 120,
+    "printed_pages": "2882–2883"
+  },
+  "runtime": {
+    "version": "21.1.0.14",
+    "edition": "DaVinci Resolve Studio",
+    "os": "Windows-11-10.0.26200-SP0",
+    "ui_language": "ja-JP"
+  },
+  "captured_at": "2026-10-26T14:22:50.548858+00:00",
+  "project": "Collectanea_Mandelbrot_Zoom_20261025",
+  "timeline": "S127_capture",
+  "frame": 0,
+  "resolution": [
+    1920,
+    1080
+  ],
+  "color_management": {
+    "project_settings": {
+      "colorScienceMode": "davinciYRGB",
+      "colorSpaceInput": "Rec.709 Gamma 2.4",
+      "colorSpaceOutput": "Rec.709 (Scene)",
+      "colorSpaceTimeline": "Rec.709 (Scene)",
+      "colorSpaceOutputGamma": "ACEScc",
+      "isAutoColorManage": "0",
+      "timelineResolutionWidth": "1920",
+      "timelineResolutionHeight": "1080",
+      "timelineOutputResolutionWidth": "1920",
+      "timelineOutputResolutionHeight": "1080",
+      "timelineOutputResMatchTimelineRes": "1",
+      "timelineFrameRate": 30,
+      "timelinePlaybackFrameRate": "30",
+      "timelinePixelAspectRatio": "square",
+      "timelineOutputPixelAspectRatio": "square"
+    },
+    "active_timeline_settings": {
+      "colorScienceMode": "davinciYRGB",
+      "colorSpaceOutput": "Rec.709 (Scene)",
+      "colorSpaceTimeline": "Rec.709 (Scene)",
+      "colorSpaceOutputGamma": "",
+      "isAutoColorManage": "1",
+      "timelineResolutionWidth": "3840",
+      "timelineResolutionHeight": "2160",
+      "timelineOutputResolutionWidth": "3840",
+      "timelineOutputResolutionHeight": "2160",
+      "timelineOutputResMatchTimelineRes": "1",
+      "timelineFrameRate": 30,
+      "timelinePixelAspectRatio": "square",
+      "timelineOutputPixelAspectRatio": "square"
+    }
+  },
+  "viewer": {
+    "zoom_percent": 40,
+    "channel": "Color",
+    "background": "checkerboard for transparent pixels",
+    "status_labels": [
+      "Left [Main]: 1920x1080 int8",
+      "Right [Main]: 1920x1080 int8"
+    ],
+    "note": "Both native Viewer labels report 1920x1080 int8; the 3840x2160 timeline setting is recorded separately. No 4K rendered output is claimed."
+  },
+  "graph": "fixture.comp",
+  "settings": "readback.json",
+  "source": {
+    "file": "screen.png",
+    "size": [
+      3336,
+      1902
+    ],
+    "sha256": "ca8cde84fc6ee4163aac5c11e38cd16c2af86bd997731bd235363e964af582a2",
+    "media_file": "Comp:/../_fixtures/chart.png",
+    "media_size": [
+      1920,
+      1080
+    ],
+    "media_channels": "RGB",
+    "media_sha256": "f166484e5900e23098b4a569876ac818f8ee3aa6ab3ee6f53aa186ca766d6d29"
+  },
+  "shots": [
+    {
+      "file": "graph.png",
+      "source": "screen.png",
+      "source_sha256": "ca8cde84fc6ee4163aac5c11e38cd16c2af86bd997731bd235363e964af582a2",
+      "frame": 0,
+      "crop_xyxy": [
+        580,
+        1300,
+        2280,
+        1450
+      ],
+      "resampled": false,
+      "sha256": "17772ae87ab6a3f884b2515c5da8963aebed8afc72b50ec61bc93fb379751ca4"
+    },
+    {
+      "file": "auto-inspector.png",
+      "source": "screen-auto-input-output-1920.png",
+      "source_sha256": "90666a96590a3fb55d520189da8cc06c2c95a702cadd0f6bb6ecf49ca222db45",
+      "frame": 0,
+      "crop_xyxy": [
+        2830,
+        80,
+        3336,
+        670
+      ],
+      "resampled": false,
+      "sha256": "94a99ae569bc5ed18d72c47634de742a263fa49e506fc69b8a161af9e0ecf1b5"
+    },
+    {
+      "file": "pixel-entry-inspector.png",
+      "source": "screen.png",
+      "source_sha256": "ca8cde84fc6ee4163aac5c11e38cd16c2af86bd997731bd235363e964af582a2",
+      "frame": 0,
+      "crop_xyxy": [
+        2830,
+        80,
+        3336,
+        670
+      ],
+      "resampled": false,
+      "sha256": "21c84a7576e55af0266d71679f9357624277f2c0b6bc283037c9f0ef1f14cab5"
+    },
+    {
+      "file": "input-output.png",
+      "source": "screen.png",
+      "source_sha256": "ca8cde84fc6ee4163aac5c11e38cd16c2af86bd997731bd235363e964af582a2",
+      "frame": 0,
+      "crop_xyxy": [
+        1146,
+        65,
+        2830,
+        705
+      ],
+      "resampled": false,
+      "sha256": "71828bb8d5d6219f8816870f7d96263000a0f58f0652269710132dd4560396b4"
+    }
+  ],
+  "acceptance": {
+    "gui": "PASS: Native Resolve Studio 21.1.0.14 screen shows Loader1 → TransformReference → MediaOut1 at frame 0. Inspector shows Manual Reference Size 3840×2160, Center 2016/1080, Pivot 1920/1080, Auto Resolution off. Bounded SDK readback is Center (0.525, 0.5); SaveProject returned true at 2026-10-26T14:19:59.668063Z. Viewer labels remain 1920×1080 int8.",
+    "article_display": "PASS: local production build (build-s127-verify); content integration PASS (51 fixtures); 1 article and 15 images verified at 1440px/390px for canonical route, native links, SHA-256, decode, descriptive Alt, and overflow. Evidence: artifacts/fusion-captures/S127-production-20261027/display-report.json (checked_at 2026-10-26T15:00:54Z). Public display remains NOT_RUN."
+  },
+  "unverified": [
+    "In this exact S127 composition, the Auto Resolution-on screenshot shows Reference Size 1920×1080 while SDK timeline settings are 3840×2160; cause not established.",
+    "4K rendered Viewer output: NOT_ESTABLISHED; both Viewer labels report 1920×1080 int8.",
+    "Exported portable composition reimport NOT_RUN.",
+    "Public article route, asset hashes, and public desktop/mobile display NOT_RUN.",
+    "Other Resolve editions, platforms, and parameter ranges NOT_RUN.",
+    "Exported portable composition reimport"
+  ],
+  "reproduction": {
+    "fixture_sha256": "81b0b4afd646930add59ae14806bbd0fd750b05609d7494a967fc03790531b1e",
+    "readback_sha256": "a86f2773379b1b4297f6bb3563b4bb8cfacedfb42ebc4eb801a8cdf8c17589a6",
+    "paths": "Comp:/../_fixtures/ for bundled synthetic fixtures",
+    "reimport": "NOT_RUN: accepted GUI evidence precedes export path normalization"
+  }
+}
