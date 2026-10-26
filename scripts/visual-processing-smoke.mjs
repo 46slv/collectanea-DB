@@ -1590,7 +1590,7 @@ try {
       await gain.press('Home');
       await expect(gain).toHaveValue('0');
       await expect.poll(() => picture('after')).toBe(before);
-      await expect(widget.getByRole('status')).toContainText('0 /');
+      await expect(widget.locator('.vp-ksharpen__status')).toContainText('0 /');
       await neighbors.selectOption('square');
       await expect.poll(() => picture('detail')).not.toBe(detail);
       if (width === 1440) {
