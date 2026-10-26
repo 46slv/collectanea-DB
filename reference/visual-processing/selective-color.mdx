@@ -35,7 +35,7 @@ import SelectiveColorPlayground from '@site/src/components/SelectiveColorPlaygro
 
 入力RGBのR'G'B'を0〜1へ正規化してHSLに変換し、画素の色相を h、選択中心を c とします。円周上の距離は **d = min(|h − c|, 360° − |h − c|)** です。円周をまたぐ赤付近でも距離が連続します。
 
-半幅 w に対し、境界開始位置を **a = w × (1 − softness / 100)** とします。d ≤ a ではマスク m = 1、d > w では m = 0、その間は0〜1へ滑らかに変わる smoothstep（3t² − 2t³）の逆数形を使います。softness=0のときは境界を段階的に切り替えます。無彩色は m = 0 です。
+半幅 w に対し、境界開始位置を **a = w × (1 − softness / 100)** とします。d ≤ a ではマスク m = 1、d > w では m = 0、その間は0〜1へ滑らかに変わる **1 − (3t² − 2t³)** を使います（t = (d − a) / (w − a)）。softness=0のときは境界を段階的に切り替えます。無彩色は m = 0 です。
 
 HSL彩度 S と彩度係数 k から **S' = clamp(S × (1 + m × (k − 1)), 0, 1)** を計算します。HとLは数値として保ち、RGBへ戻して8-bitへ丸めます。したがって、マスク0や係数1では元の画素値が保たれます。
 
