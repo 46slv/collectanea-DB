@@ -84,7 +84,7 @@ Linearの結果を確認したら、同じキーを選んで**Smooth**を試し�
 
 <!-- capture-reuse:R65 -->
 
-既存のS35では、Text+→TransformAnimatedの構成でCenterをフレーム0の**(0.25, 0.5)**から48の**(0.75, 0.5)**へ動かしています。フレーム24の**(0.5, 0.5)**も確認済みです。Splineに表示されているのはCenter Xの生の値ではなく、**Path1のDisplacement（0～1）**です。
+既存のS35では、Text+→TransformAnimatedの構成でCenterをフレーム0の`(0.25, 0.5)`から48の`(0.75, 0.5)`へ動かしています。フレーム24の`(0.5, 0.5)`も確認済みです。Splineに表示されているのはCenter Xの生の値ではなく、**Path1のDisplacement（0～1）**です。
 
 [![S35の実機撮影。画像の接続Graph](/img/fusion/captures/S35/graph.png)](/img/fusion/captures/S35/graph.png)
 
