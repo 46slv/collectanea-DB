@@ -1300,6 +1300,74 @@ try {
     }
   });
 
+
+  await check('halation-preview-controls-and-mobile', async () => {
+    await go(route);
+    await page.getByRole('link', {name: '赤いにじみを操作して比較'}).click();
+    await expect(page).toHaveURL(/\/reference\/visual-processing\/optics\/halation\/?$/);
+    for (const width of [1440, 390, 320]) {
+      await page.setViewportSize({width, height: width === 1440 ? 1000 : 844});
+      await go('/reference/visual-processing/optics/halation');
+      await expect(page.locator('.theme-doc-markdown h1')).toHaveText('ハレーション（Film Halation）');
+      const widget = page.locator('[data-vp-halation="ready"]');
+      await expect(widget).toBeVisible();
+      const layout = await widget.evaluate(element => {
+        const previews = element.querySelector('.vp-halation__previews');
+        const controls = element.querySelector('.vp-halation__controls');
+        return {
+          panels: element.querySelectorAll('[data-vp-halation-preview]').length,
+          dom: Boolean(previews && controls &&
+            (previews.compareDocumentPosition(controls) & Node.DOCUMENT_POSITION_FOLLOWING)),
+          visual: Boolean(previews && controls &&
+            previews.getBoundingClientRect().bottom <= controls.getBoundingClientRect().top),
+        };
+      });
+      assert.ok(layout.dom && layout.visual && layout.panels === 3,
+        'Halation preview-first three-panel layout: ' + width + ' ' + JSON.stringify(layout));
+      const picture = kind => widget.locator('[data-vp-halation-preview="' + kind + '"] canvas')
+        .evaluate(canvas => canvas.toDataURL());
+      const original = await picture('before');
+      const initialSpread = await picture('spread');
+      const initialOutput = await picture('after');
+      if (width === 1440) {
+        const gain = widget.getByRole('slider', {name: '合成強度'});
+        await gain.focus();
+        await gain.press('Home');
+        await expect(widget).toHaveAttribute('data-vp-halation-gain', '0');
+        await expect.poll(() => picture('after')).toBe(original);
+        await gain.press('End');
+        await expect(widget).toHaveAttribute('data-vp-halation-gain', '2.5');
+        await expect.poll(() => picture('after')).not.toBe(original);
+        const redness = widget.getByRole('slider', {name: '赤み'});
+        await redness.focus();
+        await redness.press('Home');
+        await expect(redness).toHaveValue('0');
+        await expect.poll(() => picture('spread')).not.toBe(initialSpread);
+        const sigma = widget.getByRole('slider', {name: 'ぼかし幅'});
+        await sigma.focus();
+        await sigma.press('Home');
+        await expect(widget).toHaveAttribute('data-vp-halation-sigma', '0');
+        const threshold = widget.getByRole('slider', {name: '明部閾値'});
+        await threshold.focus();
+        await threshold.press('End');
+        await expect(threshold).toHaveValue('245');
+        await widget.getByRole('combobox', {name: 'テスト画像'}).selectOption('sign');
+        await expect.poll(() => picture('before')).not.toBe(original);
+        await widget.getByRole('button', {name: '初期値に戻す'}).click();
+        await expect(widget).toHaveAttribute('data-vp-halation-sigma', '5');
+        await expect(widget).toHaveAttribute('data-vp-halation-gain', '1.5');
+        await expect(threshold).toHaveValue('185');
+        await expect(redness).toHaveValue('1');
+        await expect(widget.getByRole('combobox', {name: 'テスト画像'})).toHaveValue('lamps');
+        await expect.poll(() => picture('before')).toBe(original);
+        await expect.poll(() => picture('spread')).toBe(initialSpread);
+        await expect.poll(() => picture('after')).toBe(initialOutput);
+      }
+      await noOverflow();
+      if (width === 390) await shot('halation-mobile');
+    }
+  });
+
   await check('no-runtime-or-resource-errors', async () => {
     assert.deepEqual(report.pageErrors, []);
     assert.deepEqual(report.resourceErrors, []);
