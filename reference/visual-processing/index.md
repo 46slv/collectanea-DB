@@ -66,7 +66,7 @@ import '@site/src/css/visual-processing.css';
 | **バイラテラルフィルタ（Bilateral Filter）** | 距離だけでなく明るさの近さも見て平均し、輪郭を残しながら平滑化する。[Gaussian Blurと操作して比較](./filters/bilateral-filter.mdx)。 |
 | **ガイド付きフィルタ（Guided Filter）** | 同じ画像や別のガイド画像の構造を利用して、輪郭を保ちながら平滑化する。[自己ガイドと理想ガイドを操作して比較](./filters/guided-filter.mdx)。 |
 | **メディアンフィルタ（Median Filter）** | 近傍の中央値へ置き換え、孤立した明暗のノイズなどを除去する。[塩胡椒ノイズとGaussian Blurを比較](./filters/median-filter.mdx)。 |
-| **シャープニング（Sharpening）** | 輪郭付近の局所的なコントラストを強め、細部がくっきり見えるようにする。 |
+| **シャープニング（Sharpening）** | 輪郭付近の局所的なコントラストを強め、細部がくっきり見えるようにする。[4/8近傍と強さを操作して比較](./filters/sharpening.mdx)。 |
 | **アンシャープマスク（Unsharp Mask）** | ぼかした画像との差から輪郭成分を取り出し、元画像へ加えて強調する。[輪郭とハローの比較](./filters/unsharp-mask.mdx)。 |
 | **ハイパスフィルタ（High-pass Filter）** | ゆっくり変化する成分を抑え、輪郭や細部のような急な変化を取り出す。[差分と再合成を操作して比較](./filters/high-pass-filter.mdx)。 |
 | **エッジ検出（Edge Detection）** | 隣り合う画素の変化が大きい場所を取り出し、輪郭線に近い画像を作る。[Sobel輪郭抽出を試す](./filters/sobel-edge-detection.mdx)。 |
