@@ -6,7 +6,7 @@ verification: partial
 product_scope: color
 suite_surfaces: [color]
 tasks: [grade, color-correct, color-management, match-shots]
-updated: "2026-10-26"
+updated: "2026-10-27"
 ---
 
 # Colorページ
@@ -78,6 +78,7 @@ Colorページは、素材の明るさや色の偏りを整え、複数ショッ
 - [Power Windowで局所ハイライト補正](./recipes/window-highlight-isolation) — 逆光の窓を分離して人物を保護
 - [肌の色を整える：Qualifier・Power Window・Scopes](./recipes/skin-tone-secondary-grading) — 肌の必要な領域だけを抽出して自然な補正にする
 - [背景のLookから人物を守る：Layer Mixer](./recipes/layer-mixer-subject-protection) — 同じベースの分岐で背景と人物を調整し、優先順とMatteを確認する
+- [青緑LEDの背景をColorSliceで整え、人物の肌を保つ](./recipes/color-slice-led-background-skin) — CyanとSkinの影響範囲を比較し、色域の重なりとWindowの分離を判断する
 - [ネオンサインの赤と青の発光を二層のGlowで作る](./recipes/neon-sign-dual-glow) — Resolve FX GlowのSecondary Glowで発光の近距離と広がりを分ける
 - [Image Wipeで2ショットの明るさと色を比較する](./recipes/image-wipe-two-shot-comparison) — Gallery StillまたはTimelineの別ショットとWipeで比較し、ショット間の差を確認する
 - [納品前のColor QC](./recipes/pre-delivery-color-qc) — Lightbox、Scopes、Stills、再生で補正漏れと副作用を点検する
