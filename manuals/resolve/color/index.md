@@ -85,6 +85,7 @@ Colorページは、素材の明るさや色の偏りを整え、複数ショッ
 ## トラブルシューティング（Troubleshooting）
 
 - [二次補正がちらつく・範囲が揺れるとき](./troubleshooting/secondary-matte-flicker) — Qualifier、Window、Tracker、Keyの原因を分ける
+- [遮蔽物の前後でPower Windowの追跡がずれるとき](./troubleshooting/power-window-occlusion-tracking) — 遮蔽区間の前後追跡、Tracker Graphの補間と手動補正を切り分ける
 - [書き出し後に色や明るさが違うとき](./troubleshooting/export-color-mismatch) — 出力変換、色タグ、Levels、再生環境を切り分ける
 - [BRAWのRAW設定が編集できない・コピーで色が変わるとき](./troubleshooting/braw-raw-settings-copy-scope) — Clip単位のRAW設定、グレードコピー、sidecarの影響を切り分ける
 - [Log素材と変換済み素材で色が合わないとき（RCM Input）](./troubleshooting/rcm-input-color-space-mismatch) — 非RAWの入力色域・Gamma、二重変換、Bypassを切り分ける
