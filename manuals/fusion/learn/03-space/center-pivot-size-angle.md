@@ -85,6 +85,32 @@ Auto Resolutionをオンにすると、このTimelineの1920×1080が参照寸�
 
 [再現用Graph](/img/fusion/captures/S38/fixture.comp) · [撮影条件と確認範囲](/img/fusion/captures/S38/capture.json)
 
+### 入力解像度と異なるReference Sizeで入力する（S127）
+
+S127では、1920×1080の**chart.png**を**Loader1**から**TransformReference**、**MediaOut1**へつなぎました。Projectの既定解像度は1920×1080ですが、**S127_capture**タイムライン設定は3840×2160、30 fpsです。Centerは内部値(0.525, 0.5)を保ちました。
+
+[![1920×1080のLoader1からTransformReferenceを経てMediaOut1へ接続したFusion Graph](/img/fusion/captures/S127/graph.png)](/img/fusion/captures/S127/graph.png)
+
+Graph: 1920×1080入力をTransformReferenceで変換します。
+
+このcompositionで**Auto Resolution**をオンにした画面では、参照寸法が1920×1080、Centerが960／540と表示されました。SDKで読み戻した対象タイムライン設定は3840×2160です。この差の原因は確認できていません。ここに示すのはS127での観測に限られ、Auto Resolutionの一般的な挙動を示すものではありません。
+
+[![Auto ResolutionがオンのInspector。Reference Sizeは1920×1080、Centerは960×540](/img/fusion/captures/S127/auto-inspector.png)](/img/fusion/captures/S127/auto-inspector.png)
+
+Auto Resolutionをオンにした時の観測: この画面では参照寸法が1920×1080と表示されました。
+
+撮影した入力操作では**Auto Resolution**をオフにし、Reference Sizeへ3840×2160を入力しました。Centerの欄へ2016／1080を入力すると、SDKの限定した読み戻し値は内部値(0.525, 0.5)でした。ピクセル表示を変えてもCenterの正規化値は変わっていません。
+
+[![Auto ResolutionがオフでReference Sizeが3840×2160のInspector。Centerは2016×1080](/img/fusion/captures/S127/pixel-entry-inspector.png)](/img/fusion/captures/S127/pixel-entry-inspector.png)
+
+Inspector: Reference Sizeを3840×2160にしてCenterのピクセル値を入力します。
+
+[![左にLoader1の入力、右にMediaOut1の出力を表示。両Viewerのラベルは1920×1080 int8](/img/fusion/captures/S127/input-output.png)](/img/fusion/captures/S127/input-output.png)
+
+Viewer: 入力側と出力側の表示はともに1920×1080 int8です。3840×2160の画像出力まではこの画面で確認できていません。
+
+[再現用Graph](/img/fusion/captures/S127/fixture.comp) · [撮影条件と確認範囲](/img/fusion/captures/S127/capture.json)
+
 ## Pivot
 
 Pivotは**回転と拡大縮小の支点**です。初期値は `(0.5, 0.5)` で、画像の中央を基準とします。Centerだけを右へ移動しても、Pivotの設定値は別に管理されます。

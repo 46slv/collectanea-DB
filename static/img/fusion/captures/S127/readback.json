@@ -1,0 +1,69 @@
+{
+  "project": "Collectanea_Mandelbrot_Zoom_20261025",
+  "timeline": "S127_capture",
+  "resolve": "21.1.0.14",
+  "edition": "DaVinci Resolve Studio",
+  "os": "Windows-11-10.0.26200-SP0",
+  "time": "2026-10-26T14:40:59.660143+00:00",
+  "frame": 0.0,
+  "sampled_frame": 0,
+  "project_settings": {
+    "colorScienceMode": "davinciYRGB",
+    "colorSpaceInput": "Rec.709 Gamma 2.4",
+    "colorSpaceOutput": "Rec.709 (Scene)",
+    "colorSpaceTimeline": "Rec.709 (Scene)",
+    "colorSpaceOutputGamma": "ACEScc",
+    "isAutoColorManage": "0",
+    "timelineResolutionWidth": "1920",
+    "timelineResolutionHeight": "1080",
+    "timelineOutputResolutionWidth": "1920",
+    "timelineOutputResolutionHeight": "1080",
+    "timelineOutputResMatchTimelineRes": "1",
+    "timelineFrameRate": 30.0,
+    "timelinePlaybackFrameRate": "30",
+    "timelinePixelAspectRatio": "square",
+    "timelineOutputPixelAspectRatio": "square"
+  },
+  "timelines": [
+    "Timeline 1",
+    "S126_capture",
+    "S127_capture"
+  ],
+  "tools": {
+    "Loader1": {
+      "regid": "Loader",
+      "inputs": {
+        "Clip": "Comp:/../_fixtures/chart.png"
+      }
+    },
+    "TransformReference": {
+      "regid": "Transform",
+      "inputs": {
+        "Center": {
+          "1": 0.525,
+          "2": 0.5,
+          "3": 0.0
+        },
+        "Pivot": {
+          "1": 0.5,
+          "2": 0.5,
+          "3": 0.0
+        },
+        "Width": 3840.0,
+        "Height": 2160.0,
+        "UseFrameFormatSettings": 0.0,
+        "Size": 1.0,
+        "Angle": 0.0
+      }
+    },
+    "MediaOut1": {
+      "regid": "MediaOut",
+      "inputs": {}
+    }
+  },
+  "connections": {
+    "TransformReference.Input": "Loader1",
+    "MediaOut1.Input": "TransformReference"
+  },
+  "save_project": true
+}
