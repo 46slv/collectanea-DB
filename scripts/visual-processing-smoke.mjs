@@ -1175,6 +1175,74 @@ try {
     }
   });
 
+  await check('high-pass-signed-detail-recomposition-and-mobile', async () => {
+    await go(route);
+    await page.getByRole('link', {name: '差分と再合成を操作して比較'}).click();
+    await expect(page).toHaveURL(/\/reference\/visual-processing\/filters\/high-pass-filter\/?$/);
+    for (const width of [1440, 390, 320]) {
+      await page.setViewportSize({width, height: width === 1440 ? 1000 : 844});
+      await go('/reference/visual-processing/filters/high-pass-filter');
+      await expect(page.locator('.theme-doc-markdown h1')).toHaveText('ハイパスフィルタ（High-pass Filter）');
+      const widget = page.locator('[data-vp-high-pass="ready"]');
+      await expect(widget).toBeVisible();
+      await expect(widget).toHaveAttribute('data-vp-hp-sigma', '3');
+      await expect(widget).toHaveAttribute('data-vp-hp-gain', '2');
+      const layout = await widget.evaluate((element) => {
+        const previews = element.querySelector('.vp-hp__previews');
+        const controls = element.querySelector('.vp-hp__controls');
+        return {
+          previewFirst: Boolean(previews && controls &&
+            (previews.compareDocumentPosition(controls) & Node.DOCUMENT_POSITION_FOLLOWING)),
+          panels: element.querySelectorAll('[data-vp-hp-preview]').length,
+        };
+      });
+      assert.ok(layout.previewFirst && layout.panels === 3,
+        'High-pass previews must precede controls: ' + width + ' ' + JSON.stringify(layout));
+      const picture = (kind) => widget.locator('[data-vp-hp-preview="' + kind + '"] canvas')
+        .evaluate((canvas) => canvas.toDataURL());
+      const original = await picture('before');
+      const initialDetail = await picture('detail');
+      const initialOutput = await picture('recomposed');
+      assert.notEqual(initialDetail, original, 'Signed detail visualization differs from input');
+      if (width === 1440) {
+        const gain = widget.getByRole('slider', {name: '再合成・差分表示の倍率'});
+        await gain.focus();
+        await gain.press('Home');
+        await expect(widget).toHaveAttribute('data-vp-hp-gain', '0');
+        const neutral = await widget.locator('[data-vp-hp-preview="detail"] canvas')
+          .evaluate((canvas) => {
+            const data = canvas.getContext('2d').getImageData(0, 0, canvas.width, canvas.height).data;
+            for (let i = 0; i < data.length; i += 4) {
+              if (data[i] !== 128 || data[i + 1] !== 128 || data[i + 2] !== 128) return false;
+            }
+            return true;
+          });
+        assert.ok(neutral, 'Zero gain produces neutral 128 high-pass preview');
+        for (let step = 0; step < 4; step++) await gain.press('ArrowRight');
+        await expect(widget).toHaveAttribute('data-vp-hp-gain', '1');
+        await expect.poll(() => picture('recomposed')).toBe(original);
+        await gain.press('End');
+        await expect(widget).toHaveAttribute('data-vp-hp-gain', '3');
+        const sigma = widget.getByRole('slider', {name: 'ぼかしの標準偏差'});
+        await sigma.focus();
+        await sigma.press('Home');
+        await expect(widget).toHaveAttribute('data-vp-hp-sigma', '0.5');
+        await expect.poll(() => picture('detail')).not.toBe(initialDetail);
+        await widget.getByRole('combobox', {name: 'テスト画像'}).selectOption('texture');
+        await expect.poll(() => picture('before')).not.toBe(original);
+        await widget.getByRole('button', {name: '初期値に戻す'}).click();
+        await expect(widget).toHaveAttribute('data-vp-hp-sigma', '3');
+        await expect(widget).toHaveAttribute('data-vp-hp-gain', '2');
+        await expect(widget.getByRole('combobox', {name: 'テスト画像'})).toHaveValue('edges');
+        await expect.poll(() => picture('before')).toBe(original);
+        await expect.poll(() => picture('detail')).toBe(initialDetail);
+        await expect.poll(() => picture('recomposed')).toBe(initialOutput);
+      }
+      await noOverflow();
+      if (width === 390) await shot('high-pass-mobile');
+    }
+  });
+
   await check('no-runtime-or-resource-errors', async () => {
     assert.deepEqual(report.pageErrors, []);
     assert.deepEqual(report.resourceErrors, []);

@@ -68,7 +68,7 @@ import '@site/src/css/visual-processing.css';
 | **メディアンフィルタ（Median Filter）** | 近傍の中央値へ置き換え、孤立した明暗のノイズなどを除去する。[塩胡椒ノイズとGaussian Blurを比較](./filters/median-filter.mdx)。 |
 | **シャープニング（Sharpening）** | 輪郭付近の局所的なコントラストを強め、細部がくっきり見えるようにする。 |
 | **アンシャープマスク（Unsharp Mask）** | ぼかした画像との差から輪郭成分を取り出し、元画像へ加えて強調する。[輪郭とハローの比較](./filters/unsharp-mask.mdx)。 |
-| **ハイパスフィルタ（High-pass Filter）** | ゆっくり変化する成分を抑え、輪郭や細部のような急な変化を取り出す。 |
+| **ハイパスフィルタ（High-pass Filter）** | ゆっくり変化する成分を抑え、輪郭や細部のような急な変化を取り出す。[差分と再合成を操作して比較](./filters/high-pass-filter.mdx)。 |
 | **エッジ検出（Edge Detection）** | 隣り合う画素の変化が大きい場所を取り出し、輪郭線に近い画像を作る。[Sobel輪郭抽出を試す](./filters/sobel-edge-detection.mdx)。 |
 | **ガウス差分（Difference of Gaussians / DoG）** | ぼかし幅の異なる2つの画像の差から局所的な明暗変化を取り出す。[2種類のぼかしを比較する](./filters/difference-of-gaussians.mdx)。 |
 | **膨張・収縮（Dilation / Erosion）** | マスクや画像内の明るい領域を広げたり狭めたりする。[二値マスクの膨張・収縮を操作して比較](./filters/dilation-erosion.mdx)。 |
