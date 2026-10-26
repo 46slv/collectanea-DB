@@ -1,27 +1,27 @@
 ---
 title: RGB Mixerで色チャンネルを混ぜる
-description: ColorページのRGB Mixerの基本、カラーでのチャンネル混合、モノクロ変換、失敗時の判断を公式資料に沿って解説する。
+description: RGB Mixerの出力別チャンネル混合、輝度を保つ調整、チャンネル交換、モノクロの階調設計を21.1公式資料に基づいて解説する。
 doc_type: reference
 verification: partial
 product_scope: color
 suite_surfaces: [color]
-controls: [RGB Mixer, Monochrome, Primaries, Scopes]
+controls: [RGB Mixer, Auto Normalize, Preserve Luminance, Swap Channels, Monochrome, Scopes]
 tasks: [channel-mixing, creative-look, monochrome-grade]
 level: intermediate
-updated: "2026-10-22"
+updated: "2026-10-26"
 ---
 
 # RGB Mixerで色チャンネルを混ぜる
 
 RGB Mixer（RGBミキサー）は、映像の赤・緑・青のチャンネルが、出力の色にどれだけ寄与するかを調整するColorページのパレットです。露出やホワイトバランスを整える[Primaries](./primaries-color-wheels)と異なり、色チャンネル同士の関係を変えて、意図的な色かぶりや独特のモノクロを作るのに使えます。
 
-Blackmagic Designの[公式Colorページ](https://www.blackmagicdesign.com/jp/products/davinciresolve/color)は、スライダーでRGBの量を変える操作、チャンネルの交換、「モノクロ」設定を案内しています。本記事ではそれらを使い分ける判断方法を説明します。具体例は制作上の想定であり、Resolve 21.1実機で検証済みの設定値や作例ではありません。
+Blackmagic Design『DaVinci Resolve 21.1 Reference Manual』Chapter 133では、出力チャンネルごとのスライダー、Auto Normalize、Preserve Luminance、チャンネル交換、Monochromeの操作を説明しています。本記事ではそれらを使い分ける判断方法を整理します。以下の制作例は**21.1公式Manualの機能に基づく想定手順**であり、実機で完成確認した作例ではありません。
 
 ## 何を変えるパレットなのか
 
 通常のカラー映像には赤（R）・緑（G）・青（B）の色成分があります。RGB Mixerでは、結果のあるチャンネルに元の色成分をどの程度利用するか、という観点で調整します。たとえば赤系の出力に緑や青の成分を加えるような方向へ変えると、赤だけの強弱では説明できない色の変化が起こり得ます。
 
-この「色の寄与」という説明は理解のための概念モデルです。21.1内部の行列演算・クリッピング・係数の正確な式、UIの個別初期値は、公開Colorページだけでは確定できません。ここでは架空の数値プリセットを提示しません。
+21.1公式Manualでは、**Red／Green／Blueの各出力グループに、それぞれRed／Green／Blueの入力寄与を調整する3本のスライダー**があると記載されています。つまり、単に「青を強くする」のではなく、**どの出力色へ、どの入力色を混ぜるか**を先に決める必要があります。
 
 | 目的 | 最初に検討する操作 | RGB Mixerを選ぶ理由 |
 | --- | --- | --- |
@@ -29,6 +29,39 @@ Blackmagic Designの[公式Colorページ](https://www.blackmagicdesign.com/jp/p
 | 特定の色相や彩度を限定して変える | [HSL Curves](./hsl-curves) | 色同士の関係を広く変えるLookを作りたい場合 |
 | 衣服など一部分だけ補正する | [Qualifier](./hsl-qualifier)／[Window](./power-windows) | 対象を限定したうえで混合したい場合 |
 | 白黒で色ごとの明るさを演出する | RGB Mixerのモノクロ | 元のR/G/Bの寄与を明暗として利用したい場合 |
+
+## 出力ごとの9スライダーと初期状態
+
+各出力グループの3本のスライダーは、元のどの色チャンネルをその出力へ利用するかを指定します（21.1 Manual pp.3184, 3186）。
+
+| 出力グループ | 調整する3つの入力 | 初期状態 |
+| --- | --- | --- |
+| **Red output** | Red／Green／Blue | Red = **1.00**、他は**0** |
+| **Green output** | Red／Green／Blue | Green = **1.00**、他は**0** |
+| **Blue output** | Red／Green／Blue | Blue = **1.00**、他は**0** |
+
+したがって初期状態では、RedをRedへ、GreenをGreenへ、BlueをBlueへ渡します。**Reset**を押すと、この9スライダーの初期状態へ戻ります。これは「すべてのスライダーを1にする」ことではありません。
+
+21.1公式Manualの各スライダーの範囲は**−2.00〜+2.00**です。負の値では対象の入力色を差し引く方向に働きます。Manualの例では、Red outputのGreenを**−0.24**にすると、Green入力の24％分をRed出力から差し引くと説明されています。これは動作の読み方を示す**公式の例**であり、肌や夜景に−0.24を推奨する意味ではありません。内部のクリッピングやカラーマネージメント方式ごとの数値結果は実機未確認です。
+
+## 明るさを保ちながら色を混ぜる
+
+RGB Mixerには、似ているものの別々の調整である**Auto Normalize**と**Preserve Luminance**が用意されています（21.1 Manual pp.3184–3186）。
+
+| 項目 | Manualで確認できる働き | 使う判断 |
+| --- | --- | --- |
+| **Auto Normalize** | 各出力チャンネルのグループにある補正機能。1つの成分を動かすと他の成分が自動的に補償し、画像全体の輝度が大きく変わらないようにする | ある出力グループ内で色の混合比を変え、不要な明るさの変動を抑えたいとき |
+| **Preserve Luminance** | 独立したチェック項目。あるチャンネルのスライダーを下げるとほかのチャンネルを持ち上げ、上げるとほかを下げて画像の明るさを保つようにする | 色の方向だけを試し、露出感が同時に変わる影響を分けて観察したいとき |
+
+たとえば緑のヘルメットのラインを別の色味に寄せたいとします。公式Manual p.3185では、Green outputのGreen成分を減らすと通常は画面全体にマゼンタの偏りが出ますが、**Auto Normalizeを有効にするとほかの成分が補償し、主に緑のラインの色を変えながら、ほかの領域の変化を抑えた例**が示されています。逆にPreserve Luminanceの例（p.3186）では、Green成分を下げたときRedとBlueが持ち上がる様子をParadeで比較しています。
+
+**どちらも「色を変えても全画素の測定値が必ず同じ」という保証ではありません。** 元画像、カラー管理、後段ノードで見え方は変わり得ます。まず補償の有無を切り替え、Viewerと[RGB Parade](./scopes)で「狙った色」と「保ちたい明るさ」を別々に確かめます。
+
+## チャンネル交換（Swap Channels）
+
+パレット下部には**Red↔Green、Green↔Blue、Red↔Blue**を交換する3つのボタンがあります（21.1 Manual p.3186）。色チャンネルが誤って入れ替わった素材の補正や、意図的な色の転換に使えます。
+
+単に赤を弱くしたい場合と、**RedとBlueを丸ごと交換**したい場合は結果が違います。交換後に白・肌・中間調まで不自然に変われば、補正の目的が「入れ替わった信号の修復」なのか「Lookの創作」なのかを見直します。検証用の意図的なSwapを残したまま、技術的に正しい色変換が済んだと誤認しないようにします。
 
 ## 操作前にノードの役割を分ける
 
@@ -56,7 +89,9 @@ RGB Mixerの変化を評価するときは、技術的な色変換と見た目�
 
 ## 例2：緑の木を明るく、青い空を暗くしたモノクロ
 
-Blackmagic Design公式Colorページでは、RGB Mixerの「モノクロ」を有効にして元のRGB成分の輝度への寄与を変える作例が説明されています。緑の寄与を上げ、青を下げることで、木々を明るく、空を暗く表現する例です。
+Blackmagic Design公式Colorページでは、RGB Mixerの「モノクロ」を有効にして元のRGB成分の輝度への寄与を変える作例が説明されています。緑の寄与を上げ、青を下げることで、木々を明るく、空を暗く表現する例です。**21.1 Manual p.3187では、Monochromeをオンにすると各出力グループのうち2本ずつが操作不可となり、Red→Red、Green→Green、Blue→Blueの3つのスライダーだけが使える**とされています。カラー用の9スライダーをそのまま操作するモードではありません。
+
+ManualはRec.709の輝度成分Y′を表す係数**R 0.2126／G 0.7152／B 0.0722**を説明し、モノクロ初期設定の割合を概ね**21／71／7％**と記しています。これはManualが示す標準的な混合の出発点で、変更後の値や異なる作業色空間でも同じ見た目になるという保証ではありません。初期設定での結果はSaturation=0と同等と説明されていますが、混合比を変えることで色の違いを独自の白黒階調へ振り分けられます。
 
 1. 緑の葉と青い空が共に見える素材を選び、変換前の色と明暗を確認します。
 2. Look用ノードでRGB Mixerの「モノクロ」を有効にします。
@@ -83,7 +118,9 @@ RGB Mixerはカラープロファイルや正確な色指定を代替する道�
 
 | 症状 | まず確認すること |
 | --- | --- |
-| 全画面が強く色かぶりする | どのチャンネルを変えたか、一度に複数を動かしていないか、基本補正とLookが混ざっていないか |
+| 全画面が強く色かぶりする | 出力グループと入力成分の組み合わせ、Auto Normalizeの状態、基本補正とLookの混同 | 
+| 色を変えると明るさまで大きく変わる | Auto Normalize／Preserve Luminanceの状態とRGB Parade。色の混合と露出補正を分離 | 
+| Swap後に色がおかしい | どの2チャンネルを交換したか、誤接続の修復目的と演出目的の混同 |
 | 肌や白い物体が不自然に変わる | 調整量、全画面への影響、局所補正を分ける必要 |
 | モノクロで空や葉の階調が失われる | 元の色成分の寄与、変更前の階調、Waveform |
 | RGB Paradeが一致しない | 元の物体の色と照明、Lookの意図。波形の一致を目的化しない |
@@ -94,8 +131,8 @@ RGB Mixerはカラープロファイルや正確な色指定を代替する道�
 
 ## 出典・対象版・確認範囲
 
-- **対象版：DaVinci Resolve 21.1。** Blackmagic Design [『DaVinci Resolve 21.1 Reference Manual』](https://documents.blackmagicdesign.com/UserManuals/DaVinci_Resolve_21.1_Reference_Manual.pdf)（2026年9月8日公開）。公開先は確認しましたが、**RGB Mixer該当章、21.1固有のUI構成、内部演算式は直接照合していません**。
-- **操作の直接根拠：** Blackmagic Design [『DaVinci Resolve — Color』（公式日本語ページ）](https://www.blackmagicdesign.com/jp/products/davinciresolve/color)「RGBカラーチャンネルをミックス」（確認日：2026年10月22日）。スライダー、チャンネル交換、「モノクロ」、緑／青成分による白黒の作例、グラフィックへの利用を確認しました。
-- **verification: partial。** 正確なスライダー名称・初期値・設定範囲、21.1実機での比較画像、Free／Studio差、特定のカラー管理方式での数値的な結果は未検証です。操作例は確認済み機能を使った想定ワークフローで、実機受入結果ではありません。
+- **対象版：DaVinci Resolve 21.1。** Blackmagic Design [『DaVinci Resolve 21.1 Reference Manual』](https://documents.blackmagicdesign.com/UserManuals/DaVinci_Resolve_21.1_Reference_Manual.pdf)（September 2026）、**Chapter 133「RGB Mixer」pp.3183–3188**。2026-10-26に本文のpp.3184–3188を直接確認。pp.3184–3185：9スライダー・−2.00〜+2.00・Auto Normalizeと作例、p.3186：Preserve Luminance・Reset・3種のSwap、pp.3187–3188：Monochromeの3スライダーとRec.709の混合比。
+- **公式機能紹介：** Blackmagic Design [『DaVinci Resolve — Color』（日本語）](https://www.blackmagicdesign.com/jp/products/davinciresolve/color)「RGBカラーチャンネルをミックス」。チャンネル交換・モノクロの利用例を参照。
+- **確認済み：** 21.1 Manual本文に記載されたコントロール名、初期状態、スライダー範囲、モードの違い、公式の色変化例。**未確認：** 21.1実機のUI配置と操作結果、カラー管理方式ごとの数値挙動、内部演算の完全な式・クリッピング、Free／Studio差、想定素材でのLook評価。画像付き実機受入は行っていません。**verification: partial**を維持します。
 
 関連：[Primaries](./primaries-color-wheels)／[HSL Curves](./hsl-curves)／[Scopes](./scopes)／[Color Node Graph](../learn/color-node-graph)／[カラーマネージメント](../learn/color-management-basics)
