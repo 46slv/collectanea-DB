@@ -16,7 +16,7 @@ tasks: ["create-matte", "isolate-subject", "track-mask", "refine-matte"]
 level: intermediate
 product_scope: fusion
 suite_surfaces: ["fusion"]
-updated: "2026-10-06"
+updated: "2026-10-26"
 ---
 
 # Magic Mask
@@ -68,15 +68,47 @@ Viewer上で対象を左クリックするとpositive pointが置かれ、青で
 
 複雑な対象でも、同じobjectへ大量のpointを置くことが必須ではありません。21.1 Manualでは、まず少数のpointで対象を認識させ、誤って含まれた領域だけnegative pointで修正する流れが説明されています。
 
+### Pointの修正と削除
+
+Inspectorの**Point Mode**にはAdd Point（追加）、Subtract Point（除外）、Select Points（選択）があります。クリックで追加する対象を切り替えたいときは、ショートカットに頼らずここから選べます。
+
+不要なPointを削除するときは**Select Points**でViewer上のPointを囲みます。選択されたPointは緑色になり、**Delete Point**で消せます。対象の認識を直すときは、まず誤ったPointだけを削除するか、位置を移して確認します。
+
 ## Tracking
 
-pointを置いたframeがReference Timeになります。そこから前後へtrackingし、人物やobjectの動きにpointを追従させます。
+Pointは各frameで重なる部分の画像を解析するため、対象やカメラが動く場合はPoint自体が対象を追う必要があります。Reference Frameで正しく選択できても、別frameでPointが背景へ移ると認識結果が変わります。
 
-Tracking Controlsには、前後へ連続trackingする操作に加えて、1frameずつ進める操作があります。複雑なmotionでpointが外れる場合は、正常だったframeへ戻し、point位置を修正してからframe単位でtrackingできます。
+### 追跡方向と範囲
 
-Reference Timeはtracking開始の基準です。21.1 Manualでは、いったんReference Timeを設定した後に変更すると既存tracking情報が失われるため、Reference Frame選びはtracking前に決める必要があります。
+Tracking Controlsでは、現在frameを基準に次の操作を選びます。
 
-Processed Framesでは、すでにtracking済みのframe rangeを確認できます。
+| Control | 動作と使いどころ |
+| --- | --- |
+| **Track Reverse** | 現在frameからclip先頭まで連続して逆方向へ追跡します。 |
+| **Track Reverse One Frame** | 1frameだけ戻して停止します。位置ずれを細かく直すときに使います。 |
+| **Track Forward Then Reverse** | clip末尾まで追跡したあと元の位置に戻り、先頭へ追跡します。Reference Frameが途中にあるshotに向きます。 |
+| **Stop Tracking** | 追跡を途中で止め、Pointを修正するために使います。 |
+| **Track Forward** | 現在frameからclip末尾まで連続して追跡します。 |
+| **Track Forward One Frame** | 1frameだけ進めて停止します。難しい動きをframeごとに確認できます。 |
+
+**Go To Frame**には追跡済み範囲の最初、Reference Frame、追跡済み範囲の最後へ移動する操作があります。**Processed Frames**のStart / Endには処理済みframe範囲が表示されますが、これらの値は直接編集できません。
+
+### 追跡が外れたとき
+
+1. **Stop Tracking**で止め、Go To Frameかframe移動でPointが正しく対象を示していた最後のframeへ戻します。
+2. Pointが髪、手、物体の輪郭などから背景へ移った場合は、同じ対象を識別しやすい位置へPointをドラッグして移します。
+3. **Track Forward One Frame**または**Track Reverse One Frame**で1frameずつ進め、再び外れる場所を確認します。安定したら連続trackingに戻します。
+4. 全frameを処理したと思っても結果が途中で途切れるときは、**Processed Frames**の範囲と、clipの未追跡区間を照合します。
+
+これはManualの操作に基づく診断手順です。具体的なshotでの追跡成功や失敗率を実測したものではありません。
+
+### Reference Time・Point消去・Cache
+
+**Reference Time**は最初にPointを置いたframeであり、tracking開始の基準です。21.1 Manualでは、いったん設定したReference Timeを変更すると**既存のtracking情報が失われる**と説明されています。全区間をtrackingする前に、対象が明瞭で隠れていないframeを選びます。
+
+**Clear Points**は、Current（現在frame）、Range（選択したrender range）、All（clip全体）の単位でPointを消去します。単一Pointの修正には上のSelect Points / Delete Pointを先に使い、**All**を押す前には消去範囲を確認します。
+
+**Disk Cache**の**Regenerate All**はcacheを再生成し、**Clear**は現在のcacheのframeを削除します。これはPointを消すClear Pointsとは別の操作です。cacheを消してもPointやtrackの問題を修復したと断定せず、必要な範囲の再処理と結果確認を行います。
 
 ## Faster / Better
 
@@ -93,7 +125,7 @@ Magic Maskで作ったAlphaはMatte tabで調整できます。ViewerをAlpha表
 
 ### Filter / Blur
 
-Blurでmatte edgeを柔らかくします。FilterではBox Blur、Bartlett、Multi-Box、Gaussian、Fast Gaussianからblur方式を選べます。
+Blurでmatte edgeを柔らかくします。FilterではBox Blur、Bartlett、Multi-Box、Gaussian、Fast Gaussianからblur方式を選べます。21.1 Manualでは**Fast Gaussianが既定のFilter**です。Filter選択とBlur量は別なので、まずBlur量を確認してから方式を比較します。
 
 ### Erode/Dilate
 
@@ -145,7 +177,7 @@ Manualでも、Magic Maskの出力を別NodeのMask入力へ渡す構成が基�
 
 Post-Multiply Imageを有効にすると、生成したAlphaをRGBへ乗算してpremultiplied Imageとして扱える状態にします。21.1 Manualでは通常有効で、既定もOnです。
 
-無効にした場合はpremultiplicationの扱いが変わるため、後段MergeのOperatorなどを確認する必要があります。
+無効にした出力はpremultiplied Imageとは扱えません。21.1 Manualでは、その場合は後段Mergeの**AdditiveではなくSubtractive**を使うよう案内しています。
 
 ## Delta Keyerとの違い
 
@@ -163,6 +195,6 @@ Magic Maskは人物やobjectの形と見た目をAIで認識してmatteを作り
 
 ## バージョンと検証状況
 
-DaVinci Resolve 21.1 Reference Manual Chapter 109 pp.2534–2539で、Magic Mask v2がFusionで既定であること、Use Legacy Magic Mask、positive / negative point、4入力、Faster / Better、tracking controls、Reference Time、Processed Frames、Post-Multiply Image、Matte tabのFilter / Blur / Erode-Dilate / Gamma / Threshold / Restore Fringe / Invert Matteを確認しています。
+Blackmagic Design『DaVinci Resolve 21.1 Reference Manual』（September 2026）Chapter 109 pp.2534–2539で、Magic Mask v2の既定化、Use Legacy Magic Mask、Point ModeとPoint削除、4入力、Faster / Better、6種類のtracking操作、Go To Frame、Clear Points、Disk Cache、Reference Time、Processed Frames、Post-Multiply Image、Matte tabのFilter / Blur / Erode-Dilate / Gamma / Threshold / Restore Fringe / Invert Matteを確認しています。出典：[Blackmagic Design公式Support](https://www.blackmagicdesign.com/support)。
 
 このManual sectionではFusion Magic Maskのedition境界を明示していないため、このページではStudio限定とは断定していません。current runtime REGID、実機上の端子配置、処理速度、AI model内部仕様はこのrunでは確認していません。
