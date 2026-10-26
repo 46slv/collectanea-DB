@@ -1,0 +1,32 @@
+.vp-bit-depth {
+  margin: 24px 0 32px; padding: clamp(14px, 2.5vw, 24px);
+  border: 1px solid var(--cc-line); border-radius: var(--cc-radius);
+  background: var(--cc-surface); color: var(--cc-text);
+  font: 14px/1.65 var(--cc-body-font);
+}
+.vp-bit-depth h3 {margin: 0 0 8px; font-size: 19px; line-height: 1.45;}
+.vp-bit-depth__intro {margin: 0 0 15px; color: var(--cc-secondary);}
+.vp-bit-depth__previews {display: grid; grid-template-columns: repeat(2, minmax(0, 1fr)); gap: 12px;}
+.vp-bit-depth__preview {margin: 0; min-width: 0; overflow: hidden; border: 1px solid var(--cc-line); border-radius: var(--cc-radius);}
+.vp-bit-depth__preview figcaption {display: flex; flex-direction: column; gap: 2px; padding: 9px 10px; line-height: 1.4;}
+.vp-bit-depth__preview figcaption strong {font-size: 13px;}
+.vp-bit-depth__preview figcaption span {font-size: 11px; color: var(--cc-secondary);}
+.vp-bit-depth__viewport {max-width: 100%; overflow-x: auto; background: #808080;}
+.vp-bit-depth__viewport canvas {display: block; height: auto; max-width: none; image-rendering: pixelated;}
+.vp-bit-depth__notice {margin: 11px 0; font-size: 12px; color: var(--cc-secondary);}
+.vp-bit-depth__readouts {display: grid; grid-template-columns: repeat(2, minmax(0, 1fr)); gap: 8px;}
+.vp-bit-depth__readouts > div {padding: 9px 10px; border: 1px solid var(--cc-line); border-radius: var(--cc-radius); min-width: 0;}
+.vp-bit-depth__readouts small {display: block; color: var(--cc-secondary); font-size: 11px;}
+.vp-bit-depth__readouts strong {display: block; font-variant-numeric: tabular-nums; font-size: 14px; overflow-wrap: anywhere;}
+.vp-bit-depth__controls {display: grid; grid-template-columns: repeat(2, minmax(0, 1fr)); gap: 14px; margin-top: 20px; padding-top: 18px; border-top: 1px solid var(--cc-line);}
+.vp-bit-depth__controls label {display: flex; min-width: 0; flex-direction: column; justify-content: flex-end; gap: 6px; font-size: 12px; color: var(--cc-secondary);}
+.vp-bit-depth__controls label > span {display: flex; flex-wrap: wrap; justify-content: space-between; gap: 6px;}
+.vp-bit-depth__controls output {color: var(--cc-text); font-weight: 600;}
+.vp-bit-depth__controls select {width: 100%; min-width: 0; min-height: 40px; padding: 7px 10px; border: 1px solid var(--cc-control-line); border-radius: var(--cc-radius); background: var(--cc-canvas); color: var(--cc-text);}
+.vp-bit-depth__controls input[type='range'] {width: 100%; min-height: 40px; margin: 0; accent-color: var(--cc-text);}
+.vp-bit-depth__actions {display: flex; justify-content: flex-end; margin-top: 12px;}
+.vp-bit-depth__actions button {min-height: 38px; padding: 7px 11px; border: 1px solid var(--cc-control-line); border-radius: var(--cc-radius); background: var(--cc-surface); color: var(--cc-text);}
+.vp-bit-depth__actions button:hover {background: var(--cc-raised);}
+@media (max-width: 700px) {
+  .vp-bit-depth__previews, .vp-bit-depth__readouts, .vp-bit-depth__controls {grid-template-columns: minmax(0, 1fr);}
+}
