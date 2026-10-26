@@ -54,6 +54,7 @@ Colorページは、素材の明るさや色の偏りを整え、複数ショッ
 - [RGB Mixer](./reference/rgb-mixer) — 色チャンネルの混合とモノクロの階調設計
 - [Color Warper](./reference/color-warper) — 色相・彩度のグリッドで色の関係を調整
 - [ColorSlice](./reference/color-slice) — 7色スライスのHue／Density／SaturationとGlobalで色のまとまりを整える
+- [Film Look Creator](./reference/film-look-creator) — 色のLookとフィルム質感を分けて調整し、LUT化できる範囲を確認する
 - [Serial／Parallel／Layerノード](./reference/serial-parallel-layer-nodes) — 補正の入力と合成順序を使い分ける
 - [Color Sizing](./reference/color-sizing) — Edit／Input／Output／Node／Referenceの適用範囲
 - [Keyframes](./reference/color-keyframes) — 色補正を時間とともに変化させる
