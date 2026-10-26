@@ -1407,7 +1407,7 @@ try {
         await expect.poll(() => picture('source')).not.toBe(sourceImage);
         await widget.getByRole('combobox', {name: '表示倍率'}).selectOption('4');
         await expect(widget.locator('[data-vp-white-balance-preview="output"] canvas'))
-          .toHaveCSS('width', /1536px/);
+          .toHaveAttribute('style', /width: 400%/);
       }
       await widget.getByRole('button', {name: '初期値に戻す'}).click();
       await expect(widget).toHaveAttribute('data-vp-white-balance-temperature', '0');
