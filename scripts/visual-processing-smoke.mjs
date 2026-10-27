@@ -1673,6 +1673,72 @@ try {
     }
   });
 
+  await check('lens-ghost-preview-controls-and-mobile', async () => {
+    await go(route);
+    await page.getByRole('link', {name: '位置と形を操作して比較'}).click();
+    await expect(page).toHaveURL(/\/reference\/visual-processing\/optics\/lens-ghosting\/?$/);
+    for (const width of [1440, 390, 320]) {
+      await page.setViewportSize({width, height: width === 1440 ? 1000 : 844});
+      await go('/reference/visual-processing/optics/lens-ghosting');
+      await expect(page.locator('.theme-doc-markdown h1')).toContainText('ゴースト');
+      const widget = page.locator('[data-vp-lens-ghost="ready"]');
+      await expect(widget).toBeVisible();
+      const layout = await widget.evaluate(section => {
+        const previews = section.querySelector('.vp-lg__previews');
+        const controls = section.querySelector('.vp-lg__controls');
+        return {
+          panels: section.querySelectorAll('[data-vp-lg-panel] canvas').length,
+          dom: Boolean(previews && controls &&
+            (previews.compareDocumentPosition(controls) & Node.DOCUMENT_POSITION_FOLLOWING)),
+          visual: Boolean(previews && controls &&
+            previews.getBoundingClientRect().bottom <= controls.getBoundingClientRect().top),
+        };
+      });
+      assert.ok(layout.panels === 3 && layout.dom && layout.visual,
+        'Lens ghost preview-first layout at ' + width + ': ' + JSON.stringify(layout));
+      const picture = mode => widget.locator('[data-vp-lg-panel="' + mode + '"] canvas')
+        .evaluate(canvas => canvas.toDataURL());
+      const originalGhost = await picture('ghosts');
+      const originalComposite = await picture('combined');
+      const x = widget.getByRole('slider', {name: '光源の横位置'});
+      await x.focus();
+      await x.press('Home');
+      await expect(x).toHaveValue('15');
+      await expect.poll(() => picture('ghosts')).not.toBe(originalGhost);
+      const leftGhost = await picture('ghosts');
+      await x.press('End');
+      await expect(x).toHaveValue('85');
+      await expect.poll(() => picture('ghosts')).not.toBe(leftGhost);
+      const strength = widget.getByRole('slider', {name: 'ゴーストの強さ'});
+      await strength.focus();
+      await strength.press('Home');
+      await expect(widget).toHaveAttribute('data-vp-lg-strength', '0');
+      const withoutGhost = await picture('combined');
+      await expect.poll(() => picture('combined')).toBe(withoutGhost);
+      await strength.press('End');
+      await expect(strength).toHaveValue('1');
+      await expect.poll(() => picture('combined')).not.toBe(withoutGhost);
+      const count = widget.getByRole('slider', {name: '反射像の数'});
+      await count.focus();
+      await count.press('End');
+      await expect(widget).toHaveAttribute('data-vp-lg-count', '5');
+      const manyGhosts = await picture('ghosts');
+      const aperture = widget.getByRole('combobox', {name: '絞り形状'});
+      await aperture.selectOption('8');
+      await expect.poll(() => picture('ghosts')).not.toBe(manyGhosts);
+      await widget.getByRole('button', {name: '初期値に戻す'}).click();
+      await expect(x).toHaveValue('74');
+      await expect(strength).toHaveValue('0.65');
+      await expect(count).toHaveValue('3');
+      await expect(aperture).toHaveValue('6');
+      await expect.poll(() => picture('ghosts')).toBe(originalGhost);
+      await expect.poll(() => picture('combined')).toBe(originalComposite);
+      await noOverflow();
+      if (width === 390) await shot('lens-ghost-mobile');
+    }
+  });
+
+
   await check('no-runtime-or-resource-errors', async () => {
     assert.deepEqual(report.pageErrors, []);
     assert.deepEqual(report.resourceErrors, []);

@@ -83,7 +83,7 @@ import '@site/src/css/visual-processing.css';
 | **ブルーム（Bloom）** | とくに強い光やハイライトの広がりを再現する処理。Glowと呼び分けない実装もある。[操作して比較する](./optics/bloom.mdx)。 |
 | **ハレーション（Halation）** | フィルムなどで強い光の周囲に赤みを帯びたにじみが出る現象や、その再現表現。[赤いにじみを操作して比較](./optics/halation.mdx)。 |
 | **レンズフレア（Lens Flare）** | 強い光がレンズ内で反射・散乱し、光条や円形の像などが重なる現象。 |
-| **ゴースト（Lens Ghosting）** | レンズ面の反射で、光源に対応した複数の像が画面内へ現れる。 |
+| **ゴースト（Lens Ghosting）** | レンズ面の反射で、光源に対応した複数の像が画面内へ現れる。[位置と形を操作して比較](./optics/lens-ghosting.mdx)。 |
 | **周辺減光（Vignetting）** | 中央より画面周辺が暗くなる現象。演出として後付けすることもある。[中心位置と減衰を操作して比較](./optics/vignetting.mdx)。 |
 | **色収差（Chromatic Aberration）** | 波長ごとの結像差によって、輪郭に色のずれやにじみが生じる。[放射方向と水平ずれを操作して比較](./optics/chromatic-aberration.mdx)。 |
 | **レンズ歪曲（Lens Distortion）** | 直線が外側へ膨らんだり内側へ曲がったりして見える幾何学的な歪み。[樽型と糸巻き型を操作して比較](./optics/lens-distortion.mdx)。 |
