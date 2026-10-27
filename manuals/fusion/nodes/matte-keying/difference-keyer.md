@@ -16,7 +16,7 @@ tasks: [create-matte, difference-key, clean-plate]
 level: intermediate
 product_scope: fusion
 suite_surfaces: [fusion]
-updated: "2026-10-24"
+updated: "2026-10-27"
 ---
 
 # Difference Keyer
@@ -120,6 +120,33 @@ Matte Controlは追加の調整が不要なら省けます。B-Splineなどの�
 6. **合成背景上で確認する**：Matte ControlとMergeを通して別背景へ重ね、輪郭の二重像、壁の模様の残り、RGBとアルファの境界を見ます。
 
 この手順はManualにあるDifference Keyerの機能とB-Splineを使う例から組み立てた**構成案**です。特定の素材で実際に成功した検証結果ではありません。
+
+## 背景参照のずれを切り分ける最小比較
+
+Difference Keyerで背景まで白く残るときは、Thresholdを強くする前に、比較する2枚が同じ位置の画素を表しているか確かめます。閾値で小さな色差を消せても、カメラの動きや照明変化そのものは補正できません。
+
+### 1. 同じ背景画像を両入力に接続する
+
+まず人物のいない背景画像を分岐し、**同じフレーム**をBackgroundとForegroundの両方に接続します。Garbage Matte、Solid Matte、Effect Maskはいったん外し、Invertも無効にして、ViewerをAlpha表示へ切り替えます。
+
+    背景だけのImage ─┬→ Difference Keyer（Background）
+                      └→ Difference Keyer（Foreground）
+                                      ↓
+                                 Alpha表示
+
+両入力の画素が一致するなら差は理論上ゼロで、Alphaはほぼ黒になるはずです。ここで白い部分が残る場合は、被写体を含む撮影素材の問題と決めつけず、入力の接続、参照フレーム、上流のTransformやColor処理、ThresholdとInvertの状態を調べます。この結果は手順上の予測であり、21.1実機での出力測定ではありません。
+
+### 2. Foregroundだけ人物入り映像へ戻す
+
+次に、Backgroundを固定したままForegroundだけ人物入り素材へ戻します。人物だけでなく空の壁も灰色や白になるなら、人物の輪郭処理より先に2枚の画角・位置・照明・時間の一致を見直します。
+
+例えば固定カメラの廊下でも、背景だけを撮ったときに点灯していた照明が人物撮影時に消えていれば、壁そのものが「差」として検出されます。Thresholdを広げると壁を消せる場合もありますが、人物の暗い服まで失うなら、背景参照の撮り直しや補正を検討する方が適切です。
+
+### 3. 参照が合ってからマットを調整する
+
+背景の残りと人物の欠けを分けて確認した後で、Threshold、Blur、Solid / Garbage Matteを順に調整し、最後にMergeした画像を見ます。同じ背景画像を両入力へつなぐ試験は**入力と設定を切り分けるための基準**であり、実際の人物入り映像のキーイング品質を保証しません。
+
+この比較手順は、21.1 Manual Chapter 109で説明された「2枚のImageの差からマットを作る」働きと既存のControlから組み立てた確認案です。フレーム差・照明変化を含む実写比較、具体的なAlpha値、性能は未検証です。
 
 ## うまく抜けないとき
 
