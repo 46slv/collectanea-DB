@@ -182,7 +182,9 @@
   ],
   "reproduction": {
     "fixture_sha256": "621e1f683dd4bc08a79edf942eb943fbb7b0af07a5c77645f6a9e945b5cc01d6",
-    "readback_sha256": "f1d5f372890f2730c6949f9809a90d7dd6e277893c776d9d98e4c1543dfa3f32",
-    "reimport": "NOT_RUN"
+    "readback_sha256": "f91b6a5662493cc34420da3526a2c3c7847cb26f018d9580e48c48ac275f8d84",
+    "reimport": "NOT_RUN",
+    "readback_source_sha256": "f1d5f372890f2730c6949f9809a90d7dd6e277893c776d9d98e4c1543dfa3f32",
+    "readback_transform": "Original SDK readback line endings normalized from CRLF to LF for the portable Git asset; JSON values unchanged."
   }
 }
