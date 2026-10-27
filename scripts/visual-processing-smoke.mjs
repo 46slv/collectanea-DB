@@ -1841,6 +1841,15 @@ try {
         'Bokeh preview-first three-panel layout at ' + width + ': ' + JSON.stringify(layout));
       const picture = mode => widget.locator('[data-vp-bokeh-panel="' + mode + '"] canvas')
         .evaluate(canvas => canvas.toDataURL());
+      // This marker is SSR-rendered, but Canvas paints in React effects after hydration.
+      // Do not freeze the reset oracle before all three initial previews have painted.
+      const painted = mode => widget.locator('[data-vp-bokeh-panel="' + mode + '"] canvas')
+        .evaluate(canvas => {
+          const pixel = canvas.getContext('2d').getImageData(4, 4, 1, 1).data;
+          return pixel[0] + pixel[1] + pixel[2] > 0;
+        });
+      await expect.poll(() => Promise.all(['input', 'aperture', 'result'].map(painted)))
+        .toEqual([true, true, true]);
       const before = await picture('input');
       const opening = await picture('aperture');
       const result = await picture('result');
