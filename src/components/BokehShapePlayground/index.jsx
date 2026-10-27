@@ -40,7 +40,8 @@ function BokehPreview({mode,options,specs}){
     ctx.clearRect(0,0,BOKEH_WIDTH,BOKEH_HEIGHT);
     if(mode==='aperture'){
       ctx.fillStyle='#101925';ctx.fillRect(0,0,BOKEH_WIDTH,BOKEH_HEIGHT);
-      ctx.strokeStyle='#4a5361';ctx.setLineDash([4,5]);ctx.beginPath();
+      // Canvas context styles persist across redraws; reset guide width before each aperture paint.
+      ctx.strokeStyle='#4a5361';ctx.lineWidth=1;ctx.setLineDash([4,5]);ctx.beginPath();
       ctx.moveTo(180,25);ctx.lineTo(180,155);ctx.moveTo(100,90);ctx.lineTo(260,90);ctx.stroke();
       ctx.setLineDash([]);
       fillShape(ctx,bokehVertices(180,90,Math.min(options.radius*2.2,66),options.blades,options.oval),'#d7ebee',options.edge);
