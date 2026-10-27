@@ -1739,6 +1739,82 @@ try {
   });
 
 
+
+  await check('lut-interpolation-and-mobile', async () => {
+    await go(route);
+    await page.getByRole('link', {name: '記録点と補間を操作して比較'}).click();
+    await expect(page).toHaveURL(/\/reference\/visual-processing\/lut\/?$/);
+    for (const width of [1440, 390, 320]) {
+      await page.setViewportSize({width, height: width === 1440 ? 1000 : 844});
+      await go('/reference/visual-processing/lut');
+      await expect(page.locator('.theme-doc-markdown h1')).toContainText('LUT');
+      const widget = page.locator('[data-vp-lut="ready"]');
+      await expect(widget).toBeVisible();
+      const layout = await widget.evaluate(element => {
+        const previews = element.querySelector('.vp-lut__previews');
+        const controls = element.querySelector('.vp-lut__controls');
+        return {
+          panels: element.querySelectorAll('[data-vp-lut-preview] canvas').length,
+          dom: Boolean(previews && controls &&
+            (previews.compareDocumentPosition(controls) & Node.DOCUMENT_POSITION_FOLLOWING)),
+          visual: Boolean(previews && controls &&
+            previews.getBoundingClientRect().bottom <= controls.getBoundingClientRect().top),
+        };
+      });
+      assert.ok(layout.panels === 3 && layout.dom && layout.visual,
+        'LUT preview-first layout at ' + width + ': ' + JSON.stringify(layout));
+      const picture = kind => widget.locator('[data-vp-lut-preview="' + kind + '"] canvas')
+        .evaluate(canvas => canvas.toDataURL());
+      const initialInput = await picture('input');
+      const initialIdeal = await picture('ideal');
+      const initialLookup = await picture('lookup');
+      assert.notEqual(initialLookup, initialIdeal, 'Initial 4-point nearest LUT must differ');
+      const curve = widget.getByRole('combobox', {name: '変換カーブ'});
+      const points = widget.getByRole('combobox', {name: 'LUTの記録点数'});
+      const method = widget.getByRole('combobox', {name: '点の間の補間'});
+      const pattern = widget.getByRole('combobox', {name: '入力パターン'});
+      const zoom = widget.getByRole('combobox', {name: '表示倍率'});
+      const error = widget.locator('[data-vp-lut-error]');
+      await expect(points).toHaveValue('4');
+      await expect(method).toHaveValue('nearest');
+      const initialError = await error.textContent();
+      await method.selectOption('linear');
+      await expect(widget).toHaveAttribute('data-vp-lut-interpolation', 'linear');
+      await expect.poll(() => picture('lookup')).not.toBe(initialLookup);
+      await expect(error).not.toHaveText(initialError);
+      const linear4 = await picture('lookup');
+      await points.selectOption('32');
+      await expect(widget).toHaveAttribute('data-vp-lut-entries', '32');
+      await expect.poll(() => picture('lookup')).not.toBe(linear4);
+      await expect(widget.locator('.vp-lut__readout tbody tr')).toHaveCount(5);
+      await pattern.selectOption('rgb');
+      await expect.poll(() => picture('input')).not.toBe(initialInput);
+      await zoom.selectOption('4');
+      await expect(zoom).toHaveValue('4');
+      await expect.poll(() => widget.locator('[data-vp-lut-preview="lookup"] .vp-lut__viewport')
+        .evaluate(el => el.scrollWidth > el.clientWidth),
+        {message: '400% LUT preview remains horizontally inspectable at ' + width}).toBe(true);
+      if (width === 1440) {
+        // Identity preserves the current RGB pattern, not the initial gray pattern.
+        const currentInput = await picture('input');
+        await curve.selectOption('identity');
+        await expect.poll(() => picture('ideal')).toBe(currentInput);
+        await curve.selectOption('power');
+      }
+      await widget.getByRole('button', {name: '初期値に戻す'}).click();
+      await expect(curve).toHaveValue('power');
+      await expect(points).toHaveValue('4');
+      await expect(method).toHaveValue('nearest');
+      await expect(pattern).toHaveValue('gray');
+      await expect(zoom).toHaveValue('1');
+      await expect.poll(() => picture('input')).toBe(initialInput);
+      await expect.poll(() => picture('ideal')).toBe(initialIdeal);
+      await expect.poll(() => picture('lookup')).toBe(initialLookup);
+      await noOverflow();
+      if (width === 390) await shot('lut-interpolation-mobile');
+    }
+  });
+
   await check('no-runtime-or-resource-errors', async () => {
     assert.deepEqual(report.pageErrors, []);
     assert.deepEqual(report.resourceErrors, []);
