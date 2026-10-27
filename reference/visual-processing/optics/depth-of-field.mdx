@@ -25,9 +25,7 @@ import DepthOfFieldPlayground from '@site/src/components/DepthOfFieldPlayground'
 - **出力**：「無加工の入力」「三距離帯のマップ（明るい帯がピント位置）」「距離に応じてぼかした結果」の三画面。ピント位置の帯はぼかし半径0 pxで、そこにある線は維持します。
 - **計算**：距離をz、ピント距離をs、f値をN、強度をaとして、教材の半径を次のように計算します。
 
-\[
-r = \min\left(14,\operatorname{round}\left(52 \times \frac{2.8}{N} \times \left|\frac1z-\frac1s\right| \times a\right)\right)\ \mathrm{px}
-\]
+`r = min(14, round(52 × (2.8 / N) × |1/z − 1/s| × a)) px`
 
 逆距離の差がゼロならr=0です。係数52は見やすさのための任意値で、焦点距離・センサーサイズ・許容錯乱円径から導いた数値ではありません。各距離帯のRGBを水平方向と垂直方向に順にボックス平均し、帯の境界を越えて混ぜないようにします。
 
