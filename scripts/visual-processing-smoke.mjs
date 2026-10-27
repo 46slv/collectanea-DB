@@ -1790,9 +1790,10 @@ try {
       await pattern.selectOption('rgb');
       await expect.poll(() => picture('input')).not.toBe(initialInput);
       await zoom.selectOption('4');
-      const scrollable = await widget.locator('[data-vp-lut-preview="lookup"] .vp-lut__viewport')
-        .evaluate(el => el.scrollWidth > el.clientWidth);
-      assert.ok(scrollable, '400% LUT preview remains horizontally inspectable at ' + width);
+      await expect(zoom).toHaveValue('4');
+      await expect.poll(() => widget.locator('[data-vp-lut-preview="lookup"] .vp-lut__viewport')
+        .evaluate(el => el.scrollWidth > el.clientWidth),
+        {message: '400% LUT preview remains horizontally inspectable at ' + width}).toBe(true);
       if (width === 1440) {
         await curve.selectOption('identity');
         await expect.poll(() => picture('ideal')).toBe(initialInput);
