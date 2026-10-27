@@ -1,102 +1,137 @@
 ---
 title: GalleryとStills（グレードを保存・比較・再利用する）
-description: ColorページでStillを保存し、別ショットへグレードを適用して比較するための基礎。
+description: Resolve 21.1のGalleryでStillを保存・整理し、PowerGrade、Live Preview、比較、グレード適用、DRX書き出しを使い分ける。
 doc_type: reference
 verification: partial
 product_scope: color
 suite_surfaces: [color]
-controls: [Gallery, Still, Apply Grade, Image Wipe, Split Screen, Lightbox]
+controls: [Gallery, Still, Album, PowerGrade, Live Preview, Image Wipe, Apply Grade, Memories, Export]
 tasks: [grade, match-shots, compare-shots, reuse-grade]
 level: beginner
-updated: "2026-10-22"
+updated: "2026-10-28"
 ---
 
-# GalleryとStills（グレードを保存・比較・再利用する）
+# GalleryとStills：グレードの保存・比較・再利用
 
-Colorページの**Gallery（ギャラリー）**は、グレードを保存し、別のショットへ適用し、比較する場所です。**Still（スチル）**を作ると、あるフレームの見た目とグレードを基準として扱えます。StillはGallery内のアルバムに整理できます。これは編集プロジェクト全体や素材のバックアップを作る操作とは異なります。
+Colorページの**Gallery**は、フレームの画像と、その時点のグレードを**Still**として保存し、比較・再利用する場所です。Stillには画像だけでなくグレーディング情報も含まれます。ただし、Stillの保存は元動画やプロジェクト全体のバックアップではありません。
 
-## 目的による使い分け
+操作の主な根拠はDaVinci Resolve **21.1 Reference Manual Chapter 141「Using the Gallery」（pp.3333–3348）**、グレードの適用はChapter 142「Grade Management」（pp.3363–3366）です。説明中の作例は判断例で、21.1実機で再現した結果ではありません。
 
-| 目的 | 操作 | 期待する結果 |
+## 目的に応じて選ぶ
+
+| 目的 | 使うもの | 注意点 |
 | --- | --- | --- |
-| 後でグレードを参照したい | Viewerを右クリックしてStillを作成 | Galleryに基準が残る |
-| 別のショットにグレードを使いたい | StillからApply Grade | 適用先にグレードが反映される |
-| Filmstrip内の別ショットから素早くコピーしたい | コピー先を選び、コピー元を中クリック | Viewerにあるショットのグレードが変わる |
-| 2つのフレームを比較したい | Image Wipe | 明暗や色の違いを同じ画面で確認できる |
-| 多数のショットを並べて評価したい | Split ScreenまたはLightbox | シーン内で浮いたカットを見つけやすい |
+| 現在の補正を比較基準にする | Grab Still | 保存後の変更に自動追従しない |
+| 別ショットにグレードを移す | Apply Grade／中クリック | 適用先の既存グレードを上書きする |
+| 適用前に見た目を確かめる | Live Preview | Node Editorで現在選んだノードもプレビューに影響する |
+| 2つの画像を比較する | Image Wipe | 対応するフレーム・照明・構図の違いに注意 |
+| 複数ショットを比較する | [Split Screen](./split-screen-comparison)／[Lightbox](./lightbox) | 色の流れや補正漏れを探す |
+| 同じプロジェクト内の基準を整理する | Still Album | 現在開いているAlbumへ保存される |
+| 別プロジェクトで共通Lookを使う | PowerGrade Album | 同一Project Library内で共有する |
+| 画像・グレードを別環境へ渡す | Still Export／DRX | 参照画像とグレードデータは別の役割 |
 
-基本操作はBlackmagic Designの[Color公式ページ](https://www.blackmagicdesign.com/jp/products/davinciresolve/color)で確認できます。バージョン固有のメニュー配置や数値は、未確認のまま固定しません。
+## Stillを保存する
 
-## Stillを保存して基準を作る
+1. Colorページで基準にするクリップを選び、Viewerと[Scopes](./scopes)で露出・色・階調を確認します。
+2. 被写体や照明を評価しやすいフレームへ再生ヘッドを移動します。
+3. Viewerを右クリックして**Grab Still**を選びます。21.1 Manual p.3333には**Color > Stills > Grab Still**も記載されています。
+4. Galleryの現在開いているAlbumに保存されたStillを確認します。必要なら名前を付け、どのショット・Lookの基準か分かるようにします。
 
-同じ場面に正面・斜め・引きの3カットがある場合、最初に照明が安定したショットを基準にします。
+タイムライン全体を保存するときは、Viewerの右クリックから**Grab All Stills > From First Frame／From Middle Frame**を使えます。まだStillを持たないクリップに限定する**Grab Missing Stills**もあります（p.3333）。一括保存前に対象と保存先のAlbumを確認します。
 
-1. Colorページで基準ショットを選び、[Primaries](./primaries-color-wheels)と[Scopes](./scopes)を使って露出と色かぶりを整えます。
-2. 被写体の顔や背景を評価しやすいフレームへ再生ヘッドを移動します。急な照明変化の瞬間を基準にしない方が比較しやすくなります。
-3. Viewerを右クリックしてStillを作成します。これは公式Colorページで案内されている保存操作です。
-4. 左上のGalleryで保存したStillを確認し、必要ならアルバムに整理します。どの場面の基準かが分かるように管理します。
+### Gallery Stillの保存場所
 
-Stillは「方向性を見返すための基準」として使えます。保存した後でクリップを修正した場合、保存時点の基準と現在のグレードが異なることがあります。どちらを比較しているのか区別します。
+21.1 Manual p.3335によれば、通常のGallery Stillは標準で**DPX形式**となり、保存先は**Project Settings > Master Settings > Working Folders > Gallery stills location**で定義されます。初期位置はSystem PreferencesのMedia Storage設定に由来する隠し **.gallery** ディレクトリです。Stillを作っただけで、指定の納品フォルダへ画像を書き出したことにはなりません。
 
-## 保存したグレードを別ショットへ適用する
+PowerGrade用にはGallery Optionメニューの**Change PowerGrades Path**があります。実際の保存先は使用中のProject Libraryと実機設定によって確認します。
 
-1. Colorページで**適用先のクリップ**を選択します。
-2. Galleryの基準Stillを選び、**Apply Grade（グレードを適用）**を使います。
-3. 適用後のViewerと[Node Graph](../learn/color-node-graph)を確認します。コピー元のグレードに[Power Window](./power-windows)や[Tracker](./color-tracker)を使用していた場合、別ショットの被写体位置や動きにそのまま合うと考えないでください。
-4. 露出、ホワイトバランス、コントラストを整えてから色味やLookを比較します。WaveformとRGB Parade、必要ならVectorscopeで客観的な差も確認します。
-5. ショットを交互に再生し、カットが切り替わるときに肌や背景の印象が不自然に跳ばないか確認します。
+## AlbumとPowerGradeを使い分ける
 
-**Apply Gradeはマッチングの完成操作ではなく、調整の出発点です。** クリップのInput色空間や露出が異なれば、同じグレードでも見た目は変わります。変換が疑わしい場合は[Color Managementの基礎](../learn/color-management-basics)を参照してください。
+通常のStill Albumは、現在のプロジェクトの基準ショットやLook候補を整理する場所です。新規プロジェクトでは**Stills 1**が既定のAlbumです（21.1 Manual p.3341）。
 
-## Filmstripから中クリックでコピーする
+Gallery左上の**Album**ボタンで一覧を開き、一覧を右クリックして**Add Still Album**または**Add PowerGrade Album**を選びます。Stillを別Albumへ移すときはドラッグします。**Remove Current Album**は中のStillも削除する操作なので、名前を整理するだけのつもりで実行しません（p.3341）。
 
-GalleryへStillを保存する以外に、公式ColorページはFilmstripでの中クリックによるコピーも案内しています。
+**PowerGrade Album**のStillは、同じProject Libraryに保存された別プロジェクトからも利用できます。通常のAlbumのStillは基本的にそのプロジェクト内のものです。異なるProject LibraryへPowerGradeが自動共有されるとは限りません（p.3342）。
 
-1. グレードを受け取る**コピー先**のクリップを選び、そのショットがViewerに表示されているか確認します。
-2. Filmstrip内の**コピー元**クリップをマウスの中ボタンでクリックします。
-3. コピー先のViewerとNode Graphが変化したことを確かめ、ショット固有の調整をやり直します。
+別プロジェクトのStillを取り込む場合は、Gallery右上の**Gallery View**または**Workspace > Gallery**でGalleryウィンドウを開きます。Stills Navigatorで元のProject Library・Projectを選び、Stillを現在のProject Stills側のAlbumへドラッグできます（pp.3343–3345）。
 
-左クリックでコピー先を選ぶ操作と、コピー元を中クリックする操作を混同しないでください。中ボタンを持たない機器での代替操作はここでは検証していません。
+### ラベル、検索、Timelines Album
 
-## Wipe／Split Screen／Lightboxで比較する
+Stillには初期状態で**Track.Shot.Version**の番号が付きます。Stillを右クリックして**Change Label**から、ショット名・カメラ・Lookなどのラベルを付けられます（pp.3337–3338）。Galleryの検索は**現在選択したAlbum**を絞り込むため、見つからない場合はAlbumの選択を見直します（p.3339）。
 
-**Image Wipe**はViewer内の2つの画像を比較する機能です。公式資料ではViewer左上から開き、水平・垂直・ミックス・アルファ・差分・ピクチャーインピクチャーなどの表示方法を選ぶと案内されています。比較対象が異なるフレームや別ショットであることを考慮して見た目の差を判断します。
+Galleryの**Timelines Album**では、現在のタイムラインと同じプロジェクト内の他タイムラインにあるグレードを参照できます。すべてのクリップを事前にStill保存する必要はありません（p.3343）。
 
-**Split Screen**は複数のフルフレームを同時に表示する比較手段です。シーンの異なるショット、Gallery内のグレード、同一クリップのバージョンなどを見比べる際に向きます。1か所の差を細かく見るWipeと、シーン全体の調子を見るSplit Screenを使い分けます。
+## Live Previewで適用前の見た目を確かめる
 
-**Lightbox**ではタイムラインのクリップを、グレード適用済みのサムネイルとして一覧できます。公式ページによれば画面右上から開き、サムネイルを選んでLightboxを閉じるとそのクリップに移動できます。全体の色の流れや、未調整のショットを探す際に使います。
+21.1 Manual p.3335の**Live Preview**は、Gallery Stillへポインタを重ねたとき、そのグレードを現在のクリップに使った見た目をViewerで確認する機能です。
 
-比較時は、同じ数値になるかよりも、露出・肌・背景の関係と、直前直後のカットの連続性を重視します。構図や照明が違う場合に全画素の色を機械的に一致させる必要はありません。静止フレームで似ていても、連続再生で違和感があれば再検討します。
+1. GalleryのOptionメニューで**Live Preview**を有効にします。
+2. Node Editorでプレビュー位置に関係するノードを選択します。Manualは**選択中ノードがプレビュー結果に影響する**と明記しています。
+3. GalleryのStillへポインタを重ねてViewerを確認します。**Hover Scrub Preview**では、サムネイルとViewerの両方をスクラブするか、サムネイルだけを動かすかなどを選べます（pp.3335–3336）。
+4. 方向が合うと判断してから、必要に応じてApply Gradeなどで明示的に転用します。
 
-## 実例1：3カメラのインタビューをそろえる
+選択ノードや設定によって見え方が異なるため、プレビューが良好だったことだけで、時間変化や別ショットのマスクまで合うとは判断しません。
 
-Aカメラの正面ショットが自然で、Bカメラの斜めショットは少し暗く、Cカメラの引きショットは背景が暖かいとします。
+## Image Wipe／Split Screen／Lightboxで比較する
 
-まずAを補正してStillに保存し、BへApply Gradeします。Bの顔がまだ暗ければ、[Scopes](./scopes)も見ながらBだけで補正します。CもAを参考にできますが、現場の照明による意図的な色の違いまで消す必要はありません。
+GalleryのStillを**ダブルクリック**すると、現在のクリップとStillのImage Wipe比較を表示できます。Stillを選んでViewer上部の**Image Wipe**ボタンを押す方法もあります（21.1 Manual p.3336）。
 
-最後にSplit ScreenやLightboxで3ショットを比較し、実際の編集順に再生します。完了条件はRGB値の一致ではなく、カット間で不要な明るさや色の跳びが目立たないことです。
+Wipeの境界はViewer内でドラッグでき、**Horizontal／Vertical／Mix／Alpha／Box／Difference**などの表示方法があります。位置や照明の異なる2つのフレームを重ねたとき、画素が一致しないことだけを問題にせず、肌・白・背景の相対的な明るさと色を確認します。
 
-## 実例2：Lookの方向性を比較する
+タイムライン内の別クリップをStillに保存せず比較するときは、比較元クリップのThumbnailを右クリックして**Wipe Timeline Clip**を使えます（p.3337）。複数カットを並べるなら[Split Screen](./split-screen-comparison)、全体を一覧するなら[Lightbox](./lightbox)が適しています。比較後は実際の編集順に再生します。
 
-同じショットで暖色寄りとニュートラルなLookを検討しているなら、候補ごとにStillを作って区別します。WipeやSplit Screenで、肌、白い衣装、暗部、明るい窓の印象を比較します。
+## 別ショットにグレードを適用する
 
-1フレームでは良くても、異なる照明の別ショットに同じLookを適用すると違和感が出ることがあります。シリーズ全体へ適用する前に代表的な別カットでも試し、必要ならLookそのものの色の方向や強さを調整します。
+21.1 Manual pp.3364–3366では、**先に適用先クリップを選択する**ことが共通手順です。
+
+1. ColorページのThumbnail Timelineで適用先を選びます。既存のグレードを残したい場合は、先に[Versions](./versions-and-grade-comparison)やStillで比較可能な状態にします。
+2. Galleryのコピー元Stillを右クリックして**Apply Grade**を選ぶか、Stillを中クリックします。StillをViewerへドラッグする方法もManualに記載されています。
+3. ViewerとNode Editorで、入力変換・Balance・Window・Trackerなどが意図どおりか確認します。
+4. [Scopes](./scopes)と前後のカットの再生で露出・色・肌の連続性を確かめます。
+
+**Apply Gradeは適用先の既存グレードを上書きします**（21.1 Manual p.3365）。既存ノードを残して追加したい場合は、[グレードのコピーと追記](./grade-copy-and-append)で**Append Node Graph**や個別ノードコピーを選ぶ方が適切なことがあります。
+
+時間変化するグレードでは、Gallery背景の**Apply Grades Using**で**No Keyframes／Keyframes Aligning Source Timecode／Keyframes Aligning Start Frame**を選びます。コピーする内容を制御する**All／Color／Sizing**も含め、操作と注意点は[グレードのコピーと追記](./grade-copy-and-append)と[Color Keyframes](./color-keyframes)を参照してください。
+
+### Memoriesを使う
+
+**Memories**はStillと同様の情報を保持し、よく使うグレードを呼び出しやすくする仕組みです。Galleryの**Memories**ボタンで表示し、StillをMemory Bankへドラッグできます（pp.3347–3348）。
+
+21.1 Manualには**Color > Memories > Save Memory A–H**、Memoryの右クリックからの**Apply Grade**が記載されています。既存Memoryへの保存は前の内容を上書きします。長期のLook整理はAlbumやPowerGrade、繰り返し呼び出すものはMemoriesと使い分けます。
+
+## 画像とグレードをファイルで渡す
+
+Galleryの灰色背景を右クリックし、**Import**で画像を読み込めます。同じ場所に対応する**DRX**がある場合は、グレーディング情報も取り込めます（21.1 Manual p.3346）。
+
+Gallery Stillを選んで**Export**すると、通常は**画像**とグレーディング情報の**.drx**ファイルが書き出されます。ファイル形式に**.drx**を選べば、画像を出さずグレードだけをエクスポートできます（p.3347）。
+
+**Export With Display LUT**は現在のプロジェクトのVideo Monitor LUTを画像へ反映する選択肢です。通常のExportとの表示差を考慮し、受け渡す相手の表示条件を確認します。画像だけを送ればノード情報も移るわけではありません。
+
+## 判断例：3カメラのインタビュー
+
+Aカメラの正面ショットを基準に、Bは暗め、Cは背景照明が暖かいとします。Aでグレードを整えてStillへ保存し、Bへの適用前に**Live Preview**で方向を確認します。
+
+Aのグレード全体をBへApply Gradeすると、B固有の入力変換やBalanceも置き換わる場合があります。Bの既存ノードを残すなら[Append Node Graph](./grade-copy-and-append)や単一ノードコピーを検討します。Cの背景が暖かいのは照明演出かもしれず、Aと機械的に一致させる必要はありません。
+
+Wipeや[Split Screen](./split-screen-comparison)で比較し、最後にカット順で再生します。目的は全画素のRGB値を同じにすることではなく、意図しない明るさや色の跳びを減らすことです。これは操作の組み立て例であり、実素材での成功事例ではありません。
 
 ## 期待どおりにならないとき
 
 | 症状 | 先に確認すること |
 | --- | --- |
-| 適用先の見た目が合わない | 素材固有の露出・色温度・Input変換、元の局所補正 |
-| コピー先が意図と違う | Filmstrip中クリック前の選択中クリップ |
-| Stillと現在の画が違う | 保存時点と現在のグレード、比較しているフレーム |
-| あるフレームだけ一致する | 被写体の動き、照明変化、WindowやTrackerの追従 |
-| 静止画では合うのにカットで浮く | 時系列の再生、肌の露出、背景と照明の差 |
-| Stillが見つからない | Galleryで選んでいるアルバムと保存場所 |
+| 保存したStillが見つからない | 現在のAlbum、検索、Show Current Timeline Only |
+| 同じクリップの古いStillが消える | Gallery背景の**One Still Per Scene**設定（p.3340）。有効時は古いStillが置き換わり得る |
+| 別プロジェクトでPowerGradeが見つからない | 同じProject Libraryか、Galleryの参照先とAlbum |
+| Live Previewが想定と違う | Node Editorで選択したノード、Live Preview／Hover Scrub Preview |
+| Apply Gradeで補正が消えた | 上書き操作と保存済みVersion、Append Node Graphの必要性 |
+| 動くグレードがずれる | Apply Grades Using、source timecode／start frame |
+| Exportした画像の色が違う | Display LUT、ExportとExport With Display LUTの違い |
+| Stillでは合うのに動画で浮く | 比較フレーム、照明変化、WindowやTracker、カット順の再生 |
 
-## 出典・対象版・検証範囲
+## 出典・対象版・未検証範囲
 
-- **対象版：DaVinci Resolve 21.1。** Blackmagic Design[『DaVinci Resolve 21.1 Reference Manual』](https://documents.blackmagicdesign.com/UserManuals/DaVinci_Resolve_21.1_Reference_Manual.pdf)（2026年9月8日公開）。公式公開は確認しましたが、**PDFのGallery該当章と21.1画面を直接照合していません**。
-- **操作の直接根拠：** Blackmagic Design[「DaVinci Resolve — Color」公式ページ](https://www.blackmagicdesign.com/jp/products/davinciresolve/color)の「グレードの保存、コピー、再利用」「ショットの比較」「ミスマッチのショットを見つける」（確認日：2026年10月22日）。
-- **verification: partial。** 21.1実機操作、Still内部保存形式、アルバム共有範囲、全メニュー項目、Free／Studio差は未検証。実例は公式機能に基づく想定ケースであり、実素材の受入結果ではありません。
+- **一次資料：** Blackmagic Design, [*DaVinci Resolve 21.1 Reference Manual*](https://documents.blackmagicdesign.com/UserManuals/DaVinci_Resolve_21.1_Reference_Manual.pdf)（September 2026）、**Chapter 141 “Using the Gallery”, pp.3333–3348**。Still保存・保存先（3333–3335）、Live Preview／Wipe（3335–3337）、ラベル・Album・PowerGrade（3337–3345）、Import／Export／Memories（3346–3348）を確認。
+- **グレード適用：** 同Manual **Chapter 142 “Grade Management”, pp.3363–3366**。コピー範囲、Keyframes、適用手順と上書きの注意を確認。
+- **補助資料：** [Blackmagic Design公式Colorページ](https://www.blackmagicdesign.com/jp/products/davinciresolve/color)（Split Screen／Lightbox等の概要）。
 
-関連：[最初のグレーディング](../learn/first-grade)／[Primaries](./primaries-color-wheels)／[Scopes](./scopes)
+**検証状況：partial。** 2026-10-28に21.1公式Manualの上記本文を直接照合。21.1実機UI、実際の保存先、Live Previewの視覚結果、Windows/macOSの修飾キー差、Free／Studioのedition差、画像・DRXの往復と実素材での再現は未検証です。
