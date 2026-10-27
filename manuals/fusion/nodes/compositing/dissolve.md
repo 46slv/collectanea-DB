@@ -15,7 +15,7 @@ outputs: [image]
 tasks: [composite, transition, switch-input]
 product_scope: fusion
 suite_surfaces: [fusion]
-updated: "2026-10-04"
+updated: "2026-10-28"
 ---
 
 # Dissolve
@@ -82,6 +82,36 @@ Gradient WipeまたはSMPTE Wipeの境界を柔らかくしたり、境界線を
 
 Borderを有効にすると、Border SoftnessとBorder Colorを調整できます。
 
+## Gradient WipeとSMPTE Wipeの違い
+
+**Gradient Wipe**は、3つ目の入力に接続した画像の明るさを使って、2枚の画像が切り替わる位置を決めます。たとえば、中央が明るく周辺が暗い画像なら、その明暗分布に沿った切り替えを設計できます。白黒の画像を作るだけでなく、Fast Noise、雨や水面の映像、図形などもGradient Mapとして使えます。
+
+```text
+素材A ─────────────→ Dissolve（Background）→ MediaOut
+素材B ─────────────→ Dissolve（Foreground）
+Fast Noise ───────→ Dissolve（Gradient Map）
+```
+
+この構成でOperationを**Gradient Wipe**にし、Background / Foregroundを0から1へアニメーションさせると、単純な全面フェードではなくGradient Mapの明暗に従って画像が入れ替わります。どちらの明暗域から先に切り替わるか、境界の正確な画素値は、ここでは実機確認していません。
+
+Gradient Wipeと**SMPTE Wipe**では、次の境界用Controlを使えます。
+
+- **Softness**：切り替え境界を柔らかくする。
+- **Border**：切り替え境界へ色付きの縁を付ける。
+- **Border Softness / Border Color**：Border有効時に、縁の幅・濃さと色を変える。
+- **Wipe Style / Invert Wipe**：SMPTE Wipe専用。左右へ進む水平Wipeか上下へ進む垂直Wipeを選び、Invert Wipeで進行方向を反転する。
+
+**Random Dissolve**はランダムな点模様、**Random Noise Dissolve**は動く点模様で切り替える方式です。模様を自分で入力したいならGradient Wipe、水平・垂直の規則的な境界が必要ならSMPTE Wipeから検討します。これらの違いは21.1 ManualのOperation説明に基づきます。
+
+### 1つのGraphで比較する
+
+1. 同じ解像度・Pixel Aspectの素材AとBをDissolveのBackgroundとForegroundへ接続し、まずOperationをDissolveにします。Background / Foregroundの値0・0.5・1で、全面的な混合になっていることを確認します。
+2. Fast NoiseをGradient Mapへ接続し、OperationをGradient Wipeへ切り替えます。0・0.5・1の同じ値を使い、全面フェードとの差を比較します。
+3. Fast Noiseへの接続は残したまま、OperationだけをSMPTE Wipeへ変え、Wipe Styleの水平／垂直とInvert Wipeを比較します。このOperationではGradient Mapを切り替えの基準に使いません。
+4. Gradient WipeまたはSMPTE Wipeへ戻し、Softnessを変えて境界を比較した後、BorderをオンにしてBorder ColorとBorder Softnessの役割を確認します。
+
+これは**Manualに記載されたControlを使う確認手順の提案**です。3入力を使ったGradient Wipe、SMPTE Wipe、Borderの描画結果は21.1実機では未検証です。既存の実機例S29は、通常のDissolveだけの比較です。
+
 ## 解像度の扱い
 
 Dissolveでは、入力解像度が違うと出力解像度がcontrol位置によって変わる点に注意します。
@@ -115,6 +145,14 @@ Gradient Map ─↑
 2つのクリップを普通にクロスフェードする場合は、OperationをDissolveにしてBackground / Foregroundをアニメーションします。
 
 ノイズで不規則に切り替えたい場合はGradient Wipeを選び、Fast Noise等をGradient Mapへ接続します。最初はSoftnessやBorderを触らず、Mapの明暗だけでどの部分から切り替わるか確認すると役割を分けやすくなります。
+
+### 長さの違う素材を自動で切り替える
+
+Dissolveは、片方の入力がその時点で使えなくなった場合に、もう片方の入力を出力する動作も持ちます。21.1 Manualでは、**短い方の素材をBackground / Foregroundの極端な位置で選択**しておくと、その素材が最後のフレームを過ぎた後で長い方へ自動で切り替わる構成が説明されています。
+
+例えば、長い背景映像をBackground、先に終わる短い映像をForegroundへ接続してBackground / Foregroundを**Foreground側（1）**へ固定します。最初は短い方が表示され、短い方の有効フレームが終わると、利用可能なBackgroundへ切り替わる想定です。**値を途中で動かすクロスフェードとは別の機能**であり、終端で滑らかにフェードするとは限りません。
+
+この例はManualの記述を使った構成案です。具体的なMediaInの時間範囲、ループ設定、ホストでのフレーム境界や実際の切り替わり方は未確認です。
 
 ## 実機で混合率0・0.5・1を比べる
 
@@ -155,6 +193,6 @@ Resolve Studio 21.1.0.14、Windows、日本語UIで撮影しました。Backgrou
 
 ## 出典と確認範囲
 
-DaVinci Resolve 21.1 Reference Manual、September 2026、Chapter 94、pp.2208–2210で、3つの任意入力、Background / Foreground control、7種類のOperation、Gradient Map、解像度処理、Wipe controlsを確認しました。
+DaVinci Resolve 21.1 Reference Manual、September 2026、Chapter 94、pp.2208–2210で、3つの任意入力、Background / Foreground control、7種類のOperation、Gradient Map、解像度処理、Wipe controls、片方の入力の終端時に利用可能な入力へ切り替える動作を確認しました。公式資料：[DaVinci Resolve 21.1 Reference Manual](https://documents.blackmagicdesign.com/UserManuals/DaVinci_Resolve_21.1_Reference_Manual.pdf)。
 
-掲載例以外のtransitionの実機描画、GPU性能、Edition差は未確認のため `verification: partial` を維持します。
+掲載例以外のtransition、Gradient Map・SMPTE Wipe・Border、素材終端での自動切り替えの実機描画、GPU性能、Edition差は未確認のため `verification: partial` を維持します。
