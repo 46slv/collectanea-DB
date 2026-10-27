@@ -16,7 +16,7 @@ tasks: [create-matte, keying, green-screen, blue-screen, despill]
 level: intermediate
 product_scope: fusion
 suite_surfaces: [fusion]
-updated: "2026-10-05"
+updated: "2026-10-27"
 ---
 
 # Primatte
@@ -220,6 +220,28 @@ Primatteには3種類のkeying algorithmがあります。
 8. Spill SpongeまたはFine TuningのSpillでscreen colorのspillを除去します。
 9. Matte tabでBlur、Contract/Expand、Gamma、Thresholdを必要な範囲だけ調整します。
 10. 実際のBackground上でedgeとspillを確認します。
+
+## 症状に合わせて確認する段階を選ぶ
+
+Primatteでは、背景の色の選択、Alphaの調整、髪などのdetail、spillの除去を別々に確認できます。結果がよくないときは、最初から複数のControlを動かすのではなく、まずAlpha表示またはView Modeで問題が起きている段階を特定します。
+
+| 見えている症状 | 先に確認する場所 | 判断の目安 |
+| --- | --- | --- |
+| 背景がAlpha表示で灰色や白のまま残る | **Select Background Color / Clean Background Noise** | 背景として選んだ色が足りないのか、背景側の小さな残りを整理する段階なのかを分ける。髪の近くまで一度に消さない。 |
+| 衣服や顔の内部に透明な穴が開く | **Clean Foreground Noise / Matte Sponge** | 被写体内部だけを不透明へ戻せるか確認する。輪郭も悪化するならHybrid Renderingを検討する。 |
+| 髪・煙などの細い部分が失われる | **Restore Detail / Fine TuningのDetail** | すでに背景へ分類された細部を戻す方向で調整する。背景ノイズを増やしていないか同時に見る。 |
+| 被写体内部と輪郭を同じ設定で両立できない | **Hybrid Rendering / View Mode: Hybrid Matte** | body用とedge用に分けて作られたmatteを表示し、どちらの領域が不足しているかを確認する。 |
+| screenの明暗ムラが残る | **Adjust Lighting / Lighting Background / Lighting Threshold** | 人工的なbacking screenの生成結果を確認する。画面全体のRGB補正と混同しない。 |
+| Alphaはよいが合成後の縁が緑・青に見える | **Spill Sponge / Replace Mode / View Mode: Composite** | 透明度の問題ではなくedgeのRGB色かぶりかを、実際の合成背景の上で確認する。 |
+| grainに沿って輪郭が細かく荒れる | **Degrain / Grain Size / Grain Tolerance** | key判定に入るgrainの影響を確認する。仕上げ用の全面的なdenoiseとは区別する。 |
+
+### 1つの設定群ずつ比較する
+
+例えば、screenに影があり、人物の服の内部にも透明な穴が開くshotを想定します。まずAuto Computeの結果をAlpha表示で観察し、背景の残りと服の穴の位置を分けて記録します。背景の残りにはSelect Background ColorとClean Background Noiseを使い、内部の穴にはClean Foreground Noiseを試します。内部を保護すると輪郭が悪くなる場合だけHybrid Renderingへ進み、Hybrid Matteを表示して差を確認します。
+
+最後にCompositeで合成先の背景を確認し、輪郭の色かぶりが残るならSpill SpongeとReplace Modeを調整します。途中で別の段階へ移る前に、直前の変更で髪や半透明部分が失われていないか確認します。
+
+この症状別の順序は21.1 Manualに記載された各ControlとView Modeから組み立てた**確認手順の提案**です。この条件の実写素材による比較、各段階の画質改善、処理速度は本記事では実機検証していません。
 
 ## Delta Keyerとの選び分け
 
