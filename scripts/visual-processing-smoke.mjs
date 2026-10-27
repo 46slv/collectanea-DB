@@ -1795,8 +1795,10 @@ try {
         .evaluate(el => el.scrollWidth > el.clientWidth),
         {message: '400% LUT preview remains horizontally inspectable at ' + width}).toBe(true);
       if (width === 1440) {
+        // Identity preserves the current RGB pattern, not the initial gray pattern.
+        const currentInput = await picture('input');
         await curve.selectOption('identity');
-        await expect.poll(() => picture('ideal')).toBe(initialInput);
+        await expect.poll(() => picture('ideal')).toBe(currentInput);
         await curve.selectOption('power');
       }
       await widget.getByRole('button', {name: '初期値に戻す'}).click();
