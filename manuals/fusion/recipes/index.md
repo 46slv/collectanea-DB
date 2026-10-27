@@ -16,6 +16,8 @@ slug: /fusion/recipes
 - [2つのImageを重ねる](./recipes/compositing/two-image-merge)
 - [複数ImageをMultiMergeでまとめる](./recipes/compositing/multi-merge-layers)
 - [Fast NoiseとDisplaceで熱気の揺らぎを作る](./recipes/compositing/heat-shimmer-with-fast-noise-displace)
+- [反転したEllipse Maskでソフトビネットを作る](./recipes/compositing/soft-vignette-with-inverted-ellipse)
+- [Soft Glowで街灯の光だけを柔らかくにじませる](./recipes/compositing/soft-glow-for-isolated-highlights)
 
 ## マスク（Masking）
 
@@ -82,7 +84,7 @@ slug: /fusion/recipes
 
 - [Deep 合成を2Dへ戻す](./recipes/deep/deep-merge-to-image)
 
-現在 **29 Recipe** です。
+現在 **31 Recipe** です。
 
 ## 表現の収集（実機検証待ち）
 
