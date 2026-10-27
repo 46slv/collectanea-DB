@@ -79,6 +79,7 @@ Colorページは、素材の明るさや色の偏りを整え、複数ショッ
 - [肌の色を整える：Qualifier・Power Window・Scopes](./recipes/skin-tone-secondary-grading) — 肌の必要な領域だけを抽出して自然な補正にする
 - [背景のLookから人物を守る：Layer Mixer](./recipes/layer-mixer-subject-protection) — 同じベースの分岐で背景と人物を調整し、優先順とMatteを確認する
 - [青緑LEDの背景をColorSliceで整え、人物の肌を保つ](./recipes/color-slice-led-background-skin) — CyanとSkinの影響範囲を比較し、色域の重なりとWindowの分離を判断する
+- [ライブ映像のLEDと肌の階調をHDRゾーンで分ける](./recipes/hdr-stage-led-highlight-control) — LED高輝度と人物の肌をHDRゾーン・Ranges・Scopesで切り分ける
 - [Chroma Warpで青い衣装を赤紫に変え、肌と白を保つ](./recipes/chroma-warp-jacket-skin-neutral) — Point to Point、Pin Point、Windowで影響範囲を分ける
 - [ネオンサインの赤と青の発光を二層のGlowで作る](./recipes/neon-sign-dual-glow) — Resolve FX GlowのSecondary Glowで発光の近距離と広がりを分ける
 - [人物の逆光にハレーションを加え、Bloomと使い分ける](./recipes/halation-rim-light-portrait) — Film Look CreatorのHalationとBloomを分け、肌・白い衣装・背景発光を比較する（Studio版）
