@@ -1613,6 +1613,66 @@ try {
     }
   });
 
+  await check('chroma-subsampling-format-and-mobile', async () => {
+    await go(route);
+    await page.getByRole('link', {name: '縦横の色差標本を操作して比較'}).click();
+    await expect(page).toHaveURL(/\/reference\/visual-processing\/chroma-subsampling\/?$/);
+    for (const width of [1440, 390, 320]) {
+      await page.setViewportSize({width, height: width === 1440 ? 1000 : 844});
+      await go('/reference/visual-processing/chroma-subsampling');
+      await expect(page.locator('.theme-doc-markdown h1'))
+        .toContainText('クロマサブサンプリング');
+      const widget = page.locator('[data-vp-chroma="ready"]');
+      await expect(widget).toBeVisible();
+      const layout = await widget.evaluate(element => {
+        const previews = element.querySelector('.vp-chroma__previews');
+        const controls = element.querySelector('.vp-chroma__controls');
+        return {
+          panels: element.querySelectorAll('[data-vp-chroma-preview]').length,
+          dom: Boolean(previews && controls &&
+            (previews.compareDocumentPosition(controls) & Node.DOCUMENT_POSITION_FOLLOWING)),
+          visual: Boolean(previews && controls &&
+            previews.getBoundingClientRect().bottom <= controls.getBoundingClientRect().top),
+        };
+      });
+      assert.ok(layout.panels === 2 && layout.dom && layout.visual,
+        'Chroma preview-first layout: ' + width + ' ' + JSON.stringify(layout));
+      const picture = name => widget.locator('[data-vp-chroma-preview="' + name + '"] canvas')
+        .evaluate(canvas => canvas.toDataURL());
+      const original = await picture('before');
+      const initial = await picture('after');
+      assert.notEqual(initial, original, '4:2:0 must change 1-pixel chroma columns');
+      const format = widget.getByRole('combobox', {name: '色差形式'});
+      const pattern = widget.getByRole('combobox', {name: '入力パターン'});
+      const zoom = widget.getByRole('combobox', {name: '表示倍率'});
+      await expect(format).toHaveValue('420');
+      await expect(widget.locator('.vp-chroma__stats')).toContainText('4,608');
+      await format.selectOption('444');
+      await expect(widget).toHaveAttribute('data-vp-chroma-format', '444');
+      await expect.poll(() => picture('after')).toBe(original);
+      await format.selectOption('422');
+      await expect(widget.locator('.vp-chroma__stats')).toContainText('9,216');
+      await expect.poll(() => picture('after')).not.toBe(original);
+      await pattern.selectOption('rows');
+      await expect.poll(() => picture('before')).not.toBe(original);
+      await format.selectOption('420');
+      await expect.poll(() => picture('after')).not.toBe(await picture('before'));
+      await zoom.selectOption('4');
+      await expect(zoom).toHaveValue('4');
+      const scrollable = await widget.locator('[data-vp-chroma-preview="after"] .vp-chroma__viewport')
+        .evaluate(el => el.scrollWidth > el.clientWidth);
+      assert.ok(scrollable, '400% preview remains horizontally inspectable at ' + width);
+      await widget.getByRole('button', {name: '初期値に戻す'}).click();
+      await expect(format).toHaveValue('420');
+      await expect(pattern).toHaveValue('columns');
+      await expect(zoom).toHaveValue('2');
+      await expect.poll(() => picture('before')).toBe(original);
+      await expect.poll(() => picture('after')).toBe(initial);
+      await noOverflow();
+      if (width === 390) await shot('chroma-subsampling-mobile');
+    }
+  });
+
   await check('no-runtime-or-resource-errors', async () => {
     assert.deepEqual(report.pageErrors, []);
     assert.deepEqual(report.resourceErrors, []);
