@@ -16,7 +16,7 @@ tasks: [matte, alpha, combine-alpha, refine-matte, despill]
 level: intermediate
 product_scope: fusion
 suite_surfaces: [fusion]
-updated: "2026-10-05"
+updated: "2026-10-27"
 ---
 
 # Matte Control
@@ -67,7 +67,39 @@ CombineではForegroundのどのchannelをBackground Alphaへ使うか、また�
 - **Clear**: Background Alphaを完全にtransparentへする
 - **None**: ForegroundをAlpha合成へ使わない
 
-Combine Operationでは、Foreground sourceとBackground Alphaの関係を選びます。CopyならForeground sourceでBackground Alphaを置き換え、Add / Subtract / Maximum / Minimumなどでは2つの値を演算して新しいAlphaを作ります。Merge Over / Merge Underも選択できます。
+Combine Operationでは、Foregroundの選択channelとBackgroundのAlphaをどう組み合わせるかを決めます。**Combineでchannelを選ぶこと**と、**Combine Operationで演算を選ぶこと**は別の設定です。
+
+### Combine Operationの選び方
+
+ここではBackground側の既存Alphaを **B**、Combineで選んだForeground側の値を **F** と呼びます。21.1 Manualにある演算とその役割は次のとおりです。
+
+| Combine Operation | BとFの関係 | 選ぶ場面 |
+| --- | --- | --- |
+| **Copy** | FでBを置き換える | 別branchで作ったmatteを、そのまま採用する |
+| **Add** | BにFを加える | 2つのmatteの値を加算したい |
+| **Subtract** | BからFを引く | 既存matteから別のmatte値を差し引く |
+| **Inverse Subtract** | FからBを引く | Subtractとは逆の順序で差を取る |
+| **Maximum** | BとFの大きい方を採用する | どちらか一方で十分に残っている領域を保つ |
+| **Minimum** | BとFの小さい方を採用する | 両方のmatteで残っている領域を優先する |
+| **And / Or** | 2つの値へ論理AND / ORを適用する | 値の論理的な組み合わせが必要な場合 |
+| **Merge Over / Merge Under** | FをBの上／下へ重ねる合成 | 加算や最大値ではなく重なりとして扱う |
+
+Copy・Add・Subtractだけでなく、**Inverse Subtract、And、Or**も21.1 ManualのCombine Operationに記載されています。And / Orの数値判定規則や、負値・1超の値の内部処理は、このページでは確認できていません。演算名だけからしきい値やclampの挙動を決めつけないでください。
+
+### 2枚のmatteを比較する最小例
+
+たとえば、ある画素でBが**0.6**、Fが**0.2**の場合、演算の定義から計算できる値は、Copyが0.2、Addが0.8、Subtractが0.4、Maximumが0.6、Minimumが0.2です。これは**演算の意味を説明する数値例**であり、21.1実機で出力pixelを測定した結果ではありません。
+
+人物の胴体を保持する硬いcore matteと、髪の輪郭を残す柔らかいedge matteを別branchで作った場合は、次の構成で比較できます。
+
+```text
+core matteを持つ画像 ────→ Matte Control（Background）→ Merge（Foreground）
+edge matteを持つ画像 ────→ Matte Control（Foreground）
+```
+
+Combineを**Combine Alpha**にしたうえで、まず**Copy**にしてedge側のAlphaだけが採用されることを確認し、**Maximum**へ切り替えてcoreとedgeのいずれかで高いAlphaを保つ結果を比較します。**Minimum**へ切り替えれば両者の低い値が選ばれるため、coreが十分に残らない場合があります。ViewerでAlphaを確認してから、実際の背景へMergeし、輪郭のRGBとAlphaが一致しているかを確認します。
+
+これはManualのCombine / Combine Operationの説明に基づく**比較手順の提案**です。髪の画質、重なり演算との一致、Add時の範囲外pixelやpremultiplicationの最終表示は実機未検証です。
 
 ## matteの形を整える
 
