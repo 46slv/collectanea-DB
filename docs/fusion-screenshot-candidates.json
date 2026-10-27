@@ -27824,7 +27824,8 @@
       "source_case": "S74",
       "images": [
         "baseline.png",
-        "compare.png"
+        "compare.png",
+        "graph.png"
       ],
       "status": "published-display-verified",
       "scope": "Authentic S74 comparison reused for the specific node/concept/procedure/diagnostic role;full conditions in Alpha Divide article.",
