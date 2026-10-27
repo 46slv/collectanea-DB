@@ -87,7 +87,7 @@ import '@site/src/css/visual-processing.css';
 | **周辺減光（Vignetting）** | 中央より画面周辺が暗くなる現象。演出として後付けすることもある。[中心位置と減衰を操作して比較](./optics/vignetting.mdx)。 |
 | **色収差（Chromatic Aberration）** | 波長ごとの結像差によって、輪郭に色のずれやにじみが生じる。[放射方向と水平ずれを操作して比較](./optics/chromatic-aberration.mdx)。 |
 | **レンズ歪曲（Lens Distortion）** | 直線が外側へ膨らんだり内側へ曲がったりして見える幾何学的な歪み。[樽型と糸巻き型を操作して比較](./optics/lens-distortion.mdx)。 |
-| **被写界深度（Depth of Field）** | 距離によりピントが合って見える範囲が変わり、前景・背景がぼける。 |
+| **被写界深度（Depth of Field）** | 距離によりピントが合って見える範囲が変わり、前景・背景がぼける。[ピント距離と絞りを操作して比較](./optics/depth-of-field.mdx)。 |
 | **ボケ形状（Bokeh）** | ピント外の点光源や模様が、絞り形状などを反映したぼけの形になる。[絞りと焦点外の点像を操作して比較](./optics/bokeh-shape.mdx)。 |
 | **回折（Diffraction）** | 光が開口部などで広がることで、解像感や光条の形に影響する。 |
 | **ライトラップ（Light Wrap）** | 合成した前景の縁に背景の光が回り込んだような明るさや色を加える。 |

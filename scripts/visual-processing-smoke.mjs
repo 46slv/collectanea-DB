@@ -1976,6 +1976,77 @@ try {
     }
   });
 
+
+  await check('depth-of-field-controls-and-mobile', async () => {
+    await go(route);
+    await page.getByRole('link', {name: 'ピント距離と絞りを操作して比較'}).click();
+    await expect(page).toHaveURL(/\/reference\/visual-processing\/optics\/depth-of-field\/?$/);
+    for (const width of [1440, 390, 320]) {
+      await page.setViewportSize({width, height: width === 1440 ? 1000 : 844});
+      await go('/reference/visual-processing/optics/depth-of-field');
+      await expect(page.locator('.theme-doc-markdown h1')).toContainText('被写界深度');
+      const widget = page.locator('[data-vp-dof="ready"]');
+      await expect(widget).toBeVisible();
+      const layout = await widget.evaluate(el => {
+        const previews = el.querySelector('.vp-dof__previews');
+        const controls = el.querySelector('.vp-dof__controls');
+        return {
+          panels: el.querySelectorAll('[data-vp-dof-panel] canvas').length,
+          dom: Boolean(previews && controls &&
+            (previews.compareDocumentPosition(controls) & Node.DOCUMENT_POSITION_FOLLOWING)),
+          visual: Boolean(previews && controls &&
+            previews.getBoundingClientRect().bottom <= controls.getBoundingClientRect().top),
+        };
+      });
+      assert.ok(layout.panels === 3 && layout.dom && layout.visual,
+        'Depth-of-field preview-first three-panel layout at ' + width + ': ' + JSON.stringify(layout));
+      const panel = mode => widget.locator('[data-vp-dof-panel="' + mode + '"] canvas');
+      const picture = mode => panel(mode).evaluate(canvas => canvas.toDataURL());
+      // Hydrated React effects can paint after SSR markup becomes visible.
+      const painted = mode => panel(mode).evaluate(canvas => {
+        const pixel = canvas.getContext('2d').getImageData(20, 20, 1, 1).data;
+        return pixel[0] + pixel[1] + pixel[2] > 0;
+      });
+      await expect.poll(() => Promise.all(['original', 'depth', 'result'].map(painted)))
+        .toEqual([true, true, true]);
+      const original = await picture('original');
+      const depth = await picture('depth');
+      const result = await picture('result');
+      assert.notEqual(result, original, 'Out-of-focus bands must differ from source');
+      const focus = widget.getByRole('combobox', {name: 'ピントの距離'});
+      const aperture = widget.getByRole('combobox', {name: '絞り値'});
+      const strength = widget.getByRole('slider', {name: 'ぼかし強度'});
+      const pattern = widget.getByRole('combobox', {name: '比較する絵柄'});
+      await expect(focus).toHaveValue('3');
+      await expect(aperture).toHaveValue('2.8');
+      await expect(strength).toHaveValue('1');
+      await expect(pattern).toHaveValue('lights');
+      await focus.selectOption('1.5');
+      await expect.poll(() => picture('depth')).not.toBe(depth);
+      await expect.poll(() => picture('result')).not.toBe(result);
+      const focused = await picture('result');
+      await aperture.selectOption('11');
+      await expect.poll(() => picture('result')).not.toBe(focused);
+      await pattern.selectOption('edges');
+      await expect.poll(() => picture('original')).not.toBe(original);
+      await strength.focus();
+      await strength.press('Home');
+      await expect(strength).toHaveValue('0');
+      const currentSource = await picture('original');
+      await expect.poll(() => picture('result')).toBe(currentSource);
+      await widget.getByRole('button', {name: '初期値に戻す'}).click();
+      await expect(focus).toHaveValue('3');
+      await expect(aperture).toHaveValue('2.8');
+      await expect(strength).toHaveValue('1');
+      await expect(pattern).toHaveValue('lights');
+      await expect.poll(() => picture('original')).toBe(original);
+      await expect.poll(() => picture('depth')).toBe(depth);
+      await expect.poll(() => picture('result')).toBe(result);
+      await noOverflow();
+      if (width === 390) await shot('depth-of-field-mobile');
+    }
+  });
+
   await check('no-runtime-or-resource-errors', async () => {
     assert.deepEqual(report.pageErrors, []);
     assert.deepEqual(report.resourceErrors, []);
