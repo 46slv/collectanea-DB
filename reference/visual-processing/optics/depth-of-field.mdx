@@ -1,0 +1,45 @@
+---
+sidebar_position: 13
+sidebar_label: 被写界深度
+title: 被写界深度（Depth of Field）
+description: ピント位置・絞り値と前後のぼけの関係を、距離帯ごとの画像を操作して比べる。
+tags: [image-processing, optics, depth-of-field, aperture, focus, reference]
+---
+
+import DepthOfFieldPlayground from '@site/src/components/DepthOfFieldPlayground';
+
+# 被写界深度（Depth of Field）
+
+ピントを合わせた位置の前後には、一定範囲まで「十分に鮮明」と見なせる距離があります。これが**被写界深度**です。絞りを開く（小さなf値にする）と、その範囲は一般に浅くなり、背景や前景のぼけが目立ちます。絞りを絞る（大きなf値にする）と、より広い範囲が鮮明に見えます。ただし鮮明と判断する限界は表示倍率や観察条件にも依存します。
+
+## 三画面で触って比べる {#try-it}
+
+<DepthOfFieldPlayground />
+
+まずピントを「中距離 3 m」に固定し、f/1.8からf/11へ変えてください。中距離の帯は鮮明なまま、近距離・遠距離の帯のぼけが弱まります。次にf/2.8のままピントを1.5 m、3 m、9 mへ動かし、鮮明な帯が切り替わることを確認します。「比較する絵柄」を高コントラスト図形に変えると、線の軟化が見やすくなります。「ぼかし強度」を0にすると距離にかかわらず処理前と同じ画像になり、初期値に戻すこともできます。
+
+## 入力・出力・処理
+
+- **入力**：外部写真を使わずに生成した360 × 180 pxの画像。画面を左から「近距離1.5 m」「中距離3 m」「遠距離9 m」に固定し、各帯に同種の線・点光源または図形を置きます。これは1枚の実空間を投影した写真ではなく、距離ごとの違いを並列に比べる模式図です。
+- **操作**：ピント距離1.5／3／9 m（初期3 m）、絞り値f/1.8／2.8／5.6／11（初期f/2.8）、ぼかし強度0–2（初期1）、絵柄2種類。出力画像の下に各距離帯のぼかし半径（整数px）を表示します。
+- **出力**：「無加工の入力」「三距離帯のマップ（明るい帯がピント位置）」「距離に応じてぼかした結果」の三画面。ピント位置の帯はぼかし半径0 pxで、そこにある線は維持します。
+- **計算**：距離をz、ピント距離をs、f値をN、強度をaとして、教材の半径を次のように計算します。
+
+`r = min(14, round(52 × (2.8 / N) × |1/z − 1/s| × a)) px`
+
+逆距離の差がゼロならr=0です。係数52は見やすさのための任意値で、焦点距離・センサーサイズ・許容錯乱円径から導いた数値ではありません。各距離帯のRGBを水平方向と垂直方向に順にボックス平均し、帯の境界を越えて混ぜないようにします。
+
+## 撮影と制作での使い方
+
+人物にピントを合わせて背景の街灯を大きくぼかす、商品を手前から奥まで見せるために絞る、といった判断に被写界深度が関わります。実際には焦点距離、撮影距離、絞り、記録面、最終的な観察条件などが影響し、同じf値だけで背景ぼけを決めることはできません。
+
+本教材は**絞りとピント移動の方向性を学ぶ教育用の近似**です。帯状に分けた2次元画像へ二段のボックス平均を使うため、物理的な点像分布（PSF）、前後の被写体の遮蔽、距離境界の光の回り込み、フォーカスブリージング、収差、回折、センサーサイズ、レンズ固有の描写は再現しません。強度0や半径の上限14 pxも学習用の設定です。RAW／HDR、特定のレンズ、After EffectsやDaVinci Resolveの被写界深度エフェクトと数値的に一致するものではありません。
+
+**関連表現**：[ボケ形状](./bokeh-shape.mdx)は焦点外の点光源の開口形状を観察する教材、[ブルーム](./bloom.mdx)は明るい領域のにじみを追加する別の処理です。[映像表現索引へ戻る](../index.md#optics)。
+
+## 参考資料
+
+- [Canon — Depth of field](https://files.canon-europe.com/files/webcontent/rf-lens-world/knowledge/depth-of-field/index.html) — 焦点距離・撮影距離・絞り・ピント位置と被写界深度の関係。
+- [Nikon — What is Aperture?](https://www.nikonusa.com/learn-and-explore/c/tips-and-techniques/what-is-aperture) — f値、絞りと浅い／深い被写界深度の説明。
+- [Nikon — Photography Glossary](https://www.nikonusa.com/learn-and-explore/photography-glossary) — 「許容できる鮮明さの範囲」の定義。
+- [MDN — CanvasRenderingContext2D](https://developer.mozilla.org/en-US/docs/Web/API/CanvasRenderingContext2D) — Canvas 2Dの表示API。ぼかし演算は専用JavaScriptコードで実装。
