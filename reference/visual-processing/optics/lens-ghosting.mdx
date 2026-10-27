@@ -1,0 +1,45 @@
+---
+sidebar_position: 6
+sidebar_label: ゴースト
+title: ゴースト（Lens Ghosting）
+description: 強い光源がレンズ内部で反射すると現れる像を、位置・数・形・強さを変えて観察する。
+tags: [image-processing, optics, lens-ghosting, flare, reference]
+---
+
+import LensGhostPlayground from '@site/src/components/LensGhostPlayground';
+
+# ゴースト（Lens Ghosting）
+
+夜景の照明や太陽のような強い光源を撮ると、光源とは別の場所に円形・多角形などの半透明の像が現れることがあります。ゴーストは、レンズの面や撮像素子などの間で光が反射し、本来の結像とは別の光が画面へ届くことによって起きる現象です。撮影では不要な像として抑制されることも、映像表現として取り入れられることもあります。
+
+## 三画面で操作する {#try-it}
+
+<LensGhostPlayground />
+
+まず「ゴーストの強さ」を 0 にすると、合成結果から反射像だけが消えます。次に光源の横位置を 74% から 25% に動かすと、反射像の並ぶ向きが逆転します。反射像の数と絞り形状も変えて、多角形の像がどこに見えるか比べてください。「初期値に戻す」で開始状態に戻せます。
+
+## 入力・出力・模式モデル
+
+- 入力：ページ内で描画する 360 × 180 px の夜景と、一つの点光源。素材画像・外部APIは使いません。
+- 操作：光源の横位置 15–85%（初期 74%）、縦位置 20–80%（初期 32%）、ゴーストの強さ 0–1（初期 0.65）、反射像 1–5 個（初期 3）、絞り形状 5／6／8 辺（初期 6）。
+- 出力：「元画像」「反射像だけ」「合成結果」の三画面。処理を変えるたびに Canvas 2D を描き直します。
+- 配置規則：光源の位置を L、画面中心を C とし、各像の中心を **G = C + k(C − L)** に置きます。k は像の順に 0.27、0.465、0.66 … と増やした教材独自の値です。各像は指定した辺数の多角形で、奥の像ほど不透明度を下げています。
+
+光源の位置、反射像の形・数・強さを別々に変えるための簡易モデルです。レンズ構成、コーティング、絞りの位置、撮像素子の反射を計算して像を予測するものではありません。
+
+## 実際の現象との違い
+
+ゴーストは、画面全体のコントラストを下げる白っぽいかぶり（ベーリングフレア）とは区別して考えると観察しやすくなります。また、強い光を単純にぼかして周囲へ広げる Glow／Bloom とも、離れた形の像が現れる点が異なります。レンズの絞りに似た多角形が現れることはありますが、すべてのゴーストが絞り形状になるわけではありません。
+
+撮影時は光源の位置をずらす、レンズフードなどで不要な入射光を減らす、レンズ面を清潔に保つなどが対策になります。一方、MVなどで視線を光へ誘導したい場合は、反射像の向きや色を構図の要素として検討できます。
+
+この教材の色、像の数、透過率、直線的な配置規則はすべて説明のために設定したもので、実在レンズの測定値ではありません。遮蔽、スペクトル、回折、撮像素子由来の反射、HDR／RAWの輝度や特定の After Effects／DaVinci Resolve エフェクトとの一致は保証しません。Canvas 非対応の環境では描画できません。
+
+[画像処理索引に戻る](../index.md#optics)。
+
+## 参考資料
+
+- [Canon Australia — What is Ghosting?](https://www.canon.com.au/get-inspired/glossary/ghosting) — 光源の多重反射による半透明の像と、絞りに似た形の説明。
+- [Canon — Lens FAQ #4: What is “ghosting” and “flaring”?](https://snapshot.canon-asia.com/article/eng/lens-faq-4-what-is-ghosting-and-flaring) — 光源と反対側の像、ベーリングフレアとの差異。
+- [Panasonic — Lens Characteristics: Flare, Ghosting and Aberration](https://av.jpn.support.panasonic.com/support/global/cs/dsc/knowhow/knowhow15.html) — 内部反射と絞り形状の説明。
+- [MDN — CanvasRenderingContext2D](https://developer.mozilla.org/en-US/docs/Web/API/CanvasRenderingContext2D) — ブラウザ内での描画API。
