@@ -26,9 +26,9 @@ import LightWrapPlayground from '@site/src/components/LightWrapPlayground';
 
 教材は形状から求めた内側への符号付き距離d（近似）を使い、前景側の境界から幅r以内だけ背景色を混ぜます。混合率wは次の式です。
 
-[
-w = \mathrm{clamp}\!\left(a\max\left(0,1-\frac{d}{r}\right),0,1\right)
-]
+```text
+w = clamp(a × max(0, 1 − d/r), 0, 1)
+```
 
 ここでaは混合強さです。r=0の場合はw=0と定義します。背景のRGBを近傍9点で平均した値B′と前景Fをwで混ぜ、F′=(1−w)F+wB′を作ります。最後に前景アルファαと元の背景BでC=αF′+(1−α)Bと合成します。マット外には回り込みを追加しません。
 
