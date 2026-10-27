@@ -1,0 +1,189 @@
+{
+  "manual": {
+    "version": "21.1",
+    "chapter": 103,
+    "printed_pages": "2379–2380"
+  },
+  "runtime": {
+    "version": "21.1.0.14",
+    "edition": "DaVinci Resolve Studio",
+    "os": "Windows-11-10.0.26200-SP0",
+    "ui_language": "ja-JP"
+  },
+  "captured_at": "2026-10-27T17:51:25.512309+00:00",
+  "capture_time_note": "Final native Effect Mask comparison screenshot filesystem last-write time in UTC; earlier stages precede it.",
+  "project": "Collectanea_Mandelbrot_Zoom_20261025",
+  "timeline": "S152_capture",
+  "frame": 0,
+  "resolution": [
+    1920,
+    1080
+  ],
+  "color_management": {
+    "project_settings": {
+      "colorScienceMode": "davinciYRGB",
+      "colorSpaceInput": "Rec.709 Gamma 2.4",
+      "colorSpaceTimeline": "Rec.709 (Scene)",
+      "colorSpaceTimelineGamma": "",
+      "colorSpaceOutput": "Rec.709 (Scene)",
+      "colorSpaceOutputGamma": "ACEScc",
+      "isAutoColorManage": "0",
+      "timelineResolutionWidth": "1920",
+      "timelineResolutionHeight": "1080",
+      "timelineFrameRate": 30.0,
+      "timelinePlaybackFrameRate": "30",
+      "timelinePixelAspectRatio": "square"
+    },
+    "note": "SDK readback; images compare observed settings, not calibrated color accuracy."
+  },
+  "viewer": {
+    "view_mode": "Fit",
+    "source": "Left Plasma1; right MediaOut1 or PlasmaMasked",
+    "note": "Selection overlays were removed from output screenshots. Both Plasma tools had matching circle, scale and phase values at the mask comparison."
+  },
+  "acceptance": {
+    "gui": "PASS: native screenshots show static Scale and Phase changes, title composite and separate Ellipse Effect Mask output; SDK confirms connections and comparison settings. SaveProject returned true at 2026-10-27T17:52:13.946635+00:00",
+    "article_display": "NOT_RUN",
+    "public_display": "NOT_RUN"
+  },
+  "unverified": [
+    "Static frame only: Phase keyframes and color-cycle playback NOT_RUN",
+    "Other operations, circle parameter combinations and animated mask NOT_RUN",
+    "Portable composition reimport NOT_RUN",
+    "Other hosts and editions NOT_RUN",
+    "Physical mouse/keyboard provenance NOT_ESTABLISHED",
+    "Article verification remains partial"
+  ],
+  "schema_version": 1,
+  "case": "S152",
+  "article": "manuals/fusion/nodes/generators/plasma.md",
+  "graph": "fixture.comp",
+  "settings": "readback.json",
+  "source": {
+    "file": "screen.png",
+    "size": [
+      3336,
+      1902
+    ],
+    "sha256": "85bc71633376e4892a1f05bc7747f69acb225e5bd7465cb1e93c853c1e246f86"
+  },
+  "shots": [
+    {
+      "file": "graph.png",
+      "source": "screen.png",
+      "source_sha256": "85bc71633376e4892a1f05bc7747f69acb225e5bd7465cb1e93c853c1e246f86",
+      "frame": 0,
+      "crop_xyxy": [
+        900,
+        1100,
+        1900,
+        1600
+      ],
+      "resampled": false,
+      "sha256": "9d4a90dba87f6017c0f5c5549ef6fad198ff1a83f8cb72a92f17cfde25ae166c"
+    },
+    {
+      "file": "circles-controls.png",
+      "source": "circle-source.png",
+      "source_sha256": "9a6394a86dd944e55fc4ee2639a21c668fed80dcc8d5c202e60608df23841e79",
+      "frame": 0,
+      "crop_xyxy": [
+        2815,
+        65,
+        3336,
+        800
+      ],
+      "resampled": false,
+      "sha256": "06890e95711e3317a69ab9a30b07dfdf40e34e00d89a954c3c86a8f0b5e3603e"
+    },
+    {
+      "file": "scale-one.png",
+      "source": "default-source.png",
+      "source_sha256": "d887b297599dd2477b0520cf78cb929b8ed8eb44a00a33340194bbe05406b429",
+      "frame": 0,
+      "crop_xyxy": [
+        0,
+        65,
+        2800,
+        730
+      ],
+      "resampled": false,
+      "sha256": "b0a1e669e849006c62496db28f5bc4d894034ca56a9c7b31b845eeda6e8dc24a"
+    },
+    {
+      "file": "scale-controls.png",
+      "source": "scale-control-source.png",
+      "source_sha256": "92620d033262aa0d354e6e725a8bc9a9ac1ff476b00af6ed01407f0274fb617c",
+      "frame": 0,
+      "crop_xyxy": [
+        2815,
+        65,
+        3336,
+        800
+      ],
+      "resampled": false,
+      "sha256": "ac00cffa88237437217dbfac69bc8608925037c311b43045b45b6c24716dd37c"
+    },
+    {
+      "file": "scale-half.png",
+      "source": "scale-source.png",
+      "source_sha256": "73618ce34be85e2133bef5bf6a455ee0933986a6c4651226d5354f7a492ca0a7",
+      "frame": 0,
+      "crop_xyxy": [
+        0,
+        65,
+        2800,
+        730
+      ],
+      "resampled": false,
+      "sha256": "bec118daad2ae84ba770cc4455159ff32f0904cb19d60cb929d302234fc92919"
+    },
+    {
+      "file": "phase-controls.png",
+      "source": "phase-control-source.png",
+      "source_sha256": "7231fdf18f19eb8e72b0e88c196ca6f81776d8b57a02418ace7de0d7a8705a4f",
+      "frame": 0,
+      "crop_xyxy": [
+        2815,
+        65,
+        3336,
+        500
+      ],
+      "resampled": false,
+      "sha256": "f2bf9f6834bed6266f9995bb0728bf135dbc4a563bdc78ac4a5561e92b036b33"
+    },
+    {
+      "file": "phase-quarter.png",
+      "source": "phase-source.png",
+      "source_sha256": "96cc3eca4812b8bee16fa39aebafe8f19598a1a4c2bf74d02b0e7715b7b4211e",
+      "frame": 0,
+      "crop_xyxy": [
+        0,
+        65,
+        2800,
+        730
+      ],
+      "resampled": false,
+      "sha256": "e2b84db6ff460878bcc483a85e0fbbb0a0ebee0fabfeb090e6acfbea17f1a3a5"
+    },
+    {
+      "file": "effect-mask.png",
+      "source": "screen.png",
+      "source_sha256": "85bc71633376e4892a1f05bc7747f69acb225e5bd7465cb1e93c853c1e246f86",
+      "frame": 0,
+      "crop_xyxy": [
+        0,
+        65,
+        2800,
+        730
+      ],
+      "resampled": false,
+      "sha256": "fa13c78fc5abdf6c5bef50fd27925bd55852d356cf9258c916b87bdca15ecfe8"
+    }
+  ],
+  "reproduction": {
+    "fixture_sha256": "38b0ad5d0ff88bb65d87afc24c0c21d10e6faecd50dd5cca8a3da2edd52ba414",
+    "readback_sha256": "69c0f9e2105806877d05e883b547d49304eea46f60c876e4cadd35dc984fb071",
+    "reimport": "NOT_RUN"
+  }
+}

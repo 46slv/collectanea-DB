@@ -87,6 +87,52 @@ R/G/B/AのAはAlpha（透明度）です。Alphaを変えたときは単体のVi
 
 詳しくは[Generatorノード](./)と[解像度 / アスペクト比](../../learn/03-space/resolution-aspect)を参照してください。
 
+<!-- capture:S154 -->
+
+## 実機例：ZoomとEffect Maskを比較する
+
+`Mandelbrot1` をMergeのBackground、白い文字をForegroundへ接続します。別の `MandelMasked` にはEllipseをEffect Maskとして接続し、マスクなしの出力と比較します。マスク比較時は2つのMandelbrotの位置、Zoom、反復、色の設定を揃えています。
+
+frame 0でPositionを固定し、Zoomを `1.0 → 2.0` に変えた後、1.0へ戻してMaskを比較しました。右ViewerをAlpha表示へ切り替え、撮影後にColorへ戻しています。[接続と設定の記録](/img/fusion/captures/S154/readback.json)に値を記録しています。
+
+WindowsのResolve Studio 21.1.0.14、1920×1080で確認した静止frameの例です。Zoomのアニメーションや深いZoomの描画性能、他の色設定はこの例では検証していません。
+
+[![Mandelbrotに文字を合成する枝とEllipseで別のMandelbrotを制限する枝](/img/fusion/captures/S154/graph.png)](/img/fusion/captures/S154/graph.png)
+
+上はMandelbrotと文字の合成、下は別のMandelbrotへEllipseをEffect Maskとして渡す比較枝です。
+
+[![Mandelbrotの位置とZoom 1を示すInspector](/img/fusion/captures/S154/default-controls.png)](/img/fusion/captures/S154/default-controls.png)
+
+Position X −0.5、Y 0、Zoom 1.0で開始します。
+
+[![Zoom 1のMandelbrotと文字を重ねた表示](/img/fusion/captures/S154/zoom-one.png)](/img/fusion/captures/S154/zoom-one.png)
+
+Zoom 1.0。左はMandelbrot、右は文字を重ねたMediaOutです。市松模様はViewerの透明部分を示します。
+
+[![MandelbrotのZoomを2に変更したInspector](/img/fusion/captures/S154/zoom-controls.png)](/img/fusion/captures/S154/zoom-controls.png)
+
+同じframeで位置を固定し、Zoomを2.0に変えます。
+
+[![Zoom 2で拡大されたMandelbrotと文字合成](/img/fusion/captures/S154/zoom-two.png)](/img/fusion/captures/S154/zoom-two.png)
+
+Zoom 2.0では、同じViewer範囲で模様が大きく表示されます。
+
+[![マスクなしとEllipseを接続した別のMandelbrotの比較](/img/fusion/captures/S154/effect-mask.png)](/img/fusion/captures/S154/effect-mask.png)
+
+左はマスクなし、右は同じ設定の別のMandelbrotへEllipseを接続した出力です。
+
+[![ViewerのチャンネルメニューでAlphaが選択されている](/img/fusion/captures/S154/alpha-menu.png)](/img/fusion/captures/S154/alpha-menu.png)
+
+右ViewerのチャンネルメニューでAlphaが選択されていることを確認しました。
+
+[![左にマスクなしのColor表示、右にEllipse付き出力のAlpha表示](/img/fusion/captures/S154/mask-alpha.png)](/img/fusion/captures/S154/mask-alpha.png)
+
+左はマスクなしのColor、右はEllipse付き出力のAlpha表示です。黒は透明、白は不透明を表します。
+
+[再現用Graph](/img/fusion/captures/S154/fixture.comp) · [撮影条件と確認範囲](/img/fusion/captures/S154/capture.json)
+
+<!-- /capture:S154 -->
+
 ## 制作例
 
 ### 1. タイトルの背景を徐々に拡大する
@@ -152,4 +198,4 @@ Iterationsで模様そのものを変える動きと、Zoomで拡大する動き
 
 **Blackmagic Design『DaVinci Resolve 21.1 Reference Manual』**（September 2026）、Chapter 103「Generator Nodes」、**pp.2366–2368「Mandelbrot [MAN]」**で、Effect Mask入力、Noise tabのPosition X and Y・Zoom・Escape Limit・Iterations・Rotation、Color tabのGrad Method・Gradient Curve・R/G/B/A Phase and Repetitionsを確認しました。Generator共通のImage / Settingsについては同章pp.2401–2402を参照しています。
 
-制作例はManualで確認した機能を組み合わせた構成案です。設定の初期値・数値範囲、深いズームの実機性能、runtimeでの端子表示、Edition差は未確認のため`verification: partial`を維持しています。
+制作例はManualで確認した機能を組み合わせた構成案です。WindowsのResolve Studio 21.1.0.14ではruntime REGID `Mandel`、Effect Mask入力、静止frameのZoom比較とAlpha表示を確認しました。全設定の初期値・数値範囲、深いズームの実機性能、Edition差は未確認のため`verification: partial`を維持しています。

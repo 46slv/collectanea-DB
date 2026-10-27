@@ -1,0 +1,226 @@
+{
+  "case": "S156",
+  "project": "Collectanea_Mandelbrot_Zoom_20261025",
+  "library": "Local Database",
+  "project_manager_folder": "root",
+  "timeline": "S156_capture",
+  "page": "fusion",
+  "frame": 0,
+  "resolve": "21.1.0.14",
+  "edition": "DaVinci Resolve Studio",
+  "os": "Windows-11-10.0.26200-SP0",
+  "project_settings": {
+    "colorScienceMode": "davinciYRGB",
+    "colorSpaceInput": "Rec.709 Gamma 2.4",
+    "colorSpaceTimeline": "Rec.709 (Scene)",
+    "colorSpaceTimelineGamma": "",
+    "colorSpaceOutput": "Rec.709 (Scene)",
+    "colorSpaceOutputGamma": "ACEScc",
+    "isAutoColorManage": "0",
+    "timelineResolutionWidth": "1920",
+    "timelineResolutionHeight": "1080",
+    "timelineFrameRate": 30.0,
+    "timelinePlaybackFrameRate": "30",
+    "timelinePixelAspectRatio": "square"
+  },
+  "source": "Generated Background and MultiText; no external media",
+  "connections": {
+    "Composite.Background": "Plate",
+    "Composite.Foreground": "MultiText1",
+    "MediaOut1.Input": "Composite"
+  },
+  "multitext_regid": "MultiText",
+  "multitext_ports": {
+    "EffectMask": "Mask"
+  },
+  "final_controls": {
+    "TextName1": "Name",
+    "TextName2": "Role",
+    "TextValue1": "NOVA NAME",
+    "TextValue2": "DESIGNER",
+    "Text1.StyledText": "NOVA NAME",
+    "Text1.Font": "Arial",
+    "Text1.Style": "Bold",
+    "Text1.Size": 0.12,
+    "Text1.Center": {
+      "1": 0.5,
+      "2": 0.6,
+      "3": 0.0
+    },
+    "Text2.StyledText": "DESIGNER",
+    "Text2.Font": "Arial",
+    "Text2.Style": "Regular",
+    "Text2.Size": 0.06,
+    "Text2.Center": {
+      "1": 0.5,
+      "2": 0.43,
+      "3": 0.0
+    },
+    "TextEnabled1": 1.0,
+    "TextEnabled2": 1.0
+  },
+  "evaluated_dimensions": {
+    "MultiText1": [
+      1920,
+      1080
+    ],
+    "Plate": [
+      1920,
+      1080
+    ],
+    "Composite": [
+      1920,
+      1080
+    ]
+  },
+  "stages": {
+    "baseline": {
+      "case": "S156",
+      "frame": 0,
+      "connections": {
+        "Composite.Background": "Plate",
+        "Composite.Foreground": "MultiText1",
+        "MediaOut1.Input": "Composite"
+      },
+      "text1": {
+        "TextName1": "Name",
+        "TextValue1": "SAMPLE NAME",
+        "Text1.StyledText": "SAMPLE NAME",
+        "Text1.Font": "Arial",
+        "Text1.Style": "Bold",
+        "Text1.Size": 0.12,
+        "Text1.Center": {
+          "1": 0.5,
+          "2": 0.6,
+          "3": 0.0
+        }
+      },
+      "source": "Generated Background and MultiText; no external media",
+      "save_project": true,
+      "save_completed_at": "2026-10-27T18:45:37.827471+00:00"
+    },
+    "after_gui_point_add": {
+      "case": "S156",
+      "controls": {
+        "TextSelection": 2.0,
+        "TextName1": "Name",
+        "TextEnabled1": 1.0,
+        "TextValue1": "SAMPLE NAME",
+        "Text1.Center": {
+          "1": 0.5,
+          "2": 0.6,
+          "3": 0.0
+        },
+        "Text1.StyledText": "SAMPLE NAME",
+        "Text1.Font": "Arial",
+        "Text1.Style": "Bold",
+        "Text1.Size": 0.12,
+        "TextName2": "Text 1",
+        "TextEnabled2": 1.0,
+        "TextValue2": "Text 1",
+        "Text2.Center": {
+          "1": 0.5,
+          "2": 0.5,
+          "3": 0.0
+        },
+        "Text2.StyledText": "Text 1",
+        "Text2.Font": "Open Sans",
+        "Text2.Style": "Semibold",
+        "Text2.Size": 0.08
+      },
+      "save_project": true,
+      "save_completed_at": "2026-10-27T18:47:06.946249+00:00"
+    },
+    "sdk_name_edit": {
+      "case": "S156",
+      "method": "SDK SetInput; GUI Point add and GUI selection are recorded separately",
+      "before": {
+        "TextName1": "Name",
+        "TextName2": "Role",
+        "TextValue1": "SAMPLE NAME",
+        "TextValue2": "DESIGNER",
+        "Text1.StyledText": "SAMPLE NAME",
+        "Text1.Font": "Arial",
+        "Text1.Style": "Bold",
+        "Text1.Size": 0.12,
+        "Text1.Center": {
+          "1": 0.5,
+          "2": 0.6,
+          "3": 0.0
+        },
+        "Text2.StyledText": "DESIGNER",
+        "Text2.Font": "Arial",
+        "Text2.Style": "Regular",
+        "Text2.Size": 0.06,
+        "Text2.Center": {
+          "1": 0.5,
+          "2": 0.43,
+          "3": 0.0
+        }
+      },
+      "after": {
+        "TextName1": "Name",
+        "TextName2": "Role",
+        "TextValue1": "NOVA NAME",
+        "TextValue2": "DESIGNER",
+        "Text1.StyledText": "NOVA NAME",
+        "Text1.Font": "Arial",
+        "Text1.Style": "Bold",
+        "Text1.Size": 0.12,
+        "Text1.Center": {
+          "1": 0.5,
+          "2": 0.6,
+          "3": 0.0
+        },
+        "Text2.StyledText": "DESIGNER",
+        "Text2.Font": "Arial",
+        "Text2.Style": "Regular",
+        "Text2.Size": 0.06,
+        "Text2.Center": {
+          "1": 0.5,
+          "2": 0.43,
+          "3": 0.0
+        }
+      },
+      "save_project": true,
+      "save_completed_at": "2026-10-27T18:50:42.157850+00:00"
+    }
+  },
+  "viewer_channel": {
+    "confirmed": "Alpha on left Viewer via fresh channel menu after focused A key",
+    "color_restored": true,
+    "display_comparison": {
+      "case": "S156",
+      "viewer": "left MultiText1",
+      "roi": [
+        190,
+        110,
+        1290,
+        710
+      ],
+      "focused_a_key_changed_display_bbox": [
+        0,
+        0,
+        1100,
+        600
+      ],
+      "alpha_menu_selected": true,
+      "focused_c_key_restored_display_pixels": true,
+      "scope": "8-bit UI screenshots; not pixel-data or other hosts"
+    }
+  },
+  "limits": [
+    "Text Box, Circle, CSV, animation, fonts beyond Arial in this example, and other hosts NOT_RUN.",
+    "Physical mouse/keyboard provenance NOT_ESTABLISHED.",
+    "Portable composition reimport NOT_RUN.",
+    "Article verification remains partial."
+  ],
+  "save_project": true,
+  "save_completed_at": "2026-10-27T18:52:47.892967+00:00",
+  "composition_export": {
+    "portable_file": "fixture.comp",
+    "portable_sha256": "cfb3fae25fe8c6d5bd91d05be2b3b13f95b257d388d1dda37ded7438bb7e8f11",
+    "cache_lastfile_metadata_lines_removed": 2,
+    "reimport": "NOT_RUN"
+  }
+}

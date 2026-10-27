@@ -1,0 +1,188 @@
+{
+  "manual": {
+    "version": "21.1",
+    "chapter": 103,
+    "printed_pages": "2366–2368"
+  },
+  "runtime": {
+    "version": "21.1.0.14",
+    "edition": "DaVinci Resolve Studio",
+    "os": "Windows-11-10.0.26200-SP0",
+    "ui_language": "ja-JP"
+  },
+  "captured_at": "2026-10-27T18:27:35.585625+00:00",
+  "capture_time_note": "Fresh Alpha channel menu readback screenshot filesystem last-write time in UTC; other stages precede it.",
+  "project": "Collectanea_Mandelbrot_Zoom_20261025",
+  "timeline": "S154_capture",
+  "frame": 0,
+  "resolution": [
+    1920,
+    1080
+  ],
+  "color_management": {
+    "project_settings": {
+      "colorScienceMode": "davinciYRGB",
+      "colorSpaceInput": "Rec.709 Gamma 2.4",
+      "colorSpaceTimeline": "Rec.709 (Scene)",
+      "colorSpaceTimelineGamma": "",
+      "colorSpaceOutput": "Rec.709 (Scene)",
+      "colorSpaceOutputGamma": "ACEScc",
+      "isAutoColorManage": "0",
+      "timelineResolutionWidth": "1920",
+      "timelineResolutionHeight": "1080",
+      "timelineFrameRate": 30.0,
+      "timelinePlaybackFrameRate": "30",
+      "timelinePixelAspectRatio": "square"
+    },
+    "note": "SDK readback; displayed Alpha is a Viewer channel, not numerical image-data measurement."
+  },
+  "viewer": {
+    "view_mode": "Fit",
+    "source": "Left Mandelbrot1; right MediaOut1 or MandelMasked",
+    "note": "Selection overlays removed from clean output screenshots; right Viewer Alpha confirmed by channel menu, then Color restored."
+  },
+  "acceptance": {
+    "gui": "PASS: native screenshots show static Zoom 1 and 2, title composite, Ellipse mask and right Viewer Alpha; SDK confirms settings and connections. SaveProject returned true at 2026-10-27T18:28:41.792859+00:00",
+    "article_display": "NOT_RUN",
+    "public_display": "NOT_RUN"
+  },
+  "unverified": [
+    "Static frame only: Zoom/Iterations keyframes, playback and deep-zoom performance NOT_RUN.",
+    "Other positions, gradients, channel phases and other hosts NOT_RUN.",
+    "Portable composition reimport NOT_RUN.",
+    "Physical mouse/keyboard provenance NOT_ESTABLISHED.",
+    "Article verification remains partial."
+  ],
+  "schema_version": 1,
+  "case": "S154",
+  "article": "manuals/fusion/nodes/generators/mandelbrot.md",
+  "graph": "fixture.comp",
+  "settings": "readback.json",
+  "source": {
+    "file": "screen.png",
+    "size": [
+      3336,
+      1902
+    ],
+    "sha256": "d13431ed8a45364d9254252a6b4f797d80ecd054842ca03ebf3f69c38d437698"
+  },
+  "shots": [
+    {
+      "file": "graph.png",
+      "source": "screen.png",
+      "source_sha256": "d13431ed8a45364d9254252a6b4f797d80ecd054842ca03ebf3f69c38d437698",
+      "frame": 0,
+      "crop_xyxy": [
+        900,
+        1100,
+        1900,
+        1600
+      ],
+      "resampled": false,
+      "sha256": "a2e2877cbc6eae1d79c5876aa4115f6375d729df1df79df6abeb0b36c581cc84"
+    },
+    {
+      "file": "default-controls.png",
+      "source": "default-control-source.png",
+      "source_sha256": "f015605434996271b1cf2a23346f9dfbfb06e53bfde4d461d4685d4955268c22",
+      "frame": 0,
+      "crop_xyxy": [
+        2815,
+        65,
+        3336,
+        500
+      ],
+      "resampled": false,
+      "sha256": "81930ebc33dd5c1967a980e19462ed484ab3527d9a6846f057e046ed2184177a"
+    },
+    {
+      "file": "zoom-one.png",
+      "source": "default-source.png",
+      "source_sha256": "8b3e7656bdb7698878ae6e6723c2a5d17bf3ae70d31d990fdf26b19ae1f82859",
+      "frame": 0,
+      "crop_xyxy": [
+        0,
+        65,
+        2800,
+        730
+      ],
+      "resampled": false,
+      "sha256": "0d6c1813b80f4fdbffc12ee2d8a9ea310fc723e4fef4f2777d9befac43f0696b"
+    },
+    {
+      "file": "zoom-controls.png",
+      "source": "zoom-control-source.png",
+      "source_sha256": "12a03f2d35cd652e1e1470b8f83566f41c056f4e5e71e4afc8027e44499ae3f7",
+      "frame": 0,
+      "crop_xyxy": [
+        2815,
+        65,
+        3336,
+        500
+      ],
+      "resampled": false,
+      "sha256": "d2c1a7a492a36beaf585d5219575aa69d946d32d048a2358ef9016eea0db96c4"
+    },
+    {
+      "file": "zoom-two.png",
+      "source": "zoom-source.png",
+      "source_sha256": "783b842d5358a04b9050e5ddff74703fb0fbccb14ea50c264416d01a378a20ef",
+      "frame": 0,
+      "crop_xyxy": [
+        0,
+        65,
+        2800,
+        730
+      ],
+      "resampled": false,
+      "sha256": "36435e03a3b60513e3ef12b5de3333ddb729b6a9bb20e602ee8b3f2f4af945d6"
+    },
+    {
+      "file": "effect-mask.png",
+      "source": "screen.png",
+      "source_sha256": "d13431ed8a45364d9254252a6b4f797d80ecd054842ca03ebf3f69c38d437698",
+      "frame": 0,
+      "crop_xyxy": [
+        0,
+        65,
+        2800,
+        730
+      ],
+      "resampled": false,
+      "sha256": "a5fdebf97e04dadd12dff4d51fd926641241f5135ea3eda49acfa728b5e7d524"
+    },
+    {
+      "file": "alpha-menu.png",
+      "source": "channel-menu-source.png",
+      "source_sha256": "7d503ed766aa5c0ade384a65a3b1162f284080bbc3fb9b48c3eb9fb1c5a91773",
+      "frame": 0,
+      "crop_xyxy": [
+        0,
+        0,
+        118,
+        108
+      ],
+      "resampled": false,
+      "sha256": "6a865c1c94ad0f63409882095a3e15bec694f1d5d0a208099ff29ddc16147a7b"
+    },
+    {
+      "file": "mask-alpha.png",
+      "source": "alpha-source.png",
+      "source_sha256": "0ee77bae8bf349a99053b69d976994b35c356770df79ec90e6c5221629de2670",
+      "frame": 0,
+      "crop_xyxy": [
+        0,
+        65,
+        2800,
+        730
+      ],
+      "resampled": false,
+      "sha256": "2b6ac1f0c33d35fb08338dd911e7b6bd57ce7bb44652e58650eb082df518476b"
+    }
+  ],
+  "reproduction": {
+    "fixture_sha256": "621e1f683dd4bc08a79edf942eb943fbb7b0af07a5c77645f6a9e945b5cc01d6",
+    "readback_sha256": "f1d5f372890f2730c6949f9809a90d7dd6e277893c776d9d98e4c1543dfa3f32",
+    "reimport": "NOT_RUN"
+  }
+}

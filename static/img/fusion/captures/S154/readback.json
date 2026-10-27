@@ -1,0 +1,166 @@
+{
+  "case": "S154",
+  "project": "Collectanea_Mandelbrot_Zoom_20261025",
+  "library": "Local Database",
+  "project_manager_folder": "root",
+  "timeline": "S154_capture",
+  "page": "fusion",
+  "frame": 0,
+  "resolve": "21.1.0.14",
+  "edition": "DaVinci Resolve Studio",
+  "os": "Windows-11-10.0.26200-SP0",
+  "project_settings": {
+    "colorScienceMode": "davinciYRGB",
+    "colorSpaceInput": "Rec.709 Gamma 2.4",
+    "colorSpaceTimeline": "Rec.709 (Scene)",
+    "colorSpaceTimelineGamma": "",
+    "colorSpaceOutput": "Rec.709 (Scene)",
+    "colorSpaceOutputGamma": "ACEScc",
+    "isAutoColorManage": "0",
+    "timelineResolutionWidth": "1920",
+    "timelineResolutionHeight": "1080",
+    "timelineFrameRate": 30.0,
+    "timelinePlaybackFrameRate": "30",
+    "timelinePixelAspectRatio": "square"
+  },
+  "source": "Generated Mandelbrot, TextPlus and EllipseMask; no external media",
+  "connections": {
+    "TitleMerge.Background": "Mandelbrot1",
+    "TitleMerge.Foreground": "TitleText",
+    "MediaOut1.Input": "TitleMerge",
+    "MandelMasked.EffectMask": "Ellipse1"
+  },
+  "mandel_ports": {
+    "EffectMask": "Mask"
+  },
+  "matching_controls_at_mask_capture": {
+    "XPosition": -0.5,
+    "YPosition": 0.0,
+    "Zoom": 1.0,
+    "EscapeLimit": 16.0,
+    "Iterations": 256.0,
+    "Rotation": 0.0,
+    "GradMethod": 0.0,
+    "GradientCurve": 0.125,
+    "RedRepetitions": 1.0,
+    "RedPhase": 0.0,
+    "GreenRepetitions": 1.0,
+    "GreenPhase": 0.0,
+    "BlueRepetitions": 1.0,
+    "BluePhase": 0.0,
+    "AlphaRepetitions": 1.0,
+    "AlphaPhase": 0.0
+  },
+  "ellipse": {
+    "Width": 0.5,
+    "Height": 0.5,
+    "Center": {
+      "1": 0.5,
+      "2": 0.5,
+      "3": 0.0
+    },
+    "SoftEdge": 0.0,
+    "Invert": 0.0
+  },
+  "evaluated_dimensions": {
+    "Mandelbrot1": [
+      1920,
+      1080
+    ],
+    "MandelMasked": [
+      1920,
+      1080
+    ],
+    "TitleText": [
+      1920,
+      1080
+    ],
+    "TitleMerge": [
+      1920,
+      1080
+    ]
+  },
+  "comparison_stages": {
+    "zoom": {
+      "case": "S154",
+      "stage": "zoom",
+      "before": {
+        "XPosition": -0.5,
+        "YPosition": 0.0,
+        "Zoom": 1.0,
+        "EscapeLimit": 16.0,
+        "Iterations": 256.0
+      },
+      "after": {
+        "XPosition": -0.5,
+        "YPosition": 0.0,
+        "Zoom": 2.0,
+        "EscapeLimit": 16.0,
+        "Iterations": 256.0
+      },
+      "save_project": true,
+      "save_completed_at": "2026-10-27T18:22:00.469685+00:00"
+    },
+    "restored": {
+      "case": "S154",
+      "stage": "restore",
+      "before": {
+        "XPosition": -0.5,
+        "YPosition": 0.0,
+        "Zoom": 2.0,
+        "EscapeLimit": 16.0,
+        "Iterations": 256.0
+      },
+      "after": {
+        "XPosition": -0.5,
+        "YPosition": 0.0,
+        "Zoom": 1.0,
+        "EscapeLimit": 16.0,
+        "Iterations": 256.0
+      },
+      "save_project": true,
+      "save_completed_at": "2026-10-27T18:22:26.671906+00:00"
+    }
+  },
+  "viewer_channel": {
+    "confirmed": "Alpha on right Viewer via fresh channel menu after focused A key",
+    "color_restored": true,
+    "display_comparison": {
+      "case": "S154",
+      "roi": [
+        1590,
+        100,
+        2700,
+        720
+      ],
+      "uia_attempt_unchanged_display": true,
+      "focused_a_key_changed_display_bbox": [
+        3,
+        0,
+        1110,
+        619
+      ],
+      "focused_c_key_restored_display_pixels": true,
+      "screens": {
+        "05-mask-comparison.png": "D13431ED8A45364D9254252A6B4F797D80ECD054842CA03EBF3F69C38D437698",
+        "07-mask-alpha.png": "C2901C66C34D16CC11627DDA0C6EB399519ED1C8D53028A0C62FDC0FF517958C",
+        "08-mask-alpha-confirmed.png": "0EE77BAE8BF349A99053B69D976994B35C356770DF79EC90E6C5221629DE2670",
+        "10-color-restored.png": "6684E744D3BB54252CB9153BBFDB355613D91AF6D47723F3816C1B6986549706"
+      },
+      "scope": "8-bit Viewer screenshot pixels; not numeric image-channel data."
+    }
+  },
+  "limits": [
+    "Static frame comparisons; no Zoom keyframes/playback or deep-zoom performance.",
+    "Other gradients, positions, alpha phase controls and other hosts NOT_RUN.",
+    "Portable composition reimport NOT_RUN."
+  ],
+  "save_project": true,
+  "save_completed_at": "2026-10-27T18:28:41.792859+00:00",
+  "composition_export": {
+    "portable_file": "fixture.comp",
+    "portable_sha256": "621e1f683dd4bc08a79edf942eb943fbb7b0af07a5c77645f6a9e945b5cc01d6",
+    "cache_lastfile_metadata_lines_removed": 2,
+    "reimport": "NOT_RUN"
+  }
+}
