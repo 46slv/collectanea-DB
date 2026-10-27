@@ -81,6 +81,7 @@ Colorページは、素材の明るさや色の偏りを整え、複数ショッ
 - [青緑LEDの背景をColorSliceで整え、人物の肌を保つ](./recipes/color-slice-led-background-skin) — CyanとSkinの影響範囲を比較し、色域の重なりとWindowの分離を判断する
 - [Chroma Warpで青い衣装を赤紫に変え、肌と白を保つ](./recipes/chroma-warp-jacket-skin-neutral) — Point to Point、Pin Point、Windowで影響範囲を分ける
 - [ネオンサインの赤と青の発光を二層のGlowで作る](./recipes/neon-sign-dual-glow) — Resolve FX GlowのSecondary Glowで発光の近距離と広がりを分ける
+- [人物の逆光にハレーションを加え、Bloomと使い分ける](./recipes/halation-rim-light-portrait) — Film Look CreatorのHalationとBloomを分け、肌・白い衣装・背景発光を比較する（Studio版）
 - [Image Wipeで2ショットの明るさと色を比較する](./recipes/image-wipe-two-shot-comparison) — Gallery StillまたはTimelineの別ショットとWipeで比較し、ショット間の差を確認する
 - [納品前のColor QC](./recipes/pre-delivery-color-qc) — Lightbox、Scopes、Stills、再生で補正漏れと副作用を点検する
 
