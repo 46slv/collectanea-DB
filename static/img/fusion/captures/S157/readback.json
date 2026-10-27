@@ -1,0 +1,233 @@
+{
+  "case": "S157",
+  "project": "Collectanea_Mandelbrot_Zoom_20261025",
+  "library": "Local Database",
+  "project_manager_folder": "root",
+  "timeline": "S157_capture",
+  "page": "fusion",
+  "frame": 0,
+  "resolve": "21.1.0.14",
+  "edition": "DaVinci Resolve Studio",
+  "os": "Windows-11-10.0.26200-SP0",
+  "project_settings": {
+    "colorScienceMode": "davinciYRGB",
+    "colorSpaceInput": "Rec.709 Gamma 2.4",
+    "colorSpaceTimeline": "Rec.709 (Scene)",
+    "colorSpaceTimelineGamma": "",
+    "colorSpaceOutput": "Rec.709 (Scene)",
+    "colorSpaceOutputGamma": "ACEScc",
+    "isAutoColorManage": "0",
+    "timelineResolutionWidth": "1920",
+    "timelineResolutionHeight": "1080",
+    "timelineFrameRate": 30.0,
+    "timelinePlaybackFrameRate": "30",
+    "timelinePixelAspectRatio": "square"
+  },
+  "source": "Generated 1920x1080 blue Background and TextPlus; no external media",
+  "connections": {
+    "SourceMerge.Background": "Plate",
+    "SourceMerge.Foreground": "Label",
+    "Vignette.Background": "SourceMerge",
+    "Vignette.Foreground": "Black",
+    "Vignette.EffectMask": "Ellipse1",
+    "MediaOut1.Input": "Vignette"
+  },
+  "ellipse": {
+    "Center": {
+      "1": 0.5,
+      "2": 0.5,
+      "3": 0.0
+    },
+    "Width": 0.75,
+    "Height": 0.75,
+    "Angle": 0.0,
+    "Level": 1.0,
+    "Solid": 1.0,
+    "Invert": 1.0,
+    "SoftEdge": 0.15
+  },
+  "merge": {
+    "ApplyMode": "Normal",
+    "Operator": "Over",
+    "Blend": 0.35
+  },
+  "black_rgba": [
+    0.0,
+    0.0,
+    0.0,
+    1.0
+  ],
+  "evaluated_dimensions": {
+    "Plate": [
+      1920,
+      1080
+    ],
+    "Label": [
+      1920,
+      1080
+    ],
+    "SourceMerge": [
+      1920,
+      1080
+    ],
+    "Black": [
+      1920,
+      1080
+    ],
+    "Vignette": [
+      1920,
+      1080
+    ]
+  },
+  "comparison_stages": {
+    "no_mask": {
+      "case": "S157",
+      "source": "Generated 1920x1080 blue Background and TextPlus; no external media",
+      "connections": {
+        "SourceMerge.Background": "Plate",
+        "SourceMerge.Foreground": "Label",
+        "Vignette.Background": "SourceMerge",
+        "Vignette.Foreground": "Black",
+        "Vignette.EffectMask": null,
+        "MediaOut1.Input": "Vignette"
+      },
+      "ellipse": {
+        "Center": {
+          "1": 0.5,
+          "2": 0.5,
+          "3": 0.0
+        },
+        "Width": 0.75,
+        "Height": 0.75,
+        "Angle": 0.0,
+        "Level": 1.0,
+        "Solid": 1.0,
+        "Invert": 0.0,
+        "SoftEdge": 0.0
+      },
+      "merge": {
+        "ApplyMode": "Normal",
+        "Operator": "Over",
+        "Blend": 1.0
+      },
+      "black_rgba": [
+        0.0,
+        0.0,
+        0.0,
+        1.0
+      ],
+      "viewers": {
+        "left": "SourceMerge",
+        "right": "MediaOut1"
+      },
+      "save_project": true,
+      "save_completed_at": "2026-10-27T19:38:08.288450+00:00"
+    },
+    "invert_off": {
+      "case": "S157",
+      "Vignette.EffectMask": "Ellipse1",
+      "ellipse": {
+        "Center": {
+          "1": 0.5,
+          "2": 0.5,
+          "3": 0.0
+        },
+        "Width": 0.75,
+        "Height": 0.75,
+        "Angle": 0.0,
+        "Level": 1.0,
+        "Solid": 1.0,
+        "Invert": 0.0,
+        "SoftEdge": 0.0
+      },
+      "blend": 1.0,
+      "save_project": true,
+      "save_completed_at": "2026-10-27T19:38:50.834703+00:00"
+    },
+    "invert_on": {
+      "case": "S157",
+      "stage": "invert-on",
+      "before": {
+        "Invert": 0.0,
+        "SoftEdge": 0.0,
+        "Blend": 1.0
+      },
+      "after": {
+        "Invert": 1.0,
+        "SoftEdge": 0.0,
+        "Blend": 1.0
+      },
+      "changed": "Ellipse1.Invert",
+      "mask_source": "Ellipse1",
+      "save_project": true,
+      "save_completed_at": "2026-10-27T19:40:03.895595+00:00"
+    },
+    "soft_edge": {
+      "case": "S157",
+      "stage": "soft-edge",
+      "before": {
+        "Invert": 1.0,
+        "SoftEdge": 0.0,
+        "Blend": 1.0
+      },
+      "after": {
+        "Invert": 1.0,
+        "SoftEdge": 0.15,
+        "Blend": 1.0
+      },
+      "changed": "Ellipse1.SoftEdge",
+      "mask_source": "Ellipse1",
+      "save_project": true,
+      "save_completed_at": "2026-10-27T19:40:44.493403+00:00"
+    },
+    "blend": {
+      "case": "S157",
+      "stage": "blend",
+      "before": {
+        "Invert": 1.0,
+        "SoftEdge": 0.15,
+        "Blend": 1.0
+      },
+      "after": {
+        "Invert": 1.0,
+        "SoftEdge": 0.15,
+        "Blend": 0.35
+      },
+      "changed": "Vignette.Blend",
+      "mask_source": "Ellipse1",
+      "save_project": true,
+      "save_completed_at": "2026-10-27T19:41:08.142761+00:00"
+    }
+  },
+  "limits": [
+    "Synthetic generated input at one static frame; actual footage, animation, other sizes and hosts NOT_RUN.",
+    "No numerical image-data or calibrated signal measurement; Viewer screenshots are display evidence.",
+    "Portable composition reimport NOT_RUN.",
+    "Article verification remains partial."
+  ],
+  "save_project": true,
+  "save_completed_at": "2026-10-27T19:43:18.250706+00:00",
+  "composition_export": {
+    "portable_file": "fixture.comp",
+    "portable_sha256": "5eb3467bb462d33d02ca9ffd15453fbc16f1fc20793cf73d789384cf1a981857",
+    "cache_lastfile_metadata_lines_removed": 2,
+    "reimport": "NOT_RUN"
+  },
+  "generated_input_details": {
+    "plate_rgba": [
+      0.18,
+      0.35,
+      0.6,
+      1.0
+    ],
+    "label": {
+      "StyledText": "VIGNETTE",
+      "Font": "Arial",
+      "Style": "Bold",
+      "Size": 0.14
+    },
+    "method": "Guarded read-only SDK values",
+    "observed_at": "2026-10-27T19:44:31.383276+00:00"
+  },
+  "original_readback_sha256": "0cb470c18f8ed38f0c2c5b516d2e84eee1e00a0fa7d147486975f9913464fadd"
+}

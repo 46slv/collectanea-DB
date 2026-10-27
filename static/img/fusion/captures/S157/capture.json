@@ -1,0 +1,206 @@
+{
+  "manual": {
+    "version": "21.1",
+    "chapter": 94,
+    "printed_pages": "2211–2212, 2217",
+    "related": "Chapter 108 pp.2472–2475"
+  },
+  "runtime": {
+    "version": "21.1.0.14",
+    "edition": "DaVinci Resolve Studio",
+    "os": "Windows-11-10.0.26200-SP0",
+    "ui_language": "ja-JP"
+  },
+  "captured_at": "2026-10-27T19:42:30.655275+00:00",
+  "capture_time_note": "Final graph/mask screenshot filesystem last-write time in UTC; comparison stages precede it.",
+  "project": "Collectanea_Mandelbrot_Zoom_20261025",
+  "timeline": "S157_capture",
+  "frame": 0,
+  "resolution": [
+    1920,
+    1080
+  ],
+  "color_management": {
+    "project_settings": {
+      "colorScienceMode": "davinciYRGB",
+      "colorSpaceInput": "Rec.709 Gamma 2.4",
+      "colorSpaceTimeline": "Rec.709 (Scene)",
+      "colorSpaceTimelineGamma": "",
+      "colorSpaceOutput": "Rec.709 (Scene)",
+      "colorSpaceOutputGamma": "ACEScc",
+      "isAutoColorManage": "0",
+      "timelineResolutionWidth": "1920",
+      "timelineResolutionHeight": "1080",
+      "timelineFrameRate": 30.0,
+      "timelinePlaybackFrameRate": "30",
+      "timelinePixelAspectRatio": "square"
+    },
+    "note": "Generated 8-bit Viewer display screenshots are not calibrated signal measurements."
+  },
+  "viewer": {
+    "view_mode": "Fit",
+    "source": "Left SourceMerge or Ellipse1; right MediaOut1",
+    "note": "Comparison screenshots use the same frame and generated input."
+  },
+  "acceptance": {
+    "gui": "PASS: native Viewer screenshots show mask disconnected, Invert off/on, Soft Edge and Blend comparisons; parameters were set/read through SDK. SaveProject returned true at 2026-10-27T19:43:18.250706+00:00",
+    "article_display": "NOT_RUN",
+    "public_display": "NOT_RUN"
+  },
+  "unverified": [
+    "Synthetic generated input at one static frame; actual footage, animation, other sizes and hosts NOT_RUN.",
+    "No numerical image-data or calibrated signal measurement; Viewer screenshots are display evidence.",
+    "Portable composition reimport NOT_RUN.",
+    "Article verification remains partial.",
+    "Physical mouse/keyboard provenance NOT_ESTABLISHED."
+  ],
+  "article_source_main": "23fa44463ba2c481785c68a66fe1896c28502bd7",
+  "schema_version": 1,
+  "case": "S157",
+  "article": "manuals/fusion/recipes/compositing/soft-vignette-with-inverted-ellipse.md",
+  "graph": "fixture.comp",
+  "settings": "readback.json",
+  "source": {
+    "file": "screen.png",
+    "size": [
+      3336,
+      1902
+    ],
+    "sha256": "f29cc8fd3140f772f9931958bdeb75c85af463ef5731ee317680b28b0baec33d"
+  },
+  "shots": [
+    {
+      "file": "graph.png",
+      "source": "screen.png",
+      "source_sha256": "f29cc8fd3140f772f9931958bdeb75c85af463ef5731ee317680b28b0baec33d",
+      "frame": 0,
+      "crop_xyxy": [
+        580,
+        1240,
+        2250,
+        1500
+      ],
+      "resampled": false,
+      "sha256": "6e918348959548642bb266a0950aac2f3c255691525e497c399af18f587b4228"
+    },
+    {
+      "file": "no-mask.png",
+      "source": "no-mask-source.png",
+      "source_sha256": "eda09509a64ca33c5b586e91188d67bd8661395991521e91a66b3a15b2fdc8c8",
+      "frame": 0,
+      "crop_xyxy": [
+        0,
+        65,
+        2800,
+        730
+      ],
+      "resampled": false,
+      "sha256": "b8ce860d9ae5d78a339f3bbd9af18b1a810efeaccebe1f0ae103764383ef372a"
+    },
+    {
+      "file": "invert-off.png",
+      "source": "invert-off-source.png",
+      "source_sha256": "264c10982b0c2a3c0d43aa0e04ef4652654718bb6ae4019e91de732bc31fefb0",
+      "frame": 0,
+      "crop_xyxy": [
+        0,
+        65,
+        2800,
+        730
+      ],
+      "resampled": false,
+      "sha256": "5b7c3f26e563b14c382aa22a4280141efb27726979e244053cd52c106dcc2eea"
+    },
+    {
+      "file": "invert-on.png",
+      "source": "invert-on-source.png",
+      "source_sha256": "207811d1a490095928ccc79857bbfa56a7c74d791ea9f06645fbf37d6aefe2db",
+      "frame": 0,
+      "crop_xyxy": [
+        0,
+        65,
+        2800,
+        730
+      ],
+      "resampled": false,
+      "sha256": "7ce3b35a87ad84aca9e01194991477282a8e37b0051e98012e145c3ae4ca8349"
+    },
+    {
+      "file": "ellipse-controls.png",
+      "source": "ellipse-source.png",
+      "source_sha256": "4b49ff3dac7e407311a2ffa8d65266ced5f97ce981d9389c08e8e73bc127fc5f",
+      "frame": 0,
+      "crop_xyxy": [
+        2815,
+        65,
+        3336,
+        525
+      ],
+      "resampled": false,
+      "sha256": "013225b6c3a8fe19cdf611c429c0e26329459b210d7ae8779df5336ebfc11faa"
+    },
+    {
+      "file": "soft-edge.png",
+      "source": "soft-source.png",
+      "source_sha256": "691b3d8b513addc5742ef48afb43ce309ae081bf7f22f92e8ddb6345588c6181",
+      "frame": 0,
+      "crop_xyxy": [
+        0,
+        65,
+        2800,
+        730
+      ],
+      "resampled": false,
+      "sha256": "e9cf95f5d6840aa786132e7f257130db8fb9f4f57a633ad351d48752f854ab34"
+    },
+    {
+      "file": "blend-controls.png",
+      "source": "blend-controls-source.png",
+      "source_sha256": "b9d08d4185222e24493ff0289115df5d6d56dd373b48acbee3bed28ce54dd51d",
+      "frame": 0,
+      "crop_xyxy": [
+        2815,
+        65,
+        3336,
+        620
+      ],
+      "resampled": false,
+      "sha256": "9f594a91b91996e150dfafae15a57734cfa6a51862120faf3a34602b604ac6ce"
+    },
+    {
+      "file": "blend-output.png",
+      "source": "blend-source.png",
+      "source_sha256": "3dd2453a65367f9c8b5bd9d8470d6858e49e22015a996007104e447c84c6e2df",
+      "frame": 0,
+      "crop_xyxy": [
+        0,
+        65,
+        2800,
+        730
+      ],
+      "resampled": false,
+      "sha256": "7967d2f8c97555dc7654878f05b1aa5b12ffff0db3191bac10f710378c849463"
+    },
+    {
+      "file": "mask-output.png",
+      "source": "mask-source.png",
+      "source_sha256": "fde993c15eecaa2dbd1bbb824b7956d40c58fd7ddecf29de63161056ad4acc9f",
+      "frame": 0,
+      "crop_xyxy": [
+        0,
+        65,
+        2800,
+        730
+      ],
+      "resampled": false,
+      "sha256": "e445ec6f1705d939d9f22016d7ddc4463e07bcfeca6ae8ddc01b1a8dc6bb24dd"
+    }
+  ],
+  "reproduction": {
+    "fixture_sha256": "5eb3467bb462d33d02ca9ffd15453fbc16f1fc20793cf73d789384cf1a981857",
+    "readback_sha256": "229081343c3a884a568410e32ea70c4504522678ee24fa99879a41b57e900ebc",
+    "readback_source_sha256": "229081343c3a884a568410e32ea70c4504522678ee24fa99879a41b57e900ebc",
+    "readback_transform": "No line-ending transformation",
+    "reimport": "NOT_RUN"
+  }
+}

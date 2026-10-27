@@ -6781,6 +6781,85 @@
         "Article verification remains partial"
       ],
       "published_batch": "fusion-native-20261027-41"
+    },
+    {
+      "priority": "P1",
+      "goal": "Show the actual inverted-Ellipse Merge vignette with same-frame input, mask, softness and blend comparisons.",
+      "suggested_graph": "Generated Plate + Label -> SourceMerge -> Vignette.Background; Black -> Vignette.Foreground; Ellipse1 -> Vignette.EffectMask; Vignette -> MediaOut1.",
+      "scope": "Resolve Studio 21.1.0.14 on Windows; generated 1920x1080 input at frame 0; native screenshots and unresampled crops.",
+      "limitations": [
+        "Synthetic generated input at one static frame; actual footage, animation, other sizes and hosts NOT_RUN.",
+        "No numerical image-data or calibrated signal measurement; Viewer screenshots are display evidence.",
+        "Portable composition reimport NOT_RUN.",
+        "Article verification remains partial.",
+        "Physical mouse/keyboard provenance NOT_ESTABLISHED."
+      ],
+      "id": "S157",
+      "article": "manuals/fusion/recipes/compositing/soft-vignette-with-inverted-ellipse.md",
+      "manual": {
+        "version": "21.1",
+        "chapter": 94,
+        "printed_pages": "2211–2212, 2217",
+        "related": "Chapter 108 pp.2472–2475"
+      },
+      "status": "captured-local-display-verified",
+      "capture_manifest": "static/img/fusion/captures/S157/capture.json",
+      "shots": [
+        {
+          "slug": "graph",
+          "kind": "graph",
+          "target": "生成した入力と黒いBackground、反転EllipseをMergeしMediaOutへ渡す接続",
+          "status": "captured"
+        },
+        {
+          "slug": "no-mask",
+          "kind": "comparison",
+          "target": "左に生成した入力、右にMask未接続で全面が黒くなったMerge出力",
+          "status": "captured"
+        },
+        {
+          "slug": "invert-off",
+          "kind": "comparison",
+          "target": "InvertオフのEllipseで画面中央が黒くなった比較",
+          "status": "captured"
+        },
+        {
+          "slug": "invert-on",
+          "kind": "comparison",
+          "target": "InvertオンのEllipseで中央の入力を残し外側を黒くした比較",
+          "status": "captured"
+        },
+        {
+          "slug": "ellipse-controls",
+          "kind": "inspector",
+          "target": "EllipseのInvertオン、Soft Edge 0.15、WidthとHeight 0.75のInspector",
+          "status": "captured"
+        },
+        {
+          "slug": "soft-edge",
+          "kind": "comparison",
+          "target": "Soft Edge 0.15で入力と暗い外周の境界が緩やかになった結果",
+          "status": "captured"
+        },
+        {
+          "slug": "blend-controls",
+          "kind": "inspector",
+          "target": "MergeのNormal、Over、Blend 0.35を示すInspector",
+          "status": "captured"
+        },
+        {
+          "slug": "blend-output",
+          "kind": "comparison",
+          "target": "Blend 0.35で外周の暗さが弱まった合成結果",
+          "status": "captured"
+        },
+        {
+          "slug": "mask-output",
+          "kind": "comparison",
+          "target": "左に中央が黒く周辺が白い反転Ellipse、右にBlend 0.35の合成結果",
+          "status": "captured"
+        }
+      ]
     }
   ],
   "publication_batches": [
@@ -8166,23 +8245,23 @@
     }
   ],
   "coverage_inventory": {
-    "checked_at": "2026-10-26T15:04:50.698422+00:00",
+    "checked_at": "2026-10-27T19:51:19.110314+00:00",
     "scope": "All manuals/fusion Markdown and MDX pages; review necessity before adding images.",
     "completion_rule": "Every page has an explicit image decision; necessary images are native-observed, embedded, saved to GitHub and public-display-verified. A native example does not verify all article controls.",
     "summary": {
-      "total_pages": 587,
-      "with_images": 203,
-      "with_native_examples": 203,
+      "total_pages": 588,
+      "with_images": 204,
+      "with_native_examples": 204,
       "states": {
         "reviewed-no-standalone-image": 26,
         "no-standalone-image-needed": 6,
         "illustrated-reused-example": 80,
         "capture-planned": 352,
-        "illustrated-native-example": 123
+        "illustrated-native-example": 124
       },
       "decisions": {
         "no-standalone-image-needed": 32,
-        "image-required": 203,
+        "image-required": 204,
         "capture-needed": 352
       }
     },
@@ -25670,6 +25749,28 @@
         "reason": "MultiMerge Layer Listの順序・Enableと重なり"
       },
       {
+        "article": "manuals/fusion/recipes/compositing/soft-vignette-with-inverted-ellipse.md",
+        "title": "Ellipse Maskで柔らかいビネットを作る",
+        "kind": "recipe",
+        "image_count": 9,
+        "native_cases": [
+          "S157"
+        ],
+        "reused_cases": [],
+        "planned_cases": [],
+        "state": "illustrated-native-example",
+        "decision": "image-required",
+        "reason": "S157で生成入力のGraph、反転Ellipse、Soft EdgeとBlendの静止frame比較を確認。",
+        "remaining_views": [],
+        "required_views": [
+          "MediaIn・黒Background・反転Ellipse・Merge・MediaOutの接続Graph",
+          "InvertとSoft Edgeの設定",
+          "同じ入力の合成前後のViewer比較"
+        ],
+        "minimum_fixture": "1920×1080の生成または所有済み入力、黒Background、反転Ellipse、Merge。静止frameで比較。",
+        "audit_note": "S157の9画像をisolated local desktop/mobileで確認。実写、HDR、時間変化、portable再importと公開表示はNOT_RUN。"
+      },
+      {
         "article": "manuals/fusion/recipes/compositing/two-image-merge.md",
         "title": "2つのImageを重ねる",
         "kind": "recipe",
@@ -26204,9 +26305,9 @@
       },
       {
         "article": "manuals/fusion/troubleshooting/masking/alpha-edge-looks-wrong.md",
-        "title": "透明Edgeの色や縁がおかしい",
+        "title": "透明エッジに黒縁・白縁が出る",
         "kind": "diagnostic",
-        "image_count": 2,
+        "image_count": 3,
         "native_cases": [],
         "reused_cases": [
           "S74"
