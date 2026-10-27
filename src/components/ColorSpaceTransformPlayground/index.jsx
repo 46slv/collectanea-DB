@@ -56,11 +56,11 @@ export default function ColorSpaceTransformPlayground() {
   return <section className="vp-cst" data-vp-cst="ready" data-vp-cst-source={source}
     data-vp-cst-target={target} aria-labelledby={id + '-title'}>
     <h3 id={id + '-title'}>同じRGB数値を別の色空間へ移すと何が変わる？</h3>
-    <p className="vp-cst__intro">左はソースのRGB数値を誤ってsRGBとみなした表示例です。
+    <p className="vp-cst__intro">左は入力コードをsRGBとしてそのまま表示した比較例です。Display P3入力では誤解釈ですが、sRGB入力なら正しい入力表示です。
       中央は色空間変換後の値を、出力色域でクリップしてsRGBへ再変換した表示用近似。
       右の赤は出力色空間で成分が0〜1からはみ出す画素です。</p>
     <div className="vp-cst__previews">
-      <Preview kind="raw" title="01 / 数値を直表示（誤った扱い）" note="入力コードを無変換でsRGB扱い"
+      <Preview kind="raw" title="01 / 入力コードをsRGB直表示" note={source === 'display-p3' ? 'P3入力の数値をsRGBと誤読' : 'sRGB入力をそのまま表示'}
         pixels={output.raw} zoom={zoom} />
       <Preview kind="converted" title="02 / 色空間を解釈して表示" note="XYZ(D65)経由→出力色域クリップ→sRGBプレビュー"
         pixels={output.corrected} zoom={zoom} />
