@@ -1888,6 +1888,94 @@ try {
     }
   });
 
+
+  await check('gamut-mapping-controls-and-mobile', async () => {
+    await go(route);
+    await page.getByRole('link', {name: '範囲外マスク・クリップ・灰軸縮小を操作して比較'}).click();
+    await expect(page).toHaveURL(/\/reference\/visual-processing\/gamut-mapping\/?$/);
+    for (const width of [1440, 390, 320]) {
+      await page.setViewportSize({width, height: width === 1440 ? 1000 : 844});
+      await go('/reference/visual-processing/gamut-mapping');
+      await expect(page.locator('.theme-doc-markdown h1')).toContainText('色域外処理');
+      const widget = page.locator('[data-vp-gamut="ready"]');
+      await expect(widget).toBeVisible();
+      const layout = await widget.evaluate(el => {
+        const previews = el.querySelector('.vp-gamut__previews');
+        const controls = el.querySelector('.vp-gamut__controls');
+        return {
+          panels: el.querySelectorAll('[data-vp-gamut-preview] canvas').length,
+          dom: Boolean(previews && controls &&
+            (previews.compareDocumentPosition(controls) & Node.DOCUMENT_POSITION_FOLLOWING)),
+          visual: Boolean(previews && controls &&
+            previews.getBoundingClientRect().bottom <= controls.getBoundingClientRect().top),
+        };
+      });
+      assert.ok(layout.panels === 3 && layout.dom && layout.visual,
+        'Gamut mapping preview-first three-panel layout at ' + width + ': ' + JSON.stringify(layout));
+      const picture = mode => widget.locator('[data-vp-gamut-preview="' + mode + '"] canvas')
+        .evaluate(canvas => canvas.toDataURL());
+      // SSR markup can be visible before useEffect paints the initial Canvas frames.
+      const painted = mode => widget.locator('[data-vp-gamut-preview="' + mode + '"] canvas')
+        .evaluate(canvas => {
+          const data = canvas.getContext('2d').getImageData(0, 0, canvas.width, canvas.height).data;
+          for (let i = 0; i < data.length; i += 4) {
+            if (data[i] > 32 || data[i + 1] > 32 || data[i + 2] > 32) return true;
+          }
+          return false;
+        });
+      await expect.poll(() => Promise.all(['mask', 'clip', 'radial'].map(painted)))
+        .toEqual([true, true, true]);
+      const initialMask = await picture('mask');
+      const initialClip = await picture('clip');
+      const initialRadial = await picture('radial');
+      assert.notEqual(initialClip, initialRadial,
+        'Gamut clip and gray-axis projection must produce different previews');
+      const drive = widget.getByRole('slider', {name: '色差倍率'});
+      const anchor = widget.getByRole('slider', {name: '灰色基準'});
+      const pattern = widget.getByRole('combobox', {name: '合成入力の配置'});
+      const zoom = widget.getByRole('combobox', {name: '表示倍率'});
+      const outside = widget.locator('[data-vp-gamut-outside]');
+      const count = async () => Number((await outside.textContent()).replaceAll(',', ''));
+      await expect(drive).toHaveValue('1.5');
+      await expect(anchor).toHaveValue('0.5');
+      await expect(pattern).toHaveValue('bands');
+      await expect(zoom).toHaveValue('1');
+      const defaultOutside = await count();
+      await drive.focus();
+      await drive.press('Home');
+      await expect(drive).toHaveValue('0.5');
+      await expect.poll(count).toBeLessThan(defaultOutside);
+      const lowOutside = await count();
+      await drive.press('End');
+      await expect(drive).toHaveValue('2');
+      await expect.poll(count).toBeGreaterThan(lowOutside);
+      await expect.poll(() => picture('clip')).not.toBe(initialClip);
+      const beforeAnchor = await picture('radial');
+      await anchor.focus();
+      await anchor.press('End');
+      await expect(anchor).toHaveValue('0.8');
+      await expect.poll(() => picture('radial')).not.toBe(beforeAnchor);
+      const beforePattern = await picture('clip');
+      await pattern.selectOption('blocks');
+      await expect.poll(() => picture('clip')).not.toBe(beforePattern);
+      await zoom.selectOption('4');
+      await expect(zoom).toHaveValue('4');
+      await expect.poll(() => widget.locator('[data-vp-gamut-preview="clip"] .vp-gamut__viewport')
+        .evaluate(el => el.scrollWidth > el.clientWidth),
+        {message: '400% gamut preview remains horizontally inspectable at ' + width}).toBe(true);
+      await widget.getByRole('button', {name: '初期値に戻す'}).click();
+      await expect(drive).toHaveValue('1.5');
+      await expect(anchor).toHaveValue('0.5');
+      await expect(pattern).toHaveValue('bands');
+      await expect(zoom).toHaveValue('1');
+      await expect.poll(() => picture('mask')).toBe(initialMask);
+      await expect.poll(() => picture('clip')).toBe(initialClip);
+      await expect.poll(() => picture('radial')).toBe(initialRadial);
+      await noOverflow();
+      if (width === 390) await shot('gamut-mapping-mobile');
+    }
+  });
+
   await check('no-runtime-or-resource-errors', async () => {
     assert.deepEqual(report.pageErrors, []);
     assert.deepEqual(report.resourceErrors, []);
