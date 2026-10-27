@@ -1815,6 +1815,79 @@ try {
     }
   });
 
+
+  await check('bokeh-shape-controls-and-mobile', async () => {
+    await go(route);
+    await page.getByRole('link', {name: '絞りと焦点外の点像を操作して比較'}).click();
+    await expect(page).toHaveURL(/\/reference\/visual-processing\/optics\/bokeh-shape\/?$/);
+    for (const width of [1440, 390, 320]) {
+      await page.setViewportSize({width, height: width === 1440 ? 1000 : 844});
+      await go('/reference/visual-processing/optics/bokeh-shape');
+      await expect(page.locator('.theme-doc-markdown h1')).toContainText('ボケ形状');
+      const widget = page.locator('[data-vp-bokeh="ready"]');
+      await expect(widget).toBeVisible();
+      const layout = await widget.evaluate(el => {
+        const previews = el.querySelector('.vp-bokeh__previews');
+        const controls = el.querySelector('.vp-bokeh__controls');
+        return {
+          panels: el.querySelectorAll('[data-vp-bokeh-panel] canvas').length,
+          dom: Boolean(previews && controls &&
+            (previews.compareDocumentPosition(controls) & Node.DOCUMENT_POSITION_FOLLOWING)),
+          visual: Boolean(previews && controls &&
+            previews.getBoundingClientRect().bottom <= controls.getBoundingClientRect().top),
+        };
+      });
+      assert.ok(layout.panels === 3 && layout.dom && layout.visual,
+        'Bokeh preview-first three-panel layout at ' + width + ': ' + JSON.stringify(layout));
+      const picture = mode => widget.locator('[data-vp-bokeh-panel="' + mode + '"] canvas')
+        .evaluate(canvas => canvas.toDataURL());
+      // This marker is SSR-rendered, but Canvas paints in React effects after hydration.
+      // Do not freeze the reset oracle before all three initial previews have painted.
+      const painted = mode => widget.locator('[data-vp-bokeh-panel="' + mode + '"] canvas')
+        .evaluate(canvas => {
+          const pixel = canvas.getContext('2d').getImageData(4, 4, 1, 1).data;
+          return pixel[0] + pixel[1] + pixel[2] > 0;
+        });
+      await expect.poll(() => Promise.all(['input', 'aperture', 'result'].map(painted)))
+        .toEqual([true, true, true]);
+      const before = await picture('input');
+      const opening = await picture('aperture');
+      const result = await picture('result');
+      assert.notEqual(result, before, 'Bokeh result must differ from point-source input');
+      const radius = widget.getByRole('slider', {name: 'ぼけ半径'});
+      const blades = widget.getByRole('combobox', {name: '絞りの形'});
+      const oval = widget.getByRole('slider', {name: '横方向の倍率'});
+      const edge = widget.getByRole('slider', {name: '縁の強さ'});
+      await expect(radius).toHaveValue('14');
+      await expect(blades).toHaveValue('6');
+      await radius.focus();
+      await radius.press('Home');
+      await expect(radius).toHaveValue('3');
+      await expect.poll(() => picture('result')).not.toBe(result);
+      await blades.selectOption('0');
+      await expect(widget).toHaveAttribute('data-vp-bokeh-blades', '0');
+      await expect.poll(() => picture('aperture')).not.toBe(opening);
+      const circularResult = await picture('result');
+      await oval.focus();
+      await oval.press('Home');
+      await expect(oval).toHaveValue('0.6');
+      await expect.poll(() => picture('result')).not.toBe(circularResult);
+      await edge.focus();
+      await edge.press('Home');
+      await expect(edge).toHaveValue('0');
+      await widget.getByRole('button', {name: '初期値に戻す'}).click();
+      await expect(radius).toHaveValue('14');
+      await expect(blades).toHaveValue('6');
+      await expect(oval).toHaveValue('1');
+      await expect(edge).toHaveValue('0.35');
+      await expect.poll(() => picture('input')).toBe(before);
+      await expect.poll(() => picture('aperture')).toBe(opening);
+      await expect.poll(() => picture('result')).toBe(result);
+      await noOverflow();
+      if (width === 390) await shot('bokeh-shape-mobile');
+    }
+  });
+
   await check('no-runtime-or-resource-errors', async () => {
     assert.deepEqual(report.pageErrors, []);
     assert.deepEqual(report.resourceErrors, []);
