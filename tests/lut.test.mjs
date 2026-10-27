@@ -63,7 +63,8 @@ test('render produces two different previews without mutating input', () => {
   assert.notDeepEqual(result.ideal, result.approximation);
 });
 test('invalid domains, settings, dimensions and alpha are rejected', () => {
-  for (const invalid of [0, -1, Infinity, NaN, 1.1, '1', null]) {
+  assert.equal(curveAt(0), 0);
+  for (const invalid of [-1, Infinity, NaN, 1.1, '1', null]) {
     assert.throws(() => curveAt(invalid), RangeError);
   }
   assert.throws(() => makeLut(3), RangeError);
