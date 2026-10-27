@@ -1,0 +1,44 @@
+---
+sidebar_position: 12
+sidebar_label: ボケ形状
+title: ボケ形状（Bokeh）
+description: ピント外の点光源が円や多角形に広がる見え方を、絞りの形・半径・縦横比・縁の強さから観察する。
+tags: [image-processing, optics, bokeh, aperture, reference]
+---
+
+import BokehShapePlayground from '@site/src/components/BokehShapePlayground';
+
+# ボケ形状（Bokeh）
+
+ピントが外れた背景の小さな光が、丸や多角形の明るい面として写ることがあります。ボケとは焦点外の描写の性質を広く指し、「ボケ形状」はとくに点光源の広がり方を観察する入口です。輪郭が丸いか角張るか、縁が明るいかなどは、レンズの開口や収差、撮影条件によって異なります。
+
+## 三画面で操作する {#try-it}
+
+<BokehShapePlayground />
+
+まず「絞りの形」を六角形から円形にすると、点光源の外形が変わります。「ぼけ半径」を 14 px から 26 px に増やして、焦点外で点が面に広がる様子を観察してください。横方向の倍率を 0.60 にすると縦長、1.40 では横長の像になります。「縁の強さ」は、輪郭のリング状の明るさが目立つ条件を模式的に試す値です。初期値に戻す操作もできます。
+
+## 入力・出力・計算の考え方
+
+- **入力**：ページ内で合成した 360 × 180 px の夜景と、同じ位置に固定した6個の点光源。外部画像や写真は使いません。
+- **操作**：ぼけ半径 3–30 px（初期14）、開口輪郭は円・5／6／8角形（初期6角形）、横方向倍率 0.60–1.40（初期1.00）、縁の強さ 0–1（初期0.35）。
+- **出力**：「元の点光源」「中央に拡大した開口形状」「焦点外の点像」の三画面。手すりなど前景の線は、この簡易実験では変えません。
+- **仕組み**：各光源の座標 \\(x_0,y_0\\) を維持し、\\(x=x_0+a r\\cos\\theta,\\;y=y_0+r\\sin\\theta\\) の円または多角形を描きます。ここで \\(r\\) はぼけ半径、\\(a\\) は横方向倍率です。点像の輪郭だけを抽象化しているため、周囲の画像全体を畳み込むぼかし処理ではありません。
+
+## 実写との違いと用途
+
+実際のボケの大きさには焦点距離、絞り値、撮影距離、ピント位置などが関係します。絞り羽根が作る開口の形は、焦点外のハイライトの形にも関係します。光源と背景の距離を変える、被写体へ近づく、絞りを開くなどの撮影方法でも見え方は変わります。
+
+この教材の「半径」は f 値から導いた物理量ではありません。横倍率もアナモフィックレンズの光学モデルではなく、形を横に伸縮させるだけです。輪郭の強さ・不透明度は視覚比較用に固定または手動設定した値で、光エネルギー保存、口径食による周辺のレモン形、像面湾曲、色収差、球面収差、前後ボケの非対称性を計算していません。HDR／RAW、特定レンズ、After Effects／DaVinci Resolveとの数値的一致も保証しません。Canvas非対応環境では描画できません。
+
+**関連表現**：[ゴースト](./lens-ghosting.mdx)は反射で別の位置に像が現れる現象、[ブルーム](./bloom.mdx)はハイライトの光を周辺へにじませる処理であり、点光源が焦点外で開口形状に広がる現象とは区別します。
+
+[画像処理索引に戻る](../index.md#optics)。
+
+## 参考資料
+
+- [Nikon — Bokeh for Beginners](https://www.nikonusa.com/learn-and-explore/c/tips-and-techniques/bokeh-for-beginners) — 絞り羽根・撮影距離と焦点外ハイライトの形の関係。
+- [Nikon — Photograph the Classic Holiday Light Bokeh Effect](https://www.nikonusa.com/learn-and-explore/c/tips-and-techniques/photograph-the-classic-holiday-light-bokeh-effect) — 背景の点光源とピント位置による見え方。
+- [Canon — The World of Cinema Lenses](https://files.canon-europe.com/files/webcontent/rf-lens-world/cinemalens/index.html) — 絞り羽根と開口形状の説明。
+- [ZEISS — Mobile Imaging R&D Competencies](https://www.zeiss.com/photonics-and-optics/en/photography/mobile-imaging/rd-competencies.html) — 光学系・開口形状と楕円ボケの関係。
+- [MDN — CanvasRenderingContext2D](https://developer.mozilla.org/en-US/docs/Web/API/CanvasRenderingContext2D) — 描画API。
