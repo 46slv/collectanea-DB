@@ -70,6 +70,34 @@ Spreadでは、入力画像の暗部・中間調・明部にどれだけ粒子�
 
 また、合成済みの2D Imageに粒子を再付加したり、Spreadの曲線で特定の明るさにだけ粒子を強く出したりできます。ただし、質感の精度や新規制作での選択肢を重視するなら、現行のFilm Grainを先に検討してください。
 
+<!-- capture:S166 -->
+
+## 実機例：粒状感を強調して比べる
+
+生成した文字画像を `Grain1` のInputへ接続します。粒状感を見やすくするためPowerを20、Grain Sizeを3、Grain Softnessを1に設定しました。
+
+frame 0の左は入力、右はGrainを加えた出力です。100%表示では、文字と背景に粒状の変化が見えます。この強い設定は比較用で、実写への適切な量を示すものではありません。[接続と設定の記録](/img/fusion/captures/S166/readback.json)に条件を記載しています。
+
+[![文字画像をGrainに通してMediaOutへ接続したノード構成](/img/fusion/captures/S166/graph.png)](/img/fusion/captures/S166/graph.png)
+
+文字画像をGrainのInputへ接続し、出力をMediaOutへ渡します。
+
+[![GrainのPower 20、Grain Size 3、Grain Softness 1を示すInspector](/img/fusion/captures/S166/controls.png)](/img/fusion/captures/S166/controls.png)
+
+比較のためPowerを20、Grain Sizeを3、Grain Softnessを1に設定しています。
+
+[![Fit表示で粒状感を加える前と後を比較](/img/fusion/captures/S166/comparison-fit.png)](/img/fusion/captures/S166/comparison-fit.png)
+
+左は入力、右はGrainを加えた出力です。
+
+[![100%表示で粒状感を加える前と後を比較](/img/fusion/captures/S166/comparison-100.png)](/img/fusion/captures/S166/comparison-100.png)
+
+両Viewerを100%にした中央部分です。右側の文字と背景に粒状の変化が見えます。
+
+[再現用Graph](/img/fusion/captures/S166/fixture.comp) · [撮影条件と確認範囲](/img/fusion/captures/S166/capture.json)
+
+<!-- /capture:S166 -->
+
 ## 最小構成
 
     MediaIn → Grain → MediaOut
@@ -118,4 +146,4 @@ Spreadでは、入力画像の暗部・中間調・明部にどれだけ粒子�
 
 DaVinci Resolve 21.1 Reference Manual（September 2026）、Chapter 98、pp.2317–2320に基づき、Grainの旧式Nodeとしての位置づけ、Input / Effect Mask、ControlsタブのPower・RGB Difference・Grain Softness・Grain Size・Grain Spacing・Aspect Ratio・Alpha-Multiply、SpreadタブのRGB曲線・In / Out、MediaOut / Saverへの接続例を確認しました。
 
-Inspectorの既定値・正確な数値範囲、現在の実機における端子REGID、Editionごとの差、描画結果の実測は未確認のため、verificationはpartialです。
+Inspectorの既定値・正確な数値範囲、Editionごとの差、上記固定例以外の描画結果は未確認のため、verificationはpartialです。
