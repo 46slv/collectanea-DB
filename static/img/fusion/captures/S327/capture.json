@@ -1,0 +1,114 @@
+{
+  "manual": {
+    "version": "21.1"
+  },
+  "runtime": {
+    "version": "21.1.0.14",
+    "edition": "DaVinci Resolve Studio",
+    "os": "Windows-11-10.0.26200-SP0",
+    "ui_language": "ja-JP"
+  },
+  "captured_at": "2026-10-28T10:35:47.745010+00:00",
+  "project": "Collectanea_Mandelbrot_Zoom_20261025",
+  "timeline": "S327_capture",
+  "frame": 0,
+  "resolution": [
+    1920,
+    1080
+  ],
+  "color_management": {
+    "project_settings": {
+      "colorScienceMode": "davinciYRGB",
+      "colorSpaceInput": "Rec.709 Gamma 2.4",
+      "colorSpaceTimeline": "Rec.709 (Scene)",
+      "colorSpaceTimelineGamma": "",
+      "colorSpaceOutput": "Rec.709 (Scene)",
+      "colorSpaceOutputGamma": "ACEScc",
+      "isAutoColorManage": "0",
+      "timelineResolutionWidth": "1920",
+      "timelineResolutionHeight": "1080",
+      "timelineFrameRate": 30.0,
+      "timelinePlaybackFrameRate": "30",
+      "timelinePixelAspectRatio": "square"
+    },
+    "note": "SDK project settings; screenshots show Viewer display."
+  },
+  "viewer": {
+    "view_mode": "Fit",
+    "source": "uRenderer and MediaOut1",
+    "note": "uMerge selected, frame 0"
+  },
+  "acceptance": {
+    "gui": "PASS: two scene inputs, selected uMerge, and both rendered shapes visible; SDK settings and save read back.",
+    "article_display": "NOT_RUN",
+    "public_display": "NOT_RUN"
+  },
+  "unverified": [
+    "Two uShape-generated scenes only; cameras, lights, imported USD, and scene hierarchy collision behavior NOT_RUN.",
+    "Transform of the combined scene, animation, portable reimport and other hosts NOT_RUN."
+  ],
+  "schema_version": 1,
+  "case": "S327",
+  "article": "manuals/fusion/nodes/usd/u-merge.md",
+  "graph": "fixture.comp",
+  "settings": "readback.json",
+  "source": {
+    "file": "screen.png",
+    "size": [
+      3304,
+      1886
+    ],
+    "sha256": "d027e93415e201f985c6552cdfa8dc0991c93bfb7db7653889fbb7dd37d5606e"
+  },
+  "shots": [
+    {
+      "file": "graph.png",
+      "source": "screen.png",
+      "source_sha256": "d027e93415e201f985c6552cdfa8dc0991c93bfb7db7653889fbb7dd37d5606e",
+      "frame": 0,
+      "crop_xyxy": [
+        550,
+        1150,
+        2250,
+        1530
+      ],
+      "resampled": false,
+      "sha256": "e89f8472b3095f238a7885e8588c006a74a0765315b7e0e1163e4d6cc1b1ca28"
+    },
+    {
+      "file": "controls.png",
+      "source": "screen.png",
+      "source_sha256": "d027e93415e201f985c6552cdfa8dc0991c93bfb7db7653889fbb7dd37d5606e",
+      "frame": 0,
+      "crop_xyxy": [
+        2780,
+        120,
+        3304,
+        270
+      ],
+      "resampled": false,
+      "sha256": "981e9734029f5810086c4b0aae443fef6c93e3ee743685a2cdacc0ca7a4ea7a3"
+    },
+    {
+      "file": "result.png",
+      "source": "screen.png",
+      "source_sha256": "d027e93415e201f985c6552cdfa8dc0991c93bfb7db7653889fbb7dd37d5606e",
+      "frame": 0,
+      "crop_xyxy": [
+        1560,
+        100,
+        2680,
+        715
+      ],
+      "resampled": false,
+      "sha256": "002f1b2b41dc66a7d97519f399c8f93ab428ec9378feecee18728b1b50f357f4"
+    }
+  ],
+  "reproduction": {
+    "fixture_sha256": "bfd2a7f4b16e4410822c0e84eda9b0bed121c2380ad1972e90f461c5084b6fda",
+    "readback_sha256": "1b14822b85ff202cd18c62aefb22e0c7f975f2b15540c505d8690ab60c98edba",
+    "readback_source_sha256": "1d1202d31e5dc5feb8ec281ffc9c685baeabb770694f469a96afac848b35b5e0",
+    "readback_transform": "CRLF normalized to LF for the portable Git asset; JSON values unchanged",
+    "reimport": "NOT_RUN"
+  }
+}
