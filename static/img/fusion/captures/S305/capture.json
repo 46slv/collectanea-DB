@@ -1,0 +1,117 @@
+{
+  "manual": {
+    "version": "21.1",
+    "chapter": 114,
+    "printed_pages": "2669–2670"
+  },
+  "runtime": {
+    "version": "21.1.0.14",
+    "edition": "DaVinci Resolve Studio",
+    "os": "Windows-11-10.0.26200-SP0",
+    "ui_language": "ja-JP"
+  },
+  "captured_at": "2026-10-28T09:39:32.639936+00:00",
+  "project": "Collectanea_Mandelbrot_Zoom_20261025",
+  "timeline": "S305_capture",
+  "frame": 48,
+  "resolution": [
+    1920,
+    1080
+  ],
+  "color_management": {
+    "project_settings": {
+      "colorScienceMode": "davinciYRGB",
+      "colorSpaceInput": "Rec.709 Gamma 2.4",
+      "colorSpaceTimeline": "Rec.709 (Scene)",
+      "colorSpaceTimelineGamma": "",
+      "colorSpaceOutput": "Rec.709 (Scene)",
+      "colorSpaceOutputGamma": "ACEScc",
+      "isAutoColorManage": "0",
+      "timelineResolutionWidth": "1920",
+      "timelineResolutionHeight": "1080",
+      "timelineFrameRate": 30.0,
+      "timelinePlaybackFrameRate": "30",
+      "timelinePixelAspectRatio": "square"
+    },
+    "note": "SDK project settings; screenshots show Viewer display."
+  },
+  "viewer": {
+    "view_mode": "Fit",
+    "source": "right MediaOut1",
+    "note": "pFriction selected; frame 48"
+  },
+  "acceptance": {
+    "gui": "PASS: graph, settings and particle output visible; SDK connections and save read back.",
+    "article_display": "NOT_RUN",
+    "public_display": "NOT_RUN"
+  },
+  "unverified": [
+    "Static frame 48 only; numerical velocity, motion over time, Spin Friction and Region behavior NOT_RUN.",
+    "The two screenshots were taken after changing Velocity Friction and revisiting frame 0; deterministic simulation equivalence is not established.",
+    "Viewer screenshots are display evidence; portable reimport NOT_RUN."
+  ],
+  "schema_version": 1,
+  "case": "S305",
+  "article": "manuals/fusion/nodes/particles/pfriction.md",
+  "graph": "fixture.comp",
+  "settings": "readback.json",
+  "source": {
+    "file": "screen.png",
+    "size": [
+      3304,
+      1886
+    ],
+    "sha256": "9767280578e9c2a3b0b5f6794a3ac8019a93902736590545a12df1a92f18c698"
+  },
+  "shots": [
+    {
+      "file": "graph.png",
+      "source": "screen.png",
+      "source_sha256": "9767280578e9c2a3b0b5f6794a3ac8019a93902736590545a12df1a92f18c698",
+      "frame": 48,
+      "crop_xyxy": [
+        470,
+        1200,
+        2300,
+        1510
+      ],
+      "resampled": false,
+      "sha256": "a035a7956982f4b5b5840ac20e3d0f26ca522242d0ddf41196d7a4950d42b84d"
+    },
+    {
+      "file": "controls.png",
+      "source": "screen.png",
+      "source_sha256": "9767280578e9c2a3b0b5f6794a3ac8019a93902736590545a12df1a92f18c698",
+      "frame": 48,
+      "crop_xyxy": [
+        2780,
+        65,
+        3304,
+        370
+      ],
+      "resampled": false,
+      "sha256": "2ce3061cb4c13077ed3c37ef258ca179919c758dc80b3698473bc4557feed62b"
+    },
+    {
+      "file": "result.png",
+      "source": "screen.png",
+      "source_sha256": "9767280578e9c2a3b0b5f6794a3ac8019a93902736590545a12df1a92f18c698",
+      "frame": 48,
+      "crop_xyxy": [
+        1570,
+        95,
+        2680,
+        715
+      ],
+      "resampled": false,
+      "sha256": "984ad3300637b4c4d428bdc2e13c69b27039843152e0a3d4e67de950862d07d9"
+    }
+  ],
+  "reproduction": {
+    "fixture_sha256": "dbdfc53b0061d597d6124597f30ae2ffa05fe746e970e0d78e00487cc5bc5a0a",
+    "readback_sha256": "330dbe06121951cf13db482797343786dbf2938fc570e573a43032084b24db0e",
+    "readback_source_sha256": "b901d4f312137be66dc998ba2e05129e5e0f9bf9a6b698032418b2082d37743c",
+    "readback_transform": "CRLF normalized to LF for the portable Git asset; JSON values unchanged",
+    "reimport": "NOT_RUN"
+  }
+}
