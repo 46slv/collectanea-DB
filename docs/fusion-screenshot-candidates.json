@@ -8071,6 +8071,52 @@
           "status": "captured"
         }
       ]
+    },
+    {
+      "priority": "P1",
+      "goal": "Show a Text+ image converted into a particle display at two densities.",
+      "suggested_graph": "TextPlus -> pImageEmitter -> pRender -> MediaOut",
+      "scope": "Resolve Studio 21.1.0.14 on Windows.",
+      "limitations": [
+        "One static 320x180 Text+ fixture, frame 0; exact image-channel/particle-position correspondence and Alpha threshold behavior NOT_RUN.",
+        "Z channel, animated inputs, exact particle counts, portable reimport and other hosts NOT_RUN.",
+        "Viewer screenshots are display evidence; simulation identity across density changes was not established."
+      ],
+      "id": "S310",
+      "article": "manuals/fusion/nodes/particles/pimageemitter.md",
+      "manual": {
+        "version": "21.1",
+        "chapter": 114,
+        "printed_pages": "2672–2674"
+      },
+      "status": "captured-embedded-unverified",
+      "capture_manifest": "static/img/fusion/captures/S310/capture.json",
+      "shots": [
+        {
+          "slug": "graph",
+          "kind": "graph",
+          "target": "Text+からpImage EmitterとpRenderへ接続した構成",
+          "status": "captured"
+        },
+        {
+          "slug": "controls",
+          "kind": "inspector",
+          "target": "密度XとYを0.3に設定したpImage Emitter",
+          "status": "captured"
+        },
+        {
+          "slug": "density03",
+          "kind": "result",
+          "target": "密度0.3で文字が読める粒子",
+          "status": "captured"
+        },
+        {
+          "slug": "density01",
+          "kind": "result",
+          "target": "密度0.1で表示された疎な点",
+          "status": "captured"
+        }
+      ]
     }
   ],
   "publication_batches": [
@@ -9456,25 +9502,25 @@
     }
   ],
   "coverage_inventory": {
-    "checked_at": "2026-10-28T07:45:25.672147+00:00",
+    "checked_at": "2026-10-28T09:53:26.952249+00:00",
     "scope": "All manuals/fusion Markdown and MDX pages; review necessity before adding images.",
     "completion_rule": "Every page has an explicit image decision; necessary images are native-observed, embedded, saved to GitHub and public-display-verified. A native example does not verify all article controls.",
     "summary": {
       "total_pages": 589,
-      "with_images": 229,
+      "with_images": 230,
       "with_native_examples": 229,
       "states": {
         "reviewed-no-standalone-image": 26,
         "no-standalone-image-needed": 6,
         "illustrated-reused-example": 80,
-        "capture-planned": 327,
-        "illustrated-native-example": 149,
+        "capture-planned": 326,
+        "illustrated-native-example": 150,
         "needs-review": 1
       },
       "decisions": {
         "no-standalone-image-needed": 32,
-        "image-required": 229,
-        "capture-needed": 327,
+        "image-required": 230,
+        "capture-needed": 326,
         "needs-review": 1
       }
     },
@@ -22006,13 +22052,20 @@
         "article": "manuals/fusion/nodes/particles/pimageemitter.md",
         "title": "pImage Emitter",
         "kind": "node",
-        "image_count": 0,
+        "image_count": 4,
         "native_cases": [],
         "reused_cases": [],
-        "planned_cases": [],
-        "state": "capture-planned",
-        "decision": "capture-needed",
-        "reason": "本文の対象機能: 2D画像のピクセル位置・色を使い、格子状に粒子を生成する。。Sphere RegionのS09はpixel/Alpha参照を示せない。",
+        "planned_cases": [
+          "S310"
+        ],
+        "state": "illustrated-native-example",
+        "decision": "image-required",
+        "reason": "S310は静止文字画像の密度設定と2D表示を示す限定例。画像チャンネルとの厳密な対応や時間変化は未確認。",
+        "remaining_views": [
+          "画像位置・Alphaと粒子の厳密な対応、Zチャンネル",
+          "同じseed・初期条件・評価開始を揃えた比較と複数frame、動画入力",
+          "粒子数、simulation同一性、portable reimportと他host"
+        ],
         "required_views": [
           "source→対象Particle Tool→pRenderのGraph",
           "対象自身の固有Controlsと必要なConditions/Region",

@@ -84,6 +84,34 @@ pRenderの出力は既定で3Dです。通常のMergeへ接続して映像に合
 
 普通のRGB画像から正しい奥行きを自動推定する機能ではありません。Zチャンネルを含む素材が必要で、深度の解釈や表示結果は実機で確認してください。
 
+<!-- capture:S310 -->
+
+## 実機例：文字画像から粒子を生成する
+
+320×180の `Text+` 画像を `pImage Emitter` へ接続し、`pRender` の2D出力を表示します。XとYの密度を0.1から0.3にすると、この例では疎な点から文字が読める粒子表示へ変わりました。
+
+画像のチャンネルと粒子位置の厳密な対応、Zチャンネル、密度変更前後のsimulation同一性は確認していません。表示には編集ガイドと透明市松が含まれます。[接続と設定の記録](/img/fusion/captures/S310/readback.json)に条件を記載しています。
+
+[![Text+からpImage EmitterとpRenderへ接続した構成](/img/fusion/captures/S310/graph.png)](/img/fusion/captures/S310/graph.png)
+
+文字画像をpImage Emitterへ入力します。
+
+[![密度XとYを0.3に設定したpImage Emitter](/img/fusion/captures/S310/controls.png)](/img/fusion/captures/S310/controls.png)
+
+XとYの密度を0.3に設定します。
+
+[![密度0.3で文字が読める粒子](/img/fusion/captures/S310/density03.png)](/img/fusion/captures/S310/density03.png)
+
+密度0.3では文字の形が見えます。
+
+[![密度0.1で表示された疎な点](/img/fusion/captures/S310/density01.png)](/img/fusion/captures/S310/density01.png)
+
+密度0.1では表示が疎になります。
+
+[再現用Graph](/img/fusion/captures/S310/fixture.comp) · [撮影条件と確認範囲](/img/fusion/captures/S310/capture.json)
+
+<!-- /capture:S310 -->
+
 ## 具体的な運用例
 
 ### 透過ロゴを粒子へ変えて散らす
