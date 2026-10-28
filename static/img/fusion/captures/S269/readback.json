@@ -1,0 +1,55 @@
+{
+  "case": "S269",
+  "project": "Collectanea_Mandelbrot_Zoom_20261025",
+  "library": "Local Database",
+  "timeline": "S269_capture",
+  "frame": 63,
+  "resolve": "21.1.0.14",
+  "edition": "DaVinci Resolve Studio",
+  "os": "Windows-11-10.0.26200-SP0",
+  "project_settings": {
+    "colorScienceMode": "davinciYRGB",
+    "colorSpaceInput": "Rec.709 Gamma 2.4",
+    "colorSpaceTimeline": "Rec.709 (Scene)",
+    "colorSpaceTimelineGamma": "",
+    "colorSpaceOutput": "Rec.709 (Scene)",
+    "colorSpaceOutputGamma": "ACEScc",
+    "isAutoColorManage": "0",
+    "timelineResolutionWidth": "1920",
+    "timelineResolutionHeight": "1080",
+    "timelineFrameRate": 30.0,
+    "timelinePlaybackFrameRate": "30",
+    "timelinePixelAspectRatio": "square"
+  },
+  "connections": {
+    "Deflicker.Input": "Gradient",
+    "MediaOut1.Input": "Deflicker"
+  },
+  "values": {
+    "Gradient": {
+      "red_frame61": 0.9,
+      "red_frame63": 0.09999999999999998,
+      "rgb_expression": "0.5 + 0.4 * sin(time * 1.57079632679)"
+    },
+    "Deflicker": {
+      "Reference": 0.0,
+      "ReferenceTime": 0.0,
+      "TimeStep": 2.0,
+      "Framesbefore": 4.0,
+      "FramesAfter": 4.0,
+      "Type": 0.0,
+      "BasedOn": 0.0,
+      "Operation": 1.0,
+      "Detail": 1.0
+    }
+  },
+  "save_project": true,
+  "save_completed_at": "2026-10-28T06:58:01.901079+00:00",
+  "native_export_sha256": "7449c6cddb491684815afc5e27cdd627419cec5bea7e53553f455492bdee802d",
+  "portable_sha256": "bcadee2207887bc214a73fee9c9988fe2fc87a782910e268c5bf4dd94254b3f6",
+  "portable_reimport": "NOT_RUN",
+  "limits": [
+    "One synthetic uniform flicker with fixed reference; other modes, footage, alpha values and other hosts NOT_RUN.",
+    "Viewer screenshot is display evidence."
+  ]
+}
