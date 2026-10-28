@@ -1,0 +1,132 @@
+{
+  "manual": {
+    "version": "21.1",
+    "chapter": 124,
+    "printed_pages": "2994–2996"
+  },
+  "runtime": {
+    "version": "21.1.0.14",
+    "edition": "DaVinci Resolve Studio",
+    "os": "Windows-11-10.0.26200-SP0",
+    "ui_language": "ja-JP"
+  },
+  "captured_at": "2026-10-28T10:27:28.501511+00:00",
+  "project": "Collectanea_Mandelbrot_Zoom_20261025",
+  "timeline": "S325_capture",
+  "frame": 48,
+  "resolution": [
+    1920,
+    1080
+  ],
+  "color_management": {
+    "project_settings": {
+      "colorScienceMode": "davinciYRGB",
+      "colorSpaceInput": "Rec.709 Gamma 2.4",
+      "colorSpaceTimeline": "Rec.709 (Scene)",
+      "colorSpaceTimelineGamma": "",
+      "colorSpaceOutput": "Rec.709 (Scene)",
+      "colorSpaceOutputGamma": "ACEScc",
+      "isAutoColorManage": "0",
+      "timelineResolutionWidth": "1920",
+      "timelineResolutionHeight": "1080",
+      "timelineFrameRate": 30.0,
+      "timelinePlaybackFrameRate": "30",
+      "timelinePixelAspectRatio": "square"
+    },
+    "note": "SDK project settings; screenshots show Viewer display."
+  },
+  "viewer": {
+    "view_mode": "Fit",
+    "source": "right MediaOut1",
+    "note": "Text+ selected, frames 0 and 48"
+  },
+  "acceptance": {
+    "gui": "PASS: graph, settings and particle output visible; SDK connections and save read back.",
+    "article_display": "NOT_RUN",
+    "public_display": "NOT_RUN"
+  },
+  "unverified": [
+    "Two SDK-created keys and linear interpolation only; manual Bezier handle adjustment and nonlinear interpolation NOT_RUN.",
+    "Spline panel opened but graph fit/selection was not established; modifier UI capture remains needed.",
+    "Portable reimport and other hosts NOT_RUN.",
+    "Selection used accessibility and global-input routes; physical input is not claimed."
+  ],
+  "schema_version": 1,
+  "case": "S325",
+  "article": "manuals/fusion/nodes/modifiers/bezier-spline.md",
+  "graph": "fixture.comp",
+  "settings": "readback.json",
+  "source": {
+    "file": "screen.png",
+    "size": [
+      3304,
+      1886
+    ],
+    "sha256": "e77284fc4ab16fb56d94fae00a86afe724f0598758f65b39ca9be5c13695926f"
+  },
+  "shots": [
+    {
+      "file": "graph.png",
+      "source": "screen.png",
+      "source_sha256": "e77284fc4ab16fb56d94fae00a86afe724f0598758f65b39ca9be5c13695926f",
+      "frame": 48,
+      "crop_xyxy": [
+        600,
+        1200,
+        2200,
+        1510
+      ],
+      "resampled": false,
+      "sha256": "170e02e4533f8f70972b33c0942137e1c039a73aa16450436561f82ea169bcc0"
+    },
+    {
+      "file": "controls.png",
+      "source": "screen.png",
+      "source_sha256": "e77284fc4ab16fb56d94fae00a86afe724f0598758f65b39ca9be5c13695926f",
+      "frame": 48,
+      "crop_xyxy": [
+        2780,
+        450,
+        3304,
+        650
+      ],
+      "resampled": false,
+      "sha256": "d6e8a6796b7e2ba2678c15075a52b6d70209ba806117d2f1a747092637ed4197"
+    },
+    {
+      "file": "frame48-result.png",
+      "source": "screen.png",
+      "source_sha256": "e77284fc4ab16fb56d94fae00a86afe724f0598758f65b39ca9be5c13695926f",
+      "frame": 48,
+      "crop_xyxy": [
+        1570,
+        95,
+        2680,
+        715
+      ],
+      "resampled": false,
+      "sha256": "867f7cca88e6e7ef9967abe309e61c3fd0766889c05d7aa7b7deeb43dea4e237"
+    },
+    {
+      "file": "frame0-result.png",
+      "source": "frame0.png",
+      "source_sha256": "859e50f919b5736751d47a1f3de4eee7bfb581aee5b773ed4b5f91af937f64a3",
+      "frame": 48,
+      "crop_xyxy": [
+        1570,
+        95,
+        2680,
+        715
+      ],
+      "resampled": false,
+      "sha256": "22cd2048b5c6579f49936e3251d189216a26df9ba657fe786dac952e415acab6"
+    }
+  ],
+  "reproduction": {
+    "fixture_sha256": "7c24fa1655a836a640614de0850042b96e115e6766cace70e414efebdaa62aab",
+    "readback_sha256": "7307bb08d7767005e2dfac34903dcb6c7be14f6bd522dcfbe07f93b4c0a4dd58",
+    "readback_source_sha256": "4ae4f812fc73f9faf1febb4fe384cbe6d60979ea4a4ef807c355b331d02b1c79",
+    "readback_transform": "CRLF normalized to LF for the portable Git asset; JSON values unchanged",
+    "reimport": "NOT_RUN"
+  }
+}
