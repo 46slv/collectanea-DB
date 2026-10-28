@@ -1,0 +1,130 @@
+{
+  "manual": {
+    "version": "21.1"
+  },
+  "runtime": {
+    "version": "21.1.0.14",
+    "edition": "DaVinci Resolve Studio",
+    "os": "Windows-11-10.0.26200-SP0",
+    "ui_language": "ja-JP"
+  },
+  "captured_at": "2026-10-28T10:33:35.085026+00:00",
+  "project": "Collectanea_Mandelbrot_Zoom_20261025",
+  "timeline": "S326_capture",
+  "frame": 0,
+  "resolution": [
+    1920,
+    1080
+  ],
+  "color_management": {
+    "project_settings": {
+      "colorScienceMode": "davinciYRGB",
+      "colorSpaceInput": "Rec.709 Gamma 2.4",
+      "colorSpaceTimeline": "Rec.709 (Scene)",
+      "colorSpaceTimelineGamma": "",
+      "colorSpaceOutput": "Rec.709 (Scene)",
+      "colorSpaceOutputGamma": "ACEScc",
+      "isAutoColorManage": "0",
+      "timelineResolutionWidth": "1920",
+      "timelineResolutionHeight": "1080",
+      "timelineFrameRate": 30.0,
+      "timelinePlaybackFrameRate": "30",
+      "timelinePixelAspectRatio": "square"
+    },
+    "note": "SDK project settings; screenshots show Viewer display."
+  },
+  "viewer": {
+    "view_mode": "Fit",
+    "source": "uRenderer",
+    "note": "uShape selected; Capsule and Sphere at frame 0"
+  },
+  "acceptance": {
+    "gui": "PASS: selected uShape controls and Capsule/Sphere output seen; SDK connection and save read back.",
+    "article_display": "NOT_RUN",
+    "public_display": "NOT_RUN"
+  },
+  "unverified": [
+    "Only Capsule and Sphere at default settings were compared; texture, material, remaining shapes and parameters NOT_RUN.",
+    "Single USD scene input only; multi-scene uMerge behavior NOT_RUN.",
+    "Portable reimport and other hosts NOT_RUN.",
+    "Spline panel was closed through a background accessibility action and visually confirmed; physical input is not claimed."
+  ],
+  "schema_version": 1,
+  "case": "S326",
+  "article": "manuals/fusion/nodes/usd/ushape.md",
+  "graph": "fixture.comp",
+  "settings": "readback.json",
+  "source": {
+    "file": "screen.png",
+    "size": [
+      3304,
+      1886
+    ],
+    "sha256": "6af05cffb6b8ae76825dbe57a7f90b3339ee929f5428d49dbfca2d6900cd991c"
+  },
+  "shots": [
+    {
+      "file": "graph.png",
+      "source": "screen.png",
+      "source_sha256": "6af05cffb6b8ae76825dbe57a7f90b3339ee929f5428d49dbfca2d6900cd991c",
+      "frame": 0,
+      "crop_xyxy": [
+        650,
+        1200,
+        2120,
+        1465
+      ],
+      "resampled": false,
+      "sha256": "709869b89c65addfae52f516133afc416d1efd62b12022c6cf5ac8cdbd2a89cb"
+    },
+    {
+      "file": "controls.png",
+      "source": "screen.png",
+      "source_sha256": "6af05cffb6b8ae76825dbe57a7f90b3339ee929f5428d49dbfca2d6900cd991c",
+      "frame": 0,
+      "crop_xyxy": [
+        2780,
+        125,
+        3304,
+        565
+      ],
+      "resampled": false,
+      "sha256": "ead2471561a2312ed7495b89e0b66881680e5795fee417bfcfc6ee4f386bc63f"
+    },
+    {
+      "file": "sphere-result.png",
+      "source": "screen.png",
+      "source_sha256": "6af05cffb6b8ae76825dbe57a7f90b3339ee929f5428d49dbfca2d6900cd991c",
+      "frame": 0,
+      "crop_xyxy": [
+        1560,
+        100,
+        2680,
+        715
+      ],
+      "resampled": false,
+      "sha256": "d7720da1cd1c88892c76602270479c9410006598efe72cfe10c36be0e90f61ac"
+    },
+    {
+      "file": "capsule-result.png",
+      "source": "capsule.png",
+      "source_sha256": "e28b93a7ebf9b88648ad041eda070d8cb9c7452f2a4cbe9168b4231e392e9232",
+      "frame": 0,
+      "crop_xyxy": [
+        1560,
+        100,
+        2680,
+        715
+      ],
+      "resampled": false,
+      "sha256": "322e754ea5006997b83c1901aff910e8c7b0fa04dd01f6d8f39889c1591d98d8"
+    }
+  ],
+  "reproduction": {
+    "fixture_sha256": "8ea41f05876d02c779b99ef33e44327273248e019bc81f53299769c097c8d9e8",
+    "readback_sha256": "dbebd8f60a9323fabb4733d27556c58431ba9f4e0e1c8ce7f877b43fae3c374c",
+    "readback_source_sha256": "751a1eb0c124d24c8e8802326e1f1198a86d5b8915efb325ff46f89e4759f6ea",
+    "readback_transform": "CRLF normalized to LF for the portable Git asset; JSON values unchanged",
+    "reimport": "NOT_RUN"
+  }
+}
