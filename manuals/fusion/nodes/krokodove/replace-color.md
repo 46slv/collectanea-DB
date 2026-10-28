@@ -33,6 +33,34 @@ Replace Colorは、**画像内で元の色を指定し、その色に対して�
 
 Replace Colorという名前でも、単に「青の画素をすべて赤の単色で塗る」機能だと決めつけることはできません。**単色への置換**を明示している[Recolor](./recolor)とは、Manualの説明が異なります。
 
+<!-- capture:S247 -->
+
+## 実機例：赤い文字に色補正を加える
+
+合成した赤い `Text+` の文字を `Replace Color` に渡し、Source Colorを赤、Destination Colorを青に設定しました。[初めは赤いままでした](/img/fusion/captures/S247/before-selection.png)が、SDKから `SetSelectionAroundSourceColor` を一度指定した後、この例では文字が青く表示されました。[選択境界のSDK読み戻し](/img/fusion/captures/S247/selection-readback.json)は0〜1のままで、変化の仕組みは未確定です。
+
+Viewerには透明部分を示す市松模様が表示されています。選択の境界やAlpha値の変化は未検証です。[接続と設定の記録](/img/fusion/captures/S247/readback.json)に条件を記載しています。
+
+[![文字画像をKrokodove Replace Colorへつなぐ構成](/img/fusion/captures/S247/graph.png)](/img/fusion/captures/S247/graph.png)
+
+文字画像をReplace Colorへ渡します。
+
+[![Replace ColorのInspector](/img/fusion/captures/S247/controls.png)](/img/fusion/captures/S247/controls.png)
+
+Source Colorを赤、Destination Colorを青に設定しています。
+
+[![処理前の赤い文字](/img/fusion/captures/S247/low.png)](/img/fusion/captures/S247/low.png)
+
+処理前の赤い文字です。
+
+[![Replace Colorで青くなった文字](/img/fusion/captures/S247/high.png)](/img/fusion/captures/S247/high.png)
+
+処理後は文字が青く表示されます。
+
+[再現用Graph](/img/fusion/captures/S247/fixture.comp) · [撮影条件と確認範囲](/img/fusion/captures/S247/capture.json)
+
+<!-- /capture:S247 -->
+
 ## 入力と出力
 
 | 段階 | データ | 役割 |
@@ -100,4 +128,4 @@ RecolorもReplace Colorも元の色を指定しますが、**同じInspector項�
 - **比較資料**：同ページ「Recolor / Match Color / Threshold」、p.2434「Color Map」。関連ツールの説明はこれらの項目に基づきます。
 - **関連**：[Krokodoveの画像・Shape・3D・Region](./)。
 
-現時点では21.1 Manualに記載された機能の範囲を説明した記事です。正式なInspector項目、端子、動作は未検証のため `verification: partial` を維持しています。
+Manualの説明に加え、実機例ではSource ColorとDestination Colorを使った一つの表示結果を確認しました。選択範囲の作用、端子の詳細や他の動作は未検証のため `verification: partial` を維持しています。

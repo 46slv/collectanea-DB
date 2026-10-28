@@ -1,0 +1,132 @@
+{
+  "manual": {
+    "version": "21.1",
+    "chapter": 105,
+    "printed_pages": "2435"
+  },
+  "runtime": {
+    "version": "21.1.0.14",
+    "edition": "DaVinci Resolve Studio",
+    "os": "Windows-11-10.0.26200-SP0",
+    "ui_language": "ja-JP"
+  },
+  "captured_at": "2026-10-28T05:12:13.885518+00:00",
+  "project": "Collectanea_Mandelbrot_Zoom_20261025",
+  "timeline": "S245_capture",
+  "frame": 0,
+  "resolution": [
+    1920,
+    1080
+  ],
+  "color_management": {
+    "project_settings": {
+      "colorScienceMode": "davinciYRGB",
+      "colorSpaceInput": "Rec.709 Gamma 2.4",
+      "colorSpaceTimeline": "Rec.709 (Scene)",
+      "colorSpaceTimelineGamma": "",
+      "colorSpaceOutput": "Rec.709 (Scene)",
+      "colorSpaceOutputGamma": "ACEScc",
+      "isAutoColorManage": "0",
+      "timelineResolutionWidth": "1920",
+      "timelineResolutionHeight": "1080",
+      "timelineFrameRate": 30.0,
+      "timelinePlaybackFrameRate": "30",
+      "timelinePixelAspectRatio": "square"
+    },
+    "note": "SDK project settings; screenshots show Viewer display."
+  },
+  "viewer": {
+    "view_mode": "Fit",
+    "source": "Left Label; right MediaOut1",
+    "note": "KD Recolor selected; transparency checkerboard visible."
+  },
+  "acceptance": {
+    "gui": "PASS: synthetic red text appears blue with one matching color.",
+    "article_display": "NOT_RUN",
+    "public_display": "NOT_RUN"
+  },
+  "unverified": [
+    "One synthetic text and setting; other settings, masks, alpha values, animation and other hosts NOT_RUN.",
+    "Viewer screenshot is display evidence.",
+    "Portable reimport and physical input provenance NOT_RUN.",
+    "Article verification remains partial."
+  ],
+  "schema_version": 1,
+  "case": "S245",
+  "article": "manuals/fusion/nodes/krokodove/recolor.md",
+  "graph": "fixture.comp",
+  "settings": "readback.json",
+  "source": {
+    "file": "screen.png",
+    "size": [
+      3328,
+      1898
+    ],
+    "sha256": "12a14aa4509cf3ab9cd12442519edbda5ad76f726671dbe60580bac63e00a474"
+  },
+  "shots": [
+    {
+      "file": "graph.png",
+      "source": "screen.png",
+      "source_sha256": "12a14aa4509cf3ab9cd12442519edbda5ad76f726671dbe60580bac63e00a474",
+      "frame": 0,
+      "crop_xyxy": [
+        500,
+        1050,
+        2350,
+        1650
+      ],
+      "resampled": false,
+      "sha256": "ff994ce79c5b2f0df64639c5dd5457a03e1993d8775d8dc0223e4e1ccf6cba56"
+    },
+    {
+      "file": "controls.png",
+      "source": "screen.png",
+      "source_sha256": "12a14aa4509cf3ab9cd12442519edbda5ad76f726671dbe60580bac63e00a474",
+      "frame": 0,
+      "crop_xyxy": [
+        2815,
+        65,
+        3328,
+        750
+      ],
+      "resampled": false,
+      "sha256": "5cb4e2b7310cd43042a6890dd2d414d0fc991d6294c7fce7cbd00a522f204010"
+    },
+    {
+      "file": "low.png",
+      "source": "screen.png",
+      "source_sha256": "12a14aa4509cf3ab9cd12442519edbda5ad76f726671dbe60580bac63e00a474",
+      "frame": 0,
+      "crop_xyxy": [
+        120,
+        70,
+        1340,
+        720
+      ],
+      "resampled": false,
+      "sha256": "798ee5549dad94185d382034dc51fd42095dde58d348011e78d17e8c60f95c56"
+    },
+    {
+      "file": "high.png",
+      "source": "screen.png",
+      "source_sha256": "12a14aa4509cf3ab9cd12442519edbda5ad76f726671dbe60580bac63e00a474",
+      "frame": 0,
+      "crop_xyxy": [
+        1480,
+        70,
+        2700,
+        720
+      ],
+      "resampled": false,
+      "sha256": "1e5ec8169b644be8de8ceeb287623165294c0a21285a8733dfa0596328e6f558"
+    }
+  ],
+  "reproduction": {
+    "fixture_sha256": "e933630dce79d48c78a98e5fb92b41a641cd10a5e5126ffd6f5165db5583b9ce",
+    "readback_sha256": "2dea75a5a92410e4c25ac5b19b4382af5c660351cc74549d96c8333eb04d3dfb",
+    "readback_source_sha256": "2dea75a5a92410e4c25ac5b19b4382af5c660351cc74549d96c8333eb04d3dfb",
+    "readback_transform": "No line-ending transformation",
+    "reimport": "NOT_RUN"
+  }
+}

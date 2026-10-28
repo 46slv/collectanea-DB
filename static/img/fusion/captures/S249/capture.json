@@ -1,0 +1,132 @@
+{
+  "manual": {
+    "version": "21.1",
+    "chapter": 105,
+    "printed_pages": "2436"
+  },
+  "runtime": {
+    "version": "21.1.0.14",
+    "edition": "DaVinci Resolve Studio",
+    "os": "Windows-11-10.0.26200-SP0",
+    "ui_language": "ja-JP"
+  },
+  "captured_at": "2026-10-28T05:29:23.356445+00:00",
+  "project": "Collectanea_Mandelbrot_Zoom_20261025",
+  "timeline": "S249_capture",
+  "frame": 0,
+  "resolution": [
+    1920,
+    1080
+  ],
+  "color_management": {
+    "project_settings": {
+      "colorScienceMode": "davinciYRGB",
+      "colorSpaceInput": "Rec.709 Gamma 2.4",
+      "colorSpaceTimeline": "Rec.709 (Scene)",
+      "colorSpaceTimelineGamma": "",
+      "colorSpaceOutput": "Rec.709 (Scene)",
+      "colorSpaceOutputGamma": "ACEScc",
+      "isAutoColorManage": "0",
+      "timelineResolutionWidth": "1920",
+      "timelineResolutionHeight": "1080",
+      "timelineFrameRate": 30.0,
+      "timelinePlaybackFrameRate": "30",
+      "timelinePixelAspectRatio": "square"
+    },
+    "note": "SDK project settings; screenshots show Viewer display."
+  },
+  "viewer": {
+    "view_mode": "Fit",
+    "source": "Left Label; right MediaOut1",
+    "note": "KD Contour selected; transparency checkerboard visible."
+  },
+  "acceptance": {
+    "gui": "PASS: white text becomes a white outline in the Viewer.",
+    "article_display": "NOT_RUN",
+    "public_display": "NOT_RUN"
+  },
+  "unverified": [
+    "One synthetic text and setting; other settings, masks, alpha values, animation and other hosts NOT_RUN.",
+    "Viewer screenshot is display evidence.",
+    "Portable reimport and physical input provenance NOT_RUN.",
+    "Article verification remains partial."
+  ],
+  "schema_version": 1,
+  "case": "S249",
+  "article": "manuals/fusion/nodes/krokodove/contour.md",
+  "graph": "fixture.comp",
+  "settings": "readback.json",
+  "source": {
+    "file": "screen.png",
+    "size": [
+      3328,
+      1898
+    ],
+    "sha256": "263c500fa7d8d4e51a5595dfcde05565ffafeea5fcc4d88f98f735805454b89d"
+  },
+  "shots": [
+    {
+      "file": "graph.png",
+      "source": "screen.png",
+      "source_sha256": "263c500fa7d8d4e51a5595dfcde05565ffafeea5fcc4d88f98f735805454b89d",
+      "frame": 0,
+      "crop_xyxy": [
+        500,
+        1050,
+        2350,
+        1650
+      ],
+      "resampled": false,
+      "sha256": "ff994ce79c5b2f0df64639c5dd5457a03e1993d8775d8dc0223e4e1ccf6cba56"
+    },
+    {
+      "file": "controls.png",
+      "source": "screen.png",
+      "source_sha256": "263c500fa7d8d4e51a5595dfcde05565ffafeea5fcc4d88f98f735805454b89d",
+      "frame": 0,
+      "crop_xyxy": [
+        2815,
+        65,
+        3328,
+        750
+      ],
+      "resampled": false,
+      "sha256": "a3c0ccd9861824394abb6ec91215497f5b22a89cec2059c750507a32c3f172ed"
+    },
+    {
+      "file": "low.png",
+      "source": "screen.png",
+      "source_sha256": "263c500fa7d8d4e51a5595dfcde05565ffafeea5fcc4d88f98f735805454b89d",
+      "frame": 0,
+      "crop_xyxy": [
+        120,
+        70,
+        1340,
+        720
+      ],
+      "resampled": false,
+      "sha256": "ea67f46cb2c44721e2466affba5708afcc4049c474f52ce16c60e9cded3eb529"
+    },
+    {
+      "file": "high.png",
+      "source": "screen.png",
+      "source_sha256": "263c500fa7d8d4e51a5595dfcde05565ffafeea5fcc4d88f98f735805454b89d",
+      "frame": 0,
+      "crop_xyxy": [
+        1480,
+        70,
+        2700,
+        720
+      ],
+      "resampled": false,
+      "sha256": "7fe007879af0155b5e2895fca286f7a4548da1112bc089d1474d883696c7f12b"
+    }
+  ],
+  "reproduction": {
+    "fixture_sha256": "6f61e84b8dd00a0794f5b7a0cf13836393f5e66244804f0ed9854229bf294e03",
+    "readback_sha256": "c8f7c8a2ad0987faa67cb59b76a8bd8145f76cec2e0f73de3cba412ca8f24401",
+    "readback_source_sha256": "c8f7c8a2ad0987faa67cb59b76a8bd8145f76cec2e0f73de3cba412ca8f24401",
+    "readback_transform": "No line-ending transformation",
+    "reimport": "NOT_RUN"
+  }
+}

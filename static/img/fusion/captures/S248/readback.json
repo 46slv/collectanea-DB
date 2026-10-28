@@ -1,0 +1,56 @@
+{
+  "case": "S248",
+  "project": "Collectanea_Mandelbrot_Zoom_20261025",
+  "library": "Local Database",
+  "project_manager_folder": "root",
+  "timeline": "S248_capture",
+  "frame": 0,
+  "resolve": "21.1.0.14",
+  "edition": "DaVinci Resolve Studio",
+  "os": "Windows-11-10.0.26200-SP0",
+  "project_settings": {
+    "colorScienceMode": "davinciYRGB",
+    "colorSpaceInput": "Rec.709 Gamma 2.4",
+    "colorSpaceTimeline": "Rec.709 (Scene)",
+    "colorSpaceTimelineGamma": "",
+    "colorSpaceOutput": "Rec.709 (Scene)",
+    "colorSpaceOutputGamma": "ACEScc",
+    "isAutoColorManage": "0",
+    "timelineResolutionWidth": "1920",
+    "timelineResolutionHeight": "1080",
+    "timelineFrameRate": 30.0,
+    "timelinePlaybackFrameRate": "30",
+    "timelinePixelAspectRatio": "square"
+  },
+  "connections": {
+    "Map.Image": "Gradient",
+    "MediaOut1.Input": "Map"
+  },
+  "values": {
+    "Gradient": {
+      "Type": "Horizontal",
+      "TopLeftRed": 0.0,
+      "TopLeftGreen": 0.0,
+      "TopLeftBlue": 0.0,
+      "TopRightRed": 1.0,
+      "TopRightGreen": 1.0,
+      "TopRightBlue": 1.0
+    },
+    "Map": {
+      "ShadowsMatch": 1.0,
+      "Destination1Red": 0.0,
+      "Destination1Green": 0.0,
+      "Destination1Blue": 1.0
+    }
+  },
+  "source": "Synthetic horizontal grayscale gradient through KD Match Color.",
+  "save_project": true,
+  "save_completed_at": "2026-10-28T05:26:15.831337+00:00",
+  "native_export_sha256": "986dbdd7a252052881d535c0edb6dad138aab53b8ddd9055d25b9ddc95c07c22",
+  "portable_sha256": "09d0ecf720da7bf29ecb41a2ab0a99a6deeeae76c0d327bd15aac41013bff8df",
+  "portable_reimport": "NOT_RUN",
+  "limits": [
+    "One synthetic text and settings; other match settings, mask, alpha values, animation and other hosts NOT_RUN.",
+    "Viewer screenshot is display evidence."
+  ]
+}

@@ -1,0 +1,49 @@
+{
+  "case": "S249",
+  "project": "Collectanea_Mandelbrot_Zoom_20261025",
+  "library": "Local Database",
+  "project_manager_folder": "root",
+  "timeline": "S249_capture",
+  "frame": 0,
+  "resolve": "21.1.0.14",
+  "edition": "DaVinci Resolve Studio",
+  "os": "Windows-11-10.0.26200-SP0",
+  "project_settings": {
+    "colorScienceMode": "davinciYRGB",
+    "colorSpaceInput": "Rec.709 Gamma 2.4",
+    "colorSpaceTimeline": "Rec.709 (Scene)",
+    "colorSpaceTimelineGamma": "",
+    "colorSpaceOutput": "Rec.709 (Scene)",
+    "colorSpaceOutputGamma": "ACEScc",
+    "isAutoColorManage": "0",
+    "timelineResolutionWidth": "1920",
+    "timelineResolutionHeight": "1080",
+    "timelineFrameRate": 30.0,
+    "timelinePlaybackFrameRate": "30",
+    "timelinePixelAspectRatio": "square"
+  },
+  "connections": {
+    "Map.Image": "Label",
+    "MediaOut1.Input": "Map"
+  },
+  "values": {
+    "Label": {
+      "StyledText": "CONTOUR",
+      "Size": 0.3
+    },
+    "Map": {
+      "Width": 0.01,
+      "Threshold": 0.1
+    }
+  },
+  "source": "Synthetic text through KD Contour.",
+  "save_project": true,
+  "save_completed_at": "2026-10-28T05:29:08.840644+00:00",
+  "native_export_sha256": "d599d2c937411fc7aa5b013d270623fc9cfbb69c65134dc528b005a7acee80c1",
+  "portable_sha256": "6f61e84b8dd00a0794f5b7a0cf13836393f5e66244804f0ed9854229bf294e03",
+  "portable_reimport": "NOT_RUN",
+  "limits": [
+    "One synthetic text and settings; other contour settings, mask, alpha values, animation and other hosts NOT_RUN.",
+    "Viewer screenshot is display evidence."
+  ]
+}
