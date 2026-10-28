@@ -58,6 +58,32 @@ uDistant Light（照明） ────┘
 
 Manualは「既存ライトの選択と調整」を説明していますが、**選択後の階層構造の変化、同名ライトが複数あるときの解決規則、上流ファイルへの書き戻し**までは、この節では確定できません。上流のUSDファイル自体が更新される操作と誤解しないようにしてください。
 
+<!-- capture:S333 -->
+
+## 実機例：Intensityを変える
+
+`uShape`のCapsuleと`uDistant Light`を`uMerge`につなぎ、uRendererのLightingをSceneに設定しました。Intensityが0の表示では形状が黒く、1では明るく見えます。更新を確認するため、0は1フレーム、1は2フレームで撮影しています。回転や影の変化、Exposure・色温度や照度の実測はこの例では確認していません。市松模様はViewerの透明表示です。[接続と設定の記録](/img/fusion/captures/S333/readback.json)に条件を記載しています。
+
+[![uShapeとuDistant LightをuMergeへ接続する構成](/img/fusion/captures/S333/graph.png)](/img/fusion/captures/S333/graph.png)
+
+形状とライトを同じUSD sceneにまとめています。
+
+[![Intensity 1のuDistant Light](/img/fusion/captures/S333/controls.png)](/img/fusion/captures/S333/controls.png)
+
+Intensityを1に設定しています。
+
+[![Intensity 1で明るいCapsule](/img/fusion/captures/S333/bright-result.png)](/img/fusion/captures/S333/bright-result.png)
+
+Intensity 1、2フレームの表示です。
+
+[![Intensity 0で黒く表示されたCapsule](/img/fusion/captures/S333/dark-result.png)](/img/fusion/captures/S333/dark-result.png)
+
+Intensity 0、1フレームの表示です。
+
+[再現用Graph](/img/fusion/captures/S333/fixture.comp) · [撮影条件と確認範囲](/img/fusion/captures/S333/capture.json)
+
+<!-- /capture:S333 -->
+
 ## Inspector：明るさと光の性質
 
 21.1 ManualのControlsタブ（pp.2933–2934）には、次の設定が記載されています。

@@ -1,0 +1,128 @@
+{
+  "manual": {
+    "version": "21.1"
+  },
+  "runtime": {
+    "version": "21.1.0.14",
+    "edition": "DaVinci Resolve Studio",
+    "os": "Windows-11-10.0.26200-SP0",
+    "ui_language": "ja-JP"
+  },
+  "captured_at": "2026-10-28T10:46:28.247052+00:00",
+  "project": "Collectanea_Mandelbrot_Zoom_20261025",
+  "timeline": "S333_capture",
+  "frame": 2,
+  "resolution": [
+    1920,
+    1080
+  ],
+  "color_management": {
+    "project_settings": {
+      "colorScienceMode": "davinciYRGB",
+      "colorSpaceInput": "Rec.709 Gamma 2.4",
+      "colorSpaceTimeline": "Rec.709 (Scene)",
+      "colorSpaceTimelineGamma": "",
+      "colorSpaceOutput": "Rec.709 (Scene)",
+      "colorSpaceOutputGamma": "ACEScc",
+      "isAutoColorManage": "0",
+      "timelineResolutionWidth": "1920",
+      "timelineResolutionHeight": "1080",
+      "timelineFrameRate": 30.0,
+      "timelinePlaybackFrameRate": "30",
+      "timelinePixelAspectRatio": "square"
+    },
+    "note": "SDK project settings; screenshots show Viewer display."
+  },
+  "viewer": {
+    "view_mode": "Fit",
+    "source": "uRenderer / MediaOut1",
+    "note": "uDistant Light selected; intensity 0 frame 1, intensity 1 frame 2"
+  },
+  "acceptance": {
+    "gui": "PASS: scene light graph, intensity values and visible brightness difference; SDK and save read back.",
+    "article_display": "NOT_RUN",
+    "public_display": "NOT_RUN"
+  },
+  "unverified": [
+    "Intensity 0 at frame 1 and 1 at frame 2, static scene and no animated controls; screenshots are different frames to trigger fresh evaluation.",
+    "Rotation, shadows, Exposure, Color Temperature, Angular Size, photometric values and portable reimport NOT_RUN."
+  ],
+  "schema_version": 1,
+  "case": "S333",
+  "article": "manuals/fusion/nodes/usd/udistant-light.md",
+  "graph": "fixture.comp",
+  "settings": "readback.json",
+  "source": {
+    "file": "screen.png",
+    "size": [
+      3304,
+      1886
+    ],
+    "sha256": "a31e58610e5a076051490bc80ef6f99d2d716471bfb3047b67895a5429bcec39"
+  },
+  "shots": [
+    {
+      "file": "graph.png",
+      "source": "screen.png",
+      "source_sha256": "a31e58610e5a076051490bc80ef6f99d2d716471bfb3047b67895a5429bcec39",
+      "frame": 2,
+      "crop_xyxy": [
+        550,
+        1150,
+        2250,
+        1530
+      ],
+      "resampled": false,
+      "sha256": "9e836dc3cdfa9407fbf5d52936c528295212d639387255564eb4dc27a282136d"
+    },
+    {
+      "file": "controls.png",
+      "source": "screen.png",
+      "source_sha256": "a31e58610e5a076051490bc80ef6f99d2d716471bfb3047b67895a5429bcec39",
+      "frame": 2,
+      "crop_xyxy": [
+        2780,
+        125,
+        3304,
+        425
+      ],
+      "resampled": false,
+      "sha256": "b76834b1cf4e697ae185a77946f1d41c4df8e9a084f4148ee9e70952e4b447ee"
+    },
+    {
+      "file": "bright-result.png",
+      "source": "screen.png",
+      "source_sha256": "a31e58610e5a076051490bc80ef6f99d2d716471bfb3047b67895a5429bcec39",
+      "frame": 2,
+      "crop_xyxy": [
+        1560,
+        100,
+        2680,
+        715
+      ],
+      "resampled": false,
+      "sha256": "adc18ea541818b7394ff399bd4f8e704442fff570efb7c2040fb45fd49884b01"
+    },
+    {
+      "file": "dark-result.png",
+      "source": "dark.png",
+      "source_sha256": "a214a6bd927f8d9db0f2151b7709999fd1f0d0e16ffa1ced7e763cdf07620e42",
+      "frame": 2,
+      "crop_xyxy": [
+        1560,
+        100,
+        2680,
+        715
+      ],
+      "resampled": false,
+      "sha256": "2d0a678b569daa9ece2f17339c35043cf652babe9c7fbf43eb3202fca35ed90f"
+    }
+  ],
+  "reproduction": {
+    "fixture_sha256": "593dfbfd93c609367e327869dd6c3d23a8ebfd23bdcb1c48cc9bd42f9a1811d2",
+    "readback_sha256": "621def3b91456e190f9521a226ad12e6bbd7ede1887061fe5b59f2e663883abb",
+    "readback_source_sha256": "08a8b49e95c3b03e8f22d365b426242b75b979ef4b449944ac9e4ae0fa70fb6f",
+    "readback_transform": "CRLF normalized to LF for the portable Git asset; JSON values unchanged",
+    "reimport": "NOT_RUN"
+  }
+}

@@ -1,0 +1,32 @@
+{
+  "case": "S333",
+  "setup": {
+    "case": "S333",
+    "light": {
+      "Intensity": 1.0,
+      "Exposure": 0.0,
+      "USDXf.Rotate.X": 0.0,
+      "USDXf.Rotate.Y": 0.0,
+      "USDXf.Rotate.Z": 0.0
+    },
+    "renderer_lighting": "Scene",
+    "saved": "2026-10-28T10:45:12.793873+00:00"
+  },
+  "final": {
+    "intensity": 1,
+    "frame": 2,
+    "lighting": "Scene",
+    "saved": "2026-10-28T10:46:03.389326+00:00"
+  },
+  "comparison": "Intensity 0 frame 1 versus 1 frame 2; renderer Lighting Scene",
+  "connections": [
+    "Capsule->USDMerge.SceneInput1",
+    "Light->USDMerge.SceneInput2",
+    "USDMerge->USDRender.SceneInput",
+    "USDRender->MediaOut1"
+  ],
+  "limits": [
+    "Intensity 0 at frame 1 and 1 at frame 2, static scene and no animated controls; screenshots are different frames to trigger fresh evaluation.",
+    "Rotation, shadows, Exposure, Color Temperature, Angular Size, photometric values and portable reimport NOT_RUN."
+  ]
+}
