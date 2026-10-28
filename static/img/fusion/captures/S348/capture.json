@@ -1,0 +1,115 @@
+{
+  "manual": {
+    "version": "21.1"
+  },
+  "runtime": {
+    "version": "21.1.0.14",
+    "edition": "DaVinci Resolve Studio",
+    "os": "Windows-11-10.0.26200-SP0",
+    "ui_language": "ja-JP"
+  },
+  "captured_at": "2026-10-28T16:09:25.216154+00:00",
+  "project": "Collectanea_Mandelbrot_Zoom_20261025",
+  "timeline": "S348_capture",
+  "frame": 2,
+  "resolution": [
+    1920,
+    1080
+  ],
+  "color_management": {
+    "project_settings": {
+      "colorScienceMode": "davinciYRGB",
+      "colorSpaceInput": "Rec.709 Gamma 2.4",
+      "colorSpaceTimeline": "Rec.709 (Scene)",
+      "colorSpaceTimelineGamma": "",
+      "colorSpaceOutput": "Rec.709 (Scene)",
+      "colorSpaceOutputGamma": "ACEScc",
+      "isAutoColorManage": "0",
+      "timelineResolutionWidth": "1920",
+      "timelineResolutionHeight": "1080",
+      "timelineFrameRate": 30.0,
+      "timelinePlaybackFrameRate": "30",
+      "timelinePixelAspectRatio": "square"
+    },
+    "note": "SDK project settings; screenshots show Viewer display."
+  },
+  "viewer": {
+    "view_mode": "Fit",
+    "source": "TextPlus / MediaOut1",
+    "note": "Source and transformed output same frame 2"
+  },
+  "acceptance": {
+    "gui": "PASS: input/output, graph and controls visually observed; parameter and project save read back.",
+    "article_display": "NOT_RUN",
+    "public_display": "NOT_RUN"
+  },
+  "unverified": [
+    "Single Text+ source and fixed frame 2; source and output compared simultaneously.",
+    "Angle 45, Segment Size X 0.1 and Scale X 1 only; scale, mask, type, animation, alpha and portable reimport NOT_RUN.",
+    "Angle 0 reference captured separately at frame 1; no frame equivalence or numeric geometry claim."
+  ],
+  "schema_version": 1,
+  "case": "S348",
+  "article": "manuals/fusion/nodes/krokodove/segment-transform.md",
+  "graph": "fixture.comp",
+  "settings": "readback.json",
+  "source": {
+    "file": "screen.png",
+    "size": [
+      3296,
+      1882
+    ],
+    "sha256": "f5eb4ee02e8505fb26812ddea3d434414fad1eaf8fdb1fe0e6669fe5c32b2372"
+  },
+  "shots": [
+    {
+      "file": "graph.png",
+      "source": "screen.png",
+      "source_sha256": "f5eb4ee02e8505fb26812ddea3d434414fad1eaf8fdb1fe0e6669fe5c32b2372",
+      "frame": 2,
+      "crop_xyxy": [
+        590,
+        1190,
+        2120,
+        1490
+      ],
+      "resampled": false,
+      "sha256": "2d791b7754f88e315a4eb8e747dbc16f12c1735520794e00d47847867b7956a1"
+    },
+    {
+      "file": "controls.png",
+      "source": "screen.png",
+      "source_sha256": "f5eb4ee02e8505fb26812ddea3d434414fad1eaf8fdb1fe0e6669fe5c32b2372",
+      "frame": 2,
+      "crop_xyxy": [
+        2770,
+        130,
+        3296,
+        465
+      ],
+      "resampled": false,
+      "sha256": "d0043f2df8ba0423d3fa4400823c9d576615f5ae1703c7981c58b68c8c8b6b44"
+    },
+    {
+      "file": "comparison.png",
+      "source": "screen.png",
+      "source_sha256": "f5eb4ee02e8505fb26812ddea3d434414fad1eaf8fdb1fe0e6669fe5c32b2372",
+      "frame": 2,
+      "crop_xyxy": [
+        180,
+        85,
+        2670,
+        715
+      ],
+      "resampled": false,
+      "sha256": "3286224f6de5a3563cad736b9aae678ac298376ab99d08339c1ee7eeefbeace0"
+    }
+  ],
+  "reproduction": {
+    "fixture_sha256": "5361c30b9e5189a37709c21b0b761bfcf8644ec75895ab076c7bfa0bded1014a",
+    "readback_sha256": "c3b5bf7afb5c879a8a97d88b70de3ace3e2d720efe71a84a4f200356e2847486",
+    "readback_source_sha256": "7fe20105e744c4f248d6dac5d4567709530c5dd8e0e0be556b3cd6acc1760e1f",
+    "readback_transform": "CRLF normalized to LF for the portable Git asset; JSON values unchanged",
+    "reimport": "NOT_RUN"
+  }
+}
