@@ -1,0 +1,62 @@
+{
+  "case": "S314",
+  "project": "Collectanea_Mandelbrot_Zoom_20261025",
+  "library": "Local Database",
+  "project_manager_folder": "root",
+  "timeline": "S314_capture",
+  "resolve": "21.1.0.14",
+  "project_settings": {
+    "colorScienceMode": "davinciYRGB",
+    "colorSpaceInput": "Rec.709 Gamma 2.4",
+    "colorSpaceTimeline": "Rec.709 (Scene)",
+    "colorSpaceTimelineGamma": "",
+    "colorSpaceOutput": "Rec.709 (Scene)",
+    "colorSpaceOutputGamma": "ACEScc",
+    "isAutoColorManage": "0",
+    "timelineResolutionWidth": "1920",
+    "timelineResolutionHeight": "1080",
+    "timelineFrameRate": 30.0,
+    "timelinePlaybackFrameRate": "30",
+    "timelinePixelAspectRatio": "square"
+  },
+  "setup": {
+    "case": "S314",
+    "frame": 48.0,
+    "emitter_seed": 7.0,
+    "force": {
+      "Strength": 0.1,
+      "Power": 2.0,
+      "LimitForce": 0.5,
+      "Translate.X": 0.0,
+      "Translate.Y": 0.0,
+      "Translate.Z": 0.0,
+      "Region": "AllRgn",
+      "RegionMode": "Ignore"
+    },
+    "output_mode": "TwoD",
+    "connections": {
+      "PointForce": {
+        "Input": "Emitter"
+      },
+      "ParticleRender": {
+        "Input": "PointForce"
+      },
+      "MediaOut1": {
+        "Input": "ParticleRender"
+      }
+    },
+    "saved": "2026-10-28T09:57:55.476352+00:00"
+  },
+  "comparison": {
+    "strength_restored": 0.1,
+    "frame": 48.0,
+    "saved": "2026-10-28T09:58:25.486557+00:00"
+  },
+  "native_export_sha256": "2ea37efb91dd9f2d2d3968b87042ba8492949a76bedb4f87e74a6c42a7293c59",
+  "portable_sha256": "3e93d94a6d721e252b07cac118ee17d8307a89b035314377a7c0ee9a10227f55",
+  "limits": [
+    "Frame 24 and 48, fixed emitter seed; matched evaluation-start and initial-state comparison NOT_RUN.",
+    "Still images do not establish attraction or repulsion direction, trajectories, Power or Limit Force effects.",
+    "Region/Set, particle data, portable reimport and other hosts NOT_RUN."
+  ]
+}
