@@ -7378,6 +7378,53 @@
           "status": "captured"
         }
       ]
+    },
+    {
+      "priority": "P1",
+      "goal": "Show KD Pack on synthetic gradient.",
+      "suggested_graph": "Background gradient -> KD_Pack -> MediaOut.",
+      "scope": "Resolve Studio 21.1.0.14 on Windows, 1920x1080 static frame.",
+      "limitations": [
+        "One synthetic gradient and static setting; other shapes, alpha values and other hosts NOT_RUN.",
+        "Viewer screenshot is display evidence.",
+        "Portable reimport and physical input provenance NOT_RUN.",
+        "Article verification remains partial."
+      ],
+      "id": "S274",
+      "article": "manuals/fusion/nodes/krokodove/pack.md",
+      "manual": {
+        "version": "21.1",
+        "chapter": 105,
+        "printed_pages": "2434"
+      },
+      "status": "captured-embedded-unverified",
+      "capture_manifest": "static/img/fusion/captures/S274/capture.json",
+      "shots": [
+        {
+          "slug": "graph",
+          "kind": "graph",
+          "target": "グラデーションをPackへつなぐノード構成",
+          "status": "captured"
+        },
+        {
+          "slug": "controls",
+          "kind": "inspector",
+          "target": "PackのInspector",
+          "status": "captured"
+        },
+        {
+          "slug": "low",
+          "kind": "comparison",
+          "target": "入力の白黒グラデーション",
+          "status": "captured"
+        },
+        {
+          "slug": "high",
+          "kind": "comparison",
+          "target": "大小の白い円が並ぶPack出力",
+          "status": "captured"
+        }
+      ]
     }
   ],
   "publication_batches": [
@@ -8763,12 +8810,12 @@
     }
   ],
   "coverage_inventory": {
-    "checked_at": "2026-10-28T04:31:52.924Z",
+    "checked_at": "2026-10-28T07:15:23.747971+00:00",
     "scope": "All manuals/fusion Markdown and MDX pages; review necessity before adding images.",
     "completion_rule": "Every page has an explicit image decision; necessary images are native-observed, embedded, saved to GitHub and public-display-verified. A native example does not verify all article controls.",
     "summary": {
       "total_pages": 589,
-      "with_images": 213,
+      "with_images": 214,
       "with_native_examples": 213,
       "states": {
         "reviewed-no-standalone-image": 26,
@@ -15321,10 +15368,12 @@
         "article": "manuals/fusion/nodes/krokodove/pack.md",
         "title": "Pack",
         "kind": "node",
-        "image_count": 0,
+        "image_count": 4,
         "native_cases": [],
         "reused_cases": [],
-        "planned_cases": [],
+        "planned_cases": [
+          "S274"
+        ],
         "state": "capture-planned",
         "decision": "capture-needed",
         "reason": "本文の対象機能: 指定したカラーチャンネル内に、図形を重ねた模様を作るKrokodoveの画像ツール。。標準Nodeや別Krokodoveの似た効果は同じControl/algorithmの証拠にならない。",
