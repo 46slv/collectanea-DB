@@ -1,0 +1,400 @@
+{
+  "case": "S155",
+  "project": "Collectanea_Mandelbrot_Zoom_20261025",
+  "library": "Local Database",
+  "project_manager_folder": "root",
+  "timeline": "S155_capture",
+  "page": "fusion",
+  "frame": 0,
+  "resolve": "21.1.0.14",
+  "edition": "DaVinci Resolve Studio",
+  "os": "Windows-11-10.0.26200-SP0",
+  "project_settings": {
+    "colorScienceMode": "davinciYRGB",
+    "colorSpaceInput": "Rec.709 Gamma 2.4",
+    "colorSpaceTimeline": "Rec.709 (Scene)",
+    "colorSpaceTimelineGamma": "",
+    "colorSpaceOutput": "Rec.709 (Scene)",
+    "colorSpaceOutputGamma": "ACEScc",
+    "isAutoColorManage": "0",
+    "timelineResolutionWidth": "1920",
+    "timelineResolutionHeight": "1080",
+    "timelineFrameRate": 30.0,
+    "timelinePlaybackFrameRate": "30",
+    "timelinePixelAspectRatio": "square"
+  },
+  "source": "Generated Day Sky, TextPlus and EllipseMask; no external media",
+  "connections": {
+    "TitleMerge.Background": "DaySky1",
+    "TitleMerge.Foreground": "TitleText",
+    "MediaOut1.Input": "TitleMerge",
+    "SkyMasked.EffectMask": "Ellipse1"
+  },
+  "daysky_ports": {
+    "EffectMask": "Mask"
+  },
+  "matching_controls_at_mask_capture": {
+    "Latitude": 41.38,
+    "Longitude": 2.15,
+    "Day": "1",
+    "Month": "January",
+    "Time": 12.0,
+    "Turbidity": 0.0,
+    "DoToneMapping": 1.0,
+    "Exposure": 0.72,
+    "Horizon.Brightness": 1.0,
+    "Horizon.Luminance": 1.0,
+    "Circumsolar.Intensity": 1.0,
+    "Circumsolar.Width": 1.0,
+    "BackscatteredLight": 1.0
+  },
+  "ellipse": {
+    "Width": 0.5,
+    "Height": 0.5,
+    "Center": {
+      "1": 0.5,
+      "2": 0.5,
+      "3": 0.0
+    },
+    "SoftEdge": 0.0,
+    "Invert": 0.0
+  },
+  "evaluated_dimensions": {
+    "DaySky1": [
+      1920,
+      1080
+    ],
+    "SkyMasked": [
+      1920,
+      1080
+    ],
+    "TitleText": [
+      1920,
+      1080
+    ],
+    "TitleMerge": [
+      1920,
+      1080
+    ]
+  },
+  "comparison_stages": {
+    "time": {
+      "case": "S155",
+      "stage": "time",
+      "before": {
+        "Latitude": 41.38,
+        "Longitude": 2.15,
+        "Day": "1",
+        "Month": "January",
+        "Time": 12.0,
+        "Turbidity": 0.0,
+        "DoToneMapping": 1.0,
+        "Exposure": 0.72
+      },
+      "after": {
+        "Latitude": 41.38,
+        "Longitude": 2.15,
+        "Day": "1",
+        "Month": "January",
+        "Time": 9.0,
+        "Turbidity": 0.0,
+        "DoToneMapping": 1.0,
+        "Exposure": 0.72
+      },
+      "save_project": true,
+      "save_completed_at": "2026-10-27T18:35:24.206550+00:00"
+    },
+    "restored": {
+      "case": "S155",
+      "stage": "restore",
+      "before": {
+        "Latitude": 41.38,
+        "Longitude": 2.15,
+        "Day": "1",
+        "Month": "January",
+        "Time": 9.0,
+        "Turbidity": 0.0,
+        "DoToneMapping": 1.0,
+        "Exposure": 0.72
+      },
+      "after": {
+        "Latitude": 41.38,
+        "Longitude": 2.15,
+        "Day": "1",
+        "Month": "January",
+        "Time": 12.0,
+        "Turbidity": 0.0,
+        "DoToneMapping": 1.0,
+        "Exposure": 0.72
+      },
+      "save_project": true,
+      "save_completed_at": "2026-10-27T18:36:02.996386+00:00"
+    }
+  },
+  "viewer_display_comparison": {
+    "case": "S155",
+    "time_comparison_roi": [
+      190,
+      110,
+      1290,
+      710
+    ],
+    "time_display_difference_bbox": [
+      0,
+      0,
+      1100,
+      600
+    ],
+    "channel_comparison_roi": [
+      1590,
+      110,
+      2690,
+      710
+    ],
+    "alpha_display_difference_bbox": [
+      3,
+      0,
+      1100,
+      600
+    ],
+    "color_restored_display_pixels": true,
+    "screens": {
+      "02-noon-clean.png": "E50FB66DA3EDB4FEC0284CE2256F25FC8C39E2EA2F063712763A5C3559BB1D5D",
+      "04-morning-clean.png": "2AA1F45D05214EB02B29D319B6467813161FB814F8F99A459533BA0F9C53D9BD",
+      "05-mask-comparison.png": "DBAC5D90DEBF62463B957D5A693009FA1805B3B4F7273EB847EA7F2A105B3FE6",
+      "06-mask-alpha.png": "05C1AF025D4FEADDBA9EF9F2CF5CFA16DA23C61DD5610CD9D10FD989A1C3EC83",
+      "08-color-restored.png": "DBAC5D90DEBF62463B957D5A693009FA1805B3B4F7273EB847EA7F2A105B3FE6"
+    },
+    "scope": "8-bit Viewer screenshot pixels; not HDR luminance, image-channel data or physical-sky calibration."
+  },
+  "mask_comparison": {
+    "case": "S155",
+    "primitive_input_count": 102,
+    "primitive_input_ids": [
+      "SettingsNest",
+      "ApplyMaskInverted",
+      "MultiplyByMask",
+      "FitMask",
+      "Blank2",
+      "MaskChannel",
+      "MaskLow",
+      "MaskHigh",
+      "MaskClipBlack",
+      "MaskClipWhite",
+      "Blank5",
+      "MotionBlur",
+      "Quality",
+      "ShutterAngle",
+      "CenterBias",
+      "SampleSpread",
+      "Blank6",
+      "UseGPU",
+      "HideInputs",
+      "LayersNest",
+      "BaseLayerName",
+      "LayerSpacer",
+      "EffectMask_LayerSelect",
+      "GlobalIn",
+      "GlobalOut",
+      "ProcessMode",
+      "ImageNest",
+      "Width",
+      "Height",
+      "PixelAspect",
+      "UseFrameFormatSettings",
+      "Depth",
+      "Gamut.ColorSpaceNest",
+      "Gamut.ColorType",
+      "Gamut.TempColorSpace",
+      "Gamut.ColorSpace",
+      "Gamut.CustomRed",
+      "Gamut.CustomGreen",
+      "Gamut.CustomBlue",
+      "Gamut.CustomWhite",
+      "Gamut.GammaSpaceNest",
+      "Gamut.GammaType",
+      "Gamut.TempGammaSpace",
+      "Gamut.GammaSpace",
+      "Gamut.CustomGamma",
+      "Gamut.CustomLimit",
+      "Gamut.CustomSlope",
+      "Gamut.TempLogType",
+      "Gamut.LogType",
+      "Gamut.LockRGB",
+      "Gamut.RedBlackLevel",
+      "Gamut.RedWhiteLevel",
+      "Gamut.RedSoftClipKnee",
+      "Gamut.RedLAD",
+      "Gamut.RedMidValue",
+      "Gamut.RedFilmStockGamma",
+      "Gamut.RedConversionGamma",
+      "Gamut.GreenBlackLevel",
+      "Gamut.GreenWhiteLevel",
+      "Gamut.GreenSoftClipKnee",
+      "Gamut.GreenLAD",
+      "Gamut.GreenMidValue",
+      "Gamut.GreenFilmStockGamma",
+      "Gamut.GreenConversionGamma",
+      "Gamut.BlueBlackLevel",
+      "Gamut.BlueWhiteLevel",
+      "Gamut.BlueSoftClipKnee",
+      "Gamut.BlueLAD",
+      "Gamut.BlueMidValue",
+      "Gamut.BlueFilmStockGamma",
+      "Gamut.BlueConversionGamma",
+      "Gamut.ConversionTable",
+      "Gamut.ARRIVersion",
+      "Gamut.ISO",
+      "Gamut.BMDFilm",
+      "Gamut.BMDISO",
+      "Gamut.SLogVersion",
+      "Gamut.GammaAction",
+      "Gamut.PreDividePostMultiply",
+      "Location",
+      "Latitude",
+      "Longitude",
+      "DateTime",
+      "Day",
+      "Month",
+      "Time",
+      "Turbidity",
+      "ToneMapping",
+      "DoToneMapping",
+      "Exposure",
+      "HorizonNest",
+      "Horizon.Brightness",
+      "Horizon.Luminance",
+      "CircumsolarRegion",
+      "Circumsolar.Intensity",
+      "Circumsolar.Width",
+      "BackscatteredLight",
+      "CommentsNest",
+      "Comments",
+      "FrameRenderScriptNest",
+      "StartRenderScripts",
+      "EndRenderScripts"
+    ],
+    "input_differences": [],
+    "approx_corresponding_viewer_display_samples": [
+      {
+        "left_xy": [
+          735,
+          350
+        ],
+        "right_xy": [
+          2142,
+          350
+        ],
+        "left_rgb": [
+          35,
+          72,
+          148
+        ],
+        "right_rgb": [
+          85,
+          117,
+          213
+        ]
+      },
+      {
+        "left_xy": [
+          735,
+          500
+        ],
+        "right_xy": [
+          2142,
+          500
+        ],
+        "left_rgb": [
+          52,
+          99,
+          190
+        ],
+        "right_rgb": [
+          155,
+          181,
+          255
+        ]
+      },
+      {
+        "left_xy": [
+          735,
+          600
+        ],
+        "right_xy": [
+          2142,
+          600
+        ],
+        "left_rgb": [
+          81,
+          133,
+          221
+        ],
+        "right_rgb": [
+          192,
+          208,
+          254
+        ]
+      },
+      {
+        "left_xy": [
+          600,
+          500
+        ],
+        "right_xy": [
+          2007,
+          500
+        ],
+        "left_rgb": [
+          52,
+          98,
+          189
+        ],
+        "right_rgb": [
+          60,
+          104,
+          203
+        ]
+      },
+      {
+        "left_xy": [
+          850,
+          500
+        ],
+        "right_xy": [
+          2257,
+          500
+        ],
+        "left_rgb": [
+          52,
+          98,
+          189
+        ],
+        "right_rgb": [
+          78,
+          119,
+          222
+        ]
+      }
+    ],
+    "screenshot_sha256": "DBAC5D90DEBF62463B957D5A693009FA1805B3B4F7273EB847EA7F2A105B3FE6",
+    "scope": "Approximately aligned Viewer screenshot samples with the same selected scalar/point/text/FuID inputs. Not image-data equivalence; cause of displayed difference is unverified."
+  },
+  "viewer_channel": {
+    "confirmed": "Alpha on right Viewer via fresh channel menu after focused A key",
+    "color_restored": true
+  },
+  "limits": [
+    "Viewer screenshots do not measure HDR values, luminance or physical-sky accuracy.",
+    "Cause of different-looking masked and unmasked color distribution at approximately aligned Viewer points is unverified.",
+    "Other geographic/time/tone settings, portable reimport and other hosts NOT_RUN."
+  ],
+  "save_project": true,
+  "save_completed_at": "2026-10-27T18:39:17.288854+00:00",
+  "composition_export": {
+    "portable_file": "fixture.comp",
+    "portable_sha256": "337cc470689f8d9b620fd790cde17d70775763922ee7f6b1480cd69a2f0af041",
+    "cache_lastfile_metadata_lines_removed": 2,
+    "reimport": "NOT_RUN"
+  }
+}

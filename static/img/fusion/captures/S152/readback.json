@@ -1,0 +1,167 @@
+{
+  "case": "S152",
+  "project": "Collectanea_Mandelbrot_Zoom_20261025",
+  "library": "Local Database",
+  "project_manager_folder": "root",
+  "timeline": "S152_capture",
+  "page": "fusion",
+  "frame": 0,
+  "resolve": "21.1.0.14",
+  "edition": "DaVinci Resolve Studio",
+  "os": "Windows-11-10.0.26200-SP0",
+  "project_settings": {
+    "colorScienceMode": "davinciYRGB",
+    "colorSpaceInput": "Rec.709 Gamma 2.4",
+    "colorSpaceTimeline": "Rec.709 (Scene)",
+    "colorSpaceTimelineGamma": "",
+    "colorSpaceOutput": "Rec.709 (Scene)",
+    "colorSpaceOutputGamma": "ACEScc",
+    "isAutoColorManage": "0",
+    "timelineResolutionWidth": "1920",
+    "timelineResolutionHeight": "1080",
+    "timelineFrameRate": 30.0,
+    "timelinePlaybackFrameRate": "30",
+    "timelinePixelAspectRatio": "square"
+  },
+  "source": "Generated Plasma, TextPlus and EllipseMask; no external media",
+  "connections": {
+    "TitleMerge.Background": "Plasma1",
+    "TitleMerge.Foreground": "TitleText",
+    "MediaOut1.Input": "TitleMerge",
+    "PlasmaMasked.EffectMask": "Ellipse1"
+  },
+  "plasma_ports": {
+    "EffectMask": "Mask"
+  },
+  "identical_plasma_controls_at_mask_capture": {
+    "Scale": 1.0,
+    "Phase": 0.0,
+    "Operation": 0.0,
+    "RedPhase": 0.06250000173922095,
+    "GreenPhase": 0.18750000047447593,
+    "BluePhase": 0.312499994466544,
+    "AlphaPhase": 0.43749998845861204,
+    "Circle1Type": 1.0,
+    "Circle1Scale": 1.0,
+    "Circle1Center": {
+      "1": 0.33,
+      "2": 0.67,
+      "3": 0.0
+    },
+    "Circle2Type": 2.0,
+    "Circle2Scale": 1.0,
+    "Circle2Center": {
+      "1": 0.67,
+      "2": 0.67,
+      "3": 0.0
+    },
+    "Circle3Type": 2.0,
+    "Circle3Scale": 1.0,
+    "Circle3Center": {
+      "1": 0.67,
+      "2": 0.33,
+      "3": 0.0
+    },
+    "Circle4Type": 2.0,
+    "Circle4Scale": 1.0,
+    "Circle4Center": {
+      "1": 0.33,
+      "2": 0.33,
+      "3": 0.0
+    }
+  },
+  "ellipse": [
+    {
+      "id": "SoftEdge",
+      "name": "ソフトエッジ",
+      "type": "Number",
+      "value": 0.0
+    },
+    {
+      "id": "Invert",
+      "name": "反転",
+      "type": "Number",
+      "value": 0.0
+    },
+    {
+      "id": "MaskWidth",
+      "name": "幅",
+      "type": "Number",
+      "value": 1920.0
+    },
+    {
+      "id": "MaskHeight",
+      "name": "高さ",
+      "type": "Number",
+      "value": 1080.0
+    },
+    {
+      "id": "Center",
+      "name": "センター",
+      "type": "Point",
+      "value": {
+        "1": 0.5,
+        "2": 0.5,
+        "3": 0.0
+      }
+    },
+    {
+      "id": "Width",
+      "name": "幅",
+      "type": "Number",
+      "value": 0.5
+    },
+    {
+      "id": "Height",
+      "name": "高さ",
+      "type": "Number",
+      "value": 0.5
+    }
+  ],
+  "title": "PLASMA",
+  "evaluated_dimensions": {
+    "Plasma1": [
+      1920,
+      1080
+    ],
+    "PlasmaMasked": [
+      1920,
+      1080
+    ],
+    "TitleText": [
+      1920,
+      1080
+    ],
+    "TitleMerge": [
+      1920,
+      1080
+    ]
+  },
+  "comparison_stages": {
+    "scale": {
+      "scale": 0.5,
+      "phase": 0.0
+    },
+    "phase": {
+      "scale": 1.0,
+      "phase": 0.25
+    },
+    "restored": {
+      "scale": 1.0,
+      "phase": 0.0
+    }
+  },
+  "viewer_note": "Same-frame static Scale 1 versus 0.5, Phase 0 versus 0.25, and a second identical Plasma with Ellipse Effect Mask compared to the unmasked generator. MediaOut contains the separate title composite.",
+  "limits": [
+    "Static changes only: no Phase keyframes or color-cycle playback.",
+    "Other operations/circles, animated masks, portable composition reimport and other hosts NOT_RUN."
+  ],
+  "save_project": true,
+  "save_completed_at": "2026-10-27T17:52:13.946635+00:00",
+  "composition_export": {
+    "portable_file": "fixture.comp",
+    "portable_sha256": "38b0ad5d0ff88bb65d87afc24c0c21d10e6faecd50dd5cca8a3da2edd52ba414",
+    "cache_lastfile_metadata_lines_removed": 2,
+    "reimport": "NOT_RUN"
+  }
+}

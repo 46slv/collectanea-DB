@@ -1,0 +1,191 @@
+{
+  "manual": {
+    "version": "21.1",
+    "chapter": 103,
+    "printed_pages": "2360–2363"
+  },
+  "runtime": {
+    "version": "21.1.0.14",
+    "edition": "DaVinci Resolve Studio",
+    "os": "Windows-11-10.0.26200-SP0",
+    "ui_language": "ja-JP"
+  },
+  "captured_at": "2026-10-27T18:37:19.700418+00:00",
+  "capture_time_note": "Fresh Alpha channel menu readback screenshot filesystem last-write time in UTC; other stages precede it.",
+  "project": "Collectanea_Mandelbrot_Zoom_20261025",
+  "timeline": "S155_capture",
+  "frame": 0,
+  "resolution": [
+    1920,
+    1080
+  ],
+  "color_management": {
+    "project_settings": {
+      "colorScienceMode": "davinciYRGB",
+      "colorSpaceInput": "Rec.709 Gamma 2.4",
+      "colorSpaceTimeline": "Rec.709 (Scene)",
+      "colorSpaceTimelineGamma": "",
+      "colorSpaceOutput": "Rec.709 (Scene)",
+      "colorSpaceOutputGamma": "ACEScc",
+      "isAutoColorManage": "0",
+      "timelineResolutionWidth": "1920",
+      "timelineResolutionHeight": "1080",
+      "timelineFrameRate": 30.0,
+      "timelinePlaybackFrameRate": "30",
+      "timelinePixelAspectRatio": "square"
+    },
+    "note": "Tone Mapping is enabled. Viewer screenshots do not measure HDR values or calibrated light."
+  },
+  "viewer": {
+    "view_mode": "Fit",
+    "source": "Left DaySky1; right MediaOut1 or SkyMasked",
+    "note": "Right Viewer Alpha confirmed by channel menu, then Color restored. Masked/unmasked color difference remains unresolved."
+  },
+  "acceptance": {
+    "gui": "PASS: native screenshots show static Time 12 and 9, title composite, Ellipse mask and right Viewer Alpha; SDK confirms settings and connections. SaveProject returned true at 2026-10-27T18:39:17.288854+00:00",
+    "article_display": "NOT_RUN",
+    "public_display": "NOT_RUN"
+  },
+  "unverified": [
+    "Viewer screenshots do not measure HDR values, luminance or physical-sky accuracy.",
+    "Cause of different-looking masked and unmasked color distribution at approximately aligned Viewer points is unverified.",
+    "Other geographic/time/tone settings and hosts NOT_RUN.",
+    "Portable composition reimport NOT_RUN.",
+    "Physical mouse/keyboard provenance NOT_ESTABLISHED.",
+    "Article verification remains partial."
+  ],
+  "schema_version": 1,
+  "case": "S155",
+  "article": "manuals/fusion/nodes/generators/day-sky.md",
+  "graph": "fixture.comp",
+  "settings": "readback.json",
+  "source": {
+    "file": "screen.png",
+    "size": [
+      3336,
+      1902
+    ],
+    "sha256": "dbac5d90debf62463b957d5a693009fa1805b3b4f7273eb847ea7f2a105b3fe6"
+  },
+  "shots": [
+    {
+      "file": "graph.png",
+      "source": "screen.png",
+      "source_sha256": "dbac5d90debf62463b957d5a693009fa1805b3b4f7273eb847ea7f2a105b3fe6",
+      "frame": 0,
+      "crop_xyxy": [
+        900,
+        1100,
+        1900,
+        1600
+      ],
+      "resampled": false,
+      "sha256": "9046e87bdfe5918c31a10c59d3b688a72726c85a168eaf786fd32734418557a4"
+    },
+    {
+      "file": "time12-controls.png",
+      "source": "time12-control-source.png",
+      "source_sha256": "e75ccfe742884413e3e298bd8a65045e82f17f12fb9e92d00f3a747225003326",
+      "frame": 0,
+      "crop_xyxy": [
+        2815,
+        65,
+        3336,
+        650
+      ],
+      "resampled": false,
+      "sha256": "2be05552f6ef2268a05595038656b9f2132af6800d13fc40a566efbede619eab"
+    },
+    {
+      "file": "time12.png",
+      "source": "time12-source.png",
+      "source_sha256": "e50fb66da3edb4fec0284ce2256f25fc8c39e2ea2f063712763a5c3559bb1d5d",
+      "frame": 0,
+      "crop_xyxy": [
+        0,
+        65,
+        2800,
+        730
+      ],
+      "resampled": false,
+      "sha256": "46a527fcef72ba1403b39670a9dc02ed25340f6089af809ef01ad8204d7e8d07"
+    },
+    {
+      "file": "time9-controls.png",
+      "source": "time9-control-source.png",
+      "source_sha256": "5fd711b9ff1678c7af49bc09473febf21fc2b0e618f519499cd7ea91c1072847",
+      "frame": 0,
+      "crop_xyxy": [
+        2815,
+        65,
+        3336,
+        650
+      ],
+      "resampled": false,
+      "sha256": "f2adc17c9d8d7c66fad4f79c5eaee3e59d0f3e144265576bff7f9c93bc5b8fa3"
+    },
+    {
+      "file": "time9.png",
+      "source": "time9-source.png",
+      "source_sha256": "2aa1f45d05214eb02b29d319b6467813161fb814f8f99a459533ba0f9c53d9bd",
+      "frame": 0,
+      "crop_xyxy": [
+        0,
+        65,
+        2800,
+        730
+      ],
+      "resampled": false,
+      "sha256": "656afd6b514fd2680cef3f6d948eb1677af1c4347c72124e242a2b212c18596e"
+    },
+    {
+      "file": "effect-mask.png",
+      "source": "screen.png",
+      "source_sha256": "dbac5d90debf62463b957d5a693009fa1805b3b4f7273eb847ea7f2a105b3fe6",
+      "frame": 0,
+      "crop_xyxy": [
+        0,
+        65,
+        2800,
+        730
+      ],
+      "resampled": false,
+      "sha256": "4507dce538a2eca932b956e43a2a0b0818a80dff3ca6802793224ac4af451eab"
+    },
+    {
+      "file": "alpha-menu.png",
+      "source": "channel-menu-source.png",
+      "source_sha256": "7d503ed766aa5c0ade384a65a3b1162f284080bbc3fb9b48c3eb9fb1c5a91773",
+      "frame": 0,
+      "crop_xyxy": [
+        0,
+        0,
+        118,
+        108
+      ],
+      "resampled": false,
+      "sha256": "6a865c1c94ad0f63409882095a3e15bec694f1d5d0a208099ff29ddc16147a7b"
+    },
+    {
+      "file": "mask-alpha.png",
+      "source": "alpha-source.png",
+      "source_sha256": "05c1af025d4feaddba9ef9f2cf5cfa16da23c61dd5610cd9d10fd989a1c3ec83",
+      "frame": 0,
+      "crop_xyxy": [
+        0,
+        65,
+        2800,
+        730
+      ],
+      "resampled": false,
+      "sha256": "b3b5f609e5d007934fa278fd8e51cec95ae2cbb4a37984a87506b0a6f7761706"
+    }
+  ],
+  "reproduction": {
+    "fixture_sha256": "337cc470689f8d9b620fd790cde17d70775763922ee7f6b1480cd69a2f0af041",
+    "readback_sha256": "5d54fb7d7cb8be479b1bbb226450526f3e221a624d7ab5db3c5ebf82653fd187",
+    "reimport": "NOT_RUN",
+    "readback_source_sha256": "8af51354c87ce2374c16f8edd3c94c3ca3f41610cd8dc216766174c4537c62fb",
+    "readback_transform": "Original SDK readback line endings normalized from CRLF to LF for the portable Git asset; JSON values unchanged."
+  }
+}

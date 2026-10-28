@@ -67,6 +67,52 @@ Circumsolarは「太陽の周囲」という意味です。Intensityはその範
 
 共通のImage / Settings tabもありますが、各項目の既定値や数値範囲はここでは断定しません。
 
+<!-- capture:S155 -->
+
+## 実機例：時刻とEffect Maskを比較する
+
+`DaySky1` をMergeのBackground、白い文字をForegroundへ接続します。緯度41.38、経度2.15、January 1、Tone Mapping有効の状態で、frame 0のTimeを `12.0 → 9.0` に変え、光の分布を比較しました。時刻はNodeに入力した値であり、実際の地域や観測時刻との一致を検証したものではありません。
+
+Timeを12.0へ戻し、別の `SkyMasked` にEllipseをEffect Maskとして接続します。Scriptを除いて取得した数値・Point・Text・FuIDの入力102項目は一致しましたが、円内の色分布は左の対応位置と異なって見えました。原因と画像値の同一性は未検証です。右ViewerのAlphaを確認し、撮影後にColorへ戻しています。[接続と設定の記録](/img/fusion/captures/S155/readback.json)に値を記録しています。
+
+WindowsのResolve Studio 21.1.0.14での静止frame表示です。画面画像からHDR値や光の物理的な正確さは測定していません。
+
+[![Day Skyに文字を合成する枝とEllipseで別のDay Skyを制限する枝](/img/fusion/captures/S155/graph.png)](/img/fusion/captures/S155/graph.png)
+
+上はDay Skyと文字の合成、下は別のDay SkyへEllipseをEffect Maskとして渡す比較枝です。
+
+[![Day Skyの位置と日時、Time 12を示すInspector](/img/fusion/captures/S155/time12-controls.png)](/img/fusion/captures/S155/time12-controls.png)
+
+緯度41.38、経度2.15、January 1、Time 12.0。Tone Mappingは有効です。
+
+[![Time 12のDay Skyと文字を重ねた表示](/img/fusion/captures/S155/time12.png)](/img/fusion/captures/S155/time12.png)
+
+Time 12.0。左はDay Sky、右は文字を重ねたMediaOutです。
+
+[![Day SkyのTimeを9に変更したInspector](/img/fusion/captures/S155/time9-controls.png)](/img/fusion/captures/S155/time9-controls.png)
+
+場所・日付などを固定し、Timeを9.0に変更します。
+
+[![Time 9で光の分布が変わったDay Skyと文字合成](/img/fusion/captures/S155/time9.png)](/img/fusion/captures/S155/time9.png)
+
+同じframeのTime 9.0では、明るい領域の配置と色が変わりました。
+
+[![マスクなしとEllipseを接続した別のDay Skyの比較](/img/fusion/captures/S155/effect-mask.png)](/img/fusion/captures/S155/effect-mask.png)
+
+左はマスクなし、右は同じ主な設定でEllipseを接続した別のDay Skyです。円内の光の分布も異なって見え、原因は未検証です。
+
+[![ViewerのチャンネルメニューでAlphaが選択されている](/img/fusion/captures/S155/alpha-menu.png)](/img/fusion/captures/S155/alpha-menu.png)
+
+右ViewerのチャンネルメニューでAlphaが選択されていることを確認しました。
+
+[![左にマスクなしのColor表示、右にEllipse付き出力のAlpha表示](/img/fusion/captures/S155/mask-alpha.png)](/img/fusion/captures/S155/mask-alpha.png)
+
+左はマスクなしのColor、右はEllipse付き出力のAlpha表示です。黒は透明、白は不透明を表します。
+
+[再現用Graph](/img/fusion/captures/S155/fixture.comp) · [撮影条件と確認範囲](/img/fusion/captures/S155/capture.json)
+
+<!-- /capture:S155 -->
+
 ## 制作例
 
 ### 時刻に応じた光の背景とタイトル
@@ -108,4 +154,4 @@ Tone Mappingを無効にしたDay Skyをカラー調整へ送り、そこで露�
 
 Blackmagic Design『**DaVinci Resolve 21.1 Reference Manual**』（September 2026）、**Chapter 103「Generator Nodes」、pp.2360–2363、Day Sky [DS]**。目的、Effect Mask、HDR、Controls / Advanced tabの項目を照合しています。Manualによれば、Preetham、Shirley、Smitsの論文 *A Practical Analytical Model for Daylight* の実用的な実装です。
 
-各Controlのdefault値・数値range、現在のruntime REGID、edition差は確認していないため、**verification: partial**のままです。
+WindowsのResolve Studio 21.1.0.14ではruntime REGID `DaySky`、Effect Mask入力、時刻を変えた静止表示とViewer Alphaを確認しました。全Controlのdefault値・数値range、HDR値の測定、edition差は未確認のため、**verification: partial**のままです。

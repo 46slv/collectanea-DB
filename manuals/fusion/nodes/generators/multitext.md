@@ -101,9 +101,59 @@ MultiTextを選択し、Fusion Viewer内をダブルクリックすると文字�
 
 ViewerにはCharacter・Word・Lineの変形用Pivotも表示できます。文字単位で回転や移動を試すときは、どの単位の支点を操作しているかを確認してください。文字の輪郭表示は編集用のガイドであり、レンダリングされるOutline装飾とは異なります。
 
+<!-- capture:S156 -->
+
+## 実機例：2つの文字を管理して背景へ重ねる
+
+初期の文字レイヤーを `Name` とし、InspectorのPointを1回追加して2つ目の `Role` を作りました。`Name` はArial Bold、Size 0.12、Center (0.5, 0.6)、`Role` はArial Regular、Size 0.06、Center (0.5, 0.43) です。Pointの追加とレイヤー選択はGUIで、文字・書式・位置の設定はSDKで行い、値を読み戻しています。
+
+生成した文字をMergeのForeground、濃い青のBackgroundをMergeのBackgroundへ接続します。`SAMPLE NAME` を `NOVA NAME` に変更した前後で、`DESIGNER` とその書式・位置は変わりませんでした。左Viewerで文字出力のAlphaも確認し、撮影後にColorへ戻しています。[接続と設定の記録](/img/fusion/captures/S156/readback.json)に値を記録しています。
+
+WindowsのResolve Studio 21.1.0.14におけるframe 0の例です。CSV、Text Box、Circle、アニメーションやほかのフォントはこの例では検証していません。
+
+[![背景とMultiTextをMergeで重ねてMediaOutへ渡すNode接続](/img/fusion/captures/S156/graph.png)](/img/fusion/captures/S156/graph.png)
+
+PlateをBackground、MultiText1をForegroundへ渡し、CompositeからMediaOutへ接続します。
+
+[![Nameと名付けた1項目だけがあるMultiTextのText List](/img/fusion/captures/S156/one-layer.png)](/img/fusion/captures/S156/one-layer.png)
+
+初期の文字レイヤーをNameとして使います。
+
+[![Pointを追加後、NameのほかにText 1が現れたText List](/img/fusion/captures/S156/point-added.png)](/img/fusion/captures/S156/point-added.png)
+
+Pointを1回追加すると、もう1つの文字項目Text 1が現れました。
+
+[![Roleを選びDESIGNERとArial Regularサイズ0.06を表示したInspector](/img/fusion/captures/S156/role-controls.png)](/img/fusion/captures/S156/role-controls.png)
+
+2つ目をRoleとし、DESIGNER、Arial Regular、Size 0.06に設定します。
+
+[![SAMPLE NAMEとDESIGNERの透明な文字と背景への合成](/img/fusion/captures/S156/before-edit.png)](/img/fusion/captures/S156/before-edit.png)
+
+左は透明部分を含むMultiText出力、右は背景を重ねたMediaOutです。
+
+[![Nameの文字をNOVA NAMEへ変更しRoleを維持したText List](/img/fusion/captures/S156/name-controls.png)](/img/fusion/captures/S156/name-controls.png)
+
+NameだけをNOVA NAMEへ変更し、RoleのDESIGNERは維持しました。
+
+[![NOVA NAMEとDESIGNERの透明な文字と背景への合成](/img/fusion/captures/S156/after-edit.png)](/img/fusion/captures/S156/after-edit.png)
+
+変更後も2行を1枚の画像として出力し、背景に重ねています。
+
+[![左ViewerのチャンネルメニューでAlphaが選択されている](/img/fusion/captures/S156/alpha-menu.png)](/img/fusion/captures/S156/alpha-menu.png)
+
+左ViewerのチャンネルメニューでAlphaが選択されていることを確認しました。
+
+[![左は文字出力のAlpha表示、右は背景に重ねたColor表示](/img/fusion/captures/S156/text-alpha.png)](/img/fusion/captures/S156/text-alpha.png)
+
+左は文字出力のAlpha、右は合成後のColorです。黒は透明、白は不透明を表します。
+
+[再現用Graph](/img/fusion/captures/S156/fixture.comp) · [撮影条件と確認範囲](/img/fusion/captures/S156/capture.json)
+
+<!-- /capture:S156 -->
+
 ## 制作例1：氏名と肩書きを1つのテロップにする
 
-1. MultiTextでPointを2つ追加し、それぞれに氏名と肩書きを入力します。Text Listで「Name」「Role」などの名前を付けて区別します。
+1. MultiTextの初期文字レイヤーを使い、Pointを1つ追加して、それぞれに氏名と肩書きを入力します。Text Listで「Name」「Role」などの名前を付けて区別します。
 2. Nameには大きなFont Size、Roleには小さなFont Sizeを指定し、Text tabで必要な字間と行間を調整します。
 3. Layout tabで2つのレイヤーを配置し、Align Layerで左端を揃えます。氏名が長くなったときも整列が崩れていないか確認します。
 4. Shading tabで白い文字にOutlineまたはShadowを付け、映像の明部・暗部の双方で読めるか確認します。
@@ -137,7 +187,7 @@ MultiTextにはZ位置や3軸回転があっても、それだけでClassic 3D�
 - Point / Text Box / Circleで文字の流れ方が変わります。長い文章が意図せず切れる場合はText BoxのWrap / Clipの設定を確認します。
 - フォント差し替えで行送り・字幅が変わるため、複数レイヤーの相対位置とAlign Layerを見直します。
 - CSVの列がText Listへ取り込まれる仕様と、外部CSVとの継続同期は別の話です。後者を確認済み機能としては扱いません。
-- このページでは21.1 Reference Manualで確認できたControl名と役割を記載しています。内部REGID、すべての初期値・範囲、edition差、各フォントでの描画結果は実機で未検証です。
+- このページでは21.1 Reference Manualで確認できたControl名と役割を記載しています。WindowsのResolve Studio 21.1.0.14では内部REGID `MultiText` と実機例を確認しました。すべての初期値・範囲、edition差、各フォントでの描画結果は未検証です。
 
 ## 関連ページ
 
@@ -151,4 +201,4 @@ MultiTextにはZ位置や3軸回転があっても、それだけでClassic 3D�
 
 - **DaVinci Resolve 21.1 Reference Manual**（September 2026）、Chapter 103「Generator Nodes」pp.2368–2376：MultiTextのEffect Mask、Text List、Point / Text Box / Circle / CSV、Text / Layout / Shading / Page / Imageの各設定、Viewer操作。
 - 同Manual、Chapter 56「Titles, Generators, and Stills」pp.1189–1191：Edit pageのMultiText Titles、CSV取込、タイトル制作での位置づけ。
-- 根拠は21.1のManualに限定した記述であり、runtime固有の端子ID・表示差などは本記事では確定していません。
+- 本文の一般的な機能説明は21.1 Manualに基づき、実機例とREGIDは上記の環境に限る観測です。ほかのruntime固有の端子ID・表示差などは確定していません。
