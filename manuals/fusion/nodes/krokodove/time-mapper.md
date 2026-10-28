@@ -36,8 +36,8 @@ DaVinci Resolve 21.1 Reference Manualは、Time Mapperを「Image Tools」に分
 | 材料・結果 | 役割 | 根拠と未確認範囲 |
 | --- | --- | --- |
 | 元になる画像シーケンス | 時間とともに内容が変わる映像 | 21.1 Manualはシーケンスの異なる時刻を組み合わせると記載。 |
-| 外部画像マップ | 時間の組み合わせを制御する材料 | 外部画像を利用することは確認済み。正式な端子名・本数・対応チャンネルは未確認。 |
-| 処理結果 | 時間を組み合わせた画像 | 既存カタログではImage出力に分類。具体的な端子名・Alphaの扱いは未確認。 |
+| 外部画像マップ | 時間の組み合わせを制御する材料 | 実機例では黒白の単色BackgroundをTimemap入力へ接続。他の端子とチャンネルの動作は未確認。 |
+| 処理結果 | 時間を組み合わせた画像 | 実機例では出力をMediaOutに接続。Alphaの扱いは未確認。 |
 
 <Term id="image">Image（画像データ）</Term>は、色や透明度などの値を持つ画素の集まりです。Frontmatterの `inputs: [image]` と `outputs: [image]` は扱うデータの**種類**であり、入力端子が1本しかないという意味ではありません。
 
@@ -56,6 +56,34 @@ DaVinci Resolve 21.1 Reference Manualは、Time Mapperを「Image Tools」に分
 ### 一般的なリタイムとの使い分け
 
 素材全体を半速・倍速にするなら[Time Speed](../time-metadata/time-speed)、再生位置をキーとSplineで変えたいなら[Time Stretcher](../time-metadata/time-stretcher)が直接的です。外部画像を時間処理に関わらせたい場合に、Time Mapperを候補にします。
+
+<!-- capture:S293 -->
+
+## 実機例：黒と白のマップを切り替える
+
+横に動く `Text+` を `Time Mapper` のInputに、単色の `Background` をTimemapに接続します。Time Offset Blackを−20、Time Offset Whiteを20に設定し、frame 50でマップを黒から白へ切り替えました。
+
+同じframeの出力では、マップの色によって文字の位置が変わりました。左は元の入力、右は処理後です。この静止例では、参照された正確な時刻やグラデーションでの挙動は確認していません。[接続と設定の記録](/img/fusion/captures/S293/readback.json)に条件を記載しています。
+
+[![Text+と単色マップをTime Mapperに接続した構成](/img/fusion/captures/S293/graph.png)](/img/fusion/captures/S293/graph.png)
+
+SourceとTimemapをそれぞれ接続します。
+
+[![Time Offset Blackマイナス20とWhite 20の設定](/img/fusion/captures/S293/controls.png)](/img/fusion/captures/S293/controls.png)
+
+黒と白に異なる時間オフセットを設定します。
+
+[![黒いマップを使ったframe 50の入力と出力](/img/fusion/captures/S293/black.png)](/img/fusion/captures/S293/black.png)
+
+黒いマップでの入力と出力です。
+
+[![白いマップを使ったframe 50の入力と出力](/img/fusion/captures/S293/white.png)](/img/fusion/captures/S293/white.png)
+
+白いマップに切り替えると右の文字位置が変わります。
+
+[再現用Graph](/img/fusion/captures/S293/fixture.comp) · [撮影条件と確認範囲](/img/fusion/captures/S293/capture.json)
+
+<!-- /capture:S293 -->
 
 ## 実機での確認例：数字が変わる映像を使う
 
@@ -89,12 +117,12 @@ Time MapperをTime Stretcherの「画像入力版」と断定することはで�
 
 ## 注意点と確認が必要な仕様
 
-- **端子**：元映像と外部マップの端子名、本数、必須条件、出力端子の正式名称は未確認です。
-- **Inspector**：時間範囲、補間、ブレンド、参照チャンネル、マップの向き、初期値と値域は未確認です。項目が存在するとも断定しません。
+- **端子**：実機例では元映像をInput、単色マップをTimemapへ接続しました。他の端子や必須条件は未確認です。
+- **Inspector**：実機例ではTime Offset Black -20、White 20を設定し、チャンネルは輝度、Interpolate Between Framesはオンでした。他の設定の動作、初期値と値域は未確認です。
 - **画像と時間の対応**：画素値や位置をどの時刻へ変換するか、複数時刻をどう組み合わせるかは未確認です。
 - **素材の範囲外**：元映像の先頭より前・末尾より後を参照した場合の結果は未確認です。
 - **性能と画質**：フレームキャッシュ、フレーム補間、Motion Vector対応、Alphaや補助チャンネルの扱いは未確認です。
-- **バージョン・エディション**：内部REGID、Resolve Free／Studio／Fusion Studioの提供差、21.1実機での動作は未確認です。
+- **バージョン・エディション**：Resolve Studio 21.1.0.14 / Windowsの実機例を除き、内部REGIDやFree／Fusion Studioの提供差は未確認です。
 
 ## バージョンと出典
 
@@ -102,4 +130,4 @@ Time MapperをTime Stretcherの「画像入力版」と断定することはで�
 
 Time SpeedとTime Stretcherの機能差は同ManualのChapter 111「Miscellaneous Nodes」（pp.2607–2613）および各ノードの個別記事を参照しています。Fusionのデータ領域は[画像（Image）](../../learn/02-data/image)、関連するKrokodoveのツールは[ファミリー概要](./)を参照してください。
 
-この項目には正式なポート一覧やInspectorの説明がないため、資料で確認した役割と実機確認の手順案を分け、`verification: partial`を維持しています。
+資料で確認した役割と、単一frame・黒白マップの実機例を区別します。参照frame、グラデーションや連続再生は未確認のため、`verification: partial`を維持しています。
