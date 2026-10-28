@@ -1,0 +1,60 @@
+{
+  "case": "S177",
+  "project": "Collectanea_Mandelbrot_Zoom_20261025",
+  "library": "Local Database",
+  "project_manager_folder": "root",
+  "timeline": "S177_capture",
+  "frame": 0,
+  "resolve": "21.1.0.14",
+  "edition": "DaVinci Resolve Studio",
+  "os": "Windows-11-10.0.26200-SP0",
+  "project_settings": {
+    "colorScienceMode": "davinciYRGB",
+    "colorSpaceInput": "Rec.709 Gamma 2.4",
+    "colorSpaceTimeline": "Rec.709 (Scene)",
+    "colorSpaceTimelineGamma": "",
+    "colorSpaceOutput": "Rec.709 (Scene)",
+    "colorSpaceOutputGamma": "ACEScc",
+    "isAutoColorManage": "0",
+    "timelineResolutionWidth": "1920",
+    "timelineResolutionHeight": "1080",
+    "timelineFrameRate": 30.0,
+    "timelinePlaybackFrameRate": "30",
+    "timelinePixelAspectRatio": "square"
+  },
+  "connections": {
+    "SceneMerge.SceneInput1": "CubeA",
+    "SceneMerge.SceneInput2": "CubeB",
+    "SceneRenderer.SceneInput": "SceneMerge",
+    "MediaOut1.Input": "SceneRenderer"
+  },
+  "values": {
+    "CubeA": {
+      "SurfaceCubeInputs.Width": 0.3,
+      "Transform3DOp.Translate.X": -0.3,
+      "Transform3DOp.Rotate.X": 20.0,
+      "Transform3DOp.Rotate.Y": 30.0
+    },
+    "CubeB": {
+      "SurfaceCubeInputs.Width": 0.2,
+      "Transform3DOp.Translate.X": 0.3,
+      "Transform3DOp.Rotate.X": -20.0,
+      "Transform3DOp.Rotate.Y": -30.0
+    }
+  },
+  "scene_inputs_after_connection": [
+    "SceneInput1",
+    "SceneInput2",
+    "SceneInput3"
+  ],
+  "source": "Two Cube 3D nodes merged and rendered; one static frame.",
+  "save_project": true,
+  "save_completed_at": "2026-10-27T21:59:38.550971+00:00",
+  "native_export_sha256": "6cb54b1212fb9a7c80e36012f57d3a7a313c92281e822f07102a1e1697b65057",
+  "portable_sha256": "436a9e74583f8e7741069634a5a4de07a5e4d28ec0d12ab1c0365c3518510450",
+  "portable_reimport": "NOT_RUN",
+  "limits": [
+    "Two cube objects and one additional empty input; cameras, lights, depth overlap, input limits, animation and other hosts NOT_RUN.",
+    "Viewer screenshot is display evidence."
+  ]
+}

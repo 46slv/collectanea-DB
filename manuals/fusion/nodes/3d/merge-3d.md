@@ -46,6 +46,30 @@ Manual上の入力名は **SceneInput[#]** です。Nodeを追加した直後は
 
 Blurや通常の2D Mergeは画素を処理するNodeなので、Merge 3Dの出力をそのまま2D Imageとして扱いません。
 
+<!-- capture:S177 -->
+
+## 実機例：2つの立方体を同じシーンに置く
+
+位置と大きさを変えた2つの `Cube 3D` を `Merge 3D` に接続し、`Renderer 3D` で画像化しました。
+
+左の3D Viewerと右の描画結果に、両方の立方体が表示されています。接続後、空きの3番目のScene入力が現れたことも確認しました。CameraやLightの動作はこの例では比較していません。[接続と設定の記録](/img/fusion/captures/S177/readback.json)に条件を記載しています。
+
+[![2つのCube 3DをMerge 3DでまとめRenderer 3Dへ渡す構成](/img/fusion/captures/S177/graph.png)](/img/fusion/captures/S177/graph.png)
+
+2つの3D入力をまとめ、Renderer 3Dで画像化します。
+
+[![Merge 3DのPass Through Lights設定を示すInspector](/img/fusion/captures/S177/controls.png)](/img/fusion/captures/S177/controls.png)
+
+この例ではPass Through Lightsを変更していません。
+
+[![3D Viewerの2つの立方体とRenderer 3Dの表示結果](/img/fusion/captures/S177/scene.png)](/img/fusion/captures/S177/scene.png)
+
+左は3D Viewer、右は画像化した結果です。
+
+[再現用Graph](/img/fusion/captures/S177/fixture.comp) · [撮影条件と確認範囲](/img/fusion/captures/S177/capture.json)
+
+<!-- /capture:S177 -->
+
 ## 基本例：画像を3D空間に置いて実写と合成する
 
 次は、ポスター画像を3Dの板として配置し、カメラで撮った結果を実写映像へ重ねる構成です。
@@ -126,4 +150,4 @@ Manualは、この制御を使う理由として、後から加えたジオメ�
 
 SceneInput[#]が接続に応じて増えること、接続可能な要素、Transformによるグループ操作、Pass Through Lightsによる下流ライトの引き継ぎはこの節に基づきます。ポスター合成と看板グループの例は、Manualで確認できる機能を使った説明用の構成であり、21.1実機での再現テストではありません。
 
-内部REGID、処理性能、特定のプロジェクションや材質での表示結果、Free／Studioの差は未検証のため、`verification: partial`を維持しています。
+処理性能、特定のプロジェクションや材質での表示結果、Free／Studioの差は未検証のため、`verification: partial`を維持しています。

@@ -1,0 +1,132 @@
+{
+  "manual": {
+    "version": "21.1",
+    "chapter": 88,
+    "printed_pages": "1928–1930"
+  },
+  "runtime": {
+    "version": "21.1.0.14",
+    "edition": "DaVinci Resolve Studio",
+    "os": "Windows-11-10.0.26200-SP0",
+    "ui_language": "ja-JP"
+  },
+  "captured_at": "2026-10-27T21:44:12.915372+00:00",
+  "project": "Collectanea_Mandelbrot_Zoom_20261025",
+  "timeline": "S174_capture",
+  "frame": 0,
+  "resolution": [
+    1920,
+    1080
+  ],
+  "color_management": {
+    "project_settings": {
+      "colorScienceMode": "davinciYRGB",
+      "colorSpaceInput": "Rec.709 Gamma 2.4",
+      "colorSpaceTimeline": "Rec.709 (Scene)",
+      "colorSpaceTimelineGamma": "",
+      "colorSpaceOutput": "Rec.709 (Scene)",
+      "colorSpaceOutputGamma": "ACEScc",
+      "isAutoColorManage": "0",
+      "timelineResolutionWidth": "1920",
+      "timelineResolutionHeight": "1080",
+      "timelineFrameRate": 30.0,
+      "timelinePlaybackFrameRate": "30",
+      "timelinePixelAspectRatio": "square"
+    },
+    "note": "SDK project settings; screenshots show Viewer display."
+  },
+  "viewer": {
+    "view_mode": "3D viewer left; Fit right",
+    "source": "Left Cube; right MediaOut1",
+    "note": "Default face materials; checkerboard in rendered view indicates transparency."
+  },
+  "acceptance": {
+    "gui": "PASS: native screenshots show locked cube and unlocked cuboid, Inspector and render; SDK connections and restored save read back.",
+    "article_display": "NOT_RUN",
+    "public_display": "NOT_RUN"
+  },
+  "unverified": [
+    "Locked cube and unlocked cuboid only; external face materials, mapping, camera, lighting, animation and other hosts NOT_RUN.",
+    "Viewer screenshots are display evidence.",
+    "Portable reimport and physical input provenance NOT_RUN.",
+    "Article verification remains partial."
+  ],
+  "schema_version": 1,
+  "case": "S174",
+  "article": "manuals/fusion/nodes/3d/cube-3d.md",
+  "graph": "fixture.comp",
+  "settings": "readback.json",
+  "source": {
+    "file": "screen.png",
+    "size": [
+      3336,
+      1902
+    ],
+    "sha256": "9fd98e7b1a8f5866ff3d4baccdcea3447d8256ce03ea14743371047a475be5cf"
+  },
+  "shots": [
+    {
+      "file": "graph.png",
+      "source": "screen.png",
+      "source_sha256": "9fd98e7b1a8f5866ff3d4baccdcea3447d8256ce03ea14743371047a475be5cf",
+      "frame": 0,
+      "crop_xyxy": [
+        850,
+        1170,
+        1950,
+        1510
+      ],
+      "resampled": false,
+      "sha256": "6c40242edac124cd36f907dcb1f915e0c99eab8674935931add08b339ec0c2e5"
+    },
+    {
+      "file": "cube.png",
+      "source": "screen.png",
+      "source_sha256": "9fd98e7b1a8f5866ff3d4baccdcea3447d8256ce03ea14743371047a475be5cf",
+      "frame": 0,
+      "crop_xyxy": [
+        1590,
+        65,
+        2800,
+        720
+      ],
+      "resampled": false,
+      "sha256": "2a988aa8a5133e61d8c87d284d5224847ea30613a4cf0f0a59cdac3586c8911f"
+    },
+    {
+      "file": "controls.png",
+      "source": "rect-source.png",
+      "source_sha256": "20334b2fc636a1e476c4b7077c7d523e97438dba89d2bba1cb4fed9882f151b1",
+      "frame": 0,
+      "crop_xyxy": [
+        2815,
+        65,
+        3336,
+        550
+      ],
+      "resampled": false,
+      "sha256": "7190e0a087d2e721ccbeb908a0bf23eb112f77390d82852c2a127d352444a782"
+    },
+    {
+      "file": "cuboid.png",
+      "source": "rect-source.png",
+      "source_sha256": "20334b2fc636a1e476c4b7077c7d523e97438dba89d2bba1cb4fed9882f151b1",
+      "frame": 0,
+      "crop_xyxy": [
+        1590,
+        65,
+        2800,
+        720
+      ],
+      "resampled": false,
+      "sha256": "ef0ee86ef9d6a7bdac2a38b81e326d26ace6e39f1f6181793b94e891737fef1b"
+    }
+  ],
+  "reproduction": {
+    "fixture_sha256": "d1afecb6332cb8cc44aa4849d53122ba970d45487acab9bcaa9b53ccb89b3a4a",
+    "readback_sha256": "fa939ac53c0c2bdd8f32bfb9e370283fc3681ec173fe5021e7bf9b4391dbd975",
+    "readback_source_sha256": "fa939ac53c0c2bdd8f32bfb9e370283fc3681ec173fe5021e7bf9b4391dbd975",
+    "readback_transform": "No line-ending transformation",
+    "reimport": "NOT_RUN"
+  }
+}

@@ -45,7 +45,7 @@ sEllipse → sGrid → sJitter → sRender → Merge
 
 21.1 ManualではFixedが初期選択です。Randomを選んだだけでは必ず動くとは限りません。**範囲スライダーを初期状態のままにするとランダムアニメーションは発生しません。** 動かしたい項目の範囲を広げてください。
 
-公式資料には、ランダム値の更新間隔や再現性を保証する設定までは示されていません。Seedの有無や時間方向の細かい挙動はここでは断定しません。
+公式資料には、ランダム値の更新間隔や再現性を保証する設定までは示されていません。21.1実機ではRandom Seedの項目を確認しています。Seedの再現性や時間方向の細かい挙動はここでは断定しません。
 
 ### Shape X / Y Offset：位置のばらつき
 
@@ -70,6 +70,30 @@ Xは横方向、Yは縦方向のずれ幅です。同じ配列のShapeが一斉�
 **X / Y Point Jitter**は、Shapeを形作るベクトル制御点をそれぞれの方向へずらします。オブジェクトの位置を変えるのではなく、**図形そのものの輪郭を変形**します。
 
 例えば楕円に少し加えると、整った曲線を不規則な縁に変えられます。Randomと組み合わせれば、輪郭が時間とともに変形する構成を作れます。元の形を保ちたい図形には、小さい値から適用してください。
+
+<!-- capture:S172 -->
+
+## 実機例：円の列に縦方向のばらつきを加える
+
+`sEllipse` を `sDuplicate` で4回複製して円を5個並べ、`sJitter` のFixedモードを通します。ShapeのY Offsetを−0.12から0.12、Random Seedを4に設定しました。
+
+frame 0では、左の等間隔の円が右では異なる高さに表示されます。市松模様はViewerの透明表示です。Randomモードや時間方向の変化はこの例では確認していません。[接続と設定の記録](/img/fusion/captures/S172/readback.json)に条件を記載しています。
+
+[![sEllipseとsDuplicateからsJitterとsRenderへ接続する構成](/img/fusion/captures/S172/graph.png)](/img/fusion/captures/S172/graph.png)
+
+複製後のShapeを分岐し、処理前後をそれぞれ画像化します。
+
+[![sJitterのFixedモード、Seed 4、Y Offset範囲を示すInspector](/img/fusion/captures/S172/controls.png)](/img/fusion/captures/S172/controls.png)
+
+Fixed、Random Seed 4、Y Offset −0.12から0.12です。
+
+[![等間隔の円と縦方向にばらつきを加えた円の比較](/img/fusion/captures/S172/comparison.png)](/img/fusion/captures/S172/comparison.png)
+
+左は処理前、右は縦方向のばらつきを加えた結果です。
+
+[再現用Graph](/img/fusion/captures/S172/fixture.comp) · [撮影条件と確認範囲](/img/fusion/captures/S172/capture.json)
+
+<!-- /capture:S172 -->
 
 ## 具体的な使い方
 
@@ -121,4 +145,4 @@ sStar → sDuplicate → sJitter（Fixed）→ sRender
 
 Blackmagic Design『DaVinci Resolve 21.1 Reference Manual』Chapter 117「Shape Nodes」、**pp.2744–2745**を参照。Input1（オレンジ、必須）、配列へのランダム変化、Jitter ModeのFixed / Random、Shape X/Y Offset・Size、Shape Rotate、Point Jitterの役割を確認しました。
 
-入力と出力のデータ種類、主要Controlの説明はManualに基づきます。Exact REGID、数値範囲、Randomの時間方向の細部、Edition差、21.1実機の結果は未確認のため、`verification: partial`を維持します。
+入力と出力のデータ種類、主要Controlの説明はManualに基づきます。上記のFixedモードの実機例を確認しました。Exact REGID、数値範囲、Randomの時間方向の細部、Edition差、その他の実機結果は未確認のため、`verification: partial`を維持します。

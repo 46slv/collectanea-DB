@@ -1,0 +1,48 @@
+{
+  "case": "S172",
+  "project": "Collectanea_Mandelbrot_Zoom_20261025",
+  "library": "Local Database",
+  "project_manager_folder": "root",
+  "timeline": "S172_capture",
+  "frame": 0,
+  "resolve": "21.1.0.14",
+  "edition": "DaVinci Resolve Studio",
+  "os": "Windows-11-10.0.26200-SP0",
+  "project_settings": {
+    "colorScienceMode": "davinciYRGB",
+    "colorSpaceInput": "Rec.709 Gamma 2.4",
+    "colorSpaceTimeline": "Rec.709 (Scene)",
+    "colorSpaceTimelineGamma": "",
+    "colorSpaceOutput": "Rec.709 (Scene)",
+    "colorSpaceOutputGamma": "ACEScc",
+    "isAutoColorManage": "0",
+    "timelineResolutionWidth": "1920",
+    "timelineResolutionHeight": "1080",
+    "timelineFrameRate": 30.0,
+    "timelinePlaybackFrameRate": "30",
+    "timelinePixelAspectRatio": "square"
+  },
+  "connections": {
+    "Duplicate.Input": "Ellipse",
+    "BeforeRender.Input": "Duplicate",
+    "Jitter.Input": "Duplicate",
+    "AfterRender.Input": "Jitter",
+    "MediaOut1.Input": "AfterRender"
+  },
+  "values": {
+    "JitterMode": "Fixed",
+    "RandomSeed": 4.0,
+    "Shape.OffsetY.Min": -0.12,
+    "Shape.OffsetY.Max": 0.12
+  },
+  "source": "Generated sEllipse and sDuplicate shapes, two sRender branches; one static frame.",
+  "save_project": true,
+  "save_completed_at": "2026-10-27T21:35:14.941838+00:00",
+  "native_export_sha256": "0547888542cc1796a1054bb1428e25eab86820354c2e029aca14c5ed1b8eff81",
+  "portable_sha256": "5b6a6445d0e69b2e2ae42239c710469ea0ea00904f5666bbe7521e0c979914cc",
+  "portable_reimport": "NOT_RUN",
+  "limits": [
+    "Fixed mode and one Y offset range at one frame; random mode, animation, point jitter, other seeds and hosts NOT_RUN.",
+    "Viewer screenshot is display evidence."
+  ]
+}

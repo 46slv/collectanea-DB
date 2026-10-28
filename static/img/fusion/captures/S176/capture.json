@@ -1,0 +1,133 @@
+{
+  "manual": {
+    "version": "21.1",
+    "chapter": 88,
+    "printed_pages": "1938–1942"
+  },
+  "runtime": {
+    "version": "21.1.0.14",
+    "edition": "DaVinci Resolve Studio",
+    "os": "Windows-11-10.0.26200-SP0",
+    "ui_language": "ja-JP"
+  },
+  "captured_at": "2026-10-27T21:53:47.595962+00:00",
+  "project": "Collectanea_Mandelbrot_Zoom_20261025",
+  "timeline": "S176_capture",
+  "frame": 0,
+  "resolution": [
+    1920,
+    1080
+  ],
+  "color_management": {
+    "project_settings": {
+      "colorScienceMode": "davinciYRGB",
+      "colorSpaceInput": "Rec.709 Gamma 2.4",
+      "colorSpaceTimeline": "Rec.709 (Scene)",
+      "colorSpaceTimelineGamma": "",
+      "colorSpaceOutput": "Rec.709 (Scene)",
+      "colorSpaceOutputGamma": "ACEScc",
+      "isAutoColorManage": "0",
+      "timelineResolutionWidth": "1920",
+      "timelineResolutionHeight": "1080",
+      "timelineFrameRate": 30.0,
+      "timelinePlaybackFrameRate": "30",
+      "timelinePixelAspectRatio": "square"
+    },
+    "note": "SDK project settings; screenshots show Viewer display."
+  },
+  "viewer": {
+    "view_mode": "Fit",
+    "source": "Left BeforeRender; right MediaOut1",
+    "note": "Duplicate 3D selected; checkerboard indicates transparency."
+  },
+  "acceptance": {
+    "gui": "PASS: screenshots show Last 2 and Last 3 counts; SDK settings, connections and save read back.",
+    "article_display": "NOT_RUN",
+    "public_display": "NOT_RUN"
+  },
+  "unverified": [
+    "One cube, First 0, Last 2 and 3, X offset 0.3 at frame 0; other copy ranges, region, jitter, animation and other hosts NOT_RUN.",
+    "Viewer screenshot is display evidence.",
+    "General copy-number interpretation not established.",
+    "Portable reimport and physical input provenance NOT_RUN.",
+    "Article verification remains partial."
+  ],
+  "schema_version": 1,
+  "case": "S176",
+  "article": "manuals/fusion/nodes/3d/duplicate-3d.md",
+  "graph": "fixture.comp",
+  "settings": "readback.json",
+  "source": {
+    "file": "screen.png",
+    "size": [
+      3336,
+      1902
+    ],
+    "sha256": "81c4293f4164b30a581f2939b2f2e7e61db5771b88bd910c049faaa4d11ea71c"
+  },
+  "shots": [
+    {
+      "file": "graph.png",
+      "source": "screen.png",
+      "source_sha256": "81c4293f4164b30a581f2939b2f2e7e61db5771b88bd910c049faaa4d11ea71c",
+      "frame": 0,
+      "crop_xyxy": [
+        700,
+        1100,
+        2150,
+        1600
+      ],
+      "resampled": false,
+      "sha256": "9e617532c157401f45dcd20c4c992d172c2b97c6f7f88473d3673ec3863a3ab4"
+    },
+    {
+      "file": "controls.png",
+      "source": "screen.png",
+      "source_sha256": "81c4293f4164b30a581f2939b2f2e7e61db5771b88bd910c049faaa4d11ea71c",
+      "frame": 0,
+      "crop_xyxy": [
+        2815,
+        65,
+        3336,
+        540
+      ],
+      "resampled": false,
+      "sha256": "78daaa5cce4d410069fc78b5950d85d2ccacd792bd810bdfc9b63f23a0b05ff2"
+    },
+    {
+      "file": "last2.png",
+      "source": "last2-source.png",
+      "source_sha256": "f5753cc201ce04aecc1976112cdfdfc87e75eb4e56f27d07bf6fe53bf58a0e7f",
+      "frame": 0,
+      "crop_xyxy": [
+        0,
+        65,
+        2800,
+        720
+      ],
+      "resampled": false,
+      "sha256": "ba8581a3a614a88e746ec32229be5788ea2245163a2ab4d2a7c5ee9e7337f431"
+    },
+    {
+      "file": "last3.png",
+      "source": "screen.png",
+      "source_sha256": "81c4293f4164b30a581f2939b2f2e7e61db5771b88bd910c049faaa4d11ea71c",
+      "frame": 0,
+      "crop_xyxy": [
+        0,
+        65,
+        2800,
+        720
+      ],
+      "resampled": false,
+      "sha256": "471d8ad09445e4fc1ce6e5c99e409deca332fa9d9bd8d8218225666d0842eab0"
+    }
+  ],
+  "reproduction": {
+    "fixture_sha256": "fe65043a733452171573162474445e0211ed662e21cda59eab9934e2e9246a7b",
+    "readback_sha256": "2ac6ba856668d91ec1d6ae2374f2f7d3ee35a316aee80fd123a792caa151114a",
+    "readback_source_sha256": "2ac6ba856668d91ec1d6ae2374f2f7d3ee35a316aee80fd123a792caa151114a",
+    "readback_transform": "No line-ending transformation",
+    "reimport": "NOT_RUN"
+  }
+}
