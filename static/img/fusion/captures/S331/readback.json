@@ -1,0 +1,28 @@
+{
+  "case": "S331",
+  "baseline": {
+    "case": "S331",
+    "values": {
+      "PrimSelection": 1.0,
+      "SelectedPrims": "",
+      "InvertPrimSelection": 0.0,
+      "VisibilityOverride": 1.0
+    },
+    "saved": "2026-10-28T10:41:23.652263+00:00"
+  },
+  "off": {
+    "selection": "",
+    "visible": 0,
+    "saved": "2026-10-28T10:41:56.384576+00:00"
+  },
+  "connections": [
+    "Shape->Visibility.SceneInput",
+    "Visibility->USDRender.SceneInput",
+    "USDRender->MediaOut1"
+  ],
+  "limits": [
+    "Single uShape scene; Selected Prims is empty, so targeted selection and multi-object behavior NOT_RUN.",
+    "Scene Tree Pick action did not produce a verified selection; no physical input claim.",
+    "Animation, USD export semantics, portable reimport and other hosts NOT_RUN."
+  ]
+}
