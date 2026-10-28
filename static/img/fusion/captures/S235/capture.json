@@ -1,0 +1,132 @@
+{
+  "manual": {
+    "version": "21.1",
+    "chapter": 105,
+    "printed_pages": "2436"
+  },
+  "runtime": {
+    "version": "21.1.0.14",
+    "edition": "DaVinci Resolve Studio",
+    "os": "Windows-11-10.0.26200-SP0",
+    "ui_language": "ja-JP"
+  },
+  "captured_at": "2026-10-28T03:52:23.723898+00:00",
+  "project": "Collectanea_Mandelbrot_Zoom_20261025",
+  "timeline": "S235_capture",
+  "frame": 0,
+  "resolution": [
+    1920,
+    1080
+  ],
+  "color_management": {
+    "project_settings": {
+      "colorScienceMode": "davinciYRGB",
+      "colorSpaceInput": "Rec.709 Gamma 2.4",
+      "colorSpaceTimeline": "Rec.709 (Scene)",
+      "colorSpaceTimelineGamma": "",
+      "colorSpaceOutput": "Rec.709 (Scene)",
+      "colorSpaceOutputGamma": "ACEScc",
+      "isAutoColorManage": "0",
+      "timelineResolutionWidth": "1920",
+      "timelineResolutionHeight": "1080",
+      "timelineFrameRate": 30.0,
+      "timelinePlaybackFrameRate": "30",
+      "timelinePixelAspectRatio": "square"
+    },
+    "note": "SDK project settings; screenshots show Viewer display."
+  },
+  "viewer": {
+    "view_mode": "Fit",
+    "source": "Left Label; right MediaOut1",
+    "note": "KD Radial selected; viewer includes control overlays."
+  },
+  "acceptance": {
+    "gui": "PASS: synthetic text shows strong radial warp at offset .2.",
+    "article_display": "NOT_RUN",
+    "public_display": "NOT_RUN"
+  },
+  "unverified": [
+    "One synthetic text and radial offset; masks, alpha values, animation and other hosts NOT_RUN.",
+    "Viewer screenshots include control overlays and are display evidence.",
+    "Portable reimport and physical input provenance NOT_RUN.",
+    "Article verification remains partial."
+  ],
+  "schema_version": 1,
+  "case": "S235",
+  "article": "manuals/fusion/nodes/krokodove/radial.md",
+  "graph": "fixture.comp",
+  "settings": "readback.json",
+  "source": {
+    "file": "screen.png",
+    "size": [
+      3336,
+      1902
+    ],
+    "sha256": "3f66ea5ca54cc3541c680ccd4c77f5ad9e17b832cacfac4dbe9911379fc9dc64"
+  },
+  "shots": [
+    {
+      "file": "graph.png",
+      "source": "screen.png",
+      "source_sha256": "3f66ea5ca54cc3541c680ccd4c77f5ad9e17b832cacfac4dbe9911379fc9dc64",
+      "frame": 0,
+      "crop_xyxy": [
+        500,
+        1050,
+        2350,
+        1650
+      ],
+      "resampled": false,
+      "sha256": "bde7e2b607a66a4bd3dd63e5939fe04b73e4f2e5b3064c75232c290ead915896"
+    },
+    {
+      "file": "controls.png",
+      "source": "screen.png",
+      "source_sha256": "3f66ea5ca54cc3541c680ccd4c77f5ad9e17b832cacfac4dbe9911379fc9dc64",
+      "frame": 0,
+      "crop_xyxy": [
+        2815,
+        65,
+        3336,
+        750
+      ],
+      "resampled": false,
+      "sha256": "a3a962925a9cf23eeab006ced4f9158df27ed6fb359af0ecf548af2d1758d822"
+    },
+    {
+      "file": "low.png",
+      "source": "screen.png",
+      "source_sha256": "3f66ea5ca54cc3541c680ccd4c77f5ad9e17b832cacfac4dbe9911379fc9dc64",
+      "frame": 0,
+      "crop_xyxy": [
+        120,
+        70,
+        1340,
+        720
+      ],
+      "resampled": false,
+      "sha256": "18f3deb46b17b7d9bd3fdfae017d3b5e5c6b440a323e7a9de4ec5c47bd74faef"
+    },
+    {
+      "file": "high.png",
+      "source": "screen.png",
+      "source_sha256": "3f66ea5ca54cc3541c680ccd4c77f5ad9e17b832cacfac4dbe9911379fc9dc64",
+      "frame": 0,
+      "crop_xyxy": [
+        1480,
+        70,
+        2700,
+        720
+      ],
+      "resampled": false,
+      "sha256": "73cd9150216d53eaf3884929ac0e6f8689661cb3f5e292ddd098d9e620437641"
+    }
+  ],
+  "reproduction": {
+    "fixture_sha256": "76826ddf033483b2d944e2d99210a9017cc57f2cf8ed8ddb5190eaa3fbe834e9",
+    "readback_sha256": "e6594d94d4f99d1bfb798da2d4a3d8eaefd207a34fab1fc58434ae7d8dfc4fca",
+    "readback_source_sha256": "e6594d94d4f99d1bfb798da2d4a3d8eaefd207a34fab1fc58434ae7d8dfc4fca",
+    "readback_transform": "No line-ending transformation",
+    "reimport": "NOT_RUN"
+  }
+}

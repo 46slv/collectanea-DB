@@ -1,0 +1,68 @@
+{
+  "case": "S236",
+  "project": "Collectanea_Mandelbrot_Zoom_20261025",
+  "library": "Local Database",
+  "project_manager_folder": "root",
+  "timeline": "S236_capture",
+  "frame": 0,
+  "resolve": "21.1.0.14",
+  "edition": "DaVinci Resolve Studio",
+  "os": "Windows-11-10.0.26200-SP0",
+  "project_settings": {
+    "colorScienceMode": "davinciYRGB",
+    "colorSpaceInput": "Rec.709 Gamma 2.4",
+    "colorSpaceTimeline": "Rec.709 (Scene)",
+    "colorSpaceTimelineGamma": "",
+    "colorSpaceOutput": "Rec.709 (Scene)",
+    "colorSpaceOutputGamma": "ACEScc",
+    "isAutoColorManage": "0",
+    "timelineResolutionWidth": "1920",
+    "timelineResolutionHeight": "1080",
+    "timelineFrameRate": 30.0,
+    "timelinePlaybackFrameRate": "30",
+    "timelinePixelAspectRatio": "square"
+  },
+  "connections": {
+    "Map.Image": "Label",
+    "MediaOut1.Input": "Map"
+  },
+  "values": {
+    "Label": {
+      "StyledText": "BEND",
+      "Size": 0.3
+    },
+    "Map": {
+      "Type": 0.0,
+      "Start": {
+        "1": 0.0,
+        "2": 0.5,
+        "3": 0.0
+      },
+      "End": {
+        "1": 1.0,
+        "2": 0.5,
+        "3": 0.0
+      },
+      "Radius": 0.5,
+      "StartAngle": 180.0,
+      "EndAngle": 0.0,
+      "ScaleHorizontal": 1.0,
+      "ScaleVertical": 1.0
+    },
+    "current_midpoint": {
+      "1": 0.5,
+      "2": 0.75,
+      "3": 0.0
+    }
+  },
+  "source": "Synthetic text through KD Bend with Midpoint at 0.5, 0.75.",
+  "save_project": true,
+  "save_completed_at": "2026-10-28T04:00:16.709839+00:00",
+  "native_export_sha256": "1c5a8b03c330a6987f5cf90a009ba8afc6c470bda36dd2d8b98f49eabf17efe7",
+  "portable_sha256": "fe9cf45d6bd329da50f5e60237332ee333207c3379a7584433ac47d95f9652a6",
+  "portable_reimport": "NOT_RUN",
+  "limits": [
+    "One synthetic text and settings; internal mirror algorithm, mask, alpha values, animation and other hosts NOT_RUN.",
+    "Viewer screenshot is display evidence."
+  ]
+}

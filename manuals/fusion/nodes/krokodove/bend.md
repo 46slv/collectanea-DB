@@ -31,6 +31,34 @@ updated: '2026-10-18'
 
 ただし、21.1 ManualのBend説明は短い一文です。曲げる中心の指定方法、何点で曲線を決めるか、実際にどの式で画素を移すかは記載されていません。上の説明は見た目を理解するためのもので、特定のアルゴリズムの保証ではありません。
 
+<!-- capture:S236 -->
+
+## 実機例：文字を曲線に沿わせる
+
+合成した `Text+` の文字を `Bend` に渡し、MidpointをX 0.5、Y 0.75に設定しました。
+
+この例では文字が弧に沿って曲がります。Viewerの操作用オーバーレイも画像に写っています。ほかのモードやAlphaの数値は未検証です。[接続と設定の記録](/img/fusion/captures/S236/readback.json)に条件を記載しています。
+
+[![文字画像をKrokodove Bendへつなぐ構成](/img/fusion/captures/S236/graph.png)](/img/fusion/captures/S236/graph.png)
+
+文字画像をBendへ渡します。
+
+[![BendのInspector](/img/fusion/captures/S236/controls.png)](/img/fusion/captures/S236/controls.png)
+
+MidpointをX 0.5、Y 0.75に設定しています。
+
+[![処理前の文字](/img/fusion/captures/S236/low.png)](/img/fusion/captures/S236/low.png)
+
+処理前の文字です。
+
+[![Bendで曲げた文字](/img/fusion/captures/S236/high.png)](/img/fusion/captures/S236/high.png)
+
+処理後は文字が弧に沿います。
+
+[再現用Graph](/img/fusion/captures/S236/fixture.comp) · [撮影条件と確認範囲](/img/fusion/captures/S236/capture.json)
+
+<!-- /capture:S236 -->
+
 ## 入力と出力
 
 | 段階 | データ | 根拠・確認範囲 |
@@ -89,15 +117,15 @@ BendとRadialはどちらも放射状の変化を連想させますが、Manual�
 ## 注意点と未確認の仕様
 
 - **3-point splineの扱い**：旧記事には「3-point splineによるradial bend」とありましたが、21.1 ManualのBend説明は「Radial warp, bending the image」です。3点スプラインによる操作が可能かどうかは、この一次資料だけでは確認できません。
-- **Inspector**：曲げ量、中心位置、曲線指定方式、補間方法などの正式な項目名・初期値・値域は確認できていません。未確認の設定名を実操作として案内しません。
+- **Inspector**：実機ではType、Start、Midpoint、End、Radiusなどの表示を確認しました。初期値の普遍性、値域、補間方法は未確認です。未確認の設定名を実操作として案内しません。
 - **画面端・Alpha**：画面外の画素の扱い、透明度、premultiply、境界の補間方法は未確認です。透明素材ならMerge後も確認します。
 - **時間変化**：専用の速度制御やアニメーション設定の存在は確認していません。上の構成は入力に動画を用いる例です。
-- **Edition差**：21.1 Manualに掲載されていることは確認済みですが、Resolve Free / Studio / Fusion Studioそれぞれの提供条件、内部REGID、現在の表示名は実機で別途確認が必要です。
+- **Edition差**：21.1 Manualに掲載されていることは確認済みですが、Resolve Free / Studio / Fusion Studioそれぞれの提供条件、現在の表示名は別途確認が必要です。実機のREGIDはKD_Bendです。
 
 ## バージョンと出典
 
 一次資料：Blackmagic Design『**DaVinci Resolve 21.1 Reference Manual**』（September 2026）、Chapter 105「Krokodove Nodes」、**p.2436「Image Warp Tools / Bend」**。同ページのDirectional Scale、Radial、Mirror、p.2437のSpherizeも比較しました。
 
-入出力のImage分類は公式のカテゴリと既存COLLECTANEAカタログを併用しています。具体例は確認できた役割から組み立てた制作案です。端子・Inspector・Alpha・Editionの詳細は未確認のため、verificationはpartialとしています。
+入出力のImage分類は公式のカテゴリと既存COLLECTANEAカタログを併用しています。上記の文字画像の曲げは実機で確認しました。その他の具体例は確認できた役割から組み立てた制作案です。端子・Inspector・Alpha・Editionの詳細は未確認のため、verificationはpartialとしています。
 
 [Krokodove全体像](./)と[画像（Image）](../../learn/02-data/image)も参照してください。
