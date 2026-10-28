@@ -1,0 +1,132 @@
+{
+  "manual": {
+    "version": "21.1",
+    "chapter": 88,
+    "printed_pages": "1965–1969"
+  },
+  "runtime": {
+    "version": "21.1.0.14",
+    "edition": "DaVinci Resolve Studio",
+    "os": "Windows-11-10.0.26200-SP0",
+    "ui_language": "ja-JP"
+  },
+  "captured_at": "2026-10-28T02:22:37.110549+00:00",
+  "project": "Collectanea_Mandelbrot_Zoom_20261025",
+  "timeline": "S220_capture",
+  "frame": 0,
+  "resolution": [
+    1920,
+    1080
+  ],
+  "color_management": {
+    "project_settings": {
+      "colorScienceMode": "davinciYRGB",
+      "colorSpaceInput": "Rec.709 Gamma 2.4",
+      "colorSpaceTimeline": "Rec.709 (Scene)",
+      "colorSpaceTimelineGamma": "",
+      "colorSpaceOutput": "Rec.709 (Scene)",
+      "colorSpaceOutputGamma": "ACEScc",
+      "isAutoColorManage": "0",
+      "timelineResolutionWidth": "1920",
+      "timelineResolutionHeight": "1080",
+      "timelineFrameRate": 30.0,
+      "timelinePlaybackFrameRate": "30",
+      "timelinePixelAspectRatio": "square"
+    },
+    "note": "SDK project settings; screenshots show Viewer display."
+  },
+  "viewer": {
+    "view_mode": "Fit",
+    "source": "Left Scene; right MediaOut1",
+    "note": "Projector selected; same saved composition as S220."
+  },
+  "acceptance": {
+    "gui": "PASS: Texture mode projects synthetic text on Catcher plane; projector X movement changes position. SDK settings and connections read back in S220.",
+    "article_display": "NOT_RUN",
+    "public_display": "NOT_RUN"
+  },
+  "unverified": [
+    "One synthetic text image, projector and plane; alpha measurement, projector IDs, multiple projections, animation and other hosts NOT_RUN.",
+    "Viewer screenshot is display evidence.",
+    "Portable reimport and physical input provenance NOT_RUN.",
+    "Article verification remains partial."
+  ],
+  "schema_version": 1,
+  "case": "S221",
+  "article": "manuals/fusion/nodes/3d/projector-3d.md",
+  "graph": "fixture.comp",
+  "settings": "readback.json",
+  "source": {
+    "file": "screen.png",
+    "size": [
+      3336,
+      1902
+    ],
+    "sha256": "2d5cf00d0de3cbe75c4691e46108e6b2c47187e12f180fb8ea1ee9412bbdd89a"
+  },
+  "shots": [
+    {
+      "file": "graph.png",
+      "source": "source-s220.png",
+      "source_sha256": "20bcea711dc935b12cbed49d73ef6c171519b76a4fd53dfd1861818f3ef9320b",
+      "frame": 0,
+      "crop_xyxy": [
+        500,
+        1050,
+        2350,
+        1650
+      ],
+      "resampled": false,
+      "sha256": "87f8cee34074f1b00951068866122dfd040699e62b15e4c005cd7c78aa9424f0"
+    },
+    {
+      "file": "controls.png",
+      "source": "screen.png",
+      "source_sha256": "2d5cf00d0de3cbe75c4691e46108e6b2c47187e12f180fb8ea1ee9412bbdd89a",
+      "frame": 0,
+      "crop_xyxy": [
+        2815,
+        65,
+        3336,
+        750
+      ],
+      "resampled": false,
+      "sha256": "0336fbe443afb8e5926a279624798fd7391df1d50cfb8568d00afdf975b4b4e5"
+    },
+    {
+      "file": "low.png",
+      "source": "state-low.png",
+      "source_sha256": "ea8497b04ea86ff7be0660c54ab6dbb265558c05177d76a3ba03081bcaaf1fd1",
+      "frame": 0,
+      "crop_xyxy": [
+        1480,
+        70,
+        2700,
+        720
+      ],
+      "resampled": false,
+      "sha256": "773f94d0e977fbee6d6077154892b9b587182ec62445e141828eb27cce17f083"
+    },
+    {
+      "file": "high.png",
+      "source": "source-s220.png",
+      "source_sha256": "20bcea711dc935b12cbed49d73ef6c171519b76a4fd53dfd1861818f3ef9320b",
+      "frame": 0,
+      "crop_xyxy": [
+        1480,
+        70,
+        2700,
+        720
+      ],
+      "resampled": false,
+      "sha256": "6239b3497fbd7d0fb794ea5572bae6f882c07c830ef556dc6a849860db19caad"
+    }
+  ],
+  "reproduction": {
+    "fixture_sha256": "f619a1560eeba6200a4305dc35abc2d5cb04b3a86083be466f907206ad041a2c",
+    "readback_sha256": "280beca8ddd2cccc1e2e617731f690287d610a9a2092d53306e86470c14b0da4",
+    "readback_source_sha256": "60f1169bf2a5cf2123a0bbc4f324d2a2699acbe5776cbf8ff7d88ce848b6db13",
+    "readback_transform": "CRLF normalized to LF for the portable Git asset; JSON values unchanged",
+    "reimport": "NOT_RUN"
+  }
+}

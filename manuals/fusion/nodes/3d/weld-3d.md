@@ -26,6 +26,34 @@ Weld 3D [3We]は、**3D meshの頂点位置がほぼ一致しているのに接�
 
 **形状編集やポリゴン数の削減に使うNodeではありません。** 元から見えるほど離れている頂点を無理につなぐための機能でもありません。
 
+<!-- capture:S224 -->
+
+## 実機例：WeldとFractureの違い
+
+図中の `Sphere` はCubeに設定したShape 3Dです。この立方体を `Weld 3D` に通し、白い画像を使う `Displace 3D` で後から変位させました。
+
+この構成ではWeldモードとFractureモードで変位後の形が異なり、Fractureでは面が分かれて見えます。モード値と接続はSDKで読み戻しています。Toleranceや他のMeshは未検証です。[接続と設定の記録](/img/fusion/captures/S224/readback.json)に条件を記載しています。
+
+[![立方体をWeld 3DとDisplace 3Dに通す構成](/img/fusion/captures/S224/graph.png)](/img/fusion/captures/S224/graph.png)
+
+Weld 3DをDisplace 3Dの前に接続します。
+
+[![Weld 3DのFractureモード](/img/fusion/captures/S224/controls.png)](/img/fusion/captures/S224/controls.png)
+
+Fractureを選択したInspectorです。
+
+[![Weldモードで変位した立方体](/img/fusion/captures/S224/low.png)](/img/fusion/captures/S224/low.png)
+
+Weldモードで変位した状態です。
+
+[![Fractureモードで面が分かれた立方体](/img/fusion/captures/S224/high.png)](/img/fusion/captures/S224/high.png)
+
+Fractureでは面が分かれて見えます。
+
+[再現用Graph](/img/fusion/captures/S224/fixture.comp) · [撮影条件と確認範囲](/img/fusion/captures/S224/capture.json)
+
+<!-- /capture:S224 -->
+
 ## 入力と出力
 
 DaVinci Resolve 21.1 Reference Manualに記載されている入力は1本です。
@@ -119,4 +147,4 @@ Blackmagic Design『DaVinci Resolve 21.1 Reference Manual』（September 2026）
 
 Scene Input、Position vertexだけをWeldする制約、Weld Mode / Fracture / Tolerance、Displace前の修復例、render負荷、座標精度とmesh形状の注意を確認しました。
 
-current runtimeのREGID、Inspectorのexact default / range、edition差、具体的なmeshごとの改善結果は未検証のため、`verification: partial`を維持しています。
+実機では上記のWeld3Dの接続と立方体の比較を確認しました。Inspectorのexact default / range、edition差、他のmeshごとの改善結果は未検証のため、`verification: partial`を維持しています。

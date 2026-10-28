@@ -6781,6 +6781,382 @@
         "Article verification remains partial"
       ],
       "published_batch": "fusion-native-20261027-41"
+    },
+    {
+      "priority": "P1",
+      "goal": "Show CubeMap connection and rotation using a synthetic image.",
+      "suggested_graph": "TextPlus -> CubeMap -> MtlReflect -> Shape3D + LightDirectional -> Merge3D -> Renderer3D.",
+      "scope": "Resolve Studio 21.1.0.14 on Windows, 1920x1080 static frame.",
+      "limitations": [
+        "Synthetic image is not a six-view environment; separate inputs, actual cube maps, face mapping correctness, animation and other hosts NOT_RUN.",
+        "Viewer screenshot is display evidence.",
+        "Portable reimport and physical input provenance NOT_RUN.",
+        "Article verification remains partial."
+      ],
+      "id": "S219",
+      "article": "manuals/fusion/nodes/materials-lights/cubemap.md",
+      "manual": {
+        "version": "21.1",
+        "chapter": 91,
+        "printed_pages": "2087–2090"
+      },
+      "status": "captured-local-display-verified",
+      "capture_manifest": "static/img/fusion/captures/S219/capture.json",
+      "shots": [
+        {
+          "slug": "graph",
+          "kind": "graph",
+          "target": "文字画像をCubeMapとReflectに通して球を描画する構成",
+          "status": "captured"
+        },
+        {
+          "slug": "controls",
+          "kind": "inspector",
+          "target": "CubeMapのVertical Cross設定",
+          "status": "captured"
+        },
+        {
+          "slug": "low",
+          "kind": "comparison",
+          "target": "CubeMapのY回転0で描画した球",
+          "status": "captured"
+        },
+        {
+          "slug": "high",
+          "kind": "comparison",
+          "target": "CubeMapのY回転90度で描画した球",
+          "status": "captured"
+        }
+      ]
+    },
+    {
+      "priority": "P1",
+      "goal": "Show Catcher receiving a synthetic projector image.",
+      "suggested_graph": "TextPlus -> LightProjector + TexCatcher -> Shape3D plane -> Merge3D -> Renderer3D.",
+      "scope": "Resolve Studio 21.1.0.14 on Windows, 1920x1080 static frame.",
+      "limitations": [
+        "One synthetic text image, projector and plane; alpha measurement, projector IDs, multiple projections, animation and other hosts NOT_RUN.",
+        "Viewer screenshot is display evidence.",
+        "Portable reimport and physical input provenance NOT_RUN.",
+        "Article verification remains partial."
+      ],
+      "id": "S220",
+      "article": "manuals/fusion/nodes/materials-lights/catcher.md",
+      "manual": {
+        "version": "21.1",
+        "chapter": 91,
+        "printed_pages": "2085–2087"
+      },
+      "status": "captured-local-display-verified",
+      "capture_manifest": "static/img/fusion/captures/S220/capture.json",
+      "shots": [
+        {
+          "slug": "graph",
+          "kind": "graph",
+          "target": "Projector 3DからCatcherを割り当てた平面へ文字を投影する構成",
+          "status": "captured"
+        },
+        {
+          "slug": "controls",
+          "kind": "inspector",
+          "target": "CatcherのInspector",
+          "status": "captured"
+        },
+        {
+          "slug": "low",
+          "kind": "comparison",
+          "target": "ProjectorのX位置0で描画した文字",
+          "status": "captured"
+        },
+        {
+          "slug": "high",
+          "kind": "comparison",
+          "target": "ProjectorのX位置0.4で描画した文字",
+          "status": "captured"
+        }
+      ]
+    },
+    {
+      "priority": "P1",
+      "goal": "Show synthetic LatLong to HCross conversion.",
+      "suggested_graph": "TextPlus 2:1 -> PanoMap -> MediaOut.",
+      "scope": "Resolve Studio 21.1.0.14 on Windows, 1920x1080 static frame.",
+      "limitations": [
+        "Synthetic text image only; real spherical footage, face orientation accuracy, animation and other hosts NOT_RUN.",
+        "Viewer screenshot is display evidence.",
+        "Portable reimport and physical input provenance NOT_RUN.",
+        "Article verification remains partial."
+      ],
+      "id": "S225",
+      "article": "manuals/fusion/nodes/immersive/panomap.md",
+      "manual": {
+        "version": "21.1",
+        "chapter": 122,
+        "printed_pages": "2953–2954"
+      },
+      "status": "captured-local-display-verified",
+      "capture_manifest": "static/img/fusion/captures/S225/capture.json",
+      "shots": [
+        {
+          "slug": "graph",
+          "kind": "graph",
+          "target": "文字画像をPanoMapに通す構成",
+          "status": "captured"
+        },
+        {
+          "slug": "controls",
+          "kind": "inspector",
+          "target": "PanoMapのLatLongとHCross設定",
+          "status": "captured"
+        },
+        {
+          "slug": "low",
+          "kind": "comparison",
+          "target": "LatLongとして出力した文字画像",
+          "status": "captured"
+        },
+        {
+          "slug": "high",
+          "kind": "comparison",
+          "target": "HCrossへ変換した文字画像",
+          "status": "captured"
+        }
+      ]
+    },
+    {
+      "priority": "P1",
+      "goal": "Show extract and apply using a synthetic text image.",
+      "suggested_graph": "TextPlus 2:1 -> LatLongPatcher Extract -> LatLongPatcher Apply -> MediaOut.",
+      "scope": "Resolve Studio 21.1.0.14 on Windows, 1920x1080 static frame.",
+      "limitations": [
+        "Synthetic text image only; real spherical footage, paint workflow, alpha measurement, Apply180 and other hosts NOT_RUN.",
+        "Viewer screenshot is display evidence.",
+        "Portable reimport and physical input provenance NOT_RUN.",
+        "Article verification remains partial."
+      ],
+      "id": "S226",
+      "article": "manuals/fusion/nodes/immersive/latlong-patcher.md",
+      "manual": {
+        "version": "21.1",
+        "chapter": 122,
+        "printed_pages": "2951–2952"
+      },
+      "status": "captured-local-display-verified",
+      "capture_manifest": "static/img/fusion/captures/S226/capture.json",
+      "shots": [
+        {
+          "slug": "graph",
+          "kind": "graph",
+          "target": "文字画像をExtractとApplyに順につなぐ構成",
+          "status": "captured"
+        },
+        {
+          "slug": "controls",
+          "kind": "inspector",
+          "target": "Lat Long PatcherのApplyモード",
+          "status": "captured"
+        },
+        {
+          "slug": "low",
+          "kind": "comparison",
+          "target": "Extractで取り出した文字の一部",
+          "status": "captured"
+        },
+        {
+          "slug": "high",
+          "kind": "comparison",
+          "target": "Applyで球面配置へ戻した文字の一部",
+          "status": "captured"
+        }
+      ]
+    },
+    {
+      "priority": "P1",
+      "goal": "Show Projector 3D Texture mode using saved S220 synthetic projection.",
+      "suggested_graph": "TextPlus -> LightProjector + TexCatcher -> Shape3D plane -> Merge3D -> Renderer3D.",
+      "scope": "Resolve Studio 21.1.0.14 on Windows, 1920x1080 static frame.",
+      "limitations": [
+        "One synthetic text image, projector and plane; alpha measurement, projector IDs, multiple projections, animation and other hosts NOT_RUN.",
+        "Viewer screenshot is display evidence.",
+        "Portable reimport and physical input provenance NOT_RUN.",
+        "Article verification remains partial."
+      ],
+      "id": "S221",
+      "article": "manuals/fusion/nodes/3d/projector-3d.md",
+      "manual": {
+        "version": "21.1",
+        "chapter": 88,
+        "printed_pages": "1965–1969"
+      },
+      "status": "captured-local-display-verified",
+      "capture_manifest": "static/img/fusion/captures/S221/capture.json",
+      "shots": [
+        {
+          "slug": "graph",
+          "kind": "graph",
+          "target": "Projector 3DからCatcherを割り当てた平面へ文字を投影する構成",
+          "status": "captured"
+        },
+        {
+          "slug": "controls",
+          "kind": "inspector",
+          "target": "Projector 3DのTextureモード設定",
+          "status": "captured"
+        },
+        {
+          "slug": "low",
+          "kind": "comparison",
+          "target": "ProjectorのX位置0で描画した文字",
+          "status": "captured"
+        },
+        {
+          "slug": "high",
+          "kind": "comparison",
+          "target": "ProjectorのX位置0.4で描画した文字",
+          "status": "captured"
+        }
+      ]
+    },
+    {
+      "priority": "P1",
+      "goal": "Show replicated spheres on plane vertices and Step comparison.",
+      "suggested_graph": "Shape3D plane + Shape3D sphere -> Replicate3D -> Merge3D with LightDirectional -> Renderer3D.",
+      "scope": "Resolve Studio 21.1.0.14 on Windows, 1920x1080 static frame.",
+      "limitations": [
+        "One plane and sphere, Step 1 and 3; particles, multiple sources, alignment, animation and other hosts NOT_RUN.",
+        "Viewer screenshot is display evidence.",
+        "Portable reimport and physical input provenance NOT_RUN.",
+        "Article verification remains partial."
+      ],
+      "id": "S222",
+      "article": "manuals/fusion/nodes/3d/replicate-3d.md",
+      "manual": {
+        "version": "21.1",
+        "chapter": 88,
+        "printed_pages": "1983–1988"
+      },
+      "status": "captured-local-display-verified",
+      "capture_manifest": "static/img/fusion/captures/S222/capture.json",
+      "shots": [
+        {
+          "slug": "graph",
+          "kind": "graph",
+          "target": "平面の頂点に球を複製して描画する構成",
+          "status": "captured"
+        },
+        {
+          "slug": "controls",
+          "kind": "inspector",
+          "target": "Replicate 3DのStep設定",
+          "status": "captured"
+        },
+        {
+          "slug": "low",
+          "kind": "comparison",
+          "target": "Step 1で平面の頂点に配置された球",
+          "status": "captured"
+        },
+        {
+          "slug": "high",
+          "kind": "comparison",
+          "target": "Step 3で間引かれた球",
+          "status": "captured"
+        }
+      ]
+    },
+    {
+      "priority": "P1",
+      "goal": "Show one position expression reshaping a subdivided plane.",
+      "suggested_graph": "Shape3D plane -> CustomVertex3D -> Merge3D with LightDirectional -> Renderer3D.",
+      "scope": "Resolve Studio 21.1.0.14 on Windows, 1920x1080 static frame.",
+      "limitations": [
+        "One subdivided plane and Position X expression; normal recalculation, other attributes, animation and other hosts NOT_RUN.",
+        "Viewer screenshot is display evidence.",
+        "Portable reimport and physical input provenance NOT_RUN.",
+        "Article verification remains partial."
+      ],
+      "id": "S223",
+      "article": "manuals/fusion/nodes/3d/custom-vertex-3d.md",
+      "manual": {
+        "version": "21.1",
+        "chapter": 88,
+        "printed_pages": "1930–1935"
+      },
+      "status": "captured-local-display-verified",
+      "capture_manifest": "static/img/fusion/captures/S223/capture.json",
+      "shots": [
+        {
+          "slug": "graph",
+          "kind": "graph",
+          "target": "平面の頂点をCustom Vertex 3Dで加工して描画する構成",
+          "status": "captured"
+        },
+        {
+          "slug": "controls",
+          "kind": "inspector",
+          "target": "Custom Vertex 3DのX Position式",
+          "status": "captured"
+        },
+        {
+          "slug": "low",
+          "kind": "comparison",
+          "target": "初期式で描画した平面",
+          "status": "captured"
+        },
+        {
+          "slug": "high",
+          "kind": "comparison",
+          "target": "X Positionの式を変更した平面",
+          "status": "captured"
+        }
+      ]
+    },
+    {
+      "priority": "P1",
+      "goal": "Show weld and fracture before displacement of a cube.",
+      "suggested_graph": "Shape3D cube -> Weld3D -> Displace3D with white Background -> Merge3D -> Renderer3D.",
+      "scope": "Resolve Studio 21.1.0.14 on Windows, 1920x1080 static frame.",
+      "limitations": [
+        "One cube and solid white displacement; imported meshes, tolerance, normal/UV welding, animation and other hosts NOT_RUN.",
+        "Viewer screenshot is display evidence.",
+        "Portable reimport and physical input provenance NOT_RUN.",
+        "Article verification remains partial."
+      ],
+      "id": "S224",
+      "article": "manuals/fusion/nodes/3d/weld-3d.md",
+      "manual": {
+        "version": "21.1",
+        "chapter": 88,
+        "printed_pages": "2015–2017"
+      },
+      "status": "captured-local-display-verified",
+      "capture_manifest": "static/img/fusion/captures/S224/capture.json",
+      "shots": [
+        {
+          "slug": "graph",
+          "kind": "graph",
+          "target": "立方体をWeld 3DとDisplace 3Dに通す構成",
+          "status": "captured"
+        },
+        {
+          "slug": "controls",
+          "kind": "inspector",
+          "target": "Weld 3DのFractureモード",
+          "status": "captured"
+        },
+        {
+          "slug": "low",
+          "kind": "comparison",
+          "target": "Weldモードで変位した立方体",
+          "status": "captured"
+        },
+        {
+          "slug": "high",
+          "kind": "comparison",
+          "target": "Fractureモードで面が分かれた立方体",
+          "status": "captured"
+        }
+      ]
     }
   ],
   "publication_batches": [
@@ -8166,24 +8542,26 @@
     }
   ],
   "coverage_inventory": {
-    "checked_at": "2026-10-26T15:04:50.698422+00:00",
+    "checked_at": "2026-10-28T05:13:46.438974+00:00",
     "scope": "All manuals/fusion Markdown and MDX pages; review necessity before adding images.",
     "completion_rule": "Every page has an explicit image decision; necessary images are native-observed, embedded, saved to GitHub and public-display-verified. A native example does not verify all article controls.",
     "summary": {
-      "total_pages": 587,
-      "with_images": 203,
-      "with_native_examples": 203,
+      "total_pages": 589,
+      "with_images": 211,
+      "with_native_examples": 211,
       "states": {
         "reviewed-no-standalone-image": 26,
         "no-standalone-image-needed": 6,
         "illustrated-reused-example": 80,
-        "capture-planned": 352,
-        "illustrated-native-example": 123
+        "capture-planned": 344,
+        "illustrated-native-example": 131,
+        "needs-review": 2
       },
       "decisions": {
         "no-standalone-image-needed": 32,
-        "image-required": 203,
-        "capture-needed": 352
+        "image-required": 211,
+        "capture-needed": 344,
+        "needs-review": 2
       }
     },
     "pages": [
@@ -9360,12 +9738,14 @@
         "article": "manuals/fusion/nodes/3d/custom-vertex-3d.md",
         "title": "Custom Vertex 3D",
         "kind": "node",
-        "image_count": 0,
-        "native_cases": [],
+        "image_count": 4,
+        "native_cases": [
+          "S223"
+        ],
         "reused_cases": [],
         "planned_cases": [],
-        "state": "capture-planned",
-        "decision": "capture-needed",
+        "state": "illustrated-native-example",
+        "decision": "image-required",
         "reason": "本文の対象機能: Custom Vertex 3Dは、数式を頂点ごとに評価してClassic 3D geometryのPositionやNormal、UV等を加工するNode。。S11の球のrenderだけでは各Node固有の生成・配置・変形Controlと結果を示せない。",
         "required_views": [
           "対象Node名と実際の配線が読めるGraph",
@@ -9802,12 +10182,14 @@
         "article": "manuals/fusion/nodes/3d/projector-3d.md",
         "title": "Projector 3D",
         "kind": "node",
-        "image_count": 0,
-        "native_cases": [],
+        "image_count": 4,
+        "native_cases": [
+          "S221"
+        ],
         "reused_cases": [],
         "planned_cases": [],
-        "state": "capture-planned",
-        "decision": "capture-needed",
+        "state": "illustrated-native-example",
+        "decision": "image-required",
         "reason": "本文の対象機能: Projector 3Dは、2D画像を3D空間内の物体へ投影し、照明や材質のテクスチャとして利用するノード。。S11の固定Camera画像だけでは画角・投影または座標参照が機能したことを示せない。",
         "required_views": [
           "対象Node名と実際の配線が読めるGraph",
@@ -9916,12 +10298,14 @@
         "article": "manuals/fusion/nodes/3d/replicate-3d.md",
         "title": "Replicate 3D",
         "kind": "node",
-        "image_count": 0,
-        "native_cases": [],
+        "image_count": 4,
+        "native_cases": [
+          "S222"
+        ],
         "reused_cases": [],
         "planned_cases": [],
-        "state": "capture-planned",
-        "decision": "capture-needed",
+        "state": "illustrated-native-example",
+        "decision": "image-required",
         "reason": "本文の対象機能: Replicate 3Dは、Meshの頂点やParticleの位置に3Dオブジェクトのコピーを配置するClassic 3D Node。。S11の球のrenderだけでは各Node固有の生成・配置・変形Controlと結果を示せない。",
         "required_views": [
           "対象Node名と実際の配線が読めるGraph",
@@ -10184,12 +10568,14 @@
         "article": "manuals/fusion/nodes/3d/weld-3d.md",
         "title": "Weld 3D",
         "kind": "node",
-        "image_count": 0,
-        "native_cases": [],
+        "image_count": 4,
+        "native_cases": [
+          "S224"
+        ],
         "reused_cases": [],
         "planned_cases": [],
-        "state": "capture-planned",
-        "decision": "capture-needed",
+        "state": "illustrated-native-example",
+        "decision": "image-required",
         "reason": "本文の対象機能: Weld 3Dは、近接した3D meshのPosition vertexを接続し直し、変形時の割れを防ぐNode。。通常の球のshaded renderでは面分割や頂点接続、UV、法線の変化を識別できない。",
         "required_views": [
           "対象Node名と実際の配線が読めるGraph",
@@ -13336,12 +13722,14 @@
         "article": "manuals/fusion/nodes/immersive/latlong-patcher.md",
         "title": "LatLong Patcher",
         "kind": "node",
-        "image_count": 0,
-        "native_cases": [],
+        "image_count": 4,
+        "native_cases": [
+          "S226"
+        ],
         "reused_cases": [],
         "planned_cases": [],
-        "state": "capture-planned",
-        "decision": "capture-needed",
+        "state": "illustrated-native-example",
+        "decision": "image-required",
         "reason": "本文の対象機能: LatLong Patcherは、360°の正距円筒画像から指定方向を平面画像として取り出し、修正後に元の球面画像へ戻すNode。。通常16:9 chartや通常Cameraのrenderは球面projection・seam・metadataを示せない。",
         "required_views": [
           "対象Node名と実際の配線が読めるGraph",
@@ -13378,12 +13766,14 @@
         "article": "manuals/fusion/nodes/immersive/panomap.md",
         "title": "PanoMap",
         "kind": "node",
-        "image_count": 0,
-        "native_cases": [],
+        "image_count": 4,
+        "native_cases": [
+          "S225"
+        ],
         "reused_cases": [],
         "planned_cases": [],
-        "state": "capture-planned",
-        "decision": "capture-needed",
+        "state": "illustrated-native-example",
+        "decision": "image-required",
         "reason": "本文の対象機能: PanoMapは、同じ球面の映像をLatLongやCube Mapなど別の画像配置へ変えるNode。必要に応じて向きも回転する。。通常16:9 chartや通常Cameraのrenderは球面projection・seam・metadataを示せない。",
         "required_views": [
           "対象Node名と実際の配線が読めるGraph",
@@ -17068,12 +17458,14 @@
         "article": "manuals/fusion/nodes/materials-lights/catcher.md",
         "title": "Catcher",
         "kind": "node",
-        "image_count": 0,
-        "native_cases": [],
+        "image_count": 4,
+        "native_cases": [
+          "S220"
+        ],
         "reused_cases": [],
         "planned_cases": [],
-        "state": "capture-planned",
-        "decision": "capture-needed",
+        "state": "illustrated-native-example",
+        "decision": "image-required",
         "reason": "本文の対象機能: Catcherは、Camera 3DやProjector 3Dから投影された画像を指定した3Dオブジェクトの表面へ受け取り、透明部分も反映する材質ノード。。単純2D貼付や投影しない球はCatcherの受渡しを示さない。",
         "required_views": [
           "対象名と実接続が読めるGraph",
@@ -17227,12 +17619,14 @@
         "article": "manuals/fusion/nodes/materials-lights/cubemap.md",
         "title": "CubeMap",
         "kind": "node",
-        "image_count": 0,
-        "native_cases": [],
+        "image_count": 4,
+        "native_cases": [
+          "S219"
+        ],
         "reused_cases": [],
         "planned_cases": [],
-        "state": "capture-planned",
-        "decision": "capture-needed",
+        "state": "illustrated-native-example",
+        "decision": "image-required",
         "reason": "本文の対象機能: CubeMapは、上下左右・前後の6方向の景色を1つの環境テクスチャとして扱い、3D物体の反射などに渡すNode。。局所lightの球は環境map/反射/環境光を示さない。",
         "required_views": [
           "対象名と実接続が読めるGraph",
@@ -25670,6 +26064,26 @@
         "reason": "MultiMerge Layer Listの順序・Enableと重なり"
       },
       {
+        "article": "manuals/fusion/recipes/compositing/soft-glow-for-isolated-highlights.md",
+        "title": "Soft Glowで街灯の光だけを柔らかくにじませる",
+        "kind": "recipe",
+        "image_count": 0,
+        "native_cases": [],
+        "reused_cases": [],
+        "planned_cases": [],
+        "state": "needs-review"
+      },
+      {
+        "article": "manuals/fusion/recipes/compositing/soft-vignette-with-inverted-ellipse.md",
+        "title": "Ellipse Maskで柔らかいビネットを作る",
+        "kind": "recipe",
+        "image_count": 0,
+        "native_cases": [],
+        "reused_cases": [],
+        "planned_cases": [],
+        "state": "needs-review"
+      },
+      {
         "article": "manuals/fusion/recipes/compositing/two-image-merge.md",
         "title": "2つのImageを重ねる",
         "kind": "recipe",
@@ -26204,9 +26618,9 @@
       },
       {
         "article": "manuals/fusion/troubleshooting/masking/alpha-edge-looks-wrong.md",
-        "title": "透明Edgeの色や縁がおかしい",
+        "title": "透明エッジに黒縁・白縁が出る",
         "kind": "diagnostic",
-        "image_count": 2,
+        "image_count": 3,
         "native_cases": [],
         "reused_cases": [
           "S74"

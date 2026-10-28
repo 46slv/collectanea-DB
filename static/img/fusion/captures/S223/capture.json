@@ -1,0 +1,132 @@
+{
+  "manual": {
+    "version": "21.1",
+    "chapter": 88,
+    "printed_pages": "1930–1935"
+  },
+  "runtime": {
+    "version": "21.1.0.14",
+    "edition": "DaVinci Resolve Studio",
+    "os": "Windows-11-10.0.26200-SP0",
+    "ui_language": "ja-JP"
+  },
+  "captured_at": "2026-10-28T02:31:11.761741+00:00",
+  "project": "Collectanea_Mandelbrot_Zoom_20261025",
+  "timeline": "S223_capture",
+  "frame": 0,
+  "resolution": [
+    1920,
+    1080
+  ],
+  "color_management": {
+    "project_settings": {
+      "colorScienceMode": "davinciYRGB",
+      "colorSpaceInput": "Rec.709 Gamma 2.4",
+      "colorSpaceTimeline": "Rec.709 (Scene)",
+      "colorSpaceTimelineGamma": "",
+      "colorSpaceOutput": "Rec.709 (Scene)",
+      "colorSpaceOutputGamma": "ACEScc",
+      "isAutoColorManage": "0",
+      "timelineResolutionWidth": "1920",
+      "timelineResolutionHeight": "1080",
+      "timelineFrameRate": 30.0,
+      "timelinePlaybackFrameRate": "30",
+      "timelinePixelAspectRatio": "square"
+    },
+    "note": "SDK project settings; screenshots show Viewer display."
+  },
+  "viewer": {
+    "view_mode": "Fit",
+    "source": "Left Scene; right MediaOut1",
+    "note": "Custom Vertex selected; Position X expression recorded by SDK."
+  },
+  "acceptance": {
+    "gui": "PASS: X expression changes subdivided plane outline from square to trapezoid.",
+    "article_display": "NOT_RUN",
+    "public_display": "NOT_RUN"
+  },
+  "unverified": [
+    "One subdivided plane and Position X expression; normal recalculation, other attributes, animation and other hosts NOT_RUN.",
+    "Viewer screenshot is display evidence.",
+    "Portable reimport and physical input provenance NOT_RUN.",
+    "Article verification remains partial."
+  ],
+  "schema_version": 1,
+  "case": "S223",
+  "article": "manuals/fusion/nodes/3d/custom-vertex-3d.md",
+  "graph": "fixture.comp",
+  "settings": "readback.json",
+  "source": {
+    "file": "screen.png",
+    "size": [
+      3336,
+      1902
+    ],
+    "sha256": "35330c268e4888b40878526ca7bec5b698aba52cdab96498a4ad550a14df28f0"
+  },
+  "shots": [
+    {
+      "file": "graph.png",
+      "source": "screen.png",
+      "source_sha256": "35330c268e4888b40878526ca7bec5b698aba52cdab96498a4ad550a14df28f0",
+      "frame": 0,
+      "crop_xyxy": [
+        500,
+        1050,
+        2350,
+        1650
+      ],
+      "resampled": false,
+      "sha256": "f2c5cf50a31c05020c6190c6890fcc62823efdccbd043a1997122111d5476225"
+    },
+    {
+      "file": "controls.png",
+      "source": "screen.png",
+      "source_sha256": "35330c268e4888b40878526ca7bec5b698aba52cdab96498a4ad550a14df28f0",
+      "frame": 0,
+      "crop_xyxy": [
+        2815,
+        65,
+        3336,
+        750
+      ],
+      "resampled": false,
+      "sha256": "44f967b54f0808e7327faf72ac42c15aa6f33d27c96d5a67d61576d4b272c31f"
+    },
+    {
+      "file": "low.png",
+      "source": "state-low.png",
+      "source_sha256": "a452cec5533171c8bff4d7dac131893bce49a224a178c231728219c9195f80f1",
+      "frame": 0,
+      "crop_xyxy": [
+        1480,
+        70,
+        2700,
+        720
+      ],
+      "resampled": false,
+      "sha256": "374c4163baecb2366cd9bbcefbf250a2197a4ae0d67b6cfc0ce3187f2b5e4f77"
+    },
+    {
+      "file": "high.png",
+      "source": "screen.png",
+      "source_sha256": "35330c268e4888b40878526ca7bec5b698aba52cdab96498a4ad550a14df28f0",
+      "frame": 0,
+      "crop_xyxy": [
+        1480,
+        70,
+        2700,
+        720
+      ],
+      "resampled": false,
+      "sha256": "5f97632ff11fe140aed9122121a2e4386f4c127a90993983947a169994904704"
+    }
+  ],
+  "reproduction": {
+    "fixture_sha256": "4bb48e0355b65e948b47d249bafda65510bf1a9ce933ecd83e080333a33324c0",
+    "readback_sha256": "0506c234027dfe2fe99768cba23755a2b54452e697cf3ec8dbfe3d908420e948",
+    "readback_source_sha256": "0506c234027dfe2fe99768cba23755a2b54452e697cf3ec8dbfe3d908420e948",
+    "readback_transform": "No line-ending transformation",
+    "reimport": "NOT_RUN"
+  }
+}
