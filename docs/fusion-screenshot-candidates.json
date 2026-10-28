@@ -9456,25 +9456,25 @@
     }
   ],
   "coverage_inventory": {
-    "checked_at": "2026-10-28T07:45:25.672147+00:00",
+    "checked_at": "2026-10-28T09:38:32.014207+00:00",
     "scope": "All manuals/fusion Markdown and MDX pages; review necessity before adding images.",
     "completion_rule": "Every page has an explicit image decision; necessary images are native-observed, embedded, saved to GitHub and public-display-verified. A native example does not verify all article controls.",
     "summary": {
       "total_pages": 589,
-      "with_images": 229,
-      "with_native_examples": 229,
+      "with_images": 230,
+      "with_native_examples": 230,
       "states": {
         "reviewed-no-standalone-image": 26,
         "no-standalone-image-needed": 6,
-        "illustrated-reused-example": 80,
-        "capture-planned": 327,
+        "illustrated-reused-example": 81,
+        "capture-planned": 326,
         "illustrated-native-example": 149,
         "needs-review": 1
       },
       "decisions": {
         "no-standalone-image-needed": 32,
-        "image-required": 229,
-        "capture-needed": 327,
+        "image-required": 230,
+        "capture-needed": 326,
         "needs-review": 1
       }
     },
@@ -25808,13 +25808,19 @@
         "article": "manuals/fusion/nodes/utility-io/media-out.md",
         "title": "MediaOut",
         "kind": "node",
-        "image_count": 0,
+        "image_count": 1,
         "native_cases": [],
-        "reused_cases": [],
+        "reused_cases": [
+          "S171"
+        ],
         "planned_cases": [],
-        "state": "capture-planned",
-        "decision": "capture-needed",
-        "reason": "本文の対象機能: MediaOutは、Fusionの処理結果をResolveのTimelineへ渡す終端Node。。既存GraphのNode名だけでは取得元/Color Grade/ページ境界は不明。",
+        "state": "illustrated-reused-example",
+        "decision": "image-required",
+        "reason": "S171のGraphを再利用しsRenderからMediaOut1への画像接続を図示。MediaOut InspectorとEdit/Color同frameは未確認。",
+        "remaining_views": [
+          "MediaOut InspectorのColor Grade設定",
+          "Timeline/Edit/Colorの同frame"
+        ],
         "required_views": [
           "対象名と実接続が読めるGraph",
           "対象自身を選択したInspectorの該当Control",
@@ -25842,7 +25848,8 @@
         ],
         "hold_conditions": [
           "Resolve専用文脈とFusion Studio Loader/Saverを区別。"
-        ]
+        ],
+        "audit_note": "S171 graph.pngとreadbackのMediaOut1.Input=Render_を照合。対象ページの表示は未検証。"
       },
       {
         "article": "manuals/fusion/nodes/utility-io/ografloader.md",
@@ -29879,6 +29886,16 @@
       ],
       "status": "published-display-verified",
       "scope": "True DeepImage two opaque flat-Z samples,hidden rear recovery;own selected Inspector where applicable,not external EXR or volumetric."
+    },
+    {
+      "id": "R300",
+      "article": "manuals/fusion/nodes/utility-io/media-out.md",
+      "source_case": "S171",
+      "images": [
+        "graph.png"
+      ],
+      "status": "captured-embedded-unverified",
+      "scope": "S171 frame 0 sRender output to MediaOut1; Inspector and Edit/Color page readback not shown."
     }
   ],
   "external_reports": [
