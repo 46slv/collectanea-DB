@@ -1,0 +1,54 @@
+{
+  "case": "S273",
+  "project": "Collectanea_Mandelbrot_Zoom_20261025",
+  "library": "Local Database",
+  "timeline": "S273_capture",
+  "frame": 0,
+  "resolve": "21.1.0.14",
+  "edition": "DaVinci Resolve Studio",
+  "os": "Windows-11-10.0.26200-SP0",
+  "project_settings": {
+    "colorScienceMode": "davinciYRGB",
+    "colorSpaceInput": "Rec.709 Gamma 2.4",
+    "colorSpaceTimeline": "Rec.709 (Scene)",
+    "colorSpaceTimelineGamma": "",
+    "colorSpaceOutput": "Rec.709 (Scene)",
+    "colorSpaceOutputGamma": "ACEScc",
+    "isAutoColorManage": "0",
+    "timelineResolutionWidth": "1920",
+    "timelineResolutionHeight": "1080",
+    "timelineFrameRate": 30.0,
+    "timelinePlaybackFrameRate": "30",
+    "timelinePixelAspectRatio": "square"
+  },
+  "connections": {
+    "Push.Image": "Red",
+    "Push.Deformationmap": "Blue",
+    "MediaOut1.Input": "Push"
+  },
+  "values": {
+    "Red": {
+      "TopLeftRed": 1.0,
+      "TopLeftGreen": 0.0,
+      "TopLeftBlue": 0.0
+    },
+    "Blue": {
+      "TopLeftRed": 0.0,
+      "TopLeftGreen": 0.0,
+      "TopLeftBlue": 1.0
+    },
+    "Push": {
+      "PushX": 0.5,
+      "PushY": 0.0
+    }
+  },
+  "save_project": true,
+  "save_completed_at": "2026-10-28T07:10:39.143830+00:00",
+  "native_export_sha256": "b7de74bebd2486014fbdcf7578334d01bef691a9574640601ccd4db2f8db7365",
+  "portable_sha256": "e8f8e931e1f7a3ec0d0941fb261369a682ca1b2690920709d2e6ab91ac17bfbb",
+  "portable_reimport": "NOT_RUN",
+  "limits": [
+    "Two synthetic solid images at one static setting; animation, alpha values and other hosts NOT_RUN.",
+    "Viewer screenshot is display evidence."
+  ]
+}

@@ -37,6 +37,32 @@ Pushの目的は、**1つの画像の形を歪ませることではなく、2つ
 
 Pushは3番目を目的とするツールとして理解できます。効果名から一定方向への押し出し方や画面端の処理まで推定してはいけません。
 
+<!-- capture:S273 -->
+
+## 実機例：赤と青を半分ずつ表示する
+
+赤と青の単色画像を `Push` に接続し、Push Xを0.5、Push Yを0に設定しました。この静止画では左半分が赤、右半分が青に見えます。今回のSDK読み戻しでは、青い画像の接続先IDは `Deformationmap` でした。アニメーションやAlpha値は未検証です。[接続と設定の記録](/img/fusion/captures/S273/readback.json)に条件を記載しています。
+
+[![赤と青の画像をPushへつなぐノード構成](/img/fusion/captures/S273/graph.png)](/img/fusion/captures/S273/graph.png)
+
+2枚の合成画像をPushへ渡します。
+
+[![PushのInspector](/img/fusion/captures/S273/controls.png)](/img/fusion/captures/S273/controls.png)
+
+Push Xは0.5、Push Yは0です。
+
+[![入力の赤い画像](/img/fusion/captures/S273/low.png)](/img/fusion/captures/S273/low.png)
+
+一方の入力は赤い単色画像です。
+
+[![赤と青が半分ずつ表示されたPush出力](/img/fusion/captures/S273/high.png)](/img/fusion/captures/S273/high.png)
+
+出力では赤と青が半分ずつ見えます。
+
+[再現用Graph](/img/fusion/captures/S273/fixture.comp) · [撮影条件と確認範囲](/img/fusion/captures/S273/capture.json)
+
+<!-- /capture:S273 -->
+
 ## 入力と出力
 
 | 段階 | データ | 役割 |
@@ -46,7 +72,7 @@ Pushは3番目を目的とするツールとして理解できます。効果名
 | 処理 | Push | 2つの画像を使ってスライド式の切り替えを作る。 |
 | 出力 | 2D Image | 切り替え結果を後段へ渡す。 |
 
-**2枚目の画像を接続することは21.1 Manualで直接確認できます。** 一方、「1枚目」「2枚目」は説明用の呼び方です。Fusionの端子に表示される正式名称、入力の位置・色・総数、Mask入力の有無までは確認していません。
+**2枚目の画像を接続することは21.1 Manualで直接確認できます。** 一方、「1枚目」「2枚目」は説明用の呼び方です。今回の実機例で青画像の接続先SDK IDは `Deformationmap` と読み戻しました。表示名やその意味、入力の総数、Mask入力の有無は未確定です。
 
 frontmatterの inputs: [image] は**受け取るデータの種類**を表す分類であり、「入力端子は1つだけ」という意味ではありません。同じ分類の画像を2枚使う点を区別してください。
 
@@ -105,7 +131,7 @@ Pushが扱うのは描画済みの画像です。テキストや図形を別々�
 ## 制作上の注意と未確認事項
 
 - **動く対象：** AとBの両方が移動するか、片方が現れるだけか、押し出し／覆いかぶせ／単純なWipeのどれに近いかは公式の短い説明からは決まりません。
-- **Inspector：** 切り替え方向、進行量、速度曲線、境界の柔らかさ、キーフレーム対応の正確なControl名・既定値・値域は未確認です。
+- **Inspector：** 実機例ではPush X 0.5、Push Y 0を確認しました。設定を変えた挙動、速度曲線、境界の柔らかさ、キーフレーム対応、既定値・値域は未確認です。
 - **入力：** 第2画像の存在は明記されていますが、正式なポート名、端子色、追加のMaskやControl入力の有無は未確認です。
 - **解像度とAlpha：** 異なる解像度やPixel Aspectの2画像を接続した場合の出力サイズ、透明部分・画像外の処理、RGB／Alphaの合成方式は確認していません。必要に応じて入力サイズを揃えて試します。
 - **時間とEdition：** 切り替えが自動で進むか、手動アニメーションが必要か、クリップの端でどう動くか、Resolve Free／Studio／Fusion Studioの差、内部REGIDは未確認です。
@@ -116,4 +142,4 @@ Pushが扱うのは描画済みの画像です。テキストや図形を別々�
 
 公式資料の入口：[Blackmagic Design サポート](https://www.blackmagicdesign.com/jp/support/)。
 
-本文の赤・青の画面、2枚のカード、Text+を使う接続案は、公式に確認された役割を説明するための**制作・検証例**です。実機のパラメータ、端子構成、Alpha演算、製品差を確認していないため、verification: partialを維持しています。関連するデータの基礎は[Image](../../learn/02-data/image)、Krokodoveの分類は[ファミリー概要](./)を参照してください。
+本文の赤・青の画面、2枚のカード、Text+を使う接続案は、公式に確認された役割を説明するための**制作・検証例**です。実機例は静止画の一条件であり、別のパラメータ、端子の意味、Alpha演算、製品差は未確認のため、verification: partialを維持しています。関連するデータの基礎は[Image](../../learn/02-data/image)、Krokodoveの分類は[ファミリー概要](./)を参照してください。

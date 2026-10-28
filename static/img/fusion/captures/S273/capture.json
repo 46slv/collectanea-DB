@@ -1,0 +1,132 @@
+{
+  "manual": {
+    "version": "21.1",
+    "chapter": 105,
+    "printed_pages": "2436"
+  },
+  "runtime": {
+    "version": "21.1.0.14",
+    "edition": "DaVinci Resolve Studio",
+    "os": "Windows-11-10.0.26200-SP0",
+    "ui_language": "ja-JP"
+  },
+  "captured_at": "2026-10-28T07:11:02.292096+00:00",
+  "project": "Collectanea_Mandelbrot_Zoom_20261025",
+  "timeline": "S273_capture",
+  "frame": 0,
+  "resolution": [
+    1920,
+    1080
+  ],
+  "color_management": {
+    "project_settings": {
+      "colorScienceMode": "davinciYRGB",
+      "colorSpaceInput": "Rec.709 Gamma 2.4",
+      "colorSpaceTimeline": "Rec.709 (Scene)",
+      "colorSpaceTimelineGamma": "",
+      "colorSpaceOutput": "Rec.709 (Scene)",
+      "colorSpaceOutputGamma": "ACEScc",
+      "isAutoColorManage": "0",
+      "timelineResolutionWidth": "1920",
+      "timelineResolutionHeight": "1080",
+      "timelineFrameRate": 30.0,
+      "timelinePlaybackFrameRate": "30",
+      "timelinePixelAspectRatio": "square"
+    },
+    "note": "SDK project settings; screenshots show Viewer display."
+  },
+  "viewer": {
+    "view_mode": "Fit",
+    "source": "Left Red; right MediaOut1",
+    "note": "Push selected; second image is connected to SDK input ID Deformationmap."
+  },
+  "acceptance": {
+    "gui": "PASS: red and blue halves visible.",
+    "article_display": "NOT_RUN",
+    "public_display": "NOT_RUN"
+  },
+  "unverified": [
+    "Two synthetic solid images at one static setting; animation, alpha values and other hosts NOT_RUN.",
+    "Viewer screenshot is display evidence.",
+    "Portable reimport and physical input provenance NOT_RUN.",
+    "Article verification remains partial."
+  ],
+  "schema_version": 1,
+  "case": "S273",
+  "article": "manuals/fusion/nodes/krokodove/push.md",
+  "graph": "fixture.comp",
+  "settings": "readback.json",
+  "source": {
+    "file": "screen.png",
+    "size": [
+      3328,
+      1898
+    ],
+    "sha256": "7359c9a6c30ba3c00c15033d5c53eb4daef4d26f8dc4fb8901dec3e34a6cdc78"
+  },
+  "shots": [
+    {
+      "file": "graph.png",
+      "source": "screen.png",
+      "source_sha256": "7359c9a6c30ba3c00c15033d5c53eb4daef4d26f8dc4fb8901dec3e34a6cdc78",
+      "frame": 0,
+      "crop_xyxy": [
+        500,
+        1050,
+        2350,
+        1650
+      ],
+      "resampled": false,
+      "sha256": "37eb5aab117684e2472cac67bc4b4b1b7897f205d96c5e0bba968bc2375bd9fc"
+    },
+    {
+      "file": "controls.png",
+      "source": "screen.png",
+      "source_sha256": "7359c9a6c30ba3c00c15033d5c53eb4daef4d26f8dc4fb8901dec3e34a6cdc78",
+      "frame": 0,
+      "crop_xyxy": [
+        2815,
+        65,
+        3328,
+        750
+      ],
+      "resampled": false,
+      "sha256": "a2b9c7cf5728bbfb6a3751e6c840e5c59b737c5b02caa1b7c8e48b0b4db1b1f3"
+    },
+    {
+      "file": "low.png",
+      "source": "screen.png",
+      "source_sha256": "7359c9a6c30ba3c00c15033d5c53eb4daef4d26f8dc4fb8901dec3e34a6cdc78",
+      "frame": 0,
+      "crop_xyxy": [
+        120,
+        70,
+        1340,
+        720
+      ],
+      "resampled": false,
+      "sha256": "fdff4ac7f01788e2965a2369b46f512148a68bec3f4349ca75caa7a8b2fbebc0"
+    },
+    {
+      "file": "high.png",
+      "source": "screen.png",
+      "source_sha256": "7359c9a6c30ba3c00c15033d5c53eb4daef4d26f8dc4fb8901dec3e34a6cdc78",
+      "frame": 0,
+      "crop_xyxy": [
+        1480,
+        70,
+        2700,
+        720
+      ],
+      "resampled": false,
+      "sha256": "68e569be7b5593565977a8f9aca1fd56c160da140eab713d8d602916b12108ed"
+    }
+  ],
+  "reproduction": {
+    "fixture_sha256": "e8f8e931e1f7a3ec0d0941fb261369a682ca1b2690920709d2e6ab91ac17bfbb",
+    "readback_sha256": "2d97a46abc6ec94eb2380c257b4b6ea3b5db189b99212a21fbdaa8d80b606117",
+    "readback_source_sha256": "93fedbb25f76d7601272d37271f40f80bf3f7fd22d7c1d91b57d0e309eb875ac",
+    "readback_transform": "CRLF normalized to LF for the portable Git asset; JSON values unchanged",
+    "reimport": "NOT_RUN"
+  }
+}
