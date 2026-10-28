@@ -1,0 +1,28 @@
+{
+  "case": "S327",
+  "values": {
+    "Capsule": {
+      "Shape": "USDGeomCapsule",
+      "USDXf.Translate.X": -1.3
+    },
+    "Sphere": {
+      "Shape": "USDGeomSphere",
+      "USDXf.Translate.X": 1.3
+    }
+  },
+  "connections": [
+    "Capsule->USDMerge.SceneInput1",
+    "Sphere->USDMerge.SceneInput2",
+    "USDMerge->USDRender.SceneInput",
+    "USDRender->MediaOut1"
+  ],
+  "save_completed_at": "2026-10-28T10:34:28.082300+00:00",
+  "final": {
+    "saved": "2026-10-28T10:34:42.073093+00:00",
+    "frame": 0.0
+  },
+  "limits": [
+    "Two uShape-generated scenes only; cameras, lights, imported USD, and scene hierarchy collision behavior NOT_RUN.",
+    "Transform of the combined scene, animation, portable reimport and other hosts NOT_RUN."
+  ]
+}
