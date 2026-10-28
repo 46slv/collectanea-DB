@@ -57,6 +57,28 @@ Scene Treeは**すでにあるUSD内の要素を選ぶ画面**です。形状を
 
 ManualではPickでオブジェクトやマテリアルを選べると説明しています。ただし、マテリアルPrimを選択した場合に幾何形状へどのような変形が及ぶかは、この説明から確定できません。位置・回転の用途では、まず立体やグループのPrimを選びます。
 
+<!-- capture:S328 -->
+
+## 実機例：Capsuleを回転する
+
+`uShape`のCapsuleを`uTransform`に接続し、RotationのZを60に設定しました。左Viewerは変換前、右Viewerは変換後を別々のuRendererで描いた表示です。傾きの違いとInspectorの値を確認できます。Prim Selection、位置・Scale・Pivotの変更やanimationはこの例では試していません。市松模様はViewerの透明表示です。[接続と設定の記録](/img/fusion/captures/S328/readback.json)に条件を記載しています。
+
+[![uShapeからuTransformと2つのuRendererへ分岐する構成](/img/fusion/captures/S328/graph.png)](/img/fusion/captures/S328/graph.png)
+
+uTransformを通す経路と変換前の描画経路を用意しています。
+
+[![uTransformのRotation Zを60に設定したInspector](/img/fusion/captures/S328/controls.png)](/img/fusion/captures/S328/controls.png)
+
+Rotation Zを60に設定しています。
+
+[![左に変換前、右に傾いたCapsuleを並べたViewer](/img/fusion/captures/S328/comparison.png)](/img/fusion/captures/S328/comparison.png)
+
+左は変換前、右は変換後です。
+
+[再現用Graph](/img/fusion/captures/S328/fixture.comp) · [撮影条件と確認範囲](/img/fusion/captures/S328/capture.json)
+
+<!-- /capture:S328 -->
+
 ## Inspector：位置・向き・大きさ
 
 | 設定 | 効果 | 用途 |
