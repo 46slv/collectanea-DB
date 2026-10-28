@@ -1,0 +1,132 @@
+{
+  "manual": {
+    "version": "21.1",
+    "chapter": 105,
+    "printed_pages": "2435"
+  },
+  "runtime": {
+    "version": "21.1.0.14",
+    "edition": "DaVinci Resolve Studio",
+    "os": "Windows-11-10.0.26200-SP0",
+    "ui_language": "ja-JP"
+  },
+  "captured_at": "2026-10-28T06:52:19.424518+00:00",
+  "project": "Collectanea_Mandelbrot_Zoom_20261025",
+  "timeline": "S267_capture",
+  "frame": 0,
+  "resolution": [
+    1920,
+    1080
+  ],
+  "color_management": {
+    "project_settings": {
+      "colorScienceMode": "davinciYRGB",
+      "colorSpaceInput": "Rec.709 Gamma 2.4",
+      "colorSpaceTimeline": "Rec.709 (Scene)",
+      "colorSpaceTimelineGamma": "",
+      "colorSpaceOutput": "Rec.709 (Scene)",
+      "colorSpaceOutputGamma": "ACEScc",
+      "isAutoColorManage": "0",
+      "timelineResolutionWidth": "1920",
+      "timelineResolutionHeight": "1080",
+      "timelineFrameRate": 30.0,
+      "timelinePlaybackFrameRate": "30",
+      "timelinePixelAspectRatio": "square"
+    },
+    "note": "SDK project settings; screenshots show Viewer display."
+  },
+  "viewer": {
+    "view_mode": "Fit",
+    "source": "Left Gradient; right MediaOut1",
+    "note": "Rasterize selected; viewer control overlay and transparency checkerboard visible."
+  },
+  "acceptance": {
+    "gui": "PASS: dots increase across gradient.",
+    "article_display": "NOT_RUN",
+    "public_display": "NOT_RUN"
+  },
+  "unverified": [
+    "One synthetic gradient and static setting; other shapes, alpha values and other hosts NOT_RUN.",
+    "Viewer screenshot is display evidence.",
+    "Portable reimport and physical input provenance NOT_RUN.",
+    "Article verification remains partial."
+  ],
+  "schema_version": 1,
+  "case": "S267",
+  "article": "manuals/fusion/nodes/krokodove/rasterize.md",
+  "graph": "fixture.comp",
+  "settings": "readback.json",
+  "source": {
+    "file": "screen.png",
+    "size": [
+      3328,
+      1898
+    ],
+    "sha256": "99764089a7dab3d2f33c3a9f08e055e40aa98423cc71b0062420672ad703c683"
+  },
+  "shots": [
+    {
+      "file": "graph.png",
+      "source": "screen.png",
+      "source_sha256": "99764089a7dab3d2f33c3a9f08e055e40aa98423cc71b0062420672ad703c683",
+      "frame": 0,
+      "crop_xyxy": [
+        500,
+        1050,
+        2350,
+        1650
+      ],
+      "resampled": false,
+      "sha256": "deff19d994cad99fba8d5506816ba2095749a86d456728dbf5076f8edd1addd8"
+    },
+    {
+      "file": "controls.png",
+      "source": "screen.png",
+      "source_sha256": "99764089a7dab3d2f33c3a9f08e055e40aa98423cc71b0062420672ad703c683",
+      "frame": 0,
+      "crop_xyxy": [
+        2815,
+        65,
+        3328,
+        750
+      ],
+      "resampled": false,
+      "sha256": "ef31ea3e472d07b6b59309c76e6c6c5ce6b0b6ca848db85b98643f1276d2c5de"
+    },
+    {
+      "file": "low.png",
+      "source": "screen.png",
+      "source_sha256": "99764089a7dab3d2f33c3a9f08e055e40aa98423cc71b0062420672ad703c683",
+      "frame": 0,
+      "crop_xyxy": [
+        120,
+        70,
+        1340,
+        720
+      ],
+      "resampled": false,
+      "sha256": "4dc594933545395b0beb4e2d8ecc1b84c3ea9429a83e8ef29b66157a39c48c6c"
+    },
+    {
+      "file": "high.png",
+      "source": "screen.png",
+      "source_sha256": "99764089a7dab3d2f33c3a9f08e055e40aa98423cc71b0062420672ad703c683",
+      "frame": 0,
+      "crop_xyxy": [
+        1480,
+        70,
+        2700,
+        720
+      ],
+      "resampled": false,
+      "sha256": "8fb4681d83b44f804792a2dcdc749d74c5873ee9a825f4129cc4adc67f35cfe0"
+    }
+  ],
+  "reproduction": {
+    "fixture_sha256": "02e8250096eece5b8acc8b90e8ebd7177293dca5ba5ab33cd2504b1133a38857",
+    "readback_sha256": "4088b31586344882ff41440dc3b7fe54aaf777a2bda02f0da73f3970d1457360",
+    "readback_source_sha256": "1eb506fa7e75c8c1d0d4fd2712e49960738113401cdd41afb8edf66e4ea5d113",
+    "readback_transform": "CRLF normalized to LF for the portable Git asset; JSON values unchanged",
+    "reimport": "NOT_RUN"
+  }
+}
