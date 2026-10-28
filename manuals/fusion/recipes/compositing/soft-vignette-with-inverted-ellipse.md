@@ -79,6 +79,56 @@ Ellipse1（反転マスク） ───────→ Merge1［Effect Mask／�
 | 楕円の境界 | 灰色 | 元映像から暗い外周へ徐々に変わる |
 | 四隅 | 白に近い | 黒の合成量が最大になる |
 
+<!-- capture:S157 -->
+
+## 実機例：反転とぼかしを比較する
+
+青いBackgroundと白い文字を重ねた生成画像を入力にし、黒いBackgroundをMergeのForegroundへ接続しました。Mask未接続では全面が黒くなります。Ellipseを接続した直後はInvertオフ・Soft Edge 0で中央が黒く、Invertをオンにすると中央が残り外側が黒くなりました。
+
+次にSoft Edgeを0.15にして境界をぼかし、MergeのBlendを1.0から0.35へ下げました。左の入力と右の結果は同じ1920×1080、frame 0です。Ellipse単独のViewerでは中央が黒く、外側が白いMaskを確認できます。設定値と接続はSDKで設定・読み戻し、画面はResolveのViewerとInspectorで確認しました。[接続と設定の記録](/img/fusion/captures/S157/readback.json)も参照できます。
+
+これはWindowsのResolve Studio 21.1.0.14と生成画像を使った静止フレームの例です。実写映像、HDRや書き出し後の数値は検証していません。
+
+[![生成した入力と黒いBackground、反転EllipseをMergeしMediaOutへ渡す接続](/img/fusion/captures/S157/graph.png)](/img/fusion/captures/S157/graph.png)
+
+SourceMergeが比較用の入力、Blackが黒い前景、Ellipse1がVignetteのEffect Maskです。
+
+[![左に生成した入力、右にMask未接続で全面が黒くなったMerge出力](/img/fusion/captures/S157/no-mask.png)](/img/fusion/captures/S157/no-mask.png)
+
+Effect Maskを接続せず、黒のForegroundとBlend 1.0で全面が黒くなることを確認します。
+
+[![InvertオフのEllipseで画面中央が黒くなった比較](/img/fusion/captures/S157/invert-off.png)](/img/fusion/captures/S157/invert-off.png)
+
+Ellipseを接続しInvertをオフにすると、楕円の内側が黒くなります。
+
+[![InvertオンのEllipseで中央の入力を残し外側を黒くした比較](/img/fusion/captures/S157/invert-on.png)](/img/fusion/captures/S157/invert-on.png)
+
+Invertをオンにすると、中央の入力を残して外側を黒くできます。Soft Edgeは0です。
+
+[![EllipseのInvertオン、Soft Edge 0.15、WidthとHeight 0.75のInspector](/img/fusion/captures/S157/ellipse-controls.png)](/img/fusion/captures/S157/ellipse-controls.png)
+
+Invertをオンにしたまま、Soft Edgeを0.15にします。WidthとHeightは0.75です。
+
+[![Soft Edge 0.15で入力と暗い外周の境界が緩やかになった結果](/img/fusion/captures/S157/soft-edge.png)](/img/fusion/captures/S157/soft-edge.png)
+
+Soft Edge 0.15、Blend 1.0では、中央から暗い外周へ緩やかに変化します。
+
+[![MergeのNormal、Over、Blend 0.35を示すInspector](/img/fusion/captures/S157/blend-controls.png)](/img/fusion/captures/S157/blend-controls.png)
+
+MergeのApply ModeはNormal、OperatorはOverのまま、Blendを0.35に下げます。
+
+[![Blend 0.35で外周の暗さが弱まった合成結果](/img/fusion/captures/S157/blend-output.png)](/img/fusion/captures/S157/blend-output.png)
+
+Blend 0.35では外周に元の色が戻り、暗さが弱まります。
+
+[![左に中央が黒く周辺が白い反転Ellipse、右にBlend 0.35の合成結果](/img/fusion/captures/S157/mask-output.png)](/img/fusion/captures/S157/mask-output.png)
+
+左は反転EllipseのMask、右はそのMaskで黒を重ねた出力です。
+
+[再現用Graph](/img/fusion/captures/S157/fixture.comp) · [撮影条件と確認範囲](/img/fusion/captures/S157/capture.json)
+
+<!-- /capture:S157 -->
+
 ## なぜこの構成で動くか
 
 MergeはオレンジのBackgroundへ緑のForegroundを重ねます。青いEffect Maskの白い場所では合成後の画像、黒い場所では元のBackgroundを表示するため、**反転Ellipseの白い外周だけ**へ黒い画像を重ねられます。Soft Edgeで作られた灰色は、その境界を段階的に変化させます。
@@ -133,4 +183,4 @@ Ellipse1のCenterを動かすと、暗くなる範囲の中心も動きます。
 - **Chapter 103、pp.2356–2359：** BackgroundのSolid ColorとAlpha。GeneratorのImageタブは同章pp.2400–2402。
 - **Chapter 79、pp.1730–1732：** Maskを組み合わせる仕組みとEffect Maskの適用範囲。
 
-上記の章・ページとNode固有の機能は、既存の21.1公式Manual調査に基づく本サイトのReferenceにも照合しました。**1920×1080の本レシピ、Invertオン／オフ、Soft Edge=0.15、Blend=0.35の一連の結果は新たな21.1実機検証を行っていないため、記載した結果は期待値です。**既存のS28実機記録は反転しないEllipseによるMergeの合成範囲を確認した例で、ここでのビネットを実機で証明するものではありません。Free／Studioの差、HDR、非正方形ピクセル、時間変化、書き出しでの数値一致も未検証なので、verificationはpartialです。
+上記の章・ページとNode固有の機能は、既存の21.1公式Manual調査に基づく本サイトのReferenceにも照合しました。WindowsのResolve Studio 21.1.0.14では、生成した1920×1080画像の静止フレームを使い、Invertオン／オフ、Soft Edge=0.15、Blend=0.35の表示を確認しました。実写映像、Free／Studioの差、HDR、非正方形ピクセル、時間変化、書き出しでの数値一致は未検証なので、verificationはpartialです。
