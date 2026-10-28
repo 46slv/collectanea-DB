@@ -8417,6 +8417,49 @@
           "status": "captured"
         }
       ]
+    },
+    {
+      "priority": "P1",
+      "goal": "Show uCylinder Light position X 0/2 and change in shading.",
+      "suggested_graph": "uShape + uCylinder Light -> uMerge -> uRenderer -> MediaOut",
+      "scope": "Resolve Studio 21.1.0.14 on Windows.",
+      "limitations": [
+        "Light X 0 at frame 0 versus X 2 at frame 1; static scene, different frames used for evaluation.",
+        "Length, Radius and Treat As Line effects, shadow softness, other lights, physical photometry and portable reimport NOT_RUN."
+      ],
+      "id": "S337",
+      "article": "manuals/fusion/nodes/usd/ucylinder-light.md",
+      "manual": {
+        "version": "21.1"
+      },
+      "status": "captured-embedded-unverified",
+      "capture_manifest": "static/img/fusion/captures/S337/capture.json",
+      "shots": [
+        {
+          "slug": "graph",
+          "kind": "graph",
+          "target": "uShapeとuCylinder LightをuMergeへ接続する構成",
+          "status": "captured"
+        },
+        {
+          "slug": "controls",
+          "kind": "inspector",
+          "target": "Intensity 10を設定したuCylinder Light",
+          "status": "captured"
+        },
+        {
+          "slug": "moved-result",
+          "kind": "result",
+          "target": "ライトをX 2に移動した描画",
+          "status": "captured"
+        },
+        {
+          "slug": "original-result",
+          "kind": "result",
+          "target": "ライトX 0での描画",
+          "status": "captured"
+        }
+      ]
     }
   ],
   "publication_batches": [
@@ -9802,25 +9845,25 @@
     }
   ],
   "coverage_inventory": {
-    "checked_at": "2026-10-28T07:45:25.672147+00:00",
+    "checked_at": "2026-10-28T10:53:29.746767+00:00",
     "scope": "All manuals/fusion Markdown and MDX pages; review necessity before adding images.",
     "completion_rule": "Every page has an explicit image decision; necessary images are native-observed, embedded, saved to GitHub and public-display-verified. A native example does not verify all article controls.",
     "summary": {
       "total_pages": 589,
-      "with_images": 237,
+      "with_images": 238,
       "with_native_examples": 237,
       "states": {
         "reviewed-no-standalone-image": 26,
         "no-standalone-image-needed": 6,
         "illustrated-reused-example": 80,
-        "capture-planned": 319,
-        "illustrated-native-example": 157,
+        "capture-planned": 318,
+        "illustrated-native-example": 158,
         "needs-review": 1
       },
       "decisions": {
         "no-standalone-image-needed": 32,
-        "image-required": 237,
-        "capture-needed": 319,
+        "image-required": 238,
+        "capture-needed": 318,
         "needs-review": 1
       }
     },
@@ -25006,13 +25049,19 @@
         "article": "manuals/fusion/nodes/usd/ucylinder-light.md",
         "title": "uCylinder Light",
         "kind": "node",
-        "image_count": 0,
+        "image_count": 4,
         "native_cases": [],
         "reused_cases": [],
-        "planned_cases": [],
-        "state": "capture-planned",
-        "decision": "capture-needed",
-        "reason": "本文の対象機能: 細長い円筒形のUSDライトを作るuCylinder Lightの入出力、Length・Radius・Treat As Line、配置と具体例をResolve 21.1基準で解説する。。S12 Camera Lightingは個別USD lightのControls/照射ではない。",
+        "planned_cases": [
+          "S337"
+        ],
+        "state": "illustrated-native-example",
+        "decision": "image-required",
+        "reason": "S337は静止sceneのライトX 0 frame 0とX 2 frame 1の明暗表示例。Length、Radiusや影の効果は未確認。",
+        "remaining_views": [
+          "Length、Radius、Treat As Line、影の効果と物理照度",
+          "同一frame更新時の比較、portable reimportと他host"
+        ],
         "required_views": [
           "対象名と実接続が読めるGraph",
           "対象自身を選択したInspectorの該当Control",
