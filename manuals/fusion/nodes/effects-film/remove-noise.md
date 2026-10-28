@@ -24,6 +24,30 @@ Remove Noiseは、入力した2D <Term id="image">Image</Term>のchannelをい�
 
 21.1 Manualでは、keying前のgrainを減らす例としてDelta Keyerの前段に置く構成が示されています。
 
+<!-- capture:S196 -->
+
+## 実機例：生成した粒を減らす
+
+中間グレーに `Film Grain` で粒を加え、後段の `Remove Noise` へ接続しました。Color方式でLockを有効にし、Softnessを0.5に設定しています。
+
+左は粒を加えた画像、右は処理後です。これは生成した均一画像の固定例で、実写ノイズや細部の保持を評価したものではありません。[接続と設定の記録](/img/fusion/captures/S196/readback.json)に条件を記載しています。
+
+[![グレーにFilm Grainを加えRemove Noiseへ接続する構成](/img/fusion/captures/S196/graph.png)](/img/fusion/captures/S196/graph.png)
+
+生成した粒の後段にRemove Noiseを接続します。
+
+[![Color方式でLockとSoftness 0.5を設定したRemove Noise](/img/fusion/captures/S196/controls.png)](/img/fusion/captures/S196/controls.png)
+
+Color方式でLockを有効にし、Softnessを設定します。
+
+[![生成した粒を加えた画像とRemove Noise処理後](/img/fusion/captures/S196/comparison.png)](/img/fusion/captures/S196/comparison.png)
+
+左は粒を加えた画像、右は処理後です。
+
+[再現用Graph](/img/fusion/captures/S196/fixture.comp) · [撮影条件と確認範囲](/img/fusion/captures/S196/capture.json)
+
+<!-- /capture:S196 -->
+
 ## 役割
 
 Remove Noiseは、まずImageをぼかしてnoiseを目立たなくし、その結果と元Imageを比較してnoiseを分離します。その後、noiseと判断した部分を除きながらdetailを戻します。

@@ -1,0 +1,118 @@
+{
+  "manual": {
+    "version": "21.1",
+    "chapter": 98,
+    "printed_pages": "2313–2316"
+  },
+  "runtime": {
+    "version": "21.1.0.14",
+    "edition": "DaVinci Resolve Studio",
+    "os": "Windows-11-10.0.26200-SP0",
+    "ui_language": "ja-JP"
+  },
+  "captured_at": "2026-10-27T23:42:19.440057+00:00",
+  "project": "Collectanea_Mandelbrot_Zoom_20261025",
+  "timeline": "S195_capture",
+  "frame": 0,
+  "resolution": [
+    1920,
+    1080
+  ],
+  "color_management": {
+    "project_settings": {
+      "colorScienceMode": "davinciYRGB",
+      "colorSpaceInput": "Rec.709 Gamma 2.4",
+      "colorSpaceTimeline": "Rec.709 (Scene)",
+      "colorSpaceTimelineGamma": "",
+      "colorSpaceOutput": "Rec.709 (Scene)",
+      "colorSpaceOutputGamma": "ACEScc",
+      "isAutoColorManage": "0",
+      "timelineResolutionWidth": "1920",
+      "timelineResolutionHeight": "1080",
+      "timelineFrameRate": 30.0,
+      "timelinePlaybackFrameRate": "30",
+      "timelinePixelAspectRatio": "square"
+    },
+    "note": "SDK project settings; screenshots show Viewer display."
+  },
+  "viewer": {
+    "view_mode": "Fit",
+    "source": "Left Plate; right MediaOut1",
+    "note": "Film Grain selected; static frame."
+  },
+  "acceptance": {
+    "gui": "PASS: visible monochrome grain on synthetic gray; SDK connections and settings read back.",
+    "article_display": "NOT_RUN",
+    "public_display": "NOT_RUN"
+  },
+  "unverified": [
+    "Synthetic uniform gray; real footage, temporal variation, channels and other hosts NOT_RUN.",
+    "Viewer screenshot is display evidence.",
+    "Portable reimport and physical input provenance NOT_RUN.",
+    "Article verification remains partial."
+  ],
+  "schema_version": 1,
+  "case": "S195",
+  "article": "manuals/fusion/nodes/effects-film/film-grain.md",
+  "graph": "fixture.comp",
+  "settings": "readback.json",
+  "source": {
+    "file": "screen.png",
+    "size": [
+      3336,
+      1902
+    ],
+    "sha256": "fa5f5aa9ad26e80d3296e2112b6fe3a5807fb9dc26c3b7a31d3fff4b48cf262e"
+  },
+  "shots": [
+    {
+      "file": "graph.png",
+      "source": "screen.png",
+      "source_sha256": "fa5f5aa9ad26e80d3296e2112b6fe3a5807fb9dc26c3b7a31d3fff4b48cf262e",
+      "frame": 0,
+      "crop_xyxy": [
+        850,
+        1050,
+        2050,
+        1600
+      ],
+      "resampled": false,
+      "sha256": "f7fbf60a702158d41046fa5f980bb1758974aac95a130c45f586ba9620c11c59"
+    },
+    {
+      "file": "controls.png",
+      "source": "screen.png",
+      "source_sha256": "fa5f5aa9ad26e80d3296e2112b6fe3a5807fb9dc26c3b7a31d3fff4b48cf262e",
+      "frame": 0,
+      "crop_xyxy": [
+        2815,
+        65,
+        3336,
+        550
+      ],
+      "resampled": false,
+      "sha256": "fe060b72382f663b2a34346374ed6637b7da2b78e31ab02eafc032990a0a5d39"
+    },
+    {
+      "file": "comparison.png",
+      "source": "screen.png",
+      "source_sha256": "fa5f5aa9ad26e80d3296e2112b6fe3a5807fb9dc26c3b7a31d3fff4b48cf262e",
+      "frame": 0,
+      "crop_xyxy": [
+        0,
+        65,
+        2800,
+        720
+      ],
+      "resampled": false,
+      "sha256": "9302ca4825fe0ad890bbd24b02a39791ffec260421de294fffff9fc15a3487c1"
+    }
+  ],
+  "reproduction": {
+    "fixture_sha256": "32902e2663e4b00aa364fa6bbaddeb82d2244915f587d1fb88a5f18f468f362a",
+    "readback_sha256": "4f5981bc16ebcaf56d2619517727aa16a423ad45496b02f551f908b3fcabbe13",
+    "readback_source_sha256": "4f5981bc16ebcaf56d2619517727aa16a423ad45496b02f551f908b3fcabbe13",
+    "readback_transform": "No line-ending transformation",
+    "reimport": "NOT_RUN"
+  }
+}

@@ -1,0 +1,58 @@
+{
+  "case": "S199",
+  "project": "Collectanea_Mandelbrot_Zoom_20261025",
+  "library": "Local Database",
+  "project_manager_folder": "root",
+  "timeline": "S199_capture",
+  "frame": 0,
+  "resolve": "21.1.0.14",
+  "edition": "DaVinci Resolve Studio",
+  "os": "Windows-11-10.0.26200-SP0",
+  "project_settings": {
+    "colorScienceMode": "davinciYRGB",
+    "colorSpaceInput": "Rec.709 Gamma 2.4",
+    "colorSpaceTimeline": "Rec.709 (Scene)",
+    "colorSpaceTimelineGamma": "",
+    "colorSpaceOutput": "Rec.709 (Scene)",
+    "colorSpaceOutputGamma": "ACEScc",
+    "isAutoColorManage": "0",
+    "timelineResolutionWidth": "1920",
+    "timelineResolutionHeight": "1080",
+    "timelineFrameRate": 30.0,
+    "timelinePlaybackFrameRate": "30",
+    "timelinePixelAspectRatio": "square"
+  },
+  "connections": {
+    "Scene.SceneInput1": "Primitive",
+    "Scene.SceneInput2": "KeyLight",
+    "Renderer.SceneInput": "Scene",
+    "MediaOut1.Input": "Renderer"
+  },
+  "values": {
+    "Primitive": {
+      "Shape": "SurfaceSphereInputs",
+      "Transform3DOp.Scale.X": 0.5
+    },
+    "KeyLight": {
+      "Transform3DOp.Translate.X": -0.75,
+      "Transform3DOp.Translate.Z": 2.0
+    },
+    "Renderer": {
+      "RendererSoftware.LightingEnabled": 1.0
+    },
+    "current_x": 0.75,
+    "comparison_x": -0.75,
+    "z": 2.0,
+    "decay_type": 0.0
+  },
+  "source": "Sphere lit by point light at X -0.75 and 0.75 with Z 2.",
+  "save_project": true,
+  "save_completed_at": "2026-10-28T00:03:51.100412+00:00",
+  "native_export_sha256": "86db5d98ab556e93104b2000b49b834c526330f67a8ff62a1bc137bbd3d5eb82",
+  "portable_sha256": "83742c65bbbe4a5261abd9e0babd136ce9d3036fb3e7b38c613d9303c8c4ca8d",
+  "portable_reimport": "NOT_RUN",
+  "limits": [
+    "One sphere and two light positions without decay; decay comparisons, shadows, animation and hosts NOT_RUN.",
+    "Viewer screenshot is display evidence."
+  ]
+}

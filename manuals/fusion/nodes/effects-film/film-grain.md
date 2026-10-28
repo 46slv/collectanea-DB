@@ -25,6 +25,30 @@ Film Grainは、2D <Term id="image">Image</Term>へ生成したfilm grainを加�
 
 旧[Grain](./grain)も互換性のため残っていますが、新規作業ではFilm Grainが基本です。
 
+<!-- capture:S195 -->
+
+## 実機例：粒を加えた前後を比べる
+
+生成した中間グレーの `Background` を `Film Grain` に接続しました。左は元画像、右は粒を加えた結果です。
+
+粒を見やすくするためSize 4、Strength 0.4に設定し、MonochromeとTime Lockを有効にしています。これは固定フレームの合成画像です。実素材や時間変化は比較していません。[接続と設定の記録](/img/fusion/captures/S195/readback.json)に条件を記載しています。
+
+[![生成したグレーをFilm Grainへ接続する構成](/img/fusion/captures/S195/graph.png)](/img/fusion/captures/S195/graph.png)
+
+BackgroundからFilm Grainへ接続します。
+
+[![Film GrainのSize Strength MonochromeとTime Lockの設定](/img/fusion/captures/S195/controls.png)](/img/fusion/captures/S195/controls.png)
+
+粒を強調し、モノクロとTime Lockを有効にします。
+
+[![粒を加える前と後のグレー画像](/img/fusion/captures/S195/comparison.png)](/img/fusion/captures/S195/comparison.png)
+
+左は元画像、右はFilm Grain適用後です。
+
+[再現用Graph](/img/fusion/captures/S195/fixture.comp) · [撮影条件と確認範囲](/img/fusion/captures/S195/capture.json)
+
+<!-- /capture:S195 -->
+
 ## 役割
 
 入力Imageの明るさや設定に応じてgrain patternを生成し、元Imageへ加えます。
