@@ -35,6 +35,34 @@ sBSpline → sDuplicate → sRender → Merge（複製して重ねる）
 
 通常のMergeは2D Imageの合成ノードです。Shapeを直接つなぐのではなく、sRenderで画像にします。
 
+<!-- capture:S295 -->
+
+## 実機例：制御点を置いて曲線を閉じる
+
+`sBSpline` を `sRender` に接続し、Viewerに制御点を4つ置いて最初の点をクリックすると、閉じた曲線と白い塗りが表示されます。
+
+編集ガイドでは制御点を結ぶ線と、内側の滑らかな輪郭が別に見えます。この例は背景で送った操作による静止画で、点の移動やアニメーションは確認していません。[接続と設定の記録](/img/fusion/captures/S295/readback.json)に条件を記載しています。
+
+[![sBSplineをsRenderとMediaOutに接続した構成](/img/fusion/captures/S295/graph.png)](/img/fusion/captures/S295/graph.png)
+
+ShapeをsRenderで画像化します。
+
+[![sBSplineのSolidが有効なInspector](/img/fusion/captures/S295/controls.png)](/img/fusion/captures/S295/controls.png)
+
+Solidが有効な状態です。
+
+[![3点を置いた開いたBスプラインと制御線](/img/fusion/captures/S295/open.png)](/img/fusion/captures/S295/open.png)
+
+3点を置いた途中の編集画面です。
+
+[![4つの制御点で閉じた白いBスプラインの形](/img/fusion/captures/S295/closed.png)](/img/fusion/captures/S295/closed.png)
+
+4点を置いて閉じた状態です。
+
+[再現用Graph](/img/fusion/captures/S295/fixture.comp) · [撮影条件と確認範囲](/img/fusion/captures/S295/capture.json)
+
+<!-- /capture:S295 -->
+
 ## 制御点を置いて描く
 
 ノードを追加した直後、Viewerには中心（Center）の操作点だけが表示されます。Viewerをクリックすると制御点が増え、各点の位置に引っ張られるように滑らかな曲線ができます。
@@ -133,4 +161,4 @@ Glowは2D Imageを処理するため、ShapeのままではなくsRenderの後�
 
 Blackmagic Design『DaVinci Resolve 21.1 Reference Manual』（September 2026）、Chapter 117「Shape Nodes」、**pp.2732–2733（sBSpline）およびpp.2752–2756（sPolygonと共通の操作・設定）**を参照しました。
 
-点の働き、自動アニメーション、外部入力なし、主な設定はManualに基づきます。端子の表示名・色、内部REGID、各設定の初期値・範囲、Edition差、実機のレンダリング結果は未確認です。verificationはpartialのままとします。
+点の働きと自動アニメーションの説明はManualに基づきます。実機例では背景で送った合成クリックで4点を置いて閉じ、sRenderを通した白い塗りを確認しました。物理入力、点の移動やアニメーション、各設定の初期値・範囲、Edition差は未確認のため、verificationはpartialのままとします。
