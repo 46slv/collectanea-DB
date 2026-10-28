@@ -1,0 +1,50 @@
+{
+  "case": "S270",
+  "project": "Collectanea_Mandelbrot_Zoom_20261025",
+  "library": "Local Database",
+  "timeline": "S270_capture",
+  "frame": 0,
+  "resolve": "21.1.0.14",
+  "edition": "DaVinci Resolve Studio",
+  "os": "Windows-11-10.0.26200-SP0",
+  "project_settings": {
+    "colorScienceMode": "davinciYRGB",
+    "colorSpaceInput": "Rec.709 Gamma 2.4",
+    "colorSpaceTimeline": "Rec.709 (Scene)",
+    "colorSpaceTimelineGamma": "",
+    "colorSpaceOutput": "Rec.709 (Scene)",
+    "colorSpaceOutputGamma": "ACEScc",
+    "isAutoColorManage": "0",
+    "timelineResolutionWidth": "1920",
+    "timelineResolutionHeight": "1080",
+    "timelineFrameRate": 30.0,
+    "timelinePlaybackFrameRate": "30",
+    "timelinePixelAspectRatio": "square"
+  },
+  "connections": {
+    "Painterly.Image": "Source",
+    "MediaOut1.Input": "Painterly"
+  },
+  "values": {
+    "Source": {
+      "StyledText": "PAINT",
+      "Size": 0.2
+    },
+    "Painterly": {
+      "LuminanceSteps": 256.0,
+      "Mode": 0.0,
+      "Type": 0.0,
+      "Radius": 5.0,
+      "Aspect": 1.0
+    }
+  },
+  "save_project": true,
+  "save_completed_at": "2026-10-28T07:01:42.423047+00:00",
+  "native_export_sha256": "2f6c2884ae6bb6eefe9b72024c7bb72f0e740a67d0b079a19c6e5d2873117ee9",
+  "portable_sha256": "e43f18a6d4d30076b2e8bcee1d3b200102472d03854655ecd7e84090c907ca76",
+  "portable_reimport": "NOT_RUN",
+  "limits": [
+    "One synthetic text and static setting; other modes, footage, alpha values and hosts NOT_RUN.",
+    "Viewer screenshot is display evidence."
+  ]
+}

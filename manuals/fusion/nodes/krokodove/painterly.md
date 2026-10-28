@@ -31,12 +31,38 @@ Painterlyは、入力された画像の**見た目を加工する**ツールで�
 
 Painterlyの特徴は、**模様そのものを新しく作ることではなく、与えた画像やグラフィックを加工すること**にあります。とはいえ、画像のどの要素が保たれ、どの要素が大きく変化するかは実際の出力を比較する必要があります。
 
+<!-- capture:S270 -->
+
+## 実機例：文字の形の変化を見る
+
+合成した文字 `PAINT` を `Painterly` に接続し、ModeをPeak、TypeをSquare、Radiusを5に設定しました。この静止画では、文字の角が入力より丸く見えます。Viewerの市松模様は透明部分の表示です。実映像やほかのMode、Alpha値は未検証です。[接続と設定の記録](/img/fusion/captures/S270/readback.json)に条件を記載しています。
+
+[![文字をPainterlyへつなぐノード構成](/img/fusion/captures/S270/graph.png)](/img/fusion/captures/S270/graph.png)
+
+合成文字をPainterlyへ渡します。
+
+[![PainterlyのInspector](/img/fusion/captures/S270/controls.png)](/img/fusion/captures/S270/controls.png)
+
+Peak、Square、Radius 5を指定します。
+
+[![入力の文字PAINT](/img/fusion/captures/S270/low.png)](/img/fusion/captures/S270/low.png)
+
+入力にはPAINTと表示されています。
+
+[![角が丸く見えるPainterly出力](/img/fusion/captures/S270/high.png)](/img/fusion/captures/S270/high.png)
+
+この設定では文字の角が丸く見えます。
+
+[再現用Graph](/img/fusion/captures/S270/fixture.comp) · [撮影条件と確認範囲](/img/fusion/captures/S270/capture.json)
+
+<!-- /capture:S270 -->
+
 ## 入力と出力
 
 | 段階 | 扱うデータ | 確認できること |
 | --- | --- | --- |
 | 入力 | 2D Image | 公式Manualは「画像やグラフィックにかけるフィルター」と説明しています。入力端子の正式名称と本数は未確認です。 |
-| 処理 | 画像のスタイル加工 | 絵画作品を思わせる見た目に変えます。処理アルゴリズムやInspectorの個別設定は未確認です。 |
+| 処理 | 画像のスタイル加工 | 絵画作品を思わせる見た目に変えます。処理アルゴリズムや、実機例以外のInspector設定は未確認です。 |
 | 出力 | 2D Image | 画像フィルターとして、加工結果を後段の画像合成へ渡す用途を想定できます。出力端子名、Alphaの扱いは未確認です。 |
 
 Frontmatterの `inputs: [image]` / `outputs: [image]` は**扱うデータの分類**です。特定の端子が何個あるか、Mask入力が使えるかを保証するものではありません。
@@ -63,7 +89,7 @@ Text+やBackgroundなどから画像として組み立てたグラフィック�
 
 ## 制作例：元映像とPainterlyの結果を混ぜる
 
-次は標準の[Merge](../compositing/merge)を使った**検証を兼ねる構成案**です。Painterly固有の設定名は仮定していません。
+次は標準の[Merge](../compositing/merge)を使った**検証を兼ねる構成案**です。実機例は合成文字の静止画に限られます。
 
     MediaIn ──────────────────→ Merge（Background）→ MediaOut
        └────→ Painterly ──────→ Merge（Foreground）
@@ -102,4 +128,4 @@ Text+やBackgroundなどから画像として組み立てたグラフィック�
 - **比較資料**：同Manual p.2434「Dither」、p.2435「Rasterize」「Generate」、p.2436「Plastic」。それぞれの用途の比較に使用しています。
 - **関連**：[Krokodove全体像](./)、[Imageとは](../../learn/02-data/image)、[Merge](../compositing/merge)。
 
-機能の概要は21.1 Manualで確認できていますが、Inspector、端子の詳細、実機の見え方までは検証していないため、`verification: partial`を維持しています。
+実機例では合成文字の一条件を確認しました。別の設定、実映像、端子の詳細は未検証のため、`verification: partial`を維持しています。
