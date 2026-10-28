@@ -29,6 +29,34 @@ updated: '2026-10-19'
 
 Krokodove Bevelについて公式Manualが説明しているのは、**画像の内側にbevelを作り、奥行きを模した見え方にする**という役割です。どの画素を輪郭として検出するか、光と影をどのように生成するか、面取りの幅をどう計算するかまでは、この記載だけでは分かりません。ここでは具体的な画素処理方式を決めつけず、実際の画像で効果を比較する方法を示します。
 
+<!-- capture:S238 -->
+
+## 実機例：文字に面取り風の陰影を付ける
+
+合成した `Text+` の文字を `Bevel` に渡し、Bevel Sizeを0.05、Heightを1に設定しました。
+
+この例では文字の縁に明暗が付きます。Viewerには透明部分を示す市松模様が表示されています。ほかの設定やAlphaの数値は未検証です。[接続と設定の記録](/img/fusion/captures/S238/readback.json)に条件を記載しています。
+
+[![文字画像をKrokodove Bevelへつなぐ構成](/img/fusion/captures/S238/graph.png)](/img/fusion/captures/S238/graph.png)
+
+文字画像をBevelへ渡します。
+
+[![BevelのInspector](/img/fusion/captures/S238/controls.png)](/img/fusion/captures/S238/controls.png)
+
+Bevel Sizeを0.05、Heightを1に設定しています。
+
+[![処理前の文字](/img/fusion/captures/S238/low.png)](/img/fusion/captures/S238/low.png)
+
+処理前の文字です。
+
+[![Bevelで陰影を付けた文字](/img/fusion/captures/S238/high.png)](/img/fusion/captures/S238/high.png)
+
+処理後は文字の縁に明暗が付きます。
+
+[再現用Graph](/img/fusion/captures/S238/fixture.comp) · [撮影条件と確認範囲](/img/fusion/captures/S238/capture.json)
+
+<!-- /capture:S238 -->
+
 ## 入力と出力
 
 | 段階 | データの種類 | 何が起きるか |
@@ -37,7 +65,7 @@ Krokodove Bevelについて公式Manualが説明しているのは、**画像の
 | 処理 | 画像内部の縁の表現 | 輪郭の周辺に面取り風の見え方を加え、奥行き感を作る。 |
 | 出力 | 2D Image | 結果をMergeなど通常の画像処理・合成へ渡す。 |
 
-入出力をImageと整理する根拠は、21.1 Manualの「Image Pixel Tools」という分類と既存のCOLLECTANEAカタログです。これは**データの分類**であり、正式なポート名、入力端子の数、Maskなどの補助入力の有無を実機で確認したものではありません。
+入出力をImageと整理する根拠は、21.1 Manualの「Image Pixel Tools」という分類と既存のCOLLECTANEAカタログです。実機例では入力 `Image` と補助入力 `EffectMask` を確認しています。端子の全挙動は未検証です。
 
 <Term id="shape-data">Shape</Term>は輪郭や図形を画像化する前の別形式のデータです。Shape系のノードを起点にする場合は、[sRender](../shapes/s-render)で画像に変えてからBevelへ渡します。[Shapeの基礎](../../learn/02-data/shape)も参照してください。
 
@@ -57,7 +85,7 @@ Rectangle ──→ Background（Effect Mask）
 
 1. Backgroundを用意し、Rectangle MaskをそのEffect Maskにつないで、画面中央に単色の四角形を表示します。四角形以外が透明になる状態を確認します。
 2. BackgroundをBevelにつなぎ、元のBackgroundとBevelの結果を別々のViewerで比較します。
-3. BevelのInspectorに**実際に表示されている項目を一つだけ**変更し、四角形の外周付近と中央部分の見え方を観察します。ここでは未確認のスライダー名や既定値を指定しません。
+3. BevelのInspectorに**実際に表示されている項目を一つだけ**変更し、四角形の外周付近と中央部分の見え方を観察します。実機例で使ったBevel SizeとHeight以外の設定範囲や既定値は未検証です。
 4. Bevelの出力をMergeのForegroundへ、別に用意した背景画像をBackgroundへつなぎます。暗い背景と明るい背景の両方で、面取り風の縁がどう見えるか確認します。
 5. Rectangleを円に変える、細長い長方形にする、文字へ差し替えるなどして、**輪郭の形による違い**を比較します。
 
@@ -94,9 +122,9 @@ Text+で文字を作り、その画像をBevelへ渡して、平坦な文字と�
 ## 注意点と未確認事項
 
 - **縁の判定方式は未確認。** Alpha、RGB、輝度のどれを参照するか、完全に不透明な画像でどの境界が対象になるかは明記されていません。
-- **Inspector項目は未確認。** 面取り幅、照明方向、明るさなどの項目が存在するものとして名前・初期値・範囲を創作しません。
+- **Inspectorの一部を確認。** 実機例ではBevel Filter、Lock X/Y、Bevel Size、Heightを確認しました。その他の設定の意味や範囲は未検証です。
 - **ImageとShapeは別のデータ。** Krokodove BevelをShape系ノードと同じ入出力だと扱いません。
-- **ポートとEdition差は未確認。** 正式な端子名・補助入力、Resolve Free / Studio / Fusion Studioでの提供差、内部REGIDについて実機検証はありません。
+- **提供環境と挙動の差は未確認。** Resolve Studio 21.1で `KD_Bevel` と `Image`、`EffectMask` を確認しました。Resolve Free / Fusion Studioとの差や補助入力の挙動は未検証です。
 - **加工結果の見た目は画像ごとに確認する。** 細い文字、柔らかいAlpha、細かな模様では、単純な図形と同じ見え方になるとは限りません。
 
 ## バージョンと出典
@@ -107,4 +135,4 @@ Text+で文字を作り、その画像をBevelへ渡して、平坦な文字と�
 
 関連：[画像データの基礎](../../learn/02-data/image)／[Shapeの基礎](../../learn/02-data/shape)／[Krokodoveの全体像](./)。
 
-21.1実機のInspector・正式ポート・Edition差は確認できていないため、`verification: partial`を維持します。
+実機例は一つの設定に限られ、Edition差や他の設定は未検証のため、`verification: partial`を維持します。
