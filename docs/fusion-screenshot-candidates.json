@@ -7724,6 +7724,53 @@
           "status": "captured"
         }
       ]
+    },
+    {
+      "priority": "P1",
+      "goal": "Show KD Worm on synthetic gradient.",
+      "suggested_graph": "Background gradient -> KD_Worm -> MediaOut.",
+      "scope": "Resolve Studio 21.1.0.14 on Windows, 1920x1080 static frame.",
+      "limitations": [
+        "One synthetic gradient and static setting; other curves, alpha values and other hosts NOT_RUN.",
+        "Viewer screenshot is display evidence.",
+        "Portable reimport and physical input provenance NOT_RUN.",
+        "Article verification remains partial."
+      ],
+      "id": "S287",
+      "article": "manuals/fusion/nodes/krokodove/worm.md",
+      "manual": {
+        "version": "21.1",
+        "chapter": 105,
+        "printed_pages": "2435"
+      },
+      "status": "captured-embedded-unverified",
+      "capture_manifest": "static/img/fusion/captures/S287/capture.json",
+      "shots": [
+        {
+          "slug": "graph",
+          "kind": "graph",
+          "target": "グラデーションをWormへつなぐノード構成",
+          "status": "captured"
+        },
+        {
+          "slug": "controls",
+          "kind": "inspector",
+          "target": "WormのControlsページ",
+          "status": "captured"
+        },
+        {
+          "slug": "low",
+          "kind": "comparison",
+          "target": "入力の白黒グラデーションとガイド",
+          "status": "captured"
+        },
+        {
+          "slug": "high",
+          "kind": "comparison",
+          "target": "白い線が重なったWorm出力",
+          "status": "captured"
+        }
+      ]
     }
   ],
   "publication_batches": [
@@ -9109,12 +9156,12 @@
     }
   ],
   "coverage_inventory": {
-    "checked_at": "2026-10-28T06:35:08.239924+00:00",
+    "checked_at": "2026-10-28T08:13:56.731071+00:00",
     "scope": "All manuals/fusion Markdown and MDX pages; review necessity before adding images.",
     "completion_rule": "Every page has an explicit image decision; necessary images are native-observed, embedded, saved to GitHub and public-display-verified. A native example does not verify all article controls.",
     "summary": {
       "total_pages": 589,
-      "with_images": 221,
+      "with_images": 222,
       "with_native_examples": 221,
       "states": {
         "reviewed-no-standalone-image": 26,
@@ -17141,10 +17188,12 @@
         "article": "manuals/fusion/nodes/krokodove/worm.md",
         "title": "Worm",
         "kind": "node",
-        "image_count": 0,
+        "image_count": 4,
         "native_cases": [],
         "reused_cases": [],
-        "planned_cases": [],
+        "planned_cases": [
+          "S287"
+        ],
         "state": "capture-planned",
         "decision": "capture-needed",
         "reason": "本文の対象機能: 指定した点をもとに、直線と曲線を組み合わせた線の図柄を作るKrokodoveツール。。sEllipse/sGrid/Text+はKrokodove画像生成UIや出力型の証拠にならない。",
