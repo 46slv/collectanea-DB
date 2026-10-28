@@ -31,6 +31,34 @@ updated: '2026-10-18'
 
 「指定した形の領域」の形状や位置を**どのInspector項目で設定するか**、外部のShape・Mask・Regionを端子へ接続できるかは、この一覧説明だけでは分かりません。Fusionの<Term id="shape-data">Shape</Term>データがそのまま入力できる、と解釈しないでください。
 
+<!-- capture:S241 -->
+
+## 実機例：文字を球面状に変形する
+
+合成した `Text+` の文字を `Spherize` に渡し、TypeをSphere、Sizeを0.6に設定しました。
+
+この例では中央の文字が大きく曲がって見えます。Viewerには操作用オーバーレイが表示されています。他の設定やAlphaの数値は未検証です。[接続と設定の記録](/img/fusion/captures/S241/readback.json)に条件を記載しています。
+
+[![文字画像をKrokodove Spherizeへつなぐ構成](/img/fusion/captures/S241/graph.png)](/img/fusion/captures/S241/graph.png)
+
+文字画像をSpherizeへ渡します。
+
+[![SpherizeのInspector](/img/fusion/captures/S241/controls.png)](/img/fusion/captures/S241/controls.png)
+
+TypeはSphere、Sizeは0.6です。
+
+[![処理前の文字](/img/fusion/captures/S241/low.png)](/img/fusion/captures/S241/low.png)
+
+処理前の文字です。
+
+[![Spherizeで変形した文字](/img/fusion/captures/S241/high.png)](/img/fusion/captures/S241/high.png)
+
+処理後は中央の文字が大きく曲がって見えます。
+
+[再現用Graph](/img/fusion/captures/S241/fixture.comp) · [撮影条件と確認範囲](/img/fusion/captures/S241/capture.json)
+
+<!-- /capture:S241 -->
+
 ## 入力と出力
 
 | 段階 | データ・処理 | 確認範囲 |
@@ -38,7 +66,7 @@ updated: '2026-10-18'
 | 入力 | **2D Image** | 21.1 ManualのImage Warp Tools分類と既存カタログによるデータ分類 |
 | 処理 | 指定した形の領域内で、へこみ状・虫眼鏡風に画像を変形 | 21.1 Manualに記載された役割 |
 | 出力 | 変形後の**2D Image** | 画像変形ツールとしての出力分類 |
-| 未確認 | 正式な端子名・本数、領域指定方法、追加のMask・Shape・Region入力の有無 | Manualの一覧には詳細なし |
+| 未確認 | 正式な端子名・本数、追加のMask・Shape・Region入力の有無 | Manualの一覧には詳細なし |
 
 <Term id="image">Image</Term>は画素で表された静止画や映像で、通常の写真のほか、画像化された文字やイラストも含みます。SpherizeはこのImageを加工する分類です。図形の輪郭を保持して編集するShapeノードや、立体の位置・形を操作する3Dノードとは役割が異なります。
 
@@ -87,16 +115,16 @@ RadialとSpherizeは、どちらもマニュアルでdentに近い言葉が使�
 
 ## 注意点と未確認事項
 
-- **領域の指定**：形状や位置を定める正式なInspector項目名、外部端子の有無、Mask・Shape・Regionとの接続互換性は未確認です。「shape region」をFusionのShape型入力と断定しません。
+- **領域の指定**：実機例ではTypeとSizeを確認しました。外部端子の有無、Mask・Shape・Regionとの接続互換性は未確認です。「shape region」をFusionのShape型入力と断定しません。
 - **変形の制御**：中心、強さ、変形方向、初期値、値域、補間方式は公式の一覧にはありません。具体的なスライダー名や数値を推測しません。
 - **画像の境界とAlpha**：加工範囲の外とのつながり、画像端の画素、透明部分の処理、premultiplyの挙動は確認できていません。透過素材を使う場合は合成後も確認してください。
 - **時間とトラッキング**：入力として動画を使うことと、専用の動き追従機能があることは別です。追従・アニメーション方法は実機で確認が必要です。
-- **製品差**：21.1 Manual掲載は確認済みですが、Resolve Free / Studio / Fusion StudioのEdition差、内部REGID、現行UIの端子表示は実機未確認です。
+- **製品差**：Resolve Free / Studio / Fusion StudioのEdition差、内部REGID、端子の全構成は未確認です。
 
 ## バージョンと出典
 
 一次資料はBlackmagic Design『**DaVinci Resolve 21.1 Reference Manual**』（September 2026）、Chapter 105「Krokodove Nodes」、**p.2437「Image Warp Tools / Spherize」**です。同章p.2436のRadial・Bend・Directional Scale、p.2437のWarped Transformと比較しました。
 
-以前のページにあった「radial/cylindrical round warp」という説明は、この21.1 ManualのSpherize説明では確認できないため置き換えています。ここに挙げた制作例は、公式の用途説明から組み立てた構成案です。入力・出力のImage分類には既存COLLECTANEAカタログも併用し、Inspector・追加端子・Edition差は未検証なのでverificationはpartialです。
+以前のページにあった「radial/cylindrical round warp」という説明は、この21.1 ManualのSpherize説明では確認できないため置き換えています。実機例以外の制作例は、公式の用途説明から組み立てた構成案です。追加端子やEdition差は未検証なのでverificationはpartialです。
 
 [Krokodoveの全体像](./)と[Imageデータの説明](../../learn/02-data/image)、[Shapeデータの説明](../../learn/02-data/shape)も参照してください。

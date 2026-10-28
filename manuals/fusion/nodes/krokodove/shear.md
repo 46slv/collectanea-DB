@@ -31,6 +31,34 @@ updated: '2026-10-20'
 
 Fusionでここで扱うのは、輪郭データを編集する<Term id="shape-data">Shape</Term>ではなく、画素からできた<Term id="image">Image</Term>です。写真、動画、文字を一度画像化した結果などに適用する画像変形として考えます。
 
+<!-- capture:S242 -->
+
+## 実機例：文字を斜めに変形する
+
+合成した `Text+` の文字を `Shear` に渡し、Shear Allを有効にしてShearを0.35に設定しました。
+
+この例では文字が斜めに傾いて見えます。Viewerには操作用オーバーレイが表示されています。第二入力の動作やAlphaの数値は未検証です。[接続と設定の記録](/img/fusion/captures/S242/readback.json)に条件を記載しています。
+
+[![文字画像をKrokodove Shearへつなぐ構成](/img/fusion/captures/S242/graph.png)](/img/fusion/captures/S242/graph.png)
+
+文字画像をShearへ渡します。
+
+[![ShearのInspector](/img/fusion/captures/S242/controls.png)](/img/fusion/captures/S242/controls.png)
+
+Shear Allを有効にし、Shearを0.35に設定しています。
+
+[![処理前の文字](/img/fusion/captures/S242/low.png)](/img/fusion/captures/S242/low.png)
+
+処理前の文字です。
+
+[![Shearで斜めに変形した文字](/img/fusion/captures/S242/high.png)](/img/fusion/captures/S242/high.png)
+
+処理後は文字が斜めに傾いて見えます。
+
+[再現用Graph](/img/fusion/captures/S242/fixture.comp) · [撮影条件と確認範囲](/img/fusion/captures/S242/capture.json)
+
+<!-- /capture:S242 -->
+
 ## 入力・出力と第2入力
 
 | 区分 | 役割 | 根拠・確認範囲 |
@@ -38,11 +66,11 @@ Fusionでここで扱うのは、輪郭データを編集する<Term id="shape-d
 | 主入力 | **2D Image**。変形したい元画像 | 21.1 Manualの「Image Warp Tools」分類と既存カタログのImage分類 |
 | 追加入力 | **シアー変形の強さを決めるための入力** | 21.1 Manualに「Additional input to determine the shear intensity」と明記 |
 | 出力 | 変形後の**2D Image** | 画像変形ツールとしてのデータ分類 |
-| 未確認 | 各端子の正式名称・色・データ型、追加入力の値の解釈、Inspector項目・既定値・値域 | 同Manualの一覧には詳細なし |
+| 未確認 | 各端子の正式名称・色・データ型、追加入力の値の解釈、Inspectorの全項目・既定値・値域 | 同Manualの一覧には詳細なし |
 
 **第2入力があることと、その入力が何を受け取るかは別の情報です。** マニュアルは「変形の強さを決める」と説明していますが、それが画像の明るさ、マスク、数値、特定の別データのどれを受け取るかまでは、このページの出典では特定できません。通常の画像入力と同じ端子だと仮定して、無理にImageやMaskを接続しないでください。
 
-また「強さ」とは変形をどれだけ目立たせるかに関係する意味合いであり、入力値と変形角度が比例するなどの計算式を保証するものではありません。第2入力が未接続でも動作するか、単独のInspector設定とどう組み合わされるかも未確認です。
+また「強さ」とは変形をどれだけ目立たせるかに関係する意味合いであり、入力値と変形角度が比例するなどの計算式を保証するものではありません。実機例では画像を接続し、Shear Allを有効にした固定設定で変形を確認しました。Manualの第2入力とSDKのImage・Mask入力の対応や、第2入力の作用は未確認です。
 
 先頭メタデータの `inputs: [image]` と `outputs: [image]` は、元画像と結果の**主なデータ分類**です。正式なポート数を1入力・1出力と断定する情報ではありません。
 
@@ -92,15 +120,15 @@ Text+（タイトル） ──────────────────�
 ## 注意点と確認範囲
 
 - **第2入力の型**：21.1 Manualには「変形の強さを決める追加入力」とだけあります。画像・Mask・数値などの正確なデータ型、未接続時の挙動は確認していません。
-- **Inspector**：角度や強さの正式ラベル、中心・方向・補間を選べるか、値域や既定値は未確認です。一般的なシアーの数式をKrokodove実装の仕様として使わないでください。
+- **Inspector**：実機例ではShear AllとShearを確認しました。全項目の値域や既定値、補間は未確認です。一般的なシアーの数式をKrokodove実装の仕様として使わないでください。
 - **境界とAlpha**：画像端の補完方法、透明画素、premultiplied Alphaの扱いは出典から分かりません。透明なロゴやテキストを加工するときは、合成後も確認します。
 - **時間変化**：動画入力を加工することと、Shear自身に専用アニメーション操作があることは別です。第2入力の時間的な評価方法も未確認です。
-- **製品・Edition差**：21.1 Manualに掲載されていることは確認していますが、Resolve Free / Studio / Fusion Studioごとの提供条件、内部REGID、実際のノードUIは未確認です。
+- **製品・Edition差**：21.1 Manualに掲載されていることは確認していますが、Resolve Free / Studio / Fusion Studioごとの提供条件、内部REGIDとノードUIの全構成は未確認です。
 
 ## バージョンと出典
 
 一次資料：Blackmagic Design『**DaVinci Resolve 21.1 Reference Manual**』（September 2026）、Chapter 105「Krokodove Nodes」、**p.2437「Image Warp Tools / Shear」**。同じページのSegment Transform、Spherize、Warped Transformと併せて照合しました。
 
-「angular shear」と**強さを決める第2入力があること**は一次資料で確認した内容です。シアー変形の一般的な説明、格子・タイトルの構成例、関連ノードの使い分けは理解と検証のための説明であり、実機のInspector値や内部アルゴリズムの証明ではありません。未確認範囲が残るため、`verification: partial`を維持しています。
+「angular shear」と**強さを決める第2入力があること**は一次資料で確認した内容です。実機例は一つのInspector設定に限り、内部アルゴリズムや第2入力の動作を証明するものではありません。未確認範囲が残るため、`verification: partial`を維持しています。
 
 [Krokodoveノードの一覧](./)も参照してください。

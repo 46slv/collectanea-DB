@@ -1,0 +1,61 @@
+{
+  "case": "S244",
+  "project": "Collectanea_Mandelbrot_Zoom_20261025",
+  "library": "Local Database",
+  "project_manager_folder": "root",
+  "timeline": "S244_capture",
+  "frame": 0,
+  "resolve": "21.1.0.14",
+  "edition": "DaVinci Resolve Studio",
+  "os": "Windows-11-10.0.26200-SP0",
+  "project_settings": {
+    "colorScienceMode": "davinciYRGB",
+    "colorSpaceInput": "Rec.709 Gamma 2.4",
+    "colorSpaceTimeline": "Rec.709 (Scene)",
+    "colorSpaceTimelineGamma": "",
+    "colorSpaceOutput": "Rec.709 (Scene)",
+    "colorSpaceOutputGamma": "ACEScc",
+    "isAutoColorManage": "0",
+    "timelineResolutionWidth": "1920",
+    "timelineResolutionHeight": "1080",
+    "timelineFrameRate": 30.0,
+    "timelinePlaybackFrameRate": "30",
+    "timelinePixelAspectRatio": "square"
+  },
+  "connections": {
+    "Map.Image": "Label",
+    "MediaOut1.Input": "Map"
+  },
+  "values": {
+    "Label": {
+      "StyledText": "WARP",
+      "Size": 0.3
+    },
+    "Map": {
+      "Center": {
+        "1": 0.5,
+        "2": 0.5,
+        "3": 0.0
+      },
+      "Pivot": {
+        "1": 0.5,
+        "2": 0.5,
+        "3": 0.0
+      },
+      "Angle": 15.0,
+      "UseSizeAndAspect": 0.0,
+      "XSize": 1.3,
+      "YSize": 1.0
+    }
+  },
+  "source": "Synthetic text through KD Warped Transform.",
+  "save_project": true,
+  "save_completed_at": "2026-10-28T05:00:58.778335+00:00",
+  "native_export_sha256": "1ee0fb348ad2750cbe155a0c45dd909e1b926381822480c8ccd9de5256593fd1",
+  "portable_sha256": "a3ba59a8b9183aaa2e9ed596e5a078d5149302b8635d1bea71b2506f550538cf",
+  "portable_reimport": "NOT_RUN",
+  "limits": [
+    "One synthetic text and settings; other transform settings, mask, alpha values, animation and other hosts NOT_RUN.",
+    "Viewer screenshot is display evidence."
+  ]
+}
