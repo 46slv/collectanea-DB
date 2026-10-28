@@ -1,0 +1,52 @@
+{
+  "case": "S186",
+  "project": "Collectanea_Mandelbrot_Zoom_20261025",
+  "library": "Local Database",
+  "project_manager_folder": "root",
+  "timeline": "S186_capture",
+  "frame": 0,
+  "resolve": "21.1.0.14",
+  "edition": "DaVinci Resolve Studio",
+  "os": "Windows-11-10.0.26200-SP0",
+  "project_settings": {
+    "colorScienceMode": "davinciYRGB",
+    "colorSpaceInput": "Rec.709 Gamma 2.4",
+    "colorSpaceTimeline": "Rec.709 (Scene)",
+    "colorSpaceTimelineGamma": "",
+    "colorSpaceOutput": "Rec.709 (Scene)",
+    "colorSpaceOutputGamma": "ACEScc",
+    "isAutoColorManage": "0",
+    "timelineResolutionWidth": "1920",
+    "timelineResolutionHeight": "1080",
+    "timelineFrameRate": 30.0,
+    "timelinePlaybackFrameRate": "30",
+    "timelinePixelAspectRatio": "square"
+  },
+  "connections": {
+    "Override.SceneInput": "Cube",
+    "BeforeRender.SceneInput": "Cube",
+    "AfterRender.SceneInput": "Override",
+    "MediaOut1.Input": "AfterRender"
+  },
+  "values": {
+    "Cube": {
+      "SurfaceCubeInputs.Width": 0.4,
+      "Transform3DOp.Rotate.X": 20.0,
+      "Transform3DOp.Rotate.Y": 30.0
+    },
+    "Override": {
+      "Visibility.DoVisible": 1.0,
+      "Visibility.IsVisible": 0.0
+    }
+  },
+  "source": "Cube 3D with visibility override and two Renderer3D branches.",
+  "save_project": true,
+  "save_completed_at": "2026-10-27T23:07:37.321108+00:00",
+  "native_export_sha256": "f1052208e83a5a33810a80697655369461b19a740c5601915829816490d21c8e",
+  "portable_sha256": "c1feccff9950e68f514e970b5b8fb42e4194d255120ac6d66832fc3fc0880857",
+  "portable_reimport": "NOT_RUN",
+  "limits": [
+    "One cube with visibility disabled; multiple objects, ID filtering, other attributes, animation and hosts NOT_RUN.",
+    "Viewer screenshot is display evidence."
+  ]
+}

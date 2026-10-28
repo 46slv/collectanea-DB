@@ -24,6 +24,30 @@ Override 3D [3Ov]は、<Term id="classic-3d">Classic 3D scene</Term>に含まれ
 
 変更するのは**Override 3Dへ入力されたシーン内のオブジェクト**です。後段で新しく追加したオブジェクトまで自動的に変更するわけではありません。また、Materialそのものの差し替えは[Replace Material 3D](./replace-material-3d.md)が担当します。
 
+<!-- capture:S186 -->
+
+## 実機例：可視性を上書きする
+
+`Cube 3D` の出力を分岐し、一方だけ `Override 3D` を通して、それぞれ `Renderer 3D` で画像化します。Override 3Dでは可視性の上書きを有効にし、表示をオフにしました。
+
+左は元の立方体、右は上書き後の透明な結果です。市松模様はViewerの透明表示です。この例で確認した対象は一つの立方体です。[接続と設定の記録](/img/fusion/captures/S186/readback.json)に条件を記載しています。
+
+[![Cube 3Dを分岐しOverride 3Dを通した結果と元を画像化する構成](/img/fusion/captures/S186/graph.png)](/img/fusion/captures/S186/graph.png)
+
+立方体を分岐し、片方に可視性の上書きを適用します。
+
+[![Override 3Dで可視性の上書きを有効にし表示をオフにしたInspector](/img/fusion/captures/S186/controls.png)](/img/fusion/captures/S186/controls.png)
+
+可視性の上書きを有効にし、表示をオフにします。
+
+[![元の立方体と上書き後の透明な結果の比較](/img/fusion/captures/S186/comparison.png)](/img/fusion/captures/S186/comparison.png)
+
+左は元の立方体、右は上書き後の結果です。
+
+[再現用Graph](/img/fusion/captures/S186/fixture.comp) · [撮影条件と確認範囲](/img/fusion/captures/S186/capture.json)
+
+<!-- /capture:S186 -->
+
 ## 入力と出力
 
 - **SceneInput（オレンジ）**：変更したいClassic 3Dシーンを受け取ります。[Merge 3D](./merge-3d.md)の出力や、3Dシーンを作るNodeの出力を接続します。
@@ -91,4 +115,4 @@ Manualは、3D Particleシステムや[Text 3D](./text-3d.md)について、Wire
 
 Blackmagic Design『DaVinci Resolve 21.1 Reference Manual』（September 2026）、Chapter 88「3D Nodes」、**Override 3D [3Ov]（pp.1959–1960）**に基づきます。SceneInput、`Do [Option]`による一括上書き、Wireframe・Visibility・Lighting・Matte・IDの用途、3D Particle／Text 3Dでの使用、Replace Material 3DとのFalloffパスを確認しています。
 
-内部REGID、Controlsタブ全項目の正式名称・初期値・範囲、21.1実機におけるRenderer／Edition差は未検証です。確認できない仕様を補わず、`verification: partial`を維持します。
+実機例では内部REGID `Override3D` と一つのCubeの可視性上書きを確認しました。Controlsタブ全項目の正式名称・初期値・範囲、21.1実機におけるRenderer／Edition差は未検証です。確認できない仕様を補わず、`verification: partial`を維持します。

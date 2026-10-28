@@ -1,0 +1,74 @@
+{
+  "case": "S184",
+  "project": "Collectanea_Mandelbrot_Zoom_20261025",
+  "library": "Local Database",
+  "project_manager_folder": "root",
+  "timeline": "S184_capture",
+  "frame": 0,
+  "resolve": "21.1.0.14",
+  "edition": "DaVinci Resolve Studio",
+  "os": "Windows-11-10.0.26200-SP0",
+  "project_settings": {
+    "colorScienceMode": "davinciYRGB",
+    "colorSpaceInput": "Rec.709 Gamma 2.4",
+    "colorSpaceTimeline": "Rec.709 (Scene)",
+    "colorSpaceTimelineGamma": "",
+    "colorSpaceOutput": "Rec.709 (Scene)",
+    "colorSpaceOutputGamma": "ACEScc",
+    "isAutoColorManage": "0",
+    "timelineResolutionWidth": "1920",
+    "timelineResolutionHeight": "1080",
+    "timelineFrameRate": 30.0,
+    "timelinePlaybackFrameRate": "30",
+    "timelinePixelAspectRatio": "square"
+  },
+  "connections": {
+    "Displace.SceneInput": "Plane",
+    "Displace.Input": "Noise",
+    "SceneMerge.SceneInput1": "Displace",
+    "SceneMerge.SceneInput2": "KeyLight",
+    "SceneRenderer.SceneInput": "SceneMerge",
+    "MediaOut1.Input": "SceneRenderer"
+  },
+  "values": {
+    "Plane": {
+      "SurfacePlaneInputs.SubdivisionWidth": 50.0,
+      "SurfacePlaneInputs.SubdivisionHeight": 50.0,
+      "Transform3DOp.Rotate.X": -35.0,
+      "Transform3DOp.Scale.X": 0.7
+    },
+    "Noise": {
+      "UseFrameFormatSettings": 0.0,
+      "Width": 512.0,
+      "Height": 512.0,
+      "Detail": 3.0,
+      "Contrast": 2.0
+    },
+    "Displace": {
+      "Scale": 0.3
+    },
+    "KeyLight": {
+      "Transform3DOp.Rotate.Y": -35.0
+    },
+    "SceneRenderer": {
+      "RendererSoftware.LightingEnabled": 1.0
+    }
+  },
+  "final_displace": {
+    "Scale": 0.3,
+    "Bias": 0.0,
+    "Channel": 0.0,
+    "CameraDisplacement": 0.0
+  },
+  "comparison_scale": 0,
+  "source": "Subdivided Shape3D plane displaced by FastNoise, lit and rendered; one static frame.",
+  "save_project": true,
+  "save_completed_at": "2026-10-27T22:52:46.885310+00:00",
+  "native_export_sha256": "39ab812fdb4054b7049a5f9f96c62a57152b8797eb689abd1c1119fdd795e842",
+  "portable_sha256": "0f9137d998c3bc4ea8ce3fca0f896192e47f5bf86c0b2a0194765371e941f3d6",
+  "portable_reimport": "NOT_RUN",
+  "limits": [
+    "One plane and generated noise, Scale 0 and .3; other channels, camera displacement, animation and hosts NOT_RUN.",
+    "Viewer screenshots are display evidence."
+  ]
+}

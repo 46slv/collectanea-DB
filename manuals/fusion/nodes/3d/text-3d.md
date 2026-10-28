@@ -25,6 +25,30 @@ updated: "2026-10-09"
 
 たとえばタイトルをカメラの斜め前から見せると、文字の側面や厚みが見えるようになります。Text 3Dだけでは通常の2D映像へ重ねられないため、[Renderer 3D](./renderer-3d.md)で画像に変換してから、実写素材と合成します。
 
+<!-- capture:S180 -->
+
+## 実機例：文字に厚みを付ける
+
+`Text 3D` に「HI」を入力し、Open Sans Bold、Size 1、Extrusion Depth 0.15に設定しました。文字をY方向に−30回転し、Directional Lightと一緒に `Merge 3D` へ接続して `Renderer 3D` で描画します。
+
+右の描画では、白い正面と暗い側面で文字の厚みが見えます。RendererのLightingを有効にしています。日本語や別の書体、Bevelの比較はこの例では確認していません。[接続と設定の記録](/img/fusion/captures/S180/readback.json)に条件を記載しています。
+
+[![Text 3DとライトをMerge 3DでまとめRenderer 3Dへ渡す構成](/img/fusion/captures/S180/graph.png)](/img/fusion/captures/S180/graph.png)
+
+文字とライトを同じ3D sceneに置いて描画します。
+
+[![Text 3Dの文字と押し出しの奥行き0.15を示すInspector](/img/fusion/captures/S180/controls.png)](/img/fusion/captures/S180/controls.png)
+
+HI、Open Sans Bold、Extrusion Depth 0.15です。
+
+[![正面と側面が見える立体文字HIの描画結果](/img/fusion/captures/S180/render.png)](/img/fusion/captures/S180/render.png)
+
+白い正面と暗い側面で厚みを確認できます。
+
+[再現用Graph](/img/fusion/captures/S180/fixture.comp) · [撮影条件と確認範囲](/img/fusion/captures/S180/capture.json)
+
+<!-- /capture:S180 -->
+
 ## 入力と出力
 
 Text 3Dは文字を自分で生成するため、入力を何も接続せずに使い始められます。

@@ -36,6 +36,30 @@ MaterialInputに**2D Image**を接続すると、その画像が標準Material�
 
 一方、**3D Material**を接続すると、Image Plane 3Dに内蔵された基本Materialタブは無効になります。Material側で色や質感を設定するためです。外部Materialを接続した場合の縦横比については、2D Image接続時と同じ動作だと決めつけず、結果をViewerで確認してください。
 
+<!-- capture:S179 -->
+
+## 実機例：生成画像を3D平面に置く
+
+背景色と `Text+` を `Merge` で重ねた1920×1080の画像を、`Image Plane 3D` のMaterial入力へ接続しました。平面をY方向に−30回転し、`Renderer 3D` で画像化します。
+
+左は3D Viewerの平面、右は描画結果です。白い文字と青い背景が平面に表示されています。外部メディアや別の縦横比はこの例では確認していません。[接続と設定の記録](/img/fusion/captures/S179/readback.json)に条件を記載しています。
+
+[![生成画像をImage Plane 3Dに接続しRenderer 3Dで画像化する構成](/img/fusion/captures/S179/graph.png)](/img/fusion/captures/S179/graph.png)
+
+背景と文字を重ねた画像をMaterial入力へ接続します。
+
+[![Image Plane 3DのControlsを示すInspector](/img/fusion/captures/S179/controls.png)](/img/fusion/captures/S179/controls.png)
+
+Image Plane 3DのControlsタブです。
+
+[![文字入りの平面を3D ViewerとRenderer 3Dで表示](/img/fusion/captures/S179/plane.png)](/img/fusion/captures/S179/plane.png)
+
+左は3D Viewer、右は画像化した結果です。
+
+[再現用Graph](/img/fusion/captures/S179/fixture.comp) · [撮影条件と確認範囲](/img/fusion/captures/S179/capture.json)
+
+<!-- /capture:S179 -->
+
 ## 最初の接続例：映像を3D空間に置く
 
 ```text
@@ -109,4 +133,4 @@ Visibility、Lighting、Matte、Blend Mode、Normals/Tangents、Object IDやMate
 
 **一次資料**：Blackmagic Design『DaVinci Resolve 21.1 Reference Manual』（September 2026）、Chapter 88「3D Nodes」、**Image Plane 3D [3Im]（pp.1953–1954）**。2本の入力、2D Image接続時の縦横比、3D Material接続時の基本Material無効化、Lock Width/Height、Subdivision Level、Wireframe、OpenGL描画条件を確認しました。
 
-**未検証**：実機の内部REGID、Subdivisionの正確な設定可能範囲、Renderer間の描画差、Edition差、各種Materialの縦横比挙動。これらは確認済みとして補わず、`verification: partial`を維持します。
+**未検証**：Subdivisionの正確な設定可能範囲、Renderer間の描画差、Edition差、各種Materialの縦横比挙動。これらは確認済みとして補わず、`verification: partial`を維持します。

@@ -1,0 +1,57 @@
+{
+  "case": "S180",
+  "project": "Collectanea_Mandelbrot_Zoom_20261025",
+  "library": "Local Database",
+  "project_manager_folder": "root",
+  "timeline": "S180_capture",
+  "frame": 0,
+  "resolve": "21.1.0.14",
+  "edition": "DaVinci Resolve Studio",
+  "os": "Windows-11-10.0.26200-SP0",
+  "project_settings": {
+    "colorScienceMode": "davinciYRGB",
+    "colorSpaceInput": "Rec.709 Gamma 2.4",
+    "colorSpaceTimeline": "Rec.709 (Scene)",
+    "colorSpaceTimelineGamma": "",
+    "colorSpaceOutput": "Rec.709 (Scene)",
+    "colorSpaceOutputGamma": "ACEScc",
+    "isAutoColorManage": "0",
+    "timelineResolutionWidth": "1920",
+    "timelineResolutionHeight": "1080",
+    "timelineFrameRate": 30.0,
+    "timelinePlaybackFrameRate": "30",
+    "timelinePixelAspectRatio": "square"
+  },
+  "connections": {
+    "SceneMerge.SceneInput1": "Title3D",
+    "SceneMerge.SceneInput2": "KeyLight",
+    "SceneRenderer.SceneInput": "SceneMerge",
+    "MediaOut1.Input": "SceneRenderer"
+  },
+  "values": {
+    "Title3D": {
+      "StyledText": "HI",
+      "Font": "Open Sans",
+      "Style": "Bold",
+      "Size": 1.0,
+      "ExtrusionDepth": 0.15,
+      "Transform3DOp.Rotate.Y": -30.0
+    },
+    "KeyLight": {
+      "Transform3DOp.Rotate.Y": -35.0
+    },
+    "SceneRenderer": {
+      "RendererSoftware.LightingEnabled": 1.0
+    }
+  },
+  "source": "Text 3D and directional light merged and rendered; one static frame.",
+  "save_project": true,
+  "save_completed_at": "2026-10-27T22:19:22.900187+00:00",
+  "native_export_sha256": "4e6ccb6624137e470d655c4f11d33894fd7683449d64de5ee439615aa60ffc31",
+  "portable_sha256": "a08c43596aa84cd3c9a2ca8e01d2e2650be06f8bb9f8d6e2cb7bb75f2be881e4",
+  "portable_reimport": "NOT_RUN",
+  "limits": [
+    "Single Latin text with Open Sans Bold, fixed extrusion and light; Japanese, bevel comparisons, other fonts, animation and hosts NOT_RUN.",
+    "Viewer screenshot is display evidence."
+  ]
+}
