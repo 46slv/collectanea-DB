@@ -31,6 +31,32 @@ updated: '2026-10-12'
 
 ただし、ManualのsRestyle項目は機能の短い説明に限られます。塗りのどの成分や輪郭線のどの属性を個別に変更できるか、Inspectorの正式な項目名と初期値、上流に複数の異なるスタイルがあるときの上書き範囲は、本文だけでは確定できません。ここでは**塗り・輪郭線を変更できるという確認済みの役割**と、その役割を使った構成案を区別します。
 
+<!-- capture:S281 -->
+
+## 実機例：円の塗りと輪郭を変える
+
+`sEllipse` を分岐し、一方を `sRestyle` に接続して塗りを赤に設定しました。それぞれを `sRender` で画像化すると、この静止画では白い円が赤い塗りと緑の輪郭に見えます。Viewerの市松模様は透明部分の表示です。ほかの形やAlpha値、アニメーションは未検証です。[接続と設定の記録](/img/fusion/captures/S281/readback.json)に条件を記載しています。
+
+[![sRestyleの処理前後を比較するノード構成](/img/fusion/captures/S281/graph.png)](/img/fusion/captures/S281/graph.png)
+
+円を分岐し処理前後を画像化します。
+
+[![sRestyleのControlsページ](/img/fusion/captures/S281/controls.png)](/img/fusion/captures/S281/controls.png)
+
+TypeはReplaceです。色の数値はSDKで読み戻し、接続記録に記載しています。
+
+[![処理前の白い円](/img/fusion/captures/S281/low.png)](/img/fusion/captures/S281/low.png)
+
+処理前は白い円です。
+
+[![赤い塗りと緑の輪郭の円](/img/fusion/captures/S281/high.png)](/img/fusion/captures/S281/high.png)
+
+処理後は赤い塗りと緑の輪郭に見えます。
+
+[再現用Graph](/img/fusion/captures/S281/fixture.comp) · [撮影条件と確認範囲](/img/fusion/captures/S281/capture.json)
+
+<!-- /capture:S281 -->
+
 ## 入力と出力
 
 - **入力：Shape**。上流で作った図形、または複数の図形をまとめたShapeデータを対象にします。
@@ -106,4 +132,4 @@ sRestyleの挙動を実機で確かめるなら、まず単一の円や長方形
 
 この資料で確認できるのは、sRestyleがKrokodoveのShape Toolsに分類され、入力Shape（複数を含む）の見た目を、塗りや輪郭線の属性で変更する役割です。図中の接続順序と制作例は、この説明と一般のShapeワークフローを基に組み立てた**運用案**です。
 
-**未確認：** Inspectorの正式なControl名・既定値・範囲、端子の表示名と数、複合Shapeへの厳密な作用範囲、内部REGID、Edition差、21.1実機での描画結果。これらはRuntimeでの確認後に追記します。
+**未確認：** 今回示した設定以外のControlの意味・既定値・範囲、端子の表示名と数、複合Shapeへの厳密な作用範囲、内部REGID、Edition差、別条件での描画結果。
