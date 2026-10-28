@@ -26,6 +26,34 @@ updated: "2026-10-15"
 
 DomeLightの出力は**照明を含む3Dシーン**であり、完成した2D画像ではありません。周囲の画像を背景として画面に表示する操作とも区別します。
 
+<!-- capture:S216 -->
+
+## 実機例：単色画像で照明する
+
+単色の `Background` を `DomeLight` のDomeTextureへ接続し、`OpenPBR` の球とまとめてレンダリングしました。
+
+この例ではIntensity 0で暗い球が、Intensity 2で明るくなります。入力は合成した単色SDR画像で、HDR素材の例ではありません。[接続と設定の記録](/img/fusion/captures/S216/readback.json)に条件を記載しています。
+
+[![単色BackgroundをDomeLightへ接続し球を照らす構成](/img/fusion/captures/S216/graph.png)](/img/fusion/captures/S216/graph.png)
+
+2D画像をDomeTextureへ渡します。
+
+[![DomeLightのIntensity 2の設定](/img/fusion/captures/S216/controls.png)](/img/fusion/captures/S216/controls.png)
+
+Intensity 2の状態です。
+
+[![Intensity 0で描画した暗い球](/img/fusion/captures/S216/low.png)](/img/fusion/captures/S216/low.png)
+
+Intensity 0の状態です。
+
+[![Intensity 2で照らされた球](/img/fusion/captures/S216/high.png)](/img/fusion/captures/S216/high.png)
+
+Intensity 2では球が明るくなります。
+
+[再現用Graph](/img/fusion/captures/S216/fixture.comp) · [撮影条件と確認範囲](/img/fusion/captures/S216/capture.json)
+
+<!-- /capture:S216 -->
+
 ## 入力と出力
 
 | 接続 | 受け取るもの | 役割 |
@@ -118,4 +146,4 @@ uDome Lightの記事にはTexture File、Texture Format、Exposure、Guide Radiu
 
 なお、p.2034のDomeLight Inspector節には「uDome light」という表記がありますが、同じページの見出し・入力説明はClassic 3DのDomeLightです。その語だけを根拠にUSDのuDome Lightのパラメータを同一視しません。
 
-**未確認：** Resolve 21.1実機のREGID、画像の投影形式・色空間ごとの厳密な解釈、使用Rendererによる照明・反射の違い、HDR素材を使った実際の完成画像。この記事はManualから確認できる範囲を記載し、実機で未検証の挙動は断定していません。
+**未確認：** 画像の投影形式・色空間ごとの厳密な解釈、使用Rendererによる照明・反射の違い、HDR素材を使った実際の完成画像。上の単色SDR画像を使う実機例ではREGID `LightDome`と照明の変化を確認しました。

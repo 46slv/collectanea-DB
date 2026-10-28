@@ -26,6 +26,34 @@ Bump Map [3Bu]は、**白黒の高さ画像やRGBのバンプ画像を、3D Mate
 
 Geometry・Material・Light・Renderer 3Dの関係は[Classic 3D scene](../../learn/02-data/classic-3d.md)を参照してください。
 
+<!-- capture:S212 -->
+
+## 実機例：高さ画像で陰影を変える
+
+`Fast Noise` をHeightmapとして `Bump Map` に入力し、`Blinn` を通して球に割り当てました。
+
+Height Scaleを0.0001から50に上げると、この球では陰影に凹凸が見えます。違いを見やすくするため値を大きくしています。形状の輪郭を変形する例ではありません。[接続と設定の記録](/img/fusion/captures/S212/readback.json)に条件を記載しています。
+
+[![Fast NoiseとBump MapをBlinnに接続して球を描画する構成](/img/fusion/captures/S212/graph.png)](/img/fusion/captures/S212/graph.png)
+
+高さ画像から材質の陰影を作ります。
+
+[![Bump MapのHeightmapとHeight Scale 50の設定](/img/fusion/captures/S212/controls.png)](/img/fusion/captures/S212/controls.png)
+
+Heightmap、Height Scale 50の状態です。
+
+[![Height Scale 0.0001で描画した球](/img/fusion/captures/S212/low.png)](/img/fusion/captures/S212/low.png)
+
+Height Scale 0.0001の状態です。
+
+[![Height Scale 50で描画した球](/img/fusion/captures/S212/high.png)](/img/fusion/captures/S212/high.png)
+
+Height Scale 50では陰影に凹凸が見えます。
+
+[再現用Graph](/img/fusion/captures/S212/fixture.comp) · [撮影条件と確認範囲](/img/fusion/captures/S212/capture.json)
+
+<!-- /capture:S212 -->
+
 ## 入力と出力
 
 | 端子 | データ | 役割 |
@@ -110,4 +138,4 @@ Inspectorの初期値、正確な選択肢の全一覧、数値範囲はManual�
 
 一次資料：Blackmagic Design『DaVinci Resolve 21.1 Reference Manual』（September 2026）、Chapter 91「3D Texture Nodes」**Bump Map [3Bu]（pp.2082–2084）**。Height MapとBump Mapのデータの違い・トラブル対処はChapter 84「3D Compositing Basics」（pp.1855–1856）、Create Bump Mapとの違いはChapter 99「Filter Nodes」（pp.2328–2329）を参照しています。
 
-**verification: partial**はruntime REGID、Inspectorの初期値とrange、edition差、実機での描画を未確認としているためです。
+**verification: partial**は、上の実機例でruntime REGID `BumpMap`と高さ画像による描画を確認した状態です。Inspectorの初期値とrange、edition差、外部法線画像や他の条件は未確認です。

@@ -24,6 +24,34 @@ CreateReliefMap [CRM]は、**画素の明暗などで高さを表した2D画像�
 
 このNodeだけで3Dの形状や材質が完成するわけではありません。CreateReliefMapが**凹凸を表す画像を準備**し、後段のReliefMapがその情報を材質へ適用します。Fusionの<Term id="classic-3d">Classic 3D</Term>では、2D Image、3D Material、3D sceneを区別して接続します。
 
+<!-- capture:S213 -->
+
+## 実機例：文字からRelief Mapを作る
+
+`Text+` の文字画像を `CreateReliefMap` で変換し、`ReliefMap` と `Blinn` を通して平面に割り当てました。
+
+左のViewerには変換画像、右には材質をレンダリングした結果が表示されています。画像のチャンネル値や自己遮蔽の正確さはこの例では検証していません。[接続と設定の記録](/img/fusion/captures/S213/readback.json)に条件を記載しています。
+
+[![文字画像をCreateReliefMapとReliefMapに通して平面を描画する構成](/img/fusion/captures/S213/graph.png)](/img/fusion/captures/S213/graph.png)
+
+変換画像と材質をReliefMapへ渡します。
+
+[![CreateReliefMapのRelief、Luminance、Depth Scale 1の設定](/img/fusion/captures/S213/controls.png)](/img/fusion/captures/S213/controls.png)
+
+Relief、Luminance、Depth Scale 1の状態です。
+
+[![CreateReliefMapが生成した文字の変換画像](/img/fusion/captures/S213/low.png)](/img/fusion/captures/S213/low.png)
+
+CreateReliefMapの出力です。
+
+[![ReliefMapを通して平面に描画した文字](/img/fusion/captures/S213/high.png)](/img/fusion/captures/S213/high.png)
+
+ReliefMapを通した描画結果です。
+
+[再現用Graph](/img/fusion/captures/S213/fixture.comp) · [撮影条件と確認範囲](/img/fusion/captures/S213/capture.json)
+
+<!-- /capture:S213 -->
+
 ## 入力と出力
 
 | 端子 | データ | 役割 |
@@ -126,4 +154,4 @@ CreateReliefMapとReliefMapの組み合わせは、**高さに基づく奥行き
 - 同Manual、Chapter 91「3D Texture Nodes」、**ReliefMap [3RM]（pp.2098–2099）**。Materialと2D Mapの入力、Blinn・Shape 3Dへの接続、RGB/Alphaの意味、自己遮蔽を確認。
 - CreateReliefMap / ReliefMapはResolve 21で導入されたNodeとして公式21系資料に記載されています。本文は21.1 Manualの記述を優先しています。
 
-`verification: partial`は、runtime REGID、Inspectorの初期値と数値範囲、Edition差、実機の描画と性能を未確認としているためです。
+`verification: partial`は、上の実機例に限りruntime REGID `CreateReliefMap`と変換画像・描画を確認した状態です。Inspectorの初期値と数値範囲、Edition差、チャンネル値と性能は未確認です。
