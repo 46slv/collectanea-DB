@@ -101,6 +101,46 @@ iif(Centered==1, 2, 0)
 
 21.1 Manual p.1517には、**MultiButtonControl**でLinearとCenteredだけを表示する方法もあります。ここでの0と2はDirectional Blurの作例の値なので、別のノードの選択肢へそのまま使い回さないでください。
 
+<!-- capture:S135 -->
+
+## 実機例：Blur VectorとCenteredを公開する
+
+1920×1080のテストチャートをDirectional Blurへつなぎ、LengthとAngleにCenterを参照する式を設定します。Edit ControlのID欄で `Center` を読み込み、Nameを `Blur Vector`、TypeをPoint、PageをControlsにしました。LengthとAngleは非表示にしています。
+
+Viewer上の点を動かすと、Blur Vectorの座標と、式で計算されるぼかしの長さ・角度が変わります。二枚のViewer画像は、同じ素材・frame 0で点を移動する前後です。
+
+続いて `Centered` をNumberのCheckboxControlとして追加し、元のTypeに `iif(Centered==1, 2, 0)` を設定しました。チェックを入れるとTypeが2、外すと0になることを確認し、その後Typeを非表示にしています。
+
+WindowsのDaVinci Resolve Studio 21.1.0.14で確認した例です。下のGraphは撮影時の構成記録で、別のCompositionへの読み込みとMediaInの素材接続は未確認です。
+
+[![Edit ControlでID CenterのNameをBlur Vectorにし、PointとControlsを選んだ画面](/img/fusion/captures/S135/center-control.png)](/img/fusion/captures/S135/center-control.png)
+
+IDは `Center` のまま、表示名を `Blur Vector` に変更します。
+
+[![Blur VectorがX 0.65、Y 0.6のときに斜めにぼけたテストチャートとInspector](/img/fusion/captures/S135/blur-vector-before.png)](/img/fusion/captures/S135/blur-vector-before.png)
+
+Viewerの点を動かす前。LengthとAngleはInspectorから隠れています。
+
+[![Blur Vectorの点を移動した後、座標とぼかしの向きが変わったテストチャート](/img/fusion/captures/S135/blur-vector-after.png)](/img/fusion/captures/S135/blur-vector-after.png)
+
+点を移動すると、座標とぼかしの向き・長さが連動して変わります。
+
+[![Edit ControlでCenteredをNumber型、Controlsページ、CheckboxControlに設定した画面](/img/fusion/captures/S135/centered-control.png)](/img/fusion/captures/S135/centered-control.png)
+
+`Centered` をチェックボックスとして追加します。
+
+[![Centeredがオンで、Typeにiif式が設定されているInspectorとViewer](/img/fusion/captures/S135/centered-expression.png)](/img/fusion/captures/S135/centered-expression.png)
+
+式でチェック状態を元のTypeへ渡します。
+
+[![Typeを隠した後のBlur VectorとCenteredチェックボックス、ぼかされたテストチャート](/img/fusion/captures/S135/centered-final.png)](/img/fusion/captures/S135/centered-final.png)
+
+Typeを隠した後も、チェックボックスから切り替えられます。
+
+[再現用Graph](/img/fusion/captures/S135/fixture.comp) · [撮影条件と確認範囲](/img/fusion/captures/S135/capture.json)
+
+<!-- /capture:S135 -->
+
 ## 複数ノードの調整を一つにまとめたい場合
 
 3つの図形を等間隔に並べたタイトルで、利用者に**Spacing**だけを操作させたいとします。

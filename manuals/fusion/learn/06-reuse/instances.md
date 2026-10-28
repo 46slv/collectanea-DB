@@ -129,6 +129,44 @@ Instanceは複数の**Nodeの接続構造**までまとめて同期する仕組�
 - [Macro / Templateで再利用単位を作る](./macros-templates)
 - [User Controlsで公開インターフェースを作る](./user-controls)
 
+<!-- capture:S133 -->
+
+## 実機例：CopyとInstance、Centerの個別共有
+
+この作例では、ORIGINAL INPUT・COPY INPUT・INSTANCE INPUTをそれぞれ別のTextPlusから入力しています。通常CopyのTransformCopyは独立し、Paste Instanceで作ったInstance_Transform1はTransform1と設定を共有します。画像入力はSourceA/B/Cからそれぞれ別に接続しています。
+
+Instance側のCenterだけをDeinstanceすると、CenterはTransform1の0.42, 0.46からInstance側の0.60, 0.56へ分かれ、Sizeは両方1.2のまま共有されます。その後、Transform1の現在値を0.42, 0.46にした状態でInspectorのCenterからReinstanceすると、Instanceはその値を引き継ぎます。Graphの入力接続と緑のInstance Link、Viewer出力、Inspector、SDKで読み戻した値を照合しました。
+
+これはStudio 21.1.0.14 / WindowsのTextPlus作例です。TextPlusを画像入力に使ったため、色処理や実映像の品質を示すものではありません。記事全体の検証状況はpartialのままです。
+
+[![Node Editorで通常CopyとPaste Instanceに異なる画像入力を接続し、Copy InputとInstance Inputを表示した二つのViewer](/img/fusion/captures/S133/copy-instance-viewers.png)](/img/fusion/captures/S133/copy-instance-viewers.png)
+
+左はTransformCopyの入力、右はInstance_Transform1の入力です。両Nodeの画像入力を別々に接続しています。
+
+[![SourceA、SourceB、SourceCからTransform1、TransformCopy、Instance_Transform1へ別々に接続し、Transform1からInstanceへの緑のリンクを示すGraph](/img/fusion/captures/S133/copy-instance-graph.png)](/img/fusion/captures/S133/copy-instance-graph.png)
+
+SourceBは通常Copyへ、SourceCはInstanceへ画像を渡します。緑の線はTransform1からInstance_Transform1への設定共有リンクです。
+
+[![Centerを個別解除したTransform1とInstance_Transform1が異なる位置に表示されるViewer比較](/img/fusion/captures/S133/center-independent-viewers.png)](/img/fusion/captures/S133/center-independent-viewers.png)
+
+Centerだけ切り離したため、元NodeとInstanceの位置は別々です。
+
+[![Instance InspectorでCenterは白い0.60、0.56、共有Sizeは緑の1.2と表示される](/img/fusion/captures/S133/center-independent-inspector.png)](/img/fusion/captures/S133/center-independent-inspector.png)
+
+Centerは白い個別値、Sizeは緑の共有値です。SDKでも元のCenter 0.42, 0.46、InstanceのCenter 0.60, 0.56、両方のSize 1.2を読み戻しました。
+
+[![Reinstance前にTransform1のCenterが0.42、0.46へ変わり、Instance側の出力位置が別のままの画面](/img/fusion/captures/S133/master-center-before-reinstance.png)](/img/fusion/captures/S133/master-center-before-reinstance.png)
+
+Transform1の現在値を変更した後も、切り離されたInstanceは別のCenterのままです。
+
+[![Reinstance後にInstanceのCenterが共有表示の0.42、0.46へ戻り、元NodeとViewer位置が一致する画面](/img/fusion/captures/S133/instance-center-after-reinstance.png)](/img/fusion/captures/S133/instance-center-after-reinstance.png)
+
+CenterからReinstanceした後、Instanceは元Nodeの現在値0.42, 0.46を引き継ぎ、CenterとSizeの共有表示に戻りました。
+
+[再現用Graph](/img/fusion/captures/S133/fixture.comp) · [撮影条件と確認範囲](/img/fusion/captures/S133/capture.json)
+
+<!-- /capture:S133 -->
+
 ## バージョンと出典
 
 **Blackmagic Design『DaVinci Resolve 21.1 Reference Manual』（2026年9月）**を根拠としています。

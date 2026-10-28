@@ -1,0 +1,44 @@
+{
+  "project": "Collectanea_Mandelbrot_Zoom_20261025",
+  "timeline": "S133_capture",
+  "case": "S133",
+  "resolve": "21.1.0.14",
+  "edition": "DaVinci Resolve Studio",
+  "frame": 0.0,
+  "save_project": true,
+  "save_completed_at": "2026-10-26T22:13:45.282243+00:00",
+  "inputs": {
+    "Transform1": "SourceA",
+    "TransformCopy": "SourceB",
+    "Instance_Transform1": "SourceC",
+    "MediaOut1": "Transform1"
+  },
+  "values": {
+    "Transform1": {
+      "Center": {
+        "1": 0.42,
+        "2": 0.46,
+        "3": 0.0
+      },
+      "Size": 1.2
+    },
+    "TransformCopy": {
+      "Center": {
+        "1": 0.5,
+        "2": 0.5,
+        "3": 0.0
+      },
+      "Size": 0.75
+    },
+    "Instance_Transform1": {
+      "Center": {
+        "1": 0.42,
+        "2": 0.46,
+        "3": 0.0
+      },
+      "Size": 1.2
+    }
+  },
+  "visible_ui_observation": "After the visible Reinstance menu action, Instance_Transform1.Center fields returned to green at 0.42, 0.46; Size stayed linked at 1.2.",
+  "physical_input": "NOT_ESTABLISHED"
+}

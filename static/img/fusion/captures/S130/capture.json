@@ -1,0 +1,144 @@
+{
+  "manual": {
+    "version": "21.1",
+    "chapter": 121,
+    "printed_pages": "p.2887; p.2900; pp.2902–2903; pp.2911–2914"
+  },
+  "runtime": {
+    "version": "21.1.0.14",
+    "edition": "Studio",
+    "os": "Windows-11-10.0.26200-SP0",
+    "ui_language": "ja-JP"
+  },
+  "captured_at": "2026-10-26T19:31:25.025165Z",
+  "project": "Collectanea_Mandelbrot_Zoom_20261025",
+  "timeline": "S130_capture",
+  "frame": 149.0,
+  "resolution": [
+    1920,
+    1080
+  ],
+  "color_management": {
+    "colorScienceMode": "davinciYRGB",
+    "colorSpaceTimeline": "Rec.709 (Scene)",
+    "colorSpaceTimelineGamma": "",
+    "colorSpaceOutput": "Rec.709 (Scene)",
+    "colorSpaceOutputGamma": "ACEScc",
+    "separateColorSpaceAndGamma": "0",
+    "isAutoColorManage": "0",
+    "timelineResolutionWidth": "1920",
+    "timelineResolutionHeight": "1080",
+    "timelineFrameRate": 30.0,
+    "timelinePlaybackFrameRate": "30"
+  },
+  "viewer": {
+    "zoom_percent": null,
+    "channel": "Color",
+    "background": "checkerboard for transparent pixels",
+    "note": "Left is ImageRoundtrip and right is ImageOriginal at frame 149. Both show the gray Cube, but viewer display scales differ, so compare shape rather than apparent size. Screenshots are display evidence, not colorimetric exports."
+  },
+  "source": {
+    "media_file": "Comp:/../_fixtures/S130/roundtrip-export.usda",
+    "media_sha256": "07d6aa754dad9271d0185f0fd0b4a66aa8cba8bba55802de920a1ed38b3cb3f6",
+    "usd_assets": [
+      {
+        "file": "static/img/fusion/captures/_fixtures/S130/owned-input.usda",
+        "role": "owned USD input",
+        "bytes": 165,
+        "sha256": "34912677990ffeffd564fa8ed30919d53483505456b3af872cbf24ee1a20a0cb"
+      },
+      {
+        "file": "static/img/fusion/captures/_fixtures/S130/roundtrip-export.usda",
+        "role": "USD UTF-8 export used by the second uLoader",
+        "bytes": 978,
+        "sha256": "07d6aa754dad9271d0185f0fd0b4a66aa8cba8bba55802de920a1ed38b3cb3f6"
+      },
+      {
+        "file": "static/img/fusion/captures/_fixtures/S130/roundtrip-export_assets/USDInput_owned-input/USDInput_owned-input_asset.usda",
+        "role": "export companion asset",
+        "bytes": 11,
+        "sha256": "ba1eaae89b7297bd260a682faef79e5faa0607d713f644eaa004be83b8f20d49"
+      },
+      {
+        "file": "static/img/fusion/captures/_fixtures/S130/roundtrip-export_assets/USDInput_owned-input/USDInput_owned-input_Scene_manifest.usda",
+        "role": "export scene manifest",
+        "bytes": 11,
+        "sha256": "ba1eaae89b7297bd260a682faef79e5faa0607d713f644eaa004be83b8f20d49"
+      }
+    ],
+    "file": "screen.png",
+    "size": [
+      3344,
+      1907
+    ],
+    "sha256": "8bb186fbd80c28638695ebab72cdbb601aa31c145ad14262aab105407654ea1e"
+  },
+  "acceptance": {
+    "gui": "PASS: native Resolve screenshot visually inspected; original and exported USD are separately rendered in two viewers, graph connections are read back, and the Inspector visibly shows USD UTF-8 (*.usda).",
+    "usd_roundtrip": "PASS: exported USDA was reopened by a separate uLoader and rendered at frame 149.",
+    "article_display": "NOT_RUN",
+    "public_display": "NOT_RUN"
+  },
+  "unverified": [
+    "Portable fixture.comp loaded in a fresh Resolve composition: NOT_RUN",
+    "USD reference resolution in another application: NOT_RUN",
+    "Material, lighting, and non-static animation transfer: NOT_RUN",
+    "Colorimetric equivalence between uRenderer and an external renderer: NOT_RUN",
+    "Production integration and public publication: NOT_RUN",
+    "Exported portable composition reimport NOT_RUN"
+  ],
+  "schema_version": 1,
+  "case": "S130",
+  "article": "manuals/fusion/learn/02-data/3d-file-interchange.md",
+  "graph": "fixture.comp",
+  "settings": "readback.json",
+  "shots": [
+    {
+      "file": "roundtrip-viewers.png",
+      "source": "screen.png",
+      "source_sha256": "8bb186fbd80c28638695ebab72cdbb601aa31c145ad14262aab105407654ea1e",
+      "frame": 149.0,
+      "crop_xyxy": [
+        1145,
+        65,
+        2815,
+        790
+      ],
+      "resampled": false,
+      "sha256": "bb589f6a391b42c4c83170c35305421a85657e36840a0af86e719a9fd4700da2"
+    },
+    {
+      "file": "usd-graph.png",
+      "source": "screen.png",
+      "source_sha256": "8bb186fbd80c28638695ebab72cdbb601aa31c145ad14262aab105407654ea1e",
+      "frame": 149.0,
+      "crop_xyxy": [
+        500,
+        1230,
+        2360,
+        1530
+      ],
+      "resampled": false,
+      "sha256": "7989f92a8fc8098a6ca7122d9bc0ac0bee0f90546fc745a23ba0554b40913fc8"
+    },
+    {
+      "file": "usd-format.png",
+      "source": "screen.png",
+      "source_sha256": "8bb186fbd80c28638695ebab72cdbb601aa31c145ad14262aab105407654ea1e",
+      "frame": 149.0,
+      "crop_xyxy": [
+        2815,
+        70,
+        3344,
+        330
+      ],
+      "resampled": false,
+      "sha256": "b7b20893d2fc9d648e95b9caf35a6516b425fcfffc7970a17dfa4052c0b9ed06"
+    }
+  ],
+  "reproduction": {
+    "fixture_sha256": "a80ed084c22e0b3c41fead116535e6f05e82eb3bdea39f2b241e2d086a6a6ced",
+    "readback_sha256": "2158612802fd68513314c7a472148eb8927a92112336b46843f03451b922550d",
+    "reimport": "NOT_RUN"
+  }
+}

@@ -158,6 +158,34 @@ USDで渡す場合も「uExportが材質・アニメーションに対応する�
 
 形式の名前だけで「材質を保持する」「アニメーションが読める」と判断せず、**読み込み方法と必要な情報**を組にして確認するのが安全です。
 
+<!-- capture:S130 -->
+
+## 書き出したUSDを別のuLoaderで確認する
+
+uRendererが作るのは2D画像、uExportが保存するのはUSD sceneです。書き出し後のファイルを別のuLoaderで読み込み、sceneの再読込と画像への描画を分けて確認します。
+
+1. uLoaderからuMergeへ読み込んだsceneをuRendererへ接続し、元の画像を表示します。
+2. 同じuMergeをuExportへ分岐し、InspectorのFormatで「USD UTF-8 (*.usda)」を選んでExport Stageから保存します。
+3. 保存したUSDAを別のuLoaderで読み込み、同じframeのuRenderer画像を元の表示と比べます。
+
+この例では2つのViewerに同じ形状のCubeが表示されました。ただしViewerごとに表示倍率が異なるため、画面上の大きさではなく形状を比べます。出力USDAには元ファイルへの相対参照と補助ファイルが含まれるため、参照先も一緒に扱います。別アプリでの参照解決、材質やアニメーションの受け渡しは、この表示だけでは確認できません。
+
+[![左右のViewerで、元USDから描画したCubeと、uExport後のUSDを別uLoaderで読み戻して描画したCubeを比較する](/img/fusion/captures/S130/roundtrip-viewers.png)](/img/fusion/captures/S130/roundtrip-viewers.png)
+
+左はImageRoundtrip、右はImageOriginalです。frame 149で両方に同じ形状の灰色Cubeが表示されています。Viewerの表示倍率が異なるため、画面上の大きさは比較しません。
+
+[![uLoaderからuMergeを経てuRendererへ進む元sceneと、uExportへの書き出し分岐、別uLoaderから再読込したsceneのFusion graph](/img/fusion/captures/S130/usd-graph.png)](/img/fusion/captures/S130/usd-graph.png)
+
+元のsceneはuRendererとuExportへ分岐します。下段は出力USDを別uLoaderで読み込む確認用の経路です。
+
+[![USDExportのInspectorでFormatがUSD UTF-8 (*.usda)と表示されている](/img/fusion/captures/S130/usd-format.png)](/img/fusion/captures/S130/usd-format.png)
+
+Format欄の表示文字列を記録しました。SDKの数値入力との対応付けは未確定です。
+
+[再現用Graph](/img/fusion/captures/S130/fixture.comp) · [撮影条件と確認範囲](/img/fusion/captures/S130/capture.json)
+
+<!-- /capture:S130 -->
+
 ## 出典と確認範囲
 
 Blackmagic Design『DaVinci Resolve 21.1 Reference Manual』（2026年9月）、**Chapter 84 p.1861**（FBX読み込み時の最初のテクスチャ／FBX Exporterの材質・テクスチャ制限）、**Chapter 88 pp.1913–1916**（Alembic Mesh 3DとImport）、**pp.1945–1949**（FBX Exporter / FBX Mesh 3D）、**Chapter 121 pp.2887–2888**（USDの読み込み）、**p.2900**（uExport）、**pp.2902–2903**（uLoader）。公式資料は[Blackmagic Design Support](https://www.blackmagicdesign.com/support/)から入手できます。
