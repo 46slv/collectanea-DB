@@ -1,0 +1,128 @@
+{
+  "manual": {
+    "version": "21.1"
+  },
+  "runtime": {
+    "version": "21.1.0.14",
+    "edition": "DaVinci Resolve Studio",
+    "os": "Windows-11-10.0.26200-SP0",
+    "ui_language": "ja-JP"
+  },
+  "captured_at": "2026-10-28T11:05:39.261239+00:00",
+  "project": "Collectanea_Mandelbrot_Zoom_20261025",
+  "timeline": "S342_capture",
+  "frame": 1,
+  "resolution": [
+    1920,
+    1080
+  ],
+  "color_management": {
+    "project_settings": {
+      "colorScienceMode": "davinciYRGB",
+      "colorSpaceInput": "Rec.709 Gamma 2.4",
+      "colorSpaceTimeline": "Rec.709 (Scene)",
+      "colorSpaceTimelineGamma": "",
+      "colorSpaceOutput": "Rec.709 (Scene)",
+      "colorSpaceOutputGamma": "ACEScc",
+      "isAutoColorManage": "0",
+      "timelineResolutionWidth": "1920",
+      "timelineResolutionHeight": "1080",
+      "timelineFrameRate": 30.0,
+      "timelinePlaybackFrameRate": "30",
+      "timelinePixelAspectRatio": "square"
+    },
+    "note": "SDK project settings; screenshots show Viewer display."
+  },
+  "viewer": {
+    "view_mode": "Fit",
+    "source": "left Background, right MediaOut1",
+    "note": "uNormalMap selected; Scale 1 frame 0, Scale 0 frame 1"
+  },
+  "acceptance": {
+    "gui": "PASS: image-to-normal graph, controls and shading difference; SDK and save read back.",
+    "article_display": "NOT_RUN",
+    "public_display": "NOT_RUN"
+  },
+  "unverified": [
+    "Uniform synthetic RGB (1,0.5,1) image, Scale 1 frame 0 vs 0 frame 1; different frames for evaluation.",
+    "Normal vector encoding, handedness, color-space numeric accuracy, real texture detail, animation and portable reimport NOT_RUN."
+  ],
+  "schema_version": 1,
+  "case": "S342",
+  "article": "manuals/fusion/nodes/usd/unormalmap.md",
+  "graph": "fixture.comp",
+  "settings": "readback.json",
+  "source": {
+    "file": "screen.png",
+    "size": [
+      3304,
+      1886
+    ],
+    "sha256": "21677a380a567e01100777f2337a12f0aec894eba450737621490874c106fa0f"
+  },
+  "shots": [
+    {
+      "file": "graph.png",
+      "source": "screen.png",
+      "source_sha256": "21677a380a567e01100777f2337a12f0aec894eba450737621490874c106fa0f",
+      "frame": 1,
+      "crop_xyxy": [
+        220,
+        1150,
+        2580,
+        1530
+      ],
+      "resampled": false,
+      "sha256": "81fa297c6feeb0711f9b7fb8f4fe48bae75576795d3ff4c1b6e9794296f4e488"
+    },
+    {
+      "file": "controls.png",
+      "source": "screen.png",
+      "source_sha256": "21677a380a567e01100777f2337a12f0aec894eba450737621490874c106fa0f",
+      "frame": 1,
+      "crop_xyxy": [
+        2780,
+        125,
+        3304,
+        310
+      ],
+      "resampled": false,
+      "sha256": "9299d5f90dc86a25fec5e0f4f18561901061dd2c3969c73c81af484e1eefc47d"
+    },
+    {
+      "file": "scale0-result.png",
+      "source": "screen.png",
+      "source_sha256": "21677a380a567e01100777f2337a12f0aec894eba450737621490874c106fa0f",
+      "frame": 1,
+      "crop_xyxy": [
+        1560,
+        100,
+        2680,
+        715
+      ],
+      "resampled": false,
+      "sha256": "11c73b5b78103928340eed8c59e201f15d84eae985d0cb7ad6965fc62af9774b"
+    },
+    {
+      "file": "scale1-result.png",
+      "source": "scale1.png",
+      "source_sha256": "225426a894296eeef9172fb03654b6d4e3e9384a1c696e1dc5d3050270895f99",
+      "frame": 1,
+      "crop_xyxy": [
+        1560,
+        100,
+        2680,
+        715
+      ],
+      "resampled": false,
+      "sha256": "51dfbd2cf7730677b7a7c3cc969f97a6a28ee17e2c2a65dfc191e93ce635d4da"
+    }
+  ],
+  "reproduction": {
+    "fixture_sha256": "f7323d6a1d7280da5c1d35be55247773154220783bd8c9fdcebd6ed978a861fe",
+    "readback_sha256": "046c2f0b2809f4e98dc04434d7326e39774106950e89542c042bda3d347eaf43",
+    "readback_source_sha256": "84ac45ebc4a8b34aca5f415d4697a151d23a8e9b1ffa27419a10473770ac9b15",
+    "readback_transform": "CRLF normalized to LF for the portable Git asset; JSON values unchanged",
+    "reimport": "NOT_RUN"
+  }
+}

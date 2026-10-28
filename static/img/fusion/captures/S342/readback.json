@@ -1,0 +1,31 @@
+{
+  "case": "S342",
+  "setup": {
+    "case": "S342",
+    "normal": {
+      "Space": 0.0,
+      "Scale": 1.0
+    },
+    "connections": [
+      "Image->Texture.Image",
+      "Texture->Normal.In",
+      "Normal->Shader.normal",
+      "Shape->Replace.SceneInput",
+      "Shader->Replace.Material",
+      "Replace->USDRender.SceneInput",
+      "USDRender->MediaOut1"
+    ],
+    "saved": "2026-10-28T11:04:55.734214+00:00"
+  },
+  "final": {
+    "scale": 0,
+    "space": 0.0,
+    "frame": 1,
+    "saved": "2026-10-28T11:05:09.792177+00:00"
+  },
+  "comparison": "uNormalMap Scale 1 frame 0 vs Scale 0 frame 1, uniform image",
+  "limits": [
+    "Uniform synthetic RGB (1,0.5,1) image, Scale 1 frame 0 vs 0 frame 1; different frames for evaluation.",
+    "Normal vector encoding, handedness, color-space numeric accuracy, real texture detail, animation and portable reimport NOT_RUN."
+  ]
+}
