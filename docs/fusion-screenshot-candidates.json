@@ -6781,6 +6781,382 @@
         "Article verification remains partial"
       ],
       "published_batch": "fusion-native-20261027-41"
+    },
+    {
+      "priority": "P1",
+      "goal": "Show Cook Torrance roughness on a lit sphere.",
+      "suggested_graph": "MtlCookTorrance -> Shape3D + LightDirectional -> Merge3D -> Renderer3D.",
+      "scope": "Resolve Studio 21.1.0.14 on Windows, 1920x1080 static frame.",
+      "limitations": [
+        "One sphere and two roughness values; Fresnel comparisons, texture inputs, animation and hosts NOT_RUN.",
+        "Viewer screenshot is display evidence.",
+        "Portable reimport and physical input provenance NOT_RUN.",
+        "Article verification remains partial."
+      ],
+      "id": "S203",
+      "article": "manuals/fusion/nodes/materials-lights/cook-torrance.md",
+      "manual": {
+        "version": "21.1",
+        "chapter": 90,
+        "printed_pages": "2054–2058"
+      },
+      "status": "captured-local-display-verified",
+      "capture_manifest": "static/img/fusion/captures/S203/capture.json",
+      "shots": [
+        {
+          "slug": "graph",
+          "kind": "graph",
+          "target": "Cook Torranceを球に接続しDirectional Lightとレンダリングする構成",
+          "status": "captured"
+        },
+        {
+          "slug": "controls",
+          "kind": "inspector",
+          "target": "Cook TorranceのRoughness 0.4とFresnelの設定",
+          "status": "captured"
+        },
+        {
+          "slug": "low",
+          "kind": "comparison",
+          "target": "Roughness 0.1で描画した球",
+          "status": "captured"
+        },
+        {
+          "slug": "high",
+          "kind": "comparison",
+          "target": "Roughness 0.4で描画した球",
+          "status": "captured"
+        }
+      ]
+    },
+    {
+      "priority": "P1",
+      "goal": "Show Ward spread settings on a lit sphere.",
+      "suggested_graph": "MtlWard -> Shape3D + LightDirectional -> Merge3D -> Renderer3D.",
+      "scope": "Resolve Studio 21.1.0.14 on Windows, 1920x1080 static frame.",
+      "limitations": [
+        "One sphere and two spread settings; textures, animation and other hosts NOT_RUN.",
+        "Viewer screenshot is display evidence.",
+        "Portable reimport and physical input provenance NOT_RUN.",
+        "Article verification remains partial."
+      ],
+      "id": "S204",
+      "article": "manuals/fusion/nodes/materials-lights/ward.md",
+      "manual": {
+        "version": "21.1",
+        "chapter": 90,
+        "printed_pages": "2075–2079"
+      },
+      "status": "captured-local-display-verified",
+      "capture_manifest": "static/img/fusion/captures/S204/capture.json",
+      "shots": [
+        {
+          "slug": "graph",
+          "kind": "graph",
+          "target": "Wardを球に接続しDirectional Lightとレンダリングする構成",
+          "status": "captured"
+        },
+        {
+          "slug": "controls",
+          "kind": "inspector",
+          "target": "WardのSpread U 0.05、V 0.3の設定",
+          "status": "captured"
+        },
+        {
+          "slug": "low",
+          "kind": "comparison",
+          "target": "Spread U 0.3、V 0.05で描画した球",
+          "status": "captured"
+        },
+        {
+          "slug": "high",
+          "kind": "comparison",
+          "target": "Spread U 0.05、V 0.3で描画した球",
+          "status": "captured"
+        }
+      ]
+    },
+    {
+      "priority": "P1",
+      "goal": "Show Material Merge blend endpoints on a sphere.",
+      "suggested_graph": "Two MtlBlinn -> MtlMerge3D -> Shape3D + LightDirectional -> Merge3D -> Renderer3D.",
+      "scope": "Resolve Studio 21.1.0.14 on Windows, 1920x1080 static frame.",
+      "limitations": [
+        "Two Blinn materials and blend endpoints only; intermediate values, image inputs, animation and other hosts NOT_RUN.",
+        "Viewer screenshot is display evidence.",
+        "Portable reimport and physical input provenance NOT_RUN.",
+        "Article verification remains partial."
+      ],
+      "id": "S207",
+      "article": "manuals/fusion/nodes/materials-lights/material-merge-3d.md",
+      "manual": {
+        "version": "21.1",
+        "chapter": 90,
+        "printed_pages": "2059–2060"
+      },
+      "status": "captured-local-display-verified",
+      "capture_manifest": "static/img/fusion/captures/S207/capture.json",
+      "shots": [
+        {
+          "slug": "graph",
+          "kind": "graph",
+          "target": "2つのBlinnをMaterial Merge 3Dに接続して球を描画する構成",
+          "status": "captured"
+        },
+        {
+          "slug": "controls",
+          "kind": "inspector",
+          "target": "Material Merge 3DのBlend 1の設定",
+          "status": "captured"
+        },
+        {
+          "slug": "low",
+          "kind": "comparison",
+          "target": "Blend 0で描画した赤い球",
+          "status": "captured"
+        },
+        {
+          "slug": "high",
+          "kind": "comparison",
+          "target": "Blend 1で描画した青い球",
+          "status": "captured"
+        }
+      ]
+    },
+    {
+      "priority": "P1",
+      "goal": "Show Falloff face and glancing colors on a sphere.",
+      "suggested_graph": "FalloffOperator -> Shape3D + LightDirectional -> Merge3D -> Renderer3D.",
+      "scope": "Resolve Studio 21.1.0.14 on Windows, 1920x1080 static frame.",
+      "limitations": [
+        "One sphere and two falloff values; material inputs, gradient mode, animation and other hosts NOT_RUN.",
+        "Viewer screenshot is display evidence.",
+        "Portable reimport and physical input provenance NOT_RUN.",
+        "Article verification remains partial."
+      ],
+      "id": "S208",
+      "article": "manuals/fusion/nodes/materials-lights/falloff.md",
+      "manual": {
+        "version": "21.1",
+        "chapter": 91,
+        "printed_pages": "2090–2092"
+      },
+      "status": "captured-local-display-verified",
+      "capture_manifest": "static/img/fusion/captures/S208/capture.json",
+      "shots": [
+        {
+          "slug": "graph",
+          "kind": "graph",
+          "target": "Falloffを球に接続してレンダリングする構成",
+          "status": "captured"
+        },
+        {
+          "slug": "controls",
+          "kind": "inspector",
+          "target": "Face Onを赤、Glancingを青、Falloffを4に設定",
+          "status": "captured"
+        },
+        {
+          "slug": "low",
+          "kind": "comparison",
+          "target": "Falloff 1で描画した球",
+          "status": "captured"
+        },
+        {
+          "slug": "high",
+          "kind": "comparison",
+          "target": "Falloff 4で描画した球",
+          "status": "captured"
+        }
+      ]
+    },
+    {
+      "priority": "P1",
+      "goal": "Show Fast Noise Texture scale on a sphere.",
+      "suggested_graph": "FastNoiseTexture3D -> Shape3D + LightDirectional -> Merge3D -> Renderer3D.",
+      "scope": "Resolve Studio 21.1.0.14 on Windows, 1920x1080 static frame.",
+      "limitations": [
+        "One sphere, 2D mode and two scale values; 3D mode, animation and other hosts NOT_RUN.",
+        "Viewer screenshot is display evidence.",
+        "Portable reimport and physical input provenance NOT_RUN.",
+        "Article verification remains partial."
+      ],
+      "id": "S205",
+      "article": "manuals/fusion/nodes/materials-lights/fast-noise-texture.md",
+      "manual": {
+        "version": "21.1",
+        "chapter": 91,
+        "printed_pages": "2092–2094"
+      },
+      "status": "captured-local-display-verified",
+      "capture_manifest": "static/img/fusion/captures/S205/capture.json",
+      "shots": [
+        {
+          "slug": "graph",
+          "kind": "graph",
+          "target": "Fast Noise Textureを球に接続しDirectional Lightとレンダリングする構成",
+          "status": "captured"
+        },
+        {
+          "slug": "controls",
+          "kind": "inspector",
+          "target": "Fast Noise Textureの2DモードとScale 5の設定",
+          "status": "captured"
+        },
+        {
+          "slug": "low",
+          "kind": "comparison",
+          "target": "Scale 1で描画した球",
+          "status": "captured"
+        },
+        {
+          "slug": "high",
+          "kind": "comparison",
+          "target": "Scale 5で描画した球",
+          "status": "captured"
+        }
+      ]
+    },
+    {
+      "priority": "P1",
+      "goal": "Show Gradient 3D with mapped UVW coordinates.",
+      "suggested_graph": "TexGradient -> Shape3D -> UVMap + LightDirectional -> Merge3D -> Renderer3D.",
+      "scope": "Resolve Studio 21.1.0.14 on Windows, 1920x1080 static frame.",
+      "limitations": [
+        "One sphere and one UV mapping; other gradient types, animation and hosts NOT_RUN.",
+        "Viewer screenshot is display evidence.",
+        "Portable reimport and physical input provenance NOT_RUN.",
+        "Article verification remains partial."
+      ],
+      "id": "S206",
+      "article": "manuals/fusion/nodes/materials-lights/gradient-3d.md",
+      "manual": {
+        "version": "21.1",
+        "chapter": 91,
+        "printed_pages": "2095–2097"
+      },
+      "status": "captured-local-display-verified",
+      "capture_manifest": "static/img/fusion/captures/S206/capture.json",
+      "shots": [
+        {
+          "slug": "graph",
+          "kind": "graph",
+          "target": "Gradient 3DとUV Map 3Dを使用して球を描画する構成",
+          "status": "captured"
+        },
+        {
+          "slug": "controls",
+          "kind": "inspector",
+          "target": "Gradient 3DのLinearとScale 0.5の設定",
+          "status": "captured"
+        },
+        {
+          "slug": "low",
+          "kind": "comparison",
+          "target": "元の座標の球は一様に見える",
+          "status": "captured"
+        },
+        {
+          "slug": "high",
+          "kind": "comparison",
+          "target": "UVW座標を設定し回転した球",
+          "status": "captured"
+        }
+      ]
+    },
+    {
+      "priority": "P1",
+      "goal": "Show OpenPBR specular roughness on a lit sphere.",
+      "suggested_graph": "MtlPBRUber -> Shape3D + LightDirectional -> Merge3D -> Renderer3D.",
+      "scope": "Resolve Studio 21.1.0.14 on Windows, 1920x1080 static frame.",
+      "limitations": [
+        "One sphere and two specular roughness values; other lobes, texture inputs, animation and hosts NOT_RUN.",
+        "Viewer screenshot is display evidence.",
+        "Portable reimport and physical input provenance NOT_RUN.",
+        "Article verification remains partial."
+      ],
+      "id": "S209",
+      "article": "manuals/fusion/nodes/materials-lights/openpbr.md",
+      "manual": {
+        "version": "21.1",
+        "chapter": 90,
+        "printed_pages": "2060–2066"
+      },
+      "status": "captured-local-display-verified",
+      "capture_manifest": "static/img/fusion/captures/S209/capture.json",
+      "shots": [
+        {
+          "slug": "graph",
+          "kind": "graph",
+          "target": "OpenPBRを球に接続しDirectional Lightとレンダリングする構成",
+          "status": "captured"
+        },
+        {
+          "slug": "controls",
+          "kind": "inspector",
+          "target": "OpenPBRのBaseカラー設定",
+          "status": "captured"
+        },
+        {
+          "slug": "low",
+          "kind": "comparison",
+          "target": "Specular Roughness 0.1で描画した球",
+          "status": "captured"
+        },
+        {
+          "slug": "high",
+          "kind": "comparison",
+          "target": "Specular Roughness 0.4で描画した球",
+          "status": "captured"
+        }
+      ]
+    },
+    {
+      "priority": "P1",
+      "goal": "Show Texture Transform U translation on a noise material.",
+      "suggested_graph": "FastNoiseTexture3D -> TextureTransformOperator -> Shape3D + LightDirectional -> Merge3D -> Renderer3D.",
+      "scope": "Resolve Studio 21.1.0.14 on Windows, 1920x1080 static frame.",
+      "limitations": [
+        "One sphere and two U translations; rotation, scale, animation and other hosts NOT_RUN.",
+        "Viewer screenshot is display evidence.",
+        "Portable reimport and physical input provenance NOT_RUN.",
+        "Article verification remains partial."
+      ],
+      "id": "S210",
+      "article": "manuals/fusion/nodes/materials-lights/texture-transform.md",
+      "manual": {
+        "version": "21.1",
+        "chapter": 91,
+        "printed_pages": "2104–2106"
+      },
+      "status": "captured-local-display-verified",
+      "capture_manifest": "static/img/fusion/captures/S210/capture.json",
+      "shots": [
+        {
+          "slug": "graph",
+          "kind": "graph",
+          "target": "Fast Noise TextureをTexture Transformに通して球を描画する構成",
+          "status": "captured"
+        },
+        {
+          "slug": "controls",
+          "kind": "inspector",
+          "target": "Texture TransformのInspector",
+          "status": "captured"
+        },
+        {
+          "slug": "low",
+          "kind": "comparison",
+          "target": "Translation U 0で描画した球",
+          "status": "captured"
+        },
+        {
+          "slug": "high",
+          "kind": "comparison",
+          "target": "Translation U 0.25で描画した球",
+          "status": "captured"
+        }
+      ]
     }
   ],
   "publication_batches": [
@@ -8166,24 +8542,26 @@
     }
   ],
   "coverage_inventory": {
-    "checked_at": "2026-10-26T15:04:50.698422+00:00",
+    "checked_at": "2026-10-28T05:03:26.491508+00:00",
     "scope": "All manuals/fusion Markdown and MDX pages; review necessity before adding images.",
     "completion_rule": "Every page has an explicit image decision; necessary images are native-observed, embedded, saved to GitHub and public-display-verified. A native example does not verify all article controls.",
     "summary": {
-      "total_pages": 587,
-      "with_images": 203,
-      "with_native_examples": 203,
+      "total_pages": 589,
+      "with_images": 211,
+      "with_native_examples": 211,
       "states": {
         "reviewed-no-standalone-image": 26,
         "no-standalone-image-needed": 6,
         "illustrated-reused-example": 80,
-        "capture-planned": 352,
-        "illustrated-native-example": 123
+        "capture-planned": 344,
+        "illustrated-native-example": 131,
+        "needs-review": 2
       },
       "decisions": {
         "no-standalone-image-needed": 32,
-        "image-required": 203,
-        "capture-needed": 352
+        "image-required": 211,
+        "capture-needed": 344,
+        "needs-review": 2
       }
     },
     "pages": [
@@ -17147,12 +17525,14 @@
         "article": "manuals/fusion/nodes/materials-lights/cook-torrance.md",
         "title": "Cook Torrance",
         "kind": "node",
-        "image_count": 0,
-        "native_cases": [],
+        "image_count": 4,
+        "native_cases": [
+          "S203"
+        ],
         "reused_cases": [],
         "planned_cases": [],
-        "state": "capture-planned",
-        "decision": "capture-needed",
+        "state": "illustrated-native-example",
+        "decision": "image-required",
         "reason": "本文の対象機能: Cook Torranceは、表面色と反射の強さ・粗さ・Fresnelを調整するClassic 3D Material。。S11球や他shaderの質感は対象材質のControls/入力・陰影の証拠ではない。",
         "required_views": [
           "対象名と実接続が読めるGraph",
@@ -17348,12 +17728,14 @@
         "article": "manuals/fusion/nodes/materials-lights/falloff.md",
         "title": "Falloff",
         "kind": "node",
-        "image_count": 0,
-        "native_cases": [],
+        "image_count": 4,
+        "native_cases": [
+          "S208"
+        ],
         "reused_cases": [],
         "planned_cases": [],
-        "state": "capture-planned",
-        "decision": "capture-needed",
+        "state": "illustrated-native-example",
+        "decision": "image-required",
         "reason": "本文の対象機能: Falloffは、カメラに正対する面と斜めに見える面で、2種類の3D Materialや色を混ぜるNode。。2D chart単体や無地球にはUVW/Material domainの対象処理が写っていない。",
         "required_views": [
           "対象名と実接続が読めるGraph",
@@ -17387,12 +17769,14 @@
         "article": "manuals/fusion/nodes/materials-lights/fast-noise-texture.md",
         "title": "Fast Noise Texture",
         "kind": "node",
-        "image_count": 0,
-        "native_cases": [],
+        "image_count": 4,
+        "native_cases": [
+          "S205"
+        ],
         "reused_cases": [],
         "planned_cases": [],
-        "state": "capture-planned",
-        "decision": "capture-needed",
+        "state": "illustrated-native-example",
+        "decision": "image-required",
         "reason": "本文の対象機能: Fast Noise Textureは、2D/3D座標を使ってノイズを生成し、3D Materialとして出力するTexture Node。。2D chart単体や無地球にはUVW/Material domainの対象処理が写っていない。",
         "required_views": [
           "対象名と実接続が読めるGraph",
@@ -17426,12 +17810,14 @@
         "article": "manuals/fusion/nodes/materials-lights/gradient-3d.md",
         "title": "Gradient 3D",
         "kind": "node",
-        "image_count": 0,
-        "native_cases": [],
+        "image_count": 4,
+        "native_cases": [
+          "S206"
+        ],
         "reused_cases": [],
         "planned_cases": [],
-        "state": "capture-planned",
-        "decision": "capture-needed",
+        "state": "illustrated-native-example",
+        "decision": "image-required",
         "reason": "本文の対象機能: Gradient 3Dは、色の変化する模様をUV/UVW座標から作り、3D Materialとして渡すNode。。2D chart単体や無地球にはUVW/Material domainの対象処理が写っていない。",
         "required_views": [
           "対象名と実接続が読めるGraph",
@@ -17477,12 +17863,14 @@
         "article": "manuals/fusion/nodes/materials-lights/material-merge-3d.md",
         "title": "Material Merge 3D",
         "kind": "node",
-        "image_count": 0,
-        "native_cases": [],
+        "image_count": 4,
+        "native_cases": [
+          "S207"
+        ],
         "reused_cases": [],
         "planned_cases": [],
-        "state": "capture-planned",
-        "decision": "capture-needed",
+        "state": "illustrated-native-example",
+        "decision": "image-required",
         "reason": "本文の対象機能: Material Merge 3Dは、BackgroundとForegroundの材質をBlendで混ぜ、1つの3D Materialを作るNode。。2D chart単体や無地球にはUVW/Material domainの対象処理が写っていない。",
         "required_views": [
           "対象名と実接続が読めるGraph",
@@ -17516,12 +17904,14 @@
         "article": "manuals/fusion/nodes/materials-lights/openpbr.md",
         "title": "OpenPBR",
         "kind": "node",
-        "image_count": 0,
-        "native_cases": [],
+        "image_count": 4,
+        "native_cases": [
+          "S209"
+        ],
         "reused_cases": [],
         "planned_cases": [],
-        "state": "capture-planned",
-        "decision": "capture-needed",
+        "state": "illustrated-native-example",
+        "decision": "image-required",
         "reason": "本文の対象機能: 色、金属感、粗さ、凹凸などの入力を持つ3D材質ノード。出力は材質であり完成画像ではない。。S11球や他shaderの質感は対象材質のControls/入力・陰影の証拠ではない。",
         "required_views": [
           "対象名と実接続が読めるGraph",
@@ -17823,12 +18213,14 @@
         "article": "manuals/fusion/nodes/materials-lights/texture-transform.md",
         "title": "Texture Transform",
         "kind": "node",
-        "image_count": 0,
-        "native_cases": [],
+        "image_count": 4,
+        "native_cases": [
+          "S210"
+        ],
         "reused_cases": [],
         "planned_cases": [],
-        "state": "capture-planned",
-        "decision": "capture-needed",
+        "state": "illustrated-native-example",
+        "decision": "image-required",
         "reason": "本文の対象機能: Texture Transformは、2D画像または3D Materialを受け取り、UVWテクスチャ座標を変換した3D Materialを出力するNode。。2D chart単体や無地球にはUVW/Material domainの対象処理が写っていない。",
         "required_views": [
           "対象名と実接続が読めるGraph",
@@ -17901,12 +18293,14 @@
         "article": "manuals/fusion/nodes/materials-lights/ward.md",
         "title": "Ward",
         "kind": "node",
-        "image_count": 0,
-        "native_cases": [],
+        "image_count": 4,
+        "native_cases": [
+          "S204"
+        ],
         "reused_cases": [],
         "planned_cases": [],
-        "state": "capture-planned",
-        "decision": "capture-needed",
+        "state": "illustrated-native-example",
+        "decision": "image-required",
         "reason": "本文の対象機能: Wardは、UVの2方向でハイライトの広がりを別々に調整できるClassic 3D Material。。S11球や他shaderの質感は対象材質のControls/入力・陰影の証拠ではない。",
         "required_views": [
           "対象名と実接続が読めるGraph",
@@ -25670,6 +26064,26 @@
         "reason": "MultiMerge Layer Listの順序・Enableと重なり"
       },
       {
+        "article": "manuals/fusion/recipes/compositing/soft-glow-for-isolated-highlights.md",
+        "title": "Soft Glowで街灯の光だけを柔らかくにじませる",
+        "kind": "recipe",
+        "image_count": 0,
+        "native_cases": [],
+        "reused_cases": [],
+        "planned_cases": [],
+        "state": "needs-review"
+      },
+      {
+        "article": "manuals/fusion/recipes/compositing/soft-vignette-with-inverted-ellipse.md",
+        "title": "Ellipse Maskで柔らかいビネットを作る",
+        "kind": "recipe",
+        "image_count": 0,
+        "native_cases": [],
+        "reused_cases": [],
+        "planned_cases": [],
+        "state": "needs-review"
+      },
+      {
         "article": "manuals/fusion/recipes/compositing/two-image-merge.md",
         "title": "2つのImageを重ねる",
         "kind": "recipe",
@@ -26204,9 +26618,9 @@
       },
       {
         "article": "manuals/fusion/troubleshooting/masking/alpha-edge-looks-wrong.md",
-        "title": "透明Edgeの色や縁がおかしい",
+        "title": "透明エッジに黒縁・白縁が出る",
         "kind": "diagnostic",
-        "image_count": 2,
+        "image_count": 3,
         "native_cases": [],
         "reused_cases": [
           "S74"

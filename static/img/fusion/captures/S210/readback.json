@@ -1,0 +1,65 @@
+{
+  "case": "S210",
+  "project": "Collectanea_Mandelbrot_Zoom_20261025",
+  "library": "Local Database",
+  "project_manager_folder": "root",
+  "timeline": "S210_capture",
+  "frame": 0,
+  "resolve": "21.1.0.14",
+  "edition": "DaVinci Resolve Studio",
+  "os": "Windows-11-10.0.26200-SP0",
+  "project_settings": {
+    "colorScienceMode": "davinciYRGB",
+    "colorSpaceInput": "Rec.709 Gamma 2.4",
+    "colorSpaceTimeline": "Rec.709 (Scene)",
+    "colorSpaceTimelineGamma": "",
+    "colorSpaceOutput": "Rec.709 (Scene)",
+    "colorSpaceOutputGamma": "ACEScc",
+    "isAutoColorManage": "0",
+    "timelineResolutionWidth": "1920",
+    "timelineResolutionHeight": "1080",
+    "timelineFrameRate": 30.0,
+    "timelinePlaybackFrameRate": "30",
+    "timelinePixelAspectRatio": "square"
+  },
+  "connections": {
+    "Material.MaterialInput": "Noise",
+    "Primitive.MaterialInput": "Material",
+    "Scene.SceneInput1": "Primitive",
+    "Scene.SceneInput2": "KeyLight",
+    "Renderer.SceneInput": "Scene",
+    "MediaOut1.Input": "Renderer"
+  },
+  "values": {
+    "Material": {
+      "Translation.U": 0.0
+    },
+    "Noise": {
+      "XScale": 5.0,
+      "Detail": 3.0,
+      "Contrast": 1.0
+    },
+    "Primitive": {
+      "Shape": "SurfaceSphereInputs",
+      "Transform3DOp.Scale.X": 0.5
+    },
+    "KeyLight": {
+      "Transform3DOp.Rotate.Y": -35.0
+    },
+    "Renderer": {
+      "RendererSoftware.LightingEnabled": 1.0
+    },
+    "current_translation_u": 0.25,
+    "comparison_translation_u": 0
+  },
+  "source": "Fast Noise Texture through Texture Transform on a sphere; U translation 0 and .25.",
+  "save_project": true,
+  "save_completed_at": "2026-10-28T01:05:29.899967+00:00",
+  "native_export_sha256": "1b19d3bf5296bde908161d3dfd12db61109ccc9450afc9549b6c538bc4d6a4f0",
+  "portable_sha256": "ef55f722da415cbb0ce106ef8a842ce7bf228acac67c3b7c72080f3781854c73",
+  "portable_reimport": "NOT_RUN",
+  "limits": [
+    "One sphere and two U translations; rotation, scale, animation and other hosts NOT_RUN.",
+    "Viewer screenshot is display evidence."
+  ]
+}

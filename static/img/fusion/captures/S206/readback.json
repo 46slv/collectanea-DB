@@ -1,0 +1,63 @@
+{
+  "case": "S206",
+  "project": "Collectanea_Mandelbrot_Zoom_20261025",
+  "library": "Local Database",
+  "project_manager_folder": "root",
+  "timeline": "S206_capture",
+  "frame": 0,
+  "resolve": "21.1.0.14",
+  "edition": "DaVinci Resolve Studio",
+  "os": "Windows-11-10.0.26200-SP0",
+  "project_settings": {
+    "colorScienceMode": "davinciYRGB",
+    "colorSpaceInput": "Rec.709 Gamma 2.4",
+    "colorSpaceTimeline": "Rec.709 (Scene)",
+    "colorSpaceTimelineGamma": "",
+    "colorSpaceOutput": "Rec.709 (Scene)",
+    "colorSpaceOutputGamma": "ACEScc",
+    "isAutoColorManage": "0",
+    "timelineResolutionWidth": "1920",
+    "timelineResolutionHeight": "1080",
+    "timelineFrameRate": 30.0,
+    "timelinePlaybackFrameRate": "30",
+    "timelinePixelAspectRatio": "square"
+  },
+  "connections": {
+    "Primitive.MaterialInput": "Material",
+    "Scene.SceneInput1": "UVMap",
+    "Scene.SceneInput2": "KeyLight",
+    "Renderer.SceneInput": "Scene",
+    "MediaOut1.Input": "Renderer",
+    "UVMap.SceneInput": "Primitive"
+  },
+  "values": {
+    "Material": {
+      "Scale": 0.5
+    },
+    "Primitive": {
+      "Shape": "SurfaceSphereInputs",
+      "Transform3DOp.Scale.X": 0.5
+    },
+    "KeyLight": {
+      "Transform3DOp.Rotate.Y": -35.0
+    },
+    "Renderer": {
+      "RendererSoftware.LightingEnabled": 1.0
+    },
+    "UVMap": {
+      "MapMode": "XYZtoUVW",
+      "Rotate.Y": 90.0
+    },
+    "current_scale": 0.5
+  },
+  "source": "Gradient 3D on a sphere before and after UV Map XYZ to UVW and rotation.",
+  "save_project": true,
+  "save_completed_at": "2026-10-28T00:47:25.612874+00:00",
+  "native_export_sha256": "85bac6717d59ad139f341bbd38a74a74523cc276109e06156d2de25a0f689cdd",
+  "portable_sha256": "5a25bce90d20bffd0e64b894231d883dba820b2c328d003c11383efd3dea2fb6",
+  "portable_reimport": "NOT_RUN",
+  "limits": [
+    "One sphere and one UV mapping; other gradient types, animation and hosts NOT_RUN.",
+    "Viewer screenshot is display evidence."
+  ]
+}

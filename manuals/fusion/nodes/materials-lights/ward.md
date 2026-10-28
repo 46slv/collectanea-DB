@@ -26,6 +26,34 @@ Ward [3Wd]は、3Dオブジェクトの表面色と光の反射を設定する**
 
 Ward自体は形状や光源を生成せず、**3D Material**を出力します。[Shape 3D](../3d/shape-3d.md)などのMaterial入力へ渡し、照明を加えて[Renderer 3D](../3d/renderer-3d.md)で画像にします。データの区別は<Term id="classic-3d">Classic 3D</Term>の解説を参照してください。
 
+<!-- capture:S204 -->
+
+## 実機例：Spread U / Vを変える
+
+`Ward` を `Shape 3D` の球に接続し、`Directional Light` とまとめてレンダリングしました。
+
+この球ではSpread Uを0.3、Vを0.05にしたときに横長、Uを0.05、Vを0.3にしたときに縦長のハイライトが見えます。[接続と設定の記録](/img/fusion/captures/S204/readback.json)に条件を記載しています。
+
+[![Wardを球に接続しDirectional Lightとレンダリングする構成](/img/fusion/captures/S204/graph.png)](/img/fusion/captures/S204/graph.png)
+
+材質を球に接続し、ライトとまとめます。
+
+[![WardのSpread U 0.05、V 0.3の設定](/img/fusion/captures/S204/controls.png)](/img/fusion/captures/S204/controls.png)
+
+Spread U 0.05、V 0.3の状態です。
+
+[![Spread U 0.3、V 0.05で描画した球](/img/fusion/captures/S204/low.png)](/img/fusion/captures/S204/low.png)
+
+この条件ではハイライトが横長に見えます。
+
+[![Spread U 0.05、V 0.3で描画した球](/img/fusion/captures/S204/high.png)](/img/fusion/captures/S204/high.png)
+
+値を入れ替えると縦長に見えます。
+
+[再現用Graph](/img/fusion/captures/S204/fixture.comp) · [撮影条件と確認範囲](/img/fusion/captures/S204/capture.json)
+
+<!-- /capture:S204 -->
+
 ## 入力と出力
 
 6つの入力から、表面の色、反射の強さ、反射が伸びる方向の分布、細かな凹凸を画像や別のMaterialで制御できます。入力を接続せず、Inspectorの値だけで均一なMaterialを作ることもできます。
@@ -116,4 +144,4 @@ Shape 3DでPlaneを作ってWardを接続します。Diffuse Colorを暗いグ�
 
 一次資料：Blackmagic Design『DaVinci Resolve 21.1 Reference Manual』（September 2026）、Chapter 90「3D Material Nodes」、**Ward [3Wd]（pp.2075–2079）**。6入力、Material出力、Spread U / V、Diffuse、Specular、Transmittance、その他のInspector説明を確認しました。
 
-`verification: partial`は、runtime REGID、Inspectorの初期値・設定範囲、Edition差、実機での描画結果が未確認であることを示します。各値のdefaultやrangeはここでは断定していません。
+`verification: partial`は、上の実機例に限ってruntime REGID `MtlWard` と描画結果を確認した状態です。Inspectorの初期値・設定範囲、Edition差や他の条件での結果は未確認で、各値のdefaultやrangeは断定していません。
