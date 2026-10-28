@@ -36,6 +36,34 @@ sPolygon → sDuplicate → sRender → Merge（複製してから重ねる）
 
 通常のMergeやGlowは2D Imageを扱います。Shapeのまま増やしたい場合は[sDuplicate](./sduplicate)や[sGrid](./sgrid)、複数のShapeをまとめる場合は[sMerge](./smerge)をsRenderの前へ置きます。
 
+<!-- capture:S296 -->
+
+## 実機例：4点を置いて輪郭を閉じる
+
+`sPolygon` を `sRender` に接続し、Viewerに制御点を4つ置いて最初の点をクリックすると、閉じた輪郭と白い塗りが表示されます。
+
+編集ガイド上で、点を結ぶ辺と閉じた結果を確認できます。この例は背景で送った操作による静止画で、点の移動やアニメーションは確認していません。[接続と設定の記録](/img/fusion/captures/S296/readback.json)に条件を記載しています。
+
+[![sPolygonをsRenderとMediaOutに接続した構成](/img/fusion/captures/S296/graph.png)](/img/fusion/captures/S296/graph.png)
+
+ShapeをsRenderで画像化します。
+
+[![sPolygonのSolidが有効なInspector](/img/fusion/captures/S296/controls.png)](/img/fusion/captures/S296/controls.png)
+
+Solidが有効な状態です。
+
+[![3点を置いた開いたsPolygonの編集画面](/img/fusion/captures/S296/open.png)](/img/fusion/captures/S296/open.png)
+
+3点を置いた途中の編集画面です。
+
+[![4つの点で閉じた白い多角形](/img/fusion/captures/S296/closed.png)](/img/fusion/captures/S296/closed.png)
+
+4点を置いて閉じた状態です。
+
+[再現用Graph](/img/fusion/captures/S296/fixture.comp) · [撮影条件と確認範囲](/img/fusion/captures/S296/capture.json)
+
+<!-- /capture:S296 -->
+
 ## Viewerで輪郭を描く
 
 sPolygonをNode Editorへ追加した直後は、輪郭を構成する点がまだありません。Viewerをクリックすると制御点が追加され、順に線で結ばれます。
@@ -142,4 +170,4 @@ sPolygonでひとつの不規則な図形を作り、SolidとColorを設定し�
 
 Blackmagic Design『DaVinci Resolve 21.1 Reference Manual』（September 2026）、Chapter 117「Shape Nodes」、**pp.2752–2756（sPolygonの入力・Inspector・Viewer操作）**、**pp.2732–2733（sPolygonとの比較と形状アニメーション）**を参照しました。
 
-外部入力なし、Shape出力、主要Inspector項目とViewer操作はManualに基づきます。内部REGID、端子の厳密な表示・色、各Controlの初期値・範囲、Edition差、実機レンダリング結果は未確認のため、verificationはpartialのままとします。
+外部入力なし、Shape出力、主要Inspector項目とViewer操作の説明はManualに基づきます。実機例では合成GUIクリックで4点を置いて閉じ、sRenderで白い塗りを表示しました。物理入力、点の移動やanimation、各Controlの初期値・範囲、Edition差は未確認のため、verificationはpartialのままとします。
