@@ -1,0 +1,64 @@
+{
+  "case": "S268",
+  "project": "Collectanea_Mandelbrot_Zoom_20261025",
+  "library": "Local Database",
+  "timeline": "S268_capture",
+  "frame": 60,
+  "resolve": "21.1.0.14",
+  "edition": "DaVinci Resolve Studio",
+  "os": "Windows-11-10.0.26200-SP0",
+  "project_settings": {
+    "colorScienceMode": "davinciYRGB",
+    "colorSpaceInput": "Rec.709 Gamma 2.4",
+    "colorSpaceTimeline": "Rec.709 (Scene)",
+    "colorSpaceTimelineGamma": "",
+    "colorSpaceOutput": "Rec.709 (Scene)",
+    "colorSpaceOutputGamma": "ACEScc",
+    "isAutoColorManage": "0",
+    "timelineResolutionWidth": "1920",
+    "timelineResolutionHeight": "1080",
+    "timelineFrameRate": 30.0,
+    "timelinePlaybackFrameRate": "30",
+    "timelinePixelAspectRatio": "square"
+  },
+  "connections": {
+    "Average.Input": "Source",
+    "MediaOut1.Input": "Average"
+  },
+  "values": {
+    "Source": {
+      "StyledText": "A",
+      "Size": 0.2
+    },
+    "Average": {
+      "MainTime": 0.0,
+      "NumberofFrames": 12.0,
+      "PrecedingFrames": 0.0,
+      "FrameStep": 1.0,
+      "IncludeCurrentFrame": 1.0,
+      "NonExistingFrames": 0.0
+    },
+    "source_centers": {
+      "frame50": {
+        "1": 0.45,
+        "2": 0.5,
+        "3": 0.0
+      },
+      "frame60": {
+        "1": 0.5,
+        "2": 0.5,
+        "3": 0.0
+      }
+    },
+    "center_expression": "Point(0.2 + time * 0.005, 0.5)"
+  },
+  "save_project": true,
+  "save_completed_at": "2026-10-28T06:54:24.362416+00:00",
+  "native_export_sha256": "8cbc665382485233f1403439215f8c0d646c1f00b4278af8be429a381ef7cbad",
+  "portable_sha256": "366cdcbad267d61ec3bf38516314ee4f367d31e669ed2e5f92a71efa723982da",
+  "portable_reimport": "NOT_RUN",
+  "limits": [
+    "One synthetic moving text at frame 60; other time settings, alpha values and other hosts NOT_RUN.",
+    "Viewer screenshot is display evidence."
+  ]
+}

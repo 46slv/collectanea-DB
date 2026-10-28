@@ -1,0 +1,132 @@
+{
+  "manual": {
+    "version": "21.1",
+    "chapter": 105,
+    "printed_pages": "2435"
+  },
+  "runtime": {
+    "version": "21.1.0.14",
+    "edition": "DaVinci Resolve Studio",
+    "os": "Windows-11-10.0.26200-SP0",
+    "ui_language": "ja-JP"
+  },
+  "captured_at": "2026-10-28T06:54:40.362670+00:00",
+  "project": "Collectanea_Mandelbrot_Zoom_20261025",
+  "timeline": "S268_capture",
+  "frame": 60,
+  "resolution": [
+    1920,
+    1080
+  ],
+  "color_management": {
+    "project_settings": {
+      "colorScienceMode": "davinciYRGB",
+      "colorSpaceInput": "Rec.709 Gamma 2.4",
+      "colorSpaceTimeline": "Rec.709 (Scene)",
+      "colorSpaceTimelineGamma": "",
+      "colorSpaceOutput": "Rec.709 (Scene)",
+      "colorSpaceOutputGamma": "ACEScc",
+      "isAutoColorManage": "0",
+      "timelineResolutionWidth": "1920",
+      "timelineResolutionHeight": "1080",
+      "timelineFrameRate": 30.0,
+      "timelinePlaybackFrameRate": "30",
+      "timelinePixelAspectRatio": "square"
+    },
+    "note": "SDK project settings; screenshots show Viewer display."
+  },
+  "viewer": {
+    "view_mode": "Fit",
+    "source": "Left Source; right MediaOut1",
+    "note": "Average selected; transparency checkerboard visible."
+  },
+  "acceptance": {
+    "gui": "PASS: moving A appears overlapped.",
+    "article_display": "NOT_RUN",
+    "public_display": "NOT_RUN"
+  },
+  "unverified": [
+    "One synthetic moving text at frame 60; other time settings, alpha values and other hosts NOT_RUN.",
+    "Viewer screenshot is display evidence.",
+    "Portable reimport and physical input provenance NOT_RUN.",
+    "Article verification remains partial."
+  ],
+  "schema_version": 1,
+  "case": "S268",
+  "article": "manuals/fusion/nodes/krokodove/average.md",
+  "graph": "fixture.comp",
+  "settings": "readback.json",
+  "source": {
+    "file": "screen.png",
+    "size": [
+      3328,
+      1898
+    ],
+    "sha256": "3449c949020aee357899c77547347a01ae1efbcc7f2939a049ee065f038731b5"
+  },
+  "shots": [
+    {
+      "file": "graph.png",
+      "source": "screen.png",
+      "source_sha256": "3449c949020aee357899c77547347a01ae1efbcc7f2939a049ee065f038731b5",
+      "frame": 60,
+      "crop_xyxy": [
+        500,
+        1050,
+        2350,
+        1650
+      ],
+      "resampled": false,
+      "sha256": "55f02c7d3ed0c22fef3e2f6c4bc12c18c9dea1dbcbd00f31866f571f356073f7"
+    },
+    {
+      "file": "controls.png",
+      "source": "screen.png",
+      "source_sha256": "3449c949020aee357899c77547347a01ae1efbcc7f2939a049ee065f038731b5",
+      "frame": 60,
+      "crop_xyxy": [
+        2815,
+        65,
+        3328,
+        750
+      ],
+      "resampled": false,
+      "sha256": "15472921013d71aafc7a688db2dc8cd4e47a734e9997ee3f62d7b498816db31b"
+    },
+    {
+      "file": "low.png",
+      "source": "screen.png",
+      "source_sha256": "3449c949020aee357899c77547347a01ae1efbcc7f2939a049ee065f038731b5",
+      "frame": 60,
+      "crop_xyxy": [
+        120,
+        70,
+        1340,
+        720
+      ],
+      "resampled": false,
+      "sha256": "77f8dbfc79682bc8251bd7bd81d3d52dffdaebfffa5d61b4fd335e5c4e179cfe"
+    },
+    {
+      "file": "high.png",
+      "source": "screen.png",
+      "source_sha256": "3449c949020aee357899c77547347a01ae1efbcc7f2939a049ee065f038731b5",
+      "frame": 60,
+      "crop_xyxy": [
+        1480,
+        70,
+        2700,
+        720
+      ],
+      "resampled": false,
+      "sha256": "836540e346eb2950553ffaed872d747bb261820eb429759002d5a9cc6935216a"
+    }
+  ],
+  "reproduction": {
+    "fixture_sha256": "366cdcbad267d61ec3bf38516314ee4f367d31e669ed2e5f92a71efa723982da",
+    "readback_sha256": "cf8ad1e61874880a42983e98c6c7b8cc84322dace60c802dd6f62d004a23a420",
+    "readback_source_sha256": "bf744bc98b08564af1e0e798056b0240bce75b45ea57a9a4cbc84e6e0340674e",
+    "readback_transform": "CRLF normalized to LF for the portable Git asset; JSON values unchanged",
+    "reimport": "NOT_RUN"
+  }
+}
