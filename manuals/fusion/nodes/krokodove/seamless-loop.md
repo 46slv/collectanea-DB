@@ -45,7 +45,8 @@ updated: '2026-10-18'
 | 入力の分類 | 既存COLLECTANEAカタログでは **2D Image** に分類 |
 | 主な処理 | コンポジションのタイミングを調整し、ループするシーケンスを作る |
 | 出力の分類 | 同カタログでは **2D Image** に分類 |
-| 未確認 | 正式な入力・出力端子名と数、Inspectorの設定名・既定値・可変範囲、フレーム補間の方式 |
+| 実機例 | Text+をInputへつなぎ、Loop Length 100とDissolve Length 25を設定して3つの静止フレームを確認 |
+| 未確認 | 他の端子・設定、既定値・範囲、フレーム補間の方式と連続再生 |
 
 <Term id="image">Image</Term>はピクセルを持つ画像データです。静止画の色や形を変えるだけの効果と異なり、Seamless Loopの目的を理解するには**複数フレームを時間順に確認する**必要があります。
 
@@ -64,6 +65,38 @@ frontmatterの `inputs: [image]` / `outputs: [image]` は既存カタログの�
 ### 既存のコンポジションをループ化する
 
 複数のノードで作ったアニメーションをまとめて扱う場合にも、前段の各ノードを個別に反復させるのではなく、出力されるシーケンスの時間構成を検討できます。ただし、Seamless Loopがどの種類のコンポジションや時間範囲に適用できるかは、実機で確認が必要です。
+
+<!-- capture:S289 -->
+
+## 実機例：動く文字の前後を確認する
+
+横に動く `Text+` を `Seamless Loop` に接続し、Loop Length 100、Dissolve Length 25に設定します。左Viewerに入力、右Viewerに出力を表示し、frame 0、99、100の静止画を確認しました。
+
+入力の文字位置は時間とともに変わり、出力はframe 0と100で似た位置に見えます。この3枚だけでは連続再生の滑らかさや画素の一致は判断できません。[接続と設定の記録](/img/fusion/captures/S289/readback.json)に条件を記載しています。
+
+[![Text+をSeamless LoopとMediaOutにつないだ構成](/img/fusion/captures/S289/graph.png)](/img/fusion/captures/S289/graph.png)
+
+動く文字をSeamless Loopに入力します。
+
+[![Loop Length 100とDissolve Length 25の設定](/img/fusion/captures/S289/controls.png)](/img/fusion/captures/S289/controls.png)
+
+Loop Length 100、Dissolve Length 25の例です。
+
+[![frame 0の入力文字とSeamless Loop出力](/img/fusion/captures/S289/frame0.png)](/img/fusion/captures/S289/frame0.png)
+
+frame 0。左が入力、右が出力です。
+
+[![frame 99の入力文字とSeamless Loop出力](/img/fusion/captures/S289/frame99.png)](/img/fusion/captures/S289/frame99.png)
+
+frame 99の入力と出力です。
+
+[![frame 100の入力文字とSeamless Loop出力](/img/fusion/captures/S289/frame100.png)](/img/fusion/captures/S289/frame100.png)
+
+frame 100の入力と出力です。
+
+[再現用Graph](/img/fusion/captures/S289/fixture.comp) · [撮影条件と確認範囲](/img/fusion/captures/S289/capture.json)
+
+<!-- /capture:S289 -->
 
 ## 制作例：動く背景を繰り返す
 
@@ -102,13 +135,13 @@ Seamless Loopは、単純な倍速処理やフレーム数の変更と同じ目�
 - **必ず自然につながるとは限らない**：素材に急なカットや大きな位置変化がある場合、時間の調整だけで違和感が消える保証はありません。これは素材選びと目視確認に関する運用上の注意です。
 - **映像と音声は別**：本文はFusionの画像シーケンスを対象とします。音声まで自動的にループ処理されるとは確認していません。
 - **Alphaと補助チャンネル**：透明部分、モーションベクターなどの補助チャンネルがどう処理されるかは未確認です。
-- **Inspector**：ループ長、開始・終了時刻、ブレンド量といった設定が存在するかどうかも、Manualの短い記述からは判断できません。名称や初期値を想像で固定しないでください。
+- **Inspector**：実機例ではLoop LengthとDissolve Lengthを確認しました。その他の設定の働き、既定値と範囲は未確認です。
 - **製品差**：21.1 Manualに掲載されていることは確認済みですが、Resolve Free / Studio / Fusion Studioごとの利用条件、Effects Libraryでの表示、内部REGIDは未確認です。
 
 ## 出典と確認範囲
 
 Blackmagic Design『**DaVinci Resolve 21.1 Reference Manual**』（September 2026）、Chapter 105「Krokodove Nodes」、**p.2436、Image Pixel Tools / Seamless Loop**。公式記述で確認できるのは、コンポジションの時間を調整してシームレスに繰り返すシーケンスを作るためのツール、という役割です。
 
-画像データの入出力分類は既存COLLECTANEAカタログに基づきます。ループ境界の確認方法や制作例は一般的なモーショングラフィックスの運用案であり、Seamless Loop固有のInspector仕様を実証するものではありません。端子・内部処理・エディション差が未確認のため、`verification: partial`を維持しています。
+画像データの入出力分類は既存COLLECTANEAカタログに基づきます。ループ境界の確認方法や制作例は一般的なモーショングラフィックスの運用案であり、実機例はInput接続と2項目の設定、および3つの静止画に限ります。連続再生・画素一致・内部処理・エディション差は未確認のため、`verification: partial`を維持しています。
 
 [Krokodoveの全体像](./)も参照してください。

@@ -8071,6 +8071,59 @@
           "status": "captured"
         }
       ]
+    },
+    {
+      "priority": "P1",
+      "goal": "Show Source and Seamless Loop output at frames 0, 99 and 100 for one animated Text+ fixture.",
+      "suggested_graph": "TextPlus -> KD_SeamlessLoop -> MediaOut.",
+      "scope": "Resolve Studio 21.1.0.14 on Windows, 1920x1080.",
+      "limitations": [
+        "Three observed still frames; playback continuity, arbitrary sources, other settings and hosts NOT_RUN.",
+        "Viewer screenshots are visual evidence, not pixel equality or perceptual proof.",
+        "Portable reimport and physical input provenance NOT_RUN.",
+        "Article verification remains partial."
+      ],
+      "id": "S289",
+      "article": "manuals/fusion/nodes/krokodove/seamless-loop.md",
+      "manual": {
+        "version": "21.1",
+        "chapter": 105,
+        "printed_pages": "2436"
+      },
+      "status": "captured-embedded-unverified",
+      "capture_manifest": "static/img/fusion/captures/S289/capture.json",
+      "shots": [
+        {
+          "slug": "graph",
+          "kind": "graph",
+          "target": "Text+をSeamless LoopとMediaOutにつないだ構成",
+          "status": "captured"
+        },
+        {
+          "slug": "controls",
+          "kind": "inspector",
+          "target": "Loop Length 100とDissolve Length 25の設定",
+          "status": "captured"
+        },
+        {
+          "slug": "frame0",
+          "kind": "comparison",
+          "target": "frame 0の入力文字とSeamless Loop出力",
+          "status": "captured"
+        },
+        {
+          "slug": "frame99",
+          "kind": "comparison",
+          "target": "frame 99の入力文字とSeamless Loop出力",
+          "status": "captured"
+        },
+        {
+          "slug": "frame100",
+          "kind": "comparison",
+          "target": "frame 100の入力文字とSeamless Loop出力",
+          "status": "captured"
+        }
+      ]
     }
   ],
   "publication_batches": [
@@ -9456,25 +9509,25 @@
     }
   ],
   "coverage_inventory": {
-    "checked_at": "2026-10-28T07:45:25.672147+00:00",
+    "checked_at": "2026-10-28T09:02:15.871786+00:00",
     "scope": "All manuals/fusion Markdown and MDX pages; review necessity before adding images.",
     "completion_rule": "Every page has an explicit image decision; necessary images are native-observed, embedded, saved to GitHub and public-display-verified. A native example does not verify all article controls.",
     "summary": {
       "total_pages": 589,
-      "with_images": 229,
+      "with_images": 230,
       "with_native_examples": 229,
       "states": {
         "reviewed-no-standalone-image": 26,
         "no-standalone-image-needed": 6,
         "illustrated-reused-example": 80,
-        "capture-planned": 327,
-        "illustrated-native-example": 149,
+        "capture-planned": 326,
+        "illustrated-native-example": 150,
         "needs-review": 1
       },
       "decisions": {
         "no-standalone-image-needed": 32,
-        "image-required": 229,
-        "capture-needed": 327,
+        "image-required": 230,
+        "capture-needed": 326,
         "needs-review": 1
       }
     },
@@ -16668,13 +16721,18 @@
         "article": "manuals/fusion/nodes/krokodove/seamless-loop.md",
         "title": "Seamless Loop",
         "kind": "node",
-        "image_count": 0,
+        "image_count": 5,
         "native_cases": [],
         "reused_cases": [],
-        "planned_cases": [],
-        "state": "capture-planned",
-        "decision": "capture-needed",
-        "reason": "本文の対象機能: コンポジションの時間を調整して、終端から冒頭へ戻る繰り返し映像を作るKrokodoveツール。。静止画では平均・ちらつき除去・時刻map・loopの成立を示せない。",
+        "planned_cases": [
+          "S289"
+        ],
+        "state": "illustrated-native-example",
+        "decision": "image-required",
+        "reason": "動くText+のframe 0/99/100を静止画で確認。連続再生、画素一致、他の条件は未確認。",
+        "remaining_views": [
+          "連続再生の境界と他の素材・設定"
+        ],
         "required_views": [
           "対象Node名と実際の配線が読めるGraph",
           "対象Nodeを選択した固有Inspector（本文で示すControlを含む）",
@@ -16695,7 +16753,10 @@
             "role": "入力と結果を示す箇所"
           }
         ],
-        "audit_note": "Planning prerequisite: hold-runtime-identity; not a live capability failure."
+        "hold_conditions": [
+          "静止画像を連続再生の品質や画素一致の証明としない。"
+        ],
+        "audit_note": "Studio 21.1.0.14でLoop Length 100、Dissolve Length 25の3 frameを観測。"
       },
       {
         "article": "manuals/fusion/nodes/krokodove/seamless.md",
