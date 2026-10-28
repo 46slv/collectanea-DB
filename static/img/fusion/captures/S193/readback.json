@@ -1,0 +1,53 @@
+{
+  "case": "S193",
+  "project": "Collectanea_Mandelbrot_Zoom_20261025",
+  "library": "Local Database",
+  "project_manager_folder": "root",
+  "timeline": "S193_capture",
+  "frame": 0,
+  "resolve": "21.1.0.14",
+  "edition": "DaVinci Resolve Studio",
+  "os": "Windows-11-10.0.26200-SP0",
+  "project_settings": {
+    "colorScienceMode": "davinciYRGB",
+    "colorSpaceInput": "Rec.709 Gamma 2.4",
+    "colorSpaceTimeline": "Rec.709 (Scene)",
+    "colorSpaceTimelineGamma": "",
+    "colorSpaceOutput": "Rec.709 (Scene)",
+    "colorSpaceOutputGamma": "ACEScc",
+    "isAutoColorManage": "0",
+    "timelineResolutionWidth": "1920",
+    "timelineResolutionHeight": "1080",
+    "timelineFrameRate": 30.0,
+    "timelinePlaybackFrameRate": "30",
+    "timelinePixelAspectRatio": "square"
+  },
+  "connections": {
+    "Trim.Input": "Plate",
+    "MediaOut1.Input": "Trim"
+  },
+  "values": {
+    "Plate": {
+      "UseFrameFormatSettings": 0.0,
+      "Width": 1920.0,
+      "Height": 1080.0,
+      "TopLeftRed": 0.25,
+      "TopLeftGreen": 0.25,
+      "TopLeftBlue": 0.25
+    },
+    "Trim": {
+      "LockRGBA": 1.0,
+      "RedTrim": 10.0
+    }
+  },
+  "source": "Synthetic neutral background through Light Trim.",
+  "save_project": true,
+  "save_completed_at": "2026-10-27T23:35:31.896126+00:00",
+  "native_export_sha256": "f693c1599309671a2332b5bd77b56d1b0353f11d45177abbc176e3f9a7e0aab0",
+  "portable_sha256": "84dab0382a66926eed7b09a6c87cf5c6c0e76f3b389340eb058a5ec58fcaba4a",
+  "portable_reimport": "NOT_RUN",
+  "limits": [
+    "Synthetic uniform gray; real log footage, calibrated exposure, channels, animation and other hosts NOT_RUN.",
+    "Viewer screenshot is display evidence."
+  ]
+}

@@ -1,0 +1,62 @@
+{
+  "case": "S187",
+  "project": "Collectanea_Mandelbrot_Zoom_20261025",
+  "library": "Local Database",
+  "project_manager_folder": "root",
+  "timeline": "S187_capture",
+  "frame": 0,
+  "resolve": "21.1.0.14",
+  "edition": "DaVinci Resolve Studio",
+  "os": "Windows-11-10.0.26200-SP0",
+  "project_settings": {
+    "colorScienceMode": "davinciYRGB",
+    "colorSpaceInput": "Rec.709 Gamma 2.4",
+    "colorSpaceTimeline": "Rec.709 (Scene)",
+    "colorSpaceTimelineGamma": "",
+    "colorSpaceOutput": "Rec.709 (Scene)",
+    "colorSpaceOutputGamma": "ACEScc",
+    "isAutoColorManage": "0",
+    "timelineResolutionWidth": "1920",
+    "timelineResolutionHeight": "1080",
+    "timelineFrameRate": 30.0,
+    "timelinePlaybackFrameRate": "30",
+    "timelinePixelAspectRatio": "square"
+  },
+  "connections": {
+    "Scene.SceneInput1": "Cube",
+    "Scene.SceneInput2": "Camera",
+    "Fog.SceneInput": "Scene",
+    "BeforeRender.SceneInput": "Scene",
+    "AfterRender.SceneInput": "Fog",
+    "MediaOut1.Input": "AfterRender"
+  },
+  "values": {
+    "Cube": {
+      "SurfaceCubeInputs.Width": 0.5,
+      "Transform3DOp.Rotate.X": 20.0,
+      "Transform3DOp.Rotate.Y": 30.0
+    },
+    "Camera": {
+      "Transform3DOp.Translate.Z": 3.0,
+      "FLength": 35.0
+    },
+    "Fog": {
+      "Enable": 1.0,
+      "FogRed": 0.7,
+      "FogGreen": 0.8,
+      "FogBlue": 1.0,
+      "NearFogDist": 1.0,
+      "FarFogDistance": 4.0
+    }
+  },
+  "source": "Cube and camera merged, with Fog3D in one of two Renderer3D branches.",
+  "save_project": true,
+  "save_completed_at": "2026-10-27T23:11:32.743772+00:00",
+  "native_export_sha256": "3624ee6e6b332f1a5fc06f889cafabaf23e90410578db0a16db90f0c1e9edabb",
+  "portable_sha256": "6bf131a4081fae6fdd4ed78d3fa178ae3e4ac5550cf2b75daaa104f40fc0d88b",
+  "portable_reimport": "NOT_RUN",
+  "limits": [
+    "One cube and camera with linear fog; density texture, radial mode, other falloffs, animation and hosts NOT_RUN.",
+    "Viewer screenshot is display evidence."
+  ]
+}

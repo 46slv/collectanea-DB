@@ -24,6 +24,30 @@ Fog 3D [3Fo]は、<Term id="classic-3d">Classic 3D scene</Term>内のオブジ�
 
 画面全体へ半透明の画像を重ねるのではなく、3Dシーンのジオメトリ（面や頂点によって作られる形状）の見え方を、距離を手掛かりに変化させます。Renderer 3Dより前で処理するため、レンダリング時のアンチエイリアスや被写界深度も考慮されます。
 
+<!-- capture:S187 -->
+
+## 実機例：霧を適用した前後を比べる
+
+`Cube 3D` と `Camera 3D` を `Merge 3D` でまとめ、出力を分岐します。一方だけ `Fog 3D` を通して、それぞれ `Renderer 3D` で画像化しました。
+
+Fogの色はRGB 0.7 / 0.8 / 1、TypeはLinear、Nearは1、Farは4です。左は霧なし、右は霧ありの結果です。市松模様はViewerの透明表示です。[接続と設定の記録](/img/fusion/captures/S187/readback.json)に条件を記載しています。
+
+[![CubeとCameraをまとめFog 3Dを通した結果と元を画像化する構成](/img/fusion/captures/S187/graph.png)](/img/fusion/captures/S187/graph.png)
+
+シーンを分岐し、片方にFog 3Dを適用します。
+
+[![霧の色とLinearの距離設定を示すFog 3DのInspector](/img/fusion/captures/S187/controls.png)](/img/fusion/captures/S187/controls.png)
+
+霧の色とNear / Farを設定します。
+
+[![霧なしと青い霧を適用した立方体の比較](/img/fusion/captures/S187/comparison.png)](/img/fusion/captures/S187/comparison.png)
+
+左は霧なし、右は霧を適用した結果です。
+
+[再現用Graph](/img/fusion/captures/S187/fixture.comp) · [撮影条件と確認範囲](/img/fusion/captures/S187/capture.json)
+
+<!-- /capture:S187 -->
+
 ## 入力と出力
 
 - **SceneInput（オレンジ、必須）**：霧を適用するClassic 3Dシーンを受け取ります。通常は、Geometry・Camera・Lightをまとめた[Merge 3D](./merge-3d.md)の出力を接続します。
@@ -128,4 +152,4 @@ Background / 2D Image ──→ DensityTexture
 
 Blackmagic Design『DaVinci Resolve 21.1 Reference Manual』（2026年9月）、Chapter 88「3D Nodes」、**Fog 3D [3Fo]（pp.1950–1952）**に基づきます。SceneInput、DensityTexture、Enable、Show Fog in View、Color、Radial、Type（Linear / Exp / Exp2）、Near/Far Fog Distanceを確認しています。
 
-runtime REGID、Inspectorの初期値・全数値範囲、Edition差、実機でのRenderer別動作は未検証のため、`verification: partial`を維持します。
+実機例ではruntime REGID `Fog3D` とLinearの固定例を確認しました。Inspectorの初期値・全数値範囲、Edition差、実機でのRenderer別動作は未検証のため、`verification: partial`を維持します。
