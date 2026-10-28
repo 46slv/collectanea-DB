@@ -44,6 +44,34 @@ Fast Noise ─────── Input (green) ─────┘
 
 Fast Noiseは2D Imageを生成するNodeです。Image Plane 3Dは2D Imageを貼った平面geometryを3D空間に作るため、この組み合わせで凹凸のある板を作れます。
 
+<!-- capture:S184 -->
+
+## 実機例：ノイズ画像で平面に起伏を付ける
+
+50×50に分割した `Shape 3D` の平面と、512×512の `Fast Noise` を `Displace 3D` に接続し、Directional Lightと `Renderer 3D` で描画しました。
+
+同じframeでScaleを0と0.3に変えると、0では平らな面、0.3では起伏が表示されます。撮影後は0.3に戻して保存しています。ほかのChannelやCamera Displacementはこの例では比較していません。[接続と設定の記録](/img/fusion/captures/S184/readback.json)に条件を記載しています。
+
+[![平面とFast NoiseをDisplace 3Dに接続し照明して画像化する構成](/img/fusion/captures/S184/graph.png)](/img/fusion/captures/S184/graph.png)
+
+平面のsceneとノイズ画像を別々の入力へ接続します。
+
+[![Displace 3DのScale 0.3を示すInspector](/img/fusion/captures/S184/controls.png)](/img/fusion/captures/S184/controls.png)
+
+Scaleは0.3、Biasは0です。
+
+[![Displace 3DのScale 0で平らに表示した面](/img/fusion/captures/S184/flat.png)](/img/fusion/captures/S184/flat.png)
+
+Scale 0では平らな面が表示されます。
+
+[![Displace 3DのScale 0.3で起伏を付けた面](/img/fusion/captures/S184/relief.png)](/img/fusion/captures/S184/relief.png)
+
+Scale 0.3では起伏が見えます。
+
+[再現用Graph](/img/fusion/captures/S184/fixture.comp) · [撮影条件と確認範囲](/img/fusion/captures/S184/capture.json)
+
+<!-- /capture:S184 -->
+
 ## 頂点数と画像解像度の違い
 
 Displace 3Dは**すでにある頂点だけ**を動かします。画像が高解像度でも、入力メッシュの頂点が四隅の4つしかなければ、その間に新しい細かな起伏は作られません。
@@ -120,4 +148,4 @@ Blackmagic Design『DaVinci Resolve 21.1 Reference Manual』（September 2026）
 
 Node名と略号、SceneInput / Input、texture coordinates、既存vertexのみの変位、Channel、Bias→Scaleの順序、Point to Camera / Camera、particleへの注意は該当節に基づきます。
 
-runtime REGID、Inspectorのexact default / range、版・edition差と実際の処理性能は未検証のため、verification: partialを維持しています。
+Inspectorのexact default / range、版・edition差と実際の処理性能は未検証のため、verification: partialを維持しています。

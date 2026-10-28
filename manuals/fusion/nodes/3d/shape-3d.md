@@ -34,6 +34,34 @@ Shape 3Dは入力がなくても形状を作れます。DaVinci Resolve 21.1 Ref
 
 画像をMaterialInputに接続しても、画像全体が自動的に3D空間へ変換されるわけではありません。形状の表面に画像の色を貼るための接続です。2D映像へ戻すには[Renderer 3D](./renderer-3d.md)を使います。
 
+<!-- capture:S182 -->
+
+## 実機例：CubeとSphereを切り替える
+
+`Shape 3D` とDirectional Lightを `Merge 3D` に接続し、`Renderer 3D` で描画します。ShapeをCubeからSphereへ切り替え、同じライト条件で比較しました。
+
+Cubeでは面ごとに明暗が分かれ、Sphereでは丸い形が表示されます。撮影後はCubeに戻して保存しています。ほかの形状やMaterialはこの例では確認していません。[接続と設定の記録](/img/fusion/captures/S182/readback.json)に条件を記載しています。
+
+[![Shape 3DとライトをMerge 3DでまとめRenderer 3Dへ渡す構成](/img/fusion/captures/S182/graph.png)](/img/fusion/captures/S182/graph.png)
+
+形状とライトを同じ3D sceneに置いて描画します。
+
+[![Shape 3DでSphereを選択したInspector](/img/fusion/captures/S182/controls.png)](/img/fusion/captures/S182/controls.png)
+
+ShapeをSphereに切り替えています。
+
+[![Shape 3DのCubeを照明して描画した結果](/img/fusion/captures/S182/cube.png)](/img/fusion/captures/S182/cube.png)
+
+Cubeの描画結果です。
+
+[![Shape 3DのSphereを同じ照明で描画した結果](/img/fusion/captures/S182/sphere.png)](/img/fusion/captures/S182/sphere.png)
+
+Sphereへ切り替えた描画結果です。
+
+[再現用Graph](/img/fusion/captures/S182/fixture.comp) · [撮影条件と確認範囲](/img/fusion/captures/S182/capture.json)
+
+<!-- /capture:S182 -->
+
 ## Shapeを選ぶ
 
 Inspectorの**Controls > Shape**で形状を選びます。選んだ形によって表示される設定も変わります。
@@ -123,4 +151,4 @@ Sphereへ緯度経度形式（LatLong）の画像を直接接続する場合に�
 
 Blackmagic Design『DaVinci Resolve 21.1 Reference Manual』（September 2026）、Chapter 88「3D Nodes」、**Shape 3D [3Sh]（pp.1990–1992）およびpp.1993冒頭**に基づきます。2つの任意入力、MaterialInputによる2D Image / 3D Materialの扱い、各Shape固有の設定、Subdivision、Wireframe、Sphere Mapとの違いを確認しました。
 
-実機でのREGID、各Controlの既定値・数値範囲、Edition差、描画性能は未確認のため、`verification: partial`を維持しています。具体例のGraphはManualに載るShape 3Dによるセット構築の考え方を、説明用に簡略化したものです。
+各Controlの既定値・数値範囲、Edition差、描画性能は未確認のため、`verification: partial`を維持しています。具体例のGraphはManualに載るShape 3Dによるセット構築の考え方を、説明用に簡略化したものです。

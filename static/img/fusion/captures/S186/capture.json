@@ -1,0 +1,118 @@
+{
+  "manual": {
+    "version": "21.1",
+    "chapter": 88,
+    "printed_pages": "1959–1960"
+  },
+  "runtime": {
+    "version": "21.1.0.14",
+    "edition": "DaVinci Resolve Studio",
+    "os": "Windows-11-10.0.26200-SP0",
+    "ui_language": "ja-JP"
+  },
+  "captured_at": "2026-10-27T23:07:16.862839+00:00",
+  "project": "Collectanea_Mandelbrot_Zoom_20261025",
+  "timeline": "S186_capture",
+  "frame": 0,
+  "resolution": [
+    1920,
+    1080
+  ],
+  "color_management": {
+    "project_settings": {
+      "colorScienceMode": "davinciYRGB",
+      "colorSpaceInput": "Rec.709 Gamma 2.4",
+      "colorSpaceTimeline": "Rec.709 (Scene)",
+      "colorSpaceTimelineGamma": "",
+      "colorSpaceOutput": "Rec.709 (Scene)",
+      "colorSpaceOutputGamma": "ACEScc",
+      "isAutoColorManage": "0",
+      "timelineResolutionWidth": "1920",
+      "timelineResolutionHeight": "1080",
+      "timelineFrameRate": 30.0,
+      "timelinePlaybackFrameRate": "30",
+      "timelinePixelAspectRatio": "square"
+    },
+    "note": "SDK project settings; screenshots show Viewer display."
+  },
+  "viewer": {
+    "view_mode": "Fit",
+    "source": "Left BeforeRender; right MediaOut1",
+    "note": "Override selected; checkerboard indicates transparency."
+  },
+  "acceptance": {
+    "gui": "PASS: visible cube before override and transparent result after; SDK connections and settings read back.",
+    "article_display": "NOT_RUN",
+    "public_display": "NOT_RUN"
+  },
+  "unverified": [
+    "One cube with visibility disabled; multiple objects, ID filtering, other attributes, animation and hosts NOT_RUN.",
+    "Viewer screenshot is display evidence.",
+    "Portable reimport and physical input provenance NOT_RUN.",
+    "Article verification remains partial."
+  ],
+  "schema_version": 1,
+  "case": "S186",
+  "article": "manuals/fusion/nodes/3d/override-3d.md",
+  "graph": "fixture.comp",
+  "settings": "readback.json",
+  "source": {
+    "file": "screen.png",
+    "size": [
+      3336,
+      1902
+    ],
+    "sha256": "ac313a0144c581224580a00221d83a2cb7af4953ba0291c1d3348892f4d11a38"
+  },
+  "shots": [
+    {
+      "file": "graph.png",
+      "source": "screen.png",
+      "source_sha256": "ac313a0144c581224580a00221d83a2cb7af4953ba0291c1d3348892f4d11a38",
+      "frame": 0,
+      "crop_xyxy": [
+        700,
+        1050,
+        2150,
+        1650
+      ],
+      "resampled": false,
+      "sha256": "0b716f6c90b78766e914d60edad71695d50ff81e5f63a8e44496263e71e1a385"
+    },
+    {
+      "file": "controls.png",
+      "source": "screen.png",
+      "source_sha256": "ac313a0144c581224580a00221d83a2cb7af4953ba0291c1d3348892f4d11a38",
+      "frame": 0,
+      "crop_xyxy": [
+        2815,
+        65,
+        3336,
+        480
+      ],
+      "resampled": false,
+      "sha256": "10c287feef66e71b1db8854bb7e9295e8efffab8560df808becdeee2c6b07ed3"
+    },
+    {
+      "file": "comparison.png",
+      "source": "screen.png",
+      "source_sha256": "ac313a0144c581224580a00221d83a2cb7af4953ba0291c1d3348892f4d11a38",
+      "frame": 0,
+      "crop_xyxy": [
+        0,
+        65,
+        2800,
+        720
+      ],
+      "resampled": false,
+      "sha256": "72cb1012cfda2413153ec54f4850d3ef981d8f1504c4317bd202e7ddc59cc2fc"
+    }
+  ],
+  "reproduction": {
+    "fixture_sha256": "c1feccff9950e68f514e970b5b8fb42e4194d255120ac6d66832fc3fc0880857",
+    "readback_sha256": "2808704a95f6bbc554da7db3ad39832bece7491a8c78f0650b0f26a5c90f9e0e",
+    "readback_source_sha256": "2808704a95f6bbc554da7db3ad39832bece7491a8c78f0650b0f26a5c90f9e0e",
+    "readback_transform": "No line-ending transformation",
+    "reimport": "NOT_RUN"
+  }
+}

@@ -26,6 +26,30 @@ SceneInputに3D sceneまたは3D textを入れ、MaterialInputへ新しい3D Mat
 
 Text 3Dは一般的なMaterial inputを持たないため、Text 3Dのbuilt-in materialを別のshaderへ置き換えたいときにも使います。
 
+<!-- capture:S185 -->
+
+## 実機例：画像を使って材質を差し替える
+
+`Shape 3D` のCubeと、赤い単色の `Background` を `Replace Material 3D` に接続します。元のsceneと差し替え後を、それぞれ `Renderer 3D` で画像化しました。
+
+左は元の白い形状、右は赤い画像を材質として使った結果です。Object IDとMaterial IDによる限定は無効です。市松模様はViewerの透明表示です。3D Materialやチャンネル別の置換はこの例では比較していません。[接続と設定の記録](/img/fusion/captures/S185/readback.json)に条件を記載しています。
+
+[![Shape 3Dと赤い画像をReplace Material 3Dに接続し前後を画像化する構成](/img/fusion/captures/S185/graph.png)](/img/fusion/captures/S185/graph.png)
+
+sceneと赤い画像をそれぞれの入力へ接続します。
+
+[![Replace Material 3Dが有効でID限定が無効のInspector](/img/fusion/captures/S185/controls.png)](/img/fusion/captures/S185/controls.png)
+
+置換は有効、Object IDとMaterial IDの限定は無効です。
+
+[![白い形状と赤い画像を材質として使った形状の比較](/img/fusion/captures/S185/comparison.png)](/img/fusion/captures/S185/comparison.png)
+
+左は元の形状、右は赤い画像で材質を差し替えた結果です。
+
+[再現用Graph](/img/fusion/captures/S185/fixture.comp) · [撮影条件と確認範囲](/img/fusion/captures/S185/capture.json)
+
+<!-- /capture:S185 -->
+
 ## 役割
 
 Replace Material 3Dが変更するのは**geometryへ割り当てられたMaterial**です。geometryの形やCamera、Lightを作り直すNodeではありません。
@@ -152,4 +176,4 @@ DaVinci Resolve 21.1 Reference Manual（September 2026）、Chapter 88「3D Node
 
 確認した項目は、SceneInput / MaterialInput、2D Imageと3D MaterialをMaterialInputへ接続した場合の違い、Camera / Lightのpass-through、Enable、RGBA channel別のReplace Mode、Object ID / Material IDによる制限、Text 3Dへの適用例です。
 
-runtime REGID、現在のEffects Library表示、IDのdefault / range、Edition差、実機render結果は別verification対象として残しているため、verification: partialを維持しています。
+現在のEffects Library表示、IDのdefault / range、Edition差、上記以外の実機render結果は別verification対象として残しているため、verification: partialを維持しています。

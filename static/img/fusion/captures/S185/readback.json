@@ -1,0 +1,64 @@
+{
+  "case": "S185",
+  "project": "Collectanea_Mandelbrot_Zoom_20261025",
+  "library": "Local Database",
+  "project_manager_folder": "root",
+  "timeline": "S185_capture",
+  "frame": 0,
+  "resolve": "21.1.0.14",
+  "edition": "DaVinci Resolve Studio",
+  "os": "Windows-11-10.0.26200-SP0",
+  "project_settings": {
+    "colorScienceMode": "davinciYRGB",
+    "colorSpaceInput": "Rec.709 Gamma 2.4",
+    "colorSpaceTimeline": "Rec.709 (Scene)",
+    "colorSpaceTimelineGamma": "",
+    "colorSpaceOutput": "Rec.709 (Scene)",
+    "colorSpaceOutputGamma": "ACEScc",
+    "isAutoColorManage": "0",
+    "timelineResolutionWidth": "1920",
+    "timelineResolutionHeight": "1080",
+    "timelineFrameRate": 30.0,
+    "timelinePlaybackFrameRate": "30",
+    "timelinePixelAspectRatio": "square"
+  },
+  "connections": {
+    "ReplaceMat.SceneInput": "Primitive",
+    "ReplaceMat.MaterialInput": "RedImage",
+    "BeforeRender.SceneInput": "Primitive",
+    "AfterRender.SceneInput": "ReplaceMat",
+    "MediaOut1.Input": "AfterRender"
+  },
+  "values": {
+    "Primitive": {
+      "Shape": "SurfaceCubeInputs",
+      "Transform3DOp.Scale.X": 0.6,
+      "Transform3DOp.Rotate.X": 20.0,
+      "Transform3DOp.Rotate.Y": 30.0
+    },
+    "RedImage": {
+      "UseFrameFormatSettings": 0.0,
+      "Width": 512.0,
+      "Height": 512.0,
+      "TopLeftRed": 0.9,
+      "TopLeftGreen": 0.1,
+      "TopLeftBlue": 0.2,
+      "TopLeftAlpha": 1.0
+    },
+    "ReplaceMat": {
+      "Enable": 1.0,
+      "LimitByObjectID": 0.0,
+      "LimitByMaterialID": 0.0
+    }
+  },
+  "source": "Shape3D cube with generated red image as replacement material; two Renderer3D branches.",
+  "save_project": true,
+  "save_completed_at": "2026-10-27T23:01:49.637782+00:00",
+  "native_export_sha256": "dcefaa547134b2d9bb65e3d7ae6a27a54cb5063678587ac35abd0bb06e510217",
+  "portable_sha256": "75c412f6f0e5e748e78329612b8c60699f3536bb6af3944a7cae04f6f3ff36d0",
+  "portable_reimport": "NOT_RUN",
+  "limits": [
+    "One cube and solid 2D image; 3D materials, ID filtering, channel modes, lighting, animation and hosts NOT_RUN.",
+    "Viewer screenshot is display evidence."
+  ]
+}
