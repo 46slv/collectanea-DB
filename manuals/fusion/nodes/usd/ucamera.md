@@ -60,6 +60,32 @@ uCamera（カメラ） ────────────┘
 
 例えば同じ大きさの立方体を前後に配置し、Projection Typeだけを切り替えると違いを確認できます。Perspectiveでは奥の立方体が小さく見え、Orthographicでは前後の位置でサイズが変わりません。
 
+<!-- capture:S332 -->
+
+## 実機例：焦点距離を変える
+
+`uShape`のCapsuleと`uCamera`を`uMerge`につなぎ、uRendererで描画しました。カメラの位置を固定したままPerspectiveのFocal Lengthを50から25にすると、Viewer内のCapsuleは小さく表示されました。uRendererのCameraはDefaultのままです。複数カメラの選択、Film Back、OrthographicやDOFの比較は行っていません。市松模様はViewerの透明表示です。[接続と設定の記録](/img/fusion/captures/S332/readback.json)に条件を記載しています。
+
+[![uShapeとuCameraをuMergeへつなぐ構成](/img/fusion/captures/S332/graph.png)](/img/fusion/captures/S332/graph.png)
+
+形状とカメラを同じUSD sceneにまとめています。
+
+[![PerspectiveとFocal Length 25を設定したuCamera](/img/fusion/captures/S332/controls.png)](/img/fusion/captures/S332/controls.png)
+
+PerspectiveのFocal Lengthは25です。
+
+[![焦点距離25での描画](/img/fusion/captures/S332/focal25-result.png)](/img/fusion/captures/S332/focal25-result.png)
+
+焦点距離25の表示です。
+
+[![焦点距離50での描画](/img/fusion/captures/S332/focal50-result.png)](/img/fusion/captures/S332/focal50-result.png)
+
+同じカメラ位置での焦点距離50の表示です。
+
+[再現用Graph](/img/fusion/captures/S332/fixture.comp) · [撮影条件と確認範囲](/img/fusion/captures/S332/capture.json)
+
+<!-- /capture:S332 -->
+
 ## 画角を決める：Focal LengthとFilm Back
 
 **Perspectiveでの画角は、焦点距離だけでなくFilm Backの大きさにも依存**します。
