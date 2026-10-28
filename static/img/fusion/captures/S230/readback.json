@@ -1,0 +1,55 @@
+{
+  "case": "S230",
+  "project": "Collectanea_Mandelbrot_Zoom_20261025",
+  "library": "Local Database",
+  "project_manager_folder": "root",
+  "timeline": "S230_capture",
+  "frame": 0,
+  "resolve": "21.1.0.14",
+  "edition": "DaVinci Resolve Studio",
+  "os": "Windows-11-10.0.26200-SP0",
+  "project_settings": {
+    "colorScienceMode": "davinciYRGB",
+    "colorSpaceInput": "Rec.709 Gamma 2.4",
+    "colorSpaceTimeline": "Rec.709 (Scene)",
+    "colorSpaceTimelineGamma": "",
+    "colorSpaceOutput": "Rec.709 (Scene)",
+    "colorSpaceOutputGamma": "ACEScc",
+    "isAutoColorManage": "0",
+    "timelineResolutionWidth": "1920",
+    "timelineResolutionHeight": "1080",
+    "timelineFrameRate": 30.0,
+    "timelinePlaybackFrameRate": "30",
+    "timelinePixelAspectRatio": "square"
+  },
+  "connections": {
+    "Map.Image": "Gradient",
+    "MediaOut1.Input": "Map"
+  },
+  "values": {
+    "Gradient": {
+      "Type": "Horizontal",
+      "TopLeftRed": 0.8,
+      "TopLeftGreen": 0.2,
+      "TopLeftBlue": 0.1,
+      "TopRightRed": 0.1,
+      "TopRightGreen": 0.3,
+      "TopRightBlue": 0.8
+    },
+    "Map": {
+      "Type": 0.0,
+      "Supersampling": 0.0,
+      "PreDividePostMultiply": 0.0
+    }
+  },
+  "source": "Synthetic horizontal gradient processed by KD Invert with Type Color.",
+  "save_project": true,
+  "save_completed_at": "2026-10-28T03:10:22.233581+00:00",
+  "native_export_sha256": "ea8f5b9f014fd8d1b7bd3df9a24eda31980220cb8ff747c568231c22f6fceec1",
+  "portable_sha256": "b5cc8f0bc2166dc813d6835351b2e3858fd3e3abc3327bd55035d2ddc2c2d0db",
+  "portable_reimport": "NOT_RUN",
+  "limits": [
+    "One synthetic gradient and Color mode; pixel equations, alpha values, other modes, animation and other hosts NOT_RUN.",
+    "Viewer screenshot is display evidence."
+  ]
+}

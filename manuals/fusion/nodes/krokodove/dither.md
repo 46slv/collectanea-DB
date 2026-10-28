@@ -31,11 +31,39 @@ KrokodoveのDitherは、この考え方に関連する**模様状のノイズと
 
 ここで加工するのは画面の画素で構成された<Term id="image">Image</Term>です。図形の輪郭を描画前のデータとして扱う<Term id="shape-data">Shapeデータ</Term>を生成するノードではありません。Krokodoveには別のデータを扱うツールもあるため、[Family Overview](./)で区別できます。
 
+<!-- capture:S229 -->
+
+## 実機例：グラデーションに模様を加える
+
+白黒の横グラデーションを `Dither` に接続し、出力を元画像と比較しました。
+
+この例ではOutput Bits Per Channelを2に設定すると、元の滑らかなグラデーションに細かな模様が現れます。内部アルゴリズムやビット深度の厳密な意味は未検証です。[接続と設定の記録](/img/fusion/captures/S229/readback.json)に条件を記載しています。
+
+[![グラデーションをKrokodove Ditherへつなぐ構成](/img/fusion/captures/S229/graph.png)](/img/fusion/captures/S229/graph.png)
+
+合成グラデーションをDitherへ渡します。
+
+[![Krokodove Ditherの設定](/img/fusion/captures/S229/controls.png)](/img/fusion/captures/S229/controls.png)
+
+Output Bits Per Channelを2に設定しています。
+
+[![処理前の滑らかなグラデーション](/img/fusion/captures/S229/low.png)](/img/fusion/captures/S229/low.png)
+
+処理前の画像です。
+
+[![Ditherを通したグラデーション](/img/fusion/captures/S229/high.png)](/img/fusion/captures/S229/high.png)
+
+処理後は細かな模様が見えます。
+
+[再現用Graph](/img/fusion/captures/S229/fixture.comp) · [撮影条件と確認範囲](/img/fusion/captures/S229/capture.json)
+
+<!-- /capture:S229 -->
+
 ## 入力と出力
 
 | 段階 | 扱うデータ | 21.1 Manualで確認できること |
 | --- | --- | --- |
-| 入力 | 2D Image | Ditherは画像にノイズ模様を加えるフィルターとして掲載されています。正式な端子名・補助端子の数は未確認です。 |
+| 入力 | 2D Image | Ditherは画像にノイズ模様を加えるフィルターとして掲載されています。実機SDKではImage入力とEffectMask入力を確認しました。 |
 | 処理 | 画像に模様状のノイズを導入する | ノイズによる陰影の表現と、粗い質感の生成が説明されています。 |
 | 出力 | 加工後の2D Image | Image Toolsの項目であり、画像フィルターとして扱います。Alphaや解像度の変化は未確認です。 |
 
@@ -92,7 +120,7 @@ DitherとNoiseはどちらもノイズを扱いますが、Manualの説明では
 - **元画像が判別しづらい**：模様が目立つ場合は、Mergeで原画との混合を試します。細部がつぶれるかどうかはViewerで確認します。
 - **階調の段差が消えると思った**：21.1 ManualはDitherを質感と陰影のフィルターとして紹介しています。バンディング除去や色数の削減は保証していません。
 - **フィルム粒子と同じだと思った**：時間方向の変化、粒径の分布、色チャンネルごとの特性は未確認です。フィルムグレインの物理的な再現としては扱いません。
-- **設定名を探しても見つからない**：模様の種類、粒の大きさ、ランダム化、色数などは確認したい性質ですが、この記事ではInspectorの正式な項目名としては記載していません。
+- **設定名を探しても見つからない**：実機のInspectorではOutput Bits Per Channel、Dither Method、Multiplierを確認しました。選択中の方式名はFloyd & Steinbergでしたが、その内部実装は検証していません。
 
 ## バージョン・出典
 
@@ -100,6 +128,6 @@ DitherとNoiseはどちらもノイズを扱いますが、Manualの説明では
 - **比較対象**：同Manual p.2435（Generate・Rasterize）、p.2436（Noise）、p.2583（Change DepthのDither設定）。一般的なディザリングの説明は概念の補足であり、Krokodove Dither固有のアルゴリズムの証明ではありません。
 - **関連**：[Krokodoveの画像・Shape・3D・Region](./)。データの種類を区別してからツールを探す場合に利用できます。
 
-**未確認**：正式な入出力端子名・数、Inspectorの項目名・初期値・範囲、ノイズパターンの生成方式、色数と色深度の扱い、Alpha・解像度・DoD、時間変化・アニメーション可否、Free / Studio・Fusion StudioのEdition差、21.1実機での見え方とREGID。
+**未確認**：実機ではKD_DitherのImageとEffectMask入力、上記のInspector項目と表示例を確認しました。出力端子の詳細、項目の初期値・範囲、ノイズパターンの内部実装、色数と色深度の扱い、Alpha・解像度・DoD、時間変化・アニメーション可否、Free / Studio・Fusion StudioのEdition差。
 
 基本的な役割は21.1 Manualに記載されていますが、詳細仕様を実機で照合していないため`verification: partial`を維持します。

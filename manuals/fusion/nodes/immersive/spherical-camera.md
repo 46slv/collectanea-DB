@@ -36,6 +36,34 @@ Spherical Cameraは、<Term id="classic-3d">Fusionの3Dシーン</Term>を**前�
 
 これは「2D画像を球面へ曲げるエフェクト」ではありません。カメラの向きと3Dシーンの位置関係から、**どの方向に何が見えるか**を決めるNodeです。
 
+<!-- capture:S228 -->
+
+## 実機例：球を球面カメラで描画
+
+球と `Spherical Camera` を同じ3Dシーンに接続し、Renderer 3Dで描画しました。
+
+同じ球をLatLongとHCrossのレイアウトで出力すると、Viewer上の画像の形と球の位置が変わります。1個の球だけを使った例で、面の方位精度やステレオは未検証です。[接続と設定の記録](/img/fusion/captures/S228/readback.json)に条件を記載しています。
+
+[![球とSpherical Cameraをシーンへ渡して描画する構成](/img/fusion/captures/S228/graph.png)](/img/fusion/captures/S228/graph.png)
+
+球とカメラをMerge 3Dへ渡します。
+
+[![Spherical CameraのHCross設定](/img/fusion/captures/S228/controls.png)](/img/fusion/captures/S228/controls.png)
+
+LayoutをHCrossに設定しています。
+
+[![LatLongで描画した球](/img/fusion/captures/S228/low.png)](/img/fusion/captures/S228/low.png)
+
+LatLongで出力した状態です。
+
+[![HCrossで描画した球](/img/fusion/captures/S228/high.png)](/img/fusion/captures/S228/high.png)
+
+HCrossでは配置が変わります。
+
+[再現用Graph](/img/fusion/captures/S228/fixture.comp) · [撮影条件と確認範囲](/img/fusion/captures/S228/capture.json)
+
+<!-- /capture:S228 -->
+
 ## 入力と出力
 
 21.1 Manualでは**任意の入力2系統**が説明されています。両方とも未接続で使用できます。
@@ -45,6 +73,8 @@ Spherical Cameraは、<Term id="classic-3d">Fusionの3Dシーン</Term>を**前�
 | **Image**（オレンジ） | 球面配置の2D画像 | LatLong（2:1）、VR180、Horizontal／Vertical Cross、Horizontal／Vertical Strip形式の画像を受け取る。通常の16:9画像を自動で360°素材へ変換する入力ではない |
 | **Stereo Input**（緑） | 右眼用のステレオカメラ | Stereo VR制作で右側のカメラを入力する。通常の2D画像やマスクを入れる端子ではない |
 | **出力** | **Classic 3Dシーン（カメラ）** | Merge 3Dなどへ接続し、Renderer 3Dで2D画像へ変換する |
+
+今回のResolve Studio 21.1.0.14でSDKの入力一覧を調べたところ、Image型入力は表示されず、SceneInputとStereo.RightCameraが確認されました。Manualとの違いの理由は未確認です。
 
 Image入力は、Spherical Cameraの**出力がImageであることを意味しません**。入力と出力のデータ領域を取り違えると、2D Mergeへ直接つなごうとして詰まります。3Dシーンと2D画像の違いは[Classic 3D scene](../../learn/02-data/classic-3d.md)を参照してください。
 
@@ -134,4 +164,4 @@ Spherical CameraはEffects Libraryの**3Dカテゴリ**にあるため、VRカ�
 
 **一次資料：Blackmagic Design『DaVinci Resolve 21.1 Reference Manual』（2026年9月版）、Chapter 88「3D Nodes」、Spherical Camera [3SC]（pp.1995–1998）、Chapter 122「VR Nodes」、Spherical Camera（p.2955）。** 入力2系統、出力の3D接続、Layoutと各比率、Clip、Stereo、Control Visibility、VRカテゴリとの分類差を確認しました。公式資料の入口は[Blackmagic Design Support](https://www.blackmagicdesign.com/support)です。
 
-**verification: partial**：Manualとの照合は実施しましたが、21.1実機でのREGID、端子内部名、Image入力が出力へ与える影響の全条件、Stereo VRの納品互換性、レンダリング品質、edition差は未確認です。Manual上のショート表記[3SC]をスクリプト用REGIDと同一視しません。
+**verification: partial**：Manualとの照合に加え、実機ではSphericalCamera3Dの接続と上記の描画例を確認しました。その他の端子内部名、Image入力が出力へ与える影響の全条件、Stereo VRの納品互換性、レンダリング品質、edition差は未確認です。Manual上のショート表記[3SC]をスクリプト用REGIDと同一視しません。

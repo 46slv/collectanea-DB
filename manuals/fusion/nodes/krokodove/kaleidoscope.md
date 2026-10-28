@@ -31,6 +31,34 @@ updated: '2026-10-18'
 
 ただし、公式ManualのKrokodove項目は短い機能説明です。内部で何枚の扇形を切り出すか、反射回数をどう決めるか、中心位置や角度をどのInspector項目で調整するかは、その記述だけでは確定できません。「扇形を複製する」という説明は見た目を理解するためのたとえであり、内部処理の仕様ではありません。
 
+<!-- capture:S232 -->
+
+## 実機例：文字画像から模様を作る
+
+合成した `Text+` の文字を `Kaleidoscope` に渡しました。
+
+この設定では、文字の一部が放射状に繰り返された模様になります。Viewerの操作用オーバーレイも画像に写っています。内部の鏡映アルゴリズムやAlphaの数値は未検証です。[接続と設定の記録](/img/fusion/captures/S232/readback.json)に条件を記載しています。
+
+[![文字画像をKrokodove Kaleidoscopeへつなぐ構成](/img/fusion/captures/S232/graph.png)](/img/fusion/captures/S232/graph.png)
+
+文字画像をKaleidoscopeへ渡します。
+
+[![KaleidoscopeのInspector](/img/fusion/captures/S232/controls.png)](/img/fusion/captures/S232/controls.png)
+
+この例のInspectorです。
+
+[![処理前の文字](/img/fusion/captures/S232/low.png)](/img/fusion/captures/S232/low.png)
+
+処理前の文字です。
+
+[![Kaleidoscopeで作った反復模様](/img/fusion/captures/S232/high.png)](/img/fusion/captures/S232/high.png)
+
+処理後は文字の一部が繰り返されます。
+
+[再現用Graph](/img/fusion/captures/S232/fixture.comp) · [撮影条件と確認範囲](/img/fusion/captures/S232/capture.json)
+
+<!-- /capture:S232 -->
+
 ## 入力と出力
 
 | 段階 | データ | 確認できる範囲 |
@@ -96,8 +124,8 @@ DaVinci Resolve 21.1 Manualには、別の**Resolve FX「Mirrors」**にも「Ka
 - **境界**：対称模様の接合部は、元画像と変形条件によって見え方が異なります。中心と端をViewerで確認します。
 - **画面外**：反射後に必要な画素が元画像の外に出る場合の補間、透明部分、端の処理は未確認です。
 - **Alpha**：透明度の保持、プリマルチプライ、追加Mask入力の詳細は未確認です。合成時は[Merge](../compositing/merge)で境界を確かめます。
-- **Inspector**：中心座標、分割数、角度、アニメーション項目の正式名称・初期値・範囲は断定できません。
-- **Edition・実機**：21.1 Reference Manualへの掲載は確認済みですが、Resolve Free / Studio / Fusion Studioの提供条件、内部REGID、Effects Libraryでの表示名は別途実機確認が必要です。
+- **Inspector**：実機ではType、Radius、Center、Angle、Sizeの表示を確認しました。各項目の初期値の普遍性・範囲やアニメーションは未確認です。
+- **Edition・実機**：21.1 Reference Manualへの掲載は確認済みですが、Resolve Free / Studio / Fusion Studioの提供条件、Effects Libraryでの表示名は別途確認が必要です。実機のREGIDはKD_Kaleidoscopeです。
 
 ## バージョン・出典
 
@@ -105,6 +133,6 @@ DaVinci Resolve 21.1 Manualには、別の**Resolve FX「Mirrors」**にも「Ka
 
 別系統のResolve FX MirrorsにKaleidoscopeモードがあることは同ManualのChapter 165、pp.3667–3668で確認しています。**Resolve FX側のUI仕様をKrokodoveへ移していません。**
 
-画像の入出力分類は既存COLLECTANEAカタログを併用しました。制作例は確認済みの役割に基づく提案であり、公式の動作検証結果ではありません。端子・Inspector・Alpha・Editionの詳細が未確認のため、`verification: partial` を維持します。
+画像の入出力分類は既存COLLECTANEAカタログを併用しました。実機では上記の文字画像とImage入力の例を確認しました。その他の制作例は役割に基づく提案です。端子・Inspector・Alpha・Editionの詳細が未確認のため、`verification: partial` を維持します。
 
 [Krokodove全体像](./)と[画像（Image）](../../learn/02-data/image)も参照してください。

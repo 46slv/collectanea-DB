@@ -1,0 +1,62 @@
+{
+  "case": "S232",
+  "project": "Collectanea_Mandelbrot_Zoom_20261025",
+  "library": "Local Database",
+  "project_manager_folder": "root",
+  "timeline": "S232_capture",
+  "frame": 0,
+  "resolve": "21.1.0.14",
+  "edition": "DaVinci Resolve Studio",
+  "os": "Windows-11-10.0.26200-SP0",
+  "project_settings": {
+    "colorScienceMode": "davinciYRGB",
+    "colorSpaceInput": "Rec.709 Gamma 2.4",
+    "colorSpaceTimeline": "Rec.709 (Scene)",
+    "colorSpaceTimelineGamma": "",
+    "colorSpaceOutput": "Rec.709 (Scene)",
+    "colorSpaceOutputGamma": "ACEScc",
+    "isAutoColorManage": "0",
+    "timelineResolutionWidth": "1920",
+    "timelineResolutionHeight": "1080",
+    "timelineFrameRate": 30.0,
+    "timelinePlaybackFrameRate": "30",
+    "timelinePixelAspectRatio": "square"
+  },
+  "connections": {
+    "Map.Image": "Label",
+    "MediaOut1.Input": "Map"
+  },
+  "values": {
+    "Label": {
+      "StyledText": "KALEIDO",
+      "Size": 0.25
+    },
+    "Map": {
+      "Type": 0.0,
+      "Radius": 0.25,
+      "Center": {
+        "1": 0.5,
+        "2": 0.5,
+        "3": 0.0
+      },
+      "Angle": 0.0,
+      "ViewAngle": 45.0,
+      "Size": 1.0,
+      "SourceCenter": {
+        "1": 0.6000000238418579,
+        "2": 0.5,
+        "3": 0.0
+      }
+    }
+  },
+  "source": "Synthetic text through KD Kaleidoscope.",
+  "save_project": true,
+  "save_completed_at": "2026-10-28T03:25:25.735822+00:00",
+  "native_export_sha256": "fe4d7e9199c3f44b03ceb747fb9e3cf330aa1ef647ff4132c2a7b32750dd0c55",
+  "portable_sha256": "f4d819ce265a3c796bb8f4194317d0cbde5b41758d1fb71ed05939261eaacf54",
+  "portable_reimport": "NOT_RUN",
+  "limits": [
+    "One synthetic text and settings; internal mirror algorithm, mask, alpha values, animation and other hosts NOT_RUN.",
+    "Viewer screenshot is display evidence."
+  ]
+}

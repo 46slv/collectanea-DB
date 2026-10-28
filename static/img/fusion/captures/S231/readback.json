@@ -1,0 +1,67 @@
+{
+  "case": "S231",
+  "project": "Collectanea_Mandelbrot_Zoom_20261025",
+  "library": "Local Database",
+  "project_manager_folder": "root",
+  "timeline": "S231_capture",
+  "frame": 0,
+  "resolve": "21.1.0.14",
+  "edition": "DaVinci Resolve Studio",
+  "os": "Windows-11-10.0.26200-SP0",
+  "project_settings": {
+    "colorScienceMode": "davinciYRGB",
+    "colorSpaceInput": "Rec.709 Gamma 2.4",
+    "colorSpaceTimeline": "Rec.709 (Scene)",
+    "colorSpaceTimelineGamma": "",
+    "colorSpaceOutput": "Rec.709 (Scene)",
+    "colorSpaceOutputGamma": "ACEScc",
+    "isAutoColorManage": "0",
+    "timelineResolutionWidth": "1920",
+    "timelineResolutionHeight": "1080",
+    "timelineFrameRate": 30.0,
+    "timelinePlaybackFrameRate": "30",
+    "timelinePixelAspectRatio": "square"
+  },
+  "connections": {
+    "Map.Image": "Label",
+    "MediaOut1.Input": "Map"
+  },
+  "values": {
+    "Label": {
+      "StyledText": "SHIFT",
+      "Size": 0.3
+    },
+    "Map": {
+      "Center1": {
+        "1": 0.54,
+        "2": 0.5,
+        "3": 0.0
+      },
+      "Center2": {
+        "1": 0.5,
+        "2": 0.5,
+        "3": 0.0
+      },
+      "Center3": {
+        "1": 0.46,
+        "2": 0.5,
+        "3": 0.0
+      },
+      "Center4": {
+        "1": 0.5,
+        "2": 0.5,
+        "3": 0.0
+      }
+    }
+  },
+  "source": "Synthetic text with Center1 and Center3 adjusted in KD Channel Shifter.",
+  "save_project": true,
+  "save_completed_at": "2026-10-28T03:18:12.441188+00:00",
+  "native_export_sha256": "35123f80ac034ae08ed3bfba2e955e6be525d125084f4505142d130436971625",
+  "portable_sha256": "80349c0b564fd75581aaeaa903ce68ddb50e6b7909b92928a51016d465a014ca",
+  "portable_reimport": "NOT_RUN",
+  "limits": [
+    "One synthetic text and two center settings; channel math, alpha values, blur/scale, animation and other hosts NOT_RUN.",
+    "Viewer screenshot is display evidence."
+  ]
+}

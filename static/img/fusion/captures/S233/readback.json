@@ -1,0 +1,58 @@
+{
+  "case": "S233",
+  "project": "Collectanea_Mandelbrot_Zoom_20261025",
+  "library": "Local Database",
+  "project_manager_folder": "root",
+  "timeline": "S233_capture",
+  "frame": 0,
+  "resolve": "21.1.0.14",
+  "edition": "DaVinci Resolve Studio",
+  "os": "Windows-11-10.0.26200-SP0",
+  "project_settings": {
+    "colorScienceMode": "davinciYRGB",
+    "colorSpaceInput": "Rec.709 Gamma 2.4",
+    "colorSpaceTimeline": "Rec.709 (Scene)",
+    "colorSpaceTimelineGamma": "",
+    "colorSpaceOutput": "Rec.709 (Scene)",
+    "colorSpaceOutputGamma": "ACEScc",
+    "isAutoColorManage": "0",
+    "timelineResolutionWidth": "1920",
+    "timelineResolutionHeight": "1080",
+    "timelineFrameRate": 30.0,
+    "timelinePlaybackFrameRate": "30",
+    "timelinePixelAspectRatio": "square"
+  },
+  "connections": {
+    "Map.Image": "Label",
+    "MediaOut1.Input": "Map"
+  },
+  "values": {
+    "Label": {
+      "StyledText": "MIRROR",
+      "Size": 0.25
+    },
+    "Map": {
+      "MirrorAll": 0.0,
+      "MirrorLeft": {
+        "1": 0.25,
+        "2": 0.5,
+        "3": 0.0
+      },
+      "MirrorRight": {
+        "1": 0.75,
+        "2": 0.5,
+        "3": 0.0
+      }
+    }
+  },
+  "source": "Synthetic text through KD Mirror.",
+  "save_project": true,
+  "save_completed_at": "2026-10-28T03:32:11.709742+00:00",
+  "native_export_sha256": "2f058389b3afff91e617b13b35107a6e3e5d292eb20eaf21b97d7970a37b49cf",
+  "portable_sha256": "22438d4af19897bca15510e1e4924313b9966d0b65c279d550f85f5435899e38",
+  "portable_reimport": "NOT_RUN",
+  "limits": [
+    "One synthetic text and settings; internal mirror algorithm, mask, alpha values, animation and other hosts NOT_RUN.",
+    "Viewer screenshot is display evidence."
+  ]
+}
