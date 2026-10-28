@@ -26,6 +26,34 @@ updated: "2026-10-15"
 
 これは照明計算用の3Dデータです。Spot Light単体をViewerで表示しても完成画像にはならず、ライトの円錐がそのまま空中に可視の光線として描画されるものでもありません。
 
+<!-- capture:S200 -->
+
+## 実機例：照射角を変える
+
+`Shape 3D` の平面と `Spot Light` を `Merge 3D` でまとめ、照明を有効にした `Renderer 3D` で画像化しました。
+
+同じ位置・向きでCone Angleを10度から25度へ変えると、平面上の明るい範囲が広がります。距離減衰や影の設定は比較していません。[接続と設定の記録](/img/fusion/captures/S200/readback.json)に条件を記載しています。
+
+[![平面とSpot LightをMerge 3Dでまとめレンダリングする構成](/img/fusion/captures/S200/graph.png)](/img/fusion/captures/S200/graph.png)
+
+平面とライトを同じシーンへ接続します。
+
+[![Spot LightのCone Angleを25度に設定したInspector](/img/fusion/captures/S200/controls.png)](/img/fusion/captures/S200/controls.png)
+
+Cone Angleを25度に設定した状態です。
+
+[![Cone Angle 10度で照らされた平面](/img/fusion/captures/S200/narrow.png)](/img/fusion/captures/S200/narrow.png)
+
+Cone Angle 10度では照射範囲が狭くなります。
+
+[![Cone Angle 25度で照らされた平面](/img/fusion/captures/S200/wide.png)](/img/fusion/captures/S200/wide.png)
+
+Cone Angle 25度では照射範囲が広がります。
+
+[再現用Graph](/img/fusion/captures/S200/fixture.comp) · [撮影条件と確認範囲](/img/fusion/captures/S200/capture.json)
+
+<!-- /capture:S200 -->
+
 ## 入力・出力と基本接続
 
 | 接続 | 種類 | 動作 |
@@ -158,4 +186,4 @@ Blackmagic Design『**DaVinci Resolve 21.1 Reference Manual**』（September 202
 
 同ManualのSpot Light導入文には「影を落とせる唯一のライト」という表現がありますが、同章のPoint LightもShadows設定を備えています。この記述は**Spot Lightだけが影を落とせるという排他的な仕様の根拠にはしません**。
 
-現行21.1実機のREGID、細かなUI値域、Renderer別の最終結果、Edition差は未検証のため、`verification: partial`を維持します。
+実機例ではREGID `LightSpot` と2つの照射角での出力を確認しました。細かなUI値域、Renderer別の最終結果、Edition差は未検証のため、`verification: partial`を維持します。

@@ -24,6 +24,34 @@ updated: "2026-10-15"
 
 このライト自体は影を作りません。方向性のあるライトで明暗を付けたシーンへ足すと、暗い面が持ち上がる一方、強すぎると立体感が弱くなります。最初からAmbient Lightだけで自然な陰影を作るより、Directional LightやSpot Lightなどと組み合わせる使い方が適しています。
 
+<!-- capture:S198 -->
+
+## 実機例：暗い面に環境光を足す
+
+`Shape 3D` の球、`Directional Light`、`Ambient Light` を `Merge 3D` でまとめ、照明を有効にした `Renderer 3D` で画像化しました。
+
+Ambient Lightの強度を0.35に設定し、有効・無効を比較します。有効にすると、この例では球の暗い側が明るくなります。影の生成は比較していません。[接続と設定の記録](/img/fusion/captures/S198/readback.json)に条件を記載しています。
+
+[![球とDirectional Light Ambient LightをMerge 3Dでまとめる構成](/img/fusion/captures/S198/graph.png)](/img/fusion/captures/S198/graph.png)
+
+球と2つのライトを同じシーンへ接続します。
+
+[![Ambient Lightを有効にし強度0.35にしたInspector](/img/fusion/captures/S198/controls.png)](/img/fusion/captures/S198/controls.png)
+
+Ambient Lightを有効にし、強度を0.35にします。
+
+[![環境光を無効にした球](/img/fusion/captures/S198/off.png)](/img/fusion/captures/S198/off.png)
+
+Ambient Lightを無効にした状態です。
+
+[![環境光を有効にした球](/img/fusion/captures/S198/on.png)](/img/fusion/captures/S198/on.png)
+
+Ambient Lightを有効にすると暗い側が明るくなります。
+
+[再現用Graph](/img/fusion/captures/S198/fixture.comp) · [撮影条件と確認範囲](/img/fusion/captures/S198/capture.json)
+
+<!-- /capture:S198 -->
+
 ## 入力・出力と最小構成
 
 | 接続 | データ | 役割 |
@@ -92,4 +120,4 @@ Ambient LightにはDome Textureの画像入力はありません。周囲のHDR�
 
 **Blackmagic Design『DaVinci Resolve 21.1 Reference Manual』**（2026年9月）、Chapter 89「3D Light Nodes」**pp.2027–2029**。方向・位置のない照明、任意のSceneInput、Merge 3Dへの接続、Enabled / Color / Intensityを確認。Chapter 84「3D Compositing Basics」**p.1842**で、Ambient Lightが影を作らず暗部を明るくすることを確認しました。公式資料：[Blackmagic Design Support](https://www.blackmagicdesign.com/support)。
 
-**略号の訂正：** 旧記事の`3AM`ではなく、21.1 Manualの表記は`Ambient Light [3AL]`です。制作例はManualの仕様を組み合わせた手順案です。21.1実機でのREGID、正確な既定値・可動範囲、Rendererごとの差、Edition差は未確認のため、`verification: partial`を維持します。
+**略号の訂正：** 旧記事の`3AM`ではなく、21.1 Manualの表記は`Ambient Light [3AL]`です。制作例はManualの仕様を組み合わせた手順案です。実機例ではREGID `LightAmbient` と有効・無効の出力を確認しました。正確な既定値・可動範囲、Rendererごとの差、Edition差は未確認のため、`verification: partial`を維持します。

@@ -1,0 +1,63 @@
+{
+  "case": "S202",
+  "project": "Collectanea_Mandelbrot_Zoom_20261025",
+  "library": "Local Database",
+  "project_manager_folder": "root",
+  "timeline": "S202_capture",
+  "frame": 0,
+  "resolve": "21.1.0.14",
+  "edition": "DaVinci Resolve Studio",
+  "os": "Windows-11-10.0.26200-SP0",
+  "project_settings": {
+    "colorScienceMode": "davinciYRGB",
+    "colorSpaceInput": "Rec.709 Gamma 2.4",
+    "colorSpaceTimeline": "Rec.709 (Scene)",
+    "colorSpaceTimelineGamma": "",
+    "colorSpaceOutput": "Rec.709 (Scene)",
+    "colorSpaceOutputGamma": "ACEScc",
+    "isAutoColorManage": "0",
+    "timelineResolutionWidth": "1920",
+    "timelineResolutionHeight": "1080",
+    "timelineFrameRate": 30.0,
+    "timelinePlaybackFrameRate": "30",
+    "timelinePixelAspectRatio": "square"
+  },
+  "connections": {
+    "Primitive.MaterialInput": "Material",
+    "Scene.SceneInput1": "Primitive",
+    "Scene.SceneInput2": "KeyLight",
+    "Renderer.SceneInput": "Scene",
+    "MediaOut1.Input": "Renderer"
+  },
+  "values": {
+    "Material": {
+      "Diffuse.Color.Red": 0.1,
+      "Diffuse.Color.Green": 0.3,
+      "Diffuse.Color.Blue": 0.8,
+      "Specular.Intensity": 0.0,
+      "Specular.Exponent": 30.0
+    },
+    "Primitive": {
+      "Shape": "SurfaceSphereInputs",
+      "Transform3DOp.Scale.X": 0.5
+    },
+    "KeyLight": {
+      "Transform3DOp.Rotate.Y": -35.0
+    },
+    "Renderer": {
+      "RendererSoftware.LightingEnabled": 1.0
+    },
+    "current_intensity": 1.0,
+    "comparison_intensity": 0
+  },
+  "source": "Phong material on lit sphere with specular intensity 0 and 1.",
+  "save_project": true,
+  "save_completed_at": "2026-10-28T00:23:48.412052+00:00",
+  "native_export_sha256": "ef9e02170bfa9262af1be5ded9dc794493ca25479bbb3d2da5200e619a763500",
+  "portable_sha256": "3a5c5eaf020ab815ef841bd643857c50a6addc87b047048b7629e11b3527d25a",
+  "portable_reimport": "NOT_RUN",
+  "limits": [
+    "One sphere and two intensity values; texture inputs, material comparisons, animation and hosts NOT_RUN.",
+    "Viewer screenshot is display evidence."
+  ]
+}
