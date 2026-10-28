@@ -1,0 +1,128 @@
+{
+  "manual": {
+    "version": "21.1"
+  },
+  "runtime": {
+    "version": "21.1.0.14",
+    "edition": "DaVinci Resolve Studio",
+    "os": "Windows-11-10.0.26200-SP0",
+    "ui_language": "ja-JP"
+  },
+  "captured_at": "2026-10-28T10:44:20.238953+00:00",
+  "project": "Collectanea_Mandelbrot_Zoom_20261025",
+  "timeline": "S332_capture",
+  "frame": 0,
+  "resolution": [
+    1920,
+    1080
+  ],
+  "color_management": {
+    "project_settings": {
+      "colorScienceMode": "davinciYRGB",
+      "colorSpaceInput": "Rec.709 Gamma 2.4",
+      "colorSpaceTimeline": "Rec.709 (Scene)",
+      "colorSpaceTimelineGamma": "",
+      "colorSpaceOutput": "Rec.709 (Scene)",
+      "colorSpaceOutputGamma": "ACEScc",
+      "isAutoColorManage": "0",
+      "timelineResolutionWidth": "1920",
+      "timelineResolutionHeight": "1080",
+      "timelineFrameRate": 30.0,
+      "timelinePlaybackFrameRate": "30",
+      "timelinePixelAspectRatio": "square"
+    },
+    "note": "SDK project settings; screenshots show Viewer display."
+  },
+  "viewer": {
+    "view_mode": "Fit",
+    "source": "uRenderer / MediaOut1",
+    "note": "uCamera selected, frame 0; renderer CameraSelector Default"
+  },
+  "acceptance": {
+    "gui": "PASS: camera controls and focal length 25/50 framing difference visible; SDK and save read back.",
+    "article_display": "NOT_RUN",
+    "public_display": "NOT_RUN"
+  },
+  "unverified": [
+    "Single Perspective camera and fixed scene; uRenderer CameraSelector remains Default, explicit camera selection and multiple-camera routing NOT_RUN.",
+    "Film Back, Orthographic, DOF, animation, portable reimport and other hosts NOT_RUN."
+  ],
+  "schema_version": 1,
+  "case": "S332",
+  "article": "manuals/fusion/nodes/usd/ucamera.md",
+  "graph": "fixture.comp",
+  "settings": "readback.json",
+  "source": {
+    "file": "screen.png",
+    "size": [
+      3304,
+      1886
+    ],
+    "sha256": "8c7728b5a911334fe01853013c53118348e9d9baa92ba4468cec7867bcc64f61"
+  },
+  "shots": [
+    {
+      "file": "graph.png",
+      "source": "screen.png",
+      "source_sha256": "8c7728b5a911334fe01853013c53118348e9d9baa92ba4468cec7867bcc64f61",
+      "frame": 0,
+      "crop_xyxy": [
+        550,
+        1150,
+        2250,
+        1530
+      ],
+      "resampled": false,
+      "sha256": "f03f1f4804f8395a22ab2958472ad76962dad76bbf62bb9b70700ae45b6a05a2"
+    },
+    {
+      "file": "controls.png",
+      "source": "screen.png",
+      "source_sha256": "8c7728b5a911334fe01853013c53118348e9d9baa92ba4468cec7867bcc64f61",
+      "frame": 0,
+      "crop_xyxy": [
+        2780,
+        125,
+        3304,
+        420
+      ],
+      "resampled": false,
+      "sha256": "e6fc541c9ea731473ad748e809e4cc198a8ba4e49836053e4e1c2b33425f8aea"
+    },
+    {
+      "file": "focal25-result.png",
+      "source": "screen.png",
+      "source_sha256": "8c7728b5a911334fe01853013c53118348e9d9baa92ba4468cec7867bcc64f61",
+      "frame": 0,
+      "crop_xyxy": [
+        1560,
+        100,
+        2680,
+        715
+      ],
+      "resampled": false,
+      "sha256": "44807ad7266b6b04faa94c7b30c90be72a00c460bed31aabab327a562c887994"
+    },
+    {
+      "file": "focal50-result.png",
+      "source": "focal50.png",
+      "source_sha256": "ce6c95f5839f47ec164194a3ce216db7d1be860fe111876bccf4bef0a9631931",
+      "frame": 0,
+      "crop_xyxy": [
+        1560,
+        100,
+        2680,
+        715
+      ],
+      "resampled": false,
+      "sha256": "0e57ad8ef62114252fa2e2bbcd66ec14972b0747f0b629a1f2a4ea84c9f630bd"
+    }
+  ],
+  "reproduction": {
+    "fixture_sha256": "e47e438699679a0a215e9ac1bf31ff0c7406a12b6e0093058d71279b9c8de6b9",
+    "readback_sha256": "dcddb544fde58005c991c8e4255ea047fe537271b860ddfab9f774441bd1089d",
+    "readback_source_sha256": "93192df35153a121c6b1a3860bcdf89142bfff045ed707045f6ceb1db8c7fa7a",
+    "readback_transform": "CRLF normalized to LF for the portable Git asset; JSON values unchanged",
+    "reimport": "NOT_RUN"
+  }
+}
