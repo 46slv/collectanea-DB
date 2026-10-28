@@ -91,6 +91,34 @@ pEmitter → pKill → pRender（2D）→ Merge → MediaOut
 
 pKillの出力だけをMergeへ直接つないでも、通常の2D Imageとしては扱えません。必ずpRenderでParticleを描画結果へ変換します。
 
+<!-- capture:S309 -->
+
+## 実機例：影響確率を変えて表示を比べる
+
+`pEmitter` から `pKill` を通し、`pRender` の2D出力を確認します。この例の48フレームでは、影響確率が0のとき白い粒子が表示され、1のとき粒子は見えませんでした。
+
+静止画だけでは粒子データの削除と透明表示を区別できません。評価開始を揃えたシミュレーション比較、領域による限定や粒子数は未確認です。[接続と設定の記録](/img/fusion/captures/S309/readback.json)に条件を記載しています。
+
+[![pEmitterからpKillとpRenderへ接続した構成](/img/fusion/captures/S309/graph.png)](/img/fusion/captures/S309/graph.png)
+
+粒子をpKillへ送り2D出力を確認します。
+
+[![pKillの影響確率が1の設定](/img/fusion/captures/S309/controls.png)](/img/fusion/captures/S309/controls.png)
+
+影響確率を1に設定します。
+
+[![影響確率1で粒子が見えないViewer](/img/fusion/captures/S309/probability1.png)](/img/fusion/captures/S309/probability1.png)
+
+確率1では粒子が見えません。
+
+[![影響確率0で白い粒子が見えるViewer](/img/fusion/captures/S309/probability0.png)](/img/fusion/captures/S309/probability0.png)
+
+確率0では白い粒子が見えます。
+
+[再現用Graph](/img/fusion/captures/S309/fixture.comp) · [撮影条件と確認範囲](/img/fusion/captures/S309/capture.json)
+
+<!-- /capture:S309 -->
+
 ## 制作例
 
 ### 1. ロゴを通った光点だけ消す
