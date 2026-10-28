@@ -72,6 +72,34 @@ Springによる往復運動を減衰させる設定です。値が低いと往�
 
 乱数を使う処理のSeedを指定します。Randomizeは別のSeedを選ぶ操作です。比較時にSeedを固定すれば、乱数の違いではなくSpringやDampenによる変化を見やすくなります。
 
+<!-- capture:S318 -->
+
+## 実機例：追従先の位置を指定する
+
+`pEmitter` から `pFollow` を通して `pRender` の2D出力へ接続します。追従先のXを0.3、Springを1、Dampingを0.1に設定し、24フレームと48フレームの表示を記録しました。Viewerのマーカーは操作表示、透明市松は背景表示です。
+
+評価開始条件を揃えた軌道比較、追従運動や追従先を動かしたときの挙動は確認していません。[接続と設定の記録](/img/fusion/captures/S318/readback.json)に条件を記載しています。
+
+[![pEmitterからpFollowとpRenderへ接続した構成](/img/fusion/captures/S318/graph.png)](/img/fusion/captures/S318/graph.png)
+
+粒子をpFollowへ入力します。
+
+[![pFollowの位置、SpringとDampingの設定](/img/fusion/captures/S318/controls.png)](/img/fusion/captures/S318/controls.png)
+
+位置Xを0.3、Springを1、Dampingを0.1に設定します。
+
+[![48フレームの粒子表示とViewerの追従先マーカー](/img/fusion/captures/S318/result48.png)](/img/fusion/captures/S318/result48.png)
+
+48フレームの表示です。マーカーはViewer操作表示です。
+
+[![24フレームの粒子表示とViewerの追従先マーカー](/img/fusion/captures/S318/result24.png)](/img/fusion/captures/S318/result24.png)
+
+24フレームの表示です。
+
+[再現用Graph](/img/fusion/captures/S318/fixture.comp) · [撮影条件と確認範囲](/img/fusion/captures/S318/capture.json)
+
+<!-- /capture:S318 -->
+
 ## 実際の使い方
 
 ### 1. ひとつの目標へ光点を追従させる
