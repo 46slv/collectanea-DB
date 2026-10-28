@@ -8417,6 +8417,49 @@
           "status": "captured"
         }
       ]
+    },
+    {
+      "priority": "P1",
+      "goal": "Show uNormalMap connection and visible shading change with Scale 0/1.",
+      "suggested_graph": "Background -> uTexture -> uNormalMap -> uShader -> uReplaceMaterial -> uRenderer",
+      "scope": "Resolve Studio 21.1.0.14 on Windows.",
+      "limitations": [
+        "Uniform synthetic RGB (1,0.5,1) image, Scale 1 frame 0 vs 0 frame 1; different frames for evaluation.",
+        "Normal vector encoding, handedness, color-space numeric accuracy, real texture detail, animation and portable reimport NOT_RUN."
+      ],
+      "id": "S342",
+      "article": "manuals/fusion/nodes/usd/unormalmap.md",
+      "manual": {
+        "version": "21.1"
+      },
+      "status": "captured-embedded-unverified",
+      "capture_manifest": "static/img/fusion/captures/S342/capture.json",
+      "shots": [
+        {
+          "slug": "graph",
+          "kind": "graph",
+          "target": "uTextureからuNormalMapとuShaderのnormalへ渡す構成",
+          "status": "captured"
+        },
+        {
+          "slug": "controls",
+          "kind": "inspector",
+          "target": "Scale 0のuNormalMap",
+          "status": "captured"
+        },
+        {
+          "slug": "scale0-result",
+          "kind": "result",
+          "target": "Scale 0で描画されたCapsule",
+          "status": "captured"
+        },
+        {
+          "slug": "scale1-result",
+          "kind": "result",
+          "target": "Scale 1で描画されたCapsule",
+          "status": "captured"
+        }
+      ]
     }
   ],
   "publication_batches": [
@@ -9802,25 +9845,25 @@
     }
   ],
   "coverage_inventory": {
-    "checked_at": "2026-10-28T07:45:25.672147+00:00",
+    "checked_at": "2026-10-28T11:06:28.622969+00:00",
     "scope": "All manuals/fusion Markdown and MDX pages; review necessity before adding images.",
     "completion_rule": "Every page has an explicit image decision; necessary images are native-observed, embedded, saved to GitHub and public-display-verified. A native example does not verify all article controls.",
     "summary": {
       "total_pages": 589,
-      "with_images": 237,
+      "with_images": 238,
       "with_native_examples": 237,
       "states": {
         "reviewed-no-standalone-image": 26,
         "no-standalone-image-needed": 6,
         "illustrated-reused-example": 80,
-        "capture-planned": 319,
-        "illustrated-native-example": 157,
+        "capture-planned": 318,
+        "illustrated-native-example": 158,
         "needs-review": 1
       },
       "decisions": {
         "no-standalone-image-needed": 32,
-        "image-required": 237,
-        "capture-needed": 319,
+        "image-required": 238,
+        "capture-needed": 318,
         "needs-review": 1
       }
     },
@@ -25374,13 +25417,19 @@
         "article": "manuals/fusion/nodes/usd/unormalmap.md",
         "title": "uNormalMap",
         "kind": "node",
-        "image_count": 0,
+        "image_count": 4,
         "native_cases": [],
         "reused_cases": [],
-        "planned_cases": [],
-        "state": "capture-planned",
-        "decision": "capture-needed",
-        "reason": "本文の対象機能: uNormalMapは、表面の細かな凹凸に見える光の当たり方を決める法線テクスチャを、uShaderへ渡す前に調整するノード。。Classic材質や無地capsuleはUSD可変入力/Prim割当を示せない。",
+        "planned_cases": [
+          "S342"
+        ],
+        "state": "illustrated-native-example",
+        "decision": "image-required",
+        "reason": "S342は単色入力のScale 1 frame 0とScale 0 frame 1の明暗表示例。法線値や向き規約は未確認。",
+        "remaining_views": [
+          "数値法線、向き規約、実画像の細部、geometryの変化",
+          "同一frame更新時の比較、portable reimportと他host"
+        ],
         "required_views": [
           "対象名と実接続が読めるGraph",
           "対象自身を選択したInspectorの該当Control",
