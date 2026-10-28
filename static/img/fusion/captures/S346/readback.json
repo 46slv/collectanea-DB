@@ -1,0 +1,23 @@
+{
+  "case": "S346",
+  "setup": {
+    "case": "S346",
+    "connections": [
+      "Image->Texture.Image",
+      "Texture->Shader.diffuseColor",
+      "Shape->Replace.SceneInput",
+      "Shader->Replace.Material",
+      "Replace->USDRender.SceneInput",
+      "USDRender->MediaOut1"
+    ],
+    "saved": "2026-10-28T11:15:23.848496+00:00"
+  },
+  "additional_connection": "Shape -> BeforeRender.SceneInput",
+  "comparison": "BeforeRender and material-applied MediaOut1 at frame 0",
+  "selected_prims": "empty in Inspector",
+  "limits": [
+    "Single uShape with empty Selected Prims; selective assignment to one object among multiple Prims NOT_RUN.",
+    "Separate uRenderers compare original and material-applied branches at same frame; exact color values and renderer equivalence NOT_RUN.",
+    "Two-material scene, UV detail, animation and portable reimport NOT_RUN."
+  ]
+}
