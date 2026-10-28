@@ -39,6 +39,34 @@ updated: '2026-10-20'
 
 まずStretchの出力をViewerで確認し、現行バージョンのInspectorに表示される実際のコントロールを見て操作してください。未確認の「Line Start」「Line End」「Length」などを実在するパラメータ名としてここには記載していません。
 
+<!-- capture:S243 -->
+
+## 実機例：文字の横幅を変える
+
+合成した `Text+` の文字を `Stretch` に渡し、Destination Startを（0.2, 0.5）、Destination Endを（0.8, 0.5）に設定しました。
+
+この例では文字が横に縮んで見えます。Viewerには操作用オーバーレイが表示されています。他の設定やAlphaの数値は未検証です。[接続と設定の記録](/img/fusion/captures/S243/readback.json)に条件を記載しています。
+
+[![文字画像をKrokodove Stretchへつなぐ構成](/img/fusion/captures/S243/graph.png)](/img/fusion/captures/S243/graph.png)
+
+文字画像をStretchへ渡します。
+
+[![StretchのInspector](/img/fusion/captures/S243/controls.png)](/img/fusion/captures/S243/controls.png)
+
+SourceとDestinationの両端を設定しています。
+
+[![処理前の文字](/img/fusion/captures/S243/low.png)](/img/fusion/captures/S243/low.png)
+
+処理前の文字です。
+
+[![Stretchで横幅を変えた文字](/img/fusion/captures/S243/high.png)](/img/fusion/captures/S243/high.png)
+
+処理後は文字が横に縮んで見えます。
+
+[再現用Graph](/img/fusion/captures/S243/fixture.comp) · [撮影条件と確認範囲](/img/fusion/captures/S243/capture.json)
+
+<!-- /capture:S243 -->
+
 ## 入力と出力
 
 | 段階 | データ | 役割 |
@@ -98,7 +126,7 @@ Text+（タイトル） ──────────────────�
 
 ## 注意点と未確認事項
 
-- **線の指定方法：** 線の位置・向き・長さ・端点をどの項目で設定するか、外部のMaskやPathを利用できるかは未確認です。
+- **線の指定方法：** 実機例ではSourceとDestinationの端点を確認しました。外部のMaskやPathを利用できるかは未確認です。
 - **引き伸ばし方：** 伸びる側、色の複製・補間方法、画面外や線の端での扱いは、当該一覧では説明されていません。
 - **透明度と解像度：** Alpha、premultiply、画像の境界、出力解像度への影響を確定できる資料は未確認です。透過素材は合成した状態でも確認してください。
 - **時間変化：** 動画を入力できる分類であっても、Stretch専用の動きやランダム化機能があるとは限りません。Inspectorのアニメーション可能項目も実機で確認が必要です。
@@ -108,6 +136,6 @@ Text+（タイトル） ──────────────────�
 
 一次資料：Blackmagic Design『**DaVinci Resolve 21.1 Reference Manual**』（September 2026）、Chapter 105「Krokodove Nodes」、**p.2437「Image Warp Tools / Stretch」**。p.2437のShear・Warped Transform、p.2436のDirectional Scale・Restと比較しています。
 
-**資料から直接確認したこと**は、「指定した線に沿った画素の引き伸ばし」という役割とImage Warp Toolsへの分類です。入力・出力の2D Image分類には既存COLLECTANEAカタログも併用しています。格子・ストライプ・タイトルを使った例は、確認された役割から考えた検証・制作案です。端子・Inspector・画素境界・Edition差が未確認のため、`verification: partial` を維持しています。
+**資料から直接確認したこと**は、「指定した線に沿った画素の引き伸ばし」という役割とImage Warp Toolsへの分類です。実機例では端点を設定した一つの結果を確認しました。端子の詳細・画素境界・Edition差は未確認のため、`verification: partial` を維持しています。
 
 [Krokodoveの全体像](./)と[Imageの基礎](../../learn/02-data/image)、[Shapeの基礎](../../learn/02-data/shape)も参照してください。
