@@ -1,0 +1,53 @@
+{
+  "case": "S168",
+  "project": "Collectanea_Mandelbrot_Zoom_20261025",
+  "library": "Local Database",
+  "project_manager_folder": "root",
+  "timeline": "S168_capture",
+  "frame": 0,
+  "resolve": "21.1.0.14",
+  "edition": "DaVinci Resolve Studio",
+  "os": "Windows-11-10.0.26200-SP0",
+  "project_settings": {
+    "colorScienceMode": "davinciYRGB",
+    "colorSpaceInput": "Rec.709 Gamma 2.4",
+    "colorSpaceTimeline": "Rec.709 (Scene)",
+    "colorSpaceTimelineGamma": "",
+    "colorSpaceOutput": "Rec.709 (Scene)",
+    "colorSpaceOutputGamma": "ACEScc",
+    "isAutoColorManage": "0",
+    "timelineResolutionWidth": "1920",
+    "timelineResolutionHeight": "1080",
+    "timelineFrameRate": 30.0,
+    "timelinePlaybackFrameRate": "30",
+    "timelinePixelAspectRatio": "square"
+  },
+  "connections": {
+    "Expand.Input": "Ellipse",
+    "BeforeRender.Input": "Ellipse",
+    "AfterRender.Input": "Expand",
+    "MediaOut1.Input": "AfterRender"
+  },
+  "values": {
+    "Amount": 0.05,
+    "JoinStyle": 1.0,
+    "MiterLimit": 10.0
+  },
+  "source": "Generated sEllipse shape, two sRender branches; one static frame.",
+  "save_project": true,
+  "save_completed_at": "2026-10-27T21:08:00.638845+00:00",
+  "native_export_sha256": "ff24c175884d1748e500f26a30abbcd22ea56fb5a11eadf2bacfed0fdc75e128",
+  "portable_sha256": "4bee6b6fba76d915b971f84d178f966d90715caf02fd494914bd66d92616a721",
+  "portable_reimport": "NOT_RUN",
+  "limits": [
+    "Static sEllipse, positive and negative Amount; other shapes, border styles, animation and hosts NOT_RUN.",
+    "Viewer screenshot is display evidence."
+  ],
+  "comparison_stages": {
+    "case": "S168",
+    "positive": 0.05,
+    "negative": -0.05,
+    "restored": 0.05,
+    "save_completed_at": "2026-10-27T21:07:54.297572+00:00"
+  }
+}

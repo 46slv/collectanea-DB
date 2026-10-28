@@ -1,0 +1,118 @@
+{
+  "manual": {
+    "version": "21.1",
+    "chapter": 97,
+    "printed_pages": "2291–2293"
+  },
+  "runtime": {
+    "version": "21.1.0.14",
+    "edition": "DaVinci Resolve Studio",
+    "os": "Windows-11-10.0.26200-SP0",
+    "ui_language": "ja-JP"
+  },
+  "captured_at": "2026-10-27T20:58:12.488650+00:00",
+  "project": "Collectanea_Mandelbrot_Zoom_20261025",
+  "timeline": "S165_capture",
+  "frame": 0,
+  "resolution": [
+    1920,
+    1080
+  ],
+  "color_management": {
+    "project_settings": {
+      "colorScienceMode": "davinciYRGB",
+      "colorSpaceInput": "Rec.709 Gamma 2.4",
+      "colorSpaceTimeline": "Rec.709 (Scene)",
+      "colorSpaceTimelineGamma": "",
+      "colorSpaceOutput": "Rec.709 (Scene)",
+      "colorSpaceOutputGamma": "ACEScc",
+      "isAutoColorManage": "0",
+      "timelineResolutionWidth": "1920",
+      "timelineResolutionHeight": "1080",
+      "timelineFrameRate": 30.0,
+      "timelinePlaybackFrameRate": "30",
+      "timelinePixelAspectRatio": "square"
+    },
+    "note": "SDK project settings; screenshots show Viewer display."
+  },
+  "viewer": {
+    "view_mode": "Fit",
+    "source": "Left Source; right MediaOut1",
+    "note": "Pseudo Color selected for Red Inspector; MediaOut selected for clean comparison."
+  },
+  "acceptance": {
+    "gui": "PASS: native screenshots show graph, Inspector, guides and comparison; SDK connections and save read back.",
+    "article_display": "NOT_RUN",
+    "public_display": "NOT_RUN"
+  },
+  "unverified": [
+    "Static generated grayscale only; other settings, Alpha processing, animation, footage and hosts NOT_RUN.",
+    "Viewer screenshots are display evidence, not numerical color measurement.",
+    "Portable reimport and physical input provenance NOT_RUN.",
+    "Article verification remains partial."
+  ],
+  "schema_version": 1,
+  "case": "S165",
+  "article": "manuals/fusion/nodes/effects-film/pseudo-color.md",
+  "graph": "fixture.comp",
+  "settings": "readback.json",
+  "source": {
+    "file": "screen.png",
+    "size": [
+      3336,
+      1902
+    ],
+    "sha256": "5b6bf688471f05c8e348152446e9a8700577cd7abc92a6f76b191f23f77b3622"
+  },
+  "shots": [
+    {
+      "file": "graph.png",
+      "source": "screen.png",
+      "source_sha256": "5b6bf688471f05c8e348152446e9a8700577cd7abc92a6f76b191f23f77b3622",
+      "frame": 0,
+      "crop_xyxy": [
+        650,
+        1050,
+        2150,
+        1600
+      ],
+      "resampled": false,
+      "sha256": "efc5f20bb4f9bd81bf6fd5f86a43ddba841bea6c226812a64a3d7273eacff427"
+    },
+    {
+      "file": "controls.png",
+      "source": "screen.png",
+      "source_sha256": "5b6bf688471f05c8e348152446e9a8700577cd7abc92a6f76b191f23f77b3622",
+      "frame": 0,
+      "crop_xyxy": [
+        2815,
+        65,
+        3336,
+        600
+      ],
+      "resampled": false,
+      "sha256": "75a5533d5b0352758d2eb171f7970535a95827f133f7ab999c35513f9c05842e"
+    },
+    {
+      "file": "comparison.png",
+      "source": "clean-source.png",
+      "source_sha256": "4d799ec66b5d8ec0161c609b0567d728eb1eb5ffd105d115d62e2a0e537e9b80",
+      "frame": 0,
+      "crop_xyxy": [
+        0,
+        65,
+        2800,
+        730
+      ],
+      "resampled": false,
+      "sha256": "f58639a71b41f5a41daf6ac85ef17662c314e3853763cda127ca8e7efdee6d18"
+    }
+  ],
+  "reproduction": {
+    "fixture_sha256": "55a58b3cdaf95c4360592edd18cc4e1b55544c88f31d35d1c58d83250bb03b21",
+    "readback_sha256": "153df8462814a7e6cac1bba3ab810d80335e169f57c8547a0ecc72bc8729ee4d",
+    "readback_source_sha256": "153df8462814a7e6cac1bba3ab810d80335e169f57c8547a0ecc72bc8729ee4d",
+    "readback_transform": "No line-ending transformation",
+    "reimport": "NOT_RUN"
+  }
+}

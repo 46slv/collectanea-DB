@@ -1,0 +1,56 @@
+{
+  "case": "S163",
+  "project": "Collectanea_Mandelbrot_Zoom_20261025",
+  "library": "Local Database",
+  "project_manager_folder": "root",
+  "timeline": "S163_capture",
+  "frame": 0,
+  "resolve": "21.1.0.14",
+  "edition": "DaVinci Resolve Studio",
+  "os": "Windows-11-10.0.26200-SP0",
+  "project_settings": {
+    "colorScienceMode": "davinciYRGB",
+    "colorSpaceInput": "Rec.709 Gamma 2.4",
+    "colorSpaceTimeline": "Rec.709 (Scene)",
+    "colorSpaceTimelineGamma": "",
+    "colorSpaceOutput": "Rec.709 (Scene)",
+    "colorSpaceOutputGamma": "ACEScc",
+    "isAutoColorManage": "0",
+    "timelineResolutionWidth": "1920",
+    "timelineResolutionHeight": "1080",
+    "timelineFrameRate": 30.0,
+    "timelinePlaybackFrameRate": "30",
+    "timelinePixelAspectRatio": "square"
+  },
+  "connections": {
+    "Rays1.Image": "Label",
+    "Source.Background": "Plate",
+    "Source.Foreground": "Rays1",
+    "BeforeSource.Background": "Plate",
+    "BeforeSource.Foreground": "Label",
+    "MediaOut1.Input": "Source"
+  },
+  "values": {
+    "Center": {
+      "1": 0.1,
+      "2": 0.1,
+      "3": 0.0
+    },
+    "Blend": 1.0,
+    "Decay": 0.02,
+    "Weight": 0.5,
+    "Exposure": 2.0,
+    "Threshold": 0.8,
+    "MergeOver": 1.0
+  },
+  "source": "Generated Background and TextPlus; one static frame.",
+  "save_project": true,
+  "save_completed_at": "2026-10-27T20:49:55.119273+00:00",
+  "native_export_sha256": "69a7098e07266788cd29d55c98938d382fd81762afa06ef5cdc20b5f2e74db0e",
+  "portable_sha256": "932d70d4dff6809ad6b8fe900dbac81078af7844b6e809093b79e52780e934f1",
+  "portable_reimport": "NOT_RUN",
+  "limits": [
+    "Static synthetic text, one Rays setup observed; other values, footage and hosts NOT_RUN.",
+    "Viewer screenshot is display evidence."
+  ]
+}

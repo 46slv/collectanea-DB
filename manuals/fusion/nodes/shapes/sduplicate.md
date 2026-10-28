@@ -96,6 +96,30 @@ Jitterは、Controlsで作ったコピーごとに不規則な差を加える設
 
 JitterのCenter X/Yは基本となるX/Y Offsetを置き換えるものではありません。まずControlsで反復の方向と規模を決め、次に必要な分だけJitterを加えると、意図した配置から外れすぎるのを避けられます。
 
+<!-- capture:S167 -->
+
+## 実機例：円を横に複製する
+
+`sEllipse` のShapeを `sDuplicate` に接続し、Copiesを4、X Offsetを0.1、Y Offsetを0に設定します。元のShapeと複製後のShapeをそれぞれ `sRender` で画像化して比較しました。
+
+frame 0では、左の元の円1個に対し、右には元の円を含む5個が並びます。市松模様はViewerの透明表示です。[接続と設定の記録](/img/fusion/captures/S167/readback.json)に条件を記載しています。
+
+[![sEllipseからsDuplicateを経てsRenderで画像化する構成](/img/fusion/captures/S167/graph.png)](/img/fusion/captures/S167/graph.png)
+
+元Shapeの確認枝と、sDuplicateを通す枝をそれぞれsRenderで画像化します。
+
+[![sDuplicateのCopies 4、X Offset 0.1を示すInspector](/img/fusion/captures/S167/controls.png)](/img/fusion/captures/S167/controls.png)
+
+Copiesは4、Copy Probabilityは1、X Offsetは0.1です。
+
+[![元の円1個と複製後の円5個を比較](/img/fusion/captures/S167/comparison.png)](/img/fusion/captures/S167/comparison.png)
+
+左は元の円、右は4個のコピーを追加した結果です。
+
+[再現用Graph](/img/fusion/captures/S167/fixture.comp) · [撮影条件と確認範囲](/img/fusion/captures/S167/capture.json)
+
+<!-- /capture:S167 -->
+
 ## 具体的な制作例
 
 ### 1. 右に進むほど小さくなる図形の列
@@ -175,4 +199,4 @@ sEllipse → sDuplicate → sRender → Merge
 
 **出典**：Blackmagic Design『DaVinci Resolve 21.1 Reference Manual』（September 2026）、Chapter 117「Shape Nodes」、**pp.2735–2738**。Input1、Shape出力、Copies、Copy Probability、Time Offset、X/Y Offset、X/Y Size、Axis Mode、X/Y Pivot、Rotation、Style、Jitterの各項目を参照しました。
 
-制作例はManualに記載された挙動を組み合わせた運用例で、本文の具体的な設定値による描画結果を21.1実機で確認したものではありません。内部REGID、正確な性能特性、Edition差、各乱数設定の詳細な計算方法は未検証です。そのためverificationはpartialのままです。
+上記実機例以外の制作例はManualに記載された挙動を組み合わせた運用例です。正確な性能特性、Edition差、各乱数設定の詳細な計算方法は未検証です。そのためverificationはpartialのままです。

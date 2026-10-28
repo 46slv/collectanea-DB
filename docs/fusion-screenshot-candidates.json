@@ -7378,6 +7378,352 @@
           "status": "captured"
         }
       ]
+    },
+    {
+      "priority": "P1",
+      "goal": "Show rays from generated alpha text against a common background.",
+      "suggested_graph": "TextPlus -> Rays -> Merge foreground; TextPlus -> separate before Merge; common Background.",
+      "scope": "Resolve Studio 21.1.0.14 on Windows, 1920x1080 static input.",
+      "limitations": [
+        "Static generated text only; other settings, mask, footage and hosts NOT_RUN.",
+        "Viewer screenshots are display evidence, not numerical measurement.",
+        "Portable reimport and physical input provenance NOT_RUN.",
+        "Article verification remains partial."
+      ],
+      "id": "S163",
+      "article": "manuals/fusion/nodes/effects-film/rays.md",
+      "manual": {
+        "version": "21.1",
+        "chapter": 97,
+        "printed_pages": "2293–2294"
+      },
+      "status": "captured-local-display-verified",
+      "capture_manifest": "static/img/fusion/captures/S163/capture.json",
+      "shots": [
+        {
+          "slug": "graph",
+          "kind": "graph",
+          "target": "文字をRaysへ通し背景と合成する構成と、元画像の比較枝",
+          "status": "captured"
+        },
+        {
+          "slug": "controls",
+          "kind": "inspector",
+          "target": "RaysのCenter、Decay、Weight、ExposureとThresholdを示すInspector",
+          "status": "captured"
+        },
+        {
+          "slug": "comparison",
+          "kind": "comparison",
+          "target": "元の文字と右上へ光条が伸びた文字の比較",
+          "status": "captured"
+        }
+      ]
+    },
+    {
+      "priority": "P1",
+      "goal": "Show a static TV skew and amplitude combination on generated text.",
+      "suggested_graph": "Background + TextPlus -> Source -> TV -> MediaOut.",
+      "scope": "Resolve Studio 21.1.0.14 on Windows, 1920x1080 static input.",
+      "limitations": [
+        "Static generated text only; scan lines, noise, roll bar, other settings, footage and hosts NOT_RUN.",
+        "Viewer screenshots are display evidence, not numerical measurement.",
+        "Portable reimport and physical input provenance NOT_RUN.",
+        "Article verification remains partial."
+      ],
+      "id": "S164",
+      "article": "manuals/fusion/nodes/effects-film/tv.md",
+      "manual": {
+        "version": "21.1",
+        "chapter": 97,
+        "printed_pages": "2303–2305"
+      },
+      "status": "captured-local-display-verified",
+      "capture_manifest": "static/img/fusion/captures/S164/capture.json",
+      "shots": [
+        {
+          "slug": "graph",
+          "kind": "graph",
+          "target": "文字画像をTVに通してMediaOutへ接続したノード構成",
+          "status": "captured"
+        },
+        {
+          "slug": "controls",
+          "kind": "inspector",
+          "target": "TVの走査線0、Skew 0.15、Amplitude 0.15、Frequency 8を示すInspector",
+          "status": "captured"
+        },
+        {
+          "slug": "comparison",
+          "kind": "comparison",
+          "target": "元の文字とTVの複数設定で傾いた文字の比較",
+          "status": "captured"
+        }
+      ]
+    },
+    {
+      "priority": "P1",
+      "goal": "Show a static Pseudo Color output from generated grayscale with distinct RGB phases.",
+      "suggested_graph": "Black + white masked by Ellipse -> Source -> PseudoColor -> MediaOut.",
+      "scope": "Resolve Studio 21.1.0.14 on Windows, 1920x1080 static input.",
+      "limitations": [
+        "Static generated grayscale only; other settings, Alpha processing, animation, footage and hosts NOT_RUN.",
+        "Viewer screenshots are display evidence, not numerical color measurement.",
+        "Portable reimport and physical input provenance NOT_RUN.",
+        "Article verification remains partial."
+      ],
+      "id": "S165",
+      "article": "manuals/fusion/nodes/effects-film/pseudo-color.md",
+      "manual": {
+        "version": "21.1",
+        "chapter": 97,
+        "printed_pages": "2291–2293"
+      },
+      "status": "captured-local-display-verified",
+      "capture_manifest": "static/img/fusion/captures/S165/capture.json",
+      "shots": [
+        {
+          "slug": "graph",
+          "kind": "graph",
+          "target": "白黒の濃淡をPseudo Colorに通してMediaOutへ接続したノード構成",
+          "status": "captured"
+        },
+        {
+          "slug": "controls",
+          "kind": "inspector",
+          "target": "Pseudo Colorの赤チャンネルの波形とPhaseを示すInspector",
+          "status": "captured"
+        },
+        {
+          "slug": "comparison",
+          "kind": "comparison",
+          "target": "白黒の濃淡とPseudo Colorで多色に変わった出力の比較",
+          "status": "captured"
+        }
+      ]
+    },
+    {
+      "priority": "P1",
+      "goal": "Show a visible exaggerated Grain example on static generated text at Fit and native 100% Viewer scales.",
+      "suggested_graph": "Background + TextPlus -> Source -> Grain -> MediaOut.",
+      "scope": "Resolve Studio 21.1.0.14 on Windows, 1920x1080 static input.",
+      "limitations": [
+        "Static generated text and exaggerated Grain only; other settings, real footage, alpha, temporal behavior and hosts NOT_RUN.",
+        "Viewer screenshots are display evidence, not numerical noise measurement.",
+        "Portable reimport and physical input provenance NOT_RUN.",
+        "Article verification remains partial."
+      ],
+      "id": "S166",
+      "article": "manuals/fusion/nodes/effects-film/grain.md",
+      "manual": {
+        "version": "21.1",
+        "chapter": 98,
+        "printed_pages": "2317–2320"
+      },
+      "status": "captured-local-display-verified",
+      "capture_manifest": "static/img/fusion/captures/S166/capture.json",
+      "shots": [
+        {
+          "slug": "graph",
+          "kind": "graph",
+          "target": "文字画像をGrainに通してMediaOutへ接続したノード構成",
+          "status": "captured"
+        },
+        {
+          "slug": "controls",
+          "kind": "inspector",
+          "target": "GrainのPower 20、Grain Size 3、Grain Softness 1を示すInspector",
+          "status": "captured"
+        },
+        {
+          "slug": "comparison-fit",
+          "kind": "comparison",
+          "target": "Fit表示で粒状感を加える前と後を比較",
+          "status": "captured"
+        },
+        {
+          "slug": "comparison-100",
+          "kind": "comparison",
+          "target": "100%表示で粒状感を加える前と後を比較",
+          "status": "captured"
+        }
+      ]
+    },
+    {
+      "priority": "P1",
+      "goal": "Show four sDuplicate copies of one ellipse and the sRender boundary.",
+      "suggested_graph": "sEllipse -> sDuplicate -> sRender -> MediaOut; second sRender shows the original.",
+      "scope": "Resolve Studio 21.1.0.14 on Windows, 1920x1080 static frame.",
+      "limitations": [
+        "Static sEllipse and one sDuplicate setup; jitter, style, time offsets, animation and hosts NOT_RUN.",
+        "Viewer screenshots are display evidence.",
+        "Portable reimport and physical input provenance NOT_RUN.",
+        "Article verification remains partial."
+      ],
+      "id": "S167",
+      "article": "manuals/fusion/nodes/shapes/sduplicate.md",
+      "manual": {
+        "version": "21.1",
+        "chapter": 117,
+        "printed_pages": "2735–2738"
+      },
+      "status": "captured-local-display-verified",
+      "capture_manifest": "static/img/fusion/captures/S167/capture.json",
+      "shots": [
+        {
+          "slug": "graph",
+          "kind": "graph",
+          "target": "sEllipseからsDuplicateを経てsRenderで画像化する構成",
+          "status": "captured"
+        },
+        {
+          "slug": "controls",
+          "kind": "inspector",
+          "target": "sDuplicateのCopies 4、X Offset 0.1を示すInspector",
+          "status": "captured"
+        },
+        {
+          "slug": "comparison",
+          "kind": "comparison",
+          "target": "元の円1個と複製後の円5個を比較",
+          "status": "captured"
+        }
+      ]
+    },
+    {
+      "priority": "P1",
+      "goal": "Show positive and negative sExpand Amount on a single sEllipse shape.",
+      "suggested_graph": "sEllipse -> sExpand -> sRender -> MediaOut; second sRender shows the original.",
+      "scope": "Resolve Studio 21.1.0.14 on Windows, 1920x1080 static frame.",
+      "limitations": [
+        "Static sEllipse and Amount +0.05/-0.05 only; other shapes, border styles, animation and hosts NOT_RUN.",
+        "Viewer screenshots are display evidence, not numeric geometry measurements.",
+        "Portable reimport and physical input provenance NOT_RUN.",
+        "Article verification remains partial."
+      ],
+      "id": "S168",
+      "article": "manuals/fusion/nodes/shapes/sexpand.md",
+      "manual": {
+        "version": "21.1",
+        "chapter": 117,
+        "printed_pages": "2741–2742"
+      },
+      "status": "captured-local-display-verified",
+      "capture_manifest": "static/img/fusion/captures/S168/capture.json",
+      "shots": [
+        {
+          "slug": "graph",
+          "kind": "graph",
+          "target": "sEllipseからsExpandを経てsRenderで画像化する構成",
+          "status": "captured"
+        },
+        {
+          "slug": "controls",
+          "kind": "inspector",
+          "target": "sExpandのAmount 0.05を示すInspector",
+          "status": "captured"
+        },
+        {
+          "slug": "positive",
+          "kind": "comparison",
+          "target": "元の円とAmount 0.05で広げた円の比較",
+          "status": "captured"
+        },
+        {
+          "slug": "negative",
+          "kind": "comparison",
+          "target": "元の円とAmountマイナス0.05で縮めた円の比較",
+          "status": "captured"
+        }
+      ]
+    },
+    {
+      "priority": "P1",
+      "goal": "Show a full and half sOutline on a single sEllipse shape.",
+      "suggested_graph": "sEllipse -> sOutline -> sRender -> MediaOut; second sRender shows original.",
+      "scope": "Resolve Studio 21.1.0.14 on Windows, 1920x1080 static frame.",
+      "limitations": [
+        "Static sEllipse and full/half Length only; other shapes, border and cap styles, animation and hosts NOT_RUN.",
+        "Viewer screenshots are display evidence, not numeric geometry measurements.",
+        "Portable reimport and physical input provenance NOT_RUN.",
+        "Article verification remains partial."
+      ],
+      "id": "S169",
+      "article": "manuals/fusion/nodes/shapes/soutline.md",
+      "manual": {
+        "version": "21.1",
+        "chapter": 117,
+        "printed_pages": "2750–2752"
+      },
+      "status": "captured-local-display-verified",
+      "capture_manifest": "static/img/fusion/captures/S169/capture.json",
+      "shots": [
+        {
+          "slug": "graph",
+          "kind": "graph",
+          "target": "sEllipseからsOutlineを経てsRenderで画像化する構成",
+          "status": "captured"
+        },
+        {
+          "slug": "controls",
+          "kind": "inspector",
+          "target": "sOutlineのThickness 0.03とLength 1を示すInspector",
+          "status": "captured"
+        },
+        {
+          "slug": "full",
+          "kind": "comparison",
+          "target": "塗りの円と全周の輪郭線を比較",
+          "status": "captured"
+        },
+        {
+          "slug": "half",
+          "kind": "comparison",
+          "target": "塗りの円とLength 0.5の半周の輪郭線を比較",
+          "status": "captured"
+        }
+      ]
+    },
+    {
+      "priority": "P1",
+      "goal": "Show a single sEllipse color changed by sChangeStyle and the sRender boundary.",
+      "suggested_graph": "sEllipse -> sChangeStyle -> sRender -> MediaOut; second sRender shows original.",
+      "scope": "Resolve Studio 21.1.0.14 on Windows, 1920x1080 static frame.",
+      "limitations": [
+        "Static sEllipse and one opaque color only; multiple shapes, alpha changes, Allow Combining behavior, animation and hosts NOT_RUN.",
+        "Viewer screenshots are display evidence, not numerical color measurement.",
+        "Portable reimport and physical input provenance NOT_RUN.",
+        "Article verification remains partial."
+      ],
+      "id": "S170",
+      "article": "manuals/fusion/nodes/shapes/schangestyle.md",
+      "manual": {
+        "version": "21.1",
+        "chapter": 117,
+        "printed_pages": "2733–2735"
+      },
+      "status": "captured-local-display-verified",
+      "capture_manifest": "static/img/fusion/captures/S170/capture.json",
+      "shots": [
+        {
+          "slug": "graph",
+          "kind": "graph",
+          "target": "sEllipseからsChangeStyleを経てsRenderで画像化する構成",
+          "status": "captured"
+        },
+        {
+          "slug": "controls",
+          "kind": "inspector",
+          "target": "sChangeStyleの赤0.9、緑0.1、青0.2、Alpha 1を示すInspector",
+          "status": "captured"
+        },
+        {
+          "slug": "comparison",
+          "kind": "comparison",
+          "target": "元の白い円と色を変更した赤い円の比較",
+          "status": "captured"
+        }
+      ]
     }
   ],
   "publication_batches": [
@@ -8763,25 +9109,25 @@
     }
   ],
   "coverage_inventory": {
-    "checked_at": "2026-10-28T04:31:52.924Z",
+    "checked_at": "2026-10-28T06:35:08.239924+00:00",
     "scope": "All manuals/fusion Markdown and MDX pages; review necessity before adding images.",
     "completion_rule": "Every page has an explicit image decision; necessary images are native-observed, embedded, saved to GitHub and public-display-verified. A native example does not verify all article controls.",
     "summary": {
       "total_pages": 589,
-      "with_images": 213,
-      "with_native_examples": 213,
+      "with_images": 221,
+      "with_native_examples": 221,
       "states": {
         "reviewed-no-standalone-image": 26,
         "no-standalone-image-needed": 6,
         "illustrated-reused-example": 80,
-        "capture-planned": 343,
-        "illustrated-native-example": 133,
+        "capture-planned": 335,
+        "illustrated-native-example": 141,
         "needs-review": 1
       },
       "decisions": {
         "no-standalone-image-needed": 32,
-        "image-required": 213,
-        "capture-needed": 343,
+        "image-required": 221,
+        "capture-needed": 335,
         "needs-review": 1
       }
     },
@@ -8989,18 +9335,6 @@
         "reason": "概念と機能の対応・担当範囲を案内するBridge。具体的なFusion UIはリンク先の機能記事へ集約する。"
       },
       {
-        "article": "manuals/fusion/index.md",
-        "title": "Fusion 日本語リファレンス",
-        "kind": "index",
-        "image_count": 0,
-        "native_cases": [],
-        "reused_cases": [],
-        "planned_cases": [],
-        "state": "reviewed-no-standalone-image",
-        "decision": "no-standalone-image-needed",
-        "reason": "ManualOverviewによる入口。操作や出力比較の本文がなく、詳細記事へ案内する。"
-      },
-      {
         "article": "manuals/fusion/index/by-familiar-app.md",
         "title": "慣れたアプリから探す（By Familiar App）",
         "kind": "index",
@@ -9116,6 +9450,18 @@
         "decision": "no-standalone-image-needed",
         "reason": "Node名・alias・familyの生成索引。各Nodeの姿と結果はReference本文が所有し、一覧に独立撮影は不要。",
         "required_views": []
+      },
+      {
+        "article": "manuals/fusion/index.md",
+        "title": "Fusion 日本語リファレンス",
+        "kind": "index",
+        "image_count": 0,
+        "native_cases": [],
+        "reused_cases": [],
+        "planned_cases": [],
+        "state": "reviewed-no-standalone-image",
+        "decision": "no-standalone-image-needed",
+        "reason": "ManualOverviewによる入口。操作や出力比較の本文がなく、詳細記事へ案内する。"
       },
       {
         "article": "manuals/fusion/learn/01-flow/evaluation-dependency.md",
@@ -13260,12 +13606,14 @@
         "article": "manuals/fusion/nodes/effects-film/grain.md",
         "title": "Grain",
         "kind": "node",
-        "image_count": 0,
-        "native_cases": [],
+        "image_count": 4,
+        "native_cases": [
+          "S166"
+        ],
         "reused_cases": [],
         "planned_cases": [],
-        "state": "capture-planned",
-        "decision": "capture-needed",
+        "state": "illustrated-native-example",
+        "decision": "image-required",
         "reason": "本文の対象機能: Grainは、2D Imageへフィルム風の粒状ノイズを加える旧来のNode。。S13のBlur、S03のGlow、S14のColor Correctorは別NodeのUIと演算であり、似た見た目でも代用不可。",
         "required_views": [
           "対象Node名と実際の配線が読めるGraph",
@@ -13479,12 +13827,14 @@
         "article": "manuals/fusion/nodes/effects-film/pseudo-color.md",
         "title": "Pseudo Color",
         "kind": "node",
-        "image_count": 0,
-        "native_cases": [],
+        "image_count": 3,
+        "native_cases": [
+          "S165"
+        ],
         "reused_cases": [],
         "planned_cases": [],
-        "state": "capture-planned",
-        "decision": "capture-needed",
+        "state": "illustrated-native-example",
+        "decision": "image-required",
         "reason": "本文の対象機能: 画像の色成分をチャンネルごとの波形設定で変化させ、元の色とは異なる疑似色を作るノード。。S13のBlur、S03のGlow、S14のColor Correctorは別NodeのUIと演算であり、似た見た目でも代用不可。",
         "required_views": [
           "対象Node名と実際の配線が読めるGraph",
@@ -13515,12 +13865,14 @@
         "article": "manuals/fusion/nodes/effects-film/rays.md",
         "title": "Rays",
         "kind": "node",
-        "image_count": 0,
-        "native_cases": [],
+        "image_count": 3,
+        "native_cases": [
+          "S163"
+        ],
         "reused_cases": [],
         "planned_cases": [],
-        "state": "capture-planned",
-        "decision": "capture-needed",
+        "state": "illustrated-native-example",
+        "decision": "image-required",
         "reason": "本文の対象機能: Raysは、入力画像の形や明るい部分をもとに、指定した中心から放射する光の筋を作る2D Effect Node。。S13のBlur、S03のGlow、S14のColor Correctorは別NodeのUIと演算であり、似た見た目でも代用不可。",
         "required_views": [
           "対象Node名と実際の配線が読めるGraph",
@@ -13668,12 +14020,14 @@
         "article": "manuals/fusion/nodes/effects-film/tv.md",
         "title": "TV",
         "kind": "node",
-        "image_count": 0,
-        "native_cases": [],
+        "image_count": 3,
+        "native_cases": [
+          "S164"
+        ],
         "reused_cases": [],
         "planned_cases": [],
-        "state": "capture-planned",
-        "decision": "capture-needed",
+        "state": "illustrated-native-example",
+        "decision": "image-required",
         "reason": "本文の対象機能: TVは、走査線・映像のずれ・ノイズ・横切る帯でアナログテレビ風の乱れを作る2D Node。。S13のBlur、S03のGlow、S14のColor Correctorは別NodeのUIと演算であり、似た見た目でも代用不可。",
         "required_views": [
           "対象Node名と実際の配線が読めるGraph",
@@ -21725,12 +22079,14 @@
         "article": "manuals/fusion/nodes/shapes/schangestyle.md",
         "title": "sChangeStyle",
         "kind": "node",
-        "image_count": 0,
-        "native_cases": [],
+        "image_count": 3,
+        "native_cases": [
+          "S170"
+        ],
         "reused_cases": [],
         "planned_cases": [],
-        "state": "capture-planned",
-        "decision": "capture-needed",
+        "state": "illustrated-native-example",
+        "decision": "image-required",
         "reason": "本文の対象機能: Shapeの色・Alphaと、複製時にAlphaが重なる部分の扱いを上書きする。。sGrid/sEllipse/sBooleanは各Tool独自Controls/輪郭/文字を示さない。",
         "required_views": [
           "対象名と実接続が読めるGraph",
@@ -21763,12 +22119,14 @@
         "article": "manuals/fusion/nodes/shapes/sduplicate.md",
         "title": "sDuplicate",
         "kind": "node",
-        "image_count": 0,
-        "native_cases": [],
+        "image_count": 3,
+        "native_cases": [
+          "S167"
+        ],
         "reused_cases": [],
         "planned_cases": [],
-        "state": "capture-planned",
-        "decision": "capture-needed",
+        "state": "illustrated-native-example",
+        "decision": "image-required",
         "reason": "本文の対象機能: sDuplicateは、入力したShapeを連続複製し、コピーごとに移動・拡大縮小・回転などを加えるノード。。sGrid/sEllipse/sBooleanは各Tool独自Controls/輪郭/文字を示さない。",
         "required_views": [
           "対象名と実接続が読めるGraph",
@@ -21801,12 +22159,14 @@
         "article": "manuals/fusion/nodes/shapes/sexpand.md",
         "title": "sExpand",
         "kind": "node",
-        "image_count": 0,
-        "native_cases": [],
+        "image_count": 4,
+        "native_cases": [
+          "S168"
+        ],
         "reused_cases": [],
         "planned_cases": [],
-        "state": "capture-planned",
-        "decision": "capture-needed",
+        "state": "illustrated-native-example",
+        "decision": "image-required",
         "reason": "本文の対象機能: sExpandは入力されたShapeの領域を膨張・収縮させるノード。。sGrid/sEllipse/sBooleanは各Tool独自Controls/輪郭/文字を示さない。",
         "required_views": [
           "対象名と実接続が読めるGraph",
@@ -21984,12 +22344,14 @@
         "article": "manuals/fusion/nodes/shapes/soutline.md",
         "title": "sOutline",
         "kind": "node",
-        "image_count": 0,
-        "native_cases": [],
+        "image_count": 4,
+        "native_cases": [
+          "S169"
+        ],
         "reused_cases": [],
         "planned_cases": [],
-        "state": "capture-planned",
-        "decision": "capture-needed",
+        "state": "illustrated-native-example",
+        "decision": "image-required",
         "reason": "本文の対象機能: sOutlineはShapeの輪郭を線にし、太さや描画範囲を設定するNode。。sGrid/sEllipse/sBooleanは各Tool独自Controls/輪郭/文字を示さない。",
         "required_views": [
           "対象名と実接続が読めるGraph",
@@ -26879,9 +27241,9 @@
       },
       {
         "article": "manuals/fusion/troubleshooting/masking/alpha-edge-looks-wrong.md",
-        "title": "透明Edgeの色や縁がおかしい",
+        "title": "透明エッジに黒縁・白縁が出る",
         "kind": "diagnostic",
-        "image_count": 2,
+        "image_count": 3,
         "native_cases": [],
         "reused_cases": [
           "S74"

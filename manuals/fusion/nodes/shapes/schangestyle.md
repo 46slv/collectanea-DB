@@ -56,6 +56,30 @@ RGBAは赤（R）、緑（G）、青（B）、Alpha（A）の4成分です。Alp
 
 これはsChangeStyleノード全体の有効・無効でも、図形の位置関係を変えるスイッチでもありません。**半透明Shapeのコピー同士が重なる領域**を見るための設定です。ManualはAlphaがどう加算・合成されるかの一般式までは示していないため、「何枚重なれば必ずこの数値になる」とは扱いません。
 
+<!-- capture:S170 -->
+
+## 実機例：円の色を変更する
+
+白い `sEllipse` を `sChangeStyle` に接続し、ColorをR 0.9、G 0.1、B 0.2、Alpha 1に設定します。元のShapeと色を変更したShapeを、それぞれ `sRender` で画像化して比較しました。
+
+frame 0では、左の白い円が右では赤く表示されます。市松模様はViewerの透明表示です。Alphaの変更やAllow Combiningの挙動はこの例では比較していません。[接続と設定の記録](/img/fusion/captures/S170/readback.json)に条件を記載しています。
+
+[![sEllipseからsChangeStyleを経てsRenderで画像化する構成](/img/fusion/captures/S170/graph.png)](/img/fusion/captures/S170/graph.png)
+
+元のShapeと色を変更したShapeをそれぞれsRenderで画像化します。
+
+[![sChangeStyleの赤0.9、緑0.1、青0.2、Alpha 1を示すInspector](/img/fusion/captures/S170/controls.png)](/img/fusion/captures/S170/controls.png)
+
+ColorをR 0.9、G 0.1、B 0.2、Alpha 1に設定しています。
+
+[![元の白い円と色を変更した赤い円の比較](/img/fusion/captures/S170/comparison.png)](/img/fusion/captures/S170/comparison.png)
+
+左は元の白い円、右はsChangeStyleで色を変えた円です。
+
+[再現用Graph](/img/fusion/captures/S170/fixture.comp) · [撮影条件と確認範囲](/img/fusion/captures/S170/capture.json)
+
+<!-- /capture:S170 -->
+
 ## 具体的な使い方
 
 ### 1. 色の違う図形を一つの色に揃える
@@ -116,4 +140,4 @@ sChangeStyleで確認できる固有のスタイル項目はColorとAllow Combin
 
 Manual本文で確認できるのは、Shape入力が1系統であること、上流のShape treeのColorとAllow Combiningを上書きすること、sEllipseからsChangeStyleを通してsRenderへ渡す接続、ColorのRGBA指定方法、複製・グリッドで図形が重なる際のAllow Combiningの違いです。
 
-本記事の複数図形の一括配色、ドット模様、処理順序比較は、確認済みのノード仕様を使った**構成例**です。21.1実機での描画結果、内部REGID、初出バージョン、Edition差、Alpha合成の正確な計算式は未確認です。Manualの略号`sCS`も内部REGIDの保証ではありません。このため`verification: partial`を維持しています。
+本記事の複数図形の一括配色、ドット模様、処理順序比較は、確認済みのノード仕様を使った**構成例**です。これらの構成例の21.1実機での描画結果、初出バージョン、Edition差、Alpha合成の正確な計算式は未確認です。Manualの略号`sCS`も内部REGIDの保証ではありません。このため`verification: partial`を維持しています。

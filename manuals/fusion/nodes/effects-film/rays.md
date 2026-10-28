@@ -44,6 +44,30 @@ DaVinci Resolve 21.1 Reference Manualで確認できる入力は2つです。
 
 まずCenterで方向を決め、DecayとWeightで伸び方を整え、Thresholdで不要な発生源を抑え、最後にExposureとBlendで見た目を合わせると調整しやすくなります。
 
+<!-- capture:S163 -->
+
+## 実機例：文字から光条を伸ばす
+
+透明部分を持つ文字を `Rays1` のInputへ接続し、結果を背景へ重ねます。Center X/Yを0.1、Decayを0.02、Weightを0.5、Exposureを2、Thresholdを0.8に設定しました。
+
+frame 0で、左は元の文字、右は光条を加えて同じ背景へ重ねた結果です。[接続と設定の記録](/img/fusion/captures/S163/readback.json)に条件を記載しています。
+
+[![文字をRaysへ通し背景と合成する構成と、元画像の比較枝](/img/fusion/captures/S163/graph.png)](/img/fusion/captures/S163/graph.png)
+
+文字をRaysへ渡した出力と、元の文字を同じ背景へ重ねる比較枝です。
+
+[![RaysのCenter、Decay、Weight、ExposureとThresholdを示すInspector](/img/fusion/captures/S163/controls.png)](/img/fusion/captures/S163/controls.png)
+
+Center 0.1 / 0.1、Decay 0.02、Weight 0.5、Exposure 2、Threshold 0.8です。
+
+[![元の文字と右上へ光条が伸びた文字の比較](/img/fusion/captures/S163/comparison.png)](/img/fusion/captures/S163/comparison.png)
+
+左は元の文字、右はRaysを加えた出力です。
+
+[再現用Graph](/img/fusion/captures/S163/fixture.comp) · [撮影条件と確認範囲](/img/fusion/captures/S163/capture.json)
+
+<!-- /capture:S163 -->
+
 ## 最小構成：文字から光条を伸ばす
 
 透明背景に白い文字を出すText+をRaysへ接続します。RaysはAlphaを含む素材と相性がよいため、単純な文字から始めると変化を確認しやすくなります。
@@ -94,4 +118,4 @@ Text+ → Rays → MediaOut
 
 Blackmagic Design『DaVinci Resolve 21.1 Reference Manual』（September 2026）、Chapter 97「Effect Nodes」、**Rays [CIR]（pp.2293–2294）**を一次資料としています。2入力、Alpha付き素材の推奨、Center X/Y、Blend、Decay、Weight、Exposure、Thresholdを確認しました。
 
-窓の例はManualで確認できる機能を組み合わせた運用案です。21.1実機での描画、各パラメータの初期値・数値範囲、内部REGID、edition差は未確認のため、verificationはpartialとしています。
+窓の例はManualで確認できる機能を組み合わせた運用案です。上記固定例以外の21.1実機での描画、各パラメータの初期値・数値範囲、edition差は未確認のため、verificationはpartialとしています。

@@ -73,6 +73,34 @@ Miter Limitは常に表示される項目ではありません。BevelやRound�
 
 SettingsタブはShape系ノード共通の設定です。ここで説明したAmount、Border Style、Miter LimitはsExpandのControlsです。共通Settingsの個別項目や初期値は、この記事では未確認のまま補いません。
 
+<!-- capture:S168 -->
+
+## 実機例：円の領域を広げる・縮める
+
+`sEllipse` のShapeを `sExpand` に接続し、元のShapeと処理後のShapeをそれぞれ `sRender` で画像化します。Amountを+0.05と−0.05に変え、同じframeで比較しました。
+
+正の値では円が広がり、負の値では小さくなります。市松模様はViewerの透明表示です。撮影後は+0.05へ戻して保存しました。[接続と設定の記録](/img/fusion/captures/S168/readback.json)に条件を記載しています。
+
+[![sEllipseからsExpandを経てsRenderで画像化する構成](/img/fusion/captures/S168/graph.png)](/img/fusion/captures/S168/graph.png)
+
+元ShapeとsExpand後のShapeをそれぞれsRenderで画像化します。
+
+[![sExpandのAmount 0.05を示すInspector](/img/fusion/captures/S168/controls.png)](/img/fusion/captures/S168/controls.png)
+
+正の比較ではAmountを0.05に設定しています。
+
+[![元の円とAmount 0.05で広げた円の比較](/img/fusion/captures/S168/positive.png)](/img/fusion/captures/S168/positive.png)
+
+左は元の円、右はAmount 0.05で広げた結果です。
+
+[![元の円とAmountマイナス0.05で縮めた円の比較](/img/fusion/captures/S168/negative.png)](/img/fusion/captures/S168/negative.png)
+
+右のAmountを−0.05にすると、同じ円が小さくなります。
+
+[再現用Graph](/img/fusion/captures/S168/fixture.comp) · [撮影条件と確認範囲](/img/fusion/captures/S168/capture.json)
+
+<!-- /capture:S168 -->
+
 ## 具体的な使い方
 
 ### 1. テロップの背景を文字の周囲へ広げる
@@ -126,4 +154,4 @@ sNGon ───────┤                                          ├─ s
 
 Blackmagic Design『DaVinci Resolve 21.1 Reference Manual』（September 2026）、Chapter 117「Shape Nodes」、**pp.2741–2742**を参照。Input1（必須、オレンジ）、Shapeの膨張・収縮、単体・複合Shapeへの適用、Amount、Border Styleの4種類、Miter Limitの表示条件、sRenderへの接続を確認しました。
 
-各接続図は確認済みのノード機能から作った制作例です。21.1実機でのレンダリング結果、細かな数値範囲・初期値、Edition差は未確認のため、`verification: partial`を維持しています。
+各接続図は確認済みのノード機能から作った制作例です。上記固定例以外の21.1実機でのレンダリング結果、細かな数値範囲・初期値、Edition差は未確認のため、`verification: partial`を維持しています。

@@ -80,6 +80,34 @@ Lengthをキーフレームで変えると、輪郭が伸びる**write-onアニ�
 
 SettingsタブはShape系Nodeの共通設定です。上記のThickness・Border Style・Cap Style・Position・LengthはsOutline固有のControlsです。このページでは共通Settingsの未確認の項目名・初期値を推測しません。
 
+<!-- capture:S169 -->
+
+## 実機例：円の輪郭を線にする
+
+`sEllipse` のShapeを `sOutline` に接続し、元のShapeと処理後のShapeをそれぞれ `sRender` で画像化します。Thicknessを0.03に固定し、Lengthを1と0.5に変えて同じframeで比較しました。
+
+Length 1では円周全体、0.5では半周が表示されます。市松模様はViewerの透明表示です。撮影後はLength 1へ戻して保存しました。[接続と設定の記録](/img/fusion/captures/S169/readback.json)に条件を記載しています。
+
+[![sEllipseからsOutlineを経てsRenderで画像化する構成](/img/fusion/captures/S169/graph.png)](/img/fusion/captures/S169/graph.png)
+
+元ShapeとsOutline後のShapeをそれぞれsRenderで画像化します。
+
+[![sOutlineのThickness 0.03とLength 1を示すInspector](/img/fusion/captures/S169/controls.png)](/img/fusion/captures/S169/controls.png)
+
+Thicknessは0.03、Lengthは1です。
+
+[![塗りの円と全周の輪郭線を比較](/img/fusion/captures/S169/full.png)](/img/fusion/captures/S169/full.png)
+
+左は元の円、右はLength 1の輪郭線です。
+
+[![塗りの円とLength 0.5の半周の輪郭線を比較](/img/fusion/captures/S169/half.png)](/img/fusion/captures/S169/half.png)
+
+右のLengthを0.5にすると、半周が表示されます。
+
+[再現用Graph](/img/fusion/captures/S169/fixture.comp) · [撮影条件と確認範囲](/img/fusion/captures/S169/capture.json)
+
+<!-- /capture:S169 -->
+
 ## 実際の使い方
 
 ### 複数の図形の線幅をそろえる
@@ -135,4 +163,4 @@ Shape全体の流れは[Shapeノード一覧](./)から確認できます。
 
 Blackmagic Design『DaVinci Resolve 21.1 Reference Manual』（September 2026）、Chapter 117「Shape Nodes」、**pp.2750–2752**。Input1、複合Shapeへの適用、Thickness、Border Style、Cap Style、Position、Lengthを確認しました。
 
-接続例はマニュアル上の仕様に基づく制作例であり、21.1実機でレンダリングした結果ではありません。正確なREGID、全パラメータの初期値と範囲、Edition差は未確認のため、`verification: partial`を維持します。
+上記固定例以外の接続例はマニュアル上の仕様に基づく制作例です。全パラメータの初期値と範囲、Edition差は未確認のため、`verification: partial`を維持します。
