@@ -25,6 +25,26 @@ Triangulate 3D [3Tri]は、**3Dモデルの面を三角形に分割する**Node�
 
 これは**形状を滑らかに細分化する処理ではありません**。表面に新しい起伏や厚みを加えるのではなく、元の面をどの三角形で構成するかを変更します。多角形のままでは後段で扱いにくいgeometryを、三角形のmeshとして渡したいときに使います。
 
+<!-- capture:S191 -->
+
+## 実機例：形状を通した前後を見る
+
+`Cube 3D` を分岐し、一方だけ `Triangulate 3D` を通して、それぞれ `Renderer 3D` で画像化しました。
+
+この例では、処理前後の立方体は通常レンダリングで同じ外観に見えます。画像から面の分割数を確認したわけではありません。市松模様はViewerの透明表示です。[接続と設定の記録](/img/fusion/captures/S191/readback.json)に条件を記載しています。
+
+[![Cube 3Dを分岐しTriangulate 3Dの前後を画像化する構成](/img/fusion/captures/S191/graph.png)](/img/fusion/captures/S191/graph.png)
+
+立方体を分岐し、片方をTriangulate 3Dへ接続します。
+
+[![処理前後の立方体の通常レンダリング](/img/fusion/captures/S191/comparison.png)](/img/fusion/captures/S191/comparison.png)
+
+通常レンダリングでは外観に差が見えません。面の分割数はこの画像では確認できません。
+
+[再現用Graph](/img/fusion/captures/S191/fixture.comp) · [撮影条件と確認範囲](/img/fusion/captures/S191/capture.json)
+
+<!-- /capture:S191 -->
+
 ## 入力と出力
 
 DaVinci Resolve 21.1 Reference Manualが説明する入力は**1つだけ**です。
@@ -70,4 +90,4 @@ Light 3D ─────────────────────┘
 - [Classic 3D Family Overview](./index.md)
 - [Classic 3D sceneの基礎](../../learn/02-data/classic-3d.md)
 - **一次資料**：Blackmagic Design, *DaVinci Resolve 21.1 Reference Manual*（September 2026）, Chapter 88「3D Nodes」, pp.2010–2011, 「Triangulate 3D [3Tri]」。
-- **確認範囲**：Nodeの役割、Scene Input、Controlsなし、共通Settingsは21.1 Manualで確認済み。runtimeのREGID、Edition別の表示、実際のmeshごとの分割結果は未検証のため、verificationはpartialとしています。
+- **確認範囲**：Nodeの役割、Scene Input、Controlsなし、共通Settingsは21.1 Manualで確認済み。実機例ではruntime REGID `Triangulate3D` と接続を確認しました。Edition別の表示、実際のmeshごとの分割結果は未検証のため、verificationはpartialとしています。

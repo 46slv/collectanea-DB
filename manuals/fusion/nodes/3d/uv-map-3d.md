@@ -26,6 +26,30 @@ UVは、3D表面を2D画像へ対応づけるための座標です。たとえ�
 
 **このNodeは画像やMaterialを貼りません。** 入力されたgeometryのtexture座標を変更するだけです。実際の色や模様は、[Shape 3D](./shape-3d.md)などへ接続したMaterialがその座標を参照して表示します。
 
+<!-- capture:S189 -->
+
+## 実機例：平面のUVを設定し直す
+
+文字を生成して `Image Plane 3D` の材質に接続し、出力を分岐します。一方だけ `UV Map 3D` を通して、それぞれ `Renderer 3D` で画像化しました。
+
+右はPlanar、方向Z、Size X/Y 2、Flip Uを有効にした結果です。左の元のUVと比較すると、文字の大きさと向きが変わっています。投影と反転を同時に設定した例です。市松模様はViewerの透明表示です。[接続と設定の記録](/img/fusion/captures/S189/readback.json)に条件を記載しています。
+
+[![文字画像のImage Planeを分岐しUV Map 3Dを通した結果と元を画像化する構成](/img/fusion/captures/S189/graph.png)](/img/fusion/captures/S189/graph.png)
+
+文字画像を平面に接続し、片方のUVを設定し直します。
+
+[![Planar ZとFlip Uの設定を示すUV Map 3DのInspector](/img/fusion/captures/S189/controls.png)](/img/fusion/captures/S189/controls.png)
+
+Planar、方向ZでFlip Uを有効にします。
+
+[![元のUVと設定し直したUVで表示した文字の比較](/img/fusion/captures/S189/comparison.png)](/img/fusion/captures/S189/comparison.png)
+
+左は元のUV、右は設定し直したUVです。
+
+[再現用Graph](/img/fusion/captures/S189/fixture.comp) · [撮影条件と確認範囲](/img/fusion/captures/S189/capture.json)
+
+<!-- /capture:S189 -->
+
 ## 入力と出力
 
 DaVinci Resolve 21.1 Reference Manualでは、次の入力が説明されています。

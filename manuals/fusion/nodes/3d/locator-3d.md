@@ -26,6 +26,34 @@ updated: "2026-10-08"
 
 これは通常の2D Imageを生成するノードではありません。Locatorの位置を使って画像を合成する場合も、映像そのものの処理と、位置パラメータの接続は区別します。
 
+<!-- capture:S192 -->
+
+## 実機例：Locatorの位置を2Dマーカーへ渡す
+
+`Cube 3D` と `Camera 3D` をまとめたシーンに `Locator 3D` を接続します。赤い `Background` にかけた `Ellipse Mask` のCenterは、式 `Locator.Position` でLocatorの画面座標を参照します。
+
+LocatorのXを0から0.7に変えると、マーカーのCenterはX 0.5から約0.887へ移動しました。赤い円は2D画像としてレンダリング後に合成しています。Target入力やアニメーションはこの例では使っていません。[接続と設定の記録](/img/fusion/captures/S192/readback.json)に条件を記載しています。
+
+[![Locatorのある3DシーンとEllipse Maskから赤いマーカーを合成する構成](/img/fusion/captures/S192/graph.png)](/img/fusion/captures/S192/graph.png)
+
+3DシーンのLocatorと、2Dマーカーの経路を組みます。
+
+[![Ellipse MaskのCenterがLocator.Positionを参照するInspector](/img/fusion/captures/S192/controls.png)](/img/fusion/captures/S192/controls.png)
+
+Ellipse MaskのCenterからLocator.Positionを参照します。
+
+[![Locator Xが0のとき画面中央にある赤いマーカー](/img/fusion/captures/S192/center.png)](/img/fusion/captures/S192/center.png)
+
+Locator X 0ではマーカーは中央です。
+
+[![Locator Xが0.7のとき右へ移動した赤いマーカー](/img/fusion/captures/S192/right.png)](/img/fusion/captures/S192/right.png)
+
+Locator X 0.7ではマーカーが右へ移動します。
+
+[再現用Graph](/img/fusion/captures/S192/fixture.comp) · [撮影条件と確認範囲](/img/fusion/captures/S192/capture.json)
+
+<!-- /capture:S192 -->
+
 ## 入力と出力
 
 Node Editorには、3D sceneを受ける2本の入力があります。
@@ -107,4 +135,4 @@ Locatorは3D物体を新しく作るためのノードでも、3Dオブジェク
 
 **一次資料**：Blackmagic Design『DaVinci Resolve 21.1 Reference Manual』（September 2026）、Chapter 88「3D Nodes」、**Locator 3D [3Lo]（pp.1955–1957）**。3D→2D座標変換、必須SceneInputと任意Target、Ellipse Centerからの`Connect To`、Target接続時のローカルオフセット、Cameraと画像寸法、Use Frame Format Settings、Sub ID、Make Renderable、Unseen by Camera、Size・Color・Matteの項目を確認しました。
 
-**未検証**：21.1実機での内部REGID、Positionの数値範囲・座標の詳細仕様、各Renderer / Editionでの実機挙動。未検証の項目を仕様として補わず、`verification: partial`を維持しています。
+**未検証**：Positionの数値範囲・座標の詳細仕様、Target入力、各Renderer / Editionでの実機挙動。実機例では内部REGID `Locator3D` と2つの固定位置を確認しました。未検証の項目を仕様として補わず、`verification: partial`を維持しています。

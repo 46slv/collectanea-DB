@@ -1,0 +1,118 @@
+{
+  "manual": {
+    "version": "21.1",
+    "chapter": 88,
+    "printed_pages": "1950–1952"
+  },
+  "runtime": {
+    "version": "21.1.0.14",
+    "edition": "DaVinci Resolve Studio",
+    "os": "Windows-11-10.0.26200-SP0",
+    "ui_language": "ja-JP"
+  },
+  "captured_at": "2026-10-27T23:11:21.832530+00:00",
+  "project": "Collectanea_Mandelbrot_Zoom_20261025",
+  "timeline": "S187_capture",
+  "frame": 0,
+  "resolution": [
+    1920,
+    1080
+  ],
+  "color_management": {
+    "project_settings": {
+      "colorScienceMode": "davinciYRGB",
+      "colorSpaceInput": "Rec.709 Gamma 2.4",
+      "colorSpaceTimeline": "Rec.709 (Scene)",
+      "colorSpaceTimelineGamma": "",
+      "colorSpaceOutput": "Rec.709 (Scene)",
+      "colorSpaceOutputGamma": "ACEScc",
+      "isAutoColorManage": "0",
+      "timelineResolutionWidth": "1920",
+      "timelineResolutionHeight": "1080",
+      "timelineFrameRate": 30.0,
+      "timelinePlaybackFrameRate": "30",
+      "timelinePixelAspectRatio": "square"
+    },
+    "note": "SDK project settings; screenshots show Viewer display."
+  },
+  "viewer": {
+    "view_mode": "Fit",
+    "source": "Left BeforeRender; right MediaOut1",
+    "note": "Fog 3D selected; checkerboard indicates transparency."
+  },
+  "acceptance": {
+    "gui": "PASS: a cube before and after linear fog; SDK connections and settings read back.",
+    "article_display": "NOT_RUN",
+    "public_display": "NOT_RUN"
+  },
+  "unverified": [
+    "One cube and camera with linear fog; density texture, radial mode, other falloffs, animation and hosts NOT_RUN.",
+    "Viewer screenshot is display evidence.",
+    "Portable reimport and physical input provenance NOT_RUN.",
+    "Article verification remains partial."
+  ],
+  "schema_version": 1,
+  "case": "S187",
+  "article": "manuals/fusion/nodes/3d/fog-3d.md",
+  "graph": "fixture.comp",
+  "settings": "readback.json",
+  "source": {
+    "file": "screen.png",
+    "size": [
+      3336,
+      1902
+    ],
+    "sha256": "843ac414ad19d993c2e913842b284bd15e126d3155f7f67f03050e2396b5a4de"
+  },
+  "shots": [
+    {
+      "file": "graph.png",
+      "source": "screen.png",
+      "source_sha256": "843ac414ad19d993c2e913842b284bd15e126d3155f7f67f03050e2396b5a4de",
+      "frame": 0,
+      "crop_xyxy": [
+        500,
+        1050,
+        2350,
+        1650
+      ],
+      "resampled": false,
+      "sha256": "5aa2a7b624a1bdb0a7edba139c46051111d6035c1bddf131419de1d4b6bafa30"
+    },
+    {
+      "file": "controls.png",
+      "source": "screen.png",
+      "source_sha256": "843ac414ad19d993c2e913842b284bd15e126d3155f7f67f03050e2396b5a4de",
+      "frame": 0,
+      "crop_xyxy": [
+        2815,
+        65,
+        3336,
+        520
+      ],
+      "resampled": false,
+      "sha256": "718e4d5d456ea847793cc50e64c2a33c03d7f4d568b8cb0e8773f78f331a156a"
+    },
+    {
+      "file": "comparison.png",
+      "source": "screen.png",
+      "source_sha256": "843ac414ad19d993c2e913842b284bd15e126d3155f7f67f03050e2396b5a4de",
+      "frame": 0,
+      "crop_xyxy": [
+        0,
+        65,
+        2800,
+        720
+      ],
+      "resampled": false,
+      "sha256": "1261de95e9ec0daacc7dcad7120f746b0ad0e3dbb85226570dee0cff283866a4"
+    }
+  ],
+  "reproduction": {
+    "fixture_sha256": "6bf131a4081fae6fdd4ed78d3fa178ae3e4ac5550cf2b75daaa104f40fc0d88b",
+    "readback_sha256": "1ff31de873eaf7c6e1dc2421885d484a307f901d920addc3f37484bdbf6c8a9d",
+    "readback_source_sha256": "1ff31de873eaf7c6e1dc2421885d484a307f901d920addc3f37484bdbf6c8a9d",
+    "readback_transform": "No line-ending transformation",
+    "reimport": "NOT_RUN"
+  }
+}

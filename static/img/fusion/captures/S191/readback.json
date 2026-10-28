@@ -1,0 +1,52 @@
+{
+  "case": "S191",
+  "project": "Collectanea_Mandelbrot_Zoom_20261025",
+  "library": "Local Database",
+  "project_manager_folder": "root",
+  "timeline": "S191_capture",
+  "frame": 0,
+  "resolve": "21.1.0.14",
+  "edition": "DaVinci Resolve Studio",
+  "os": "Windows-11-10.0.26200-SP0",
+  "project_settings": {
+    "colorScienceMode": "davinciYRGB",
+    "colorSpaceInput": "Rec.709 Gamma 2.4",
+    "colorSpaceTimeline": "Rec.709 (Scene)",
+    "colorSpaceTimelineGamma": "",
+    "colorSpaceOutput": "Rec.709 (Scene)",
+    "colorSpaceOutputGamma": "ACEScc",
+    "isAutoColorManage": "0",
+    "timelineResolutionWidth": "1920",
+    "timelineResolutionHeight": "1080",
+    "timelineFrameRate": 30.0,
+    "timelinePlaybackFrameRate": "30",
+    "timelinePixelAspectRatio": "square"
+  },
+  "connections": {
+    "Triangulate.SceneInput": "Cube",
+    "BeforeRender.SceneInput": "Cube",
+    "AfterRender.SceneInput": "Triangulate",
+    "MediaOut1.Input": "AfterRender"
+  },
+  "values": {
+    "Cube": {
+      "SurfaceCubeInputs.Width": 0.4,
+      "Transform3DOp.Rotate.X": 20.0,
+      "Transform3DOp.Rotate.Y": 30.0,
+      "SurfaceCubeInputs.Wireframe": 1.0
+    },
+    "Triangulate": {
+      "Mode": 0.0
+    }
+  },
+  "source": "Cube 3D with Triangulate 3D and two Renderer3D branches.",
+  "save_project": true,
+  "save_completed_at": "2026-10-27T23:25:30.152195+00:00",
+  "native_export_sha256": "2aad63822c6f48bfe1fc2b8dd33a972cae062fe9a5c563c9322fba3ba91b699d",
+  "portable_sha256": "4d67788aaf0cf753b53439ed3580ac7ab1e3971f48b918461fca4484583e9a4c",
+  "portable_reimport": "NOT_RUN",
+  "limits": [
+    "Rendered appearance only; topology, wireframe rendering, other meshes and hosts NOT_RUN.",
+    "Viewer screenshot is display evidence."
+  ]
+}
