@@ -29,6 +29,32 @@ updated: '2026-10-21'
 
 公式Manualで確認できるSortの説明は「色の値に基づいて画素を並べ替える」という一行です。色のどの成分を比較するか、昇順・降順、水平・垂直といった方向、並べ替えの範囲・単位は記載されていません。「明るい点が必ず画面右端へ集まる」「必ず横長の筋になる」といった結果は断定できません。
 
+<!-- capture:S272 -->
+
+## 実機例：濃淡の並びを変える
+
+合成した `Fast Noise` の白黒テクスチャを `Sort` に接続し、DirectionをHorizontal、Sort LengthをFullに設定しました。この静止画では不規則な濃淡が、上下に変化するような表示になります。実映像やAlpha値は未検証です。[接続と設定の記録](/img/fusion/captures/S272/readback.json)に条件を記載しています。
+
+[![Fast NoiseをSortへつなぐノード構成](/img/fusion/captures/S272/graph.png)](/img/fusion/captures/S272/graph.png)
+
+合成テクスチャをSortへ渡します。
+
+[![SortのInspector](/img/fusion/captures/S272/controls.png)](/img/fusion/captures/S272/controls.png)
+
+DirectionはHorizontal、Sort LengthはFullです。
+
+[![入力の不規則な白黒テクスチャ](/img/fusion/captures/S272/low.png)](/img/fusion/captures/S272/low.png)
+
+入力には不規則な濃淡があります。
+
+[![並びが変化したSortの出力](/img/fusion/captures/S272/high.png)](/img/fusion/captures/S272/high.png)
+
+出力は上下に変化する濃淡に見えます。
+
+[再現用Graph](/img/fusion/captures/S272/fixture.comp) · [撮影条件と確認範囲](/img/fusion/captures/S272/capture.json)
+
+<!-- /capture:S272 -->
+
 ## 入力と出力
 
 | 段階 | データ | 役割 |
@@ -69,11 +95,11 @@ MediaIn → Sort → MediaOut
 
 1. 白・黒・中間の灰色などの小さなブロックを、不規則な位置へ配置した検証画像を用意します。どの画素が動いたか追いやすくなります。
 2. Sortの前後を別々のViewerに出し、色の位置・輪郭・画面端の変化を観察します。
-3. 現行Inspectorに実際に表示される項目を確認し、一度に一つだけ変更します。方向・範囲・色成分などのControlが必ず存在すると仮定しないでください。
+3. 現行Inspectorに実際に表示される項目を確認し、一度に一つだけ変更します。実機例ではDirectionとSort Lengthの設定を示しています。別の条件の比較は未検証です。
 4. グラデーションや写真へ入力を替え、色の分布によって結果が変わるか試します。
 5. 透明な文字や図形でも試し、Alphaの扱いと、Mergeで背景へ重ねた後の見た目を確認します。
 
-入力画像の色や配置を変えると観察できる差が増える場合があります。現行Inspectorを未確認のため、設定項目の名前や推奨値はここでは示しません。
+入力画像の色や配置を変えると観察できる差が増える場合があります。上の実機例はHorizontalとFullを使用した一条件で、推奨値を示すものではありません。
 
 ## 似たツールとの使い分け
 
@@ -93,7 +119,7 @@ Sortの特徴は**色の値に基づく並べ替え**です。「画素が移動
 - **方向・範囲：** 画像全体、行・列、一定の領域など、どこを単位に並べるかは確認できていません。
 - **透明部分：** Alphaや透明画素をどう扱うかは未確認です。透明素材は後段のMerge結果まで調べます。
 - **動画・負荷：** フレーム間の処理方式、パラメータのアニメーション可否、処理速度は未検証です。
-- **製品差：** DaVinci Resolve Free／Studio、Fusion Studio間の差、Node内部ID、正式なControl名・初期値・範囲は未確認です。
+- **製品差：** DaVinci Resolve Free／Studio、Fusion Studio間の差、Node内部ID、今回示した項目以外のControlの意味・初期値・範囲は未確認です。
 
 ## 出典と確認範囲
 
@@ -101,4 +127,4 @@ Sortの特徴は**色の値に基づく並べ替え**です。「画素が移動
 
 公式資料の入口：[Blackmagic Design サポート](https://www.blackmagicdesign.com/jp/support/)。
 
-上記の接続図・作例・検証方法は**実機未検証の提案**です。21.1 Manualの一覧だけでは正確な端子名やInspector設定を確定できないため、`verification: partial`を維持しています。画像データの基本は[画像（Image）](../../learn/02-data/image)、同系統の一覧は[Krokodoveの概要](./)を参照してください。
+接続図・用途・検証方法は**確認の提案**です。実機例は合成テクスチャの一条件に限られ、正確な端子名や他の設定の動作は未確認のため、`verification: partial`を維持しています。画像データの基本は[画像（Image）](../../learn/02-data/image)、同系統の一覧は[Krokodoveの概要](./)を参照してください。
