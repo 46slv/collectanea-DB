@@ -8417,6 +8417,44 @@
           "status": "captured"
         }
       ]
+    },
+    {
+      "priority": "P1",
+      "goal": "Show uLoader loading a self-authored static USDA scene.",
+      "suggested_graph": "uLoader -> uRenderer -> MediaOut",
+      "scope": "Resolve Studio 21.1.0.14 on Windows.",
+      "limitations": [
+        "Static self-authored USDA with one Cube; external dependencies, time samples, USD variants and file reload behavior NOT_RUN.",
+        "Fixture path was changed to Comp:/owned-input.usda in portable copy; portable reimport and other hosts NOT_RUN.",
+        "Filename field scrolled to path tail with synthetic click/key; physical input is not claimed."
+      ],
+      "id": "S340",
+      "article": "manuals/fusion/nodes/usd/uloader.md",
+      "manual": {
+        "version": "21.1"
+      },
+      "status": "captured-embedded-unverified",
+      "capture_manifest": "static/img/fusion/captures/S340/capture.json",
+      "shots": [
+        {
+          "slug": "graph",
+          "kind": "graph",
+          "target": "uLoaderからuRendererへ接続する構成",
+          "status": "captured"
+        },
+        {
+          "slug": "controls",
+          "kind": "inspector",
+          "target": "owned-input.usdaを指定したuLoader",
+          "status": "captured"
+        },
+        {
+          "slug": "result",
+          "kind": "result",
+          "target": "読み込んだCubeの正面描画",
+          "status": "captured"
+        }
+      ]
     }
   ],
   "publication_batches": [
@@ -9802,25 +9840,25 @@
     }
   ],
   "coverage_inventory": {
-    "checked_at": "2026-10-28T07:45:25.672147+00:00",
+    "checked_at": "2026-10-28T11:00:02.350007+00:00",
     "scope": "All manuals/fusion Markdown and MDX pages; review necessity before adding images.",
     "completion_rule": "Every page has an explicit image decision; necessary images are native-observed, embedded, saved to GitHub and public-display-verified. A native example does not verify all article controls.",
     "summary": {
       "total_pages": 589,
-      "with_images": 237,
+      "with_images": 238,
       "with_native_examples": 237,
       "states": {
         "reviewed-no-standalone-image": 26,
         "no-standalone-image-needed": 6,
         "illustrated-reused-example": 80,
-        "capture-planned": 319,
-        "illustrated-native-example": 157,
+        "capture-planned": 318,
+        "illustrated-native-example": 158,
         "needs-review": 1
       },
       "decisions": {
         "no-standalone-image-needed": 32,
-        "image-required": 237,
-        "capture-needed": 319,
+        "image-required": 238,
+        "capture-needed": 318,
         "needs-review": 1
       }
     },
@@ -25290,13 +25328,20 @@
         "article": "manuals/fusion/nodes/usd/uloader.md",
         "title": "uLoader",
         "kind": "node",
-        "image_count": 0,
+        "image_count": 3,
         "native_cases": [],
         "reused_cases": [],
-        "planned_cases": [],
-        "state": "capture-planned",
-        "decision": "capture-needed",
-        "reason": "本文の対象機能: uLoaderは、外部のUSDファイルを読み込み、形状やカメラなどを含む3DシーンをFusionのUSDノードへ渡すノード。。uShape生成capsuleは外部USD/依存/time sampleを示せない。",
+        "planned_cases": [
+          "S340"
+        ],
+        "state": "illustrated-native-example",
+        "decision": "image-required",
+        "reason": "S340は自作の単一静止USDA Cubeを読み込んだ表示例。外部依存や時間変化は未確認。",
+        "remaining_views": [
+          "外部依存、time sample、variant、reload",
+          "Comp:参照のportable reimportと他host",
+          "物理入力"
+        ],
         "required_views": [
           "対象名と実接続が読めるGraph",
           "対象自身を選択したInspectorの該当Control",
