@@ -31,12 +31,40 @@ Manualの「pattern/shape」は**配置方法**を示す説明です。Fusion標
 
 同じ「Duplicate」という名前でも、Krokodove版と標準の[Duplicate](../effects-film/duplicate)は別項目です。標準版のInspectorの設定をKrokodove版にそのまま当てはめないようにします。
 
+<!-- capture:S251 -->
+
+## 実機例：文字を円状に並べる
+
+合成した `Text+` の文字を `Duplicate` に渡し、Duplicatesを6、CombineをMaximumに設定しました。
+
+この例では文字のコピーが円状に6個見えます。Viewerには市松模様と操作用オーバーレイが表示されています。他の配置やAlphaの数値は未検証です。[接続と設定の記録](/img/fusion/captures/S251/readback.json)に条件を記載しています。
+
+[![文字画像をKrokodove Duplicateへつなぐ構成](/img/fusion/captures/S251/graph.png)](/img/fusion/captures/S251/graph.png)
+
+文字画像をDuplicateへ渡します。
+
+[![DuplicateのInspector](/img/fusion/captures/S251/controls.png)](/img/fusion/captures/S251/controls.png)
+
+Duplicatesを6、CombineをMaximumに設定しています。
+
+[![処理前の一文字](/img/fusion/captures/S251/low.png)](/img/fusion/captures/S251/low.png)
+
+処理前は一文字です。
+
+[![Duplicateで円状に並んだ文字](/img/fusion/captures/S251/high.png)](/img/fusion/captures/S251/high.png)
+
+処理後は文字が6個見えます。
+
+[再現用Graph](/img/fusion/captures/S251/fixture.comp) · [撮影条件と確認範囲](/img/fusion/captures/S251/capture.json)
+
+<!-- /capture:S251 -->
+
 ## 入力と出力
 
 | 段階 | 内容 | 確認範囲 |
 | --- | --- | --- |
 | 入力 | 複製元の2D <Term id="image">Image</Term> | Manualにincoming imageとある。端子名、補助入力の有無は未確認。 |
-| 処理 | パターンや形に沿って画像を複製する | Chapter 105、p.2436で確認できる基本機能。具体的な配置候補と操作方法は未確認。 |
+| 処理 | パターンや形に沿って画像を複製する | Chapter 105、p.2436に記載。実機例では円状の配置を確認。 |
 | 出力 | 複製した画像を含む2D Image | Image Pixel Tools分類と既存カタログに基づく。Alpha・解像度・DoDは未確認。 |
 
 入力画像のAlphaがどう保持されるか、元画像も出力に残るか、コピー同士の重なり順はManualの短い説明だけでは確定できません。入力と出力をViewerで比較して確認します。
@@ -95,6 +123,6 @@ KrokodoveのImage・Shape・3Dなどの分類は[Family Overview](./)を参照�
 - **一次資料**：Blackmagic Design『DaVinci Resolve 21.1 Reference Manual』（September 2026）、Chapter 105「Krokodove Nodes」、p.2436、Image Pixel Tools／Duplicate。
 - **比較対象**：同Manual Chapter 97「Effect Nodes」、pp.2272–2278の標準Duplicate。こちらの詳しいInspector仕様は**Krokodove版の証拠にはなりません**。
 - **公式の機能掲載**：[DaVinci Resolve 21新機能](https://www.blackmagicdesign.com/jp/products/davinciresolve/whatsnew)にはKrokodove導入が記載されています。
-- **未確認**：端子名・端子数、選べる配置形状、複製数の数え方、Inspector項目・初期値・範囲、Alpha・DoD・解像度、アニメーション、Free/Studio差、21.1実機結果、内部REGID。
+- **確認範囲**：実機例ではDuplicates 6とCombine Maximumの表示結果を確認しました。他の配置、端子の全構成、初期値・範囲、Alpha・DoD・解像度、アニメーション、Edition差は未確認です。
 
 `verification: partial`は、公式資料で確認できる基本的な用途と、追加検証が必要な仕様を区別する状態です。
