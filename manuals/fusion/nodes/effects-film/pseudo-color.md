@@ -85,6 +85,30 @@ Inspectorには**Red / Green / Blue / Alpha**の4つのタブがあり、同じ�
 - **色が循環する背景** — グラデーションを入力し、チャンネルごとのPhaseを動かして、画像の形を固定したまま色の帯だけが移動する背景を作ります。
 - **被写体の一部だけ変色させる** — 人物や商品を含む映像へEffect Maskを加え、画面の指定範囲だけを疑似色に変えます。マスク外の映像は元の見た目を保てます。
 
+<!-- capture:S165 -->
+
+## 実機例：白黒の濃淡を疑似色へ変える
+
+黒い背景の上に柔らかい白い楕円を重ね、濃淡画像を `PseudoColor1` のInputへ接続します。RGB各チャンネルを有効にし、Phaseを赤0、緑0.33、青0.66に設定しました。Alphaは無効です。
+
+frame 0では、左の白黒の濃淡が右の多色の帯へ変わります。これは固定値の比較で、色の数値測定やPhaseのアニメーションは行っていません。[接続と設定の記録](/img/fusion/captures/S165/readback.json)に条件を記載しています。
+
+[![白黒の濃淡をPseudo Colorに通してMediaOutへ接続したノード構成](/img/fusion/captures/S165/graph.png)](/img/fusion/captures/S165/graph.png)
+
+黒い背景と柔らかい白い楕円を合成し、Pseudo Colorへ渡します。
+
+[![Pseudo Colorの赤チャンネルの波形とPhaseを示すInspector](/img/fusion/captures/S165/controls.png)](/img/fusion/captures/S165/controls.png)
+
+赤チャンネルの設定です。緑と青のPhaseは記録ファイルに記載しています。
+
+[![白黒の濃淡とPseudo Colorで多色に変わった出力の比較](/img/fusion/captures/S165/comparison.png)](/img/fusion/captures/S165/comparison.png)
+
+左は入力の濃淡、右はRGBのPhaseをずらした出力です。
+
+[再現用Graph](/img/fusion/captures/S165/fixture.comp) · [撮影条件と確認範囲](/img/fusion/captures/S165/capture.json)
+
+<!-- /capture:S165 -->
+
 ## 最小構成
 
 ```text
@@ -135,4 +159,4 @@ Background（グラデーション） → Pseudo Color → MediaOut
 
 DaVinci Resolve 21.1 Reference Manual（September 2026）、Chapter 97「Effect Nodes」、pp.2291–2293で、2入力（Input / Effect Mask）、Red / Green / Blue / Alphaの各タブ、Color、Wrap、High / Low、Soft Edge、4種類のWaveform、Frequency、Phase、Mean、Amplitudeを確認しました。
 
-上記の操作例はこれらの仕様に基づく構成案であり、21.1実機でのレンダリング結果、チャンネル変換の内部計算式、初期値や可動範囲は未検証です。そのため `verification: partial` としています。
+上記の操作例はこれらの仕様に基づく構成案であり、上記固定例以外の21.1実機でのレンダリング結果、チャンネル変換の内部計算式、初期値や可動範囲は未検証です。そのため `verification: partial` としています。

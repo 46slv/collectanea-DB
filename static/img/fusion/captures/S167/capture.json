@@ -1,0 +1,118 @@
+{
+  "manual": {
+    "version": "21.1",
+    "chapter": 117,
+    "printed_pages": "2735–2738"
+  },
+  "runtime": {
+    "version": "21.1.0.14",
+    "edition": "DaVinci Resolve Studio",
+    "os": "Windows-11-10.0.26200-SP0",
+    "ui_language": "ja-JP"
+  },
+  "captured_at": "2026-10-27T21:05:27.518891+00:00",
+  "project": "Collectanea_Mandelbrot_Zoom_20261025",
+  "timeline": "S167_capture",
+  "frame": 0,
+  "resolution": [
+    1920,
+    1080
+  ],
+  "color_management": {
+    "project_settings": {
+      "colorScienceMode": "davinciYRGB",
+      "colorSpaceInput": "Rec.709 Gamma 2.4",
+      "colorSpaceTimeline": "Rec.709 (Scene)",
+      "colorSpaceTimelineGamma": "",
+      "colorSpaceOutput": "Rec.709 (Scene)",
+      "colorSpaceOutputGamma": "ACEScc",
+      "isAutoColorManage": "0",
+      "timelineResolutionWidth": "1920",
+      "timelineResolutionHeight": "1080",
+      "timelineFrameRate": 30.0,
+      "timelinePlaybackFrameRate": "30",
+      "timelinePixelAspectRatio": "square"
+    },
+    "note": "SDK project settings; screenshots show Viewer display."
+  },
+  "viewer": {
+    "view_mode": "Fit",
+    "source": "Left Source; right MediaOut1",
+    "note": "sDuplicate selected for Inspector; MediaOut selected for clean comparison. Checkerboard indicates transparency."
+  },
+  "acceptance": {
+    "gui": "PASS: native screenshots show graph, Inspector, guides and comparison; SDK connections and save read back.",
+    "article_display": "NOT_RUN",
+    "public_display": "NOT_RUN"
+  },
+  "unverified": [
+    "Static sEllipse and one sDuplicate setup; jitter, style, time offsets, animation and hosts NOT_RUN.",
+    "Viewer screenshots are display evidence.",
+    "Portable reimport and physical input provenance NOT_RUN.",
+    "Article verification remains partial."
+  ],
+  "schema_version": 1,
+  "case": "S167",
+  "article": "manuals/fusion/nodes/shapes/sduplicate.md",
+  "graph": "fixture.comp",
+  "settings": "readback.json",
+  "source": {
+    "file": "screen.png",
+    "size": [
+      3336,
+      1902
+    ],
+    "sha256": "e93f7d96faa21cce8541cd5b383855fe6fed6ab9ced8e4020e2f02d4e103c190"
+  },
+  "shots": [
+    {
+      "file": "graph.png",
+      "source": "screen.png",
+      "source_sha256": "e93f7d96faa21cce8541cd5b383855fe6fed6ab9ced8e4020e2f02d4e103c190",
+      "frame": 0,
+      "crop_xyxy": [
+        650,
+        1050,
+        2150,
+        1600
+      ],
+      "resampled": false,
+      "sha256": "1f3ca1f21b44e8207387a88e850ab777eee691049d3b65bdcfff961eb6553928"
+    },
+    {
+      "file": "controls.png",
+      "source": "screen.png",
+      "source_sha256": "e93f7d96faa21cce8541cd5b383855fe6fed6ab9ced8e4020e2f02d4e103c190",
+      "frame": 0,
+      "crop_xyxy": [
+        2815,
+        65,
+        3336,
+        650
+      ],
+      "resampled": false,
+      "sha256": "624c6810736d1903e798539a4f61d0fc9026221d207e6372ff0f0be2775961bb"
+    },
+    {
+      "file": "comparison.png",
+      "source": "clean-source.png",
+      "source_sha256": "f59935025184bab9436be2a675041866bef2cb6914e9d1472cc64916eabb5f38",
+      "frame": 0,
+      "crop_xyxy": [
+        0,
+        65,
+        2800,
+        730
+      ],
+      "resampled": false,
+      "sha256": "43d06f74489bb6fa001d3aff196b77a72f554a05fdc5973a0c7667e811ea4690"
+    }
+  ],
+  "reproduction": {
+    "fixture_sha256": "49a4ee5392f2bdd8781fca48874a03a6d86146c6db805b8cdb01676d8d3420f5",
+    "readback_sha256": "872599a9778f78ef4412c5e90a4b8d8b65128fb2e29de4fcfebe88512c06a76a",
+    "readback_source_sha256": "872599a9778f78ef4412c5e90a4b8d8b65128fb2e29de4fcfebe88512c06a76a",
+    "readback_transform": "No line-ending transformation",
+    "reimport": "NOT_RUN"
+  }
+}

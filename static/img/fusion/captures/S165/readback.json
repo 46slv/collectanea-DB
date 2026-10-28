@@ -1,0 +1,59 @@
+{
+  "case": "S165",
+  "project": "Collectanea_Mandelbrot_Zoom_20261025",
+  "library": "Local Database",
+  "project_manager_folder": "root",
+  "timeline": "S165_capture",
+  "frame": 0,
+  "resolve": "21.1.0.14",
+  "edition": "DaVinci Resolve Studio",
+  "os": "Windows-11-10.0.26200-SP0",
+  "project_settings": {
+    "colorScienceMode": "davinciYRGB",
+    "colorSpaceInput": "Rec.709 Gamma 2.4",
+    "colorSpaceTimeline": "Rec.709 (Scene)",
+    "colorSpaceTimelineGamma": "",
+    "colorSpaceOutput": "Rec.709 (Scene)",
+    "colorSpaceOutputGamma": "ACEScc",
+    "isAutoColorManage": "0",
+    "timelineResolutionWidth": "1920",
+    "timelineResolutionHeight": "1080",
+    "timelineFrameRate": 30.0,
+    "timelinePlaybackFrameRate": "30",
+    "timelinePixelAspectRatio": "square"
+  },
+  "connections": {
+    "White.EffectMask": "Mask",
+    "Source.Background": "Black",
+    "Source.Foreground": "White",
+    "PseudoColor1.Input": "Source",
+    "MediaOut1.Input": "PseudoColor1"
+  },
+  "values": {
+    "Red": 1.0,
+    "RedWaveform": 0.0,
+    "RedFrequency": 1.0,
+    "RedPhase": 0.0,
+    "RedMean": 0.5,
+    "RedAmplitude": 0.5,
+    "Green": 1.0,
+    "GreenWaveform": 0.0,
+    "GreenFrequency": 1.0,
+    "GreenPhase": 0.33,
+    "Blue": 1.0,
+    "BlueWaveform": 0.0,
+    "BlueFrequency": 1.0,
+    "BluePhase": 0.66,
+    "Alpha": 0.0
+  },
+  "source": "Generated black and white Background with soft Ellipse; one static frame.",
+  "save_project": true,
+  "save_completed_at": "2026-10-27T20:58:27.433896+00:00",
+  "native_export_sha256": "967d513e2efd3f4cfd4906adc4faaf8faf337a7667378ebc6931a6712607db30",
+  "portable_sha256": "55a58b3cdaf95c4360592edd18cc4e1b55544c88f31d35d1c58d83250bb03b21",
+  "portable_reimport": "NOT_RUN",
+  "limits": [
+    "Static generated grayscale, one Pseudo Color setup; other settings, alpha, footage and hosts NOT_RUN.",
+    "Viewer screenshot is display evidence."
+  ]
+}

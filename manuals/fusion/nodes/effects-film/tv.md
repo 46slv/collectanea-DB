@@ -86,6 +86,30 @@ Roll Barは、映像を横切る暗い帯を作るタブです。画像全体の
 
 帯が見えないときは、Bar Offsetを動かす前にBar Strengthが0のままではないか確認します。
 
+<!-- capture:S164 -->
+
+## 実機例：文字をTVで傾ける
+
+生成した文字画像を `TV1` のInputへ接続します。Scan Linesを0、Skewを0.15、Amplitudeを0.15、Frequencyを8に設定し、NoiseのPowerは0にしました。
+
+frame 0で、左は入力、右はこれらの設定を組み合わせた出力です。文字の輪郭が傾いて見えます。この比較では走査線やノイズを確認していません。[接続と設定の記録](/img/fusion/captures/S164/readback.json)に条件を記載しています。
+
+[![文字画像をTVに通してMediaOutへ接続したノード構成](/img/fusion/captures/S164/graph.png)](/img/fusion/captures/S164/graph.png)
+
+文字画像をTVのInputへ接続し、出力をMediaOutへ渡します。
+
+[![TVの走査線0、Skew 0.15、Amplitude 0.15、Frequency 8を示すInspector](/img/fusion/captures/S164/controls.png)](/img/fusion/captures/S164/controls.png)
+
+Controlsタブの走査線を0、SkewとAmplitudeを0.15、Frequencyを8に設定しています。
+
+[![元の文字とTVの複数設定で傾いた文字の比較](/img/fusion/captures/S164/comparison.png)](/img/fusion/captures/S164/comparison.png)
+
+左は入力、右はSkewとAmplitudeを組み合わせた出力です。
+
+[再現用Graph](/img/fusion/captures/S164/fixture.comp) · [撮影条件と確認範囲](/img/fusion/captures/S164/capture.json)
+
+<!-- /capture:S164 -->
+
 ## 具体例：古いテレビの受信映像を作る
 
 録画映像やニュース素材を古いテレビの画面に見せたい場合の基本構成です。
@@ -123,4 +147,4 @@ Roll Barは、映像を横切る暗い帯を作るタブです。画像全体の
 
 **一次資料**：Blackmagic Design, *DaVinci Resolve 21.1 Reference Manual*（September 2026）、Chapter 97「Effect Nodes」、**TV [TV]（pp.2303–2305）**。Input / Effect Maskと、Controls・Noise・Roll Barの3タブについて確認しました。SettingsタブのBlendは同章の「The Common Controls」（p.2306）を参照しています。
 
-本記事の操作例は、Manualが記載するパラメータを用いた構成例です。Resolve / Fusion 21.1実機での挙動、内部REGID、正確な全パラメータ範囲、Edition差は未検証のため、verificationはpartialとしています。
+本記事の操作例は、Manualが記載するパラメータを用いた構成例です。上記固定例以外のResolve / Fusion 21.1実機での挙動、正確な全パラメータ範囲、Edition差は未検証のため、verificationはpartialとしています。

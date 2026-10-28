@@ -1,0 +1,132 @@
+{
+  "manual": {
+    "version": "21.1",
+    "chapter": 98,
+    "printed_pages": "2317–2320"
+  },
+  "runtime": {
+    "version": "21.1.0.14",
+    "edition": "DaVinci Resolve Studio",
+    "os": "Windows-11-10.0.26200-SP0",
+    "ui_language": "ja-JP"
+  },
+  "captured_at": "2026-10-27T21:00:40.367814+00:00",
+  "project": "Collectanea_Mandelbrot_Zoom_20261025",
+  "timeline": "S166_capture",
+  "frame": 0,
+  "resolution": [
+    1920,
+    1080
+  ],
+  "color_management": {
+    "project_settings": {
+      "colorScienceMode": "davinciYRGB",
+      "colorSpaceInput": "Rec.709 Gamma 2.4",
+      "colorSpaceTimeline": "Rec.709 (Scene)",
+      "colorSpaceTimelineGamma": "",
+      "colorSpaceOutput": "Rec.709 (Scene)",
+      "colorSpaceOutputGamma": "ACEScc",
+      "isAutoColorManage": "0",
+      "timelineResolutionWidth": "1920",
+      "timelineResolutionHeight": "1080",
+      "timelineFrameRate": 30.0,
+      "timelinePlaybackFrameRate": "30",
+      "timelinePixelAspectRatio": "square"
+    },
+    "note": "SDK project settings; screenshots show Viewer display."
+  },
+  "viewer": {
+    "view_mode": "Fit and 100%",
+    "source": "Left Source; right MediaOut1",
+    "note": "The 100% view compares corresponding centered regions; exaggerated Power for visibility."
+  },
+  "acceptance": {
+    "gui": "PASS: native screenshots show graph, Inspector, guides and comparison; SDK connections and save read back.",
+    "article_display": "NOT_RUN",
+    "public_display": "NOT_RUN"
+  },
+  "unverified": [
+    "Static generated text and exaggerated Grain only; other settings, real footage, alpha, temporal behavior and hosts NOT_RUN.",
+    "Viewer screenshots are display evidence, not numerical noise measurement.",
+    "Portable reimport and physical input provenance NOT_RUN.",
+    "Article verification remains partial."
+  ],
+  "schema_version": 1,
+  "case": "S166",
+  "article": "manuals/fusion/nodes/effects-film/grain.md",
+  "graph": "fixture.comp",
+  "settings": "readback.json",
+  "source": {
+    "file": "screen.png",
+    "size": [
+      3336,
+      1902
+    ],
+    "sha256": "1747c35cc61256c5263765aab17f6c3b3855152dcb499dab13980bf731dc0c28"
+  },
+  "shots": [
+    {
+      "file": "graph.png",
+      "source": "screen.png",
+      "source_sha256": "1747c35cc61256c5263765aab17f6c3b3855152dcb499dab13980bf731dc0c28",
+      "frame": 0,
+      "crop_xyxy": [
+        650,
+        1100,
+        2150,
+        1600
+      ],
+      "resampled": false,
+      "sha256": "e6f14a62987c7cf45f1dfa34c056c5f5049ca21c10927def8727516e1e6cd20c"
+    },
+    {
+      "file": "controls.png",
+      "source": "screen.png",
+      "source_sha256": "1747c35cc61256c5263765aab17f6c3b3855152dcb499dab13980bf731dc0c28",
+      "frame": 0,
+      "crop_xyxy": [
+        2815,
+        65,
+        3336,
+        520
+      ],
+      "resampled": false,
+      "sha256": "147c1971bbab310e15c6431be8651cd85ed2bf35ec02ffa4e07b832172d00f4a"
+    },
+    {
+      "file": "comparison-fit.png",
+      "source": "screen.png",
+      "source_sha256": "1747c35cc61256c5263765aab17f6c3b3855152dcb499dab13980bf731dc0c28",
+      "frame": 0,
+      "crop_xyxy": [
+        0,
+        65,
+        2800,
+        730
+      ],
+      "resampled": false,
+      "sha256": "3e5ab21f393cf37981490095171aa95636361b1ea0abc2261c6abff1b5e4e5e5"
+    },
+    {
+      "file": "comparison-100.png",
+      "source": "detail-source.png",
+      "source_sha256": "ef5b353bfb91c4d47d95263ee397fefef3d62fbc782609fc4e46f1250dc4a40d",
+      "frame": 0,
+      "crop_xyxy": [
+        0,
+        65,
+        2800,
+        730
+      ],
+      "resampled": false,
+      "sha256": "a24e562c05160e09f9936375b854a4695181ded5d430996c5583ec584c64c865"
+    }
+  ],
+  "reproduction": {
+    "fixture_sha256": "b30b37f503fcd0b6dab6e12d90076649ea1fb536769c9e331f9f16c5fe6c0b45",
+    "readback_sha256": "287002f10af044db43856ecba5b5ca305aaff00b2e0bf0502e4506f1e7646f31",
+    "readback_source_sha256": "287002f10af044db43856ecba5b5ca305aaff00b2e0bf0502e4506f1e7646f31",
+    "readback_transform": "No line-ending transformation",
+    "reimport": "NOT_RUN"
+  }
+}
