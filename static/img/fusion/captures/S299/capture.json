@@ -1,0 +1,131 @@
+{
+  "manual": {
+    "version": "21.1",
+    "chapter": 123,
+    "printed_pages": "2972–2978"
+  },
+  "runtime": {
+    "version": "21.1.0.14",
+    "edition": "DaVinci Resolve Studio",
+    "os": "Windows-11-10.0.26200-SP0",
+    "ui_language": "ja-JP"
+  },
+  "captured_at": "2026-10-28T09:19:48.345039+00:00",
+  "project": "Collectanea_Mandelbrot_Zoom_20261025",
+  "timeline": "S299_capture",
+  "frame": 0,
+  "resolution": [
+    1920,
+    1080
+  ],
+  "color_management": {
+    "project_settings": {
+      "colorScienceMode": "davinciYRGB",
+      "colorSpaceInput": "Rec.709 Gamma 2.4",
+      "colorSpaceTimeline": "Rec.709 (Scene)",
+      "colorSpaceTimelineGamma": "",
+      "colorSpaceOutput": "Rec.709 (Scene)",
+      "colorSpaceOutputGamma": "ACEScc",
+      "isAutoColorManage": "0",
+      "timelineResolutionWidth": "1920",
+      "timelineResolutionHeight": "1080",
+      "timelineFrameRate": 30.0,
+      "timelinePlaybackFrameRate": "30",
+      "timelinePixelAspectRatio": "square"
+    },
+    "note": "SDK project settings; screenshots show Viewer display."
+  },
+  "viewer": {
+    "view_mode": "Fit",
+    "source": "Left Source; right MediaOut1",
+    "note": "Grid Warp selected; grid guides visible. One strong drag; driver delivery mode unknown."
+  },
+  "acceptance": {
+    "gui": "PASS: native screenshots show graph, Inspector, guides and comparison; SDK connections and save read back.",
+    "article_display": "NOT_RUN",
+    "public_display": "NOT_RUN"
+  },
+  "unverified": [
+    "One strong drag and static text, deformation includes stretching artifacts; precise mesh coordinates and other modes NOT_RUN.",
+    "Viewer screenshots contain grid guides.",
+    "Physical input provenance, animation, other hosts and portable reimport NOT_RUN."
+  ],
+  "schema_version": 1,
+  "case": "S299",
+  "article": "manuals/fusion/nodes/warp/grid-warp.md",
+  "graph": "fixture.comp",
+  "settings": "readback.json",
+  "source": {
+    "file": "screen.png",
+    "size": [
+      3312,
+      1890
+    ],
+    "sha256": "c81d751cf4e5bb1adc67f19fbe990aeb88212c50dbf6bd900452ae0fce8f9e92"
+  },
+  "shots": [
+    {
+      "file": "graph.png",
+      "source": "screen.png",
+      "source_sha256": "c81d751cf4e5bb1adc67f19fbe990aeb88212c50dbf6bd900452ae0fce8f9e92",
+      "frame": 0,
+      "crop_xyxy": [
+        480,
+        1100,
+        2300,
+        1580
+      ],
+      "resampled": false,
+      "sha256": "8f7f84470cb216a1276ab7811ae75931af008892b5ea6ce94c07695748ec0b00"
+    },
+    {
+      "file": "controls.png",
+      "source": "screen.png",
+      "source_sha256": "c81d751cf4e5bb1adc67f19fbe990aeb88212c50dbf6bd900452ae0fce8f9e92",
+      "frame": 0,
+      "crop_xyxy": [
+        2780,
+        65,
+        3312,
+        650
+      ],
+      "resampled": false,
+      "sha256": "b5427348198a4034b15b305dee4394cc597f3099c2fa41c2ba1ab256803ff75b"
+    },
+    {
+      "file": "before.png",
+      "source": "screen.png",
+      "source_sha256": "c81d751cf4e5bb1adc67f19fbe990aeb88212c50dbf6bd900452ae0fce8f9e92",
+      "frame": 0,
+      "crop_xyxy": [
+        0,
+        65,
+        2780,
+        720
+      ],
+      "resampled": false,
+      "sha256": "20602188f5d6a92b3bfa69bea5940c3dd6b9b150331177a93f9bac98742c5927"
+    },
+    {
+      "file": "after.png",
+      "source": "drag-source.png",
+      "source_sha256": "8f533fd6f086a825d02df14514fd5bb4ac7898a8db434938b964fe7c56969c7d",
+      "frame": 0,
+      "crop_xyxy": [
+        0,
+        65,
+        2780,
+        720
+      ],
+      "resampled": false,
+      "sha256": "3faa649dcc6749f985f956d3c994e9d9e44636d16d00a33728abb00f4f068293"
+    }
+  ],
+  "reproduction": {
+    "fixture_sha256": "d845b09dd9d84d630ffb7977e94cd5aee4a75b462bfae8792b517fe013c79150",
+    "readback_sha256": "987e06a4c4e58341ea516bb48f8f90af8c10030fda8c43f2e1756da28f5b3bb3",
+    "readback_source_sha256": "4f0e15d45eef3801307e241b207721c1b93b6e904236df420673fe318afa4717",
+    "readback_transform": "CRLF normalized to LF for the portable Git asset; JSON values unchanged",
+    "reimport": "NOT_RUN"
+  }
+}

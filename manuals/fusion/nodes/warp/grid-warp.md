@@ -127,6 +127,34 @@ gridの外側にあるsource pixelを保持するか、blackへ置き換える�
 - 顔・唇・布・有機的な輪郭にgridを合わせ、局所変形を作る
 - 2つのGrid Warpを別領域へ使い、複数箇所を独立して変形する
 
+<!-- capture:S299 -->
+
+## 実機例：出力グリッドを動かす
+
+`Text+` を `Grid Warp` に接続し、出力側のグリッド中央付近を上へ大きくドラッグしました。左Viewerは入力、右Viewerは出力です。
+
+移動後は文字が大きく引き伸ばされ、画面上にはグリッドのガイドが表示されます。この例は操作を誇張した静止画で、強い引き伸ばしが見えます。操作の配信方式と物理入力は未確認で、滑らかな補正結果やアニメーションを確認したものではありません。[接続と設定の記録](/img/fusion/captures/S299/readback.json)に条件を記載しています。
+
+[![Text+をGrid WarpとMediaOutへ接続した構成](/img/fusion/captures/S299/graph.png)](/img/fusion/captures/S299/graph.png)
+
+文字画像をGrid Warpへ入力します。
+
+[![出力グリッドを選択したGrid Warpの設定](/img/fusion/captures/S299/controls.png)](/img/fusion/captures/S299/controls.png)
+
+出力側グリッドを選択しています。
+
+[![グリッド編集前の入力と出力](/img/fusion/captures/S299/before.png)](/img/fusion/captures/S299/before.png)
+
+グリッドを動かす前の入力と出力です。
+
+[![出力グリッドを上に動かして文字を大きく引き伸ばした例](/img/fusion/captures/S299/after.png)](/img/fusion/captures/S299/after.png)
+
+中央付近を大きく動かすと文字が強く引き伸ばされます。
+
+[再現用Graph](/img/fusion/captures/S299/fixture.comp) · [撮影条件と確認範囲](/img/fusion/captures/S299/capture.json)
+
+<!-- /capture:S299 -->
+
 ## 最小構成
 
 ```text
