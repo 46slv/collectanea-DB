@@ -28,7 +28,35 @@ Sphere Map [3SpM]は、**周囲360度の風景を記録した2D画像を、3D物
 
 一般的な画像は、左から右、上から下へ色が並んでいます。Sphere Mapは、その画像の各位置を**球のどの方向の景色なのか**に対応させます。後段の[Reflect](./reflect.md)が物体の表面の向きに応じて画像を参照すると、表面に周囲の景色が映っているように描画できます。
 
-入力として想定されるのは**正距円筒図法（Equirectangular / LatLong）**の画像です。横方向が経度0〜360度、縦方向が緯度−90〜＋90度に対応する、通常は横長の2:1画像です。普通の写真を接続すること自体はできますが、全天周の情報がなければ、反射する方向によって期待した景色を表示できません。
+入力として想定されるのは正距円筒図法（Equirectangular / LatLong）の画像です。横方向が経度0〜360度、縦方向が緯度−90〜＋90度に対応する、通常は横長の2:1画像です。普通の写真を接続すること自体はできますが、全天周の情報がなければ、反射する方向によって期待した景色を表示できません。
+
+<!-- capture:S218 -->
+
+## 実機例：合成画像をSphere Mapへ渡す
+
+合成した `Text+` の文字画像を `SphereMap` から `Reflect` に渡し、球に割り当てました。
+
+この例ではReflectの強度を0から1に変えると文字の映り込みが見えます。入力は合成画像で、全天周の実写画像ではありません。この構成は[Reflectの実機例](./reflect.md)と共通です。[接続と設定の記録](/img/fusion/captures/S218/readback.json)に条件を記載しています。
+
+[![文字画像をSphere MapとReflectに通して球を描画する構成](/img/fusion/captures/S218/graph.png)](/img/fusion/captures/S218/graph.png)
+
+画像をSphere MapからReflectへ渡します。
+
+[![Sphere MapのAngular MappingとTexture Depthの設定](/img/fusion/captures/S218/controls.png)](/img/fusion/captures/S218/controls.png)
+
+Sphere MapのInspectorです。
+
+[![Reflectの強度0で描画した球](/img/fusion/captures/S218/low.png)](/img/fusion/captures/S218/low.png)
+
+Reflectの強度0の状態です。
+
+[![Reflectの強度1で文字が映った球](/img/fusion/captures/S218/high.png)](/img/fusion/captures/S218/high.png)
+
+Reflectの強度1では文字が映ります。
+
+[再現用Graph](/img/fusion/captures/S218/fixture.comp) · [撮影条件と確認範囲](/img/fusion/captures/S218/capture.json)
+
+<!-- /capture:S218 -->
 
 ## 入力
 
@@ -130,4 +158,4 @@ Manualは、画像比率に応じて**極付近**または**経度0度の継ぎ�
 
 **一次資料**：Blackmagic Design『DaVinci Resolve 21.1 Reference Manual』（2026年9月）、Chapter 91「3D Texture Nodes」、**Sphere Map [3SpM]（pp.2100–2102）**。画像入力形式、Angular Mapping、Rotation、Material ID、2:1比率、直接接続との違いを確認。Chapter 90「3D Material Nodes」のReflect（p.2072）とChapter 84「3D Compositing Basics」（p.1853）も環境反射と接続の説明に使用しています。
 
-説明中の手順はManualの仕様を基に組み立てた作例です。出力端子の内部REGID、各設定の初期値・範囲、Editionごとの差およびResolve 21.1実機での描画結果は未確認のため、verificationはpartialのままとします。
+上の実機例では`SphereMap`を使い、合成画像をReflectへ渡した描画を確認しました。その他の手順はManualの仕様を基に組み立てた作例です。出力端子の内部型、各設定の初期値・範囲、Edition差、全天周の実写画像は未確認のため、verificationはpartialのままとします。

@@ -1,0 +1,73 @@
+{
+  "case": "S215",
+  "project": "Collectanea_Mandelbrot_Zoom_20261025",
+  "library": "Local Database",
+  "project_manager_folder": "root",
+  "timeline": "S215_capture",
+  "frame": 0,
+  "resolve": "21.1.0.14",
+  "edition": "DaVinci Resolve Studio",
+  "os": "Windows-11-10.0.26200-SP0",
+  "project_settings": {
+    "colorScienceMode": "davinciYRGB",
+    "colorSpaceInput": "Rec.709 Gamma 2.4",
+    "colorSpaceTimeline": "Rec.709 (Scene)",
+    "colorSpaceTimelineGamma": "",
+    "colorSpaceOutput": "Rec.709 (Scene)",
+    "colorSpaceOutputGamma": "ACEScc",
+    "isAutoColorManage": "0",
+    "timelineResolutionWidth": "1920",
+    "timelineResolutionHeight": "1080",
+    "timelineFrameRate": 30.0,
+    "timelinePlaybackFrameRate": "30",
+    "timelinePixelAspectRatio": "square"
+  },
+  "connections": {
+    "Material.BackgroundMaterial": "Background",
+    "Material.ForegroundMaterial": "Foreground",
+    "Primitive.MaterialInput": "Material",
+    "Scene.SceneInput1": "Primitive",
+    "Scene.SceneInput2": "KeyLight",
+    "Renderer.SceneInput": "Scene",
+    "MediaOut1.Input": "Renderer"
+  },
+  "values": {
+    "Material": {
+      "OperandAR": 4.0,
+      "OperationR": 0.0
+    },
+    "Background": {
+      "Diffuse.Color.Red": 0.8,
+      "Diffuse.Color.Green": 0.05,
+      "Diffuse.Color.Blue": 0.05
+    },
+    "Foreground": {
+      "Diffuse.Color.Red": 0.05,
+      "Diffuse.Color.Green": 0.1,
+      "Diffuse.Color.Blue": 0.8
+    },
+    "Primitive": {
+      "Shape": "SurfaceSphereInputs",
+      "Transform3DOp.Scale.X": 0.5
+    },
+    "KeyLight": {
+      "Transform3DOp.Rotate.Y": -35.0
+    },
+    "Renderer": {
+      "RendererSoftware.LightingEnabled": 1.0
+    },
+    "current_red_operation": 2.0,
+    "comparison_red_operation": 0,
+    "red_operand": 4.0
+  },
+  "source": "Channel Boolean on two Blinn materials; red operation A versus 1-A.",
+  "save_project": true,
+  "save_completed_at": "2026-10-28T01:34:33.034260+00:00",
+  "native_export_sha256": "0c1e1927f88ed522bb3eda5345dcfa35859ebd2e13dd1af80de94accee536fde",
+  "portable_sha256": "9a89d0d0a9015e4f2b46d13f8c1a121d12c4876c5decab7cf833b41e0c1ee4fd",
+  "portable_reimport": "NOT_RUN",
+  "limits": [
+    "Two Blinn materials and one red-channel operation change; image inputs, other operations, animation and other hosts NOT_RUN.",
+    "Viewer screenshot is display evidence."
+  ]
+}

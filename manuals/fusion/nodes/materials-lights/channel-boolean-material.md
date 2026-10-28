@@ -26,6 +26,34 @@ Channel Boolean [3Bol]は、**3D物体の材質を、赤・緑・青・Alphaの�
 
 名前が似た[2DのChannel Booleans](../color/channel-boolean.md)とは異なります。こちらは<Term id="classic-3d">Classic 3D</Term>のMaterialを扱うNodeで、映像の2D Imageを直接合成するものではありません。
 
+<!-- capture:S215 -->
+
+## 実機例：赤チャンネルの演算を変える
+
+2つの `Blinn` を `Channel Boolean` に接続し、結果を球に割り当てました。
+
+赤チャンネルのOperand AをRed BGにしたまま、OperationをAから1−Aに変えると、この例では球の描画が変わります。ほかのチャンネルの設定は変えていません。[接続と設定の記録](/img/fusion/captures/S215/readback.json)に条件を記載しています。
+
+[![2つのBlinnをChannel Booleanに接続して球を描画する構成](/img/fusion/captures/S215/graph.png)](/img/fusion/captures/S215/graph.png)
+
+2つの材質をChannel Booleanへ渡します。
+
+[![赤チャンネルでRed BGと1−Aを指定した設定](/img/fusion/captures/S215/controls.png)](/img/fusion/captures/S215/controls.png)
+
+赤チャンネルのOperationを1−Aにした状態です。
+
+[![赤チャンネルがAの描画](/img/fusion/captures/S215/low.png)](/img/fusion/captures/S215/low.png)
+
+赤チャンネルのOperationがAの状態です。
+
+[![赤チャンネルが1−Aの描画](/img/fusion/captures/S215/high.png)](/img/fusion/captures/S215/high.png)
+
+1−Aに変えると、この例では描画が変わります。
+
+[再現用Graph](/img/fusion/captures/S215/fixture.comp) · [撮影条件と確認範囲](/img/fusion/captures/S215/capture.json)
+
+<!-- /capture:S215 -->
+
 ## 入力と出力
 
 DaVinci Resolve 21.1 Reference Manualには、次の2つの入力が記載されています。**両方とも2D Imageまたは3D Materialを受け取れます。**
@@ -126,4 +154,4 @@ Chapter 90の公式作例は**Cook TorranceとBlinn**を入力し、成分を切
 
 **Blackmagic Design『DaVinci Resolve 21.1 Reference Manual』**（2026年9月）、Chapter 90「3D Material Nodes」**Channel Boolean [3Bol]（pp.2051–2054）**で入力・演算・Material IDとCook Torrance／Blinnの例を照合しました。Chapter 84「3D Compositing Basics」（pp.1852–1853）も材質のRGBA値とBlinn／Wardの合成例の根拠です。
 
-21.1の節名に合わせタイトルを**Channel Boolean**へ修正し、従来の名称は別名として残しました。ファイル名と`term_id`は既存リンクを壊さないため維持します。**runtime REGID、Inspector初期値・数値範囲、Edition差、実機描画は未検証**のため`verification: partial`です。
+21.1の節名に合わせタイトルを**Channel Boolean**へ修正し、従来の名称は別名として残しました。ファイル名と`term_id`は既存リンクを壊さないため維持します。上の実機例ではruntime REGID `MtlChanBool`と赤チャンネルの演算を変えた描画を確認しました。Inspector初期値・数値範囲、Edition差、他の演算や画像入力は未検証のため`verification: partial`です。

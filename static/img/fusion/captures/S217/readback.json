@@ -1,0 +1,73 @@
+{
+  "case": "S217",
+  "project": "Collectanea_Mandelbrot_Zoom_20261025",
+  "library": "Local Database",
+  "project_manager_folder": "root",
+  "timeline": "S217_capture",
+  "frame": 0,
+  "resolve": "21.1.0.14",
+  "edition": "DaVinci Resolve Studio",
+  "os": "Windows-11-10.0.26200-SP0",
+  "project_settings": {
+    "colorScienceMode": "davinciYRGB",
+    "colorSpaceInput": "Rec.709 Gamma 2.4",
+    "colorSpaceTimeline": "Rec.709 (Scene)",
+    "colorSpaceTimelineGamma": "",
+    "colorSpaceOutput": "Rec.709 (Scene)",
+    "colorSpaceOutputGamma": "ACEScc",
+    "isAutoColorManage": "0",
+    "timelineResolutionWidth": "1920",
+    "timelineResolutionHeight": "1080",
+    "timelineFrameRate": 30.0,
+    "timelinePlaybackFrameRate": "30",
+    "timelinePixelAspectRatio": "square"
+  },
+  "connections": {
+    "EnvMap.Image": "Label",
+    "Material.Reflection.Color.Material": "EnvMap",
+    "Primitive.MaterialInput": "Material",
+    "Scene.SceneInput1": "Primitive",
+    "Scene.SceneInput2": "KeyLight",
+    "Renderer.SceneInput": "Scene",
+    "MediaOut1.Input": "Renderer",
+    "Material.BackgroundMaterial": "Base"
+  },
+  "values": {
+    "Material": {
+      "Reflection.ConstantStrength": 0.0,
+      "Reflection.StrengthVariability": 0.0
+    },
+    "Label": {
+      "StyledText": "REFLECT",
+      "Size": 0.3
+    },
+    "Primitive": {
+      "Shape": "SurfaceSphereInputs",
+      "Transform3DOp.Scale.X": 0.5
+    },
+    "KeyLight": {
+      "Transform3DOp.Rotate.Y": -35.0
+    },
+    "Renderer": {
+      "RendererSoftware.LightingEnabled": 1.0
+    },
+    "Base": {
+      "Diffuse.Color.Red": 0.03,
+      "Diffuse.Color.Green": 0.03,
+      "Diffuse.Color.Blue": 0.03,
+      "Specular.Intensity": 0.0
+    },
+    "current_reflection_strength": 1.0,
+    "comparison_reflection_strength": 0
+  },
+  "source": "Synthetic text through SphereMap and Reflect on a sphere; constant reflection strength 0 and 1.",
+  "save_project": true,
+  "save_completed_at": "2026-10-28T01:51:51.241864+00:00",
+  "native_export_sha256": "540dba84364df64056b63e01128bd4d38076efdfb2b3c4e9c90a44580ab2177e",
+  "portable_sha256": "daaefffae6be9c36011b37df0cbdd9d2f5ba586528bd450ecb03cfbf0b82c54f",
+  "portable_reimport": "NOT_RUN",
+  "limits": [
+    "One synthetic text image and sphere; real HDR environment, refraction, animation and other hosts NOT_RUN.",
+    "Viewer screenshot is display evidence."
+  ]
+}
