@@ -1,0 +1,131 @@
+{
+  "manual": {
+    "version": "21.1",
+    "chapter": 114,
+    "printed_pages": "2647–2649"
+  },
+  "runtime": {
+    "version": "21.1.0.14",
+    "edition": "DaVinci Resolve Studio",
+    "os": "Windows-11-10.0.26200-SP0",
+    "ui_language": "ja-JP"
+  },
+  "captured_at": "2026-10-28T10:04:32.567007+00:00",
+  "project": "Collectanea_Mandelbrot_Zoom_20261025",
+  "timeline": "S317_capture",
+  "frame": 48,
+  "resolution": [
+    1920,
+    1080
+  ],
+  "color_management": {
+    "project_settings": {
+      "colorScienceMode": "davinciYRGB",
+      "colorSpaceInput": "Rec.709 Gamma 2.4",
+      "colorSpaceTimeline": "Rec.709 (Scene)",
+      "colorSpaceTimelineGamma": "",
+      "colorSpaceOutput": "Rec.709 (Scene)",
+      "colorSpaceOutputGamma": "ACEScc",
+      "isAutoColorManage": "0",
+      "timelineResolutionWidth": "1920",
+      "timelineResolutionHeight": "1080",
+      "timelineFrameRate": 30.0,
+      "timelinePlaybackFrameRate": "30",
+      "timelinePixelAspectRatio": "square"
+    },
+    "note": "SDK project settings; screenshots show Viewer display."
+  },
+  "viewer": {
+    "view_mode": "Fit",
+    "source": "right MediaOut1",
+    "note": "pAvoid selected; frame 48; colored circle is Viewer control"
+  },
+  "acceptance": {
+    "gui": "PASS: graph, settings and particle output visible; SDK connections and save read back.",
+    "article_display": "NOT_RUN",
+    "public_display": "NOT_RUN"
+  },
+  "unverified": [
+    "Frame 24 and 48 with fixed emitter seed; matched evaluation-start and initial-state comparison NOT_RUN.",
+    "Still images do not establish avoidance, collision, trajectories or Distance/Strength effects.",
+    "Other Regions/Set, particle data, portable reimport and other hosts NOT_RUN."
+  ],
+  "schema_version": 1,
+  "case": "S317",
+  "article": "manuals/fusion/nodes/particles/pavoid.md",
+  "graph": "fixture.comp",
+  "settings": "readback.json",
+  "source": {
+    "file": "screen.png",
+    "size": [
+      3304,
+      1886
+    ],
+    "sha256": "bfdc6d60c1e52bd111fab36c59f4bdbb745e16f06178f34a97976f4cc8956914"
+  },
+  "shots": [
+    {
+      "file": "graph.png",
+      "source": "screen.png",
+      "source_sha256": "bfdc6d60c1e52bd111fab36c59f4bdbb745e16f06178f34a97976f4cc8956914",
+      "frame": 48,
+      "crop_xyxy": [
+        470,
+        1200,
+        2300,
+        1510
+      ],
+      "resampled": false,
+      "sha256": "9e2298a60b71f9651aca8a2c2a7fdff5d94a5c3dc02a9670b91b20f2560a02db"
+    },
+    {
+      "file": "controls.png",
+      "source": "screen.png",
+      "source_sha256": "bfdc6d60c1e52bd111fab36c59f4bdbb745e16f06178f34a97976f4cc8956914",
+      "frame": 48,
+      "crop_xyxy": [
+        2780,
+        65,
+        3304,
+        500
+      ],
+      "resampled": false,
+      "sha256": "79307a04dc0314e9a9d1b448347b0937056b8064765e53f4ba44b3a9e14a5e4c"
+    },
+    {
+      "file": "result48.png",
+      "source": "screen.png",
+      "source_sha256": "bfdc6d60c1e52bd111fab36c59f4bdbb745e16f06178f34a97976f4cc8956914",
+      "frame": 48,
+      "crop_xyxy": [
+        1570,
+        95,
+        2680,
+        715
+      ],
+      "resampled": false,
+      "sha256": "c02d6960fb9deee9cba2a4d1702bf1b31acf0d7c71a166a1ffd6f5fd1c6ce9d0"
+    },
+    {
+      "file": "result24.png",
+      "source": "frame24.png",
+      "source_sha256": "063467764a315f6476deec9c2c1dd64c1cfbf71a6b4ba688770d29b140f1ea64",
+      "frame": 48,
+      "crop_xyxy": [
+        1570,
+        95,
+        2680,
+        715
+      ],
+      "resampled": false,
+      "sha256": "afcf63504576c39d597ebb9fba4ddc2cbf5eb9c8adfecc7d25b464ec4a1bd104"
+    }
+  ],
+  "reproduction": {
+    "fixture_sha256": "7936447519bd194886cbdb100ffd66bc3fc3db8ffc7180fe61a719ecec52015d",
+    "readback_sha256": "bc9ca783125bf09d2109e952ce5310c3560d943f948da3598c70ee8d01e9a80d",
+    "readback_source_sha256": "8cb650493924debbf82814baf3ae05fd137f721d2c895739587610ba3ece2a45",
+    "readback_transform": "CRLF normalized to LF for the portable Git asset; JSON values unchanged",
+    "reimport": "NOT_RUN"
+  }
+}
