@@ -95,6 +95,34 @@ pCustomのParticleタブでは、粒子ごとの属性に対応する式を扱�
 
 粒子の位置に対応する画像の明るさを取得し、それをサイズへ反映する場合、画像をつなぐだけでは不十分です。どのチャンネルを読むか、どの座標を渡すか、結果をどの属性に書き込むかまで設計します。マニュアルは `pxi1` / `pyi1` をImage 1のアスペクトを考慮した粒子座標として説明していますが、読み取り関数にそのまま渡した際の結果までは実機で検証していません。未確認の完成式を断定して掲載しません。
 
+<!-- capture:S321 -->
+
+## 実機例：RGBの式を切り替える
+
+`pEmitter` から `pCustom` を通して `pRender` の2D出力へ接続します。Particleタブで赤・緑・青の式をそれぞれ `1`・`0`・`0` にすると赤い粒子、`0`・`1`・`0` にすると緑の粒子が表示されました。
+
+この例は定数を使った48フレームの表示です。位置や速度、画像入力やsimulation同一性は確認していません。Particleタブはsynthetic click後に確認しました。表示には編集ガイドと透明市松が含まれます。[接続と設定の記録](/img/fusion/captures/S321/readback.json)に条件を記載しています。
+
+[![pEmitterからpCustomとpRenderへ接続した構成](/img/fusion/captures/S321/graph.png)](/img/fusion/captures/S321/graph.png)
+
+粒子をpCustomへ入力します。
+
+[![赤1、緑0、青0を入力したpCustomの式欄](/img/fusion/captures/S321/controls.png)](/img/fusion/captures/S321/controls.png)
+
+赤・緑・青の式を1・0・0に設定します。
+
+[![RGBの式1、0、0で表示された赤い粒子](/img/fusion/captures/S321/red.png)](/img/fusion/captures/S321/red.png)
+
+1・0・0では赤く表示されます。
+
+[![RGBの式0、1、0で表示された緑の粒子](/img/fusion/captures/S321/green-result.png)](/img/fusion/captures/S321/green-result.png)
+
+0・1・0では緑に変わります。
+
+[再現用Graph](/img/fusion/captures/S321/fixture.comp) · [撮影条件と確認範囲](/img/fusion/captures/S321/capture.json)
+
+<!-- /capture:S321 -->
+
 ## 制作例
 
 ### 1. 光点を寿命に沿ってフェードアウトする

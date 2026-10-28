@@ -1,0 +1,59 @@
+{
+  "case": "S321",
+  "project": "Collectanea_Mandelbrot_Zoom_20261025",
+  "library": "Local Database",
+  "project_manager_folder": "root",
+  "timeline": "S321_capture",
+  "resolve": "21.1.0.14",
+  "project_settings": {
+    "colorScienceMode": "davinciYRGB",
+    "colorSpaceInput": "Rec.709 Gamma 2.4",
+    "colorSpaceTimeline": "Rec.709 (Scene)",
+    "colorSpaceTimelineGamma": "",
+    "colorSpaceOutput": "Rec.709 (Scene)",
+    "colorSpaceOutputGamma": "ACEScc",
+    "isAutoColorManage": "0",
+    "timelineResolutionWidth": "1920",
+    "timelineResolutionHeight": "1080",
+    "timelineFrameRate": 30.0,
+    "timelinePlaybackFrameRate": "30",
+    "timelinePixelAspectRatio": "square"
+  },
+  "setup": {
+    "case": "S321",
+    "frame": 48.0,
+    "emitter_seed": 7.0,
+    "expressions": {
+      "RedExpression": "1",
+      "GreenExpression": "0",
+      "BlueExpression": "0",
+      "AlphaExpression": "a"
+    },
+    "output_mode": "TwoD",
+    "connections": {
+      "Custom": {
+        "Input": "Emitter"
+      },
+      "ParticleRender": {
+        "Input": "Custom"
+      },
+      "MediaOut1": {
+        "Input": "ParticleRender"
+      }
+    },
+    "saved": "2026-10-28T10:12:23.470479+00:00"
+  },
+  "final": {
+    "frame": 48.0,
+    "red": "1",
+    "green": "0",
+    "saved": "2026-10-28T10:13:09.999955+00:00"
+  },
+  "native_export_sha256": "409e99e3d746027c32bb2af307de4790ac4bc452854dcf1ffa58e85a75645a89",
+  "portable_sha256": "2b9d8660dab69dde3678025ed4b5fe8385bb2fb096d8ac3860ada60f8a23cb0c",
+  "limits": [
+    "One fixture, constant RGB expressions, frame 48; exact particle data values and simulation identity across toggles NOT_RUN.",
+    "Alpha, position, velocity, image inputs, Region/Set, portable reimport and other hosts NOT_RUN.",
+    "Particle tab selected by synthetic GUI click and visually read back; physical input is not claimed."
+  ]
+}
