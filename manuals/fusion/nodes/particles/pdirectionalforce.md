@@ -84,6 +84,30 @@ pDirectionalForceでは「**どの粒子へ、いつ作用するか**」をCondi
 
 pEmitterのRegionは**粒子が生まれる場所**を決めますが、pDirectionalForceのRegionは**すでにある粒子に力が働く場所**を決めます。この違いが重要です。ParticleとRegionの基礎は[Particleノード一覧](./index.md)と[Particleの基本](../../learn/02-data/particle)で確認できます。
 
+<!-- capture:S306 -->
+
+## 実機例：粒子に方向性の力を接続する
+
+`pEmitter` から `pDirectionalForce` を通し、`pRender` の2D出力を `MediaOut` へ接続します。Strengthを0.001、Directionを270に設定し、48フレームの光点を表示しました。
+
+この静止画では力による移動や加速を比較していません。[接続と設定の記録](/img/fusion/captures/S306/readback.json)に条件を記載しています。
+
+[![pEmitter、pDirectionalForce、pRender、MediaOutの接続](/img/fusion/captures/S306/graph.png)](/img/fusion/captures/S306/graph.png)
+
+粒子をpDirectionalForceへ送り、pRenderで画像にします。
+
+[![pDirectionalForceのStrengthとDirectionの設定](/img/fusion/captures/S306/controls.png)](/img/fusion/captures/S306/controls.png)
+
+Strengthを0.001、Directionを270に設定します。
+
+[![48フレームに表示された光点の粒子](/img/fusion/captures/S306/result.png)](/img/fusion/captures/S306/result.png)
+
+pRenderの2D出力を表示しています。
+
+[再現用Graph](/img/fusion/captures/S306/fixture.comp) · [撮影条件と確認範囲](/img/fusion/captures/S306/capture.json)
+
+<!-- /capture:S306 -->
+
 ## 制作例
 
 ### 1. 上へ噴き出した光点を落下させる
