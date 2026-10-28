@@ -1,0 +1,128 @@
+{
+  "manual": {
+    "version": "21.1"
+  },
+  "runtime": {
+    "version": "21.1.0.14",
+    "edition": "DaVinci Resolve Studio",
+    "os": "Windows-11-10.0.26200-SP0",
+    "ui_language": "ja-JP"
+  },
+  "captured_at": "2026-10-28T10:54:18.695598+00:00",
+  "project": "Collectanea_Mandelbrot_Zoom_20261025",
+  "timeline": "S338_capture",
+  "frame": 1,
+  "resolution": [
+    1920,
+    1080
+  ],
+  "color_management": {
+    "project_settings": {
+      "colorScienceMode": "davinciYRGB",
+      "colorSpaceInput": "Rec.709 Gamma 2.4",
+      "colorSpaceTimeline": "Rec.709 (Scene)",
+      "colorSpaceTimelineGamma": "",
+      "colorSpaceOutput": "Rec.709 (Scene)",
+      "colorSpaceOutputGamma": "ACEScc",
+      "isAutoColorManage": "0",
+      "timelineResolutionWidth": "1920",
+      "timelineResolutionHeight": "1080",
+      "timelineFrameRate": 30.0,
+      "timelinePlaybackFrameRate": "30",
+      "timelinePixelAspectRatio": "square"
+    },
+    "note": "SDK project settings; screenshots show Viewer display."
+  },
+  "viewer": {
+    "view_mode": "Fit",
+    "source": "uRenderer / MediaOut1",
+    "note": "uDome Light selected; white frame 0, red frame 1"
+  },
+  "acceptance": {
+    "gui": "PASS: graph, light colors and output color difference; SDK and save read back.",
+    "article_display": "NOT_RUN",
+    "public_display": "NOT_RUN"
+  },
+  "unverified": [
+    "White light frame 0 and RGB (1,0.2,0.2) frame 1, static scene; different frames used to refresh evaluation.",
+    "No environment texture or HDRI used; texture mapping, rotation, image input, photometry and portable reimport NOT_RUN."
+  ],
+  "schema_version": 1,
+  "case": "S338",
+  "article": "manuals/fusion/nodes/usd/udome-light.md",
+  "graph": "fixture.comp",
+  "settings": "readback.json",
+  "source": {
+    "file": "screen.png",
+    "size": [
+      3304,
+      1886
+    ],
+    "sha256": "9fa11f50518d4773bf2ef5c53f2ee872ddc27124fb7231d9f8b07e9fbd5c71f8"
+  },
+  "shots": [
+    {
+      "file": "graph.png",
+      "source": "screen.png",
+      "source_sha256": "9fa11f50518d4773bf2ef5c53f2ee872ddc27124fb7231d9f8b07e9fbd5c71f8",
+      "frame": 1,
+      "crop_xyxy": [
+        550,
+        1150,
+        2250,
+        1530
+      ],
+      "resampled": false,
+      "sha256": "0cb568ecc70a70024cbc9b8f21e5e5025d9ba7ac10bf5c87958f6c4c4b2ee524"
+    },
+    {
+      "file": "controls.png",
+      "source": "screen.png",
+      "source_sha256": "9fa11f50518d4773bf2ef5c53f2ee872ddc27124fb7231d9f8b07e9fbd5c71f8",
+      "frame": 1,
+      "crop_xyxy": [
+        2780,
+        125,
+        3304,
+        410
+      ],
+      "resampled": false,
+      "sha256": "27dcb1f3ef8886c7c60c9a03428dfc96c100807e3bb023b17fb5bbc4507a32b9"
+    },
+    {
+      "file": "red-result.png",
+      "source": "screen.png",
+      "source_sha256": "9fa11f50518d4773bf2ef5c53f2ee872ddc27124fb7231d9f8b07e9fbd5c71f8",
+      "frame": 1,
+      "crop_xyxy": [
+        1560,
+        100,
+        2680,
+        715
+      ],
+      "resampled": false,
+      "sha256": "5da5aca233d39a20e48728b58c7bd188b40078c1f0599686e0dd572c2fa685e2"
+    },
+    {
+      "file": "white-result.png",
+      "source": "white.png",
+      "source_sha256": "88e07b2da462d853d20bcb334965c612995efaad02f3b38c10442994d60206b0",
+      "frame": 1,
+      "crop_xyxy": [
+        1560,
+        100,
+        2680,
+        715
+      ],
+      "resampled": false,
+      "sha256": "0a4b07595475dcc480c4942d2e375dee65f365e527a91e6084e056fedc1aa931"
+    }
+  ],
+  "reproduction": {
+    "fixture_sha256": "09a55737d8b31be5794b948cabdb7d4ba31fdba347c701b1c8387691d36af0f4",
+    "readback_sha256": "1f42943eb0b06c60d5892374e89afe44f2fe5f047f85485ca81ebbe52f1e40a7",
+    "readback_source_sha256": "b3137f1f08da1e15a91f81f195b530319956986e0b05dd31a0a4253744c7ae4e",
+    "readback_transform": "CRLF normalized to LF for the portable Git asset; JSON values unchanged",
+    "reimport": "NOT_RUN"
+  }
+}
