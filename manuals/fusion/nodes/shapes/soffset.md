@@ -29,7 +29,7 @@ Shapeは、画像のピクセルに変換する前の図形データです。ま
 - **入力：Shape**。例えば[sEllipse](./s-ellipse)で作った円、[sRectangle](./srectangle)で作った四角形など、輪郭を持つ図形を渡します。
 - **出力：加工後のShape**。別のShape系ノードで加工を続けられます。通常の2D Imageとして合成するときは[sRender](./s-render)で画像化します。
 
-これらは21.1 Manualの「Shape Tools」分類と機能説明に基づくデータ領域の整理です。**正式な入力端子名・端子数・接続色は未確認**なので、端子名をInput1などと決め打ちしていません。
+データ領域は21.1 Manualの「Shape Tools」分類に基づきます。下の実機例ではsEllipseの出力をsOffsetのInputに接続し、その出力をsRenderへ渡しました。その他の端子や接続条件は未確認です。
 
 ```text
 sEllipse → sOffset → sRender → Merge → MediaOut
@@ -47,11 +47,39 @@ DaVinci Resolve 21.1 Reference Manualは、sOffsetについて次の二点を説
 
 Numberは複製の配置数を指定する[sGrid](./sgrid)のような機能だと読み替えないでください。Manualに書かれているのは「Offset効果の反復」であり、**Numberの値と最終的な輪郭数が1対1になるか、各段階の輪郭が同時に残るかは未確認**です。
 
-輪郭のずらし量や方向を指定するInspector項目の**正式名、数値の単位、正負の対応、初期値、範囲**は、参照したManualの一覧表には載っていません。ここでは存在を推測して架空のパラメータ名を付けません。実機ではまず単純な円を入力し、元の形と出力を比較してから各項目を操作します。
+実機例のInspectorではNumberとOffsetを確認し、Offset 0.05でNumber 1と2を比較しました。数値の単位、正負の対応、初期値、範囲や他の項目の動作は未確認です。
+
+<!-- capture:S290 -->
+
+## 実機例：Numberを変えて円を広げる
+
+`sEllipse` のShapeを `sOffset` に接続し、元のShapeと処理後のShapeをそれぞれ `sRender` で画像化します。Offsetを0.05に固定し、Numberを1と2に変えて同じフレームで比較しました。
+
+この円では、Number 2の出力はNumber 1より大きく表示されました。左は元の円、右は処理後です。市松模様はViewerの透明表示です。撮影後はNumber 1へ戻して保存しました。[接続と設定の記録](/img/fusion/captures/S290/readback.json)に条件を記載しています。
+
+[![sEllipseをsOffsetへ接続し前後をsRenderで画像化する構成](/img/fusion/captures/S290/graph.png)](/img/fusion/captures/S290/graph.png)
+
+元ShapeとsOffset後のShapeを別々に画像化します。
+
+[![sOffsetのNumber 1とOffset 0.05の設定](/img/fusion/captures/S290/controls.png)](/img/fusion/captures/S290/controls.png)
+
+Number 1、Offset 0.05で比較します。
+
+[![元の円とNumber 1で広げた円の比較](/img/fusion/captures/S290/number-one.png)](/img/fusion/captures/S290/number-one.png)
+
+右はNumber 1の出力です。
+
+[![元の円とNumber 2で広げた円の比較](/img/fusion/captures/S290/number-two.png)](/img/fusion/captures/S290/number-two.png)
+
+右はNumber 2の出力です。
+
+[再現用Graph](/img/fusion/captures/S290/fixture.comp) · [撮影条件と確認範囲](/img/fusion/captures/S290/capture.json)
+
+<!-- /capture:S290 -->
 
 ## 実際の制作での使い方
 
-以下は記載された機能から組み立てた**構成例**です。Krokodoveの21.1実機レンダリングを確認した作例ではありません。
+以下は機能説明から組み立てた構成例です。上の実機例とは異なる構成や設定は未検証です。
 
 ### 図形の周囲に余白を作る
 
@@ -111,4 +139,4 @@ sRoundは「辺を保ちながら角を丸める」、[sSmooth](../krokodove/ssm
 
 Blackmagic Design『**DaVinci Resolve 21.1 Reference Manual**』（September 2026）、**Chapter 105「Krokodove Nodes」、p.2437**の「Shape Tools > sOffset」を参照しました。同ページで確認できる事実は、Shape輪郭の拡張・収縮とNumberによる反復です。また、p.2436の「Image Warp Tools > Offset」は別項目です。
 
-入出力のデータ領域はShape Toolsとしての分類と[Shapeの基本](../../learn/02-data/shape)を踏まえて説明しています。上記のグラフは用途を理解するための構成案で、実機検証済みの手順ではありません。正式な端子・全Control・Edition差の確認が残るため、`verification: partial`のままにしています。
+入出力のデータ領域はShape Toolsとしての分類と[Shapeの基本](../../learn/02-data/shape)を踏まえて説明しています。実機例は単一の円と固定設定で確認しました。その他の端子・Controlの動作やEdition差は未確認のため、`verification: partial`のままにしています。

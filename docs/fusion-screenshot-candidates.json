@@ -8071,6 +8071,53 @@
           "status": "captured"
         }
       ]
+    },
+    {
+      "priority": "P1",
+      "goal": "Compare sOffset Number 1 and 2 with one static ellipse.",
+      "suggested_graph": "sEllipse -> KD_ShapeOffset -> sRender -> MediaOut; separate original sRender.",
+      "scope": "Resolve Studio 21.1.0.14 on Windows, 1920x1080 static frame.",
+      "limitations": [
+        "Static sEllipse at Offset 0.05, Number 1 and 2; other shapes, settings, animation and hosts NOT_RUN.",
+        "Viewer screenshot is display evidence, not numeric geometry measurement.",
+        "Portable reimport and physical input provenance NOT_RUN.",
+        "Article verification remains partial."
+      ],
+      "id": "S290",
+      "article": "manuals/fusion/nodes/shapes/soffset.md",
+      "manual": {
+        "version": "21.1",
+        "chapter": 105,
+        "printed_pages": "2437"
+      },
+      "status": "captured-embedded-unverified",
+      "capture_manifest": "static/img/fusion/captures/S290/capture.json",
+      "shots": [
+        {
+          "slug": "graph",
+          "kind": "graph",
+          "target": "sEllipseをsOffsetへ接続し前後をsRenderで画像化する構成",
+          "status": "captured"
+        },
+        {
+          "slug": "controls",
+          "kind": "inspector",
+          "target": "sOffsetのNumber 1とOffset 0.05の設定",
+          "status": "captured"
+        },
+        {
+          "slug": "number-one",
+          "kind": "comparison",
+          "target": "元の円とNumber 1で広げた円の比較",
+          "status": "captured"
+        },
+        {
+          "slug": "number-two",
+          "kind": "comparison",
+          "target": "元の円とNumber 2で広げた円の比較",
+          "status": "captured"
+        }
+      ]
     }
   ],
   "publication_batches": [
@@ -9456,25 +9503,25 @@
     }
   ],
   "coverage_inventory": {
-    "checked_at": "2026-10-28T07:45:25.672147+00:00",
+    "checked_at": "2026-10-28T08:57:17.747846+00:00",
     "scope": "All manuals/fusion Markdown and MDX pages; review necessity before adding images.",
     "completion_rule": "Every page has an explicit image decision; necessary images are native-observed, embedded, saved to GitHub and public-display-verified. A native example does not verify all article controls.",
     "summary": {
       "total_pages": 589,
-      "with_images": 229,
+      "with_images": 230,
       "with_native_examples": 229,
       "states": {
         "reviewed-no-standalone-image": 26,
         "no-standalone-image-needed": 6,
         "illustrated-reused-example": 80,
-        "capture-planned": 327,
-        "illustrated-native-example": 149,
+        "capture-planned": 326,
+        "illustrated-native-example": 150,
         "needs-review": 1
       },
       "decisions": {
         "no-standalone-image-needed": 32,
-        "image-required": 229,
-        "capture-needed": 327,
+        "image-required": 230,
+        "capture-needed": 326,
         "needs-review": 1
       }
     },
@@ -22664,13 +22711,18 @@
         "article": "manuals/fusion/nodes/shapes/soffset.md",
         "title": "sOffset",
         "kind": "node",
-        "image_count": 0,
+        "image_count": 4,
         "native_cases": [],
         "reused_cases": [],
-        "planned_cases": [],
-        "state": "capture-planned",
-        "decision": "capture-needed",
-        "reason": "本文の対象機能: Shapeの輪郭を膨張・収縮させ、反復処理もできるKrokodoveツール。。標準sExpandや2D OffsetではKrokodove反復を示せない。",
+        "planned_cases": [
+          "S290"
+        ],
+        "state": "illustrated-native-example",
+        "decision": "image-required",
+        "reason": "静止した円のOffset 0.05でNumber 1と2を比較。別形状や設定、animation、portable reimportは未確認。",
+        "remaining_views": [
+          "角を含む別形状と他の設定での比較"
+        ],
         "required_views": [
           "対象名と実接続が読めるGraph",
           "対象自身を選択したInspectorの該当Control",
@@ -22696,10 +22748,9 @@
           }
         ],
         "hold_conditions": [
-          "shapes/下だがKrokodove。実搭載/表示名/端子/Inspector確認まで保留。",
-          "Numberと輪郭数の1対1や型互換を推定しない。"
+          "Numberと輪郭数の1対1や他の型互換を推定しない。"
         ],
-        "audit_note": "Planning prerequisite: hold-runtime-identity; not a live capability failure."
+        "audit_note": "Studio 21.1.0.14の静止円とInput接続、Number 1/2、Offset 0.05を確認。その他の条件は未確認。"
       },
       {
         "article": "manuals/fusion/nodes/shapes/soutline.md",
