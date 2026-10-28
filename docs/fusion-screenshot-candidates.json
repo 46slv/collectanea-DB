@@ -8417,6 +8417,43 @@
           "status": "captured"
         }
       ]
+    },
+    {
+      "priority": "P1",
+      "goal": "Identify sExtrude output type and compare a rectangle before and after.",
+      "suggested_graph": "sRectangle -> sExtrude -> sRender; separate sRender for original",
+      "scope": "Resolve Studio 21.1.0.14 on Windows.",
+      "limitations": [
+        "Single closed sRectangle with Angle 45 and Length 0.2; output is ShapeTree and sRender accepts it on this host.",
+        "Other inputs, open shapes, geometry topology, angle/length general behavior, animation and portable reimport NOT_RUN."
+      ],
+      "id": "S344",
+      "article": "manuals/fusion/nodes/krokodove/sextrude.md",
+      "manual": {
+        "version": "21.1"
+      },
+      "status": "captured-embedded-unverified",
+      "capture_manifest": "static/img/fusion/captures/S344/capture.json",
+      "shots": [
+        {
+          "slug": "graph",
+          "kind": "graph",
+          "target": "sRectangleを分岐しsExtrudeの前後をsRenderで表示する構成",
+          "status": "captured"
+        },
+        {
+          "slug": "controls",
+          "kind": "inspector",
+          "target": "Angle 45とLength 0.2のsExtrude",
+          "status": "captured"
+        },
+        {
+          "slug": "comparison",
+          "kind": "result",
+          "target": "左に元の四角形、右にsExtrude後の表示",
+          "status": "captured"
+        }
+      ]
     }
   ],
   "publication_batches": [
@@ -9802,25 +9839,25 @@
     }
   ],
   "coverage_inventory": {
-    "checked_at": "2026-10-28T07:45:25.672147+00:00",
+    "checked_at": "2026-10-28T11:12:51.078786+00:00",
     "scope": "All manuals/fusion Markdown and MDX pages; review necessity before adding images.",
     "completion_rule": "Every page has an explicit image decision; necessary images are native-observed, embedded, saved to GitHub and public-display-verified. A native example does not verify all article controls.",
     "summary": {
       "total_pages": 589,
-      "with_images": 237,
+      "with_images": 238,
       "with_native_examples": 237,
       "states": {
         "reviewed-no-standalone-image": 26,
         "no-standalone-image-needed": 6,
         "illustrated-reused-example": 80,
-        "capture-planned": 319,
-        "illustrated-native-example": 157,
+        "capture-planned": 318,
+        "illustrated-native-example": 158,
         "needs-review": 1
       },
       "decisions": {
         "no-standalone-image-needed": 32,
-        "image-required": 237,
-        "capture-needed": 319,
+        "image-required": 238,
+        "capture-needed": 318,
         "needs-review": 1
       }
     },
@@ -17127,13 +17164,19 @@
         "article": "manuals/fusion/nodes/krokodove/sextrude.md",
         "title": "sExtrude",
         "kind": "node",
-        "image_count": 0,
+        "image_count": 3,
         "native_cases": [],
         "reused_cases": [],
-        "planned_cases": [],
-        "state": "capture-planned",
-        "decision": "capture-needed",
-        "reason": "本文の対象機能: 接続したShapeへ押し出し加工を加えるKrokodoveツール。出力型は要確認。。標準Extrude 3Dや2D Connectから型を推定できず、既存render再利用は誤った接続を既成事実化する。",
+        "planned_cases": [
+          "S344"
+        ],
+        "state": "illustrated-native-example",
+        "decision": "image-required",
+        "reason": "S344では単一sRectangleの出力がShapeTreeとしてsRenderへ接続。一般的な形状生成規則は未確認。",
+        "remaining_views": [
+          "他形状、開いた輪郭、geometry topology、Angle/Lengthの一般的な規則",
+          "animation、portable reimport、他host"
+        ],
         "required_views": [
           "実表示名と入出力端子",
           "固有Inspector",

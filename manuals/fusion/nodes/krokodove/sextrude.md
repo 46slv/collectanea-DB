@@ -3,7 +3,7 @@ title: sExtrude
 description: KrokodoveのsExtrudeがShapeに押し出し加工を加える意味と、Extrude 3Dや画像用Extrudeとの違い、実機での確認手順。
 doc_type: node
 term_id: sextrude
-term_short: 接続したShapeへ押し出し加工を加えるKrokodoveツール。出力型は要確認。
+term_short: 接続したShapeへ押し出し加工を加えるKrokodoveツール。固定例ではShapeTreeを出力。
 verification: partial
 aliases: [sExtrude]
 concepts: [shape-data]
@@ -36,9 +36,9 @@ updated: '2026-10-19'
 | --- | --- | --- |
 | **入力** | 前段から接続したShapeを加工する。 | 正式な入力端子名・端子数、補助入力の有無。 |
 | **処理** | Shapeを押し出すためのコントロールがある。 | 押し出しの方向・方式、個々のInspector項目と値域。 |
-| **出力** | 加工結果を後段へ渡すツールである。 | **Shape / Image / Classic 3Dのどれを出力するか**、正式な端子名。 |
+| **出力** | Studio 21.1.0.14／Windowsの固定例ではShapeTreeをsRenderへ接続できた。 | 他環境での型、正式な端子名。 |
 
-入力をShapeとして整理した根拠は、Manualの「connected shape」という記述と「Shape Tools」の分類です。**出力型は一次資料で確定できないため、frontmatterの`outputs`にも推測値を記入していません。** Krokodoveの他のs系ツールがShapeを出力するからといって、sExtrudeも必ず同じとは限りません。
+入力をShapeとして整理した根拠は、Manualの「connected shape」という記述と「Shape Tools」の分類です。Manualだけでは出力型を確定できません。Studio 21.1.0.14／WindowsのS344ではSDKがShapeTreeを返し、sRenderで描画できました。他環境の出力型は未確認です。
 
 出力の種類によって、その後の接続は変わります。
 
@@ -48,9 +48,31 @@ updated: '2026-10-19'
 
 この三つは**出力を確認した後に選ぶ分岐**であり、sExtrudeが三種類を切り替えられるという説明ではありません。
 
+<!-- capture:S344 -->
+
+## 実機例：四角形を加工する
+
+`sRectangle`を分岐し、一方を`sExtrude`へ接続してAngleを45、Lengthを0.2に設定しました。両方を`sRender`で表示すると、元の四角形に対し、処理後は小さな四角形と離れた三角形の領域が見えます。この環境では出力の型はShapeTreeで、sRenderへ接続できました。別の図形、geometry topology、出力形状の一般的な規則、animationやportable reimportは未検証です。市松模様はViewerの透明表示です。[接続と設定の記録](/img/fusion/captures/S344/readback.json)に条件を記載しています。
+
+[![sRectangleを分岐しsExtrudeの前後をsRenderで表示する構成](/img/fusion/captures/S344/graph.png)](/img/fusion/captures/S344/graph.png)
+
+元のShapeと加工後をそれぞれsRenderへ接続しています。
+
+[![Angle 45とLength 0.2のsExtrude](/img/fusion/captures/S344/controls.png)](/img/fusion/captures/S344/controls.png)
+
+Angle 45、Length 0.2を設定しています。
+
+[![左に元の四角形、右にsExtrude後の表示](/img/fusion/captures/S344/comparison.png)](/img/fusion/captures/S344/comparison.png)
+
+左は加工前、右はsExtrudeを通した表示です。
+
+[再現用Graph](/img/fusion/captures/S344/fixture.comp) · [撮影条件と確認範囲](/img/fusion/captures/S344/capture.json)
+
+<!-- /capture:S344 -->
+
 ## 最初に確認する構成
 
-実機では、見慣れた図形を一つだけ使い、加工の前後を比較すると働きを判断しやすくなります。次は**確認用の構成案**で、sExtrudeの端子や描画結果を21.1実機で検証済みという意味ではありません。
+実機では、見慣れた図形を一つだけ使い、加工の前後を比較すると働きを判断しやすくなります。以下は他の条件を調べるための構成案です。上記S344では単一の四角形とsRenderへの接続を確認しました。
 
 ```text
 sRectangle → sExtrude → ［出力型に合う後段］ → Viewer
@@ -101,7 +123,7 @@ sRectangle → Extrude 3D → Merge 3D → Renderer 3D → Merge
 
 **21.1 Manualで確認済み**：sExtrudeはKrokodoveの「Shape Tools」に分類され、接続したShapeを押し出すコントロールを持ちます。
 
-**実機で確認が必要**：出力データ型、端子名と数、押し出し方向、形状の生成規則、Inspectorの正式名称・初期値・値域、開いた輪郭や複数Shapeの扱い、アニメーション対応、Resolve Free／Studio／Fusion Studioでの提供差。
+**実機で確認が必要**：他環境での出力型、端子名と数、押し出し方向、形状の生成規則、Inspectorの正式名称・初期値・値域、開いた輪郭や複数Shapeの扱い、アニメーション対応、Resolve Free／Studio／Fusion Studioでの提供差。
 
 同じ「押し出し」でも、見た目だけの奥行き表現、Shapeの輪郭操作、実際の3Dジオメトリ作成は別の処理です。**用途に必要なデータの種類を先に決める**と、別ノードを取り違えずにすみます。
 

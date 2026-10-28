@@ -1,0 +1,24 @@
+{
+  "case": "S344",
+  "baseline": {
+    "case": "S344",
+    "connections": {
+      "Extrude.Input": "Rectangle",
+      "BeforeRender.Input": "Rectangle",
+      "AfterRender.Input": "Extrude",
+      "MediaOut1.Input": "AfterRender"
+    },
+    "values": {
+      "Angle": 45.0,
+      "Length": 0.2
+    },
+    "save_completed_at": "2026-10-28T11:11:22.918556+00:00"
+  },
+  "extrude_output_type": "ShapeTree",
+  "input_type": "ShapeTree",
+  "observed": "Before white rectangle; after white central square and two separated triangular regions in sRender Viewer",
+  "limits": [
+    "Single closed sRectangle with Angle 45 and Length 0.2; output is ShapeTree and sRender accepts it on this host.",
+    "Other inputs, open shapes, geometry topology, angle/length general behavior, animation and portable reimport NOT_RUN."
+  ]
+}
