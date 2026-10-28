@@ -4,4 +4,4 @@ static/img/fusion/captures/**/*.comp text eol=lf
 
 # Keep the native CDL export byte-identical to its recorded source hash.
 static/img/fusion/captures/S105/red-slope05.cc -text
-static/img/fusion/captures/S324/analyzed.cube -text
+static/img/fusion/captures/S324/analyzed.cube -text -diff
