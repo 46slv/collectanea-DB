@@ -1,0 +1,50 @@
+{
+  "case": "S251",
+  "project": "Collectanea_Mandelbrot_Zoom_20261025",
+  "library": "Local Database",
+  "project_manager_folder": "root",
+  "timeline": "S251_capture",
+  "frame": 0,
+  "resolve": "21.1.0.14",
+  "edition": "DaVinci Resolve Studio",
+  "os": "Windows-11-10.0.26200-SP0",
+  "project_settings": {
+    "colorScienceMode": "davinciYRGB",
+    "colorSpaceInput": "Rec.709 Gamma 2.4",
+    "colorSpaceTimeline": "Rec.709 (Scene)",
+    "colorSpaceTimelineGamma": "",
+    "colorSpaceOutput": "Rec.709 (Scene)",
+    "colorSpaceOutputGamma": "ACEScc",
+    "isAutoColorManage": "0",
+    "timelineResolutionWidth": "1920",
+    "timelineResolutionHeight": "1080",
+    "timelineFrameRate": 30.0,
+    "timelinePlaybackFrameRate": "30",
+    "timelinePixelAspectRatio": "square"
+  },
+  "connections": {
+    "Map.Image": "Label",
+    "MediaOut1.Input": "Map"
+  },
+  "values": {
+    "Label": {
+      "StyledText": "A",
+      "Size": 0.12
+    },
+    "Map": {
+      "Duplicates": 6.0,
+      "ShapeSize1": 0.3,
+      "Combine": 1.0
+    }
+  },
+  "source": "Synthetic text through KD Duplicate.",
+  "save_project": true,
+  "save_completed_at": "2026-10-28T05:43:33.775778+00:00",
+  "native_export_sha256": "129c0b5720d0afe346c382fb2089e342488c6db1f90b113eddb9d8173df5de29",
+  "portable_sha256": "142cf86f3db48f499ada9806b4d3d43ce8cd658e4e22be28388b3e913e38fcae",
+  "portable_reimport": "NOT_RUN",
+  "limits": [
+    "One synthetic text and settings; other duplicate settings, mask, alpha values, animation and other hosts NOT_RUN.",
+    "Viewer screenshot is display evidence."
+  ]
+}

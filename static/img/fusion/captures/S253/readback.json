@@ -1,0 +1,49 @@
+{
+  "case": "S253",
+  "project": "Collectanea_Mandelbrot_Zoom_20261025",
+  "library": "Local Database",
+  "project_manager_folder": "root",
+  "timeline": "S253_capture",
+  "frame": 0,
+  "resolve": "21.1.0.14",
+  "edition": "DaVinci Resolve Studio",
+  "os": "Windows-11-10.0.26200-SP0",
+  "project_settings": {
+    "colorScienceMode": "davinciYRGB",
+    "colorSpaceInput": "Rec.709 Gamma 2.4",
+    "colorSpaceTimeline": "Rec.709 (Scene)",
+    "colorSpaceTimelineGamma": "",
+    "colorSpaceOutput": "Rec.709 (Scene)",
+    "colorSpaceOutputGamma": "ACEScc",
+    "isAutoColorManage": "0",
+    "timelineResolutionWidth": "1920",
+    "timelineResolutionHeight": "1080",
+    "timelineFrameRate": 30.0,
+    "timelinePlaybackFrameRate": "30",
+    "timelinePixelAspectRatio": "square"
+  },
+  "connections": {
+    "MediaOut1.Input": "Map"
+  },
+  "values": {
+    "Type": 1.0,
+    "Size": 0.15,
+    "Count": 5.0,
+    "Repeat": 0.0,
+    "Fill": 0.0,
+    "ColorRed": 1.0,
+    "ColorGreen": 1.0,
+    "ColorBlue": 1.0,
+    "ColorAlpha": 1.0
+  },
+  "source": "Generated grid pattern through KD Pattern.",
+  "save_project": true,
+  "save_completed_at": "2026-10-28T05:49:08.173286+00:00",
+  "native_export_sha256": "ede73ceb4e93cc8dfc84f93c8b62f07e2ff69e59b03139862c7b761acbaa499f",
+  "portable_sha256": "6b3cabe867aecc6583e54d679a4073247796799d5818b75bf24a97505e6c2ab0",
+  "portable_reimport": "NOT_RUN",
+  "limits": [
+    "One synthetic text and settings; other pattern settings, mask, alpha values, animation and other hosts NOT_RUN.",
+    "Viewer screenshot is display evidence."
+  ]
+}

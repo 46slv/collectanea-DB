@@ -7155,6 +7155,223 @@
           "status": "captured"
         }
       ]
+    },
+    {
+      "priority": "P1",
+      "goal": "Show KD Lines generated pattern.",
+      "suggested_graph": "KD_Lines -> MediaOut.",
+      "scope": "Resolve Studio 21.1.0.14 on Windows, 1920x1080 static frame.",
+      "limitations": [
+        "One synthetic text and setting; other settings, masks, alpha values, animation and other hosts NOT_RUN.",
+        "Viewer screenshot is display evidence.",
+        "Portable reimport and physical input provenance NOT_RUN.",
+        "Article verification remains partial."
+      ],
+      "id": "S250",
+      "article": "manuals/fusion/nodes/krokodove/lines.md",
+      "manual": {
+        "version": "21.1",
+        "chapter": 105,
+        "printed_pages": "2435"
+      },
+      "status": "captured-embedded-unverified",
+      "capture_manifest": "static/img/fusion/captures/S250/capture.json",
+      "shots": [
+        {
+          "slug": "graph",
+          "kind": "graph",
+          "target": "Krokodove Linesを出力へつなぐ構成",
+          "status": "captured"
+        },
+        {
+          "slug": "controls",
+          "kind": "inspector",
+          "target": "LinesのInspector",
+          "status": "captured"
+        },
+        {
+          "slug": "high",
+          "kind": "comparison",
+          "target": "Linesで生成した白い線模様",
+          "status": "captured"
+        }
+      ]
+    },
+    {
+      "priority": "P1",
+      "goal": "Show KD Duplicate on synthetic text.",
+      "suggested_graph": "TextPlus -> KD_Duplicate -> MediaOut.",
+      "scope": "Resolve Studio 21.1.0.14 on Windows, 1920x1080 static frame.",
+      "limitations": [
+        "One synthetic text and setting; other settings, masks, alpha values, animation and other hosts NOT_RUN.",
+        "Viewer screenshot is display evidence.",
+        "Portable reimport and physical input provenance NOT_RUN.",
+        "Article verification remains partial."
+      ],
+      "id": "S251",
+      "article": "manuals/fusion/nodes/krokodove/duplicate.md",
+      "manual": {
+        "version": "21.1",
+        "chapter": 105,
+        "printed_pages": "2436"
+      },
+      "status": "captured-embedded-unverified",
+      "capture_manifest": "static/img/fusion/captures/S251/capture.json",
+      "shots": [
+        {
+          "slug": "graph",
+          "kind": "graph",
+          "target": "文字画像をKrokodove Duplicateへつなぐ構成",
+          "status": "captured"
+        },
+        {
+          "slug": "controls",
+          "kind": "inspector",
+          "target": "DuplicateのInspector",
+          "status": "captured"
+        },
+        {
+          "slug": "low",
+          "kind": "comparison",
+          "target": "処理前の一文字",
+          "status": "captured"
+        },
+        {
+          "slug": "high",
+          "kind": "comparison",
+          "target": "Duplicateで円状に並んだ文字",
+          "status": "captured"
+        }
+      ]
+    },
+    {
+      "priority": "P1",
+      "goal": "Show KD Bounding Box on synthetic text.",
+      "suggested_graph": "TextPlus -> KD_BoundingBox -> MediaOut.",
+      "scope": "Resolve Studio 21.1.0.14 on Windows, 1920x1080 static frame.",
+      "limitations": [
+        "One synthetic text and setting; other settings, masks, alpha values, animation and other hosts NOT_RUN.",
+        "Viewer screenshot is display evidence.",
+        "Portable reimport and physical input provenance NOT_RUN.",
+        "Article verification remains partial."
+      ],
+      "id": "S252",
+      "article": "manuals/fusion/nodes/krokodove/bounding-box.md",
+      "manual": {
+        "version": "21.1",
+        "chapter": 105,
+        "printed_pages": "2434"
+      },
+      "status": "captured-embedded-unverified",
+      "capture_manifest": "static/img/fusion/captures/S252/capture.json",
+      "shots": [
+        {
+          "slug": "graph",
+          "kind": "graph",
+          "target": "文字画像をKrokodove Bounding Boxへつなぐ構成",
+          "status": "captured"
+        },
+        {
+          "slug": "controls",
+          "kind": "inspector",
+          "target": "Bounding BoxのInspector",
+          "status": "captured"
+        },
+        {
+          "slug": "low",
+          "kind": "comparison",
+          "target": "処理前の文字",
+          "status": "captured"
+        },
+        {
+          "slug": "high",
+          "kind": "comparison",
+          "target": "Bounding Boxによる白い矩形",
+          "status": "captured"
+        }
+      ]
+    },
+    {
+      "priority": "P1",
+      "goal": "Show KD Pattern generated grid.",
+      "suggested_graph": "KD_Pattern -> MediaOut.",
+      "scope": "Resolve Studio 21.1.0.14 on Windows, 1920x1080 static frame.",
+      "limitations": [
+        "One synthetic text and setting; other settings, masks, alpha values, animation and other hosts NOT_RUN.",
+        "Viewer screenshot is display evidence.",
+        "Portable reimport and physical input provenance NOT_RUN.",
+        "Article verification remains partial."
+      ],
+      "id": "S253",
+      "article": "manuals/fusion/nodes/krokodove/pattern.md",
+      "manual": {
+        "version": "21.1",
+        "chapter": 105,
+        "printed_pages": "2435"
+      },
+      "status": "captured-embedded-unverified",
+      "capture_manifest": "static/img/fusion/captures/S253/capture.json",
+      "shots": [
+        {
+          "slug": "graph",
+          "kind": "graph",
+          "target": "Krokodove Patternを出力へつなぐ構成",
+          "status": "captured"
+        },
+        {
+          "slug": "controls",
+          "kind": "inspector",
+          "target": "PatternのInspector",
+          "status": "captured"
+        },
+        {
+          "slug": "high",
+          "kind": "comparison",
+          "target": "Patternで生成した格子模様",
+          "status": "captured"
+        }
+      ]
+    },
+    {
+      "priority": "P1",
+      "goal": "Show KD Blobs generated shapes.",
+      "suggested_graph": "KD_Blobs -> MediaOut.",
+      "scope": "Resolve Studio 21.1.0.14 on Windows, 1920x1080 static frame.",
+      "limitations": [
+        "One synthetic text and setting; other settings, masks, alpha values, animation and other hosts NOT_RUN.",
+        "Viewer screenshot is display evidence.",
+        "Portable reimport and physical input provenance NOT_RUN.",
+        "Article verification remains partial."
+      ],
+      "id": "S254",
+      "article": "manuals/fusion/nodes/krokodove/blobs.md",
+      "manual": {
+        "version": "21.1",
+        "chapter": 105,
+        "printed_pages": "2435"
+      },
+      "status": "captured-embedded-unverified",
+      "capture_manifest": "static/img/fusion/captures/S254/capture.json",
+      "shots": [
+        {
+          "slug": "graph",
+          "kind": "graph",
+          "target": "Krokodove Blobsを出力へつなぐ構成",
+          "status": "captured"
+        },
+        {
+          "slug": "controls",
+          "kind": "inspector",
+          "target": "BlobsのInspector",
+          "status": "captured"
+        },
+        {
+          "slug": "high",
+          "kind": "comparison",
+          "target": "Blobsで生成した二つの円形",
+          "status": "captured"
+        }
+      ]
     }
   ],
   "publication_batches": [
@@ -8540,12 +8757,12 @@
     }
   ],
   "coverage_inventory": {
-    "checked_at": "2026-10-28T04:31:52.924Z",
+    "checked_at": "2026-10-28T05:54:55.379428+00:00",
     "scope": "All manuals/fusion Markdown and MDX pages; review necessity before adding images.",
     "completion_rule": "Every page has an explicit image decision; necessary images are native-observed, embedded, saved to GitHub and public-display-verified. A native example does not verify all article controls.",
     "summary": {
       "total_pages": 589,
-      "with_images": 208,
+      "with_images": 213,
       "with_native_examples": 208,
       "states": {
         "reviewed-no-standalone-image": 26,
@@ -8766,18 +8983,6 @@
         "reason": "概念と機能の対応・担当範囲を案内するBridge。具体的なFusion UIはリンク先の機能記事へ集約する。"
       },
       {
-        "article": "manuals/fusion/index.md",
-        "title": "Fusion 日本語リファレンス",
-        "kind": "index",
-        "image_count": 0,
-        "native_cases": [],
-        "reused_cases": [],
-        "planned_cases": [],
-        "state": "reviewed-no-standalone-image",
-        "decision": "no-standalone-image-needed",
-        "reason": "ManualOverviewによる入口。操作や出力比較の本文がなく、詳細記事へ案内する。"
-      },
-      {
         "article": "manuals/fusion/index/by-familiar-app.md",
         "title": "慣れたアプリから探す（By Familiar App）",
         "kind": "index",
@@ -8893,6 +9098,18 @@
         "decision": "no-standalone-image-needed",
         "reason": "Node名・alias・familyの生成索引。各Nodeの姿と結果はReference本文が所有し、一覧に独立撮影は不要。",
         "required_views": []
+      },
+      {
+        "article": "manuals/fusion/index.md",
+        "title": "Fusion 日本語リファレンス",
+        "kind": "index",
+        "image_count": 0,
+        "native_cases": [],
+        "reused_cases": [],
+        "planned_cases": [],
+        "state": "reviewed-no-standalone-image",
+        "decision": "no-standalone-image-needed",
+        "reason": "ManualOverviewによる入口。操作や出力比較の本文がなく、詳細記事へ案内する。"
       },
       {
         "article": "manuals/fusion/learn/01-flow/evaluation-dependency.md",
@@ -14039,10 +14256,12 @@
         "article": "manuals/fusion/nodes/krokodove/blobs.md",
         "title": "Blobs",
         "kind": "node",
-        "image_count": 0,
+        "image_count": 3,
         "native_cases": [],
         "reused_cases": [],
-        "planned_cases": [],
+        "planned_cases": [
+          "S254"
+        ],
         "state": "capture-planned",
         "decision": "capture-needed",
         "reason": "本文の対象機能: 指定した点を基準に円形の図形を生成するKrokodoveの画像ツール。。sEllipse/sGrid/Text+はKrokodove画像生成UIや出力型の証拠にならない。",
@@ -14070,10 +14289,12 @@
         "article": "manuals/fusion/nodes/krokodove/bounding-box.md",
         "title": "Bounding Box",
         "kind": "node",
-        "image_count": 0,
+        "image_count": 4,
         "native_cases": [],
         "reused_cases": [],
-        "planned_cases": [],
+        "planned_cases": [
+          "S252"
+        ],
         "state": "capture-planned",
         "decision": "capture-needed",
         "reason": "本文の対象機能: 画像の選択したチャンネルから矩形を描き、Thresholdでその大きさを調整するKrokodoveの画像ツール。。標準Nodeや別Krokodoveの似た効果は同じControl/algorithmの証拠にならない。",
@@ -14416,10 +14637,12 @@
         "article": "manuals/fusion/nodes/krokodove/duplicate.md",
         "title": "Duplicate（Krokodove）",
         "kind": "node",
-        "image_count": 0,
+        "image_count": 4,
         "native_cases": [],
         "reused_cases": [],
-        "planned_cases": [],
+        "planned_cases": [
+          "S251"
+        ],
         "state": "capture-planned",
         "decision": "capture-needed",
         "reason": "本文の対象機能: 入力した2D画像を選んだパターンや形に沿って繰り返し配置するKrokodoveのツール。。標準Nodeや別Krokodoveの似た効果は同じControl/algorithmの証拠にならない。",
@@ -14869,10 +15092,12 @@
         "article": "manuals/fusion/nodes/krokodove/lines.md",
         "title": "Lines",
         "kind": "node",
-        "image_count": 0,
+        "image_count": 3,
         "native_cases": [],
         "reused_cases": [],
-        "planned_cases": [],
+        "planned_cases": [
+          "S250"
+        ],
         "state": "capture-planned",
         "decision": "capture-needed",
         "reason": "本文の対象機能: 線の組を一つまたは複数使い、繰り返し配置した線模様を生成するKrokodoveのツール。。sEllipse/sGrid/Text+はKrokodove画像生成UIや出力型の証拠にならない。",
@@ -15156,10 +15381,12 @@
         "article": "manuals/fusion/nodes/krokodove/pattern.md",
         "title": "Pattern",
         "kind": "node",
-        "image_count": 0,
+        "image_count": 3,
         "native_cases": [],
         "reused_cases": [],
-        "planned_cases": [],
+        "planned_cases": [
+          "S253"
+        ],
         "state": "capture-planned",
         "decision": "capture-needed",
         "reason": "本文の対象機能: 図形を繰り返し配置し、画面全体に幾何学模様を作るKrokodoveの画像生成ツール。。sEllipse/sGrid/Text+はKrokodove画像生成UIや出力型の証拠にならない。",
@@ -26641,9 +26868,9 @@
       },
       {
         "article": "manuals/fusion/troubleshooting/masking/alpha-edge-looks-wrong.md",
-        "title": "透明Edgeの色や縁がおかしい",
+        "title": "透明エッジに黒縁・白縁が出る",
         "kind": "diagnostic",
-        "image_count": 2,
+        "image_count": 3,
         "native_cases": [],
         "reused_cases": [
           "S74"
