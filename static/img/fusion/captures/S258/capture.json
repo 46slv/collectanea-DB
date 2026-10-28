@@ -1,0 +1,132 @@
+{
+  "manual": {
+    "version": "21.1",
+    "chapter": 105,
+    "printed_pages": "2434"
+  },
+  "runtime": {
+    "version": "21.1.0.14",
+    "edition": "DaVinci Resolve Studio",
+    "os": "Windows-11-10.0.26200-SP0",
+    "ui_language": "ja-JP"
+  },
+  "captured_at": "2026-10-28T06:18:18.676125+00:00",
+  "project": "Collectanea_Mandelbrot_Zoom_20261025",
+  "timeline": "S258_capture",
+  "frame": 0,
+  "resolution": [
+    1920,
+    1080
+  ],
+  "color_management": {
+    "project_settings": {
+      "colorScienceMode": "davinciYRGB",
+      "colorSpaceInput": "Rec.709 Gamma 2.4",
+      "colorSpaceTimeline": "Rec.709 (Scene)",
+      "colorSpaceTimelineGamma": "",
+      "colorSpaceOutput": "Rec.709 (Scene)",
+      "colorSpaceOutputGamma": "ACEScc",
+      "isAutoColorManage": "0",
+      "timelineResolutionWidth": "1920",
+      "timelineResolutionHeight": "1080",
+      "timelineFrameRate": 30.0,
+      "timelinePlaybackFrameRate": "30",
+      "timelinePixelAspectRatio": "square"
+    },
+    "note": "SDK project settings; screenshots show Viewer display."
+  },
+  "viewer": {
+    "view_mode": "Fit",
+    "source": "Left Label; right MediaOut1",
+    "note": "KD Microwaves selected; transparency checkerboard and control overlay visible."
+  },
+  "acceptance": {
+    "gui": "PASS: bright rays spread from synthetic text.",
+    "article_display": "NOT_RUN",
+    "public_display": "NOT_RUN"
+  },
+  "unverified": [
+    "One synthetic text and setting; other settings, masks, alpha values, animation and other hosts NOT_RUN.",
+    "Viewer screenshot is display evidence.",
+    "Portable reimport and physical input provenance NOT_RUN.",
+    "Article verification remains partial."
+  ],
+  "schema_version": 1,
+  "case": "S258",
+  "article": "manuals/fusion/nodes/krokodove/microwaves.md",
+  "graph": "fixture.comp",
+  "settings": "readback.json",
+  "source": {
+    "file": "screen.png",
+    "size": [
+      3328,
+      1898
+    ],
+    "sha256": "dc3c864c40622718c95d01ed7079d102183eb296cfd875914cd96a1b868e7475"
+  },
+  "shots": [
+    {
+      "file": "graph.png",
+      "source": "screen.png",
+      "source_sha256": "dc3c864c40622718c95d01ed7079d102183eb296cfd875914cd96a1b868e7475",
+      "frame": 0,
+      "crop_xyxy": [
+        500,
+        1050,
+        2350,
+        1650
+      ],
+      "resampled": false,
+      "sha256": "a8f60775f4f238152d23cc926a3c4a8c2cb964b39bbf0591f2d610692edff3ff"
+    },
+    {
+      "file": "controls.png",
+      "source": "screen.png",
+      "source_sha256": "dc3c864c40622718c95d01ed7079d102183eb296cfd875914cd96a1b868e7475",
+      "frame": 0,
+      "crop_xyxy": [
+        2815,
+        65,
+        3328,
+        750
+      ],
+      "resampled": false,
+      "sha256": "a29ca749df6b7dc0f08219ff79470923aef639d15ecb000ac1e22ebe8e47426f"
+    },
+    {
+      "file": "low.png",
+      "source": "screen.png",
+      "source_sha256": "dc3c864c40622718c95d01ed7079d102183eb296cfd875914cd96a1b868e7475",
+      "frame": 0,
+      "crop_xyxy": [
+        120,
+        70,
+        1340,
+        720
+      ],
+      "resampled": false,
+      "sha256": "30c743af41cd7430557a57046cb263f71aed18f309bbbc6d0159c5b23c5b5019"
+    },
+    {
+      "file": "high.png",
+      "source": "screen.png",
+      "source_sha256": "dc3c864c40622718c95d01ed7079d102183eb296cfd875914cd96a1b868e7475",
+      "frame": 0,
+      "crop_xyxy": [
+        1480,
+        70,
+        2700,
+        720
+      ],
+      "resampled": false,
+      "sha256": "cf43f8d41545a07815b00fad56a77306f2dc6305e45afcc77cdf1764ac7f180a"
+    }
+  ],
+  "reproduction": {
+    "fixture_sha256": "fc8150281099b50c9a64ce9f3b0c7f0f8cc3fd9de3a7e3857b28c8ee0fb90a12",
+    "readback_sha256": "38f3ed6b39951e7c9216e2a292f9eac8a7b16d86955750cf9c532e465b5f5b72",
+    "readback_source_sha256": "38f3ed6b39951e7c9216e2a292f9eac8a7b16d86955750cf9c532e465b5f5b72",
+    "readback_transform": "No line-ending transformation",
+    "reimport": "NOT_RUN"
+  }
+}

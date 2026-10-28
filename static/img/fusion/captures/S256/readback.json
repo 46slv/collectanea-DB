@@ -1,0 +1,58 @@
+{
+  "case": "S256",
+  "project": "Collectanea_Mandelbrot_Zoom_20261025",
+  "library": "Local Database",
+  "project_manager_folder": "root",
+  "timeline": "S256_capture",
+  "frame": 0,
+  "resolve": "21.1.0.14",
+  "edition": "DaVinci Resolve Studio",
+  "os": "Windows-11-10.0.26200-SP0",
+  "project_settings": {
+    "colorScienceMode": "davinciYRGB",
+    "colorSpaceInput": "Rec.709 Gamma 2.4",
+    "colorSpaceTimeline": "Rec.709 (Scene)",
+    "colorSpaceTimelineGamma": "",
+    "colorSpaceOutput": "Rec.709 (Scene)",
+    "colorSpaceOutputGamma": "ACEScc",
+    "isAutoColorManage": "0",
+    "timelineResolutionWidth": "1920",
+    "timelineResolutionHeight": "1080",
+    "timelineFrameRate": 30.0,
+    "timelinePlaybackFrameRate": "30",
+    "timelinePixelAspectRatio": "square"
+  },
+  "connections": {
+    "Map.Image": "Gradient",
+    "MediaOut1.Input": "Map"
+  },
+  "values": {
+    "Gradient": {
+      "Type": "Horizontal",
+      "TopLeftRed": 0.0,
+      "TopLeftGreen": 0.0,
+      "TopLeftBlue": 0.0,
+      "TopRightRed": 1.0,
+      "TopRightGreen": 1.0,
+      "TopRightBlue": 1.0
+    },
+    "Map": {
+      "Direction": 0.0,
+      "Start": {
+        "1": 0.5,
+        "2": 0.5,
+        "3": 0.0
+      }
+    }
+  },
+  "source": "Synthetic horizontal grayscale gradient through KD Extend.",
+  "save_project": true,
+  "save_completed_at": "2026-10-28T06:08:02.908970+00:00",
+  "native_export_sha256": "ffef918eba26b6cdaa1b65a875c8342292525b47f9521911869ffbf5d7ede495",
+  "portable_sha256": "f1903c97e1632aa02243b5ee80e1fefcc68e4ac16ec10c16e5361a24705b5093",
+  "portable_reimport": "NOT_RUN",
+  "limits": [
+    "One synthetic text and settings; other extend settings, mask, alpha values, animation and other hosts NOT_RUN.",
+    "Viewer screenshot is display evidence."
+  ]
+}

@@ -7378,6 +7378,235 @@
           "status": "captured"
         }
       ]
+    },
+    {
+      "priority": "P1",
+      "goal": "Show KD Shuffle on synthetic digits.",
+      "suggested_graph": "TextPlus -> KD_Shuffle -> MediaOut.",
+      "scope": "Resolve Studio 21.1.0.14 on Windows, 1920x1080 static frame.",
+      "limitations": [
+        "One synthetic text and setting; other settings, masks, alpha values, animation and other hosts NOT_RUN.",
+        "Viewer screenshot is display evidence.",
+        "Portable reimport and physical input provenance NOT_RUN.",
+        "Article verification remains partial."
+      ],
+      "id": "S255",
+      "article": "manuals/fusion/nodes/krokodove/shuffle.md",
+      "manual": {
+        "version": "21.1",
+        "chapter": 105,
+        "printed_pages": "2437"
+      },
+      "status": "captured-embedded-unverified",
+      "capture_manifest": "static/img/fusion/captures/S255/capture.json",
+      "shots": [
+        {
+          "slug": "graph",
+          "kind": "graph",
+          "target": "数字画像をKrokodove Shuffleへつなぐ構成",
+          "status": "captured"
+        },
+        {
+          "slug": "controls",
+          "kind": "inspector",
+          "target": "ShuffleのInspector",
+          "status": "captured"
+        },
+        {
+          "slug": "low",
+          "kind": "comparison",
+          "target": "処理前の数字",
+          "status": "captured"
+        },
+        {
+          "slug": "high",
+          "kind": "comparison",
+          "target": "Shuffleで一部が移動した数字",
+          "status": "captured"
+        }
+      ]
+    },
+    {
+      "priority": "P1",
+      "goal": "Show KD Extend on a grayscale gradient.",
+      "suggested_graph": "Background horizontal gradient -> KD_Extend -> MediaOut.",
+      "scope": "Resolve Studio 21.1.0.14 on Windows, 1920x1080 static frame.",
+      "limitations": [
+        "One synthetic text and setting; other settings, masks, alpha values, animation and other hosts NOT_RUN.",
+        "Viewer screenshot is display evidence.",
+        "Portable reimport and physical input provenance NOT_RUN.",
+        "Article verification remains partial."
+      ],
+      "id": "S256",
+      "article": "manuals/fusion/nodes/krokodove/extend.md",
+      "manual": {
+        "version": "21.1",
+        "chapter": 105,
+        "printed_pages": "2434"
+      },
+      "status": "captured-embedded-unverified",
+      "capture_manifest": "static/img/fusion/captures/S256/capture.json",
+      "shots": [
+        {
+          "slug": "graph",
+          "kind": "graph",
+          "target": "グラデーションをKrokodove Extendへつなぐ構成",
+          "status": "captured"
+        },
+        {
+          "slug": "controls",
+          "kind": "inspector",
+          "target": "ExtendのInspector",
+          "status": "captured"
+        },
+        {
+          "slug": "low",
+          "kind": "comparison",
+          "target": "処理前の白黒グラデーション",
+          "status": "captured"
+        },
+        {
+          "slug": "high",
+          "kind": "comparison",
+          "target": "Extendで左側が灰色に見える結果",
+          "status": "captured"
+        }
+      ]
+    },
+    {
+      "priority": "P1",
+      "goal": "Show KD Shapes concentric rings.",
+      "suggested_graph": "KD_Shapes -> MediaOut.",
+      "scope": "Resolve Studio 21.1.0.14 on Windows, 1920x1080 static frame.",
+      "limitations": [
+        "One synthetic text and setting; other settings, masks, alpha values, animation and other hosts NOT_RUN.",
+        "Viewer screenshot is display evidence.",
+        "Portable reimport and physical input provenance NOT_RUN.",
+        "Article verification remains partial."
+      ],
+      "id": "S257",
+      "article": "manuals/fusion/nodes/krokodove/shapes.md",
+      "manual": {
+        "version": "21.1",
+        "chapter": 105,
+        "printed_pages": "2435"
+      },
+      "status": "captured-embedded-unverified",
+      "capture_manifest": "static/img/fusion/captures/S257/capture.json",
+      "shots": [
+        {
+          "slug": "graph",
+          "kind": "graph",
+          "target": "Krokodove Shapesを出力へつなぐ構成",
+          "status": "captured"
+        },
+        {
+          "slug": "controls",
+          "kind": "inspector",
+          "target": "ShapesのInspector",
+          "status": "captured"
+        },
+        {
+          "slug": "high",
+          "kind": "comparison",
+          "target": "Shapesで生成した同心円",
+          "status": "captured"
+        }
+      ]
+    },
+    {
+      "priority": "P1",
+      "goal": "Show KD Microwaves on synthetic text.",
+      "suggested_graph": "TextPlus -> KD_Microwaves -> MediaOut.",
+      "scope": "Resolve Studio 21.1.0.14 on Windows, 1920x1080 static frame.",
+      "limitations": [
+        "One synthetic text and setting; other settings, masks, alpha values, animation and other hosts NOT_RUN.",
+        "Viewer screenshot is display evidence.",
+        "Portable reimport and physical input provenance NOT_RUN.",
+        "Article verification remains partial."
+      ],
+      "id": "S258",
+      "article": "manuals/fusion/nodes/krokodove/microwaves.md",
+      "manual": {
+        "version": "21.1",
+        "chapter": 105,
+        "printed_pages": "2434"
+      },
+      "status": "captured-embedded-unverified",
+      "capture_manifest": "static/img/fusion/captures/S258/capture.json",
+      "shots": [
+        {
+          "slug": "graph",
+          "kind": "graph",
+          "target": "文字画像をKrokodove Microwavesへつなぐ構成",
+          "status": "captured"
+        },
+        {
+          "slug": "controls",
+          "kind": "inspector",
+          "target": "MicrowavesのInspector",
+          "status": "captured"
+        },
+        {
+          "slug": "low",
+          "kind": "comparison",
+          "target": "処理前の文字",
+          "status": "captured"
+        },
+        {
+          "slug": "high",
+          "kind": "comparison",
+          "target": "Microwavesで光の筋が広がった文字",
+          "status": "captured"
+        }
+      ]
+    },
+    {
+      "priority": "P1",
+      "goal": "Show KD Generate with synthetic gradient input.",
+      "suggested_graph": "Background horizontal gradient -> KD_Generate -> MediaOut.",
+      "scope": "Resolve Studio 21.1.0.14 on Windows, 1920x1080 static frame.",
+      "limitations": [
+        "One synthetic text and setting; other settings, masks, alpha values, animation and other hosts NOT_RUN.",
+        "Viewer screenshot is display evidence.",
+        "Portable reimport and physical input provenance NOT_RUN.",
+        "Article verification remains partial."
+      ],
+      "id": "S259",
+      "article": "manuals/fusion/nodes/krokodove/generate.md",
+      "manual": {
+        "version": "21.1",
+        "chapter": 105,
+        "printed_pages": "2435"
+      },
+      "status": "captured-embedded-unverified",
+      "capture_manifest": "static/img/fusion/captures/S259/capture.json",
+      "shots": [
+        {
+          "slug": "graph",
+          "kind": "graph",
+          "target": "グラデーションをKrokodove Generateへつなぐ構成",
+          "status": "captured"
+        },
+        {
+          "slug": "controls",
+          "kind": "inspector",
+          "target": "GenerateのInspector",
+          "status": "captured"
+        },
+        {
+          "slug": "low",
+          "kind": "comparison",
+          "target": "入力の白黒グラデーション",
+          "status": "captured"
+        },
+        {
+          "slug": "high",
+          "kind": "comparison",
+          "target": "Generateで表示された濃淡の模様",
+          "status": "captured"
+        }
+      ]
     }
   ],
   "publication_batches": [
@@ -8763,12 +8992,12 @@
     }
   ],
   "coverage_inventory": {
-    "checked_at": "2026-10-28T04:31:52.924Z",
+    "checked_at": "2026-10-28T06:30:05.435438+00:00",
     "scope": "All manuals/fusion Markdown and MDX pages; review necessity before adding images.",
     "completion_rule": "Every page has an explicit image decision; necessary images are native-observed, embedded, saved to GitHub and public-display-verified. A native example does not verify all article controls.",
     "summary": {
       "total_pages": 589,
-      "with_images": 213,
+      "with_images": 218,
       "with_native_examples": 213,
       "states": {
         "reviewed-no-standalone-image": 26,
@@ -8989,18 +9218,6 @@
         "reason": "概念と機能の対応・担当範囲を案内するBridge。具体的なFusion UIはリンク先の機能記事へ集約する。"
       },
       {
-        "article": "manuals/fusion/index.md",
-        "title": "Fusion 日本語リファレンス",
-        "kind": "index",
-        "image_count": 0,
-        "native_cases": [],
-        "reused_cases": [],
-        "planned_cases": [],
-        "state": "reviewed-no-standalone-image",
-        "decision": "no-standalone-image-needed",
-        "reason": "ManualOverviewによる入口。操作や出力比較の本文がなく、詳細記事へ案内する。"
-      },
-      {
         "article": "manuals/fusion/index/by-familiar-app.md",
         "title": "慣れたアプリから探す（By Familiar App）",
         "kind": "index",
@@ -9116,6 +9333,18 @@
         "decision": "no-standalone-image-needed",
         "reason": "Node名・alias・familyの生成索引。各Nodeの姿と結果はReference本文が所有し、一覧に独立撮影は不要。",
         "required_views": []
+      },
+      {
+        "article": "manuals/fusion/index.md",
+        "title": "Fusion 日本語リファレンス",
+        "kind": "index",
+        "image_count": 0,
+        "native_cases": [],
+        "reused_cases": [],
+        "planned_cases": [],
+        "state": "reviewed-no-standalone-image",
+        "decision": "no-standalone-image-needed",
+        "reason": "ManualOverviewによる入口。操作や出力比較の本文がなく、詳細記事へ案内する。"
       },
       {
         "article": "manuals/fusion/learn/01-flow/evaluation-dependency.md",
@@ -14677,10 +14906,12 @@
         "article": "manuals/fusion/nodes/krokodove/extend.md",
         "title": "Extend（Krokodove）",
         "kind": "node",
-        "image_count": 0,
+        "image_count": 4,
         "native_cases": [],
         "reused_cases": [],
-        "planned_cases": [],
+        "planned_cases": [
+          "S256"
+        ],
         "state": "capture-planned",
         "decision": "capture-needed",
         "reason": "本文の対象機能: 画像の端にある画素を横または縦へ繰り返し、元画像の色が帯や筋として伸びたような効果を作るKrokodoveのツール。。標準Nodeや別Krokodoveの似た効果は同じControl/algorithmの証拠にならない。",
@@ -14868,10 +15099,12 @@
         "article": "manuals/fusion/nodes/krokodove/generate.md",
         "title": "Generate",
         "kind": "node",
-        "image_count": 0,
+        "image_count": 4,
         "native_cases": [],
         "reused_cases": [],
-        "planned_cases": [],
+        "planned_cases": [
+          "S259"
+        ],
         "state": "capture-planned",
         "decision": "capture-needed",
         "reason": "本文の対象機能: 入力素材に濃淡のあるノイズ模様を加え、グレースケール画像を生成するKrokodoveのツール。。sEllipse/sGrid/Text+はKrokodove画像生成UIや出力型の証拠にならない。",
@@ -15194,10 +15427,12 @@
         "article": "manuals/fusion/nodes/krokodove/microwaves.md",
         "title": "Microwaves",
         "kind": "node",
-        "image_count": 0,
+        "image_count": 4,
         "native_cases": [],
         "reused_cases": [],
-        "planned_cases": [],
+        "planned_cases": [
+          "S258"
+        ],
         "state": "capture-planned",
         "decision": "capture-needed",
         "reason": "本文の対象機能: 一点から外側へ広がる光の筋を作り、光線全体の形も変えられるKrokodoveの画像ツール。。標準Nodeや別Krokodoveの似た効果は同じControl/algorithmの証拠にならない。",
@@ -16086,10 +16321,12 @@
         "article": "manuals/fusion/nodes/krokodove/shapes.md",
         "title": "Shapes（Krokodove）",
         "kind": "node",
-        "image_count": 0,
+        "image_count": 3,
         "native_cases": [],
         "reused_cases": [],
-        "planned_cases": [],
+        "planned_cases": [
+          "S257"
+        ],
         "state": "capture-planned",
         "decision": "capture-needed",
         "reason": "本文の対象機能: 同じ中心の周囲へ円や四角形を何重にも重ねた模様を作る、Krokodoveの画像生成ツール。。sEllipse/sGrid/Text+はKrokodove画像生成UIや出力型の証拠にならない。",
@@ -16150,10 +16387,12 @@
         "article": "manuals/fusion/nodes/krokodove/shuffle.md",
         "title": "Shuffle（Krokodove）",
         "kind": "node",
-        "image_count": 0,
+        "image_count": 4,
         "native_cases": [],
         "reused_cases": [],
-        "planned_cases": [],
+        "planned_cases": [
+          "S255"
+        ],
         "state": "capture-planned",
         "decision": "capture-needed",
         "reason": "本文の対象機能: 画像を区画に分け、その区画の配置を変えて見せるKrokodoveの画像変形ツール。。S06 Transformは全体変形で、局所warp・タイル再配置・mirror等の各機能を代用しない。",
@@ -26879,9 +27118,9 @@
       },
       {
         "article": "manuals/fusion/troubleshooting/masking/alpha-edge-looks-wrong.md",
-        "title": "透明Edgeの色や縁がおかしい",
+        "title": "透明エッジに黒縁・白縁が出る",
         "kind": "diagnostic",
-        "image_count": 2,
+        "image_count": 3,
         "native_cases": [],
         "reused_cases": [
           "S74"

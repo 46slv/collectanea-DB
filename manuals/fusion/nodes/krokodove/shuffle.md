@@ -41,6 +41,34 @@ updated: '2026-10-20'
 
 また、[Duplicate](./duplicate)のように元画像のコピーを複数作ることとも異なります。Shuffleについて確認できる中心的な機能は、あくまで入力画像内の区画の配置変更です。
 
+<!-- capture:S255 -->
+
+## 実機例：数字の一部を移動する
+
+合成した `Text+` の数字を `Shuffle` に渡し、TypeをSwap、Horizontal / Vertical Subdivisionsを4、Random Seedを3に設定しました。
+
+この例では最後の数字の一部が別の位置に見えます。Viewerには透明部分を示す市松模様が表示されています。ほかの分割数や乱数、Alpha値は未検証です。[接続と設定の記録](/img/fusion/captures/S255/readback.json)に条件を記載しています。
+
+[![数字画像をKrokodove Shuffleへつなぐ構成](/img/fusion/captures/S255/graph.png)](/img/fusion/captures/S255/graph.png)
+
+数字画像をShuffleへ渡します。
+
+[![ShuffleのInspector](/img/fusion/captures/S255/controls.png)](/img/fusion/captures/S255/controls.png)
+
+TypeはSwap、水平・垂直の分割数は4です。
+
+[![処理前の数字](/img/fusion/captures/S255/low.png)](/img/fusion/captures/S255/low.png)
+
+処理前は数字が一列です。
+
+[![Shuffleで一部が移動した数字](/img/fusion/captures/S255/high.png)](/img/fusion/captures/S255/high.png)
+
+処理後は最後の数字の一部が別の位置に見えます。
+
+[再現用Graph](/img/fusion/captures/S255/fixture.comp) · [撮影条件と確認範囲](/img/fusion/captures/S255/capture.json)
+
+<!-- /capture:S255 -->
+
 ## 入力と出力
 
 | 段階 | データ分類 | 内容 |
@@ -104,12 +132,12 @@ ShuffleとSegment Transformを見分けるには、「部分が別の位置へ�
 - **配置方法：** 並べ替えの規則、移動量、ランダム化、区画ごとの個別制御の有無は不明です。
 - **境界と透明度：** 区画間の隙間や重なり、画像の外側をどう補うか、Alphaとpremultiplyの処理は未確認です。
 - **時間変化：** 動画を入力できることと、専用の自動シャッフルアニメーションを設定できることは別です。後者は実機未確認です。
-- **Version / Edition：** 21.1 Manualへの掲載は確認済みですが、Resolve Free・Studio・Fusion Studioの提供差、内部REGID、正式な端子名・Inspector項目・default・rangeは未確認です。
+- **Version / Edition：** 実機例ではSwap、分割数、Random Seedを使用しました。Resolve Free・Studio・Fusion Studioの提供差、端子の全構成、初期値・範囲は未確認です。
 
 ## バージョンと出典
 
 一次資料：Blackmagic Design『**DaVinci Resolve 21.1 Reference Manual**』（September 2026）、Chapter 105「Krokodove Nodes」、**p.2437「Image Warp Tools / Shuffle」**。比較対象のSegment Transform、Shear、Warped Transformも同ページ、Duplicateはp.2436に記載されています。
 
-**公式に確認した役割**は、分割された画像の領域を再配置するImage Warp Toolであることです。格子素材での確認手順、背景への応用、Text+との合成例は本記事で補った制作案です。これらの具体例はInspector操作や実機での出力を検証したという意味ではありません。入出力のImage分類には既存COLLECTANEAカタログも併用しました。未確認項目が残るため、検証状態はpartialです。
+**公式に確認した役割**は、分割された画像の領域を再配置するImage Warp Toolであることです。実機例では数字の一部の移動を確認しました。格子素材や合成の手順は制作案です。未確認項目が残るため、検証状態はpartialです。
 
 [Krokodoveノード一覧](./)、[Imageデータの説明](../../learn/02-data/image)も参照してください。
