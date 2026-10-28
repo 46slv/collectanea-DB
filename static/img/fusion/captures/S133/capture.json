@@ -1,0 +1,168 @@
+{
+  "manual": {
+    "version": "21.1",
+    "chapter": 66,
+    "printed_pages": "1413–1414"
+  },
+  "runtime": {
+    "version": "21.1.0.14",
+    "edition": "DaVinci Resolve Studio",
+    "os": "Windows-11-10.0.26200-SP0",
+    "ui_language": "ja-JP"
+  },
+  "captured_at": "2026-10-26T22:13:55.025742+00:00",
+  "project": "Collectanea_Mandelbrot_Zoom_20261025",
+  "timeline": "S133_capture",
+  "frame": 0,
+  "resolution": [
+    1920,
+    1080
+  ],
+  "color_management": {
+    "project_settings": {
+      "colorScienceMode": "davinciYRGB",
+      "colorSpaceInput": "Rec.709 Gamma 2.4",
+      "colorSpaceTimeline": "Rec.709 (Scene)",
+      "colorSpaceTimelineGamma": "",
+      "colorSpaceOutput": "Rec.709 (Scene)",
+      "colorSpaceOutputGamma": "ACEScc",
+      "isAutoColorManage": "0",
+      "timelineResolutionWidth": "1920",
+      "timelineResolutionHeight": "1080",
+      "timelineOutputResolutionWidth": "1920",
+      "timelineOutputResolutionHeight": "1080",
+      "timelineFrameRate": 30.0,
+      "timelinePlaybackFrameRate": "30",
+      "timelinePixelAspectRatio": "square",
+      "timelineOutputPixelAspectRatio": "square"
+    },
+    "source_note": "TextPlus-only synthetic image inputs; the Viewer captures are not colorimetric output evidence."
+  },
+  "viewer": {
+    "view_mode": "Fit",
+    "channel": "Color",
+    "background": "checkerboard for transparent pixels",
+    "status_labels": [
+      "Left [Main]: 1920x1080 float32",
+      "Right [Main]: 1920x1080 float32"
+    ],
+    "note": "TextPlus labels distinguish inputs. Viewer placement is visual evidence; parameter values are also read back from the Resolve scripting API."
+  },
+  "acceptance": {
+    "gui": "PASS: Resolve Studio 21.1.0.14 visibly showed Paste Instance, the green Instance Link, separate SourceA/B/C image inputs, parameter-only Center Deinstance with white Center and green Size, and UI Reinstance. Guarded SDK readback confirmed Center and Size values, graph connections and project/timeline identity; SaveProject returned true at 2026-10-26T22:13:45.282243+00:00. Physical mouse/keyboard provenance NOT_ESTABLISHED.",
+    "article_display": "NOT_RUN",
+    "public_display": "NOT_RUN"
+  },
+  "unverified": [
+    "Other Resolve editions and platforms NOT_RUN",
+    "Physical mouse/keyboard provenance NOT_ESTABLISHED",
+    "Portable composition reimport NOT_RUN",
+    "Article verification remains partial"
+  ],
+  "schema_version": 1,
+  "case": "S133",
+  "article": "manuals/fusion/learn/06-reuse/instances.md",
+  "graph": "fixture.comp",
+  "settings": "readback.json",
+  "source": {
+    "file": "screen.png",
+    "size": [
+      3336,
+      1902
+    ],
+    "sha256": "3fcbc4e4c0276f408a55dd415ee9fe53a0cdbed19f378d69a6f55813f55a5a4b"
+  },
+  "shots": [
+    {
+      "file": "copy-instance-viewers.png",
+      "source": "screen.png",
+      "source_sha256": "3fcbc4e4c0276f408a55dd415ee9fe53a0cdbed19f378d69a6f55813f55a5a4b",
+      "frame": 0,
+      "crop_xyxy": [
+        1148,
+        60,
+        2818,
+        810
+      ],
+      "resampled": false,
+      "sha256": "8b3af416eb2fb8e0807f1097436e78b87b3be528bce02254084eeddc4a84ab31"
+    },
+    {
+      "file": "copy-instance-graph.png",
+      "source": "screen.png",
+      "source_sha256": "3fcbc4e4c0276f408a55dd415ee9fe53a0cdbed19f378d69a6f55813f55a5a4b",
+      "frame": 0,
+      "crop_xyxy": [
+        360,
+        1120,
+        2500,
+        1600
+      ],
+      "resampled": false,
+      "sha256": "24d887e2abcc96c001f481d03dca2cc39d112e0efa79eae38cff874de2416456"
+    },
+    {
+      "file": "center-independent-viewers.png",
+      "source": "independent.png",
+      "source_sha256": "84524a7caa7a4021c0fb6f6ef3b12b69820e67177b3a5a46b0de9ac5ec5389ff",
+      "frame": 0,
+      "crop_xyxy": [
+        1148,
+        60,
+        2818,
+        810
+      ],
+      "resampled": false,
+      "sha256": "e6d8e469abee6e316147e5af943deec56695f73bfb8b09a540643f5abe82d3ec"
+    },
+    {
+      "file": "center-independent-inspector.png",
+      "source": "independent.png",
+      "source_sha256": "84524a7caa7a4021c0fb6f6ef3b12b69820e67177b3a5a46b0de9ac5ec5389ff",
+      "frame": 0,
+      "crop_xyxy": [
+        2820,
+        75,
+        3336,
+        390
+      ],
+      "resampled": false,
+      "sha256": "e1b7bb2a137dbb191536363420f92d08b885d6f6a4956c4289cbe93381c78edb"
+    },
+    {
+      "file": "master-center-before-reinstance.png",
+      "source": "master-current.png",
+      "source_sha256": "8408ce84bcc3985822afeec17fb17fb6cdd7ec6c1589f5b178472ef67b815b6d",
+      "frame": 0,
+      "crop_xyxy": [
+        2020,
+        70,
+        3336,
+        690
+      ],
+      "resampled": false,
+      "sha256": "2d4cca70d5901e97aba8d81d3dbee85ae5a4f6b55bbac51b186a63fa24f081b8"
+    },
+    {
+      "file": "instance-center-after-reinstance.png",
+      "source": "reinstance.png",
+      "source_sha256": "7f5d92297454d5ed10a625bba1a075c116b8deab95f17146628c884a669c6da9",
+      "frame": 0,
+      "crop_xyxy": [
+        2020,
+        70,
+        3336,
+        690
+      ],
+      "resampled": false,
+      "sha256": "e967b947be2be98daffb0ffd174f3d134f03a276c712a15f7f9c6c0fe595c1c4"
+    }
+  ],
+  "reproduction": {
+    "fixture_sha256": "e69cb6533d599c15026f6631870145a4e9bda8d0025f584ce49732379609d82e",
+    "readback_sha256": "718981ab776431b5b7d0e078c4891cc7f462de473d752cce0d52b6b495e05414",
+    "reimport": "NOT_RUN",
+    "readback_source_sha256": "ce0901319cd3e9eba85a61e6b675817a0b5954115be2d73eac33c1f6986da8b5",
+    "readback_transform": "Original SDK readback line endings normalized from CRLF to LF for the portable Git asset; JSON values unchanged."
+  }
+}

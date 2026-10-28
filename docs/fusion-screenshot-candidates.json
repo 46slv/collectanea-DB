@@ -8071,6 +8071,159 @@
           "status": "captured"
         }
       ]
+    },
+    {
+      "priority": "P1",
+      "goal": "uExportしたUSDを別uLoaderで再読込し、元sceneの2D描画と分けて確認する。",
+      "suggested_graph": "USDInput → SceneSource → ImageOriginal → MediaOut1; SceneSource → USDExport; USDReimport → RoundtripSource → ImageRoundtrip.",
+      "scope": "One owned static Cube fixture, USD UTF-8 export, and native Resolve reimport/render comparison at frame 149. External consumer behavior and broader USD feature fidelity remain unverified.",
+      "id": "S130",
+      "article": "manuals/fusion/learn/02-data/3d-file-interchange.md",
+      "manual": {
+        "version": "21.1",
+        "chapter": 121,
+        "printed_pages": "p.2887; p.2900; pp.2902–2903; pp.2911–2914"
+      },
+      "status": "captured-local-display-verified",
+      "capture_manifest": "static/img/fusion/captures/S130/capture.json",
+      "shots": [
+        {
+          "slug": "roundtrip-viewers",
+          "kind": "output",
+          "target": "左右のViewerで、元USDから描画したCubeと、uExport後のUSDを別uLoaderで読み戻して描画したCubeを比較する",
+          "status": "captured"
+        },
+        {
+          "slug": "usd-graph",
+          "kind": "node-graph",
+          "target": "uLoaderからuMergeを経てuRendererへ進む元sceneと、uExportへの書き出し分岐、別uLoaderから再読込したsceneのFusion graph",
+          "status": "captured"
+        },
+        {
+          "slug": "usd-format",
+          "kind": "inspector",
+          "target": "USDExportのInspectorでFormatがUSD UTF-8 (*.usda)と表示されている",
+          "status": "captured"
+        }
+      ]
+    },
+    {
+      "priority": "P1",
+      "goal": "Compare ordinary Copy with Paste Instance on separate image inputs; demonstrate parameter-only Center Deinstance while Size remains shared; show Reinstance adopting the master's current Center.",
+      "suggested_graph": "SourceA → Transform1 → MediaOut1; SourceB → TransformCopy; SourceC → Instance_Transform1; green settings link from Transform1 to Instance_Transform1.",
+      "scope": "Local native Resolve capture on Collectanea_Mandelbrot_Zoom_20261025 / S133_capture / frame 0. Exact graph inputs and values are in readback.json; screenshots are raw 3336×1902 window captures with unresampled crops.",
+      "limitations": [
+        "Other Resolve editions and platforms NOT_RUN",
+        "Physical mouse/keyboard provenance NOT_ESTABLISHED",
+        "Portable composition reimport NOT_RUN",
+        "Article verification remains partial"
+      ],
+      "id": "S133",
+      "article": "manuals/fusion/learn/06-reuse/instances.md",
+      "manual": {
+        "version": "21.1",
+        "chapter": 66,
+        "printed_pages": "1413–1414"
+      },
+      "status": "captured-local-display-verified",
+      "capture_manifest": "static/img/fusion/captures/S133/capture.json",
+      "shots": [
+        {
+          "slug": "copy-instance-viewers",
+          "kind": "output",
+          "target": "Node Editorで通常CopyとPaste Instanceに異なる画像入力を接続し、Copy InputとInstance Inputを表示した二つのViewer",
+          "status": "captured"
+        },
+        {
+          "slug": "copy-instance-graph",
+          "kind": "node-graph",
+          "target": "SourceA、SourceB、SourceCからTransform1、TransformCopy、Instance_Transform1へ別々に接続し、Transform1からInstanceへの緑のリンクを示すGraph",
+          "status": "captured"
+        },
+        {
+          "slug": "center-independent-viewers",
+          "kind": "output",
+          "target": "Centerを個別解除したTransform1とInstance_Transform1が異なる位置に表示されるViewer比較",
+          "status": "captured"
+        },
+        {
+          "slug": "center-independent-inspector",
+          "kind": "inspector",
+          "target": "Instance InspectorでCenterは白い0.60、0.56、共有Sizeは緑の1.2と表示される",
+          "status": "captured"
+        },
+        {
+          "slug": "master-center-before-reinstance",
+          "kind": "inspector",
+          "target": "Reinstance前にTransform1のCenterが0.42、0.46へ変わり、Instance側の出力位置が別のままの画面",
+          "status": "captured"
+        },
+        {
+          "slug": "instance-center-after-reinstance",
+          "kind": "inspector",
+          "target": "Reinstance後にInstanceのCenterが共有表示の0.42、0.46へ戻り、元NodeとViewer位置が一致する画面",
+          "status": "captured"
+        }
+      ]
+    },
+    {
+      "priority": "P1",
+      "goal": "Show an existing Point control renamed without changing its ID, a point-driven blur, and a checkbox linked to a hidden Type.",
+      "suggested_graph": "MediaIn1 → DirectionalBlur1 → MediaOut1",
+      "scope": "Resolve Studio 21.1.0.14 / Windows, static 1920x1080 chart, frame 0. Preserved native screenshots and unresampled crops.",
+      "limitations": [
+        "Portable composition reimport and MediaIn relinking NOT_RUN",
+        "Manual selection prompt NOT_RUN",
+        "Other editions and platforms NOT_RUN",
+        "Physical mouse/keyboard provenance NOT_ESTABLISHED"
+      ],
+      "id": "S135",
+      "article": "manuals/fusion/learn/06-reuse/user-controls.md",
+      "manual": {
+        "version": "21.1",
+        "chapter": 69,
+        "printed_pages": "1515–1517"
+      },
+      "status": "captured-local-display-verified",
+      "capture_manifest": "static/img/fusion/captures/S135/capture.json",
+      "shots": [
+        {
+          "slug": "center-control",
+          "kind": "control-dialog",
+          "target": "Edit ControlでID CenterのNameをBlur Vectorにし、PointとControlsを選んだ画面",
+          "status": "captured"
+        },
+        {
+          "slug": "blur-vector-before",
+          "kind": "viewer-inspector",
+          "target": "Blur VectorがX 0.65、Y 0.6のときに斜めにぼけたテストチャートとInspector",
+          "status": "captured"
+        },
+        {
+          "slug": "blur-vector-after",
+          "kind": "viewer-inspector",
+          "target": "Blur Vectorの点を移動した後、座標とぼかしの向きが変わったテストチャート",
+          "status": "captured"
+        },
+        {
+          "slug": "centered-control",
+          "kind": "control-dialog",
+          "target": "Edit ControlでCenteredをNumber型、Controlsページ、CheckboxControlに設定した画面",
+          "status": "captured"
+        },
+        {
+          "slug": "centered-expression",
+          "kind": "viewer-inspector",
+          "target": "Centeredがオンで、Typeにiif式が設定されているInspectorとViewer",
+          "status": "captured"
+        },
+        {
+          "slug": "centered-final",
+          "kind": "viewer-inspector",
+          "target": "Typeを隠した後のBlur VectorとCenteredチェックボックス、ぼかされたテストチャート",
+          "status": "captured"
+        }
+      ]
     }
   ],
   "publication_batches": [
@@ -9456,25 +9609,25 @@
     }
   ],
   "coverage_inventory": {
-    "checked_at": "2026-10-28T07:45:25.672147+00:00",
+    "checked_at": "2026-10-28T08:54:46.429942+00:00",
     "scope": "All manuals/fusion Markdown and MDX pages; review necessity before adding images.",
     "completion_rule": "Every page has an explicit image decision; necessary images are native-observed, embedded, saved to GitHub and public-display-verified. A native example does not verify all article controls.",
     "summary": {
       "total_pages": 589,
-      "with_images": 229,
-      "with_native_examples": 229,
+      "with_images": 232,
+      "with_native_examples": 232,
       "states": {
         "reviewed-no-standalone-image": 26,
         "no-standalone-image-needed": 6,
         "illustrated-reused-example": 80,
-        "capture-planned": 327,
-        "illustrated-native-example": 149,
+        "illustrated-native-example": 152,
+        "capture-planned": 324,
         "needs-review": 1
       },
       "decisions": {
         "no-standalone-image-needed": 32,
-        "image-required": 229,
-        "capture-needed": 327,
+        "image-required": 232,
+        "capture-needed": 324,
         "needs-review": 1
       }
     },
@@ -9870,13 +10023,15 @@
         "article": "manuals/fusion/learn/02-data/3d-file-interchange.md",
         "title": "3Dファイルの受け渡し：FBX・Alembic・USD",
         "kind": "concept",
-        "image_count": 0,
-        "native_cases": [],
+        "image_count": 3,
+        "native_cases": [
+          "S130"
+        ],
         "reused_cases": [],
         "planned_cases": [],
-        "state": "capture-planned",
-        "decision": "capture-needed",
-        "reason": "owned USD fixtureのuLoader→uExport→新uLoader再読込と、sceneと画像の独立確認。"
+        "state": "illustrated-native-example",
+        "decision": "image-required",
+        "reason": "S130 native USD roundtrip evidence is embedded. Current-checkout production build, 1440px/390px local display, and all 3 images PASS. GitHub/Pages/public display and portable composition reimport remain NOT_RUN; reuse the existing capture and do not recapture."
       },
       {
         "article": "manuals/fusion/learn/02-data/auxiliary-channels.md",
@@ -10375,13 +10530,15 @@
         "article": "manuals/fusion/learn/06-reuse/instances.md",
         "title": "Instanceで設定を共有する",
         "kind": "concept",
-        "image_count": 0,
-        "native_cases": [],
+        "image_count": 6,
+        "native_cases": [
+          "S133"
+        ],
         "reused_cases": [],
         "planned_cases": [],
-        "state": "capture-planned",
-        "decision": "capture-needed",
-        "reason": "独立した画像経路と設定共有の区別は通常の2枝Graphだけでは示せない。",
+        "state": "illustrated-native-example",
+        "decision": "image-required",
+        "reason": "S133 native Instance evidence is embedded. Current-checkout production build, 1440px/390px local display, and all 6 images PASS. GitHub/Pages/public display and portable composition reimport remain NOT_RUN; reuse the existing capture and do not recapture.",
         "required_views": [
           "通常CopyとPaste InstanceのNode、緑のInstance Link、異なる画像入力",
           "CenterだけDeinstanceしたInspectorと独立した位置、Size共有を2値で確認した結果",
@@ -10411,19 +10568,22 @@
         "article": "manuals/fusion/learn/06-reuse/user-controls.md",
         "title": "User Controlsで公開interfaceを作る",
         "kind": "concept",
-        "image_count": 0,
-        "native_cases": [],
+        "image_count": 6,
+        "native_cases": [
+          "S135"
+        ],
         "reused_cases": [],
         "planned_cases": [],
-        "state": "capture-planned",
-        "decision": "capture-needed",
-        "reason": "Control追加と処理連動を区別する必要がある。既存Shapeの通常Inspectorは代用できない。",
+        "state": "illustrated-native-example",
+        "decision": "image-required",
+        "reason": "S135でControl設定、Viewerの点移動、CheckboxとTypeの連動を実機確認し、記事とlocal表示を確認。公開表示は未確認。",
         "required_views": [
           "Edit ControlのID Center、Name Blur Vector、Type Point等の設定",
           "既存Length/AngleをHideした後のInspectorとViewer上のPoint操作",
           "Centered CheckboxとTypeの式の関係、およびチェック変更後の出力"
         ],
-        "capture_group": "user-control-directional-blur"
+        "capture_group": "user-control-directional-blur",
+        "audit_note": "S135の6画像をlocal desktop/mobileで確認。portable再import、Manualの選択ダイアログと公開表示はNOT_RUN。"
       },
       {
         "article": "manuals/fusion/learn/07-debugging/alpha-vs-mask.md",
