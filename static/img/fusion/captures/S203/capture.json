@@ -1,0 +1,132 @@
+{
+  "manual": {
+    "version": "21.1",
+    "chapter": 90,
+    "printed_pages": "2054–2058"
+  },
+  "runtime": {
+    "version": "21.1.0.14",
+    "edition": "DaVinci Resolve Studio",
+    "os": "Windows-11-10.0.26200-SP0",
+    "ui_language": "ja-JP"
+  },
+  "captured_at": "2026-10-28T00:32:44.031550+00:00",
+  "project": "Collectanea_Mandelbrot_Zoom_20261025",
+  "timeline": "S203_capture",
+  "frame": 0,
+  "resolution": [
+    1920,
+    1080
+  ],
+  "color_management": {
+    "project_settings": {
+      "colorScienceMode": "davinciYRGB",
+      "colorSpaceInput": "Rec.709 Gamma 2.4",
+      "colorSpaceTimeline": "Rec.709 (Scene)",
+      "colorSpaceTimelineGamma": "",
+      "colorSpaceOutput": "Rec.709 (Scene)",
+      "colorSpaceOutputGamma": "ACEScc",
+      "isAutoColorManage": "0",
+      "timelineResolutionWidth": "1920",
+      "timelineResolutionHeight": "1080",
+      "timelineFrameRate": 30.0,
+      "timelinePlaybackFrameRate": "30",
+      "timelinePixelAspectRatio": "square"
+    },
+    "note": "SDK project settings; screenshots show Viewer display."
+  },
+  "viewer": {
+    "view_mode": "Fit",
+    "source": "Left Scene; right MediaOut1",
+    "note": "Cook Torrance selected."
+  },
+  "acceptance": {
+    "gui": "PASS: highlight becomes broader and weaker at higher roughness; SDK connections and settings read back.",
+    "article_display": "NOT_RUN",
+    "public_display": "NOT_RUN"
+  },
+  "unverified": [
+    "One sphere and two roughness values; Fresnel comparisons, texture inputs, animation and hosts NOT_RUN.",
+    "Viewer screenshot is display evidence.",
+    "Portable reimport and physical input provenance NOT_RUN.",
+    "Article verification remains partial."
+  ],
+  "schema_version": 1,
+  "case": "S203",
+  "article": "manuals/fusion/nodes/materials-lights/cook-torrance.md",
+  "graph": "fixture.comp",
+  "settings": "readback.json",
+  "source": {
+    "file": "screen.png",
+    "size": [
+      3336,
+      1902
+    ],
+    "sha256": "8c5b009758c1ff40d22a03b14580f61623e3e57fa93a74449fe554b29c5499f2"
+  },
+  "shots": [
+    {
+      "file": "graph.png",
+      "source": "screen.png",
+      "source_sha256": "8c5b009758c1ff40d22a03b14580f61623e3e57fa93a74449fe554b29c5499f2",
+      "frame": 0,
+      "crop_xyxy": [
+        500,
+        1050,
+        2350,
+        1650
+      ],
+      "resampled": false,
+      "sha256": "361f65d42514e1d50f8fee4d5a9d8f379fb2d230ade1d802d5d39d36de5be0a0"
+    },
+    {
+      "file": "controls.png",
+      "source": "screen.png",
+      "source_sha256": "8c5b009758c1ff40d22a03b14580f61623e3e57fa93a74449fe554b29c5499f2",
+      "frame": 0,
+      "crop_xyxy": [
+        2815,
+        65,
+        3336,
+        750
+      ],
+      "resampled": false,
+      "sha256": "fba1489162c2b51ccd11782c51d3a0237e129728f846bfac30df0ed42446a174"
+    },
+    {
+      "file": "low.png",
+      "source": "state-low.png",
+      "source_sha256": "69e8db11898ab1c0154927e77a554b2e99e454cc1e7f92469567ceae8eb4210f",
+      "frame": 0,
+      "crop_xyxy": [
+        1480,
+        70,
+        2700,
+        720
+      ],
+      "resampled": false,
+      "sha256": "2ca463c31d83a38f3fe9763084126476f6f8d5947935391dce9f8325fb6c828e"
+    },
+    {
+      "file": "high.png",
+      "source": "screen.png",
+      "source_sha256": "8c5b009758c1ff40d22a03b14580f61623e3e57fa93a74449fe554b29c5499f2",
+      "frame": 0,
+      "crop_xyxy": [
+        1480,
+        70,
+        2700,
+        720
+      ],
+      "resampled": false,
+      "sha256": "6ab0392869ffe5e982237958b28bee7b533c207a31846baf80d05c35f7257310"
+    }
+  ],
+  "reproduction": {
+    "fixture_sha256": "a1c138b15d254eacdf8c385961e5535a6c34142c802e619ff9ace636ced77277",
+    "readback_sha256": "6d64b1b9bd76dfaf1c63986c81d661a43bcc5c84ba47b5eda16aeccc6b3d57d4",
+    "readback_source_sha256": "6d64b1b9bd76dfaf1c63986c81d661a43bcc5c84ba47b5eda16aeccc6b3d57d4",
+    "readback_transform": "No line-ending transformation",
+    "reimport": "NOT_RUN"
+  }
+}

@@ -23,7 +23,35 @@ OpenPBR [3OP]は、3D物体の表面が光をどのように反射・透過す�
 
 PBR（Physically Based Rendering）は、表面の性質を分けて扱い、照明に対する見え方を組み立てる考え方です。同じ灰色の球でも、**Metalness**と**Specular Roughness**を変えると、金属とマットな素材の違いを表現できます。色の画像だけで材質が決まるわけではありません。
 
-OpenPBRが扱うのは<Term id="classic-3d">Classic 3D</Term>の**Material（材質）**です。3Dの形状やライトを作るNodeではなく、[Shape 3D](../3d/shape-3d.md)などのMaterial入力へ接続して使います。
+OpenPBRが扱うのは<Term id="classic-3d">Classic 3D</Term>のMaterial（材質）です。3Dの形状やライトを作るNodeではなく、[Shape 3D](../3d/shape-3d.md)などのMaterial入力へ接続して使います。
+
+<!-- capture:S209 -->
+
+## 実機例：Specular Roughnessを変える
+
+`OpenPBR` を `Shape 3D` の球に接続し、`Directional Light` とまとめてレンダリングしました。
+
+同じ色と光源でSpecular Roughnessを0.1から0.4に変えると、この例では小さく明るいハイライトが広くなります。数値はSDKで読み戻しています。[接続と設定の記録](/img/fusion/captures/S209/readback.json)に条件を記載しています。
+
+[![OpenPBRを球に接続しDirectional Lightとレンダリングする構成](/img/fusion/captures/S209/graph.png)](/img/fusion/captures/S209/graph.png)
+
+材質を球に接続し、ライトとまとめます。
+
+[![OpenPBRのBaseカラー設定](/img/fusion/captures/S209/controls.png)](/img/fusion/captures/S209/controls.png)
+
+Baseカラーを設定した状態です。
+
+[![Specular Roughness 0.1で描画した球](/img/fusion/captures/S209/low.png)](/img/fusion/captures/S209/low.png)
+
+0.1では小さく明るいハイライトです。
+
+[![Specular Roughness 0.4で描画した球](/img/fusion/captures/S209/high.png)](/img/fusion/captures/S209/high.png)
+
+0.4ではハイライトが広がります。
+
+[再現用Graph](/img/fusion/captures/S209/fixture.comp) · [撮影条件と確認範囲](/img/fusion/captures/S209/capture.json)
+
+<!-- /capture:S209 -->
 
 ## 入力
 
@@ -145,4 +173,4 @@ DaVinci Resolve 21.1 Reference Manual、September 2026、Chapter 90、pp.2060–
 
 Base、Specular、Transmission、Coat、Sheen、Subsurface、Emissionなどの係数について、ManualはMaterialのAlphaを調整するという似た説明を繰り返しています。これらの記述だけから各係数の厳密な物理的意味や透過計算を断定していません。特に、**画像のRGBを使う入力**と**画像のAlphaを係数に掛ける入力**を混同しないようにしています。
 
-接続図と制作例はManualの記述から構成したもので、21.1実機での描画追試ではありません。内部Input ID、全端子の型・初期値・数値範囲、Rendererごとの結果、Edition差は未確認のため、verificationはpartialのままです。
+上の実機例ではResolve 21.1の`MtlPBRUber`とSpecular Roughnessを変えた描画を確認しました。その他の接続図と制作例はManualの記述から構成したものです。全端子の型・初期値・数値範囲、Rendererごとの結果、Edition差は未確認のため、verificationはpartialのままです。
