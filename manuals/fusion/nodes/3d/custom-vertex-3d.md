@@ -26,6 +26,34 @@ Custom Vertex 3D [3CV]は、**Classic 3D geometryの頂点ごとに式を評価�
 
 単にobject全体を移動・回転するTransform 3Dとは役割が異なります。たとえば平面の各頂点を別々に動かして旗のように波打たせたり、geometryを螺旋状に変形したりできます。
 
+<!-- capture:S223 -->
+
+## 実機例：頂点のX位置を式で変える
+
+分割した平面を `Custom Vertex 3D` に接続し、X Positionを初期の `px` から `px*(1+py)` に変更しました。
+
+この例ではY位置に応じて横幅が変わり、正方形が台形になります。式と接続はSDKで読み戻しています。Normalの再計算や他の属性はこの例では未検証です。[接続と設定の記録](/img/fusion/captures/S223/readback.json)に条件を記載しています。
+
+[![平面の頂点をCustom Vertex 3Dで加工して描画する構成](/img/fusion/captures/S223/graph.png)](/img/fusion/captures/S223/graph.png)
+
+平面をCustom Vertex 3Dへ接続します。
+
+[![Custom Vertex 3DのX Position式](/img/fusion/captures/S223/controls.png)](/img/fusion/captures/S223/controls.png)
+
+X Positionに式を入力したInspectorです。
+
+[![初期式で描画した平面](/img/fusion/captures/S223/low.png)](/img/fusion/captures/S223/low.png)
+
+初期式では正方形です。
+
+[![X Positionの式を変更した平面](/img/fusion/captures/S223/high.png)](/img/fusion/captures/S223/high.png)
+
+式を変えると台形になります。
+
+[再現用Graph](/img/fusion/captures/S223/fixture.comp) · [撮影条件と確認範囲](/img/fusion/captures/S223/capture.json)
+
+<!-- /capture:S223 -->
+
 ## 入力と出力
 
 DaVinci Resolve 21.1 Reference Manualでは、4本の入力が記載されています。
@@ -200,4 +228,4 @@ DaVinci Resolve 21.1 Reference Manual（September 2026）、Chapter 88「3D Node
 
 確認した項目は、SceneInput、3本のImage input、Vertex属性、Numbers 1-8、Points 1-8、LUTs 1-4、Setups 1-8、Intermediates 1-8、Random Seed、Number / PointのConfig、Position変更時のNormal / Tangent再計算に関する注意です。
 
-Manual内で表記が整合しないSetup結果変数の全範囲やLUTの別表記は推測で補っていません。runtime REGID、現在のEffects Library表示、edition差、式で使える全functionの網羅、実機performanceは別verification対象として残しているため、verification: partialを維持しています。
+Manual内で表記が整合しないSetup結果変数の全範囲やLUTの別表記は推測で補っていません。実機では上記のCustomVertex3Dの接続とX位置の式を確認しました。現在のEffects Library表示、edition差、式で使える全functionの網羅、実機performanceは別verification対象として残しているため、verification: partialを維持しています。

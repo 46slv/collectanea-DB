@@ -1,0 +1,67 @@
+{
+  "case": "S224",
+  "project": "Collectanea_Mandelbrot_Zoom_20261025",
+  "library": "Local Database",
+  "project_manager_folder": "root",
+  "timeline": "S224_capture",
+  "frame": 0,
+  "resolve": "21.1.0.14",
+  "edition": "DaVinci Resolve Studio",
+  "os": "Windows-11-10.0.26200-SP0",
+  "project_settings": {
+    "colorScienceMode": "davinciYRGB",
+    "colorSpaceInput": "Rec.709 Gamma 2.4",
+    "colorSpaceTimeline": "Rec.709 (Scene)",
+    "colorSpaceTimelineGamma": "",
+    "colorSpaceOutput": "Rec.709 (Scene)",
+    "colorSpaceOutputGamma": "ACEScc",
+    "isAutoColorManage": "0",
+    "timelineResolutionWidth": "1920",
+    "timelineResolutionHeight": "1080",
+    "timelineFrameRate": 30.0,
+    "timelinePlaybackFrameRate": "30",
+    "timelinePixelAspectRatio": "square"
+  },
+  "connections": {
+    "Weld.SceneInput": "Sphere",
+    "Displace.SceneInput": "Weld",
+    "Displace.Input": "HeightMap",
+    "Scene.SceneInput1": "Displace",
+    "Scene.SceneInput2": "KeyLight",
+    "Renderer.SceneInput": "Scene",
+    "MediaOut1.Input": "Renderer"
+  },
+  "values": {
+    "Sphere": {
+      "Shape": "SurfaceCubeInputs"
+    },
+    "HeightMap": {
+      "TopLeftRed": 1.0,
+      "TopLeftGreen": 1.0,
+      "TopLeftBlue": 1.0
+    },
+    "Displace": {
+      "Scale": 0.3
+    },
+    "Weld": {
+      "WeldMode": 0.0
+    },
+    "Renderer": {
+      "RendererSoftware.LightingEnabled": 1.0
+    },
+    "current_weld_mode": 1.0,
+    "baseline_weld_mode": 0,
+    "cube_scale": 0.4,
+    "cube_rotation_y": 25.0
+  },
+  "source": "Cube through Weld or Fracture then displaced by solid white image.",
+  "save_project": true,
+  "save_completed_at": "2026-10-28T02:35:49.146052+00:00",
+  "native_export_sha256": "20b16d64dc8b5aaaa1f50a217bebc9f3104b36ff6c3ca80f0e3f9355b55a962e",
+  "portable_sha256": "dbfb70813194d6cf795e45a49f922722f2e1304ae0b31039a789de8307753bf8",
+  "portable_reimport": "NOT_RUN",
+  "limits": [
+    "One cube and solid white displacement; arbitrary imported meshes, tolerance, normal/UV welding, animation and other hosts NOT_RUN.",
+    "Viewer screenshot is display evidence."
+  ]
+}

@@ -1,0 +1,56 @@
+{
+  "case": "S226",
+  "project": "Collectanea_Mandelbrot_Zoom_20261025",
+  "library": "Local Database",
+  "project_manager_folder": "root",
+  "timeline": "S226_capture",
+  "frame": 0,
+  "resolve": "21.1.0.14",
+  "edition": "DaVinci Resolve Studio",
+  "os": "Windows-11-10.0.26200-SP0",
+  "project_settings": {
+    "colorScienceMode": "davinciYRGB",
+    "colorSpaceInput": "Rec.709 Gamma 2.4",
+    "colorSpaceTimeline": "Rec.709 (Scene)",
+    "colorSpaceTimelineGamma": "",
+    "colorSpaceOutput": "Rec.709 (Scene)",
+    "colorSpaceOutputGamma": "ACEScc",
+    "isAutoColorManage": "0",
+    "timelineResolutionWidth": "1920",
+    "timelineResolutionHeight": "1080",
+    "timelineFrameRate": 30.0,
+    "timelinePlaybackFrameRate": "30",
+    "timelinePixelAspectRatio": "square"
+  },
+  "connections": {
+    "Map.Input": "Label",
+    "Return_.Input": "Map",
+    "MediaOut1.Input": "Return_"
+  },
+  "values": {
+    "Label": {
+      "StyledText": "PATCH",
+      "Width": 1600.0,
+      "Height": 800.0,
+      "Size": 0.25
+    },
+    "Map": {
+      "Mode": "Extract",
+      "AoV": 90.0
+    },
+    "Return_": {
+      "Mode": "Apply",
+      "AoV": 90.0
+    }
+  },
+  "source": "Synthetic 2:1 text through Extract and Apply, portions outside extraction are absent.",
+  "save_project": true,
+  "save_completed_at": "2026-10-28T02:48:04.014211+00:00",
+  "native_export_sha256": "6a49e1b4929992f31caf49fda11b2ec839c0be8ade68a4e29c04dd166e6be106",
+  "portable_sha256": "09ca3a211489e59d6aeee629a931e872ad5cda0dd21034b74fe9ecd355de18d7",
+  "portable_reimport": "NOT_RUN",
+  "limits": [
+    "Synthetic text image only; real spherical footage, paint workflow, alpha measurement, Apply180 and other hosts NOT_RUN.",
+    "Viewer screenshot is display evidence."
+  ]
+}

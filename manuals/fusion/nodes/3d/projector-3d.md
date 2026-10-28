@@ -24,6 +24,34 @@ Projector 3D [3Pj]は、**画像を3D空間へ向けて投射し、その先に�
 
 画像を平面の板として配置する[Image Plane 3D](./image-plane-3d.md)とは異なり、Projector 3Dは**投影元の位置と向き**を持ちます。映像を受ける物体が前後に分かれていれば、それぞれの表面へ投影されます。使うデータは<Term id="classic-3d">Classic 3D scene</Term>で、通常の2D合成へ戻すには[Renderer 3D](./renderer-3d.md)を通します。
 
+<!-- capture:S221 -->
+
+## 実機例：Textureモードで文字を投影
+
+`Text+` の文字画像をTextureモードの `Projector 3D` に渡し、`Catcher` を割り当てた平面へ投影しました。
+
+投影元のX位置を0から0.4に動かすと、この例では文字も移動します。構成は[Catcherの実機例](../materials-lights/catcher.md)と共通です。Light / Ambient Light、透明度の数値や複数投影は未検証です。[接続と設定の記録](/img/fusion/captures/S221/readback.json)に条件を記載しています。
+
+[![Projector 3DからCatcherを割り当てた平面へ文字を投影する構成](/img/fusion/captures/S221/graph.png)](/img/fusion/captures/S221/graph.png)
+
+投影元と受け手を同じ3Dシーンへ渡します。
+
+[![Projector 3DのTextureモード設定](/img/fusion/captures/S221/controls.png)](/img/fusion/captures/S221/controls.png)
+
+Projector 3DのInspectorでTextureモードを選択しています。
+
+[![ProjectorのX位置0で描画した文字](/img/fusion/captures/S221/low.png)](/img/fusion/captures/S221/low.png)
+
+ProjectorのX位置0の状態です。
+
+[![ProjectorのX位置0.4で描画した文字](/img/fusion/captures/S221/high.png)](/img/fusion/captures/S221/high.png)
+
+投影元を動かすと文字の位置が変わります。
+
+[再現用Graph](/img/fusion/captures/S221/fixture.comp) · [撮影条件と確認範囲](/img/fusion/captures/S221/capture.json)
+
+<!-- /capture:S221 -->
+
 ## 入力と出力
 
 DaVinci Resolve 21.1 Reference Manualには、次の2入力が記載されています。
@@ -146,4 +174,4 @@ Projector 3Dは**Classic 3D**のノードです。USD側のuProjectorと名称�
 
 **一次資料**：Blackmagic Design『DaVinci Resolve 21.1 Reference Manual』（September 2026）、Chapter 88「3D Nodes」、**Projector 3D [3Pj]（pp.1965–1969）**。入力端子、3つのProjection Mode、LightとTextureの違い、Catcherとの関係、Fit Method、主要Inspector設定、Shadowsを確認しました。補足としてChapter 84「3D Compositing Basics」のProjectionを参照しています。
 
-このページの「検証」はManual記載との照合を意味します。現在のResolve 21.1実機でのノード接続、REGID、各Controlの全range / default値、Edition差、Rendererごとの画質差は未確認のため、frontmatterは**verification: partial**のままです。
+Manualとの照合に加え、上記のTextureモードの例ではResolve 21.1実機の接続とREGIDを確認しました。各Controlの全range / default値、Edition差、Rendererごとの画質差、他の投影モードは未確認のため、frontmatterは**verification: partial**のままです。
