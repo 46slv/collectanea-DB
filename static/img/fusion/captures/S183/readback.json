@@ -1,0 +1,65 @@
+{
+  "case": "S183",
+  "project": "Collectanea_Mandelbrot_Zoom_20261025",
+  "library": "Local Database",
+  "project_manager_folder": "root",
+  "timeline": "S183_capture",
+  "frame": 0,
+  "resolve": "21.1.0.14",
+  "edition": "DaVinci Resolve Studio",
+  "os": "Windows-11-10.0.26200-SP0",
+  "project_settings": {
+    "colorScienceMode": "davinciYRGB",
+    "colorSpaceInput": "Rec.709 Gamma 2.4",
+    "colorSpaceTimeline": "Rec.709 (Scene)",
+    "colorSpaceTimelineGamma": "",
+    "colorSpaceOutput": "Rec.709 (Scene)",
+    "colorSpaceOutputGamma": "ACEScc",
+    "isAutoColorManage": "0",
+    "timelineResolutionWidth": "1920",
+    "timelineResolutionHeight": "1080",
+    "timelineFrameRate": 30.0,
+    "timelinePlaybackFrameRate": "30",
+    "timelinePixelAspectRatio": "square"
+  },
+  "connections": {
+    "Extrude.ShapeInput": "Shape",
+    "SceneMerge.SceneInput1": "Extrude",
+    "SceneMerge.SceneInput2": "KeyLight",
+    "SceneRenderer.SceneInput": "SceneMerge",
+    "MediaOut1.Input": "SceneRenderer"
+  },
+  "values": {
+    "Shape": {
+      "Width": 0.5,
+      "Height": 0.5
+    },
+    "Extrude": {
+      "ExtrusionDepth": 0.2,
+      "Transform3DOp.Rotate.Y": -35.0
+    },
+    "KeyLight": {
+      "Transform3DOp.Rotate.Y": -35.0
+    },
+    "SceneRenderer": {
+      "RendererSoftware.LightingEnabled": 1.0
+    }
+  },
+  "final_extrude": {
+    "ExtrusionDepth": 0.2,
+    "BevelDepth": 0.0,
+    "BevelWidth": 0.0,
+    "Transform3DOp.Rotate.Y": -35.0
+  },
+  "comparison_depth": 0,
+  "source": "sEllipse extruded with directional light and rendered; one static frame.",
+  "save_project": true,
+  "save_completed_at": "2026-10-27T22:45:47.470198+00:00",
+  "native_export_sha256": "c691997a2b2c830af6d2a8b3ff7c2bc56f24355aa012184774467ddd6c11288b",
+  "portable_sha256": "d6e86ae50cbda5f7f107ea31dbc182f99f5a57cb1f1f4295a9cd972fa6de9ff9",
+  "portable_reimport": "NOT_RUN",
+  "limits": [
+    "Single ellipse, two extrusion depths; other shapes, bevel, external materials, animation and hosts NOT_RUN.",
+    "Viewer screenshots are display evidence."
+  ]
+}

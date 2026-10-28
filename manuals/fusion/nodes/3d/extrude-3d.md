@@ -47,6 +47,34 @@ OpenPBR ───────────────────→ MaterialInp
 
 ShapeInputに渡した輪郭が立体形状のもとになります。Material入力は、作られた面の色・光沢・模様などを設定する別の経路です。
 
+<!-- capture:S183 -->
+
+## 実機例：円のShapeに厚みを付ける
+
+`sEllipse` を `Extrude 3D` のShape入力へ接続し、Directional Lightと一緒に `Merge 3D` へ渡して `Renderer 3D` で描画しました。形状はY方向に−35回転しています。
+
+Extrusion Depthを0と0.2に変えると、0.2では暗い側面が表示されます。撮影後は0.2に戻して保存しています。ほかのShapeやBevelはこの例では比較していません。[接続と設定の記録](/img/fusion/captures/S183/readback.json)に条件を記載しています。
+
+[![sEllipseをExtrude 3Dに接続しライトとともに画像化する構成](/img/fusion/captures/S183/graph.png)](/img/fusion/captures/S183/graph.png)
+
+Shape入力から立体形状を作り、ライトと合わせて描画します。
+
+[![Extrude 3DのExtrusion Depth 0.2を示すInspector](/img/fusion/captures/S183/controls.png)](/img/fusion/captures/S183/controls.png)
+
+Extrusion Depthは0.2です。
+
+[![Extrusion Depth 0の円の描画](/img/fusion/captures/S183/flat.png)](/img/fusion/captures/S183/flat.png)
+
+Extrusion Depth 0の描画です。
+
+[![Extrusion Depth 0.2で側面が見える円の描画](/img/fusion/captures/S183/extruded.png)](/img/fusion/captures/S183/extruded.png)
+
+Extrusion Depth 0.2では側面が見えます。
+
+[再現用Graph](/img/fusion/captures/S183/fixture.comp) · [撮影条件と確認範囲](/img/fusion/captures/S183/capture.json)
+
+<!-- /capture:S183 -->
+
 ## Inspector：押し出しと面取り
 
 ### Extrusion Style
@@ -119,4 +147,4 @@ Material用の画像入力と黄色いShapeInputを取り違えたり、3Dの出
 
 **一次資料**：Blackmagic Design『DaVinci Resolve 21.1 Reference Manual』（2026年9月）、Chapter 88「3D Nodes」、**Extrude 3D [3Ex]（pp.1942–1944）**。ShapeInput・MaterialInput・BevelMaterialInput、2D画像と3D Materialの扱い、Classic / Custom、Depth、Subdivision、Bevel、共通タブを確認しました。
 
-作例のカメラ・ライト配置と実写合成は確認済みのNode機能を組み合わせた説明です。21.1実機の内部REGID、Inspectorの既定値・数値範囲、Edition差、各種Shapeでの描画結果は未確認のため、verificationはpartialとしています。
+作例のカメラ・ライト配置と実写合成は確認済みのNode機能を組み合わせた説明です。Inspectorの既定値・数値範囲、Edition差、上記以外のShapeでの描画結果は未確認のため、verificationはpartialとしています。

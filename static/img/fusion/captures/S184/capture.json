@@ -1,0 +1,132 @@
+{
+  "manual": {
+    "version": "21.1",
+    "chapter": 88,
+    "printed_pages": "1936–1937"
+  },
+  "runtime": {
+    "version": "21.1.0.14",
+    "edition": "DaVinci Resolve Studio",
+    "os": "Windows-11-10.0.26200-SP0",
+    "ui_language": "ja-JP"
+  },
+  "captured_at": "2026-10-27T22:52:06.126276+00:00",
+  "project": "Collectanea_Mandelbrot_Zoom_20261025",
+  "timeline": "S184_capture",
+  "frame": 0,
+  "resolution": [
+    1920,
+    1080
+  ],
+  "color_management": {
+    "project_settings": {
+      "colorScienceMode": "davinciYRGB",
+      "colorSpaceInput": "Rec.709 Gamma 2.4",
+      "colorSpaceTimeline": "Rec.709 (Scene)",
+      "colorSpaceTimelineGamma": "",
+      "colorSpaceOutput": "Rec.709 (Scene)",
+      "colorSpaceOutputGamma": "ACEScc",
+      "isAutoColorManage": "0",
+      "timelineResolutionWidth": "1920",
+      "timelineResolutionHeight": "1080",
+      "timelineFrameRate": 30.0,
+      "timelinePlaybackFrameRate": "30",
+      "timelinePixelAspectRatio": "square"
+    },
+    "note": "SDK project settings; screenshots show Viewer display."
+  },
+  "viewer": {
+    "view_mode": "Fit",
+    "source": "Left FastNoise; right MediaOut1",
+    "note": "Displace 3D selected; directional light and Renderer lighting enabled. Checkerboard indicates transparency."
+  },
+  "acceptance": {
+    "gui": "PASS: screenshots show generated noise and Scale 0/.3 output; SDK connections and restored save read back.",
+    "article_display": "NOT_RUN",
+    "public_display": "NOT_RUN"
+  },
+  "unverified": [
+    "One plane and generated noise, Scale 0 and .3; other channels, camera displacement, animation and hosts NOT_RUN.",
+    "Viewer screenshots are display evidence.",
+    "Portable reimport and physical input provenance NOT_RUN.",
+    "Article verification remains partial."
+  ],
+  "schema_version": 1,
+  "case": "S184",
+  "article": "manuals/fusion/nodes/3d/displace-3d.md",
+  "graph": "fixture.comp",
+  "settings": "readback.json",
+  "source": {
+    "file": "screen.png",
+    "size": [
+      3336,
+      1902
+    ],
+    "sha256": "b2b0ff19c36f3e9bbc7d8598f9acc4490a591ba83905ddec8d468cc996b97b84"
+  },
+  "shots": [
+    {
+      "file": "graph.png",
+      "source": "screen.png",
+      "source_sha256": "b2b0ff19c36f3e9bbc7d8598f9acc4490a591ba83905ddec8d468cc996b97b84",
+      "frame": 0,
+      "crop_xyxy": [
+        580,
+        1050,
+        2250,
+        1650
+      ],
+      "resampled": false,
+      "sha256": "c6330950b61ea63951e93599f5fcc94bb3422ac344f3e49ee77ea558abff04e2"
+    },
+    {
+      "file": "controls.png",
+      "source": "screen.png",
+      "source_sha256": "b2b0ff19c36f3e9bbc7d8598f9acc4490a591ba83905ddec8d468cc996b97b84",
+      "frame": 0,
+      "crop_xyxy": [
+        2815,
+        65,
+        3336,
+        400
+      ],
+      "resampled": false,
+      "sha256": "aa9ccd8af81d68f7f94cb0051715c5d9cc0b50aba1f01ef4f3d50c97e153f392"
+    },
+    {
+      "file": "flat.png",
+      "source": "zero-source.png",
+      "source_sha256": "aacab9e991045dbaa905a15c77aa730e3347f02d07b6383a548636565558d00b",
+      "frame": 0,
+      "crop_xyxy": [
+        1590,
+        65,
+        2800,
+        720
+      ],
+      "resampled": false,
+      "sha256": "10d492024f1ee274fde9c4aac4c53934a74414d72e245d891d02ee3a5b9c1bc9"
+    },
+    {
+      "file": "relief.png",
+      "source": "screen.png",
+      "source_sha256": "b2b0ff19c36f3e9bbc7d8598f9acc4490a591ba83905ddec8d468cc996b97b84",
+      "frame": 0,
+      "crop_xyxy": [
+        1590,
+        65,
+        2800,
+        720
+      ],
+      "resampled": false,
+      "sha256": "8e3e0a3226fb823a44e7d4c28548bf49fb04e2edca7afc025943b073ed940d47"
+    }
+  ],
+  "reproduction": {
+    "fixture_sha256": "0f9137d998c3bc4ea8ce3fca0f896192e47f5bf86c0b2a0194765371e941f3d6",
+    "readback_sha256": "e49f1c2dbf6b35e1654263204dfd3eb18e042d94de65d7fa682b8c2bcdd8dceb",
+    "readback_source_sha256": "e49f1c2dbf6b35e1654263204dfd3eb18e042d94de65d7fa682b8c2bcdd8dceb",
+    "readback_transform": "No line-ending transformation",
+    "reimport": "NOT_RUN"
+  }
+}

@@ -1,0 +1,63 @@
+{
+  "case": "S179",
+  "project": "Collectanea_Mandelbrot_Zoom_20261025",
+  "library": "Local Database",
+  "project_manager_folder": "root",
+  "timeline": "S179_capture",
+  "frame": 0,
+  "resolve": "21.1.0.14",
+  "edition": "DaVinci Resolve Studio",
+  "os": "Windows-11-10.0.26200-SP0",
+  "project_settings": {
+    "colorScienceMode": "davinciYRGB",
+    "colorSpaceInput": "Rec.709 Gamma 2.4",
+    "colorSpaceTimeline": "Rec.709 (Scene)",
+    "colorSpaceTimelineGamma": "",
+    "colorSpaceOutput": "Rec.709 (Scene)",
+    "colorSpaceOutputGamma": "ACEScc",
+    "isAutoColorManage": "0",
+    "timelineResolutionWidth": "1920",
+    "timelineResolutionHeight": "1080",
+    "timelineFrameRate": 30.0,
+    "timelinePlaybackFrameRate": "30",
+    "timelinePixelAspectRatio": "square"
+  },
+  "connections": {
+    "Card.Background": "Plate",
+    "Card.Foreground": "Label",
+    "ImagePlane.MaterialInput": "Card",
+    "SceneRenderer.SceneInput": "ImagePlane",
+    "MediaOut1.Input": "SceneRenderer"
+  },
+  "values": {
+    "Plate": {
+      "UseFrameFormatSettings": 0.0,
+      "Width": 1920.0,
+      "Height": 1080.0,
+      "TopLeftRed": 0.08,
+      "TopLeftGreen": 0.2,
+      "TopLeftBlue": 0.45,
+      "TopLeftAlpha": 1.0
+    },
+    "Label": {
+      "StyledText": "PLANE",
+      "Size": 0.3,
+      "Font": "Open Sans",
+      "Style": "Bold"
+    },
+    "ImagePlane": {
+      "Transform3DOp.Rotate.Y": -30.0,
+      "Transform3DOp.Scale.X": 1.8
+    }
+  },
+  "source": "Generated text and background connected to Image Plane 3D, rendered; one static frame.",
+  "save_project": true,
+  "save_completed_at": "2026-10-27T22:10:45.797144+00:00",
+  "native_export_sha256": "c200fd6b5d2c8438e1a118ca2cff8a050aaa1d1db2f9872376c3d1410bbba5e1",
+  "portable_sha256": "81db6591fb3992b24e270d2b80909664c967465966f8fa888dba4d2d4b0ecc6e",
+  "portable_reimport": "NOT_RUN",
+  "limits": [
+    "Generated 1920x1080 image only; external media, other aspect ratios, external materials, animation and other hosts NOT_RUN.",
+    "Viewer screenshot is display evidence."
+  ]
+}

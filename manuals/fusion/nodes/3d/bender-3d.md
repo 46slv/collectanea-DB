@@ -39,6 +39,30 @@ Light ───────────────────┘
 
 Bender 3Dは形状を作るNodeではありません。最初に3Dの形状を用意し、その後段で変形します。
 
+<!-- capture:S181 -->
+
+## 実機例：立方体を曲げる
+
+`Cube 3D` の出力を分岐し、一方を `Bender 3D` に通します。Bender TypeをBend、Amountを0.3、AxisをYに設定し、それぞれ `Renderer 3D` で画像化しました。
+
+左は変形前、右は曲げた結果です。立方体には分割があり、面の形が変化しています。市松模様はViewerの透明表示です。ほかの変形方式やメッシュはこの例では確認していません。[接続と設定の記録](/img/fusion/captures/S181/readback.json)に条件を記載しています。
+
+[![Cube 3DをBender 3Dで変形し前後を画像化する構成](/img/fusion/captures/S181/graph.png)](/img/fusion/captures/S181/graph.png)
+
+元のsceneとBender 3Dの結果をそれぞれ画像化します。
+
+[![Bender 3DのBend、Amount 0.3、Axis Yを示すInspector](/img/fusion/captures/S181/controls.png)](/img/fusion/captures/S181/controls.png)
+
+Bend、Amount 0.3、Axis Yです。
+
+[![立方体のBender 3D処理前と曲げた結果の比較](/img/fusion/captures/S181/comparison.png)](/img/fusion/captures/S181/comparison.png)
+
+左は元の立方体、右はBendを加えた結果です。
+
+[再現用Graph](/img/fusion/captures/S181/fixture.comp) · [撮影条件と確認範囲](/img/fusion/captures/S181/capture.json)
+
+<!-- /capture:S181 -->
+
 ## 4種類の変形
 
 Inspectorの**Controls > Bender Type**で次の方式を選びます。
@@ -116,4 +140,4 @@ Shape 3D ───┼─→ Merge 3D ─→ Bender 3D ─→ Merge 3D（Camera�
 
 Blackmagic Design『[DaVinci Resolve 21.1 Reference Manual](https://documents.blackmagicdesign.com/UserManuals/DaVinci_Resolve_21.1_Reference_Manual.pdf)』（2026年9月）、Chapter 88「3D Nodes」、**Bender 3D [3Bn]（pp.1916–1918）**を一次資料としています。SceneInput、4つのBender Type、Amount・Axis・Angle・Range・Group Objects、頂点を追加しないこと、Camera・Light・Materialを変更しないことを確認しました。
 
-Inspectorの既定値・数値範囲、runtime REGID、Edition差、実機でのレンダリング結果は未検証のため、`verification: partial`を維持しています。作例の接続図と手順は、Manualの仕様を説明用に組み合わせたものです。
+Inspectorの既定値・数値範囲、Edition差、上記以外の実機レンダリング結果は未検証のため、`verification: partial`を維持しています。作例の接続図と手順は、Manualの仕様を説明用に組み合わせたものです。

@@ -8071,6 +8071,352 @@
           "status": "captured"
         }
       ]
+    },
+    {
+      "priority": "P1",
+      "goal": "Show a generated 2D image mapped onto Image Plane 3D and rendered.",
+      "suggested_graph": "Background + TextPlus -> Merge -> ImagePlane3D -> Renderer3D.",
+      "scope": "Resolve Studio 21.1.0.14 on Windows, 1920x1080 static frame.",
+      "limitations": [
+        "Generated 1920x1080 image only; external media, other aspect ratios, external materials, animation and other hosts NOT_RUN.",
+        "Viewer screenshot is display evidence.",
+        "Portable reimport and physical input provenance NOT_RUN.",
+        "Article verification remains partial."
+      ],
+      "id": "S179",
+      "article": "manuals/fusion/nodes/3d/image-plane-3d.md",
+      "manual": {
+        "version": "21.1",
+        "chapter": 88,
+        "printed_pages": "1953–1954"
+      },
+      "status": "captured-local-display-verified",
+      "capture_manifest": "static/img/fusion/captures/S179/capture.json",
+      "shots": [
+        {
+          "slug": "graph",
+          "kind": "graph",
+          "target": "生成画像をImage Plane 3Dに接続しRenderer 3Dで画像化する構成",
+          "status": "captured"
+        },
+        {
+          "slug": "controls",
+          "kind": "inspector",
+          "target": "Image Plane 3DのControlsを示すInspector",
+          "status": "captured"
+        },
+        {
+          "slug": "plane",
+          "kind": "comparison",
+          "target": "文字入りの平面を3D ViewerとRenderer 3Dで表示",
+          "status": "captured"
+        }
+      ]
+    },
+    {
+      "priority": "P1",
+      "goal": "Show an extruded Text 3D title under directional lighting.",
+      "suggested_graph": "Text3D + DirectionalLight -> Merge3D -> Renderer3D.",
+      "scope": "Resolve Studio 21.1.0.14 on Windows, 1920x1080 static frame.",
+      "limitations": [
+        "Single Latin text with Open Sans Bold, fixed extrusion and light; Japanese, bevel comparisons, other fonts, animation and hosts NOT_RUN.",
+        "Viewer screenshot is display evidence.",
+        "Portable reimport and physical input provenance NOT_RUN.",
+        "Article verification remains partial."
+      ],
+      "id": "S180",
+      "article": "manuals/fusion/nodes/3d/text-3d.md",
+      "manual": {
+        "version": "21.1",
+        "chapter": 88,
+        "printed_pages": "1998–2006"
+      },
+      "status": "captured-local-display-verified",
+      "capture_manifest": "static/img/fusion/captures/S180/capture.json",
+      "shots": [
+        {
+          "slug": "graph",
+          "kind": "graph",
+          "target": "Text 3DとライトをMerge 3DでまとめRenderer 3Dへ渡す構成",
+          "status": "captured"
+        },
+        {
+          "slug": "controls",
+          "kind": "inspector",
+          "target": "Text 3Dの文字と押し出しの奥行き0.15を示すInspector",
+          "status": "captured"
+        },
+        {
+          "slug": "render",
+          "kind": "comparison",
+          "target": "正面と側面が見える立体文字HIの描画結果",
+          "status": "captured"
+        }
+      ]
+    },
+    {
+      "priority": "P1",
+      "goal": "Show Bend deformation on a subdivided cube using Bender 3D.",
+      "suggested_graph": "Cube3D -> Bender3D -> Renderer3D; second Renderer3D shows original.",
+      "scope": "Resolve Studio 21.1.0.14 on Windows, 1920x1080 static frame.",
+      "limitations": [
+        "One subdivided cube with Bend Amount .3; other types, meshes, animation and hosts NOT_RUN.",
+        "Viewer screenshot is display evidence.",
+        "Portable reimport and physical input provenance NOT_RUN.",
+        "Article verification remains partial."
+      ],
+      "id": "S181",
+      "article": "manuals/fusion/nodes/3d/bender-3d.md",
+      "manual": {
+        "version": "21.1",
+        "chapter": 88,
+        "printed_pages": "1916–1918"
+      },
+      "status": "captured-local-display-verified",
+      "capture_manifest": "static/img/fusion/captures/S181/capture.json",
+      "shots": [
+        {
+          "slug": "graph",
+          "kind": "graph",
+          "target": "Cube 3DをBender 3Dで変形し前後を画像化する構成",
+          "status": "captured"
+        },
+        {
+          "slug": "controls",
+          "kind": "inspector",
+          "target": "Bender 3DのBend、Amount 0.3、Axis Yを示すInspector",
+          "status": "captured"
+        },
+        {
+          "slug": "comparison",
+          "kind": "comparison",
+          "target": "立方体のBender 3D処理前と曲げた結果の比較",
+          "status": "captured"
+        }
+      ]
+    },
+    {
+      "priority": "P1",
+      "goal": "Show Cube and Sphere primitives selected in Shape 3D.",
+      "suggested_graph": "Shape3D + DirectionalLight -> Merge3D -> Renderer3D.",
+      "scope": "Resolve Studio 21.1.0.14 on Windows, 1920x1080 static frame.",
+      "limitations": [
+        "Cube and Sphere only; other shapes, materials, animation and hosts NOT_RUN.",
+        "Viewer screenshots are display evidence.",
+        "Portable reimport and physical input provenance NOT_RUN.",
+        "Article verification remains partial."
+      ],
+      "id": "S182",
+      "article": "manuals/fusion/nodes/3d/shape-3d.md",
+      "manual": {
+        "version": "21.1",
+        "chapter": 88,
+        "printed_pages": "1990–1993"
+      },
+      "status": "captured-local-display-verified",
+      "capture_manifest": "static/img/fusion/captures/S182/capture.json",
+      "shots": [
+        {
+          "slug": "graph",
+          "kind": "graph",
+          "target": "Shape 3DとライトをMerge 3DでまとめRenderer 3Dへ渡す構成",
+          "status": "captured"
+        },
+        {
+          "slug": "controls",
+          "kind": "inspector",
+          "target": "Shape 3DでSphereを選択したInspector",
+          "status": "captured"
+        },
+        {
+          "slug": "cube",
+          "kind": "comparison",
+          "target": "Shape 3DのCubeを照明して描画した結果",
+          "status": "captured"
+        },
+        {
+          "slug": "sphere",
+          "kind": "comparison",
+          "target": "Shape 3DのSphereを同じ照明で描画した結果",
+          "status": "captured"
+        }
+      ]
+    },
+    {
+      "priority": "P1",
+      "goal": "Show an sEllipse shape extruded into a lit 3D object.",
+      "suggested_graph": "sEllipse -> Extrude3D; add DirectionalLight via Merge3D -> Renderer3D.",
+      "scope": "Resolve Studio 21.1.0.14 on Windows, 1920x1080 static frame.",
+      "limitations": [
+        "Single ellipse, two extrusion depths; other shapes, bevel, external materials, animation and hosts NOT_RUN.",
+        "Viewer screenshots are display evidence.",
+        "Portable reimport and physical input provenance NOT_RUN.",
+        "Article verification remains partial."
+      ],
+      "id": "S183",
+      "article": "manuals/fusion/nodes/3d/extrude-3d.md",
+      "manual": {
+        "version": "21.1",
+        "chapter": 88,
+        "printed_pages": "1942–1944"
+      },
+      "status": "captured-local-display-verified",
+      "capture_manifest": "static/img/fusion/captures/S183/capture.json",
+      "shots": [
+        {
+          "slug": "graph",
+          "kind": "graph",
+          "target": "sEllipseをExtrude 3Dに接続しライトとともに画像化する構成",
+          "status": "captured"
+        },
+        {
+          "slug": "controls",
+          "kind": "inspector",
+          "target": "Extrude 3DのExtrusion Depth 0.2を示すInspector",
+          "status": "captured"
+        },
+        {
+          "slug": "flat",
+          "kind": "comparison",
+          "target": "Extrusion Depth 0の円の描画",
+          "status": "captured"
+        },
+        {
+          "slug": "extruded",
+          "kind": "comparison",
+          "target": "Extrusion Depth 0.2で側面が見える円の描画",
+          "status": "captured"
+        }
+      ]
+    },
+    {
+      "priority": "P1",
+      "goal": "Show a subdivided plane displaced by generated noise with Displace 3D.",
+      "suggested_graph": "Shape3D plane + FastNoise -> Displace3D; add light via Merge3D -> Renderer3D.",
+      "scope": "Resolve Studio 21.1.0.14 on Windows, 1920x1080 static frame.",
+      "limitations": [
+        "One plane and generated noise, Scale 0 and .3; other channels, camera displacement, animation and hosts NOT_RUN.",
+        "Viewer screenshots are display evidence.",
+        "Portable reimport and physical input provenance NOT_RUN.",
+        "Article verification remains partial."
+      ],
+      "id": "S184",
+      "article": "manuals/fusion/nodes/3d/displace-3d.md",
+      "manual": {
+        "version": "21.1",
+        "chapter": 88,
+        "printed_pages": "1936–1937"
+      },
+      "status": "captured-local-display-verified",
+      "capture_manifest": "static/img/fusion/captures/S184/capture.json",
+      "shots": [
+        {
+          "slug": "graph",
+          "kind": "graph",
+          "target": "平面とFast NoiseをDisplace 3Dに接続し照明して画像化する構成",
+          "status": "captured"
+        },
+        {
+          "slug": "controls",
+          "kind": "inspector",
+          "target": "Displace 3DのScale 0.3を示すInspector",
+          "status": "captured"
+        },
+        {
+          "slug": "flat",
+          "kind": "comparison",
+          "target": "Displace 3DのScale 0で平らに表示した面",
+          "status": "captured"
+        },
+        {
+          "slug": "relief",
+          "kind": "comparison",
+          "target": "Displace 3DのScale 0.3で起伏を付けた面",
+          "status": "captured"
+        }
+      ]
+    },
+    {
+      "priority": "P1",
+      "goal": "Show replacing a 3D object material using a generated 2D image.",
+      "suggested_graph": "Shape3D + Background -> ReplaceMaterial3D -> Renderer3D; second Renderer3D shows original.",
+      "scope": "Resolve Studio 21.1.0.14 on Windows, 1920x1080 static frame.",
+      "limitations": [
+        "One cube and solid 2D image; 3D materials, ID filtering, channel modes, lighting, animation and hosts NOT_RUN.",
+        "Viewer screenshot is display evidence.",
+        "Portable reimport and physical input provenance NOT_RUN.",
+        "Article verification remains partial."
+      ],
+      "id": "S185",
+      "article": "manuals/fusion/nodes/3d/replace-material-3d.md",
+      "manual": {
+        "version": "21.1",
+        "chapter": 88,
+        "printed_pages": "1979–1980"
+      },
+      "status": "captured-local-display-verified",
+      "capture_manifest": "static/img/fusion/captures/S185/capture.json",
+      "shots": [
+        {
+          "slug": "graph",
+          "kind": "graph",
+          "target": "Shape 3Dと赤い画像をReplace Material 3Dに接続し前後を画像化する構成",
+          "status": "captured"
+        },
+        {
+          "slug": "controls",
+          "kind": "inspector",
+          "target": "Replace Material 3Dが有効でID限定が無効のInspector",
+          "status": "captured"
+        },
+        {
+          "slug": "comparison",
+          "kind": "comparison",
+          "target": "白い形状と赤い画像を材質として使った形状の比較",
+          "status": "captured"
+        }
+      ]
+    },
+    {
+      "priority": "P1",
+      "goal": "Show overriding visibility in a simple 3D scene.",
+      "suggested_graph": "Cube3D -> Override3D -> Renderer3D; second Renderer3D shows original.",
+      "scope": "Resolve Studio 21.1.0.14 on Windows, 1920x1080 static frame.",
+      "limitations": [
+        "One cube with visibility disabled; multiple objects, ID filtering, other attributes, animation and hosts NOT_RUN.",
+        "Viewer screenshot is display evidence.",
+        "Portable reimport and physical input provenance NOT_RUN.",
+        "Article verification remains partial."
+      ],
+      "id": "S186",
+      "article": "manuals/fusion/nodes/3d/override-3d.md",
+      "manual": {
+        "version": "21.1",
+        "chapter": 88,
+        "printed_pages": "1959–1960"
+      },
+      "status": "captured-local-display-verified",
+      "capture_manifest": "static/img/fusion/captures/S186/capture.json",
+      "shots": [
+        {
+          "slug": "graph",
+          "kind": "graph",
+          "target": "Cube 3Dを分岐しOverride 3Dを通した結果と元を画像化する構成",
+          "status": "captured"
+        },
+        {
+          "slug": "controls",
+          "kind": "inspector",
+          "target": "Override 3Dで可視性の上書きを有効にし表示をオフにしたInspector",
+          "status": "captured"
+        },
+        {
+          "slug": "comparison",
+          "kind": "comparison",
+          "target": "元の立方体と上書き後の透明な結果の比較",
+          "status": "captured"
+        }
+      ]
     }
   ],
   "publication_batches": [
@@ -9461,20 +9807,20 @@
     "completion_rule": "Every page has an explicit image decision; necessary images are native-observed, embedded, saved to GitHub and public-display-verified. A native example does not verify all article controls.",
     "summary": {
       "total_pages": 589,
-      "with_images": 229,
-      "with_native_examples": 229,
+      "with_images": 237,
+      "with_native_examples": 237,
       "states": {
         "reviewed-no-standalone-image": 26,
         "no-standalone-image-needed": 6,
         "illustrated-reused-example": 80,
-        "capture-planned": 327,
-        "illustrated-native-example": 149,
+        "capture-planned": 319,
+        "illustrated-native-example": 157,
         "needs-review": 1
       },
       "decisions": {
         "no-standalone-image-needed": 32,
-        "image-required": 229,
-        "capture-needed": 327,
+        "image-required": 237,
+        "capture-needed": 319,
         "needs-review": 1
       }
     },
@@ -10554,12 +10900,14 @@
         "article": "manuals/fusion/nodes/3d/bender-3d.md",
         "title": "Bender 3D",
         "kind": "node",
-        "image_count": 0,
-        "native_cases": [],
+        "image_count": 3,
+        "native_cases": [
+          "S181"
+        ],
         "reused_cases": [],
         "planned_cases": [],
-        "state": "capture-planned",
-        "decision": "capture-needed",
+        "state": "illustrated-native-example",
+        "decision": "image-required",
         "reason": "本文の対象機能: Bender 3Dは、既存の3Dメッシュの頂点を動かし、Bend・Taper・Twist・Shearの変形を加えるNode。。S11の球のrenderだけでは各Node固有の生成・配置・変形Controlと結果を示せない。",
         "required_views": [
           "対象Node名と実際の配線が読めるGraph",
@@ -10687,12 +11035,14 @@
         "article": "manuals/fusion/nodes/3d/displace-3d.md",
         "title": "Displace 3D",
         "kind": "node",
-        "image_count": 0,
-        "native_cases": [],
+        "image_count": 4,
+        "native_cases": [
+          "S184"
+        ],
         "reused_cases": [],
         "planned_cases": [],
-        "state": "capture-planned",
-        "decision": "capture-needed",
+        "state": "illustrated-native-example",
+        "decision": "image-required",
         "reason": "本文の対象機能: Displace 3Dは、2D画像の画素値を使い、3Dメッシュの各頂点を法線方向または指定カメラへ向かう方向に動かすNode。。S11の球のrenderだけでは各Node固有の生成・配置・変形Controlと結果を示せない。",
         "required_views": [
           "対象Node名と実際の配線が読めるGraph",
@@ -10761,12 +11111,14 @@
         "article": "manuals/fusion/nodes/3d/extrude-3d.md",
         "title": "Extrude 3D",
         "kind": "node",
-        "image_count": 0,
-        "native_cases": [],
+        "image_count": 4,
+        "native_cases": [
+          "S183"
+        ],
         "reused_cases": [],
         "planned_cases": [],
-        "state": "capture-planned",
-        "decision": "capture-needed",
+        "state": "illustrated-native-example",
+        "decision": "image-required",
         "reason": "本文の対象機能: Extrude 3Dは、平面Shapeの輪郭から厚みと面取りを持つ3D形状を作るNode。。S11の球のrenderだけでは各Node固有の生成・配置・変形Controlと結果を示せない。",
         "required_views": [
           "対象Node名と実際の配線が読めるGraph",
@@ -10906,12 +11258,14 @@
         "article": "manuals/fusion/nodes/3d/image-plane-3d.md",
         "title": "Image Plane 3D",
         "kind": "node",
-        "image_count": 0,
-        "native_cases": [],
+        "image_count": 3,
+        "native_cases": [
+          "S179"
+        ],
         "reused_cases": [],
         "planned_cases": [],
-        "state": "capture-planned",
-        "decision": "capture-needed",
+        "state": "illustrated-native-example",
+        "decision": "image-required",
         "reason": "本文の対象機能: Image Plane 3Dは、2D画像や動画を3D空間に置ける平面へ変換するノード。画像の縦横比が平面の形に反映される。。S11の球のrenderだけでは各Node固有の生成・配置・変形Controlと結果を示せない。",
         "required_views": [
           "対象Node名と実際の配線が読めるGraph",
@@ -11028,12 +11382,14 @@
         "article": "manuals/fusion/nodes/3d/override-3d.md",
         "title": "Override 3D",
         "kind": "node",
-        "image_count": 0,
-        "native_cases": [],
+        "image_count": 3,
+        "native_cases": [
+          "S186"
+        ],
         "reused_cases": [],
         "planned_cases": [],
-        "state": "capture-planned",
-        "decision": "capture-needed",
+        "state": "illustrated-native-example",
+        "decision": "image-required",
         "reason": "本文の対象機能: Override 3Dは、複数の3Dオブジェクトの表示・照明・Matte・ID等の設定をまとめて変更するNode。。S11の球のrenderだけでは各Node固有の生成・配置・変形Controlと結果を示せない。",
         "required_views": [
           "対象Node名と実際の配線が読めるGraph",
@@ -11154,12 +11510,14 @@
         "article": "manuals/fusion/nodes/3d/replace-material-3d.md",
         "title": "Replace Material 3D",
         "kind": "node",
-        "image_count": 0,
-        "native_cases": [],
+        "image_count": 3,
+        "native_cases": [
+          "S185"
+        ],
         "reused_cases": [],
         "planned_cases": [],
-        "state": "capture-planned",
-        "decision": "capture-needed",
+        "state": "illustrated-native-example",
+        "decision": "image-required",
         "reason": "本文の対象機能: Replace Material 3Dは、Classic 3D geometryのMaterialを差し替え、Object ID・Material ID・RGBA channelで適用範囲を絞れるNode。。S11の球のrenderだけでは各Node固有の生成・配置・変形Controlと結果を示せない。",
         "required_views": [
           "対象Node名と実際の配線が読めるGraph",
@@ -11283,12 +11641,14 @@
         "article": "manuals/fusion/nodes/3d/shape-3d.md",
         "title": "Shape 3D",
         "kind": "node",
-        "image_count": 0,
-        "native_cases": [],
+        "image_count": 4,
+        "native_cases": [
+          "S182"
+        ],
         "reused_cases": [],
         "planned_cases": [],
-        "state": "capture-planned",
-        "decision": "capture-needed",
+        "state": "illustrated-native-example",
+        "decision": "image-required",
         "reason": "本文の対象機能: Shape 3Dは、平面・箱・球などの基本形状を3D空間に作るNode。画像やMaterialを与え、Renderer 3Dで描画できる。。S11の球のrenderだけでは各Node固有の生成・配置・変形Controlと結果を示せない。",
         "required_views": [
           "対象Node名と実際の配線が読めるGraph",
@@ -11350,12 +11710,14 @@
         "article": "manuals/fusion/nodes/3d/text-3d.md",
         "title": "Text 3D",
         "kind": "node",
-        "image_count": 0,
-        "native_cases": [],
+        "image_count": 3,
+        "native_cases": [
+          "S180"
+        ],
         "reused_cases": [],
         "planned_cases": [],
-        "state": "capture-planned",
-        "decision": "capture-needed",
+        "state": "illustrated-native-example",
+        "decision": "image-required",
         "reason": "本文の対象機能: Text 3Dは、文字の形状を3D空間に置き、厚みや面取り、材質を設定できるNode。。S11の球のrenderだけでは各Node固有の生成・配置・変形Controlと結果を示せない。",
         "required_views": [
           "対象Node名と実際の配線が読めるGraph",
