@@ -8071,6 +8071,51 @@
           "status": "captured"
         }
       ]
+    },
+    {
+      "priority": "P1",
+      "goal": "Show one enabled versus disabled style change in a 2D particle fixture.",
+      "suggested_graph": "pEmitter -> pChangeStyle -> pRender -> MediaOut",
+      "scope": "Resolve Studio 21.1.0.14 on Windows.",
+      "limitations": [
+        "One Blob style fixture, global region ignored, frame 48; area entry, Change Sets, other styles and particle motion NOT_RUN.",
+        "Screenshots show Viewer display; precise simulation identity across toggles, portable reimport and other hosts NOT_RUN."
+      ],
+      "id": "S308",
+      "article": "manuals/fusion/nodes/particles/pchangestyle.md",
+      "manual": {
+        "version": "21.1",
+        "chapter": 114,
+        "printed_pages": "2651–2652"
+      },
+      "status": "captured-embedded-unverified",
+      "capture_manifest": "static/img/fusion/captures/S308/capture.json",
+      "shots": [
+        {
+          "slug": "graph",
+          "kind": "graph",
+          "target": "pEmitterからpChangeStyleとpRenderへ接続した構成",
+          "status": "captured"
+        },
+        {
+          "slug": "controls",
+          "kind": "inspector",
+          "target": "スタイルの変更が有効なpChangeStyle",
+          "status": "captured"
+        },
+        {
+          "slug": "enabled",
+          "kind": "result",
+          "target": "スタイル変更を有効にした赤い粒子",
+          "status": "captured"
+        },
+        {
+          "slug": "disabled",
+          "kind": "result",
+          "target": "スタイル変更を無効にした白い粒子",
+          "status": "captured"
+        }
+      ]
     }
   ],
   "publication_batches": [
@@ -9456,25 +9501,25 @@
     }
   ],
   "coverage_inventory": {
-    "checked_at": "2026-10-28T07:45:25.672147+00:00",
+    "checked_at": "2026-10-28T09:49:28.864779+00:00",
     "scope": "All manuals/fusion Markdown and MDX pages; review necessity before adding images.",
     "completion_rule": "Every page has an explicit image decision; necessary images are native-observed, embedded, saved to GitHub and public-display-verified. A native example does not verify all article controls.",
     "summary": {
       "total_pages": 589,
-      "with_images": 229,
+      "with_images": 230,
       "with_native_examples": 229,
       "states": {
         "reviewed-no-standalone-image": 26,
         "no-standalone-image-needed": 6,
         "illustrated-reused-example": 80,
-        "capture-planned": 327,
-        "illustrated-native-example": 149,
+        "capture-planned": 326,
+        "illustrated-native-example": 150,
         "needs-review": 1
       },
       "decisions": {
         "no-standalone-image-needed": 32,
-        "image-required": 229,
-        "capture-needed": 327,
+        "image-required": 230,
+        "capture-needed": 326,
         "needs-review": 1
       }
     },
@@ -21693,13 +21738,19 @@
         "article": "manuals/fusion/nodes/particles/pchangestyle.md",
         "title": "pChangeStyle",
         "kind": "node",
-        "image_count": 0,
+        "image_count": 4,
         "native_cases": [],
         "reused_cases": [],
-        "planned_cases": [],
-        "state": "capture-planned",
-        "decision": "capture-needed",
-        "reason": "本文の対象機能: pChangeStyleは、指定領域を通る粒子の見た目やSet割り当てを変えるノード。。単一Emitterの粒子画像ではSet保持/削除/親子/Style変更を示せない。",
+        "planned_cases": [
+          "S308"
+        ],
+        "state": "illustrated-native-example",
+        "decision": "image-required",
+        "reason": "Regionを無視したBlob静止例でChange Style有効時の赤と無効時の白を確認。厳密なsimulation同一性、領域への出入りやChange Setsは未確認。",
+        "remaining_views": [
+          "Regionへの出入りと対象・非対象",
+          "Change Setsと他Style、時間経過"
+        ],
         "required_views": [
           "source→対象Particle Tool→pRenderのGraph",
           "対象自身の固有Controlsと必要なConditions/Region",
@@ -21726,8 +21777,9 @@
           }
         ],
         "hold_conditions": [
-          "透明に描くこととParticle削除を区別。"
-        ]
+          "表示差を粒子シミュレーションの厳密な同一性や削除の証拠としない。"
+        ],
+        "audit_note": "Studio 21.1.0.14でframe48のBlob色設定と表示を確認。"
       },
       {
         "article": "manuals/fusion/nodes/particles/pcustom.md",
