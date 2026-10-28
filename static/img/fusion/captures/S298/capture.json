@@ -1,0 +1,118 @@
+{
+  "manual": {
+    "version": "21.1",
+    "chapter": 123,
+    "printed_pages": "2982–2983"
+  },
+  "runtime": {
+    "version": "21.1.0.14",
+    "edition": "DaVinci Resolve Studio",
+    "os": "Windows-11-10.0.26200-SP0",
+    "ui_language": "ja-JP"
+  },
+  "captured_at": "2026-10-28T09:17:14.821506+00:00",
+  "project": "Collectanea_Mandelbrot_Zoom_20261025",
+  "timeline": "S298_capture",
+  "frame": 0,
+  "resolution": [
+    1920,
+    1080
+  ],
+  "color_management": {
+    "project_settings": {
+      "colorScienceMode": "davinciYRGB",
+      "colorSpaceInput": "Rec.709 Gamma 2.4",
+      "colorSpaceTimeline": "Rec.709 (Scene)",
+      "colorSpaceTimelineGamma": "",
+      "colorSpaceOutput": "Rec.709 (Scene)",
+      "colorSpaceOutputGamma": "ACEScc",
+      "isAutoColorManage": "0",
+      "timelineResolutionWidth": "1920",
+      "timelineResolutionHeight": "1080",
+      "timelineFrameRate": 30.0,
+      "timelinePlaybackFrameRate": "30",
+      "timelinePixelAspectRatio": "square"
+    },
+    "note": "SDK project settings; screenshots show Viewer display."
+  },
+  "viewer": {
+    "view_mode": "Fit",
+    "source": "Left Corner; right MediaOut1",
+    "note": "Perspective selected; corner guides shown."
+  },
+  "acceptance": {
+    "gui": "PASS: native screenshots show graph, Inspector, guides and comparison; SDK connections and save read back.",
+    "article_display": "NOT_RUN",
+    "public_display": "NOT_RUN"
+  },
+  "unverified": [
+    "One synthetic fixed text and trapezoid; visual restoration only, not pixel equality.",
+    "Footage, tracking, Steady, animation and other hosts NOT_RUN.",
+    "Viewer screenshot includes corner guides.",
+    "Portable reimport and physical input provenance NOT_RUN."
+  ],
+  "schema_version": 1,
+  "case": "S298",
+  "article": "manuals/fusion/nodes/warp/perspective-positioner.md",
+  "graph": "fixture.comp",
+  "settings": "readback.json",
+  "source": {
+    "file": "screen.png",
+    "size": [
+      3312,
+      1890
+    ],
+    "sha256": "8754796f9018afe2b829f047b765bbe6faec0602899c3460c3ee83fe876fe5ea"
+  },
+  "shots": [
+    {
+      "file": "graph.png",
+      "source": "screen.png",
+      "source_sha256": "8754796f9018afe2b829f047b765bbe6faec0602899c3460c3ee83fe876fe5ea",
+      "frame": 0,
+      "crop_xyxy": [
+        300,
+        1100,
+        2500,
+        1580
+      ],
+      "resampled": false,
+      "sha256": "b2d613a348550a0354a5946124e31692d9c118bbe409be9c1a29fb0474a2fb9b"
+    },
+    {
+      "file": "controls.png",
+      "source": "screen.png",
+      "source_sha256": "8754796f9018afe2b829f047b765bbe6faec0602899c3460c3ee83fe876fe5ea",
+      "frame": 0,
+      "crop_xyxy": [
+        2780,
+        65,
+        3312,
+        420
+      ],
+      "resampled": false,
+      "sha256": "1b0f9f9e22c4fc9ed7e295f61a56dc329a00d369a1ed0fd5b91ad352cd1e5e06"
+    },
+    {
+      "file": "result.png",
+      "source": "screen.png",
+      "source_sha256": "8754796f9018afe2b829f047b765bbe6faec0602899c3460c3ee83fe876fe5ea",
+      "frame": 0,
+      "crop_xyxy": [
+        0,
+        65,
+        2780,
+        720
+      ],
+      "resampled": false,
+      "sha256": "93bbd02ce4606068265eebfdb141cd03a3d6a5427e5065bc350a1f543eea7887"
+    }
+  ],
+  "reproduction": {
+    "fixture_sha256": "b0669aefbe4d979c700021061d515b8d43acbf8291abd8383161325e753e1602",
+    "readback_sha256": "5262d26c7d2c4944b0df712a7449c117f9e909f41d0d1d9a7482f24fc9b0d483",
+    "readback_source_sha256": "c6fc1d8a828275889485a07ddf32abaaa1d5af4445ed7e9959b5e1b9adc87bc0",
+    "readback_transform": "CRLF normalized to LF for the portable Git asset; JSON values unchanged",
+    "reimport": "NOT_RUN"
+  }
+}
