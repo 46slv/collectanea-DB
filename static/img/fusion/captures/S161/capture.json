@@ -1,0 +1,118 @@
+{
+  "manual": {
+    "version": "21.1",
+    "chapter": 123,
+    "printed_pages": "2969–2971"
+  },
+  "runtime": {
+    "version": "21.1.0.14",
+    "edition": "DaVinci Resolve Studio",
+    "os": "Windows-11-10.0.26200-SP0",
+    "ui_language": "ja-JP"
+  },
+  "captured_at": "2026-10-27T20:39:41.084632+00:00",
+  "project": "Collectanea_Mandelbrot_Zoom_20261025",
+  "timeline": "S161_capture",
+  "frame": 0,
+  "resolution": [
+    1920,
+    1080
+  ],
+  "color_management": {
+    "project_settings": {
+      "colorScienceMode": "davinciYRGB",
+      "colorSpaceInput": "Rec.709 Gamma 2.4",
+      "colorSpaceTimeline": "Rec.709 (Scene)",
+      "colorSpaceTimelineGamma": "",
+      "colorSpaceOutput": "Rec.709 (Scene)",
+      "colorSpaceOutputGamma": "ACEScc",
+      "isAutoColorManage": "0",
+      "timelineResolutionWidth": "1920",
+      "timelineResolutionHeight": "1080",
+      "timelineFrameRate": 30.0,
+      "timelinePlaybackFrameRate": "30",
+      "timelinePixelAspectRatio": "square"
+    },
+    "note": "SDK project settings; screenshots show Viewer display."
+  },
+  "viewer": {
+    "view_mode": "Fit",
+    "source": "Left Source; right MediaOut1",
+    "note": "Drip selected for Inspector; MediaOut selected for clean comparison."
+  },
+  "acceptance": {
+    "gui": "PASS: native screenshots show graph, Inspector, guides and comparison; SDK connections and save read back.",
+    "article_display": "NOT_RUN",
+    "public_display": "NOT_RUN"
+  },
+  "unverified": [
+    "Static generated text and Circular shape only; other shapes, values, animation, footage and hosts NOT_RUN.",
+    "Viewer screenshots are display evidence, not numerical measurement.",
+    "Portable reimport and physical input provenance NOT_RUN.",
+    "Article verification remains partial."
+  ],
+  "schema_version": 1,
+  "case": "S161",
+  "article": "manuals/fusion/nodes/warp/drip.md",
+  "graph": "fixture.comp",
+  "settings": "readback.json",
+  "source": {
+    "file": "screen.png",
+    "size": [
+      3336,
+      1902
+    ],
+    "sha256": "ece9c39efab42c62d7f4f455425ec4c25f204f1f6320b52074b28cfddde8df86"
+  },
+  "shots": [
+    {
+      "file": "graph.png",
+      "source": "screen.png",
+      "source_sha256": "ece9c39efab42c62d7f4f455425ec4c25f204f1f6320b52074b28cfddde8df86",
+      "frame": 0,
+      "crop_xyxy": [
+        650,
+        1100,
+        2150,
+        1600
+      ],
+      "resampled": false,
+      "sha256": "7554aec0e0f7df6790dd79cd69319f4427d976116a939b85f022bbda6181e745"
+    },
+    {
+      "file": "controls.png",
+      "source": "screen.png",
+      "source_sha256": "ece9c39efab42c62d7f4f455425ec4c25f204f1f6320b52074b28cfddde8df86",
+      "frame": 0,
+      "crop_xyxy": [
+        2815,
+        65,
+        3336,
+        540
+      ],
+      "resampled": false,
+      "sha256": "02cdd534897081f73b5caa186c3de316cdef2b35e8dadddb88c469260246f0cd"
+    },
+    {
+      "file": "comparison.png",
+      "source": "clean-source.png",
+      "source_sha256": "9b95954332aae74e7f165719ecedd36b883996f6ad37bbc1578b987066c59b2b",
+      "frame": 0,
+      "crop_xyxy": [
+        0,
+        65,
+        2800,
+        730
+      ],
+      "resampled": false,
+      "sha256": "89ba3f9b1e22c8457c690ef1e7acab735bb94b66004009ddd322684713978c99"
+    }
+  ],
+  "reproduction": {
+    "fixture_sha256": "96d2b1feb9cf9f97f6b828bb5468d59505160b33bf6706d6b12d0371c5ad54bd",
+    "readback_sha256": "0906c508bafbd8270e20e8876c16a9b92cdf1ac67e3a689c3398ef7fe063a593",
+    "readback_source_sha256": "0906c508bafbd8270e20e8876c16a9b92cdf1ac67e3a689c3398ef7fe063a593",
+    "readback_transform": "No line-ending transformation",
+    "reimport": "NOT_RUN"
+  }
+}

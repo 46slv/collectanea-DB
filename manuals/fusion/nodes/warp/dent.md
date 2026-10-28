@@ -80,6 +80,34 @@ MediaIn → Dent → MediaOut
 
 最初はTypeをDent 1にし、Centerを歪ませたい場所へ合わせ、Sizeで対象の範囲を決めてからStrengthを動かします。この順番なら「中心位置が違う」のか「変形量が足りない」のかを切り分けやすくなります。
 
+<!-- capture:S159 -->
+
+## 実機例：文字の中央を円形に変形する
+
+生成した文字画像を `Dent1` のInputへ接続し、Dent 1、Center X/Yをそれぞれ0.5、Sizeを0.5、Strengthを1.0に設定しました。frame 0では中央付近の文字が円形に大きく曲がります。
+
+これは静止した生成画像での固定例です。他のTypeや動く被写体は比較していません。[接続と設定の記録](/img/fusion/captures/S159/readback.json)に条件を記載しています。
+
+[![文字画像をDentに通してMediaOutへ接続したノード構成](/img/fusion/captures/S159/graph.png)](/img/fusion/captures/S159/graph.png)
+
+文字画像をDentのInputへ接続し、出力をMediaOutへ渡します。
+
+[![Dent 1、中心0.5と0.5、サイズ0.5、強度1.0のInspector](/img/fusion/captures/S159/controls.png)](/img/fusion/captures/S159/controls.png)
+
+Dent 1、Center X/Y 0.5、Size 0.5、Strength 1.0です。
+
+[![Dentの中心と範囲のガイドを表示した入力と出力](/img/fusion/captures/S159/center-guide.png)](/img/fusion/captures/S159/center-guide.png)
+
+Dentを選ぶと、Viewerに中心と円形のガイドが重なります。
+
+[![元の文字と中央を円形に変形した文字を並べた比較](/img/fusion/captures/S159/comparison.png)](/img/fusion/captures/S159/comparison.png)
+
+左は入力、右はDent 1の出力です。中央付近の文字が大きく曲がっています。
+
+[再現用Graph](/img/fusion/captures/S159/fixture.comp) · [撮影条件と確認範囲](/img/fusion/captures/S159/capture.json)
+
+<!-- /capture:S159 -->
+
 ## 制作例：動く被写体の一部を膨らませる
 
 1. 被写体が写った映像をDentのInputへ接続します。
@@ -143,4 +171,4 @@ Dent 1の膨らみはフィッシュアイレンズに似た見た目を作れ�
 
 DaVinci Resolve 21.1 Reference Manual、September 2026、Chapter 123 pp.2965–2966で、Input / Effect Mask、6種類のDent Type、Centerの既定値0.5 / 0.5、Size、Strength、パラメータのキーフレーム化、Fast Noise / Mosaic Blur / Cropを使うBasic Node Setupを確認しました。
 
-各Typeの厳密な数式、Center以外の全既定値・数値範囲、内部REGID、21.1実機の描画結果・性能は未確認です。
+各Typeの厳密な数式、Center以外の全既定値・数値範囲、上記固定例以外の21.1実機描画結果と性能は未確認です。

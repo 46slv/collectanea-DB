@@ -1,0 +1,57 @@
+{
+  "case": "S162",
+  "project": "Collectanea_Mandelbrot_Zoom_20261025",
+  "library": "Local Database",
+  "project_manager_folder": "root",
+  "timeline": "S162_capture",
+  "frame": 0,
+  "resolve": "21.1.0.14",
+  "edition": "DaVinci Resolve Studio",
+  "os": "Windows-11-10.0.26200-SP0",
+  "project_settings": {
+    "colorScienceMode": "davinciYRGB",
+    "colorSpaceInput": "Rec.709 Gamma 2.4",
+    "colorSpaceTimeline": "Rec.709 (Scene)",
+    "colorSpaceTimelineGamma": "",
+    "colorSpaceOutput": "Rec.709 (Scene)",
+    "colorSpaceOutputGamma": "ACEScc",
+    "isAutoColorManage": "0",
+    "timelineResolutionWidth": "1920",
+    "timelineResolutionHeight": "1080",
+    "timelineFrameRate": 30.0,
+    "timelinePlaybackFrameRate": "30",
+    "timelinePixelAspectRatio": "square"
+  },
+  "connections": {
+    "Shadow1.Input": "Label",
+    "Source.Background": "Plate",
+    "Source.Foreground": "Shadow1",
+    "BeforeSource.Background": "Plate",
+    "BeforeSource.Foreground": "Label",
+    "MediaOut1.Input": "Source"
+  },
+  "values": {
+    "ShadowOffset": {
+      "1": 0.53,
+      "2": 0.47,
+      "3": 0.0
+    },
+    "Softness": 0.015,
+    "Red": 0.0,
+    "Green": 0.0,
+    "Blue": 0.0,
+    "Alpha": 1.0,
+    "OutputMode": 0.0,
+    "LightDistance": 1.0
+  },
+  "source": "Generated Background and TextPlus; one static frame.",
+  "save_project": true,
+  "save_completed_at": "2026-10-27T20:44:24.987648+00:00",
+  "native_export_sha256": "6479c2a264b5454675a64ee6d84dbcce396075bc6e750b230b7680334ade1d32",
+  "portable_sha256": "0ed2631f3bdf90139d68fddf9601b27930fab8c62f3ea3e4b25e844690dafe84",
+  "portable_reimport": "NOT_RUN",
+  "limits": [
+    "Static synthetic text, one shadow setup observed; depth, shadow-only output, footage and hosts NOT_RUN.",
+    "Viewer screenshot is display evidence."
+  ]
+}

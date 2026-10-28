@@ -89,6 +89,34 @@ Defocusはここで選べるMethod名で、別ノードの[Defocus](./defocus)�
 
 深度マップで一部だけ不自然に大きくぼける場合は、Blur Sizeだけを下げる前にBlur Limitを調整します。これはピント位置を自動決定するパラメータではありません。
 
+<!-- capture:S158 -->
+
+## 実機例：明暗マップで文字の一部をぼかす
+
+文字画像を `Input` に接続し、黒い背景の上に柔らかい白い楕円を重ねた画像を `Blur Image` に接続します。frame 0でブラー チャンネルを赤、Methodをマルチボックス、品質を2、ブラー サイズを10に設定しました。
+
+この例ではマップの明るい側にある数字がぼけ、左側の文字は比較的鮮明です。マップの黒が常に無処理になると断定する比較ではありません。[接続と設定の記録](/img/fusion/captures/S158/readback.json)に固定例の条件を記載しています。
+
+[![文字画像と別の明暗マップをVari Blurへ接続したノード構成](/img/fusion/captures/S158/graph.png)](/img/fusion/captures/S158/graph.png)
+
+文字画像をInput、別に作った明暗マップをBlur Imageへ接続します。
+
+[![左に明暗マップ、右にマップの明るい部分で文字がぼけた出力](/img/fusion/captures/S158/map-output.png)](/img/fusion/captures/S158/map-output.png)
+
+左の明暗マップと右の出力。明るい側にある数字が大きくぼけています。
+
+[![元の文字画像と数字部分をぼかした出力の比較](/img/fusion/captures/S158/source-output.png)](/img/fusion/captures/S158/source-output.png)
+
+同じframeの入力と出力です。この固定例では左側の文字が比較的鮮明に残ります。
+
+[![Vari Blurのマルチボックス、品質2、赤、ブラーサイズ10の設定](/img/fusion/captures/S158/inspector.png)](/img/fusion/captures/S158/inspector.png)
+
+Methodはマルチボックス、品質2、ブラー チャンネルは赤、ブラー サイズは10です。
+
+[再現用Graph](/img/fusion/captures/S158/fixture.comp) · [撮影条件と確認範囲](/img/fusion/captures/S158/capture.json)
+
+<!-- /capture:S158 -->
+
 ## 実際の制作例
 
 ### 1. 画面の奥へ向かって徐々にぼかす
@@ -158,4 +186,4 @@ Text+は**ぼかす対象そのもの**ではなく、ここではぼかしの�
 
 一次資料：Blackmagic Design『DaVinci Resolve 21.1 Reference Manual』（2026年9月8日公開）、Chapter 92「Blur Nodes」、**pp.2126–2128**。[公式マニュアル](https://documents.blackmagicdesign.com/UserManuals/DaVinci_Resolve_21.1_Reference_Manual.pdf)。
 
-入力の数と役割、3種類のMethod、Qualityの目安、Blur Channel、Lock X/Y、Blur Size、Blur Limitはこの資料で確認しました。制作例と確認手順は、その仕様から組み立てた運用案です。黒いマップの厳密な挙動、内部のぼかし計算式、各設定の初期値・範囲、GPU性能、Edition差、21.1実機での出力は未確認のため、`verification: partial`としています。
+入力の数と役割、3種類のMethod、Qualityの目安、Blur Channel、Lock X/Y、Blur Size、Blur Limitはこの資料で確認しました。制作例と確認手順は、その仕様から組み立てた運用案です。黒いマップの厳密な挙動、内部のぼかし計算式、各設定の初期値・範囲、GPU性能、Edition差、および上記固定例以外の21.1実機出力は未確認のため、`verification: partial`としています。

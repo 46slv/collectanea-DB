@@ -1,0 +1,132 @@
+{
+  "manual": {
+    "version": "21.1",
+    "chapter": 92,
+    "printed_pages": "2126–2128"
+  },
+  "runtime": {
+    "version": "21.1.0.14",
+    "edition": "DaVinci Resolve Studio",
+    "os": "Windows-11-10.0.26200-SP0",
+    "ui_language": "ja-JP"
+  },
+  "captured_at": "2026-10-28T05:11:05.267155+09:00",
+  "project": "Collectanea_Mandelbrot_Zoom_20261025",
+  "timeline": "S158_capture",
+  "frame": 0,
+  "resolution": [
+    1920,
+    1080
+  ],
+  "color_management": {
+    "project_settings": {
+      "colorScienceMode": "davinciYRGB",
+      "colorSpaceInput": "Rec.709 Gamma 2.4",
+      "colorSpaceTimeline": "Rec.709 (Scene)",
+      "colorSpaceTimelineGamma": "",
+      "colorSpaceOutput": "Rec.709 (Scene)",
+      "colorSpaceOutputGamma": "ACEScc",
+      "isAutoColorManage": "0",
+      "timelineResolutionWidth": "1920",
+      "timelineResolutionHeight": "1080",
+      "timelineFrameRate": 30.0,
+      "timelinePlaybackFrameRate": "30",
+      "timelinePixelAspectRatio": "square"
+    },
+    "note": "Project SDK readback; screenshots show Viewer display."
+  },
+  "viewer": {
+    "view_mode": "Fit",
+    "source": "Left Map or Source; right MediaOut1",
+    "note": "Generated static fixture, frame 0."
+  },
+  "acceptance": {
+    "gui": "PASS: map, input, output, graph and Inspector observed on native screenshots; SDK connections and save read back.",
+    "article_display": "NOT_RUN",
+    "public_display": "NOT_RUN"
+  },
+  "unverified": [
+    "Synthetic static frame only; uniform maps, Alpha channel, other methods, values and actual footage NOT_RUN.",
+    "Viewer screenshots are display evidence, not numerical pixel measurement.",
+    "Portable reimport and physical input provenance NOT_RUN.",
+    "Article verification remains partial."
+  ],
+  "schema_version": 1,
+  "case": "S158",
+  "article": "manuals/fusion/nodes/blur-filter/variblur.md",
+  "graph": "fixture.comp",
+  "settings": "readback.json",
+  "source": {
+    "file": "screen.png",
+    "size": [
+      3336,
+      1902
+    ],
+    "sha256": "f8e118c2fec2ddaacc4c23d9bdd06ce5fde55b5fee0a8b037f15e8ab3ad329f4"
+  },
+  "shots": [
+    {
+      "file": "graph.png",
+      "source": "screen.png",
+      "source_sha256": "f8e118c2fec2ddaacc4c23d9bdd06ce5fde55b5fee0a8b037f15e8ab3ad329f4",
+      "frame": 0,
+      "crop_xyxy": [
+        650,
+        1080,
+        2150,
+        1660
+      ],
+      "resampled": false,
+      "sha256": "4b4cc08843111748244809c9a007861974103839dca2f87c5c1350671117f754"
+    },
+    {
+      "file": "map-output.png",
+      "source": "map-source.png",
+      "source_sha256": "3690675ef2788b6602b115d4dc2746b769618eb050fc616463598249f571981e",
+      "frame": 0,
+      "crop_xyxy": [
+        0,
+        65,
+        2800,
+        730
+      ],
+      "resampled": false,
+      "sha256": "10e1c0958d66be173214ed478f82aa3722c31379aae6a5d7fa0877b8ba0ea298"
+    },
+    {
+      "file": "source-output.png",
+      "source": "screen.png",
+      "source_sha256": "f8e118c2fec2ddaacc4c23d9bdd06ce5fde55b5fee0a8b037f15e8ab3ad329f4",
+      "frame": 0,
+      "crop_xyxy": [
+        0,
+        65,
+        2800,
+        730
+      ],
+      "resampled": false,
+      "sha256": "6886de25ed95cff9509c3f74f2b5d0cad726df240123c42ef222b9386f62dc12"
+    },
+    {
+      "file": "inspector.png",
+      "source": "screen.png",
+      "source_sha256": "f8e118c2fec2ddaacc4c23d9bdd06ce5fde55b5fee0a8b037f15e8ab3ad329f4",
+      "frame": 0,
+      "crop_xyxy": [
+        2815,
+        65,
+        3336,
+        520
+      ],
+      "resampled": false,
+      "sha256": "7c803c92a4feed91b9db07e87aa6ece7bff7992948950e479abd8e0335b4f351"
+    }
+  ],
+  "reproduction": {
+    "fixture_sha256": "4fe7d909091899d00bdea0c0f3f6093b9ec5cef49b2a47ab29c73c9168e18bea",
+    "readback_sha256": "1de946ea3206b847bbc4cad280cac39e60ca0641ec87c93ee234c7abe881dc43",
+    "readback_source_sha256": "1de946ea3206b847bbc4cad280cac39e60ca0641ec87c93ee234c7abe881dc43",
+    "readback_transform": "No line-ending transformation",
+    "reimport": "NOT_RUN"
+  }
+}

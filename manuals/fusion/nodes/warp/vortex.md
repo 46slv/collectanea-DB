@@ -49,6 +49,34 @@ Vortexが扱うのは通常の**2D Image**です。3DモデルやShapeデータ�
 
 `Power`は`Angle`を単純に強めるつまみではありません。強い巻き込みでも広く見せたいならSize、局所へ集めたいならPowerというように、影響範囲と集中度を分けて比較します。AngleやPowerの厳密な数値範囲・既定値は、この資料では確認していません。
 
+<!-- capture:S160 -->
+
+## 実機例：文字の中央を渦状に変形する
+
+生成した文字画像を `Vortex1` のInputへ接続し、Vortex、Center X/Yをそれぞれ0.5、Sizeを0.5、Angleを180、Powerを1.0に設定しました。frame 0では中央付近の文字が渦状に巻き込まれます。
+
+これは静止した生成画像での固定例です。他の設定値や動く被写体は比較していません。[接続と設定の記録](/img/fusion/captures/S160/readback.json)に条件を記載しています。
+
+[![文字画像をVortexに通してMediaOutへ接続したノード構成](/img/fusion/captures/S160/graph.png)](/img/fusion/captures/S160/graph.png)
+
+文字画像をVortexのInputへ接続し、出力をMediaOutへ渡します。
+
+[![Vortexの中心0.5と0.5、サイズ0.5、角度180、強度1.0のInspector](/img/fusion/captures/S160/controls.png)](/img/fusion/captures/S160/controls.png)
+
+Vortex、Center X/Y 0.5、Size 0.5、Angle 180、Power 1.0です。
+
+[![Vortexの中心と範囲のガイドを表示した入力と出力](/img/fusion/captures/S160/center-guide.png)](/img/fusion/captures/S160/center-guide.png)
+
+Vortexを選ぶと、Viewerに中心と円形のガイドが重なります。
+
+[![元の文字と中央を渦状に変形した文字を並べた比較](/img/fusion/captures/S160/comparison.png)](/img/fusion/captures/S160/comparison.png)
+
+左は入力、右はVortexの出力です。中央付近の文字が大きく曲がっています。
+
+[再現用Graph](/img/fusion/captures/S160/fixture.comp) · [撮影条件と確認範囲](/img/fusion/captures/S160/capture.json)
+
+<!-- /capture:S160 -->
+
 ## 制作例：文字を一度渦に巻き込み、元の形へ戻す
 
 文字を渦状に変形させてから通常のタイトルへ戻す、短いモーショングラフィックスの例です。
@@ -106,4 +134,4 @@ Vortexは外部の変位マップを用意せず、Center・Size・Angle・Power
 
 **一次資料：** Blackmagic Design『DaVinci Resolve 21.1 Reference Manual』（2026年9月）、Chapter 123「Warp Nodes」、**Vortex [Vtx] pp.2986–2987**。画像入力、Effect Maskが処理後に適用されること、Text+ → Set Domain → Vortexの例、Center（既定値0.5/0.5）・Size・Angle・Powerの役割を照合しました。配布元：[Blackmagic Design Support](https://www.blackmagicdesign.com/support/)。
 
-制作例と症状別の確認順序は、公式仕様を組み合わせた操作案です。**Resolve/Fusion 21.1での実機レンダー、Angle・Powerなどの全初期値と可動範囲、Mask境界の具体的な合成挙動、内部REGID、Edition差は未確認**です。`verification: partial`を維持しています。
+制作例と症状別の確認順序は、公式仕様を組み合わせた操作案です。**上記固定例以外のResolve/Fusion 21.1での描画、Angle・Powerなどの全初期値と可動範囲、Mask境界の具体的な合成挙動、Edition差は未確認**です。`verification: partial`を維持しています。
