@@ -36,6 +36,32 @@ updated: '2026-10-20'
 
 **元画像の一部だけを配置に使いたい**のか、**元画像全体を別の場所へ合わせたい**のかで、調整したい対象は異なります。ただしKrokodove PositionerでSource側をどこまで変更できるか、数値入力やViewerでの操作方法はManualの短い説明だけでは判断できません。ここでのSource / Destinationの説明は一般的なコーナーピンの考え方であり、固有のUI仕様を示すものではありません。
 
+<!-- capture:S275 -->
+
+## 実機例：四隅の対応を指定する
+
+合成した文字 `POSITION` を `Positioner` に接続し、Destination 1をX 0.25、Y 0.2に設定しました。この静止画では入力より小さく変形した文字が見えます。他のSourceとDestinationの値も接続記録に記載しています。Viewerの線は操作用ガイド、市松模様は透明部分の表示です。アニメーションとAlpha値は未検証です。[接続と設定の記録](/img/fusion/captures/S275/readback.json)に条件を記載しています。
+
+[![文字をPositionerへつなぐノード構成](/img/fusion/captures/S275/graph.png)](/img/fusion/captures/S275/graph.png)
+
+合成文字をPositionerへ渡します。
+
+[![PositionerのSourceとDestination](/img/fusion/captures/S275/controls.png)](/img/fusion/captures/S275/controls.png)
+
+Destination 1はX 0.25、Y 0.2です。
+
+[![入力の文字POSITIONとガイド](/img/fusion/captures/S275/low.png)](/img/fusion/captures/S275/low.png)
+
+入力文字と操作用ガイドを表示しています。
+
+[![小さく変形したPositioner出力](/img/fusion/captures/S275/high.png)](/img/fusion/captures/S275/high.png)
+
+出力は入力より小さく変形して見えます。
+
+[再現用Graph](/img/fusion/captures/S275/fixture.comp) · [撮影条件と確認範囲](/img/fusion/captures/S275/capture.json)
+
+<!-- /capture:S275 -->
+
 ## 入力と出力
 
 | 段階 | データ | 内容 |
@@ -60,7 +86,7 @@ updated: '2026-10-20'
 
 ### 元画像と配置先を分けて考える
 
-画像が最初から画面いっぱいに収まっていない場合、元画像のどこを変形対象とするかと、最終的な配置位置を分けて考えると、作業を整理しやすくなります。これはSource / Destinationという概念に基づく考え方であり、Krokodove固有のControlを確認した結果ではありません。
+画像が最初から画面いっぱいに収まっていない場合、元画像のどこを変形対象とするかと、最終的な配置位置を分けて考えると、作業を整理しやすくなります。これはSource / Destinationという概念に基づく考え方であり、実機例ではSource / Destinationの各座標を読み戻しています。
 
 ## 制作例：ロゴを斜めの看板に合わせる
 
@@ -77,7 +103,7 @@ Merge Aは下地と文字を**1枚の画像**にし、Positionerはその結果�
 
 1. まず動きのない看板画像を用意します。四隅が見える素材が適しています。
 2. BackgroundとText+をMerge Aへつなぎ、「TEST」の文字を載せた画像を作ります。四隅に印を入れた格子画像を使うと、変形量を追いやすくなります。
-3. Merge Aの出力をPositionerへ接続し、Viewerへ表示します。Source / Destinationに相当する制御をInspectorとViewerで確認して、元画像の角と看板の角の対応を観察します。ここでは未確認のControl名を仮定しません。
+3. Merge Aの出力をPositionerへ接続し、Viewerへ表示します。Source / Destinationに相当する制御をInspectorとViewerで確認して、元画像の角と看板の角の対応を観察します。実機例ではDestination 1などの座標を示しています。
 4. Positionerの結果をMerge BのForegroundへ、看板映像をBackgroundへ接続します。配置ずれ、枠のはみ出し、縦横比を確認します。
 5. 看板の前を人が横切る場合、その人を前面に戻す別の処理が必要です。コーナーピンが遮蔽を自動判断するとは考えません。
 6. 動画へ応用する場合は、背景の動きに角の位置を追従させる方法を別途確認します。Positioner自身のトラッキング対応は未確認です。
@@ -100,7 +126,7 @@ Merge Aは下地と文字を**1枚の画像**にし、Positionerはその結果�
 
 ## 注意点・未確認の仕様
 
-- **端子・Inspector**：正式なポート名、Source / Destinationの項目構成、四隅の指定方法、既定値、値域は未確認。
+- **端子・Inspector**：実機例ではSource / Destinationの各座標を読み戻した。正式なポート名、他の指定方法、既定値、値域は未確認。
 - **変形方式**：射影変換か別の補間方式か、設定で選べるかは未確認。標準Corner Positionerと同じ方式とは限らない。
 - **画質・範囲**：出力解像度、DoD、画面外の画素、Alphaやpremultiplicationの処理、細い線の画質は未確認。
 - **アニメーションと製品差**：角のアニメーション方法、Trackerとの直結可否、Resolve Free / Studio / Fusion Studioでの差、内部REGIDは未確認。
@@ -112,4 +138,4 @@ Merge Aは下地と文字を**1枚の画像**にし、Positionerはその結果�
 - **比較資料**：同Manual、Chapter 123「Warp Nodes」、**pp.2963–2964「Corner Positioner」**、**pp.2982–2983「Perspective Positioner」**。これらの端子・Inspectorや作例は標準ノードの仕様。
 - [Blackmagic Design サポート](https://www.blackmagicdesign.com/jp/support/)：公式資料の入口。
 
-看板・ロゴの作例とSource / Destinationの説明図式は、確認済みの役割を理解するための制作案です。Krokodove固有の端子、設定、動作、製品差を実機確認していないため、`verification: partial` を維持しています。[Krokodoveファミリー概要](./)と[Imageの基礎](../../learn/02-data/image)も参照してください。
+看板・ロゴの作例とSource / Destinationの説明図式は、確認済みの役割を理解するための制作案です。実機例は静止画の一条件に限られ、端子の詳細、別条件の動作、製品差は未確認のため、`verification: partial` を維持しています。[Krokodoveファミリー概要](./)と[Imageの基礎](../../learn/02-data/image)も参照してください。
