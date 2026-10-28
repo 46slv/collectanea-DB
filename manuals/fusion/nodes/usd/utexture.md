@@ -42,6 +42,32 @@ MediaIn / Background / 合成結果
 
 この線は、MediaInを直接2D Mergeで合成する処理ではありません。uTextureから先は、画像が**どの材質プロパティを制御するか**というデータの流れです。最終的に2D画面へ描画するには、USDシーンの処理を経て[uRenderer](./u-renderer)へ接続します。
 
+<!-- capture:S341 -->
+
+## 実機例：画像を材質の色へ渡す
+
+`Background`の単色画像を`uTexture`へ渡し、`uShader`のdiffuseColor、`uReplaceMaterial`を通してCapsuleに適用しました。入力を赤から緑へ変えると、描画された形状の色も変わりました。比較画像は更新のため0フレームと1フレームで撮影しています。Filenameとの優先順位、色空間の数値精度、模様のUV配置や特定Primの選択は確認していません。市松模様はViewerの透明表示です。[接続と設定の記録](/img/fusion/captures/S341/readback.json)に条件を記載しています。
+
+[![BackgroundからuTextureとuShaderを経てuReplaceMaterialへ渡す構成](/img/fusion/captures/S341/graph.png)](/img/fusion/captures/S341/graph.png)
+
+画像を材質のdiffuseColorとして形状に適用します。
+
+[![Image Inputを接続したuTextureのControls](/img/fusion/captures/S341/controls.png)](/img/fusion/captures/S341/controls.png)
+
+Image Inputを接続したuTextureを選択しています。
+
+[![緑の画像から描画された緑のCapsule](/img/fusion/captures/S341/green-result.png)](/img/fusion/captures/S341/green-result.png)
+
+緑の入力、1フレームの描画です。
+
+[![赤の画像から描画された赤のCapsule](/img/fusion/captures/S341/red-result.png)](/img/fusion/captures/S341/red-result.png)
+
+赤の入力、0フレームの描画です。
+
+[再現用Graph](/img/fusion/captures/S341/fixture.comp) · [撮影条件と確認範囲](/img/fusion/captures/S341/capture.json)
+
+<!-- /capture:S341 -->
+
 ## File NameとImage Input：画像をどこから供給するか
 
 ### ファイルを指定する

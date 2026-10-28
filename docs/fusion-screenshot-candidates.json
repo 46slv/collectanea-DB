@@ -8417,6 +8417,49 @@
           "status": "captured"
         }
       ]
+    },
+    {
+      "priority": "P1",
+      "goal": "Show uTexture Image Input driving uShader diffuseColor and rendered color.",
+      "suggested_graph": "Background -> uTexture -> uShader -> uReplaceMaterial <- uShape -> uRenderer",
+      "scope": "Resolve Studio 21.1.0.14 on Windows.",
+      "limitations": [
+        "Solid Background red frame 0 and green frame 1; different frames used for evaluation, single Capsule and USD Preview Surface diffuseColor.",
+        "Filename precedence, color-space numeric accuracy, UV address modes, textures with detail, animation, selective Prim assignment and portable reimport NOT_RUN."
+      ],
+      "id": "S341",
+      "article": "manuals/fusion/nodes/usd/utexture.md",
+      "manual": {
+        "version": "21.1"
+      },
+      "status": "captured-embedded-unverified",
+      "capture_manifest": "static/img/fusion/captures/S341/capture.json",
+      "shots": [
+        {
+          "slug": "graph",
+          "kind": "graph",
+          "target": "BackgroundからuTextureとuShaderを経てuReplaceMaterialへ渡す構成",
+          "status": "captured"
+        },
+        {
+          "slug": "controls",
+          "kind": "inspector",
+          "target": "Image Inputを接続したuTextureのControls",
+          "status": "captured"
+        },
+        {
+          "slug": "green-result",
+          "kind": "result",
+          "target": "緑の画像から描画された緑のCapsule",
+          "status": "captured"
+        },
+        {
+          "slug": "red-result",
+          "kind": "result",
+          "target": "赤の画像から描画された赤のCapsule",
+          "status": "captured"
+        }
+      ]
     }
   ],
   "publication_batches": [
@@ -9802,25 +9845,25 @@
     }
   ],
   "coverage_inventory": {
-    "checked_at": "2026-10-28T07:45:25.672147+00:00",
+    "checked_at": "2026-10-28T11:04:47.107791+00:00",
     "scope": "All manuals/fusion Markdown and MDX pages; review necessity before adding images.",
     "completion_rule": "Every page has an explicit image decision; necessary images are native-observed, embedded, saved to GitHub and public-display-verified. A native example does not verify all article controls.",
     "summary": {
       "total_pages": 589,
-      "with_images": 237,
+      "with_images": 238,
       "with_native_examples": 237,
       "states": {
         "reviewed-no-standalone-image": 26,
         "no-standalone-image-needed": 6,
         "illustrated-reused-example": 80,
-        "capture-planned": 319,
-        "illustrated-native-example": 157,
+        "capture-planned": 318,
+        "illustrated-native-example": 158,
         "needs-review": 1
       },
       "decisions": {
         "no-standalone-image-needed": 32,
-        "image-required": 237,
-        "capture-needed": 319,
+        "image-required": 238,
+        "capture-needed": 318,
         "needs-review": 1
       }
     },
@@ -25707,13 +25750,19 @@
         "article": "manuals/fusion/nodes/usd/utexture.md",
         "title": "uTexture",
         "kind": "node",
-        "image_count": 0,
+        "image_count": 4,
         "native_cases": [],
         "reused_cases": [],
-        "planned_cases": [],
-        "state": "capture-planned",
-        "decision": "capture-needed",
-        "reason": "本文の対象機能: uTextureは、静止画像やFusionの2D Imageを、USDマテリアルの色や法線などを決めるテクスチャとして供給するノード。。Classic材質や無地capsuleはUSD可変入力/Prim割当を示せない。",
+        "planned_cases": [
+          "S341"
+        ],
+        "state": "illustrated-native-example",
+        "decision": "image-required",
+        "reason": "S341は単色画像をdiffuseColorへ渡す静止例。Filename優先順位やUV配置は未確認。",
+        "remaining_views": [
+          "FilenameとImage Inputの優先順位、色空間数値、UV",
+          "特定Primの材質割当、portable reimportと他host"
+        ],
         "required_views": [
           "対象名と実接続が読めるGraph",
           "対象自身を選択したInspectorの該当Control",
