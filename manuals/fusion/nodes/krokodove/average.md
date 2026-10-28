@@ -37,6 +37,32 @@ updated: '2026-10-20'
 
 同じ「平均」でも、画面内の隣接ピクセルを混ぜる空間的なブラーとは別の考え方です。Averageを理解するときは、**どの位置の画素を混ぜるか**より先に、**どの時刻の画像を混ぜるか**を考えます。
 
+<!-- capture:S268 -->
+
+## 実機例：動く文字のフレームを重ねる
+
+位置が時間とともに変わる合成文字 `A` を `Average` に接続し、Number of Framesを12に設定しました。フレーム60では、出力の文字が複数の位置で重なったように見えます。入力位置はフレーム50と60で異なることをSDKで読み戻しています。Viewerの市松模様は透明部分の表示です。ほかの時間設定やAlpha値は未検証です。[接続と設定の記録](/img/fusion/captures/S268/readback.json)に条件を記載しています。
+
+[![動く文字をAverageへつなぐノード構成](/img/fusion/captures/S268/graph.png)](/img/fusion/captures/S268/graph.png)
+
+合成文字をAverageへ渡します。
+
+[![AverageのInspector](/img/fusion/captures/S268/controls.png)](/img/fusion/captures/S268/controls.png)
+
+Number of Framesは12です。
+
+[![フレーム60の入力文字A](/img/fusion/captures/S268/low.png)](/img/fusion/captures/S268/low.png)
+
+入力の文字をフレーム60で表示しています。
+
+[![重なって見えるAverageの出力](/img/fusion/captures/S268/high.png)](/img/fusion/captures/S268/high.png)
+
+出力では文字が複数の位置で重なったように見えます。
+
+[再現用Graph](/img/fusion/captures/S268/fixture.comp) · [撮影条件と確認範囲](/img/fusion/captures/S268/capture.json)
+
+<!-- /capture:S268 -->
+
 ## 入力と出力
 
 | 段階 | データ | 役割 |
@@ -78,7 +104,7 @@ updated: '2026-10-20'
 1. 透明背景に白い円が一つある短いアニメーションを作ります。上図は一例で、既存の動画素材をMediaInから渡しても構いません。
 2. 円を数十フレームかけて左右に動かします。動きのないフレームと、位置が変わるフレームの両方を用意すると比較しやすくなります。
 3. Averageの前後を別々のViewerへ表示し、同じ再生位置の形を比べます。出力に前後の位置の痕跡があるかを観察します。
-4. Inspectorで時間方向の混合範囲や強さに相当する設定を**実際に確認できた場合に限り**、一項目ずつ変えて違いを調べます。ここでは正式なControl名や設定値を推測しません。
+4. Inspectorで時間方向の混合範囲や強さに相当する設定を**実際に確認できた場合に限り**、一項目ずつ変えて違いを調べます。今回の実機例ではNumber of Framesを12に設定しています。値を変えた比較は未検証です。
 5. 最後に、元映像・Average後・合成後を同じフレームで比較します。特に輪郭の二重化、明るさ、透明部分の見え方を確認します。
 
 円の代わりに文字を動かす場合は、細い文字ほど輪郭の重なりが読みづらさにつながることがあります。演出として使う場合も、完成サイズで読めるかを判断してください。
@@ -112,7 +138,7 @@ Fusionには、名前も処理の目的も似た[Frame Average](../time-metadata
 - **Alphaと合成：** 透明なグラフィックを混ぜたときのRGBとAlphaの処理方法は未確認です。背景に重ねる場合はMerge後まで確認してください。
 - **動くエッジ：** 多重像は狙いによって長所にも欠点にもなります。人物の顔、細かい文字、輪郭の強い図形では特に見比べます。
 - **パフォーマンス：** 複数時刻の画像を扱うため処理負荷を確認する価値はありますが、内部キャッシュの方式や具体的な負荷は未計測です。
-- **バージョン／Edition：** 実機のNode登録名・Inspector・初期値・値域、Resolve Free／Studio／Fusion Studio間の差は確認していません。
+- **バージョン／Edition：** 実機例ではNumber of Framesを確認しました。Node登録名、その他のInspector項目の意味・初期値・値域、Resolve Free／Studio／Fusion Studio間の差は未確認です。
 
 ## 出典と確認範囲
 
@@ -120,4 +146,4 @@ Fusionには、名前も処理の目的も似た[Frame Average](../time-metadata
 
 公式資料の入口：[Blackmagic Design サポート](https://www.blackmagicdesign.com/jp/support/)。
 
-上の用途・接続案・視覚的な傾向は、Manualの記載をもとにした説明または**実機未検証の提案**です。正確な入力端子、InspectorのControl名、動作方式や製品差を断定できる資料は今回確認していないため、verification: partialを維持します。関連するデータの考え方は[Imageの解説](../../learn/02-data/image)、Krokodove内の位置づけは[ファミリー概要](./)を参照してください。
+用途・接続案・視覚的な傾向は、Manualの記載をもとにした説明または**検証の提案**です。実機例はフレーム60の一条件に限られます。正確な入力端子、他のControlの動作方式や製品差は未確認のため、verification: partialを維持します。関連するデータの考え方は[Imageの解説](../../learn/02-data/image)、Krokodove内の位置づけは[ファミリー概要](./)を参照してください。
