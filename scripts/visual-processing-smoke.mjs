@@ -2097,6 +2097,70 @@ try {
     }
   });
 
+  await check('light-wrap-article-and-mobile', async () => {
+    await page.setViewportSize({width: 1440, height: 1000});
+    await go(route);
+    await page.getByRole('link', {name: '三画面で光の回り込みを操作して比較'}).click();
+    await expect(page).toHaveURL(/\/reference\/visual-processing\/optics\/light-wrap\/?$/);
+    for (const width of [1440, 390, 320]) {
+      await page.setViewportSize({width, height: width === 1440 ? 1000 : 844});
+      await go('/reference/visual-processing/optics/light-wrap');
+      const widget = page.locator('[data-vp-light-wrap="ready"]');
+      await expect(widget).toBeVisible();
+      const order = await widget.evaluate((el) => {
+        const previews = el.querySelector('.vp-wrap__previews');
+        const controls = el.querySelector('.vp-wrap__controls');
+        return {
+          dom: Boolean(previews && controls && (previews.compareDocumentPosition(controls) & Node.DOCUMENT_POSITION_FOLLOWING)),
+          visual: Boolean(previews && controls && previews.getBoundingClientRect().bottom <= controls.getBoundingClientRect().top),
+          panels: el.querySelectorAll('[data-vp-wrap-panel] canvas').length
+        };
+      });
+      assert.deepEqual(order, {dom: true, visual: true, panels: 3});
+      const picture = (kind) => widget.locator('[data-vp-wrap-panel="' + kind + '"] canvas')
+        .evaluate(canvas => canvas.toDataURL());
+      const bg = widget.getByRole('combobox', {name: '背景の絵柄'});
+      const shape = widget.getByRole('combobox', {name: '前景の形'});
+      const radius = widget.getByRole('slider', {name: '回り込みの幅'});
+      const strength = widget.getByRole('slider', {name: '混合の強さ'});
+      await expect(radius).toHaveValue('12');
+      await expect(strength).toHaveValue('1');
+      await expect(widget.locator('.vp-wrap__readout')).toContainText('元の合成から色が変わった画素');
+      const initialOriginal = await picture('original');
+      const initialMatte = await picture('matte');
+      const initialResult = await picture('result');
+      await expect.poll(async () => (await picture('result')) !== (await picture('original'))).toBe(true);
+      radius.focus();
+      await radius.press('Home');
+      await expect(radius).toHaveValue('0');
+      await expect.poll(() => picture('result')).toBe(initialOriginal);
+      await radius.press('End');
+      await expect(radius).toHaveValue('18');
+      await expect.poll(async () => (await picture('result')) !== (await picture('original'))).toBe(true);
+      await strength.focus();
+      await strength.press('Home');
+      await expect(strength).toHaveValue('0');
+      await expect.poll(() => picture('result')).toBe(initialOriginal);
+      await strength.press('End');
+      await expect(strength).toHaveValue('1.5');
+      await expect.poll(async () => (await picture('result')) !== (await picture('original'))).toBe(true);
+      await bg.selectOption('neon');
+      await expect.poll(() => picture('original')).not.toBe(initialOriginal);
+      await shape.selectOption('card');
+      await expect.poll(() => picture('matte')).not.toBe(initialMatte);
+      await widget.getByRole('button', {name: '初期値に戻す'}).click();
+      await expect(radius).toHaveValue('12');
+      await expect(strength).toHaveValue('1');
+      await expect(bg).toHaveValue('sunset');
+      await expect(shape).toHaveValue('ellipse');
+      await expect.poll(() => picture('original')).toBe(initialOriginal);
+      await expect.poll(() => picture('matte')).toBe(initialMatte);
+      await expect.poll(() => picture('result')).toBe(initialResult);
+      await noOverflow();
+      if (width === 390) await shot('light-wrap-mobile');
+    }
+  });
+
   await check('no-runtime-or-resource-errors', async () => {
     assert.deepEqual(report.pageErrors, []);
     assert.deepEqual(report.resourceErrors, []);
