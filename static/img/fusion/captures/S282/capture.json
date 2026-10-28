@@ -1,0 +1,118 @@
+{
+  "manual": {
+    "version": "21.1",
+    "chapter": 105,
+    "printed_pages": "2437"
+  },
+  "runtime": {
+    "version": "21.1.0.14",
+    "edition": "DaVinci Resolve Studio",
+    "os": "Windows-11-10.0.26200-SP0",
+    "ui_language": "ja-JP"
+  },
+  "captured_at": "2026-10-28T07:46:56.264933+00:00",
+  "project": "Collectanea_Mandelbrot_Zoom_20261025",
+  "timeline": "S282_capture",
+  "frame": 0,
+  "resolution": [
+    1920,
+    1080
+  ],
+  "color_management": {
+    "project_settings": {
+      "colorScienceMode": "davinciYRGB",
+      "colorSpaceInput": "Rec.709 Gamma 2.4",
+      "colorSpaceTimeline": "Rec.709 (Scene)",
+      "colorSpaceTimelineGamma": "",
+      "colorSpaceOutput": "Rec.709 (Scene)",
+      "colorSpaceOutputGamma": "ACEScc",
+      "isAutoColorManage": "0",
+      "timelineResolutionWidth": "1920",
+      "timelineResolutionHeight": "1080",
+      "timelineFrameRate": 30.0,
+      "timelinePlaybackFrameRate": "30",
+      "timelinePixelAspectRatio": "square"
+    },
+    "note": "SDK project settings; screenshots show Viewer display."
+  },
+  "viewer": {
+    "view_mode": "Fit",
+    "source": "Both viewers MediaOut1",
+    "note": "sSpiral Create selected; green guides and transparency checkerboard visible; sOutline supplies stroke."
+  },
+  "acceptance": {
+    "gui": "PASS: spiral-shaped line visible.",
+    "article_display": "NOT_RUN",
+    "public_display": "NOT_RUN"
+  },
+  "unverified": [
+    "One static spiral and settings; animation, alpha values and other hosts NOT_RUN.",
+    "Viewer screenshot is display evidence.",
+    "Portable reimport and physical input provenance NOT_RUN.",
+    "Article verification remains partial."
+  ],
+  "schema_version": 1,
+  "case": "S282",
+  "article": "manuals/fusion/nodes/krokodove/sspiral-create.md",
+  "graph": "fixture.comp",
+  "settings": "readback.json",
+  "source": {
+    "file": "screen.png",
+    "size": [
+      3328,
+      1898
+    ],
+    "sha256": "9abb03aa85b3162b4464eb59d5ef49195c57f7760d57e7b4d4d658d47dd7e759"
+  },
+  "shots": [
+    {
+      "file": "graph.png",
+      "source": "screen.png",
+      "source_sha256": "9abb03aa85b3162b4464eb59d5ef49195c57f7760d57e7b4d4d658d47dd7e759",
+      "frame": 0,
+      "crop_xyxy": [
+        500,
+        1050,
+        2350,
+        1650
+      ],
+      "resampled": false,
+      "sha256": "90b8adb3d0ece1cc055a0388d45f94269eaa61ba59cf09d9b02d5484936f81de"
+    },
+    {
+      "file": "controls.png",
+      "source": "screen.png",
+      "source_sha256": "9abb03aa85b3162b4464eb59d5ef49195c57f7760d57e7b4d4d658d47dd7e759",
+      "frame": 0,
+      "crop_xyxy": [
+        2815,
+        65,
+        3328,
+        750
+      ],
+      "resampled": false,
+      "sha256": "3b55c32b23342ef8fceb4957c22776aec010c636893e3284b4e3ba762a921344"
+    },
+    {
+      "file": "result.png",
+      "source": "screen.png",
+      "source_sha256": "9abb03aa85b3162b4464eb59d5ef49195c57f7760d57e7b4d4d658d47dd7e759",
+      "frame": 0,
+      "crop_xyxy": [
+        120,
+        70,
+        1340,
+        720
+      ],
+      "resampled": false,
+      "sha256": "9c16e0559ff1594080813003b21a9d5158f0b3024756d873b9f2de18d714b577"
+    }
+  ],
+  "reproduction": {
+    "fixture_sha256": "aac76cd96406a9353a4e2b908b25ae78196e6b952c59e8a4e13b91dfb6dc24aa",
+    "readback_sha256": "309e57966e4c8ad7df008a083b5ef0fecafbb6d9b087426c82fd4f2c06f380d7",
+    "readback_source_sha256": "e905e9f8871d47a036e80a01a94023e24dbb2664dacc4859f8b0f7b0acd89321",
+    "readback_transform": "CRLF normalized to LF for the portable Git asset; JSON values unchanged",
+    "reimport": "NOT_RUN"
+  }
+}

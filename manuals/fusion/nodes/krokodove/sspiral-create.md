@@ -28,6 +28,28 @@ updated: '2026-10-19'
 
 **らせん状の曲線**と**立体のばね**は別のものです。Manualが説明しているのは中心点または軸を巻く曲線の生成であり、厚みのある管・3Dメッシュ・奥行き方向に伸びるばねを直接作るとは記載されていません。また「軸」がInspector上のどの座標を指すかも未確認です。
 
+<!-- capture:S282 -->
+
+## 実機例：らせんを画像化する
+
+`sSpiral Create` の後に `sOutline` と `sRender` を接続しました。Angle End 720、Angle Step 20の静止画では、らせん状の線が見えます。線幅0.01はsOutlineの設定です。Viewerの緑線は操作用ガイド、市松模様は透明部分の表示です。アニメーションやAlpha値は未検証です。[接続と設定の記録](/img/fusion/captures/S282/readback.json)に条件を記載しています。
+
+[![sSpiral CreateをsOutlineとsRenderへつなぐ構成](/img/fusion/captures/S282/graph.png)](/img/fusion/captures/S282/graph.png)
+
+Shapeを線にして画像化します。
+
+[![sSpiral CreateのInspector](/img/fusion/captures/S282/controls.png)](/img/fusion/captures/S282/controls.png)
+
+Angle Endは720、Angle Stepは20です。
+
+[![らせん状の線と操作用ガイド](/img/fusion/captures/S282/result.png)](/img/fusion/captures/S282/result.png)
+
+らせん状の線と緑の操作用ガイドが見えます。
+
+[再現用Graph](/img/fusion/captures/S282/fixture.comp) · [撮影条件と確認範囲](/img/fusion/captures/S282/capture.json)
+
+<!-- /capture:S282 -->
+
 ## 入力と出力
 
 | 項目 | 扱うもの |
@@ -39,11 +61,11 @@ updated: '2026-10-19'
 標準のShape系と同じデータの流れを想定すると、構成は次のようになります。
 
 ```text
-sSpiral Create → sRender → Merge
-   曲線を作る      画像化する  背景などと合成
+sSpiral Create → sOutline → sRender → Merge
+   曲線を作る       線幅      画像化する  背景などと合成
 ```
 
-これは**各ツールの記載された役割から組み立てた構成案**です。Krokodove 21.1で実際に端子を接続し、描画結果を確認済みという意味ではありません。sRenderがShapeを画像へ変換すること自体は、同ManualのShape Nodes章で説明されています。
+これは**各ツールの記載された役割から組み立てた構成案**です。実機例ではsOutlineを加え、らせん状の線を画像化しています。sRenderがShapeを画像へ変換すること自体は、同ManualのShape Nodes章で説明されています。
 
 ## 具体的な運用例
 
@@ -88,7 +110,7 @@ sSpiral Createは図形を**作る**段階のツールです。sWriteOnは輪郭
 
 生成直後に通常の画像処理ノードへつながらない場合は、Shapeと2D Imageを混同していないかを確認してください。[Shapeの基礎](../../learn/02-data/shape)には、この二つのデータの違いとsRenderまでの基本的な流れをまとめています。
 
-また、単に「渦巻きが欲しい」という目的だけでは、線の本数・端点・巻き方向・中心付近の形・線の太さが決まりません。これらをInspectorでどこまで直接制御できるかは未確認です。最初はsSpiral CreateとsRenderだけの短い構成で実際の輪郭を確認し、必要に応じて後段のShape処理を加えるのが安全です。
+また、単に「渦巻きが欲しい」という目的だけでは、線の本数・端点・巻き方向・中心付近の形・線の太さが決まりません。これらをInspectorでどこまで直接制御できるかは未確認です。今回の実機例ではsOutlineを通して線を表示しています。
 
 ## バージョン・出典・未確認事項
 
@@ -96,4 +118,4 @@ sSpiral Createは図形を**作る**段階のツールです。sWriteOnは輪郭
 
 **資料から確認できること：** 表記は`sSpiral Create`、分類はShape Create Toolsで、中心点または軸の周りを巻く曲線を生成します。記事中のタイトル装飾・sRestyle・sWriteOnとの連携は、関連ツールの役割から考えた**制作案**であり、実機検証済みのレシピではありません。
 
-**未確認：** 入出力端子の正式名称と個数、Inspector項目名・値域・既定値、巻く方向と線の生成順、座標系、線幅や塗りの既定の扱い、内部REGID、Resolve Free / Studio / Fusion Studioでの提供差、実機結果。スペースなしの`sSpiralCreate`は検索用の別表記であり、内部REGIDと断定しません。確認範囲に合わせて`verification: partial`を維持します。
+**未確認：** 入出力端子の正式名称と個数、今回示した設定以外のInspector項目の意味・値域・既定値、巻く方向と線の生成順、座標系、線幅や塗りの既定の扱い、内部REGID、Resolve Free / Studio / Fusion Studioでの提供差、別条件の実機結果。スペースなしの`sSpiralCreate`は検索用の別表記であり、内部REGIDと断定しません。確認範囲に合わせて`verification: partial`を維持します。

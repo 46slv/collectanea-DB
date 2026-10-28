@@ -7724,6 +7724,47 @@
           "status": "captured"
         }
       ]
+    },
+    {
+      "priority": "P1",
+      "goal": "Show KD sSpiral Create with sOutline.",
+      "suggested_graph": "KD_ShapeSpiralCreate -> sOutline -> sRender -> MediaOut.",
+      "scope": "Resolve Studio 21.1.0.14 on Windows, 1920x1080 static frame.",
+      "limitations": [
+        "One static spiral and settings; animation, alpha values and other hosts NOT_RUN.",
+        "Viewer screenshot is display evidence.",
+        "Portable reimport and physical input provenance NOT_RUN.",
+        "Article verification remains partial."
+      ],
+      "id": "S282",
+      "article": "manuals/fusion/nodes/krokodove/sspiral-create.md",
+      "manual": {
+        "version": "21.1",
+        "chapter": 105,
+        "printed_pages": "2437"
+      },
+      "status": "captured-embedded-unverified",
+      "capture_manifest": "static/img/fusion/captures/S282/capture.json",
+      "shots": [
+        {
+          "slug": "graph",
+          "kind": "graph",
+          "target": "sSpiral CreateをsOutlineとsRenderへつなぐ構成",
+          "status": "captured"
+        },
+        {
+          "slug": "controls",
+          "kind": "inspector",
+          "target": "sSpiral CreateのInspector",
+          "status": "captured"
+        },
+        {
+          "slug": "result",
+          "kind": "comparison",
+          "target": "らせん状の線と操作用ガイド",
+          "status": "captured"
+        }
+      ]
     }
   ],
   "publication_batches": [
@@ -9109,12 +9150,12 @@
     }
   ],
   "coverage_inventory": {
-    "checked_at": "2026-10-28T06:35:08.239924+00:00",
+    "checked_at": "2026-10-28T07:48:39.003577+00:00",
     "scope": "All manuals/fusion Markdown and MDX pages; review necessity before adding images.",
     "completion_rule": "Every page has an explicit image decision; necessary images are native-observed, embedded, saved to GitHub and public-display-verified. A native example does not verify all article controls.",
     "summary": {
       "total_pages": 589,
-      "with_images": 221,
+      "with_images": 222,
       "with_native_examples": 221,
       "states": {
         "reviewed-no-standalone-image": 26,
@@ -16792,10 +16833,12 @@
         "article": "manuals/fusion/nodes/krokodove/sspiral-create.md",
         "title": "sSpiral Create",
         "kind": "node",
-        "image_count": 0,
+        "image_count": 3,
         "native_cases": [],
         "reused_cases": [],
-        "planned_cases": [],
+        "planned_cases": [
+          "S282"
+        ],
         "state": "capture-planned",
         "decision": "capture-needed",
         "reason": "本文の対象機能: 中心点または軸の周囲を巻く、連続したらせん状の曲線を作るKrokodoveのShape生成ツール。。標準sGrid/sRenderの円は各Krokodoveの輪郭加工Controlや接続互換性を示さない。",
