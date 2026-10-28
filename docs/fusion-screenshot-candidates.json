@@ -8071,6 +8071,51 @@
           "status": "captured"
         }
       ]
+    },
+    {
+      "priority": "P1",
+      "goal": "Show two particle inputs merged and rendered in 2D.",
+      "suggested_graph": "two pEmitters -> pMerge -> pRender -> MediaOut",
+      "scope": "Resolve Studio 21.1.0.14 on Windows.",
+      "limitations": [
+        "One 2D particle fixture and static frame 48 only; set preservation, more than two inputs, temporal behavior and 3D output NOT_RUN.",
+        "Screenshots show Viewer display; portable reimport and other hosts NOT_RUN."
+      ],
+      "id": "S307",
+      "article": "manuals/fusion/nodes/particles/pmerge.md",
+      "manual": {
+        "version": "21.1",
+        "chapter": 114,
+        "printed_pages": "2676"
+      },
+      "status": "captured-embedded-unverified",
+      "capture_manifest": "static/img/fusion/captures/S307/capture.json",
+      "shots": [
+        {
+          "slug": "graph",
+          "kind": "graph",
+          "target": "2つのpEmitterをpMergeに接続しpRenderとMediaOutへ送る構成",
+          "status": "captured"
+        },
+        {
+          "slug": "controls",
+          "kind": "inspector",
+          "target": "pMergeのInspectorにコントロールがない画面",
+          "status": "captured"
+        },
+        {
+          "slug": "result",
+          "kind": "result",
+          "target": "赤と青の粒子群を表示した2D出力",
+          "status": "captured"
+        },
+        {
+          "slug": "render-controls",
+          "kind": "inspector",
+          "target": "pRenderのInspectorと2D出力設定",
+          "status": "captured"
+        }
+      ]
     }
   ],
   "publication_batches": [
@@ -9456,25 +9501,25 @@
     }
   ],
   "coverage_inventory": {
-    "checked_at": "2026-10-28T07:45:25.672147+00:00",
+    "checked_at": "2026-10-28T09:47:43.665584+00:00",
     "scope": "All manuals/fusion Markdown and MDX pages; review necessity before adding images.",
     "completion_rule": "Every page has an explicit image decision; necessary images are native-observed, embedded, saved to GitHub and public-display-verified. A native example does not verify all article controls.",
     "summary": {
       "total_pages": 589,
-      "with_images": 229,
-      "with_native_examples": 229,
+      "with_images": 231,
+      "with_native_examples": 230,
       "states": {
         "reviewed-no-standalone-image": 26,
         "no-standalone-image-needed": 6,
-        "illustrated-reused-example": 80,
-        "capture-planned": 327,
-        "illustrated-native-example": 149,
+        "illustrated-reused-example": 81,
+        "capture-planned": 325,
+        "illustrated-native-example": 150,
         "needs-review": 1
       },
       "decisions": {
         "no-standalone-image-needed": 32,
-        "image-required": 229,
-        "capture-needed": 327,
+        "image-required": 231,
+        "capture-needed": 325,
         "needs-review": 1
       }
     },
@@ -21578,13 +21623,19 @@
         "article": "manuals/fusion/nodes/particles/p-render.md",
         "title": "pRender",
         "kind": "node",
-        "image_count": 0,
+        "image_count": 3,
         "native_cases": [],
-        "reused_cases": [],
+        "reused_cases": [
+          "S307"
+        ],
         "planned_cases": [],
-        "state": "capture-planned",
-        "decision": "capture-needed",
-        "reason": "本文の対象機能: Particle setを2D ImageまたはClassic 3D geometryへ変換する終端Node。Output Mode、時間計算、描画と画像設定を説明する。。S09 Emitter InspectorはpRender固有Controlsを示さない。",
+        "state": "illustrated-reused-example",
+        "decision": "image-required",
+        "reason": "S307のGraph、pRender Inspectorとframe48の2D出力を再利用。3D・時間計算・他設定は未確認。",
+        "remaining_views": [
+          "3D Output Modeと対応後段",
+          "時間計算と他の描画設定"
+        ],
         "required_views": [
           "対象名と実接続が読めるGraph",
           "対象自身を選択したInspectorの該当Control",
@@ -21612,7 +21663,8 @@
         ],
         "hold_conditions": [
           "2D例を3D/Z buffer/Depth Mergeの検証へ広げない。"
-        ]
+        ],
+        "audit_note": "S307のOutputMode TwoD readbackとInspectorを照合。"
       },
       {
         "article": "manuals/fusion/nodes/particles/pavoid.md",
@@ -22087,13 +22139,18 @@
         "article": "manuals/fusion/nodes/particles/pmerge.md",
         "title": "pMerge",
         "kind": "node",
-        "image_count": 0,
+        "image_count": 4,
         "native_cases": [],
         "reused_cases": [],
-        "planned_cases": [],
-        "state": "capture-planned",
-        "decision": "capture-needed",
-        "reason": "本文の対象機能: pMergeは、2本のParticle streamを1本にまとめるノード。。単一Emitterの粒子画像ではSet保持/削除/親子/Style変更を示せない。",
+        "planned_cases": [
+          "S307"
+        ],
+        "state": "illustrated-native-example",
+        "decision": "image-required",
+        "reason": "2 pEmitterをpMergeでまとめpRender 2Dへ渡し、frame48で2群を確認。Set保持と時間経過・3Dは未確認。",
+        "remaining_views": [
+          "Set保持や3系統以上、時間経過と3D出力"
+        ],
         "required_views": [
           "source→対象Particle Tool→pRenderのGraph",
           "対象自身の固有Controlsと必要なConditions/Region",
@@ -22116,7 +22173,8 @@
         ],
         "hold_conditions": [
           "透明に描くこととParticle削除を区別。"
-        ]
+        ],
+        "audit_note": "Studio 21.1.0.14で2粒子入力と静止2D表示を確認。"
       },
       {
         "article": "manuals/fusion/nodes/particles/ppointforce.md",
@@ -29879,6 +29937,18 @@
       ],
       "status": "published-display-verified",
       "scope": "True DeepImage two opaque flat-Z samples,hidden rear recovery;own selected Inspector where applicable,not external EXR or volumetric."
+    },
+    {
+      "id": "R301",
+      "article": "manuals/fusion/nodes/particles/p-render.md",
+      "source_case": "S307",
+      "images": [
+        "graph.png",
+        "render-controls.png",
+        "result.png"
+      ],
+      "status": "captured-embedded-unverified",
+      "scope": "S307 static frame 48 pRender TwoD; 3D and temporal behavior NOT_RUN."
     }
   ],
   "external_reports": [
