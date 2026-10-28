@@ -40,6 +40,32 @@ Clean Edgesの公式説明には、端の画素を補う方法として**複製*
 
 画素を補うことは、失われた撮影情報を復元することとも異なります。端に顔や文字の一部があれば、それを元どおりに再構成できるとは限りません。
 
+<!-- capture:S262 -->
+
+## 実機例：四辺を単色で補う
+
+合成した白黒グラデーションを `Clean Edges` に接続し、All Sides、Pixels 100、Type Solid、赤を設定しました。この静止画では四辺に赤い帯が表示されます。DuplicateやAlpha値は未検証です。[接続と設定の記録](/img/fusion/captures/S262/readback.json)に条件を記載しています。
+
+[![グラデーションをClean Edgesへつなぐノード構成](/img/fusion/captures/S262/graph.png)](/img/fusion/captures/S262/graph.png)
+
+合成グラデーションをClean Edgesへ渡します。
+
+[![Clean EdgesのInspector](/img/fusion/captures/S262/controls.png)](/img/fusion/captures/S262/controls.png)
+
+All Sides、Pixels 100、Solidと赤を指定します。
+
+[![入力の白黒グラデーション](/img/fusion/captures/S262/low.png)](/img/fusion/captures/S262/low.png)
+
+入力は黒から白へのグラデーションです。
+
+[![赤い四辺を持つClean Edgesの出力](/img/fusion/captures/S262/high.png)](/img/fusion/captures/S262/high.png)
+
+この設定では四辺に赤い帯が見えます。
+
+[再現用Graph](/img/fusion/captures/S262/fixture.comp) · [撮影条件と確認範囲](/img/fusion/captures/S262/capture.json)
+
+<!-- /capture:S262 -->
+
 ## 入力と出力
 
 | 段階 | データ | 接続・結果 |
@@ -80,12 +106,12 @@ MediaIn（端に線のある素材） → Clean Edges → MediaOut
 
 1. 右端・左端・上端・下端のどこに線があるか分かる素材を用意します。Viewerの表示倍率を調整し、画像の四辺が切れていない状態で確認します。
 2. **加工前の画像にもその線があるか**確認します。Viewerの表示枠や別のエフェクトが原因なら、画像端の画素を補うだけでは解決しない可能性があります。
-3. Clean EdgesのInspectorを開き、**実際に表示される**複製・単色に関する操作を確認します。この記事は未確認のスイッチ名や入力値を指定しません。
+3. Clean EdgesのInspectorを開き、**実際に表示される**複製・単色に関する操作を確認します。上の実機例ではAll Sides、Pixels、TypeとColorを確認しています。
 4. 一度に一つの操作を変え、加工前後のViewerを比較します。線が見えなくなっても、補正した領域の**すぐ内側に別の線が現れていないか**確認します。
 5. 空や壁など単純な背景だけでなく、細い模様の近くでも結果を見ます。動く映像なら、問題のフレームだけでなく前後数フレームも再生します。
 6. ほかの映像に重ねる場合は、暗い背景と明るい背景で縁の見え方を比較し、透明度も確認します。
 
-処理範囲の幅、縁の方向、複製元の選択、単色の指定方法を自由に調整できるかは未確認です。Inspectorの実際の項目に応じて、この手順のどこまで可能か判断してください。
+上の例ではAll Sides、Pixels 100、Solidと赤を使用しました。その他の方向や幅、複製元の選択は未検証です。Inspectorの実際の項目に応じて、この手順のどこまで可能か判断してください。
 
 ## ExtendやSeamlessとの違い
 
@@ -104,7 +130,7 @@ Clean EdgesとExtendは、ともに画像端の画素を扱いますが、**不�
 - **繰り返し模様**：画素を複製する補正では、伸びた模様や同じ画素の反復が目立つ可能性があります。これは制作上の一般的な注意点で、Clean Edgesの正確な補間方式を確認した結果ではありません。
 - **Alphaと合成**：色の縁が自然でも、透明度の縁が不自然な場合があります。Clean EdgesがAlphaをどう処理するかは未確認なので、背景を変えて確かめます。
 - **時間方向は別**：Clean EdgesのManualの説明は空間的なフレーム端です。映像のちらつきや再生の先頭・末尾のつながりを直すツールとしては確認されていません。
-- **実機未確認の範囲**：正式なポート、Inspectorの項目・初期値・値域、補正領域、内部REGID、Resolve Free / Studio / Fusion Studioの差は、Manualの短い紹介文だけでは分かりません。
+- **実機未確認の範囲**：正式なポート、今回示した項目以外のInspectorの意味・初期値・値域、Duplicateの結果、内部REGID、Resolve Free / Studio / Fusion Studioの差は未確認です。
 
 ## バージョンと出典
 
@@ -112,4 +138,4 @@ Clean EdgesとExtendは、ともに画像端の画素を扱いますが、**不�
 
 **比較資料：** 同Manual Chapter 105、p.2434「Extend」、p.2436「Seamless」。
 
-制作例と観察方法は、確認できた用途から組み立てた**操作案**です。実機でのInspector、入出力端子、細かな処理方式やEdition差は未検証のため、本文の確認状態はpartialのままです。
+制作例と観察方法は、確認できた用途から組み立てた**操作案**です。実機例は静止画の一条件に限られ、入出力端子、Duplicateの結果、細かな処理方式やEdition差は未検証のため、本文の確認状態はpartialのままです。
