@@ -8417,6 +8417,53 @@
           "status": "captured"
         }
       ]
+    },
+    {
+      "priority": "P1",
+      "goal": "Show Text+ Size values at two Bezier Spline keys and a linear midpoint.",
+      "suggested_graph": "Text+ Size <- BezierSpline; Text+ -> MediaOut",
+      "scope": "Resolve Studio 21.1.0.14 on Windows.",
+      "limitations": [
+        "Two SDK-created keys and linear interpolation only; manual Bezier handle adjustment and nonlinear interpolation NOT_RUN.",
+        "Spline panel opened but graph fit/selection was not established; modifier UI capture remains needed.",
+        "Portable reimport and other hosts NOT_RUN.",
+        "Selection used accessibility and global-input routes; physical input is not claimed."
+      ],
+      "id": "S325",
+      "article": "manuals/fusion/nodes/modifiers/bezier-spline.md",
+      "manual": {
+        "version": "21.1",
+        "chapter": 124,
+        "printed_pages": "2994–2996"
+      },
+      "status": "captured-embedded-unverified",
+      "capture_manifest": "static/img/fusion/captures/S325/capture.json",
+      "shots": [
+        {
+          "slug": "graph",
+          "kind": "graph",
+          "target": "Text+をMediaOutへ接続した構成",
+          "status": "captured"
+        },
+        {
+          "slug": "controls",
+          "kind": "inspector",
+          "target": "48フレームでSizeが0.18のText+",
+          "status": "captured"
+        },
+        {
+          "slug": "frame48-result",
+          "kind": "result",
+          "target": "48フレームの大きい文字",
+          "status": "captured"
+        },
+        {
+          "slug": "frame0-result",
+          "kind": "result",
+          "target": "0フレームの小さい文字",
+          "status": "captured"
+        }
+      ]
     }
   ],
   "publication_batches": [
@@ -9802,25 +9849,25 @@
     }
   ],
   "coverage_inventory": {
-    "checked_at": "2026-10-28T07:45:25.672147+00:00",
+    "checked_at": "2026-10-28T10:28:09.572363+00:00",
     "scope": "All manuals/fusion Markdown and MDX pages; review necessity before adding images.",
     "completion_rule": "Every page has an explicit image decision; necessary images are native-observed, embedded, saved to GitHub and public-display-verified. A native example does not verify all article controls.",
     "summary": {
       "total_pages": 589,
-      "with_images": 237,
+      "with_images": 238,
       "with_native_examples": 237,
       "states": {
         "reviewed-no-standalone-image": 26,
         "no-standalone-image-needed": 6,
         "illustrated-reused-example": 80,
-        "capture-planned": 319,
-        "illustrated-native-example": 157,
+        "capture-planned": 318,
+        "illustrated-native-example": 158,
         "needs-review": 1
       },
       "decisions": {
         "no-standalone-image-needed": 32,
-        "image-required": 237,
-        "capture-needed": 319,
+        "image-required": 238,
+        "capture-needed": 318,
         "needs-review": 1
       }
     },
@@ -20253,13 +20300,20 @@
         "article": "manuals/fusion/nodes/modifiers/bezier-spline.md",
         "title": "Bezier Spline",
         "kind": "node",
-        "image_count": 0,
+        "image_count": 4,
         "native_cases": [],
         "reused_cases": [],
-        "planned_cases": [],
-        "state": "capture-planned",
-        "decision": "capture-needed",
-        "reason": "本文の対象機能: Bezier Splineは、KeyframeごとのBezier handleで数値Parameterの時間変化を細かく調整できるAnimation Modifier。。別Splineや静止値では対象の補間/編集方式を示せない。",
+        "planned_cases": [
+          "S325"
+        ],
+        "state": "illustrated-native-example",
+        "decision": "image-required",
+        "reason": "S325はText+ Sizeの2キーと直線補間の固定例。Spline Editor曲線・ハンドル操作は未確認。",
+        "remaining_views": [
+          "Spline Editorのcurve選択・fit・手動handle編集と補間の変化",
+          "他Parameter、animation再生、portable reimportと他host",
+          "物理入力"
+        ],
         "required_views": [
           "適用先ParameterとModifier割当の実UI",
           "自身のModifiersタブとControls",
