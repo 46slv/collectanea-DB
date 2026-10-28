@@ -6,7 +6,7 @@ verification: partial
 product_scope: color
 suite_surfaces: [color]
 tasks: [grade, color-correct, color-management, match-shots]
-updated: "2026-10-27"
+updated: "2026-10-28"
 ---
 
 # Colorページ
@@ -73,6 +73,7 @@ Colorページは、素材の明るさや色の偏りを整え、複数ショッ
 ## 実践する（Recipes）
 
 - [3カメラのインタビューをショットマッチングする](./recipes/matching-multicamera-interview) — 基準StillとScopesを使ってカット間の色を整える
+- [夕景4カットをGroupでそろえ共通Lookを調整する](./recipes/group-twilight-scene-look) — Pre-Clip／Clip／Post-Clipを分け、ショット別補正と全体のLookを両立する
 - [インタビュー中のホワイトバランスの揺れを整える](./recipes/stabilize-interview-white-balance) — Color Stabilizerで安定した壁を分析基準に色の揺れを抑える（Studio版）
 - [パン中の露出変化をキーフレームで補正する](./recipes/keyframe-exposure-during-pan) — Dynamic Keyframeで連続ショットの明暗変化を調整し、窓の階調を確認する
 - [Power Windowで局所ハイライト補正](./recipes/window-highlight-isolation) — 逆光の窓を分離して人物を保護
