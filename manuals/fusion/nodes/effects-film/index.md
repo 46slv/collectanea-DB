@@ -21,6 +21,10 @@ FusionのEffect Nodesは2D画像へ複製・光・影・時間方向の効果を
 - **[TV](./tv)**：入力画像に走査線・映像のゆがみ・ノイズ・流れる帯を加えます。古いテレビ画面や受信不良の演出向けで、Effect Maskを使えば画面内のモニター部分だけへ効果を限定できます。
 - **[Pseudo Color](./pseudo-color)**：R/G/B/Aの各チャンネルをSine、Triangleなどの波形で変化させ、疑似カラーや周期的な色変化を作ります。Phaseのアニメーションで色を循環させる例があります。画像から距離を推定する機能ではありません。
 
+[![左に元の楕円1個、右にDuplicateの出力5個を表示した比較](/img/fusion/captures/S123/compare.png)](/img/fusion/captures/S123/compare.png)
+
+実機の固定例では、左の楕円1個をDuplicateに入力し、右に5個を横に並べています。静止画像の配置例であり、時間差やTrailsの蓄積は確認していません。条件と接続は[Duplicateの実機例](./duplicate)を参照してください。
+
 **選択の目安**：枚数や配置を決めて並べるならDuplicate、動きがすでにある素材の残像を蓄積するならTrailsです。DuplicateのTime Offsetによる時間差コピーと、Trailsのフレーム蓄積は処理の仕組みが異なります。
 
 ## 光を伸ばす・反射を作る・影を付ける
