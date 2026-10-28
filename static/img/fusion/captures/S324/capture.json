@@ -1,0 +1,132 @@
+{
+  "manual": {
+    "version": "21.1",
+    "chapter": 107,
+    "printed_pages": "2456–2457"
+  },
+  "runtime": {
+    "version": "21.1.0.14",
+    "edition": "DaVinci Resolve Studio",
+    "os": "Windows-11-10.0.26200-SP0",
+    "ui_language": "ja-JP"
+  },
+  "captured_at": "2026-10-28T10:22:08.003273+00:00",
+  "project": "Collectanea_Mandelbrot_Zoom_20261025",
+  "timeline": "S324_capture",
+  "frame": 0,
+  "resolution": [
+    1920,
+    1080
+  ],
+  "color_management": {
+    "project_settings": {
+      "colorScienceMode": "davinciYRGB",
+      "colorSpaceInput": "Rec.709 Gamma 2.4",
+      "colorSpaceTimeline": "Rec.709 (Scene)",
+      "colorSpaceTimelineGamma": "",
+      "colorSpaceOutput": "Rec.709 (Scene)",
+      "colorSpaceOutputGamma": "ACEScc",
+      "isAutoColorManage": "0",
+      "timelineResolutionWidth": "1920",
+      "timelineResolutionHeight": "1080",
+      "timelineFrameRate": 30.0,
+      "timelinePlaybackFrameRate": "30",
+      "timelinePixelAspectRatio": "square"
+    },
+    "note": "SDK project settings; screenshots show Viewer display."
+  },
+  "viewer": {
+    "view_mode": "Fit",
+    "source": "right MediaOut1",
+    "note": "Analyzer screenshot: left Creator; reload screenshot: left input, right File LUT output"
+  },
+  "acceptance": {
+    "gui": "PASS: graph, settings and particle output visible; SDK connections and save read back.",
+    "article_display": "NOT_RUN",
+    "public_display": "NOT_RUN"
+  },
+  "unverified": [
+    "Unmodified Creator cube only; processed color cube and non-identity LUT export NOT_RUN.",
+    "Identity grid verified in file; one RGB Viewer sample matched, full numerical image equivalence NOT_RUN.",
+    "Portable graph paths remapped to Comp:/analyzed.cube; reimport and path resolution NOT_RUN.",
+    "Write File and filename-tail interaction used synthetic GUI input; file existence and content are confirmed, physical input is not claimed."
+  ],
+  "schema_version": 1,
+  "case": "S324",
+  "article": "manuals/fusion/nodes/lut/lut-cube-analyzer.md",
+  "graph": "fixture.comp",
+  "settings": "readback.json",
+  "source": {
+    "file": "screen.png",
+    "size": [
+      3304,
+      1886
+    ],
+    "sha256": "bbe1981c40b78e9ef6cbaa5339f19ed3adf5e58cb668379ef109696c20644c33"
+  },
+  "shots": [
+    {
+      "file": "graph.png",
+      "source": "screen.png",
+      "source_sha256": "bbe1981c40b78e9ef6cbaa5339f19ed3adf5e58cb668379ef109696c20644c33",
+      "frame": 0,
+      "crop_xyxy": [
+        470,
+        1200,
+        1300,
+        1420
+      ],
+      "resampled": false,
+      "sha256": "50cafff41e54c04ee8a14e0a0657af874e491ff9c8103e44c595096668daf6be"
+    },
+    {
+      "file": "controls.png",
+      "source": "screen.png",
+      "source_sha256": "bbe1981c40b78e9ef6cbaa5339f19ed3adf5e58cb668379ef109696c20644c33",
+      "frame": 0,
+      "crop_xyxy": [
+        2780,
+        65,
+        3304,
+        350
+      ],
+      "resampled": false,
+      "sha256": "c2b5d58b7e051590b7823cceb93a46dc36d723a6eb963863678b02ee50ec2497"
+    },
+    {
+      "file": "creator.png",
+      "source": "screen.png",
+      "source_sha256": "bbe1981c40b78e9ef6cbaa5339f19ed3adf5e58cb668379ef109696c20644c33",
+      "frame": 0,
+      "crop_xyxy": [
+        0,
+        300,
+        1460,
+        455
+      ],
+      "resampled": false,
+      "sha256": "7a031c844cdd3c4329ff0df033251727ce0d8fdbda8021c7402456fa35061392"
+    },
+    {
+      "file": "reload-comparison.png",
+      "source": "reload.png",
+      "source_sha256": "a1470aed07365b0762f459a731b4e4b3114ed3b570041bff95a6e0f93674e5e8",
+      "frame": 0,
+      "crop_xyxy": [
+        0,
+        95,
+        2680,
+        715
+      ],
+      "resampled": false,
+      "sha256": "4eddbde38322cf942656ac4dde1d0466f36f3f3f6b831863e69578ef354123f0"
+    }
+  ],
+  "reproduction": {
+    "fixture_sha256": "faa82b46011d6a60abf0aae832c4ebd87a2abcaafa33263447240c626941bc2b",
+    "readback_sha256": "f1c0091b106ebfb531b4cf97502d5f80027776a318e625a8cbfeadf19774f606",
+    "readback_source_sha256": "e13e8fba8ee46b50ec565588f6a7fe593b442b59a45ed5aff15ab8a1816103a7",
+    "readback_transform": "CRLF normalized to LF for the portable Git asset; JSON values unchanged",
+    "reimport": "NOT_RUN"
+  }
+}
