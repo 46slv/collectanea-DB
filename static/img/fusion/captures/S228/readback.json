@@ -1,0 +1,58 @@
+{
+  "case": "S228",
+  "project": "Collectanea_Mandelbrot_Zoom_20261025",
+  "library": "Local Database",
+  "project_manager_folder": "root",
+  "timeline": "S228_capture",
+  "frame": 0,
+  "resolve": "21.1.0.14",
+  "edition": "DaVinci Resolve Studio",
+  "os": "Windows-11-10.0.26200-SP0",
+  "project_settings": {
+    "colorScienceMode": "davinciYRGB",
+    "colorSpaceInput": "Rec.709 Gamma 2.4",
+    "colorSpaceTimeline": "Rec.709 (Scene)",
+    "colorSpaceTimelineGamma": "",
+    "colorSpaceOutput": "Rec.709 (Scene)",
+    "colorSpaceOutputGamma": "ACEScc",
+    "isAutoColorManage": "0",
+    "timelineResolutionWidth": "1920",
+    "timelineResolutionHeight": "1080",
+    "timelineFrameRate": 30.0,
+    "timelinePlaybackFrameRate": "30",
+    "timelinePixelAspectRatio": "square"
+  },
+  "connections": {
+    "Scene.SceneInput1": "Sphere",
+    "Scene.SceneInput2": "PanoCamera",
+    "Scene.SceneInput3": "KeyLight",
+    "Renderer.SceneInput": "Scene",
+    "MediaOut1.Input": "Renderer"
+  },
+  "values": {
+    "Sphere": {
+      "Shape": "SurfaceSphereInputs",
+      "Transform3DOp.Translate.Z": -3.0
+    },
+    "PanoCamera": {
+      "Layout": "HCross"
+    },
+    "Renderer": {
+      "RendererSoftware.LightingEnabled": 0.0
+    },
+    "sphere_z": -3.0,
+    "renderer_lighting": 0.0,
+    "layout": "HCross",
+    "comparison_layout": "LatLong"
+  },
+  "source": "One sphere and spherical camera rendered in LatLong and HCross.",
+  "save_project": true,
+  "save_completed_at": "2026-10-28T02:57:42.498719+00:00",
+  "native_export_sha256": "fe00db7e978de322fe4a17d52c50577202711f0fd8dbbe97ed0a8fbdd02a2854",
+  "portable_sha256": "214e0c2c848ab6b890797cfa8331389f8fec4b32d48d713e3c702b5b09a84b5d",
+  "portable_reimport": "NOT_RUN",
+  "limits": [
+    "One sphere and camera; face orientation accuracy, stereo, image input, animation and other hosts NOT_RUN.",
+    "Viewer screenshot is display evidence."
+  ]
+}

@@ -31,6 +31,34 @@ Channel Shifterで色成分ごとの位置や大きさを変えると、**成分
 
 ここでの「分ける」は、**4つの画像ファイルや独立した出力端子を生成する**という意味ではありません。21.1 Manualが確認できるのは「RGBAを分離して、offset / blur / scaleを操作する」という機能の概要です。独立出力の数や内部処理の順序は、これだけでは分かりません。
 
+<!-- capture:S231 -->
+
+## 実機例：文字に色ずれを作る
+
+白い `Text+` の文字を `Channel Shifter` に渡し、2つのCenter値を左右へずらしました。
+
+出力では文字の縁に色が現れます。Viewerの操作用オーバーレイも画像に写っています。チャンネルの計算式やAlphaの数値は未検証です。[接続と設定の記録](/img/fusion/captures/S231/readback.json)に条件を記載しています。
+
+[![文字画像をKrokodove Channel Shifterへつなぐ構成](/img/fusion/captures/S231/graph.png)](/img/fusion/captures/S231/graph.png)
+
+文字画像をChannel Shifterへ渡します。
+
+[![Channel Shifterの全体設定](/img/fusion/captures/S231/controls.png)](/img/fusion/captures/S231/controls.png)
+
+Channel ShifterのInspectorです。各Center値は設定記録に掲載しています。
+
+[![処理前の白い文字](/img/fusion/captures/S231/low.png)](/img/fusion/captures/S231/low.png)
+
+処理前の文字です。
+
+[![色ずれを付けた文字](/img/fusion/captures/S231/high.png)](/img/fusion/captures/S231/high.png)
+
+処理後は文字の縁に色が現れます。
+
+[再現用Graph](/img/fusion/captures/S231/fixture.comp) · [撮影条件と確認範囲](/img/fusion/captures/S231/capture.json)
+
+<!-- /capture:S231 -->
+
 ## 入力と出力
 
 | 段階 | データ | 接続・結果 |
@@ -41,7 +69,7 @@ Channel Shifterで色成分ごとの位置や大きさを変えると、**成分
 
 21.1 Manualでは**Image Pixel Tools**に分類され、既存のCOLLECTANEAカタログでも入力・出力はimageとして整理されています。Shapeや3D Sceneを直接処理するためのノードではありません。
 
-**正式な入力端子名・出力端子名・補助入力の有無・端子数は未確認**です。表はデータの種類と接続時の役割を説明しており、ポート構成を実機認証したものではありません。
+実機SDKではImageとEffectMask入力を確認しました。出力端子の詳細は未確認です。
 
 ## 主な調整の意味
 
@@ -111,4 +139,4 @@ Channel ShifterとChannel Booleansはいずれも「チャンネル」を扱い�
 
 **関連資料：** 同Manual Chapter 93（Channel Booleans、Chromatic Aberration Removal）。比較ノードの具体的な役割は、リンク先の各記事に記載したManual根拠を参照してください。
 
-本記事のチャンネルの説明と用途は確認済みの機能から組み立てたものです。制作例は再現結果ではなく**操作・観察の提案**です。21.1実機での正式ポート、Inspector名、初期値、範囲、Alpha処理、製品・エディション差は未確認のため、`verification: partial`を維持しています。
+本記事のチャンネルの説明と用途は確認済みの機能から組み立てたものです。上記の実機例ではKD_ChannelShifterの入力と一部のCenter値を確認しました。その他の制作例は操作・観察の提案です。全Inspector項目、初期値、範囲、Alpha処理、製品・エディション差は未確認のため、`verification: partial`を維持しています。
