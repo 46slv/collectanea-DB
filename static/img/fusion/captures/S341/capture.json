@@ -1,0 +1,128 @@
+{
+  "manual": {
+    "version": "21.1"
+  },
+  "runtime": {
+    "version": "21.1.0.14",
+    "edition": "DaVinci Resolve Studio",
+    "os": "Windows-11-10.0.26200-SP0",
+    "ui_language": "ja-JP"
+  },
+  "captured_at": "2026-10-28T11:04:00.054206+00:00",
+  "project": "Collectanea_Mandelbrot_Zoom_20261025",
+  "timeline": "S341_capture",
+  "frame": 1,
+  "resolution": [
+    1920,
+    1080
+  ],
+  "color_management": {
+    "project_settings": {
+      "colorScienceMode": "davinciYRGB",
+      "colorSpaceInput": "Rec.709 Gamma 2.4",
+      "colorSpaceTimeline": "Rec.709 (Scene)",
+      "colorSpaceTimelineGamma": "",
+      "colorSpaceOutput": "Rec.709 (Scene)",
+      "colorSpaceOutputGamma": "ACEScc",
+      "isAutoColorManage": "0",
+      "timelineResolutionWidth": "1920",
+      "timelineResolutionHeight": "1080",
+      "timelineFrameRate": 30.0,
+      "timelinePlaybackFrameRate": "30",
+      "timelinePixelAspectRatio": "square"
+    },
+    "note": "SDK project settings; screenshots show Viewer display."
+  },
+  "viewer": {
+    "view_mode": "Fit",
+    "source": "left Background, right MediaOut1",
+    "note": "uTexture selected; red frame 0, green frame 1"
+  },
+  "acceptance": {
+    "gui": "PASS: image input, USD material chain, Inspector and red/green outputs visible; SDK and save read back.",
+    "article_display": "NOT_RUN",
+    "public_display": "NOT_RUN"
+  },
+  "unverified": [
+    "Solid Background red frame 0 and green frame 1; different frames used for evaluation, single Capsule and USD Preview Surface diffuseColor.",
+    "Filename precedence, color-space numeric accuracy, UV address modes, textures with detail, animation, selective Prim assignment and portable reimport NOT_RUN."
+  ],
+  "schema_version": 1,
+  "case": "S341",
+  "article": "manuals/fusion/nodes/usd/utexture.md",
+  "graph": "fixture.comp",
+  "settings": "readback.json",
+  "source": {
+    "file": "screen.png",
+    "size": [
+      3304,
+      1886
+    ],
+    "sha256": "32ba03ebc309fac538a8ad91da9898003b1f5e175f006fca5c75e56d0860217b"
+  },
+  "shots": [
+    {
+      "file": "graph.png",
+      "source": "screen.png",
+      "source_sha256": "32ba03ebc309fac538a8ad91da9898003b1f5e175f006fca5c75e56d0860217b",
+      "frame": 1,
+      "crop_xyxy": [
+        400,
+        1150,
+        2400,
+        1530
+      ],
+      "resampled": false,
+      "sha256": "053855e9a030d761dd6a44bc0d8823e288bf746f5f48b45ac6f52a0e9fe828a9"
+    },
+    {
+      "file": "controls.png",
+      "source": "screen.png",
+      "source_sha256": "32ba03ebc309fac538a8ad91da9898003b1f5e175f006fca5c75e56d0860217b",
+      "frame": 1,
+      "crop_xyxy": [
+        2780,
+        125,
+        3304,
+        480
+      ],
+      "resampled": false,
+      "sha256": "dccf653be219a186d7e549e0f529b88d01ea55e4868d24b65d7d7d6282a294ce"
+    },
+    {
+      "file": "green-result.png",
+      "source": "screen.png",
+      "source_sha256": "32ba03ebc309fac538a8ad91da9898003b1f5e175f006fca5c75e56d0860217b",
+      "frame": 1,
+      "crop_xyxy": [
+        1560,
+        100,
+        2680,
+        715
+      ],
+      "resampled": false,
+      "sha256": "a48996b72b1134161ff2a81dad82ad72ecf82136d9466868122268314bd57326"
+    },
+    {
+      "file": "red-result.png",
+      "source": "red.png",
+      "source_sha256": "139c3d9f404eb7eb9d75300fe60295b703b31a8366b571e969a73a3ddbf53e7f",
+      "frame": 1,
+      "crop_xyxy": [
+        1560,
+        100,
+        2680,
+        715
+      ],
+      "resampled": false,
+      "sha256": "74cf567e89de50335e0c43e4119829eab7e5ed02c1a4c3c1cdfe99502773ea51"
+    }
+  ],
+  "reproduction": {
+    "fixture_sha256": "d0959f2d9aacc6d43415e77da3b7102f4b6c12269c8aeefc2e30df025528a52a",
+    "readback_sha256": "af23825a271461386ed31d5ec0a2e414e1995c6b8d9cf7c4a6053df4bb77fd25",
+    "readback_source_sha256": "2167e2d6b2f6764825c7415b4f9845721c5ba05cac70f22408ed85b90f51a091",
+    "readback_transform": "CRLF normalized to LF for the portable Git asset; JSON values unchanged",
+    "reimport": "NOT_RUN"
+  }
+}

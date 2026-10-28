@@ -1,0 +1,29 @@
+{
+  "case": "S341",
+  "setup": {
+    "case": "S341",
+    "connections": [
+      "Image->Texture.Image",
+      "Texture->Shader.diffuseColor",
+      "Shape->Replace.SceneInput",
+      "Shader->Replace.Material",
+      "Replace->USDRender.SceneInput",
+      "USDRender->MediaOut1"
+    ],
+    "saved": "2026-10-28T11:02:53.194593+00:00"
+  },
+  "final": {
+    "color": {
+      "TopLeftRed": 0.1,
+      "TopLeftGreen": 1.0,
+      "TopLeftBlue": 0.1
+    },
+    "frame": 1,
+    "saved": "2026-10-28T11:03:16.057223+00:00"
+  },
+  "comparison": "Background red frame 0, green frame 1 -> uTexture -> uShader diffuseColor -> uReplaceMaterial",
+  "limits": [
+    "Solid Background red frame 0 and green frame 1; different frames used for evaluation, single Capsule and USD Preview Surface diffuseColor.",
+    "Filename precedence, color-space numeric accuracy, UV address modes, textures with detail, animation, selective Prim assignment and portable reimport NOT_RUN."
+  ]
+}
