@@ -99,6 +99,34 @@ RegionでBitmapを選んだ場合は、たとえば一部分だけを白くし�
 
 ここで指定するのは**力の作用範囲**であり、pEmitterが粒子を生み出す位置ではありません。どちらの領域も設定できるため、役割を混同しないようにします。
 
+<!-- capture:S322 -->
+
+## 実機例：pTangentForceを粒子へ接続する
+
+`pEmitter` から `pTangentForce` を通して `pRender` の2D出力へ接続します。強度Zを0.1、XとYを0に設定し、24フレームと48フレームの表示を記録しました。
+
+評価開始条件を揃えた軌道比較や、接線方向の運動は確認していません。透明市松はViewerの背景表示です。[接続と設定の記録](/img/fusion/captures/S322/readback.json)に条件を記載しています。
+
+[![pEmitterからpTangentForceとpRenderへ接続した構成](/img/fusion/captures/S322/graph.png)](/img/fusion/captures/S322/graph.png)
+
+粒子をpTangentForceへ入力します。
+
+[![pTangentForceの中心位置と各軸の強度](/img/fusion/captures/S322/controls.png)](/img/fusion/captures/S322/controls.png)
+
+強度Zを0.1、XとYを0に設定します。
+
+[![48フレームの粒子表示](/img/fusion/captures/S322/result48.png)](/img/fusion/captures/S322/result48.png)
+
+48フレームの表示です。
+
+[![24フレームの粒子表示](/img/fusion/captures/S322/result24.png)](/img/fusion/captures/S322/result24.png)
+
+24フレームの表示です。
+
+[再現用Graph](/img/fusion/captures/S322/fixture.comp) · [撮影条件と確認範囲](/img/fusion/captures/S322/capture.json)
+
+<!-- /capture:S322 -->
+
 ## 制作例
 
 ### 光点の進路を看板の周囲で曲げる
