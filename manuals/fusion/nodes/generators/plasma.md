@@ -77,6 +77,52 @@ PlasmaにはGenerator共通の**Image**と**Settings** tabもあります。Imag
 
 Plasma固有のCircles / Color項目と、複数のGeneratorで共通するImage / Settings項目を混同しないようにしてください。
 
+<!-- capture:S152 -->
+
+## 実機例：模様のScale・Phaseと表示範囲
+
+`Plasma1` をMergeのBackground、白い `PLASMA` 文字をForegroundへ接続します。別の `PlasmaMasked` にはEllipseをEffect Maskとしてつなぎ、マスクなしの出力と比較します。両方のPlasmaはマスク比較時に同じCircle・Scale・Phaseの設定です。
+
+frame 0で全体のScaleを `1.0 → 0.5`、次にScaleを戻してPhaseを `0 → 0.25` に変えます。表示を比較した後、Phaseも元に戻してマスクの有無を確認します。[接続と設定の記録](/img/fusion/captures/S152/readback.json)に値を記録しています。市松模様はViewerの透明部分を示します。
+
+WindowsのResolve Studio 21.1.0.14、1920×1080で確認した静止frameの例です。Phaseのキーフレーム、時間による色の循環や他のOperationはこの例では検証していません。
+
+[![PlasmaとTextをMergeする枝とEllipseをEffect Maskに接続する別枝](/img/fusion/captures/S152/graph.png)](/img/fusion/captures/S152/graph.png)
+
+上はPlasmaに文字を重ねる枝、下は別のPlasmaにEllipseをEffect Maskとして渡す比較枝です。
+
+[![PlasmaのScale 1とCircle 1から4の設定を示すInspector](/img/fusion/captures/S152/circles-controls.png)](/img/fusion/captures/S152/circles-controls.png)
+
+サークルタブのScaleは1.0で、4つのCircleの設定が表示されています。
+
+[![Scale 1のPlasmaと、白い文字を重ねた結果](/img/fusion/captures/S152/scale-one.png)](/img/fusion/captures/S152/scale-one.png)
+
+Scale 1.0。左はPlasma、右は白い文字を重ねたMediaOutです。
+
+[![PlasmaのScaleを0.5にしたInspector](/img/fusion/captures/S152/scale-controls.png)](/img/fusion/captures/S152/scale-controls.png)
+
+同じframeでScaleを0.5に変更します。
+
+[![Scale 0.5で模様が細かくなったPlasmaと文字合成](/img/fusion/captures/S152/scale-half.png)](/img/fusion/captures/S152/scale-half.png)
+
+Scale 0.5では、同じ表示範囲により細かい模様が現れます。
+
+[![PlasmaのColorタブでPhaseを0.25にしたInspector](/img/fusion/captures/S152/phase-controls.png)](/img/fusion/captures/S152/phase-controls.png)
+
+Scaleを1.0へ戻し、ColorタブのPhaseを0.25に変更します。
+
+[![Phase 0.25に変更したPlasmaと文字合成](/img/fusion/captures/S152/phase-quarter.png)](/img/fusion/captures/S152/phase-quarter.png)
+
+同じframeでPhaseを変えた表示です。Scale 1.0・Phase 0の画像と色の配置を比較できます。
+
+[![左はマスクなしのPlasma、右はEllipseで中央だけを表示した別のPlasma](/img/fusion/captures/S152/effect-mask.png)](/img/fusion/captures/S152/effect-mask.png)
+
+左はマスクなし、右は同じ設定の別のPlasmaへEllipseを接続した出力です。楕円の外は透明です。
+
+[再現用Graph](/img/fusion/captures/S152/fixture.comp) · [撮影条件と確認範囲](/img/fusion/captures/S152/capture.json)
+
+<!-- /capture:S152 -->
+
 ## 制作例
 
 ### 1. タイトルの動く背景を作る
@@ -124,4 +170,4 @@ ManualはPlasmaの模様を**Shadow / Deformの変形パターン**として使�
 
 **Blackmagic Design『DaVinci Resolve 21.1 Reference Manual』**（September 2026）、**Chapter 103「Generator Nodes」、pp.2379–2380、Plasma [PLAS]**。4つの円形パターン、唯一のEffect Mask入力、Circles / Color各Controlと、その作用を確認しています。
 
-本記事の合成構成はManualの説明を実制作向けに展開した例です。Controlの全default値・数値range・Operationの選択肢、runtime REGID、edition差は確認していないため、frontmatterのverification: partialを維持しています。
+本記事の合成構成はManualの説明を実制作向けに展開した例です。WindowsのResolve Studio 21.1.0.14ではruntime REGID `Plasma`、ScaleとPhaseの静止比較、Effect Maskと合成例を確認しました。Phaseのアニメーション、Controlの全default値・数値range・Operationの全選択肢、edition差は未検証のため、frontmatterのverification: partialを維持しています。

@@ -1,0 +1,203 @@
+{
+  "manual": {
+    "version": "21.1",
+    "chapter": 103,
+    "printed_pages": "2368–2376"
+  },
+  "runtime": {
+    "version": "21.1.0.14",
+    "edition": "DaVinci Resolve Studio",
+    "os": "Windows-11-10.0.26200-SP0",
+    "ui_language": "ja-JP"
+  },
+  "captured_at": "2026-10-27T18:51:45.013178+00:00",
+  "capture_time_note": "Fresh Alpha channel menu readback screenshot filesystem last-write time in UTC; other stages precede it.",
+  "project": "Collectanea_Mandelbrot_Zoom_20261025",
+  "timeline": "S156_capture",
+  "frame": 0,
+  "resolution": [
+    1920,
+    1080
+  ],
+  "color_management": {
+    "project_settings": {
+      "colorScienceMode": "davinciYRGB",
+      "colorSpaceInput": "Rec.709 Gamma 2.4",
+      "colorSpaceTimeline": "Rec.709 (Scene)",
+      "colorSpaceTimelineGamma": "",
+      "colorSpaceOutput": "Rec.709 (Scene)",
+      "colorSpaceOutputGamma": "ACEScc",
+      "isAutoColorManage": "0",
+      "timelineResolutionWidth": "1920",
+      "timelineResolutionHeight": "1080",
+      "timelineFrameRate": 30.0,
+      "timelinePlaybackFrameRate": "30",
+      "timelinePixelAspectRatio": "square"
+    },
+    "note": "The example uses generated text and a generated Background."
+  },
+  "viewer": {
+    "view_mode": "Fit",
+    "source": "Left MultiText1; right MediaOut1",
+    "note": "Left Viewer Alpha confirmed by channel menu, then Color restored."
+  },
+  "acceptance": {
+    "gui": "PASS: native screenshots show GUI Point addition, Text List selection, two generated text layers, Merge composite and left Viewer Alpha. Values were set and read back through SDK. SaveProject returned true at 2026-10-27T18:52:47.892967+00:00",
+    "article_display": "NOT_RUN",
+    "public_display": "NOT_RUN"
+  },
+  "unverified": [
+    "Text Box, Circle, CSV, animation, fonts beyond Arial in this example, and other hosts NOT_RUN.",
+    "Physical mouse/keyboard provenance NOT_ESTABLISHED.",
+    "Portable composition reimport NOT_RUN.",
+    "Article verification remains partial."
+  ],
+  "schema_version": 1,
+  "case": "S156",
+  "article": "manuals/fusion/nodes/generators/multitext.md",
+  "graph": "fixture.comp",
+  "settings": "readback.json",
+  "source": {
+    "file": "screen.png",
+    "size": [
+      3336,
+      1902
+    ],
+    "sha256": "c0cec0920a61d0f8ef9c41286a8a5941f69f0717b1bdfb71b0c93633192256a3"
+  },
+  "shots": [
+    {
+      "file": "graph.png",
+      "source": "screen.png",
+      "source_sha256": "c0cec0920a61d0f8ef9c41286a8a5941f69f0717b1bdfb71b0c93633192256a3",
+      "frame": 0,
+      "crop_xyxy": [
+        900,
+        1100,
+        1900,
+        1600
+      ],
+      "resampled": false,
+      "sha256": "9952170a4cf6a39c84993e4f38776083a6bca61567240dfabc1b9dbd5257d49b"
+    },
+    {
+      "file": "one-layer.png",
+      "source": "one-list-source.png",
+      "source_sha256": "dfa7ebef743d9eb02d93c80987cf8d0c833d6e01dde4fc53fc47a6efc9845e15",
+      "frame": 0,
+      "crop_xyxy": [
+        2815,
+        65,
+        3336,
+        700
+      ],
+      "resampled": false,
+      "sha256": "6c619cdca85d7babc5efad1502587bde0242abbd45266b141fea7fdb9f00628c"
+    },
+    {
+      "file": "point-added.png",
+      "source": "point-added-source.png",
+      "source_sha256": "b77ae2ababa9766ff5b8faacc0e5bb009fc8baaa18bbe823e88a8d48d1390d3a",
+      "frame": 0,
+      "crop_xyxy": [
+        2815,
+        65,
+        3336,
+        700
+      ],
+      "resampled": false,
+      "sha256": "77f2a81f5e089c0932762c1ffb68d79143fd09b74cbc4af60a81f7d570d05557"
+    },
+    {
+      "file": "role-controls.png",
+      "source": "role-source.png",
+      "source_sha256": "23e9618ef0bd2409cb68d01f93d67682cd2dc369ca521a722867c00abb1fb669",
+      "frame": 0,
+      "crop_xyxy": [
+        2815,
+        65,
+        3336,
+        1000
+      ],
+      "resampled": false,
+      "sha256": "21b384cab8b5c1c8f09aa2f094a30826d31da9167eb4345e06033fa5d50befa4"
+    },
+    {
+      "file": "before-edit.png",
+      "source": "before-source.png",
+      "source_sha256": "c5f5a40c71d87c8c27c2f1767dc6d8317f5b19c8897a6c8e666c702cd806130c",
+      "frame": 0,
+      "crop_xyxy": [
+        0,
+        65,
+        2800,
+        730
+      ],
+      "resampled": false,
+      "sha256": "12f03c57aedddcf005d4d80d486fd589ee9b1adf6f47de96eb798f2df0d27ef9"
+    },
+    {
+      "file": "name-controls.png",
+      "source": "edit-source.png",
+      "source_sha256": "262c8e7fdbe0e3e902a1c3b7a3a5aa8f6b0fed3413bf3c8dd14ab9553c4f8cb9",
+      "frame": 0,
+      "crop_xyxy": [
+        2815,
+        65,
+        3336,
+        1000
+      ],
+      "resampled": false,
+      "sha256": "5ade1022210b1f09e41a7363624a237ea014322b42d4a8b91fd187437194f8a6"
+    },
+    {
+      "file": "after-edit.png",
+      "source": "screen.png",
+      "source_sha256": "c0cec0920a61d0f8ef9c41286a8a5941f69f0717b1bdfb71b0c93633192256a3",
+      "frame": 0,
+      "crop_xyxy": [
+        0,
+        65,
+        2800,
+        730
+      ],
+      "resampled": false,
+      "sha256": "471084a8186d1504452b33da2c3daf47daead1b4a138bd5b02e36f42bd402828"
+    },
+    {
+      "file": "alpha-menu.png",
+      "source": "channel-menu-source.png",
+      "source_sha256": "7d503ed766aa5c0ade384a65a3b1162f284080bbc3fb9b48c3eb9fb1c5a91773",
+      "frame": 0,
+      "crop_xyxy": [
+        0,
+        0,
+        118,
+        108
+      ],
+      "resampled": false,
+      "sha256": "6a865c1c94ad0f63409882095a3e15bec694f1d5d0a208099ff29ddc16147a7b"
+    },
+    {
+      "file": "text-alpha.png",
+      "source": "alpha-source.png",
+      "source_sha256": "678f53f2c4d90f6cbbf0678f13470e104455f6adbcf9479c2d3c5ff17dff286f",
+      "frame": 0,
+      "crop_xyxy": [
+        0,
+        65,
+        2800,
+        730
+      ],
+      "resampled": false,
+      "sha256": "c3e74ab6fbc79478a3b23062387081866ac2419b67bf67b7ea9d6209d0137455"
+    }
+  ],
+  "reproduction": {
+    "fixture_sha256": "cfb3fae25fe8c6d5bd91d05be2b3b13f95b257d388d1dda37ded7438bb7e8f11",
+    "readback_sha256": "d4570f26b3c37a45a6a08f3ed300fc44ed39bc2244bef86ace827b62e3821054",
+    "reimport": "NOT_RUN",
+    "readback_source_sha256": "3949f1b3e96bbdb5b2044c8a1b1b95801b0ed44000069987118c83d3a365e6d1",
+    "readback_transform": "Original SDK readback line endings normalized from CRLF to LF for the portable Git asset; JSON values unchanged."
+  }
+}
