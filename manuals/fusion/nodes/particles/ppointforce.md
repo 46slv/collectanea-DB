@@ -85,6 +85,34 @@ Start / End Ageでは寿命全体に対する割合で作用期間を指定で�
 
 **Region**は「どこにいるParticleへ効かせるか」を制御します。Bitmap、Meshなどを使う場合は必要な入力を別途接続します。Conditionsは粒子の属性や寿命、Regionは空間的な作用範囲を絞る設定です。粒子を発生させる領域の指定と混同しないでください。
 
+<!-- capture:S314 -->
+
+## 実機例：pPointForceを粒子へ接続する
+
+`pEmitter` から `pPointForce` を通して `pRender` の2D出力へ接続します。Strengthを0.1、中心のXYZを0に設定し、24フレームと48フレームの表示を記録しました。
+
+評価開始条件を揃えた軌道比較や、引力・斥力の向きは確認していません。画像には編集ガイドと透明市松が含まれます。[接続と設定の記録](/img/fusion/captures/S314/readback.json)に条件を記載しています。
+
+[![pEmitterからpPointForceとpRenderへ接続した構成](/img/fusion/captures/S314/graph.png)](/img/fusion/captures/S314/graph.png)
+
+粒子をpPointForceへ入力します。
+
+[![pPointForceの強度、Power、中心位置の設定](/img/fusion/captures/S314/controls.png)](/img/fusion/captures/S314/controls.png)
+
+Strengthを0.1、中心のXYZを0に設定します。
+
+[![48フレームの粒子表示](/img/fusion/captures/S314/result48.png)](/img/fusion/captures/S314/result48.png)
+
+48フレームの表示です。
+
+[![24フレームの粒子表示](/img/fusion/captures/S314/result24.png)](/img/fusion/captures/S314/result24.png)
+
+24フレームの表示です。
+
+[再現用Graph](/img/fusion/captures/S314/fixture.comp) · [撮影条件と確認範囲](/img/fusion/captures/S314/capture.json)
+
+<!-- /capture:S314 -->
+
 ## 制作例
 
 ### 光点を一か所へ集める
