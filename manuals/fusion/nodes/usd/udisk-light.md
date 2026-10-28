@@ -43,6 +43,32 @@ uCamera ────────┘
 
 この例では[uShape](./ushape)で立体を作り、uDisk Lightを追加して[uCamera](./ucamera)とともにuMergeへ接続します。立体が暗いままなら、ライトが物体を向いているか、明るさの設定、カメラとレンダラーの接続を順に確認します。
 
+<!-- capture:S336 -->
+
+## 実機例：ライトの位置を変える
+
+`uShape`のCapsuleと`uDisk Light`を`uMerge`でまとめ、uRendererのLightingをSceneに設定しました。ライトのX位置を0から2へ変えると、Capsule上の明暗が変わりました。比較画像はそれぞれ0フレームと1フレームで撮影し、位置はSDKで読み戻しています。Radiusや広がりによる影の比較、物理照度の測定は行っていません。市松模様はViewerの透明表示です。[接続と設定の記録](/img/fusion/captures/S336/readback.json)に条件を記載しています。
+
+[![uShapeとuDisk LightをuMergeへ接続する構成](/img/fusion/captures/S336/graph.png)](/img/fusion/captures/S336/graph.png)
+
+形状と円盤状ライトを同じUSD sceneにまとめています。
+
+[![Intensity 10を設定したuDisk Light](/img/fusion/captures/S336/controls.png)](/img/fusion/captures/S336/controls.png)
+
+Intensity 10の設定です。Radius 0.5は読み戻し記録に記載しています。
+
+[![ライトをX 2に移動した描画](/img/fusion/captures/S336/moved-result.png)](/img/fusion/captures/S336/moved-result.png)
+
+ライトX 2、1フレームの表示です。
+
+[![ライトX 0での描画](/img/fusion/captures/S336/original-result.png)](/img/fusion/captures/S336/original-result.png)
+
+ライトX 0、0フレームの表示です。
+
+[再現用Graph](/img/fusion/captures/S336/fixture.comp) · [撮影条件と確認範囲](/img/fusion/captures/S336/capture.json)
+
+<!-- /capture:S336 -->
+
 ## まず調整する3つの要素
 
 ### 1. Transform：ライトをどこに置き、どこへ向けるか

@@ -1,0 +1,128 @@
+{
+  "manual": {
+    "version": "21.1"
+  },
+  "runtime": {
+    "version": "21.1.0.14",
+    "edition": "DaVinci Resolve Studio",
+    "os": "Windows-11-10.0.26200-SP0",
+    "ui_language": "ja-JP"
+  },
+  "captured_at": "2026-10-28T10:51:27.526062+00:00",
+  "project": "Collectanea_Mandelbrot_Zoom_20261025",
+  "timeline": "S336_capture",
+  "frame": 1,
+  "resolution": [
+    1920,
+    1080
+  ],
+  "color_management": {
+    "project_settings": {
+      "colorScienceMode": "davinciYRGB",
+      "colorSpaceInput": "Rec.709 Gamma 2.4",
+      "colorSpaceTimeline": "Rec.709 (Scene)",
+      "colorSpaceTimelineGamma": "",
+      "colorSpaceOutput": "Rec.709 (Scene)",
+      "colorSpaceOutputGamma": "ACEScc",
+      "isAutoColorManage": "0",
+      "timelineResolutionWidth": "1920",
+      "timelineResolutionHeight": "1080",
+      "timelineFrameRate": 30.0,
+      "timelinePlaybackFrameRate": "30",
+      "timelinePixelAspectRatio": "square"
+    },
+    "note": "SDK project settings; screenshots show Viewer display."
+  },
+  "viewer": {
+    "view_mode": "Fit",
+    "source": "uRenderer / MediaOut1",
+    "note": "uDisk Light selected; light X 0 frame 0 and X 2 frame 1"
+  },
+  "acceptance": {
+    "gui": "PASS: graph, light controls and shading change; SDK position and save read back.",
+    "article_display": "NOT_RUN",
+    "public_display": "NOT_RUN"
+  },
+  "unverified": [
+    "Light X 0 at frame 0 versus X 2 at frame 1; static scene, different frames used for evaluation.",
+    "Radius and spread effects, shadow softness, other lights, physical photometry and portable reimport NOT_RUN."
+  ],
+  "schema_version": 1,
+  "case": "S336",
+  "article": "manuals/fusion/nodes/usd/udisk-light.md",
+  "graph": "fixture.comp",
+  "settings": "readback.json",
+  "source": {
+    "file": "screen.png",
+    "size": [
+      3304,
+      1886
+    ],
+    "sha256": "c5dfe0807936568b08b099258e559914a9414bb01fb61f5dcf39e0afa58306eb"
+  },
+  "shots": [
+    {
+      "file": "graph.png",
+      "source": "screen.png",
+      "source_sha256": "c5dfe0807936568b08b099258e559914a9414bb01fb61f5dcf39e0afa58306eb",
+      "frame": 1,
+      "crop_xyxy": [
+        550,
+        1150,
+        2250,
+        1530
+      ],
+      "resampled": false,
+      "sha256": "9e836dc3cdfa9407fbf5d52936c528295212d639387255564eb4dc27a282136d"
+    },
+    {
+      "file": "controls.png",
+      "source": "screen.png",
+      "source_sha256": "c5dfe0807936568b08b099258e559914a9414bb01fb61f5dcf39e0afa58306eb",
+      "frame": 1,
+      "crop_xyxy": [
+        2780,
+        125,
+        3304,
+        560
+      ],
+      "resampled": false,
+      "sha256": "f91a9b77f2a7f5dba26696f0d95d34da3314a6c38bbcf0157cebc10f861105a9"
+    },
+    {
+      "file": "moved-result.png",
+      "source": "screen.png",
+      "source_sha256": "c5dfe0807936568b08b099258e559914a9414bb01fb61f5dcf39e0afa58306eb",
+      "frame": 1,
+      "crop_xyxy": [
+        1560,
+        100,
+        2680,
+        715
+      ],
+      "resampled": false,
+      "sha256": "aeab4e2b027a6979fbb7a44623ad1a786b7746f5eedc8ddf0cb2e937f123ae12"
+    },
+    {
+      "file": "original-result.png",
+      "source": "original.png",
+      "source_sha256": "6c09b4b8518cc3866840f3f86136f7c7f1f1082b5988b9f7a99040155ebd5ff9",
+      "frame": 1,
+      "crop_xyxy": [
+        1560,
+        100,
+        2680,
+        715
+      ],
+      "resampled": false,
+      "sha256": "3b64e33d535d2379f0d829cf6ffb9e84e58d6cc2a1ddc66486911b3380469b5e"
+    }
+  ],
+  "reproduction": {
+    "fixture_sha256": "89640ccabe5cb973b43821e755891cc2269969f69ef04ba8633a60cc95707db0",
+    "readback_sha256": "6c1cd4a27d23e615817195eac216e912825fb6b3babe62d38a2e26fd7553a843",
+    "readback_source_sha256": "3d1eaef2f0889bd8b3e8866c417e11557d339f2e452af349c98e4fc060871cd6",
+    "readback_transform": "CRLF normalized to LF for the portable Git asset; JSON values unchanged",
+    "reimport": "NOT_RUN"
+  }
+}
