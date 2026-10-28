@@ -24,6 +24,22 @@ uShaderは、**3Dオブジェクトの表面をどんな色・反射・透明度
 
 材質は立体そのものではありません。形・位置を持つ<Term id="usd-scene">USD scene</Term>と、材質を作るデータは別です。uShaderの出力をそのまま通常の画像用Mergeへつないでも完成画像にはなりません。**適用先を選ぶのは[uReplaceMaterial](./ureplacematerial)、画像に描画するのは[uRenderer](./u-renderer)**です。
 
+<!-- capture-reuse:R306 -->
+
+## 実機例：単一形状に材質を渡す
+
+S346では、単色画像をuTextureからuShaderのdiffuseColorへ渡し、uReplaceMaterialを通してCapsuleへ適用しました。同じframe 0の左は元の灰色、右は赤い材質を適用した描画です。Selected Primsは空で、特定Primの選択は確認していません。
+
+[![画像からuShaderとuReplaceMaterialへ接続する構成](/img/fusion/captures/S346/graph.png)](/img/fusion/captures/S346/graph.png)
+
+[![USDモードのuShader Inspector](/img/fusion/reuse/R306/shader-controls.png)](/img/fusion/reuse/R306/shader-controls.png)
+
+[![同じframeの元の形状と赤い材質の描画](/img/fusion/captures/S346/comparison.png)](/img/fusion/captures/S346/comparison.png)
+
+Inspectorの原画と切り出し条件は[画像の記録](/img/fusion/reuse/R306/provenance.json)にあります。可変入力の選択操作、UV、複数object・2材質、正確な色やportable reimportは未確認です。市松模様はViewerの透明表示です。[撮影条件](/img/fusion/captures/S346/capture.json)
+
+<!-- /capture-reuse:R306 -->
+
 ## 入力・出力と接続例
 
 | 接続 | データ | 役割 |
