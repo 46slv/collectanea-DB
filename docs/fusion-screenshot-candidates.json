@@ -8071,6 +8071,52 @@
           "status": "captured"
         }
       ]
+    },
+    {
+      "priority": "P1",
+      "goal": "Show pTurbulence connection and static displays with fixed seeds.",
+      "suggested_graph": "pEmitter -> pTurbulence -> pRender -> MediaOut",
+      "scope": "Resolve Studio 21.1.0.14 on Windows.",
+      "limitations": [
+        "Frame 24 and 48, fixed seeds 7 and 11; evaluation-start identity and deterministic movement comparisons NOT_RUN.",
+        "Still images do not establish trajectory, causal displacement, Strength Over Life or Density effect.",
+        "Region/Set, particle data, portable reimport and other hosts NOT_RUN."
+      ],
+      "id": "S312",
+      "article": "manuals/fusion/nodes/particles/pturbulence.md",
+      "manual": {
+        "version": "21.1",
+        "chapter": 114,
+        "printed_pages": "2689–2690"
+      },
+      "status": "captured-embedded-unverified",
+      "capture_manifest": "static/img/fusion/captures/S312/capture.json",
+      "shots": [
+        {
+          "slug": "graph",
+          "kind": "graph",
+          "target": "pEmitterからpTurbulenceとpRenderへ接続した構成",
+          "status": "captured"
+        },
+        {
+          "slug": "controls",
+          "kind": "inspector",
+          "target": "pTurbulenceの各軸の強度とDensityの設定",
+          "status": "captured"
+        },
+        {
+          "slug": "result48",
+          "kind": "result",
+          "target": "48フレームの粒子表示",
+          "status": "captured"
+        },
+        {
+          "slug": "result24",
+          "kind": "result",
+          "target": "24フレームの粒子表示",
+          "status": "captured"
+        }
+      ]
     }
   ],
   "publication_batches": [
@@ -9456,25 +9502,25 @@
     }
   ],
   "coverage_inventory": {
-    "checked_at": "2026-10-28T07:45:25.672147+00:00",
+    "checked_at": "2026-10-28T09:55:50.124055+00:00",
     "scope": "All manuals/fusion Markdown and MDX pages; review necessity before adding images.",
     "completion_rule": "Every page has an explicit image decision; necessary images are native-observed, embedded, saved to GitHub and public-display-verified. A native example does not verify all article controls.",
     "summary": {
       "total_pages": 589,
-      "with_images": 229,
+      "with_images": 230,
       "with_native_examples": 229,
       "states": {
         "reviewed-no-standalone-image": 26,
         "no-standalone-image-needed": 6,
         "illustrated-reused-example": 80,
-        "capture-planned": 327,
-        "illustrated-native-example": 149,
+        "capture-planned": 326,
+        "illustrated-native-example": 150,
         "needs-review": 1
       },
       "decisions": {
         "no-standalone-image-needed": 32,
-        "image-required": 229,
-        "capture-needed": 327,
+        "image-required": 230,
+        "capture-needed": 326,
         "needs-review": 1
       }
     },
@@ -22242,13 +22288,20 @@
         "article": "manuals/fusion/nodes/particles/pturbulence.md",
         "title": "pTurbulence",
         "kind": "node",
-        "image_count": 0,
+        "image_count": 4,
         "native_cases": [],
         "reused_cases": [],
-        "planned_cases": [],
-        "state": "capture-planned",
-        "decision": "capture-needed",
-        "reason": "本文の対象機能: pTurbulenceは、Particleの位置や動きに不規則な変化を加えるノード。。S09固定Emitter画像には各Force/behaviorのControlsと軌跡差がない。",
+        "planned_cases": [
+          "S312"
+        ],
+        "state": "illustrated-native-example",
+        "decision": "image-required",
+        "reason": "S312は固定設定の接続と2時刻の表示例。評価開始を揃えた軌道比較は未確認。",
+        "remaining_views": [
+          "同じseed・初期条件・評価開始を揃えた効果比較",
+          "Region、Set、正確な粒子データとDensityの比較",
+          "portable reimportと他host"
+        ],
         "required_views": [
           "source→対象Particle Tool→pRenderのGraph",
           "対象自身の固有Controlsと必要なConditions/Region",

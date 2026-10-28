@@ -92,6 +92,34 @@ pEmitterで粒子を発生させ、pTurbulenceで軌道を乱し、pRenderで2D 
 
 動きを比較するには、同じ発生条件でpTurbulenceのStrengthを小さくした状態と大きくした状態を見比べます。乱れの量を確認してからDensityを動かすと、変化の原因を追いやすくなります。
 
+<!-- capture:S312 -->
+
+## 実機例：pTurbulenceを粒子へ接続する
+
+`pEmitter` から `pTurbulence` を通して `pRender` の2D出力へ接続します。Strength XとYを0.1、Zを0、Densityを10に設定し、24フレームと48フレームの表示を記録しました。
+
+評価開始条件を揃えた軌道比較や、Densityによる変化は確認していません。透明市松はViewerの表示です。[接続と設定の記録](/img/fusion/captures/S312/readback.json)に条件を記載しています。
+
+[![pEmitterからpTurbulenceとpRenderへ接続した構成](/img/fusion/captures/S312/graph.png)](/img/fusion/captures/S312/graph.png)
+
+粒子をpTurbulenceへ入力します。
+
+[![pTurbulenceの各軸の強度とDensityの設定](/img/fusion/captures/S312/controls.png)](/img/fusion/captures/S312/controls.png)
+
+Strength XとYを0.1に設定します。
+
+[![48フレームの粒子表示](/img/fusion/captures/S312/result48.png)](/img/fusion/captures/S312/result48.png)
+
+48フレームの表示です。
+
+[![24フレームの粒子表示](/img/fusion/captures/S312/result24.png)](/img/fusion/captures/S312/result24.png)
+
+24フレームの表示です。
+
+[再現用Graph](/img/fusion/captures/S312/fixture.comp) · [撮影条件と確認範囲](/img/fusion/captures/S312/capture.json)
+
+<!-- /capture:S312 -->
+
 ## 運用例
 
 ### 1. 上昇する煙にまとまった揺らぎを作る
