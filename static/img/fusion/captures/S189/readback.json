@@ -1,0 +1,58 @@
+{
+  "case": "S189",
+  "project": "Collectanea_Mandelbrot_Zoom_20261025",
+  "library": "Local Database",
+  "project_manager_folder": "root",
+  "timeline": "S189_capture",
+  "frame": 0,
+  "resolve": "21.1.0.14",
+  "edition": "DaVinci Resolve Studio",
+  "os": "Windows-11-10.0.26200-SP0",
+  "project_settings": {
+    "colorScienceMode": "davinciYRGB",
+    "colorSpaceInput": "Rec.709 Gamma 2.4",
+    "colorSpaceTimeline": "Rec.709 (Scene)",
+    "colorSpaceTimelineGamma": "",
+    "colorSpaceOutput": "Rec.709 (Scene)",
+    "colorSpaceOutputGamma": "ACEScc",
+    "isAutoColorManage": "0",
+    "timelineResolutionWidth": "1920",
+    "timelineResolutionHeight": "1080",
+    "timelineFrameRate": 30.0,
+    "timelinePlaybackFrameRate": "30",
+    "timelinePixelAspectRatio": "square"
+  },
+  "connections": {
+    "Plane.MaterialInput": "Label",
+    "UVMap.SceneInput": "Plane",
+    "BeforeRender.SceneInput": "Plane",
+    "AfterRender.SceneInput": "UVMap",
+    "MediaOut1.Input": "AfterRender"
+  },
+  "values": {
+    "Label": {
+      "StyledText": "UV MAP",
+      "Size": 0.2
+    },
+    "Plane": {
+      "Transform3DOp.Rotate.Y": -20.0
+    },
+    "UVMap": {
+      "MapMode": "Planar",
+      "Orientation": 2.0,
+      "Flip.U": 1.0,
+      "Size.X": 2.0,
+      "Size.Y": 2.0
+    }
+  },
+  "source": "Generated text on ImagePlane, with UVMap in one of two Renderer3D branches.",
+  "save_project": true,
+  "save_completed_at": "2026-10-27T23:18:43.803318+00:00",
+  "native_export_sha256": "84e5ca588ee10636ba61cef5b2c5c2e6034139531e4af8447a03f4b6cd399079",
+  "portable_sha256": "41f4e02238368c41d91e712e69bd6dab7272397997e092df07db0284f4792196",
+  "portable_reimport": "NOT_RUN",
+  "limits": [
+    "One text texture and plane with planar mapping; other modes, animation and hosts NOT_RUN.",
+    "Viewer screenshot is display evidence."
+  ]
+}

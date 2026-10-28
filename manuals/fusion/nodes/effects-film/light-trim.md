@@ -24,6 +24,30 @@ Light Trimは、ログ（Log）状態の映像を受け取り、見かけの露�
 
 フィルムスキャナーのライト調整を模した処理であり、色の記録方式をログからリニアへ変換するノードではありません。
 
+<!-- capture:S193 -->
+
+## 実機例：Trimの操作を確認する
+
+生成した中間グレーの `Background` を `Light Trim` に接続し、Trimを10に設定しました。左は元画像、右は調整後で、右のほうが明るく表示されています。
+
+これは操作を示す合成画像です。実際のログ撮影素材や露出量の精密な検証ではありません。[接続と設定の記録](/img/fusion/captures/S193/readback.json)に条件を記載しています。
+
+[![生成したグレーをLight Trimへ接続する構成](/img/fusion/captures/S193/graph.png)](/img/fusion/captures/S193/graph.png)
+
+BackgroundからLight Trimへ接続します。
+
+[![RGBAをロックしTrimを10に設定したInspector](/img/fusion/captures/S193/controls.png)](/img/fusion/captures/S193/controls.png)
+
+RGBAをロックしTrimを10に設定します。
+
+[![調整前と後の中間グレーの比較](/img/fusion/captures/S193/comparison.png)](/img/fusion/captures/S193/comparison.png)
+
+左は元画像、右は調整後です。
+
+[再現用Graph](/img/fusion/captures/S193/fixture.comp) · [撮影条件と確認範囲](/img/fusion/captures/S193/capture.json)
+
+<!-- /capture:S193 -->
+
 ## 役割
 
 カメラのログ記録では、光の強さと画像の数値が直線的に対応していません。Light Trimは、そのログ画像の露出を調整するためのノードです。DaVinci Resolve 21.1 Reference Manualでは、Cineon、ARRI、Blackmagic RAWなどに関係するログデータを対象として説明しています。

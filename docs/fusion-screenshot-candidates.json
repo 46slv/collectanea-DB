@@ -6781,6 +6781,334 @@
         "Article verification remains partial"
       ],
       "published_batch": "fusion-native-20261027-41"
+    },
+    {
+      "priority": "P1",
+      "goal": "Show a cube before and after linear Fog 3D.",
+      "suggested_graph": "Cube3D + Camera3D -> Merge3D -> Fog3D -> Renderer3D; compare original.",
+      "scope": "Resolve Studio 21.1.0.14 on Windows, 1920x1080 static frame.",
+      "limitations": [
+        "One cube and camera with linear fog; density texture, radial mode, other falloffs, animation and hosts NOT_RUN.",
+        "Viewer screenshot is display evidence.",
+        "Portable reimport and physical input provenance NOT_RUN.",
+        "Article verification remains partial."
+      ],
+      "id": "S187",
+      "article": "manuals/fusion/nodes/3d/fog-3d.md",
+      "manual": {
+        "version": "21.1",
+        "chapter": 88,
+        "printed_pages": "1950–1952"
+      },
+      "status": "captured-local-display-verified",
+      "capture_manifest": "static/img/fusion/captures/S187/capture.json",
+      "shots": [
+        {
+          "slug": "graph",
+          "kind": "graph",
+          "target": "CubeとCameraをまとめFog 3Dを通した結果と元を画像化する構成",
+          "status": "captured"
+        },
+        {
+          "slug": "controls",
+          "kind": "inspector",
+          "target": "霧の色とLinearの距離設定を示すFog 3DのInspector",
+          "status": "captured"
+        },
+        {
+          "slug": "comparison",
+          "kind": "comparison",
+          "target": "霧なしと青い霧を適用した立方体の比較",
+          "status": "captured"
+        }
+      ]
+    },
+    {
+      "priority": "P1",
+      "goal": "Show a cube before and after SoftClip at fixed distances.",
+      "suggested_graph": "Cube3D + Camera3D -> Merge3D -> SoftClip -> Renderer3D; compare original.",
+      "scope": "Resolve Studio 21.1.0.14 on Windows, 1920x1080 static frame.",
+      "limitations": [
+        "One cube and camera with fixed distances; particle animation, radial mode, other hosts NOT_RUN.",
+        "Viewer screenshot is display evidence.",
+        "Portable reimport and physical input provenance NOT_RUN.",
+        "Article verification remains partial."
+      ],
+      "id": "S188",
+      "article": "manuals/fusion/nodes/3d/softclip-3d.md",
+      "manual": {
+        "version": "21.1",
+        "chapter": 84,
+        "printed_pages": "1865"
+      },
+      "status": "captured-local-display-verified",
+      "capture_manifest": "static/img/fusion/captures/S188/capture.json",
+      "shots": [
+        {
+          "slug": "graph",
+          "kind": "graph",
+          "target": "CubeとCameraをまとめSoftClipを通した結果と元を画像化する構成",
+          "status": "captured"
+        },
+        {
+          "slug": "controls",
+          "kind": "inspector",
+          "target": "不透明距離と透明距離を示すSoftClipのInspector",
+          "status": "captured"
+        },
+        {
+          "slug": "comparison",
+          "kind": "comparison",
+          "target": "処理前と透明度が変化した立方体の比較",
+          "status": "captured"
+        }
+      ]
+    },
+    {
+      "priority": "P1",
+      "goal": "Show Light Trim controls using a synthetic gray image.",
+      "suggested_graph": "Background -> LightTrim -> MediaOut.",
+      "scope": "Resolve Studio 21.1.0.14 on Windows, 1920x1080 static frame.",
+      "limitations": [
+        "Synthetic uniform gray; real log footage, calibrated exposure, channels, animation and other hosts NOT_RUN.",
+        "Viewer screenshot is display evidence.",
+        "Portable reimport and physical input provenance NOT_RUN.",
+        "Article verification remains partial."
+      ],
+      "id": "S193",
+      "article": "manuals/fusion/nodes/effects-film/light-trim.md",
+      "manual": {
+        "version": "21.1",
+        "chapter": 98,
+        "printed_pages": "2320–2321"
+      },
+      "status": "captured-local-display-verified",
+      "capture_manifest": "static/img/fusion/captures/S193/capture.json",
+      "shots": [
+        {
+          "slug": "graph",
+          "kind": "graph",
+          "target": "生成したグレーをLight Trimへ接続する構成",
+          "status": "captured"
+        },
+        {
+          "slug": "controls",
+          "kind": "inspector",
+          "target": "RGBAをロックしTrimを10に設定したInspector",
+          "status": "captured"
+        },
+        {
+          "slug": "comparison",
+          "kind": "comparison",
+          "target": "調整前と後の中間グレーの比較",
+          "status": "captured"
+        }
+      ]
+    },
+    {
+      "priority": "P1",
+      "goal": "Show Cineon Log controls with synthetic gray.",
+      "suggested_graph": "Background -> CineonLog -> MediaOut.",
+      "scope": "Resolve Studio 21.1.0.14 on Windows, 1920x1080 static frame.",
+      "limitations": [
+        "Synthetic gray; real log footage, conversion accuracy, channels and other hosts NOT_RUN.",
+        "Viewer screenshot is display evidence.",
+        "Portable reimport and physical input provenance NOT_RUN.",
+        "Article verification remains partial."
+      ],
+      "id": "S194",
+      "article": "manuals/fusion/nodes/effects-film/cineon-log.md",
+      "manual": {
+        "version": "21.1",
+        "chapter": 98,
+        "printed_pages": "2310–2312"
+      },
+      "status": "captured-local-display-verified",
+      "capture_manifest": "static/img/fusion/captures/S194/capture.json",
+      "shots": [
+        {
+          "slug": "graph",
+          "kind": "graph",
+          "target": "生成したグレーをCineon Logへ接続する構成",
+          "status": "captured"
+        },
+        {
+          "slug": "controls",
+          "kind": "inspector",
+          "target": "Cineon LogのLogからLinearへの変換設定とカーブ",
+          "status": "captured"
+        },
+        {
+          "slug": "comparison",
+          "kind": "comparison",
+          "target": "Cineon Log変換前と後の生成グレー",
+          "status": "captured"
+        }
+      ]
+    },
+    {
+      "priority": "P1",
+      "goal": "Show Triangulate 3D connection and rendered appearance without claiming topology proof.",
+      "suggested_graph": "Cube3D -> Triangulate3D -> Renderer3D; compare original.",
+      "scope": "Resolve Studio 21.1.0.14 on Windows, 1920x1080 static frame.",
+      "limitations": [
+        "Rendered appearance only; topology, wireframe rendering, other meshes and hosts NOT_RUN.",
+        "Viewer screenshot is display evidence.",
+        "Portable reimport and physical input provenance NOT_RUN.",
+        "Article verification remains partial."
+      ],
+      "id": "S191",
+      "article": "manuals/fusion/nodes/3d/triangulate-3d.md",
+      "manual": {
+        "version": "21.1",
+        "chapter": 88,
+        "printed_pages": "2010–2011"
+      },
+      "status": "captured-local-display-verified",
+      "capture_manifest": "static/img/fusion/captures/S191/capture.json",
+      "shots": [
+        {
+          "slug": "graph",
+          "kind": "graph",
+          "target": "Cube 3Dを分岐しTriangulate 3Dの前後を画像化する構成",
+          "status": "captured"
+        },
+        {
+          "slug": "comparison",
+          "kind": "comparison",
+          "target": "処理前後の立方体の通常レンダリング",
+          "status": "captured"
+        }
+      ]
+    },
+    {
+      "priority": "P1",
+      "goal": "Show Locator position driving a 2D ellipse in two static positions.",
+      "suggested_graph": "Cube and Camera -> Merge3D -> Locator3D; Locator.Position -> Ellipse Center -> 2D composite.",
+      "scope": "Resolve Studio 21.1.0.14 on Windows, 1920x1080 static frame.",
+      "limitations": [
+        "Two static locator positions; target input, animation, stereo and other hosts NOT_RUN.",
+        "Viewer screenshot is display evidence.",
+        "Portable reimport and physical input provenance NOT_RUN.",
+        "Article verification remains partial."
+      ],
+      "id": "S192",
+      "article": "manuals/fusion/nodes/3d/locator-3d.md",
+      "manual": {
+        "version": "21.1",
+        "chapter": 88,
+        "printed_pages": "1955–1957"
+      },
+      "status": "captured-local-display-verified",
+      "capture_manifest": "static/img/fusion/captures/S192/capture.json",
+      "shots": [
+        {
+          "slug": "graph",
+          "kind": "graph",
+          "target": "Locatorのある3DシーンとEllipse Maskから赤いマーカーを合成する構成",
+          "status": "captured"
+        },
+        {
+          "slug": "controls",
+          "kind": "inspector",
+          "target": "Ellipse MaskのCenterがLocator.Positionを参照するInspector",
+          "status": "captured"
+        },
+        {
+          "slug": "center",
+          "kind": "comparison",
+          "target": "Locator Xが0のとき画面中央にある赤いマーカー",
+          "status": "captured"
+        },
+        {
+          "slug": "right",
+          "kind": "comparison",
+          "target": "Locator Xが0.7のとき右へ移動した赤いマーカー",
+          "status": "captured"
+        }
+      ]
+    },
+    {
+      "priority": "P1",
+      "goal": "Show planar UV mapping and U flip on a generated text image.",
+      "suggested_graph": "TextPlus -> ImagePlane3D -> UVMap -> Renderer3D; compare original.",
+      "scope": "Resolve Studio 21.1.0.14 on Windows, 1920x1080 static frame.",
+      "limitations": [
+        "One text texture and plane with planar mapping; other modes, animation and hosts NOT_RUN.",
+        "Viewer screenshot is display evidence.",
+        "Portable reimport and physical input provenance NOT_RUN.",
+        "Article verification remains partial."
+      ],
+      "id": "S189",
+      "article": "manuals/fusion/nodes/3d/uv-map-3d.md",
+      "manual": {
+        "version": "21.1",
+        "chapter": 88,
+        "printed_pages": "2011–2014"
+      },
+      "status": "captured-local-display-verified",
+      "capture_manifest": "static/img/fusion/captures/S189/capture.json",
+      "shots": [
+        {
+          "slug": "graph",
+          "kind": "graph",
+          "target": "文字画像のImage Planeを分岐しUV Map 3Dを通した結果と元を画像化する構成",
+          "status": "captured"
+        },
+        {
+          "slug": "controls",
+          "kind": "inspector",
+          "target": "Planar ZとFlip Uの設定を示すUV Map 3DのInspector",
+          "status": "captured"
+        },
+        {
+          "slug": "comparison",
+          "kind": "comparison",
+          "target": "元のUVと設定し直したUVで表示した文字の比較",
+          "status": "captured"
+        }
+      ]
+    },
+    {
+      "priority": "P1",
+      "goal": "Show the effect of flipping normals on one lit sphere.",
+      "suggested_graph": "Shape3D -> ReplaceNormals3D with one directional light; compare original.",
+      "scope": "Resolve Studio 21.1.0.14 on Windows, 1920x1080 static frame.",
+      "limitations": [
+        "One lit sphere with flipped normals; smoothing comparisons, tangents, other lighting, animation and hosts NOT_RUN.",
+        "Viewer screenshot is display evidence.",
+        "Portable reimport and physical input provenance NOT_RUN.",
+        "Article verification remains partial."
+      ],
+      "id": "S190",
+      "article": "manuals/fusion/nodes/3d/replace-normals-3d.md",
+      "manual": {
+        "version": "21.1",
+        "chapter": 88,
+        "printed_pages": "1981–1983"
+      },
+      "status": "captured-local-display-verified",
+      "capture_manifest": "static/img/fusion/captures/S190/capture.json",
+      "shots": [
+        {
+          "slug": "graph",
+          "kind": "graph",
+          "target": "球を分岐し法線反転の前後を同じ光源でレンダリングする構成",
+          "status": "captured"
+        },
+        {
+          "slug": "controls",
+          "kind": "inspector",
+          "target": "Flip Normalsが有効なReplace Normals 3DのInspector",
+          "status": "captured"
+        },
+        {
+          "slug": "comparison",
+          "kind": "comparison",
+          "target": "通常の法線と反転した法線の球を同じ光で描画した比較",
+          "status": "captured"
+        }
+      ]
     }
   ],
   "publication_batches": [
@@ -8166,24 +8494,26 @@
     }
   ],
   "coverage_inventory": {
-    "checked_at": "2026-10-26T15:04:50.698422+00:00",
+    "checked_at": "2026-10-28T04:58:31.266362+00:00",
     "scope": "All manuals/fusion Markdown and MDX pages; review necessity before adding images.",
     "completion_rule": "Every page has an explicit image decision; necessary images are native-observed, embedded, saved to GitHub and public-display-verified. A native example does not verify all article controls.",
     "summary": {
-      "total_pages": 587,
-      "with_images": 203,
-      "with_native_examples": 203,
+      "total_pages": 589,
+      "with_images": 211,
+      "with_native_examples": 211,
       "states": {
         "reviewed-no-standalone-image": 26,
         "no-standalone-image-needed": 6,
         "illustrated-reused-example": 80,
-        "capture-planned": 352,
-        "illustrated-native-example": 123
+        "capture-planned": 344,
+        "illustrated-native-example": 131,
+        "needs-review": 2
       },
       "decisions": {
         "no-standalone-image-needed": 32,
-        "image-required": 203,
-        "capture-needed": 352
+        "image-required": 211,
+        "capture-needed": 344,
+        "needs-review": 2
       }
     },
     "pages": [
@@ -9572,12 +9902,14 @@
         "article": "manuals/fusion/nodes/3d/fog-3d.md",
         "title": "Fog 3D",
         "kind": "node",
-        "image_count": 0,
-        "native_cases": [],
+        "image_count": 3,
+        "native_cases": [
+          "S187"
+        ],
         "reused_cases": [],
         "planned_cases": [],
-        "state": "capture-planned",
-        "decision": "capture-needed",
+        "state": "illustrated-native-example",
+        "decision": "image-required",
         "reason": "本文の対象機能: Fog 3Dは、Cameraからの距離に応じて3Dオブジェクトの見え方を霧の色へ近づけるNode。。S11の球のrenderだけでは各Node固有の生成・配置・変形Controlと結果を示せない。",
         "required_views": [
           "対象Node名と実際の配線が読めるGraph",
@@ -9661,12 +9993,14 @@
         "article": "manuals/fusion/nodes/3d/locator-3d.md",
         "title": "Locator 3D",
         "kind": "node",
-        "image_count": 0,
-        "native_cases": [],
+        "image_count": 4,
+        "native_cases": [
+          "S192"
+        ],
         "reused_cases": [],
         "planned_cases": [],
-        "state": "capture-planned",
-        "decision": "capture-needed",
+        "state": "illustrated-native-example",
+        "decision": "image-required",
         "reason": "本文の対象機能: Locator 3Dは、3Dシーン内の点をカメラから見た2D位置に変換し、他のノードの位置パラメータから参照できるようにするノード。。S11の固定Camera画像だけでは画角・投影または座標参照が機能したことを示せない。",
         "required_views": [
           "対象Node名と実際の配線が読めるGraph",
@@ -9890,12 +10224,14 @@
         "article": "manuals/fusion/nodes/3d/replace-normals-3d.md",
         "title": "Replace Normals 3D",
         "kind": "node",
-        "image_count": 0,
-        "native_cases": [],
+        "image_count": 3,
+        "native_cases": [
+          "S190"
+        ],
         "reused_cases": [],
         "planned_cases": [],
-        "state": "capture-planned",
-        "decision": "capture-needed",
+        "state": "illustrated-native-example",
+        "decision": "image-required",
         "reason": "本文の対象機能: Replace Normals 3Dは、Classic 3D meshの頂点Normal / Tangentを再計算し、表面のsmooth / faceted shadingを調整するNode。。通常の球のshaded renderでは面分割や頂点接続、UV、法線の変化を識別できない。",
         "required_views": [
           "対象Node名と実際の配線が読めるGraph",
@@ -10014,12 +10350,14 @@
         "article": "manuals/fusion/nodes/3d/softclip-3d.md",
         "title": "Softclip 3D",
         "kind": "node",
-        "image_count": 0,
-        "native_cases": [],
+        "image_count": 3,
+        "native_cases": [
+          "S188"
+        ],
         "reused_cases": [],
         "planned_cases": [],
-        "state": "capture-planned",
-        "decision": "capture-needed",
+        "state": "illustrated-native-example",
+        "decision": "image-required",
         "reason": "本文の対象機能: Softclip 3Dは、カメラのすぐ近くにある3Dオブジェクトを徐々に透明にし、急な消失を目立たなくするNode。。S11の球のrenderだけでは各Node固有の生成・配置・変形Controlと結果を示せない。",
         "required_views": [
           "対象Node名と実際の配線が読めるGraph",
@@ -10117,12 +10455,14 @@
         "article": "manuals/fusion/nodes/3d/triangulate-3d.md",
         "title": "Triangulate 3D",
         "kind": "node",
-        "image_count": 0,
-        "native_cases": [],
+        "image_count": 2,
+        "native_cases": [
+          "S191"
+        ],
         "reused_cases": [],
         "planned_cases": [],
-        "state": "capture-planned",
-        "decision": "capture-needed",
+        "state": "illustrated-native-example",
+        "decision": "image-required",
         "reason": "本文の対象機能: Triangulate 3Dは、3D meshを構成する四角形や多角形の面を三角面に分割するNode。。通常の球のshaded renderでは面分割や頂点接続、UV、法線の変化を識別できない。",
         "required_views": [
           "対象Node名と実際の配線が読めるGraph",
@@ -10153,12 +10493,14 @@
         "article": "manuals/fusion/nodes/3d/uv-map-3d.md",
         "title": "UV Map 3D",
         "kind": "node",
-        "image_count": 0,
-        "native_cases": [],
+        "image_count": 3,
+        "native_cases": [
+          "S189"
+        ],
         "reused_cases": [],
         "planned_cases": [],
-        "state": "capture-planned",
-        "decision": "capture-needed",
+        "state": "illustrated-native-example",
+        "decision": "image-required",
         "reason": "本文の対象機能: UV Map 3Dは、3D geometryの各頂点にtextureを貼る位置（UV/UVW座標）を設定し直すNode。画像やMaterialそのものは貼りません。。通常の球のshaded renderでは面分割や頂点接続、UV、法線の変化を識別できない。",
         "required_views": [
           "対象Node名と実際の配線が読めるGraph",
@@ -12503,12 +12845,14 @@
         "article": "manuals/fusion/nodes/effects-film/cineon-log.md",
         "title": "Cineon Log",
         "kind": "node",
-        "image_count": 0,
-        "native_cases": [],
+        "image_count": 3,
+        "native_cases": [
+          "S194"
+        ],
         "reused_cases": [],
         "planned_cases": [],
-        "state": "capture-planned",
-        "decision": "capture-needed",
+        "state": "illustrated-native-example",
+        "decision": "image-required",
         "reason": "本文の対象機能: Cineon Logは、カメラのログ記録方式に応じて画像の階調カーブをリニアとの間で変換するノード。。S14の見た目の色補正はencoding変換の証拠にならず、display screenshotだけでは色精度を証明できない。",
         "required_views": [
           "対象Node名と実際の配線が読めるGraph",
@@ -12795,12 +13139,14 @@
         "article": "manuals/fusion/nodes/effects-film/light-trim.md",
         "title": "Light Trim",
         "kind": "node",
-        "image_count": 0,
-        "native_cases": [],
+        "image_count": 3,
+        "native_cases": [
+          "S193"
+        ],
         "reused_cases": [],
         "planned_cases": [],
-        "state": "capture-planned",
-        "decision": "capture-needed",
+        "state": "illustrated-native-example",
+        "decision": "image-required",
         "reason": "本文の対象機能: Light Trimは、ログ画像の見かけの露出をフィルムのトリムポイント単位で調整するノード。。S14の見た目の色補正はencoding変換の証拠にならず、display screenshotだけでは色精度を証明できない。",
         "required_views": [
           "対象Node名と実際の配線が読めるGraph",
@@ -25670,6 +26016,26 @@
         "reason": "MultiMerge Layer Listの順序・Enableと重なり"
       },
       {
+        "article": "manuals/fusion/recipes/compositing/soft-glow-for-isolated-highlights.md",
+        "title": "Soft Glowで街灯の光だけを柔らかくにじませる",
+        "kind": "recipe",
+        "image_count": 0,
+        "native_cases": [],
+        "reused_cases": [],
+        "planned_cases": [],
+        "state": "needs-review"
+      },
+      {
+        "article": "manuals/fusion/recipes/compositing/soft-vignette-with-inverted-ellipse.md",
+        "title": "Ellipse Maskで柔らかいビネットを作る",
+        "kind": "recipe",
+        "image_count": 0,
+        "native_cases": [],
+        "reused_cases": [],
+        "planned_cases": [],
+        "state": "needs-review"
+      },
+      {
         "article": "manuals/fusion/recipes/compositing/two-image-merge.md",
         "title": "2つのImageを重ねる",
         "kind": "recipe",
@@ -26204,9 +26570,9 @@
       },
       {
         "article": "manuals/fusion/troubleshooting/masking/alpha-edge-looks-wrong.md",
-        "title": "透明Edgeの色や縁がおかしい",
+        "title": "透明エッジに黒縁・白縁が出る",
         "kind": "diagnostic",
-        "image_count": 2,
+        "image_count": 3,
         "native_cases": [],
         "reused_cases": [
           "S74"

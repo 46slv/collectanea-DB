@@ -1,0 +1,118 @@
+{
+  "manual": {
+    "version": "21.1",
+    "chapter": 98,
+    "printed_pages": "2310–2312"
+  },
+  "runtime": {
+    "version": "21.1.0.14",
+    "edition": "DaVinci Resolve Studio",
+    "os": "Windows-11-10.0.26200-SP0",
+    "ui_language": "ja-JP"
+  },
+  "captured_at": "2026-10-27T23:37:28.498582+00:00",
+  "project": "Collectanea_Mandelbrot_Zoom_20261025",
+  "timeline": "S194_capture",
+  "frame": 0,
+  "resolution": [
+    1920,
+    1080
+  ],
+  "color_management": {
+    "project_settings": {
+      "colorScienceMode": "davinciYRGB",
+      "colorSpaceInput": "Rec.709 Gamma 2.4",
+      "colorSpaceTimeline": "Rec.709 (Scene)",
+      "colorSpaceTimelineGamma": "",
+      "colorSpaceOutput": "Rec.709 (Scene)",
+      "colorSpaceOutputGamma": "ACEScc",
+      "isAutoColorManage": "0",
+      "timelineResolutionWidth": "1920",
+      "timelineResolutionHeight": "1080",
+      "timelineFrameRate": 30.0,
+      "timelinePlaybackFrameRate": "30",
+      "timelinePixelAspectRatio": "square"
+    },
+    "note": "SDK project settings; screenshots show Viewer display."
+  },
+  "viewer": {
+    "view_mode": "Fit",
+    "source": "Left Plate; right MediaOut1",
+    "note": "Cineon Log selected."
+  },
+  "acceptance": {
+    "gui": "PASS: synthetic gray and Cineon Log to Linear controls; SDK connections and settings read back.",
+    "article_display": "NOT_RUN",
+    "public_display": "NOT_RUN"
+  },
+  "unverified": [
+    "Synthetic gray; real log footage, conversion accuracy, channels and other hosts NOT_RUN.",
+    "Viewer screenshot is display evidence.",
+    "Portable reimport and physical input provenance NOT_RUN.",
+    "Article verification remains partial."
+  ],
+  "schema_version": 1,
+  "case": "S194",
+  "article": "manuals/fusion/nodes/effects-film/cineon-log.md",
+  "graph": "fixture.comp",
+  "settings": "readback.json",
+  "source": {
+    "file": "screen.png",
+    "size": [
+      3336,
+      1902
+    ],
+    "sha256": "45dc70cdddb37de6ce80049edb44e1566684e8eec517062c471c30bc3c9194cf"
+  },
+  "shots": [
+    {
+      "file": "graph.png",
+      "source": "screen.png",
+      "source_sha256": "45dc70cdddb37de6ce80049edb44e1566684e8eec517062c471c30bc3c9194cf",
+      "frame": 0,
+      "crop_xyxy": [
+        850,
+        1050,
+        2050,
+        1600
+      ],
+      "resampled": false,
+      "sha256": "a486cb096101cbd3164165a334c722b05a8cacdf4d1ae5823fb5b35e7eae3471"
+    },
+    {
+      "file": "controls.png",
+      "source": "screen.png",
+      "source_sha256": "45dc70cdddb37de6ce80049edb44e1566684e8eec517062c471c30bc3c9194cf",
+      "frame": 0,
+      "crop_xyxy": [
+        2815,
+        65,
+        3336,
+        750
+      ],
+      "resampled": false,
+      "sha256": "99cecacd78da4f94cee8c972963b46376217415524593c83ba28b4d5d0ab949f"
+    },
+    {
+      "file": "comparison.png",
+      "source": "screen.png",
+      "source_sha256": "45dc70cdddb37de6ce80049edb44e1566684e8eec517062c471c30bc3c9194cf",
+      "frame": 0,
+      "crop_xyxy": [
+        0,
+        65,
+        2800,
+        720
+      ],
+      "resampled": false,
+      "sha256": "f420c55416f62b19b6c7751a7bb27399588c8945de856c356394e944edeccc91"
+    }
+  ],
+  "reproduction": {
+    "fixture_sha256": "f7a63597c3a313e82f78041bad5746e070b820d056c31437140c0f0b34bf34c3",
+    "readback_sha256": "5af5769b188c5799b34dc1b4768746bc0a3fa9bdac805caeebfa77bcbc7c22b4",
+    "readback_source_sha256": "5af5769b188c5799b34dc1b4768746bc0a3fa9bdac805caeebfa77bcbc7c22b4",
+    "readback_transform": "No line-ending transformation",
+    "reimport": "NOT_RUN"
+  }
+}

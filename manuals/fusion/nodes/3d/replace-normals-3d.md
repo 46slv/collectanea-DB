@@ -26,6 +26,30 @@ Normalは、surfaceがどちらを向いているかを表すvectorで、light�
 
 このNodeが処理するのは**per-vertex Normal / Tangent**です。Light、Camera、Point Cloud、Locator、Materialなどのnon-mesh要素は、そのまま通過します。
 
+<!-- capture:S190 -->
+
+## 実機例：法線の向きと陰影を比べる
+
+`Shape 3D` の球を分岐し、一方だけ `Replace Normals 3D` を通します。それぞれ同じ `Directional Light` とまとめ、照明を有効にした `Renderer 3D` で画像化しました。
+
+右はFlip Normalsを有効にした結果です。この照明条件では左の球に陰影が見え、右は黒く表示されます。光源や材質によって見え方は変わります。市松模様はViewerの透明表示です。[接続と設定の記録](/img/fusion/captures/S190/readback.json)に条件を記載しています。
+
+[![球を分岐し法線反転の前後を同じ光源でレンダリングする構成](/img/fusion/captures/S190/graph.png)](/img/fusion/captures/S190/graph.png)
+
+球を分岐し、同じ光源を使って比較します。
+
+[![Flip Normalsが有効なReplace Normals 3DのInspector](/img/fusion/captures/S190/controls.png)](/img/fusion/captures/S190/controls.png)
+
+Flip Normalsを有効にします。
+
+[![通常の法線と反転した法線の球を同じ光で描画した比較](/img/fusion/captures/S190/comparison.png)](/img/fusion/captures/S190/comparison.png)
+
+左は処理前、右は法線反転後です。
+
+[再現用Graph](/img/fusion/captures/S190/fixture.comp) · [撮影条件と確認範囲](/img/fusion/captures/S190/capture.json)
+
+<!-- /capture:S190 -->
+
 ## 入力と出力
 
 DaVinci Resolve 21.1 Reference Manualでは、入力は1本です。

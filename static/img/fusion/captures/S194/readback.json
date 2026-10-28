@@ -1,0 +1,53 @@
+{
+  "case": "S194",
+  "project": "Collectanea_Mandelbrot_Zoom_20261025",
+  "library": "Local Database",
+  "project_manager_folder": "root",
+  "timeline": "S194_capture",
+  "frame": 0,
+  "resolve": "21.1.0.14",
+  "edition": "DaVinci Resolve Studio",
+  "os": "Windows-11-10.0.26200-SP0",
+  "project_settings": {
+    "colorScienceMode": "davinciYRGB",
+    "colorSpaceInput": "Rec.709 Gamma 2.4",
+    "colorSpaceTimeline": "Rec.709 (Scene)",
+    "colorSpaceTimelineGamma": "",
+    "colorSpaceOutput": "Rec.709 (Scene)",
+    "colorSpaceOutputGamma": "ACEScc",
+    "isAutoColorManage": "0",
+    "timelineResolutionWidth": "1920",
+    "timelineResolutionHeight": "1080",
+    "timelineFrameRate": 30.0,
+    "timelinePlaybackFrameRate": "30",
+    "timelinePixelAspectRatio": "square"
+  },
+  "connections": {
+    "Convert.Input": "Plate",
+    "MediaOut1.Input": "Convert"
+  },
+  "values": {
+    "Plate": {
+      "UseFrameFormatSettings": 0.0,
+      "Width": 1920.0,
+      "Height": 1080.0,
+      "TopLeftRed": 0.25,
+      "TopLeftGreen": 0.25,
+      "TopLeftBlue": 0.25
+    },
+    "Convert": {
+      "Mode": 0.0
+    },
+    "LogType": "Cineon"
+  },
+  "source": "Synthetic neutral background through Cineon Log.",
+  "save_project": true,
+  "save_completed_at": "2026-10-27T23:37:52.158476+00:00",
+  "native_export_sha256": "74f6ef6df94e21ddf1e82d1c1abc2ff480136b383286a7f6a3b55ca912d2777c",
+  "portable_sha256": "f7a63597c3a313e82f78041bad5746e070b820d056c31437140c0f0b34bf34c3",
+  "portable_reimport": "NOT_RUN",
+  "limits": [
+    "Synthetic gray; real log footage, conversion accuracy, channels and other hosts NOT_RUN.",
+    "Viewer screenshot is display evidence."
+  ]
+}

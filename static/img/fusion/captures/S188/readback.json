@@ -1,0 +1,59 @@
+{
+  "case": "S188",
+  "project": "Collectanea_Mandelbrot_Zoom_20261025",
+  "library": "Local Database",
+  "project_manager_folder": "root",
+  "timeline": "S188_capture",
+  "frame": 0,
+  "resolve": "21.1.0.14",
+  "edition": "DaVinci Resolve Studio",
+  "os": "Windows-11-10.0.26200-SP0",
+  "project_settings": {
+    "colorScienceMode": "davinciYRGB",
+    "colorSpaceInput": "Rec.709 Gamma 2.4",
+    "colorSpaceTimeline": "Rec.709 (Scene)",
+    "colorSpaceTimelineGamma": "",
+    "colorSpaceOutput": "Rec.709 (Scene)",
+    "colorSpaceOutputGamma": "ACEScc",
+    "isAutoColorManage": "0",
+    "timelineResolutionWidth": "1920",
+    "timelineResolutionHeight": "1080",
+    "timelineFrameRate": 30.0,
+    "timelinePlaybackFrameRate": "30",
+    "timelinePixelAspectRatio": "square"
+  },
+  "connections": {
+    "Scene.SceneInput1": "Cube",
+    "Scene.SceneInput2": "Camera",
+    "SoftClip.SceneInput": "Scene",
+    "BeforeRender.SceneInput": "Scene",
+    "AfterRender.SceneInput": "SoftClip",
+    "MediaOut1.Input": "AfterRender"
+  },
+  "values": {
+    "Cube": {
+      "SurfaceCubeInputs.Width": 0.5,
+      "Transform3DOp.Rotate.X": 20.0,
+      "Transform3DOp.Rotate.Y": 30.0
+    },
+    "Camera": {
+      "Transform3DOp.Translate.Z": 3.0,
+      "FLength": 35.0
+    },
+    "SoftClip": {
+      "Enable": 1.0,
+      "OpaqueDistance": 4.0,
+      "TransparentDistance": 1.0
+    }
+  },
+  "source": "Cube and camera merged, with SoftClip in one of two Renderer3D branches.",
+  "save_project": true,
+  "save_completed_at": "2026-10-27T23:13:02.921215+00:00",
+  "native_export_sha256": "57a9eec3b3dffc684ea7451d2af298a7de4f637c5c0066a2e461c8528d9d126f",
+  "portable_sha256": "f9bdf96589c6dc64221c78e4a602e3c58e28f6a3787be1399d509f29789bd31c",
+  "portable_reimport": "NOT_RUN",
+  "limits": [
+    "One cube and camera with fixed distances; particle animation, radial mode, other hosts NOT_RUN.",
+    "Viewer screenshot is display evidence."
+  ]
+}

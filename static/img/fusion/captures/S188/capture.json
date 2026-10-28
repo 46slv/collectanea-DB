@@ -1,0 +1,118 @@
+{
+  "manual": {
+    "version": "21.1",
+    "chapter": 84,
+    "printed_pages": "1865"
+  },
+  "runtime": {
+    "version": "21.1.0.14",
+    "edition": "DaVinci Resolve Studio",
+    "os": "Windows-11-10.0.26200-SP0",
+    "ui_language": "ja-JP"
+  },
+  "captured_at": "2026-10-27T23:12:51.546571+00:00",
+  "project": "Collectanea_Mandelbrot_Zoom_20261025",
+  "timeline": "S188_capture",
+  "frame": 0,
+  "resolution": [
+    1920,
+    1080
+  ],
+  "color_management": {
+    "project_settings": {
+      "colorScienceMode": "davinciYRGB",
+      "colorSpaceInput": "Rec.709 Gamma 2.4",
+      "colorSpaceTimeline": "Rec.709 (Scene)",
+      "colorSpaceTimelineGamma": "",
+      "colorSpaceOutput": "Rec.709 (Scene)",
+      "colorSpaceOutputGamma": "ACEScc",
+      "isAutoColorManage": "0",
+      "timelineResolutionWidth": "1920",
+      "timelineResolutionHeight": "1080",
+      "timelineFrameRate": 30.0,
+      "timelinePlaybackFrameRate": "30",
+      "timelinePixelAspectRatio": "square"
+    },
+    "note": "SDK project settings; screenshots show Viewer display."
+  },
+  "viewer": {
+    "view_mode": "Fit",
+    "source": "Left BeforeRender; right MediaOut1",
+    "note": "SoftClip selected; checkerboard indicates transparency."
+  },
+  "acceptance": {
+    "gui": "PASS: cube before and after SoftClip; SDK connections and distance settings read back.",
+    "article_display": "NOT_RUN",
+    "public_display": "NOT_RUN"
+  },
+  "unverified": [
+    "One cube and camera with fixed distances; particle animation, radial mode, other hosts NOT_RUN.",
+    "Viewer screenshot is display evidence.",
+    "Portable reimport and physical input provenance NOT_RUN.",
+    "Article verification remains partial."
+  ],
+  "schema_version": 1,
+  "case": "S188",
+  "article": "manuals/fusion/nodes/3d/softclip-3d.md",
+  "graph": "fixture.comp",
+  "settings": "readback.json",
+  "source": {
+    "file": "screen.png",
+    "size": [
+      3336,
+      1902
+    ],
+    "sha256": "4edb4cfb6d9e6b3d7497608e2764589fd75869e0dfd994ad3209cbaf801ba63b"
+  },
+  "shots": [
+    {
+      "file": "graph.png",
+      "source": "screen.png",
+      "source_sha256": "4edb4cfb6d9e6b3d7497608e2764589fd75869e0dfd994ad3209cbaf801ba63b",
+      "frame": 0,
+      "crop_xyxy": [
+        500,
+        1050,
+        2350,
+        1650
+      ],
+      "resampled": false,
+      "sha256": "11b4f1e6b30be649a06f3f55bfc0b04c6cc64785230e3a4524dad153749c2993"
+    },
+    {
+      "file": "controls.png",
+      "source": "screen.png",
+      "source_sha256": "4edb4cfb6d9e6b3d7497608e2764589fd75869e0dfd994ad3209cbaf801ba63b",
+      "frame": 0,
+      "crop_xyxy": [
+        2815,
+        65,
+        3336,
+        520
+      ],
+      "resampled": false,
+      "sha256": "b5e58bb3a49716aad077bb5964dbab73962877f4ea52f67d19f585487df60589"
+    },
+    {
+      "file": "comparison.png",
+      "source": "screen.png",
+      "source_sha256": "4edb4cfb6d9e6b3d7497608e2764589fd75869e0dfd994ad3209cbaf801ba63b",
+      "frame": 0,
+      "crop_xyxy": [
+        0,
+        65,
+        2800,
+        720
+      ],
+      "resampled": false,
+      "sha256": "91fe4c0d66365f2569a9bb269bd2b88a5637eafb5efdb7ade7b8beb2658ab28e"
+    }
+  ],
+  "reproduction": {
+    "fixture_sha256": "f9bdf96589c6dc64221c78e4a602e3c58e28f6a3787be1399d509f29789bd31c",
+    "readback_sha256": "a8e73f630a29ba7de198c81c45f10ec011bd6dbf3d2ea2b9ac184de6970d1d2e",
+    "readback_source_sha256": "a8e73f630a29ba7de198c81c45f10ec011bd6dbf3d2ea2b9ac184de6970d1d2e",
+    "readback_transform": "No line-ending transformation",
+    "reimport": "NOT_RUN"
+  }
+}

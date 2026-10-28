@@ -24,6 +24,30 @@ Cineon Logは、カメラでログ（Log）記録された映像を、光の強�
 
 名前にCineonとありますが、Cineon専用ではありません。DaVinci Resolve 21.1のManualには、ARRI、Blackmagic Design、REDなどのカメラ向けログ形式も挙げられています。
 
+<!-- capture:S194 -->
+
+## 実機例：変換モードを確認する
+
+生成した中間グレーの `Background` を `Cineon Log` に接続し、Log TypeをCineon、ModeをLogからLinearに設定しました。Inspectorには対応する変換カーブが表示されています。
+
+左は元画像、右は変換後の表示です。これは操作を示す合成画像で、実際のログ撮影素材や変換精度の検証ではありません。[接続と設定の記録](/img/fusion/captures/S194/readback.json)に条件を記載しています。
+
+[![生成したグレーをCineon Logへ接続する構成](/img/fusion/captures/S194/graph.png)](/img/fusion/captures/S194/graph.png)
+
+BackgroundからCineon Logへ接続します。
+
+[![Cineon LogのLogからLinearへの変換設定とカーブ](/img/fusion/captures/S194/controls.png)](/img/fusion/captures/S194/controls.png)
+
+LogからLinearへの変換とLog Typeを確認します。
+
+[![Cineon Log変換前と後の生成グレー](/img/fusion/captures/S194/comparison.png)](/img/fusion/captures/S194/comparison.png)
+
+左は元画像、右は変換後です。
+
+[再現用Graph](/img/fusion/captures/S194/fixture.comp) · [撮影条件と確認範囲](/img/fusion/captures/S194/capture.json)
+
+<!-- /capture:S194 -->
+
 ## 役割
 
 ログ画像では、明るい部分から暗い部分までを記録しやすいよう、光の強さと画素値の関係が圧縮されています。Cineon Logは、その階調カーブを指定した形式として読み取り、リニアとの間で変換します。
@@ -145,4 +169,4 @@ InspectorでCineon Logを一時的に無効化すると、ログ画像と変換�
 
 **資料確認：** DaVinci Resolve 21.1 Reference Manual（September 2026）、Chapter 98「Film Nodes」、pp.2310–2312。2入力、基本接続、Depth / Mode / Log Type / Lock RGB / Level / Soft Clip / Film Stock Gamma / Conversion Gamma / Conversion Tableの記述を確認しました。
 
-**未確認：** この記述はManualに基づくもので、現在のホスト上での入力端子・Inspector表示・具体的なデコード設定・往復変換の画素値・Free/Studio間の差異は実機検証していません。Manualが保証していない色管理の自動適用や変換精度を確定事項として扱いません。
+**未確認：** 実機例で入力接続とCineonのLogからLinearへのInspector表示を確認しました。具体的な素材のデコード設定・往復変換の画素値・Free/Studio間の差異は実機検証していません。Manualが保証していない色管理の自動適用や変換精度を確定事項として扱いません。
