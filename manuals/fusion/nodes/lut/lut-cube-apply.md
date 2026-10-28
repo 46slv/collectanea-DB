@@ -44,6 +44,30 @@ LUT Cube Creator → Color処理 ───→ LUT Cube Apply → Result
 
 Target ImageはCreator側へ接続しません。通常の映像はorange Inputへ、LUTの基準になる加工済みcubeはgreen Reference Imageへ接続します。
 
+<!-- capture:S302 -->
+
+## 実機例：未加工のcubeを参照する
+
+単色の `Background` をLUT Cube ApplyのImageへ、Size 17の未加工 `LUT Cube Creator` をLUTCubeImageへ接続します。左Viewerは入力、右Viewerは出力です。
+
+この例では、入力と出力が似た赤色に見えました。画素値の一致は測定していません。図のGradeはApplyへ接続されていません。[接続と設定の記録](/img/fusion/captures/S302/readback.json)に条件を記載しています。
+
+[![Backgroundと未加工cubeをLUT Cube Applyへ接続した構成](/img/fusion/captures/S302/graph.png)](/img/fusion/captures/S302/graph.png)
+
+CubeからApplyへ直接つなぎます。GradeはApplyへ接続していません。
+
+[![LUT Cube ApplyのControlsタブ](/img/fusion/captures/S302/controls.png)](/img/fusion/captures/S302/controls.png)
+
+ApplyのControlsタブです。
+
+[![未加工cubeによる入力と出力の赤色表示](/img/fusion/captures/S302/identity.png)](/img/fusion/captures/S302/identity.png)
+
+左は入力、右は出力です。
+
+[再現用Graph](/img/fusion/captures/S302/fixture.comp) · [撮影条件と確認範囲](/img/fusion/captures/S302/capture.json)
+
+<!-- /capture:S302 -->
+
 ## 何が起きるか
 
 LUT Cube Creatorは、RGBの組み合わせを規則的に並べた既知のcolor cube patternを生成します。そのpatternへColor処理を加えると、各sample colorに「処理前のRGB → 処理後のRGB」という対応ができます。LUT Cube Applyは、その対応をReference Imageから読み取り、orange InputのImageへ適用します。
