@@ -1,0 +1,46 @@
+{
+  "case": "S175",
+  "project": "Collectanea_Mandelbrot_Zoom_20261025",
+  "library": "Local Database",
+  "project_manager_folder": "root",
+  "timeline": "S175_capture",
+  "frame": 0,
+  "resolve": "21.1.0.14",
+  "edition": "DaVinci Resolve Studio",
+  "os": "Windows-11-10.0.26200-SP0",
+  "project_settings": {
+    "colorScienceMode": "davinciYRGB",
+    "colorSpaceInput": "Rec.709 Gamma 2.4",
+    "colorSpaceTimeline": "Rec.709 (Scene)",
+    "colorSpaceTimelineGamma": "",
+    "colorSpaceOutput": "Rec.709 (Scene)",
+    "colorSpaceOutputGamma": "ACEScc",
+    "isAutoColorManage": "0",
+    "timelineResolutionWidth": "1920",
+    "timelineResolutionHeight": "1080",
+    "timelineFrameRate": 30.0,
+    "timelinePlaybackFrameRate": "30",
+    "timelinePixelAspectRatio": "square"
+  },
+  "connections": {
+    "SceneTransform.SceneInput": "Cube",
+    "BeforeRender.SceneInput": "Cube",
+    "AfterRender.SceneInput": "SceneTransform",
+    "MediaOut1.Input": "AfterRender"
+  },
+  "values": {
+    "Transform3DOp.Translate.X": 0.3,
+    "Transform3DOp.Translate.Y": 0.15,
+    "Transform3DOp.Rotate.Z": 25.0
+  },
+  "source": "Cube 3D, Transform 3D and two Renderer 3D branches; one static frame.",
+  "save_project": true,
+  "save_completed_at": "2026-10-27T21:50:44.252338+00:00",
+  "native_export_sha256": "a89da5db8167558039a1e6084cc5e90e61fbd92db885859d2d5c14deb16208c6",
+  "portable_sha256": "a4c484fb2405d9c9618a924cf4a35bc94934ba7b498e8d457b44d0b70a6c249c",
+  "portable_reimport": "NOT_RUN",
+  "limits": [
+    "One cube with fixed translation and rotation; hierarchy, camera movement, pivot, animation and other hosts NOT_RUN.",
+    "Viewer screenshot is display evidence."
+  ]
+}

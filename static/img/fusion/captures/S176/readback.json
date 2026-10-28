@@ -1,0 +1,46 @@
+{
+  "case": "S176",
+  "project": "Collectanea_Mandelbrot_Zoom_20261025",
+  "library": "Local Database",
+  "project_manager_folder": "root",
+  "timeline": "S176_capture",
+  "frame": 0,
+  "resolve": "21.1.0.14",
+  "edition": "DaVinci Resolve Studio",
+  "os": "Windows-11-10.0.26200-SP0",
+  "project_settings": {
+    "colorScienceMode": "davinciYRGB",
+    "colorSpaceInput": "Rec.709 Gamma 2.4",
+    "colorSpaceTimeline": "Rec.709 (Scene)",
+    "colorSpaceTimelineGamma": "",
+    "colorSpaceOutput": "Rec.709 (Scene)",
+    "colorSpaceOutputGamma": "ACEScc",
+    "isAutoColorManage": "0",
+    "timelineResolutionWidth": "1920",
+    "timelineResolutionHeight": "1080",
+    "timelineFrameRate": 30.0,
+    "timelinePlaybackFrameRate": "30",
+    "timelinePixelAspectRatio": "square"
+  },
+  "connections": {
+    "SceneDuplicate.SceneInput": "Cube",
+    "BeforeRender.SceneInput": "Cube",
+    "AfterRender.SceneInput": "SceneDuplicate",
+    "MediaOut1.Input": "AfterRender"
+  },
+  "values": {
+    "FirstCopy": 0.0,
+    "LastCopy": 3.0,
+    "Translate.X": 0.3
+  },
+  "source": "Cube 3D, Duplicate 3D and two Renderer 3D branches; one static frame.",
+  "save_project": true,
+  "save_completed_at": "2026-10-27T21:54:20.506460+00:00",
+  "native_export_sha256": "0a802573f798feb9ccff8e81597a06f3db5b1ab1b04139de368e93c36d58cd5d",
+  "portable_sha256": "fe65043a733452171573162474445e0211ed662e21cda59eab9934e2e9246a7b",
+  "portable_reimport": "NOT_RUN",
+  "limits": [
+    "One cube, First 0, Last 2 and 3, X offset 0.3 at frame 0; other copy ranges, region, jitter, animation and other hosts NOT_RUN.",
+    "Viewer screenshot is display evidence."
+  ]
+}

@@ -39,6 +39,30 @@ Transform 3Dが変形するのは**入力シーンに含まれる要素すべて
 
 出力は2D画像ではありません。映像へ合成する場合は後段でRenderer 3Dによって描画します。
 
+<!-- capture:S175 -->
+
+## 実機例：立方体に移動と回転を加える
+
+`Cube 3D` の出力を分岐し、一方を `Transform 3D` に通します。両方を別々の `Renderer 3D` で画像化し、同じframeで比較しました。
+
+Transform 3DのX Offsetを0.3、Y Offsetを0.15、Z Rotationを25に設定しています。左は元の立方体、右は後段の移動と回転を加えた結果です。市松模様はViewerの透明表示です。[接続と設定の記録](/img/fusion/captures/S175/readback.json)に条件を記載しています。
+
+[![Cube 3Dの出力を分岐しTransform 3Dの前後を画像化する構成](/img/fusion/captures/S175/graph.png)](/img/fusion/captures/S175/graph.png)
+
+元の3D sceneと、変形を加えたsceneをそれぞれ画像化します。
+
+[![Transform 3DのXとYの移動値とZ回転を示すInspector](/img/fusion/captures/S175/controls.png)](/img/fusion/captures/S175/controls.png)
+
+X Offset 0.3、Y Offset 0.15、Z Rotation 25です。
+
+[![立方体のTransform 3D処理前と処理後の比較](/img/fusion/captures/S175/comparison.png)](/img/fusion/captures/S175/comparison.png)
+
+左は変形前、右は移動と回転を加えた結果です。
+
+[再現用Graph](/img/fusion/captures/S175/fixture.comp) · [撮影条件と確認範囲](/img/fusion/captures/S175/capture.json)
+
+<!-- /capture:S175 -->
+
 ## Inspectorの主な設定
 
 ### Translation：位置を移動する
@@ -124,4 +148,4 @@ Scaleを1軸だけ調整したいのに全方向へ拡大される場合は、Lo
 
 Blackmagic Design『DaVinci Resolve 21.1 Reference Manual』（September 2026）、Chapter 88「3D Nodes」、**Transform 3D [3XF]（pp.2007–2010）**を参照しました。Scene Input、階層的な接続、Translation・Rotation・Pivot・Scale、Use Target、Import Transformの形式、Viewer操作はManualで確認しています。
 
-運用例は確認済みの仕様を基に組み立てた構成案で、21.1実機のレンダリング結果ではありません。内部REGID、Edition差、各Controlの初期値と数値範囲、外部形式の現在の互換性は未確認のため、verificationはpartialとしています。
+運用例は確認済みの仕様を基に組み立てた構成案で、21.1実機のレンダリング結果ではありません。Edition差、各Controlの初期値と数値範囲、外部形式の現在の互換性は未確認のため、verificationはpartialとしています。

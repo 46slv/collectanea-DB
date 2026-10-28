@@ -1,0 +1,51 @@
+{
+  "case": "S174",
+  "project": "Collectanea_Mandelbrot_Zoom_20261025",
+  "library": "Local Database",
+  "project_manager_folder": "root",
+  "timeline": "S174_capture",
+  "frame": 0,
+  "resolve": "21.1.0.14",
+  "edition": "DaVinci Resolve Studio",
+  "os": "Windows-11-10.0.26200-SP0",
+  "project_settings": {
+    "colorScienceMode": "davinciYRGB",
+    "colorSpaceInput": "Rec.709 Gamma 2.4",
+    "colorSpaceTimeline": "Rec.709 (Scene)",
+    "colorSpaceTimelineGamma": "",
+    "colorSpaceOutput": "Rec.709 (Scene)",
+    "colorSpaceOutputGamma": "ACEScc",
+    "isAutoColorManage": "0",
+    "timelineResolutionWidth": "1920",
+    "timelineResolutionHeight": "1080",
+    "timelineFrameRate": 30.0,
+    "timelinePlaybackFrameRate": "30",
+    "timelinePixelAspectRatio": "square"
+  },
+  "connections": {
+    "SceneRenderer.SceneInput": "Cube",
+    "MediaOut1.Input": "SceneRenderer"
+  },
+  "values": {
+    "SurfaceCubeInputs.SizeLock": 1.0,
+    "SurfaceCubeInputs.Width": 0.6,
+    "Transform3DOp.Rotate.X": 25.0,
+    "Transform3DOp.Rotate.Y": 30.0
+  },
+  "unlocked_values": {
+    "SurfaceCubeInputs.SizeLock": 0.0,
+    "SurfaceCubeInputs.Width": 0.9,
+    "SurfaceCubeInputs.Height": 0.45,
+    "SurfaceCubeInputs.Depth": 0.6
+  },
+  "source": "Cube 3D with default face materials, Renderer 3D; one static frame.",
+  "save_project": true,
+  "save_completed_at": "2026-10-27T21:44:40.440891+00:00",
+  "native_export_sha256": "670117617fe8bc74e4e9186372aa28c328774a07e2f026b5aef832c6012281d0",
+  "portable_sha256": "d1afecb6332cb8cc44aa4849d53122ba970d45487acab9bcaa9b53ccb89b3a4a",
+  "portable_reimport": "NOT_RUN",
+  "limits": [
+    "Locked cube and unlocked cuboid only; external face materials, mapping, camera, lighting, animation and other hosts NOT_RUN.",
+    "Viewer screenshots are display evidence."
+  ]
+}

@@ -24,6 +24,34 @@ Camera 3D [3Cm]は、<Term id="classic-3d">Classic 3D scene</Term>を**どの位
 
 実写映像とCGの構図を合わせる、カメラをアニメーションさせる、左右の視差を作るほか、2D画像をカメラの視点から3D物体へ投影する用途にも使います。
 
+<!-- capture:S178 -->
+
+## 実機例：焦点距離を変えて画角を比べる
+
+`Cube 3D` と `Camera 3D` を `Merge 3D` でまとめ、`Renderer 3D` で画像化しました。カメラのZ位置を3に固定し、Perspectiveで焦点距離を35 mmと20 mmに変えて比較します。
+
+frame 0では20 mmの方が広い画角になり、立方体は画面内で小さく表示されました。撮影後は35 mmに戻して保存しています。市松模様はViewerの透明表示です。[接続と設定の記録](/img/fusion/captures/S178/readback.json)に条件を記載しています。
+
+[![Cube 3DとCamera 3DをMerge 3DでまとめRenderer 3Dへ渡す構成](/img/fusion/captures/S178/graph.png)](/img/fusion/captures/S178/graph.png)
+
+立方体とカメラを同じ3D sceneに置いて描画します。
+
+[![Camera 3DのPerspectiveと焦点距離35 mmを示すInspector](/img/fusion/captures/S178/controls.png)](/img/fusion/captures/S178/controls.png)
+
+Perspective、焦点距離35 mmの設定です。
+
+[![焦点距離35 mmで描画した立方体](/img/fusion/captures/S178/focal35.png)](/img/fusion/captures/S178/focal35.png)
+
+焦点距離35 mmの描画結果です。
+
+[![焦点距離20 mmで描画した立方体](/img/fusion/captures/S178/focal20.png)](/img/fusion/captures/S178/focal20.png)
+
+焦点距離20 mmでは、より広い範囲が写ります。
+
+[再現用Graph](/img/fusion/captures/S178/fixture.comp) · [撮影条件と確認範囲](/img/fusion/captures/S178/capture.json)
+
+<!-- /capture:S178 -->
+
 ## 入力
 
 ### Scene Input
@@ -158,4 +186,4 @@ Camera 3D ──┼→ Merge 3D ─┬→ Renderer 3D（Eye: Left）  → 左眼
 
 **一次資料**：Blackmagic Design『DaVinci Resolve 21.1 Reference Manual』（2026年9月版）、Chapter 88「3D Nodes」、**Camera 3D [3Cm]（pp.1919–1927）**。3入力、Projection Type、画角・Film Gate、Clipping、Stereo、Image Plane、Camera Projection、Import Cameraを照合しました。また、Renderer 3DのEye（p.1972）を確認し、Stereo出力例へ反映しました。
 
-Manualとの照合であり、Resolve 21.1実機でのREGID、Inspector全設定のdefault/range、Rendererごとの画質差、Stereo納品、外部カメラ形式の互換性は未確認です。そのため**verification: partial**を維持しています。
+上記実機例とManualとの照合に加えて、Inspector全設定のdefault/range、Rendererごとの画質差、Stereo納品、外部カメラ形式の互換性は未確認です。そのため**verification: partial**を維持しています。

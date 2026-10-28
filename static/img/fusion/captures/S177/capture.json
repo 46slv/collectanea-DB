@@ -1,0 +1,118 @@
+{
+  "manual": {
+    "version": "21.1",
+    "chapter": 88,
+    "printed_pages": "1957–1959"
+  },
+  "runtime": {
+    "version": "21.1.0.14",
+    "edition": "DaVinci Resolve Studio",
+    "os": "Windows-11-10.0.26200-SP0",
+    "ui_language": "ja-JP"
+  },
+  "captured_at": "2026-10-27T21:59:11.768601+00:00",
+  "project": "Collectanea_Mandelbrot_Zoom_20261025",
+  "timeline": "S177_capture",
+  "frame": 0,
+  "resolution": [
+    1920,
+    1080
+  ],
+  "color_management": {
+    "project_settings": {
+      "colorScienceMode": "davinciYRGB",
+      "colorSpaceInput": "Rec.709 Gamma 2.4",
+      "colorSpaceTimeline": "Rec.709 (Scene)",
+      "colorSpaceTimelineGamma": "",
+      "colorSpaceOutput": "Rec.709 (Scene)",
+      "colorSpaceOutputGamma": "ACEScc",
+      "isAutoColorManage": "0",
+      "timelineResolutionWidth": "1920",
+      "timelineResolutionHeight": "1080",
+      "timelineFrameRate": 30.0,
+      "timelinePlaybackFrameRate": "30",
+      "timelinePixelAspectRatio": "square"
+    },
+    "note": "SDK project settings; screenshots show Viewer display."
+  },
+  "viewer": {
+    "view_mode": "3D viewer left; Fit right",
+    "source": "Left SceneMerge; right MediaOut1",
+    "note": "Merge 3D selected; checkerboard in rendered view indicates transparency."
+  },
+  "acceptance": {
+    "gui": "PASS: native screenshot shows two 3D cubes and rendered result; SDK connections, new empty input and save read back.",
+    "article_display": "NOT_RUN",
+    "public_display": "NOT_RUN"
+  },
+  "unverified": [
+    "Two cube objects and one additional empty input; cameras, lights, depth overlap, input limits, animation and other hosts NOT_RUN.",
+    "Viewer screenshot is display evidence.",
+    "Portable reimport and physical input provenance NOT_RUN.",
+    "Article verification remains partial."
+  ],
+  "schema_version": 1,
+  "case": "S177",
+  "article": "manuals/fusion/nodes/3d/merge-3d.md",
+  "graph": "fixture.comp",
+  "settings": "readback.json",
+  "source": {
+    "file": "screen.png",
+    "size": [
+      3336,
+      1902
+    ],
+    "sha256": "25428f33c0175dacef14fc9f080565c7a32b082c595a10430d31e84fd34b389f"
+  },
+  "shots": [
+    {
+      "file": "graph.png",
+      "source": "screen.png",
+      "source_sha256": "25428f33c0175dacef14fc9f080565c7a32b082c595a10430d31e84fd34b389f",
+      "frame": 0,
+      "crop_xyxy": [
+        700,
+        1100,
+        2150,
+        1600
+      ],
+      "resampled": false,
+      "sha256": "ce1f7cd69350eee4f65503518872f245da09f389176917ae79b900f95cf3085e"
+    },
+    {
+      "file": "controls.png",
+      "source": "screen.png",
+      "source_sha256": "25428f33c0175dacef14fc9f080565c7a32b082c595a10430d31e84fd34b389f",
+      "frame": 0,
+      "crop_xyxy": [
+        2815,
+        65,
+        3336,
+        350
+      ],
+      "resampled": false,
+      "sha256": "90a0788296aa9d5d4ef09a0ccdfe8a56833510dbd91c97393514223ba37c92fd"
+    },
+    {
+      "file": "scene.png",
+      "source": "screen.png",
+      "source_sha256": "25428f33c0175dacef14fc9f080565c7a32b082c595a10430d31e84fd34b389f",
+      "frame": 0,
+      "crop_xyxy": [
+        0,
+        65,
+        2800,
+        720
+      ],
+      "resampled": false,
+      "sha256": "e5805bbc18a6e47d07efcec6067215df990f8818175a5be433890efaca4ace2b"
+    }
+  ],
+  "reproduction": {
+    "fixture_sha256": "436a9e74583f8e7741069634a5a4de07a5e4d28ec0d12ab1c0365c3518510450",
+    "readback_sha256": "902c30ed24c395db3641a1abd1b5f4c5b0d4d452a949e149dc942259e9f16cef",
+    "readback_source_sha256": "902c30ed24c395db3641a1abd1b5f4c5b0d4d452a949e149dc942259e9f16cef",
+    "readback_transform": "No line-ending transformation",
+    "reimport": "NOT_RUN"
+  }
+}

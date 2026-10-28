@@ -65,6 +65,30 @@ Text+の**Shading**では複数のElement（見た目の層）を重ね、Text F
 
 sTextも複数スタイルと複数Shading層に対応すると明記されています。ただし、**Text+のGradient色をそのままsTextで使うことはできません**。グラデーションを使った文字が必要ならText+のImage出力で作るか、sRender後にImage系処理を加える構成を検討します。後者で文字の内側だけを正確にグラデーション化するには、別途Maskや合成の設計が必要です。
 
+<!-- capture:S173 -->
+
+## 実機例：文字のShapeを複製する
+
+`sText` で「HI」を生成し、Open Sans Bold、Size 0.15に設定します。Shapeを `sDuplicate` に渡して2回複製し、`sRender` で画像化しました。
+
+frame 0では、左に元の文字、右に元を含む3つの文字が表示されます。市松模様はViewerの透明表示です。日本語や別の書体での表示はこの例では確認していません。[接続と設定の記録](/img/fusion/captures/S173/readback.json)に条件を記載しています。
+
+[![sTextをsDuplicateで複製しsRenderで画像化する構成](/img/fusion/captures/S173/graph.png)](/img/fusion/captures/S173/graph.png)
+
+文字のShapeを分岐し、元と複製結果をそれぞれ画像化します。
+
+[![sTextにHI、Open Sans Bold、Size 0.15を設定したInspector](/img/fusion/captures/S173/controls.png)](/img/fusion/captures/S173/controls.png)
+
+テキストはHI、書体はOpen Sans Bold、Sizeは0.15です。
+
+[![元のHIと複製した3つのHIの比較](/img/fusion/captures/S173/comparison.png)](/img/fusion/captures/S173/comparison.png)
+
+左は元の文字、右は元を含む3つの文字です。
+
+[再現用Graph](/img/fusion/captures/S173/fixture.comp) · [撮影条件と確認範囲](/img/fusion/captures/S173/capture.json)
+
+<!-- /capture:S173 -->
+
 ## 具体的な使い方
 
 ### 1. 映像に載せるタイトルをShapeで作る
@@ -123,4 +147,4 @@ sDuplicateは**Shapeを受け取ってコピーする**ノードです。sText�
 
 **Blackmagic Design『DaVinci Resolve 21.1 Reference Manual』（September 2026）**、Chapter 117「Shape Nodes」p.2765のsText節で、Text+のShape版であること、複数スタイル・3D変形・Shading層への対応、**Gradient色は非対応**であることを確認しました。Text+の用語と各設定の役割はChapter 103「Generator Nodes」pp.2381–2394を参照しています。
 
-入力端子の完全な一覧、sText固有のInspector項目・既定値・設定範囲、Modifierの対応範囲、Edition差、実機での描画結果、内部REGIDは未確認です。このためverification: partialを維持します。Manualの略号sTxtを内部REGIDとして扱いません。
+入力端子の完全な一覧、sText固有のInspector項目・既定値・設定範囲、Modifierの対応範囲、Edition差、上記以外の実機描画は未確認です。このためverification: partialを維持します。Manualの略号sTxtを内部REGIDとして扱いません。

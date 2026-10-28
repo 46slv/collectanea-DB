@@ -1,0 +1,132 @@
+{
+  "manual": {
+    "version": "21.1",
+    "chapter": 88,
+    "printed_pages": "1919–1927"
+  },
+  "runtime": {
+    "version": "21.1.0.14",
+    "edition": "DaVinci Resolve Studio",
+    "os": "Windows-11-10.0.26200-SP0",
+    "ui_language": "ja-JP"
+  },
+  "captured_at": "2026-10-27T22:03:11.700784+00:00",
+  "project": "Collectanea_Mandelbrot_Zoom_20261025",
+  "timeline": "S178_capture",
+  "frame": 0,
+  "resolution": [
+    1920,
+    1080
+  ],
+  "color_management": {
+    "project_settings": {
+      "colorScienceMode": "davinciYRGB",
+      "colorSpaceInput": "Rec.709 Gamma 2.4",
+      "colorSpaceTimeline": "Rec.709 (Scene)",
+      "colorSpaceTimelineGamma": "",
+      "colorSpaceOutput": "Rec.709 (Scene)",
+      "colorSpaceOutputGamma": "ACEScc",
+      "isAutoColorManage": "0",
+      "timelineResolutionWidth": "1920",
+      "timelineResolutionHeight": "1080",
+      "timelineFrameRate": 30.0,
+      "timelinePlaybackFrameRate": "30",
+      "timelinePixelAspectRatio": "square"
+    },
+    "note": "SDK project settings; screenshots show Viewer display."
+  },
+  "viewer": {
+    "view_mode": "3D viewer left; Fit right",
+    "source": "Left SceneMerge; right MediaOut1",
+    "note": "Camera 3D selected; checkerboard in render indicates transparency."
+  },
+  "acceptance": {
+    "gui": "PASS: screenshots show focal settings and rendered framing; SDK connections and restored save read back.",
+    "article_display": "NOT_RUN",
+    "public_display": "NOT_RUN"
+  },
+  "unverified": [
+    "One perspective camera at fixed position, focal lengths 20 and 35; other film gates, orthographic, projection, stereo, animation and hosts NOT_RUN.",
+    "Viewer screenshots are display evidence.",
+    "Portable reimport and physical input provenance NOT_RUN.",
+    "Article verification remains partial."
+  ],
+  "schema_version": 1,
+  "case": "S178",
+  "article": "manuals/fusion/nodes/3d/camera-3d.md",
+  "graph": "fixture.comp",
+  "settings": "readback.json",
+  "source": {
+    "file": "screen.png",
+    "size": [
+      3336,
+      1902
+    ],
+    "sha256": "21c400b44a2b96fc51376dbfd1011e22a79f1fb15c9f9938ec0f911132cf473c"
+  },
+  "shots": [
+    {
+      "file": "graph.png",
+      "source": "screen.png",
+      "source_sha256": "21c400b44a2b96fc51376dbfd1011e22a79f1fb15c9f9938ec0f911132cf473c",
+      "frame": 0,
+      "crop_xyxy": [
+        700,
+        1100,
+        2150,
+        1600
+      ],
+      "resampled": false,
+      "sha256": "8ea30920646e4cab58797efd9a5f45112c7a87fe23a806bcf2e7db4eacdca5e2"
+    },
+    {
+      "file": "controls.png",
+      "source": "screen.png",
+      "source_sha256": "21c400b44a2b96fc51376dbfd1011e22a79f1fb15c9f9938ec0f911132cf473c",
+      "frame": 0,
+      "crop_xyxy": [
+        2815,
+        65,
+        3336,
+        500
+      ],
+      "resampled": false,
+      "sha256": "23f181bf1721e13e88975685c9f26db0a853992fb5a3425258e77b6c11058f82"
+    },
+    {
+      "file": "focal35.png",
+      "source": "screen.png",
+      "source_sha256": "21c400b44a2b96fc51376dbfd1011e22a79f1fb15c9f9938ec0f911132cf473c",
+      "frame": 0,
+      "crop_xyxy": [
+        1590,
+        65,
+        2800,
+        720
+      ],
+      "resampled": false,
+      "sha256": "9ec076a7c55d4d282ab5efe2364e54e0d964211a3248d01a694f055f6bcc8bd0"
+    },
+    {
+      "file": "focal20.png",
+      "source": "wide-source.png",
+      "source_sha256": "3543088f37fe8f6f9ff769efd8a5ef5ae2b00c85c8cef5f8900140cd3f09541b",
+      "frame": 0,
+      "crop_xyxy": [
+        1590,
+        65,
+        2800,
+        720
+      ],
+      "resampled": false,
+      "sha256": "bc7b76898baa8c49b8299a72fcca69f2acb42beb6b3d991096b934fea63d0058"
+    }
+  ],
+  "reproduction": {
+    "fixture_sha256": "591acb02112b8992f471b945f9516464e7ba8f639cd1e991343370daefaa8288",
+    "readback_sha256": "47875af53a0938cf980ec87632334b7537f9350fe14708c9fea433f2038595ac",
+    "readback_source_sha256": "47875af53a0938cf980ec87632334b7537f9350fe14708c9fea433f2038595ac",
+    "readback_transform": "No line-ending transformation",
+    "reimport": "NOT_RUN"
+  }
+}

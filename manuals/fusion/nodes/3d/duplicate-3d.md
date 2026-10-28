@@ -32,6 +32,34 @@ Duplicate 3D [3Dp]は、**入力した3Dオブジェクトを繰り返し複製�
 
 通常の複製にはSceneInputだけで十分です。MeshInputは配置を制限したい場合にだけ使います。
 
+<!-- capture:S176 -->
+
+## 実機例：Cubeを横に複製する
+
+`Cube 3D` の出力を `Duplicate 3D` に接続し、X Offsetを0.3に設定しました。元のCubeと複製結果は、それぞれ `Renderer 3D` で画像化しています。
+
+frame 0でFirstを0に固定したとき、この構成ではLast 2で2個、Last 3で3個のCubeが表示されました。撮影後はLast 3で保存しています。ほかの範囲や個数の一般則は未確認です。市松模様はViewerの透明表示です。[接続と設定の記録](/img/fusion/captures/S176/readback.json)に条件を記載しています。
+
+[![Cube 3DをDuplicate 3Dで複製しRenderer 3Dへ渡す構成](/img/fusion/captures/S176/graph.png)](/img/fusion/captures/S176/graph.png)
+
+元のCubeと複製結果をそれぞれ画像化します。
+
+[![Duplicate 3DのFirst 0、Last 3、X Offset 0.3を示すInspector](/img/fusion/captures/S176/controls.png)](/img/fusion/captures/S176/controls.png)
+
+First 0、Last 3、X Offset 0.3です。
+
+[![Last 2でCubeが2個表示された結果](/img/fusion/captures/S176/last2.png)](/img/fusion/captures/S176/last2.png)
+
+First 0、Last 2では右に2個表示されました。
+
+[![Last 3でCubeが3個表示された結果](/img/fusion/captures/S176/last3.png)](/img/fusion/captures/S176/last3.png)
+
+Lastを3にすると右に3個表示されました。
+
+[再現用Graph](/img/fusion/captures/S176/fixture.comp) · [撮影条件と確認範囲](/img/fusion/captures/S176/capture.json)
+
+<!-- /capture:S176 -->
+
 ## 使い方1：Cubeを横一列に並べる
 
     Cube 3D → Duplicate 3D ──┐
@@ -39,7 +67,7 @@ Duplicate 3D [3Dp]は、**入力した3Dオブジェクトを繰り返し複製�
     Light ────────────────────┘
 
 1. [Cube 3D](./cube-3d.md)をDuplicate 3Dの**SceneInput**へ接続します。
-2. Controlsタブの**Copies**で表示する複製番号の範囲を設定します。たとえばFirst Copyを0、最後の番号を4にすると、元のobjectを含む5個分の配置になります。
+2. Controlsタブの**Copies**で表示する複製番号の範囲を設定します。上記の実機例ではFirstを0、Lastを3にすると3個表示されました。表示個数はViewerで確認してください。
 3. **Translation**のX Offsetに間隔を設定します。X Offsetを1にすると、複製ごとにX方向へ1単位の移動が加わります。
 4. Duplicate 3Dの出力をMerge 3Dへ接続し、Camera 3DとLightを加えてRenderer 3Dで表示します。
 
@@ -58,7 +86,7 @@ X Offsetだけを変えれば規則的な列になります。Scaleを変える�
 
 ### Copiesと時間
 
-- **Copies**：表示するコピー番号の範囲を指定します。First Copyが0なら元のobjectを含み、0より大きいと元のobjectを表示せず、指定した番号以降のコピーだけを表示します。単なる「複製を何個追加するか」のスライダーとして読むと個数を間違えやすい項目です。
+- **Copies**：複製範囲を指定します。上記のFirst 0、Last 2と3の実機例では、それぞれ2個と3個が表示されました。ほかの範囲での個数や元のobjectの扱いは追加確認が必要です。
 - **Time Offset**：コピーごとに、入力geometryに設定されたAnimationの参照時刻をずらします。たとえば元のCubeを回転Animationにしておけば、列の各Cubeを異なる回転段階で表示できます。
 
 ### 複製ごとのTransform
@@ -109,4 +137,4 @@ MeshInputはReplicate 3DのDestinationとは異なり、**Duplicate 3Dが作っ�
 - [Classic 3Dノード一覧](./index.md) / [Classic 3D sceneの基礎](../../learn/02-data/classic-3d.md)
 - [Cube 3D](./cube-3d.md) / [Merge 3D](./merge-3d.md) / [Renderer 3D](./renderer-3d.md) / [Replicate 3D](./replicate-3d.md)
 - **一次資料**：Blackmagic Design, *DaVinci Resolve 21.1 Reference Manual*（September 2026）, Chapter 88「3D Nodes」, pp.1938–1942, 「Duplicate 3D [3Dp]」。SceneInput / MeshInput、Controls、Jitter、Regionの記述を確認しました。
-- **未検証**：実機でのREGID、Edition差、複雑なMeshに対するRegionの実際の表示結果。これらをManual確認済みの事項と区別するため、verificationはpartialとしています。
+- **未検証**：Edition差、複雑なMeshに対するRegionの実際の表示結果、上記以外のCopies範囲。これらをManual確認済みの事項と区別するため、verificationはpartialとしています。
