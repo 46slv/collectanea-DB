@@ -1,0 +1,33 @@
+{
+  "case": "S337",
+  "setup": {
+    "case": "S337",
+    "light": {
+      "Intensity": 10.0,
+      "LightCylinderRadius": 0.5,
+      "LightCylinderLength": 1.0,
+      "USDXf.Translate.Z": 4.0
+    },
+    "renderer_lighting": "Scene",
+    "saved": "2026-10-28T10:52:12.941708+00:00"
+  },
+  "final": {
+    "x": 2,
+    "z": 4,
+    "intensity": 10,
+    "frame": 1,
+    "lighting": "Scene",
+    "saved": "2026-10-28T10:52:26.152658+00:00"
+  },
+  "comparison": "Light X 0 frame 0 versus X 2 frame 1; Z 4 and Intensity 10; renderer Lighting Scene",
+  "connections": [
+    "Capsule->USDMerge.SceneInput1",
+    "Light->USDMerge.SceneInput2",
+    "USDMerge->USDRender.SceneInput",
+    "USDRender->MediaOut1"
+  ],
+  "limits": [
+    "Light X 0 at frame 0 versus X 2 at frame 1; static scene, different frames used for evaluation.",
+    "Length, Radius and Treat As Line effects, shadow softness, other lights, physical photometry and portable reimport NOT_RUN."
+  ]
+}
