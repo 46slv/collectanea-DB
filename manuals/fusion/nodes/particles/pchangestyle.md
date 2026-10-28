@@ -94,6 +94,34 @@ pEmitter → pChangeStyle → pRender（2D）→ Merge → MediaOut
 
 まずは粒子の経路とRegionを重ね、Styleを変更したことが画面で分かる状態にします。その後、Conditionsで適用対象を狭めます。pChangeStyleを入れても粒子の通る場所が変わらないのは正常です。
 
+<!-- capture:S308 -->
+
+## 実機例：粒子のスタイルを切り替える
+
+`pEmitter` から `pChangeStyle` を通して `pRender` の2D出力へ接続します。スタイルの変更を有効にしてBlobの色を赤に設定すると、この例では白い粒子が赤く表示されました。
+
+この例ではRegionを無視し、Setの変更や領域への出入りは確認していません。切り替え前後で粒子シミュレーションが厳密に同一だったかは未検証です。[接続と設定の記録](/img/fusion/captures/S308/readback.json)に条件を記載しています。
+
+[![pEmitterからpChangeStyleとpRenderへ接続した構成](/img/fusion/captures/S308/graph.png)](/img/fusion/captures/S308/graph.png)
+
+粒子をpChangeStyleへ送ります。
+
+[![スタイルの変更が有効なpChangeStyle](/img/fusion/captures/S308/controls.png)](/img/fusion/captures/S308/controls.png)
+
+スタイルの変更を有効にしBlobを選びます。
+
+[![スタイル変更を有効にした赤い粒子](/img/fusion/captures/S308/enabled.png)](/img/fusion/captures/S308/enabled.png)
+
+有効時は赤い粒子が表示されます。
+
+[![スタイル変更を無効にした白い粒子](/img/fusion/captures/S308/disabled.png)](/img/fusion/captures/S308/disabled.png)
+
+無効時はEmitterの白い粒子が表示されます。
+
+[再現用Graph](/img/fusion/captures/S308/fixture.comp) · [撮影条件と確認範囲](/img/fusion/captures/S308/capture.json)
+
+<!-- /capture:S308 -->
+
 ## 制作例
 
 ### 壁に当たった光点を別の色へ変える
