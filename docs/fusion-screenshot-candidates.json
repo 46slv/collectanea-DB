@@ -8071,6 +8071,46 @@
           "status": "captured"
         }
       ]
+    },
+    {
+      "priority": "P1",
+      "goal": "Show an external generated LUT and its visible color change.",
+      "suggested_graph": "Background -> FileLUT -> MediaOut",
+      "scope": "Resolve Studio 21.1.0.14 on Windows.",
+      "limitations": [
+        "One custom 2x2x2 LUT and one static RGB color; exact numerical output and other formats NOT_RUN.",
+        "Portable graph LUT path was remapped to Comp:/red-half.cube; reimport and path resolution NOT_RUN.",
+        "Viewer screenshot is display evidence; path tail selection used synthetic input and physical input is not claimed."
+      ],
+      "id": "S323",
+      "article": "manuals/fusion/nodes/lut/file-lut.md",
+      "manual": {
+        "version": "21.1",
+        "chapter": 107,
+        "printed_pages": "2454–2455"
+      },
+      "status": "captured-embedded-unverified",
+      "capture_manifest": "static/img/fusion/captures/S323/capture.json",
+      "shots": [
+        {
+          "slug": "graph",
+          "kind": "graph",
+          "target": "BackgroundからFile LUTとMediaOutへ接続した構成",
+          "status": "captured"
+        },
+        {
+          "slug": "controls",
+          "kind": "inspector",
+          "target": "LUTファイル名とPre Gain、Post Gainの設定",
+          "status": "captured"
+        },
+        {
+          "slug": "comparison",
+          "kind": "comparison",
+          "target": "左の入力色と右のLUT適用後の色",
+          "status": "captured"
+        }
+      ]
     }
   ],
   "publication_batches": [
@@ -9456,25 +9496,25 @@
     }
   ],
   "coverage_inventory": {
-    "checked_at": "2026-10-28T07:45:25.672147+00:00",
+    "checked_at": "2026-10-28T10:19:23.647774+00:00",
     "scope": "All manuals/fusion Markdown and MDX pages; review necessity before adding images.",
     "completion_rule": "Every page has an explicit image decision; necessary images are native-observed, embedded, saved to GitHub and public-display-verified. A native example does not verify all article controls.",
     "summary": {
       "total_pages": 589,
-      "with_images": 229,
+      "with_images": 230,
       "with_native_examples": 229,
       "states": {
         "reviewed-no-standalone-image": 26,
         "no-standalone-image-needed": 6,
         "illustrated-reused-example": 80,
-        "capture-planned": 327,
-        "illustrated-native-example": 149,
+        "capture-planned": 326,
+        "illustrated-native-example": 150,
         "needs-review": 1
       },
       "decisions": {
         "no-standalone-image-needed": 32,
-        "image-required": 229,
-        "capture-needed": 327,
+        "image-required": 230,
+        "capture-needed": 326,
         "needs-review": 1
       }
     },
@@ -17705,13 +17745,20 @@
         "article": "manuals/fusion/nodes/lut/file-lut.md",
         "title": "File LUT",
         "kind": "node",
-        "image_count": 0,
+        "image_count": 3,
         "native_cases": [],
         "reused_cases": [],
-        "planned_cases": [],
-        "state": "capture-planned",
-        "decision": "capture-needed",
-        "reason": "本文の対象機能: File LUTは、外部fileの1D / 3D LUTを読み込み、2D Imageへ適用するNode。。S14色補正はLUTファイル読込や適用の証拠にならない。",
+        "planned_cases": [
+          "S323"
+        ],
+        "state": "illustrated-native-example",
+        "decision": "image-required",
+        "reason": "S323は自作2×2×2 LUTを単色へ適用した固定例。色数値と再importは未確認。",
+        "remaining_views": [
+          "出力色の数値、他画像・LUT・補間",
+          "Comp:参照のportable reimportとpath解決、他host",
+          "Effect Maskと他設定"
+        ],
         "required_views": [
           "対象Node名と実際の配線が読めるGraph",
           "対象Nodeを選択した固有Inspector（本文で示すControlを含む）",
