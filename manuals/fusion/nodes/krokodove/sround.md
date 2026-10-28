@@ -35,6 +35,32 @@ DaVinci Resolve 21.1 Reference Manualは、sRoundについて「曲線状の角�
 
 「辺を保つ」は**Manualで説明された設計上の特徴**です。実際の辺の長さ、接線のつながり、頂点数、輪郭の外接範囲まで不変という保証ではありません。角の丸みが大きい場合や、辺が極端に短い図形でどうなるかは実機で確認する必要があります。
 
+<!-- capture:S276 -->
+
+## 実機例：四角形の角を丸める
+
+`sRectangle` を分岐し、一方を `sRound` に接続してRadiusを0.08に設定しました。それぞれを `sRender` で画像化すると、この静止画では処理後の角が丸く見えます。Viewerの市松模様は透明部分の表示です。ほかの形やAlpha値、アニメーションは未検証です。[接続と設定の記録](/img/fusion/captures/S276/readback.json)に条件を記載しています。
+
+[![sRoundの処理前後を比較するノード構成](/img/fusion/captures/S276/graph.png)](/img/fusion/captures/S276/graph.png)
+
+四角形を分岐し処理前後を画像化します。
+
+[![sRoundのInspector](/img/fusion/captures/S276/controls.png)](/img/fusion/captures/S276/controls.png)
+
+Radiusは0.08です。
+
+[![処理前の白い四角形](/img/fusion/captures/S276/low.png)](/img/fusion/captures/S276/low.png)
+
+処理前は角のある四角形です。
+
+[![角が丸くなった四角形](/img/fusion/captures/S276/high.png)](/img/fusion/captures/S276/high.png)
+
+処理後は角が丸く見えます。
+
+[再現用Graph](/img/fusion/captures/S276/fixture.comp) · [撮影条件と確認範囲](/img/fusion/captures/S276/capture.json)
+
+<!-- /capture:S276 -->
+
 ## 入力と出力
 
 | 段階 | データ | 役割 |
@@ -49,7 +75,7 @@ DaVinci Resolve 21.1 Reference Manualは、sRoundについて「曲線状の角�
 
 ## 最初に確かめる構成
 
-まずは変化を見分けやすい図形で、sRoundを入れる前後を比較します。以下は**役割から考えた確認用の構成案**であり、21.1実機で接続と描画を検証済みの手順ではありません。
+まずは変化を見分けやすい図形で、sRoundを入れる前後を比較します。以下は**役割から考えた確認用の構成案**です。上の実機例では四角形を分岐して処理前後を画像化しています。
 
 ```text
 sRectangle → sRound → sRender → MediaOut
@@ -58,7 +84,7 @@ sRectangle → sRound → sRender → MediaOut
 
 1. [sRectangle](../shapes/srectangle)で四角形を作り、最初は `sRectangle → sRender` の状態で輪郭を確認します。
 2. sRectangleとsRenderの間にsRoundを追加します。接続できない場合は、実際のノードの入力型・出力型を確認してください。
-3. sRoundのInspectorを開き、利用可能な角の調整項目を確認します。**設定名・数値範囲・初期値は未確認**なので、特定のスライダー名や数値を前提にしません。
+3. sRoundのInspectorを開き、利用可能な角の調整項目を確認します。実機例ではRadiusを0.08に設定しました。値域・初期値や他の値での結果は未確認です。
 4. 一度に変更する項目を絞り、sRoundを通した状態と通さない状態を比較します。見るのは「角の丸まり方」と「角から離れた辺がどの程度保たれるか」です。
 5. 輪郭が見づらければ、sRenderの出力を拡大して角と辺の境界を見ます。必要に応じて元図形の大きさや縦横比を変え、同じ設定で形がどう変わるかも確認します。
 
@@ -103,7 +129,7 @@ sRectangle → sRound → sRestyle → sRender → Merge
 
 - **公式資料で確認済み**：21.1のKrokodove Shape ToolsにsRoundが掲載され、角に曲線を作り、辺を保持する役割が説明されていること。
 - **カタログに基づく整理**：Shapeを受けてShapeを返す処理として、sRenderより前に置く構成。
-- **Inspector未確認**：設定項目の正式名称、数値範囲、初期値、アニメーション対応、丸めの計算法。
+- **Inspectorの未確認範囲**：Radius以外の設定の意味、数値範囲、初期値、アニメーション対応、丸めの計算法。
 - **形状ごとの挙動未確認**：鋭角、短い辺、開いた輪郭、自己交差した図形、複数Shape、前後の処理順での結果。
 - **環境差未確認**：内部REGID、DaVinci Resolve Free／Studio、Fusion Studioでの提供差、実機UIの表示。
 
@@ -111,4 +137,4 @@ sRectangle → sRound → sRestyle → sRender → Merge
 
 Blackmagic Design『**DaVinci Resolve 21.1 Reference Manual**』（September 2026）、Chapter 105「Krokodove Nodes」、p.2437「Shape Tools — sRound」。同ページに掲載されるsSmooth、sOffset、sResample、sRestyleの説明と比較して用途を整理しました。
 
-Shapeから2D Imageへの変換は同ManualのChapter 117「Shape Nodes」と、[sRender](../shapes/s-render)の記事を参照してください。正式な端子・Inspector・実機結果をまだ照合していないため、`verification: partial`を維持します。
+Shapeから2D Imageへの変換は同ManualのChapter 117「Shape Nodes」と、[sRender](../shapes/s-render)の記事を参照してください。実機例は一条件の四角形に限られ、端子の詳細や他の形は未確認のため、`verification: partial`を維持します。

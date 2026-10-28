@@ -1,0 +1,132 @@
+{
+  "manual": {
+    "version": "21.1",
+    "chapter": 105,
+    "printed_pages": "2437"
+  },
+  "runtime": {
+    "version": "21.1.0.14",
+    "edition": "DaVinci Resolve Studio",
+    "os": "Windows-11-10.0.26200-SP0",
+    "ui_language": "ja-JP"
+  },
+  "captured_at": "2026-10-28T07:21:10.585953+00:00",
+  "project": "Collectanea_Mandelbrot_Zoom_20261025",
+  "timeline": "S276_capture",
+  "frame": 0,
+  "resolution": [
+    1920,
+    1080
+  ],
+  "color_management": {
+    "project_settings": {
+      "colorScienceMode": "davinciYRGB",
+      "colorSpaceInput": "Rec.709 Gamma 2.4",
+      "colorSpaceTimeline": "Rec.709 (Scene)",
+      "colorSpaceTimelineGamma": "",
+      "colorSpaceOutput": "Rec.709 (Scene)",
+      "colorSpaceOutputGamma": "ACEScc",
+      "isAutoColorManage": "0",
+      "timelineResolutionWidth": "1920",
+      "timelineResolutionHeight": "1080",
+      "timelineFrameRate": 30.0,
+      "timelinePlaybackFrameRate": "30",
+      "timelinePixelAspectRatio": "square"
+    },
+    "note": "SDK project settings; screenshots show Viewer display."
+  },
+  "viewer": {
+    "view_mode": "Fit",
+    "source": "Left BeforeRender; right MediaOut1",
+    "note": "sRound selected; transparency checkerboard visible."
+  },
+  "acceptance": {
+    "gui": "PASS: rectangle corners rounded.",
+    "article_display": "NOT_RUN",
+    "public_display": "NOT_RUN"
+  },
+  "unverified": [
+    "Static sRectangle and Radius 0.08; other shapes, animation, alpha values and hosts NOT_RUN.",
+    "Viewer screenshot is display evidence.",
+    "Portable reimport and physical input provenance NOT_RUN.",
+    "Article verification remains partial."
+  ],
+  "schema_version": 1,
+  "case": "S276",
+  "article": "manuals/fusion/nodes/krokodove/sround.md",
+  "graph": "fixture.comp",
+  "settings": "readback.json",
+  "source": {
+    "file": "screen.png",
+    "size": [
+      3328,
+      1898
+    ],
+    "sha256": "35370e766677ef4c75d5a15067ce7568d1aa86f1b3a66254e91dd3d50ce090ad"
+  },
+  "shots": [
+    {
+      "file": "graph.png",
+      "source": "screen.png",
+      "source_sha256": "35370e766677ef4c75d5a15067ce7568d1aa86f1b3a66254e91dd3d50ce090ad",
+      "frame": 0,
+      "crop_xyxy": [
+        500,
+        1050,
+        2350,
+        1650
+      ],
+      "resampled": false,
+      "sha256": "00d7ee505541ead8e3e6757790c4be22ed7bcc6c42a6102feca30421a43bdf08"
+    },
+    {
+      "file": "controls.png",
+      "source": "screen.png",
+      "source_sha256": "35370e766677ef4c75d5a15067ce7568d1aa86f1b3a66254e91dd3d50ce090ad",
+      "frame": 0,
+      "crop_xyxy": [
+        2815,
+        65,
+        3328,
+        750
+      ],
+      "resampled": false,
+      "sha256": "9e73a8c49a60ad8402f95a3d557dc0070323eda6f61dbd0fcedff9b60104f638"
+    },
+    {
+      "file": "low.png",
+      "source": "screen.png",
+      "source_sha256": "35370e766677ef4c75d5a15067ce7568d1aa86f1b3a66254e91dd3d50ce090ad",
+      "frame": 0,
+      "crop_xyxy": [
+        120,
+        70,
+        1340,
+        720
+      ],
+      "resampled": false,
+      "sha256": "d65625041355f2f4d1f439417e07db88d5af848f8b0da905ebfd58c8aec6485c"
+    },
+    {
+      "file": "high.png",
+      "source": "screen.png",
+      "source_sha256": "35370e766677ef4c75d5a15067ce7568d1aa86f1b3a66254e91dd3d50ce090ad",
+      "frame": 0,
+      "crop_xyxy": [
+        1480,
+        70,
+        2700,
+        720
+      ],
+      "resampled": false,
+      "sha256": "e6c65cc1deb8e83602386afb962dea3e372052f073dbe5ebb7eb488c67a967c8"
+    }
+  ],
+  "reproduction": {
+    "fixture_sha256": "baf3db3ed2598d0b8f42b2d7993de8c6847e8a4466247477d24a749e88574957",
+    "readback_sha256": "9216719bb73c73eb4346b570c8523834e7c61bf258b9c4dc39f427aded325da0",
+    "readback_source_sha256": "9216719bb73c73eb4346b570c8523834e7c61bf258b9c4dc39f427aded325da0",
+    "readback_transform": "No line-ending transformation",
+    "reimport": "NOT_RUN"
+  }
+}
