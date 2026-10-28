@@ -1,0 +1,132 @@
+{
+  "manual": {
+    "version": "21.1",
+    "chapter": 117,
+    "printed_pages": "2752–2756"
+  },
+  "runtime": {
+    "version": "21.1.0.14",
+    "edition": "DaVinci Resolve Studio",
+    "os": "Windows-11-10.0.26200-SP0",
+    "ui_language": "ja-JP"
+  },
+  "captured_at": "2026-10-28T09:12:24.751052+00:00",
+  "project": "Collectanea_Mandelbrot_Zoom_20261025",
+  "timeline": "S296_capture",
+  "frame": 0,
+  "resolution": [
+    1920,
+    1080
+  ],
+  "color_management": {
+    "project_settings": {
+      "colorScienceMode": "davinciYRGB",
+      "colorSpaceInput": "Rec.709 Gamma 2.4",
+      "colorSpaceTimeline": "Rec.709 (Scene)",
+      "colorSpaceTimelineGamma": "",
+      "colorSpaceOutput": "Rec.709 (Scene)",
+      "colorSpaceOutputGamma": "ACEScc",
+      "isAutoColorManage": "0",
+      "timelineResolutionWidth": "1920",
+      "timelineResolutionHeight": "1080",
+      "timelineFrameRate": 30.0,
+      "timelinePlaybackFrameRate": "30",
+      "timelinePixelAspectRatio": "square"
+    },
+    "note": "SDK project settings; screenshots show Viewer display."
+  },
+  "viewer": {
+    "view_mode": "Fit",
+    "source": "Right MediaOut1",
+    "note": "sPolygon selected; path controls and editing guides visible."
+  },
+  "acceptance": {
+    "gui": "PASS: white line with straight and curved portion visible.",
+    "article_display": "NOT_RUN",
+    "public_display": "NOT_RUN"
+  },
+  "unverified": [
+    "One closed polygon created through synthetic background clicks; physical input, point editing, other controls and animation NOT_RUN.",
+    "Viewer screenshot includes editing guides.",
+    "Portable reimport NOT_RUN.",
+    "Article verification remains partial."
+  ],
+  "schema_version": 1,
+  "case": "S296",
+  "article": "manuals/fusion/nodes/shapes/spolygon.md",
+  "graph": "fixture.comp",
+  "settings": "readback.json",
+  "source": {
+    "file": "screen.png",
+    "size": [
+      3312,
+      1890
+    ],
+    "sha256": "866da002f05cec3d8f0c151a8b689681a700be8aba3e990358b6a566b09d4b2c"
+  },
+  "shots": [
+    {
+      "file": "graph.png",
+      "source": "screen.png",
+      "source_sha256": "866da002f05cec3d8f0c151a8b689681a700be8aba3e990358b6a566b09d4b2c",
+      "frame": 0,
+      "crop_xyxy": [
+        620,
+        1100,
+        2200,
+        1580
+      ],
+      "resampled": false,
+      "sha256": "ca061758f18e2deb538bd4380dba106101dbacf6b1d3963bc192e5e42da33e62"
+    },
+    {
+      "file": "controls.png",
+      "source": "screen.png",
+      "source_sha256": "866da002f05cec3d8f0c151a8b689681a700be8aba3e990358b6a566b09d4b2c",
+      "frame": 0,
+      "crop_xyxy": [
+        2780,
+        65,
+        3312,
+        570
+      ],
+      "resampled": false,
+      "sha256": "b1000cef092d3a3a3ebba62bbf1d4ce5df8110b56a50997f019d7396e2ed19cb"
+    },
+    {
+      "file": "open.png",
+      "source": "open-source.png",
+      "source_sha256": "85d5a56a546ae345658f17b3b4d8b1cf8be5b5fb2f8f6f21c7163eb7e038c5e3",
+      "frame": 0,
+      "crop_xyxy": [
+        1480,
+        65,
+        2780,
+        720
+      ],
+      "resampled": false,
+      "sha256": "3682ac54218e0565277af57dcb2be167f30c7ba9a92ec9f13de27da7f0e34677"
+    },
+    {
+      "file": "closed.png",
+      "source": "screen.png",
+      "source_sha256": "866da002f05cec3d8f0c151a8b689681a700be8aba3e990358b6a566b09d4b2c",
+      "frame": 0,
+      "crop_xyxy": [
+        1480,
+        65,
+        2780,
+        720
+      ],
+      "resampled": false,
+      "sha256": "9489a5913ec1bf522992bcfed58dd4cae0c429b8cced5944dc591a3fd906b6c0"
+    }
+  ],
+  "reproduction": {
+    "fixture_sha256": "f8c0d2421e21352763837873aa0c3e93cf466e710a9f3457f07903862b702da4",
+    "readback_sha256": "9cdcf053a24bfab9d234a9390868c25e4a94ee2a5db705fde2ae89c33b605f84",
+    "readback_source_sha256": "b3ae4608284136897b723f12ab76cc0203b0028cab7c2e9f4b31f8669c5ce152",
+    "readback_transform": "CRLF normalized to LF for the portable Git asset; JSON values unchanged",
+    "reimport": "NOT_RUN"
+  }
+}
