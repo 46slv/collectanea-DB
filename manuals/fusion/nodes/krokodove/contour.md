@@ -36,6 +36,34 @@ Blackmagic DesignのDaVinci Resolve 21.1 Reference Manualは、ContourをKrokodo
 
 旧記事にあった「gradientに沿うoutline/repeating line」という説明は、21.1 ManualのContourの記述とは一致しません。**グラデーションに沿って等高線状の線を何本も作る機能や、線を繰り返し配置する機能**は確認されていないため、このページではContourの仕様として紹介しません。
 
+<!-- capture:S249 -->
+
+## 実機例：文字の輪郭を見る
+
+合成した白い `Text+` の文字を `Contour` に渡し、Widthを0.01、Thresholdを0.1に設定しました。
+
+この例では文字の塗りの代わりに白い輪郭が見えます。Viewerには透明部分を示す市松模様が表示されています。他の素材やAlpha値の変化は未検証です。[接続と設定の記録](/img/fusion/captures/S249/readback.json)に条件を記載しています。
+
+[![文字画像をKrokodove Contourへつなぐ構成](/img/fusion/captures/S249/graph.png)](/img/fusion/captures/S249/graph.png)
+
+文字画像をContourへ渡します。
+
+[![ContourのInspector](/img/fusion/captures/S249/controls.png)](/img/fusion/captures/S249/controls.png)
+
+Widthを0.01、Thresholdを0.1に設定しています。
+
+[![処理前の白い文字](/img/fusion/captures/S249/low.png)](/img/fusion/captures/S249/low.png)
+
+処理前の白い文字です。
+
+[![Contourで輪郭を表示した文字](/img/fusion/captures/S249/high.png)](/img/fusion/captures/S249/high.png)
+
+処理後は白い輪郭が見えます。
+
+[再現用Graph](/img/fusion/captures/S249/fixture.comp) · [撮影条件と確認範囲](/img/fusion/captures/S249/capture.json)
+
+<!-- /capture:S249 -->
+
 ## 入力と出力
 
 | 段階 | このページで説明できること | 未確認のこと |
@@ -64,7 +92,7 @@ Frontmatterの `outputs: [image]` は既存カタログの**データ分類**で
 
 ## 最小構成と確認例
 
-次は**接続可能な画像入力・出力を実機で確認した場合の構成案**です。公式Manualに記載された配線図や操作手順ではありません。
+次は画像入力と出力を使う構成案です。上の実機例では文字画像を接続していますが、次の構成全体は公式Manualに記載された配線図や操作手順ではありません。
 
 ```text
 MediaIn → Contour → MediaOut
@@ -91,10 +119,10 @@ MediaIn → Contour → MediaOut
 
 ## 挙動と注意点
 
-- **検出基準は未確認**：輝度・色差・Alphaのどれを使うか、微細な境界を無視するか、輪郭の太さや色を変えられるかは不明です。Inspectorの正式な項目名・初期値・数値範囲を推測していません。
+- **検出基準は未確認**：輝度・色差・Alphaのどれを使うか、微細な境界の扱いや色の変更は不明です。実機例ではWidthとThresholdを使用しましたが、初期値・数値範囲は未確認です。
 - **背景・透明度は未確認**：結果を合成やMaskへ直接使えるとは限りません。Viewerで結果のRGBとAlphaを確認してから接続方法を決めます。
 - **ノイズや複数の輪郭**：撮影素材には対象物以外にも細かな境界があります。特定の被写体だけの線を得られると保証しません。
-- **実機・版の差は未確認**：内部REGID、入力・出力端子、Resolve Free / StudioとFusion Studioの差、21.1実機の具体的な画面表示は確認していません。
+- **実機・版の差は未確認**：上記の文字画像の接続と表示以外の端子構成、内部REGID、Resolve Free / StudioとFusion Studioの差は未確認です。
 
 ## バージョンと出典
 

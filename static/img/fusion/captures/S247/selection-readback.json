@@ -1,0 +1,14 @@
+{
+  "attempt": "one semantic Set Selection Around Source Color",
+  "values": {
+    "RedLow": 0.0,
+    "RedHigh": 1.0,
+    "GreenLow": 0.0,
+    "GreenHigh": 1.0,
+    "BlueLow": 0.0,
+    "BlueHigh": 1.0,
+    "RedCorrection": -1.0,
+    "BlueCorrection": 1.0
+  },
+  "saved": "2026-10-28T05:22:14.997484+00:00"
+}

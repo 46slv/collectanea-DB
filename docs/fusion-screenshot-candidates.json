@@ -7076,6 +7076,241 @@
           "status": "captured"
         }
       ]
+    },
+    {
+      "priority": "P1",
+      "goal": "Show KD Recolor mapping red text to blue.",
+      "suggested_graph": "TextPlus -> KD_Recolor -> MediaOut.",
+      "scope": "Resolve Studio 21.1.0.14 on Windows, 1920x1080 static frame.",
+      "limitations": [
+        "One synthetic text and setting; other settings, masks, alpha values, animation and other hosts NOT_RUN.",
+        "Viewer screenshot is display evidence.",
+        "Portable reimport and physical input provenance NOT_RUN.",
+        "Article verification remains partial."
+      ],
+      "id": "S245",
+      "article": "manuals/fusion/nodes/krokodove/recolor.md",
+      "manual": {
+        "version": "21.1",
+        "chapter": 105,
+        "printed_pages": "2435"
+      },
+      "status": "captured-embedded-unverified",
+      "capture_manifest": "static/img/fusion/captures/S245/capture.json",
+      "shots": [
+        {
+          "slug": "graph",
+          "kind": "graph",
+          "target": "文字画像をKrokodove Recolorへつなぐ構成",
+          "status": "captured"
+        },
+        {
+          "slug": "controls",
+          "kind": "inspector",
+          "target": "RecolorのInspector",
+          "status": "captured"
+        },
+        {
+          "slug": "low",
+          "kind": "comparison",
+          "target": "処理前の赤い文字",
+          "status": "captured"
+        },
+        {
+          "slug": "high",
+          "kind": "comparison",
+          "target": "Recolorで青くなった文字",
+          "status": "captured"
+        }
+      ]
+    },
+    {
+      "priority": "P1",
+      "goal": "Show KD Threshold on a grayscale gradient.",
+      "suggested_graph": "Background horizontal gradient -> KD_Threshold -> MediaOut.",
+      "scope": "Resolve Studio 21.1.0.14 on Windows, 1920x1080 static frame.",
+      "limitations": [
+        "One synthetic text and setting; other settings, masks, alpha values, animation and other hosts NOT_RUN.",
+        "Viewer screenshot is display evidence.",
+        "Portable reimport and physical input provenance NOT_RUN.",
+        "Article verification remains partial."
+      ],
+      "id": "S246",
+      "article": "manuals/fusion/nodes/krokodove/threshold.md",
+      "manual": {
+        "version": "21.1",
+        "chapter": 105,
+        "printed_pages": "2435"
+      },
+      "status": "captured-embedded-unverified",
+      "capture_manifest": "static/img/fusion/captures/S246/capture.json",
+      "shots": [
+        {
+          "slug": "graph",
+          "kind": "graph",
+          "target": "グラデーションをKrokodove Thresholdへつなぐ構成",
+          "status": "captured"
+        },
+        {
+          "slug": "controls",
+          "kind": "inspector",
+          "target": "ThresholdのInspector",
+          "status": "captured"
+        },
+        {
+          "slug": "low",
+          "kind": "comparison",
+          "target": "処理前の白黒グラデーション",
+          "status": "captured"
+        },
+        {
+          "slug": "high",
+          "kind": "comparison",
+          "target": "Thresholdを通したグラデーション",
+          "status": "captured"
+        }
+      ]
+    },
+    {
+      "priority": "P1",
+      "goal": "Show KD Replace Color correction on synthetic text.",
+      "suggested_graph": "TextPlus -> KD_ReplaceColor -> MediaOut.",
+      "scope": "Resolve Studio 21.1.0.14 on Windows, 1920x1080 static frame.",
+      "limitations": [
+        "One synthetic text and setting; other settings, masks, alpha values, animation and other hosts NOT_RUN.",
+        "Viewer screenshot is display evidence.",
+        "Portable reimport and physical input provenance NOT_RUN.",
+        "Article verification remains partial."
+      ],
+      "id": "S247",
+      "article": "manuals/fusion/nodes/krokodove/replace-color.md",
+      "manual": {
+        "version": "21.1",
+        "chapter": 105,
+        "printed_pages": "2435"
+      },
+      "status": "captured-embedded-unverified",
+      "capture_manifest": "static/img/fusion/captures/S247/capture.json",
+      "shots": [
+        {
+          "slug": "graph",
+          "kind": "graph",
+          "target": "文字画像をKrokodove Replace Colorへつなぐ構成",
+          "status": "captured"
+        },
+        {
+          "slug": "controls",
+          "kind": "inspector",
+          "target": "Replace ColorのInspector",
+          "status": "captured"
+        },
+        {
+          "slug": "low",
+          "kind": "comparison",
+          "target": "処理前の赤い文字",
+          "status": "captured"
+        },
+        {
+          "slug": "high",
+          "kind": "comparison",
+          "target": "Replace Colorで青くなった文字",
+          "status": "captured"
+        }
+      ]
+    },
+    {
+      "priority": "P1",
+      "goal": "Show KD Match Color on a grayscale gradient.",
+      "suggested_graph": "Background horizontal gradient -> KD_MatchColor -> MediaOut.",
+      "scope": "Resolve Studio 21.1.0.14 on Windows, 1920x1080 static frame.",
+      "limitations": [
+        "One synthetic text and setting; other settings, masks, alpha values, animation and other hosts NOT_RUN.",
+        "Viewer screenshot is display evidence.",
+        "Portable reimport and physical input provenance NOT_RUN.",
+        "Article verification remains partial."
+      ],
+      "id": "S248",
+      "article": "manuals/fusion/nodes/krokodove/match-color.md",
+      "manual": {
+        "version": "21.1",
+        "chapter": 105,
+        "printed_pages": "2435"
+      },
+      "status": "captured-embedded-unverified",
+      "capture_manifest": "static/img/fusion/captures/S248/capture.json",
+      "shots": [
+        {
+          "slug": "graph",
+          "kind": "graph",
+          "target": "白黒グラデーションをKrokodove Match Colorへつなぐ構成",
+          "status": "captured"
+        },
+        {
+          "slug": "controls",
+          "kind": "inspector",
+          "target": "Match ColorのInspector",
+          "status": "captured"
+        },
+        {
+          "slug": "low",
+          "kind": "comparison",
+          "target": "処理前の白黒グラデーション",
+          "status": "captured"
+        },
+        {
+          "slug": "high",
+          "kind": "comparison",
+          "target": "Match Colorで暗い側を青くしたグラデーション",
+          "status": "captured"
+        }
+      ]
+    },
+    {
+      "priority": "P1",
+      "goal": "Show KD Contour on synthetic text.",
+      "suggested_graph": "TextPlus -> KD_Contour -> MediaOut.",
+      "scope": "Resolve Studio 21.1.0.14 on Windows, 1920x1080 static frame.",
+      "limitations": [
+        "One synthetic text and setting; other settings, masks, alpha values, animation and other hosts NOT_RUN.",
+        "Viewer screenshot is display evidence.",
+        "Portable reimport and physical input provenance NOT_RUN.",
+        "Article verification remains partial."
+      ],
+      "id": "S249",
+      "article": "manuals/fusion/nodes/krokodove/contour.md",
+      "manual": {
+        "version": "21.1",
+        "chapter": 105,
+        "printed_pages": "2436"
+      },
+      "status": "captured-embedded-unverified",
+      "capture_manifest": "static/img/fusion/captures/S249/capture.json",
+      "shots": [
+        {
+          "slug": "graph",
+          "kind": "graph",
+          "target": "文字画像をKrokodove Contourへつなぐ構成",
+          "status": "captured"
+        },
+        {
+          "slug": "controls",
+          "kind": "inspector",
+          "target": "ContourのInspector",
+          "status": "captured"
+        },
+        {
+          "slug": "low",
+          "kind": "comparison",
+          "target": "処理前の白い文字",
+          "status": "captured"
+        },
+        {
+          "slug": "high",
+          "kind": "comparison",
+          "target": "Contourで輪郭を表示した文字",
+          "status": "captured"
+        }
+      ]
     }
   ],
   "publication_batches": [
@@ -8461,12 +8696,12 @@
     }
   ],
   "coverage_inventory": {
-    "checked_at": "2026-10-28T04:31:52.924Z",
+    "checked_at": "2026-10-28T05:31:28.711725+00:00",
     "scope": "All manuals/fusion Markdown and MDX pages; review necessity before adding images.",
     "completion_rule": "Every page has an explicit image decision; necessary images are native-observed, embedded, saved to GitHub and public-display-verified. A native example does not verify all article controls.",
     "summary": {
       "total_pages": 589,
-      "with_images": 207,
+      "with_images": 212,
       "with_native_examples": 207,
       "states": {
         "reviewed-no-standalone-image": 26,
@@ -8687,18 +8922,6 @@
         "reason": "概念と機能の対応・担当範囲を案内するBridge。具体的なFusion UIはリンク先の機能記事へ集約する。"
       },
       {
-        "article": "manuals/fusion/index.md",
-        "title": "Fusion 日本語リファレンス",
-        "kind": "index",
-        "image_count": 0,
-        "native_cases": [],
-        "reused_cases": [],
-        "planned_cases": [],
-        "state": "reviewed-no-standalone-image",
-        "decision": "no-standalone-image-needed",
-        "reason": "ManualOverviewによる入口。操作や出力比較の本文がなく、詳細記事へ案内する。"
-      },
-      {
         "article": "manuals/fusion/index/by-familiar-app.md",
         "title": "慣れたアプリから探す（By Familiar App）",
         "kind": "index",
@@ -8814,6 +9037,18 @@
         "decision": "no-standalone-image-needed",
         "reason": "Node名・alias・familyの生成索引。各Nodeの姿と結果はReference本文が所有し、一覧に独立撮影は不要。",
         "required_views": []
+      },
+      {
+        "article": "manuals/fusion/index.md",
+        "title": "Fusion 日本語リファレンス",
+        "kind": "index",
+        "image_count": 0,
+        "native_cases": [],
+        "reused_cases": [],
+        "planned_cases": [],
+        "state": "reviewed-no-standalone-image",
+        "decision": "no-standalone-image-needed",
+        "reason": "ManualOverviewによる入口。操作や出力比較の本文がなく、詳細記事へ案内する。"
       },
       {
         "article": "manuals/fusion/learn/01-flow/evaluation-dependency.md",
@@ -14208,10 +14443,12 @@
         "article": "manuals/fusion/nodes/krokodove/contour.md",
         "title": "Contour（Krokodove）",
         "kind": "node",
-        "image_count": 0,
+        "image_count": 4,
         "native_cases": [],
         "reused_cases": [],
-        "planned_cases": [],
+        "planned_cases": [
+          "S249"
+        ],
         "state": "capture-planned",
         "decision": "capture-needed",
         "reason": "本文の対象機能: 画像内の境目（エッジ）を検出するKrokodoveの画像処理ツール。。標準Nodeや別Krokodoveの似た効果は同じControl/algorithmの証拠にならない。",
@@ -14854,10 +15091,12 @@
         "article": "manuals/fusion/nodes/krokodove/match-color.md",
         "title": "Match Color",
         "kind": "node",
-        "image_count": 0,
+        "image_count": 4,
         "native_cases": [],
         "reused_cases": [],
-        "planned_cases": [],
+        "planned_cases": [
+          "S248"
+        ],
         "state": "capture-planned",
         "decision": "capture-needed",
         "reason": "本文の対象機能: 画像の暗部・中間調・明部など、選んだ明るさの領域を別の色へ置き換えるKrokodoveの画像ツール。。標準Nodeや別Krokodoveの似た効果は同じControl/algorithmの証拠にならない。",
@@ -15333,10 +15572,12 @@
         "article": "manuals/fusion/nodes/krokodove/recolor.md",
         "title": "Recolor",
         "kind": "node",
-        "image_count": 0,
+        "image_count": 4,
         "native_cases": [],
         "reused_cases": [],
-        "planned_cases": [],
+        "planned_cases": [
+          "S245"
+        ],
         "state": "capture-planned",
         "decision": "capture-needed",
         "reason": "本文の対象機能: 画像内の元の色を1色以上指定し、選ばれた部分を新しい色に置き換えるKrokodoveの画像ツール。。標準Nodeや別Krokodoveの似た効果は同じControl/algorithmの証拠にならない。",
@@ -15398,10 +15639,12 @@
         "article": "manuals/fusion/nodes/krokodove/replace-color.md",
         "title": "Replace Color",
         "kind": "node",
-        "image_count": 0,
+        "image_count": 4,
         "native_cases": [],
         "reused_cases": [],
-        "planned_cases": [],
+        "planned_cases": [
+          "S247"
+        ],
         "state": "capture-planned",
         "decision": "capture-needed",
         "reason": "本文の対象機能: 画像内の元の色を指定し、その色を対象とする補正を行うKrokodoveの画像ツール。。標準Nodeや別Krokodoveの似た効果は同じControl/algorithmの証拠にならない。",
@@ -16322,10 +16565,12 @@
         "article": "manuals/fusion/nodes/krokodove/threshold.md",
         "title": "Threshold",
         "kind": "node",
-        "image_count": 0,
+        "image_count": 4,
         "native_cases": [],
         "reused_cases": [],
-        "planned_cases": [],
+        "planned_cases": [
+          "S246"
+        ],
         "state": "capture-planned",
         "decision": "capture-needed",
         "reason": "本文の対象機能: 指定したチャンネルの色・明るさから狭い値の範囲を選び、許容幅を調整できるKrokodoveの画像ツール。。標準Nodeや別Krokodoveの似た効果は同じControl/algorithmの証拠にならない。",
@@ -26550,9 +26795,9 @@
       },
       {
         "article": "manuals/fusion/troubleshooting/masking/alpha-edge-looks-wrong.md",
-        "title": "透明Edgeの色や縁がおかしい",
+        "title": "透明エッジに黒縁・白縁が出る",
         "kind": "diagnostic",
-        "image_count": 2,
+        "image_count": 3,
         "native_cases": [],
         "reused_cases": [
           "S74"
