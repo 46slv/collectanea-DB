@@ -7378,6 +7378,53 @@
           "status": "captured"
         }
       ]
+    },
+    {
+      "priority": "P1",
+      "goal": "Show KD Noise on synthetic gradient.",
+      "suggested_graph": "Background gradient -> KD_Noise -> MediaOut.",
+      "scope": "Resolve Studio 21.1.0.14 on Windows, 1920x1080 static frame.",
+      "limitations": [
+        "One synthetic gradient and static setting; selected colors, alpha values, animation and other hosts NOT_RUN.",
+        "Viewer screenshot is display evidence.",
+        "Portable reimport and physical input provenance NOT_RUN.",
+        "Article verification remains partial."
+      ],
+      "id": "S263",
+      "article": "manuals/fusion/nodes/krokodove/noise.md",
+      "manual": {
+        "version": "21.1",
+        "chapter": 105,
+        "printed_pages": "2436"
+      },
+      "status": "captured-embedded-unverified",
+      "capture_manifest": "static/img/fusion/captures/S263/capture.json",
+      "shots": [
+        {
+          "slug": "graph",
+          "kind": "graph",
+          "target": "グラデーションをNoiseへつなぐノード構成",
+          "status": "captured"
+        },
+        {
+          "slug": "controls",
+          "kind": "inspector",
+          "target": "NoiseのInspector",
+          "status": "captured"
+        },
+        {
+          "slug": "low",
+          "kind": "comparison",
+          "target": "入力の白黒グラデーション",
+          "status": "captured"
+        },
+        {
+          "slug": "high",
+          "kind": "comparison",
+          "target": "色付きの格子状ノイズ",
+          "status": "captured"
+        }
+      ]
     }
   ],
   "publication_batches": [
@@ -8763,12 +8810,12 @@
     }
   ],
   "coverage_inventory": {
-    "checked_at": "2026-10-28T04:31:52.924Z",
+    "checked_at": "2026-10-28T06:44:22.303861+00:00",
     "scope": "All manuals/fusion Markdown and MDX pages; review necessity before adding images.",
     "completion_rule": "Every page has an explicit image decision; necessary images are native-observed, embedded, saved to GitHub and public-display-verified. A native example does not verify all article controls.",
     "summary": {
       "total_pages": 589,
-      "with_images": 213,
+      "with_images": 214,
       "with_native_examples": 213,
       "states": {
         "reviewed-no-standalone-image": 26,
@@ -15258,10 +15305,12 @@
         "article": "manuals/fusion/nodes/krokodove/noise.md",
         "title": "Noise",
         "kind": "node",
-        "image_count": 0,
+        "image_count": 4,
         "native_cases": [],
         "reused_cases": [],
-        "planned_cases": [],
+        "planned_cases": [
+          "S263"
+        ],
         "state": "capture-planned",
         "decision": "capture-needed",
         "reason": "本文の対象機能: ランダム生成した色や指定色を使い、ピクセル状のノイズ模様を作るKrokodoveの画像ツール。。sEllipse/sGrid/Text+はKrokodove画像生成UIや出力型の証拠にならない。",

@@ -1,0 +1,55 @@
+{
+  "case": "S263",
+  "project": "Collectanea_Mandelbrot_Zoom_20261025",
+  "library": "Local Database",
+  "timeline": "S263_capture",
+  "frame": 0,
+  "resolve": "21.1.0.14",
+  "edition": "DaVinci Resolve Studio",
+  "os": "Windows-11-10.0.26200-SP0",
+  "project_settings": {
+    "colorScienceMode": "davinciYRGB",
+    "colorSpaceInput": "Rec.709 Gamma 2.4",
+    "colorSpaceTimeline": "Rec.709 (Scene)",
+    "colorSpaceTimelineGamma": "",
+    "colorSpaceOutput": "Rec.709 (Scene)",
+    "colorSpaceOutputGamma": "ACEScc",
+    "isAutoColorManage": "0",
+    "timelineResolutionWidth": "1920",
+    "timelineResolutionHeight": "1080",
+    "timelineFrameRate": 30.0,
+    "timelinePlaybackFrameRate": "30",
+    "timelinePixelAspectRatio": "square"
+  },
+  "connections": {
+    "Noise.Image": "Gradient",
+    "MediaOut1.Input": "Noise"
+  },
+  "values": {
+    "Gradient": {
+      "Type": "Horizontal",
+      "TopLeftRed": 0.0,
+      "TopRightRed": 1.0
+    },
+    "Noise": {
+      "RandomSeed": 0.0,
+      "RandomSeedOffset": 0.0,
+      "Base": 0.0,
+      "Combine": 0.0,
+      "NoiseType": 1.0,
+      "Size": 1.0,
+      "SizeX": 32.0,
+      "SizeY": 32.0,
+      "Colors": 0.0
+    }
+  },
+  "save_project": true,
+  "save_completed_at": "2026-10-28T06:41:30.857627+00:00",
+  "native_export_sha256": "fa2c238e8ff6cdb3e516575fd14ec6e6cdaef304db0b62da20a277a11dcb5bd2",
+  "portable_sha256": "beaa69c9110dd33f75fa0301ac52456fce9cd78578748d05f1292436abde3f78",
+  "portable_reimport": "NOT_RUN",
+  "limits": [
+    "One synthetic gradient and static setting; selected colors, alpha values, animation and other hosts NOT_RUN.",
+    "Viewer screenshot is display evidence."
+  ]
+}
