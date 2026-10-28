@@ -1,0 +1,61 @@
+{
+  "case": "S287",
+  "project": "Collectanea_Mandelbrot_Zoom_20261025",
+  "library": "Local Database",
+  "timeline": "S287_capture",
+  "frame": 0,
+  "resolve": "21.1.0.14",
+  "edition": "DaVinci Resolve Studio",
+  "os": "Windows-11-10.0.26200-SP0",
+  "project_settings": {
+    "colorScienceMode": "davinciYRGB",
+    "colorSpaceInput": "Rec.709 Gamma 2.4",
+    "colorSpaceTimeline": "Rec.709 (Scene)",
+    "colorSpaceTimelineGamma": "",
+    "colorSpaceOutput": "Rec.709 (Scene)",
+    "colorSpaceOutputGamma": "ACEScc",
+    "isAutoColorManage": "0",
+    "timelineResolutionWidth": "1920",
+    "timelineResolutionHeight": "1080",
+    "timelineFrameRate": 30.0,
+    "timelinePlaybackFrameRate": "30",
+    "timelinePixelAspectRatio": "square"
+  },
+  "connections": {
+    "Worm.Image": "Gradient",
+    "MediaOut1.Input": "Worm"
+  },
+  "values": {
+    "Gradient": {
+      "Type": "Horizontal",
+      "TopLeftRed": 0.0,
+      "TopRightRed": 1.0
+    },
+    "Worm": {
+      "Start": {
+        "1": 0.5,
+        "2": 0.5,
+        "3": 0.0
+      },
+      "GlobalLength": 1.0,
+      "Offset": 0.0,
+      "CurveSubdivisions": 16.0,
+      "RepeatWorm": 1.0,
+      "ReplicateWorm": 1.0,
+      "ReplicateOffset": 0.1,
+      "WriteStart": 0.0,
+      "WriteEnd": 1.0,
+      "PenThickness": 0.01,
+      "PenOpacity": 1.0
+    }
+  },
+  "save_project": true,
+  "save_completed_at": "2026-10-28T08:11:56.905932+00:00",
+  "native_export_sha256": "5b0ac7408c6f02a75a75c24bd93856a45d7e629205c85af7e6a1032c639ac067",
+  "portable_sha256": "6ce62b6e59a81fd0cfc5ee0db11deb2775e66b37b37f5456d6e06114ded83861",
+  "portable_reimport": "NOT_RUN",
+  "limits": [
+    "One synthetic gradient and static setting; other curves, alpha values and other hosts NOT_RUN.",
+    "Viewer screenshot is display evidence."
+  ]
+}
