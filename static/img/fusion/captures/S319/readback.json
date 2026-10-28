@@ -1,0 +1,63 @@
+{
+  "case": "S319",
+  "project": "Collectanea_Mandelbrot_Zoom_20261025",
+  "library": "Local Database",
+  "project_manager_folder": "root",
+  "timeline": "S319_capture",
+  "resolve": "21.1.0.14",
+  "project_settings": {
+    "colorScienceMode": "davinciYRGB",
+    "colorSpaceInput": "Rec.709 Gamma 2.4",
+    "colorSpaceTimeline": "Rec.709 (Scene)",
+    "colorSpaceTimelineGamma": "",
+    "colorSpaceOutput": "Rec.709 (Scene)",
+    "colorSpaceOutputGamma": "ACEScc",
+    "isAutoColorManage": "0",
+    "timelineResolutionWidth": "1920",
+    "timelineResolutionHeight": "1080",
+    "timelineFrameRate": 30.0,
+    "timelinePlaybackFrameRate": "30",
+    "timelinePixelAspectRatio": "square"
+  },
+  "setup": {
+    "case": "S319",
+    "frame": 48.0,
+    "emitter_seed": 7.0,
+    "emitter_number": 1.0,
+    "emitter_lifespan": 24.0,
+    "flock": {
+      "FlockNumber": 3.0,
+      "FollowStrength": 0.1,
+      "AttractStrength": 0.1,
+      "RepelStrength": 0.1,
+      "MinimumSpace": 0.05,
+      "MaximumSpace": 0.2,
+      "Region": "AllRgn",
+      "RegionMode": "Ignore"
+    },
+    "output_mode": "TwoD",
+    "connections": {
+      "Flock": {
+        "Input": "Emitter"
+      },
+      "ParticleRender": {
+        "Input": "Flock"
+      },
+      "MediaOut1": {
+        "Input": "ParticleRender"
+      }
+    },
+    "saved": "2026-10-28T10:07:37.261243+00:00"
+  },
+  "final": {
+    "frame": 48.0,
+    "saved": "2026-10-28T10:08:00.687191+00:00"
+  },
+  "native_export_sha256": "21f370443ff4b9edbcbd03992ff4571456e9e808c567694c33b9ffcc0fa3da8a",
+  "portable_sha256": "164d93c363b212c5df7b259229aa6d3479d46dc233ed191f1a66f4f5deba851a",
+  "limits": [
+    "Frame 24 and 48 with fixed emitter seed; matched evaluation-start and initial-state comparison NOT_RUN.",
+    "Still images do not establish flocking, spacing behavior, or Follow/Attract/Repel effects.",
+    "Other Set/Region, particle count, portable reimport and other hosts NOT_RUN."
+  ]
+}

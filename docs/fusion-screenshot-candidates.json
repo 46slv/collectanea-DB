@@ -8071,6 +8071,52 @@
           "status": "captured"
         }
       ]
+    },
+    {
+      "priority": "P1",
+      "goal": "Show pFlock connection and controls on a bounded particle fixture.",
+      "suggested_graph": "pEmitter -> pFlock -> pRender -> MediaOut",
+      "scope": "Resolve Studio 21.1.0.14 on Windows.",
+      "limitations": [
+        "Frame 24 and 48 with fixed emitter seed; matched evaluation-start and initial-state comparison NOT_RUN.",
+        "Still images do not establish flocking, spacing behavior, or Follow/Attract/Repel effects.",
+        "Other Set/Region, particle count, portable reimport and other hosts NOT_RUN."
+      ],
+      "id": "S319",
+      "article": "manuals/fusion/nodes/particles/pflock.md",
+      "manual": {
+        "version": "21.1",
+        "chapter": 114,
+        "printed_pages": "2665–2667"
+      },
+      "status": "captured-embedded-unverified",
+      "capture_manifest": "static/img/fusion/captures/S319/capture.json",
+      "shots": [
+        {
+          "slug": "graph",
+          "kind": "graph",
+          "target": "pEmitterからpFlockとpRenderへ接続した構成",
+          "status": "captured"
+        },
+        {
+          "slug": "controls",
+          "kind": "inspector",
+          "target": "pFlockのFlock Numberと強度、間隔の設定",
+          "status": "captured"
+        },
+        {
+          "slug": "result48",
+          "kind": "result",
+          "target": "48フレームの粒子表示",
+          "status": "captured"
+        },
+        {
+          "slug": "result24",
+          "kind": "result",
+          "target": "24フレームの粒子表示",
+          "status": "captured"
+        }
+      ]
     }
   ],
   "publication_batches": [
@@ -9456,25 +9502,25 @@
     }
   ],
   "coverage_inventory": {
-    "checked_at": "2026-10-28T07:45:25.672147+00:00",
+    "checked_at": "2026-10-28T10:08:56.751506+00:00",
     "scope": "All manuals/fusion Markdown and MDX pages; review necessity before adding images.",
     "completion_rule": "Every page has an explicit image decision; necessary images are native-observed, embedded, saved to GitHub and public-display-verified. A native example does not verify all article controls.",
     "summary": {
       "total_pages": 589,
-      "with_images": 229,
+      "with_images": 230,
       "with_native_examples": 229,
       "states": {
         "reviewed-no-standalone-image": 26,
         "no-standalone-image-needed": 6,
         "illustrated-reused-example": 80,
-        "capture-planned": 327,
-        "illustrated-native-example": 149,
+        "capture-planned": 326,
+        "illustrated-native-example": 150,
         "needs-review": 1
       },
       "decisions": {
         "no-standalone-image-needed": 32,
-        "image-required": 229,
-        "capture-needed": 327,
+        "image-required": 230,
+        "capture-needed": 326,
         "needs-review": 1
       }
     },
@@ -21845,13 +21891,20 @@
         "article": "manuals/fusion/nodes/particles/pflock.md",
         "title": "pFlock",
         "kind": "node",
-        "image_count": 0,
+        "image_count": 4,
         "native_cases": [],
         "reused_cases": [],
-        "planned_cases": [],
-        "state": "capture-planned",
-        "decision": "capture-needed",
-        "reason": "本文の対象機能: pFlockは、粒子同士の追従・引力・反発を組み合わせて群れの動きを作るノード。。S09固定Emitter画像には各Force/behaviorのControlsと軌跡差がない。",
+        "planned_cases": [
+          "S319"
+        ],
+        "state": "illustrated-native-example",
+        "decision": "image-required",
+        "reason": "S319は固定設定の接続と2時刻表示。群れや間隔の挙動は未確認。",
+        "remaining_views": [
+          "同じseed・初期条件・評価開始を揃えた比較と群れ・間隔の挙動",
+          "Set、Region、粒子数",
+          "portable reimportと他host"
+        ],
         "required_views": [
           "source→対象Particle Tool→pRenderのGraph",
           "対象自身の固有Controlsと必要なConditions/Region",
