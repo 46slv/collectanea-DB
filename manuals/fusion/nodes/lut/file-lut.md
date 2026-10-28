@@ -41,6 +41,30 @@ MediaIn / Loader → File LUT → 後段のcomposite / Color処理
 
 Effect MaskにはPolyline、基本Shape、Paint stroke、他のtoolから作ったbitmapなどを使えます。21.1 Manualでは、Effect MaskはFile LUTの処理後に適用されると説明されています。
 
+<!-- capture:S323 -->
+
+## 実機例：自作LUTを外部ファイルから適用する
+
+単色の `Background` を `File LUT` に接続し、赤成分を抑える自作の2×2×2 LUTを指定します。左Viewerは入力、右Viewerは出力で、この例では赤みが弱く見えます。
+
+使用した [red-half.cube](/img/fusion/captures/S323/red-half.cube) は同梱の検証素材です。出力の数値や再import後のパス解決は確認していません。Inspectorのパス末尾はsynthetic clickとEnd操作後に確認しました。[接続と設定の記録](/img/fusion/captures/S323/readback.json)に条件を記載しています。
+
+[![BackgroundからFile LUTとMediaOutへ接続した構成](/img/fusion/captures/S323/graph.png)](/img/fusion/captures/S323/graph.png)
+
+入力画像をFile LUTに接続します。
+
+[![LUTファイル名とPre Gain、Post Gainの設定](/img/fusion/captures/S323/controls.png)](/img/fusion/captures/S323/controls.png)
+
+自作LUTを指定し、Pre GainとPost Gainを1に設定します。
+
+[![左の入力色と右のLUT適用後の色](/img/fusion/captures/S323/comparison.png)](/img/fusion/captures/S323/comparison.png)
+
+左は入力、右はLUT適用後です。
+
+[再現用Graph](/img/fusion/captures/S323/fixture.comp) · [撮影条件と確認範囲](/img/fusion/captures/S323/capture.json)
+
+<!-- /capture:S323 -->
+
 ## LUT fileは外部参照される
 
 File LUTはLUTの中身をcompositionへ埋め込まず、**LUT fileへのpath**を保存します。
