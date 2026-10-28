@@ -1,0 +1,54 @@
+{
+  "case": "S161",
+  "project": "Collectanea_Mandelbrot_Zoom_20261025",
+  "library": "Local Database",
+  "project_manager_folder": "root",
+  "timeline": "S161_capture",
+  "frame": 0,
+  "resolve": "21.1.0.14",
+  "edition": "DaVinci Resolve Studio",
+  "os": "Windows-11-10.0.26200-SP0",
+  "project_settings": {
+    "colorScienceMode": "davinciYRGB",
+    "colorSpaceInput": "Rec.709 Gamma 2.4",
+    "colorSpaceTimeline": "Rec.709 (Scene)",
+    "colorSpaceTimelineGamma": "",
+    "colorSpaceOutput": "Rec.709 (Scene)",
+    "colorSpaceOutputGamma": "ACEScc",
+    "isAutoColorManage": "0",
+    "timelineResolutionWidth": "1920",
+    "timelineResolutionHeight": "1080",
+    "timelineFrameRate": 30.0,
+    "timelinePlaybackFrameRate": "30",
+    "timelinePixelAspectRatio": "square"
+  },
+  "connections": {
+    "Source.Background": "Plate",
+    "Source.Foreground": "Label",
+    "Drip1.Input": "Source",
+    "MediaOut1.Input": "Drip1"
+  },
+  "values": {
+    "Shape": 0.0,
+    "Center": {
+      "1": 0.5,
+      "2": 0.5,
+      "3": 0.0
+    },
+    "Aspect": 1.0,
+    "Amplitude": 0.1,
+    "Dampening": 0.0,
+    "Frequency": 10.0,
+    "Phase": 0.0
+  },
+  "source": "Generated Background and TextPlus; one static frame.",
+  "save_project": true,
+  "save_completed_at": "2026-10-27T20:39:45.650548+00:00",
+  "native_export_sha256": "f09de28ac0ded8686ab9a429f5948bc76ba97a7e642d6d32f5db0383efcc41fc",
+  "portable_sha256": "96d2b1feb9cf9f97f6b828bb5468d59505160b33bf6706d6b12d0371c5ad54bd",
+  "portable_reimport": "NOT_RUN",
+  "limits": [
+    "Static synthetic text, one set of Drip values observed; other values, footage, animation and hosts NOT_RUN.",
+    "Viewer screenshot is display evidence."
+  ]
+}

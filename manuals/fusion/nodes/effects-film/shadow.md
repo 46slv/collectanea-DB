@@ -65,6 +65,30 @@ Depth Mapを使っても、それだけで床や壁の正しい3D形状が復元
 
 影のみを出す方式は、影にだけColor Correctorや変形Nodeを挟みたい場合に使います。画面内で被写体と影をどう重ねるかは、後段のMergeで決めます。
 
+<!-- capture:S162 -->
+
+## 実機例：文字の後ろに影を付ける
+
+透明部分を持つ文字を `Shadow1` のInputへ接続し、影ありの文字を背景へ合成します。Shadow OffsetをX 0.53 / Y 0.47、Softnessを0.015、影の色を黒に設定しました。
+
+frame 0で、左は元の文字を背景へ重ねたもの、右は影を付けてから同じ背景へ重ねた結果です。Depth入力は使用していません。[接続と設定の記録](/img/fusion/captures/S162/readback.json)に条件を記載しています。
+
+[![文字をShadowへ通し背景と合成する構成と、影なし比較用の枝](/img/fusion/captures/S162/graph.png)](/img/fusion/captures/S162/graph.png)
+
+文字をShadowへ渡した出力と、元の文字を同じ背景へ重ねる比較枝です。
+
+[![Shadow Offset、Softness、黒い影色を示すInspector](/img/fusion/captures/S162/controls.png)](/img/fusion/captures/S162/controls.png)
+
+Offset X 0.53 / Y 0.47、Softness 0.015、影の色は黒です。
+
+[![影のない文字と影の付いた文字の比較](/img/fusion/captures/S162/comparison.png)](/img/fusion/captures/S162/comparison.png)
+
+左は影なし、右は同じ文字に柔らかい黒い影を加えた出力です。
+
+[再現用Graph](/img/fusion/captures/S162/fixture.comp) · [撮影条件と確認範囲](/img/fusion/captures/S162/capture.json)
+
+<!-- /capture:S162 -->
+
 ## 最小構成：文字に落ち影を付ける
 
 透明背景に文字を生成するText+をShadowへつなぎ、背景映像と重ねます。
@@ -123,4 +147,4 @@ Text+ ─────────→ Shadow ─→ Merge（Foreground）─→ M
 
 Blackmagic Design『DaVinci Resolve 21.1 Reference Manual』（September 2026）、Chapter 97「Effect Nodes」、**Shadow [SH]（pp.2295–2297）**に基づきます。3入力、基本の影と奥行きの設定、Outputで影のみを出せる点、2Dと3Dの区別を確認しました。
 
-最小構成はManualの接続例を文章化したものです。影を個別加工する例とDepth Mapの確認手順は、記載機能を組み合わせた運用案です。**21.1実機の描画結果、Inspectorの初期値・数値範囲（Light DistanceのManual明記値を除く）、内部REGID、edition差は未確認**のため、verificationはpartialとしています。
+最小構成はManualの接続例を文章化したものです。影を個別加工する例とDepth Mapの確認手順は、記載機能を組み合わせた運用案です。**上記固定例以外の21.1実機の描画結果、Inspectorの初期値・数値範囲（Light DistanceのManual明記値を除く）、edition差は未確認**のため、verificationはpartialとしています。

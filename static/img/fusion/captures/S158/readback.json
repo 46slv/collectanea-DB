@@ -1,0 +1,54 @@
+{
+  "case": "S158",
+  "project": "Collectanea_Mandelbrot_Zoom_20261025",
+  "library": "Local Database",
+  "project_manager_folder": "root",
+  "timeline": "S158_capture",
+  "frame": 0,
+  "resolve": "21.1.0.14",
+  "edition": "DaVinci Resolve Studio",
+  "os": "Windows-11-10.0.26200-SP0",
+  "project_settings": {
+    "colorScienceMode": "davinciYRGB",
+    "colorSpaceInput": "Rec.709 Gamma 2.4",
+    "colorSpaceTimeline": "Rec.709 (Scene)",
+    "colorSpaceTimelineGamma": "",
+    "colorSpaceOutput": "Rec.709 (Scene)",
+    "colorSpaceOutputGamma": "ACEScc",
+    "isAutoColorManage": "0",
+    "timelineResolutionWidth": "1920",
+    "timelineResolutionHeight": "1080",
+    "timelineFrameRate": 30.0,
+    "timelinePlaybackFrameRate": "30",
+    "timelinePixelAspectRatio": "square"
+  },
+  "connections": {
+    "Source.Background": "Plate",
+    "Source.Foreground": "Label",
+    "MapWhite.EffectMask": "MapEllipse",
+    "Map.Background": "MapBlack",
+    "Map.Foreground": "MapWhite",
+    "VariBlur1.Input": "Source",
+    "VariBlur1.BlurImage": "Map",
+    "MediaOut1.Input": "VariBlur1"
+  },
+  "values": {
+    "Method": 1.0,
+    "Quality": 2.0,
+    "BlurChannel": 0.0,
+    "LockXY": 1.0,
+    "XBlurSize": 10.0,
+    "YBlurSize": 1.0,
+    "BlurLimit": 0.5
+  },
+  "source": "Generated Background and TextPlus; soft Ellipse on white Background over black Background supplies a 2D blur map.",
+  "save_project": true,
+  "save_completed_at": "2026-10-27T20:11:27.935450+00:00",
+  "native_export_sha256": "58f5a9e382788ff1c4a7a06eac114c51b020365cb9ffe0623b9191c249637a4f",
+  "portable_sha256": "4fe7d909091899d00bdea0c0f3f6093b9ec5cef49b2a47ab29c73c9168e18bea",
+  "portable_reimport": "NOT_RUN",
+  "limits": [
+    "Static synthetic input; other channels, uniform maps, methods, quality levels, physical input and hosts NOT_RUN.",
+    "Viewer display is not numerical pixel measurement."
+  ]
+}

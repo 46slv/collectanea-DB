@@ -1,0 +1,132 @@
+{
+  "manual": {
+    "version": "21.1",
+    "chapter": 123,
+    "printed_pages": "2986–2987"
+  },
+  "runtime": {
+    "version": "21.1.0.14",
+    "edition": "DaVinci Resolve Studio",
+    "os": "Windows-11-10.0.26200-SP0",
+    "ui_language": "ja-JP"
+  },
+  "captured_at": "2026-10-27T20:28:56.044837+00:00",
+  "project": "Collectanea_Mandelbrot_Zoom_20261025",
+  "timeline": "S160_capture",
+  "frame": 0,
+  "resolution": [
+    1920,
+    1080
+  ],
+  "color_management": {
+    "project_settings": {
+      "colorScienceMode": "davinciYRGB",
+      "colorSpaceInput": "Rec.709 Gamma 2.4",
+      "colorSpaceTimeline": "Rec.709 (Scene)",
+      "colorSpaceTimelineGamma": "",
+      "colorSpaceOutput": "Rec.709 (Scene)",
+      "colorSpaceOutputGamma": "ACEScc",
+      "isAutoColorManage": "0",
+      "timelineResolutionWidth": "1920",
+      "timelineResolutionHeight": "1080",
+      "timelineFrameRate": 30.0,
+      "timelinePlaybackFrameRate": "30",
+      "timelinePixelAspectRatio": "square"
+    },
+    "note": "SDK project settings; screenshots show Viewer display."
+  },
+  "viewer": {
+    "view_mode": "Fit",
+    "source": "Left Source; right MediaOut1",
+    "note": "Vortex selected for controls and guide; MediaOut selected for clean comparison."
+  },
+  "acceptance": {
+    "gui": "PASS: native screenshots show graph, Inspector, guides and comparison; SDK connections and save read back.",
+    "article_display": "NOT_RUN",
+    "public_display": "NOT_RUN"
+  },
+  "unverified": [
+    "Static generated text and Vortex only; other values, real footage, animation and hosts NOT_RUN.",
+    "Viewer screenshots are display evidence, not numerical measurement.",
+    "Portable reimport and physical input provenance NOT_RUN.",
+    "Article verification remains partial."
+  ],
+  "schema_version": 1,
+  "case": "S160",
+  "article": "manuals/fusion/nodes/warp/vortex.md",
+  "graph": "fixture.comp",
+  "settings": "readback.json",
+  "source": {
+    "file": "screen.png",
+    "size": [
+      3336,
+      1902
+    ],
+    "sha256": "8c28605d8eeba68b0a82af4dd87460856d93c3f15cfd6d5f6edc19f4ca95ef2e"
+  },
+  "shots": [
+    {
+      "file": "graph.png",
+      "source": "screen.png",
+      "source_sha256": "8c28605d8eeba68b0a82af4dd87460856d93c3f15cfd6d5f6edc19f4ca95ef2e",
+      "frame": 0,
+      "crop_xyxy": [
+        650,
+        1100,
+        2150,
+        1600
+      ],
+      "resampled": false,
+      "sha256": "26b919f1cbff84cc150d80bfa8f96cdd21784d11262233054505f6b388df6fb6"
+    },
+    {
+      "file": "controls.png",
+      "source": "screen.png",
+      "source_sha256": "8c28605d8eeba68b0a82af4dd87460856d93c3f15cfd6d5f6edc19f4ca95ef2e",
+      "frame": 0,
+      "crop_xyxy": [
+        2815,
+        65,
+        3336,
+        500
+      ],
+      "resampled": false,
+      "sha256": "a31c6e2b9a3d180a8a04f2b3ee6f2ddc22a4a8140c9e112ebf8317b528127fc6"
+    },
+    {
+      "file": "center-guide.png",
+      "source": "screen.png",
+      "source_sha256": "8c28605d8eeba68b0a82af4dd87460856d93c3f15cfd6d5f6edc19f4ca95ef2e",
+      "frame": 0,
+      "crop_xyxy": [
+        0,
+        65,
+        2800,
+        730
+      ],
+      "resampled": false,
+      "sha256": "24aeb4b38d15977e8df278aff6b61f5c422f77c4f5b9f894042b27b5a3763325"
+    },
+    {
+      "file": "comparison.png",
+      "source": "clean-source.png",
+      "source_sha256": "841cbc8dcc65cd587793a1aad75d282e71bc4cff183e918429ac7c74d91e92e4",
+      "frame": 0,
+      "crop_xyxy": [
+        0,
+        65,
+        2800,
+        730
+      ],
+      "resampled": false,
+      "sha256": "66c6801551d2061ddde669c8ce78149d547c4e6ba034e05d29fbb9f454402c9e"
+    }
+  ],
+  "reproduction": {
+    "fixture_sha256": "e747cf229f13a990c272d4eed766a764e93ce9ca73999ea7774900061052f02d",
+    "readback_sha256": "8f298f4b8b661a9699f64043ca74f09eddb030cfe0aa5f7b5b01833ca95b4ac2",
+    "readback_source_sha256": "8f298f4b8b661a9699f64043ca74f09eddb030cfe0aa5f7b5b01833ca95b4ac2",
+    "readback_transform": "No line-ending transformation",
+    "reimport": "NOT_RUN"
+  }
+}

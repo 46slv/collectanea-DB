@@ -6781,6 +6781,229 @@
         "Article verification remains partial"
       ],
       "published_batch": "fusion-native-20261027-41"
+    },
+    {
+      "priority": "P1",
+      "goal": "Show a separate blur map driving spatially varying blur on a generated image.",
+      "suggested_graph": "Background + TextPlus -> Source -> VariBlur -> MediaOut; black and soft white ellipse -> Map -> VariBlur.BlurImage.",
+      "scope": "Resolve Studio 21.1.0.14 on Windows, generated 1920x1080 image, one static frame.",
+      "limitations": [
+        "Synthetic static frame only; uniform maps, Alpha channel, other methods, values and actual footage NOT_RUN.",
+        "Viewer screenshots are display evidence, not numerical pixel measurement.",
+        "Portable reimport and physical input provenance NOT_RUN.",
+        "Article verification remains partial."
+      ],
+      "id": "S158",
+      "article": "manuals/fusion/nodes/blur-filter/variblur.md",
+      "manual": {
+        "version": "21.1",
+        "chapter": 92,
+        "printed_pages": "2126–2128"
+      },
+      "status": "captured-local-display-verified",
+      "capture_manifest": "static/img/fusion/captures/S158/capture.json",
+      "shots": [
+        {
+          "slug": "graph",
+          "kind": "graph",
+          "target": "文字画像と別の明暗マップをVari Blurへ接続したノード構成",
+          "status": "captured"
+        },
+        {
+          "slug": "map-output",
+          "kind": "comparison",
+          "target": "左に明暗マップ、右にマップの明るい部分で文字がぼけた出力",
+          "status": "captured"
+        },
+        {
+          "slug": "source-output",
+          "kind": "comparison",
+          "target": "元の文字画像と数字部分をぼかした出力の比較",
+          "status": "captured"
+        },
+        {
+          "slug": "inspector",
+          "kind": "inspector",
+          "target": "Vari Blurのマルチボックス、品質2、赤、ブラーサイズ10の設定",
+          "status": "captured"
+        }
+      ]
+    },
+    {
+      "priority": "P1",
+      "goal": "Show a fixed Dent 1 transformation on generated text with center and size guides.",
+      "suggested_graph": "Background + TextPlus -> Source -> Dent -> MediaOut.",
+      "scope": "Resolve Studio 21.1.0.14 on Windows, generated 1920x1080 static input.",
+      "limitations": [
+        "Static generated text and Dent 1 only; other types, values, real footage, animation and hosts NOT_RUN.",
+        "Viewer screenshots are display evidence, not numerical measurement.",
+        "Portable reimport and physical input provenance NOT_RUN.",
+        "Article verification remains partial."
+      ],
+      "id": "S159",
+      "article": "manuals/fusion/nodes/warp/dent.md",
+      "manual": {
+        "version": "21.1",
+        "chapter": 123,
+        "printed_pages": "2965–2966"
+      },
+      "status": "captured-local-display-verified",
+      "capture_manifest": "static/img/fusion/captures/S159/capture.json",
+      "shots": [
+        {
+          "slug": "graph",
+          "kind": "graph",
+          "target": "文字画像をDentに通してMediaOutへ接続したノード構成",
+          "status": "captured"
+        },
+        {
+          "slug": "controls",
+          "kind": "inspector",
+          "target": "Dent 1、中心0.5と0.5、サイズ0.5、強度1.0のInspector",
+          "status": "captured"
+        },
+        {
+          "slug": "center-guide",
+          "kind": "comparison",
+          "target": "Dentの中心と範囲のガイドを表示した入力と出力",
+          "status": "captured"
+        },
+        {
+          "slug": "comparison",
+          "kind": "comparison",
+          "target": "元の文字と中央を円形に変形した文字を並べた比較",
+          "status": "captured"
+        }
+      ]
+    },
+    {
+      "priority": "P1",
+      "goal": "Show a fixed Vortex transformation on generated text with center and size guides.",
+      "suggested_graph": "Background + TextPlus -> Source -> Vortex -> MediaOut.",
+      "scope": "Resolve Studio 21.1.0.14 on Windows, generated 1920x1080 static input.",
+      "limitations": [
+        "Static generated text and Vortex only; other values, real footage, animation and hosts NOT_RUN.",
+        "Viewer screenshots are display evidence, not numerical measurement.",
+        "Portable reimport and physical input provenance NOT_RUN.",
+        "Article verification remains partial."
+      ],
+      "id": "S160",
+      "article": "manuals/fusion/nodes/warp/vortex.md",
+      "manual": {
+        "version": "21.1",
+        "chapter": 123,
+        "printed_pages": "2986–2987"
+      },
+      "status": "captured-local-display-verified",
+      "capture_manifest": "static/img/fusion/captures/S160/capture.json",
+      "shots": [
+        {
+          "slug": "graph",
+          "kind": "graph",
+          "target": "文字画像をVortexに通してMediaOutへ接続したノード構成",
+          "status": "captured"
+        },
+        {
+          "slug": "controls",
+          "kind": "inspector",
+          "target": "Vortexの中心0.5と0.5、サイズ0.5、角度180、強度1.0のInspector",
+          "status": "captured"
+        },
+        {
+          "slug": "center-guide",
+          "kind": "comparison",
+          "target": "Vortexの中心と範囲のガイドを表示した入力と出力",
+          "status": "captured"
+        },
+        {
+          "slug": "comparison",
+          "kind": "comparison",
+          "target": "元の文字と中央を渦状に変形した文字を並べた比較",
+          "status": "captured"
+        }
+      ]
+    },
+    {
+      "priority": "P1",
+      "goal": "Show circular Drip distortion on a generated static image.",
+      "suggested_graph": "Background + TextPlus -> Source -> Drip -> MediaOut.",
+      "scope": "Resolve Studio 21.1.0.14 on Windows, 1920x1080 static input.",
+      "limitations": [
+        "Static generated text and Circular shape only; other shapes, values, animation, footage and hosts NOT_RUN.",
+        "Viewer screenshots are display evidence, not numerical measurement.",
+        "Portable reimport and physical input provenance NOT_RUN.",
+        "Article verification remains partial."
+      ],
+      "id": "S161",
+      "article": "manuals/fusion/nodes/warp/drip.md",
+      "manual": {
+        "version": "21.1",
+        "chapter": 123,
+        "printed_pages": "2969–2971"
+      },
+      "status": "captured-local-display-verified",
+      "capture_manifest": "static/img/fusion/captures/S161/capture.json",
+      "shots": [
+        {
+          "slug": "graph",
+          "kind": "graph",
+          "target": "文字画像をDripに通してMediaOutへ接続したノード構成",
+          "status": "captured"
+        },
+        {
+          "slug": "controls",
+          "kind": "inspector",
+          "target": "Dripの円形、中心、振幅、周波数、位相を示すInspector",
+          "status": "captured"
+        },
+        {
+          "slug": "comparison",
+          "kind": "comparison",
+          "target": "元の文字と円形の波紋で変形した文字を並べた比較",
+          "status": "captured"
+        }
+      ]
+    },
+    {
+      "priority": "P1",
+      "goal": "Show a 2D shadow on generated alpha text against a common background.",
+      "suggested_graph": "TextPlus -> Shadow -> Merge foreground; TextPlus -> separate before Merge; common Background.",
+      "scope": "Resolve Studio 21.1.0.14 on Windows, 1920x1080 static input.",
+      "limitations": [
+        "Static generated text only; depth, shadow-only output, other settings, footage and hosts NOT_RUN.",
+        "Viewer screenshots are display evidence, not numerical measurement.",
+        "Portable reimport and physical input provenance NOT_RUN.",
+        "Article verification remains partial."
+      ],
+      "id": "S162",
+      "article": "manuals/fusion/nodes/effects-film/shadow.md",
+      "manual": {
+        "version": "21.1",
+        "chapter": 97,
+        "printed_pages": "2295–2297"
+      },
+      "status": "captured-local-display-verified",
+      "capture_manifest": "static/img/fusion/captures/S162/capture.json",
+      "shots": [
+        {
+          "slug": "graph",
+          "kind": "graph",
+          "target": "文字をShadowへ通し背景と合成する構成と、影なし比較用の枝",
+          "status": "captured"
+        },
+        {
+          "slug": "controls",
+          "kind": "inspector",
+          "target": "Shadow Offset、Softness、黒い影色を示すInspector",
+          "status": "captured"
+        },
+        {
+          "slug": "comparison",
+          "kind": "comparison",
+          "target": "影のない文字と影の付いた文字の比較",
+          "status": "captured"
+        }
+      ]
     }
   ],
   "publication_batches": [
@@ -8166,24 +8389,26 @@
     }
   ],
   "coverage_inventory": {
-    "checked_at": "2026-10-26T15:04:50.698422+00:00",
+    "checked_at": "2026-10-28T04:47:23.091261+00:00",
     "scope": "All manuals/fusion Markdown and MDX pages; review necessity before adding images.",
     "completion_rule": "Every page has an explicit image decision; necessary images are native-observed, embedded, saved to GitHub and public-display-verified. A native example does not verify all article controls.",
     "summary": {
-      "total_pages": 587,
-      "with_images": 203,
-      "with_native_examples": 203,
+      "total_pages": 589,
+      "with_images": 208,
+      "with_native_examples": 208,
       "states": {
         "reviewed-no-standalone-image": 26,
         "no-standalone-image-needed": 6,
         "illustrated-reused-example": 80,
-        "capture-planned": 352,
-        "illustrated-native-example": 123
+        "capture-planned": 347,
+        "illustrated-native-example": 128,
+        "needs-review": 2
       },
       "decisions": {
         "no-standalone-image-needed": 32,
-        "image-required": 203,
-        "capture-needed": 352
+        "image-required": 208,
+        "capture-needed": 347,
+        "needs-review": 2
       }
     },
     "pages": [
@@ -10686,12 +10911,14 @@
         "article": "manuals/fusion/nodes/blur-filter/variblur.md",
         "title": "Vari Blur",
         "kind": "node",
-        "image_count": 0,
-        "native_cases": [],
+        "image_count": 4,
+        "native_cases": [
+          "S158"
+        ],
         "reused_cases": [],
         "planned_cases": [],
-        "state": "capture-planned",
-        "decision": "capture-needed",
+        "state": "illustrated-native-example",
+        "decision": "image-required",
         "reason": "本文の対象機能: 別の画像をぼかし量のマップとして使い、位置ごとに異なるぼかしを作るFusionノード。3つの入力、Method・Quality・Blur Size・Blur Limitと制作例を説明する。。S07のEffect Maskはmap入力と別の役割。単一入力のBlur/Transform画像ではmapの意味を示せない。",
         "required_views": [
           "対象Node名と実際の配線が読めるGraph",
@@ -10717,7 +10944,8 @@
             "section": "実際の制作例",
             "role": "入力と結果を示す箇所"
           }
-        ]
+        ],
+        "audit_note": "S158の4画像をlocal desktop/mobileで確認。均一な黒白マップ、他channel・Method・実写、portable再importと公開表示は未確認。"
       },
       {
         "article": "manuals/fusion/nodes/blur-filter/vector-motion-blur.md",
@@ -12985,12 +13213,14 @@
         "article": "manuals/fusion/nodes/effects-film/shadow.md",
         "title": "Shadow",
         "kind": "node",
-        "image_count": 0,
-        "native_cases": [],
+        "image_count": 3,
+        "native_cases": [
+          "S162"
+        ],
         "reused_cases": [],
         "planned_cases": [],
-        "state": "capture-planned",
-        "decision": "capture-needed",
+        "state": "illustrated-native-example",
+        "decision": "image-required",
         "reason": "本文の対象機能: Shadowは、Alphaで切り抜かれた画像の輪郭から2Dの落ち影を作るNode。。S13のBlur、S03のGlow、S14のColor Correctorは別NodeのUIと演算であり、似た見た目でも代用不可。",
         "required_views": [
           "対象Node名と実際の配線が読めるGraph",
@@ -13015,7 +13245,8 @@
             "section": "入力",
             "role": "入力と結果を示す箇所"
           }
-        ]
+        ],
+        "audit_note": "S162の3画像をlocal desktop/mobileで確認。Depth、影のみ出力、実写、portable再importと公開表示は未確認。"
       },
       {
         "article": "manuals/fusion/nodes/effects-film/trails.md",
@@ -24748,12 +24979,14 @@
         "article": "manuals/fusion/nodes/warp/dent.md",
         "title": "Dent",
         "kind": "node",
-        "image_count": 0,
-        "native_cases": [],
+        "image_count": 4,
+        "native_cases": [
+          "S159"
+        ],
         "reused_cases": [],
         "planned_cases": [],
-        "state": "capture-planned",
-        "decision": "capture-needed",
+        "state": "illustrated-native-example",
+        "decision": "image-required",
         "reason": "本文の対象機能: Dentは、中心と範囲を指定してImageへ円形の変形を作るNode。。S06や別warpは対象固有の操作/結果を示せない。",
         "required_views": [
           "対象名と実接続が読めるGraph",
@@ -24780,7 +25013,8 @@
             "role": "入力/結果または実UIの具体箇所"
           }
         ],
-        "hold_conditions": []
+        "hold_conditions": [],
+        "audit_note": "S159の4画像をlocal desktop/mobileで確認。Dent 1の固定例以外のType、実写、時間変化、portable再importと公開表示は未確認。"
       },
       {
         "article": "manuals/fusion/nodes/warp/displace.md",
@@ -24834,12 +25068,14 @@
         "article": "manuals/fusion/nodes/warp/drip.md",
         "title": "Drip",
         "kind": "node",
-        "image_count": 0,
-        "native_cases": [],
+        "image_count": 3,
+        "native_cases": [
+          "S161"
+        ],
         "reused_cases": [],
         "planned_cases": [],
-        "state": "capture-planned",
-        "decision": "capture-needed",
+        "state": "illustrated-native-example",
+        "decision": "image-required",
         "reason": "本文の対象機能: Dripは、中心から広がるripple patternでImageを歪ませるNode。。S06や別warpは対象固有の操作/結果を示せない。",
         "required_views": [
           "対象名と実接続が読めるGraph",
@@ -24866,7 +25102,8 @@
             "role": "入力/結果または実UIの具体箇所"
           }
         ],
-        "hold_conditions": []
+        "hold_conditions": [],
+        "audit_note": "S161の3画像をlocal desktop/mobileで確認。他の形状、実写、時間変化、portable再importと公開表示は未確認。"
       },
       {
         "article": "manuals/fusion/nodes/warp/grid-warp.md",
@@ -25138,12 +25375,14 @@
         "article": "manuals/fusion/nodes/warp/vortex.md",
         "title": "Vortex",
         "kind": "node",
-        "image_count": 0,
-        "native_cases": [],
+        "image_count": 4,
+        "native_cases": [
+          "S160"
+        ],
         "reused_cases": [],
         "planned_cases": [],
-        "state": "capture-planned",
-        "decision": "capture-needed",
+        "state": "illustrated-native-example",
+        "decision": "image-required",
         "reason": "本文の対象機能: Vortexは、2D画像の一部を指定した中心の周囲へ巻き込み、渦状に変形するFusionノード。。S06や別warpは対象固有の操作/結果を示せない。",
         "required_views": [
           "対象名と実接続が読めるGraph",
@@ -25170,7 +25409,8 @@
             "role": "入力/結果または実UIの具体箇所"
           }
         ],
-        "hold_conditions": []
+        "hold_conditions": [],
+        "audit_note": "S160の4画像をlocal desktop/mobileで確認。他の設定値、実写、時間変化、portable再importと公開表示は未確認。"
       },
       {
         "article": "manuals/fusion/patterns/animation/base-and-animation-offset.md",
@@ -25668,6 +25908,26 @@
         "state": "illustrated-reused-example",
         "decision": "image-required",
         "reason": "MultiMerge Layer Listの順序・Enableと重なり"
+      },
+      {
+        "article": "manuals/fusion/recipes/compositing/soft-glow-for-isolated-highlights.md",
+        "title": "Soft Glowで街灯の光だけを柔らかくにじませる",
+        "kind": "recipe",
+        "image_count": 0,
+        "native_cases": [],
+        "reused_cases": [],
+        "planned_cases": [],
+        "state": "needs-review"
+      },
+      {
+        "article": "manuals/fusion/recipes/compositing/soft-vignette-with-inverted-ellipse.md",
+        "title": "Ellipse Maskで柔らかいビネットを作る",
+        "kind": "recipe",
+        "image_count": 0,
+        "native_cases": [],
+        "reused_cases": [],
+        "planned_cases": [],
+        "state": "needs-review"
       },
       {
         "article": "manuals/fusion/recipes/compositing/two-image-merge.md",
@@ -26204,9 +26464,9 @@
       },
       {
         "article": "manuals/fusion/troubleshooting/masking/alpha-edge-looks-wrong.md",
-        "title": "透明Edgeの色や縁がおかしい",
+        "title": "透明エッジに黒縁・白縁が出る",
         "kind": "diagnostic",
-        "image_count": 2,
+        "image_count": 3,
         "native_cases": [],
         "reused_cases": [
           "S74"
