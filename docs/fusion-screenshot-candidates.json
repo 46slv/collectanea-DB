@@ -8071,6 +8071,57 @@
           "status": "captured"
         }
       ]
+    },
+    {
+      "priority": "P1",
+      "goal": "Show a low-count parent/child color fixture with spawn zero and one.",
+      "suggested_graph": "pEmitter -> pSpawn -> pRender -> MediaOut",
+      "scope": "Resolve Studio 21.1.0.14 on Windows.",
+      "limitations": [
+        "Frame 24 and 48 and a zero-versus-one Number comparison were captured; matched evaluation-start simulation identity and exact particle counts NOT_RUN.",
+        "Velocity Transfer, Set, Region, affect spawned particles enabled, portable reimport and other hosts NOT_RUN."
+      ],
+      "id": "S311",
+      "article": "manuals/fusion/nodes/particles/pspawn.md",
+      "manual": {
+        "version": "21.1",
+        "chapter": 114,
+        "printed_pages": "2685–2687"
+      },
+      "status": "captured-embedded-unverified",
+      "capture_manifest": "static/img/fusion/captures/S311/capture.json",
+      "shots": [
+        {
+          "slug": "graph",
+          "kind": "graph",
+          "target": "pEmitterからpSpawnとpRenderへ接続した構成",
+          "status": "captured"
+        },
+        {
+          "slug": "controls",
+          "kind": "inspector",
+          "target": "pSpawnの生成数1と寿命10の設定",
+          "status": "captured"
+        },
+        {
+          "slug": "spawn1",
+          "kind": "result",
+          "target": "生成数1で表示される赤と青の粒子",
+          "status": "captured"
+        },
+        {
+          "slug": "spawn0",
+          "kind": "result",
+          "target": "生成数0で表示される赤い粒子",
+          "status": "captured"
+        },
+        {
+          "slug": "result24",
+          "kind": "result",
+          "target": "24フレームで表示された赤と青の粒子",
+          "status": "captured"
+        }
+      ]
     }
   ],
   "publication_batches": [
@@ -9456,25 +9507,25 @@
     }
   ],
   "coverage_inventory": {
-    "checked_at": "2026-10-28T07:45:25.672147+00:00",
+    "checked_at": "2026-10-28T09:54:38.111954+00:00",
     "scope": "All manuals/fusion Markdown and MDX pages; review necessity before adding images.",
     "completion_rule": "Every page has an explicit image decision; necessary images are native-observed, embedded, saved to GitHub and public-display-verified. A native example does not verify all article controls.",
     "summary": {
       "total_pages": 589,
-      "with_images": 229,
+      "with_images": 230,
       "with_native_examples": 229,
       "states": {
         "reviewed-no-standalone-image": 26,
         "no-standalone-image-needed": 6,
         "illustrated-reused-example": 80,
-        "capture-planned": 327,
-        "illustrated-native-example": 149,
+        "capture-planned": 326,
+        "illustrated-native-example": 150,
         "needs-review": 1
       },
       "decisions": {
         "no-standalone-image-needed": 32,
-        "image-required": 229,
-        "capture-needed": 327,
+        "image-required": 230,
+        "capture-needed": 326,
         "needs-review": 1
       }
     },
@@ -22162,13 +22213,20 @@
         "article": "manuals/fusion/nodes/particles/pspawn.md",
         "title": "pSpawn",
         "kind": "node",
-        "image_count": 0,
+        "image_count": 5,
         "native_cases": [],
         "reused_cases": [],
-        "planned_cases": [],
-        "state": "capture-planned",
-        "decision": "capture-needed",
-        "reason": "本文の対象機能: pSpawnは、既存の粒子を発生源にして子の粒子を作るノード。。単一Emitterの粒子画像ではSet保持/削除/親子/Style変更を示せない。",
+        "planned_cases": [
+          "S311"
+        ],
+        "state": "illustrated-native-example",
+        "decision": "image-required",
+        "reason": "S311は親の赤と生成側の青を2Dで示す固定例。同一評価開始の比較やSetは未確認。",
+        "remaining_views": [
+          "同じseed・初期条件・評価開始を揃えた比較、粒子数",
+          "Velocity Transfer、親子SetとRegion",
+          "portable reimportと他host"
+        ],
         "required_views": [
           "source→対象Particle Tool→pRenderのGraph",
           "対象自身の固有Controlsと必要なConditions/Region",
