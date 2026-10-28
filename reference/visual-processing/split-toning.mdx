@@ -1,0 +1,65 @@
+---
+sidebar_position: 27
+sidebar_label: スプリットトーニング
+title: スプリットトーニング（Split Toning）— 暗部と明部を別の色に染める
+description: 階調ごとに色を加える仕組みを、暗部・明部の色相と強度、境界、混合幅を操作して確かめる。
+tags: [image-processing, color, split-toning, color-grading, reference]
+---
+
+import SplitToningPlayground from '@site/src/components/SplitToningPlayground';
+
+# スプリットトーニング（Split Toning）
+
+スプリットトーニングは、画像の**暗い部分と明るい部分に異なる色味を加える**方法です。例えば影を青く、明るい領域を橙色に寄せると、明暗の構造を保ちながら寒暖の対比を作れます。どの明るさで色を切り替えるか、どれだけなめらかに混ざるかによって結果は変わります。
+
+これは全体の彩度を上げる操作とも、色空間を正しく変換する操作とも異なります。色の配分を階調から決める、カラーグレーディングの一手法です。
+
+## 入力・操作・出力
+
+- **入力**：320×144画素の自動生成画像。白黒グラデーションと、灰色・暖色・寒色のパッチから選択します。アップロード画像、実写、RAWは扱いません。
+- **操作**：暗部と明部それぞれの色相0〜360°・色付け強度0〜1、境界位置−0.35〜+0.35、色域ではなく**階調範囲が重なる幅**0.10〜0.90、表示倍率100／200／400%、初期化。
+- **出力**：入力、色付け結果、階調範囲の重みを示す3枚のCanvas。中心画素の8-bit RGB値と、出力で成分が0〜1に収まらずクリップした画素数を表示します。
+- **初期状態**：暗部220°／0.65、明部35°／0.65、境界0、重なり0.50。パッチ画像を選ぶと元の色が付いている部分への影響も確認できます。
+
+## 触って比較する {#try-it}
+
+<SplitToningPlayground />
+
+1. 最初はグラデーションの左側に寒色、右側に暖色が加わります。右の範囲表示は、暗部を青、明部を赤、混合域を紫で示します。
+2. **両方の強度を0**にすると、結果は入力と同じ8-bit RGBになります。次に暗部の強度だけを上げると、左側に変化が集中します。
+3. **境界位置を+0.35**にすると、この教材では暗部の対象が明るい側まで広がります。−0.35にすると逆になります。「重なりの幅」を大きくすると、色が移り変わる区間が広がります。
+4. **パッチ画像**へ切り替えて、すでに色のある画像では単純な灰色の塗り分けとは違う結果になること、強い色付けでクリップが起こり得ることを観察します。リセットで初期値に戻せます。
+
+## 教材の計算モデル
+
+各入力画素の符号化RGBを0〜1へ正規化し、表示向けのルマ近似を求めます。
+
+`Y' = 0.2126 R' + 0.7152 G' + 0.0722 B'`
+
+これは**線形光の輝度Yではありません**。画素の階調に応じて暗部・明部の重みを作り、その和を常に1とします。境界は`0.5 + balance`、遷移幅は`transition`で決め、境界の前後をsmoothstep関数（`t²(3−2t)`）でつなぎます。
+
+指定した色相からRGB方向ベクトルを作り、上のルマ係数で重み付けした和を0にして、入力RGBへ次の変位を足します。
+
+`RGB_out = clamp01(RGB_in + A(Y') × (w_shadow × s_shadow × tint_shadow + w_highlight × s_highlight × tint_highlight))`
+
+`A(Y') = 0.45 × √(4Y'(1−Y'))`としたため、純黒と純白では色付けが0に近づきます。出力用の各成分は8-bitへ丸めます。範囲外へ出た画素はカウントしてからクリップします。
+
+この式は**階調による色の割当を学ぶための独自モデル**です。色付け前のルマ変位を0にしても、成分クリップや8-bit丸めの後に見た目の明るさが完全に一定になるわけではありません。
+
+## 実制作との関係と限界
+
+古典的なSplit Toningは暗部と明部に色を加えます。Adobe LightroomのColor Gradingはこれを拡張し、**中間調**や**Global**の調整も備えています。実際のLightroomではBalanceやBlendingの独自の挙動がありますが、教材の`balance`と`transition`はその数式の再実装ではなく、対応する考え方を簡素化したものです。
+
+After Effects／DaVinci Resolveではノード位置、色管理、作業色空間、階調の選択、内部浮動小数点精度、彩度の扱いで結果が変わります。この8-bit sRGBコード値モデルは、AE／Resolveの**カラーグレーディング、Log、HDR、ACES、scene-linear処理と完全同等ではありません**。実機操作・数値一致は未検証です。
+
+教材に使用する画像はプログラムで生成し、第三者素材を埋め込んでいません。結果はブラウザCanvasの表示環境にも依存します。
+
+## 参考資料
+
+- [Adobe Blog — Introducing Color Grading（2020-10-20）](https://blog.adobe.com/en/publish/2020/10/20/introducing-color-grading)：Split ToningとShadows／Midtones／Highlights、Balance／Blendingの役割。確認：2026-10-28。
+- [Adobe Lightroom — 写真の編集](https://helpx.adobe.com/jp/lightroom/desktop/edit-photos/edit-photos.html)：Color Gradingの階調別色付けと操作項目。確認：2026-10-28。
+- [Adobe Lightroom Classic — Color Grading](https://pages.adobe.com/lightroom-classic/en/learn/color-grading/)：階調別の色調整によるルック形成。確認：2026-10-28。
+
+## 関連
+
+[ホワイトバランス](./white-balance.mdx)／[彩度](./saturation.mdx)／[トーンカーブ](./tone-curve.mdx)／[映像表現と画像処理の索引](./index.md#tones)
