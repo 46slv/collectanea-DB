@@ -8417,6 +8417,51 @@
           "status": "captured"
         }
       ]
+    },
+    {
+      "priority": "P1",
+      "goal": "Show selected uShape controls, USD graph and Capsule/Sphere rendered outputs.",
+      "suggested_graph": "uShape -> uMerge -> uRenderer -> MediaOut",
+      "scope": "Resolve Studio 21.1.0.14 on Windows.",
+      "limitations": [
+        "Only Capsule and Sphere at default settings were compared; texture, material, remaining shapes and parameters NOT_RUN.",
+        "Single USD scene input only; multi-scene uMerge behavior NOT_RUN.",
+        "Portable reimport and other hosts NOT_RUN.",
+        "Spline panel was closed through a background accessibility action and visually confirmed; physical input is not claimed."
+      ],
+      "id": "S326",
+      "article": "manuals/fusion/nodes/usd/ushape.md",
+      "manual": {
+        "version": "21.1"
+      },
+      "status": "captured-embedded-unverified",
+      "capture_manifest": "static/img/fusion/captures/S326/capture.json",
+      "shots": [
+        {
+          "slug": "graph",
+          "kind": "graph",
+          "target": "uShapeからuMerge、uRenderer、MediaOutへ接続した構成",
+          "status": "captured"
+        },
+        {
+          "slug": "controls",
+          "kind": "inspector",
+          "target": "Sphereを選択したuShapeのControls",
+          "status": "captured"
+        },
+        {
+          "slug": "sphere-result",
+          "kind": "result",
+          "target": "Sphereの描画結果",
+          "status": "captured"
+        },
+        {
+          "slug": "capsule-result",
+          "kind": "result",
+          "target": "Capsuleの描画結果",
+          "status": "captured"
+        }
+      ]
     }
   ],
   "publication_batches": [
@@ -9802,25 +9847,25 @@
     }
   ],
   "coverage_inventory": {
-    "checked_at": "2026-10-28T07:45:25.672147+00:00",
+    "checked_at": "2026-10-28T10:34:23.248544+00:00",
     "scope": "All manuals/fusion Markdown and MDX pages; review necessity before adding images.",
     "completion_rule": "Every page has an explicit image decision; necessary images are native-observed, embedded, saved to GitHub and public-display-verified. A native example does not verify all article controls.",
     "summary": {
       "total_pages": 589,
-      "with_images": 237,
+      "with_images": 238,
       "with_native_examples": 237,
       "states": {
         "reviewed-no-standalone-image": 26,
         "no-standalone-image-needed": 6,
         "illustrated-reused-example": 80,
-        "capture-planned": 319,
-        "illustrated-native-example": 157,
+        "capture-planned": 318,
+        "illustrated-native-example": 158,
         "needs-review": 1
       },
       "decisions": {
         "no-standalone-image-needed": 32,
-        "image-required": 237,
-        "capture-needed": 319,
+        "image-required": 238,
+        "capture-needed": 318,
         "needs-review": 1
       }
     },
@@ -25577,13 +25622,19 @@
         "article": "manuals/fusion/nodes/usd/ushape.md",
         "title": "uShape",
         "kind": "node",
-        "image_count": 0,
+        "image_count": 4,
         "native_cases": [],
         "reused_cases": [],
-        "planned_cases": [],
-        "state": "capture-planned",
-        "decision": "capture-needed",
-        "reason": "本文の対象機能: uShapeは、立方体・球・円柱などの立体を作り、USDシーンとして出力するノード。。S12固定capsuleは各u*の階層/Control/処理を示せない。",
+        "planned_cases": [
+          "S326"
+        ],
+        "state": "illustrated-native-example",
+        "decision": "image-required",
+        "reason": "S326は単一USD sceneのCapsuleとSphereの設定・描画例。材質や他形状は未確認。",
+        "remaining_views": [
+          "他のShapeと各固有Controls、材質・画像入力",
+          "複数scene、portable reimportと他host"
+        ],
         "required_views": [
           "対象名と実接続が読めるGraph",
           "対象自身を選択したInspectorの該当Control",

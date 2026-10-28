@@ -41,6 +41,32 @@ uLight ─────┘
 
 [uMerge](./u-merge)で立体・カメラ・ライトを同じUSDシーンにまとめ、uRendererで2D画像に変換します。通常の画像用Mergeで映像と重ねる場合は、**uRendererの後**につなぎます。ライトの効果を確認するときは、uRenderer側のLighting設定も確認してください。
 
+<!-- capture:S326 -->
+
+## 実機例：CapsuleとSphereを描画する
+
+`uShape`を`uMerge`、`uRenderer`へ接続し、ShapeをCapsuleとSphereに切り替えました。Inspectorの選択とViewerの描画がそれぞれ変わります。この例は1つのUSD sceneを入力した静止画で、材質や画像入力、他形状、複数sceneは確認していません。市松模様はViewerの透明表示です。[接続と設定の記録](/img/fusion/captures/S326/readback.json)に条件を記載しています。
+
+[![uShapeからuMerge、uRenderer、MediaOutへ接続した構成](/img/fusion/captures/S326/graph.png)](/img/fusion/captures/S326/graph.png)
+
+uShapeのUSD出力をuRendererで描画します。
+
+[![Sphereを選択したuShapeのControls](/img/fusion/captures/S326/controls.png)](/img/fusion/captures/S326/controls.png)
+
+uShapeのControlsでSphereを選択しています。
+
+[![Sphereの描画結果](/img/fusion/captures/S326/sphere-result.png)](/img/fusion/captures/S326/sphere-result.png)
+
+Sphereの出力です。
+
+[![Capsuleの描画結果](/img/fusion/captures/S326/capsule-result.png)](/img/fusion/captures/S326/capsule-result.png)
+
+同じ構成でCapsuleを選択した出力です。
+
+[再現用Graph](/img/fusion/captures/S326/fixture.comp) · [撮影条件と確認範囲](/img/fusion/captures/S326/capture.json)
+
+<!-- /capture:S326 -->
+
 ## Shape：どんな立体を作るか
 
 Inspectorの**Controlsタブ > Shape**で、生成する立体を選びます。選択した形状によって表示される設定が変わります。
