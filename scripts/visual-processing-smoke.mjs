@@ -250,6 +250,56 @@ try {
     await noOverflow();
     await shot('quantization-mobile');
   });
+  await check('color-space-transform-article-and-mobile', async () => {
+    await page.setViewportSize({width: 1440, height: 1000});
+    await go(route);
+    await page.getByRole('link', {name: 'sRGBとDisplay P3の変換を操作して比較'}).click();
+    await expect(page).toHaveURL(/\/reference\/visual-processing\/color-space-transform\/?$/);
+    for (const width of [1440, 390, 320]) {
+      await page.setViewportSize({width, height: width === 1440 ? 1000 : 844});
+      await go('/reference/visual-processing/color-space-transform');
+      const widget = page.locator('[data-vp-cst="ready"]');
+      await expect(widget).toBeVisible();
+      const order = await widget.evaluate((element) => {
+        const previews = element.querySelector('.vp-cst__previews');
+        const controls = element.querySelector('.vp-cst__controls');
+        return {
+          dom: Boolean(previews && controls && (previews.compareDocumentPosition(controls) & Node.DOCUMENT_POSITION_FOLLOWING)),
+          visual: Boolean(previews && controls && previews.getBoundingClientRect().bottom <= controls.getBoundingClientRect().top),
+          panels: element.querySelectorAll('[data-vp-cst-preview]').length,
+        };
+      });
+      assert.ok(order.dom && order.visual && order.panels === 3,
+        'CST three previews precede controls: ' + width + ' ' + JSON.stringify(order));
+      await expect(widget).toHaveAttribute('data-vp-cst-source', 'display-p3');
+      await expect(widget).toHaveAttribute('data-vp-cst-target', 'srgb');
+      await expect(widget.locator('[data-vp-cst-outside]')).toBeVisible();
+      const mask = widget.locator('[data-vp-cst-preview="mask"] canvas');
+      await expect(mask).toBeVisible();
+      await widget.getByRole('combobox', {name: '入力色空間'}).selectOption('srgb');
+      await expect(widget).toHaveAttribute('data-vp-cst-source', 'srgb');
+      await expect(widget.locator('[data-vp-cst-preview="raw"]')).toContainText('sRGB入力をそのまま表示');
+      await widget.getByRole('combobox', {name: '出力色空間'}).selectOption('display-p3');
+      await expect(widget).toHaveAttribute('data-vp-cst-target', 'display-p3');
+      const chroma = widget.getByRole('slider', {name: '彩度方向の強さ'});
+      await chroma.focus();
+      await chroma.press('Home');
+      await expect(chroma).toHaveValue('0.2');
+      await widget.getByRole('combobox', {name: '合成入力のパターン'}).selectOption('gradient');
+      await widget.getByRole('combobox', {name: '表示倍率'}).selectOption('2');
+      const enlarged = widget.locator('[data-vp-cst-preview="converted"] .vp-cst__viewport');
+      await expect.poll(() => enlarged.evaluate((element) => element.scrollWidth > element.clientWidth)).toBe(true);
+      await widget.getByRole('button', {name: '初期値に戻す'}).click();
+      await expect(widget).toHaveAttribute('data-vp-cst-source', 'display-p3');
+      await expect(widget).toHaveAttribute('data-vp-cst-target', 'srgb');
+      await expect(chroma).toHaveValue('1');
+      await expect(widget.getByRole('combobox', {name: '合成入力のパターン'})).toHaveValue('bands');
+      await expect(widget.getByRole('combobox', {name: '表示倍率'})).toHaveValue('1');
+      await noOverflow();
+      if (width === 390) await shot('color-space-transform-mobile');
+    }
+  });
+
   await check('posterization-article-and-mobile', async () => {
     for (const width of [1440, 390, 320]) {
       await page.setViewportSize({width, height: width === 1440 ? 1000 : 844});
