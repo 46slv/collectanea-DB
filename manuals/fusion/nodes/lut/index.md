@@ -21,6 +21,23 @@ DaVinci Resolve 21.1 Reference ManualのChapter 107では、次の4 NodeがLUT F
 | 加工したcolor cubeを別のImageへ直接適用する | [LUT Cube Apply](./lut-cube-apply) |
 | 加工したcolor cubeから3D LUT fileを書き出す | [LUT Cube Analyzer](./lut-cube-analyzer) |
 
+<!-- capture-reuse:R302 -->
+
+### 実機の参考例：LUTの適用と生成
+
+S323では、自作のCUBEをFile LUTで単色画像へ適用し、左の入力と右の出力に色の違いを確認しました。出力の数値と再importは未確認です。[撮影条件](/img/fusion/captures/S323/capture.json)
+
+[![File LUTへの入力色と出力色](/img/fusion/captures/S323/comparison.png)](/img/fusion/captures/S323/comparison.png)
+
+<!-- /capture-reuse:R302 -->
+<!-- capture-reuse:R303 -->
+
+S324では、未加工のLUT Cube CreatorをAnalyzerへ接続して恒等CUBEを書き出しました。加工済みCubeの変換は確認していません。[撮影条件](/img/fusion/captures/S324/capture.json)
+
+[![LUT Cube CreatorからAnalyzerへ接続した構成](/img/fusion/captures/S324/graph.png)](/img/fusion/captures/S324/graph.png)
+
+<!-- /capture-reuse:R303 -->
+
 ## LUTで何を記録しているか
 
 LUTは「この入力色が来たら、この出力色へ変える」という対応関係を持ちます。1D LUTは比較的単純な入出力の表、3D LUTはRGBの組み合わせをcolor cubeとしてsampleした表です。
