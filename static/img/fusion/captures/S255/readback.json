@@ -1,0 +1,52 @@
+{
+  "case": "S255",
+  "project": "Collectanea_Mandelbrot_Zoom_20261025",
+  "library": "Local Database",
+  "project_manager_folder": "root",
+  "timeline": "S255_capture",
+  "frame": 0,
+  "resolve": "21.1.0.14",
+  "edition": "DaVinci Resolve Studio",
+  "os": "Windows-11-10.0.26200-SP0",
+  "project_settings": {
+    "colorScienceMode": "davinciYRGB",
+    "colorSpaceInput": "Rec.709 Gamma 2.4",
+    "colorSpaceTimeline": "Rec.709 (Scene)",
+    "colorSpaceTimelineGamma": "",
+    "colorSpaceOutput": "Rec.709 (Scene)",
+    "colorSpaceOutputGamma": "ACEScc",
+    "isAutoColorManage": "0",
+    "timelineResolutionWidth": "1920",
+    "timelineResolutionHeight": "1080",
+    "timelineFrameRate": 30.0,
+    "timelinePlaybackFrameRate": "30",
+    "timelinePixelAspectRatio": "square"
+  },
+  "connections": {
+    "Map.Image": "Label",
+    "MediaOut1.Input": "Map"
+  },
+  "values": {
+    "Label": {
+      "StyledText": "123456789",
+      "Size": 0.2
+    },
+    "Map": {
+      "Type": 1.0,
+      "HorizontalSubdivisions": 4.0,
+      "VerticalSubdivisions": 4.0,
+      "Amount": 1.0,
+      "RandomSeed": 3.0
+    }
+  },
+  "source": "Synthetic text through KD Shuffle.",
+  "save_project": true,
+  "save_completed_at": "2026-10-28T06:02:37.504664+00:00",
+  "native_export_sha256": "0f215e148719b47bafd39daa7203441540771247ddcf0fc09c7f18149cc09fb2",
+  "portable_sha256": "73f678346b3724f06c0a72fc5284091052895784a024ab6c1e8009b3421f6ad3",
+  "portable_reimport": "NOT_RUN",
+  "limits": [
+    "One synthetic text and settings; other shuffle settings, mask, alpha values, animation and other hosts NOT_RUN.",
+    "Viewer screenshot is display evidence."
+  ]
+}

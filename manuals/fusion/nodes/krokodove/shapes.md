@@ -32,6 +32,30 @@ Shapeデータそのものを後段でも編集したい場合は、[Shapeの基
 
 Manualの「複数段階（multiple levels）」は、同心形状を何段にも作るという役割を表しています。3D空間の奥行き、タイムラインのレイヤー、Fusionのノード数を意味すると決まったわけではありません。段階の数や重ね方をどの設定で操作するかは、実機で確認する必要があります。
 
+<!-- capture:S257 -->
+
+## 実機例：同心円の模様を生成する
+
+`Shapes` から画像を生成し、Spacing 1を0.1に設定しました。
+
+この例では白い同心円が見えます。Viewerには市松模様と操作用オーバーレイが表示されています。ほかの形状やAlpha値は未検証です。[接続と設定の記録](/img/fusion/captures/S257/readback.json)に条件を記載しています。
+
+[![Krokodove Shapesを出力へつなぐ構成](/img/fusion/captures/S257/graph.png)](/img/fusion/captures/S257/graph.png)
+
+Shapesの出力をMediaOutへ渡します。
+
+[![ShapesのInspector](/img/fusion/captures/S257/controls.png)](/img/fusion/captures/S257/controls.png)
+
+Spacing 1を0.1に設定しています。
+
+[![Shapesで生成した同心円](/img/fusion/captures/S257/high.png)](/img/fusion/captures/S257/high.png)
+
+白い同心円が表示されています。
+
+[再現用Graph](/img/fusion/captures/S257/fixture.comp) · [撮影条件と確認範囲](/img/fusion/captures/S257/capture.json)
+
+<!-- /capture:S257 -->
+
 ## 入力・出力とデータの扱い
 
 | 項目 | 現時点で確認できること | 未確認のこと |
@@ -98,8 +122,8 @@ Text+（見出し） ───────────────────�
 
 ## 注意点と未確認事項
 
-- **入力端子**：必須入力の有無、追加の画像・Mask・Shape・Region入力、正式なポート名・数は21.1実機で未確認です。
-- **Inspector**：形の種類、同心形状の段階数、間隔、太さ、色、中心、回転などを操作できるか、正式項目名・初期値・値域は未確認です。用途の説明に出した言葉をUI名称と混同しないでください。
+- **入力端子**：実機例では外部画像なしで出力しました。追加入力や正式なポート名・数は未確認です。
+- **Inspector**：実機例ではSpacing 1を使用しました。他の形状、全項目の初期値・値域は未確認です。用途の説明に出した言葉をUI名称と混同しないでください。
 - **図形の見え方**：輪郭のみか塗りを持つか、図形の重なる順序、背景の透明度、画面端の扱い、出力解像度は未確認です。
 - **アニメーション**：段階数の時間変化、各段階の個別制御、シームレスなループの有無は未確認です。
 - **バージョン・製品差**：Resolve 21.1のManual掲載は確認済みですが、Free / Studio / Fusion Studio間の利用条件と内部REGIDは実機で確定していません。

@@ -1,0 +1,118 @@
+{
+  "manual": {
+    "version": "21.1",
+    "chapter": 105,
+    "printed_pages": "2435"
+  },
+  "runtime": {
+    "version": "21.1.0.14",
+    "edition": "DaVinci Resolve Studio",
+    "os": "Windows-11-10.0.26200-SP0",
+    "ui_language": "ja-JP"
+  },
+  "captured_at": "2026-10-28T06:12:05.458318+00:00",
+  "project": "Collectanea_Mandelbrot_Zoom_20261025",
+  "timeline": "S257_capture",
+  "frame": 0,
+  "resolution": [
+    1920,
+    1080
+  ],
+  "color_management": {
+    "project_settings": {
+      "colorScienceMode": "davinciYRGB",
+      "colorSpaceInput": "Rec.709 Gamma 2.4",
+      "colorSpaceTimeline": "Rec.709 (Scene)",
+      "colorSpaceTimelineGamma": "",
+      "colorSpaceOutput": "Rec.709 (Scene)",
+      "colorSpaceOutputGamma": "ACEScc",
+      "isAutoColorManage": "0",
+      "timelineResolutionWidth": "1920",
+      "timelineResolutionHeight": "1080",
+      "timelineFrameRate": 30.0,
+      "timelinePlaybackFrameRate": "30",
+      "timelinePixelAspectRatio": "square"
+    },
+    "note": "SDK project settings; screenshots show Viewer display."
+  },
+  "viewer": {
+    "view_mode": "Fit",
+    "source": "Right MediaOut1",
+    "note": "KD Shapes selected; transparency checkerboard and control overlay visible."
+  },
+  "acceptance": {
+    "gui": "PASS: concentric white rings appear.",
+    "article_display": "NOT_RUN",
+    "public_display": "NOT_RUN"
+  },
+  "unverified": [
+    "One synthetic text and setting; other settings, masks, alpha values, animation and other hosts NOT_RUN.",
+    "Viewer screenshot is display evidence.",
+    "Portable reimport and physical input provenance NOT_RUN.",
+    "Article verification remains partial."
+  ],
+  "schema_version": 1,
+  "case": "S257",
+  "article": "manuals/fusion/nodes/krokodove/shapes.md",
+  "graph": "fixture.comp",
+  "settings": "readback.json",
+  "source": {
+    "file": "screen.png",
+    "size": [
+      3328,
+      1898
+    ],
+    "sha256": "62c4e02aeb63715c20642b30e0ddfa8af899ed136db353ed00cf4ce2b98e42d6"
+  },
+  "shots": [
+    {
+      "file": "graph.png",
+      "source": "screen.png",
+      "source_sha256": "62c4e02aeb63715c20642b30e0ddfa8af899ed136db353ed00cf4ce2b98e42d6",
+      "frame": 0,
+      "crop_xyxy": [
+        500,
+        1050,
+        2350,
+        1650
+      ],
+      "resampled": false,
+      "sha256": "09d64f1ef966a0534cd28456cdcf6610f92a67355b5faaa225580b4be395985f"
+    },
+    {
+      "file": "controls.png",
+      "source": "screen.png",
+      "source_sha256": "62c4e02aeb63715c20642b30e0ddfa8af899ed136db353ed00cf4ce2b98e42d6",
+      "frame": 0,
+      "crop_xyxy": [
+        2815,
+        65,
+        3328,
+        750
+      ],
+      "resampled": false,
+      "sha256": "893975f02e86e775d227ecf618bcade6faf04398cbefff86b0261ec2d0702d1f"
+    },
+    {
+      "file": "high.png",
+      "source": "screen.png",
+      "source_sha256": "62c4e02aeb63715c20642b30e0ddfa8af899ed136db353ed00cf4ce2b98e42d6",
+      "frame": 0,
+      "crop_xyxy": [
+        1480,
+        70,
+        2700,
+        720
+      ],
+      "resampled": false,
+      "sha256": "880a4f853f592961954e1e6bec56e8de270ca77346c28b124b8606c24ac45a52"
+    }
+  ],
+  "reproduction": {
+    "fixture_sha256": "6108d2ba88a6d7290bd3283e01449d6412fa63368d804ef6eaf9de1e083455ea",
+    "readback_sha256": "dc9aee4b888191406f7e8cd114fb2f17352b8ae14dd22df600a9dc001ffe119c",
+    "readback_source_sha256": "dc9aee4b888191406f7e8cd114fb2f17352b8ae14dd22df600a9dc001ffe119c",
+    "readback_transform": "No line-ending transformation",
+    "reimport": "NOT_RUN"
+  }
+}
