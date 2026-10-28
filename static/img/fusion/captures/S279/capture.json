@@ -1,0 +1,132 @@
+{
+  "manual": {
+    "version": "21.1",
+    "chapter": 105,
+    "printed_pages": "2437"
+  },
+  "runtime": {
+    "version": "21.1.0.14",
+    "edition": "DaVinci Resolve Studio",
+    "os": "Windows-11-10.0.26200-SP0",
+    "ui_language": "ja-JP"
+  },
+  "captured_at": "2026-10-28T07:34:32.344740+00:00",
+  "project": "Collectanea_Mandelbrot_Zoom_20261025",
+  "timeline": "S279_capture",
+  "frame": 0,
+  "resolution": [
+    1920,
+    1080
+  ],
+  "color_management": {
+    "project_settings": {
+      "colorScienceMode": "davinciYRGB",
+      "colorSpaceInput": "Rec.709 Gamma 2.4",
+      "colorSpaceTimeline": "Rec.709 (Scene)",
+      "colorSpaceTimelineGamma": "",
+      "colorSpaceOutput": "Rec.709 (Scene)",
+      "colorSpaceOutputGamma": "ACEScc",
+      "isAutoColorManage": "0",
+      "timelineResolutionWidth": "1920",
+      "timelineResolutionHeight": "1080",
+      "timelineFrameRate": 30.0,
+      "timelinePlaybackFrameRate": "30",
+      "timelinePixelAspectRatio": "square"
+    },
+    "note": "SDK project settings; screenshots show Viewer display."
+  },
+  "viewer": {
+    "view_mode": "Fit",
+    "source": "Left BeforeRender; right MediaOut1",
+    "note": "sTriangulate selected; sOutline shows boundaries; transparency checkerboard visible."
+  },
+  "acceptance": {
+    "gui": "PASS: rectangle diagonal visible with outline.",
+    "article_display": "NOT_RUN",
+    "public_display": "NOT_RUN"
+  },
+  "unverified": [
+    "Static sRectangle and sTriangulate with sOutline; other shapes, animation, alpha values and hosts NOT_RUN.",
+    "Viewer screenshot is display evidence.",
+    "Portable reimport and physical input provenance NOT_RUN.",
+    "Article verification remains partial."
+  ],
+  "schema_version": 1,
+  "case": "S279",
+  "article": "manuals/fusion/nodes/krokodove/striangulate.md",
+  "graph": "fixture.comp",
+  "settings": "readback.json",
+  "source": {
+    "file": "screen.png",
+    "size": [
+      3328,
+      1898
+    ],
+    "sha256": "d456c91552acafd955b433b1b812d4068752115e44ee3fcd17380082897f067d"
+  },
+  "shots": [
+    {
+      "file": "graph.png",
+      "source": "screen.png",
+      "source_sha256": "d456c91552acafd955b433b1b812d4068752115e44ee3fcd17380082897f067d",
+      "frame": 0,
+      "crop_xyxy": [
+        500,
+        1050,
+        2350,
+        1650
+      ],
+      "resampled": false,
+      "sha256": "b3e80bd6cb4dc61c5a1871dfc8fe43da436f365af67cf3a739ab0c6b123d6f68"
+    },
+    {
+      "file": "controls.png",
+      "source": "screen.png",
+      "source_sha256": "d456c91552acafd955b433b1b812d4068752115e44ee3fcd17380082897f067d",
+      "frame": 0,
+      "crop_xyxy": [
+        2815,
+        65,
+        3328,
+        750
+      ],
+      "resampled": false,
+      "sha256": "0b2ac418a24741b9fcbd38e7d476dfed1dbffdca6a236c7c32f00140c3f836b2"
+    },
+    {
+      "file": "low.png",
+      "source": "screen.png",
+      "source_sha256": "d456c91552acafd955b433b1b812d4068752115e44ee3fcd17380082897f067d",
+      "frame": 0,
+      "crop_xyxy": [
+        120,
+        70,
+        1340,
+        720
+      ],
+      "resampled": false,
+      "sha256": "d65625041355f2f4d1f439417e07db88d5af848f8b0da905ebfd58c8aec6485c"
+    },
+    {
+      "file": "high.png",
+      "source": "screen.png",
+      "source_sha256": "d456c91552acafd955b433b1b812d4068752115e44ee3fcd17380082897f067d",
+      "frame": 0,
+      "crop_xyxy": [
+        1480,
+        70,
+        2700,
+        720
+      ],
+      "resampled": false,
+      "sha256": "1ab5209264fc5d2ebaab5eae41b4a50200727e062fe33df9a6958268d084125e"
+    }
+  ],
+  "reproduction": {
+    "fixture_sha256": "f82b435866ed4769c53637fc9d9f5b19126f3b8d45b2b647582a0ed01316f1c3",
+    "readback_sha256": "8343cb2801e19edb88a83d12ffec95814b05e4fc610cdc48a5d2ae7443e3cd6e",
+    "readback_source_sha256": "8343cb2801e19edb88a83d12ffec95814b05e4fc610cdc48a5d2ae7443e3cd6e",
+    "readback_transform": "No line-ending transformation",
+    "reimport": "NOT_RUN"
+  }
+}
