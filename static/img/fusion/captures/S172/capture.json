@@ -1,0 +1,118 @@
+{
+  "manual": {
+    "version": "21.1",
+    "chapter": 117,
+    "printed_pages": "2744–2745"
+  },
+  "runtime": {
+    "version": "21.1.0.14",
+    "edition": "DaVinci Resolve Studio",
+    "os": "Windows-11-10.0.26200-SP0",
+    "ui_language": "ja-JP"
+  },
+  "captured_at": "2026-10-27T21:35:06.331104+00:00",
+  "project": "Collectanea_Mandelbrot_Zoom_20261025",
+  "timeline": "S172_capture",
+  "frame": 0,
+  "resolution": [
+    1920,
+    1080
+  ],
+  "color_management": {
+    "project_settings": {
+      "colorScienceMode": "davinciYRGB",
+      "colorSpaceInput": "Rec.709 Gamma 2.4",
+      "colorSpaceTimeline": "Rec.709 (Scene)",
+      "colorSpaceTimelineGamma": "",
+      "colorSpaceOutput": "Rec.709 (Scene)",
+      "colorSpaceOutputGamma": "ACEScc",
+      "isAutoColorManage": "0",
+      "timelineResolutionWidth": "1920",
+      "timelineResolutionHeight": "1080",
+      "timelineFrameRate": 30.0,
+      "timelinePlaybackFrameRate": "30",
+      "timelinePixelAspectRatio": "square"
+    },
+    "note": "SDK project settings; screenshots show Viewer display."
+  },
+  "viewer": {
+    "view_mode": "Fit",
+    "source": "Left BeforeRender, right MediaOut1",
+    "note": "sJitter selected; checkerboard indicates transparency."
+  },
+  "acceptance": {
+    "gui": "PASS: native screenshot shows graph, controls and comparison; SDK connections and save read back.",
+    "article_display": "NOT_RUN",
+    "public_display": "NOT_RUN"
+  },
+  "unverified": [
+    "Fixed mode and one Y offset range at one frame; random mode, animation, point jitter, other seeds and hosts NOT_RUN.",
+    "Viewer screenshot is display evidence.",
+    "Portable reimport and physical input provenance NOT_RUN.",
+    "Article verification remains partial."
+  ],
+  "schema_version": 1,
+  "case": "S172",
+  "article": "manuals/fusion/nodes/shapes/sjitter.md",
+  "graph": "fixture.comp",
+  "settings": "readback.json",
+  "source": {
+    "file": "screen.png",
+    "size": [
+      3336,
+      1902
+    ],
+    "sha256": "b8a7aaeacb806ce890b6f05fd8201fe0f4f761c6e78999ec6284a9ff99053cf6"
+  },
+  "shots": [
+    {
+      "file": "graph.png",
+      "source": "screen.png",
+      "source_sha256": "b8a7aaeacb806ce890b6f05fd8201fe0f4f761c6e78999ec6284a9ff99053cf6",
+      "frame": 0,
+      "crop_xyxy": [
+        580,
+        1100,
+        2250,
+        1600
+      ],
+      "resampled": false,
+      "sha256": "04d19976065f894831d5ee398545642289eeb347eafbbd0ae674fe142684f8ae"
+    },
+    {
+      "file": "controls.png",
+      "source": "screen.png",
+      "source_sha256": "b8a7aaeacb806ce890b6f05fd8201fe0f4f761c6e78999ec6284a9ff99053cf6",
+      "frame": 0,
+      "crop_xyxy": [
+        2815,
+        65,
+        3336,
+        700
+      ],
+      "resampled": false,
+      "sha256": "ce0e9ae9814643b566b0e17832bedc72aacc05ffd6e5cbc50bef4398d8750c29"
+    },
+    {
+      "file": "comparison.png",
+      "source": "screen.png",
+      "source_sha256": "b8a7aaeacb806ce890b6f05fd8201fe0f4f761c6e78999ec6284a9ff99053cf6",
+      "frame": 0,
+      "crop_xyxy": [
+        0,
+        65,
+        2800,
+        720
+      ],
+      "resampled": false,
+      "sha256": "257d04df5a209e63239a93f5452922f3e49f5a558ef10f315eebc56d1d4a241c"
+    }
+  ],
+  "reproduction": {
+    "fixture_sha256": "5b6a6445d0e69b2e2ae42239c710469ea0ea00904f5666bbe7521e0c979914cc",
+    "readback_sha256": "b7312ea11e5589f46d220e0b213e9cf9bad7f4fe28c5f4e156ecf6da54b76506",
+    "readback_source_sha256": "b7312ea11e5589f46d220e0b213e9cf9bad7f4fe28c5f4e156ecf6da54b76506",
+    "readback_transform": "No line-ending transformation",
+    "reimport": "NOT_RUN"
+  }
+}

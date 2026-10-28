@@ -34,6 +34,34 @@ Cube 3Dは**入力を何も接続しなくても立方体を生成**します。
 
 公式Manualは六つの面用端子をまとめて説明しています。面の向きと端子の対応は、接続した画像を3D Viewerで確認してから確定してください。
 
+<!-- capture:S174 -->
+
+## 実機例：寸法を変えて直方体にする
+
+`Cube 3D` を `Renderer 3D` に接続し、立方体を画像化します。入力には画像をつながず、初期の面マテリアルを使いました。
+
+frame 0で寸法ロックを有効にしたSize 0.6の立方体と、ロックを外して幅0.9・高さ0.45・奥行き0.6にした直方体を比較しました。どちらもX回転25、Y回転30です。撮影後はロックとSize 0.6に戻して保存しています。[接続と設定の記録](/img/fusion/captures/S174/readback.json)に条件を記載しています。
+
+[![Cube 3DからRenderer 3DとMediaOutへ接続した構成](/img/fusion/captures/S174/graph.png)](/img/fusion/captures/S174/graph.png)
+
+3D sceneをRenderer 3Dで画像化します。
+
+[![ロックしたSize 0.6のCube 3Dの描画結果](/img/fusion/captures/S174/cube.png)](/img/fusion/captures/S174/cube.png)
+
+寸法をロックし、Sizeを0.6にした立方体です。
+
+[![寸法ロックを解除し幅0.9高さ0.45奥行き0.6にしたInspector](/img/fusion/captures/S174/controls.png)](/img/fusion/captures/S174/controls.png)
+
+ロックを外すと幅・高さ・奥行きを個別に設定できます。
+
+[![幅と高さを変えたCube 3Dの直方体の描画結果](/img/fusion/captures/S174/cuboid.png)](/img/fusion/captures/S174/cuboid.png)
+
+同じ回転で寸法を変更した直方体です。
+
+[再現用Graph](/img/fusion/captures/S174/fixture.comp) · [撮影条件と確認範囲](/img/fusion/captures/S174/capture.json)
+
+<!-- /capture:S174 -->
+
 ## 使い方1：六面に別々の画像を貼った箱
 
 ```text
@@ -95,4 +123,4 @@ Cube 3Dの入力は、通常の2D合成で使うForeground/Backgroundではあ�
 - [Classic 3Dノード一覧](./index.md) / [Classic 3D sceneの基礎](../../learn/02-data/classic-3d.md)
 - [Shape 3D](./shape-3d.md) / [Merge 3D](./merge-3d.md) / [Renderer 3D](./renderer-3d.md) / [Duplicate 3D](./duplicate-3d.md)
 - **一次資料**：Blackmagic Design, *DaVinci Resolve 21.1 Reference Manual*、Chapter 88「3D Nodes」、pp.1928–1930「Cube 3D [3Cb]」。SceneInput、六つの面用Material入力、Controls、Cube Mapping、Wireframeの説明を確認しました。Chapter 84「3D Compositing Basics」p.1859にもGeometryの用途が記載されています。
-- **未検証**：実機での各面入力の表示名・面との向きの対応、REGID、既定値・数値範囲、edition差。Manualに記載がない動作を確定扱いしないため、`verification: partial`を維持しています。
+- **未検証**：実機での各面入力の表示名・面との向きの対応、既定値・数値範囲、edition差。Manualに記載がない動作を確定扱いしないため、`verification: partial`を維持しています。

@@ -1,0 +1,118 @@
+{
+  "manual": {
+    "version": "21.1",
+    "chapter": 117,
+    "printed_pages": "2746–2747"
+  },
+  "runtime": {
+    "version": "21.1.0.14",
+    "edition": "DaVinci Resolve Studio",
+    "os": "Windows-11-10.0.26200-SP0",
+    "ui_language": "ja-JP"
+  },
+  "captured_at": "2026-10-27T21:32:35.011633+00:00",
+  "project": "Collectanea_Mandelbrot_Zoom_20261025",
+  "timeline": "S171_capture",
+  "frame": 0,
+  "resolution": [
+    1920,
+    1080
+  ],
+  "color_management": {
+    "project_settings": {
+      "colorScienceMode": "davinciYRGB",
+      "colorSpaceInput": "Rec.709 Gamma 2.4",
+      "colorSpaceTimeline": "Rec.709 (Scene)",
+      "colorSpaceTimelineGamma": "",
+      "colorSpaceOutput": "Rec.709 (Scene)",
+      "colorSpaceOutputGamma": "ACEScc",
+      "isAutoColorManage": "0",
+      "timelineResolutionWidth": "1920",
+      "timelineResolutionHeight": "1080",
+      "timelineFrameRate": 30.0,
+      "timelinePlaybackFrameRate": "30",
+      "timelinePixelAspectRatio": "square"
+    },
+    "note": "SDK project settings; screenshots show Viewer display."
+  },
+  "viewer": {
+    "view_mode": "Fit",
+    "source": "Right MediaOut1",
+    "note": "ShapeMerge selected. Input order changed between screenshots and restored before export; checkerboard indicates transparency."
+  },
+  "acceptance": {
+    "gui": "PASS: native screenshots show both input orders and visible overlap; SDK connections and restored save read back.",
+    "article_display": "NOT_RUN",
+    "public_display": "NOT_RUN"
+  },
+  "unverified": [
+    "Two opaque ellipses and input order at one frame; Override Axis behavior, additional inputs, animation and other hosts NOT_RUN.",
+    "Viewer screenshots are display evidence.",
+    "Portable reimport and physical input provenance NOT_RUN.",
+    "Article verification remains partial."
+  ],
+  "schema_version": 1,
+  "case": "S171",
+  "article": "manuals/fusion/nodes/shapes/smerge.md",
+  "graph": "fixture.comp",
+  "settings": "readback.json",
+  "source": {
+    "file": "screen.png",
+    "size": [
+      3336,
+      1902
+    ],
+    "sha256": "c9d27bba7f2e151271b9bcc9262d7f7f851ad071e787a3d712f655bfe2ea6c58"
+  },
+  "shots": [
+    {
+      "file": "graph.png",
+      "source": "screen.png",
+      "source_sha256": "c9d27bba7f2e151271b9bcc9262d7f7f851ad071e787a3d712f655bfe2ea6c58",
+      "frame": 0,
+      "crop_xyxy": [
+        580,
+        1100,
+        2250,
+        1550
+      ],
+      "resampled": false,
+      "sha256": "daabf35660c4264d2058cd6868a106540031dbcee02dde5b855144411d73b7d9"
+    },
+    {
+      "file": "red-front.png",
+      "source": "screen.png",
+      "source_sha256": "c9d27bba7f2e151271b9bcc9262d7f7f851ad071e787a3d712f655bfe2ea6c58",
+      "frame": 0,
+      "crop_xyxy": [
+        1590,
+        65,
+        2700,
+        720
+      ],
+      "resampled": false,
+      "sha256": "1e78f099749c3406b073086cfcdabc03f51a494365dde9c0b10e8bdc5636b0ad"
+    },
+    {
+      "file": "white-front.png",
+      "source": "reversed-source.png",
+      "source_sha256": "76af60872226a8ad0cca4eb85dbcc7cfd322e7b3aebfb9b4b07d64020dde3ff8",
+      "frame": 0,
+      "crop_xyxy": [
+        1590,
+        65,
+        2700,
+        720
+      ],
+      "resampled": false,
+      "sha256": "112d0e5b9f334307c49cf007d99fe935e14713e9fb647485ab905104a0346cf4"
+    }
+  ],
+  "reproduction": {
+    "fixture_sha256": "e1dd6e89bf9309f4d5b15ee9dbda1fa9855c3b2ffbed0f43a50118467899ab8f",
+    "readback_sha256": "c60d42738c4ecabd8eac59485fdd30a7253096d3d300c5a14aa640a66e87c1fd",
+    "readback_source_sha256": "c60d42738c4ecabd8eac59485fdd30a7253096d3d300c5a14aa640a66e87c1fd",
+    "readback_transform": "No line-ending transformation",
+    "reimport": "NOT_RUN"
+  }
+}

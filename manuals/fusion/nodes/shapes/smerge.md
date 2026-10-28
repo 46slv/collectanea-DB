@@ -62,6 +62,30 @@ Axisは図形を変形するときの基準に関わる情報ですが、この�
 
 Settingsタブの共通項目はShape系ノード共通の設定です。Override Axisとは別に扱います。
 
+<!-- capture:S171 -->
+
+## 実機例：入力順と重なり
+
+2つの `sEllipse` を用意し、片方を `sChangeStyle` で赤にします。両方を `sMerge` に接続し、`sRender` で画像化しました。白い円と赤い円は同じ大きさで、横方向に少しずらしています。
+
+frame 0で接続順を入れ替えると、重なり部分の前後が変わりました。撮影後は白をInput1、赤をInput2に戻して保存しています。市松模様はViewerの透明表示です。[接続と設定の記録](/img/fusion/captures/S171/readback.json)に条件を記載しています。
+
+[![2つの円をsMergeでまとめsRenderへ渡す構成](/img/fusion/captures/S171/graph.png)](/img/fusion/captures/S171/graph.png)
+
+白い円をInput1、赤い円をInput2へ接続しています。
+
+[![Input2の赤い円が白い円の手前に表示された結果](/img/fusion/captures/S171/red-front.png)](/img/fusion/captures/S171/red-front.png)
+
+赤い円をInput2へ接続すると、重なり部分では赤が手前に表示されます。
+
+[![入力順を入れ替え白い円が赤い円の手前に表示された結果](/img/fusion/captures/S171/white-front.png)](/img/fusion/captures/S171/white-front.png)
+
+接続順を入れ替えると、白い円が手前に表示されます。
+
+[再現用Graph](/img/fusion/captures/S171/fixture.comp) · [撮影条件と確認範囲](/img/fusion/captures/S171/capture.json)
+
+<!-- /capture:S171 -->
+
 ## 主な用途と具体例
 
 ### 四角形・円・文字でタイトルカードを作る

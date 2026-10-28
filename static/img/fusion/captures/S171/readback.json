@@ -1,0 +1,67 @@
+{
+  "case": "S171",
+  "project": "Collectanea_Mandelbrot_Zoom_20261025",
+  "library": "Local Database",
+  "project_manager_folder": "root",
+  "timeline": "S171_capture",
+  "frame": 0,
+  "resolve": "21.1.0.14",
+  "edition": "DaVinci Resolve Studio",
+  "os": "Windows-11-10.0.26200-SP0",
+  "project_settings": {
+    "colorScienceMode": "davinciYRGB",
+    "colorSpaceInput": "Rec.709 Gamma 2.4",
+    "colorSpaceTimeline": "Rec.709 (Scene)",
+    "colorSpaceTimelineGamma": "",
+    "colorSpaceOutput": "Rec.709 (Scene)",
+    "colorSpaceOutputGamma": "ACEScc",
+    "isAutoColorManage": "0",
+    "timelineResolutionWidth": "1920",
+    "timelineResolutionHeight": "1080",
+    "timelineFrameRate": 30.0,
+    "timelinePlaybackFrameRate": "30",
+    "timelinePixelAspectRatio": "square"
+  },
+  "connections": {
+    "StyleB.Input": "EllipseB",
+    "ShapeMerge.Input1": "EllipseA",
+    "ShapeMerge.Input2": "StyleB",
+    "Render_.Input": "ShapeMerge",
+    "MediaOut1.Input": "Render_"
+  },
+  "reversed_connections": {
+    "Input1": "StyleB",
+    "Input2": "EllipseA"
+  },
+  "values": {
+    "EllipseA": {
+      "Width": 0.35,
+      "Height": 0.35,
+      "Translate.X": -0.1
+    },
+    "EllipseB": {
+      "Width": 0.35,
+      "Height": 0.35,
+      "Translate.X": 0.1
+    },
+    "StyleB": {
+      "Red": 0.9,
+      "Green": 0.1,
+      "Blue": 0.2,
+      "Alpha": 1.0
+    },
+    "ShapeMerge": {
+      "OverrideAxis": 0.0
+    }
+  },
+  "source": "Two static generated sEllipse shapes, sChangeStyle, sMerge and sRender.",
+  "save_project": true,
+  "save_completed_at": "2026-10-27T21:32:56.076047+00:00",
+  "native_export_sha256": "02ec3fc875133f90e7899cebf513a27abc5aea292223d77a4e4a0e879d2eb714",
+  "portable_sha256": "e1dd6e89bf9309f4d5b15ee9dbda1fa9855c3b2ffbed0f43a50118467899ab8f",
+  "portable_reimport": "NOT_RUN",
+  "limits": [
+    "Two opaque ellipses and input order at one frame; Override Axis behavior, additional inputs, animation and other hosts NOT_RUN.",
+    "Viewer screenshots are display evidence."
+  ]
+}
