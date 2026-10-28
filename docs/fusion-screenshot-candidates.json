@@ -8071,6 +8071,52 @@
           "status": "captured"
         }
       ]
+    },
+    {
+      "priority": "P1",
+      "goal": "Show constant RGB expressions and red versus green particle output.",
+      "suggested_graph": "pEmitter -> pCustom -> pRender -> MediaOut",
+      "scope": "Resolve Studio 21.1.0.14 on Windows.",
+      "limitations": [
+        "One fixture, constant RGB expressions, frame 48; exact particle data values and simulation identity across toggles NOT_RUN.",
+        "Alpha, position, velocity, image inputs, Region/Set, portable reimport and other hosts NOT_RUN.",
+        "Particle tab selected by synthetic GUI click and visually read back; physical input is not claimed."
+      ],
+      "id": "S321",
+      "article": "manuals/fusion/nodes/particles/pcustom.md",
+      "manual": {
+        "version": "21.1",
+        "chapter": 114,
+        "printed_pages": "2653–2656"
+      },
+      "status": "captured-embedded-unverified",
+      "capture_manifest": "static/img/fusion/captures/S321/capture.json",
+      "shots": [
+        {
+          "slug": "graph",
+          "kind": "graph",
+          "target": "pEmitterからpCustomとpRenderへ接続した構成",
+          "status": "captured"
+        },
+        {
+          "slug": "controls",
+          "kind": "inspector",
+          "target": "赤1、緑0、青0を入力したpCustomの式欄",
+          "status": "captured"
+        },
+        {
+          "slug": "red",
+          "kind": "result",
+          "target": "RGBの式1、0、0で表示された赤い粒子",
+          "status": "captured"
+        },
+        {
+          "slug": "green-result",
+          "kind": "result",
+          "target": "RGBの式0、1、0で表示された緑の粒子",
+          "status": "captured"
+        }
+      ]
     }
   ],
   "publication_batches": [
@@ -9456,25 +9502,25 @@
     }
   ],
   "coverage_inventory": {
-    "checked_at": "2026-10-28T07:45:25.672147+00:00",
+    "checked_at": "2026-10-28T10:14:04.056161+00:00",
     "scope": "All manuals/fusion Markdown and MDX pages; review necessity before adding images.",
     "completion_rule": "Every page has an explicit image decision; necessary images are native-observed, embedded, saved to GitHub and public-display-verified. A native example does not verify all article controls.",
     "summary": {
       "total_pages": 589,
-      "with_images": 229,
+      "with_images": 230,
       "with_native_examples": 229,
       "states": {
         "reviewed-no-standalone-image": 26,
         "no-standalone-image-needed": 6,
         "illustrated-reused-example": 80,
-        "capture-planned": 327,
-        "illustrated-native-example": 149,
+        "capture-planned": 326,
+        "illustrated-native-example": 150,
         "needs-review": 1
       },
       "decisions": {
         "no-standalone-image-needed": 32,
-        "image-required": 229,
-        "capture-needed": 327,
+        "image-required": 230,
+        "capture-needed": 326,
         "needs-review": 1
       }
     },
@@ -21733,13 +21779,20 @@
         "article": "manuals/fusion/nodes/particles/pcustom.md",
         "title": "pCustom",
         "kind": "node",
-        "image_count": 0,
+        "image_count": 4,
         "native_cases": [],
         "reused_cases": [],
-        "planned_cases": [],
-        "state": "capture-planned",
-        "decision": "capture-needed",
-        "reason": "本文の対象機能: pCustomは、式で粒子ごとの位置・速度・色・大きさなどを計算するParticleノード。。別Forceの見た目は式/入力/評価/属性変更を示せない。",
+        "planned_cases": [
+          "S321"
+        ],
+        "state": "illustrated-native-example",
+        "decision": "image-required",
+        "reason": "S321は定数RGB式と固定frameの赤緑表示。その他の式や属性は未確認。",
+        "remaining_views": [
+          "定数RGB以外の式、Alpha・位置・速度、Image入力",
+          "同じseed・初期条件・評価開始を揃えた比較、粒子dataとsimulation同一性",
+          "Region、Set、portable reimportと他host"
+        ],
         "required_views": [
           "source→対象Particle Tool→pRenderのGraph",
           "対象自身の固有Controlsと必要なConditions/Region",
