@@ -1,0 +1,71 @@
+{
+  "case": "S317",
+  "project": "Collectanea_Mandelbrot_Zoom_20261025",
+  "library": "Local Database",
+  "project_manager_folder": "root",
+  "timeline": "S317_capture",
+  "resolve": "21.1.0.14",
+  "project_settings": {
+    "colorScienceMode": "davinciYRGB",
+    "colorSpaceInput": "Rec.709 Gamma 2.4",
+    "colorSpaceTimeline": "Rec.709 (Scene)",
+    "colorSpaceTimelineGamma": "",
+    "colorSpaceOutput": "Rec.709 (Scene)",
+    "colorSpaceOutputGamma": "ACEScc",
+    "isAutoColorManage": "0",
+    "timelineResolutionWidth": "1920",
+    "timelineResolutionHeight": "1080",
+    "timelineFrameRate": 30.0,
+    "timelinePlaybackFrameRate": "30",
+    "timelinePixelAspectRatio": "square"
+  },
+  "setup": {
+    "case": "S317",
+    "frame": 48.0,
+    "emitter_seed": 7.0,
+    "avoid": {
+      "Region": "SphereRgn",
+      "Distance": 0.2,
+      "Strength": 0.1
+    },
+    "region_inputs": [
+      "SphereRgn.Size",
+      "SphereRgn.Translation",
+      "SphereRgn.Translate.X",
+      "SphereRgn.Translate.Y",
+      "SphereRgn.Translate.Z",
+      "SphereRgn.Rotation",
+      "SphereRgn.Rotate.X",
+      "SphereRgn.Rotate.Y",
+      "SphereRgn.Rotate.Z",
+      "SphereRgn.PivotNest",
+      "SphereRgn.Pivot.X",
+      "SphereRgn.Pivot.Y",
+      "SphereRgn.Pivot.Z"
+    ],
+    "output_mode": "TwoD",
+    "connections": {
+      "Avoid": {
+        "Input": "Emitter"
+      },
+      "ParticleRender": {
+        "Input": "Avoid"
+      },
+      "MediaOut1": {
+        "Input": "ParticleRender"
+      }
+    },
+    "saved": "2026-10-28T10:03:53.803942+00:00"
+  },
+  "final": {
+    "frame": 48.0,
+    "saved": "2026-10-28T10:04:17.398456+00:00"
+  },
+  "native_export_sha256": "011677310ec2e00259b11588562a067eaf448682d29f33bc87a5fe4222b7f7e8",
+  "portable_sha256": "7936447519bd194886cbdb100ffd66bc3fc3db8ffc7180fe61a719ecec52015d",
+  "limits": [
+    "Frame 24 and 48 with fixed emitter seed; matched evaluation-start and initial-state comparison NOT_RUN.",
+    "Still images do not establish avoidance, collision, trajectories or Distance/Strength effects.",
+    "Other Regions/Set, particle data, portable reimport and other hosts NOT_RUN."
+  ]
+}

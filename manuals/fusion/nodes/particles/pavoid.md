@@ -67,6 +67,34 @@ pEmitter → pAvoid → pRender［2D］→ Merge → MediaOut
 
 変化が分からない場合はpAvoidを無効にして粒子の元の進路を確認し、再度有効にします。粒子が領域を通り抜ける場合は、DistanceやStrengthだけでなくpEmitterの初速も確認してください。
 
+<!-- capture:S317 -->
+
+## 実機例：球形領域を指定する
+
+`pEmitter` から `pAvoid` を通して `pRender` の2D出力へ接続します。RegionにSphereを選び、Distanceを0.2、Strengthを0.1に設定して、24フレームと48フレームの表示を記録しました。色の付いた円はViewer上の操作表示、透明市松は背景表示です。
+
+評価開始条件を揃えた軌道比較や、粒子が領域を回避する動作は確認していません。[接続と設定の記録](/img/fusion/captures/S317/readback.json)に条件を記載しています。
+
+[![pEmitterからpAvoidとpRenderへ接続した構成](/img/fusion/captures/S317/graph.png)](/img/fusion/captures/S317/graph.png)
+
+粒子をpAvoidへ入力します。
+
+[![pAvoidのDistanceとStrengthの設定](/img/fusion/captures/S317/controls.png)](/img/fusion/captures/S317/controls.png)
+
+Distanceを0.2、Strengthを0.1に設定します。
+
+[![48フレームの粒子表示とViewerの球形領域の操作表示](/img/fusion/captures/S317/result48.png)](/img/fusion/captures/S317/result48.png)
+
+48フレームの表示です。円はViewer操作表示です。
+
+[![24フレームの粒子表示とViewerの操作表示](/img/fusion/captures/S317/result24.png)](/img/fusion/captures/S317/result24.png)
+
+24フレームの表示です。
+
+[再現用Graph](/img/fusion/captures/S317/fixture.comp) · [撮影条件と確認範囲](/img/fusion/captures/S317/capture.json)
+
+<!-- /capture:S317 -->
+
 ## 制作例
 
 ### ロゴの周囲を避ける光点
