@@ -34,21 +34,21 @@ import SplitToningPlayground from '@site/src/components/SplitToningPlayground';
 
 各入力画素の符号化RGBを0〜1へ正規化し、表示向けのルマ近似を求めます。
 
-\`Y' = 0.2126 R' + 0.7152 G' + 0.0722 B'\`
+`Y' = 0.2126 R' + 0.7152 G' + 0.0722 B'`
 
-これは**線形光の輝度Yではありません**。画素の階調に応じて暗部・明部の重みを作り、その和を常に1とします。境界は\`0.5 + balance\`、遷移幅は\`transition\`で決め、境界の前後をsmoothstep関数（\`t²(3−2t)\`）でつなぎます。
+これは**線形光の輝度Yではありません**。画素の階調に応じて暗部・明部の重みを作り、その和を常に1とします。境界は`0.5 + balance`、遷移幅は`transition`で決め、境界の前後をsmoothstep関数（`t²(3−2t)`）でつなぎます。
 
 指定した色相からRGB方向ベクトルを作り、上のルマ係数で重み付けした和を0にして、入力RGBへ次の変位を足します。
 
-\`RGB_out = clamp01(RGB_in + A(Y') × (w_shadow × s_shadow × tint_shadow + w_highlight × s_highlight × tint_highlight))\`
+`RGB_out = clamp01(RGB_in + A(Y') × (w_shadow × s_shadow × tint_shadow + w_highlight × s_highlight × tint_highlight))`
 
-\`A(Y') = 0.45 × √(4Y'(1−Y'))\`としたため、純黒と純白では色付けが0に近づきます。出力用の各成分は8-bitへ丸めます。範囲外へ出た画素はカウントしてからクリップします。
+`A(Y') = 0.45 × √(4Y'(1−Y'))`としたため、純黒と純白では色付けが0に近づきます。出力用の各成分は8-bitへ丸めます。範囲外へ出た画素はカウントしてからクリップします。
 
 この式は**階調による色の割当を学ぶための独自モデル**です。色付け前のルマ変位を0にしても、成分クリップや8-bit丸めの後に見た目の明るさが完全に一定になるわけではありません。
 
 ## 実制作との関係と限界
 
-古典的なSplit Toningは暗部と明部に色を加えます。Adobe LightroomのColor Gradingはこれを拡張し、**中間調**や**Global**の調整も備えています。実際のLightroomではBalanceやBlendingの独自の挙動がありますが、教材の\`balance\`と\`transition\`はその数式の再実装ではなく、対応する考え方を簡素化したものです。
+古典的なSplit Toningは暗部と明部に色を加えます。Adobe LightroomのColor Gradingはこれを拡張し、**中間調**や**Global**の調整も備えています。実際のLightroomではBalanceやBlendingの独自の挙動がありますが、教材の`balance`と`transition`はその数式の再実装ではなく、対応する考え方を簡素化したものです。
 
 After Effects／DaVinci Resolveではノード位置、色管理、作業色空間、階調の選択、内部浮動小数点精度、彩度の扱いで結果が変わります。この8-bit sRGBコード値モデルは、AE／Resolveの**カラーグレーディング、Log、HDR、ACES、scene-linear処理と完全同等ではありません**。実機操作・数値一致は未検証です。
 
