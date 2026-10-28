@@ -25,19 +25,41 @@ updated: '2026-10-20'
 
 ただし、**区画がそれぞれ独立した画像レイヤーやShapeオブジェクトに変換される、という意味ではありません**。確認できるのは、2D画像に対する区画単位の変形という役割です。
 
+<!-- capture:S348 -->
+
+## 実機例：文字を区画ごとに回転する
+
+`Text+`の文字をSegment Transformへ接続し、Segment Size Xを0.1、Angleを45に設定しました。同じフレームの左には元の文字、右には区画ごとに傾いた文字が表示されています。Scaleやマスク、アニメーションは確認していません。[接続と設定の記録](/img/fusion/captures/S348/readback.json)に条件を記載しています。
+
+[![Text+からSegment Transformを経てMediaOutへ接続したノード](/img/fusion/captures/S348/graph.png)](/img/fusion/captures/S348/graph.png)
+
+図中のLabelはText+、MapはSegment Transformです。文字画像をMapに通しています。
+
+[![Segment Size X 0.1とAngle 45のInspector](/img/fusion/captures/S348/controls.png)](/img/fusion/captures/S348/controls.png)
+
+Segment Size X 0.1、Angle 45です。
+
+[![元の文字と区画ごとに傾いた文字の比較](/img/fusion/captures/S348/comparison.png)](/img/fusion/captures/S348/comparison.png)
+
+同じフレームで入力と出力を表示しています。
+
+[保存したGraph](/img/fusion/captures/S348/fixture.comp) · [撮影条件と確認範囲](/img/fusion/captures/S348/capture.json)
+
+<!-- /capture:S348 -->
+
 ## どのような変形か
 
 ### 正方形の区画に分ける
 
 たとえば、写真に格子を重ねて小さな正方形に区切るところを想像してください。Segment Transformは、そのように**画面を複数の領域として扱う**タイプの画像変形です。
 
-区画の大きさをどの設定で決めるか、区画数が固定か可変か、格子の原点を動かせるかについては、21.1 Manualの一覧に説明がありません。例として「10×10にする」といった設定値を指定できるとは限りません。
+21.1 Manualの一覧には、区画の大きさの設定や区画数、格子の原点について説明がありません。上の実機例ではSegment Size Xを0.1に設定しました。例として「10×10にする」といった設定値を指定できるとは限りません。
 
 ### 各区画に角度・スケールの変形を加える
 
 **角度**は、区画内の見た目の向きに関わる変形です。**スケール**は、区画内の見た目の大きさに関わる変形です。たとえば、直線が多い画像なら一部の線の向きが変わり、円や文字があれば一部分が大きく、または小さく見えるような結果を想像できます。
 
-これらは公式の機能説明を理解するための例です。全区画に同じ角度が付くのか、位置ごとに異なる値を与えられるのか、中心や補間方式を指定できるのかは、**実際のInspectorと出力で確認する必要があります**。「angle distortion」「scale distortion」という記載だけから、独立したAngle／Sizeスライダーがあると断定しません。
+これらは公式の機能説明を理解するための例です。全区画に同じ角度が付くのか、位置ごとに異なる値を与えられるのか、中心や補間方式を指定できるのかは、**実際のInspectorと出力で確認する必要があります**。上の実機例ではAngleとSegment Size Xを確認しています。
 
 ## 入力と出力
 
@@ -98,16 +120,16 @@ Text+（タイトル） ──────────────────�
 
 ## 注意点・確認できていないこと
 
-- **分割位置と区画数：** 分割サイズ、区画数、原点、端数の扱い、区画間の間隔をどのように設定できるかは未確認です。
+- **分割位置と区画数：** Segment Size X 0.1を一例として確認しました。区画数、原点、端数の扱い、区画間の間隔は未確認です。
 - **角度とスケール：** 変形の基準点、制御単位、ランダム化の可否、既定値・設定範囲・補間方式は未確認です。区画ごとに個別の数値を入力できるとも断定しません。
 - **画像の境界：** 変形により区画の間に隙間や重なりが生じるか、そこで画素をどう補うか、Alphaやpremultiplyをどう扱うかは出典から分かりません。Viewerで確認します。
 - **アニメーション：** 動画を入力できる分類であることと、各区画に専用の時間変化やランダムな動きを設定できることは別です。後者の機能は未確認です。
-- **Version / Edition：** 21.1 Manualへの掲載は確認済みですが、Resolve Free・Resolve Studio・Fusion Studioの提供差、正確な内部REGID、現在のInspector・接続端子は実機未検証です。
+- **Version / Edition：** 21.1 Manualへの掲載は確認済みですが、Resolve Free・Resolve Studio・Fusion Studioの提供差や今回の接続以外の端子は未検証です。
 
 ## バージョンと出典
 
 一次資料：Blackmagic Design『**DaVinci Resolve 21.1 Reference Manual**』（September 2026）、Chapter 105「Krokodove Nodes」、**p.2437「Image Warp Tools / Segment Transform」**。同ページのShuffle・Shear・Warped Transform、およびp.2436のDuplicateの説明と比較しています。
 
-**公式資料で確認したこと**は、正方形の区画への分割、区画ごとの角度・スケール変形、Image Warp Toolsという分類です。格子背景やタイトルの制作例、モザイク状の見え方は機能から考えた実践案であり、Inspector操作の実機検証ではありません。入出力のImage分類には既存COLLECTANEAカタログも併用しています。未確認部分が残るため、`verification: partial`を維持しています。
+**公式資料で確認したこと**は、正方形の区画への分割、区画ごとの角度・スケール変形、Image Warp Toolsという分類です。格子背景やタイトルの制作例、モザイク状の見え方は機能から考えた実践案であり、上記の実機例とは別の、Inspector値を指定していない提案です。入出力のImage分類には既存COLLECTANEAカタログも併用しています。未確認部分が残るため、`verification: partial`を維持しています。
 
 [Krokodoveノード一覧](./)、[Imageデータの説明](../../learn/02-data/image)、[Shapeデータの説明](../../learn/02-data/shape)も参照してください。

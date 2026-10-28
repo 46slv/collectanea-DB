@@ -8745,6 +8745,44 @@
           "status": "captured"
         }
       ]
+    },
+    {
+      "priority": "P1",
+      "goal": "Show segment transform on a Text+ image with Angle 45.",
+      "suggested_graph": "Text+ -> Segment Transform -> MediaOut",
+      "scope": "Resolve Studio 21.1.0.14 on Windows.",
+      "limitations": [
+        "Single Text+ source and fixed frame 2; source and output compared simultaneously.",
+        "Angle 45, Segment Size X 0.1 and Scale X 1 only; scale, mask, type, animation, alpha and portable reimport NOT_RUN.",
+        "Angle 0 reference captured separately at frame 1; no frame equivalence or numeric geometry claim."
+      ],
+      "id": "S348",
+      "article": "manuals/fusion/nodes/krokodove/segment-transform.md",
+      "manual": {
+        "version": "21.1"
+      },
+      "status": "captured-embedded-unverified",
+      "capture_manifest": "static/img/fusion/captures/S348/capture.json",
+      "shots": [
+        {
+          "slug": "graph",
+          "kind": "graph",
+          "target": "Text+からSegment Transformを経てMediaOutへ接続したノード",
+          "status": "captured"
+        },
+        {
+          "slug": "controls",
+          "kind": "inspector",
+          "target": "Segment Size X 0.1とAngle 45のInspector",
+          "status": "captured"
+        },
+        {
+          "slug": "comparison",
+          "kind": "result",
+          "target": "元の文字と区画ごとに傾いた文字の比較",
+          "status": "captured"
+        }
+      ]
     }
   ],
   "publication_batches": [
