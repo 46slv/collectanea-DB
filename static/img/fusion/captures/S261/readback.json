@@ -1,0 +1,56 @@
+{
+  "case": "S261",
+  "project": "Collectanea_Mandelbrot_Zoom_20261025",
+  "library": "Local Database",
+  "timeline": "S261_capture",
+  "frame": 0,
+  "resolve": "21.1.0.14",
+  "edition": "DaVinci Resolve Studio",
+  "os": "Windows-11-10.0.26200-SP0",
+  "project_settings": {
+    "colorScienceMode": "davinciYRGB",
+    "colorSpaceInput": "Rec.709 Gamma 2.4",
+    "colorSpaceTimeline": "Rec.709 (Scene)",
+    "colorSpaceTimelineGamma": "",
+    "colorSpaceOutput": "Rec.709 (Scene)",
+    "colorSpaceOutputGamma": "ACEScc",
+    "isAutoColorManage": "0",
+    "timelineResolutionWidth": "1920",
+    "timelineResolutionHeight": "1080",
+    "timelineFrameRate": 30.0,
+    "timelinePlaybackFrameRate": "30",
+    "timelinePixelAspectRatio": "square"
+  },
+  "connections": {
+    "Grow.Image": "Source",
+    "MediaOut1.Input": "Grow"
+  },
+  "values": {
+    "Source": {
+      "StyledText": "GROW",
+      "Size": 0.2
+    },
+    "Grow": {
+      "Channel": 4.0,
+      "GrowStart": 0.0,
+      "GrowEnd": 0.5,
+      "SoftnessStart": 0.01,
+      "SoftnessEnd": 0.01,
+      "SeedNumber": 1.0,
+      "Seed1": {
+        "1": 0.5,
+        "2": 0.5,
+        "3": 0.0
+      }
+    }
+  },
+  "save_project": true,
+  "save_completed_at": "2026-10-28T06:38:14.935876+00:00",
+  "native_export_sha256": "cfdbbdd62f7bd5064c38f31f0aa51dfcb26b0ec4f1e4f9f38bb23e219d443577",
+  "portable_sha256": "d41932ecf2a00f55571bb2993aa4a7148eddb10d8cdfefe2c604a625b5ec0651",
+  "portable_reimport": "NOT_RUN",
+  "limits": [
+    "One synthetic text and static setting; animation, other seeds, alpha values and hosts NOT_RUN.",
+    "Viewer screenshot is display evidence."
+  ]
+}
