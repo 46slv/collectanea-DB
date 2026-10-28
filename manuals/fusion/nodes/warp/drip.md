@@ -70,6 +70,30 @@ Centerで波紋の発生位置を決めます。AspectはShapeの縦横比を変
 
 Circularを選び、Centerを波紋の発生位置へ合わせます。Amplitudeを小さく設定し、Frequencyで波の密度を決め、Phaseをanimationして動きを確認します。
 
+<!-- capture:S161 -->
+
+## 実機例：文字を円形の波紋で変形する
+
+生成した文字画像を `Drip1` のInputへ接続し、形状を円形、Center X/Yを0.5、Aspectを1、Amplitudeを0.1、Dampeningを0、Frequencyを10、Phaseを0に設定しました。frame 0では文字の輪郭が波紋状に歪みます。
+
+これは静止した生成画像での固定例です。波紋の時間変化や他の形状は比較していません。[接続と設定の記録](/img/fusion/captures/S161/readback.json)に条件を記載しています。
+
+[![文字画像をDripに通してMediaOutへ接続したノード構成](/img/fusion/captures/S161/graph.png)](/img/fusion/captures/S161/graph.png)
+
+文字画像をDripのInputへ接続し、出力をMediaOutへ渡します。
+
+[![Dripの円形、中心、振幅、周波数、位相を示すInspector](/img/fusion/captures/S161/controls.png)](/img/fusion/captures/S161/controls.png)
+
+形状は円形、中心は0.5 / 0.5、振幅は0.1、周波数は10、位相は0です。
+
+[![元の文字と円形の波紋で変形した文字を並べた比較](/img/fusion/captures/S161/comparison.png)](/img/fusion/captures/S161/comparison.png)
+
+左は入力、右は円形の波紋を適用した出力です。
+
+[再現用Graph](/img/fusion/captures/S161/fixture.comp) · [撮影条件と確認範囲](/img/fusion/captures/S161/capture.json)
+
+<!-- /capture:S161 -->
+
 ## 運用例：水面に落ちた滴から波紋を広げる
 
 池の水面を撮影した動画へ、滴が落ちた場所を中心に波が伝わるような**画素の変形**を加える例です。波紋の画像を重ねるのではなく、元映像に写る反射や模様の参照位置を動かします。
@@ -115,4 +139,4 @@ Dripが生成するのは画像の歪みです。滴の飛沫、立体的な水�
 
 DaVinci Resolve 21.1 Reference Manual、September 2026、Chapter 123 pp.2969–2971で、Input / Effect Mask、8種類のShape、Center、Aspect（1.0で対称）、Amplitude（0.0で変形なし）、Dampening、Frequency（0.0で波紋なし）、Phase、MediaInを使うBasic Node Setupを確認しました。Coordinate Spaceとの組み合わせは同章p.2962で確認しています。
 
-全既定値・内部REGID・実機performanceは未確認です。
+上記固定例以外の全既定値と実機performanceは未確認です。

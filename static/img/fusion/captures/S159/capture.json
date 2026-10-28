@@ -1,0 +1,132 @@
+{
+  "manual": {
+    "version": "21.1",
+    "chapter": 123,
+    "printed_pages": "2965–2966"
+  },
+  "runtime": {
+    "version": "21.1.0.14",
+    "edition": "DaVinci Resolve Studio",
+    "os": "Windows-11-10.0.26200-SP0",
+    "ui_language": "ja-JP"
+  },
+  "captured_at": "2026-10-27T20:25:07.165028+00:00",
+  "project": "Collectanea_Mandelbrot_Zoom_20261025",
+  "timeline": "S159_capture",
+  "frame": 0,
+  "resolution": [
+    1920,
+    1080
+  ],
+  "color_management": {
+    "project_settings": {
+      "colorScienceMode": "davinciYRGB",
+      "colorSpaceInput": "Rec.709 Gamma 2.4",
+      "colorSpaceTimeline": "Rec.709 (Scene)",
+      "colorSpaceTimelineGamma": "",
+      "colorSpaceOutput": "Rec.709 (Scene)",
+      "colorSpaceOutputGamma": "ACEScc",
+      "isAutoColorManage": "0",
+      "timelineResolutionWidth": "1920",
+      "timelineResolutionHeight": "1080",
+      "timelineFrameRate": 30.0,
+      "timelinePlaybackFrameRate": "30",
+      "timelinePixelAspectRatio": "square"
+    },
+    "note": "SDK project settings; screenshots show Viewer display."
+  },
+  "viewer": {
+    "view_mode": "Fit",
+    "source": "Left Source; right MediaOut1",
+    "note": "Dent selected for controls and guide; MediaOut selected for clean comparison."
+  },
+  "acceptance": {
+    "gui": "PASS: native screenshots show graph, Inspector, guides and comparison; SDK connections and save read back.",
+    "article_display": "NOT_RUN",
+    "public_display": "NOT_RUN"
+  },
+  "unverified": [
+    "Static generated text and Dent 1 only; other types, values, real footage, animation and hosts NOT_RUN.",
+    "Viewer screenshots are display evidence, not numerical measurement.",
+    "Portable reimport and physical input provenance NOT_RUN.",
+    "Article verification remains partial."
+  ],
+  "schema_version": 1,
+  "case": "S159",
+  "article": "manuals/fusion/nodes/warp/dent.md",
+  "graph": "fixture.comp",
+  "settings": "readback.json",
+  "source": {
+    "file": "screen.png",
+    "size": [
+      3336,
+      1902
+    ],
+    "sha256": "e873cf04ee41e90abe80d91f568dfc7539b6b7867186d020b145c3b0f70dda12"
+  },
+  "shots": [
+    {
+      "file": "graph.png",
+      "source": "screen.png",
+      "source_sha256": "e873cf04ee41e90abe80d91f568dfc7539b6b7867186d020b145c3b0f70dda12",
+      "frame": 0,
+      "crop_xyxy": [
+        650,
+        1100,
+        2150,
+        1600
+      ],
+      "resampled": false,
+      "sha256": "8d56e40ef7f3653fe396cfa91b0a599a1c6bfdc195f879bcf21ac7a576dc1721"
+    },
+    {
+      "file": "controls.png",
+      "source": "screen.png",
+      "source_sha256": "e873cf04ee41e90abe80d91f568dfc7539b6b7867186d020b145c3b0f70dda12",
+      "frame": 0,
+      "crop_xyxy": [
+        2815,
+        65,
+        3336,
+        500
+      ],
+      "resampled": false,
+      "sha256": "e7a6b66b6f4bb1d45a0657ea4cf934ae64b7e9fb56a2d4400cb3a5c414e59a14"
+    },
+    {
+      "file": "center-guide.png",
+      "source": "screen.png",
+      "source_sha256": "e873cf04ee41e90abe80d91f568dfc7539b6b7867186d020b145c3b0f70dda12",
+      "frame": 0,
+      "crop_xyxy": [
+        0,
+        65,
+        2800,
+        730
+      ],
+      "resampled": false,
+      "sha256": "05c6f1aa0b990f9cae584e0fc63a555a53350f441ab579af61df24479901b745"
+    },
+    {
+      "file": "comparison.png",
+      "source": "clean-source.png",
+      "source_sha256": "96767655f0135fdb5d46f9b14f549544a64b2dc841cbf2c23dc901e4d3215f34",
+      "frame": 0,
+      "crop_xyxy": [
+        0,
+        65,
+        2800,
+        730
+      ],
+      "resampled": false,
+      "sha256": "d62fe72967f8ce3f77b9eb6a2ff8f4c5e2909444e6a88967f058893b39a32b12"
+    }
+  ],
+  "reproduction": {
+    "fixture_sha256": "cda229c49c17eaed47300aa573182484008c9136127b4688546812bfaecac629",
+    "readback_sha256": "143cfd7df4539bd28256cf52b84b8ccd9e1a17c7e5ac0360973527f53356a03d",
+    "readback_source_sha256": "143cfd7df4539bd28256cf52b84b8ccd9e1a17c7e5ac0360973527f53356a03d",
+    "readback_transform": "No line-ending transformation",
+    "reimport": "NOT_RUN"
+  }
+}
