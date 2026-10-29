@@ -11,6 +11,35 @@ settings:
     merge: true
 
 content:
+  # Test rich-text selection actions on a non-published Markdown sample first.
+  # Existing Manuals / Reference / Research remain source-only: some use MDX JSX.
+  - name: editor-sandbox
+    label: Formatting sandbox (not published)
+    type: collection
+    path: cms-sandbox
+    format: yaml-frontmatter
+    subfolders: false
+    operations:
+      create: false
+      rename: false
+      delete: false
+    view:
+      primary: title
+    fields:
+      - name: title
+        label: Title
+        type: string
+      - name: description
+        label: Description
+        type: text
+      - name: body
+        label: Formatted Markdown
+        type: rich-text
+        options:
+          format: markdown
+          switcher: true
+          media: false
+
   - name: manuals
     label: Manuals
     type: collection
