@@ -1,0 +1,117 @@
+# COLLECTANEA browser-editing pilot (Pages CMS).
+# Keep this configuration on an isolated branch until an MDX/frontmatter
+# round-trip has been reviewed. This file does not change site deployment.
+media:
+  input: static/img/cms
+  output: /collectanea-DB/img/cms
+
+settings:
+  content:
+    # Keep Collectanea-specific frontmatter (term_id, verification, etc.).
+    merge: true
+
+content:
+  - name: manuals
+    label: Manuals
+    type: collection
+    path: manuals
+    format: yaml-frontmatter
+    subfolders: true
+    operations:
+      create: false
+      rename: false
+      delete: false
+    view:
+      layout: tree
+      primary: title
+    fields:
+      - name: title
+        label: Title
+        type: string
+      - name: description
+        label: Description
+        type: text
+      - name: body
+        label: Markdown / MDX source
+        type: code
+        options:
+          format: mdx
+
+  - name: articles
+    label: Articles
+    type: collection
+    path: articles
+    exclude:
+      - authors.yml
+    format: yaml-frontmatter
+    subfolders: true
+    operations:
+      create: false
+      rename: false
+      delete: false
+    view:
+      primary: title
+    fields:
+      - name: title
+        label: Title
+        type: string
+      - name: description
+        label: Description
+        type: text
+      - name: body
+        label: Markdown / MDX source
+        type: code
+        options:
+          format: mdx
+
+  - name: reference
+    label: Reference
+    type: collection
+    path: reference
+    format: yaml-frontmatter
+    subfolders: true
+    operations:
+      create: false
+      rename: false
+      delete: false
+    view:
+      layout: tree
+      primary: title
+    fields:
+      - name: title
+        label: Title
+        type: string
+      - name: description
+        label: Description
+        type: text
+      - name: body
+        label: Markdown / MDX source
+        type: code
+        options:
+          format: mdx
+
+  - name: research
+    label: Research
+    type: collection
+    path: research
+    format: yaml-frontmatter
+    subfolders: true
+    operations:
+      create: false
+      rename: false
+      delete: false
+    view:
+      layout: tree
+      primary: title
+    fields:
+      - name: title
+        label: Title
+        type: string
+      - name: description
+        label: Description
+        type: text
+      - name: body
+        label: Markdown / MDX source
+        type: code
+        options:
+          format: mdx
