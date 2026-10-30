@@ -16,7 +16,7 @@ export default function GlobalSearch() {
     const opener = document.activeElement, el = dialog.current;
     const overflow = document.body.style.overflow;
     document.body.style.overflow = 'hidden';
-    setQuery(''); setType('all'); setTag('all'); setSelected(0); setLimit(40);
+    composing.current = false; setQuery(''); setType('all'); setTag('all'); setSelected(0); setLimit(40);
     el.showModal(); input.current.focus();
     return () => {
       alive = false; el.close(); document.body.style.overflow = overflow;
@@ -38,6 +38,11 @@ export default function GlobalSearch() {
     // A real processed permalink, including baseUrl. Native navigation preserves normal URL behavior.
     window.location.assign(entry.href);
   };
+  const onResultLinkClick = (event) => {
+    // Preserve native modified-click and context-menu behavior. Same-page or
+    // fragment navigation does not remount the app, so close the modal first.
+    if (event.button === 0 && !event.metaKey && !event.ctrlKey && !event.shiftKey && !event.altKey) setSearchOpen(false);
+  };
   const onInputKey = (event) => {
     if (event.isComposing || composing.current || event.keyCode === 229) return;
     if (event.key === 'ArrowDown' || event.key === 'ArrowUp') {
@@ -49,21 +54,30 @@ export default function GlobalSearch() {
     } else if (event.key === 'Enter' && results.length) {event.preventDefault(); activate(results[selected]);}
   };
   const onDialogKey = (event) => {
-    if (event.key === 'Escape' && !event.isComposing) {event.preventDefault(); setSearchOpen(false); return;}
+    if (event.key === 'Escape') {
+      if (event.isComposing || event.nativeEvent?.isComposing || composing.current || event.keyCode === 229) return;
+      event.preventDefault(); setSearchOpen(false); return;
+    }
     if (event.key !== 'Tab') return;
-    const focusable = Array.from(dialog.current.querySelectorAll('button:not([disabled]):not([tabindex="-1"]), input, select, a[href]'))
+    const focusable = Array.from(dialog.current.querySelectorAll('button:not([disabled]):not([tabindex="-1"]), input, select, a[href]:not([tabindex="-1"])'))
       .filter((el) => typeof el.getClientRects === 'function' && el.getClientRects().length);
     if (!focusable.length) return;
     const activeIndex = focusable.indexOf(document.activeElement);
     if (event.shiftKey && activeIndex <= 0) {event.preventDefault(); focusable.at(-1).focus();}
     else if (!event.shiftKey && (activeIndex < 0 || activeIndex === focusable.length - 1)) {event.preventDefault(); focusable[0].focus();}
   };
-  return <dialog ref={dialog} className="cc-palette" aria-labelledby="cc-search-title" onCancel={(e) => {e.preventDefault(); setSearchOpen(false);}} onKeyDownCapture={onDialogKey} onClick={(e) => {if (e.target === dialog.current) setSearchOpen(false);}}>
+  return <dialog ref={dialog} className="cc-palette" aria-labelledby="cc-search-title" onCancel={(e) => {e.preventDefault(); if (!composing.current) setSearchOpen(false);}} onKeyDownCapture={onDialogKey} onClick={(e) => {if (e.target === dialog.current) setSearchOpen(false);}}>
     <div className="cc-palette-inner">
       <div className="cc-palette-top"><label id="cc-search-title" htmlFor="cc-search-input">サイト内検索</label><button type="button" className="cc-icon-button" aria-label="検索を閉じる" onClick={() => setSearchOpen(false)}>×</button></div>
       <input id="cc-search-input" ref={input} type="search" value={query} onChange={(e) => setQuery(e.target.value)} onCompositionStart={() => {composing.current = true;}} onCompositionEnd={() => {composing.current = false;}} onKeyDown={onInputKey} role="combobox" aria-autocomplete="list" aria-expanded={searchOpen} aria-controls="cc-search-results" aria-activedescendant={results.length ? `cc-result-${Math.min(selected, results.length - 1)}` : undefined} placeholder="資料・記事・見出しを検索" autoComplete="off" />
       <div className="cc-palette-filters"><label>種類<select autoComplete="off" aria-label="種類" value={type} onChange={(e) => setType(e.target.value)}>{CONTENT_TYPES.map((t) => <option key={t.value} value={t.value}>{t.label}</option>)}<option value="tag">Tag</option></select></label><label>タグ<select autoComplete="off" aria-label="タグ" value={tag} onChange={(e) => setTag(e.target.value)}><option value="all">すべて</option>{facets.map((f) => <option key={f} value={f}>{f}</option>)}</select></label><span role="status">{entries ? `${results.length} 件` : failed ? '検索を読み込めませんでした' : '検索を準備中…'}</span></div>
-      <ul id="cc-search-results" role="listbox" aria-label="検索結果" className="cc-results">{results.slice(0, limit).map((e, i) => <li role="presentation" key={e.id}><button type="button" role="option" id={`cc-result-${i}`} tabIndex={-1} aria-selected={i === selected} onMouseMove={() => setSelected(i)} onClick={() => activate(e)}><span className="cc-result-content"><strong>{e.title}</strong><small>{e.materialTitle || e.summary}</small></span><span className="cc-result-type">{e.label}</span></button></li>)}</ul>
+      <ul id="cc-search-results" role="listbox" aria-label="検索結果" className="cc-results">{results.slice(0, limit).map((e, i) => {
+        const optionProps = {role: 'option', id: `cc-result-${i}`, tabIndex: -1, 'aria-selected': i === selected, onMouseMove: () => setSelected(i)};
+        const content = <><span className="cc-result-content"><strong>{e.title}</strong><small>{e.materialTitle || e.summary}</small></span><span className="cc-result-type">{e.label}</span></>;
+        return <li role="presentation" key={e.id}>{e.kind === 'tag'
+          ? <button type="button" {...optionProps} onClick={() => activate(e)}>{content}</button>
+          : <a href={e.href} {...optionProps} onClick={onResultLinkClick}>{content}</a>}</li>;
+      })}</ul>
       {entries && results.length === 0 && <p className="cc-empty">該当する資料がありません。検索語やタグを変更してください。</p>}
       {results.length > limit && <button type="button" className="cc-button" onClick={() => setLimit(limit + 40)}>さらに表示（残り {results.length - limit} 件）</button>}
       <div className="cc-palette-bottom"><span>↑ ↓ 選択　Enter 開く　Esc 閉じる</span><span>Ctrl / ⌘ K</span></div>

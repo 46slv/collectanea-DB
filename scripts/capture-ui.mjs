@@ -71,13 +71,25 @@ try {
     assert.equal(await dialog.evaluate((el) => el.matches(':modal')), true);
     await shot('02-command-palette');
     const close = dialog.getByRole('button', {name: '検索を閉じる'});
-    const focusable = dialog.locator('button:not([disabled]):not([tabindex="-1"]), input, select, a[href]');
+    const focusable = dialog.locator('button:not([disabled]):not([tabindex="-1"]), input, select, a[href]:not([tabindex="-1"])');
     const last = focusable.last();
     const before = page.url();
     await close.focus(); await close.press('Shift+Tab'); await expect(last).toBeFocused();
     await last.press('Tab'); await expect(close).toBeFocused();
     await input.focus();
+    const resultLink = dialog.locator('a[role="option"]').first();
+    const resultHref = await resultLink.getAttribute('href');
+    assert.ok(resultHref, 'Search destinations must retain native link affordances');
+    const [newTab] = await Promise.all([context.waitForEvent('page'), resultLink.click({modifiers: ['Control']})]);
+    // A newly created tab initially reports about:blank; wait for the actual
+    // destination rather than treating that initial document as navigation.
+    await expect.poll(() => new URL(newTab.url()).pathname, {message: 'Modified click should open the destination in a new tab'}).toBe(new URL(resultHref, page.url()).pathname);
+    await newTab.waitForLoadState('domcontentloaded');
+    await newTab.close(); await expect(dialog).toBeVisible();
     await input.dispatchEvent('compositionstart');
+    await input.dispatchEvent('keydown', {key: 'Escape', bubbles: true});
+    await dialog.dispatchEvent('cancel', {cancelable: true});
+    await expect(dialog).toBeVisible();
     await input.press('Enter'); await input.press('ArrowDown');
     assert.equal(page.url(), before); await expect(dialog).toBeVisible();
     await input.dispatchEvent('compositionend');
@@ -86,6 +98,39 @@ try {
     await expect(input).not.toHaveAttribute('aria-activedescendant');
     await last.focus(); await last.press('Escape');
     await expect(dialog).not.toBeVisible(); await expect(page.locator('.cc-navbar-search')).toBeFocused();
+  });
+  await check('palette-same-page-and-keyboard-navigation', async () => {
+    await go('/manuals/fusion/nodes/compositing/merge');
+    const currentPath = new URL(page.url()).pathname.replace(/\/$/, '');
+    const bodyOverflow = await page.evaluate(() => document.body.style.overflow);
+    const dialog = page.locator('dialog'), input = page.locator('#cc-search-input');
+    async function openCurrentResult() {
+      await page.locator('.cc-navbar-search').click();
+      await input.fill('Merge');
+      await expect.poll(() => dialog.locator('a[role="option"]').evaluateAll((links, path) => links.find((a) => new URL(a.href).pathname.replace(/\/$/, '') === path)?.id || '', currentPath)).not.toBe('');
+      const id = await dialog.locator('a[role="option"]').evaluateAll((links, path) => links.find((a) => new URL(a.href).pathname.replace(/\/$/, '') === path).id, currentPath);
+      return dialog.locator(`#${id}`);
+    }
+    let result = await openCurrentResult();
+    // Exercise fragment navigation without a reload: the current index contains
+    // page results rather than heading permalinks, so this fragment is a fixture.
+    await result.evaluate((a) => {a.href += '#cc-page-top';});
+    await result.click();
+    await expect(dialog).not.toBeVisible();
+    await expect.poll(() => page.evaluate(() => document.body.style.overflow)).toBe(bodyOverflow);
+    assert.equal(new URL(page.url()).hash, '#cc-page-top');
+    await page.evaluate(() => history.replaceState(null, '', location.pathname));
+    result = await openCurrentResult();
+    await result.click();
+    await expect(dialog).not.toBeVisible();
+    await expect.poll(() => page.evaluate(() => document.body.style.overflow)).toBe(bodyOverflow);
+    result = await openCurrentResult();
+    const index = Number((await result.getAttribute('id')).replace('cc-result-', ''));
+    await input.focus();
+    for (let i = 0; i < index; i++) await input.press('ArrowDown');
+    await input.press('Enter');
+    await expect(dialog).not.toBeVisible();
+    await expect.poll(() => page.evaluate(() => document.body.style.overflow)).toBe(bodyOverflow);
   });
   await check('manual-tree-and-scoped-recent', async () => {
     await go('/manuals/fusion');
