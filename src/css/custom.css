@@ -135,6 +135,14 @@ input::placeholder {color: var(--cc-muted); opacity: 1;}
 .cc-materials--list .cc-card-meta {border: 0; margin: 0; padding: 0; justify-content: end;}
 .cc-materials--list .cc-card h2 {font-size: 17px; margin-bottom: 4px;}
 .cc-materials--list .cc-card-summary {font-size: 13px;}
+/* Home collections: compact reference entries; Articles and List retain their shell. */
+.cc-home-materials.cc-materials--panel {align-items: start;}
+.cc-home-materials.cc-materials--panel .cc-card {gap: 12px; padding: 16px; border-width: 1px 0 0; border-radius: 0; background: transparent;}
+.cc-home-materials.cc-materials--panel .cc-card:hover,
+.cc-home-materials.cc-materials--panel .cc-card:focus-within {background: var(--cc-raised);}
+.cc-home-materials.cc-materials--panel .cc-card h2 {margin-bottom: 8px;}
+.cc-home-materials.cc-materials--panel .cc-card-meta {border: 0; padding-top: 0; margin-top: 0; align-items: baseline;}
+.cc-home-materials.cc-materials--panel .cc-card-meta > span {font-size: 13px; font-weight: 500; color: var(--cc-secondary);}
 .cc-empty {padding: 24px 0; color: var(--cc-secondary); font-size: 14px;}
 
 /* Native dialog supplies modal background inertness; its content owns scroll. */
