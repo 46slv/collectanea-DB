@@ -19,7 +19,7 @@ export default function KnowledgeExplorer() {
       <div className="cc-filter-group"><label>並び順<select autoComplete="off" aria-label="並び順" value={order} onChange={(e) => setOrder(e.target.value)}><option value="recent">最近更新</option><option value="name">名前順</option><option value="count">ページ数</option></select></label><div className="cc-view-switch" role="group" aria-label="資料の表示形式"><button type="button" aria-pressed={view === 'panel'} onClick={() => setView('panel')}>パネル</button><button type="button" aria-pressed={view === 'list'} onClick={() => setView('list')}>リスト</button></div></div>
     </div>
     <p className="cc-results-count" role="status">{visible.length} 件</p>
-    <div className={`cc-materials cc-materials--${view}`} data-cc-view={view}>{visible.map((m) => <article className="cc-card" key={m.id} onPointerMove={move}>
+    <div className={`cc-materials cc-home-materials cc-materials--${view}`} data-cc-view={view}>{visible.map((m) => <article className="cc-card" key={m.id} onPointerMove={move}>
       <Link className="cc-card-hit" to={m.href} aria-label={m.title} />
       <div className="cc-card-main"><span className="cc-eyebrow">{m.kind}{statusLabel(m.status) ? ` / ${statusLabel(m.status)}` : ''}</span><h2>{m.title}</h2><p className="cc-card-summary">{m.summary}</p></div>
       <div className="cc-tags">{m.tags.slice(0, 4).map((t) => <span key={t}>{t}</span>)}</div>
