@@ -38,6 +38,11 @@ export default function GlobalSearch() {
     // A real processed permalink, including baseUrl. Native navigation preserves normal URL behavior.
     window.location.assign(entry.href);
   };
+  const onResultLinkClick = (event) => {
+    // Preserve native modified-click and context-menu behavior. Same-page or
+    // fragment navigation does not remount the app, so close the modal first.
+    if (event.button === 0 && !event.metaKey && !event.ctrlKey && !event.shiftKey && !event.altKey) setSearchOpen(false);
+  };
   const onInputKey = (event) => {
     if (event.isComposing || composing.current || event.keyCode === 229) return;
     if (event.key === 'ArrowDown' || event.key === 'ArrowUp') {
@@ -71,7 +76,7 @@ export default function GlobalSearch() {
         const content = <><span className="cc-result-content"><strong>{e.title}</strong><small>{e.materialTitle || e.summary}</small></span><span className="cc-result-type">{e.label}</span></>;
         return <li role="presentation" key={e.id}>{e.kind === 'tag'
           ? <button type="button" {...optionProps} onClick={() => activate(e)}>{content}</button>
-          : <a href={e.href} {...optionProps}>{content}</a>}</li>;
+          : <a href={e.href} {...optionProps} onClick={onResultLinkClick}>{content}</a>}</li>;
       })}</ul>
       {entries && results.length === 0 && <p className="cc-empty">該当する資料がありません。検索語やタグを変更してください。</p>}
       {results.length > limit && <button type="button" className="cc-button" onClick={() => setLimit(limit + 40)}>さらに表示（残り {results.length - limit} 件）</button>}

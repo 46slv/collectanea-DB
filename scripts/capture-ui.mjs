@@ -97,6 +97,39 @@ try {
     await last.focus(); await last.press('Escape');
     await expect(dialog).not.toBeVisible(); await expect(page.locator('.cc-navbar-search')).toBeFocused();
   });
+  await check('palette-same-page-and-keyboard-navigation', async () => {
+    await go('/manuals/fusion/nodes/compositing/merge');
+    const currentPath = new URL(page.url()).pathname.replace(/\/$/, '');
+    const bodyOverflow = await page.evaluate(() => document.body.style.overflow);
+    const dialog = page.locator('dialog'), input = page.locator('#cc-search-input');
+    async function openCurrentResult() {
+      await page.locator('.cc-navbar-search').click();
+      await input.fill('Merge');
+      await expect.poll(() => dialog.locator('a[role="option"]').evaluateAll((links, path) => links.find((a) => new URL(a.href).pathname.replace(/\/$/, '') === path)?.id || '', currentPath)).not.toBe('');
+      const id = await dialog.locator('a[role="option"]').evaluateAll((links, path) => links.find((a) => new URL(a.href).pathname.replace(/\/$/, '') === path).id, currentPath);
+      return dialog.locator(`#${id}`);
+    }
+    let result = await openCurrentResult();
+    // Exercise fragment navigation without a reload: the current index contains
+    // page results rather than heading permalinks, so this fragment is a fixture.
+    await result.evaluate((a) => {a.href += '#cc-page-top';});
+    await result.click();
+    await expect(dialog).not.toBeVisible();
+    await expect.poll(() => page.evaluate(() => document.body.style.overflow)).toBe(bodyOverflow);
+    assert.equal(new URL(page.url()).hash, '#cc-page-top');
+    await page.evaluate(() => history.replaceState(null, '', location.pathname));
+    result = await openCurrentResult();
+    await result.click();
+    await expect(dialog).not.toBeVisible();
+    await expect.poll(() => page.evaluate(() => document.body.style.overflow)).toBe(bodyOverflow);
+    result = await openCurrentResult();
+    const index = Number((await result.getAttribute('id')).replace('cc-result-', ''));
+    await input.focus();
+    for (let i = 0; i < index; i++) await input.press('ArrowDown');
+    await input.press('Enter');
+    await expect(dialog).not.toBeVisible();
+    await expect.poll(() => page.evaluate(() => document.body.style.overflow)).toBe(bodyOverflow);
+  });
   await check('manual-tree-and-scoped-recent', async () => {
     await go('/manuals/fusion');
     const tree = page.locator('.cc-manual .cc-tree').first();
