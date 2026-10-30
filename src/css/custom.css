@@ -48,6 +48,8 @@
   --ifm-container-width-xl: 1480px;
 }
 html[data-theme='dark'] {
+  /* Keep Infima's root canvas aligned with the site-owned body canvas. */
+  --ifm-background-color: var(--cc-canvas);
   --cc-canvas: #0f0f0f;
   --cc-surface: #151515;
   --cc-raised: #202020;
