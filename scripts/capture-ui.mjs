@@ -236,6 +236,37 @@ try {
       await shot(`09-home-${theme}`);
     }
   });
+  await check('canvas-remains-uniform-across-scroll-seam', async () => {
+    // On long pages body may be viewport-high while the app overflows it.
+    // Sample a clear gutter on both sides of that boundary, not a hovered card.
+    for (const width of [390, 1440]) for (const theme of ['dark', 'light']) {
+      const height = width === 390 ? 844 : 520;
+      await page.setViewportSize({width, height}); await go('/');
+      await page.evaluate((value) => {
+        document.documentElement.setAttribute('data-theme', value);
+        document.documentElement.style.scrollBehavior = 'auto';
+        window.scrollTo(0, window.innerHeight / 2);
+      }, theme);
+      await expect.poll(() => page.evaluate(() => window.scrollY)).toBeGreaterThan(0);
+      await page.mouse.move(1, 1);
+      const geometry = await page.evaluate(() => {
+        const root = getComputedStyle(document.documentElement), body = getComputedStyle(document.body);
+        const rect = document.body.getBoundingClientRect();
+        return {html: root.backgroundColor, body: body.backgroundColor, canvas: root.getPropertyValue('--cc-canvas').trim(), bottom: rect.bottom, x: Math.ceil(rect.left) + 2, dpr: devicePixelRatio};
+      });
+      assert.equal(geometry.html, geometry.body, `${theme} ${width}: root and body canvas colors must match`);
+      assert.ok(geometry.bottom > 80 && geometry.bottom < height - 30, `${theme} ${width}: seam must be within the test viewport: ${JSON.stringify(geometry)}`);
+      const png = await page.screenshot({path: path.join(out, `canvas-${theme}-${width}-scroll.png`)});
+      const samples = await page.evaluate(async ({data, x, ys}) => {
+        const image = new Image(); image.src = `data:image/png;base64,${data}`; await image.decode();
+        const canvas = document.createElement('canvas'); canvas.width = image.width; canvas.height = image.height;
+        const ctx = canvas.getContext('2d'); ctx.drawImage(image, 0, 0);
+        return ys.map((y) => Array.from(ctx.getImageData(x, y, 1, 1).data).slice(0, 3));
+      }, {data: png.toString('base64'), x: Math.round(geometry.x * geometry.dpr), ys: [Math.round((geometry.bottom - 20) * geometry.dpr), Math.round((geometry.bottom + 20) * geometry.dpr)]});
+      const expected = geometry.body.match(/\d+/g).slice(0, 3).map(Number);
+      assert.deepEqual(samples, [expected, expected], `${theme} ${width}: visible canvas pixels differ across body boundary`);
+    }
+  });
   await check('responsive-and-mobile-navigation', async () => {
     for (const width of [1100, 996, 768, 390]) {
       await page.setViewportSize({width, height: 844}); await go('/');
