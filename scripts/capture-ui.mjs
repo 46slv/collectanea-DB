@@ -81,8 +81,10 @@ try {
     const resultHref = await resultLink.getAttribute('href');
     assert.ok(resultHref, 'Search destinations must retain native link affordances');
     const [newTab] = await Promise.all([context.waitForEvent('page'), resultLink.click({modifiers: ['Control']})]);
+    // A newly created tab initially reports about:blank; wait for the actual
+    // destination rather than treating that initial document as navigation.
+    await expect.poll(() => new URL(newTab.url()).pathname, {message: 'Modified click should open the destination in a new tab'}).toBe(new URL(resultHref, page.url()).pathname);
     await newTab.waitForLoadState('domcontentloaded');
-    assert.equal(new URL(newTab.url()).pathname, new URL(resultHref, page.url()).pathname, 'Modified click should open the destination in a new tab');
     await newTab.close(); await expect(dialog).toBeVisible();
     await input.dispatchEvent('compositionstart');
     await input.dispatchEvent('keydown', {key: 'Escape', bubbles: true});
