@@ -1,0 +1,132 @@
+{
+  "manual": {
+    "version": "21.1",
+    "chapter": 89,
+    "printed_pages": "2039–2042"
+  },
+  "runtime": {
+    "version": "21.1.0.14",
+    "edition": "DaVinci Resolve Studio",
+    "os": "Windows-11-10.0.26200-SP0",
+    "ui_language": "ja-JP"
+  },
+  "captured_at": "2026-10-28T00:08:24.616081+00:00",
+  "project": "Collectanea_Mandelbrot_Zoom_20261025",
+  "timeline": "S200_capture",
+  "frame": 0,
+  "resolution": [
+    1920,
+    1080
+  ],
+  "color_management": {
+    "project_settings": {
+      "colorScienceMode": "davinciYRGB",
+      "colorSpaceInput": "Rec.709 Gamma 2.4",
+      "colorSpaceTimeline": "Rec.709 (Scene)",
+      "colorSpaceTimelineGamma": "",
+      "colorSpaceOutput": "Rec.709 (Scene)",
+      "colorSpaceOutputGamma": "ACEScc",
+      "isAutoColorManage": "0",
+      "timelineResolutionWidth": "1920",
+      "timelineResolutionHeight": "1080",
+      "timelineFrameRate": 30.0,
+      "timelinePlaybackFrameRate": "30",
+      "timelinePixelAspectRatio": "square"
+    },
+    "note": "SDK project settings; screenshots show Viewer display."
+  },
+  "viewer": {
+    "view_mode": "Fit",
+    "source": "Left Scene; right MediaOut1",
+    "note": "Spot Light selected."
+  },
+  "acceptance": {
+    "gui": "PASS: illuminated area changes with cone angle; SDK connections and settings read back.",
+    "article_display": "NOT_RUN",
+    "public_display": "NOT_RUN"
+  },
+  "unverified": [
+    "One plane and two cone angles; penumbra, decay, shadows, animation and hosts NOT_RUN.",
+    "Viewer screenshot is display evidence.",
+    "Portable reimport and physical input provenance NOT_RUN.",
+    "Article verification remains partial."
+  ],
+  "schema_version": 1,
+  "case": "S200",
+  "article": "manuals/fusion/nodes/materials-lights/spot-light.md",
+  "graph": "fixture.comp",
+  "settings": "readback.json",
+  "source": {
+    "file": "screen.png",
+    "size": [
+      3336,
+      1902
+    ],
+    "sha256": "7b1478079ccd28e9c8792ed2a74b0f7a676dbe8e58673c45a2d8a5f44ca0b668"
+  },
+  "shots": [
+    {
+      "file": "graph.png",
+      "source": "screen.png",
+      "source_sha256": "7b1478079ccd28e9c8792ed2a74b0f7a676dbe8e58673c45a2d8a5f44ca0b668",
+      "frame": 0,
+      "crop_xyxy": [
+        700,
+        1050,
+        2150,
+        1650
+      ],
+      "resampled": false,
+      "sha256": "6f40502c363a75b1f278cd3c1d5a53c8257b41b97dbcb6b8e7c1fa0bbd5dedfa"
+    },
+    {
+      "file": "controls.png",
+      "source": "screen.png",
+      "source_sha256": "7b1478079ccd28e9c8792ed2a74b0f7a676dbe8e58673c45a2d8a5f44ca0b668",
+      "frame": 0,
+      "crop_xyxy": [
+        2815,
+        65,
+        3336,
+        570
+      ],
+      "resampled": false,
+      "sha256": "81650e1be7fd505e7706845fd791ef7d32cffc8bf9f042eaa7c5ae47f1bb70ff"
+    },
+    {
+      "file": "narrow.png",
+      "source": "state-narrow.png",
+      "source_sha256": "ca1a63c20a6166d64a9b89402fb5904138258187cc6963708fa83071c12a6fa0",
+      "frame": 0,
+      "crop_xyxy": [
+        1480,
+        70,
+        2700,
+        720
+      ],
+      "resampled": false,
+      "sha256": "87fd9a01aa3033d4e7ece9272e40c67421046018141c9d915bdb4c43088b7ed5"
+    },
+    {
+      "file": "wide.png",
+      "source": "screen.png",
+      "source_sha256": "7b1478079ccd28e9c8792ed2a74b0f7a676dbe8e58673c45a2d8a5f44ca0b668",
+      "frame": 0,
+      "crop_xyxy": [
+        1480,
+        70,
+        2700,
+        720
+      ],
+      "resampled": false,
+      "sha256": "f6ca38eb1b6392ac367635ad48887c2fb2a628aac17ba26182551add19ac064c"
+    }
+  ],
+  "reproduction": {
+    "fixture_sha256": "36289ae449a03d1aa642591bb002db4f08a36cd8b0870755f36cce8a3ac9453a",
+    "readback_sha256": "924951eaab5a8843a73400a7b2ebaae050e3368066d56cd1c6f720d548efa846",
+    "readback_source_sha256": "924951eaab5a8843a73400a7b2ebaae050e3368066d56cd1c6f720d548efa846",
+    "readback_transform": "No line-ending transformation",
+    "reimport": "NOT_RUN"
+  }
+}

@@ -24,6 +24,34 @@ updated: "2026-10-15"
 
 光が広がる方向は360°なので、**Rotationを変えても照射方向は変わりません**。光源のPositionと物体との距離を調整します。光を特定の方向や範囲に絞りたい場合は[Spot Light](./spot-light)を選びます。
 
+<!-- capture:S199 -->
+
+## 実機例：光源の位置を変える
+
+`Shape 3D` の球と `Point Light` を `Merge 3D` でまとめ、照明を有効にした `Renderer 3D` で画像化しました。
+
+ライトのZ位置を2に固定し、X位置を−0.75から0.75へ変えると、球の明るい位置が左から右へ移動します。距離減衰は無効です。[接続と設定の記録](/img/fusion/captures/S199/readback.json)に条件を記載しています。
+
+[![球とPoint LightをMerge 3Dでまとめレンダリングする構成](/img/fusion/captures/S199/graph.png)](/img/fusion/captures/S199/graph.png)
+
+球とライトを同じシーンへ接続します。
+
+[![Point Lightの色と強度と距離減衰を示すInspector](/img/fusion/captures/S199/controls.png)](/img/fusion/captures/S199/controls.png)
+
+白いライトで距離減衰を無効にしています。
+
+[![ライトのX位置がマイナス0.75の球](/img/fusion/captures/S199/left.png)](/img/fusion/captures/S199/left.png)
+
+X位置−0.75では左側が明るくなります。
+
+[![ライトのX位置が0.75の球](/img/fusion/captures/S199/right.png)](/img/fusion/captures/S199/right.png)
+
+X位置0.75では右側が明るくなります。
+
+[再現用Graph](/img/fusion/captures/S199/fixture.comp) · [撮影条件と確認範囲](/img/fusion/captures/S199/capture.json)
+
+<!-- /capture:S199 -->
+
 ## 入力・出力と基本接続
 
 | 接続 | 種類 | 役割 |
@@ -133,4 +161,4 @@ Point LightはClassic 3D用です。USDの`uSphere Light`と同じデータを�
 
 **Blackmagic Design『DaVinci Resolve 21.1 Reference Manual』**（September 2026）、Chapter 89「3D Light Nodes」、**Point Light [3PL]（pp.2035–2038）**。入力、照射方向、距離減衰、InspectorとShadow Map、3D Viewerの影表示条件を照合しました。公式資料：[Blackmagic Design Support](https://www.blackmagicdesign.com/support)。
 
-21.1実機でのREGID、細かな値域、Renderer別の最終画像、Edition差は未検証です。そのため`verification: partial`を維持します。
+実機例ではREGID `LightPoint` と2つの位置での出力を確認しました。細かな値域、Renderer別の最終画像、Edition差は未検証です。そのため`verification: partial`を維持します。

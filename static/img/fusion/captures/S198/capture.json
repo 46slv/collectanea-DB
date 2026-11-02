@@ -1,0 +1,132 @@
+{
+  "manual": {
+    "version": "21.1",
+    "chapter": 89,
+    "printed_pages": "2027–2029"
+  },
+  "runtime": {
+    "version": "21.1.0.14",
+    "edition": "DaVinci Resolve Studio",
+    "os": "Windows-11-10.0.26200-SP0",
+    "ui_language": "ja-JP"
+  },
+  "captured_at": "2026-10-27T23:56:22.027804+00:00",
+  "project": "Collectanea_Mandelbrot_Zoom_20261025",
+  "timeline": "S198_capture",
+  "frame": 0,
+  "resolution": [
+    1920,
+    1080
+  ],
+  "color_management": {
+    "project_settings": {
+      "colorScienceMode": "davinciYRGB",
+      "colorSpaceInput": "Rec.709 Gamma 2.4",
+      "colorSpaceTimeline": "Rec.709 (Scene)",
+      "colorSpaceTimelineGamma": "",
+      "colorSpaceOutput": "Rec.709 (Scene)",
+      "colorSpaceOutputGamma": "ACEScc",
+      "isAutoColorManage": "0",
+      "timelineResolutionWidth": "1920",
+      "timelineResolutionHeight": "1080",
+      "timelineFrameRate": 30.0,
+      "timelinePlaybackFrameRate": "30",
+      "timelinePixelAspectRatio": "square"
+    },
+    "note": "SDK project settings; screenshots show Viewer display."
+  },
+  "viewer": {
+    "view_mode": "Fit",
+    "source": "Left Scene; right MediaOut1",
+    "note": "Ambient Light selected."
+  },
+  "acceptance": {
+    "gui": "PASS: dark side of sphere brightens with ambient light enabled; SDK connections and settings read back.",
+    "article_display": "NOT_RUN",
+    "public_display": "NOT_RUN"
+  },
+  "unverified": [
+    "One sphere with ambient off/on at intensity .35; other intensity values, shadows, animation and hosts NOT_RUN.",
+    "Viewer screenshot is display evidence.",
+    "Portable reimport and physical input provenance NOT_RUN.",
+    "Article verification remains partial."
+  ],
+  "schema_version": 1,
+  "case": "S198",
+  "article": "manuals/fusion/nodes/materials-lights/ambient-light.md",
+  "graph": "fixture.comp",
+  "settings": "readback.json",
+  "source": {
+    "file": "screen.png",
+    "size": [
+      3336,
+      1902
+    ],
+    "sha256": "51379a7a078c5d3d5368eac2381e4e95a72f2d62350c30c4f960cafd326c491d"
+  },
+  "shots": [
+    {
+      "file": "graph.png",
+      "source": "screen.png",
+      "source_sha256": "51379a7a078c5d3d5368eac2381e4e95a72f2d62350c30c4f960cafd326c491d",
+      "frame": 0,
+      "crop_xyxy": [
+        700,
+        1050,
+        2150,
+        1650
+      ],
+      "resampled": false,
+      "sha256": "e9e7efdc752e85e88fcfe5c47a33fde3d7cf5a95f56d72d895ad335b494ed1b3"
+    },
+    {
+      "file": "controls.png",
+      "source": "screen.png",
+      "source_sha256": "51379a7a078c5d3d5368eac2381e4e95a72f2d62350c30c4f960cafd326c491d",
+      "frame": 0,
+      "crop_xyxy": [
+        2815,
+        65,
+        3336,
+        450
+      ],
+      "resampled": false,
+      "sha256": "8e20bcd21f2f461df77fd89af300e8b1f944b4d12a596dca1c9b08a71edcc1e8"
+    },
+    {
+      "file": "off.png",
+      "source": "state-off.png",
+      "source_sha256": "41e1f36e8eba565ba6c792538ff0518f4c448fd6715c763f62464164f99d54ff",
+      "frame": 0,
+      "crop_xyxy": [
+        1480,
+        70,
+        2700,
+        720
+      ],
+      "resampled": false,
+      "sha256": "0636c4f7a00ef59325580406c5b256f1906cfc726fada8f7773f9d96ab8491ac"
+    },
+    {
+      "file": "on.png",
+      "source": "screen.png",
+      "source_sha256": "51379a7a078c5d3d5368eac2381e4e95a72f2d62350c30c4f960cafd326c491d",
+      "frame": 0,
+      "crop_xyxy": [
+        1480,
+        70,
+        2700,
+        720
+      ],
+      "resampled": false,
+      "sha256": "de40f1e91d709e37fc8a381f05705ae6f07d40fb2eeb67c272862a328b7e1ee5"
+    }
+  ],
+  "reproduction": {
+    "fixture_sha256": "d65207d810cea27e3693a67228a483b118a48d090fa42b37e067c7f3063574f9",
+    "readback_sha256": "9d7053bbe82c811873047b87783e2fa3e2c18d48c0579249f57017813281e085",
+    "readback_source_sha256": "9d7053bbe82c811873047b87783e2fa3e2c18d48c0579249f57017813281e085",
+    "readback_transform": "No line-ending transformation",
+    "reimport": "NOT_RUN"
+  }
+}

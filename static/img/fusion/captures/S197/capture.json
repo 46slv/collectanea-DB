@@ -1,0 +1,132 @@
+{
+  "manual": {
+    "version": "21.1",
+    "chapter": 89,
+    "printed_pages": "2030–2033"
+  },
+  "runtime": {
+    "version": "21.1.0.14",
+    "edition": "DaVinci Resolve Studio",
+    "os": "Windows-11-10.0.26200-SP0",
+    "ui_language": "ja-JP"
+  },
+  "captured_at": "2026-10-27T23:51:48.481149+00:00",
+  "project": "Collectanea_Mandelbrot_Zoom_20261025",
+  "timeline": "S197_capture",
+  "frame": 0,
+  "resolution": [
+    1920,
+    1080
+  ],
+  "color_management": {
+    "project_settings": {
+      "colorScienceMode": "davinciYRGB",
+      "colorSpaceInput": "Rec.709 Gamma 2.4",
+      "colorSpaceTimeline": "Rec.709 (Scene)",
+      "colorSpaceTimelineGamma": "",
+      "colorSpaceOutput": "Rec.709 (Scene)",
+      "colorSpaceOutputGamma": "ACEScc",
+      "isAutoColorManage": "0",
+      "timelineResolutionWidth": "1920",
+      "timelineResolutionHeight": "1080",
+      "timelineFrameRate": 30.0,
+      "timelinePlaybackFrameRate": "30",
+      "timelinePixelAspectRatio": "square"
+    },
+    "note": "SDK project settings; screenshots show Viewer display."
+  },
+  "viewer": {
+    "view_mode": "Fit",
+    "source": "Left Scene; right MediaOut1",
+    "note": "Directional Light selected."
+  },
+  "acceptance": {
+    "gui": "PASS: sphere highlight moves with two directional light rotations; SDK connections and settings read back.",
+    "article_display": "NOT_RUN",
+    "public_display": "NOT_RUN"
+  },
+  "unverified": [
+    "One sphere and two light rotations; shadow maps, intensity, position changes, animation and other hosts NOT_RUN.",
+    "Viewer screenshot is display evidence.",
+    "Portable reimport and physical input provenance NOT_RUN.",
+    "Article verification remains partial."
+  ],
+  "schema_version": 1,
+  "case": "S197",
+  "article": "manuals/fusion/nodes/materials-lights/directional-light.md",
+  "graph": "fixture.comp",
+  "settings": "readback.json",
+  "source": {
+    "file": "screen.png",
+    "size": [
+      3336,
+      1902
+    ],
+    "sha256": "b78e7091388a5ba78aca91b4d11f6d337531ddc73acf53b3de85bd38f807ffbb"
+  },
+  "shots": [
+    {
+      "file": "graph.png",
+      "source": "screen.png",
+      "source_sha256": "b78e7091388a5ba78aca91b4d11f6d337531ddc73acf53b3de85bd38f807ffbb",
+      "frame": 0,
+      "crop_xyxy": [
+        700,
+        1050,
+        2150,
+        1650
+      ],
+      "resampled": false,
+      "sha256": "6f40502c363a75b1f278cd3c1d5a53c8257b41b97dbcb6b8e7c1fa0bbd5dedfa"
+    },
+    {
+      "file": "controls.png",
+      "source": "screen.png",
+      "source_sha256": "b78e7091388a5ba78aca91b4d11f6d337531ddc73acf53b3de85bd38f807ffbb",
+      "frame": 0,
+      "crop_xyxy": [
+        2815,
+        65,
+        3336,
+        450
+      ],
+      "resampled": false,
+      "sha256": "e8c0cbbd9c11ebe78b665d531906413947d83e9baa682b56a4bb27a6ed7f25c0"
+    },
+    {
+      "file": "left.png",
+      "source": "state-left.png",
+      "source_sha256": "e0cb7518db17891a5a9cf64d6e54681ac774466d83e37e7dc422851b1a4e38b2",
+      "frame": 0,
+      "crop_xyxy": [
+        1480,
+        70,
+        2700,
+        720
+      ],
+      "resampled": false,
+      "sha256": "4d9468d0e6a67df84b887e13bf780aa942e45e49966f6a5590d722bbeaa03c3c"
+    },
+    {
+      "file": "right.png",
+      "source": "screen.png",
+      "source_sha256": "b78e7091388a5ba78aca91b4d11f6d337531ddc73acf53b3de85bd38f807ffbb",
+      "frame": 0,
+      "crop_xyxy": [
+        1480,
+        70,
+        2700,
+        720
+      ],
+      "resampled": false,
+      "sha256": "6c9dc3a86125afa533fc56f5bc956f4c6cdcd9acacf0ad06b2fcb8ee551d5d6a"
+    }
+  ],
+  "reproduction": {
+    "fixture_sha256": "f4e72e8ec4a4fc0390f333295a9a40c8cdef1c6e5696dd41df07ef799fd73799",
+    "readback_sha256": "0f8d24f551cd04c22b3ee1cd556207bb0f740234173df6514f844b3445cd64d1",
+    "readback_source_sha256": "0f8d24f551cd04c22b3ee1cd556207bb0f740234173df6514f844b3445cd64d1",
+    "readback_transform": "No line-ending transformation",
+    "reimport": "NOT_RUN"
+  }
+}

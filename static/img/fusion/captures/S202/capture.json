@@ -1,0 +1,132 @@
+{
+  "manual": {
+    "version": "21.1",
+    "chapter": 90,
+    "printed_pages": "2067–2070"
+  },
+  "runtime": {
+    "version": "21.1.0.14",
+    "edition": "DaVinci Resolve Studio",
+    "os": "Windows-11-10.0.26200-SP0",
+    "ui_language": "ja-JP"
+  },
+  "captured_at": "2026-10-28T00:22:59.858994+00:00",
+  "project": "Collectanea_Mandelbrot_Zoom_20261025",
+  "timeline": "S202_capture",
+  "frame": 0,
+  "resolution": [
+    1920,
+    1080
+  ],
+  "color_management": {
+    "project_settings": {
+      "colorScienceMode": "davinciYRGB",
+      "colorSpaceInput": "Rec.709 Gamma 2.4",
+      "colorSpaceTimeline": "Rec.709 (Scene)",
+      "colorSpaceTimelineGamma": "",
+      "colorSpaceOutput": "Rec.709 (Scene)",
+      "colorSpaceOutputGamma": "ACEScc",
+      "isAutoColorManage": "0",
+      "timelineResolutionWidth": "1920",
+      "timelineResolutionHeight": "1080",
+      "timelineFrameRate": 30.0,
+      "timelinePlaybackFrameRate": "30",
+      "timelinePixelAspectRatio": "square"
+    },
+    "note": "SDK project settings; screenshots show Viewer display."
+  },
+  "viewer": {
+    "view_mode": "Fit",
+    "source": "Left Scene; right MediaOut1",
+    "note": "Phong selected."
+  },
+  "acceptance": {
+    "gui": "PASS: specular highlight appears as intensity changes; SDK connections and settings read back.",
+    "article_display": "NOT_RUN",
+    "public_display": "NOT_RUN"
+  },
+  "unverified": [
+    "One sphere and two intensity values; texture inputs, material comparisons, animation and hosts NOT_RUN.",
+    "Viewer screenshot is display evidence.",
+    "Portable reimport and physical input provenance NOT_RUN.",
+    "Article verification remains partial."
+  ],
+  "schema_version": 1,
+  "case": "S202",
+  "article": "manuals/fusion/nodes/materials-lights/phong.md",
+  "graph": "fixture.comp",
+  "settings": "readback.json",
+  "source": {
+    "file": "screen.png",
+    "size": [
+      3336,
+      1902
+    ],
+    "sha256": "3d3c2755773b61b71a974ebdf4d0cf06e7315a4c22552f6d8f992d1ea4727528"
+  },
+  "shots": [
+    {
+      "file": "graph.png",
+      "source": "screen.png",
+      "source_sha256": "3d3c2755773b61b71a974ebdf4d0cf06e7315a4c22552f6d8f992d1ea4727528",
+      "frame": 0,
+      "crop_xyxy": [
+        500,
+        1050,
+        2350,
+        1650
+      ],
+      "resampled": false,
+      "sha256": "e36dfb6d262056353a8c8cdb1dc170669c8a9bdc87338b40cd63e2b8f1597263"
+    },
+    {
+      "file": "controls.png",
+      "source": "screen.png",
+      "source_sha256": "3d3c2755773b61b71a974ebdf4d0cf06e7315a4c22552f6d8f992d1ea4727528",
+      "frame": 0,
+      "crop_xyxy": [
+        2815,
+        65,
+        3336,
+        700
+      ],
+      "resampled": false,
+      "sha256": "e10f981ad31d662cfb82d8c228e72af5f3002f205a474e55b548c9cd71b30db8"
+    },
+    {
+      "file": "zero.png",
+      "source": "state-zero.png",
+      "source_sha256": "8861b0f7ee8fb6284655e5f44022769b6cbcd856df5757c8c607378e896cc790",
+      "frame": 0,
+      "crop_xyxy": [
+        1480,
+        70,
+        2700,
+        720
+      ],
+      "resampled": false,
+      "sha256": "8e56eca9abd0c19ed9feb22bdf087929e28fd5752e304b6fcc4dde01905e2047"
+    },
+    {
+      "file": "one.png",
+      "source": "screen.png",
+      "source_sha256": "3d3c2755773b61b71a974ebdf4d0cf06e7315a4c22552f6d8f992d1ea4727528",
+      "frame": 0,
+      "crop_xyxy": [
+        1480,
+        70,
+        2700,
+        720
+      ],
+      "resampled": false,
+      "sha256": "a4b6297474eb841e030c0b628854fcdd567016bade002a7178f5349c78138c16"
+    }
+  ],
+  "reproduction": {
+    "fixture_sha256": "3a5c5eaf020ab815ef841bd643857c50a6addc87b047048b7629e11b3527d25a",
+    "readback_sha256": "08ecf44abbeb56109613f47e7900698fc5bb42d736bdc43ec569565a9130195a",
+    "readback_source_sha256": "08ecf44abbeb56109613f47e7900698fc5bb42d736bdc43ec569565a9130195a",
+    "readback_transform": "No line-ending transformation",
+    "reimport": "NOT_RUN"
+  }
+}
