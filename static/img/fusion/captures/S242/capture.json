@@ -1,0 +1,132 @@
+{
+  "manual": {
+    "version": "21.1",
+    "chapter": 105,
+    "printed_pages": "2437"
+  },
+  "runtime": {
+    "version": "21.1.0.14",
+    "edition": "DaVinci Resolve Studio",
+    "os": "Windows-11-10.0.26200-SP0",
+    "ui_language": "ja-JP"
+  },
+  "captured_at": "2026-10-28T04:54:15.055512+00:00",
+  "project": "Collectanea_Mandelbrot_Zoom_20261025",
+  "timeline": "S242_capture",
+  "frame": 0,
+  "resolution": [
+    1920,
+    1080
+  ],
+  "color_management": {
+    "project_settings": {
+      "colorScienceMode": "davinciYRGB",
+      "colorSpaceInput": "Rec.709 Gamma 2.4",
+      "colorSpaceTimeline": "Rec.709 (Scene)",
+      "colorSpaceTimelineGamma": "",
+      "colorSpaceOutput": "Rec.709 (Scene)",
+      "colorSpaceOutputGamma": "ACEScc",
+      "isAutoColorManage": "0",
+      "timelineResolutionWidth": "1920",
+      "timelineResolutionHeight": "1080",
+      "timelineFrameRate": 30.0,
+      "timelinePlaybackFrameRate": "30",
+      "timelinePixelAspectRatio": "square"
+    },
+    "note": "SDK project settings; screenshots show Viewer display."
+  },
+  "viewer": {
+    "view_mode": "Fit",
+    "source": "Left Label; right MediaOut1",
+    "note": "KD Shear selected; control overlays visible."
+  },
+  "acceptance": {
+    "gui": "PASS: text slants under Shear All with Shear 0.35.",
+    "article_display": "NOT_RUN",
+    "public_display": "NOT_RUN"
+  },
+  "unverified": [
+    "Second input, other settings, masks, alpha values, animation and other hosts NOT_RUN.",
+    "Viewer screenshot includes control overlays and is display evidence.",
+    "Portable reimport and physical input provenance NOT_RUN.",
+    "Article verification remains partial."
+  ],
+  "schema_version": 1,
+  "case": "S242",
+  "article": "manuals/fusion/nodes/krokodove/shear.md",
+  "graph": "fixture.comp",
+  "settings": "readback.json",
+  "source": {
+    "file": "screen.png",
+    "size": [
+      3328,
+      1898
+    ],
+    "sha256": "eaf9cd2bd0b71ac49f1b65459e186a021999c4a4734eadb5618b6988d306c260"
+  },
+  "shots": [
+    {
+      "file": "graph.png",
+      "source": "screen.png",
+      "source_sha256": "eaf9cd2bd0b71ac49f1b65459e186a021999c4a4734eadb5618b6988d306c260",
+      "frame": 0,
+      "crop_xyxy": [
+        500,
+        1050,
+        2350,
+        1650
+      ],
+      "resampled": false,
+      "sha256": "a8f60775f4f238152d23cc926a3c4a8c2cb964b39bbf0591f2d610692edff3ff"
+    },
+    {
+      "file": "controls.png",
+      "source": "screen.png",
+      "source_sha256": "eaf9cd2bd0b71ac49f1b65459e186a021999c4a4734eadb5618b6988d306c260",
+      "frame": 0,
+      "crop_xyxy": [
+        2815,
+        65,
+        3328,
+        750
+      ],
+      "resampled": false,
+      "sha256": "9b7cf72b7d3d2b3ccfa282c7df9ad309c2e4a73b8d35f9b915bca9c929043fbe"
+    },
+    {
+      "file": "low.png",
+      "source": "screen.png",
+      "source_sha256": "eaf9cd2bd0b71ac49f1b65459e186a021999c4a4734eadb5618b6988d306c260",
+      "frame": 0,
+      "crop_xyxy": [
+        120,
+        70,
+        1340,
+        720
+      ],
+      "resampled": false,
+      "sha256": "ef8ef47bb2bce90dfa59f35851353a983f337173b0560082fcb7ad4b619891ca"
+    },
+    {
+      "file": "high.png",
+      "source": "screen.png",
+      "source_sha256": "eaf9cd2bd0b71ac49f1b65459e186a021999c4a4734eadb5618b6988d306c260",
+      "frame": 0,
+      "crop_xyxy": [
+        1480,
+        70,
+        2700,
+        720
+      ],
+      "resampled": false,
+      "sha256": "94cc505da82ccc87935d809417b8968085adb47c491e689afc5a4a204f86c342"
+    }
+  ],
+  "reproduction": {
+    "fixture_sha256": "406cff3f49c69e617de044196430acc783c1055156096c6deba13c766d3a3f03",
+    "readback_sha256": "fb7b36db63afbaedcd5ff048b1af247d0e9fc537baac0b3b0205ce02ae394d7f",
+    "readback_source_sha256": "fb7b36db63afbaedcd5ff048b1af247d0e9fc537baac0b3b0205ce02ae394d7f",
+    "readback_transform": "No line-ending transformation",
+    "reimport": "NOT_RUN"
+  }
+}

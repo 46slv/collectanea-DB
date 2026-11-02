@@ -31,6 +31,34 @@ updated: '2026-10-18'
 
 「伸ばす」「押し縮める」「回す」は21.1 Manualで確認できる機能の説明ですが、**画像全体が均一に変形するのか、部分ごとに変形量が変わるのか、どの点を中心に回すのか**は、その説明だけでは分かりません。見た目の比較には、まず格子や円を使うと判断しやすくなります。
 
+<!-- capture:S244 -->
+
+## 実機例：文字を広げて回転する
+
+合成した `Text+` の文字を `Warped Transform` に渡し、Size Xを1.3、Size Yを1、Angleを15に設定しました。
+
+この例では文字が横方向に広がり、回転して見えます。Viewerには操作用オーバーレイが表示されています。Warp Maskの動作やAlphaの数値は未検証です。[接続と設定の記録](/img/fusion/captures/S244/readback.json)に条件を記載しています。
+
+[![文字画像をKrokodove Warped Transformへつなぐ構成](/img/fusion/captures/S244/graph.png)](/img/fusion/captures/S244/graph.png)
+
+文字画像をWarped Transformへ渡します。
+
+[![Warped TransformのInspector](/img/fusion/captures/S244/controls.png)](/img/fusion/captures/S244/controls.png)
+
+Size Xを1.3、Angleを15に設定しています。
+
+[![処理前の文字](/img/fusion/captures/S244/low.png)](/img/fusion/captures/S244/low.png)
+
+処理前の文字です。
+
+[![Warped Transformで広げて回転した文字](/img/fusion/captures/S244/high.png)](/img/fusion/captures/S244/high.png)
+
+処理後は文字が広がり、回転して見えます。
+
+[再現用Graph](/img/fusion/captures/S244/fixture.comp) · [撮影条件と確認範囲](/img/fusion/captures/S244/capture.json)
+
+<!-- /capture:S244 -->
+
 ## 入力と出力
 
 | 段階 | データ・役割 | 確認範囲 |
@@ -89,16 +117,16 @@ Warped Transformの結果を標準TransformやDirectional Scaleと見比べる�
 
 ## 注意点・未確認の仕様
 
-- **Inspector**：正式な設定名、初期値、値域、変形中心や強度の指定方法は未確認です。一般的なTransformのCenter / Pivot / Size等を、同じ名前で使えると推測しません。
+- **Inspector**：実機例ではSize X / YとAngleを確認しました。全項目の初期値・値域や変形方式の詳細は未確認です。
 - **変形方式**：画面全体への均一な伸縮なのか、画素位置ごとに違う変形なのか、複数操作の適用順は未確認です。
 - **画面端とAlpha**：フレーム外の画素の埋め方、透明部分、補間、premultiplicationへの具体的な影響は確認できていません。透過画像は後段のMerge結果でも確認します。
 - **アニメーション**：Inspectorのどの項目にキーフレームを設定できるか、特殊な時間制御があるかは未確認です。
-- **製品・Edition差**：21.1 ManualでKrokodoveの掲載を確認していますが、Resolve Free / Studio / Fusion Studioの各環境での利用可否、内部REGID、正確な端子仕様を実機で確認したわけではありません。
+- **製品・Edition差**：実機でのREGIDは `KD_Transform` です。Resolve Free / Studio / Fusion Studio間の利用可否や正確な端子仕様は未確認です。
 
 ## バージョンと出典
 
 一次資料：Blackmagic Design『DaVinci Resolve 21.1 Reference Manual』（September 2026）、**Chapter 105「Krokodove Nodes」p.2437**、Image Warp Toolsの「Warped Transform」。同章のDirectional Scale（p.2436）、Spherize（p.2437）、Relative Transform（p.2436）とも照合しました。
 
-標準Transformとの比較には同Manualの**Chapter 120「Transform Nodes」pp.2879–2880**を使用しています。制作例と確認手順は記載された役割に基づく提案であり、実機で検証されたプリセットや特定のパラメータ設定ではありません。端子・Inspector・補間・Edition差は未確認のため、メタデータの verification は partial のままとしています。
+標準Transformとの比較には同Manualの**Chapter 120「Transform Nodes」pp.2879–2880**を使用しています。実機例以外の制作例と確認手順は記載された役割に基づく提案です。端子の詳細・補間・Edition差は未確認のため、verificationはpartialのままとしています。
 
 [Krokodoveの全体像](./)と[Imageの基礎](../../learn/02-data/image)も参照してください。

@@ -31,6 +31,34 @@ updated: '2026-10-19'
 
 公式Manualが述べるのは「合成的な面取り」と「プラスチック状の艶」という役割までです。実際に光の反射を計算するか、輪郭をAlpha・色・輝度のどれから検出するか、どのように画素を変えるかは、掲載された説明から特定できません。
 
+<!-- capture:S240 -->
+
+## 実機例：文字の縁に光を付ける
+
+合成したグレーの `Text+` を `Plastic` に渡し、Bump Channelをアルファ、Blur Sizeを0.02に設定しました。
+
+この例では文字の縁に明るい線が見えます。Viewerには市松模様と操作用オーバーレイが表示されています。ほかの設定やAlpha値の変化は未検証です。[接続と設定の記録](/img/fusion/captures/S240/readback.json)に条件を記載しています。
+
+[![文字画像をKrokodove Plasticへつなぐ構成](/img/fusion/captures/S240/graph.png)](/img/fusion/captures/S240/graph.png)
+
+文字画像をPlasticへ渡します。
+
+[![PlasticのInspector](/img/fusion/captures/S240/controls.png)](/img/fusion/captures/S240/controls.png)
+
+Bump Channelをアルファ、Blur Sizeを0.02に設定しています。
+
+[![処理前の文字](/img/fusion/captures/S240/low.png)](/img/fusion/captures/S240/low.png)
+
+処理前のグレーの文字です。
+
+[![Plasticで縁に明るい線が付いた文字](/img/fusion/captures/S240/high.png)](/img/fusion/captures/S240/high.png)
+
+処理後は文字の縁に明るい線が見えます。
+
+[再現用Graph](/img/fusion/captures/S240/fixture.comp) · [撮影条件と確認範囲](/img/fusion/captures/S240/capture.json)
+
+<!-- /capture:S240 -->
+
 ## 入力と出力
 
 | 段階 | データ | 意味 |
@@ -91,7 +119,7 @@ PlasticとBevelはどちらも「bevel」という語を含みますが、Plasti
 
 ## 注意点と未確認事項
 
-- **Inspectorの正式な項目名・初期値・範囲は未確認。** 「膜厚」「反射量」「光源角度」などがあると名前から推測しません。
+- **Inspector：** 実機例ではBump ChannelとBlur Sizeを確認しました。その他の項目の初期値・範囲は未確認です。
 - **縁の検出方式は未確認。** Alpha、色差、輝度のどれを参照するか、完全に不透明な写真にどう作用するかは実機での比較が必要です。
 - **Alphaへの作用は未確認。** 透明背景の画像で加工後の透明度や縁がどう変わるかは、Viewerで確認します。
 - **3Dモデルは作らない前提で選ぶ。** Manualでは2DのImage Pixel Toolとして掲載されています。実際の立体形状が必要なら3D系のノードを選びます。
@@ -103,4 +131,4 @@ PlasticとBevelはどちらも「bevel」という語を含みますが、Plasti
 
 **比較資料：** 同Manualのp.2435（Krokodove Bevel）、p.2436（Krokodove Extrude）、p.2437（sExtrude）。関連：[Krokodoveノードの全体像](./)。
 
-本記事ではManualで確認できる役割と、制作時の観察・接続例を区別しています。21.1実機のInspector・正式ポート・Edition差を確認できていないため、verificationはpartialを維持します。
+本記事ではManualで確認できる役割と、実機例・その他の接続例を区別しています。正式ポートやEdition差は未確認のため、verificationはpartialを維持します。
