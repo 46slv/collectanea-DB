@@ -1,0 +1,132 @@
+{
+  "manual": {
+    "version": "21.1",
+    "chapter": 91,
+    "printed_pages": "2102–2104"
+  },
+  "runtime": {
+    "version": "21.1.0.14",
+    "edition": "DaVinci Resolve Studio",
+    "os": "Windows-11-10.0.26200-SP0",
+    "ui_language": "ja-JP"
+  },
+  "captured_at": "2026-10-28T01:13:32.106007+00:00",
+  "project": "Collectanea_Mandelbrot_Zoom_20261025",
+  "timeline": "S211_capture",
+  "frame": 0,
+  "resolution": [
+    1920,
+    1080
+  ],
+  "color_management": {
+    "project_settings": {
+      "colorScienceMode": "davinciYRGB",
+      "colorSpaceInput": "Rec.709 Gamma 2.4",
+      "colorSpaceTimeline": "Rec.709 (Scene)",
+      "colorSpaceTimelineGamma": "",
+      "colorSpaceOutput": "Rec.709 (Scene)",
+      "colorSpaceOutputGamma": "ACEScc",
+      "isAutoColorManage": "0",
+      "timelineResolutionWidth": "1920",
+      "timelineResolutionHeight": "1080",
+      "timelineFrameRate": 30.0,
+      "timelinePlaybackFrameRate": "30",
+      "timelinePixelAspectRatio": "square"
+    },
+    "note": "SDK project settings; screenshots show Viewer display."
+  },
+  "viewer": {
+    "view_mode": "Fit",
+    "source": "Left Scene; right MediaOut1",
+    "note": "Texture 2D selected."
+  },
+  "acceptance": {
+    "gui": "PASS: U offset 0 and .2 moves the text on this plane; SDK settings and connections read back.",
+    "article_display": "NOT_RUN",
+    "public_display": "NOT_RUN"
+  },
+  "unverified": [
+    "One synthetic text image and plane, two U offsets; wrapping, filtering, animation and other hosts NOT_RUN.",
+    "Viewer screenshot is display evidence.",
+    "Portable reimport and physical input provenance NOT_RUN.",
+    "Article verification remains partial."
+  ],
+  "schema_version": 1,
+  "case": "S211",
+  "article": "manuals/fusion/nodes/materials-lights/texture.md",
+  "graph": "fixture.comp",
+  "settings": "readback.json",
+  "source": {
+    "file": "screen.png",
+    "size": [
+      3336,
+      1902
+    ],
+    "sha256": "c03cd8cda14b0540b4d317ae7369c5f8c1c87b05f9d69860e9cf18a796980e7f"
+  },
+  "shots": [
+    {
+      "file": "graph.png",
+      "source": "screen.png",
+      "source_sha256": "c03cd8cda14b0540b4d317ae7369c5f8c1c87b05f9d69860e9cf18a796980e7f",
+      "frame": 0,
+      "crop_xyxy": [
+        350,
+        1050,
+        2550,
+        1650
+      ],
+      "resampled": false,
+      "sha256": "0dcf8f4c08d6f62cd11db0d82900ce59932ee6912f0a81d22825b43d3e0c6126"
+    },
+    {
+      "file": "controls.png",
+      "source": "screen.png",
+      "source_sha256": "c03cd8cda14b0540b4d317ae7369c5f8c1c87b05f9d69860e9cf18a796980e7f",
+      "frame": 0,
+      "crop_xyxy": [
+        2815,
+        65,
+        3336,
+        750
+      ],
+      "resampled": false,
+      "sha256": "d7c806e25f755cd73e1971190a0588d6f695d5abc15235c8f1abd48ae35c3bdb"
+    },
+    {
+      "file": "low.png",
+      "source": "state-low.png",
+      "source_sha256": "f700a12a7fd7529937701ec22cfd1b95d2455d376f6406d383512df21aa104b8",
+      "frame": 0,
+      "crop_xyxy": [
+        1480,
+        70,
+        2700,
+        720
+      ],
+      "resampled": false,
+      "sha256": "61b7c3034247eea72e3f0a2cd035b6aaf82b2cf823c4b48a3cb9a6ede8b16c4a"
+    },
+    {
+      "file": "high.png",
+      "source": "screen.png",
+      "source_sha256": "c03cd8cda14b0540b4d317ae7369c5f8c1c87b05f9d69860e9cf18a796980e7f",
+      "frame": 0,
+      "crop_xyxy": [
+        1480,
+        70,
+        2700,
+        720
+      ],
+      "resampled": false,
+      "sha256": "64173c2feca4cabd374a42e6d442380933fcfbdb6c8fa88175981a45b9f4a3dd"
+    }
+  ],
+  "reproduction": {
+    "fixture_sha256": "978f74c5d33fe46efebda56e0cb120e4dac4adeecd0fdad5df7d7440688b08c8",
+    "readback_sha256": "e81e84865c2bd5c9e2b43bb18b6777b6d7fdb54f61438583077cc868a6f55829",
+    "readback_source_sha256": "1ca5804a226c175e5368dd71b46ed708a1ab2d64a3882df6806a427d71975fbb",
+    "readback_transform": "CRLF normalized to LF for the portable Git asset; JSON values unchanged",
+    "reimport": "NOT_RUN"
+  }
+}

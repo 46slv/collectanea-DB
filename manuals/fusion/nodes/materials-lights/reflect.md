@@ -24,6 +24,34 @@ Reflect [3RR]は、**周囲の景色を写した画像（環境マップ）を�
 
 Reflectが作るのは物体そのものではなく、**表面の見え方を決める3D Material**です。<Term id="classic-3d">Classic 3D</Term>の[Shape 3D](../3d/shape-3d.md)などへ材質として渡し、物体とカメラを[Renderer 3D](../3d/renderer-3d.md)で描画します。2Dの映像へ直接エフェクトをかけるNodeでも、3Dシーンを結合する[Merge 3D](../3d/merge-3d.md)の代わりでもありません。
 
+<!-- capture:S217 -->
+
+## 実機例：文字画像を映り込ませる
+
+合成した `Text+` の文字画像を `SphereMap` に通して `Reflect` へ渡し、球に割り当てました。暗い `Blinn` をBackgroundに使っています。
+
+Constant Strength 0では暗く、1では文字の映り込みが見えます。入力は合成画像であり、実写の環境マップやHDR素材の例ではありません。[接続と設定の記録](/img/fusion/captures/S217/readback.json)に条件を記載しています。
+
+[![文字画像をSphereMapとReflectに通して球を描画する構成](/img/fusion/captures/S217/graph.png)](/img/fusion/captures/S217/graph.png)
+
+環境画像と材質をReflectへ渡します。
+
+[![ReflectのConstant Strength 1の設定](/img/fusion/captures/S217/controls.png)](/img/fusion/captures/S217/controls.png)
+
+Constant Strength 1の状態です。
+
+[![Constant Strength 0で描画した球](/img/fusion/captures/S217/low.png)](/img/fusion/captures/S217/low.png)
+
+Constant Strength 0の状態です。
+
+[![Constant Strength 1で文字が映った球](/img/fusion/captures/S217/high.png)](/img/fusion/captures/S217/high.png)
+
+Constant Strength 1では文字が映ります。
+
+[再現用Graph](/img/fusion/captures/S217/fixture.comp) · [撮影条件と確認範囲](/img/fusion/captures/S217/capture.json)
+
+<!-- /capture:S217 -->
+
 ## 入力と出力
 
 21.1 Reference Manualでは、**5つの入力**が説明されています。入力する画像と、どのチャンネルが使われるかに違いがあります。
@@ -125,4 +153,4 @@ Reflectが参照する環境マップは、物体の周囲の景色が**非常�
 
 **一次資料**：Blackmagic Design『DaVinci Resolve 21.1 Reference Manual』（2026年9月）、Chapter 90「3D Material Nodes」、**Reflect [3RR]（pp.2071–2073）**。5入力と使用チャンネル、Material出力、Sphere Mapとの接続例、Constant / By Angle、Refractionの設定、環境マップによる近似の制限を確認しました。
 
-接続例と運用例はManual記載の仕様を組み合わせた説明で、Resolve 21.1実機の描画結果を検証したものではありません。内部REGID、正確な初期値・数値範囲、Edition差は未確認のため、`verification: partial`を維持します。
+上の実機例ではResolve 21.1の`MtlReflect`と、合成画像を使った映り込みを確認しました。その他の接続例と運用例はManual記載の仕様を組み合わせた説明です。正確な初期値・数値範囲、Edition差、実写の環境画像や屈折は未確認のため、`verification: partial`を維持します。

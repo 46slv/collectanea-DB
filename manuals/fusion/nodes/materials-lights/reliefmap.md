@@ -24,6 +24,34 @@ ReliefMap [3RM]は、**3Dオブジェクトの表面に、画像で指定した�
 
 凹凸の元になる画像は[CreateReliefMap](./createreliefmap.md)で用意します。ReliefMapはその画像と[Blinn](./blinn.md)などの**3D Material**を組み合わせ、[Shape 3D](../3d/shape-3d.md)などのオブジェクトへ渡します。単体で2D画像を加工するFilterでも、3Dの形状を作るGeometry Nodeでもありません。2D Image、Material、3D sceneの違いは<Term id="classic-3d">Classic 3D</Term>の解説で確認できます。
 
+<!-- capture:S214 -->
+
+## 実機例：Relief Mapを材質に適用する
+
+`CreateReliefMap` で変換した文字画像と `Blinn` の材質を `ReliefMap` に渡し、平面に割り当てました。
+
+左のViewerに変換画像、右に描画結果が表示されています。この構成は[CreateReliefMapの実機例](./createreliefmap.md)と共通です。チャンネル値や自己遮蔽の正確さは未検証です。[接続と設定の記録](/img/fusion/captures/S214/readback.json)に条件を記載しています。
+
+[![ReliefMapへ変換画像とBlinnを入力し平面を描画する構成](/img/fusion/captures/S214/graph.png)](/img/fusion/captures/S214/graph.png)
+
+変換画像と材質をReliefMapへ渡します。
+
+[![ReliefMapのDepth Scale 0.03とMap Type Reliefの設定](/img/fusion/captures/S214/controls.png)](/img/fusion/captures/S214/controls.png)
+
+Depth Scale 0.03、Map Type Reliefの状態です。
+
+[![CreateReliefMapが生成した文字の変換画像](/img/fusion/captures/S214/low.png)](/img/fusion/captures/S214/low.png)
+
+CreateReliefMapの出力です。
+
+[![ReliefMapを通して平面に描画した文字](/img/fusion/captures/S214/high.png)](/img/fusion/captures/S214/high.png)
+
+ReliefMapを通した描画結果です。
+
+[再現用Graph](/img/fusion/captures/S214/fixture.comp) · [撮影条件と確認範囲](/img/fusion/captures/S214/capture.json)
+
+<!-- /capture:S214 -->
+
 ## 入力と出力
 
 | 端子 | データ | 役割 |
@@ -108,4 +136,4 @@ CreateReliefMapの**Flip Depth**で盛り上がりと彫り込みの向きを比
 
 一次資料：Blackmagic Design『**DaVinci Resolve 21.1 Reference Manual**』（September 2026）、Chapter 91「3D Texture Nodes」、**ReliefMap [3RM]、pp.2098–2099**。入出力、自己遮蔽、作例、Depth Scale、Lock U/V、Map Type、Qualityを確認しました。入力画像を作る方法は同Manual Chapter 99「Filter Nodes」、**CreateReliefMap [CRM]、pp.2330–2332**を参照しています。
 
-`verification: partial`は、runtimeの内部REGID、正確な初期値・数値範囲、Edition差、実機レンダリング・性能を未検証としているためです。
+`verification: partial`は、上の実機例に限りruntime REGID `ReliefMap`と描画を確認した状態です。正確な初期値・数値範囲、Edition差、チャンネル値・自己遮蔽の正確さと性能は未検証です。

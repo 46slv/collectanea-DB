@@ -29,6 +29,34 @@ Texture 2D [3Tx]は、**2D画像を3Dオブジェクトの表面に貼るとき�
 
 Texture 2Dは、**入力画像をUV座標でどのように参照するか**を調整します。例えば、モデルはそのままでロゴの見える位置だけを変えられます。一方、モデルのUV自体が壊れている場合に、形状のUV展開を自動修復するものではありません。
 
+<!-- capture:S211 -->
+
+## 実機例：画像の位置をずらす
+
+`Text+` の文字画像を `Texture 2D` に渡し、`Shape 3D` の平面に貼って描画しました。
+
+U Offsetを0から0.2に変えると、この平面では文字の位置が変わります。平面の位置は変えていません。[接続と設定の記録](/img/fusion/captures/S211/readback.json)に条件を記載しています。
+
+[![Text+をTexture 2Dに通して平面に貼る構成](/img/fusion/captures/S211/graph.png)](/img/fusion/captures/S211/graph.png)
+
+2D画像を材質として平面に渡します。
+
+[![Texture 2DのU Offset 0.2の設定](/img/fusion/captures/S211/controls.png)](/img/fusion/captures/S211/controls.png)
+
+U Offset 0.2の状態です。
+
+[![U Offset 0で描画した文字](/img/fusion/captures/S211/low.png)](/img/fusion/captures/S211/low.png)
+
+U Offset 0の状態です。
+
+[![U Offset 0.2で描画した文字](/img/fusion/captures/S211/high.png)](/img/fusion/captures/S211/high.png)
+
+U Offset 0.2で文字が移動します。
+
+[再現用Graph](/img/fusion/captures/S211/fixture.comp) · [撮影条件と確認範囲](/img/fusion/captures/S211/capture.json)
+
+<!-- /capture:S211 -->
+
 ## 入力と出力
 
 ### Image Input（オレンジ）
@@ -39,7 +67,7 @@ Texture 2Dは、**入力画像をUV座標でどのように参照するか**を�
 
 画像のUV上の配置・境界・表示方法を設定し、3D Geometryの**Material入力**など、表面の模様を受け取る側へ渡します。このNodeから3D形状や完成した映像が出るわけではありません。[Merge 3D](../3d/merge-3d.md)へSceneとして接続するのではなく、模様を貼ったGeometryを[Renderer 3D](../3d/renderer-3d.md)へ渡して描画します。
 
-21.1 Manualは画像入力とFBX Geometryへの適用例を説明していますが、**出力端子の内部型やREGIDはこの記述だけでは確定できません**。ここでのMaterialは接続上の役割を指し、内部型を実機検証したという意味ではありません。
+21.1 Manualは画像入力とFBX Geometryへの適用例を説明しています。上の実機例では`Texture2DOperator`の出力が`MtlGraph3D`であることをSDKで確認しました。
 
 ## 主な設定項目
 
@@ -139,4 +167,4 @@ Manualは、選べる場合には[UV Map 3D](../3d/uv-map-3d.md)も推奨して�
 
 一次資料：Blackmagic Design『DaVinci Resolve 21.1 Reference Manual』（2026年9月）、Chapter 91「3D Texture Nodes」、**Texture 2D [3Tx]（pp.2102–2104）**。Image Input、U/V Offset・Scale、4種のWrap、5種のFiltering、Renderer別の設定、FBXの例を照合しました。
 
-Manualの正式名称へ合わせてページ題名を**Texture 2D**に変更しましたが、既存リンクとの互換性のためファイル名とterm_idはtextureのまま残しています。実機のREGID・内部出力型・数値初期値・Edition差・描画結果は未検証のためverificationは**partial**です。
+Manualの正式名称へ合わせてページ題名を**Texture 2D**に変更しましたが、既存リンクとの互換性のためファイル名とterm_idはtextureのまま残しています。実機では上の画像入力とU Offsetの描画例、REGID・出力型を確認しました。数値初期値、Edition差、WrapやFilteringの結果は未検証のためverificationは**partial**です。

@@ -9720,6 +9720,382 @@
           "status": "captured"
         }
       ]
+    },
+    {
+      "priority": "P1",
+      "goal": "Show Texture 2D U offset on a synthetic text image.",
+      "suggested_graph": "TextPlus -> Texture2DOperator -> Shape3D plane + LightDirectional -> Merge3D -> Renderer3D.",
+      "scope": "Resolve Studio 21.1.0.14 on Windows, 1920x1080 static frame.",
+      "limitations": [
+        "One synthetic text image and plane, two U offsets; wrapping, filtering, animation and other hosts NOT_RUN.",
+        "Viewer screenshot is display evidence.",
+        "Portable reimport and physical input provenance NOT_RUN.",
+        "Article verification remains partial."
+      ],
+      "id": "S211",
+      "article": "manuals/fusion/nodes/materials-lights/texture.md",
+      "manual": {
+        "version": "21.1",
+        "chapter": 91,
+        "printed_pages": "2102–2104"
+      },
+      "status": "captured-embedded-unverified",
+      "capture_manifest": "static/img/fusion/captures/S211/capture.json",
+      "shots": [
+        {
+          "slug": "graph",
+          "kind": "graph",
+          "target": "Text+をTexture 2Dに通して平面に貼る構成",
+          "status": "captured"
+        },
+        {
+          "slug": "controls",
+          "kind": "inspector",
+          "target": "Texture 2DのU Offset 0.2の設定",
+          "status": "captured"
+        },
+        {
+          "slug": "low",
+          "kind": "comparison",
+          "target": "U Offset 0で描画した文字",
+          "status": "captured"
+        },
+        {
+          "slug": "high",
+          "kind": "comparison",
+          "target": "U Offset 0.2で描画した文字",
+          "status": "captured"
+        }
+      ]
+    },
+    {
+      "priority": "P1",
+      "goal": "Show Bump Map shading using a synthetic height image.",
+      "suggested_graph": "FastNoise -> BumpMap -> MtlBlinn -> Shape3D + LightDirectional -> Merge3D -> Renderer3D.",
+      "scope": "Resolve Studio 21.1.0.14 on Windows, 1920x1080 static frame.",
+      "limitations": [
+        "One sphere and synthetic height image; exaggerated height scale; geometry displacement, external normals, animation and other hosts NOT_RUN.",
+        "Viewer screenshot is display evidence.",
+        "Portable reimport and physical input provenance NOT_RUN.",
+        "Article verification remains partial."
+      ],
+      "id": "S212",
+      "article": "manuals/fusion/nodes/materials-lights/bumpmap.md",
+      "manual": {
+        "version": "21.1",
+        "chapter": 91,
+        "printed_pages": "2082–2084"
+      },
+      "status": "captured-embedded-unverified",
+      "capture_manifest": "static/img/fusion/captures/S212/capture.json",
+      "shots": [
+        {
+          "slug": "graph",
+          "kind": "graph",
+          "target": "Fast NoiseとBump MapをBlinnに接続して球を描画する構成",
+          "status": "captured"
+        },
+        {
+          "slug": "controls",
+          "kind": "inspector",
+          "target": "Bump MapのHeightmapとHeight Scale 50の設定",
+          "status": "captured"
+        },
+        {
+          "slug": "low",
+          "kind": "comparison",
+          "target": "Height Scale 0.0001で描画した球",
+          "status": "captured"
+        },
+        {
+          "slug": "high",
+          "kind": "comparison",
+          "target": "Height Scale 50で描画した球",
+          "status": "captured"
+        }
+      ]
+    },
+    {
+      "priority": "P1",
+      "goal": "Show a generated relief map and its use on a plane.",
+      "suggested_graph": "TextPlus -> CreateReliefMap -> ReliefMap + MtlBlinn -> Shape3D + LightDirectional -> Merge3D -> Renderer3D.",
+      "scope": "Resolve Studio 21.1.0.14 on Windows, 1920x1080 static frame.",
+      "limitations": [
+        "One text image and plane; geometry displacement, alpha channel analysis, other map types, animation and hosts NOT_RUN.",
+        "Viewer screenshot is display evidence.",
+        "Portable reimport and physical input provenance NOT_RUN.",
+        "Article verification remains partial."
+      ],
+      "id": "S213",
+      "article": "manuals/fusion/nodes/materials-lights/createreliefmap.md",
+      "manual": {
+        "version": "21.1",
+        "chapter": 99,
+        "printed_pages": "2330–2332"
+      },
+      "status": "captured-embedded-unverified",
+      "capture_manifest": "static/img/fusion/captures/S213/capture.json",
+      "shots": [
+        {
+          "slug": "graph",
+          "kind": "graph",
+          "target": "文字画像をCreateReliefMapとReliefMapに通して平面を描画する構成",
+          "status": "captured"
+        },
+        {
+          "slug": "controls",
+          "kind": "inspector",
+          "target": "CreateReliefMapのRelief、Luminance、Depth Scale 1の設定",
+          "status": "captured"
+        },
+        {
+          "slug": "low",
+          "kind": "comparison",
+          "target": "CreateReliefMapが生成した文字の変換画像",
+          "status": "captured"
+        },
+        {
+          "slug": "high",
+          "kind": "comparison",
+          "target": "ReliefMapを通して平面に描画した文字",
+          "status": "captured"
+        }
+      ]
+    },
+    {
+      "priority": "P1",
+      "goal": "Show ReliefMap using the saved S213 relief example.",
+      "suggested_graph": "TextPlus -> CreateReliefMap -> ReliefMap + MtlBlinn -> Shape3D + LightDirectional -> Merge3D -> Renderer3D.",
+      "scope": "Resolve Studio 21.1.0.14 on Windows, 1920x1080 static frame.",
+      "limitations": [
+        "One text image and plane; geometry displacement, alpha channel analysis, other map types, animation and hosts NOT_RUN.",
+        "Viewer screenshot is display evidence.",
+        "Portable reimport and physical input provenance NOT_RUN.",
+        "Article verification remains partial."
+      ],
+      "id": "S214",
+      "article": "manuals/fusion/nodes/materials-lights/reliefmap.md",
+      "manual": {
+        "version": "21.1",
+        "chapter": 91,
+        "printed_pages": "2098–2099"
+      },
+      "status": "captured-embedded-unverified",
+      "capture_manifest": "static/img/fusion/captures/S214/capture.json",
+      "shots": [
+        {
+          "slug": "graph",
+          "kind": "graph",
+          "target": "ReliefMapへ変換画像とBlinnを入力し平面を描画する構成",
+          "status": "captured"
+        },
+        {
+          "slug": "controls",
+          "kind": "inspector",
+          "target": "ReliefMapのDepth Scale 0.03とMap Type Reliefの設定",
+          "status": "captured"
+        },
+        {
+          "slug": "low",
+          "kind": "comparison",
+          "target": "CreateReliefMapが生成した文字の変換画像",
+          "status": "captured"
+        },
+        {
+          "slug": "high",
+          "kind": "comparison",
+          "target": "ReliefMapを通して平面に描画した文字",
+          "status": "captured"
+        }
+      ]
+    },
+    {
+      "priority": "P1",
+      "goal": "Show one Channel Boolean red operation on a sphere.",
+      "suggested_graph": "Two MtlBlinn -> MtlChanBool -> Shape3D + LightDirectional -> Merge3D -> Renderer3D.",
+      "scope": "Resolve Studio 21.1.0.14 on Windows, 1920x1080 static frame.",
+      "limitations": [
+        "Two Blinn materials and one red-channel operation change; image inputs, other operations, animation and other hosts NOT_RUN.",
+        "Viewer screenshot is display evidence.",
+        "Portable reimport and physical input provenance NOT_RUN.",
+        "Article verification remains partial."
+      ],
+      "id": "S215",
+      "article": "manuals/fusion/nodes/materials-lights/channel-boolean-material.md",
+      "manual": {
+        "version": "21.1",
+        "chapter": 90,
+        "printed_pages": "2051–2054"
+      },
+      "status": "captured-embedded-unverified",
+      "capture_manifest": "static/img/fusion/captures/S215/capture.json",
+      "shots": [
+        {
+          "slug": "graph",
+          "kind": "graph",
+          "target": "2つのBlinnをChannel Booleanに接続して球を描画する構成",
+          "status": "captured"
+        },
+        {
+          "slug": "controls",
+          "kind": "inspector",
+          "target": "赤チャンネルでRed BGと1−Aを指定した設定",
+          "status": "captured"
+        },
+        {
+          "slug": "low",
+          "kind": "comparison",
+          "target": "赤チャンネルがAの描画",
+          "status": "captured"
+        },
+        {
+          "slug": "high",
+          "kind": "comparison",
+          "target": "赤チャンネルが1−Aの描画",
+          "status": "captured"
+        }
+      ]
+    },
+    {
+      "priority": "P1",
+      "goal": "Show DomeLight with a synthetic SDR image.",
+      "suggested_graph": "Background -> LightDome + MtlPBRUber -> Shape3D -> Merge3D -> Renderer3D.",
+      "scope": "Resolve Studio 21.1.0.14 on Windows, 1920x1080 static frame.",
+      "limitations": [
+        "One synthetic uniform SDR environment and one sphere; HDR, rotation, realistic environment, animation and other hosts NOT_RUN.",
+        "Viewer screenshot is display evidence.",
+        "Portable reimport and physical input provenance NOT_RUN.",
+        "Article verification remains partial."
+      ],
+      "id": "S216",
+      "article": "manuals/fusion/nodes/materials-lights/dome-light.md",
+      "manual": {
+        "version": "21.1",
+        "chapter": 89,
+        "printed_pages": "2033–2034"
+      },
+      "status": "captured-embedded-unverified",
+      "capture_manifest": "static/img/fusion/captures/S216/capture.json",
+      "shots": [
+        {
+          "slug": "graph",
+          "kind": "graph",
+          "target": "単色BackgroundをDomeLightへ接続し球を照らす構成",
+          "status": "captured"
+        },
+        {
+          "slug": "controls",
+          "kind": "inspector",
+          "target": "DomeLightのIntensity 2の設定",
+          "status": "captured"
+        },
+        {
+          "slug": "low",
+          "kind": "comparison",
+          "target": "Intensity 0で描画した暗い球",
+          "status": "captured"
+        },
+        {
+          "slug": "high",
+          "kind": "comparison",
+          "target": "Intensity 2で照らされた球",
+          "status": "captured"
+        }
+      ]
+    },
+    {
+      "priority": "P1",
+      "goal": "Show Reflect using a synthetic environment image.",
+      "suggested_graph": "TextPlus -> SphereMap -> MtlReflect + MtlBlinn -> Shape3D + LightDirectional -> Merge3D -> Renderer3D.",
+      "scope": "Resolve Studio 21.1.0.14 on Windows, 1920x1080 static frame.",
+      "limitations": [
+        "One synthetic text image and sphere; real HDR environment, refraction, animation and other hosts NOT_RUN.",
+        "Viewer screenshot is display evidence.",
+        "Portable reimport and physical input provenance NOT_RUN.",
+        "Article verification remains partial."
+      ],
+      "id": "S217",
+      "article": "manuals/fusion/nodes/materials-lights/reflect.md",
+      "manual": {
+        "version": "21.1",
+        "chapter": 90,
+        "printed_pages": "2071–2073"
+      },
+      "status": "captured-embedded-unverified",
+      "capture_manifest": "static/img/fusion/captures/S217/capture.json",
+      "shots": [
+        {
+          "slug": "graph",
+          "kind": "graph",
+          "target": "文字画像をSphereMapとReflectに通して球を描画する構成",
+          "status": "captured"
+        },
+        {
+          "slug": "controls",
+          "kind": "inspector",
+          "target": "ReflectのConstant Strength 1の設定",
+          "status": "captured"
+        },
+        {
+          "slug": "low",
+          "kind": "comparison",
+          "target": "Constant Strength 0で描画した球",
+          "status": "captured"
+        },
+        {
+          "slug": "high",
+          "kind": "comparison",
+          "target": "Constant Strength 1で文字が映った球",
+          "status": "captured"
+        }
+      ]
+    },
+    {
+      "priority": "P1",
+      "goal": "Show SphereMap using the saved S217 synthetic reflection example.",
+      "suggested_graph": "TextPlus -> SphereMap -> MtlReflect + MtlBlinn -> Shape3D + LightDirectional -> Merge3D -> Renderer3D.",
+      "scope": "Resolve Studio 21.1.0.14 on Windows, 1920x1080 static frame.",
+      "limitations": [
+        "One synthetic text image and sphere; real HDR environment, refraction, animation and other hosts NOT_RUN.",
+        "Viewer screenshot is display evidence.",
+        "Portable reimport and physical input provenance NOT_RUN.",
+        "Article verification remains partial."
+      ],
+      "id": "S218",
+      "article": "manuals/fusion/nodes/materials-lights/sphere-map.md",
+      "manual": {
+        "version": "21.1",
+        "chapter": 91,
+        "printed_pages": "2100–2102"
+      },
+      "status": "captured-embedded-unverified",
+      "capture_manifest": "static/img/fusion/captures/S218/capture.json",
+      "shots": [
+        {
+          "slug": "graph",
+          "kind": "graph",
+          "target": "文字画像をSphere MapとReflectに通して球を描画する構成",
+          "status": "captured"
+        },
+        {
+          "slug": "controls",
+          "kind": "inspector",
+          "target": "Sphere MapのAngular MappingとTexture Depthの設定",
+          "status": "captured"
+        },
+        {
+          "slug": "low",
+          "kind": "comparison",
+          "target": "Reflectの強度0で描画した球",
+          "status": "captured"
+        },
+        {
+          "slug": "high",
+          "kind": "comparison",
+          "target": "Reflectの強度1で文字が映った球",
+          "status": "captured"
+        }
+      ]
     }
   ],
   "publication_batches": [
@@ -11105,12 +11481,12 @@
     }
   ],
   "coverage_inventory": {
-    "checked_at": "2026-11-02T01:26:12.653Z",
+    "checked_at": "2026-11-02T02:55:35.000Z",
     "scope": "All manuals/fusion Markdown and MDX pages; review necessity before adding images.",
     "completion_rule": "Every page has an explicit image decision; necessary images are native-observed, embedded, saved to GitHub and public-display-verified. A native example does not verify all article controls.",
     "summary": {
       "total_pages": 589,
-      "with_images": 266,
+      "with_images": 274,
       "with_native_examples": 261,
       "states": {
         "reviewed-no-standalone-image": 26,
@@ -20073,10 +20449,12 @@
         "article": "manuals/fusion/nodes/materials-lights/bumpmap.md",
         "title": "Bump Map",
         "kind": "node",
-        "image_count": 0,
+        "image_count": 4,
         "native_cases": [],
         "reused_cases": [],
-        "planned_cases": [],
+        "planned_cases": [
+          "S212"
+        ],
         "state": "capture-planned",
         "decision": "capture-needed",
         "reason": "本文の対象機能: Bump Mapは、画像から表面の法線の変化を作り、Meshを変形せずに細かな凹凸を見せる3D Texture Node。。2D chart単体や無地球にはUVW/Material domainの対象処理が写っていない。",
@@ -20152,10 +20530,12 @@
         "article": "manuals/fusion/nodes/materials-lights/channel-boolean-material.md",
         "title": "Channel Boolean（3D Material）",
         "kind": "node",
-        "image_count": 0,
+        "image_count": 4,
         "native_cases": [],
         "reused_cases": [],
-        "planned_cases": [],
+        "planned_cases": [
+          "S215"
+        ],
         "state": "capture-planned",
         "decision": "capture-needed",
         "reason": "本文の対象機能: Channel Booleanは、画像や材質のRGBA成分を別の成分に割り当てたり、数値演算して新しい3D Materialを作ったりするNode。。2D chart単体や無地球にはUVW/Material domainの対象処理が写っていない。",
@@ -20233,10 +20613,12 @@
         "article": "manuals/fusion/nodes/materials-lights/createreliefmap.md",
         "title": "CreateReliefMap",
         "kind": "node",
-        "image_count": 0,
+        "image_count": 4,
         "native_cases": [],
         "reused_cases": [],
-        "planned_cases": [],
+        "planned_cases": [
+          "S213"
+        ],
         "state": "capture-planned",
         "decision": "capture-needed",
         "reason": "本文の対象機能: CreateReliefMapは、高さ画像をReliefMap用のRGBAデータへ変換する2D Filter Node。生成結果をReliefMapへ渡して3D材質に使う。。bumpや実mesh displacementでは専用RGBA/自己遮蔽を示せない。",
@@ -20355,10 +20737,12 @@
         "article": "manuals/fusion/nodes/materials-lights/dome-light.md",
         "title": "DomeLight",
         "kind": "node",
-        "image_count": 0,
+        "image_count": 4,
         "native_cases": [],
         "reused_cases": [],
-        "planned_cases": [],
+        "planned_cases": [
+          "S216"
+        ],
         "state": "capture-planned",
         "decision": "capture-needed",
         "reason": "本文の対象機能: DomeLightは、HDR・SDR画像を3Dシーンの周囲へ配置し、画像に基づいた環境照明を作るClassic 3Dライト。。局所lightの球は環境map/反射/環境光を示さない。",
@@ -20697,10 +21081,12 @@
         "article": "manuals/fusion/nodes/materials-lights/reflect.md",
         "title": "Reflect",
         "kind": "node",
-        "image_count": 0,
+        "image_count": 4,
         "native_cases": [],
         "reused_cases": [],
-        "planned_cases": [],
+        "planned_cases": [
+          "S217"
+        ],
         "state": "capture-planned",
         "decision": "capture-needed",
         "reason": "本文の対象機能: Reflectは、周囲の画像を3D物体の表面へ映り込ませ、透明な材質では屈折風の見え方も作るMaterial Node。。2D chart単体や無地球にはUVW/Material domainの対象処理が写っていない。",
@@ -20736,10 +21122,12 @@
         "article": "manuals/fusion/nodes/materials-lights/reliefmap.md",
         "title": "ReliefMap",
         "kind": "node",
-        "image_count": 0,
+        "image_count": 4,
         "native_cases": [],
         "reused_cases": [],
-        "planned_cases": [],
+        "planned_cases": [
+          "S214"
+        ],
         "state": "capture-planned",
         "decision": "capture-needed",
         "reason": "本文の対象機能: ReliefMapは、CreateReliefMapで作った凹凸データを3D Materialへ適用し、表面の奥行き感や自己遮蔽を表現するNode。。2D chart単体や無地球にはUVW/Material domainの対象処理が写っていない。",
@@ -20775,10 +21163,12 @@
         "article": "manuals/fusion/nodes/materials-lights/sphere-map.md",
         "title": "Sphere Map",
         "kind": "node",
-        "image_count": 0,
+        "image_count": 4,
         "native_cases": [],
         "reused_cases": [],
-        "planned_cases": [],
+        "planned_cases": [
+          "S218"
+        ],
         "state": "capture-planned",
         "decision": "capture-needed",
         "reason": "本文の対象機能: Sphere Mapは、360度の風景画像を球面上の方向へ対応させ、3D物体の映り込みに使えるようにするTexture Node。。局所lightの球は環境map/反射/環境光を示さない。",
@@ -20928,10 +21318,12 @@
         "article": "manuals/fusion/nodes/materials-lights/texture.md",
         "title": "Texture 2D",
         "kind": "node",
-        "image_count": 0,
+        "image_count": 4,
         "native_cases": [],
         "reused_cases": [],
-        "planned_cases": [],
+        "planned_cases": [
+          "S211"
+        ],
         "state": "capture-planned",
         "decision": "capture-needed",
         "reason": "本文の対象機能: Texture 2Dは、3D物体の模様にする2D画像のUV位置や画質の扱いを決めるNode。。2D chart単体や無地球にはUVW/Material domainの対象処理が写っていない。",

@@ -1,0 +1,132 @@
+{
+  "manual": {
+    "version": "21.1",
+    "chapter": 91,
+    "printed_pages": "2098–2099"
+  },
+  "runtime": {
+    "version": "21.1.0.14",
+    "edition": "DaVinci Resolve Studio",
+    "os": "Windows-11-10.0.26200-SP0",
+    "ui_language": "ja-JP"
+  },
+  "captured_at": "2026-10-28T01:28:26.632780+00:00",
+  "project": "Collectanea_Mandelbrot_Zoom_20261025",
+  "timeline": "S213_capture",
+  "frame": 0,
+  "resolution": [
+    1920,
+    1080
+  ],
+  "color_management": {
+    "project_settings": {
+      "colorScienceMode": "davinciYRGB",
+      "colorSpaceInput": "Rec.709 Gamma 2.4",
+      "colorSpaceTimeline": "Rec.709 (Scene)",
+      "colorSpaceTimelineGamma": "",
+      "colorSpaceOutput": "Rec.709 (Scene)",
+      "colorSpaceOutputGamma": "ACEScc",
+      "isAutoColorManage": "0",
+      "timelineResolutionWidth": "1920",
+      "timelineResolutionHeight": "1080",
+      "timelineFrameRate": 30.0,
+      "timelinePlaybackFrameRate": "30",
+      "timelinePixelAspectRatio": "square"
+    },
+    "note": "SDK project settings; screenshots show Viewer display."
+  },
+  "viewer": {
+    "view_mode": "Fit",
+    "source": "Left CreateRelief; right MediaOut1",
+    "note": "ReliefMap selected; same saved composition as S213."
+  },
+  "acceptance": {
+    "gui": "PASS: generated map and rendered text on plane visible; SDK settings and connections read back in S213.",
+    "article_display": "NOT_RUN",
+    "public_display": "NOT_RUN"
+  },
+  "unverified": [
+    "One text image and plane; geometry displacement, alpha channel analysis, other map types, animation and hosts NOT_RUN.",
+    "Viewer screenshot is display evidence.",
+    "Portable reimport and physical input provenance NOT_RUN.",
+    "Article verification remains partial."
+  ],
+  "schema_version": 1,
+  "case": "S214",
+  "article": "manuals/fusion/nodes/materials-lights/reliefmap.md",
+  "graph": "fixture.comp",
+  "settings": "readback.json",
+  "source": {
+    "file": "screen.png",
+    "size": [
+      3336,
+      1902
+    ],
+    "sha256": "cde1816e2755c784c346263bfa30716e673e06459236da03e164013e86a84e14"
+  },
+  "shots": [
+    {
+      "file": "graph.png",
+      "source": "source-s213.png",
+      "source_sha256": "234c6bb0eda66d4eebcf517a8e2307ad34dad2d2943d6990bce594f1e52cb1e6",
+      "frame": 0,
+      "crop_xyxy": [
+        180,
+        1050,
+        2750,
+        1650
+      ],
+      "resampled": false,
+      "sha256": "23a0ec2e8e269c1ad6a6e2aae2b3bfe701b0f4def3dfc17f76c5f82e25623efd"
+    },
+    {
+      "file": "controls.png",
+      "source": "screen.png",
+      "source_sha256": "cde1816e2755c784c346263bfa30716e673e06459236da03e164013e86a84e14",
+      "frame": 0,
+      "crop_xyxy": [
+        2815,
+        65,
+        3336,
+        750
+      ],
+      "resampled": false,
+      "sha256": "65990050073b07f8ba518aef9d44ceb83c64b1082ca10e69aea4f38e2fe9f5bd"
+    },
+    {
+      "file": "low.png",
+      "source": "source-s213.png",
+      "source_sha256": "234c6bb0eda66d4eebcf517a8e2307ad34dad2d2943d6990bce594f1e52cb1e6",
+      "frame": 0,
+      "crop_xyxy": [
+        100,
+        70,
+        1400,
+        720
+      ],
+      "resampled": false,
+      "sha256": "e0a30240e220b108b18d56c291f82c5f3787cc0f66c62d4c4d675438f2e0453b"
+    },
+    {
+      "file": "high.png",
+      "source": "source-s213.png",
+      "source_sha256": "234c6bb0eda66d4eebcf517a8e2307ad34dad2d2943d6990bce594f1e52cb1e6",
+      "frame": 0,
+      "crop_xyxy": [
+        1480,
+        70,
+        2700,
+        720
+      ],
+      "resampled": false,
+      "sha256": "53ed641e5adab8edb84d7179d706ab21147241ec84fcd3ba1ef9613b827d172d"
+    }
+  ],
+  "reproduction": {
+    "fixture_sha256": "4a877d9ac7f833041d9c3b85bdf9d3629e039b698560055ed53def94f1fcd848",
+    "readback_sha256": "45ca3e5541783076c96fd041ab882d12b2abe7253779180e5dff3d47f2667ad2",
+    "readback_source_sha256": "8ac4a176edc689bb9081387febb9cf1a56344e106f45a7ae003a55b1d661c6e0",
+    "readback_transform": "CRLF normalized to LF for the portable Git asset; JSON values unchanged",
+    "reimport": "NOT_RUN"
+  }
+}

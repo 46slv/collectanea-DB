@@ -1,0 +1,132 @@
+{
+  "manual": {
+    "version": "21.1",
+    "chapter": 91,
+    "printed_pages": "2100–2102"
+  },
+  "runtime": {
+    "version": "21.1.0.14",
+    "edition": "DaVinci Resolve Studio",
+    "os": "Windows-11-10.0.26200-SP0",
+    "ui_language": "ja-JP"
+  },
+  "captured_at": "2026-10-28T01:54:46.869540+00:00",
+  "project": "Collectanea_Mandelbrot_Zoom_20261025",
+  "timeline": "S217_capture",
+  "frame": 0,
+  "resolution": [
+    1920,
+    1080
+  ],
+  "color_management": {
+    "project_settings": {
+      "colorScienceMode": "davinciYRGB",
+      "colorSpaceInput": "Rec.709 Gamma 2.4",
+      "colorSpaceTimeline": "Rec.709 (Scene)",
+      "colorSpaceTimelineGamma": "",
+      "colorSpaceOutput": "Rec.709 (Scene)",
+      "colorSpaceOutputGamma": "ACEScc",
+      "isAutoColorManage": "0",
+      "timelineResolutionWidth": "1920",
+      "timelineResolutionHeight": "1080",
+      "timelineFrameRate": 30.0,
+      "timelinePlaybackFrameRate": "30",
+      "timelinePixelAspectRatio": "square"
+    },
+    "note": "SDK project settings; screenshots show Viewer display."
+  },
+  "viewer": {
+    "view_mode": "Fit",
+    "source": "Left Scene; right MediaOut1",
+    "note": "SphereMap selected; same saved composition as S217."
+  },
+  "acceptance": {
+    "gui": "PASS: SphereMap feeds Reflect and the synthetic text appears on the sphere; SDK connections read back in S217.",
+    "article_display": "NOT_RUN",
+    "public_display": "NOT_RUN"
+  },
+  "unverified": [
+    "One synthetic text image and sphere; real HDR environment, refraction, animation and other hosts NOT_RUN.",
+    "Viewer screenshot is display evidence.",
+    "Portable reimport and physical input provenance NOT_RUN.",
+    "Article verification remains partial."
+  ],
+  "schema_version": 1,
+  "case": "S218",
+  "article": "manuals/fusion/nodes/materials-lights/sphere-map.md",
+  "graph": "fixture.comp",
+  "settings": "readback.json",
+  "source": {
+    "file": "screen.png",
+    "size": [
+      3336,
+      1902
+    ],
+    "sha256": "18c4a45319710d5f216bdfe31d191f8bad0c12ef3e2357ee9868ea861c2e8514"
+  },
+  "shots": [
+    {
+      "file": "graph.png",
+      "source": "source-s217.png",
+      "source_sha256": "bdbc7c1ebb49f1cf7c5d83d54a54640ab34eea122cba735bdc3dcd165713a758",
+      "frame": 0,
+      "crop_xyxy": [
+        180,
+        1050,
+        2750,
+        1650
+      ],
+      "resampled": false,
+      "sha256": "e1575e08e6f20c4f8cc5f3ccdb03541bd20dd3f80e3b543fc176776074c1c73c"
+    },
+    {
+      "file": "controls.png",
+      "source": "screen.png",
+      "source_sha256": "18c4a45319710d5f216bdfe31d191f8bad0c12ef3e2357ee9868ea861c2e8514",
+      "frame": 0,
+      "crop_xyxy": [
+        2815,
+        65,
+        3336,
+        750
+      ],
+      "resampled": false,
+      "sha256": "8fcb6c27bffa1a7d9f417f9008caad691a843dad6faf154b6312d566fc39c65e"
+    },
+    {
+      "file": "low.png",
+      "source": "state-low.png",
+      "source_sha256": "78e6147db7f8a74e9f6015255e549d6d203f31397f88eb888115579ee213727e",
+      "frame": 0,
+      "crop_xyxy": [
+        1480,
+        70,
+        2700,
+        720
+      ],
+      "resampled": false,
+      "sha256": "f717ae65d970636785c1a612a0e24e5864abbaed4aae338c41f709bb9f5cf858"
+    },
+    {
+      "file": "high.png",
+      "source": "source-s217.png",
+      "source_sha256": "bdbc7c1ebb49f1cf7c5d83d54a54640ab34eea122cba735bdc3dcd165713a758",
+      "frame": 0,
+      "crop_xyxy": [
+        1480,
+        70,
+        2700,
+        720
+      ],
+      "resampled": false,
+      "sha256": "e3e173a4b2a6b8d80f139113f92598b610cad2e37fab6405fe858bd5aadfcea7"
+    }
+  ],
+  "reproduction": {
+    "fixture_sha256": "daaefffae6be9c36011b37df0cbdd9d2f5ba586528bd450ecb03cfbf0b82c54f",
+    "readback_sha256": "6f7349d677d88465a5934cb629694275b5915cf8ed1da9c4e92ebecbd81b4a8c",
+    "readback_source_sha256": "d929772ca235ad7d370e8aea9c6c5bdf525666981b59640be866a69cd409b461",
+    "readback_transform": "CRLF normalized to LF for the portable Git asset; JSON values unchanged",
+    "reimport": "NOT_RUN"
+  }
+}

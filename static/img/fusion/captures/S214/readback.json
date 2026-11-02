@@ -1,0 +1,78 @@
+{
+  "case": "S214",
+  "project": "Collectanea_Mandelbrot_Zoom_20261025",
+  "library": "Local Database",
+  "project_manager_folder": "root",
+  "timeline": "S213_capture",
+  "frame": 0,
+  "resolve": "21.1.0.14",
+  "edition": "DaVinci Resolve Studio",
+  "os": "Windows-11-10.0.26200-SP0",
+  "project_settings": {
+    "colorScienceMode": "davinciYRGB",
+    "colorSpaceInput": "Rec.709 Gamma 2.4",
+    "colorSpaceTimeline": "Rec.709 (Scene)",
+    "colorSpaceTimelineGamma": "",
+    "colorSpaceOutput": "Rec.709 (Scene)",
+    "colorSpaceOutputGamma": "ACEScc",
+    "isAutoColorManage": "0",
+    "timelineResolutionWidth": "1920",
+    "timelineResolutionHeight": "1080",
+    "timelineFrameRate": 30.0,
+    "timelinePlaybackFrameRate": "30",
+    "timelinePixelAspectRatio": "square"
+  },
+  "connections": {
+    "CreateRelief.Input": "Label",
+    "Relief.ReliefMapInput": "CreateRelief",
+    "Relief.BackgroundInput": "Material",
+    "Primitive.MaterialInput": "Relief",
+    "Scene.SceneInput1": "Primitive",
+    "Scene.SceneInput2": "KeyLight",
+    "Renderer.SceneInput": "Scene",
+    "MediaOut1.Input": "Renderer"
+  },
+  "values": {
+    "Label": {
+      "StyledText": "RELIEF",
+      "Size": 0.2
+    },
+    "CreateRelief": {
+      "MapType": "Relief",
+      "SourceChannel": "Luminance",
+      "DepthScale": 1.0
+    },
+    "Relief": {
+      "MapType": "Relief",
+      "DepthScale": 0.03
+    },
+    "Material": {
+      "Diffuse.Color.Red": 0.6,
+      "Diffuse.Color.Green": 0.35,
+      "Diffuse.Color.Blue": 0.1
+    },
+    "Primitive": {
+      "Shape": "SurfacePlaneInputs",
+      "Transform3DOp.Scale.X": 2.0,
+      "Transform3DOp.Rotate.Y": -20.0
+    },
+    "Renderer": {
+      "RendererSoftware.LightingEnabled": 1.0
+    },
+    "create_depth_scale": 1.0,
+    "relief_depth_scale": 0.03
+  },
+  "source": "Text image through CreateReliefMap and ReliefMap on a plane.",
+  "save_project": true,
+  "save_completed_at": "2026-10-28T01:25:38.731606+00:00",
+  "native_export_sha256": "615de2edd7f5410a5fc81a7f7123e1a505deb67d4f2c867ad0c2a4fd5cd7f647",
+  "portable_sha256": "4a877d9ac7f833041d9c3b85bdf9d3629e039b698560055ed53def94f1fcd848",
+  "portable_reimport": "NOT_RUN",
+  "limits": [
+    "One text image and plane; geometry displacement, alpha channel analysis, other map types, animation and hosts NOT_RUN.",
+    "Viewer screenshot is display evidence."
+  ],
+  "source_case": "S213",
+  "source_timeline": "S213_capture",
+  "source_note": "Same saved composition and fixture as S213; Relief inspector separately captured."
+}
