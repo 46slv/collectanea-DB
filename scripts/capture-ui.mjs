@@ -106,7 +106,13 @@ try {
     const dialog = page.locator('dialog'), input = page.locator('#cc-search-input');
     async function openCurrentResult() {
       await page.locator('.cc-navbar-search').click();
+      // Modal-open resets search state in an effect. Wait for that reset before typing;
+      // otherwise fast CI input can be cleared by the pending open transition.
+      await expect(dialog).toBeVisible();
+      await expect(input).toBeFocused();
+      await expect(input).toHaveValue('');
       await input.fill('Merge');
+      await expect(input).toHaveValue('Merge');
       await expect.poll(() => dialog.locator('a[role="option"]').evaluateAll((links, path) => links.find((a) => new URL(a.href).pathname.replace(/\/$/, '') === path)?.id || '', currentPath)).not.toBe('');
       const id = await dialog.locator('a[role="option"]').evaluateAll((links, path) => links.find((a) => new URL(a.href).pathname.replace(/\/$/, '') === path).id, currentPath);
       return dialog.locator(`#${id}`);
