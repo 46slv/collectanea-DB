@@ -1,0 +1,63 @@
+{
+  "case": "S242",
+  "project": "Collectanea_Mandelbrot_Zoom_20261025",
+  "library": "Local Database",
+  "project_manager_folder": "root",
+  "timeline": "S242_capture",
+  "frame": 0,
+  "resolve": "21.1.0.14",
+  "edition": "DaVinci Resolve Studio",
+  "os": "Windows-11-10.0.26200-SP0",
+  "project_settings": {
+    "colorScienceMode": "davinciYRGB",
+    "colorSpaceInput": "Rec.709 Gamma 2.4",
+    "colorSpaceTimeline": "Rec.709 (Scene)",
+    "colorSpaceTimelineGamma": "",
+    "colorSpaceOutput": "Rec.709 (Scene)",
+    "colorSpaceOutputGamma": "ACEScc",
+    "isAutoColorManage": "0",
+    "timelineResolutionWidth": "1920",
+    "timelineResolutionHeight": "1080",
+    "timelineFrameRate": 30.0,
+    "timelinePlaybackFrameRate": "30",
+    "timelinePixelAspectRatio": "square"
+  },
+  "connections": {
+    "Map.Image": "Label",
+    "MediaOut1.Input": "Map"
+  },
+  "values": {
+    "Label": {
+      "StyledText": "SHEAR",
+      "Size": 0.3
+    },
+    "Map": {
+      "ShearAll": 1.0,
+      "InputType": 0.0,
+      "Shear": 0.35,
+      "ShearAlongAxis": 0.0,
+      "Center": {
+        "1": 0.5,
+        "2": 0.5,
+        "3": 0.0
+      },
+      "AxisPivot": {
+        "1": 0.5,
+        "2": 0.25,
+        "3": 0.0
+      },
+      "AxisAngle": 90.0,
+      "SizeAlongAxis": 1.0
+    }
+  },
+  "source": "Synthetic text through KD Shear.",
+  "save_project": true,
+  "save_completed_at": "2026-10-28T04:54:01.339158+00:00",
+  "native_export_sha256": "fb2467fcb93dbdeab8d2e369466f202be61c8d7d82d8c651589abff171ebc579",
+  "portable_sha256": "406cff3f49c69e617de044196430acc783c1055156096c6deba13c766d3a3f03",
+  "portable_reimport": "NOT_RUN",
+  "limits": [
+    "One synthetic text and settings; second input, other shear settings, mask, alpha values, animation and other hosts NOT_RUN.",
+    "Viewer screenshot is display evidence."
+  ]
+}

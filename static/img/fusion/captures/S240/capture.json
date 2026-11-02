@@ -1,0 +1,132 @@
+{
+  "manual": {
+    "version": "21.1",
+    "chapter": 105,
+    "printed_pages": "2436"
+  },
+  "runtime": {
+    "version": "21.1.0.14",
+    "edition": "DaVinci Resolve Studio",
+    "os": "Windows-11-10.0.26200-SP0",
+    "ui_language": "ja-JP"
+  },
+  "captured_at": "2026-10-28T04:48:32.354628+00:00",
+  "project": "Collectanea_Mandelbrot_Zoom_20261025",
+  "timeline": "S240_capture",
+  "frame": 0,
+  "resolution": [
+    1920,
+    1080
+  ],
+  "color_management": {
+    "project_settings": {
+      "colorScienceMode": "davinciYRGB",
+      "colorSpaceInput": "Rec.709 Gamma 2.4",
+      "colorSpaceTimeline": "Rec.709 (Scene)",
+      "colorSpaceTimelineGamma": "",
+      "colorSpaceOutput": "Rec.709 (Scene)",
+      "colorSpaceOutputGamma": "ACEScc",
+      "isAutoColorManage": "0",
+      "timelineResolutionWidth": "1920",
+      "timelineResolutionHeight": "1080",
+      "timelineFrameRate": 30.0,
+      "timelinePlaybackFrameRate": "30",
+      "timelinePixelAspectRatio": "square"
+    },
+    "note": "SDK project settings; screenshots show Viewer display."
+  },
+  "viewer": {
+    "view_mode": "Fit",
+    "source": "Left Label; right MediaOut1",
+    "note": "KD Plastic selected; transparency checkerboard and viewer control overlay visible."
+  },
+  "acceptance": {
+    "gui": "PASS: alpha bump setting produces visible bright edging on synthetic gray text.",
+    "article_display": "NOT_RUN",
+    "public_display": "NOT_RUN"
+  },
+  "unverified": [
+    "One synthetic text and setting; other settings, masks, alpha values, animation and other hosts NOT_RUN.",
+    "Viewer screenshot is display evidence.",
+    "Portable reimport and physical input provenance NOT_RUN.",
+    "Article verification remains partial."
+  ],
+  "schema_version": 1,
+  "case": "S240",
+  "article": "manuals/fusion/nodes/krokodove/plastic.md",
+  "graph": "fixture.comp",
+  "settings": "readback.json",
+  "source": {
+    "file": "screen.png",
+    "size": [
+      3328,
+      1898
+    ],
+    "sha256": "bb0a4423cb286d9d5c1ebc5e1aeb91b1a1d81aaa6852a41d7758b1e037209596"
+  },
+  "shots": [
+    {
+      "file": "graph.png",
+      "source": "screen.png",
+      "source_sha256": "bb0a4423cb286d9d5c1ebc5e1aeb91b1a1d81aaa6852a41d7758b1e037209596",
+      "frame": 0,
+      "crop_xyxy": [
+        500,
+        1050,
+        2350,
+        1650
+      ],
+      "resampled": false,
+      "sha256": "ff994ce79c5b2f0df64639c5dd5457a03e1993d8775d8dc0223e4e1ccf6cba56"
+    },
+    {
+      "file": "controls.png",
+      "source": "screen.png",
+      "source_sha256": "bb0a4423cb286d9d5c1ebc5e1aeb91b1a1d81aaa6852a41d7758b1e037209596",
+      "frame": 0,
+      "crop_xyxy": [
+        2815,
+        65,
+        3328,
+        750
+      ],
+      "resampled": false,
+      "sha256": "d761c4dbdad3a31b530c321a0fe2e708d2ffa794612945a2daa35cbd7c3ed799"
+    },
+    {
+      "file": "low.png",
+      "source": "screen.png",
+      "source_sha256": "bb0a4423cb286d9d5c1ebc5e1aeb91b1a1d81aaa6852a41d7758b1e037209596",
+      "frame": 0,
+      "crop_xyxy": [
+        120,
+        70,
+        1340,
+        720
+      ],
+      "resampled": false,
+      "sha256": "13fd3dd8a0ee6523796c93ca7888b4b17d383ae9649548ae96ca2226383b16ea"
+    },
+    {
+      "file": "high.png",
+      "source": "screen.png",
+      "source_sha256": "bb0a4423cb286d9d5c1ebc5e1aeb91b1a1d81aaa6852a41d7758b1e037209596",
+      "frame": 0,
+      "crop_xyxy": [
+        1480,
+        70,
+        2700,
+        720
+      ],
+      "resampled": false,
+      "sha256": "87f180222d74549ec7a6ce78419888ca8103a7686e9412f2bc40ac5d0482e2a0"
+    }
+  ],
+  "reproduction": {
+    "fixture_sha256": "e65a278ebc03c0fe677fd06038dde51da1267e7eb97469e45c26773b1147209c",
+    "readback_sha256": "9c209a0ddb1947a979c11342972a11fd3c84766e4455cdda167965c376bff3b7",
+    "readback_source_sha256": "9c209a0ddb1947a979c11342972a11fd3c84766e4455cdda167965c376bff3b7",
+    "readback_transform": "No line-ending transformation",
+    "reimport": "NOT_RUN"
+  }
+}

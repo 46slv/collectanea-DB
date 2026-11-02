@@ -1,0 +1,59 @@
+{
+  "case": "S241",
+  "project": "Collectanea_Mandelbrot_Zoom_20261025",
+  "library": "Local Database",
+  "project_manager_folder": "root",
+  "timeline": "S241_capture",
+  "frame": 0,
+  "resolve": "21.1.0.14",
+  "edition": "DaVinci Resolve Studio",
+  "os": "Windows-11-10.0.26200-SP0",
+  "project_settings": {
+    "colorScienceMode": "davinciYRGB",
+    "colorSpaceInput": "Rec.709 Gamma 2.4",
+    "colorSpaceTimeline": "Rec.709 (Scene)",
+    "colorSpaceTimelineGamma": "",
+    "colorSpaceOutput": "Rec.709 (Scene)",
+    "colorSpaceOutputGamma": "ACEScc",
+    "isAutoColorManage": "0",
+    "timelineResolutionWidth": "1920",
+    "timelineResolutionHeight": "1080",
+    "timelineFrameRate": 30.0,
+    "timelinePlaybackFrameRate": "30",
+    "timelinePixelAspectRatio": "square"
+  },
+  "connections": {
+    "Map.Image": "Label",
+    "MediaOut1.Input": "Map"
+  },
+  "values": {
+    "Label": {
+      "StyledText": "SPHERIZE",
+      "Size": 0.3
+    },
+    "Map": {
+      "Type": 2.0,
+      "Algorithm": 0.0,
+      "Iterations": 2.0,
+      "Center": {
+        "1": 0.5,
+        "2": 0.5,
+        "3": 0.0
+      },
+      "Size": 0.6,
+      "DeformX": 0.5,
+      "DeformY": 0.5,
+      "Warp": 1.0
+    }
+  },
+  "source": "Synthetic text through KD Spherize.",
+  "save_project": true,
+  "save_completed_at": "2026-10-28T04:51:49.407774+00:00",
+  "native_export_sha256": "7e8f00adcf8b9cdddb30c8319093cae615bcd9d1c66c9733b7ea80f959eb7d09",
+  "portable_sha256": "288093c348d3b346da95a95d2263164bd9882121926cee824f1c6e3ac409c0c6",
+  "portable_reimport": "NOT_RUN",
+  "limits": [
+    "One synthetic text and settings; other sphere settings, mask, alpha values, animation and other hosts NOT_RUN.",
+    "Viewer screenshot is display evidence."
+  ]
+}

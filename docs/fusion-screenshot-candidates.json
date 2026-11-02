@@ -9485,6 +9485,241 @@
           "status": "captured"
         }
       ]
+    },
+    {
+      "priority": "P1",
+      "goal": "Show KD Plastic with synthetic gray text and alpha bump.",
+      "suggested_graph": "TextPlus -> KD_Plastic -> MediaOut.",
+      "scope": "Resolve Studio 21.1.0.14 on Windows, 1920x1080 static frame.",
+      "limitations": [
+        "One synthetic text and setting; other settings, masks, alpha values, animation and other hosts NOT_RUN.",
+        "Viewer screenshot is display evidence.",
+        "Portable reimport and physical input provenance NOT_RUN.",
+        "Article verification remains partial."
+      ],
+      "id": "S240",
+      "article": "manuals/fusion/nodes/krokodove/plastic.md",
+      "manual": {
+        "version": "21.1",
+        "chapter": 105,
+        "printed_pages": "2436"
+      },
+      "status": "captured-embedded-unverified",
+      "capture_manifest": "static/img/fusion/captures/S240/capture.json",
+      "shots": [
+        {
+          "slug": "graph",
+          "kind": "graph",
+          "target": "文字画像をKrokodove Plasticへつなぐ構成",
+          "status": "captured"
+        },
+        {
+          "slug": "controls",
+          "kind": "inspector",
+          "target": "PlasticのInspector",
+          "status": "captured"
+        },
+        {
+          "slug": "low",
+          "kind": "comparison",
+          "target": "処理前の文字",
+          "status": "captured"
+        },
+        {
+          "slug": "high",
+          "kind": "comparison",
+          "target": "Plasticで縁に明るい線が付いた文字",
+          "status": "captured"
+        }
+      ]
+    },
+    {
+      "priority": "P1",
+      "goal": "Show KD Spherize with synthetic text.",
+      "suggested_graph": "TextPlus -> KD_Spherize -> MediaOut.",
+      "scope": "Resolve Studio 21.1.0.14 on Windows, 1920x1080 static frame.",
+      "limitations": [
+        "One synthetic text and setting; other settings, masks, alpha values, animation and other hosts NOT_RUN.",
+        "Viewer screenshot is display evidence.",
+        "Portable reimport and physical input provenance NOT_RUN.",
+        "Article verification remains partial."
+      ],
+      "id": "S241",
+      "article": "manuals/fusion/nodes/krokodove/spherize.md",
+      "manual": {
+        "version": "21.1",
+        "chapter": 105,
+        "printed_pages": "2437"
+      },
+      "status": "captured-embedded-unverified",
+      "capture_manifest": "static/img/fusion/captures/S241/capture.json",
+      "shots": [
+        {
+          "slug": "graph",
+          "kind": "graph",
+          "target": "文字画像をKrokodove Spherizeへつなぐ構成",
+          "status": "captured"
+        },
+        {
+          "slug": "controls",
+          "kind": "inspector",
+          "target": "SpherizeのInspector",
+          "status": "captured"
+        },
+        {
+          "slug": "low",
+          "kind": "comparison",
+          "target": "処理前の文字",
+          "status": "captured"
+        },
+        {
+          "slug": "high",
+          "kind": "comparison",
+          "target": "Spherizeで変形した文字",
+          "status": "captured"
+        }
+      ]
+    },
+    {
+      "priority": "P1",
+      "goal": "Show KD Shear with synthetic text.",
+      "suggested_graph": "TextPlus -> KD_Shear -> MediaOut.",
+      "scope": "Resolve Studio 21.1.0.14 on Windows, 1920x1080 static frame.",
+      "limitations": [
+        "Second input, other settings, masks, alpha values, animation and other hosts NOT_RUN.",
+        "Viewer screenshot includes control overlays and is display evidence.",
+        "Portable reimport and physical input provenance NOT_RUN.",
+        "Article verification remains partial."
+      ],
+      "id": "S242",
+      "article": "manuals/fusion/nodes/krokodove/shear.md",
+      "manual": {
+        "version": "21.1",
+        "chapter": 105,
+        "printed_pages": "2437"
+      },
+      "status": "captured-embedded-unverified",
+      "capture_manifest": "static/img/fusion/captures/S242/capture.json",
+      "shots": [
+        {
+          "slug": "graph",
+          "kind": "graph",
+          "target": "文字画像をKrokodove Shearへつなぐ構成",
+          "status": "captured"
+        },
+        {
+          "slug": "controls",
+          "kind": "inspector",
+          "target": "ShearのInspector",
+          "status": "captured"
+        },
+        {
+          "slug": "low",
+          "kind": "comparison",
+          "target": "処理前の文字",
+          "status": "captured"
+        },
+        {
+          "slug": "high",
+          "kind": "comparison",
+          "target": "Shearで斜めに変形した文字",
+          "status": "captured"
+        }
+      ]
+    },
+    {
+      "priority": "P1",
+      "goal": "Show KD Stretch with synthetic text.",
+      "suggested_graph": "TextPlus -> KD_Stretch -> MediaOut.",
+      "scope": "Resolve Studio 21.1.0.14 on Windows, 1920x1080 static frame.",
+      "limitations": [
+        "One synthetic text and setting; other settings, masks, alpha values, animation and other hosts NOT_RUN.",
+        "Viewer screenshot is display evidence.",
+        "Portable reimport and physical input provenance NOT_RUN.",
+        "Article verification remains partial."
+      ],
+      "id": "S243",
+      "article": "manuals/fusion/nodes/krokodove/stretch.md",
+      "manual": {
+        "version": "21.1",
+        "chapter": 105,
+        "printed_pages": "2437"
+      },
+      "status": "captured-embedded-unverified",
+      "capture_manifest": "static/img/fusion/captures/S243/capture.json",
+      "shots": [
+        {
+          "slug": "graph",
+          "kind": "graph",
+          "target": "文字画像をKrokodove Stretchへつなぐ構成",
+          "status": "captured"
+        },
+        {
+          "slug": "controls",
+          "kind": "inspector",
+          "target": "StretchのInspector",
+          "status": "captured"
+        },
+        {
+          "slug": "low",
+          "kind": "comparison",
+          "target": "処理前の文字",
+          "status": "captured"
+        },
+        {
+          "slug": "high",
+          "kind": "comparison",
+          "target": "Stretchで横幅を変えた文字",
+          "status": "captured"
+        }
+      ]
+    },
+    {
+      "priority": "P1",
+      "goal": "Show KD_Transform with synthetic text.",
+      "suggested_graph": "TextPlus -> KD_Transform -> MediaOut.",
+      "scope": "Resolve Studio 21.1.0.14 on Windows, 1920x1080 static frame.",
+      "limitations": [
+        "One synthetic text and setting; other settings, masks, alpha values, animation and other hosts NOT_RUN.",
+        "Viewer screenshot is display evidence.",
+        "Portable reimport and physical input provenance NOT_RUN.",
+        "Article verification remains partial."
+      ],
+      "id": "S244",
+      "article": "manuals/fusion/nodes/krokodove/warped-transform.md",
+      "manual": {
+        "version": "21.1",
+        "chapter": 105,
+        "printed_pages": "2437"
+      },
+      "status": "captured-embedded-unverified",
+      "capture_manifest": "static/img/fusion/captures/S244/capture.json",
+      "shots": [
+        {
+          "slug": "graph",
+          "kind": "graph",
+          "target": "文字画像をKrokodove Warped Transformへつなぐ構成",
+          "status": "captured"
+        },
+        {
+          "slug": "controls",
+          "kind": "inspector",
+          "target": "Warped TransformのInspector",
+          "status": "captured"
+        },
+        {
+          "slug": "low",
+          "kind": "comparison",
+          "target": "処理前の文字",
+          "status": "captured"
+        },
+        {
+          "slug": "high",
+          "kind": "comparison",
+          "target": "Warped Transformで広げて回転した文字",
+          "status": "captured"
+        }
+      ]
     }
   ],
   "publication_batches": [
@@ -10875,7 +11110,7 @@
     "completion_rule": "Every page has an explicit image decision; necessary images are native-observed, embedded, saved to GitHub and public-display-verified. A native example does not verify all article controls.",
     "summary": {
       "total_pages": 589,
-      "with_images": 261,
+      "with_images": 266,
       "with_native_examples": 261,
       "states": {
         "reviewed-no-standalone-image": 26,
@@ -17577,10 +17812,12 @@
         "article": "manuals/fusion/nodes/krokodove/plastic.md",
         "title": "Plastic（Krokodove）",
         "kind": "node",
-        "image_count": 0,
+        "image_count": 4,
         "native_cases": [],
         "reused_cases": [],
-        "planned_cases": [],
+        "planned_cases": [
+          "S240"
+        ],
         "state": "capture-planned",
         "decision": "capture-needed",
         "reason": "本文の対象機能: 2D画像に合成的な面取りと、プラスチックの薄い膜を重ねたような艶を与えるKrokodoveのフィルタ。。標準Nodeや別Krokodoveの似た効果は同じControl/algorithmの証拠にならない。",
@@ -18278,10 +18515,12 @@
         "article": "manuals/fusion/nodes/krokodove/shear.md",
         "title": "Shear",
         "kind": "node",
-        "image_count": 0,
+        "image_count": 4,
         "native_cases": [],
         "reused_cases": [],
-        "planned_cases": [],
+        "planned_cases": [
+          "S242"
+        ],
         "state": "capture-planned",
         "decision": "capture-needed",
         "reason": "本文の対象機能: 画像の形を斜めにずらすように変形し、追加の入力で変形の強さを指定できるKrokodoveの画像ツール。。S07の青いEffect Maskをwarp用mapや第2画像と同一視できない。",
@@ -18402,10 +18641,12 @@
         "article": "manuals/fusion/nodes/krokodove/spherize.md",
         "title": "Spherize",
         "kind": "node",
-        "image_count": 0,
+        "image_count": 4,
         "native_cases": [],
         "reused_cases": [],
-        "planned_cases": [],
+        "planned_cases": [
+          "S241"
+        ],
         "state": "capture-planned",
         "decision": "capture-needed",
         "reason": "本文の対象機能: 指定した形の領域を虫眼鏡越しに見たように歪ませる、Krokodoveの画像変形ツール。。S06 Transformは全体変形で、局所warp・タイル再配置・mirror等の各機能を代用しない。",
@@ -18668,10 +18909,12 @@
         "article": "manuals/fusion/nodes/krokodove/stretch.md",
         "title": "Stretch（Krokodove）",
         "kind": "node",
-        "image_count": 0,
+        "image_count": 4,
         "native_cases": [],
         "reused_cases": [],
-        "planned_cases": [],
+        "planned_cases": [
+          "S243"
+        ],
         "state": "capture-planned",
         "decision": "capture-needed",
         "reason": "本文の対象機能: 指定した線に沿って画像の画素を引き伸ばす、Krokodoveの画像変形ツール。。S06 Transformは全体変形で、局所warp・タイル再配置・mirror等の各機能を代用しない。",
@@ -18916,10 +19159,12 @@
         "article": "manuals/fusion/nodes/krokodove/warped-transform.md",
         "title": "Warped Transform",
         "kind": "node",
-        "image_count": 0,
+        "image_count": 4,
         "native_cases": [],
         "reused_cases": [],
-        "planned_cases": [],
+        "planned_cases": [
+          "S244"
+        ],
         "state": "capture-planned",
         "decision": "capture-needed",
         "reason": "本文の対象機能: 画像を伸ばす・押し縮める・回す変形をまとめて扱うKrokodoveの画像ツール。。S06 Transformは全体変形で、局所warp・タイル再配置・mirror等の各機能を代用しない。",
