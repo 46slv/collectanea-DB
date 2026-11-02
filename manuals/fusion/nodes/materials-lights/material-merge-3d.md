@@ -24,6 +24,34 @@ Material Merge 3D [3MM]は、**2つの材質を混ぜ、1つのMaterialとして
 
 Materialは3D Objectの表面をどのように描画するかを決める情報です。Object・Camera・Lightをまとめる[Merge 3D](../3d/merge-3d.md)とも、2D画像のpixelを重ねるMergeとも異なり、Material Merge 3D自体は**3D sceneを作りません**。
 
+<!-- capture:S207 -->
+
+## 実機例：2つの材質を切り替える
+
+赤と青の `Blinn` を `Material Merge 3D` のBackgroundとForegroundに接続し、球に割り当てました。
+
+この例ではBlend 0で赤いBackground、Blend 1で青いForegroundが見えます。[接続と設定の記録](/img/fusion/captures/S207/readback.json)に条件を記載しています。
+
+[![2つのBlinnをMaterial Merge 3Dに接続して球を描画する構成](/img/fusion/captures/S207/graph.png)](/img/fusion/captures/S207/graph.png)
+
+2つの材質をまとめて球へ渡します。
+
+[![Material Merge 3DのBlend 1の設定](/img/fusion/captures/S207/controls.png)](/img/fusion/captures/S207/controls.png)
+
+Blend 1の状態です。
+
+[![Blend 0で描画した赤い球](/img/fusion/captures/S207/low.png)](/img/fusion/captures/S207/low.png)
+
+Blend 0ではBackgroundが見えます。
+
+[![Blend 1で描画した青い球](/img/fusion/captures/S207/high.png)](/img/fusion/captures/S207/high.png)
+
+Blend 1ではForegroundが見えます。
+
+[再現用Graph](/img/fusion/captures/S207/fixture.comp) · [撮影条件と確認範囲](/img/fusion/captures/S207/capture.json)
+
+<!-- /capture:S207 -->
+
 ## 入力
 
 ### Background Material（オレンジ）
@@ -129,4 +157,4 @@ Material Merge 3Dの出力はMaterialです。Objectや対応するscene Nodeの
 
 DaVinci Resolve 21.1 Reference Manual（September 2026）、Chapter 90「3D Material Nodes」、**Material Merge 3D [3MM]（pp.2059–2060）**に基づき、2つの入力、各入力が受け取る型、両入力必須、Material出力、Blend、Material ID、MatID出力条件、およびMaterial inputとScene inputの区別を確認しました。
 
-Blendの正確な初期値・数値範囲、runtime REGID、Edition差、実機レンダリング結果は未確認のため、`verification: partial`を維持します。
+上の実機例ではruntime REGID `MtlMerge3D`と、2つのBlinnを使ったBlend 0・1のレンダリングを確認しました。Blendの初期値・数値範囲、Edition差、画像入力や中間値は未確認のため、`verification: partial`を維持します。

@@ -1,0 +1,132 @@
+{
+  "manual": {
+    "version": "21.1",
+    "chapter": 90,
+    "printed_pages": "2059–2060"
+  },
+  "runtime": {
+    "version": "21.1.0.14",
+    "edition": "DaVinci Resolve Studio",
+    "os": "Windows-11-10.0.26200-SP0",
+    "ui_language": "ja-JP"
+  },
+  "captured_at": "2026-10-28T00:51:41.155059+00:00",
+  "project": "Collectanea_Mandelbrot_Zoom_20261025",
+  "timeline": "S207_capture",
+  "frame": 0,
+  "resolution": [
+    1920,
+    1080
+  ],
+  "color_management": {
+    "project_settings": {
+      "colorScienceMode": "davinciYRGB",
+      "colorSpaceInput": "Rec.709 Gamma 2.4",
+      "colorSpaceTimeline": "Rec.709 (Scene)",
+      "colorSpaceTimelineGamma": "",
+      "colorSpaceOutput": "Rec.709 (Scene)",
+      "colorSpaceOutputGamma": "ACEScc",
+      "isAutoColorManage": "0",
+      "timelineResolutionWidth": "1920",
+      "timelineResolutionHeight": "1080",
+      "timelineFrameRate": 30.0,
+      "timelinePlaybackFrameRate": "30",
+      "timelinePixelAspectRatio": "square"
+    },
+    "note": "SDK project settings; screenshots show Viewer display."
+  },
+  "viewer": {
+    "view_mode": "Fit",
+    "source": "Left Scene; right MediaOut1",
+    "note": "Material Merge selected."
+  },
+  "acceptance": {
+    "gui": "PASS: Blend 0 and 1 show the red Background and blue Foreground on this sphere; SDK settings and connections read back.",
+    "article_display": "NOT_RUN",
+    "public_display": "NOT_RUN"
+  },
+  "unverified": [
+    "Two Blinn materials and blend endpoints only; intermediate values, image inputs, animation and other hosts NOT_RUN.",
+    "Viewer screenshot is display evidence.",
+    "Portable reimport and physical input provenance NOT_RUN.",
+    "Article verification remains partial."
+  ],
+  "schema_version": 1,
+  "case": "S207",
+  "article": "manuals/fusion/nodes/materials-lights/material-merge-3d.md",
+  "graph": "fixture.comp",
+  "settings": "readback.json",
+  "source": {
+    "file": "screen.png",
+    "size": [
+      3336,
+      1902
+    ],
+    "sha256": "b55bb5d2f943d0c77d62f7ee131fd7924b49e3af563f2cdf706d824ca4bea119"
+  },
+  "shots": [
+    {
+      "file": "graph.png",
+      "source": "screen.png",
+      "source_sha256": "b55bb5d2f943d0c77d62f7ee131fd7924b49e3af563f2cdf706d824ca4bea119",
+      "frame": 0,
+      "crop_xyxy": [
+        350,
+        1050,
+        2550,
+        1650
+      ],
+      "resampled": false,
+      "sha256": "9df549b48aaa4f7df58ec4fc1859871e9ca6207a7e3bfc3ccbfd1d2eb3752218"
+    },
+    {
+      "file": "controls.png",
+      "source": "screen.png",
+      "source_sha256": "b55bb5d2f943d0c77d62f7ee131fd7924b49e3af563f2cdf706d824ca4bea119",
+      "frame": 0,
+      "crop_xyxy": [
+        2815,
+        65,
+        3336,
+        750
+      ],
+      "resampled": false,
+      "sha256": "8362eb4910309c32f4bd6214862c6b26ebf5bf6b9c14a2d5d45d1960f6a05072"
+    },
+    {
+      "file": "low.png",
+      "source": "state-low.png",
+      "source_sha256": "05c14edf1a46026179298ba683fa379f79a2ac7e8af79611bbbde44a67d2344c",
+      "frame": 0,
+      "crop_xyxy": [
+        1480,
+        70,
+        2700,
+        720
+      ],
+      "resampled": false,
+      "sha256": "2ba1251ef67feb3b62db4cff4064ee02e2e5e2d588eb065567b7431426b54adc"
+    },
+    {
+      "file": "high.png",
+      "source": "screen.png",
+      "source_sha256": "b55bb5d2f943d0c77d62f7ee131fd7924b49e3af563f2cdf706d824ca4bea119",
+      "frame": 0,
+      "crop_xyxy": [
+        1480,
+        70,
+        2700,
+        720
+      ],
+      "resampled": false,
+      "sha256": "6127936df8ccc3aa6624ba38884cef23b1eec160b03e250f8575207dd132ee89"
+    }
+  ],
+  "reproduction": {
+    "fixture_sha256": "ebe7525680a04ad3e461185027c577578fcd773be81887f9839d1973fd90ee65",
+    "readback_sha256": "86dd4695b343aff80b4a3cfde0b67cc2a9479367edd283e437350200fddccfd3",
+    "readback_source_sha256": "86dd4695b343aff80b4a3cfde0b67cc2a9479367edd283e437350200fddccfd3",
+    "readback_transform": "No line-ending transformation",
+    "reimport": "NOT_RUN"
+  }
+}

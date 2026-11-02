@@ -26,6 +26,34 @@ Gradient 3D [3Gd]は、**位置に応じて色が滑らかに変わる模様を�
 
 このNodeは<Term id="classic-3d">Classic 3D</Term>の**3D Material**を生成します。物体の形、ライト、3Dシーンを作るNodeではありません。映像全体にグラデーションを重ねたい場合は、画像を出力する2DのBackgroundなどと使い分けます。
 
+<!-- capture:S206 -->
+
+## 実機例：UVW座標を指定する
+
+`Gradient 3D` を `Shape 3D` の球に接続し、ライトとまとめてレンダリングしました。
+
+この球は元の座標では一様に見えました。`UV Map 3D` を間に入れ、XYZ to UVWと回転を指定すると、上下の濃淡が見えます。座標設定と回転を同時に変えた例です。[接続と設定の記録](/img/fusion/captures/S206/readback.json)に条件を記載しています。
+
+[![Gradient 3DとUV Map 3Dを使用して球を描画する構成](/img/fusion/captures/S206/graph.png)](/img/fusion/captures/S206/graph.png)
+
+UV Map 3Dで座標を指定します。
+
+[![Gradient 3DのLinearとScale 0.5の設定](/img/fusion/captures/S206/controls.png)](/img/fusion/captures/S206/controls.png)
+
+Linear、Scale 0.5の状態です。
+
+[![元の座標の球は一様に見える](/img/fusion/captures/S206/low.png)](/img/fusion/captures/S206/low.png)
+
+元の座標では一様に見えました。
+
+[![UVW座標を設定し回転した球](/img/fusion/captures/S206/high.png)](/img/fusion/captures/S206/high.png)
+
+XYZ to UVWと回転を指定すると、上下の濃淡が見えます。
+
+[再現用Graph](/img/fusion/captures/S206/fixture.comp) · [撮影条件と確認範囲](/img/fusion/captures/S206/capture.json)
+
+<!-- /capture:S206 -->
+
 ## 入力と出力
 
 **入力端子はありません。** 21.1 Reference Manualは、外部画像を受け取らず、Inspectorの色とパターンからグラデーションを生成すると説明しています。
@@ -136,4 +164,4 @@ Camera 3D ───────────────────────�
 
 **一次資料**：Blackmagic Design『DaVinci Resolve 21.1 Reference Manual』（2026年9月）、Chapter 91「3D Texture Nodes」、**Gradient 3D [3Gd]（pp.2095–2097）**。入力なし・Materialへの出力、既定の−1～＋1/Z軸方向のLinear、5種類のGradient Type、Gradient Bar、Interpolation Space、Scale、Offset、Repeat、Sub Pixel、Material ID、UV Map 3DとTexture Transformの処理単位の違いを照合しました。
 
-接続図と制作例はManualで確認できた仕様をもとにした説明です。Resolve 21.1実機での描画結果、内部REGID、Inspectorの数値範囲・Edition差は未確認のため、`verification: partial`を維持しています。
+上の実機例ではResolve 21.1の`TexGradient`を使い、UVW座標の指定と回転による描画を確認しました。その他の接続図と制作例はManualに基づく説明です。Inspectorの数値範囲・Edition差、他のGradient Typeやアニメーションは未確認のため、`verification: partial`を維持しています。
