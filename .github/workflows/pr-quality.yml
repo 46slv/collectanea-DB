@@ -21,7 +21,7 @@ jobs:
     container:
       image: mcr.microsoft.com/playwright:v1.56.0-noble
       options: --shm-size=1g
-    timeout-minutes: 20
+    timeout-minutes: 25
     defaults:
       run:
         shell: bash
@@ -63,9 +63,9 @@ jobs:
           node -e 'const fs=require("fs"),cp=require("child_process");fs.writeFileSync("artifacts/visual/candidate.json",JSON.stringify({head:process.env.CC_HEAD_SHA,tested:cp.execFileSync("git",["rev-parse","HEAD"],{encoding:"utf8"}).trim(),dirty:cp.execFileSync("git",["status","--porcelain"],{encoding:"utf8"}),node:process.version,browserImage:"mcr.microsoft.com/playwright:v1.56.0-noble"},null,2))'
           git archive --format=tar.gz HEAD > artifacts/source-snapshot.tar.gz
       - name: Serve production and verify real UI states
-        # The growing native-capture set exceeded five minutes after all other smoke checks passed.
-        # Keep every check mandatory; extend only the time budget for complete browser validation.
-        timeout-minutes: 10
+        # The mandatory 266-page native-capture sweep exceeded 10 minutes on PR #420.
+        # Preserve full browser coverage; allow time for the growing page set to finish.
+        timeout-minutes: 15
         run: |
           npm run serve -- --host 127.0.0.1 --port 3000 --no-open > artifacts/visual/server.log 2>&1 &
           SERVER_PID=$!
