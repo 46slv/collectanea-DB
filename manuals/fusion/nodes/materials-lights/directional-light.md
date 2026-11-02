@@ -26,6 +26,34 @@ updated: "2026-10-15"
 
 Directional Lightは光線そのものを空中へ描く効果ではなく、3D物体の表面に当たる照明を計算するための要素です。単体ノードをViewerへ表示しても完成画像にはなりません。
 
+<!-- capture:S197 -->
+
+## 実機例：ライトの方向を変える
+
+`Shape 3D` の球と `Directional Light` を `Merge 3D` でまとめ、照明を有効にした `Renderer 3D` で画像化しました。
+
+ライトのY回転を−35度から35度へ変えると、球の明るい位置が左から右へ移動します。ライト位置の変更や影の設定はこの例では比較していません。[接続と設定の記録](/img/fusion/captures/S197/readback.json)に条件を記載しています。
+
+[![球とDirectional LightをMerge 3Dでまとめレンダリングする構成](/img/fusion/captures/S197/graph.png)](/img/fusion/captures/S197/graph.png)
+
+球とライトを同じシーンへ接続します。
+
+[![Directional Lightの色と強度を示すInspector](/img/fusion/captures/S197/controls.png)](/img/fusion/captures/S197/controls.png)
+
+白いライトの強度を1に設定しています。
+
+[![ライトのY回転がマイナス35度の球](/img/fusion/captures/S197/left.png)](/img/fusion/captures/S197/left.png)
+
+Y回転−35度では左側が明るくなります。
+
+[![ライトのY回転が35度の球](/img/fusion/captures/S197/right.png)](/img/fusion/captures/S197/right.png)
+
+Y回転35度では右側が明るくなります。
+
+[再現用Graph](/img/fusion/captures/S197/fixture.comp) · [撮影条件と確認範囲](/img/fusion/captures/S197/capture.json)
+
+<!-- /capture:S197 -->
+
 ## 入力・出力と基本接続
 
 | 接続 | データ | 何が起きるか |
@@ -180,4 +208,4 @@ Blackmagic Design『**DaVinci Resolve 21.1 Reference Manual**』（2026年9月�
 
 ManualのDirectional Light節でShadowsの説明中に「spotlight」という表現が使われていますが、同じ節にDirectional Lightの影設定が明記されています。この用語の混在を「Directional Lightに影がない」という意味には解釈しません。
 
-実機でのREGID、正確なUI値域、Renderer別の完成画像、Edition差は未検証のため、`verification: partial`を維持しています。
+実機例ではREGID `LightDirectional` と2つの回転角の出力を確認しました。正確なUI値域、Renderer別の完成画像、Edition差は未検証のため、`verification: partial`を維持しています。

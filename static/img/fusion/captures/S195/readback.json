@@ -1,0 +1,55 @@
+{
+  "case": "S195",
+  "project": "Collectanea_Mandelbrot_Zoom_20261025",
+  "library": "Local Database",
+  "project_manager_folder": "root",
+  "timeline": "S195_capture",
+  "frame": 0,
+  "resolve": "21.1.0.14",
+  "edition": "DaVinci Resolve Studio",
+  "os": "Windows-11-10.0.26200-SP0",
+  "project_settings": {
+    "colorScienceMode": "davinciYRGB",
+    "colorSpaceInput": "Rec.709 Gamma 2.4",
+    "colorSpaceTimeline": "Rec.709 (Scene)",
+    "colorSpaceTimelineGamma": "",
+    "colorSpaceOutput": "Rec.709 (Scene)",
+    "colorSpaceOutputGamma": "ACEScc",
+    "isAutoColorManage": "0",
+    "timelineResolutionWidth": "1920",
+    "timelineResolutionHeight": "1080",
+    "timelineFrameRate": 30.0,
+    "timelinePlaybackFrameRate": "30",
+    "timelinePixelAspectRatio": "square"
+  },
+  "connections": {
+    "Grain.Input": "Plate",
+    "MediaOut1.Input": "Grain"
+  },
+  "values": {
+    "Plate": {
+      "UseFrameFormatSettings": 0.0,
+      "Width": 1920.0,
+      "Height": 1080.0,
+      "TopLeftRed": 0.25,
+      "TopLeftGreen": 0.25,
+      "TopLeftBlue": 0.25
+    },
+    "Grain": {
+      "MasterXSize": 4.0,
+      "MasterStrength": 0.4,
+      "Monochrome": 1.0,
+      "TimeLockSeed": 1.0
+    }
+  },
+  "source": "Synthetic neutral background through Film Grain.",
+  "save_project": true,
+  "save_completed_at": "2026-10-27T23:42:45.072536+00:00",
+  "native_export_sha256": "c5e789953a193cf2769e95a973bb00f4d15bb56a9e3955c74eb84d4d8bf2d520",
+  "portable_sha256": "32902e2663e4b00aa364fa6bbaddeb82d2244915f587d1fb88a5f18f468f362a",
+  "portable_reimport": "NOT_RUN",
+  "limits": [
+    "Synthetic uniform gray; real footage, temporal variation, channels and other hosts NOT_RUN.",
+    "Viewer screenshot is display evidence."
+  ]
+}

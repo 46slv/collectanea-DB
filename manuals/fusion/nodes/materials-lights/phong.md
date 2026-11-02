@@ -24,6 +24,34 @@ Phong [3Ph]は、**3D Objectの表面色と光沢を設定するMaterial Node**�
 
 Phong自体は3Dの形を作らず、2D画像を直接加工するNodeでもありません。出力は**3D Material**で、[Shape 3D](../3d/shape-3d.md)などのMaterial入力へ接続します。GeometryやLightを[Renderer 3D](../3d/renderer-3d.md)で描画すると、Phongの表面色・光沢が画像に現れます。データの接続関係は[Classic 3D scene](../../learn/02-data/classic-3d.md)で説明しています。
 
+<!-- capture:S202 -->
+
+## 実機例：ハイライトの強さを変える
+
+青い `Phong` を `Shape 3D` の球に接続し、`Directional Light` とまとめてレンダリングしました。
+
+同じ色・光源でSpecular Intensityを0から1に変えると、球にハイライトが現れます。これは一つの材質と照明条件の比較です。[接続と設定の記録](/img/fusion/captures/S202/readback.json)に条件を記載しています。
+
+[![Phongを球に接続しDirectional Lightとレンダリングする構成](/img/fusion/captures/S202/graph.png)](/img/fusion/captures/S202/graph.png)
+
+材質を球に接続し、ライトとまとめます。
+
+[![Phongの青い拡散色とSpecular Intensity 1の設定](/img/fusion/captures/S202/controls.png)](/img/fusion/captures/S202/controls.png)
+
+青い拡散色とSpecular Intensityを設定します。
+
+[![Specular Intensity 0で描画した青い球](/img/fusion/captures/S202/zero.png)](/img/fusion/captures/S202/zero.png)
+
+Intensity 0の状態です。
+
+[![Specular Intensity 1で描画した青い球](/img/fusion/captures/S202/one.png)](/img/fusion/captures/S202/one.png)
+
+Intensity 1でハイライトが現れます。
+
+[再現用Graph](/img/fusion/captures/S202/fixture.comp) · [撮影条件と確認範囲](/img/fusion/captures/S202/capture.json)
+
+<!-- /capture:S202 -->
+
 ## 入力と出力
 
 Phongには、色や反射を表面の場所ごとに変えるための**5つの任意入力**があります。入力した画像やMaterialの値は、Inspectorで設定した対応成分の値と掛け合わせて使います。
@@ -115,4 +143,4 @@ Fast Noiseから高さ画像を作り、[Bump Map](./bumpmap.md)でMaterialに�
 
 一次資料：Blackmagic Design『DaVinci Resolve 21.1 Reference Manual』（September 2026）、Chapter 90「3D Material Nodes」、**Phong [3Ph]（pp.2067–2070）**。5つの入力、Inspectorの項目、Bump Mapの接続、Material出力はこの節に基づきます。Blinnとのハイライト比較はChapter 84「3D Compositing Basics」（p.1851）も参照しています。
 
-`verification: partial`は、runtime REGID、Inspectorの初期値と範囲、Edition差、実機描画の結果が未確認であることを示します。Manualに根拠のない数値は記載していません。
+実機例ではruntime REGID `MtlPhong` と一つの照明条件での出力を確認しました。`verification: partial`は、Inspectorの初期値と範囲、Edition差、他の描画条件が未確認であることを示します。Manualに根拠のない数値は記載していません。

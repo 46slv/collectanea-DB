@@ -1,0 +1,58 @@
+{
+  "case": "S200",
+  "project": "Collectanea_Mandelbrot_Zoom_20261025",
+  "library": "Local Database",
+  "project_manager_folder": "root",
+  "timeline": "S200_capture",
+  "frame": 0,
+  "resolve": "21.1.0.14",
+  "edition": "DaVinci Resolve Studio",
+  "os": "Windows-11-10.0.26200-SP0",
+  "project_settings": {
+    "colorScienceMode": "davinciYRGB",
+    "colorSpaceInput": "Rec.709 Gamma 2.4",
+    "colorSpaceTimeline": "Rec.709 (Scene)",
+    "colorSpaceTimelineGamma": "",
+    "colorSpaceOutput": "Rec.709 (Scene)",
+    "colorSpaceOutputGamma": "ACEScc",
+    "isAutoColorManage": "0",
+    "timelineResolutionWidth": "1920",
+    "timelineResolutionHeight": "1080",
+    "timelineFrameRate": 30.0,
+    "timelinePlaybackFrameRate": "30",
+    "timelinePixelAspectRatio": "square"
+  },
+  "connections": {
+    "Scene.SceneInput1": "Primitive",
+    "Scene.SceneInput2": "KeyLight",
+    "Renderer.SceneInput": "Scene",
+    "MediaOut1.Input": "Renderer"
+  },
+  "values": {
+    "Primitive": {
+      "Shape": "SurfacePlaneInputs",
+      "Transform3DOp.Scale.X": 0.5
+    },
+    "KeyLight": {
+      "Transform3DOp.Translate.Z": 2.0,
+      "ConeAngle": 20.0
+    },
+    "Renderer": {
+      "RendererSoftware.LightingEnabled": 1.0
+    },
+    "cone_current": 25.0,
+    "cone_comparison": 10,
+    "plane_scale": 1.5,
+    "z": 2.0
+  },
+  "source": "Plane lit by Spot Light at cone angles 10 and 25 degrees.",
+  "save_project": true,
+  "save_completed_at": "2026-10-28T00:09:00.888883+00:00",
+  "native_export_sha256": "6df799897c9d9377cf276ebd21b82b67877222ac0ccac21d68b042b0cc22259b",
+  "portable_sha256": "36289ae449a03d1aa642591bb002db4f08a36cd8b0870755f36cce8a3ac9453a",
+  "portable_reimport": "NOT_RUN",
+  "limits": [
+    "One plane and two cone angles; penumbra, decay, shadows, animation and hosts NOT_RUN.",
+    "Viewer screenshot is display evidence."
+  ]
+}

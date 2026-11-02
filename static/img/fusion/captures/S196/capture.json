@@ -1,0 +1,118 @@
+{
+  "manual": {
+    "version": "21.1",
+    "chapter": 98,
+    "printed_pages": "2322–2323"
+  },
+  "runtime": {
+    "version": "21.1.0.14",
+    "edition": "DaVinci Resolve Studio",
+    "os": "Windows-11-10.0.26200-SP0",
+    "ui_language": "ja-JP"
+  },
+  "captured_at": "2026-10-27T23:45:17.255739+00:00",
+  "project": "Collectanea_Mandelbrot_Zoom_20261025",
+  "timeline": "S196_capture",
+  "frame": 0,
+  "resolution": [
+    1920,
+    1080
+  ],
+  "color_management": {
+    "project_settings": {
+      "colorScienceMode": "davinciYRGB",
+      "colorSpaceInput": "Rec.709 Gamma 2.4",
+      "colorSpaceTimeline": "Rec.709 (Scene)",
+      "colorSpaceTimelineGamma": "",
+      "colorSpaceOutput": "Rec.709 (Scene)",
+      "colorSpaceOutputGamma": "ACEScc",
+      "isAutoColorManage": "0",
+      "timelineResolutionWidth": "1920",
+      "timelineResolutionHeight": "1080",
+      "timelineFrameRate": 30.0,
+      "timelinePlaybackFrameRate": "30",
+      "timelinePixelAspectRatio": "square"
+    },
+    "note": "SDK project settings; screenshots show Viewer display."
+  },
+  "viewer": {
+    "view_mode": "Fit",
+    "source": "Left Grain; right MediaOut1",
+    "note": "Remove Noise selected; static frame."
+  },
+  "acceptance": {
+    "gui": "PASS: synthetic grain appears reduced after Remove Noise; SDK connections and settings read back.",
+    "article_display": "NOT_RUN",
+    "public_display": "NOT_RUN"
+  },
+  "unverified": [
+    "Synthetic grain on uniform gray; real footage, detail preservation, temporal behavior and other hosts NOT_RUN.",
+    "Viewer screenshot is display evidence.",
+    "Portable reimport and physical input provenance NOT_RUN.",
+    "Article verification remains partial."
+  ],
+  "schema_version": 1,
+  "case": "S196",
+  "article": "manuals/fusion/nodes/effects-film/remove-noise.md",
+  "graph": "fixture.comp",
+  "settings": "readback.json",
+  "source": {
+    "file": "screen.png",
+    "size": [
+      3336,
+      1902
+    ],
+    "sha256": "393d0e8ab97aabbb2502dcb51238188d2b9dbc56c8bdee03d6302986d6342039"
+  },
+  "shots": [
+    {
+      "file": "graph.png",
+      "source": "screen.png",
+      "source_sha256": "393d0e8ab97aabbb2502dcb51238188d2b9dbc56c8bdee03d6302986d6342039",
+      "frame": 0,
+      "crop_xyxy": [
+        700,
+        1050,
+        2250,
+        1600
+      ],
+      "resampled": false,
+      "sha256": "69cc15f46da48560de7821819d9fa3333b65aefccf7fa7fd5f5711bab8bad827"
+    },
+    {
+      "file": "controls.png",
+      "source": "screen.png",
+      "source_sha256": "393d0e8ab97aabbb2502dcb51238188d2b9dbc56c8bdee03d6302986d6342039",
+      "frame": 0,
+      "crop_xyxy": [
+        2815,
+        65,
+        3336,
+        360
+      ],
+      "resampled": false,
+      "sha256": "007e7c4f0ffa5a900cea4aeea68029bc277d10dc7133b357f9341c3661eb1ce8"
+    },
+    {
+      "file": "comparison.png",
+      "source": "screen.png",
+      "source_sha256": "393d0e8ab97aabbb2502dcb51238188d2b9dbc56c8bdee03d6302986d6342039",
+      "frame": 0,
+      "crop_xyxy": [
+        0,
+        65,
+        2800,
+        720
+      ],
+      "resampled": false,
+      "sha256": "c0962ed7a3ea83156c0f1651f32aa31d34323585c55bbc781a99d0da2de912a4"
+    }
+  ],
+  "reproduction": {
+    "fixture_sha256": "04c6b93b86e1ed5defdeebd08c2e08cbd1210c619475fa4f311a98d153c5eb7b",
+    "readback_sha256": "5dd85be11eefc08b24a811825359f4077333e81e78d23e9c2c2fba9bf3eb3a48",
+    "readback_source_sha256": "5dd85be11eefc08b24a811825359f4077333e81e78d23e9c2c2fba9bf3eb3a48",
+    "readback_transform": "No line-ending transformation",
+    "reimport": "NOT_RUN"
+  }
+}

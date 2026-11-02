@@ -26,6 +26,34 @@ Geometryを作ったり、2D画像に光を描き込んだりするNodeではあ
 
 Shape 3DなどのMaterialタブにある標準材質も、簡略化されたBlinnモデルです。独立したBlinn Nodeを使うと、表面色だけでなく、ハイライトの色・強さ・鋭さや細かな凹凸を、別々の画像で制御できます。
 
+<!-- capture:S201 -->
+
+## 実機例：ハイライトの広がりを変える
+
+赤い `Blinn` を `Shape 3D` の球に接続し、`Directional Light` とまとめてレンダリングしました。
+
+同じ色・光源でSpecular Exponentを10から80に変えると、ハイライトが小さくなります。これは一つの材質と照明条件の比較です。[接続と設定の記録](/img/fusion/captures/S201/readback.json)に条件を記載しています。
+
+[![Blinnを球に接続しDirectional Lightとレンダリングする構成](/img/fusion/captures/S201/graph.png)](/img/fusion/captures/S201/graph.png)
+
+材質を球に接続し、ライトとまとめます。
+
+[![Blinnの赤い拡散色とSpecular Exponent 80の設定](/img/fusion/captures/S201/controls.png)](/img/fusion/captures/S201/controls.png)
+
+赤い拡散色とSpecular Exponentを設定します。
+
+[![Specular Exponent 10で描画した赤い球](/img/fusion/captures/S201/low.png)](/img/fusion/captures/S201/low.png)
+
+Exponent 10ではハイライトが広がります。
+
+[![Specular Exponent 80で描画した赤い球](/img/fusion/captures/S201/high.png)](/img/fusion/captures/S201/high.png)
+
+Exponent 80ではハイライトが小さくなります。
+
+[再現用Graph](/img/fusion/captures/S201/fixture.comp) · [撮影条件と確認範囲](/img/fusion/captures/S201/capture.json)
+
+<!-- /capture:S201 -->
+
 ## 入力と出力
 
 Blinnには**5つの任意のMaterial/Texture入力**があります。各入力の画像やMaterialから得た値は、Inspectorで設定した対応成分の値と掛け合わせて使用します。
@@ -113,4 +141,4 @@ Diffuse Textureに色柄の画像を接続します。Specular Colorを白寄り
 
 **DaVinci Resolve 21.1 Reference Manual**（September 2026）、Chapter 90「3D Material Nodes」、**Blinn [3Bl]、pp.2047–2050**を基準に、5入力の種類、Material出力、Inspectorの各項目と入力画像による調整方法を確認しました。Fusion Fundamentals、Chapter 84（p.1851）もBlinnと標準材質の違い、Phongとの比較に使用しています。
 
-`verification: partial`はruntimeの内部REGID、Inspectorの正確な初期値・range、Edition別の表示や実機でのレンダリング結果が未検証であることを示します。これらをManualだけから推測していません。
+実機例では内部REGID `MtlBlinn` と一つの照明条件での出力を確認しました。`verification: partial`はInspectorの正確な初期値・range、Edition別の表示や他のレンダリング条件が未検証であることを示します。これらをManualだけから推測していません。
