@@ -37,6 +37,34 @@ Textureは、物体の表面に付ける色や模様です。画像を手描き�
 
 座標は物体の形を持つGeometry側で用意します。[Shape 3D](../3d/shape-3d.md)の基本形状は3つ目のTexture座標を利用できます。外部モデルなどで必要なら[UV Map 3D](../3d/uv-map-3d.md)の**XYZ to UVW**などを使って座標を作り直します。UV Map 3Dが変えるのは**模様を貼る位置の対応関係**であり、ノイズそのものではありません。
 
+<!-- capture:S205 -->
+
+## 実機例：ノイズの大きさを変える
+
+`Fast Noise Texture` を `Shape 3D` の球に接続し、`Directional Light` とまとめてレンダリングしました。
+
+2DモードでScaleを1から5に変えると、この球では模様が細かくなります。[接続と設定の記録](/img/fusion/captures/S205/readback.json)に条件を記載しています。
+
+[![Fast Noise Textureを球に接続しDirectional Lightとレンダリングする構成](/img/fusion/captures/S205/graph.png)](/img/fusion/captures/S205/graph.png)
+
+材質を球に接続し、ライトとまとめます。
+
+[![Fast Noise Textureの2DモードとScale 5の設定](/img/fusion/captures/S205/controls.png)](/img/fusion/captures/S205/controls.png)
+
+2Dモード、Scale 5の状態です。
+
+[![Scale 1で描画した球](/img/fusion/captures/S205/low.png)](/img/fusion/captures/S205/low.png)
+
+Scale 1では大きく緩やかな模様です。
+
+[![Scale 5で描画した球](/img/fusion/captures/S205/high.png)](/img/fusion/captures/S205/high.png)
+
+Scale 5では模様が細かく見えます。
+
+[再現用Graph](/img/fusion/captures/S205/fixture.comp) · [撮影条件と確認範囲](/img/fusion/captures/S205/capture.json)
+
+<!-- /capture:S205 -->
+
 ## 入力と出力
 
 ### 入力：SourceMaterial（任意）
@@ -147,4 +175,4 @@ FBX Mesh 3DへMaterialを割り当て、後段のUV Map 3DでGeometryのUVW座�
 
 **一次資料**：Blackmagic Design『DaVinci Resolve 21.1 Reference Manual』（2026年9月）、Chapter 91「3D Texture Nodes」、**Fast Noise Texture [3FN]（pp.2092–2094）**。解像度非依存のMaterial生成、SourceMaterial入力、2D/3DとUV/UVWの違い、Inspectorの各Control、3Dモードのアニメーション制限、FBXモデルを使った例を照合しました。
 
-接続図と制作例はManualで確認できた仕様に基づく構成例であり、Resolve 21.1実機での描画検証結果ではありません。端子の内部REGID、Inspectorの初期値・範囲、Edition差は未確認のため、`verification: partial`を維持しています。
+上の実機例ではResolve 21.1の`FastNoiseTexture3D`を使い、2DモードでScaleを変えた描画を確認しました。その他の接続図と制作例はManualに基づく構成例です。端子の内部REGID、Inspectorの初期値・範囲、Edition差、3Dモードやアニメーションの実機結果は未確認のため、`verification: partial`を維持しています。

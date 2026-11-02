@@ -37,6 +37,34 @@ Falloffはこの間を滑らかにつなぎます。Face OnとGlancingを二者�
 
 **注意：** ここでいう「斜め」は画面の左右端という意味ではありません。判定基準は**物体の表面の向きとカメラの方向**です。画面中央の物体でも、カメラに斜めを向く面ならGlancingの影響を受けます。
 
+<!-- capture:S208 -->
+
+## 実機例：正面と斜めの色を変える
+
+`Falloff` を `Shape 3D` の球に接続し、Face Onを赤、Glancingを青に設定しました。
+
+この球ではFalloff 1から4に変えると、青い部分が広がります。[接続と設定の記録](/img/fusion/captures/S208/readback.json)に条件を記載しています。
+
+[![Falloffを球に接続してレンダリングする構成](/img/fusion/captures/S208/graph.png)](/img/fusion/captures/S208/graph.png)
+
+材質を球に接続します。
+
+[![Face Onを赤、Glancingを青、Falloffを4に設定](/img/fusion/captures/S208/controls.png)](/img/fusion/captures/S208/controls.png)
+
+2色とFalloff 4の状態です。
+
+[![Falloff 1で描画した球](/img/fusion/captures/S208/low.png)](/img/fusion/captures/S208/low.png)
+
+Falloff 1の状態です。
+
+[![Falloff 4で描画した球](/img/fusion/captures/S208/high.png)](/img/fusion/captures/S208/high.png)
+
+Falloff 4では青い部分が広がります。
+
+[再現用Graph](/img/fusion/captures/S208/fixture.comp) · [撮影条件と確認範囲](/img/fusion/captures/S208/capture.json)
+
+<!-- /capture:S208 -->
+
 ## 入力と出力
 
 DaVinci Resolve 21.1 Reference Manualには、次の**2つの入力**が記載されています。
@@ -143,4 +171,4 @@ Falloffの入力へ2D画像を渡せても、画像のマスクとしてRGBの�
 
 **一次資料**：Blackmagic Design『DaVinci Resolve 21.1 Reference Manual』（2026年9月）、Chapter 91「3D Texture Nodes」、**Falloff [3Fa]（pp.2090–2092）**。Nodeの役割、Face On / Glancingの2入力と受け取れるデータ、Material出力、Blinn / Reflectの接続例、Color Variation、Face On Color、Glancing Color、Falloff、Material IDを確認しました。
 
-本文の制作例はManualの仕様を組み合わせて説明したもので、Resolve 21.1実機の描画結果ではありません。出力端子の内部REGID、Inspectorの正確な初期値・数値範囲、Edition差は未確認のため、verification: partialを維持しています。
+上の実機例ではResolve 21.1の`FalloffOperator`を使い、2色とFalloff値を変えた描画を確認しました。他の制作例はManualの仕様を組み合わせた説明です。出力端子の内部REGID、Inspectorの正確な初期値・数値範囲、Edition差、Material入力やGradientモードは未確認のため、verification: partialを維持しています。

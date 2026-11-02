@@ -28,6 +28,34 @@ Fusionでは、3D表面のどの位置に模様を表示するかを**テクス�
 
 入力した画像やMaterialを、3D表面上でどの位置・角度・大きさで参照するかを調整します。頂点を動かして形状を変える処理ではなく、**材質の模様の配置を変える処理**です。
 
+<!-- capture:S210 -->
+
+## 実機例：模様の位置をずらす
+
+`Fast Noise Texture` を `Texture Transform` に通し、球の材質として描画しました。
+
+Translation Uを0から0.25に変えると、この球ではノイズ模様の位置が変わります。球の位置は変えていません。数値はSDKで読み戻しています。[接続と設定の記録](/img/fusion/captures/S210/readback.json)に条件を記載しています。
+
+[![Fast Noise TextureをTexture Transformに通して球を描画する構成](/img/fusion/captures/S210/graph.png)](/img/fusion/captures/S210/graph.png)
+
+模様を変換して球に渡します。
+
+[![Texture TransformのInspector](/img/fusion/captures/S210/controls.png)](/img/fusion/captures/S210/controls.png)
+
+Texture TransformのInspectorです。
+
+[![Translation U 0で描画した球](/img/fusion/captures/S210/low.png)](/img/fusion/captures/S210/low.png)
+
+Translation U 0の状態です。
+
+[![Translation U 0.25で描画した球](/img/fusion/captures/S210/high.png)](/img/fusion/captures/S210/high.png)
+
+Translation U 0.25では模様の位置が変わります。
+
+[再現用Graph](/img/fusion/captures/S210/fixture.comp) · [撮影条件と確認範囲](/img/fusion/captures/S210/capture.json)
+
+<!-- /capture:S210 -->
+
 ## 入力
 
 - **Material Input（オレンジ）**：2D Imageまたは3D Materialを1つ受け取ります。ロゴ画像などを直接つなぐか、別のMaterial Nodeの出力をつなぎます。
@@ -100,4 +128,4 @@ Point Light ──────────────────────�
 
 一次資料：Blackmagic Design『DaVinci Resolve 21.1 Reference Manual』（September 2026）、Chapter 91「3D Texture Nodes」、**Texture Transform [3TT]（pp.2104–2106）**。1つのMaterial Inputが2D Image / 3D Materialを受け取ること、3D Material出力、Translation・Rotation・Scale・Pivot・Material IDを確認しました。UV Map 3Dとの処理単位の違いは同ManualのGradient 3D（p.2095）も参照しています。
 
-`verification: partial`は、内部REGID、Inspectorの初期値・数値範囲、Edition差、実機での描画結果を未検証としているためです。
+`verification: partial`は、上の実機例に限り`TextureTransformOperator`とTranslation Uを変えた描画を確認した状態です。Inspectorの初期値・数値範囲、Edition差、回転・拡大やアニメーションの実機結果は未検証です。

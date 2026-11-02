@@ -24,6 +24,34 @@ Cook Torrance [3CT]は、**3Dオブジェクトの表面色と光の反射を設
 
 Cook TorranceはGeometryやLightを作りません。出力するのは**3D Material**で、[Shape 3D](../3d/shape-3d.md)などのMaterial入力へ接続します。Geometry・Light・Cameraを[Merge 3D](../3d/merge-3d.md)でまとめ、[Renderer 3D](../3d/renderer-3d.md)で描画すると反射が画像になります。基本のデータの流れは[Classic 3D scene](../../learn/02-data/classic-3d.md)で説明しています。
 
+<!-- capture:S203 -->
+
+## 実機例：Roughnessを変える
+
+`Cook Torrance` を `Shape 3D` の球に接続し、`Directional Light` とまとめてレンダリングしました。
+
+同じ色・光源でRoughnessを0.1から0.4に変えると、この例では小さく明るいハイライトが広く弱くなります。Fresnelは有効です。[接続と設定の記録](/img/fusion/captures/S203/readback.json)に条件を記載しています。
+
+[![Cook Torranceを球に接続しDirectional Lightとレンダリングする構成](/img/fusion/captures/S203/graph.png)](/img/fusion/captures/S203/graph.png)
+
+材質を球に接続し、ライトとまとめます。
+
+[![Cook TorranceのRoughness 0.4とFresnelの設定](/img/fusion/captures/S203/controls.png)](/img/fusion/captures/S203/controls.png)
+
+Roughness 0.4、Fresnel有効の状態です。
+
+[![Roughness 0.1で描画した球](/img/fusion/captures/S203/low.png)](/img/fusion/captures/S203/low.png)
+
+Roughness 0.1では小さく明るいハイライトです。
+
+[![Roughness 0.4で描画した球](/img/fusion/captures/S203/high.png)](/img/fusion/captures/S203/high.png)
+
+Roughness 0.4ではハイライトが広く弱くなります。
+
+[再現用Graph](/img/fusion/captures/S203/fixture.comp) · [撮影条件と確認範囲](/img/fusion/captures/S203/capture.json)
+
+<!-- /capture:S203 -->
+
 ## 入力と出力
 
 Cook Torranceには**6つの任意入力**があります。何も接続しなくても、Inspectorだけで均一な色と光沢を作れます。画像や別のMaterialを接続すると、表面の位置ごとに色や反射を変えられます。
@@ -119,4 +147,4 @@ Diffuse Color Materialへ塗装の模様を入力し、Specular Intensity Materi
 
 一次資料：Blackmagic Design『DaVinci Resolve 21.1 Reference Manual』（September 2026）、Chapter 90「3D Material Nodes」、**Cook Torrance [3CT]（pp.2054–2058）**。6入力、Material出力、Roughness / Fresnel / Transmittanceを含むInspectorの説明を確認しました。
 
-`verification: partial`は、runtime REGID、各値の初期値・範囲、Edition差、実機の描画結果が未確認であることを示します。Refractive Index用画像のチャンネル処理も、Manual内の記述に差があるため未確定としています。
+実機例ではruntime REGID `MtlCookTorrance` と一つの照明条件での出力を確認しました。`verification: partial`は、各値の初期値・範囲、Edition差、他の描画条件が未確認であることを示します。Refractive Index用画像のチャンネル処理も、Manual内の記述に差があるため未確定としています。

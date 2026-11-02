@@ -1,0 +1,132 @@
+{
+  "manual": {
+    "version": "21.1",
+    "chapter": 91,
+    "printed_pages": "2095–2097"
+  },
+  "runtime": {
+    "version": "21.1.0.14",
+    "edition": "DaVinci Resolve Studio",
+    "os": "Windows-11-10.0.26200-SP0",
+    "ui_language": "ja-JP"
+  },
+  "captured_at": "2026-10-28T00:47:47.019746+00:00",
+  "project": "Collectanea_Mandelbrot_Zoom_20261025",
+  "timeline": "S206_capture",
+  "frame": 0,
+  "resolution": [
+    1920,
+    1080
+  ],
+  "color_management": {
+    "project_settings": {
+      "colorScienceMode": "davinciYRGB",
+      "colorSpaceInput": "Rec.709 Gamma 2.4",
+      "colorSpaceTimeline": "Rec.709 (Scene)",
+      "colorSpaceTimelineGamma": "",
+      "colorSpaceOutput": "Rec.709 (Scene)",
+      "colorSpaceOutputGamma": "ACEScc",
+      "isAutoColorManage": "0",
+      "timelineResolutionWidth": "1920",
+      "timelineResolutionHeight": "1080",
+      "timelineFrameRate": 30.0,
+      "timelinePlaybackFrameRate": "30",
+      "timelinePixelAspectRatio": "square"
+    },
+    "note": "SDK project settings; screenshots show Viewer display."
+  },
+  "viewer": {
+    "view_mode": "Fit",
+    "source": "Left Scene; right MediaOut1",
+    "note": "Gradient 3D selected."
+  },
+  "acceptance": {
+    "gui": "PASS: mapped and rotated XYZ to UVW shows a gradient compared with the original sphere; SDK settings and connections read back.",
+    "article_display": "NOT_RUN",
+    "public_display": "NOT_RUN"
+  },
+  "unverified": [
+    "One sphere and one UV mapping; other gradient types, animation and hosts NOT_RUN.",
+    "Viewer screenshot is display evidence.",
+    "Portable reimport and physical input provenance NOT_RUN.",
+    "Article verification remains partial."
+  ],
+  "schema_version": 1,
+  "case": "S206",
+  "article": "manuals/fusion/nodes/materials-lights/gradient-3d.md",
+  "graph": "fixture.comp",
+  "settings": "readback.json",
+  "source": {
+    "file": "screen.png",
+    "size": [
+      3336,
+      1902
+    ],
+    "sha256": "7e606f72b501a887dd2deb5b3a42e6ad659155fe768cf37e46865c5dd30a654f"
+  },
+  "shots": [
+    {
+      "file": "graph.png",
+      "source": "screen.png",
+      "source_sha256": "7e606f72b501a887dd2deb5b3a42e6ad659155fe768cf37e46865c5dd30a654f",
+      "frame": 0,
+      "crop_xyxy": [
+        350,
+        1050,
+        2550,
+        1650
+      ],
+      "resampled": false,
+      "sha256": "8e63fbe22ea70767c342c431154a9a61466e4c1234670c671553bfb6e7061b9c"
+    },
+    {
+      "file": "controls.png",
+      "source": "screen.png",
+      "source_sha256": "7e606f72b501a887dd2deb5b3a42e6ad659155fe768cf37e46865c5dd30a654f",
+      "frame": 0,
+      "crop_xyxy": [
+        2815,
+        65,
+        3336,
+        750
+      ],
+      "resampled": false,
+      "sha256": "c8a2a5d21cc843bb676b64ece092537334d442540a36b9ade4ef6e513e62f06f"
+    },
+    {
+      "file": "low.png",
+      "source": "state-low.png",
+      "source_sha256": "32625853d61b923699c9c6e2d6b8656e192ed16f423715a0dacd09efac66238e",
+      "frame": 0,
+      "crop_xyxy": [
+        1480,
+        70,
+        2700,
+        720
+      ],
+      "resampled": false,
+      "sha256": "4a07b4f6767901cb0fe9727cf525c9b55c1271dd8eb9bf5e7d4736562753a7da"
+    },
+    {
+      "file": "high.png",
+      "source": "screen.png",
+      "source_sha256": "7e606f72b501a887dd2deb5b3a42e6ad659155fe768cf37e46865c5dd30a654f",
+      "frame": 0,
+      "crop_xyxy": [
+        1480,
+        70,
+        2700,
+        720
+      ],
+      "resampled": false,
+      "sha256": "2223749b8ff950b7cd22754d7ba809dcd0a9f685a293068dc505e6fbcf6f6cea"
+    }
+  ],
+  "reproduction": {
+    "fixture_sha256": "5a25bce90d20bffd0e64b894231d883dba820b2c328d003c11383efd3dea2fb6",
+    "readback_sha256": "5da814416b37dd94a936ad9a8c5d8aa4575c25a40c469ff3f1826c62bb3b4a51",
+    "readback_source_sha256": "5da814416b37dd94a936ad9a8c5d8aa4575c25a40c469ff3f1826c62bb3b4a51",
+    "readback_transform": "No line-ending transformation",
+    "reimport": "NOT_RUN"
+  }
+}

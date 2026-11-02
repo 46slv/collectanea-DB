@@ -1,0 +1,132 @@
+{
+  "manual": {
+    "version": "21.1",
+    "chapter": 91,
+    "printed_pages": "2092–2094"
+  },
+  "runtime": {
+    "version": "21.1.0.14",
+    "edition": "DaVinci Resolve Studio",
+    "os": "Windows-11-10.0.26200-SP0",
+    "ui_language": "ja-JP"
+  },
+  "captured_at": "2026-10-28T00:44:44.615920+00:00",
+  "project": "Collectanea_Mandelbrot_Zoom_20261025",
+  "timeline": "S205_capture",
+  "frame": 0,
+  "resolution": [
+    1920,
+    1080
+  ],
+  "color_management": {
+    "project_settings": {
+      "colorScienceMode": "davinciYRGB",
+      "colorSpaceInput": "Rec.709 Gamma 2.4",
+      "colorSpaceTimeline": "Rec.709 (Scene)",
+      "colorSpaceTimelineGamma": "",
+      "colorSpaceOutput": "Rec.709 (Scene)",
+      "colorSpaceOutputGamma": "ACEScc",
+      "isAutoColorManage": "0",
+      "timelineResolutionWidth": "1920",
+      "timelineResolutionHeight": "1080",
+      "timelineFrameRate": 30.0,
+      "timelinePlaybackFrameRate": "30",
+      "timelinePixelAspectRatio": "square"
+    },
+    "note": "SDK project settings; screenshots show Viewer display."
+  },
+  "viewer": {
+    "view_mode": "Fit",
+    "source": "Left Scene; right MediaOut1",
+    "note": "Fast Noise Texture selected."
+  },
+  "acceptance": {
+    "gui": "PASS: Scale 1 and 5 produce different pattern sizes on this sphere; SDK settings and connections read back.",
+    "article_display": "NOT_RUN",
+    "public_display": "NOT_RUN"
+  },
+  "unverified": [
+    "One sphere, 2D mode and two scale values; 3D mode, animation and other hosts NOT_RUN.",
+    "Viewer screenshot is display evidence.",
+    "Portable reimport and physical input provenance NOT_RUN.",
+    "Article verification remains partial."
+  ],
+  "schema_version": 1,
+  "case": "S205",
+  "article": "manuals/fusion/nodes/materials-lights/fast-noise-texture.md",
+  "graph": "fixture.comp",
+  "settings": "readback.json",
+  "source": {
+    "file": "screen.png",
+    "size": [
+      3336,
+      1902
+    ],
+    "sha256": "ce9e1034e40b1c68002f9eeabd156733b7388345725d6a78f890f72784880aff"
+  },
+  "shots": [
+    {
+      "file": "graph.png",
+      "source": "screen.png",
+      "source_sha256": "ce9e1034e40b1c68002f9eeabd156733b7388345725d6a78f890f72784880aff",
+      "frame": 0,
+      "crop_xyxy": [
+        500,
+        1050,
+        2350,
+        1650
+      ],
+      "resampled": false,
+      "sha256": "b4ef944aedb45b0b8f63bb8fde6367243e27e23d496b1dbc039c3e7dba93ed91"
+    },
+    {
+      "file": "controls.png",
+      "source": "screen.png",
+      "source_sha256": "ce9e1034e40b1c68002f9eeabd156733b7388345725d6a78f890f72784880aff",
+      "frame": 0,
+      "crop_xyxy": [
+        2815,
+        65,
+        3336,
+        750
+      ],
+      "resampled": false,
+      "sha256": "254de088c3c9f12d903d25b0bc00a163638533ff29935d3a3aee7bc778ef245e"
+    },
+    {
+      "file": "low.png",
+      "source": "state-low.png",
+      "source_sha256": "3e4221fde35628875fb379f68100ab305bc3709adcae4d5436b51a803b15c2a2",
+      "frame": 0,
+      "crop_xyxy": [
+        1480,
+        70,
+        2700,
+        720
+      ],
+      "resampled": false,
+      "sha256": "171f91cd1b9df0f8d5c5d06dbe65fa9de49dbc4f9c285d02e4f3b6e8fe56289a"
+    },
+    {
+      "file": "high.png",
+      "source": "screen.png",
+      "source_sha256": "ce9e1034e40b1c68002f9eeabd156733b7388345725d6a78f890f72784880aff",
+      "frame": 0,
+      "crop_xyxy": [
+        1480,
+        70,
+        2700,
+        720
+      ],
+      "resampled": false,
+      "sha256": "ab2a928f23867dbfb8891d5fb4dd8d9f60877bc9f5c6d6d2e172f7c3707f7729"
+    }
+  ],
+  "reproduction": {
+    "fixture_sha256": "df9d6de653cd9fedef15a7f44e0668d259e38ee55da1c8cb1fce7145ce7cd565",
+    "readback_sha256": "f6158deafd0e8eca970d18c1e48da8501b550e3f936b4e23067f1e02b765d9cc",
+    "readback_source_sha256": "f6158deafd0e8eca970d18c1e48da8501b550e3f936b4e23067f1e02b765d9cc",
+    "readback_transform": "No line-ending transformation",
+    "reimport": "NOT_RUN"
+  }
+}

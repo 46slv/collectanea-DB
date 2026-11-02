@@ -1,0 +1,66 @@
+{
+  "case": "S208",
+  "project": "Collectanea_Mandelbrot_Zoom_20261025",
+  "library": "Local Database",
+  "project_manager_folder": "root",
+  "timeline": "S208_capture",
+  "frame": 0,
+  "resolve": "21.1.0.14",
+  "edition": "DaVinci Resolve Studio",
+  "os": "Windows-11-10.0.26200-SP0",
+  "project_settings": {
+    "colorScienceMode": "davinciYRGB",
+    "colorSpaceInput": "Rec.709 Gamma 2.4",
+    "colorSpaceTimeline": "Rec.709 (Scene)",
+    "colorSpaceTimelineGamma": "",
+    "colorSpaceOutput": "Rec.709 (Scene)",
+    "colorSpaceOutputGamma": "ACEScc",
+    "isAutoColorManage": "0",
+    "timelineResolutionWidth": "1920",
+    "timelineResolutionHeight": "1080",
+    "timelineFrameRate": 30.0,
+    "timelinePlaybackFrameRate": "30",
+    "timelinePixelAspectRatio": "square"
+  },
+  "connections": {
+    "Primitive.MaterialInput": "Material",
+    "Scene.SceneInput1": "Primitive",
+    "Scene.SceneInput2": "KeyLight",
+    "Renderer.SceneInput": "Scene",
+    "MediaOut1.Input": "Renderer"
+  },
+  "values": {
+    "Material": {
+      "FaceOn.Red": 0.8,
+      "FaceOn.Green": 0.05,
+      "FaceOn.Blue": 0.05,
+      "Glancing.Red": 0.05,
+      "Glancing.Green": 0.1,
+      "Glancing.Blue": 0.8,
+      "Falloff": 1.0
+    },
+    "Primitive": {
+      "Shape": "SurfaceSphereInputs",
+      "Transform3DOp.Scale.X": 0.5
+    },
+    "KeyLight": {
+      "Transform3DOp.Rotate.Y": -35.0
+    },
+    "Renderer": {
+      "RendererSoftware.LightingEnabled": 1.0
+    },
+    "current_falloff": 4.0,
+    "comparison_falloff": 1,
+    "face_opacity": 1.0
+  },
+  "source": "Falloff on a sphere with face-on red and glancing blue; falloff 1 and 4.",
+  "save_project": true,
+  "save_completed_at": "2026-10-28T00:54:28.062484+00:00",
+  "native_export_sha256": "e814e21eb9ebb784a4bc5cd8257a952caa7f478719b543bbfaa8850a990d4d36",
+  "portable_sha256": "61c9a1b5d5c362b1729d7cbc1297f4fdc91544e3b25ae8c69610a85d7b19a41c",
+  "portable_reimport": "NOT_RUN",
+  "limits": [
+    "One sphere and two falloff values; material inputs, gradient mode, animation and other hosts NOT_RUN.",
+    "Viewer screenshot is display evidence."
+  ]
+}
