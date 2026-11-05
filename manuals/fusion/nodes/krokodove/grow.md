@@ -37,6 +37,32 @@ DaVinci Resolve 21.1 Reference Manualは、Growを「一つ以上のseed locator
 
 Growは、画像そのものを拡大する一般的な「スケール」の操作とも違います。画面上で画像が現れる場所・範囲の変化を扱うのがManualで説明された目的であり、オブジェクト全体の縦横寸法を大きくする効果だとは記されていません。
 
+<!-- capture:S261 -->
+
+## 実機例：文字の一部を表示する
+
+合成した文字 `GROW` を `Grow` に接続し、Grow Startを0、Grow Endを0.5、Seedを1つに設定しました。この静止画では中央の `O` が表示されます。Viewerには透明部分の市松模様と操作用オーバーレイが表示されています。アニメーションやほかのSeedは未検証です。[接続と設定の記録](/img/fusion/captures/S261/readback.json)に条件を記載しています。
+
+[![文字をGrowへつなぐノード構成](/img/fusion/captures/S261/graph.png)](/img/fusion/captures/S261/graph.png)
+
+合成文字をGrowへ渡します。
+
+[![GrowのInspector](/img/fusion/captures/S261/controls.png)](/img/fusion/captures/S261/controls.png)
+
+Grow Startは0、Grow Endは0.5です。
+
+[![入力の文字GROW](/img/fusion/captures/S261/low.png)](/img/fusion/captures/S261/low.png)
+
+入力にはGROWと表示されています。
+
+[![Growの出力に表示されたO](/img/fusion/captures/S261/high.png)](/img/fusion/captures/S261/high.png)
+
+この設定では中央のOが表示されています。
+
+[再現用Graph](/img/fusion/captures/S261/fixture.comp) · [撮影条件と確認範囲](/img/fusion/captures/S261/capture.json)
+
+<!-- /capture:S261 -->
+
 ## 入力と出力
 
 | 段階 | データ | このページで確認できること |
@@ -110,7 +136,7 @@ Grow後の画像をMergeの前景へ、背景映像を背景へ渡します。Vi
 - **時間の扱い：** 自動的にアニメーションするか、どの設定をキーフレーム化するか、出現と消失をどう切り替えるかは実機未確認です。
 - **複数の開始位置：** 「一つ以上」は公式説明にありますが、位置の最大数、個別の速度・時刻・強度を設定できるかは不明です。
 - **素材の透明度：** 結果が見えにくい場合は、Grow前後のViewerとMerge後の画面を比べます。RGBが変化したのかAlphaが変化したのかを混同しないことが重要です。
-- **バージョン／製品差：** 正式なInspector項目、初期値、値域、内部REGID、Resolve Free／Studio／Fusion Studioの差、実機のEffects Library表示は確認できていません。
+- **バージョン／製品差：** 今回の画面ではGrow StartとGrow Endを確認しました。その他のInspector項目の意味、初期値、値域、内部REGID、Resolve Free／Studio／Fusion Studioの差、実機のEffects Library表示は未確認です。
 
 ## 関連ページ・出典
 
@@ -118,4 +144,4 @@ Grow後の画像をMergeの前景へ、背景映像を背景へ渡します。Vi
 
 **一次資料：** Blackmagic Design『DaVinci Resolve 21.1 Reference Manual』（September 2026）、Chapter 105「Krokodove Nodes」、**p.2434、Image Tools — Grow**。Growは「一つ以上のseed locatorを起点に画像を現したり消したりする」ツールとして掲載されています。同ページのGrow Color、Fragments、Extendの説明も比較に使用しました。
 
-公式資料の入口は[Blackmagic Designサポート](https://www.blackmagicdesign.com/jp/support/)です。上の用途と接続例は、Manualに記載された役割をもとに組み立てた**制作・確認の提案**であり、実機での再現実績ではありません。Inspectorや挙動の未確認範囲が残るため、`verification: partial`を維持します。
+公式資料の入口は[Blackmagic Designサポート](https://www.blackmagicdesign.com/jp/support/)です。用途と最小構成の手順は、Manualに記載された役割をもとに組み立てた**制作・確認の提案**です。実機例は上記の静止画の一条件に限られます。Inspectorや挙動の未確認範囲が残るため、`verification: partial`を維持します。
