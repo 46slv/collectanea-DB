@@ -35,23 +35,49 @@ Manualが明記する色の扱いは、次の二つです。
 
 KrokodoveのNoiseは、21.1 Manualでは「Image Pixel Tools」に分類されています。画像として見える模様を作る項目であり、FusionのShapeデータや3Dシーン、Regionデータを生成する項目としては説明されていません。
 
+<!-- capture:S263 -->
+
+## 実機例：色付きの格子状ノイズ
+
+合成した白黒グラデーションを `Noise` に接続し、Base Position、Combine Replace、Size Grid、Size X/Yを32、Colors Randomに設定しました。この静止画では色付きの格子状パターンが表示されます。色の指定やアニメーション、Alpha値は未検証です。[接続と設定の記録](/img/fusion/captures/S263/readback.json)に条件を記載しています。
+
+[![グラデーションをNoiseへつなぐノード構成](/img/fusion/captures/S263/graph.png)](/img/fusion/captures/S263/graph.png)
+
+合成グラデーションをNoiseへ渡します。
+
+[![NoiseのInspector](/img/fusion/captures/S263/controls.png)](/img/fusion/captures/S263/controls.png)
+
+Grid、Size X/Y 32、Colors Randomを指定します。
+
+[![入力の白黒グラデーション](/img/fusion/captures/S263/low.png)](/img/fusion/captures/S263/low.png)
+
+入力は黒から白へのグラデーションです。
+
+[![色付きの格子状ノイズ](/img/fusion/captures/S263/high.png)](/img/fusion/captures/S263/high.png)
+
+出力に色付きの格子状パターンが見えます。
+
+[再現用Graph](/img/fusion/captures/S263/fixture.comp) · [撮影条件と確認範囲](/img/fusion/captures/S263/capture.json)
+
+<!-- /capture:S263 -->
+
 ## 入力と出力
 
 | 段階 | 扱うもの | 確認できる範囲 |
 | --- | --- | --- |
-| 入力 | **未確定**。元画像を必ず接続するか、接続せず生成できるかは未確認 | Manualには入力端子の説明がありません。「Image Pixel Tools」という分類だけで必須画像入力があるとは断定しません。 |
+| 入力 | **未確定**。実機例ではグラデーションを接続。接続せず生成できるかは未確認 | Manualには入力端子の説明がありません。「Image Pixel Tools」という分類だけで必須画像入力があるとは断定しません。 |
 | 処理 | ピクセル状の模様を作り、ランダム生成または指定した色を使う | 21.1 Manual、Chapter 105、p.2436に記載。 |
 | 出力 | 2Dの<Term id="image">Image</Term>として扱う | 公式Manualの画像ツール分類と既存COLLECTANEAカタログに基づく整理。端子の正式名称、Alphaや解像度の扱いは未確認。 |
 
 ここでいうImageは、画面を構成する画素の色・透明度などの情報です。輪郭を描画前の形で保持する<Term id="shape-data">Shapeデータ</Term>とは異なります。Noiseの結果を通常の2D画像合成へ渡したい場合は、まずViewerに表示できる出力を確認してください。
 
-**入力についての注意**：旧カタログでは入力分類をimageとしていましたが、ManualのNoise紹介文から必須入力を裏付けられません。正式な端子名・数や入力の要否は、21.1実機のノードタイルとInspectorで追加確認が必要です。
+**入力についての注意**：旧カタログでは入力分類をimageとしていましたが、ManualのNoise紹介文から必須入力を裏付けられません。今回の実機例では画像を接続していますが、正式な端子名・数や入力の要否は追加確認が必要です。
 
 ## 主な用途
 
 ### タイトルやグラフィックの背景
 
-整った文字やロゴの後ろに、色の粒がある背景を作る用途が考えられます。幾何学的なパターンより不規則な印象にしたい場合に向きます。ただし、粒の密度や大きさをNoise単体でどこまで調整できるかは未確認です。
+整った文字やロゴの後ろに、色の粒がある背景を作る用途が考えられます。幾何学的なパターンより不規則な印象にしたい場合に向きます。実機例ではGridとSize X/Yを32に設定しました。設定を変えた比較や調整範囲は未確認です。
 
 ### 映像に色のざらつきを薄く重ねる
 
@@ -65,8 +91,8 @@ Noiseが画像を出力できれば、標準のMergeで実写に重ねる構成�
 
 次は標準の[Merge](../compositing/merge)と組み合わせる**構成案**です。Noise自体の正式な配線手順やプリセットを示す公式作例ではありません。
 
-1. FusionページでNoiseを追加し、単独でViewerに表示できるかを確認します。出力が得られない場合は、ノードタイルの入力を確認します。入力画像が必要と分かった場合に限り、Backgroundなどの画像をつないで再確認してください。
-2. Noiseの出力に模様が現れたら、Viewerで色の出方と粒立ちを確認します。Inspectorにランダム色・指定色に相当する設定があるかを確認し、**表示された名称**に従って操作します。この記事では未確認の項目名を作りません。
+1. FusionページでNoiseを追加し、単独でViewerに表示できるかを確認します。出力が得られない場合は、ノードタイルの入力を確認します。上の実機例ではBackgroundのグラデーションをつないでいます。
+2. Noiseの出力に模様が現れたら、Viewerで色の出方と粒立ちを確認します。Inspectorにランダム色・指定色に相当する設定があるかを確認し、**表示された名称**に従って操作します。今回の実機例で見える項目は上記の設定を参照してください。
 3. 別のMediaInで元映像を用意し、MergeのBackground（BG）へ接続します。Noiseの画像出力をForeground（FG）へ接続します。
 4. 画面がNoiseの模様で覆われる場合は、Merge側のBlendを下げ、映像が見える比率へ調整します。Noise出力に透明部分があるかは別途Alpha表示で確認します。
 5. 模様を画面の一部に限定したければ、MergeのEffect Maskへ適切なマスク画像を渡す方法を検討します。Noise自身にマスク端子があると確認したわけではありません。
@@ -100,6 +126,6 @@ NoiseとGenerateの違いは、ManualがNoiseについて**ピクセル状の模
 - **比較資料**：同Manual p.2434（Dither）、p.2435（Generate・Rasterize）、pp.2363–2365（Fast Noise）。Fast Noiseの詳細項目は標準Generator側の記述であり、Krokodove Noiseへそのまま当てはめません。
 - **関連**：[Krokodoveの画像・Shape・3D・Region](./)にFamilyごとのデータの違いを整理しています。
 
-**未確認**：21.1での正式な入出力端子名・数・接続要否、Inspectorの項目名・初期値・範囲、色の指定方式とランダム化の単位、ノイズ生成方式、Alpha・解像度・DoD、時間変化・アニメーション可否、Free / Studio・Fusion StudioのEdition差、実機の表示とREGID。
+**未確認**：21.1での正式な入出力端子名・数・接続要否、今回の例以外のInspector項目の意味・初期値・範囲、色の指定方式とランダム化の単位、ノイズ生成方式、Alpha・解像度・DoD、時間変化・アニメーション可否、Free / Studio・Fusion StudioのEdition差、実機の他の設定での表示とREGID。
 
 公式Manualで確認した基本機能と、実機で検証する必要のある詳細が混在するため、verificationはpartialです。
