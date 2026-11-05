@@ -30,11 +30,35 @@ Linesは、**線を何本も繰り返し配置して模様を作る**Krokodove�
 
 ここでの「線」は**画像に描かれる線模様**で、Fusionの標準Shape系が扱う<Term id="shape-data">Shapeデータ</Term>（図形の輪郭などを保持し、描画前に加工できる情報）とは区別します。Shapeデータを画素画像に変換するときは[sRender](../shapes/s-render)を使用します。
 
+<!-- capture:S250 -->
+
+## 実機例：繰り返し線を生成する
+
+`Lines` から画像を生成し、FirstのAngle 1を45、Spacing 1を0.1に設定しました。
+
+この例では白い繰り返し線が見えます。Viewerには市松模様と操作用オーバーレイが表示されています。他の線の組やAlphaの数値は未検証です。[接続と設定の記録](/img/fusion/captures/S250/readback.json)に条件を記載しています。
+
+[![Krokodove Linesを出力へつなぐ構成](/img/fusion/captures/S250/graph.png)](/img/fusion/captures/S250/graph.png)
+
+Linesの出力をMediaOutへ渡します。
+
+[![LinesのInspector](/img/fusion/captures/S250/controls.png)](/img/fusion/captures/S250/controls.png)
+
+Angle 1を45、Spacing 1を0.1に設定しています。
+
+[![Linesで生成した白い線模様](/img/fusion/captures/S250/high.png)](/img/fusion/captures/S250/high.png)
+
+白い繰り返し線が表示されています。
+
+[再現用Graph](/img/fusion/captures/S250/fixture.comp) · [撮影条件と確認範囲](/img/fusion/captures/S250/capture.json)
+
+<!-- /capture:S250 -->
+
 ## 入力と出力
 
 | 段階 | 扱うもの | 確認できる範囲 |
 | --- | --- | --- |
-| 入力 | 外部画像が必須かは未確認 | 21.1 ManualのLinesの説明には、入力端子の記述がありません。 |
+| 入力 | 外部画像なしで生成した実機例 | 21.1 ManualのLinesの説明には入力端子の記述がなく、全端子の条件は未確認です。 |
 | 生成 | 一つまたは複数の線の組による、複数段の反復模様 | Chapter 105、p.2435で確認できます。 |
 | 出力 | 2Dの<Term id="image">Image</Term>として扱う分類 | Manualの「Image Create Tools」と既存カタログによります。正式な端子名、Alpha、画像サイズは未確認です。 |
 
@@ -46,7 +70,7 @@ Linesは、**線を何本も繰り返し配置して模様を作る**Krokodove�
 - **幾何学的な装飾**：ロゴの周辺や画面端のアクセントとして使う。
 - **合成用テクスチャー**：別の映像と重ね、合成量を減らして薄い模様にする。
 
-これらは線の反復パターンを作るという役割から考えた制作案です。アニメーションの可否、方向・色の具体的な調整方法、透明背景の有無は実機で確認が必要です。
+これらは線の反復パターンを作るという役割から考えた制作案です。上の実機例ではAngle 1とSpacing 1を設定しました。アニメーションや他の線・色の設定は未確認です。
 
 ## 制作例：映像の上に線模様を薄く重ねる
 
@@ -80,6 +104,6 @@ LinesとPatternはどちらも規則性のある背景を作れますが、**Lin
 
 - **一次資料**：Blackmagic Design『DaVinci Resolve 21.1 Reference Manual』（September 2026）、Chapter 105「Krokodove Nodes」、p.2435、「Image Create Tools／Lines」。線の組を一つまたは複数用い、複数段の繰り返し線パターンを生成する説明を確認しました。同ページにBlobs、Pattern、Shapesが掲載されています。
 - **既存分類**：COLLECTANEAはLinesを2D Image出力として整理しています。KrokodoveのImage・Shape・3D・Regionの違いは[Family Overview](./)を参照してください。
-- **未確認**：必須入力の有無、端子名と端子数、線の本数・幅・角度・間隔、複数段の具体的な仕組み、Inspectorの名称・初期値・範囲、Alphaと解像度、アニメーション可否、Free / StudioなどのEdition差、21.1実機の描画結果。
+- **確認範囲**：実機例では外部画像なしで線を生成し、Angle 1とSpacing 1を設定しました。端子の全構成、複数の線の組、初期値・範囲、Alphaの数値、アニメーション、Edition差は未確認です。
 
 `verification: partial`は、Manualで確認できる役割と、詳細資料・実機で未確認の仕様を分けるための状態です。

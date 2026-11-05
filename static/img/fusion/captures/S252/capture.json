@@ -1,0 +1,132 @@
+{
+  "manual": {
+    "version": "21.1",
+    "chapter": 105,
+    "printed_pages": "2434"
+  },
+  "runtime": {
+    "version": "21.1.0.14",
+    "edition": "DaVinci Resolve Studio",
+    "os": "Windows-11-10.0.26200-SP0",
+    "ui_language": "ja-JP"
+  },
+  "captured_at": "2026-10-28T05:46:51.273321+00:00",
+  "project": "Collectanea_Mandelbrot_Zoom_20261025",
+  "timeline": "S252_capture",
+  "frame": 0,
+  "resolution": [
+    1920,
+    1080
+  ],
+  "color_management": {
+    "project_settings": {
+      "colorScienceMode": "davinciYRGB",
+      "colorSpaceInput": "Rec.709 Gamma 2.4",
+      "colorSpaceTimeline": "Rec.709 (Scene)",
+      "colorSpaceTimelineGamma": "",
+      "colorSpaceOutput": "Rec.709 (Scene)",
+      "colorSpaceOutputGamma": "ACEScc",
+      "isAutoColorManage": "0",
+      "timelineResolutionWidth": "1920",
+      "timelineResolutionHeight": "1080",
+      "timelineFrameRate": 30.0,
+      "timelinePlaybackFrameRate": "30",
+      "timelinePixelAspectRatio": "square"
+    },
+    "note": "SDK project settings; screenshots show Viewer display."
+  },
+  "viewer": {
+    "view_mode": "Fit",
+    "source": "Left Label; right MediaOut1",
+    "note": "KD Bounding Box selected; transparency checkerboard visible."
+  },
+  "acceptance": {
+    "gui": "PASS: rectangular white result corresponds to synthetic text extent.",
+    "article_display": "NOT_RUN",
+    "public_display": "NOT_RUN"
+  },
+  "unverified": [
+    "One synthetic text and setting; other settings, masks, alpha values, animation and other hosts NOT_RUN.",
+    "Viewer screenshot is display evidence.",
+    "Portable reimport and physical input provenance NOT_RUN.",
+    "Article verification remains partial."
+  ],
+  "schema_version": 1,
+  "case": "S252",
+  "article": "manuals/fusion/nodes/krokodove/bounding-box.md",
+  "graph": "fixture.comp",
+  "settings": "readback.json",
+  "source": {
+    "file": "screen.png",
+    "size": [
+      3328,
+      1898
+    ],
+    "sha256": "ba7587543bdcc73d132348ba11e21d122e134a25dad9e2bfe5e99407b033abb5"
+  },
+  "shots": [
+    {
+      "file": "graph.png",
+      "source": "screen.png",
+      "source_sha256": "ba7587543bdcc73d132348ba11e21d122e134a25dad9e2bfe5e99407b033abb5",
+      "frame": 0,
+      "crop_xyxy": [
+        500,
+        1050,
+        2350,
+        1650
+      ],
+      "resampled": false,
+      "sha256": "ff994ce79c5b2f0df64639c5dd5457a03e1993d8775d8dc0223e4e1ccf6cba56"
+    },
+    {
+      "file": "controls.png",
+      "source": "screen.png",
+      "source_sha256": "ba7587543bdcc73d132348ba11e21d122e134a25dad9e2bfe5e99407b033abb5",
+      "frame": 0,
+      "crop_xyxy": [
+        2815,
+        65,
+        3328,
+        750
+      ],
+      "resampled": false,
+      "sha256": "0335212c07189ca935aa1c67069a006cdfd690ee7f82af577da12d88eabcbc7b"
+    },
+    {
+      "file": "low.png",
+      "source": "screen.png",
+      "source_sha256": "ba7587543bdcc73d132348ba11e21d122e134a25dad9e2bfe5e99407b033abb5",
+      "frame": 0,
+      "crop_xyxy": [
+        120,
+        70,
+        1340,
+        720
+      ],
+      "resampled": false,
+      "sha256": "d053a31bb76346e0b7e5a9a1f758a9545b16528c30c9a8af816c7ad76b645ddf"
+    },
+    {
+      "file": "high.png",
+      "source": "screen.png",
+      "source_sha256": "ba7587543bdcc73d132348ba11e21d122e134a25dad9e2bfe5e99407b033abb5",
+      "frame": 0,
+      "crop_xyxy": [
+        1480,
+        70,
+        2700,
+        720
+      ],
+      "resampled": false,
+      "sha256": "dadacca027df85b202fbccbc23c1e12fabad8358a68bd6ee91544ce811984f09"
+    }
+  ],
+  "reproduction": {
+    "fixture_sha256": "45c3af8f8748bf034d7546847d0f378c950a071a4fe8dffe6d47fcea85026ad5",
+    "readback_sha256": "e1cccd969027f4ba15b826548251b7302d7ff3131f445487a72f0d082169cbdf",
+    "readback_source_sha256": "e1cccd969027f4ba15b826548251b7302d7ff3131f445487a72f0d082169cbdf",
+    "readback_transform": "No line-ending transformation",
+    "reimport": "NOT_RUN"
+  }
+}
