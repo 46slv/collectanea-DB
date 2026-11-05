@@ -32,6 +32,34 @@ Projector 3DやCamera 3Dは、画像を3D空間へ投影できます。ただし
 
 Catcherは、3D空間にあるすべての面へ自動で投影する設定ではありません。**Catcherの材質を接続したオブジェクトが受け手**です。投影する側のノードは同じ3Dシーンに含めます。
 
+<!-- capture:S220 -->
+
+## 実機例：平面で投影を受ける
+
+`Text+` の文字画像をTextureモードの `Projector 3D` に渡し、`Catcher` を割り当てた平面へ投影しました。
+
+投影元のX位置を0から0.4に動かすと、この平面では文字の位置が変わります。数値はSDKで読み戻しています。透明度の数値や複数投影はこの例では未検証です。[接続と設定の記録](/img/fusion/captures/S220/readback.json)に条件を記載しています。
+
+[![Projector 3DからCatcherを割り当てた平面へ文字を投影する構成](/img/fusion/captures/S220/graph.png)](/img/fusion/captures/S220/graph.png)
+
+投影元と受け手を同じ3Dシーンへ渡します。
+
+[![CatcherのInspector](/img/fusion/captures/S220/controls.png)](/img/fusion/captures/S220/controls.png)
+
+CatcherのInspectorです。
+
+[![ProjectorのX位置0で描画した文字](/img/fusion/captures/S220/low.png)](/img/fusion/captures/S220/low.png)
+
+ProjectorのX位置0の状態です。
+
+[![ProjectorのX位置0.4で描画した文字](/img/fusion/captures/S220/high.png)](/img/fusion/captures/S220/high.png)
+
+投影元を動かすと文字の位置が変わります。
+
+[再現用Graph](/img/fusion/captures/S220/fixture.comp) · [撮影条件と確認範囲](/img/fusion/captures/S220/capture.json)
+
+<!-- /capture:S220 -->
+
 ## 入力と出力
 
 - **入力端子：なし。** Catcherに投影元の2D画像を直接つなぐ入力はありません。画像はCamera 3DまたはProjector 3Dの画像入力へつなぎ、投影元ノードを3Dシーンへ配置します。
@@ -111,4 +139,4 @@ Lightモードで投影すると、窓のAlphaは照明として反映されず�
 
 **一次資料**：Blackmagic Design『DaVinci Resolve 21.1 Reference Manual』（September 2026）、Chapter 91「3D Texture Nodes」、**Catcher [3Ca]（pp.2085–2087）**。入力端子がないこと、Materialへの接続先、Texture投影とLight投影の違い、Alphaの扱い、透明になる条件、複数投影の合成設定、Software/OpenGL差、Projector ID、Material IDを確認しました。
 
-`verification: partial`は、内部REGID、Controlの初期値・正確なrange、Edition差、現在の実機での表示・レンダリングを未確認としているためです。
+`verification: partial`は、TexCatcherによる上記の文字投影を確認した一方、Controlの初期値・正確なrange、Edition差、複数投影や透明度の数値を未確認としているためです。

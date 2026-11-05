@@ -26,6 +26,34 @@ Replicate 3D [3Rep]は、**配置先の3D Meshの頂点やParticleの位置に�
 
 Replicate 3Dは<Term id="classic-3d">Classic 3D scene</Term>を扱います。出力は2D画像ではないため、映像へ合成するときは後段の[Renderer 3D](./renderer-3d.md)で描画します。
 
+<!-- capture:S222 -->
+
+## 実機例：平面の頂点へ球を配置
+
+分割した平面を `Destination`、小さな球を `Input 1` に接続し、複製結果を描画しました。
+
+この構成ではStepを1から3に上げると、使われる頂点が間引かれ、表示される球が減ります。値と接続はSDKで読み戻しています。粒子、複数入力や向きの設定はこの例では未検証です。[接続と設定の記録](/img/fusion/captures/S222/readback.json)に条件を記載しています。
+
+[![平面の頂点に球を複製して描画する構成](/img/fusion/captures/S222/graph.png)](/img/fusion/captures/S222/graph.png)
+
+配置先と複製元をそれぞれReplicate 3Dへ渡します。
+
+[![Replicate 3DのStep設定](/img/fusion/captures/S222/controls.png)](/img/fusion/captures/S222/controls.png)
+
+Stepを3にしたInspectorです。
+
+[![Step 1で平面の頂点に配置された球](/img/fusion/captures/S222/low.png)](/img/fusion/captures/S222/low.png)
+
+Step 1では各頂点に球が配置されます。
+
+[![Step 3で間引かれた球](/img/fusion/captures/S222/high.png)](/img/fusion/captures/S222/high.png)
+
+Step 3では球の数が減ります。
+
+[再現用Graph](/img/fusion/captures/S222/fixture.comp) · [撮影条件と確認範囲](/img/fusion/captures/S222/capture.json)
+
+<!-- /capture:S222 -->
+
 ## 入力と出力
 
 - **Destination（オレンジ）**：コピーを配置する位置を持った3D Geometry / Sceneを受け取ります。Meshなら頂点、3D Particleなら各Particleの位置が配置位置になります。
@@ -98,4 +126,4 @@ Jitterタブでは、各コピーの値にランダムな差を付けます。�
 - [Classic 3Dノード一覧](./index.md) / [Classic 3D sceneの基礎](../../learn/02-data/classic-3d.md)
 - [Shape 3D](./shape-3d.md) / [FBX Mesh 3D](./fbx-mesh-3d.md) / [Renderer 3D](./renderer-3d.md)
 - **一次資料**：Blackmagic Design, *DaVinci Resolve 21.1 Reference Manual*（September 2026）, Chapter 88「3D Nodes」, pp.1983–1988, 「Replicate 3D [3Rep]」。入力、Controls / Jitter、粒子を使う基本例を確認しました。
-- **未検証**：21.1実機でのREGID、Edition別の表示、特定のMesh / GPUでの描画結果。これらはManualの記述と区別するため、`verification: partial`としています。
+- **検証範囲**：21.1実機では上記のReplicate3Dの接続と平面・球の例を確認しました。粒子、複数入力、Edition別の表示、他のMesh / GPUでの描画結果は未確認のため、`verification: partial`としています。

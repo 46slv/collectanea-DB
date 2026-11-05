@@ -24,6 +24,34 @@ CubeMap [3Cu]は、**上下・左右・前後の6方向を撮影した画像か�
 
 ここでいう「環境マップ」は、物体から各方向を見たときに何があるかを記録した画像です。立方体の6面に画像を貼って方向を管理しますが、CubeMap自体が立方体の3Dモデルを生成するわけではありません。また、CubeMapを追加するだけでシーンに光源が置かれるわけでもありません。
 
+<!-- capture:S219 -->
+
+## 実機例：合成画像をCubeMapに渡す
+
+3:4の合成文字画像をVertical Crossとして `CubeMap` に渡し、`Reflect` を通して球に割り当てました。
+
+CubeMapのY回転を0から90度に変えると、この例では映った文字の位置が変わります。入力は6方向を撮影した正しい環境マップではなく、接続と変化を見るための合成画像です。回転値はSDKで読み戻しています。[接続と設定の記録](/img/fusion/captures/S219/readback.json)に条件を記載しています。
+
+[![文字画像をCubeMapとReflectに通して球を描画する構成](/img/fusion/captures/S219/graph.png)](/img/fusion/captures/S219/graph.png)
+
+画像をCubeMapからReflectへ渡します。
+
+[![CubeMapのVertical Cross設定](/img/fusion/captures/S219/controls.png)](/img/fusion/captures/S219/controls.png)
+
+Vertical Crossの状態です。
+
+[![CubeMapのY回転0で描画した球](/img/fusion/captures/S219/low.png)](/img/fusion/captures/S219/low.png)
+
+Y回転0の状態です。
+
+[![CubeMapのY回転90度で描画した球](/img/fusion/captures/S219/high.png)](/img/fusion/captures/S219/high.png)
+
+Y回転90度では映る文字の位置が変わります。
+
+[再現用Graph](/img/fusion/captures/S219/fixture.comp) · [撮影条件と確認範囲](/img/fusion/captures/S219/capture.json)
+
+<!-- /capture:S219 -->
+
 ## 何を入力し、何が出力されるか
 
 入力は**2D画像**です。Inspectorの**Layout**によって、Nodeに現れる入力数が変わります。
@@ -132,4 +160,4 @@ Reflectへ渡す場合、Reflection Color Materialが参照するのは画像の
 
 **一次資料**：Blackmagic Design『DaVinci Resolve 21.1 Reference Manual』（2026年9月）、Chapter 91「3D Texture Nodes」、**CubeMap [3Cu]（pp.2087–2090）**。Layout、CrossImage／6方向入力、Coordinate System、Rotation、Warn About Bad Dimensions、Material ID、入力画像の寸法処理を確認しました。Reflectとの接続はChapter 90「3D Material Nodes」のReflect節（pp.2071–2073）も参照しています。
 
-このページの接続例はManualの各Node仕様を組み合わせた説明です。21.1実機での描画結果、出力端子の内部REGID、Inspectorの初期値・数値範囲、Edition差は未確認です。そのため`verification: partial`を維持しています。
+上の実機例ではResolve 21.1の`CubeMap`に合成画像を渡し、回転による描画の変化を確認しました。他の接続例はManualの各Node仕様を組み合わせた説明です。実際の6方向画像、出力端子の内部型、Inspectorの初期値・数値範囲、Edition差は未確認のため`verification: partial`を維持しています。

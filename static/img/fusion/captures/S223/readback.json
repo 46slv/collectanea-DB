@@ -1,0 +1,54 @@
+{
+  "case": "S223",
+  "project": "Collectanea_Mandelbrot_Zoom_20261025",
+  "library": "Local Database",
+  "project_manager_folder": "root",
+  "timeline": "S223_capture",
+  "frame": 0,
+  "resolve": "21.1.0.14",
+  "edition": "DaVinci Resolve Studio",
+  "os": "Windows-11-10.0.26200-SP0",
+  "project_settings": {
+    "colorScienceMode": "davinciYRGB",
+    "colorSpaceInput": "Rec.709 Gamma 2.4",
+    "colorSpaceTimeline": "Rec.709 (Scene)",
+    "colorSpaceTimelineGamma": "",
+    "colorSpaceOutput": "Rec.709 (Scene)",
+    "colorSpaceOutputGamma": "ACEScc",
+    "isAutoColorManage": "0",
+    "timelineResolutionWidth": "1920",
+    "timelineResolutionHeight": "1080",
+    "timelineFrameRate": 30.0,
+    "timelinePlaybackFrameRate": "30",
+    "timelinePixelAspectRatio": "square"
+  },
+  "connections": {
+    "Vertex.SceneInput": "Plane",
+    "Scene.SceneInput1": "Vertex",
+    "Scene.SceneInput2": "KeyLight",
+    "Renderer.SceneInput": "Scene",
+    "MediaOut1.Input": "Renderer"
+  },
+  "values": {
+    "Plane": {
+      "Shape": "SurfacePlaneInputs",
+      "SurfacePlaneInputs.SubdivisionWidth": 10.0,
+      "SurfacePlaneInputs.SubdivisionHeight": 10.0
+    },
+    "Renderer": {
+      "RendererSoftware.LightingEnabled": 1.0
+    },
+    "position_x": "px*(1+py)",
+    "baseline_position_x": "px"
+  },
+  "source": "Subdivided plane with Position X expression px*(1+py).",
+  "save_project": true,
+  "save_completed_at": "2026-10-28T02:30:52.019564+00:00",
+  "native_export_sha256": "9a194e5946438429e4f81b21d05d369560db71db071f896a96279a17ba48d7e8",
+  "portable_sha256": "4bb48e0355b65e948b47d249bafda65510bf1a9ce933ecd83e080333a33324c0",
+  "portable_reimport": "NOT_RUN",
+  "limits": [
+    "One subdivided plane and Position X expression; normal recalculation, other attributes, animation and other hosts NOT_RUN.",
+    "Viewer screenshot is display evidence."
+  ]
+}

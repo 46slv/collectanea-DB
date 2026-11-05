@@ -1,0 +1,132 @@
+{
+  "manual": {
+    "version": "21.1",
+    "chapter": 91,
+    "printed_pages": "2087–2090"
+  },
+  "runtime": {
+    "version": "21.1.0.14",
+    "edition": "DaVinci Resolve Studio",
+    "os": "Windows-11-10.0.26200-SP0",
+    "ui_language": "ja-JP"
+  },
+  "captured_at": "2026-10-28T02:08:55.562490+00:00",
+  "project": "Collectanea_Mandelbrot_Zoom_20261025",
+  "timeline": "S219_capture",
+  "frame": 0,
+  "resolution": [
+    1920,
+    1080
+  ],
+  "color_management": {
+    "project_settings": {
+      "colorScienceMode": "davinciYRGB",
+      "colorSpaceInput": "Rec.709 Gamma 2.4",
+      "colorSpaceTimeline": "Rec.709 (Scene)",
+      "colorSpaceTimelineGamma": "",
+      "colorSpaceOutput": "Rec.709 (Scene)",
+      "colorSpaceOutputGamma": "ACEScc",
+      "isAutoColorManage": "0",
+      "timelineResolutionWidth": "1920",
+      "timelineResolutionHeight": "1080",
+      "timelineFrameRate": 30.0,
+      "timelinePlaybackFrameRate": "30",
+      "timelinePixelAspectRatio": "square"
+    },
+    "note": "SDK project settings; screenshots show Viewer display."
+  },
+  "viewer": {
+    "view_mode": "Fit",
+    "source": "Left Scene; right MediaOut1",
+    "note": "CubeMap selected; rotation value recorded via SDK."
+  },
+  "acceptance": {
+    "gui": "PASS: rotated synthetic input changes the visible reflected text fragment; SDK settings and connections read back.",
+    "article_display": "NOT_RUN",
+    "public_display": "NOT_RUN"
+  },
+  "unverified": [
+    "Synthetic image is not a six-view environment; separate inputs, actual cube maps, face mapping correctness, animation and other hosts NOT_RUN.",
+    "Viewer screenshot is display evidence.",
+    "Portable reimport and physical input provenance NOT_RUN.",
+    "Article verification remains partial."
+  ],
+  "schema_version": 1,
+  "case": "S219",
+  "article": "manuals/fusion/nodes/materials-lights/cubemap.md",
+  "graph": "fixture.comp",
+  "settings": "readback.json",
+  "source": {
+    "file": "screen.png",
+    "size": [
+      3336,
+      1902
+    ],
+    "sha256": "db3d0fa186e599223de5c1d47b0b3f1bbd505921806cc5b4ac16bd78c4bf4086"
+  },
+  "shots": [
+    {
+      "file": "graph.png",
+      "source": "screen.png",
+      "source_sha256": "db3d0fa186e599223de5c1d47b0b3f1bbd505921806cc5b4ac16bd78c4bf4086",
+      "frame": 0,
+      "crop_xyxy": [
+        180,
+        1050,
+        2750,
+        1650
+      ],
+      "resampled": false,
+      "sha256": "faca74d0ee9ffeb148b8b7a7ba19955c3ceb7b04689bc9930824a99d64abf719"
+    },
+    {
+      "file": "controls.png",
+      "source": "screen.png",
+      "source_sha256": "db3d0fa186e599223de5c1d47b0b3f1bbd505921806cc5b4ac16bd78c4bf4086",
+      "frame": 0,
+      "crop_xyxy": [
+        2815,
+        65,
+        3336,
+        750
+      ],
+      "resampled": false,
+      "sha256": "677b094b23de738bfe770164c1d6a36c0f6269f5d298e8fc3868e5f50461e97c"
+    },
+    {
+      "file": "low.png",
+      "source": "state-low.png",
+      "source_sha256": "5d7bd7f319ef55ffa9abdea268d55173304a281d43d141ae09e0f41d41c50c7f",
+      "frame": 0,
+      "crop_xyxy": [
+        1480,
+        70,
+        2700,
+        720
+      ],
+      "resampled": false,
+      "sha256": "6ab9f403f21716e124cd99d56a03b8f082c3effd6337a569b7987748655bda76"
+    },
+    {
+      "file": "high.png",
+      "source": "screen.png",
+      "source_sha256": "db3d0fa186e599223de5c1d47b0b3f1bbd505921806cc5b4ac16bd78c4bf4086",
+      "frame": 0,
+      "crop_xyxy": [
+        1480,
+        70,
+        2700,
+        720
+      ],
+      "resampled": false,
+      "sha256": "6c49d853ccf6fd7ddecf821a28186997f50f20932569f860cdb484d2b6851553"
+    }
+  ],
+  "reproduction": {
+    "fixture_sha256": "e481a4043455f58c08463bf32eac8731a396d126604cf49637fa7b8afeebf3c5",
+    "readback_sha256": "444990d4283378cd63f305f6d7d4f6bb0323547966de3a6200029ae088ef77cb",
+    "readback_source_sha256": "444990d4283378cd63f305f6d7d4f6bb0323547966de3a6200029ae088ef77cb",
+    "readback_transform": "No line-ending transformation",
+    "reimport": "NOT_RUN"
+  }
+}

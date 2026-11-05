@@ -26,6 +26,34 @@ updated: "2026-10-10"
 
 **対応Edition**：DaVinci Resolve 21.1 Reference Manualは、VRカテゴリとPanoMapを**DaVinci Resolve Studio／Fusion Studio限定**と明記しています。
 
+<!-- capture:S225 -->
+
+## 実機例：合成画像をHCrossへ変換
+
+合成した2:1の文字画像をLatLongとして `PanoMap` に渡し、出力をLatLongとHCrossで比較しました。
+
+HCrossでは文字の形と配置が変わります。画像は変換を見るための合成素材で、360度を撮影した環境画像ではありません。文字は目印であり、面の方位精度はこの例では検証していません。[接続と設定の記録](/img/fusion/captures/S225/readback.json)に条件を記載しています。
+
+[![文字画像をPanoMapに通す構成](/img/fusion/captures/S225/graph.png)](/img/fusion/captures/S225/graph.png)
+
+文字画像をPanoMapへ渡します。
+
+[![PanoMapのLatLongとHCross設定](/img/fusion/captures/S225/controls.png)](/img/fusion/captures/S225/controls.png)
+
+FromはLatLong、ToはHCrossです。
+
+[![LatLongとして出力した文字画像](/img/fusion/captures/S225/low.png)](/img/fusion/captures/S225/low.png)
+
+ToをLatLongにした状態です。
+
+[![HCrossへ変換した文字画像](/img/fusion/captures/S225/high.png)](/img/fusion/captures/S225/high.png)
+
+ToをHCrossにすると文字の配置が変わります。
+
+[再現用Graph](/img/fusion/captures/S225/fixture.comp) · [撮影条件と確認範囲](/img/fusion/captures/S225/capture.json)
+
+<!-- /capture:S225 -->
+
 ## 入力と出力
 
 公式21.1 Manualでは、Node Editorに**2つの入力**があります。
@@ -110,4 +138,4 @@ HCrossの画像は、普通の1枚絵のように見えても、**各正方形�
 
 **一次資料**：Blackmagic Design『DaVinci Resolve 21.1 Reference Manual』、Chapter 122「VR Nodes」、PanoMap [PAM]（pp.2953–2954）、球面形式の概要（p.2948）。Studio限定、Image Input／Effect Mask、From／To、Auto、VR180／Immersive、Rotation Order／Rotation、HCrossへの変換例を確認しました。公式資料の入口は[Blackmagic Design Support](https://www.blackmagicdesign.com/support)です。
 
-**verification: partial**：現在の21.1実機での内部REGID、From／Toの全組み合わせの動作、Immersive／VR180の詳細な左右眼の取り扱い、回転の初期値・範囲、画質・処理負荷、メタデータによるAuto判定の実際の精度は未確認です。Manualにない値を推測で補っていません。
+**verification: partial**：実機では上記のPanoMapの接続とLatLongからHCrossへの合成画像の変換を確認しました。From／Toの全組み合わせの動作、Immersive／VR180の詳細な左右眼の取り扱い、回転の初期値・範囲、画質・処理負荷、メタデータによるAuto判定の実際の精度は未確認です。Manualにない値を推測で補っていません。

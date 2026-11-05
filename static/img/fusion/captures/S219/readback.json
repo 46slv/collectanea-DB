@@ -1,0 +1,72 @@
+{
+  "case": "S219",
+  "project": "Collectanea_Mandelbrot_Zoom_20261025",
+  "library": "Local Database",
+  "project_manager_folder": "root",
+  "timeline": "S219_capture",
+  "frame": 0,
+  "resolve": "21.1.0.14",
+  "edition": "DaVinci Resolve Studio",
+  "os": "Windows-11-10.0.26200-SP0",
+  "project_settings": {
+    "colorScienceMode": "davinciYRGB",
+    "colorSpaceInput": "Rec.709 Gamma 2.4",
+    "colorSpaceTimeline": "Rec.709 (Scene)",
+    "colorSpaceTimelineGamma": "",
+    "colorSpaceOutput": "Rec.709 (Scene)",
+    "colorSpaceOutputGamma": "ACEScc",
+    "isAutoColorManage": "0",
+    "timelineResolutionWidth": "1920",
+    "timelineResolutionHeight": "1080",
+    "timelineFrameRate": 30.0,
+    "timelinePlaybackFrameRate": "30",
+    "timelinePixelAspectRatio": "square"
+  },
+  "connections": {
+    "EnvMap.CrossImage": "Label",
+    "Material.Reflection.Color.Material": "EnvMap",
+    "Primitive.MaterialInput": "Material",
+    "Scene.SceneInput1": "Primitive",
+    "Scene.SceneInput2": "KeyLight",
+    "Renderer.SceneInput": "Scene",
+    "MediaOut1.Input": "Renderer"
+  },
+  "values": {
+    "Material": {
+      "Reflection.StrengthVariability": 0.0,
+      "Reflection.ConstantStrength": 1.0
+    },
+    "EnvMap": {
+      "Layout": 1.0
+    },
+    "Label": {
+      "StyledText": "CUBE",
+      "Size": 0.3,
+      "UseFrameFormatSettings": 0.0,
+      "Width": 1200.0,
+      "Height": 1600.0
+    },
+    "Primitive": {
+      "Shape": "SurfaceSphereInputs",
+      "Transform3DOp.Scale.X": 0.5
+    },
+    "KeyLight": {
+      "Transform3DOp.Rotate.Y": -35.0
+    },
+    "Renderer": {
+      "RendererSoftware.LightingEnabled": 1.0
+    },
+    "current_rotation_y": 90.0,
+    "comparison_rotation_y": 0
+  },
+  "source": "Synthetic 1200x1600 text image in CubeMap vertical cross layout; rotation Y 0 and 90, used with Reflect on sphere.",
+  "save_project": true,
+  "save_completed_at": "2026-10-28T02:08:25.018885+00:00",
+  "native_export_sha256": "59f0a4d2c0b21f27d04c013642390ae949c86a331999d1c76aa74e0186fd8a47",
+  "portable_sha256": "e481a4043455f58c08463bf32eac8731a396d126604cf49637fa7b8afeebf3c5",
+  "portable_reimport": "NOT_RUN",
+  "limits": [
+    "Synthetic image is not a six-view environment; separate inputs, actual cube maps, face mapping correctness, animation and other hosts NOT_RUN.",
+    "Viewer screenshot is display evidence."
+  ]
+}

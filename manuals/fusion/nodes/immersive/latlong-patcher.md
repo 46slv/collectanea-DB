@@ -36,6 +36,34 @@ updated: "2026-10-10"
 
 **90°の正方形**とは、通常の動画の90ピクセル四方という意味ではなく、球面上で一定の視野角を切り取った平面画像を指します。360°画像全体を歪みのない平面へ変換する機能ではありません。
 
+<!-- capture:S226 -->
+
+## 実機例：文字画像の一部を抽出して戻す
+
+合成した2:1の文字画像を `Lat Long Patcher` のExtractに渡し、もう一つのPatcherのApplyで戻しました。
+
+この例では視野内の文字だけが抽出され、Apply後も範囲外の文字は戻りません。実際の360度映像やペイント、Alphaの数値は未検証です。[接続と設定の記録](/img/fusion/captures/S226/readback.json)に条件を記載しています。
+
+[![文字画像をExtractとApplyに順につなぐ構成](/img/fusion/captures/S226/graph.png)](/img/fusion/captures/S226/graph.png)
+
+Extractの結果をApplyへ渡します。
+
+[![Lat Long PatcherのApplyモード](/img/fusion/captures/S226/controls.png)](/img/fusion/captures/S226/controls.png)
+
+ApplyのInspectorです。
+
+[![Extractで取り出した文字の一部](/img/fusion/captures/S226/low.png)](/img/fusion/captures/S226/low.png)
+
+Extractは視野内の一部を取り出します。
+
+[![Applyで球面配置へ戻した文字の一部](/img/fusion/captures/S226/high.png)](/img/fusion/captures/S226/high.png)
+
+Applyでは抽出した範囲が戻ります。
+
+[再現用Graph](/img/fusion/captures/S226/fixture.comp) · [撮影条件と確認範囲](/img/fusion/captures/S226/capture.json)
+
+<!-- /capture:S226 -->
+
 ## 入力と出力
 
 21.1 ManualのLat Long Patcher節は、Node Editor上の入力を次の**2つ**と明記しています。
@@ -141,4 +169,4 @@ LatLong Patcherは**既存の球面画像を修正するためのNode**です。
 
 **一次資料**：Blackmagic Design『DaVinci Resolve 21.1 Reference Manual』、Chapter 122「VR Nodes」、Lat Long Patcher [LLP]（pp.2951–2952）。Studio限定、Image InputとEffect Mask、Mode（Extract／Apply／Apply180）、Rotation Order、Rotation、Angle of View、Alphaを使ったパッチ再適用を確認しました。公式資料の入口は[Blackmagic Design Support](https://www.blackmagicdesign.com/support)です。
 
-**verification: partial**：本文のNode名・主なControls・対応Editionは21.1 Manualによる確認済みですが、端子内部ID、Controlのデフォルト値や数値範囲、Apply180の内部動作・片眼／両眼の扱い、Effect Maskの詳細挙動、実機での画質・実行負荷は未確認です。Manualだけでは読み取れない値を推測していません。
+**verification: partial**：本文のNode名・主なControls・対応Editionは21.1 Manualによる確認済みですが、実機では上記のInput接続とExtract／Applyの一例を確認しました。その他の端子内部ID、Controlのデフォルト値や数値範囲、Apply180の内部動作・片眼／両眼の扱い、Effect Maskの詳細挙動、実機での画質・実行負荷は未確認です。Manualだけでは読み取れない値を推測していません。
