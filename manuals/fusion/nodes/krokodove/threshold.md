@@ -47,6 +47,34 @@ Thresholdは、チャンネルの値を手がかりに選別します。これ�
 
 これは**値の範囲を理解するための模式図**です。実際の内部計算が「基準値 ± 許容幅」であること、境界が直線的に変わること、Inspectorにこの名称の項目が表示されることを保証する図ではありません。正確な項目名、設定可能な範囲、選択境界の滑らかさは実機で確認してください。
 
+<!-- capture:S246 -->
+
+## 実機例：グラデーションの明るさを分ける
+
+合成した横方向の白黒グラデーションを `Threshold` に渡し、Thresholdを0.5、Softnessを0.1に設定しました。
+
+この例では処理後のViewerで透明部分から白へ短く変化します。市松模様はViewerの透明表示です。各チャンネルの数値や他の設定は未検証です。[接続と設定の記録](/img/fusion/captures/S246/readback.json)に条件を記載しています。
+
+[![グラデーションをKrokodove Thresholdへつなぐ構成](/img/fusion/captures/S246/graph.png)](/img/fusion/captures/S246/graph.png)
+
+白黒グラデーションをThresholdへ渡します。
+
+[![ThresholdのInspector](/img/fusion/captures/S246/controls.png)](/img/fusion/captures/S246/controls.png)
+
+Thresholdを0.5、Softnessを0.1に設定しています。
+
+[![処理前の白黒グラデーション](/img/fusion/captures/S246/low.png)](/img/fusion/captures/S246/low.png)
+
+処理前は黒から白へ連続して変化します。
+
+[![Thresholdを通したグラデーション](/img/fusion/captures/S246/high.png)](/img/fusion/captures/S246/high.png)
+
+処理後は透明部分から白へ短く変化します。
+
+[再現用Graph](/img/fusion/captures/S246/fixture.comp) · [撮影条件と確認範囲](/img/fusion/captures/S246/capture.json)
+
+<!-- /capture:S246 -->
+
 ## 入力と出力
 
 | 段階 | データ | 役割 |
@@ -97,7 +125,7 @@ Background（グラデーション） → Threshold → MediaOut
 4. 許容幅を狭くした場合と広げた場合で、結果が変わる場所を比べます。中央付近だけを狙ったのに白い部分も選ばれるなら、選択基準にしているチャンネルを再確認します。
 5. 数フレームの動画や明るさが変化する素材でも試し、選択対象が意図せず広がらないか観察します。
 
-元画像と重ねて効果を弱めたい場合は、Thresholdの結果を[Merge](../compositing/merge)のForeground、元画像をBackgroundへ接続する方法があります。ただし、**選択対象外の画素が透明になると未確認のため、この配線だけで「選んだところだけ重なる」とは保証できません**。対象外が不透明の黒などで出る場合は、必要なMaskを別途作るなど、結果に合わせて合成方法を選びます。
+元画像と重ねて効果を弱めたい場合は、Thresholdの結果を[Merge](../compositing/merge)のForeground、元画像をBackgroundへ接続する方法があります。実機例のViewerには市松模様が表示されましたが、他の設定やAlphaの数値は未確認です。この配線だけで「選んだところだけ重なる」とは保証できないため、結果に合わせて合成方法を選びます。
 
 ## 似たノードとの使い分け
 
@@ -114,7 +142,7 @@ Background（グラデーション） → Threshold → MediaOut
 
 ## 注意点と未確認事項
 
-- **出力の形式**：選ばれなかった画素が透明・黒・元画像のどれになるか、Alphaを保持するかは未検証です。
+- **出力の形式**：実機例ではViewerに市松模様と白が表示されました。Alphaの数値や他の設定での出力は未検証です。
 - **入力端子**：正式な端子名、追加のMask入力や二枚目のImage入力の有無は確認していません。
 - **Inspector**：選択対象を決める正式なパラメータ名、色の指定方法、数値範囲、初期値、境界の滑らかさは不明です。「許容幅を調整できる」という機能説明以上は推測しません。
 - **表示・処理精度**：チャンネルの判定がどの色空間・bit深度で行われるか、境界でどのように補間されるかは未確認です。
@@ -126,4 +154,4 @@ Background（グラデーション） → Threshold → MediaOut
 - **比較資料**：同Manual Chapter 105、pp.2434–2435「Bounding Box / Match Color / Recolor」。標準Luma Keyer、Bitmap Mask、Mergeは同Manualの各ノード解説と別記事を参照。
 - **関連**：[Krokodoveの全体像](./)／[画像（Image）](../../learn/02-data/image)／[Merge](../compositing/merge)。
 
-21.1 Manualで中心的な役割は確認していますが、Inspectorの詳細、Alpha、端子構成、版ごとの差は未確認なので `verification: partial` を維持しています。
+21.1 Manualで中心的な役割を確認し、実機例ではThresholdとSoftnessを使った表示を確認しました。Alphaの数値、端子構成、版ごとの差は未確認なので `verification: partial` を維持しています。

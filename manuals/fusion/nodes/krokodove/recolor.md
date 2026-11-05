@@ -34,6 +34,34 @@ Recolorでは、色を二つの役割に分けて考えます。
 
 「赤を青に置き換える」という説明は、赤に近い画素がすべて一律に青くなるという保証ではありません。素材に影や反射、圧縮による色の揺れがあると、同じ物体でも画素の色は少しずつ異なります。Viewerで対象の端や暗い部分も確認します。
 
+<!-- capture:S245 -->
+
+## 実機例：赤い文字を青に置き換える
+
+合成した赤い `Text+` の文字を `Recolor` に渡し、Color From 1を赤、Color To 1を青、Toleranceを0.1に設定しました。
+
+この例では赤い文字が青く表示されます。Viewerには透明部分を示す市松模様が表示されています。複数色やAlpha値の変化は未検証です。[接続と設定の記録](/img/fusion/captures/S245/readback.json)に条件を記載しています。
+
+[![文字画像をKrokodove Recolorへつなぐ構成](/img/fusion/captures/S245/graph.png)](/img/fusion/captures/S245/graph.png)
+
+文字画像をRecolorへ渡します。
+
+[![RecolorのInspector](/img/fusion/captures/S245/controls.png)](/img/fusion/captures/S245/controls.png)
+
+元の色を赤、置き換え先を青に設定しています。
+
+[![処理前の赤い文字](/img/fusion/captures/S245/low.png)](/img/fusion/captures/S245/low.png)
+
+処理前の赤い文字です。
+
+[![Recolorで青くなった文字](/img/fusion/captures/S245/high.png)](/img/fusion/captures/S245/high.png)
+
+処理後は文字が青く表示されます。
+
+[再現用Graph](/img/fusion/captures/S245/fixture.comp) · [撮影条件と確認範囲](/img/fusion/captures/S245/capture.json)
+
+<!-- /capture:S245 -->
+
 ## 入力と出力
 
 | 段階 | データ | 確認できる役割 |
@@ -105,4 +133,4 @@ MVや広告で、衣装・小物・背景の一部分にある色だけを作品
 - **同章の比較項目**：p.2434「Image Tools / Color Map」、p.2435「Image Color Tools / Match Color・Replace Color・Threshold」。
 - **関連**：[Krokodoveの画像・Shape・3D・Region](./)。
 
-基本機能は21.1 Manualに基づきますが、exactなInspector設定や入出力端子、Alpha処理は未検証のため `verification: partial` を維持しています。
+基本機能は21.1 Manualに基づきます。実機例では一組の色とToleranceを確認しました。入出力端子の詳細やAlpha処理は未検証のため `verification: partial` を維持しています。
