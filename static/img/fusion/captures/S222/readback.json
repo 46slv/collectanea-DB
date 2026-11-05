@@ -1,0 +1,62 @@
+{
+  "case": "S222",
+  "project": "Collectanea_Mandelbrot_Zoom_20261025",
+  "library": "Local Database",
+  "project_manager_folder": "root",
+  "timeline": "S222_capture",
+  "frame": 0,
+  "resolve": "21.1.0.14",
+  "edition": "DaVinci Resolve Studio",
+  "os": "Windows-11-10.0.26200-SP0",
+  "project_settings": {
+    "colorScienceMode": "davinciYRGB",
+    "colorSpaceInput": "Rec.709 Gamma 2.4",
+    "colorSpaceTimeline": "Rec.709 (Scene)",
+    "colorSpaceTimelineGamma": "",
+    "colorSpaceOutput": "Rec.709 (Scene)",
+    "colorSpaceOutputGamma": "ACEScc",
+    "isAutoColorManage": "0",
+    "timelineResolutionWidth": "1920",
+    "timelineResolutionHeight": "1080",
+    "timelineFrameRate": 30.0,
+    "timelinePlaybackFrameRate": "30",
+    "timelinePixelAspectRatio": "square"
+  },
+  "connections": {
+    "Replicate.Destination": "Destination",
+    "Replicate.Input1": "Source",
+    "Scene.SceneInput1": "Replicate",
+    "Scene.SceneInput2": "KeyLight",
+    "Renderer.SceneInput": "Scene",
+    "MediaOut1.Input": "Renderer"
+  },
+  "values": {
+    "Destination": {
+      "Shape": "SurfacePlaneInputs",
+      "SurfacePlaneInputs.SubdivisionWidth": 5.0,
+      "SurfacePlaneInputs.SubdivisionHeight": 5.0
+    },
+    "Source": {
+      "Shape": "SurfaceSphereInputs",
+      "Transform3DOp.Scale.X": 0.12
+    },
+    "Replicate": {
+      "Step": 1.0
+    },
+    "Renderer": {
+      "RendererSoftware.LightingEnabled": 1.0
+    },
+    "current_step": 3.0,
+    "comparison_step": 1
+  },
+  "source": "Subdivided plane destination and sphere source; Step 1 and 3.",
+  "save_project": true,
+  "save_completed_at": "2026-10-28T02:26:39.949400+00:00",
+  "native_export_sha256": "9e0dc54a8ca781ee0e01ded44c1c4e0e8e7ef7459829467e0f2ceea807f6c2a8",
+  "portable_sha256": "ea7012eeefd7432653c8db6a153537c6bd07a1c301d02d90ff5fda7be0b84f9c",
+  "portable_reimport": "NOT_RUN",
+  "limits": [
+    "One plane and sphere, Step 1 and 3; particle, multiple source, alignment, animation and other hosts NOT_RUN.",
+    "Viewer screenshot is display evidence."
+  ]
+}

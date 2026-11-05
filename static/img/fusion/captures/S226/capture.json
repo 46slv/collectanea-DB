@@ -1,0 +1,132 @@
+{
+  "manual": {
+    "version": "21.1",
+    "chapter": 122,
+    "printed_pages": "2951–2952"
+  },
+  "runtime": {
+    "version": "21.1.0.14",
+    "edition": "DaVinci Resolve Studio",
+    "os": "Windows-11-10.0.26200-SP0",
+    "ui_language": "ja-JP"
+  },
+  "captured_at": "2026-10-28T02:48:31.944613+00:00",
+  "project": "Collectanea_Mandelbrot_Zoom_20261025",
+  "timeline": "S226_capture",
+  "frame": 0,
+  "resolution": [
+    1920,
+    1080
+  ],
+  "color_management": {
+    "project_settings": {
+      "colorScienceMode": "davinciYRGB",
+      "colorSpaceInput": "Rec.709 Gamma 2.4",
+      "colorSpaceTimeline": "Rec.709 (Scene)",
+      "colorSpaceTimelineGamma": "",
+      "colorSpaceOutput": "Rec.709 (Scene)",
+      "colorSpaceOutputGamma": "ACEScc",
+      "isAutoColorManage": "0",
+      "timelineResolutionWidth": "1920",
+      "timelineResolutionHeight": "1080",
+      "timelineFrameRate": 30.0,
+      "timelinePlaybackFrameRate": "30",
+      "timelinePixelAspectRatio": "square"
+    },
+    "note": "SDK project settings; screenshots show Viewer display."
+  },
+  "viewer": {
+    "view_mode": "Fit",
+    "source": "Left Label; right Extract or MediaOut1",
+    "note": "Two Patcher nodes use Extract then Apply."
+  },
+  "acceptance": {
+    "gui": "PASS: synthetic text extracted and reapplied; text outside extracted field absent.",
+    "article_display": "NOT_RUN",
+    "public_display": "NOT_RUN"
+  },
+  "unverified": [
+    "Synthetic text image only; real spherical footage, paint workflow, alpha measurement, Apply180 and other hosts NOT_RUN.",
+    "Viewer screenshot is display evidence.",
+    "Portable reimport and physical input provenance NOT_RUN.",
+    "Article verification remains partial."
+  ],
+  "schema_version": 1,
+  "case": "S226",
+  "article": "manuals/fusion/nodes/immersive/latlong-patcher.md",
+  "graph": "fixture.comp",
+  "settings": "readback.json",
+  "source": {
+    "file": "screen.png",
+    "size": [
+      3336,
+      1902
+    ],
+    "sha256": "f8199be4e178acc7f0e351855a2142fc7e7be1f47fa62d40f1976de61b61e45b"
+  },
+  "shots": [
+    {
+      "file": "graph.png",
+      "source": "screen.png",
+      "source_sha256": "f8199be4e178acc7f0e351855a2142fc7e7be1f47fa62d40f1976de61b61e45b",
+      "frame": 0,
+      "crop_xyxy": [
+        500,
+        1050,
+        2350,
+        1650
+      ],
+      "resampled": false,
+      "sha256": "6ca76c202c324d1cc303e43f02c3a34e6135c42fdabc3a39b59698c4406b7ca0"
+    },
+    {
+      "file": "controls.png",
+      "source": "screen.png",
+      "source_sha256": "f8199be4e178acc7f0e351855a2142fc7e7be1f47fa62d40f1976de61b61e45b",
+      "frame": 0,
+      "crop_xyxy": [
+        2815,
+        65,
+        3336,
+        750
+      ],
+      "resampled": false,
+      "sha256": "782aa394b7a0edb41414f5566633a28af81c6de06b06eaa7d0670bda2f2ad46d"
+    },
+    {
+      "file": "low.png",
+      "source": "state-low.png",
+      "source_sha256": "f4f608104eaff04265a646af08c2eb734b95bbe5cde35d00282700660b68f41d",
+      "frame": 0,
+      "crop_xyxy": [
+        1480,
+        70,
+        2700,
+        720
+      ],
+      "resampled": false,
+      "sha256": "e823fb501b96545b8d18f90bc9a372d16337d3f5cb22a9883ae702dae38330e1"
+    },
+    {
+      "file": "high.png",
+      "source": "screen.png",
+      "source_sha256": "f8199be4e178acc7f0e351855a2142fc7e7be1f47fa62d40f1976de61b61e45b",
+      "frame": 0,
+      "crop_xyxy": [
+        1480,
+        70,
+        2700,
+        720
+      ],
+      "resampled": false,
+      "sha256": "35db5ebc26c274441621d5c620e20690487ad2dc22411deb867b206af7cc0f8a"
+    }
+  ],
+  "reproduction": {
+    "fixture_sha256": "09ca3a211489e59d6aeee629a931e872ad5cda0dd21034b74fe9ecd355de18d7",
+    "readback_sha256": "d6bc352a3ac306597f6f36b755cbf3cb267047130762c33913818129eb1e3a00",
+    "readback_source_sha256": "d6bc352a3ac306597f6f36b755cbf3cb267047130762c33913818129eb1e3a00",
+    "readback_transform": "No line-ending transformation",
+    "reimport": "NOT_RUN"
+  }
+}

@@ -1,0 +1,132 @@
+{
+  "manual": {
+    "version": "21.1",
+    "chapter": 122,
+    "printed_pages": "2953–2954"
+  },
+  "runtime": {
+    "version": "21.1.0.14",
+    "edition": "DaVinci Resolve Studio",
+    "os": "Windows-11-10.0.26200-SP0",
+    "ui_language": "ja-JP"
+  },
+  "captured_at": "2026-10-28T02:43:12.516238+00:00",
+  "project": "Collectanea_Mandelbrot_Zoom_20261025",
+  "timeline": "S225_capture",
+  "frame": 0,
+  "resolution": [
+    1920,
+    1080
+  ],
+  "color_management": {
+    "project_settings": {
+      "colorScienceMode": "davinciYRGB",
+      "colorSpaceInput": "Rec.709 Gamma 2.4",
+      "colorSpaceTimeline": "Rec.709 (Scene)",
+      "colorSpaceTimelineGamma": "",
+      "colorSpaceOutput": "Rec.709 (Scene)",
+      "colorSpaceOutputGamma": "ACEScc",
+      "isAutoColorManage": "0",
+      "timelineResolutionWidth": "1920",
+      "timelineResolutionHeight": "1080",
+      "timelineFrameRate": 30.0,
+      "timelinePlaybackFrameRate": "30",
+      "timelinePixelAspectRatio": "square"
+    },
+    "note": "SDK project settings; screenshots show Viewer display."
+  },
+  "viewer": {
+    "view_mode": "Fit",
+    "source": "Left Label; right MediaOut1",
+    "note": "PanoMap selected; input and output layouts recorded by SDK."
+  },
+  "acceptance": {
+    "gui": "PASS: synthetic 2:1 text treated as LatLong changes when output is HCross.",
+    "article_display": "NOT_RUN",
+    "public_display": "NOT_RUN"
+  },
+  "unverified": [
+    "Synthetic text image only; real spherical footage, face orientation accuracy, animation and other hosts NOT_RUN.",
+    "Viewer screenshot is display evidence.",
+    "Portable reimport and physical input provenance NOT_RUN.",
+    "Article verification remains partial."
+  ],
+  "schema_version": 1,
+  "case": "S225",
+  "article": "manuals/fusion/nodes/immersive/panomap.md",
+  "graph": "fixture.comp",
+  "settings": "readback.json",
+  "source": {
+    "file": "screen.png",
+    "size": [
+      3336,
+      1902
+    ],
+    "sha256": "aff9c2ff8aa66fcb2339b335ab28238917f1d5a633b0639110ecbce9e393d937"
+  },
+  "shots": [
+    {
+      "file": "graph.png",
+      "source": "screen.png",
+      "source_sha256": "aff9c2ff8aa66fcb2339b335ab28238917f1d5a633b0639110ecbce9e393d937",
+      "frame": 0,
+      "crop_xyxy": [
+        500,
+        1050,
+        2350,
+        1650
+      ],
+      "resampled": false,
+      "sha256": "1d964f9103fe670a841b790b69a46fc450b1eee59755a28d29d101ed92195a21"
+    },
+    {
+      "file": "controls.png",
+      "source": "screen.png",
+      "source_sha256": "aff9c2ff8aa66fcb2339b335ab28238917f1d5a633b0639110ecbce9e393d937",
+      "frame": 0,
+      "crop_xyxy": [
+        2815,
+        65,
+        3336,
+        750
+      ],
+      "resampled": false,
+      "sha256": "b179dfa454899fe060035c8078fd1b8e5d6b3af13272d9c16862515075fb4ce7"
+    },
+    {
+      "file": "low.png",
+      "source": "state-low.png",
+      "source_sha256": "f784bb17e377a7253c13d57e7d1c4da19590f738a19c1f9cd2e6922fa6f99f0a",
+      "frame": 0,
+      "crop_xyxy": [
+        1480,
+        70,
+        2700,
+        720
+      ],
+      "resampled": false,
+      "sha256": "1dd89250e46840bfaa1865841894677b0d44f67f84e481da838b625ec219b71f"
+    },
+    {
+      "file": "high.png",
+      "source": "screen.png",
+      "source_sha256": "aff9c2ff8aa66fcb2339b335ab28238917f1d5a633b0639110ecbce9e393d937",
+      "frame": 0,
+      "crop_xyxy": [
+        1480,
+        70,
+        2700,
+        720
+      ],
+      "resampled": false,
+      "sha256": "fa63b45e2187f7feb8f682b73b24f01782f65ae4735e14373b33834ac614d83d"
+    }
+  ],
+  "reproduction": {
+    "fixture_sha256": "8f0d510120a3eea7b1fd85bdefec81d5457e267699e88452ed2a6a2d011d1a2e",
+    "readback_sha256": "e0f895c3c0df5fd7c7b4a2711f3e1b4b9b6a3b5c61c0abf5986a0c586e261686",
+    "readback_source_sha256": "e0f895c3c0df5fd7c7b4a2711f3e1b4b9b6a3b5c61c0abf5986a0c586e261686",
+    "readback_transform": "No line-ending transformation",
+    "reimport": "NOT_RUN"
+  }
+}

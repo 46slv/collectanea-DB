@@ -1,0 +1,132 @@
+{
+  "manual": {
+    "version": "21.1",
+    "chapter": 88,
+    "printed_pages": "1983–1988"
+  },
+  "runtime": {
+    "version": "21.1.0.14",
+    "edition": "DaVinci Resolve Studio",
+    "os": "Windows-11-10.0.26200-SP0",
+    "ui_language": "ja-JP"
+  },
+  "captured_at": "2026-10-28T02:26:57.603559+00:00",
+  "project": "Collectanea_Mandelbrot_Zoom_20261025",
+  "timeline": "S222_capture",
+  "frame": 0,
+  "resolution": [
+    1920,
+    1080
+  ],
+  "color_management": {
+    "project_settings": {
+      "colorScienceMode": "davinciYRGB",
+      "colorSpaceInput": "Rec.709 Gamma 2.4",
+      "colorSpaceTimeline": "Rec.709 (Scene)",
+      "colorSpaceTimelineGamma": "",
+      "colorSpaceOutput": "Rec.709 (Scene)",
+      "colorSpaceOutputGamma": "ACEScc",
+      "isAutoColorManage": "0",
+      "timelineResolutionWidth": "1920",
+      "timelineResolutionHeight": "1080",
+      "timelineFrameRate": 30.0,
+      "timelinePlaybackFrameRate": "30",
+      "timelinePixelAspectRatio": "square"
+    },
+    "note": "SDK project settings; screenshots show Viewer display."
+  },
+  "viewer": {
+    "view_mode": "Fit",
+    "source": "Left Scene; right MediaOut1",
+    "note": "Replicate selected; Step recorded by SDK."
+  },
+  "acceptance": {
+    "gui": "PASS: subdivided plane destination and sphere source; Step 1 and 3 show fewer copies.",
+    "article_display": "NOT_RUN",
+    "public_display": "NOT_RUN"
+  },
+  "unverified": [
+    "One plane and sphere, Step 1 and 3; particles, multiple sources, alignment, animation and other hosts NOT_RUN.",
+    "Viewer screenshot is display evidence.",
+    "Portable reimport and physical input provenance NOT_RUN.",
+    "Article verification remains partial."
+  ],
+  "schema_version": 1,
+  "case": "S222",
+  "article": "manuals/fusion/nodes/3d/replicate-3d.md",
+  "graph": "fixture.comp",
+  "settings": "readback.json",
+  "source": {
+    "file": "screen.png",
+    "size": [
+      3336,
+      1902
+    ],
+    "sha256": "21c7f52c57732b2c4479858d93335ff5f12ce0f4b6d95e96f5fff54131914133"
+  },
+  "shots": [
+    {
+      "file": "graph.png",
+      "source": "screen.png",
+      "source_sha256": "21c7f52c57732b2c4479858d93335ff5f12ce0f4b6d95e96f5fff54131914133",
+      "frame": 0,
+      "crop_xyxy": [
+        500,
+        1050,
+        2350,
+        1650
+      ],
+      "resampled": false,
+      "sha256": "099e0775001d7938133a1c2bf0d80a53df85c8c833518c72ceb944062e35e925"
+    },
+    {
+      "file": "controls.png",
+      "source": "screen.png",
+      "source_sha256": "21c7f52c57732b2c4479858d93335ff5f12ce0f4b6d95e96f5fff54131914133",
+      "frame": 0,
+      "crop_xyxy": [
+        2815,
+        65,
+        3336,
+        750
+      ],
+      "resampled": false,
+      "sha256": "7dc53ae687a28671d894e05e0ad2b10778dd6345f7fd1b4b34da931458147aa7"
+    },
+    {
+      "file": "low.png",
+      "source": "state-low.png",
+      "source_sha256": "bd2d0889f01ba6c3c2ee8ebebe1e12fe210d36b4fba80469573b9ad7a28c98e5",
+      "frame": 0,
+      "crop_xyxy": [
+        1480,
+        70,
+        2700,
+        720
+      ],
+      "resampled": false,
+      "sha256": "169779944ea5dfcf28109e57b2337456df69dcdce2209ed3955d6f25fe7caa93"
+    },
+    {
+      "file": "high.png",
+      "source": "screen.png",
+      "source_sha256": "21c7f52c57732b2c4479858d93335ff5f12ce0f4b6d95e96f5fff54131914133",
+      "frame": 0,
+      "crop_xyxy": [
+        1480,
+        70,
+        2700,
+        720
+      ],
+      "resampled": false,
+      "sha256": "51c7d7d959ea0d2c62d98d50a9da36cdc7977cc455adae4080e84e3dbd426ca2"
+    }
+  ],
+  "reproduction": {
+    "fixture_sha256": "ea7012eeefd7432653c8db6a153537c6bd07a1c301d02d90ff5fda7be0b84f9c",
+    "readback_sha256": "f1b56dd907943f867c1e0f170dc7f9c71ea171e3e9ba855cbf25e3083385ca52",
+    "readback_source_sha256": "f1b56dd907943f867c1e0f170dc7f9c71ea171e3e9ba855cbf25e3083385ca52",
+    "readback_transform": "No line-ending transformation",
+    "reimport": "NOT_RUN"
+  }
+}

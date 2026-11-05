@@ -1,0 +1,66 @@
+{
+  "case": "S220",
+  "project": "Collectanea_Mandelbrot_Zoom_20261025",
+  "library": "Local Database",
+  "project_manager_folder": "root",
+  "timeline": "S220_capture",
+  "frame": 0,
+  "resolve": "21.1.0.14",
+  "edition": "DaVinci Resolve Studio",
+  "os": "Windows-11-10.0.26200-SP0",
+  "project_settings": {
+    "colorScienceMode": "davinciYRGB",
+    "colorSpaceInput": "Rec.709 Gamma 2.4",
+    "colorSpaceTimeline": "Rec.709 (Scene)",
+    "colorSpaceTimelineGamma": "",
+    "colorSpaceOutput": "Rec.709 (Scene)",
+    "colorSpaceOutputGamma": "ACEScc",
+    "isAutoColorManage": "0",
+    "timelineResolutionWidth": "1920",
+    "timelineResolutionHeight": "1080",
+    "timelineFrameRate": 30.0,
+    "timelinePlaybackFrameRate": "30",
+    "timelinePixelAspectRatio": "square"
+  },
+  "connections": {
+    "KeyLight.ProjectiveImage": "Label",
+    "Primitive.MaterialInput": "Material",
+    "Scene.SceneInput1": "Primitive",
+    "Scene.SceneInput2": "KeyLight",
+    "Renderer.SceneInput": "Scene",
+    "MediaOut1.Input": "Renderer"
+  },
+  "values": {
+    "Material": {
+      "Enable": 1.0
+    },
+    "Label": {
+      "StyledText": "PROJECT",
+      "Size": 0.2
+    },
+    "Primitive": {
+      "Shape": "SurfacePlaneInputs",
+      "Transform3DOp.Scale.X": 2.0
+    },
+    "KeyLight": {
+      "ProjectionMode": 2.0,
+      "Transform3DOp.Translate.Z": 3.0
+    },
+    "Renderer": {
+      "RendererSoftware.LightingEnabled": 1.0
+    },
+    "current_projector_x": 0.4,
+    "comparison_projector_x": 0,
+    "plane_scale": 2.0
+  },
+  "source": "Text image through Projector 3D in Texture mode and Catcher on a plane; projector X 0 and .4.",
+  "save_project": true,
+  "save_completed_at": "2026-10-28T02:17:47.287203+00:00",
+  "native_export_sha256": "626925f181be20fb0372d82942fc89bd43aba2d20115be257e34756d51af705b",
+  "portable_sha256": "f619a1560eeba6200a4305dc35abc2d5cb04b3a86083be466f907206ad041a2c",
+  "portable_reimport": "NOT_RUN",
+  "limits": [
+    "One synthetic text image, projector and plane; alpha measurement, projector IDs, multiple projections, animation and other hosts NOT_RUN.",
+    "Viewer screenshot is display evidence."
+  ]
+}
