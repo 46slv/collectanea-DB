@@ -37,6 +37,32 @@ DaVinci Resolve 21.1 Reference Manualでは、Krokodoveの「Image Tools」に�
 
 また、「色が伸びる」と「不透明な領域が同じだけ広がる」は同義ではありません。色（RGB）が付くことと透明度（Alpha）が変わることを分けて観察する必要があります。
 
+<!-- capture:S264 -->
+
+## 実機例：文字の色を周囲へ広げる
+
+合成した赤い文字 `GROW` を `Grow Color` に接続し、Iterationsを4に設定しました。この静止画では文字の周囲に赤い領域が広がって見えます。Viewerの市松模様は透明部分の表示です。Alpha値やアニメーションは未検証です。[接続と設定の記録](/img/fusion/captures/S264/readback.json)に条件を記載しています。
+
+[![文字をGrow Colorへつなぐノード構成](/img/fusion/captures/S264/graph.png)](/img/fusion/captures/S264/graph.png)
+
+合成文字をGrow Colorへ渡します。
+
+[![Grow ColorのInspector](/img/fusion/captures/S264/controls.png)](/img/fusion/captures/S264/controls.png)
+
+Iterationsは4です。
+
+[![入力の赤い文字GROW](/img/fusion/captures/S264/low.png)](/img/fusion/captures/S264/low.png)
+
+入力は透明部分を持つ赤い文字です。
+
+[![赤い領域が広がったGrow Colorの出力](/img/fusion/captures/S264/high.png)](/img/fusion/captures/S264/high.png)
+
+赤い領域が文字の周囲に広がって見えます。
+
+[再現用Graph](/img/fusion/captures/S264/fixture.comp) · [撮影条件と確認範囲](/img/fusion/captures/S264/capture.json)
+
+<!-- /capture:S264 -->
+
 ## 入力と出力
 
 | 段階 | 扱うもの | 意味 |
@@ -79,7 +105,7 @@ MediaOut
 
 1. 透明な部分が大きく残る画像を用意します。最初は青い四角形など、一色で輪郭が分かるものを使うと変化を追いやすくなります。図形の作成方法は任意で、ここではGrow Color自体の検証に集中します。
 2. 画像をGrow Colorへ渡し、前段と後段の画像をViewerに表示します。**青色が増えた範囲**と**透明部分がどう見えるか**を別々に確認します。
-3. Inspectorに実際に表示される項目を確認し、一度に一項目だけ変えて前後を比較します。この記事では存在を確認できない操作名・初期値・数値を指定しません。
+3. Inspectorに実際に表示される項目を確認し、一度に一項目だけ変えて前後を比較します。実機例ではIterationsを4に設定しています。値を変えた比較は未検証です。
 4. Viewerにチェッカー状の透明表示がある場合は、見た目だけで不透明になったと判断せず、背景の異なる画像に重ねて比較します。
 5. 一色の図形で変化をつかめたら、輪郭に赤と青の二色がある画像を試します。異なる色が隣り合う部分でどのような伸び方になるかを観察します。
 
@@ -112,7 +138,7 @@ Grow Colorの「画像の縁」が、常にキャンバスの四辺だけを指�
 - **色の境界：** 違う色が接する輪郭では、境界がどのように延びるかで縞や不連続が見える可能性があります。これは一般的な制作上の観察ポイントで、特定の補間アルゴリズムを示すものではありません。
 - **解像度・範囲：** 出力画像のキャンバスが広がる、すべての透明部分が必ず埋まる、一定距離だけ伸びる、といった仕様は確認できていません。
 - **画素の復元ではない：** 色を延ばすことは、透明部分の後ろに本来あった人物や背景の細部を復元することではありません。
-- **バージョン差：** Inspectorの項目名・値域・初期値、内部REGID、Resolve Free / Studio / Fusion Studioでの違いは実機未確認です。
+- **バージョン差：** 実機例ではIterationsを確認しました。その他の項目の意味・値域・初期値、内部REGID、Resolve Free / Studio / Fusion Studioでの違いは未確認です。
 
 ## 関連する考え方とノード
 
@@ -124,4 +150,4 @@ Grow Colorの「画像の縁」が、常にキャンバスの四辺だけを指�
 
 **一次資料：** Blackmagic Design『DaVinci Resolve 21.1 Reference Manual』（September 2026）、Chapter 105「Krokodove Nodes」、**p.2434、Image Tools — Grow Color**。画像の縁の色を引き伸ばし、透明な部分を埋める役割を確認しました。同ページのExtendとGrow、およびp.2435のClean Edgesを比較しています。
 
-公式資料は[Blackmagic Designサポートセンター](https://www.blackmagicdesign.com/jp/support/)から参照できます。上の手順・用途はManual記載の効果から構成した**制作・検証案**で、実機で再現を確認した手順ではありません。具体的なInspector、Alphaの演算、出力範囲、エディションごとの挙動は未確認のため、**verification: partial**を維持します。
+公式資料は[Blackmagic Designサポートセンター](https://www.blackmagicdesign.com/jp/support/)から参照できます。用途と最小構成の手順はManual記載の効果から構成した**制作・検証案**です。実機例は静止画の一条件に限られます。その他のInspector、Alphaの演算、出力範囲、エディションごとの挙動は未確認のため、**verification: partial**を維持します。
