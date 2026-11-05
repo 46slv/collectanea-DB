@@ -38,6 +38,34 @@ DaVinci Resolve 21.1 Reference Manualは、Extendを「Image Tools」に分類�
 
 Extendが元画像の端を材料にする以上、元の画像に存在しない腕や建物の続きが自然に生成されると考えるべきではありません。端の色や模様を反復したことが見える、グラフィック的な効果として理解すると用途を判断しやすくなります。
 
+<!-- capture:S256 -->
+
+## 実機例：グラデーションの一部を横に伸ばす
+
+合成した横方向の白黒グラデーションを `Extend` に渡し、Startを（0.5, 0.5）、DirectionをHorizontalに設定しました。
+
+この例では処理後の左側が一様な灰色に見えます。Viewerには操作用オーバーレイが表示されています。ほかの方向やAlpha値は未検証です。[接続と設定の記録](/img/fusion/captures/S256/readback.json)に条件を記載しています。
+
+[![グラデーションをKrokodove Extendへつなぐ構成](/img/fusion/captures/S256/graph.png)](/img/fusion/captures/S256/graph.png)
+
+白黒グラデーションをExtendへ渡します。
+
+[![ExtendのInspector](/img/fusion/captures/S256/controls.png)](/img/fusion/captures/S256/controls.png)
+
+StartとHorizontalを設定しています。
+
+[![処理前の白黒グラデーション](/img/fusion/captures/S256/low.png)](/img/fusion/captures/S256/low.png)
+
+処理前は黒から白へ連続して変化します。
+
+[![Extendで左側が灰色に見える結果](/img/fusion/captures/S256/high.png)](/img/fusion/captures/S256/high.png)
+
+処理後は左側が一様な灰色に見えます。
+
+[再現用Graph](/img/fusion/captures/S256/fixture.comp) · [撮影条件と確認範囲](/img/fusion/captures/S256/capture.json)
+
+<!-- /capture:S256 -->
+
 ## 入力と出力
 
 | 段階 | データ | 役割 |
@@ -97,7 +125,7 @@ Extendが元画像の端を材料にする以上、元の画像に存在しな�
 - **境界：** 元画像と反復領域の境目が目立つ可能性があります。最終的な合成背景でも見ます。
 - **Alpha：** 色の反復に透明度がどう追随するかは未確認です。暗い背景と明るい背景を切り替えて確かめます。
 - **出力範囲：** Extendが解像度、画像の有効範囲、キャンバスサイズを変えるかは確認されていません。「空白を必ず埋める」「画像サイズを広げる」とは断定しません。
-- **実機差：** Inspectorの正式な項目名、初期値、値域、REGID、Resolve Free・Studio・Fusion Studioでの差は未確認です。
+- **実機差：** 実機例ではStartとDirectionを使用しました。全項目の初期値・値域、REGID、Resolve Free・Studio・Fusion Studioでの差は未確認です。
 
 ## バージョンと出典
 
@@ -105,4 +133,4 @@ Extendが元画像の端を材料にする以上、元の画像に存在しな�
 
 **比較資料：** 同Manual Chapter 105、p.2434「Grow Color」、p.2435「Clean Edges」、p.2436「Seamless」。ソフトウェアの公開更新情報は[Blackmagic Designサポートセンター](https://www.blackmagicdesign.com/jp/support/)を参照してください。
 
-本文の作例・観察手順は**理解と検証のための提案**です。正式なポート、Inspector、複製元や適用範囲、Edition差については実機で確かめていないため、**verification: partial**を維持しています。
+実機例では左側が一様な灰色に見える一条件を確認しました。その他の作例は検証のための提案です。全ポート、複製元や適用範囲、Edition差は未確認のため、**verification: partial**を維持しています。

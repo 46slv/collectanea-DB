@@ -1,0 +1,58 @@
+{
+  "case": "S259",
+  "project": "Collectanea_Mandelbrot_Zoom_20261025",
+  "library": "Local Database",
+  "project_manager_folder": "root",
+  "timeline": "S259_capture",
+  "frame": 0,
+  "resolve": "21.1.0.14",
+  "edition": "DaVinci Resolve Studio",
+  "os": "Windows-11-10.0.26200-SP0",
+  "project_settings": {
+    "colorScienceMode": "davinciYRGB",
+    "colorSpaceInput": "Rec.709 Gamma 2.4",
+    "colorSpaceTimeline": "Rec.709 (Scene)",
+    "colorSpaceTimelineGamma": "",
+    "colorSpaceOutput": "Rec.709 (Scene)",
+    "colorSpaceOutputGamma": "ACEScc",
+    "isAutoColorManage": "0",
+    "timelineResolutionWidth": "1920",
+    "timelineResolutionHeight": "1080",
+    "timelineFrameRate": 30.0,
+    "timelinePlaybackFrameRate": "30",
+    "timelinePixelAspectRatio": "square"
+  },
+  "connections": {
+    "Map.Image": "Gradient",
+    "MediaOut1.Input": "Map"
+  },
+  "values": {
+    "Gradient": {
+      "Type": "Horizontal",
+      "TopLeftRed": 0.0,
+      "TopLeftGreen": 0.0,
+      "TopLeftBlue": 0.0,
+      "TopRightRed": 1.0,
+      "TopRightGreen": 1.0,
+      "TopRightBlue": 1.0
+    },
+    "Map": {
+      "Base": 0.0,
+      "Type": 0.0,
+      "Scale": 16.0,
+      "Iterations": 4.0,
+      "Detail": 4.0,
+      "Amplitude": 1.0
+    }
+  },
+  "source": "Synthetic horizontal grayscale gradient through KD Generate.",
+  "save_project": true,
+  "save_completed_at": "2026-10-28T06:26:03.262718+00:00",
+  "native_export_sha256": "a7529083724067eb2123513ec7e20e0b6bed00e9eb47d5dd997743ee1700982c",
+  "portable_sha256": "5d5cb1f64a45a05c5f5abddb98e2a330caa27d1c42ebccc520d97db56dd6e2b4",
+  "portable_reimport": "NOT_RUN",
+  "limits": [
+    "One synthetic text and settings; other generate settings, mask, alpha values, animation and other hosts NOT_RUN.",
+    "Viewer screenshot is display evidence."
+  ]
+}
