@@ -1,0 +1,69 @@
+{
+  "case": "S216",
+  "project": "Collectanea_Mandelbrot_Zoom_20261025",
+  "library": "Local Database",
+  "project_manager_folder": "root",
+  "timeline": "S216_capture",
+  "frame": 0,
+  "resolve": "21.1.0.14",
+  "edition": "DaVinci Resolve Studio",
+  "os": "Windows-11-10.0.26200-SP0",
+  "project_settings": {
+    "colorScienceMode": "davinciYRGB",
+    "colorSpaceInput": "Rec.709 Gamma 2.4",
+    "colorSpaceTimeline": "Rec.709 (Scene)",
+    "colorSpaceTimelineGamma": "",
+    "colorSpaceOutput": "Rec.709 (Scene)",
+    "colorSpaceOutputGamma": "ACEScc",
+    "isAutoColorManage": "0",
+    "timelineResolutionWidth": "1920",
+    "timelineResolutionHeight": "1080",
+    "timelineFrameRate": 30.0,
+    "timelinePlaybackFrameRate": "30",
+    "timelinePixelAspectRatio": "square"
+  },
+  "connections": {
+    "KeyLight.DomeTexture": "Environment",
+    "Primitive.MaterialInput": "Material",
+    "Scene.SceneInput1": "Primitive",
+    "Scene.SceneInput2": "KeyLight",
+    "Renderer.SceneInput": "Scene",
+    "MediaOut1.Input": "Renderer"
+  },
+  "values": {
+    "Material": {
+      "Base.Color.Red": 0.6,
+      "Base.Color.Green": 0.35,
+      "Base.Color.Blue": 0.1,
+      "Specular.Roughness": 0.4
+    },
+    "Primitive": {
+      "Shape": "SurfaceSphereInputs",
+      "Transform3DOp.Scale.X": 0.5
+    },
+    "KeyLight": {
+      "Intensity": 0.0
+    },
+    "Environment": {
+      "TopLeftRed": 0.8,
+      "TopLeftGreen": 0.8,
+      "TopLeftBlue": 0.8,
+      "TopLeftAlpha": 1.0
+    },
+    "Renderer": {
+      "RendererSoftware.LightingEnabled": 1.0
+    },
+    "current_intensity": 2.0,
+    "comparison_intensity": 0
+  },
+  "source": "Dome Light with a synthetic uniform SDR background illuminating an OpenPBR sphere; intensity 0 and 2.",
+  "save_project": true,
+  "save_completed_at": "2026-10-28T01:39:35.056004+00:00",
+  "native_export_sha256": "de41a85609eeae0e92f70ba763dc334eeb66acf1367f373264e36faa24843df0",
+  "portable_sha256": "cccde8af6cdd56f11963f15b24eff92556d2141369cb30f1bfbca194dfa21b05",
+  "portable_reimport": "NOT_RUN",
+  "limits": [
+    "One synthetic uniform SDR environment and one sphere; HDR, rotation, realistic environment, animation and other hosts NOT_RUN.",
+    "Viewer screenshot is display evidence."
+  ]
+}

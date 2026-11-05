@@ -1,0 +1,65 @@
+{
+  "case": "S211",
+  "project": "Collectanea_Mandelbrot_Zoom_20261025",
+  "library": "Local Database",
+  "project_manager_folder": "root",
+  "timeline": "S211_capture",
+  "frame": 0,
+  "resolve": "21.1.0.14",
+  "edition": "DaVinci Resolve Studio",
+  "os": "Windows-11-10.0.26200-SP0",
+  "project_settings": {
+    "colorScienceMode": "davinciYRGB",
+    "colorSpaceInput": "Rec.709 Gamma 2.4",
+    "colorSpaceTimeline": "Rec.709 (Scene)",
+    "colorSpaceTimelineGamma": "",
+    "colorSpaceOutput": "Rec.709 (Scene)",
+    "colorSpaceOutputGamma": "ACEScc",
+    "isAutoColorManage": "0",
+    "timelineResolutionWidth": "1920",
+    "timelineResolutionHeight": "1080",
+    "timelineFrameRate": 30.0,
+    "timelinePlaybackFrameRate": "30",
+    "timelinePixelAspectRatio": "square"
+  },
+  "connections": {
+    "Material.Input": "Label",
+    "Primitive.MaterialInput": "Material",
+    "Scene.SceneInput1": "Primitive",
+    "Scene.SceneInput2": "KeyLight",
+    "Renderer.SceneInput": "Scene",
+    "MediaOut1.Input": "Renderer"
+  },
+  "values": {
+    "Material": {
+      "UOffset": 0.0
+    },
+    "Label": {
+      "StyledText": "UV MAP",
+      "Size": 0.2
+    },
+    "Primitive": {
+      "Shape": "SurfacePlaneInputs",
+      "Transform3DOp.Scale.X": 2.0
+    },
+    "KeyLight": {
+      "Transform3DOp.Rotate.Y": -35.0
+    },
+    "Renderer": {
+      "RendererSoftware.LightingEnabled": 1.0
+    },
+    "current_u_offset": 0.2,
+    "comparison_u_offset": 0,
+    "plane_scale": 2.0
+  },
+  "source": "Text image through Texture 2D on a plane; U offset 0 and .2.",
+  "save_project": true,
+  "save_completed_at": "2026-10-28T01:11:58.258484+00:00",
+  "native_export_sha256": "85bda6cb1bbb768920cc09e461ba883026c51c81ca8289523160a742edfaa74f",
+  "portable_sha256": "978f74c5d33fe46efebda56e0cb120e4dac4adeecd0fdad5df7d7440688b08c8",
+  "portable_reimport": "NOT_RUN",
+  "limits": [
+    "One synthetic text image and plane, two U offsets; wrapping, filtering, animation and other hosts NOT_RUN.",
+    "Viewer screenshot is display evidence."
+  ]
+}
