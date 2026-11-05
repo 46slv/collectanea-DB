@@ -31,6 +31,34 @@ updated: '2026-10-19'
 
 なお、Manualに記載されているのは「画像の縁を歪ませて奥行きの錯覚を作る」という役割までです。**透明部分との境界を参照するのか、色・明るさの差を参照するのか、どの方向へ画素を動かすのか**といった内部規則は、この記述だけでは確定できません。
 
+<!-- capture:S239 -->
+
+## 実機例：文字に押し出し風の奥行きを付ける
+
+合成した `Text+` の文字を `Extrude` に渡し、Angleを45、Lengthを0.15に設定しました。
+
+この例では文字の背後に青い押し出し風の形が見えます。Viewerには透明部分を示す市松模様が表示されています。ほかの設定やAlphaの数値は未検証です。[接続と設定の記録](/img/fusion/captures/S239/readback.json)に条件を記載しています。
+
+[![文字画像をKrokodove Extrudeへつなぐ構成](/img/fusion/captures/S239/graph.png)](/img/fusion/captures/S239/graph.png)
+
+文字画像をExtrudeへ渡します。
+
+[![ExtrudeのInspector](/img/fusion/captures/S239/controls.png)](/img/fusion/captures/S239/controls.png)
+
+Angleを45、Lengthを0.15に設定しています。
+
+[![処理前の文字](/img/fusion/captures/S239/low.png)](/img/fusion/captures/S239/low.png)
+
+処理前の文字です。
+
+[![Extrudeで奥行きを付けた文字](/img/fusion/captures/S239/high.png)](/img/fusion/captures/S239/high.png)
+
+処理後は文字の背後に青い形が見えます。
+
+[再現用Graph](/img/fusion/captures/S239/fixture.comp) · [撮影条件と確認範囲](/img/fusion/captures/S239/capture.json)
+
+<!-- /capture:S239 -->
+
 ## 入力と出力
 
 | 段階 | データ | 役割 |
@@ -39,7 +67,7 @@ updated: '2026-10-19'
 | 処理 | 画像の縁の変形 | 境界付近の見え方を変え、奥行き感を作る。 |
 | 出力 | 2D Image | 加工結果を通常の画像処理・合成へ渡す。 |
 
-Imageとして整理する根拠は、21.1 Manualの「Image Pixel Tools」という分類と、画像の縁を変形するという説明です。これは**データの種類の説明**であり、実機の正式なポート名・入力数・補助入力の有無を確認したものではありません。
+Imageとして整理する根拠は、21.1 Manualの「Image Pixel Tools」という分類と、画像の縁を変形するという説明です。実機例では入力 `Image` と補助入力 `EffectMask` を確認しています。端子の全挙動は未検証です。
 
 元になる画像が必要な場合は、BackgroundやText+で2D Imageを用意します。Shape系の図形を使う場合は、先に[sRender](../shapes/s-render)で画像化する必要があります。<Term id="shape-data">Shape</Term>は図形の輪郭をピクセル化する前のデータで、[Shapeの基礎](../../learn/02-data/shape)で違いを説明しています。
 
@@ -59,7 +87,7 @@ Rectangle ──→ BackgroundのEffect Mask
 
 1. Backgroundを作り、RectangleをBackgroundのEffect Maskにつないで、画面の中央に単色の四角形を表示します。四角形以外は透明になる構成です。
 2. Backgroundの出力をExtrudeへ渡し、加工前のBackgroundと加工後のExtrudeをそれぞれViewerで確認します。
-3. ExtrudeのInspectorで**実際に表示される項目**を一つだけ変え、境界がどのように変わったか比較します。ここでは未確認のスライダー名や既定値を指定しません。
+3. ExtrudeのInspectorで**実際に表示される項目**を一つだけ変え、境界がどのように変わったか比較します。実機例で使ったAngleとLength以外の設定範囲や既定値は未検証です。
 4. 加工後のImageを通常のMergeのForegroundへ、背景映像をBackgroundへ入れます。透明部分や合成後の見え方を確認します。
 5. 四角形を細長くしたり、丸い輪郭へ変えたりして、元画像の形による差を調べます。
 
@@ -97,8 +125,8 @@ Text+ → Extrude → Merge → MediaOut
 
 - **3Dジオメトリとは区別する。** Extrude 3Dの`Extrusion Depth`や`Bevel Width`などのInspector項目を、このExtrudeにもあるものとして説明しません。
 - **「縁」の検出方法は未確認。** Alpha境界、RGBの差、輝度差など、どの情報に反応するかは実際の画像で確かめます。
-- **正式な端子名・補助入力は未確認。** 入出力をImageとして分類できても、追加のMaskや制御用入力があるとまでは断定できません。
-- **処理の寸法・方向・アニメーション可能な項目は未確認。** 実機に表示されたコントロールを基準に確認します。
+- **端子の挙動は一部未確認。** Resolve Studio 21.1で `Image` と `EffectMask` を確認しましたが、補助入力の動作は未検証です。
+- **設定の範囲とアニメーションは未確認。** 実機例ではAngleとLengthを使いましたが、全範囲やアニメーション可能な項目は未検証です。
 - **製品エディションごとの提供差は未確認。** Resolve Free、Resolve Studio、Fusion Studioでの表示・動作が同じとは断定しません。
 
 ## バージョンと出典
@@ -107,4 +135,4 @@ Text+ → Extrude → Merge → MediaOut
 - **比較資料：** 同Manual、**p.2435**（Bevel、Plastic）、**p.2437**（sExtrude）、Chapter 88 **pp.1942–1944**（Extrude 3D）。
 - **関連：** [画像データの基礎](../../learn/02-data/image)、[Shapeの基礎](../../learn/02-data/shape)、[Krokodoveの全体像](./)。
 
-21.1実機でInspectorの正式名称・出力端子・演算条件などを確認していないため、`verification: partial`を維持します。
+実機例は一つの設定に限られ、出力端子の詳細や演算条件は未検証のため、`verification: partial`を維持します。

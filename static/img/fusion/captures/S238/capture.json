@@ -1,0 +1,132 @@
+{
+  "manual": {
+    "version": "21.1",
+    "chapter": 105,
+    "printed_pages": "2435"
+  },
+  "runtime": {
+    "version": "21.1.0.14",
+    "edition": "DaVinci Resolve Studio",
+    "os": "Windows-11-10.0.26200-SP0",
+    "ui_language": "ja-JP"
+  },
+  "captured_at": "2026-10-28T04:43:24.767578+00:00",
+  "project": "Collectanea_Mandelbrot_Zoom_20261025",
+  "timeline": "S238_capture",
+  "frame": 0,
+  "resolution": [
+    1920,
+    1080
+  ],
+  "color_management": {
+    "project_settings": {
+      "colorScienceMode": "davinciYRGB",
+      "colorSpaceInput": "Rec.709 Gamma 2.4",
+      "colorSpaceTimeline": "Rec.709 (Scene)",
+      "colorSpaceTimelineGamma": "",
+      "colorSpaceOutput": "Rec.709 (Scene)",
+      "colorSpaceOutputGamma": "ACEScc",
+      "isAutoColorManage": "0",
+      "timelineResolutionWidth": "1920",
+      "timelineResolutionHeight": "1080",
+      "timelineFrameRate": 30.0,
+      "timelinePlaybackFrameRate": "30",
+      "timelinePixelAspectRatio": "square"
+    },
+    "note": "SDK project settings; screenshots show Viewer display."
+  },
+  "viewer": {
+    "view_mode": "Fit",
+    "source": "Left Label; right MediaOut1",
+    "note": "KD Bevel selected; viewer shows transparency checkerboard."
+  },
+  "acceptance": {
+    "gui": "PASS: synthetic text displays shaded bevel treatment.",
+    "article_display": "NOT_RUN",
+    "public_display": "NOT_RUN"
+  },
+  "unverified": [
+    "One synthetic text and setting; other settings, masks, alpha values, animation and other hosts NOT_RUN.",
+    "Viewer screenshot is display evidence.",
+    "Portable reimport and physical input provenance NOT_RUN.",
+    "Article verification remains partial."
+  ],
+  "schema_version": 1,
+  "case": "S238",
+  "article": "manuals/fusion/nodes/krokodove/bevel.md",
+  "graph": "fixture.comp",
+  "settings": "readback.json",
+  "source": {
+    "file": "screen.png",
+    "size": [
+      3328,
+      1898
+    ],
+    "sha256": "9e73e105f6496f7498dffc1454bfe4aa470db9053ac0b82e793a70b5e6752b44"
+  },
+  "shots": [
+    {
+      "file": "graph.png",
+      "source": "screen.png",
+      "source_sha256": "9e73e105f6496f7498dffc1454bfe4aa470db9053ac0b82e793a70b5e6752b44",
+      "frame": 0,
+      "crop_xyxy": [
+        500,
+        1050,
+        2350,
+        1650
+      ],
+      "resampled": false,
+      "sha256": "ff994ce79c5b2f0df64639c5dd5457a03e1993d8775d8dc0223e4e1ccf6cba56"
+    },
+    {
+      "file": "controls.png",
+      "source": "screen.png",
+      "source_sha256": "9e73e105f6496f7498dffc1454bfe4aa470db9053ac0b82e793a70b5e6752b44",
+      "frame": 0,
+      "crop_xyxy": [
+        2815,
+        65,
+        3328,
+        750
+      ],
+      "resampled": false,
+      "sha256": "e5c4d51905cd33f10b5e09eafc9b35199278e3c3ec5dbb4b67e5a33a6e99ab0f"
+    },
+    {
+      "file": "low.png",
+      "source": "screen.png",
+      "source_sha256": "9e73e105f6496f7498dffc1454bfe4aa470db9053ac0b82e793a70b5e6752b44",
+      "frame": 0,
+      "crop_xyxy": [
+        120,
+        70,
+        1340,
+        720
+      ],
+      "resampled": false,
+      "sha256": "71399747902ca8508fac258654d77cd6ede1d772e7da93a75c7ae2e48d44082d"
+    },
+    {
+      "file": "high.png",
+      "source": "screen.png",
+      "source_sha256": "9e73e105f6496f7498dffc1454bfe4aa470db9053ac0b82e793a70b5e6752b44",
+      "frame": 0,
+      "crop_xyxy": [
+        1480,
+        70,
+        2700,
+        720
+      ],
+      "resampled": false,
+      "sha256": "b213bb784db6358efccb014ca2bb8fef19f919e3f9a2574b543209e140d327c7"
+    }
+  ],
+  "reproduction": {
+    "fixture_sha256": "506ae8e969e2c51ee081ae602ad8fb2cc4c66eaba5d8f30296da286c5bf7ad4d",
+    "readback_sha256": "bcca0b1102990c18076d6ce7456c5479423a5c1d2a5196df84c79dc65cf5fb7e",
+    "readback_source_sha256": "bcca0b1102990c18076d6ce7456c5479423a5c1d2a5196df84c79dc65cf5fb7e",
+    "readback_transform": "No line-ending transformation",
+    "reimport": "NOT_RUN"
+  }
+}

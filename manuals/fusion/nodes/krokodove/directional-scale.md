@@ -31,6 +31,34 @@ Directional Scaleも画像の形を変えますが、21.1 Manualが説明して�
 
 ただし、Manualの説明は短く、変形が画像全域で均一なのか、場所によって変化するのか、どの位置を基準に伸ばすのかまでは分かりません。「片側だけが伸びる」「特定の角度パラメータがある」といった細かな挙動は、この資料からは確定できません。効果の形はViewerで確認します。
 
+<!-- capture:S237 -->
+
+## 実機例：文字を一方向に伸ばす
+
+合成した `Text+` の文字を `Directional Scale` に渡し、Size Along Axisを1.5に設定しました。
+
+この例では文字が横方向に伸びます。Viewerの操作用オーバーレイも画像に写っています。ほかの軸やAlphaの数値は未検証です。[接続と設定の記録](/img/fusion/captures/S237/readback.json)に条件を記載しています。
+
+[![文字画像をKrokodove Directional Scaleへつなぐ構成](/img/fusion/captures/S237/graph.png)](/img/fusion/captures/S237/graph.png)
+
+文字画像をDirectional Scaleへ渡します。
+
+[![Directional ScaleのInspector](/img/fusion/captures/S237/controls.png)](/img/fusion/captures/S237/controls.png)
+
+Size Along Axisを1.5に設定しています。
+
+[![処理前の文字](/img/fusion/captures/S237/low.png)](/img/fusion/captures/S237/low.png)
+
+処理前の文字です。
+
+[![Directional Scaleで伸ばした文字](/img/fusion/captures/S237/high.png)](/img/fusion/captures/S237/high.png)
+
+処理後は文字が横に伸びます。
+
+[再現用Graph](/img/fusion/captures/S237/fixture.comp) · [撮影条件と確認範囲](/img/fusion/captures/S237/capture.json)
+
+<!-- /capture:S237 -->
+
 ## 入力と出力
 
 | 段階 | データ | 確認範囲 |
@@ -38,7 +66,7 @@ Directional Scaleも画像の形を変えますが、21.1 Manualが説明して�
 | 入力 | **2D Image** | 21.1 Manualの「Image Warp Tools」分類と既存COLLECTANEAカタログに基づく分類。 |
 | 処理 | 指定方向に沿った画像の伸縮・変形 | Manualで直接確認できる役割。 |
 | 出力 | **2D Image** | 変形された画像を後段の画像処理・合成へ渡す。 |
-| 未確認 | 正式な端子名・本数、補助入力、Inspectorの項目名・初期値・値域 | Manualの短い説明では特定できない。 |
+| 未確認 | 出力端子の詳細、補助入力の挙動、初期値の普遍性・値域 | 実機ではImage入力と上記Inspector項目を確認。 |
 
 ここでの<Term id="image">Image</Term>は、静止画・映像・画像化された文字など、画素で表現するデータを指します。図形の輪郭などをデータとして扱う<Term id="shape-data">Shape</Term>とは異なります。Directional ScaleはShapeそのものを編集するノードではなく、**入力された画像の見た目を変形するツール**です。
 
@@ -88,16 +116,16 @@ Frontmatterの`inputs: [image]`と`outputs: [image]`はデータ分類であり�
 
 ## 注意点と確認できていない仕様
 
-- **旧記事の「指定angle方向へ片側stretch」**：21.1 Manualに記載があるのは「specified direction」であり、「片側のみ」「angleというInspector項目名」までは確認できません。そのため本文では確定仕様として使っていません。
-- **Inspectorと変形の基準**：角度、中心、強度などの正式な設定名、値域、初期値、変形が均一かどうかは未確認です。
+- **旧記事の「指定angle方向へ片側stretch」**：21.1 Manualに記載があるのは「specified direction」であり、「片側のみ」までは確認できません。実機InspectorにはAxis Angleが表示されますが、角度の全挙動は未確認です。
+- **Inspectorと変形の基準**：実機ではAxis Angle、Center、Size Along Axis、Size Lateral Axisを確認しました。値域、初期値の普遍性、変形が均一かどうかは未確認です。
 - **画面端・Alpha**：画像がフレーム外へ動く場合の補間、透明画素の扱い、premultiplyなどは資料から確認できません。透過素材は合成後も確認します。
 - **アニメーション**：専用の時間制御や速度パラメータの存在は確認していません。上の例は入力に動画を使う構成です。
-- **製品・Edition差**：21.1 Manualへの掲載は確認済みですが、Resolve Free / Studio / Fusion Studioそれぞれの利用可否、内部REGID、実機表示名は別途確認が必要です。
+- **製品・Edition差**：21.1 Manualへの掲載は確認済みですが、Resolve Free / Studio / Fusion Studioそれぞれの利用可否、実機表示名は別途確認が必要です。実機のREGIDはKD_DirectionalScaleです。
 
 ## バージョンと出典
 
 一次資料：Blackmagic Design『**DaVinci Resolve 21.1 Reference Manual**』、Chapter 105「Krokodove Nodes」、**p.2436「Image Warp Tools / Directional Scale」**。同ページのBend、Radial、p.2437のShear、Spherize、Warped Transformの記述と比較しました。
 
-この記事の画像入出力分類は公式カテゴリと既存COLLECTANEAカタログを併用しています。制作例は記載された役割に基づく提案で、実機による再現確認はまだ行っていません。詳細な端子、Inspector、Alpha、Edition差は未確認のため、`verification: partial`を維持しています。
+この記事の画像入出力分類は公式カテゴリと既存COLLECTANEAカタログを併用しています。上記の文字画像の伸縮は実機で確認しました。その他の制作例は記載された役割に基づく提案です。端子の全詳細、Inspectorの全範囲、Alpha、Edition差は未確認のため、`verification: partial`を維持しています。
 
 [Krokodove全体像](./)と[画像（Image）](../../learn/02-data/image)も参照してください。

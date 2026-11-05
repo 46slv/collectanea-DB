@@ -31,13 +31,41 @@ updated: '2026-10-18'
 
 「Radial」という名前から、必ず中心から外へ広がる、円形の範囲にだけかかる、といった挙動までは判断できません。中心位置、形状、変形量をどの設定で操作するかも、公式マニュアルの一覧説明だけでは確定できません。
 
+<!-- capture:S235 -->
+
+## 実機例：文字を放射状に変形
+
+合成した `Text+` の文字を `Radial` に渡し、Radial Offsetを0.2に設定しました。
+
+この例では中央付近の文字が大きく曲がります。Viewerの操作用オーバーレイも画像に写っています。Warp MaskやAlphaの数値は未検証です。[接続と設定の記録](/img/fusion/captures/S235/readback.json)に条件を記載しています。
+
+[![文字画像をKrokodove Radialへつなぐ構成](/img/fusion/captures/S235/graph.png)](/img/fusion/captures/S235/graph.png)
+
+文字画像をRadialへ渡します。
+
+[![RadialのInspector](/img/fusion/captures/S235/controls.png)](/img/fusion/captures/S235/controls.png)
+
+Radial Offsetを0.2に設定しています。
+
+[![処理前の文字](/img/fusion/captures/S235/low.png)](/img/fusion/captures/S235/low.png)
+
+処理前の文字です。
+
+[![Radialで変形した文字](/img/fusion/captures/S235/high.png)](/img/fusion/captures/S235/high.png)
+
+処理後は文字が曲がります。
+
+[再現用Graph](/img/fusion/captures/S235/fixture.comp) · [撮影条件と確認範囲](/img/fusion/captures/S235/capture.json)
+
+<!-- /capture:S235 -->
+
 ## 入力と出力
 
 | 項目 | 扱うデータ・役割 | 確認範囲 |
 | --- | --- | --- |
 | 主な入力 | **2D Image** | 21.1 Manualの「Image Warp Tools」分類と既存カタログに基づく画像データ分類。 |
 | 処理 | 画像にへこみ状の歪みを与える | Manualが直接説明するRadialの役割。 |
-| 追加の入力 | **warp mask** | Manualに追加入力の存在が記載されている。正式な端子名・型・計算への作用方法は未確認。 |
+| 追加の入力 | **warp mask** | Manualに追加入力の存在が記載されている。実機SDKではWarpMaskはMask型。計算への作用方法は未確認。 |
 | 出力 | 変形後の**2D Image** | 画像変形ツールとしての入出力分類。正式な出力端子名は未確認。 |
 
 ここでの<Term id="image">Image</Term>は、静止画・映像・画像化された文字など、画素で表されるデータです。輪郭を保ったまま編集するShapeデータや、3D空間に置いた立体そのものを変形する処理とは区別します。
@@ -95,16 +123,16 @@ RadialとSpherizeは、どちらもManualで「dent」に類する表現が使�
 
 ## 注意点と確認できていない仕様
 
-- **Inspectorの項目名**：変形の中心、量、範囲、補間方法などの正式な名称・初期値・値域は未確認です。「Radial」という名称からパラメータを推測しません。
-- **warp maskの型と動作**：追加の入力が記載されていることは確認済みです。ただし、接続可能なデータの種類、反転や濃淡の意味、処理順序は未確認です。通常のEffect Maskと同じものとして説明しません。
+- **Inspectorの項目名**：実機ではCenterとRadial Offsetを確認しました。初期値の普遍性・値域や補間方法は未確認です。「Radial」という名称からパラメータを推測しません。
+- **warp maskの型と動作**：追加の入力が記載されていることは確認済みです。ただし、SDK一覧ではWarpMaskはMask型でした。反転や濃淡の意味、処理順序は未確認です。通常のEffect Maskと同じものとして説明しません。
 - **Alphaと画像端**：透明部分、premultiply、画像範囲外の画素、境界の補間方法は未確認です。透過素材なら合成後も確認してください。
 - **時間変化**：入力に動画を使うことと、Radial自身に専用の速度制御があることは別です。専用の時間パラメータの有無は確認していません。
-- **製品差と内部名**：21.1 Manualへの掲載は確認済みですが、Resolve Free / Studio / Fusion Studioでの利用条件、内部REGID、実機の端子表示は個別に確認する必要があります。
+- **製品差と内部名**：21.1 Manualへの掲載は確認済みですが、Resolve Free / Studio / Fusion Studioでの利用条件は未確認です。実機のREGIDはKD_Radialです。実機の端子表示は個別に確認する必要があります。
 
 ## バージョンと出典
 
 一次資料はBlackmagic Design『**DaVinci Resolve 21.1 Reference Manual**』（September 2026）、Chapter 105「Krokodove Nodes」、**p.2436「Image Warp Tools / Radial」**です。同じ章のBend・Directional Scale（p.2436）、Spherize・Warped Transform（p.2437）を比較しました。標準Displaceとの違いの検討には、同ManualのChapter 123「Warp Nodes」（pp.2967–2968）も参照しています。
 
-このページの画像データ分類には、公式カテゴリと既存COLLECTANEAカタログを併用しています。具体例は公開資料の役割説明から組み立てた制作案であり、実機での再現は未確認です。正式な端子・Inspector・Edition差を検証できていないため、`verification: partial`を維持します。
+このページの画像データ分類には、公式カテゴリと既存COLLECTANEAカタログを併用しています。上記の文字画像の変形は実機で確認しました。その他の具体例は公開資料の役割説明から組み立てた制作案です。正式な端子・Inspector・Edition差を検証できていないため、`verification: partial`を維持します。
 
 [Krokodove全体像](./)と[画像（Image）](../../learn/02-data/image)も参照してください。

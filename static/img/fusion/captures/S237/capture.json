@@ -1,0 +1,132 @@
+{
+  "manual": {
+    "version": "21.1",
+    "chapter": 105,
+    "printed_pages": "2436"
+  },
+  "runtime": {
+    "version": "21.1.0.14",
+    "edition": "DaVinci Resolve Studio",
+    "os": "Windows-11-10.0.26200-SP0",
+    "ui_language": "ja-JP"
+  },
+  "captured_at": "2026-10-28T04:08:04.693260+00:00",
+  "project": "Collectanea_Mandelbrot_Zoom_20261025",
+  "timeline": "S237_capture",
+  "frame": 0,
+  "resolution": [
+    1920,
+    1080
+  ],
+  "color_management": {
+    "project_settings": {
+      "colorScienceMode": "davinciYRGB",
+      "colorSpaceInput": "Rec.709 Gamma 2.4",
+      "colorSpaceTimeline": "Rec.709 (Scene)",
+      "colorSpaceTimelineGamma": "",
+      "colorSpaceOutput": "Rec.709 (Scene)",
+      "colorSpaceOutputGamma": "ACEScc",
+      "isAutoColorManage": "0",
+      "timelineResolutionWidth": "1920",
+      "timelineResolutionHeight": "1080",
+      "timelineFrameRate": 30.0,
+      "timelinePlaybackFrameRate": "30",
+      "timelinePixelAspectRatio": "square"
+    },
+    "note": "SDK project settings; screenshots show Viewer display."
+  },
+  "viewer": {
+    "view_mode": "Fit",
+    "source": "Left Label; right MediaOut1",
+    "note": "KD Directional Scale selected; viewer includes control overlays."
+  },
+  "acceptance": {
+    "gui": "PASS: synthetic text expands along axis with size 1.5.",
+    "article_display": "NOT_RUN",
+    "public_display": "NOT_RUN"
+  },
+  "unverified": [
+    "One synthetic text and axis size; other axes, masks, alpha values, animation and other hosts NOT_RUN.",
+    "Viewer screenshots include control overlays and are display evidence.",
+    "Portable reimport and physical input provenance NOT_RUN.",
+    "Article verification remains partial."
+  ],
+  "schema_version": 1,
+  "case": "S237",
+  "article": "manuals/fusion/nodes/krokodove/directional-scale.md",
+  "graph": "fixture.comp",
+  "settings": "readback.json",
+  "source": {
+    "file": "screen.png",
+    "size": [
+      3336,
+      1902
+    ],
+    "sha256": "78845beb69b401a9b888e09715257c87d0ad57e213d2ae2da891a97104aea3c7"
+  },
+  "shots": [
+    {
+      "file": "graph.png",
+      "source": "screen.png",
+      "source_sha256": "78845beb69b401a9b888e09715257c87d0ad57e213d2ae2da891a97104aea3c7",
+      "frame": 0,
+      "crop_xyxy": [
+        500,
+        1050,
+        2350,
+        1650
+      ],
+      "resampled": false,
+      "sha256": "bde7e2b607a66a4bd3dd63e5939fe04b73e4f2e5b3064c75232c290ead915896"
+    },
+    {
+      "file": "controls.png",
+      "source": "screen.png",
+      "source_sha256": "78845beb69b401a9b888e09715257c87d0ad57e213d2ae2da891a97104aea3c7",
+      "frame": 0,
+      "crop_xyxy": [
+        2815,
+        65,
+        3336,
+        750
+      ],
+      "resampled": false,
+      "sha256": "43f446f42bbcc7e9d13c5db97887e1ad7ddc570a98c5ed573b0682e97b7d12be"
+    },
+    {
+      "file": "low.png",
+      "source": "screen.png",
+      "source_sha256": "78845beb69b401a9b888e09715257c87d0ad57e213d2ae2da891a97104aea3c7",
+      "frame": 0,
+      "crop_xyxy": [
+        120,
+        70,
+        1340,
+        720
+      ],
+      "resampled": false,
+      "sha256": "4e1b6fd7e0f1276025bc89021faf551785b689e32b1a4fd6c90730d35eeeca41"
+    },
+    {
+      "file": "high.png",
+      "source": "screen.png",
+      "source_sha256": "78845beb69b401a9b888e09715257c87d0ad57e213d2ae2da891a97104aea3c7",
+      "frame": 0,
+      "crop_xyxy": [
+        1480,
+        70,
+        2700,
+        720
+      ],
+      "resampled": false,
+      "sha256": "263a4c2ff2fb2419d71779c1d2ecaa0c7af5ed2883c78734f774e8c0f117a741"
+    }
+  ],
+  "reproduction": {
+    "fixture_sha256": "d6a12f7e99373be0bfb301575ad6a95ced86115fb7b5a83d3d6de6d6fe9b6c06",
+    "readback_sha256": "bf4dea6ae8592da81fb07134ea3c6df2c40167458d86172f72e077fc3f2de569",
+    "readback_source_sha256": "bf4dea6ae8592da81fb07134ea3c6df2c40167458d86172f72e077fc3f2de569",
+    "readback_transform": "No line-ending transformation",
+    "reimport": "NOT_RUN"
+  }
+}
