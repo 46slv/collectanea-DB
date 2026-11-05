@@ -33,6 +33,34 @@ updated: '2026-10-20'
 
 21.1 ManualはOffsetを *Displaces/warps an image on the horizontal/vertical axis* と説明しています。**位置ずれと変形の双方を表す表現**ですが、変形の数式、領域ごとの制御、方向の正負、画面端での処理は記載されていません。実際にどちらの変化が起きるかは、使用するコントロールと入力画像によってViewerで確認する必要があります。
 
+<!-- capture:S234 -->
+
+## 実機例：白いマップで文字をずらす
+
+合成した `Text+` の文字と白いBackgroundを `Offset` に渡し、水平の白側オフセットを0.2にしました。
+
+この構成では処理後の文字が水平方向へ移動します。他のマップ値、画面端やAlphaの数値は未検証です。[接続と設定の記録](/img/fusion/captures/S234/readback.json)に条件を記載しています。
+
+[![文字と白い変形マップをKrokodove Offsetへつなぐ構成](/img/fusion/captures/S234/graph.png)](/img/fusion/captures/S234/graph.png)
+
+文字と変形マップをそれぞれOffsetへ渡します。
+
+[![Offsetの水平オフセット設定](/img/fusion/captures/S234/controls.png)](/img/fusion/captures/S234/controls.png)
+
+Horizontal Offset Whiteを0.2に設定しています。
+
+[![処理前の文字](/img/fusion/captures/S234/low.png)](/img/fusion/captures/S234/low.png)
+
+処理前の文字です。
+
+[![水平方向へ移動した文字](/img/fusion/captures/S234/high.png)](/img/fusion/captures/S234/high.png)
+
+処理後は文字が移動します。
+
+[再現用Graph](/img/fusion/captures/S234/fixture.comp) · [撮影条件と確認範囲](/img/fusion/captures/S234/capture.json)
+
+<!-- /capture:S234 -->
+
 ## 入力と出力
 
 | 段階 | 役割 | 根拠・確認範囲 |
@@ -96,17 +124,17 @@ OffsetとDirectional Scaleはどちらも方向を使った変形ですが、**O
 
 ## 注意点と未確認事項
 
-- **第2入力**：旧記事の「第2の画像で制御」という記述は、21.1 Manualの該当行から確認できません。実際に第2画像を接続できるか、制御に使うかは未確認です。
-- **Inspector**：水平・垂直方向に関係する正式な項目名、初期値、座標系、値域、符号と方向の対応、アニメーション方法は未確認です。
-- **画素の移動方法**：画像全体が一様に移るのか、場所による変化があるのか、画面外の画素がどう扱われるのか、端の繰り返しや補間方式は未確認です。
-- **追加端子とMask**：入力・出力端子数、Effect MaskやRegionの利用可否、入力のデータ型は実機で確認する必要があります。
+- **第2入力**：旧記事の「第2の画像で制御」という記述は、21.1 Manualの該当行から確認できません。今回の実機例では白い第2画像を接続し、水平位置の変化を確認しました。
+- **Inspector**：実機ではHorizontal / Vertical SourceとOffset Black / Whiteを確認しました。初期値の普遍性、座標系、値域、符号と方向の全対応、アニメーションは未確認です。
+- **画素の移動方法**：上記の白いマップでは文字が水平方向へ移りました。場所による変化や画面外、端の繰り返し、補間方式は未確認です。
+- **追加端子とMask**：実機SDKではImage、変形マップ画像、EffectMask、WarpMaskを確認しました。出力端子の詳細やRegionは未確認です。
 - **解像度・Alpha**：処理前後の出力解像度、Domain of Definition、透明画素の扱い、premultiplicationへの影響は未確認です。
-- **製品差**：Resolve Free / Studio / Fusion Studioの対応差、内部REGID、実際のEffects Library上の表示は未確認です。
+- **製品差**：Resolve Free / Studio / Fusion Studioの対応差とEffects Library上の表示は未確認です。実機REGIDはKD_Offsetです。
 
 ## バージョンと出典
 
 一次資料：Blackmagic Design『**DaVinci Resolve 21.1 Reference Manual**』（September 2026）、**Chapter 105「Krokodove Nodes」p.2436、Image Warp Tools / Offset**。水平・垂直方向のdisplacement / warpという役割を確認しました。
 
-データ分類には既存COLLECTANEAカタログを併用しています。制作例は公式の操作手順ではなく、この役割を観察するための提案です。正式な端子構成、Inspector項目、追加画像入力、Edition差は未確認のため、`verification: partial`を維持しています。[Blackmagic Design公式サポート](https://www.blackmagicdesign.com/jp/support/)から現行の資料を確認できます。
+データ分類には既存COLLECTANEAカタログを併用しています。制作例は公式の操作手順ではなく、この役割を観察するための提案です。全端子の詳細、Inspector項目の全範囲、Edition差は未確認のため、`verification: partial`を維持しています。[Blackmagic Design公式サポート](https://www.blackmagicdesign.com/jp/support/)から現行の資料を確認できます。
 
 [Krokodoveの全体像](./)と[Imageデータの説明](../../learn/02-data/image)も参照してください。

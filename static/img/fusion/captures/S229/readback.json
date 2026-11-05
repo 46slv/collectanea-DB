@@ -1,0 +1,53 @@
+{
+  "case": "S229",
+  "project": "Collectanea_Mandelbrot_Zoom_20261025",
+  "library": "Local Database",
+  "project_manager_folder": "root",
+  "timeline": "S229_capture",
+  "frame": 0,
+  "resolve": "21.1.0.14",
+  "edition": "DaVinci Resolve Studio",
+  "os": "Windows-11-10.0.26200-SP0",
+  "project_settings": {
+    "colorScienceMode": "davinciYRGB",
+    "colorSpaceInput": "Rec.709 Gamma 2.4",
+    "colorSpaceTimeline": "Rec.709 (Scene)",
+    "colorSpaceTimelineGamma": "",
+    "colorSpaceOutput": "Rec.709 (Scene)",
+    "colorSpaceOutputGamma": "ACEScc",
+    "isAutoColorManage": "0",
+    "timelineResolutionWidth": "1920",
+    "timelineResolutionHeight": "1080",
+    "timelineFrameRate": 30.0,
+    "timelinePlaybackFrameRate": "30",
+    "timelinePixelAspectRatio": "square"
+  },
+  "connections": {
+    "Map.Image": "Gradient",
+    "MediaOut1.Input": "Map"
+  },
+  "values": {
+    "Gradient": {
+      "Type": "Horizontal",
+      "TopLeftRed": 0.0,
+      "TopRightRed": 1.0
+    },
+    "Map": {
+      "OutputBitsPerChannel": 2.0,
+      "DitherMethod": 3.0,
+      "Matrixsize": 4.0,
+      "Multiplier": 1.0,
+      "Colorspace": 0.0
+    }
+  },
+  "source": "Synthetic horizontal gradient processed by KD Dither at two output bits per channel.",
+  "save_project": true,
+  "save_completed_at": "2026-10-28T03:04:25.060483+00:00",
+  "native_export_sha256": "0a3bb9e9fd1185fec3b0c1cf680f998501a85ceb9f81e4d2eaa072878ea97b29",
+  "portable_sha256": "848b7a3acf5077431ca71217fc1b84026219d1e2b6ee3a2803e0b441d42b70a5",
+  "portable_reimport": "NOT_RUN",
+  "limits": [
+    "One synthetic gradient and setting; algorithm, exact bit-depth semantics, animation and other hosts NOT_RUN.",
+    "Viewer screenshot is display evidence."
+  ]
+}

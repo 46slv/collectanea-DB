@@ -1,0 +1,132 @@
+{
+  "manual": {
+    "version": "21.1",
+    "chapter": 105,
+    "printed_pages": "2436"
+  },
+  "runtime": {
+    "version": "21.1.0.14",
+    "edition": "DaVinci Resolve Studio",
+    "os": "Windows-11-10.0.26200-SP0",
+    "ui_language": "ja-JP"
+  },
+  "captured_at": "2026-10-28T03:32:38.736328+00:00",
+  "project": "Collectanea_Mandelbrot_Zoom_20261025",
+  "timeline": "S233_capture",
+  "frame": 0,
+  "resolution": [
+    1920,
+    1080
+  ],
+  "color_management": {
+    "project_settings": {
+      "colorScienceMode": "davinciYRGB",
+      "colorSpaceInput": "Rec.709 Gamma 2.4",
+      "colorSpaceTimeline": "Rec.709 (Scene)",
+      "colorSpaceTimelineGamma": "",
+      "colorSpaceOutput": "Rec.709 (Scene)",
+      "colorSpaceOutputGamma": "ACEScc",
+      "isAutoColorManage": "0",
+      "timelineResolutionWidth": "1920",
+      "timelineResolutionHeight": "1080",
+      "timelineFrameRate": 30.0,
+      "timelinePlaybackFrameRate": "30",
+      "timelinePixelAspectRatio": "square"
+    },
+    "note": "SDK project settings; screenshots show Viewer display."
+  },
+  "viewer": {
+    "view_mode": "Fit",
+    "source": "Left Label; right MediaOut1",
+    "note": "KD Mirror selected; viewer includes control overlays."
+  },
+  "acceptance": {
+    "gui": "PASS: synthetic text reflects along a horizontal line.",
+    "article_display": "NOT_RUN",
+    "public_display": "NOT_RUN"
+  },
+  "unverified": [
+    "One synthetic text and line setting; full output rules, masks, alpha values, animation and other hosts NOT_RUN.",
+    "Viewer screenshots include control overlays and are display evidence.",
+    "Portable reimport and physical input provenance NOT_RUN.",
+    "Article verification remains partial."
+  ],
+  "schema_version": 1,
+  "case": "S233",
+  "article": "manuals/fusion/nodes/krokodove/mirror.md",
+  "graph": "fixture.comp",
+  "settings": "readback.json",
+  "source": {
+    "file": "screen.png",
+    "size": [
+      3336,
+      1902
+    ],
+    "sha256": "6b6ba9df393736a8b3657edec16d6685ebaf8df4783f3f6a9aef5877e5d99b44"
+  },
+  "shots": [
+    {
+      "file": "graph.png",
+      "source": "screen.png",
+      "source_sha256": "6b6ba9df393736a8b3657edec16d6685ebaf8df4783f3f6a9aef5877e5d99b44",
+      "frame": 0,
+      "crop_xyxy": [
+        500,
+        1050,
+        2350,
+        1650
+      ],
+      "resampled": false,
+      "sha256": "bde7e2b607a66a4bd3dd63e5939fe04b73e4f2e5b3064c75232c290ead915896"
+    },
+    {
+      "file": "controls.png",
+      "source": "screen.png",
+      "source_sha256": "6b6ba9df393736a8b3657edec16d6685ebaf8df4783f3f6a9aef5877e5d99b44",
+      "frame": 0,
+      "crop_xyxy": [
+        2815,
+        65,
+        3336,
+        750
+      ],
+      "resampled": false,
+      "sha256": "1fccd94755d52c38dd65beb54d75eb1f35832e39fc0003272067aa91beb5821e"
+    },
+    {
+      "file": "low.png",
+      "source": "screen.png",
+      "source_sha256": "6b6ba9df393736a8b3657edec16d6685ebaf8df4783f3f6a9aef5877e5d99b44",
+      "frame": 0,
+      "crop_xyxy": [
+        120,
+        70,
+        1340,
+        720
+      ],
+      "resampled": false,
+      "sha256": "ad5ddc9b65c8895ee673eb5001cd3c04771e5382530136f420ef21b381c87075"
+    },
+    {
+      "file": "high.png",
+      "source": "screen.png",
+      "source_sha256": "6b6ba9df393736a8b3657edec16d6685ebaf8df4783f3f6a9aef5877e5d99b44",
+      "frame": 0,
+      "crop_xyxy": [
+        1480,
+        70,
+        2700,
+        720
+      ],
+      "resampled": false,
+      "sha256": "90e9efb87f85dc53eb55878e74200178466f3ad19609027fa37163f5a98356c1"
+    }
+  ],
+  "reproduction": {
+    "fixture_sha256": "22438d4af19897bca15510e1e4924313b9966d0b65c279d550f85f5435899e38",
+    "readback_sha256": "20f3b14fbe7eb96a471e547468194cac8dc60c93b0df9b89071dbbee1e971221",
+    "readback_source_sha256": "20f3b14fbe7eb96a471e547468194cac8dc60c93b0df9b89071dbbee1e971221",
+    "readback_transform": "No line-ending transformation",
+    "reimport": "NOT_RUN"
+  }
+}

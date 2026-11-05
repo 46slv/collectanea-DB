@@ -29,6 +29,34 @@ updated: '2026-10-18'
 
 ただし、21.1 Manualの記述は *Flips the image along a specified line* という短い説明です。基準線の座標指定方法や、線の片側を保持してもう片側へ複写するのか、入力画像全体を反転するのかといった**出力範囲の厳密な挙動までは、この記述だけで確定できません**。対称模様が必ず生成されると考えず、Viewerで結果を確かめます。
 
+<!-- capture:S233 -->
+
+## 実機例：文字を線に沿って反転
+
+合成した `Text+` の文字を `Mirror` に渡しました。
+
+この設定では水平な基準線に沿って文字の一部が反転します。Viewerの操作用オーバーレイも画像に写っています。他の線の位置やAlphaの数値は未検証です。[接続と設定の記録](/img/fusion/captures/S233/readback.json)に条件を記載しています。
+
+[![文字画像をKrokodove Mirrorへつなぐ構成](/img/fusion/captures/S233/graph.png)](/img/fusion/captures/S233/graph.png)
+
+文字画像をMirrorへ渡します。
+
+[![MirrorのInspector](/img/fusion/captures/S233/controls.png)](/img/fusion/captures/S233/controls.png)
+
+この例の基準線の設定です。
+
+[![処理前の文字](/img/fusion/captures/S233/low.png)](/img/fusion/captures/S233/low.png)
+
+処理前の文字です。
+
+[![Mirrorで反転した文字](/img/fusion/captures/S233/high.png)](/img/fusion/captures/S233/high.png)
+
+処理後は基準線に沿って一部が反転します。
+
+[再現用Graph](/img/fusion/captures/S233/fixture.comp) · [撮影条件と確認範囲](/img/fusion/captures/S233/capture.json)
+
+<!-- /capture:S233 -->
+
 ## 入力と出力
 
 | 項目 | 役割と確認範囲 |
@@ -36,7 +64,7 @@ updated: '2026-10-18'
 | 入力 | 既存のCOLLECTANEAカタログでは **2D Image** を入力する画像変形ツールに分類されています。 |
 | 処理 | 指定した線を基準に、入力画像を反転します。 |
 | 出力 | 同カタログでは **2D Image** に分類されています。反転結果は画像として後段の合成処理へ渡す想定です。 |
-| 未確認 | 入力・出力端子の正式名称と数、追加の入力、基準線を動かすInspector項目、既定値や範囲。 |
+| 未確認 | 出力端子の詳細、基準線の設定範囲、既定値の普遍性。実機SDKではImage、EffectMask、WarpMask入力を確認しました。 |
 
 <Term id="image">Image</Term>はピクセルを持つ画像データです。Mirrorは、線で構成された図形を保持するShapeデータを出力するツールとしては案内されていません。ここでいう「線」は、**画像を反転する基準**であり、線そのものを描き出すという意味ではありません。
 
@@ -71,7 +99,7 @@ MediaIn ────────────────→ Merge（Background�
 4. Merge側の**Blend**で元画像と反転画像の混ざり方を比較します。Mirrorの画像が不透明なら、通常合成では元画像を全面的に隠すことがあります。
 5. 部分的な鏡像表現が必要なときは、MergeのEffect Maskなど、**合成側の機能**で表示範囲を制御します。
 
-この作例は、MirrorにBlendやEffect MaskというInspector項目があると主張するものではありません。合成量やマスクの説明は[Merge](../compositing/merge)の機能です。
+実機SDKではMirrorのBlendとEffectMask入力を確認しました。合成量やマスクの説明は[Merge](../compositing/merge)の機能です。
 
 ## 似たツールとの違い
 
@@ -89,13 +117,13 @@ Mirrorの「基準線」は反転の軸です。Linesが作る「描画された
 - **文字・ロゴ**：画像と一緒に反転すると文字の向きも変わり得ます。必要なら文字を後段で合成します。
 - **画面外と境界**：反転後に画像外へ出る部分の扱い、端の補間、基準線付近の表示は、掲載文だけでは確定できません。
 - **アルファ**：透明部分の扱い、プリマルチプライの有無、補助チャンネルの変換は未確認です。ほかの画像と重ねる際は境界を確認します。
-- **Inspector**：基準線の指定方法、位置・角度の正確なパラメータ名、初期値・可変範囲は確認していません。
-- **バージョンとエディション**：21.1 Manualへの掲載は確認済みですが、Resolve Free / Studio / Fusion Studioごとの利用条件や内部REGIDを実機で確認したわけではありません。
+- **Inspector**：実機ではMirror LeftとMirror Rightの座標、Mirror Allの表示を確認しました。初期値の普遍性・可変範囲は未確認です。
+- **バージョンとエディション**：21.1 Manualへの掲載は確認済みですが、Resolve Free / Studio / Fusion Studioごとの利用条件は未確認です。実機のREGIDはKD_Mirrorです。
 
 ## 出典と確認範囲
 
 一次資料はBlackmagic Design『**DaVinci Resolve 21.1 Reference Manual**』（September 2026）、Chapter 105「Krokodove Nodes」、**p.2436、Image Warp Tools / Mirror**です。資料から確認できる中心的な役割は「指定された線に沿って画像を反転する」です。
 
-画像の入出力分類は既存COLLECTANEAカタログに基づきます。具体的な制作例と用途はその役割から組み立てた運用案であり、Manualが保証する操作手順ではありません。端子・Inspector・アルファ・製品別の詳細が未確認のため、`verification: partial`を維持しています。
+画像の入出力分類は既存COLLECTANEAカタログに基づきます。上記の文字画像の反転は実機で確認しました。その他の制作例と用途は役割から組み立てた運用案です。端子・Inspector・アルファ・製品別の詳細が未確認のため、`verification: partial`を維持しています。
 
 [Krokodoveの全体像](./)と[画像（Image）](../../learn/02-data/image)も参照してください。
