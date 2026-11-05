@@ -30,6 +30,34 @@ Manualの説明には「source inputへテクスチャーを追加する」と�
 
 このGenerateは、プログラミングで一般に使う「生成」という言葉でも、Fusionの標準Generator全体の名前でもありません。Krokodoveというツール群に含まれる個別のノード名です。
 
+<!-- capture:S259 -->
+
+## 実機例：濃淡の模様を見る
+
+合成した白黒グラデーションを `Generate` に渡し、BaseをPosition、Scaleを16に設定しました。
+
+この例では濃淡のある不規則な模様が表示されます。Viewerには操作用オーバーレイが表示されています。ほかのBaseや時間変化、Alpha値は未検証です。[接続と設定の記録](/img/fusion/captures/S259/readback.json)に条件を記載しています。
+
+[![グラデーションをKrokodove Generateへつなぐ構成](/img/fusion/captures/S259/graph.png)](/img/fusion/captures/S259/graph.png)
+
+白黒グラデーションをGenerateへ渡します。
+
+[![GenerateのInspector](/img/fusion/captures/S259/controls.png)](/img/fusion/captures/S259/controls.png)
+
+BaseはPosition、Scaleは16です。
+
+[![入力の白黒グラデーション](/img/fusion/captures/S259/low.png)](/img/fusion/captures/S259/low.png)
+
+入力は黒から白へ連続して変化します。
+
+[![Generateで表示された濃淡の模様](/img/fusion/captures/S259/high.png)](/img/fusion/captures/S259/high.png)
+
+出力には濃淡のある不規則な模様が見えます。
+
+[再現用Graph](/img/fusion/captures/S259/fixture.comp) · [撮影条件と確認範囲](/img/fusion/captures/S259/capture.json)
+
+<!-- /capture:S259 -->
+
 ## 入力と出力
 
 | 段階 | 内容 | 根拠と確認範囲 |
@@ -61,7 +89,7 @@ Imageは、画面を構成する画素の情報です。Fusionの<Term id="shape
 
 5. Generateが不透明な画像を出して背景を隠す場合、MergeのBlendを下げるとForegroundの合成量を減らせます。ノイズがどの程度見えるかは出力の明暗・Alphaによって異なります。
 
-この配線は、**画像として受け渡せることを確認してから試す構成案**です。Generateの端子数・内部合成方式を示す公式の配線図ではありません。実機では最初に単体出力と接続できる入力を確認します。
+この配線は構成案です。上の実機例では白黒グラデーションを入力しましたが、端子の全構成や内部合成方式を示す公式の配線図ではありません。
 
 ## Fast Noise・Noiseとの違い
 
@@ -80,6 +108,6 @@ Fast Noiseは標準のGeneratorで、ManualのChapter 103に詳しい入力とIn
 - **比較資料**：同Manual、Chapter 103「Generator Nodes」、pp.2363–2364（Fast Noise）、Chapter 105、p.2436（Krokodove Noise）。Fast NoiseはPerlin Noise Generatorで、Noiseは色を選べるピクセル状のパターンとして説明されています。
 - **関連資料**：[Krokodove Family Overview](./)にはImage、Shape、3D、Regionの区別を掲載しています。
 
-**未確認**：Generateの正式な入出力端子名・個数・型、入力の必須性、元画像との合成方式、ノイズ生成アルゴリズム、Inspectorの項目名・初期値・範囲、RGB・Alphaの処理、解像度、時間変化とキーフレーム対応、Resolve Free / StudioやFusion StudioのEdition差、21.1実機の描画結果。
+**確認範囲**：実機例ではグラデーションを入力し、Base Position、Scale 16の濃淡模様を確認しました。端子の全構成、入力の必須性、生成アルゴリズム、初期値・範囲、RGB・Alphaの数値、時間変化、Edition差は未確認です。
 
 このページのverificationはpartialです。Manualで確認した役割と、実機での検証を必要とする仕様を分けています。

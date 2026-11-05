@@ -31,6 +31,34 @@ DaVinci Resolve 21.1 Reference Manualでは、中心点から放射するハイ�
 
 Manualにある「shape」の語は、**光の筋を含む効果全体の形**を指す説明です。Fusionの<Term id="shape-data">Shapeデータ</Term>を入出力するという意味には読み替えません。MicrowavesはManualで「Image Tools」に分類されています。
 
+<!-- capture:S258 -->
+
+## 実機例：文字から光の筋を広げる
+
+合成した `Text+` の文字を `Microwaves` に渡し、Brightnessを0.01、Lengthを0.5に設定しました。
+
+この例では文字付近から明るい筋が広がって見えます。Viewerには市松模様と操作用オーバーレイが表示されています。他の形状やAlpha値は未検証です。[接続と設定の記録](/img/fusion/captures/S258/readback.json)に条件を記載しています。
+
+[![文字画像をKrokodove Microwavesへつなぐ構成](/img/fusion/captures/S258/graph.png)](/img/fusion/captures/S258/graph.png)
+
+文字画像をMicrowavesへ渡します。
+
+[![MicrowavesのInspector](/img/fusion/captures/S258/controls.png)](/img/fusion/captures/S258/controls.png)
+
+Brightnessを0.01、Lengthを0.5に設定しています。
+
+[![処理前の文字](/img/fusion/captures/S258/low.png)](/img/fusion/captures/S258/low.png)
+
+処理前の文字です。
+
+[![Microwavesで光の筋が広がった文字](/img/fusion/captures/S258/high.png)](/img/fusion/captures/S258/high.png)
+
+処理後は文字付近から明るい筋が見えます。
+
+[再現用Graph](/img/fusion/captures/S258/fixture.comp) · [撮影条件と確認範囲](/img/fusion/captures/S258/capture.json)
+
+<!-- /capture:S258 -->
+
 ## 入力・出力
 
 | 段階 | 扱うもの | 読み方 |
@@ -80,6 +108,6 @@ MicrowavesとGlowはどちらも光の演出に使えますが、同じ処理で
 
 - **一次資料**：Blackmagic Design『DaVinci Resolve 21.1 Reference Manual』Chapter 105「Krokodove Nodes」、p.2434（Image Tools／Microwaves）。
 - **資料で確認できること**：Krokodoveへの収録、Image Toolsへの分類、中心点から放射するハイライト、ビーム状の効果、全体形状を変更するコントロールの存在。
-- **追加検証が必要なこと**：正確な端子名と数、Inspectorの項目名・初期値・範囲、AlphaとMaskの挙動、アニメーション操作、Resolve Free／Studio・Fusion Studio間の提供差、21.1実機の出力結果。
+- **追加検証が必要なこと**：実機例ではBrightnessとLengthを使った一条件の光筋を確認しました。端子の全構成、他の設定の初期値・範囲、AlphaとMask、アニメーション、Edition差は未確認です。
 
 `verification: partial`は、この未確認範囲を示します。Krokodoveの他の画像・Shape・3D・Regionツールは[Family Overview](./)を参照してください。
