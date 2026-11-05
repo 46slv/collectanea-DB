@@ -1,0 +1,60 @@
+{
+  "case": "S234",
+  "project": "Collectanea_Mandelbrot_Zoom_20261025",
+  "library": "Local Database",
+  "project_manager_folder": "root",
+  "timeline": "S234_capture",
+  "frame": 0,
+  "resolve": "21.1.0.14",
+  "edition": "DaVinci Resolve Studio",
+  "os": "Windows-11-10.0.26200-SP0",
+  "project_settings": {
+    "colorScienceMode": "davinciYRGB",
+    "colorSpaceInput": "Rec.709 Gamma 2.4",
+    "colorSpaceTimeline": "Rec.709 (Scene)",
+    "colorSpaceTimelineGamma": "",
+    "colorSpaceOutput": "Rec.709 (Scene)",
+    "colorSpaceOutputGamma": "ACEScc",
+    "isAutoColorManage": "0",
+    "timelineResolutionWidth": "1920",
+    "timelineResolutionHeight": "1080",
+    "timelineFrameRate": 30.0,
+    "timelinePlaybackFrameRate": "30",
+    "timelinePixelAspectRatio": "square"
+  },
+  "connections": {
+    "Map.Image": "Label",
+    "Map.DeformationMDeformationmapap": "Field",
+    "MediaOut1.Input": "Map"
+  },
+  "values": {
+    "Label": {
+      "StyledText": "OFFSET",
+      "Size": 0.25
+    },
+    "Field": {
+      "TopLeftRed": 1.0,
+      "TopLeftGreen": 1.0,
+      "TopLeftBlue": 1.0
+    },
+    "Map": {
+      "Scale": 1.0,
+      "HorizontalSource": 4.0,
+      "HorizontalOffsetBlack": 0.0,
+      "HorizontalOffsetWhite": 0.2,
+      "VerticalSource": 4.0,
+      "VerticalOffsetBlack": 0.0,
+      "VerticalOffsetWhite": 0.0
+    }
+  },
+  "source": "Synthetic text and white deformation map through KD Offset.",
+  "save_project": true,
+  "save_completed_at": "2026-10-28T03:39:13.767203+00:00",
+  "native_export_sha256": "4fe9c8a6c4f9bc16f216ec86a857e1f0b1eb3e627f7895f4ba5304e1ddd7d1b2",
+  "portable_sha256": "81e8d73d3b4be26ef46bd7ce91bf88f382499e8b05d6a9a7af2abfb0326fd2b9",
+  "portable_reimport": "NOT_RUN",
+  "limits": [
+    "One synthetic text and settings; internal mirror algorithm, mask, alpha values, animation and other hosts NOT_RUN.",
+    "Viewer screenshot is display evidence."
+  ]
+}

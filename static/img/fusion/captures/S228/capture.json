@@ -1,0 +1,132 @@
+{
+  "manual": {
+    "version": "21.1",
+    "chapter": 88,
+    "printed_pages": "1995–1998"
+  },
+  "runtime": {
+    "version": "21.1.0.14",
+    "edition": "DaVinci Resolve Studio",
+    "os": "Windows-11-10.0.26200-SP0",
+    "ui_language": "ja-JP"
+  },
+  "captured_at": "2026-10-28T02:58:12.882374+00:00",
+  "project": "Collectanea_Mandelbrot_Zoom_20261025",
+  "timeline": "S228_capture",
+  "frame": 0,
+  "resolution": [
+    1920,
+    1080
+  ],
+  "color_management": {
+    "project_settings": {
+      "colorScienceMode": "davinciYRGB",
+      "colorSpaceInput": "Rec.709 Gamma 2.4",
+      "colorSpaceTimeline": "Rec.709 (Scene)",
+      "colorSpaceTimelineGamma": "",
+      "colorSpaceOutput": "Rec.709 (Scene)",
+      "colorSpaceOutputGamma": "ACEScc",
+      "isAutoColorManage": "0",
+      "timelineResolutionWidth": "1920",
+      "timelineResolutionHeight": "1080",
+      "timelineFrameRate": 30.0,
+      "timelinePlaybackFrameRate": "30",
+      "timelinePixelAspectRatio": "square"
+    },
+    "note": "SDK project settings; screenshots show Viewer display."
+  },
+  "viewer": {
+    "view_mode": "Fit",
+    "source": "Left Scene; right MediaOut1",
+    "note": "Spherical Camera selected; layout recorded by SDK."
+  },
+  "acceptance": {
+    "gui": "PASS: one sphere rendered through spherical camera with LatLong and HCross layouts.",
+    "article_display": "NOT_RUN",
+    "public_display": "NOT_RUN"
+  },
+  "unverified": [
+    "One sphere and camera; face orientation accuracy, stereo, image input, animation and other hosts NOT_RUN.",
+    "Viewer screenshot is display evidence.",
+    "Portable reimport and physical input provenance NOT_RUN.",
+    "Article verification remains partial."
+  ],
+  "schema_version": 1,
+  "case": "S228",
+  "article": "manuals/fusion/nodes/immersive/spherical-camera.md",
+  "graph": "fixture.comp",
+  "settings": "readback.json",
+  "source": {
+    "file": "screen.png",
+    "size": [
+      3336,
+      1902
+    ],
+    "sha256": "ea2935fbb4a1d17806abaa876ca7beb265c23dbcadcf62b6e65a056c011a8b9e"
+  },
+  "shots": [
+    {
+      "file": "graph.png",
+      "source": "screen.png",
+      "source_sha256": "ea2935fbb4a1d17806abaa876ca7beb265c23dbcadcf62b6e65a056c011a8b9e",
+      "frame": 0,
+      "crop_xyxy": [
+        500,
+        1050,
+        2350,
+        1650
+      ],
+      "resampled": false,
+      "sha256": "d1ce10ebe5a5b7b0ad1ce59f34ff7b2d3cf80128327b1e5249ebd07d8f759f05"
+    },
+    {
+      "file": "controls.png",
+      "source": "screen.png",
+      "source_sha256": "ea2935fbb4a1d17806abaa876ca7beb265c23dbcadcf62b6e65a056c011a8b9e",
+      "frame": 0,
+      "crop_xyxy": [
+        2815,
+        65,
+        3336,
+        750
+      ],
+      "resampled": false,
+      "sha256": "8e5da512dee8d81018875232854d61879011eb58872a1695ff9d12768017862d"
+    },
+    {
+      "file": "low.png",
+      "source": "state-low.png",
+      "source_sha256": "9771c7f73aa1c0919bc5832eff535fb8b66069df69965cbc0ce3eb3962000b7c",
+      "frame": 0,
+      "crop_xyxy": [
+        1480,
+        70,
+        2700,
+        720
+      ],
+      "resampled": false,
+      "sha256": "62bef9b82a0aac5885d002ef413166c341f3830b2de1e69e6c05d73b4d99541c"
+    },
+    {
+      "file": "high.png",
+      "source": "screen.png",
+      "source_sha256": "ea2935fbb4a1d17806abaa876ca7beb265c23dbcadcf62b6e65a056c011a8b9e",
+      "frame": 0,
+      "crop_xyxy": [
+        1480,
+        70,
+        2700,
+        720
+      ],
+      "resampled": false,
+      "sha256": "556dc29e5ccd28ff4581dbd89f6a9eeeff34f0374269b338c23fc7235ff75770"
+    }
+  ],
+  "reproduction": {
+    "fixture_sha256": "214e0c2c848ab6b890797cfa8331389f8fec4b32d48d713e3c702b5b09a84b5d",
+    "readback_sha256": "b1ff74238e125d5b3b01dfb76717fc7363f9b62a0efdf2597b380c3d0c6455d6",
+    "readback_source_sha256": "806d560cf46670b0c4be9e524ff9d8541ad9548eda503e40b4bfecd73b109b77",
+    "readback_transform": "CRLF normalized to LF for the portable Git asset; JSON values unchanged",
+    "reimport": "NOT_RUN"
+  }
+}

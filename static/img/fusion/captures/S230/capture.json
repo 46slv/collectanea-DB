@@ -1,0 +1,132 @@
+{
+  "manual": {
+    "version": "21.1",
+    "chapter": 105,
+    "printed_pages": "2435"
+  },
+  "runtime": {
+    "version": "21.1.0.14",
+    "edition": "DaVinci Resolve Studio",
+    "os": "Windows-11-10.0.26200-SP0",
+    "ui_language": "ja-JP"
+  },
+  "captured_at": "2026-10-28T03:12:33.427938+00:00",
+  "project": "Collectanea_Mandelbrot_Zoom_20261025",
+  "timeline": "S230_capture",
+  "frame": 0,
+  "resolution": [
+    1920,
+    1080
+  ],
+  "color_management": {
+    "project_settings": {
+      "colorScienceMode": "davinciYRGB",
+      "colorSpaceInput": "Rec.709 Gamma 2.4",
+      "colorSpaceTimeline": "Rec.709 (Scene)",
+      "colorSpaceTimelineGamma": "",
+      "colorSpaceOutput": "Rec.709 (Scene)",
+      "colorSpaceOutputGamma": "ACEScc",
+      "isAutoColorManage": "0",
+      "timelineResolutionWidth": "1920",
+      "timelineResolutionHeight": "1080",
+      "timelineFrameRate": 30.0,
+      "timelinePlaybackFrameRate": "30",
+      "timelinePixelAspectRatio": "square"
+    },
+    "note": "SDK project settings; screenshots show Viewer display."
+  },
+  "viewer": {
+    "view_mode": "Fit",
+    "source": "Left Gradient; right MediaOut1",
+    "note": "KD_Invert Color selected; comparison shown in two Viewers."
+  },
+  "acceptance": {
+    "gui": "PASS: color gradient changes when passed through KD_Invert.",
+    "article_display": "NOT_RUN",
+    "public_display": "NOT_RUN"
+  },
+  "unverified": [
+    "One synthetic gradient and Color mode; pixel equations, alpha values, other modes, animation and other hosts NOT_RUN.",
+    "Viewer screenshot is display evidence.",
+    "Portable reimport and physical input provenance NOT_RUN.",
+    "Article verification remains partial."
+  ],
+  "schema_version": 1,
+  "case": "S230",
+  "article": "manuals/fusion/nodes/krokodove/invert.md",
+  "graph": "fixture.comp",
+  "settings": "readback.json",
+  "source": {
+    "file": "screen.png",
+    "size": [
+      3336,
+      1902
+    ],
+    "sha256": "1f3e2f3d2086df6af589c91f875a0db0c8b016bea5944f74b7253cd76f3c2354"
+  },
+  "shots": [
+    {
+      "file": "graph.png",
+      "source": "screen.png",
+      "source_sha256": "1f3e2f3d2086df6af589c91f875a0db0c8b016bea5944f74b7253cd76f3c2354",
+      "frame": 0,
+      "crop_xyxy": [
+        500,
+        1050,
+        2350,
+        1650
+      ],
+      "resampled": false,
+      "sha256": "dd48971975d310cf61cdf896a1bea33255f92430a0d08631e156bee2f3be1a3c"
+    },
+    {
+      "file": "controls.png",
+      "source": "screen.png",
+      "source_sha256": "1f3e2f3d2086df6af589c91f875a0db0c8b016bea5944f74b7253cd76f3c2354",
+      "frame": 0,
+      "crop_xyxy": [
+        2815,
+        65,
+        3336,
+        750
+      ],
+      "resampled": false,
+      "sha256": "273000de0e136c301ef9d5be5b362b4bce0d73ad5f5ed2636261576f3bee120b"
+    },
+    {
+      "file": "low.png",
+      "source": "screen.png",
+      "source_sha256": "1f3e2f3d2086df6af589c91f875a0db0c8b016bea5944f74b7253cd76f3c2354",
+      "frame": 0,
+      "crop_xyxy": [
+        120,
+        70,
+        1340,
+        720
+      ],
+      "resampled": false,
+      "sha256": "8ae00c1b3854413c0e80f466f6b5db84db334e12b1db922471fbb7b98cc00472"
+    },
+    {
+      "file": "high.png",
+      "source": "screen.png",
+      "source_sha256": "1f3e2f3d2086df6af589c91f875a0db0c8b016bea5944f74b7253cd76f3c2354",
+      "frame": 0,
+      "crop_xyxy": [
+        1480,
+        70,
+        2700,
+        720
+      ],
+      "resampled": false,
+      "sha256": "29c63f16f8d88dbbbd8c3ca9301154fdc1700bbad62f33d70ac6dd14699c7e82"
+    }
+  ],
+  "reproduction": {
+    "fixture_sha256": "b5cc8f0bc2166dc813d6835351b2e3858fd3e3abc3327bd55035d2ddc2c2d0db",
+    "readback_sha256": "bc329de5a9170dcdb94cbabf03ba9b55e16e887a6d8e7875548f8338e81eab33",
+    "readback_source_sha256": "bc329de5a9170dcdb94cbabf03ba9b55e16e887a6d8e7875548f8338e81eab33",
+    "readback_transform": "No line-ending transformation",
+    "reimport": "NOT_RUN"
+  }
+}
