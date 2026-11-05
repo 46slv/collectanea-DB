@@ -10801,6 +10801,241 @@
           "status": "captured"
         }
       ]
+    },
+    {
+      "priority": "P1",
+      "goal": "Show KD Radial with synthetic text.",
+      "suggested_graph": "TextPlus -> KD_Radial -> MediaOut.",
+      "scope": "Resolve Studio 21.1.0.14 on Windows, 1920x1080 static frame.",
+      "limitations": [
+        "One synthetic text and radial offset; masks, alpha values, animation and other hosts NOT_RUN.",
+        "Viewer screenshots include control overlays and are display evidence.",
+        "Portable reimport and physical input provenance NOT_RUN.",
+        "Article verification remains partial."
+      ],
+      "id": "S235",
+      "article": "manuals/fusion/nodes/krokodove/radial.md",
+      "manual": {
+        "version": "21.1",
+        "chapter": 105,
+        "printed_pages": "2436"
+      },
+      "status": "captured-local-display-verified",
+      "capture_manifest": "static/img/fusion/captures/S235/capture.json",
+      "shots": [
+        {
+          "slug": "graph",
+          "kind": "graph",
+          "target": "文字画像をKrokodove Radialへつなぐ構成",
+          "status": "captured"
+        },
+        {
+          "slug": "controls",
+          "kind": "inspector",
+          "target": "RadialのInspector",
+          "status": "captured"
+        },
+        {
+          "slug": "low",
+          "kind": "comparison",
+          "target": "処理前の文字",
+          "status": "captured"
+        },
+        {
+          "slug": "high",
+          "kind": "comparison",
+          "target": "Radialで変形した文字",
+          "status": "captured"
+        }
+      ]
+    },
+    {
+      "priority": "P1",
+      "goal": "Show KD Bend with synthetic text.",
+      "suggested_graph": "TextPlus -> KD_Bend -> MediaOut.",
+      "scope": "Resolve Studio 21.1.0.14 on Windows, 1920x1080 static frame.",
+      "limitations": [
+        "One synthetic text and midpoint; other modes, masks, alpha values, animation and other hosts NOT_RUN.",
+        "Viewer screenshots include control overlays and are display evidence.",
+        "Portable reimport and physical input provenance NOT_RUN.",
+        "Article verification remains partial."
+      ],
+      "id": "S236",
+      "article": "manuals/fusion/nodes/krokodove/bend.md",
+      "manual": {
+        "version": "21.1",
+        "chapter": 105,
+        "printed_pages": "2436"
+      },
+      "status": "captured-local-display-verified",
+      "capture_manifest": "static/img/fusion/captures/S236/capture.json",
+      "shots": [
+        {
+          "slug": "graph",
+          "kind": "graph",
+          "target": "文字画像をKrokodove Bendへつなぐ構成",
+          "status": "captured"
+        },
+        {
+          "slug": "controls",
+          "kind": "inspector",
+          "target": "BendのInspector",
+          "status": "captured"
+        },
+        {
+          "slug": "low",
+          "kind": "comparison",
+          "target": "処理前の文字",
+          "status": "captured"
+        },
+        {
+          "slug": "high",
+          "kind": "comparison",
+          "target": "Bendで曲げた文字",
+          "status": "captured"
+        }
+      ]
+    },
+    {
+      "priority": "P1",
+      "goal": "Show KD Directional Scale with synthetic text.",
+      "suggested_graph": "TextPlus -> KD_DirectionalScale -> MediaOut.",
+      "scope": "Resolve Studio 21.1.0.14 on Windows, 1920x1080 static frame.",
+      "limitations": [
+        "One synthetic text and axis size; other axes, masks, alpha values, animation and other hosts NOT_RUN.",
+        "Viewer screenshots include control overlays and are display evidence.",
+        "Portable reimport and physical input provenance NOT_RUN.",
+        "Article verification remains partial."
+      ],
+      "id": "S237",
+      "article": "manuals/fusion/nodes/krokodove/directional-scale.md",
+      "manual": {
+        "version": "21.1",
+        "chapter": 105,
+        "printed_pages": "2436"
+      },
+      "status": "captured-local-display-verified",
+      "capture_manifest": "static/img/fusion/captures/S237/capture.json",
+      "shots": [
+        {
+          "slug": "graph",
+          "kind": "graph",
+          "target": "文字画像をKrokodove Directional Scaleへつなぐ構成",
+          "status": "captured"
+        },
+        {
+          "slug": "controls",
+          "kind": "inspector",
+          "target": "Directional ScaleのInspector",
+          "status": "captured"
+        },
+        {
+          "slug": "low",
+          "kind": "comparison",
+          "target": "処理前の文字",
+          "status": "captured"
+        },
+        {
+          "slug": "high",
+          "kind": "comparison",
+          "target": "Directional Scaleで伸ばした文字",
+          "status": "captured"
+        }
+      ]
+    },
+    {
+      "priority": "P1",
+      "goal": "Show KD Bevel with synthetic text.",
+      "suggested_graph": "TextPlus -> KD_Bevel -> MediaOut.",
+      "scope": "Resolve Studio 21.1.0.14 on Windows, 1920x1080 static frame.",
+      "limitations": [
+        "One synthetic text and setting; other settings, masks, alpha values, animation and other hosts NOT_RUN.",
+        "Viewer screenshot is display evidence.",
+        "Portable reimport and physical input provenance NOT_RUN.",
+        "Article verification remains partial."
+      ],
+      "id": "S238",
+      "article": "manuals/fusion/nodes/krokodove/bevel.md",
+      "manual": {
+        "version": "21.1",
+        "chapter": 105,
+        "printed_pages": "2435"
+      },
+      "status": "captured-embedded-unverified",
+      "capture_manifest": "static/img/fusion/captures/S238/capture.json",
+      "shots": [
+        {
+          "slug": "graph",
+          "kind": "graph",
+          "target": "文字画像をKrokodove Bevelへつなぐ構成",
+          "status": "captured"
+        },
+        {
+          "slug": "controls",
+          "kind": "inspector",
+          "target": "BevelのInspector",
+          "status": "captured"
+        },
+        {
+          "slug": "low",
+          "kind": "comparison",
+          "target": "処理前の文字",
+          "status": "captured"
+        },
+        {
+          "slug": "high",
+          "kind": "comparison",
+          "target": "Bevelで陰影を付けた文字",
+          "status": "captured"
+        }
+      ]
+    },
+    {
+      "priority": "P1",
+      "goal": "Show KD Extrude with synthetic text.",
+      "suggested_graph": "TextPlus -> KD_Extrude -> MediaOut.",
+      "scope": "Resolve Studio 21.1.0.14 on Windows, 1920x1080 static frame.",
+      "limitations": [
+        "One synthetic text and setting; other settings, masks, alpha values, animation and other hosts NOT_RUN.",
+        "Viewer screenshot is display evidence.",
+        "Portable reimport and physical input provenance NOT_RUN.",
+        "Article verification remains partial."
+      ],
+      "id": "S239",
+      "article": "manuals/fusion/nodes/krokodove/extrude.md",
+      "manual": {
+        "version": "21.1",
+        "chapter": 105,
+        "printed_pages": "2436"
+      },
+      "status": "captured-embedded-unverified",
+      "capture_manifest": "static/img/fusion/captures/S239/capture.json",
+      "shots": [
+        {
+          "slug": "graph",
+          "kind": "graph",
+          "target": "文字画像をKrokodove Extrudeへつなぐ構成",
+          "status": "captured"
+        },
+        {
+          "slug": "controls",
+          "kind": "inspector",
+          "target": "ExtrudeのInspector",
+          "status": "captured"
+        },
+        {
+          "slug": "low",
+          "kind": "comparison",
+          "target": "処理前の文字",
+          "status": "captured"
+        },
+        {
+          "slug": "high",
+          "kind": "comparison",
+          "target": "Extrudeで奥行きを付けた文字",
+          "status": "captured"
+        }
+      ]
     }
   ],
   "publication_batches": [
@@ -12186,25 +12421,25 @@
     }
   ],
   "coverage_inventory": {
-    "checked_at": "2026-11-05T03:24:25Z",
+    "checked_at": "2026-11-05T07:30:00Z",
     "scope": "All manuals/fusion Markdown and MDX pages; review necessity before adding images.",
     "completion_rule": "Every page has an explicit image decision; necessary images are native-observed, embedded, saved to GitHub and public-display-verified. A native example does not verify all article controls.",
     "summary": {
       "total_pages": 589,
-      "with_images": 289,
-      "with_native_examples": 276,
+      "with_images": 294,
+      "with_native_examples": 279,
       "states": {
         "reviewed-no-standalone-image": 26,
         "no-standalone-image-needed": 6,
         "illustrated-reused-example": 80,
-        "capture-planned": 280,
-        "illustrated-native-example": 196,
+        "capture-planned": 277,
+        "illustrated-native-example": 199,
         "needs-review": 1
       },
       "decisions": {
         "no-standalone-image-needed": 32,
-        "image-required": 276,
-        "capture-needed": 280,
+        "image-required": 279,
+        "capture-needed": 277,
         "needs-review": 1
       }
     },
@@ -17695,12 +17930,14 @@
         "article": "manuals/fusion/nodes/krokodove/bend.md",
         "title": "Bend",
         "kind": "node",
-        "image_count": 0,
-        "native_cases": [],
+        "image_count": 4,
+        "native_cases": [
+          "S236"
+        ],
         "reused_cases": [],
         "planned_cases": [],
-        "state": "capture-planned",
-        "decision": "capture-needed",
+        "state": "illustrated-native-example",
+        "decision": "image-required",
         "reason": "本文の対象機能: 画像を放射状に曲げる、Krokodoveの2D画像変形ツール。。S06 Transformは全体変形で、局所warp・タイル再配置・mirror等の各機能を代用しない。",
         "required_views": [
           "対象Node名と実際の配線が読めるGraph",
@@ -17727,10 +17964,12 @@
         "article": "manuals/fusion/nodes/krokodove/bevel.md",
         "title": "Bevel（Krokodove）",
         "kind": "node",
-        "image_count": 0,
+        "image_count": 4,
         "native_cases": [],
         "reused_cases": [],
-        "planned_cases": [],
+        "planned_cases": [
+          "S238"
+        ],
         "state": "capture-planned",
         "decision": "capture-needed",
         "reason": "本文の対象機能: 画像の輪郭の内側に面取りのような見え方を作り、平面に奥行き感を加えるKrokodoveの画像処理ツール。。標準Nodeや別Krokodoveの似た効果は同じControl/algorithmの証拠にならない。",
@@ -18074,12 +18313,14 @@
         "article": "manuals/fusion/nodes/krokodove/directional-scale.md",
         "title": "Directional Scale",
         "kind": "node",
-        "image_count": 0,
-        "native_cases": [],
+        "image_count": 4,
+        "native_cases": [
+          "S237"
+        ],
         "reused_cases": [],
         "planned_cases": [],
-        "state": "capture-planned",
-        "decision": "capture-needed",
+        "state": "illustrated-native-example",
+        "decision": "image-required",
         "reason": "本文の対象機能: 指定した方向へ画像を伸ばしたり歪ませたりする、Krokodoveの2D画像変形ツール。。S06 Transformは全体変形で、局所warp・タイル再配置・mirror等の各機能を代用しない。",
         "required_views": [
           "対象Node名と実際の配線が読めるGraph",
@@ -18204,10 +18445,12 @@
         "article": "manuals/fusion/nodes/krokodove/extrude.md",
         "title": "Extrude（Krokodove）",
         "kind": "node",
-        "image_count": 0,
+        "image_count": 4,
         "native_cases": [],
         "reused_cases": [],
-        "planned_cases": [],
+        "planned_cases": [
+          "S239"
+        ],
         "state": "capture-planned",
         "decision": "capture-needed",
         "reason": "本文の対象機能: 2D画像の縁を変形し、厚みがあるような見え方を作るKrokodoveの画像処理ツール。。標準Nodeや別Krokodoveの似た効果は同じControl/algorithmの証拠にならない。",
@@ -19013,12 +19256,14 @@
         "article": "manuals/fusion/nodes/krokodove/radial.md",
         "title": "Radial",
         "kind": "node",
-        "image_count": 0,
-        "native_cases": [],
+        "image_count": 4,
+        "native_cases": [
+          "S235"
+        ],
         "reused_cases": [],
         "planned_cases": [],
-        "state": "capture-planned",
-        "decision": "capture-needed",
+        "state": "illustrated-native-example",
+        "decision": "image-required",
         "reason": "本文の対象機能: 画像にへこみのような歪みを加える、追加warp mask入力を持つKrokodoveの画像変形ツール。。S07の青いEffect Maskをwarp用mapや第2画像と同一視できない。",
         "required_views": [
           "対象Node名と実際の配線が読めるGraph",

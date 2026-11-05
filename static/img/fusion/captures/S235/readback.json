@@ -1,0 +1,53 @@
+{
+  "case": "S235",
+  "project": "Collectanea_Mandelbrot_Zoom_20261025",
+  "library": "Local Database",
+  "project_manager_folder": "root",
+  "timeline": "S235_capture",
+  "frame": 0,
+  "resolve": "21.1.0.14",
+  "edition": "DaVinci Resolve Studio",
+  "os": "Windows-11-10.0.26200-SP0",
+  "project_settings": {
+    "colorScienceMode": "davinciYRGB",
+    "colorSpaceInput": "Rec.709 Gamma 2.4",
+    "colorSpaceTimeline": "Rec.709 (Scene)",
+    "colorSpaceTimelineGamma": "",
+    "colorSpaceOutput": "Rec.709 (Scene)",
+    "colorSpaceOutputGamma": "ACEScc",
+    "isAutoColorManage": "0",
+    "timelineResolutionWidth": "1920",
+    "timelineResolutionHeight": "1080",
+    "timelineFrameRate": 30.0,
+    "timelinePlaybackFrameRate": "30",
+    "timelinePixelAspectRatio": "square"
+  },
+  "connections": {
+    "Map.Image": "Label",
+    "MediaOut1.Input": "Map"
+  },
+  "values": {
+    "Label": {
+      "StyledText": "RADIAL",
+      "Size": 0.3
+    },
+    "Map": {
+      "Center": {
+        "1": 0.5,
+        "2": 0.5,
+        "3": 0.0
+      },
+      "RadialOffset": 0.2
+    }
+  },
+  "source": "Synthetic text through KD Radial.",
+  "save_project": true,
+  "save_completed_at": "2026-10-28T03:52:00.627303+00:00",
+  "native_export_sha256": "1bd7c6aad9cddf2092567c50d327a6b9b29303504f51cb562fd8b6e1c9a94129",
+  "portable_sha256": "76826ddf033483b2d944e2d99210a9017cc57f2cf8ed8ddb5190eaa3fbe834e9",
+  "portable_reimport": "NOT_RUN",
+  "limits": [
+    "One synthetic text and settings; internal mirror algorithm, mask, alpha values, animation and other hosts NOT_RUN.",
+    "Viewer screenshot is display evidence."
+  ]
+}

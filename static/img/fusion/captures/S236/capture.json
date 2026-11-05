@@ -1,0 +1,132 @@
+{
+  "manual": {
+    "version": "21.1",
+    "chapter": 105,
+    "printed_pages": "2436"
+  },
+  "runtime": {
+    "version": "21.1.0.14",
+    "edition": "DaVinci Resolve Studio",
+    "os": "Windows-11-10.0.26200-SP0",
+    "ui_language": "ja-JP"
+  },
+  "captured_at": "2026-10-28T04:00:40.820962+00:00",
+  "project": "Collectanea_Mandelbrot_Zoom_20261025",
+  "timeline": "S236_capture",
+  "frame": 0,
+  "resolution": [
+    1920,
+    1080
+  ],
+  "color_management": {
+    "project_settings": {
+      "colorScienceMode": "davinciYRGB",
+      "colorSpaceInput": "Rec.709 Gamma 2.4",
+      "colorSpaceTimeline": "Rec.709 (Scene)",
+      "colorSpaceTimelineGamma": "",
+      "colorSpaceOutput": "Rec.709 (Scene)",
+      "colorSpaceOutputGamma": "ACEScc",
+      "isAutoColorManage": "0",
+      "timelineResolutionWidth": "1920",
+      "timelineResolutionHeight": "1080",
+      "timelineFrameRate": 30.0,
+      "timelinePlaybackFrameRate": "30",
+      "timelinePixelAspectRatio": "square"
+    },
+    "note": "SDK project settings; screenshots show Viewer display."
+  },
+  "viewer": {
+    "view_mode": "Fit",
+    "source": "Left Label; right MediaOut1",
+    "note": "KD Bend selected; viewer includes control overlays."
+  },
+  "acceptance": {
+    "gui": "PASS: synthetic text bends with midpoint .5,.75.",
+    "article_display": "NOT_RUN",
+    "public_display": "NOT_RUN"
+  },
+  "unverified": [
+    "One synthetic text and midpoint; other modes, masks, alpha values, animation and other hosts NOT_RUN.",
+    "Viewer screenshots include control overlays and are display evidence.",
+    "Portable reimport and physical input provenance NOT_RUN.",
+    "Article verification remains partial."
+  ],
+  "schema_version": 1,
+  "case": "S236",
+  "article": "manuals/fusion/nodes/krokodove/bend.md",
+  "graph": "fixture.comp",
+  "settings": "readback.json",
+  "source": {
+    "file": "screen.png",
+    "size": [
+      3336,
+      1902
+    ],
+    "sha256": "dc7eff4328cd55ab320bd43cbff4ce2b6d402eb2c78edb5bb42317e52d267831"
+  },
+  "shots": [
+    {
+      "file": "graph.png",
+      "source": "screen.png",
+      "source_sha256": "dc7eff4328cd55ab320bd43cbff4ce2b6d402eb2c78edb5bb42317e52d267831",
+      "frame": 0,
+      "crop_xyxy": [
+        500,
+        1050,
+        2350,
+        1650
+      ],
+      "resampled": false,
+      "sha256": "bde7e2b607a66a4bd3dd63e5939fe04b73e4f2e5b3064c75232c290ead915896"
+    },
+    {
+      "file": "controls.png",
+      "source": "screen.png",
+      "source_sha256": "dc7eff4328cd55ab320bd43cbff4ce2b6d402eb2c78edb5bb42317e52d267831",
+      "frame": 0,
+      "crop_xyxy": [
+        2815,
+        65,
+        3336,
+        750
+      ],
+      "resampled": false,
+      "sha256": "d3aeffd0791612fc6d02529f7c514d4b0e0809fcee783afde91f426e82c252c7"
+    },
+    {
+      "file": "low.png",
+      "source": "screen.png",
+      "source_sha256": "dc7eff4328cd55ab320bd43cbff4ce2b6d402eb2c78edb5bb42317e52d267831",
+      "frame": 0,
+      "crop_xyxy": [
+        120,
+        70,
+        1340,
+        720
+      ],
+      "resampled": false,
+      "sha256": "9d48b7198c9e75d9798c6452a439fceb4e3e0f903ddd5510035113adbb3ff59c"
+    },
+    {
+      "file": "high.png",
+      "source": "screen.png",
+      "source_sha256": "dc7eff4328cd55ab320bd43cbff4ce2b6d402eb2c78edb5bb42317e52d267831",
+      "frame": 0,
+      "crop_xyxy": [
+        1480,
+        70,
+        2700,
+        720
+      ],
+      "resampled": false,
+      "sha256": "be3578c205bb168a13b0aa8aef4a9e03b80957221773767e122bb09eb54a7207"
+    }
+  ],
+  "reproduction": {
+    "fixture_sha256": "fe9cf45d6bd329da50f5e60237332ee333207c3379a7584433ac47d95f9652a6",
+    "readback_sha256": "5d1386cf3700efece45d96d1442cbaaf2a05ea1b5ec844c30dbc2bfaa21de7f9",
+    "readback_source_sha256": "5d1386cf3700efece45d96d1442cbaaf2a05ea1b5ec844c30dbc2bfaa21de7f9",
+    "readback_transform": "No line-ending transformation",
+    "reimport": "NOT_RUN"
+  }
+}
