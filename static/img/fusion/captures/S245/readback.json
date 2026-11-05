@@ -1,0 +1,60 @@
+{
+  "case": "S245",
+  "project": "Collectanea_Mandelbrot_Zoom_20261025",
+  "library": "Local Database",
+  "project_manager_folder": "root",
+  "timeline": "S245_capture",
+  "frame": 0,
+  "resolve": "21.1.0.14",
+  "edition": "DaVinci Resolve Studio",
+  "os": "Windows-11-10.0.26200-SP0",
+  "project_settings": {
+    "colorScienceMode": "davinciYRGB",
+    "colorSpaceInput": "Rec.709 Gamma 2.4",
+    "colorSpaceTimeline": "Rec.709 (Scene)",
+    "colorSpaceTimelineGamma": "",
+    "colorSpaceOutput": "Rec.709 (Scene)",
+    "colorSpaceOutputGamma": "ACEScc",
+    "isAutoColorManage": "0",
+    "timelineResolutionWidth": "1920",
+    "timelineResolutionHeight": "1080",
+    "timelineFrameRate": 30.0,
+    "timelinePlaybackFrameRate": "30",
+    "timelinePixelAspectRatio": "square"
+  },
+  "connections": {
+    "Map.Image": "Label",
+    "MediaOut1.Input": "Map"
+  },
+  "values": {
+    "Label": {
+      "StyledText": "RECOLOR",
+      "Size": 0.3,
+      "Red1": 1.0,
+      "Green1": 0.0,
+      "Blue1": 0.0
+    },
+    "Map": {
+      "NumberofColors": 1.0,
+      "Tolerance": 0.1,
+      "ColorFrom1Red": 1.0,
+      "ColorFrom1Green": 0.0,
+      "ColorFrom1Blue": 0.0,
+      "ColorFrom1Alpha": 1.0,
+      "ColorTo1Red": 0.0,
+      "ColorTo1Green": 0.0,
+      "ColorTo1Blue": 1.0,
+      "ColorTo1Alpha": 1.0
+    }
+  },
+  "source": "Synthetic text through KD Recolor.",
+  "save_project": true,
+  "save_completed_at": "2026-10-28T05:12:01.198929+00:00",
+  "native_export_sha256": "ef9294fd5628ffc8bf9c4bf75efdde57950f7f02fc399982824b47756ac23a74",
+  "portable_sha256": "e933630dce79d48c78a98e5fb92b41a641cd10a5e5126ffd6f5165db5583b9ce",
+  "portable_reimport": "NOT_RUN",
+  "limits": [
+    "One synthetic text and settings; other color settings, mask, alpha values, animation and other hosts NOT_RUN.",
+    "Viewer screenshot is display evidence."
+  ]
+}

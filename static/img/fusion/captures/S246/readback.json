@@ -1,0 +1,54 @@
+{
+  "case": "S246",
+  "project": "Collectanea_Mandelbrot_Zoom_20261025",
+  "library": "Local Database",
+  "project_manager_folder": "root",
+  "timeline": "S246_capture",
+  "frame": 0,
+  "resolve": "21.1.0.14",
+  "edition": "DaVinci Resolve Studio",
+  "os": "Windows-11-10.0.26200-SP0",
+  "project_settings": {
+    "colorScienceMode": "davinciYRGB",
+    "colorSpaceInput": "Rec.709 Gamma 2.4",
+    "colorSpaceTimeline": "Rec.709 (Scene)",
+    "colorSpaceTimelineGamma": "",
+    "colorSpaceOutput": "Rec.709 (Scene)",
+    "colorSpaceOutputGamma": "ACEScc",
+    "isAutoColorManage": "0",
+    "timelineResolutionWidth": "1920",
+    "timelineResolutionHeight": "1080",
+    "timelineFrameRate": 30.0,
+    "timelinePlaybackFrameRate": "30",
+    "timelinePixelAspectRatio": "square"
+  },
+  "connections": {
+    "Map.Image": "Gradient",
+    "MediaOut1.Input": "Map"
+  },
+  "values": {
+    "Gradient": {
+      "Type": "Horizontal",
+      "TopLeftRed": 0.0,
+      "TopLeftGreen": 0.0,
+      "TopLeftBlue": 0.0,
+      "TopRightRed": 1.0,
+      "TopRightGreen": 1.0,
+      "TopRightBlue": 1.0
+    },
+    "Map": {
+      "Threshold": 0.5,
+      "Softness": 0.1
+    }
+  },
+  "source": "Synthetic horizontal grayscale gradient through KD Threshold.",
+  "save_project": true,
+  "save_completed_at": "2026-10-28T05:15:27.708756+00:00",
+  "native_export_sha256": "b1ab946d0415f793fad7a0b11254580702f23438bc438f12d2a6816a2a41e07c",
+  "portable_sha256": "29e90fb602b9145fcc1fa9d53a85738183d4250a92a183aaf268c139d031b6f7",
+  "portable_reimport": "NOT_RUN",
+  "limits": [
+    "One synthetic text and settings; other threshold settings, mask, alpha values, animation and other hosts NOT_RUN.",
+    "Viewer screenshot is display evidence."
+  ]
+}

@@ -35,6 +35,34 @@ Match Colorは、こうした階調に着目して色を変更します。「画
 
 上の区分は意味を説明するためのもので、**Inspectorにこの3つの名前のスイッチがあることや、固定の明度境界を持つことを保証するものではありません**。
 
+<!-- capture:S248 -->
+
+## 実機例：グラデーションの暗い側に青を付ける
+
+合成した白黒グラデーションを `Match Color` に渡し、Shadows MatchとDestination 1を設定しました。Destination 1の青を1に設定した例では、暗い側が青く見えます。
+
+Viewerには市松模様が表示されています。Alphaの数値や別の素材・設定での変化は未検証です。[接続と設定の記録](/img/fusion/captures/S248/readback.json)に条件を記載しています。
+
+[![白黒グラデーションをKrokodove Match Colorへつなぐ構成](/img/fusion/captures/S248/graph.png)](/img/fusion/captures/S248/graph.png)
+
+白黒グラデーションをMatch Colorへ渡します。
+
+[![Match ColorのInspector](/img/fusion/captures/S248/controls.png)](/img/fusion/captures/S248/controls.png)
+
+暗部のDestination 1を青に設定しています。
+
+[![処理前の白黒グラデーション](/img/fusion/captures/S248/low.png)](/img/fusion/captures/S248/low.png)
+
+処理前は黒から白へ変化します。
+
+[![Match Colorで暗い側を青くしたグラデーション](/img/fusion/captures/S248/high.png)](/img/fusion/captures/S248/high.png)
+
+処理後は暗い側が青く見えます。
+
+[再現用Graph](/img/fusion/captures/S248/fixture.comp) · [撮影条件と確認範囲](/img/fusion/captures/S248/capture.json)
+
+<!-- /capture:S248 -->
+
 ## 入力と出力
 
 | 段階 | データ | 役割 |
@@ -87,7 +115,7 @@ MediaIn ───────────────────→ Merge（Bac
 ```
 
 1. 夜景のMediaInをMatch Colorへ接続し、処理前後の画像を別々のViewerに表示します。
-2. Match Colorで暗い階調を対象にし、青系の色を割り当てる設定を探します。これはManualで確認できる役割から組み立てた手順であり、具体的なInspector項目名は未検証です。
+2. Match Colorで暗い階調を対象にし、青系の色を割り当てます。上の実機例ではDestination 1を使いました。この制作例の素材での結果は確認してください。
 3. 建物の影がどう変わったかとともに、暗い服・車・空など、本来変えたくない部分も見ます。色が置き換わった領域の明暗や細部がどれほど残るかも確認します。
 4. 元画像をMergeのBackground、Match Colorの結果をForegroundへつなぎます。標準のMergeのBlendで原画と加工結果を混ぜられます。**Match Color自身にBlend設定があるという意味ではありません**。
 5. 加工を画面の一部に限定したい場合は、MergeのEffect Maskで**合成する範囲**を制御します。Match Colorの専用Mask入力があると仮定しない方法です。
@@ -112,7 +140,7 @@ MediaIn ───────────────────→ Merge（Bac
 - **選択される範囲**：各階調の境界・重なり、柔らかさ、選択範囲を微調整するControlは未確認です。位置や物体を直接指定する仕組みとは限りません。
 - **色の置き換え方**：元の輝度・彩度・細部を保持するか、単色にするかはManualから断定できません。
 - **入力・出力の詳細**：正式な端子名・数、Alphaや補助チャンネルの扱い、解像度への影響は未検証です。
-- **環境差**：REGID、Inspector項目と初期値、DaVinci Resolve Free / Studio / Fusion Studioの差は21.1実機で確認していません。
+- **環境差**：REGID、Inspectorの全項目と初期値、DaVinci Resolve Free / Studio / Fusion Studioの差は確認していません。
 
 ## バージョン・出典
 
@@ -120,4 +148,4 @@ MediaIn ───────────────────→ Merge（Bac
 - **比較資料**：同Manual p.2435「Recolor / Replace Color / Threshold」、p.2434「Color Map」。標準Color Correctorとの違いは同ManualのColor Corrector節に基づきます。
 - **関連**：[Krokodoveの全体像](./)／[画像（Image）](../../learn/02-data/image)／[Merge](../compositing/merge)。
 
-機能の中心は21.1 Manualで確認できていますが、正式な端子・Inspector・色の処理アルゴリズム・Edition差は未検証のため、`verification: partial` を維持しています。
+機能の中心は21.1 Manualで確認できています。実機例では暗部のDestination 1を設定した表示を確認しましたが、Alphaの数値、端子の詳細、色の処理アルゴリズム、Edition差は未検証のため、`verification: partial` を維持しています。
