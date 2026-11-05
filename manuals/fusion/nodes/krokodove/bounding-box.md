@@ -25,11 +25,39 @@ Bounding Boxは、**画像の指定したチャンネルから矩形（四角い
 
 ## チャンネル・閾値・Bounding Boxの意味
 
-**チャンネル**は画像を構成する情報の一つです。一般的な<Term id="image">Image</Term>には、赤・緑・青を表す情報や、透明度を表すAlphaなどがあります。Bounding Boxは、そのうち選択されたチャンネルを手掛かりに矩形を描くツールです。どのチャンネルを選択できるか、Inspector上の正式な選択欄の名前は未確認です。
+**チャンネル**は画像を構成する情報の一つです。一般的な<Term id="image">Image</Term>には、赤・緑・青を表す情報や、透明度を表すAlphaなどがあります。Bounding Boxは、そのうち選択されたチャンネルを手掛かりに矩形を描くツールです。実機例では輝度を選択しました。選択肢の全一覧は未確認です。
 
 **閾値（Threshold）**は、ある値を判定に含めるかどうかを決める境目です。画面内には明るい画素だけでなく、暗い画素や半透明の縁があります。判定に含める範囲が変われば、そこから作る枠にも影響することが考えられます。ただし、21.1 Manualが明示しているのは**Thresholdで矩形の大きさを調整できる**ことまでです。値を上げると必ず枠が小さくなる、といった変化の方向は確認していません。
 
 一般に「Bounding Box」は対象が存在する領域を四角形で示す意味で使われます。ただし、Krokodove版の矩形が常に全画素に接する外接矩形か、枠を回転できるか、対象ごとに複数作れるかは名称から判断しません。
+
+<!-- capture:S252 -->
+
+## 実機例：文字の範囲に矩形を作る
+
+合成した `Text+` の文字を `Bounding Box` に渡し、Thresholdを0.1に設定しました。
+
+この例では文字の範囲に対応する白い矩形が表示されます。Viewerには透明部分を示す市松模様が表示されています。閾値の変更による範囲差やAlpha値は未検証です。[接続と設定の記録](/img/fusion/captures/S252/readback.json)に条件を記載しています。
+
+[![文字画像をKrokodove Bounding Boxへつなぐ構成](/img/fusion/captures/S252/graph.png)](/img/fusion/captures/S252/graph.png)
+
+文字画像をBounding Boxへ渡します。
+
+[![Bounding BoxのInspector](/img/fusion/captures/S252/controls.png)](/img/fusion/captures/S252/controls.png)
+
+Thresholdを0.1に設定しています。
+
+[![処理前の文字](/img/fusion/captures/S252/low.png)](/img/fusion/captures/S252/low.png)
+
+処理前の文字です。
+
+[![Bounding Boxによる白い矩形](/img/fusion/captures/S252/high.png)](/img/fusion/captures/S252/high.png)
+
+処理後は文字の範囲に対応する白い矩形が見えます。
+
+[再現用Graph](/img/fusion/captures/S252/fixture.comp) · [撮影条件と確認範囲](/img/fusion/captures/S252/capture.json)
+
+<!-- /capture:S252 -->
 
 ## 入力と出力
 
@@ -86,8 +114,8 @@ Bounding Boxは**選択した画像チャンネルを参照する**点が特徴�
 ## 注意点・未確認事項
 
 - **端子**：Image入力の正式名称と接続条件、補助入力、出力端子名・数は未確認です。
-- **チャンネル**：選べるチャンネルの種類、Alphaや輝度を選べるか、複数選択できるかは未確認です。
-- **Threshold**：Inspectorの正式項目名、初期値、範囲、判定式、値の増減と枠の大きさとの関係は未確認です。
+- **チャンネル**：実機例では輝度を選択しました。Alphaを含む全選択肢や複数選択は未確認です。
+- **Threshold**：実機例は0.1の一条件です。初期値、範囲、判定式、値の増減と枠の大きさとの関係は未確認です。
 - **矩形の形**：軸に平行か、余白・線幅・塗り・角丸を設定できるか、離れた領域を複数の枠として描くかは未確認です。
 - **描画**：出力RGB・Alpha、解像度、時間変化、キーフレーム可否、HDRでの挙動は未確認です。
 - **製品差**：Resolve Free / Studio / Fusion Studioの差、実機のEffects Library上の位置、REGIDは未確認です。
@@ -98,4 +126,4 @@ Bounding Boxは**選択した画像チャンネルを参照する**点が特徴�
 - **公式配布案内**：[Blackmagic Design Support Center](https://www.blackmagicdesign.com/support)。2026年9月8日付のDaVinci Resolve 21.1 Manual掲載を確認。
 - **関連**：[画像（Image）](../../learn/02-data/image)、[Krokodoveの全体像](./)、[Merge](../compositing/merge)。
 
-Text+を使う例はManualの役割説明から考えた**制作・検証案**です。実機で端子・Inspector・出力を確認した公式作例ではないため、verificationは partial のままにしています。
+上の実機例ではText+の一条件と矩形の表示を確認しました。その他の制作例はManualの役割説明から考えた案です。閾値変化や端子の全挙動は未確認のため、verificationは partial のままにしています。

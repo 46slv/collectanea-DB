@@ -1,0 +1,56 @@
+{
+  "case": "S254",
+  "project": "Collectanea_Mandelbrot_Zoom_20261025",
+  "library": "Local Database",
+  "project_manager_folder": "root",
+  "timeline": "S254_capture",
+  "frame": 0,
+  "resolve": "21.1.0.14",
+  "edition": "DaVinci Resolve Studio",
+  "os": "Windows-11-10.0.26200-SP0",
+  "project_settings": {
+    "colorScienceMode": "davinciYRGB",
+    "colorSpaceInput": "Rec.709 Gamma 2.4",
+    "colorSpaceTimeline": "Rec.709 (Scene)",
+    "colorSpaceTimelineGamma": "",
+    "colorSpaceOutput": "Rec.709 (Scene)",
+    "colorSpaceOutputGamma": "ACEScc",
+    "isAutoColorManage": "0",
+    "timelineResolutionWidth": "1920",
+    "timelineResolutionHeight": "1080",
+    "timelineFrameRate": 30.0,
+    "timelinePlaybackFrameRate": "30",
+    "timelinePixelAspectRatio": "square"
+  },
+  "connections": {
+    "MediaOut1.Input": "Map"
+  },
+  "values": {
+    "Count": 2.0,
+    "BlobPosition1": {
+      "1": 0.35,
+      "2": 0.5,
+      "3": 0.0
+    },
+    "BlobPosition2": {
+      "1": 0.65,
+      "2": 0.5,
+      "3": 0.0
+    },
+    "GeneralRadius": 0.2,
+    "ColorRed": 1.0,
+    "ColorGreen": 1.0,
+    "ColorBlue": 1.0,
+    "ColorAlpha": 1.0
+  },
+  "source": "Generated overlapping shapes through KD Blobs.",
+  "save_project": true,
+  "save_completed_at": "2026-10-28T05:52:06.817974+00:00",
+  "native_export_sha256": "8abca6a3235cea6c7f37d015d1b8106df55f1ed1fa1544f6bcea1762b3ae1c1d",
+  "portable_sha256": "d5c8b6ea36b9e0f7d6ca2e04580864385366699a07b224f52bd7847182f06c55",
+  "portable_reimport": "NOT_RUN",
+  "limits": [
+    "One synthetic text and settings; other blob settings, mask, alpha values, animation and other hosts NOT_RUN.",
+    "Viewer screenshot is display evidence."
+  ]
+}

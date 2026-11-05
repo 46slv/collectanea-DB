@@ -20,7 +20,7 @@ updated: '2026-10-17'
 
 Blobsは、**指定した点の位置に円形の図形を作る**Krokodoveの画像生成ツールです。DaVinci Resolve 21.1 Reference Manualの「Image Create Tools」に掲載されており、原文では「Blobs generates circular shapes at specified points」と説明されています。
 
-たとえば画面の左上と右下に点を指定した場合、その点を基準に円形の模様を配置する、という考え方です。ただし、ここでの位置指定がInspectorの座標欄なのか、Viewer上のハンドルなのか、外部入力によるものなのかはManualの一覧だけでは分かりません。**複数の点を同時に扱えるか、円を何個まで作れるか**も未確認です。
+たとえば画面の左上と右下に点を指定した場合、その点を基準に円形の模様を配置する、という考え方です。実機例では二つの位置を指定しました。点数の上限や外部入力による指定は未確認です。
 
 ## 「点」と「円形」の意味
 
@@ -30,15 +30,39 @@ Blobsは、**指定した点の位置に円形の図形を作る**Krokodoveの�
 
 KrokodoveのBlobsで作るのは、画像として見える円形の模様です。Fusion標準の<Term id="shape-data">Shapeデータ</Term>（図形の輪郭を描画前のデータとして扱う仕組み）や、Particleノードの粒子とは区別します。Shapeデータを画像にする場合は[sRender](../shapes/s-render)を使います。
 
+<!-- capture:S254 -->
+
+## 実機例：二つの円形を生成する
+
+`Blobs` のCountを2とし、二つの位置を（0.35, 0.5）と（0.65, 0.5）に設定しました。
+
+この例では白い円形が二つ重なって見えます。Viewerには市松模様と位置の操作用オーバーレイが表示されています。他の設定やAlpha値は未検証です。[接続と設定の記録](/img/fusion/captures/S254/readback.json)に条件を記載しています。
+
+[![Krokodove Blobsを出力へつなぐ構成](/img/fusion/captures/S254/graph.png)](/img/fusion/captures/S254/graph.png)
+
+Blobsの出力をMediaOutへ渡します。
+
+[![BlobsのInspector](/img/fusion/captures/S254/controls.png)](/img/fusion/captures/S254/controls.png)
+
+General Radiusなどの設定が表示されています。
+
+[![Blobsで生成した二つの円形](/img/fusion/captures/S254/high.png)](/img/fusion/captures/S254/high.png)
+
+白い円形が二つ重なって見えます。
+
+[再現用Graph](/img/fusion/captures/S254/fixture.comp) · [撮影条件と確認範囲](/img/fusion/captures/S254/capture.json)
+
+<!-- /capture:S254 -->
+
 ## 入力と出力
 
 | 段階 | 扱うもの | 確認できる範囲 |
 | --- | --- | --- |
-| 入力 | 外部画像・点データなどの必須入力は未確認 | 21.1 ManualのBlobsの項目には入力端子の種類・数が書かれていません。 |
+| 入力 | 外部画像なしで生成した実機例 | 21.1 ManualのBlobsの項目には入力端子の種類・数が書かれておらず、全端子の条件は未確認です。 |
 | 生成 | 指定した点を基準に円形の図形を作る | Chapter 105、p.2435で確認できます。 |
 | 出力 | 2Dの<Term id="image">Image</Term>として扱う分類 | Manualの「Image Create Tools」と既存カタログに基づきます。正式な端子名、Alpha、解像度は未確認です。 |
 
-「Image Create Tools」という分類だけでは、**入力なしで必ず動く**とは判断できません。まずBlobsをViewerに表示し、画像が出るかを確認します。入力が必要な場合は、その場で実際の接続口とデータ種別を調べます。旧記事の `Image / Source → Blobs → Result` は、未確認の画像入力を前提にしているため、確定した接続図としては使いません。
+上の実機例では外部画像を接続せずに二つの円形を表示しました。全端子の条件は未確認です。旧記事の `Image / Source → Blobs → Result` は、未確認の画像入力を前提にしているため、確定した接続図としては使いません。
 
 ## 主な用途
 
@@ -78,6 +102,6 @@ Blobs（画像出力を確認後） ─────→ Merge（FG）
 
 - **一次資料**：Blackmagic Design『DaVinci Resolve 21.1 Reference Manual』（September 2026）、Chapter 105「Krokodove Nodes」、p.2435（Image Create Tools／Blobs）。指定した点に円形の図形を生成するとの説明を確認しました。同ページにはGenerate、Lines、Pattern、Shapesも掲載されています。
 - **既存分類**：COLLECTANEAではBlobsの出力を2D Imageに分類しています。Krokodove内のImage / Shape / 3D / Regionの違いは[Family Overview](./)を参照してください。
-- **未確認**：必須入力、点を指定する方法・点数、端子名と端子数、Inspectorの項目名・初期値・範囲、円の輪郭・塗り・重なり方、Alphaと解像度、アニメーション可否、Free / StudioなどのEdition差、21.1実機での描画結果。
+- **確認範囲**：実機例では二つの位置を指定し、重なる円形を表示しました。点数の上限、全端子、初期値・範囲、Alphaの数値、アニメーション可否、Edition差は未確認です。
 
 `verification: partial`は、Manualと既存カタログで確認できる情報と、詳細資料・実機で未確認の仕様を分ける状態です。

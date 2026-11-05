@@ -30,21 +30,45 @@ Patternの説明にある「full-frame pattern」は、模様が画面の一部�
 
 同じ「Shape」という言葉でも、Patternが扱うのは**画像として見える図形の模様**です。Fusionの標準Shapeノードが扱う<Term id="shape-data">Shapeデータ</Term>（描画前の図形の輪郭情報）とは区別します。Shapeデータを画素画像にする場合には[sRender](../shapes/s-render)を使用します。
 
+<!-- capture:S253 -->
+
+## 実機例：格子模様を生成する
+
+`Pattern` から画像を生成し、TypeをGrid、Sizeを0.15に設定しました。
+
+この例では青い面に白い格子が見えます。Viewerには操作用オーバーレイが表示されています。ほかのTypeやAlpha値は未検証です。[接続と設定の記録](/img/fusion/captures/S253/readback.json)に条件を記載しています。
+
+[![Krokodove Patternを出力へつなぐ構成](/img/fusion/captures/S253/graph.png)](/img/fusion/captures/S253/graph.png)
+
+Patternの出力をMediaOutへ渡します。
+
+[![PatternのInspector](/img/fusion/captures/S253/controls.png)](/img/fusion/captures/S253/controls.png)
+
+TypeをGrid、Sizeを0.15に設定しています。
+
+[![Patternで生成した格子模様](/img/fusion/captures/S253/high.png)](/img/fusion/captures/S253/high.png)
+
+青い面に白い格子が表示されています。
+
+[再現用Graph](/img/fusion/captures/S253/fixture.comp) · [撮影条件と確認範囲](/img/fusion/captures/S253/capture.json)
+
+<!-- /capture:S253 -->
+
 ## 入力と出力
 
 | 段階 | 内容 | 確認範囲 |
 | --- | --- | --- |
-| 入力 | 画像などの外部入力が必須かは未確認 | 21.1 ManualのPattern説明には入力端子の記述がありません。入力画像を必須とは断定しません。 |
+| 入力 | 外部画像なしで生成した実機例 | 21.1 ManualのPattern説明には入力端子の記述がなく、全端子の条件は未確認です。 |
 | 生成 | 図形を配列し、画面全体に広がる模様を作る | Chapter 105のPattern説明で確認できます。 |
 | 出力 | 2Dの<Term id="image">Image</Term>として扱う分類 | Manualの「Image Create Tools」と既存カタログに基づきます。正式な端子名、解像度、Alphaの内容は未確認です。 |
 
-「画像生成」という分類は、Patternが必ず入力なしで動作する証拠ではありません。まず単体でViewerへ表示できるか調べ、入力が要求された場合は実際の端子を確認します。従来の定型説明にあった `Image / Source → Pattern → Result` は、必須入力が確認できていないため確定した配線図として扱いません。
+上の実機例では外部画像を接続せずにPatternの出力を表示しました。全端子の条件は未確認です。従来の定型説明にあった `Image / Source → Pattern → Result` は、必須入力が確認できていないため確定した配線図として扱いません。
 
 ## 主な用途
 
 **繰り返し模様の背景**には、タイトルやテロップの後ろに置く幾何学的なテクスチャーが考えられます。**画面全体に広がる装飾**には、ポスター風の背景や抽象的なモーショングラフィックスが候補になります。また、模様を別の画像と合成して、映像の色味や情報量を調整する素材にもできます。
 
-これらは「図形を画面全体へ配列する」という機能から考えた制作案です。特定の図形、密度、色、動きをPatternだけで実現できるという実機確認ではありません。
+これらは「図形を画面全体へ配列する」という機能から考えた制作案です。実機例のGrid以外の図形や動きは確認していません。
 
 ## 制作例：タイトルの背後に模様を置く
 
@@ -76,6 +100,6 @@ PatternとDuplicateの違いは特に重要です。Patternは**図形の模様�
 
 - **一次資料**：Blackmagic Design『DaVinci Resolve 21.1 Reference Manual』（September 2026）、Chapter 105「Krokodove Nodes」、p.2435（Image Create Tools／Pattern）。図形を配列し、フレーム全体のパターンを作る役割を確認しました。同ページにShapes、Lines、p.2434にPack、p.2436にDuplicateの説明があります。
 - **既存分類**：COLLECTANEAでは出力を2D Imageに分類しています。Krokodoveのデータ種別の違いは[Family Overview](./)を参照してください。
-- **未確認**：必須入力の有無、正式な端子名・端子数、利用可能な図形の種類、配列方法・隙間・密度、Inspectorの項目名・初期値・範囲、Alphaと解像度、キーフレーム対応、Edition差、21.1実機での描画結果。
+- **確認範囲**：実機例では外部画像なしのGridとSize 0.15を確認しました。他のType、全端子、初期値・範囲、Alphaの数値、キーフレーム対応、Edition差は未確認です。
 
 `verification: partial`は、Manualで確認できる用途と、実機または詳細資料で未確認の仕様を分けるための状態です。
