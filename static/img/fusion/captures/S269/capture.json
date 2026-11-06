@@ -1,0 +1,160 @@
+{
+  "manual": {
+    "version": "21.1",
+    "chapter": 105,
+    "printed_pages": "2436"
+  },
+  "runtime": {
+    "version": "21.1.0.14",
+    "edition": "DaVinci Resolve Studio",
+    "os": "Windows-11-10.0.26200-SP0",
+    "ui_language": "ja-JP"
+  },
+  "captured_at": "2026-10-28T06:58:31.503604+00:00",
+  "project": "Collectanea_Mandelbrot_Zoom_20261025",
+  "timeline": "S269_capture",
+  "frame": 63,
+  "resolution": [
+    1920,
+    1080
+  ],
+  "color_management": {
+    "project_settings": {
+      "colorScienceMode": "davinciYRGB",
+      "colorSpaceInput": "Rec.709 Gamma 2.4",
+      "colorSpaceTimeline": "Rec.709 (Scene)",
+      "colorSpaceTimelineGamma": "",
+      "colorSpaceOutput": "Rec.709 (Scene)",
+      "colorSpaceOutputGamma": "ACEScc",
+      "isAutoColorManage": "0",
+      "timelineResolutionWidth": "1920",
+      "timelineResolutionHeight": "1080",
+      "timelineFrameRate": 30.0,
+      "timelinePlaybackFrameRate": "30",
+      "timelinePixelAspectRatio": "square"
+    },
+    "note": "SDK project settings; screenshots show Viewer display."
+  },
+  "viewer": {
+    "view_mode": "Fit",
+    "source": "Left animated Background; right MediaOut1",
+    "note": "Fixed Time 0, Global, All; Viewer images of frames 61 and 63."
+  },
+  "acceptance": {
+    "gui": "PASS: input changes between two frames while output appears gray in both.",
+    "article_display": "NOT_RUN",
+    "public_display": "NOT_RUN"
+  },
+  "unverified": [
+    "One synthetic uniform flicker with fixed reference; other modes, footage, alpha values and other hosts NOT_RUN.",
+    "Viewer screenshot is display evidence.",
+    "Output numeric pixel values, portable reimport and physical input provenance NOT_RUN.",
+    "Article verification remains partial."
+  ],
+  "schema_version": 1,
+  "case": "S269",
+  "article": "manuals/fusion/nodes/krokodove/deflicker.md",
+  "graph": "fixture.comp",
+  "settings": "readback.json",
+  "source": {
+    "file": "screen.png",
+    "size": [
+      3328,
+      1898
+    ],
+    "sha256": "e62d200ff70166167dc951adab69b5822524e5e57c797997e0f14687160313db"
+  },
+  "shots": [
+    {
+      "file": "graph.png",
+      "source": "screen.png",
+      "source_sha256": "e62d200ff70166167dc951adab69b5822524e5e57c797997e0f14687160313db",
+      "frame": 63,
+      "crop_xyxy": [
+        500,
+        1050,
+        2350,
+        1650
+      ],
+      "resampled": false,
+      "sha256": "149843f997bf8d1917338a8dbccc9d1c0f8f61e8b4804bb565e80381024fdf57"
+    },
+    {
+      "file": "controls.png",
+      "source": "screen.png",
+      "source_sha256": "e62d200ff70166167dc951adab69b5822524e5e57c797997e0f14687160313db",
+      "frame": 63,
+      "crop_xyxy": [
+        2815,
+        65,
+        3328,
+        750
+      ],
+      "resampled": false,
+      "sha256": "e4772806fe305df4d42a1a7724633f59875645ecfb9c66db5afe00d5f787b1b3"
+    },
+    {
+      "file": "low.png",
+      "source": "screen.png",
+      "source_sha256": "e62d200ff70166167dc951adab69b5822524e5e57c797997e0f14687160313db",
+      "frame": 63,
+      "crop_xyxy": [
+        120,
+        70,
+        1340,
+        720
+      ],
+      "resampled": false,
+      "sha256": "a2afa06d89e7fc0c7841eeacf19b65e1b892b055c83ffb70eafb1d6b086b4c60"
+    },
+    {
+      "file": "high.png",
+      "source": "screen.png",
+      "source_sha256": "e62d200ff70166167dc951adab69b5822524e5e57c797997e0f14687160313db",
+      "frame": 63,
+      "crop_xyxy": [
+        1480,
+        70,
+        2700,
+        720
+      ],
+      "resampled": false,
+      "sha256": "1f6ac3d39f95e8f738128df08879c862951c9e85616cdc562f4708703650ed95"
+    },
+    {
+      "file": "input-61.png",
+      "source": "frame61.png",
+      "source_sha256": "19cf958ffb68722f824af67b2c2c4ab93018339ffc5db843baaa0e4bc5818cd2",
+      "frame": 61,
+      "crop_xyxy": [
+        120,
+        70,
+        1340,
+        720
+      ],
+      "resampled": false,
+      "sha256": "08435096296f91a60b8dba2792bfe2b5740a61a967a9dea2ced54b24b4e91ecb"
+    },
+    {
+      "file": "output-61.png",
+      "source": "frame61.png",
+      "source_sha256": "19cf958ffb68722f824af67b2c2c4ab93018339ffc5db843baaa0e4bc5818cd2",
+      "frame": 61,
+      "crop_xyxy": [
+        1480,
+        70,
+        2700,
+        720
+      ],
+      "resampled": false,
+      "sha256": "1f6ac3d39f95e8f738128df08879c862951c9e85616cdc562f4708703650ed95"
+    }
+  ],
+  "reproduction": {
+    "fixture_sha256": "bcadee2207887bc214a73fee9c9988fe2fc87a782910e268c5bf4dd94254b3f6",
+    "readback_sha256": "2285d52280de93eab8c830f6c6d1577b9fe0518e04b330cc0c5ac44b5a035a85",
+    "readback_source_sha256": "4ccb611f769f5a307c7445aaa609a689d18466051de99fc992cf9cf16e67a601",
+    "readback_transform": "CRLF normalized to LF for the portable Git asset; JSON values unchanged",
+    "reimport": "NOT_RUN"
+  }
+}
