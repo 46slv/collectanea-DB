@@ -36,6 +36,40 @@ updated: '2026-10-20'
 
 フリッカーを直す際には、時間軸が重要です。静止画を一枚だけ見て色や露出を調整するのではなく、前後のフレームと見比べ、明るさの揺れが収まったかを**再生して判断**します。
 
+<!-- capture:S269 -->
+
+## 実機例：明るさが変わる合成入力
+
+明るさを時間で変える単色の合成画像を `Deflicker` に接続し、ReferenceをFixed Time 0、TypeをGlobal、Based OnをAllに設定しました。フレーム61と63では、入力は明から暗へ変わり、出力はどちらも灰色に見えます。これは固定参照を使った合成入力の例です。出力画素の数値や実映像、ほかのモードは未検証です。[接続と設定の記録](/img/fusion/captures/S269/readback.json)に条件を記載しています。
+
+[![単色画像をDeflickerへつなぐノード構成](/img/fusion/captures/S269/graph.png)](/img/fusion/captures/S269/graph.png)
+
+明るさが変化する合成画像をDeflickerへ渡します。
+
+[![DeflickerのInspector](/img/fusion/captures/S269/controls.png)](/img/fusion/captures/S269/controls.png)
+
+Fixed Time 0、Global、Allを指定します。
+
+[![フレーム63の暗い入力](/img/fusion/captures/S269/low.png)](/img/fusion/captures/S269/low.png)
+
+フレーム63の入力は暗く見えます。
+
+[![フレーム63の灰色の出力](/img/fusion/captures/S269/high.png)](/img/fusion/captures/S269/high.png)
+
+フレーム63の出力は灰色に見えます。
+
+[![フレーム61の明るい入力](/img/fusion/captures/S269/input-61.png)](/img/fusion/captures/S269/input-61.png)
+
+フレーム61の入力は明るく見えます。
+
+[![フレーム61の灰色の出力](/img/fusion/captures/S269/output-61.png)](/img/fusion/captures/S269/output-61.png)
+
+フレーム61の出力も灰色に見えます。
+
+[再現用Graph](/img/fusion/captures/S269/fixture.comp) · [撮影条件と確認範囲](/img/fusion/captures/S269/capture.json)
+
+<!-- /capture:S269 -->
+
 ## 入力と出力
 
 | 段階 | データ | 役割 |
@@ -75,7 +109,7 @@ updated: '2026-10-20'
 1. 明るさが揺れている数秒の素材を用意し、何も処理していない状態で繰り返し再生します。明るさが変わる位置とタイミングを確認します。
 2. Deflickerを挿入し、処理前と処理後を別々のViewerで比較します。静止した一枚だけでなく、必ず複数フレームを通して観察します。
 3. 画面全体の明滅なら、背景など動きの少ない場所で変化を見ます。局所的な明滅なら、その領域以外の色や階調まで変わっていないかも確認します。
-4. Inspectorで操作できる項目は**実際に表示されたものだけ**を使い、効果の変化を一つずつ確認します。ここではManualにないControl名や推奨値を設定しません。
+4. Inspectorで操作できる項目は**実際に表示されたものだけ**を使い、効果の変化を一つずつ確認します。今回の実機例ではFixed Time 0、Global、Allを使用しました。別の設定との比較は未検証です。
 5. 人物やカメラが動くカットでも確認します。輪郭に二重像が出る、必要な光の点滅まで弱まるなどの副作用があれば、そのカットへの適用を再検討します。
 
 フレームごとに点滅するデザインや演出上のストロボは、修正対象のフリッカーとは限りません。**意図した変化を残すべきか**を先に決めてから処理します。
@@ -97,7 +131,7 @@ Averageについても、複数フレームを混ぜればちらつきが目立�
 - **補正結果は再生して確認する：** 一枚の静止フレームでは時間的な揺れを評価しにくいため、問題が出ている範囲の前後も確認します。
 - **被写体の動きと区別する：** 明るさのちらつきと、被写体の移動による画素の変化は別の現象です。動く輪郭や細い線の見た目も確認します。
 - **必要な点滅を消さない：** 警告灯、看板、演出上のフラッシュなど、意図的な明滅を補正対象にしないようにします。
-- **Inspectorと動作は未確認：** 参照フレーム数、分析方向、領域判定、色空間、Alphaの処理、フレーム端やクリップ端での動作は、Krokodoveの短いManual項目からは確定できません。
+- **その他のInspectorと動作は未確認：** 参照フレーム数、分析方向、領域判定、色空間、Alphaの処理、フレーム端やクリップ端での動作は、Krokodoveの短いManual項目からは確定できません。
 - **Edition・登録状態は別途確認：** Resolve Free／Studio／Fusion StudioでのKrokodove Deflickerの利用可否、現在のノード登録名、効果の性能は未検証です。Resolve FX DeflickerのStudio専用表記をKrokodoveへ転用しません。
 
 ## 出典と確認範囲
@@ -106,4 +140,4 @@ Averageについても、複数フレームを混ぜればちらつきが目立�
 
 比較に使った[Average](./average)は同Chapterのp.2435、Resolve FX Deflickerの詳細とStudio専用表記はChapter 163「Resolve FX Revival」のpp.3640–3641です。Optical FlowとRepair Frameの前処理についてはChapter 112のpp.2618、2622を参照しました。公式資料の入口は[Blackmagic Designサポート](https://www.blackmagicdesign.com/jp/support/)です。
 
-使用例・接続例・想定される副作用は、これらの記述に基づく説明と**実機未検証の確認案**です。Krokodove Deflickerの正確な端子・Inspector・内部方式・Edition差を確認できていないため、verification: partialを維持しています。関連するデータの説明は[Imageの解説](../../learn/02-data/image)、Krokodove全体の分類は[ファミリー概要](./)を参照してください。
+使用例・接続例・想定される副作用は、これらの記述に基づく説明と**確認案**です。実機例は合成入力と固定参照の一条件に限られます。正確な端子、その他のInspectorの動作、内部方式・Edition差は未確認のため、verification: partialを維持しています。関連するデータの説明は[Imageの解説](../../learn/02-data/image)、Krokodove全体の分類は[ファミリー概要](./)を参照してください。
