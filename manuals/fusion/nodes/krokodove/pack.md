@@ -31,6 +31,32 @@ DaVinci Resolve 21.1 Reference Manualは、Packを「Image Tools」に分類し�
 
 「stacked shapes」は、図形を何枚も重ねるように並べたパターンを意味します。正方形・円形などの種類や、規則的に並ぶのかランダムなのかはManualの記述だけでは分かりません。また、ここでいう図形は**見た目の模様**であり、Fusionの<Term id="shape-data">Shapeデータ</Term>を入出力するという意味ではありません。
 
+<!-- capture:S274 -->
+
+## 実機例：大小の円を表示する
+
+合成した白黒グラデーションを `Pack` に接続し、ChannelをAlpha、Shape TypeをCircleに設定しました。この静止画では大小の白い円が画面に並びます。Viewerの市松模様は透明部分の表示です。ほかの形やAlpha値は未検証です。[接続と設定の記録](/img/fusion/captures/S274/readback.json)に条件を記載しています。
+
+[![グラデーションをPackへつなぐノード構成](/img/fusion/captures/S274/graph.png)](/img/fusion/captures/S274/graph.png)
+
+合成グラデーションをPackへ渡します。
+
+[![PackのInspector](/img/fusion/captures/S274/controls.png)](/img/fusion/captures/S274/controls.png)
+
+ChannelはAlpha、Shape TypeはCircleです。
+
+[![入力の白黒グラデーション](/img/fusion/captures/S274/low.png)](/img/fusion/captures/S274/low.png)
+
+入力は黒から白へのグラデーションです。
+
+[![大小の白い円が並ぶPack出力](/img/fusion/captures/S274/high.png)](/img/fusion/captures/S274/high.png)
+
+出力には大小の円が見えます。
+
+[再現用Graph](/img/fusion/captures/S274/fixture.comp) · [撮影条件と確認範囲](/img/fusion/captures/S274/capture.json)
+
+<!-- /capture:S274 -->
+
 ## 入力と出力
 
 | 段階 | 扱うもの | 確認できる範囲 |
@@ -47,7 +73,7 @@ DaVinci Resolve 21.1 Reference Manualは、Packを「Image Tools」に分類し�
 - **抽象的な背景の制作**：生成した模様を別の映像と合成する素材として使えるか試す。
 - **チャンネル別の処理を伴う表現**：後段で色成分を分けたりずらしたりする構成の入力候補にする。
 
-いずれも公式の短い機能説明から考えられる**制作上の使用案**です。Packのパラメータ、透過結果、アニメーション対応についての実機確認を済ませた作例ではありません。
+いずれも公式の短い機能説明から考えられる**制作上の使用案**です。上記の実機例はChannel Alpha、Shape Type Circleの一条件です。透過値やアニメーション対応は未検証です。
 
 ## 制作例：単色画像から模様の変化を確認する
 
@@ -82,6 +108,6 @@ Packが画像内のどのチャンネルをどう選択するか、PatternやSha
 - **一次資料**：Blackmagic Design『DaVinci Resolve 21.1 Reference Manual』Chapter 105「Krokodove Nodes」、p.2434（Image Tools／Pack）。ここで確認できるのは、指定したカラーチャンネル内に図形を重ねたパターンを作るという役割です。
 - **補助資料**：Blackmagic Design『DaVinci Resolve 21 New Features Guide』p.108（Krokodove統合とPackの説明）。[公式PDF](https://documents.blackmagicdesign.com/SupportNotes/DaVinci_Resolve_21_New_Features_Guide.pdf)。
 - **関連資料**：同21.1 Manual、p.2435（Pattern・Shapes・Channel Shifterの役割）。
-- **未確認**：正式な端子名・端子数、選択可能なチャンネル、図形の形状・配置・重なり方、Inspectorの項目名・初期値・数値範囲、Alpha処理、アニメーション、Editionごとの利用可否、21.1実機での描画結果。
+- **未確認**：正式な端子名・端子数、今回の例以外のチャンネルと図形、配置・重なり方、Inspector項目の意味・初期値・数値範囲、Alpha処理、アニメーション、Editionごとの利用可否。
 
 `verification: partial`はこれらが未確認であることを示します。Krokodove全体の分類は[Family Overview](./)を参照してください。
