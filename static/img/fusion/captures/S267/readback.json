@@ -1,0 +1,62 @@
+{
+  "case": "S267",
+  "project": "Collectanea_Mandelbrot_Zoom_20261025",
+  "library": "Local Database",
+  "timeline": "S267_capture",
+  "frame": 0,
+  "resolve": "21.1.0.14",
+  "edition": "DaVinci Resolve Studio",
+  "os": "Windows-11-10.0.26200-SP0",
+  "project_settings": {
+    "colorScienceMode": "davinciYRGB",
+    "colorSpaceInput": "Rec.709 Gamma 2.4",
+    "colorSpaceTimeline": "Rec.709 (Scene)",
+    "colorSpaceTimelineGamma": "",
+    "colorSpaceOutput": "Rec.709 (Scene)",
+    "colorSpaceOutputGamma": "ACEScc",
+    "isAutoColorManage": "0",
+    "timelineResolutionWidth": "1920",
+    "timelineResolutionHeight": "1080",
+    "timelineFrameRate": 30.0,
+    "timelinePlaybackFrameRate": "30",
+    "timelinePixelAspectRatio": "square"
+  },
+  "connections": {
+    "Rasterize.Image": "Gradient",
+    "MediaOut1.Input": "Rasterize"
+  },
+  "values": {
+    "Gradient": {
+      "Type": "Horizontal",
+      "TopLeftRed": 0.0,
+      "TopRightRed": 1.0
+    },
+    "Rasterize": {
+      "RandomSeed": 0.0,
+      "Channel": 4.0,
+      "Center": {
+        "1": 0.5,
+        "2": 0.5,
+        "3": 0.0
+      },
+      "Size": 0.01,
+      "Angle": 0.0,
+      "Aspect": 1.0,
+      "GridSizeX": 2.0,
+      "GridSizeY": 2.0,
+      "Type": 0.0,
+      "ShapeSize": 0.0,
+      "SizeBlack": 0.0,
+      "SizeWhite": 1.0
+    }
+  },
+  "save_project": true,
+  "save_completed_at": "2026-10-28T06:52:05.996517+00:00",
+  "native_export_sha256": "5330dcf4475ca9823b44b219dfad8a2e4ef9916d4ee164a7e32377e163992dc7",
+  "portable_sha256": "02e8250096eece5b8acc8b90e8ebd7177293dca5ba5ab33cd2504b1133a38857",
+  "portable_reimport": "NOT_RUN",
+  "limits": [
+    "One synthetic gradient and static setting; other shapes, alpha values and other hosts NOT_RUN.",
+    "Viewer screenshot is display evidence."
+  ]
+}
