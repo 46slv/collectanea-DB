@@ -33,6 +33,32 @@ Rasterizeも、入力画像をそのままぼかしたり、同じ画像を何�
 
 また、一般的な「ラスタライズ」という言葉には、ベクターの輪郭をピクセル画像へ変換する意味もあります。このページのRasterizeは**Krokodove固有のハーフトーン風フィルター**を指し、あらゆるベクターデータを画像へ変換する汎用機能ではありません。
 
+<!-- capture:S267 -->
+
+## 実機例：濃淡を点で表す
+
+合成した白黒グラデーションを `Rasterize` に接続しました。この静止画では左から右へ白い点が大きくなる並びが表示されます。Viewerには透明部分の市松模様と操作用オーバーレイが表示されています。ほかの形やAlpha値は未検証です。[接続と設定の記録](/img/fusion/captures/S267/readback.json)に条件を記載しています。
+
+[![グラデーションをRasterizeへつなぐノード構成](/img/fusion/captures/S267/graph.png)](/img/fusion/captures/S267/graph.png)
+
+合成グラデーションをRasterizeへ渡します。
+
+[![RasterizeのInspector](/img/fusion/captures/S267/controls.png)](/img/fusion/captures/S267/controls.png)
+
+Sizeは0.01、Grid Size X/Yは2です。
+
+[![入力の白黒グラデーション](/img/fusion/captures/S267/low.png)](/img/fusion/captures/S267/low.png)
+
+入力は黒から白へのグラデーションです。
+
+[![白い点が並ぶRasterize出力](/img/fusion/captures/S267/high.png)](/img/fusion/captures/S267/high.png)
+
+右へ向かって点が大きく見えます。
+
+[再現用Graph](/img/fusion/captures/S267/fixture.comp) · [撮影条件と確認範囲](/img/fusion/captures/S267/capture.json)
+
+<!-- /capture:S267 -->
+
 ## 入力と出力
 
 | 段階 | 扱うもの | 確認できる範囲 |
@@ -51,14 +77,14 @@ Rasterizeも、入力画像をそのままぼかしたり、同じ画像を何�
 
 **タイトルやMVの背景**では、ハーフトーン化した映像を薄く重ねたり、背景の一部に使ったりできます。被写体が読み取りにくくなる場合は、処理後の画像と元映像の合成量を調整する構成にすると比較しやすくなります。
 
-これらはManualにある基本機能から考えた**制作上の利用例**です。特定のプリセット、アニメーション方式、図形サイズをRasterize単体で選べると確認したものではありません。
+これらはManualにある基本機能から考えた**制作上の利用例**です。今回の例ではSizeとGrid Size X/Yを設定していますが、値を変えた比較やアニメーション方式は未検証です。
 
 ## 制作例：元映像とハーフトーン映像を混ぜる
 
 次は、Rasterizeの変換結果をそのまま出力する方法と、元映像へ混ぜる方法を比較する例です。
 
 1. Fusionで映像のMediaInをKrokodoveのRasterizeへ接続し、Rasterizeの出力をViewerに表示します。まず画像が変換されているか確認します。
-2. 入力と出力を見比べ、画面内の細部がどのような形へ変わるかを観察します。Inspectorに図形や見た目を調整する項目がある場合は、実際に表示される名称を確認してから変更します。**「図形の大きさ」「密度」などは確認したい性質であり、確定したInspector項目名ではありません**。
+2. 入力と出力を見比べ、画面内の細部がどのような形へ変わるかを観察します。Inspectorに図形や見た目を調整する項目がある場合は、実際に表示される名称を確認してから変更します。実機例ではSizeとGrid Size X/Yの値を示しています。
 3. 元画像と処理後の画像を比較しながら混ぜたいときは、標準の[Merge](../compositing/merge)を追加します。元映像をBackground、Rasterizeの出力をForegroundへ接続します。
 
     MediaIn（元映像） ───────────────────→ Merge（BG） ─→ MediaOut
@@ -94,6 +120,6 @@ Krokodoveには2D ImageのほかにShape・3D・Region系のツールもあり�
 
 - **一次資料**：Blackmagic Design『DaVinci Resolve 21.1 Reference Manual』（September 2026）、Chapter 105「Krokodove Nodes」、p.2435（Image Tools／Rasterize）。入力画像を点・四角形・菱形などの連なりへ変換し、ハーフトーン風の画像を作るフィルターであることを確認しました。
 - **比較対象**：同Manual p.2435のPattern（Image Create Tools）、p.2436のDuplicate・Noise（Image Pixel Tools）。各項目の記述に基づく用途の違いを整理しました。
-- **未確認**：正確な入力・出力端子名と数、Inspectorの項目名・初期値・数値範囲、図形の選択方法と描画規則、色とAlphaの変換方法、DoD・解像度、アニメーション可否、Free / StudioなどのEdition差、21.1実機の描画結果と内部REGID。
+- **未確認**：正確な入力・出力端子名と数、今回の例以外のInspector項目の意味・初期値・数値範囲、図形の選択方法と描画規則、色とAlphaの変換方法、DoD・解像度、アニメーション可否、Free / StudioなどのEdition差、別条件での実機描画結果と内部REGID。
 
 `verification: partial`は、公式Manualで確認できる基本機能と、実機または詳細資料で追加確認が必要な仕様を区別するための状態です。
