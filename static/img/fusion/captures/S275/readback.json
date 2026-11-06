@@ -1,0 +1,88 @@
+{
+  "case": "S275",
+  "project": "Collectanea_Mandelbrot_Zoom_20261025",
+  "library": "Local Database",
+  "timeline": "S275_capture",
+  "frame": 0,
+  "resolve": "21.1.0.14",
+  "edition": "DaVinci Resolve Studio",
+  "os": "Windows-11-10.0.26200-SP0",
+  "project_settings": {
+    "colorScienceMode": "davinciYRGB",
+    "colorSpaceInput": "Rec.709 Gamma 2.4",
+    "colorSpaceTimeline": "Rec.709 (Scene)",
+    "colorSpaceTimelineGamma": "",
+    "colorSpaceOutput": "Rec.709 (Scene)",
+    "colorSpaceOutputGamma": "ACEScc",
+    "isAutoColorManage": "0",
+    "timelineResolutionWidth": "1920",
+    "timelineResolutionHeight": "1080",
+    "timelineFrameRate": 30.0,
+    "timelinePlaybackFrameRate": "30",
+    "timelinePixelAspectRatio": "square"
+  },
+  "connections": {
+    "Positioner.Image": "Source",
+    "MediaOut1.Input": "Positioner"
+  },
+  "values": {
+    "Source": {
+      "StyledText": "POSITION",
+      "Size": 0.2
+    },
+    "Positioner": {
+      "Type": 3.0,
+      "Source1": {
+        "1": 0.0,
+        "2": 0.0,
+        "3": 0.0
+      },
+      "Source2": {
+        "1": 1.0,
+        "2": 0.0,
+        "3": 0.0
+      },
+      "Source3": {
+        "1": 0.0,
+        "2": 1.0,
+        "3": 0.0
+      },
+      "Source4": {
+        "1": 1.0,
+        "2": 1.0,
+        "3": 0.0
+      },
+      "Destination1": {
+        "1": 0.25,
+        "2": 0.2,
+        "3": 0.0
+      },
+      "Destination2": {
+        "1": 0.800000011920929,
+        "2": 0.20000000298023224,
+        "3": 0.0
+      },
+      "Destination3": {
+        "1": 0.20000000298023224,
+        "2": 0.800000011920929,
+        "3": 0.0
+      },
+      "Destination4": {
+        "1": 0.800000011920929,
+        "2": 0.800000011920929,
+        "3": 0.0
+      },
+      "Filtering": 2.0,
+      "Edges": 0.0
+    }
+  },
+  "save_project": true,
+  "save_completed_at": "2026-10-28T07:16:31.824064+00:00",
+  "native_export_sha256": "9cf64c95b21557cb3c0b60b70187574634c87da7afa82382c445646d3799c6da",
+  "portable_sha256": "e74680e00509f905bc2d4113012ce514c0d6862bb2e891ff91ef43d549f52d86",
+  "portable_reimport": "NOT_RUN",
+  "limits": [
+    "One synthetic text and static setting; animation, alpha values and other hosts NOT_RUN.",
+    "Viewer screenshot is display evidence."
+  ]
+}
