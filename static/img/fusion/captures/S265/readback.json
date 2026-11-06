@@ -1,0 +1,54 @@
+{
+  "case": "S265",
+  "project": "Collectanea_Mandelbrot_Zoom_20261025",
+  "library": "Local Database",
+  "timeline": "S265_capture",
+  "frame": 0,
+  "resolve": "21.1.0.14",
+  "edition": "DaVinci Resolve Studio",
+  "os": "Windows-11-10.0.26200-SP0",
+  "project_settings": {
+    "colorScienceMode": "davinciYRGB",
+    "colorSpaceInput": "Rec.709 Gamma 2.4",
+    "colorSpaceTimeline": "Rec.709 (Scene)",
+    "colorSpaceTimelineGamma": "",
+    "colorSpaceOutput": "Rec.709 (Scene)",
+    "colorSpaceOutputGamma": "ACEScc",
+    "isAutoColorManage": "0",
+    "timelineResolutionWidth": "1920",
+    "timelineResolutionHeight": "1080",
+    "timelineFrameRate": 30.0,
+    "timelinePlaybackFrameRate": "30",
+    "timelinePixelAspectRatio": "square"
+  },
+  "connections": {
+    "Fragments.Image": "Source",
+    "MediaOut1.Input": "Fragments"
+  },
+  "values": {
+    "Source": {
+      "StyledText": "FRAGMENTS",
+      "Size": 0.15
+    },
+    "Fragments": {
+      "Channel": 4.0,
+      "SizeMinimum": 0.0,
+      "SizeMaximum": 1.0,
+      "RangeRandomSeed": 0.0,
+      "RangeType": 0.0,
+      "RangeMin": 0.0,
+      "RangeMax": 0.5,
+      "RangeOverlap": 0.0,
+      "RangeLength": 1.0
+    }
+  },
+  "save_project": true,
+  "save_completed_at": "2026-10-28T06:45:50.226484+00:00",
+  "native_export_sha256": "fa354acfc37f4a80f61a5fcc8708cce52df7944158484bc14c54dd2966f43dbc",
+  "portable_sha256": "5990d3b4e8e00dd864af519b76889eba811139f221d2c576764382f60c5ee1a7",
+  "portable_reimport": "NOT_RUN",
+  "limits": [
+    "One synthetic text and static setting; animation, other range types, alpha values and hosts NOT_RUN.",
+    "Viewer screenshot is display evidence."
+  ]
+}

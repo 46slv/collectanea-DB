@@ -23,6 +23,32 @@ Fragmentsは、1枚の画像を複数の部分に分け、その部分を徐々�
 
 たとえばロゴの表示を切り替えるとき、ロゴ全体をまとめて透明にする代わりに、分かれた部分が現れるような演出を検討できます。ただし、分割数、断片の形、出現順序をどこまで指定できるかは、21.1 Manualの短い説明だけでは分かりません。
 
+<!-- capture:S265 -->
+
+## 実機例：文字の一部を表示する
+
+合成した文字 `FRAGMENTS` を `Fragments` に接続し、Range Maxを0.5に設定しました。この静止画では文字の一部が表示されます。Rangeの値はSDKで読み戻しています。Viewerの市松模様は透明部分の表示です。アニメーションやほかのRange Type、Alpha値は未検証です。[接続と設定の記録](/img/fusion/captures/S265/readback.json)に条件を記載しています。
+
+[![文字をFragmentsへつなぐノード構成](/img/fusion/captures/S265/graph.png)](/img/fusion/captures/S265/graph.png)
+
+合成文字をFragmentsへ渡します。
+
+[![FragmentsのControlsページ](/img/fusion/captures/S265/controls.png)](/img/fusion/captures/S265/controls.png)
+
+ControlsページにはChannelとSizeの項目が表示されています。
+
+[![入力の文字FRAGMENTS](/img/fusion/captures/S265/low.png)](/img/fusion/captures/S265/low.png)
+
+入力にはFRAGMENTSと表示されています。
+
+[![文字の一部が表示されたFragments出力](/img/fusion/captures/S265/high.png)](/img/fusion/captures/S265/high.png)
+
+この設定では文字の一部が表示されています。
+
+[再現用Graph](/img/fusion/captures/S265/fixture.comp) · [撮影条件と確認範囲](/img/fusion/captures/S265/capture.json)
+
+<!-- /capture:S265 -->
+
 ## 役割と入力・出力
 
 - **入力**：加工したい2D画像。写真、映像、ロゴなどを元画像として考えられます。
@@ -39,7 +65,7 @@ Fragmentsは、1枚の画像を複数の部分に分け、その部分を徐々�
 | --- | --- | --- |
 | `Range` options | 分割された部分をフェードイン・フェードアウトさせる | 21.1 Manual、Chapter 105、p.2434で機能を確認 |
 
-`Range`が表す数値範囲、断片の選択順、時間に応じた変化の設定方法は、同ページに記載されていません。Inspectorにあると推測したスライダー名や既定値をここで列挙することは避けます。
+`Range`が表す数値範囲、断片の選択順、時間に応じた変化の設定方法は、同ページに記載されていません。今回の実機例ではRange Max 0.5をSDKで読み戻しました。値域や既定値は未確認です。
 
 ## 主な用途
 
@@ -82,4 +108,4 @@ Krokodoveの画像用ツールを含む分類は[Family Overview](./)で確認�
 
 **一次資料**：Blackmagic Design『DaVinci Resolve 21.1 Reference Manual』（September 2026）、Chapter 105「Krokodove Nodes」、p.2434「Image Tools / Fragments」。画像を分割することと、`Range` optionsで断片をフェードイン・フェードアウトできることを確認しました。
 
-**未確認**：正式な入出力端子名と本数、分割の形状・個数・順序の設定、`Range`の値域・既定値・キーフレーム対応、アニメーション例の実機結果、Resolve Free / Studioの差、内部REGID。上の接続図と用途は機能を理解するための構成案であり、21.1実機で確認した作例ではありません。
+**未確認**：正式な入出力端子名と本数、分割の形状・個数・順序の設定、`Range`の値域・既定値・キーフレーム対応、アニメーション例の実機結果、Resolve Free / Studioの差、内部REGID。接続図と用途は機能を理解するための構成案です。実機例は上記の静止画の一条件に限られます。
