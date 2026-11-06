@@ -1,0 +1,132 @@
+{
+  "manual": {
+    "version": "21.1",
+    "chapter": 105,
+    "printed_pages": "2436"
+  },
+  "runtime": {
+    "version": "21.1.0.14",
+    "edition": "DaVinci Resolve Studio",
+    "os": "Windows-11-10.0.26200-SP0",
+    "ui_language": "ja-JP"
+  },
+  "captured_at": "2026-10-28T06:49:14.543531+00:00",
+  "project": "Collectanea_Mandelbrot_Zoom_20261025",
+  "timeline": "S266_capture",
+  "frame": 0,
+  "resolution": [
+    1920,
+    1080
+  ],
+  "color_management": {
+    "project_settings": {
+      "colorScienceMode": "davinciYRGB",
+      "colorSpaceInput": "Rec.709 Gamma 2.4",
+      "colorSpaceTimeline": "Rec.709 (Scene)",
+      "colorSpaceTimelineGamma": "",
+      "colorSpaceOutput": "Rec.709 (Scene)",
+      "colorSpaceOutputGamma": "ACEScc",
+      "isAutoColorManage": "0",
+      "timelineResolutionWidth": "1920",
+      "timelineResolutionHeight": "1080",
+      "timelineFrameRate": 30.0,
+      "timelinePlaybackFrameRate": "30",
+      "timelinePixelAspectRatio": "square"
+    },
+    "note": "SDK project settings; screenshots show Viewer display."
+  },
+  "viewer": {
+    "view_mode": "Fit",
+    "source": "Left Gradient; right MediaOut1",
+    "note": "Seamless selected; screenshots show Viewer display."
+  },
+  "acceptance": {
+    "gui": "PASS: grayscale ends change.",
+    "article_display": "NOT_RUN",
+    "public_display": "NOT_RUN"
+  },
+  "unverified": [
+    "One synthetic gradient and static setting; tiled seams, alpha values and other hosts NOT_RUN.",
+    "Viewer screenshot is display evidence.",
+    "Portable reimport and physical input provenance NOT_RUN.",
+    "Article verification remains partial."
+  ],
+  "schema_version": 1,
+  "case": "S266",
+  "article": "manuals/fusion/nodes/krokodove/seamless.md",
+  "graph": "fixture.comp",
+  "settings": "readback.json",
+  "source": {
+    "file": "screen.png",
+    "size": [
+      3328,
+      1898
+    ],
+    "sha256": "f7b29c3c5ae012b10127fb169b10280961437a1f861709a04949dba22279923d"
+  },
+  "shots": [
+    {
+      "file": "graph.png",
+      "source": "screen.png",
+      "source_sha256": "f7b29c3c5ae012b10127fb169b10280961437a1f861709a04949dba22279923d",
+      "frame": 0,
+      "crop_xyxy": [
+        500,
+        1050,
+        2350,
+        1650
+      ],
+      "resampled": false,
+      "sha256": "39639cbe1052f30852fa9cf07478ef4c9e5af752e264923ba74cf4056c76a447"
+    },
+    {
+      "file": "controls.png",
+      "source": "screen.png",
+      "source_sha256": "f7b29c3c5ae012b10127fb169b10280961437a1f861709a04949dba22279923d",
+      "frame": 0,
+      "crop_xyxy": [
+        2815,
+        65,
+        3328,
+        750
+      ],
+      "resampled": false,
+      "sha256": "d0b543d172a3ce37b52907533e4ec9dc789ef30632b15f6d23b279c9249aca76"
+    },
+    {
+      "file": "low.png",
+      "source": "screen.png",
+      "source_sha256": "f7b29c3c5ae012b10127fb169b10280961437a1f861709a04949dba22279923d",
+      "frame": 0,
+      "crop_xyxy": [
+        120,
+        70,
+        1340,
+        720
+      ],
+      "resampled": false,
+      "sha256": "aa87c43e6fb32f09e273f7b9a8315457b7b8d03a73cf50fcb651d03452738ca9"
+    },
+    {
+      "file": "high.png",
+      "source": "screen.png",
+      "source_sha256": "f7b29c3c5ae012b10127fb169b10280961437a1f861709a04949dba22279923d",
+      "frame": 0,
+      "crop_xyxy": [
+        1480,
+        70,
+        2700,
+        720
+      ],
+      "resampled": false,
+      "sha256": "69dd426c5a45ddeaf20e4ef45b5a7ccf46e29dcfbe44a6b1169b1c310e0cd18c"
+    }
+  ],
+  "reproduction": {
+    "fixture_sha256": "5e75b0389cd804861e039cf955f9a00bc8f67e2f8b54498ac334caa0874530e2",
+    "readback_sha256": "1f4892a0f090a1aade502b2de8f0d77f2ed512d6e7123a0344503c95f12d0cf0",
+    "readback_source_sha256": "b75e85b64a7a2a7484b738378787f2b182f93fed9494ffed3d4d370832af6361",
+    "readback_transform": "CRLF normalized to LF for the portable Git asset; JSON values unchanged",
+    "reimport": "NOT_RUN"
+  }
+}
