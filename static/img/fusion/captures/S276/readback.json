@@ -1,0 +1,49 @@
+{
+  "case": "S276",
+  "project": "Collectanea_Mandelbrot_Zoom_20261025",
+  "library": "Local Database",
+  "project_manager_folder": "root",
+  "timeline": "S276_capture",
+  "frame": 0,
+  "resolve": "21.1.0.14",
+  "edition": "DaVinci Resolve Studio",
+  "os": "Windows-11-10.0.26200-SP0",
+  "project_settings": {
+    "colorScienceMode": "davinciYRGB",
+    "colorSpaceInput": "Rec.709 Gamma 2.4",
+    "colorSpaceTimeline": "Rec.709 (Scene)",
+    "colorSpaceTimelineGamma": "",
+    "colorSpaceOutput": "Rec.709 (Scene)",
+    "colorSpaceOutputGamma": "ACEScc",
+    "isAutoColorManage": "0",
+    "timelineResolutionWidth": "1920",
+    "timelineResolutionHeight": "1080",
+    "timelineFrameRate": 30.0,
+    "timelinePlaybackFrameRate": "30",
+    "timelinePixelAspectRatio": "square"
+  },
+  "connections": {
+    "Round.Input": "Rectangle",
+    "BeforeRender.Input": "Rectangle",
+    "AfterRender.Input": "Round",
+    "MediaOut1.Input": "AfterRender"
+  },
+  "values": {
+    "Radius": 0.08,
+    "Symmetrical": 1.0,
+    "Tension": 0.5,
+    "Angle": 0.0,
+    "AngleMinimum": 20.0,
+    "AngleMaximum": 160.0
+  },
+  "source": "Generated sRectangle shape, two sRender branches; one static frame.",
+  "save_project": true,
+  "save_completed_at": "2026-10-28T07:20:43.846892+00:00",
+  "native_export_sha256": "15c4ea99fbfb96036610921372db57ee62b9bb929d78209e9d56df29f56d9093",
+  "portable_sha256": "baf3db3ed2598d0b8f42b2d7993de8c6847e8a4466247477d24a749e88574957",
+  "portable_reimport": "NOT_RUN",
+  "limits": [
+    "Static sRectangle and Radius 0.08; other shapes, animation, alpha values and hosts NOT_RUN.",
+    "Viewer screenshot is display evidence."
+  ]
+}
