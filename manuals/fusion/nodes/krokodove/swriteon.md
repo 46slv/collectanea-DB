@@ -31,6 +31,32 @@ updated: '2026-10-19'
 
 ただし、どの位置から描き始めるか、輪郭がどの方向に進むか、複数の輪郭をどう処理するかは、Manualの短い説明だけでは確定できません。筆順やパスの走査順まで指定できるとは断定しません。
 
+<!-- capture:S278 -->
+
+## 実機例：円の輪郭の一部を表示する
+
+`sEllipse` を分岐し、一方を `sWriteOn` に接続してRange Endを0.5に設定しました。後段の `sOutline` で線幅0.02を与えてから `sRender` で画像化すると、円の一部が線として見えます。線幅はsOutlineの設定です。Viewerの市松模様は透明部分の表示です。アニメーションやAlpha値は未検証です。[接続と設定の記録](/img/fusion/captures/S278/readback.json)に条件を記載しています。
+
+[![sWriteOnとsOutlineをつなぐノード構成](/img/fusion/captures/S278/graph.png)](/img/fusion/captures/S278/graph.png)
+
+円を分岐しsWriteOnとsOutlineを通して画像化します。
+
+[![sWriteOnのInspector](/img/fusion/captures/S278/controls.png)](/img/fusion/captures/S278/controls.png)
+
+Range Endは0.5です。
+
+[![処理前の白い円](/img/fusion/captures/S278/low.png)](/img/fusion/captures/S278/low.png)
+
+処理前の円を表示しています。
+
+[![円の一部の線を表示した結果](/img/fusion/captures/S278/high.png)](/img/fusion/captures/S278/high.png)
+
+sOutlineを通した出力には円の一部が線として見えます。
+
+[再現用Graph](/img/fusion/captures/S278/fixture.comp) · [撮影条件と確認範囲](/img/fusion/captures/S278/capture.json)
+
+<!-- /capture:S278 -->
+
 ## 入力と出力
 
 | 段階 | 扱うもの | 読み方 |
@@ -48,14 +74,14 @@ Shapeは通常の2D Imageとは異なるため、Mergeで背景と合成する�
 次は**各ツールの役割から組み立てた実機確認用の構成案**です。Krokodoveの21.1環境で接続・アニメーションを検証済みのレシピではありません。
 
 ```text
-sEllipse → sWriteOn → sRender → Merge
-  円の形     輪郭の表示    画像化     背景と合成
+sEllipse → sWriteOn → sOutline → sRender → Merge
+  円の形     輪郭の表示     線幅      画像化     背景と合成
 ```
 
 1. [sEllipse](../shapes/s-ellipse)で円を作り、**Solidを無効**にしてBorder Widthを設定します。塗りつぶしではなく、輪郭が見える状態にします。これらは標準sEllipseの21.1 Manualに記載された設定です。
 2. sEllipseをsRenderにつないで、最初に**完成した円の輪郭が正常に表示されること**をViewerで確認します。
-3. sEllipseとsRenderの間にsWriteOnを挟みます。Shapeとして接続できるか、sWriteOnの前後で輪郭がどう変わるかを比較します。
-4. Inspectorで輪郭の表示を変える項目を確認し、ひとつの値だけを動かします。設定名と値域は未確認なので、名称を決め打ちしません。
+3. sEllipseとsRenderの間にsWriteOnとsOutlineを置きます。今回の例ではsOutlineを通さない開いた塗り形状は表示されず、sOutlineのThickness 0.02で線を表示しました。
+4. Inspectorで輪郭の表示を変える項目を確認し、ひとつの値だけを動かします。今回の実機例はRange End 0.5です。値域や他の設定での結果は未確認です。
 5. 表示の変化を確認できた場合に、その項目がキーフレーム対応かを調べ、開始フレームと終了フレームで結果を比較します。表示が変わらない場合は、まず輪郭線があるか、sRenderで画像化できているかを切り分けます。
 
 **sWriteOnの設定項目を探す前に、sEllipse → sRenderだけで結果が見えるかを確認する**と、Shapeの生成・輪郭の表示・画像化のどこに問題があるか分けやすくなります。
@@ -91,12 +117,12 @@ sEllipse → sWriteOn → sRender → Merge
 ## 注意点と検証範囲
 
 - **輪郭と塗り**：Manualが明記するのは輪郭の表示です。塗りつぶされた内部やAlpha全体にどう作用するかは未確認です。
-- **進行方向・始点・終点**：正式なInspector名、値域、初期値、キーフレーム対応、複数輪郭での走査順は未確認です。「Start」「End」のような名称を推測で記載しません。
+- **進行方向・始点・終点**：実機例ではRange Endを0.5に設定しました。値域、初期値、キーフレーム対応、複数輪郭での走査順は未確認です。
 - **線の見た目**：線幅や色そのものを変えたい場合は、前段のShape設定やsRestyleを確認します。sWriteOnがその設定を持つとは断定しません。
-- **環境差**：内部REGID、Resolve Free／Studio／Fusion Studioの提供差、実機の接続結果は未確認です。
+- **環境差**：内部REGID、Resolve Free／Studio／Fusion Studioの提供差、別条件での接続結果は未確認です。
 
 ## バージョンと出典
 
 一次資料：Blackmagic Design『DaVinci Resolve 21.1 Reference Manual』（September 2026）、Chapter 105「Krokodove Nodes」、p.2437「Shape Tools — sWriteOn」。ここで確認できるのは**輪郭を現す・隠すという役割**です。正式なポート仕様やInspector項目はこの説明から読み取れません。
 
-Shapeを2D Imageへ変換するsRender、およびsEllipseのSolid・Border Width・Lengthは、同ManualのChapter 117「Shape Nodes」の記述と各ノード記事を参照しています。本文の接続例・演出例は未検証の構成案です。部分的な根拠のみのため`verification: partial`を維持します。
+Shapeを2D Imageへ変換するsRender、およびsEllipseのSolid・Border Width・Lengthは、同ManualのChapter 117「Shape Nodes」の記述と各ノード記事を参照しています。演出例は未検証の構成案です。実機例は静止画の一条件です。部分的な根拠のみのため`verification: partial`を維持します。
