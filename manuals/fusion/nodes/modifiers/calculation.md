@@ -16,7 +16,7 @@ tasks: ["drive-parameter", "link-values", "derive-values", "retime-parameter"]
 level: intermediate
 product_scope: fusion
 suite_surfaces: ["fusion"]
-updated: "2026-10-13"
+updated: "2026-10-28"
 ---
 
 # Calculation
@@ -150,6 +150,27 @@ Textが大きくなるにつれて、Calculationが参照するText Sizeは小�
 
 - Multiplyで値の範囲をBlur向けに拡大する
 - Time Scale / OffsetでAnimationの時間方向を反転する
+
+## 応用例：現在値と10フレーム前の値の差を取る
+
+Calculationは、**同じParameterを2つのOperandへ接続し、異なる時刻の値を引き算する**使い方もできます。これは「今の値が10フレーム前からどれだけ増えたか」を別の数値Controlへ渡す構成です。別の時刻を直接参照できることは21.1 ManualのTime tabで確認できますが、以下の数値例はその仕様から組み立てた確認案です。
+
+1. Text+のSizeに、frame 0で`0.10`、frame 20で`0.30`のキーフレームを置き、**Linear補間**にします。途中の値を計算で予測しやすくするためです。
+2. 後段のBlurのSizeを右クリックし、`Modify With > Calculation`を選びます。
+3. Modifiersタブで、**First OperandとSecond Operandの両方**を`Connect To > Text 1 > Size`から同じSizeへ接続します。
+4. CalcタブのOperatorを`Subtract (First - Second)`にします。
+5. TimeタブでFirst Operandを`Time Scale = 1`、`Time Offset = 0`、Second Operandを`Time Scale = 1`、`Time Offset = -10`にします。Secondだけが10フレーム前のSizeを参照します。
+
+上記の2キーをLinear補間した場合、計算上は次の値になります。
+
+| 出力frame | First（現在のSize） | Second（10フレーム前） | 差（Blur Sizeへの値） |
+| --- | ---: | ---: | ---: |
+| 10 | 0.20 | 0.10（frame 0） | 0.10 |
+| 20 | 0.30 | 0.20（frame 10） | 0.10 |
+
+この`0.10`は**10フレーム間の差分**であり、1フレームあたりの変化量や速度をそのまま表す値ではありません。値が減少する区間では差分が負になり得ます。Blur Sizeなど出力先Controlの許容範囲を確認し、必要なら別の演算・値域調整を行ってください。またframe 0〜9では10フレーム前の参照が作例のキーフレーム範囲外になるため、ここでは結果を予測しません。
+
+二つのOperandのTime Offsetを個別に変えられる点は21.1 Manual Chapter 124 pp.2997–2999に基づきます。**上の表は計算による予測であり、21.1実機でのParameter readback・Blur描画・範囲外評価は未検証**です。元のText+のキーフレーム自体は変更しません。
 
 ## 期待どおりにならないとき
 
