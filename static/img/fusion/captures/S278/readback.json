@@ -1,0 +1,52 @@
+{
+  "case": "S278",
+  "project": "Collectanea_Mandelbrot_Zoom_20261025",
+  "library": "Local Database",
+  "project_manager_folder": "root",
+  "timeline": "S278_capture",
+  "frame": 0,
+  "resolve": "21.1.0.14",
+  "edition": "DaVinci Resolve Studio",
+  "os": "Windows-11-10.0.26200-SP0",
+  "project_settings": {
+    "colorScienceMode": "davinciYRGB",
+    "colorSpaceInput": "Rec.709 Gamma 2.4",
+    "colorSpaceTimeline": "Rec.709 (Scene)",
+    "colorSpaceTimelineGamma": "",
+    "colorSpaceOutput": "Rec.709 (Scene)",
+    "colorSpaceOutputGamma": "ACEScc",
+    "isAutoColorManage": "0",
+    "timelineResolutionWidth": "1920",
+    "timelineResolutionHeight": "1080",
+    "timelineFrameRate": 30.0,
+    "timelinePlaybackFrameRate": "30",
+    "timelinePixelAspectRatio": "square"
+  },
+  "connections": {
+    "WriteOn.Input": "Ellipse",
+    "Outline.Input": "WriteOn",
+    "AfterRender.Input": "Outline",
+    "BeforeRender.Input": "Ellipse",
+    "MediaOut1.Input": "AfterRender"
+  },
+  "values": {
+    "Level": 1.0,
+    "RangeStart": 0.0,
+    "RangeEnd": 0.5,
+    "Shift": 0.0,
+    "ShiftWrap": 1.0,
+    "CurvePrecision": 8.0,
+    "OutlineThickness": 0.02,
+    "EllipseBorderWidth": 0.02
+  },
+  "source": "Generated sEllipse shape, two sRender branches; one static frame.",
+  "save_project": true,
+  "save_completed_at": "2026-10-28T07:29:16.003439+00:00",
+  "native_export_sha256": "9666f38a2f9ce5b4e0c528d7aa65aeea735c3ed2471b0eea432f02fb9611e15d",
+  "portable_sha256": "54f29201d62bb60e57ed9cf2294d8c11fb90ace8458f2f8179ecde9c9ab4c654",
+  "portable_reimport": "NOT_RUN",
+  "limits": [
+    "Static sEllipse and Range End 0.5 with sOutline; other shapes, animation, alpha values and hosts NOT_RUN.",
+    "Viewer screenshot is display evidence."
+  ]
+}

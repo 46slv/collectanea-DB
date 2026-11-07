@@ -1,0 +1,132 @@
+{
+  "manual": {
+    "version": "21.1",
+    "chapter": 105,
+    "printed_pages": "2437"
+  },
+  "runtime": {
+    "version": "21.1.0.14",
+    "edition": "DaVinci Resolve Studio",
+    "os": "Windows-11-10.0.26200-SP0",
+    "ui_language": "ja-JP"
+  },
+  "captured_at": "2026-10-28T07:29:48.943371+00:00",
+  "project": "Collectanea_Mandelbrot_Zoom_20261025",
+  "timeline": "S278_capture",
+  "frame": 0,
+  "resolution": [
+    1920,
+    1080
+  ],
+  "color_management": {
+    "project_settings": {
+      "colorScienceMode": "davinciYRGB",
+      "colorSpaceInput": "Rec.709 Gamma 2.4",
+      "colorSpaceTimeline": "Rec.709 (Scene)",
+      "colorSpaceTimelineGamma": "",
+      "colorSpaceOutput": "Rec.709 (Scene)",
+      "colorSpaceOutputGamma": "ACEScc",
+      "isAutoColorManage": "0",
+      "timelineResolutionWidth": "1920",
+      "timelineResolutionHeight": "1080",
+      "timelineFrameRate": 30.0,
+      "timelinePlaybackFrameRate": "30",
+      "timelinePixelAspectRatio": "square"
+    },
+    "note": "SDK project settings; screenshots show Viewer display."
+  },
+  "viewer": {
+    "view_mode": "Fit",
+    "source": "Left BeforeRender; right MediaOut1",
+    "note": "sWriteOn selected; sOutline renders the open path; transparency checkerboard visible."
+  },
+  "acceptance": {
+    "gui": "PASS: partial circle line visible.",
+    "article_display": "NOT_RUN",
+    "public_display": "NOT_RUN"
+  },
+  "unverified": [
+    "Static sEllipse and Range End 0.5 with sOutline; other shapes, animation, alpha values and hosts NOT_RUN.",
+    "Viewer screenshot is display evidence.",
+    "Portable reimport and physical input provenance NOT_RUN.",
+    "Article verification remains partial."
+  ],
+  "schema_version": 1,
+  "case": "S278",
+  "article": "manuals/fusion/nodes/krokodove/swriteon.md",
+  "graph": "fixture.comp",
+  "settings": "readback.json",
+  "source": {
+    "file": "screen.png",
+    "size": [
+      3328,
+      1898
+    ],
+    "sha256": "fae7f3ec464b1f446d2a3e6274124674258a0ab23293a7838f45c9163815e07c"
+  },
+  "shots": [
+    {
+      "file": "graph.png",
+      "source": "screen.png",
+      "source_sha256": "fae7f3ec464b1f446d2a3e6274124674258a0ab23293a7838f45c9163815e07c",
+      "frame": 0,
+      "crop_xyxy": [
+        500,
+        1050,
+        2350,
+        1650
+      ],
+      "resampled": false,
+      "sha256": "79b387a7871fe614b10e88dd3ffa4cfbfcdc7d8bd946d98b5d3c293438aecf18"
+    },
+    {
+      "file": "controls.png",
+      "source": "screen.png",
+      "source_sha256": "fae7f3ec464b1f446d2a3e6274124674258a0ab23293a7838f45c9163815e07c",
+      "frame": 0,
+      "crop_xyxy": [
+        2815,
+        65,
+        3328,
+        750
+      ],
+      "resampled": false,
+      "sha256": "353c3a2bd7154a71221d208696b6bf9023af8ca86a21c8cc311a61ed138ad460"
+    },
+    {
+      "file": "low.png",
+      "source": "screen.png",
+      "source_sha256": "fae7f3ec464b1f446d2a3e6274124674258a0ab23293a7838f45c9163815e07c",
+      "frame": 0,
+      "crop_xyxy": [
+        120,
+        70,
+        1340,
+        720
+      ],
+      "resampled": false,
+      "sha256": "15f1e81871aa96c28b8299e0feb4674c99b3400a602a52dc3aff04f07b077901"
+    },
+    {
+      "file": "high.png",
+      "source": "screen.png",
+      "source_sha256": "fae7f3ec464b1f446d2a3e6274124674258a0ab23293a7838f45c9163815e07c",
+      "frame": 0,
+      "crop_xyxy": [
+        1480,
+        70,
+        2700,
+        720
+      ],
+      "resampled": false,
+      "sha256": "0fa9632d9a300832032ecc406a04ce2aea7f4c2504d4b145ff78347726651e91"
+    }
+  ],
+  "reproduction": {
+    "fixture_sha256": "54f29201d62bb60e57ed9cf2294d8c11fb90ace8458f2f8179ecde9c9ab4c654",
+    "readback_sha256": "90743fcbdf9a36ccfe6234fd6460993c98f882e6d417b31bc9754ed202b704c9",
+    "readback_source_sha256": "90743fcbdf9a36ccfe6234fd6460993c98f882e6d417b31bc9754ed202b704c9",
+    "readback_transform": "No line-ending transformation",
+    "reimport": "NOT_RUN"
+  }
+}
