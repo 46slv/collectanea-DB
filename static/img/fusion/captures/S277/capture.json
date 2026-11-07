@@ -1,0 +1,132 @@
+{
+  "manual": {
+    "version": "21.1",
+    "chapter": 105,
+    "printed_pages": "2437"
+  },
+  "runtime": {
+    "version": "21.1.0.14",
+    "edition": "DaVinci Resolve Studio",
+    "os": "Windows-11-10.0.26200-SP0",
+    "ui_language": "ja-JP"
+  },
+  "captured_at": "2026-10-28T07:24:11.006770+00:00",
+  "project": "Collectanea_Mandelbrot_Zoom_20261025",
+  "timeline": "S277_capture",
+  "frame": 0,
+  "resolution": [
+    1920,
+    1080
+  ],
+  "color_management": {
+    "project_settings": {
+      "colorScienceMode": "davinciYRGB",
+      "colorSpaceInput": "Rec.709 Gamma 2.4",
+      "colorSpaceTimeline": "Rec.709 (Scene)",
+      "colorSpaceTimelineGamma": "",
+      "colorSpaceOutput": "Rec.709 (Scene)",
+      "colorSpaceOutputGamma": "ACEScc",
+      "isAutoColorManage": "0",
+      "timelineResolutionWidth": "1920",
+      "timelineResolutionHeight": "1080",
+      "timelineFrameRate": 30.0,
+      "timelinePlaybackFrameRate": "30",
+      "timelinePixelAspectRatio": "square"
+    },
+    "note": "SDK project settings; screenshots show Viewer display."
+  },
+  "viewer": {
+    "view_mode": "Fit",
+    "source": "Left BeforeRender; right MediaOut1",
+    "note": "sSmooth selected; transparency checkerboard visible."
+  },
+  "acceptance": {
+    "gui": "PASS: rectangle changes to curved outline.",
+    "article_display": "NOT_RUN",
+    "public_display": "NOT_RUN"
+  },
+  "unverified": [
+    "Static sRectangle and Smooth 1; other shapes, animation, alpha values and hosts NOT_RUN.",
+    "Viewer screenshot is display evidence.",
+    "Exact vertex preservation, portable reimport and physical input provenance NOT_RUN.",
+    "Article verification remains partial."
+  ],
+  "schema_version": 1,
+  "case": "S277",
+  "article": "manuals/fusion/nodes/krokodove/ssmooth.md",
+  "graph": "fixture.comp",
+  "settings": "readback.json",
+  "source": {
+    "file": "screen.png",
+    "size": [
+      3328,
+      1898
+    ],
+    "sha256": "dc980314abae15c4c0d2fd130d5369fa44ad285510589e91dfc86235df36b521"
+  },
+  "shots": [
+    {
+      "file": "graph.png",
+      "source": "screen.png",
+      "source_sha256": "dc980314abae15c4c0d2fd130d5369fa44ad285510589e91dfc86235df36b521",
+      "frame": 0,
+      "crop_xyxy": [
+        500,
+        1050,
+        2350,
+        1650
+      ],
+      "resampled": false,
+      "sha256": "d75faba70c7bde472629cf6fef5a8331b0565422a30a743ad917cdfeb2fbc713"
+    },
+    {
+      "file": "controls.png",
+      "source": "screen.png",
+      "source_sha256": "dc980314abae15c4c0d2fd130d5369fa44ad285510589e91dfc86235df36b521",
+      "frame": 0,
+      "crop_xyxy": [
+        2815,
+        65,
+        3328,
+        750
+      ],
+      "resampled": false,
+      "sha256": "763f1b77a40989371d4b5abb692a85fc7fee4581b8b6f1c98f88c0b1bc8ea101"
+    },
+    {
+      "file": "low.png",
+      "source": "screen.png",
+      "source_sha256": "dc980314abae15c4c0d2fd130d5369fa44ad285510589e91dfc86235df36b521",
+      "frame": 0,
+      "crop_xyxy": [
+        120,
+        70,
+        1340,
+        720
+      ],
+      "resampled": false,
+      "sha256": "d65625041355f2f4d1f439417e07db88d5af848f8b0da905ebfd58c8aec6485c"
+    },
+    {
+      "file": "high.png",
+      "source": "screen.png",
+      "source_sha256": "dc980314abae15c4c0d2fd130d5369fa44ad285510589e91dfc86235df36b521",
+      "frame": 0,
+      "crop_xyxy": [
+        1480,
+        70,
+        2700,
+        720
+      ],
+      "resampled": false,
+      "sha256": "6b9d5d3079791c12f95dbe8783c28ee048299f83037b7cee93b5ece14aa79bc6"
+    }
+  ],
+  "reproduction": {
+    "fixture_sha256": "076b2a292c6ca5c0eee6c25c4910795220ddf5c12781d8bd5f683bb3ab79d9ca",
+    "readback_sha256": "834e6a527fbb0c96884dce5613b71449bab5e1fd2a49ccead292a083f5d63956",
+    "readback_source_sha256": "834e6a527fbb0c96884dce5613b71449bab5e1fd2a49ccead292a083f5d63956",
+    "readback_transform": "No line-ending transformation",
+    "reimport": "NOT_RUN"
+  }
+}
