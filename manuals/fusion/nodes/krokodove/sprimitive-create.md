@@ -33,7 +33,30 @@ DaVinci Resolve 21.1 Reference Manualが例示している形は、次の4種類
 | Rectangle（長方形） | 四辺を持つ四角形 | ラベル、帯、枠の原型 |
 | Star（星形） | 外側に先端が突き出した形 | バッジ、アクセント |
 
-これは**Manualに掲載された例**であり、利用できる形の全種類を保証する一覧ではありません。図形を選択するUI、頂点数、縦横比、線幅、角の形状などのInspector項目名と可変範囲は、現在の一次資料だけでは確定できません。
+これは**Manualに掲載された例**であり、利用できる形の全種類を保証する一覧ではありません。図形選択の全種類や、頂点数、縦横比、線幅、角の形状などの可変範囲は確認できていません。
+
+<!-- capture:S283 -->
+
+## 実機例：星形を画像化する
+
+`sPrimitive Create` を `sRender` に接続し、TypeをStar、Stepsを4に設定しました。この静止画では四つの先端を持つ星形が見えます。Viewerの緑線は操作用ガイド、市松模様は透明部分の表示です。ほかの形やAlpha値、アニメーションは未検証です。[接続と設定の記録](/img/fusion/captures/S283/readback.json)に条件を記載しています。
+
+[![sPrimitive CreateをsRenderへつなぐ構成](/img/fusion/captures/S283/graph.png)](/img/fusion/captures/S283/graph.png)
+
+Shapeを画像化します。
+
+[![sPrimitive CreateのInspector](/img/fusion/captures/S283/controls.png)](/img/fusion/captures/S283/controls.png)
+
+TypeはStar、Stepsは4です。
+
+[![四つの先端を持つ星形と操作用ガイド](/img/fusion/captures/S283/result.png)](/img/fusion/captures/S283/result.png)
+
+星形と緑の操作用ガイドが見えます。
+
+[再現用Graph](/img/fusion/captures/S283/fixture.comp) · [撮影条件と確認範囲](/img/fusion/captures/S283/capture.json)
+
+<!-- /capture:S283 -->
+
 
 ## 入力と出力
 
@@ -55,7 +78,7 @@ sRenderには画像のWidth / Heightなどを設定する機能があります�
 
 ### 例1：タイトルの背後に星形のアクセントを置く
 
-1. sPrimitiveCreateで星形を作る構成を用意します。形状の選択に使う正式なInspector操作は実機で確認してください。
+1. sPrimitiveCreateで星形を作る構成を用意します。上の実機例ではType Star、Steps 4を使用しました。
 2. 色や輪郭線を整える場合は、[sRestyle](./srestyle)を後段に置く構成が候補です。sRestyleはShapeの塗り・輪郭の見た目を上書きするツールです。
 3. sRenderで画像化し、タイトルや背景映像へMergeで重ねます。
 4. Viewerで星形の輪郭と合成結果を確認します。
@@ -89,7 +112,7 @@ sPrimitiveCreate → sRound → sRender
 
 図形を生成しただけで通常の画像ノードに結果が現れない場合は、まず**ShapeをsRenderで画像に変換しているか**を確認します。Shapeが画像と異なるデータ型であることは、Fusionの標準Shape系でも共通です。
 
-次に、sPrimitiveCreate・途中のShape加工・sRenderの順にFlowを短くし、どこで期待と違うかを切り分けます。Krokodove特有の端子互換性やViewer表示、図形ごとの詳細な制御方法は未確認なので、「この設定を変えれば必ず直る」とは断定しません。
+次に、sPrimitiveCreate・途中のShape加工・sRenderの順にFlowを短くし、どこで期待と違うかを切り分けます。Krokodove特有の他の端子や図形ごとの詳細な制御方法は未確認なので、「この設定を変えれば必ず直る」とは断定しません。
 
 ## バージョン・出典・確認範囲
 
@@ -97,4 +120,4 @@ sPrimitiveCreate → sRound → sRender
 
 ShapeをsRenderで2D画像化する一般的な流れは、同ManualのChapter 117「Shape Nodes」（pp.2759–2761）と[Shapeの基礎](../../learn/02-data/shape)を参照しています。本文の接続例は、その一般原理から構成した**運用案**です。
 
-**未確認：** 正式な入力端子・入力数、Inspectorの全パラメータと初期値、図形の切替方法、Krokodove 21.1での実機動作、Free / Studioでの提供差、内部REGID。公式資料の記述と実機検証を区別するため、`verification: partial`を維持します。
+**未確認：** 正式な入力端子・入力数、今回示した項目以外のInspectorの意味・初期値、図形を切り替えたときの挙動、別条件での実機動作、Free / Studioでの提供差、内部REGID。公式資料の記述と実機検証を区別するため、`verification: partial`を維持します。
