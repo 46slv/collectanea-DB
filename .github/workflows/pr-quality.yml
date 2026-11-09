@@ -57,10 +57,6 @@ jobs:
       - name: Production build
         id: build
         run: npm run build
-      - name: Prune unreferenced raw capture screens
-        run: |
-          mkdir -p artifacts/visual
-          npm run prune:pages -- artifacts/visual/pages-prune.json
       - name: Record exact candidate
         run: |
           mkdir -p artifacts/visual
@@ -84,6 +80,11 @@ jobs:
       - name: Ordinary Markdown integration and cleanup
         if: ${{ !cancelled() && steps.build.outcome == 'success' }}
         run: npm run test:content
+      - name: Prune unreferenced raw capture screens for publish artifact
+        if: ${{ !cancelled() && steps.build.outcome == 'success' }}
+        run: |
+          mkdir -p artifacts/visual
+          npm run prune:pages -- artifacts/visual/pages-prune.json
       - name: Record post-test source cleanliness
         if: always()
         run: |
