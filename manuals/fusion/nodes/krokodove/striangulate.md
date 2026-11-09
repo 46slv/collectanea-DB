@@ -31,6 +31,32 @@ updated: '2026-10-19'
 
 また、「三角形に分かれて見える」ことと、**各三角形を独立したオブジェクトとして選択・移動できる**ことは別です。後者は未確認であり、できるものとして制作手順に組み込まないでください。
 
+<!-- capture:S279 -->
+
+## 実機例：四角形の分割線を見る
+
+`sRectangle` を分岐し、一方を `sTriangulate` に接続しました。後段の `sOutline` で線幅0.01を与えてから `sRender` で画像化すると、四角形の対角線が見えます。線幅はsOutlineの設定です。Viewerの市松模様は透明部分の表示です。ほかの形やAlpha値は未検証です。[接続と設定の記録](/img/fusion/captures/S279/readback.json)に条件を記載しています。
+
+[![sTriangulateとsOutlineをつなぐノード構成](/img/fusion/captures/S279/graph.png)](/img/fusion/captures/S279/graph.png)
+
+四角形を分岐しsTriangulateとsOutlineを通して画像化します。
+
+[![sTriangulateのInspector](/img/fusion/captures/S279/controls.png)](/img/fusion/captures/S279/controls.png)
+
+この例のControlsページです。
+
+[![処理前の白い四角形](/img/fusion/captures/S279/low.png)](/img/fusion/captures/S279/low.png)
+
+処理前の四角形を表示しています。
+
+[![対角線の見える四角形](/img/fusion/captures/S279/high.png)](/img/fusion/captures/S279/high.png)
+
+sOutlineを通した出力には対角線が見えます。
+
+[再現用Graph](/img/fusion/captures/S279/fixture.comp) · [撮影条件と確認範囲](/img/fusion/captures/S279/capture.json)
+
+<!-- /capture:S279 -->
+
 ## 入力と出力
 
 | 段階 | データ | 役割 |
@@ -45,15 +71,15 @@ Shape入力・Shape出力という分類は、**COLLECTANEAの既存カタログ
 
 ## 最初に試す構成
 
-次は**ノードの役割から組み立てた実機確認用の構成案**です。21.1実機での接続と出力を検証済みのレシピではありません。
+次は**ノードの役割から組み立てた実機確認用の構成案**です。上の実機例は四角形にsOutlineを加えた一条件です。
 
 ~~~text
-sRectangle → sTriangulate → sRender → MediaOut
-   四角形       交差線を作る      画像化      表示
+sRectangle → sTriangulate → sOutline → sRender → MediaOut
+   四角形       交差線を作る       線幅      画像化      表示
 ~~~
 
 1. [sRectangle](../shapes/srectangle)で大きめの四角形を作ります。最初は`sRectangle → sRender`だけで表示し、加工前の形を確認します。
-2. 間にsTriangulateを追加し、Shape同士の接続が成立するかを確かめます。
+2. 間にsTriangulateとsOutlineを追加し、Shape同士の接続と線の表示を確かめます。実機例の線幅0.01はsOutline側の設定です。
 3. sTriangulateのInspectorに実際に表示されるコントロールを確認します。線の数・間隔・向き・太さなどの設定が**存在すると仮定しない**でください。
 4. sTriangulateの有効／無効を比べ、内側の線、交点、外周の変化を確認します。sRenderの画像サイズとViewer倍率は固定します。
 5. 次は[sPolygon](../shapes/spolygon)で辺の長さや角の数が異なる図形を作り、分割の見え方を比較します。
@@ -113,4 +139,4 @@ sPolygon → sRestyle → sTriangulate → sRender
 
 一次資料：Blackmagic Design『DaVinci Resolve 21.1 Reference Manual』（September 2026）、Chapter 105「Krokodove Nodes」、p.2437「Shape Tools — sTriangulate」。
 
-関連資料：同Manual Chapter 117「Shape Nodes」、[シェイプ（Shape）](../../learn/02-data/shape)、[sRender](../shapes/s-render)、[Triangulate 3D](../3d/triangulate-3d)。本記事の接続例は動作を確認するための構成案であり、実機検証済みの手順ではありません。したがって`verification: partial`を維持します。
+関連資料：同Manual Chapter 117「Shape Nodes」、[シェイプ（Shape）](../../learn/02-data/shape)、[sRender](../shapes/s-render)、[Triangulate 3D](../3d/triangulate-3d)。実機例は四角形の静止画の一条件であり、他の接続例は確認の構成案です。したがって`verification: partial`を維持します。

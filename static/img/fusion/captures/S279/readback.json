@@ -1,0 +1,46 @@
+{
+  "case": "S279",
+  "project": "Collectanea_Mandelbrot_Zoom_20261025",
+  "library": "Local Database",
+  "project_manager_folder": "root",
+  "timeline": "S279_capture",
+  "frame": 0,
+  "resolve": "21.1.0.14",
+  "edition": "DaVinci Resolve Studio",
+  "os": "Windows-11-10.0.26200-SP0",
+  "project_settings": {
+    "colorScienceMode": "davinciYRGB",
+    "colorSpaceInput": "Rec.709 Gamma 2.4",
+    "colorSpaceTimeline": "Rec.709 (Scene)",
+    "colorSpaceTimelineGamma": "",
+    "colorSpaceOutput": "Rec.709 (Scene)",
+    "colorSpaceOutputGamma": "ACEScc",
+    "isAutoColorManage": "0",
+    "timelineResolutionWidth": "1920",
+    "timelineResolutionHeight": "1080",
+    "timelineFrameRate": 30.0,
+    "timelinePlaybackFrameRate": "30",
+    "timelinePixelAspectRatio": "square"
+  },
+  "connections": {
+    "Triangulate.Input": "Rectangle",
+    "Outline.Input": "Triangulate",
+    "AfterRender.Input": "Outline",
+    "BeforeRender.Input": "Rectangle",
+    "MediaOut1.Input": "AfterRender"
+  },
+  "values": {
+    "Type": 0.0,
+    "OutlineThickness": 0.01
+  },
+  "source": "Generated sRectangle shape, two sRender branches; one static frame.",
+  "save_project": true,
+  "save_completed_at": "2026-10-28T07:33:57.758638+00:00",
+  "native_export_sha256": "0f4b89a01f66946bf53c24195968c39f07773341fe75bcc9ecc7eefcbce8b3ba",
+  "portable_sha256": "f82b435866ed4769c53637fc9d9f5b19126f3b8d45b2b647582a0ed01316f1c3",
+  "portable_reimport": "NOT_RUN",
+  "limits": [
+    "Static sRectangle and sTriangulate with sOutline; other shapes, animation, alpha values and hosts NOT_RUN.",
+    "Viewer screenshot is display evidence."
+  ]
+}
