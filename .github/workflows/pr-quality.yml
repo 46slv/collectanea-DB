@@ -57,6 +57,10 @@ jobs:
       - name: Production build
         id: build
         run: npm run build
+      - name: Prune unreferenced raw capture screens
+        run: |
+          mkdir -p artifacts/visual
+          npm run prune:pages -- artifacts/visual/pages-prune.json
       - name: Record exact candidate
         run: |
           mkdir -p artifacts/visual
