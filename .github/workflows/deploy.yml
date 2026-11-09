@@ -37,6 +37,8 @@ jobs:
           node-version: 24
       - run: npm ci --no-audit --no-fund
       - run: npm run build
+      - name: Prune unreferenced raw capture screens
+        run: npm run prune:pages
       - uses: actions/configure-pages@v5
       - uses: actions/upload-pages-artifact@v3
         with:
@@ -54,6 +56,5 @@ jobs:
         id: deployment
         uses: actions/deploy-pages@v4
         with:
-          # deploy-pages defaults to 10 minutes. Large Collectanea artifacts can
-          # reach the backend syncing_files phase but exceed that polling window.
-          timeout: 1200000
+          # deploy-pages@v4 enforces a maximum 600000 ms polling timeout.
+          timeout: 600000
