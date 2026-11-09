@@ -12,7 +12,8 @@
     "capture": "node scripts/capture-ui.mjs && npm run test:visual-reference",
     "test:regressions": "node --test tests/catalog.test.cjs tests/dithering.test.mjs",
     "test:content": "node scripts/content-integration.mjs",
-    "test:visual-reference": "node scripts/visual-processing-smoke.mjs"
+    "test:visual-reference": "node scripts/visual-processing-smoke.mjs",
+    "prune:pages": "node scripts/prune-pages-build.mjs build"
   },
   "dependencies": {
     "@docusaurus/core": "3.10.2",
