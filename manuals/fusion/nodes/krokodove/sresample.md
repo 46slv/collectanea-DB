@@ -31,6 +31,32 @@ updated: '2026-10-19'
 
 **画像の解像度を変更する操作とは異なります。** sRenderのWidth / Heightは出力する画像の画素数を指定します。一方、sResampleは画像化する前のShapeの輪郭に関わります。最終画像の縦横サイズだけを変えたいなら、sResampleではなく画像化・解像度の設定を確認します。
 
+<!-- capture:S280 -->
+
+## 実機例：円の輪郭の変化を見る
+
+`sEllipse` を分岐し、一方を `sResample` に接続してDistanceを0.1、Keep Original Pointsをオフに設定しました。それぞれを `sRender` で画像化すると、この静止画では処理後の円が多角形のように見えます。点数や間隔の厳密な性質は未検証です。Viewerの市松模様は透明部分の表示です。[接続と設定の記録](/img/fusion/captures/S280/readback.json)に条件を記載しています。
+
+[![sResampleの処理前後を比較するノード構成](/img/fusion/captures/S280/graph.png)](/img/fusion/captures/S280/graph.png)
+
+円を分岐し処理前後を画像化します。
+
+[![sResampleのInspector](/img/fusion/captures/S280/controls.png)](/img/fusion/captures/S280/controls.png)
+
+Distanceは0.1、Keep Original Pointsはオフです。
+
+[![処理前の白い円](/img/fusion/captures/S280/low.png)](/img/fusion/captures/S280/low.png)
+
+処理前は滑らかな円です。
+
+[![多角形のように見える出力](/img/fusion/captures/S280/high.png)](/img/fusion/captures/S280/high.png)
+
+処理後の輪郭は多角形のように見えます。
+
+[再現用Graph](/img/fusion/captures/S280/fixture.comp) · [撮影条件と確認範囲](/img/fusion/captures/S280/capture.json)
+
+<!-- /capture:S280 -->
+
 ## 入力と出力
 
 | 段階 | データ分類 | 役割 |
@@ -43,7 +69,7 @@ Shape入力・Shape出力という分類は、COLLECTANEAの既存カタログ�
 
 ## 最初の確認手順
 
-次の構成は、ノードの役割から組み立てた**実機確認用の構成案**です。Inspector設定や表示結果まで確認されたレシピではありません。
+次の構成は、ノードの役割から組み立てた**実機確認用の構成案**です。上の実機例は円の静止画の一条件です。
 
 ```text
 sPolygon → sResample → sRender → MediaOut
@@ -96,9 +122,9 @@ sResampleの目的は、**「角を丸める」「辺を滑らかにする」こ
 
 - **21.1 Manualで確認済み**：KrokodoveのShape Toolsに属し、Shapeの輪郭のサンプリングを変更すること。
 - **カタログに基づく分類**：Shapeを受け取り、加工したShapeを後段へ渡す構成。
-- **未確認のInspector仕様**：正確な項目名、初期値、設定範囲、単位、アニメーション、点数や間隔を指定できるか。
+- **未確認のInspector仕様**：今回示したDistanceとKeep Original Points以外の項目の意味、初期値、設定範囲、単位、アニメーション、点数や間隔の厳密な性質。
 - **未確認の形状処理**：開いた輪郭・閉じた輪郭、複数Shape、鋭角、自己交差、曲線端部での挙動。点数・位置・形状精度がどう変わるか。
-- **未確認の環境差**：Resolve Free / Studio / Fusion Studioの提供範囲、内部REGID、21.1実機での接続結果。
+- **未確認の環境差**：Resolve Free / Studio / Fusion Studioの提供範囲、内部REGID、別環境での接続結果。
 
 ## バージョンと出典
 
