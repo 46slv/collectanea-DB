@@ -1,0 +1,132 @@
+{
+  "manual": {
+    "version": "21.1",
+    "chapter": 105,
+    "printed_pages": "2437"
+  },
+  "runtime": {
+    "version": "21.1.0.14",
+    "edition": "DaVinci Resolve Studio",
+    "os": "Windows-11-10.0.26200-SP0",
+    "ui_language": "ja-JP"
+  },
+  "captured_at": "2026-10-28T08:52:53.180709+00:00",
+  "project": "Collectanea_Mandelbrot_Zoom_20261025",
+  "timeline": "S290_capture",
+  "frame": 0,
+  "resolution": [
+    1920,
+    1080
+  ],
+  "color_management": {
+    "project_settings": {
+      "colorScienceMode": "davinciYRGB",
+      "colorSpaceInput": "Rec.709 Gamma 2.4",
+      "colorSpaceTimeline": "Rec.709 (Scene)",
+      "colorSpaceTimelineGamma": "",
+      "colorSpaceOutput": "Rec.709 (Scene)",
+      "colorSpaceOutputGamma": "ACEScc",
+      "isAutoColorManage": "0",
+      "timelineResolutionWidth": "1920",
+      "timelineResolutionHeight": "1080",
+      "timelineFrameRate": 30.0,
+      "timelinePlaybackFrameRate": "30",
+      "timelinePixelAspectRatio": "square"
+    },
+    "note": "SDK project settings; screenshots show Viewer display."
+  },
+  "viewer": {
+    "view_mode": "Fit",
+    "source": "Left BeforeRender; right MediaOut1",
+    "note": "sOffset selected; checkerboard indicates transparency."
+  },
+  "acceptance": {
+    "gui": "PASS: native screenshots show graph, Inspector, guides and comparison; SDK connections and save read back.",
+    "article_display": "NOT_RUN",
+    "public_display": "NOT_RUN"
+  },
+  "unverified": [
+    "Static sEllipse at Offset 0.05, Number 1 and 2; other shapes, settings, animation and hosts NOT_RUN.",
+    "Viewer screenshot is display evidence, not numeric geometry measurement.",
+    "Portable reimport and physical input provenance NOT_RUN.",
+    "Article verification remains partial."
+  ],
+  "schema_version": 1,
+  "case": "S290",
+  "article": "manuals/fusion/nodes/shapes/soffset.md",
+  "graph": "fixture.comp",
+  "settings": "readback.json",
+  "source": {
+    "file": "screen.png",
+    "size": [
+      3312,
+      1890
+    ],
+    "sha256": "08955acd2331a39d095244806741d486a92025f994e6e6b4442edab7a04a2833"
+  },
+  "shots": [
+    {
+      "file": "graph.png",
+      "source": "screen.png",
+      "source_sha256": "08955acd2331a39d095244806741d486a92025f994e6e6b4442edab7a04a2833",
+      "frame": 0,
+      "crop_xyxy": [
+        650,
+        1080,
+        2140,
+        1570
+      ],
+      "resampled": false,
+      "sha256": "e7e4620b8bb10363da4b456b9bc4ea970ddc50e5e6245f6405cf2bebe3b89f31"
+    },
+    {
+      "file": "controls.png",
+      "source": "screen.png",
+      "source_sha256": "08955acd2331a39d095244806741d486a92025f994e6e6b4442edab7a04a2833",
+      "frame": 0,
+      "crop_xyxy": [
+        2780,
+        65,
+        3312,
+        420
+      ],
+      "resampled": false,
+      "sha256": "a57db2216a1be8cb1f22f2d15d393052c049fbd92f671827bbe6eb456b67b8a2"
+    },
+    {
+      "file": "number-one.png",
+      "source": "screen.png",
+      "source_sha256": "08955acd2331a39d095244806741d486a92025f994e6e6b4442edab7a04a2833",
+      "frame": 0,
+      "crop_xyxy": [
+        0,
+        65,
+        2780,
+        720
+      ],
+      "resampled": false,
+      "sha256": "c07b04248afef2f7f2cabfeac6a91b320b7e4012dcd31a1e851b2c6e9d63b0f0"
+    },
+    {
+      "file": "number-two.png",
+      "source": "two-source.png",
+      "source_sha256": "0aad6c93afccc087865378e286a8ca0fc074d51f78ad37b25ae597b26b4a35b3",
+      "frame": 0,
+      "crop_xyxy": [
+        0,
+        65,
+        2780,
+        720
+      ],
+      "resampled": false,
+      "sha256": "a2482f1191bbd6f668f24ebca3c0343af44780ee945943f5fdf5bf34da3b86d0"
+    }
+  ],
+  "reproduction": {
+    "fixture_sha256": "e3b548e33dc07a6cc0c42b438dcc787035f4ad3b0224fe37533456e3c5ac92e3",
+    "readback_sha256": "b0feedcf4096e9e00a6c29cf2b74b01e02f99c45a6ef66421c2ba8d46d05595a",
+    "readback_source_sha256": "b0feedcf4096e9e00a6c29cf2b74b01e02f99c45a6ef66421c2ba8d46d05595a",
+    "readback_transform": "No line-ending transformation",
+    "reimport": "NOT_RUN"
+  }
+}
