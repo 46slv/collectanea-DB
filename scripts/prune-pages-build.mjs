@@ -27,16 +27,24 @@ const textExtensions = new Set(['.html', '.js', '.css', '.json', '.xml', '.txt']
 const textFiles = files.filter((file) => textExtensions.has(path.extname(file).toLowerCase()));
 
 const referencedScreens = new Set();
+const referencedSourceImages = new Set();
 const absolutePattern = /(?<![A-Za-z0-9._-])(?:https?:\/\/[^\/"'\s]+)?(?:\/collectanea-DB)?\/img\/fusion\/captures\/([^?#"'\x60<>\s]+\/screen\.png)/g;
 const relativePattern = /(?<![A-Za-z0-9._\/-])img\/fusion\/captures\/([^?#"'\x60<>\s]+\/screen\.png)/g;
+const absoluteSourcePattern = /(?<![A-Za-z0-9._-])(?:https?:\/\/[^\/"'\s]+)?(?:\/collectanea-DB)?\/img\/fusion\/captures\/([^?#"'\x60<>\s]+\/[^\/?#"'\x60<>\s]+-source\.png)/g;
+const relativeSourcePattern = /(?<![A-Za-z0-9._\/-])img\/fusion\/captures\/([^?#"'\x60<>\s]+\/[^\/?#"'\x60<>\s]+-source\.png)/g;
 
 for (const file of textFiles) {
   const body = fs.readFileSync(file, 'utf8');
-  for (const pattern of [absolutePattern, relativePattern]) {
+  for (const [pattern, references] of [
+    [absolutePattern, referencedScreens],
+    [relativePattern, referencedScreens],
+    [absoluteSourcePattern, referencedSourceImages],
+    [relativeSourcePattern, referencedSourceImages],
+  ]) {
     pattern.lastIndex = 0;
     let match;
     while ((match = pattern.exec(body)) !== null) {
-      referencedScreens.add(match[1]);
+      references.add(match[1]);
     }
   }
 }
@@ -45,6 +53,13 @@ const screenFiles = files.filter(
   (file) =>
     file.startsWith(captureRoot + path.sep) &&
     path.basename(file) === 'screen.png'
+);
+// Full-size provenance images are retained in Git, but copied to the
+// published build only when explicitly linked by generated site content.
+const sourceFiles = files.filter(
+  (file) =>
+    file.startsWith(captureRoot + path.sep) &&
+    path.basename(file).endsWith('-source.png')
 );
 
 let removedBytes = 0;
@@ -62,16 +77,38 @@ for (const file of screenFiles) {
   removedCount += 1;
 }
 
+let removedSourceCount = 0;
+let removedSourceBytes = 0;
+const keptSourceImages = [];
+for (const file of sourceFiles) {
+  const relative = path.relative(captureRoot, file).split(path.sep).join('/');
+  if (referencedSourceImages.has(relative)) {
+    keptSourceImages.push(relative);
+    continue;
+  }
+  const size = fs.statSync(file).size;
+  removedSourceBytes += size;
+  fs.unlinkSync(file);
+  removedSourceCount += 1;
+}
+removedBytes += removedSourceBytes;
+
 const report = {
   buildDir,
   screenCountBefore: screenFiles.length,
   referencedScreenCount: referencedScreens.size,
   removedScreenCount: removedCount,
   keptScreenCount: kept.length,
+  sourceCountBefore: sourceFiles.length,
+  referencedSourceCount: referencedSourceImages.size,
+  removedSourceCount,
+  keptSourceCount: keptSourceImages.length,
+  removedSourceBytes,
   removedBytes,
   totalBytesBefore: totalBefore,
   totalBytesAfter: totalBefore - removedBytes,
   keptScreens: kept.sort(),
+  keptSources: keptSourceImages.sort(),
 };
 
 if (reportPath) {
