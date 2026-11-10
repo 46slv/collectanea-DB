@@ -80,7 +80,7 @@ jobs:
       - name: Ordinary Markdown integration and cleanup
         if: ${{ !cancelled() && steps.build.outcome == 'success' }}
         run: npm run test:content
-      - name: Prune unreferenced raw capture screens for publish artifact
+      - name: Prune publish artifact after browser validation
         if: ${{ !cancelled() && steps.build.outcome == 'success' }}
         run: |
           mkdir -p artifacts/visual
