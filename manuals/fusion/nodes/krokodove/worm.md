@@ -30,18 +30,45 @@ DaVinci Resolve 21.1 Reference Manualでは、Wormは「Image Tools」に置か�
 
 Wormは、画像の輪郭を自動抽出するツールとして説明されているわけではありません。まず「自分で位置を指定して線の形を作る」用途で考え、写真などのエッジ検出とは分けて選びます。
 
+<!-- capture:S287 -->
+
+## 実機例：グラデーションに線を表示する
+
+合成した白黒グラデーションを `Worm` に接続しました。この静止画では白い線の直線部分と曲がった部分が表示されています。Viewerの緑と赤の表示は操作用ガイドです。ほかの曲線設定やAlpha値は未検証です。[接続と設定の記録](/img/fusion/captures/S287/readback.json)に条件を記載しています。
+
+[![グラデーションをWormへつなぐノード構成](/img/fusion/captures/S287/graph.png)](/img/fusion/captures/S287/graph.png)
+
+合成グラデーションをWormへ渡します。
+
+[![WormのControlsページ](/img/fusion/captures/S287/controls.png)](/img/fusion/captures/S287/controls.png)
+
+この例のStartとGlobal Lengthなどを表示しています。
+
+[![入力の白黒グラデーションとガイド](/img/fusion/captures/S287/low.png)](/img/fusion/captures/S287/low.png)
+
+入力には操作用ガイドが重なっています。
+
+[![白い線が重なったWorm出力](/img/fusion/captures/S287/high.png)](/img/fusion/captures/S287/high.png)
+
+出力には白い線と操作用ガイドが見えます。
+
+[再現用Graph](/img/fusion/captures/S287/fixture.comp) · [撮影条件と確認範囲](/img/fusion/captures/S287/capture.json)
+
+<!-- /capture:S287 -->
+
+
 ## 入力と出力
 
 | 項目 | 分かっていること | 未確認の範囲 |
 | --- | --- | --- |
 | 形状を決める情報 | 指定した点を使って直線と曲線を組み合わせる。 | 点をInspector、Viewer、入力画像のどれで指定するか。点の最大数や順序。 |
-| 画像入力 | 21.1 ManualはWormを「Image Tools」に分類している。 | 必須のImage入力、Effect Maskなどの有無と端子名・本数。 |
+| 画像入力 | 21.1 Manualは「Image Tools」に分類。実機例ではグラデーションをSDK上のImage入力に接続した。 | 入力が必須か、Effect Maskなどの有無と端子数。 |
 | 生成結果 | 直線部分と曲線部分を含む線の図柄。 | 線色、太さ、Alpha、背景が透明かどうか。 |
 | 出力 | 既存COLLECTANEAカタログでは`image`に分類されている。 | 21.1実機での正式な出力端子名・数、接続可能なデータ型。 |
 
 <Term id="image">Image</Term>は、画素を持つ2D画像データです。一方、FusionのShape系ツールが扱うのは、描画前の図形情報です。「点から線を作る」と聞いてShapeデータを出力すると推測せず、WormをViewerに表示し、後段へ接続できる出力を確認してください。
 
-このページの`outputs: [image]`は既存カタログの分類です。公式Manualの短い紹介文だけで、接続口のAPI仕様まで確定したという意味ではありません。また、前のテンプレにあった`inputs: [image]`は、画像入力の存在を裏付ける根拠がないため採用していません。
+このページの`outputs: [image]`は既存カタログの分類です。公式Manualの短い紹介文だけで、接続口のAPI仕様まで確定したという意味ではありません。また、今回の実機例では画像をImage入力へ接続しましたが、入力が必須かどうかは確認していません。
 
 ## 主な用途
 
@@ -84,7 +111,7 @@ ConnectとWormはどちらも指定した点に関係しますが、Manualの説
 
 ## 注意点と出典
 
-**未確認**：Wormの内部REGID、必須入力・補助入力・出力端子、指定点のUI、曲線の種類と編集方法、線の太さ・色・Alpha、描画アニメーション、Inspectorの正式項目名・既定値・範囲、DaVinci Resolve Free / StudioとFusion Studioの差、21.1実機での動作。`verification: partial`を維持しています。
+**未確認**：Wormの内部REGID、入力が必須かどうか、補助入力・出力端子、指定点の編集方法、別の曲線、線の設定を変えた結果・Alpha、描画アニメーション、Inspectorの項目の意味・既定値・範囲、DaVinci Resolve Free / StudioとFusion Studioの差、別条件での実機動作。`verification: partial`を維持しています。
 
 **一次資料**：Blackmagic Design『DaVinci Resolve 21.1 Reference Manual』（September 2026）、Chapter 105「Krokodove Nodes」、p.2435「Image Tools / Worm」。同章p.2434のConnect、p.2435のLinesとRasterizeを比較対象として参照しました。
 
