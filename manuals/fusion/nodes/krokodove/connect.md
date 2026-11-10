@@ -9,6 +9,7 @@ aliases: [Connect]
 concepts: [image-data]
 nodes: [Connect]
 node_family: krokodove
+inputs: [image]
 outputs: [image]
 tasks: [motion-graphics]
 product_scope: fusion
@@ -34,14 +35,14 @@ Connectは21.1 Manualの**Image Tools**に分類されています。ただし�
 
 | 項目 | 確認できること | 未確認のこと |
 | --- | --- | --- |
-| 形を決める情報 | 個別に位置を指定した点（waypoint）を使い、連続線を描く。 | 点の追加・削除操作、順番、最大数、座標指定の正式なUI。 |
-| 入力 | 公式ManualではImage Toolsに分類される。 | 画像入力が必須かどうか、Effect Maskなどの補助入力の有無、端子の名称・数。 |
+| 形を決める情報 | 実機例ではNumber Of Pointsを3にし、Point 1〜3の座標とLinearを指定した。 | 点の追加・削除操作、最大数、他のType。 |
+| 入力 | 実機例ではBackgroundをImage入力へ接続した。 | 他の入力や、すべての条件で画像入力が必須かどうか。 |
 | 生成するもの | 点を結んだ一本の連続線。 | 線幅・色・線端・曲線化・透明度をConnect単体で調整できるか。 |
-| 出力 | COLLECTANEAの既存カタログでは`image`出力に分類されている。 | 21.1実機の正式な端子名・本数、Alphaと画像範囲の具体的な挙動。 |
+| 出力 | 実機例ではConnectの出力をMediaOutに接続し、線を表示した。 | 他の出力、Alphaと画像範囲の具体的な挙動。 |
 
 <Term id="image">Image</Term>は色や透明度を持つ2Dの画素データです。<Term id="shape-data">Shape</Term>は、描画する前の輪郭などを扱う別のデータです。ConnectはImage Toolsの項目であり、「点を結ぶ」という説明だけでShape出力と判断しないでください。
 
-旧記事にあった`inputs: [image]`は、画像入力の存在を確認した記録がないため削除しました。`outputs: [image]`は従来のカタログ分類として残していますが、実機で端子を検証したことを意味しません。
+実機例では黒いBackgroundをImage入力へ接続しました。入力がない状態ではViewerは空でしたが、すべての条件で入力が必須かは未確認です。
 
 ## 主な用途
 
@@ -53,9 +54,33 @@ Connectは21.1 Manualの**Image Tools**に分類されています。ただし�
 
 複数の図形やラベルを一続きの線で関連づけたい場合にも候補になります。たとえば、三つの説明箇所をたどる線を背景の上に重ねます。Connect自身がラベルを認識したり、位置の変化に自動追従したりする機能は確認できていません。
 
+<!-- capture:S291 -->
+
+## 実機例：3点を折れ線で結ぶ
+
+黒い `Background` を `Connect` のImage入力へつなぎ、3点を指定して `MediaOut` に出力します。TypeをLinear、Number Of Pointsを3にした例です。
+
+Viewerには指定した3点を結ぶ白い折れ線が表示されます。点の印は編集ガイドです。[接続と設定の記録](/img/fusion/captures/S291/readback.json)に座標と条件を記載しています。
+
+[![BackgroundをConnectとMediaOutへつないだ構成](/img/fusion/captures/S291/graph.png)](/img/fusion/captures/S291/graph.png)
+
+背景画像をConnectのImageへ入力します。
+
+[![Connectで3点の座標とLinearを設定したInspector](/img/fusion/captures/S291/controls.png)](/img/fusion/captures/S291/controls.png)
+
+Number Of Pointsを3に設定します。
+
+[![黒背景上で3点をつなぐ白い折れ線](/img/fusion/captures/S291/result.png)](/img/fusion/captures/S291/result.png)
+
+3点を通る白い折れ線。編集ガイドも表示されています。
+
+[再現用Graph](/img/fusion/captures/S291/fixture.comp) · [撮影条件と確認範囲](/img/fusion/captures/S291/capture.json)
+
+<!-- /capture:S291 -->
+
 ## 制作例：背景画像へ経路線を重ねる
 
-次は**Connectが2D Imageとして出力できることをViewerと接続口で確認できた場合**の合成例です。Connect固有の端子配置やInspector操作を保証する図ではありません。
+次は背景画像へ重ねるための構成案です。上の実機例では黒いBackgroundを入力しましたが、以下のMerge構成とAlphaの挙動は未確認です。
 
 ```text
 Connectの結果 ─────────→ Merge（Foreground）
@@ -63,7 +88,7 @@ Connectの結果 ─────────→ Merge（Foreground）
 背景画像 ───────────────→ Merge（Background）→ MediaOut
 ```
 
-1. まずConnectを単独でViewerへ表示し、点を配置・変更する操作が利用できるか確認します。少数の点から始め、線がどのようにつながるかを見ます。
+1. まずBackgroundをConnectのImage入力へ接続してViewerに表示し、点を配置・変更する操作を確認します。少数の点から始め、線がどのようにつながるかを見ます。
 2. Connectの結果が2D Imageとして接続できる場合、[Merge](../compositing/merge)のForegroundへつなぎ、背景画像をBackgroundへ入れます。
 3. 線以外の部分まで背景を隠すなら、Connectの出力Alphaを確認します。背景が最初から透明になるとは限りません。必要に応じてマット処理や合成側のBlendを使ってください。
 4. 線の色や太さが合わない場合は、Connectの実際の設定項目を確認します。対応する設定が見当たらなければ、後段の画像処理で見た目を調整する方法を検討します。
@@ -84,6 +109,6 @@ ConnectとWormは「点を使う」という点では似ています。しかし
 
 **確認済み（Manual）**：ConnectはKrokodoveのImage Toolsに掲載され、位置を個別に指定した点同士を連続線で結ぶ。
 
-**未確認（実機）**：REGID、全入力・出力端子、必須画像入力、Inspectorの正式項目名・既定値・範囲、点の編集UIと接続順、線色・線幅・Alpha、アニメーション機能、DaVinci Resolve Free / StudioとFusion Studioの差。これらを確定していないため、`verification: partial`のままにしています。
+**確認範囲**：Studio 21.1.0.14 / Windowsの実機例でImage入力、Linear、3点の座標と折れ線を確認しました。他の入力・出力、必須条件、Controlの既定値や範囲、他の線色・線幅・Alpha、アニメーション、Edition差は未確認のため、`verification: partial`を維持します。
 
 **一次資料**：Blackmagic Design『DaVinci Resolve 21.1 Reference Manual』（September 2026）、Chapter 105「Krokodove Nodes」、p.2434「Image Tools / Connect」。比較対象のWormとLinesは同章p.2435。Connect 3Dは[Krokodove全体の案内](./)で、2D項目とは分けて扱っています。

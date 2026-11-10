@@ -1,0 +1,60 @@
+{
+  "case": "S291",
+  "project": "Collectanea_Mandelbrot_Zoom_20261025",
+  "library": "Local Database",
+  "project_manager_folder": "root",
+  "timeline": "S291_capture",
+  "frame": 0,
+  "resolve": "21.1.0.14",
+  "edition": "DaVinci Resolve Studio",
+  "os": "Windows-11-10.0.26200-SP0",
+  "project_settings": {
+    "colorScienceMode": "davinciYRGB",
+    "colorSpaceInput": "Rec.709 Gamma 2.4",
+    "colorSpaceTimeline": "Rec.709 (Scene)",
+    "colorSpaceTimelineGamma": "",
+    "colorSpaceOutput": "Rec.709 (Scene)",
+    "colorSpaceOutputGamma": "ACEScc",
+    "isAutoColorManage": "0",
+    "timelineResolutionWidth": "1920",
+    "timelineResolutionHeight": "1080",
+    "timelineFrameRate": 30.0,
+    "timelinePlaybackFrameRate": "30",
+    "timelinePixelAspectRatio": "square"
+  },
+  "connections": {
+    "Connect.Image": "Plate",
+    "MediaOut1.Input": "Connect"
+  },
+  "values": {
+    "Type": 0.0,
+    "NumberOfPoints": 3.0,
+    "Point1": {
+      "1": 0.15,
+      "2": 0.25,
+      "3": 0.0
+    },
+    "Point2": {
+      "1": 0.5,
+      "2": 0.75,
+      "3": 0.0
+    },
+    "Point3": {
+      "1": 0.85,
+      "2": 0.3,
+      "3": 0.0
+    },
+    "PenThickness": 0.02,
+    "PenOpacity": 1.0
+  },
+  "source": "Generated black Background; static three-point path.",
+  "save_project": true,
+  "save_completed_at": "2026-10-28T08:55:42.630792+00:00",
+  "native_export_sha256": "2e71aa3ea311bfaa93c9b33f17879f8eb2659fb0628204deaef979b0da48c56b",
+  "portable_sha256": "48d49a5b4ab0633486be48a85c54fc501d445d94076600e5d08d9d93fc92cbce",
+  "portable_reimport": "NOT_RUN",
+  "limits": [
+    "One static Linear three-point path with generated Background; other types, animation and hosts NOT_RUN.",
+    "Viewer screenshot includes editing guides."
+  ]
+}
