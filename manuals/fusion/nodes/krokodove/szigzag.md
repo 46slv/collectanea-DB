@@ -31,6 +31,33 @@ updated: '2026-10-19'
 
 sZigZagが扱うのは**輪郭の形**です。輪郭線の色や太さ、図形の塗りの変更を目的とする場合は、別のShapeツールと役割を分けます。
 
+<!-- capture:S285 -->
+
+## 実機例：四角形の縁に凹凸を作る
+
+`sRectangle` を分岐し、一方を `sZigZag` に接続しました。それぞれを `sRender` で画像化すると、この静止画では処理後の縁がギザギザに見えます。Viewerの市松模様は透明部分の表示です。ほかの形やAlpha値、アニメーションは未検証です。[接続と設定の記録](/img/fusion/captures/S285/readback.json)に条件を記載しています。
+
+[![sZigZagの処理前後を比較するノード構成](/img/fusion/captures/S285/graph.png)](/img/fusion/captures/S285/graph.png)
+
+四角形を分岐し処理前後を画像化します。
+
+[![sZigZagのInspector](/img/fusion/captures/S285/controls.png)](/img/fusion/captures/S285/controls.png)
+
+TypeはBy segment、Stepsは3です。
+
+[![処理前の白い四角形](/img/fusion/captures/S285/low.png)](/img/fusion/captures/S285/low.png)
+
+処理前は直線の辺を持つ四角形です。
+
+[![縁がギザギザになった四角形](/img/fusion/captures/S285/high.png)](/img/fusion/captures/S285/high.png)
+
+処理後の縁に凹凸が見えます。
+
+[再現用Graph](/img/fusion/captures/S285/fixture.comp) · [撮影条件と確認範囲](/img/fusion/captures/S285/capture.json)
+
+<!-- /capture:S285 -->
+
+
 ## 入力と出力
 
 | 段階 | データ分類 | 内容 |
@@ -43,7 +70,7 @@ Shape入力／Shape出力は、公式Manualの「Shape Tools」分類とCOLLECTA
 
 ## 最初に試す構成
 
-以下は、ノードの役割から組み立てた**実機確認用の構成案**です。21.1実機で接続や出力形状まで検証済みのレシピではありません。
+以下は、上の実機例でも使用した基本構成です。別の形や設定での結果は未確認です。
 
 ~~~text
 sRectangle → sZigZag → sRender → MediaOut
@@ -103,12 +130,12 @@ sSmoothも線分を扱いますが、Manualでは**滑らかな辺を作り、�
 
 - **21.1 Manualで確認済み**：KrokodoveのShape Toolsに属し、入力Shapeの各線分から波打つ線を作って輪郭をギザギザにすること。
 - **既存カタログによる分類**：入力・出力はShape。通常の2D画像処理へ進める場合はsRenderで画像化する。
-- **Inspector未確認**：パラメーターの正式名称、初期値、範囲、単位、波形の種類、アニメーション対応。
+- **Inspectorの未確認範囲**：実機例以外の設定の意味、初期値、範囲、単位、波形の種類、アニメーション対応。
 - **形状ごとの挙動未確認**：鋭角・短い辺・開いた輪郭・複数Shape・自己交差・曲線部分・角の接続、輪郭が外側へどれだけ広がるか。
-- **環境差未確認**：Resolve Free／Studio／Fusion Studioでの提供差、内部REGID、21.1実機の端子表示と描画結果。
+- **環境差未確認**：Resolve Free／Studio／Fusion Studioでの提供差、内部REGID、別条件での端子表示と描画結果。
 
 ## バージョンと出典
 
 **一次資料**：Blackmagic Design『DaVinci Resolve 21.1 Reference Manual』（September 2026）、Chapter 105「Krokodove Nodes」、p.2437「Shape Tools — sZigZag」。同ページのsSmooth、sRound、sResample、sOffset、sRestyleの説明も比較のために参照しました。
 
-**関連資料**：同Manual Chapter 117「Shape Nodes」、[シェイプ（Shape）](../../learn/02-data/shape)、[sRender](../shapes/s-render)。本文の接続例は機能に基づく確認案であり、Inspectorや実機結果は未確認のためverificationはpartialのままです。
+**関連資料**：同Manual Chapter 117「Shape Nodes」、[シェイプ（Shape）](../../learn/02-data/shape)、[sRender](../shapes/s-render)。実機例は一条件の静止画であり、その他のInspector設定や条件は未確認のためverificationはpartialのままです。
