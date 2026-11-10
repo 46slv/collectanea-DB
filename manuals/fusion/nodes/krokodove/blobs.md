@@ -20,13 +20,13 @@ updated: '2026-10-17'
 
 Blobsは、**指定した点の位置に円形の図形を作る**Krokodoveの画像生成ツールです。DaVinci Resolve 21.1 Reference Manualの「Image Create Tools」に掲載されており、原文では「Blobs generates circular shapes at specified points」と説明されています。
 
-たとえば画面の左上と右下に点を指定した場合、その点を基準に円形の模様を配置する、という考え方です。実機例では二つの位置を指定しました。点数の上限や外部入力による指定は未確認です。
+たとえば画面の左上と右下に点を指定した場合、その点を基準に円形の模様を配置する、という考え方です。実機例では二つの位置を指定した例と、三つの位置を指定した例を確認しました。点数の上限や外部入力による指定は未確認です。
 
 ## 「点」と「円形」の意味
 
 **点（point）**は、画面内で図形を置く位置の目印です。「点そのものを画面に描く」という意味ではありません。Blobsの説明では、その指定位置に**円形の図形**が作られます。点の位置を変えれば、円形の模様を置く場所が変わると考えられますが、位置をどの操作で変更するかは実機で確かめます。
 
-ここでいう「円形」は形の種類を示す言葉です。必ず輪郭のはっきりした真円になるのか、柔らかい縁や塗りつぶしにできるのか、半径や色を変更できるのかといった詳細は、公式の短い説明では確定できません。Blobsという名前から、液体の動き・粒子の物理演算・有機的な変形があるとも判断しません。
+ここでいう「円形」は形の種類を示す言葉です。輪郭の見え方や色の変更可能範囲は公式の短い説明では確定できません。General Radius 0.2と0.05の実機比較は下の撮影例で扱います。Blobsという名前から、液体の動き・粒子の物理演算・有機的な変形があるとも判断しません。
 
 KrokodoveのBlobsで作るのは、画像として見える円形の模様です。Fusion標準の<Term id="shape-data">Shapeデータ</Term>（図形の輪郭を描画前のデータとして扱う仕組み）や、Particleノードの粒子とは区別します。Shapeデータを画像にする場合は[sRender](../shapes/s-render)を使います。
 
@@ -53,6 +53,34 @@ General Radiusなどの設定が表示されています。
 [再現用Graph](/img/fusion/captures/S254/fixture.comp) · [撮影条件と確認範囲](/img/fusion/captures/S254/capture.json)
 
 <!-- /capture:S254 -->
+
+<!-- capture:S292 -->
+
+## 実機例：3点に円を配置する
+
+`Blobs` から `MediaOut` へ接続し、3点を横に配置します。General Radiusを0.2から0.05に変えると、この例では重なっていた白い領域が分かれて見えます。
+
+市松模様はViewerの透明表示、点の印は編集ガイドです。[接続と設定の記録](/img/fusion/captures/S292/readback.json)には保存した0.05の値を記載しています。
+
+[![BlobsをMediaOutに接続した構成](/img/fusion/captures/S292/graph.png)](/img/fusion/captures/S292/graph.png)
+
+Blobsを直接MediaOutへつなぎます。
+
+[![BlobsのGeneral Radius 0.05の設定](/img/fusion/captures/S292/controls.png)](/img/fusion/captures/S292/controls.png)
+
+General Radiusを0.05に設定しています。
+
+[![3点に配置された白い円状の領域](/img/fusion/captures/S292/small.png)](/img/fusion/captures/S292/small.png)
+
+3点を横に配置した出力です。
+
+[![General Radius 0.2で重なった白い円状の領域](/img/fusion/captures/S292/large.png)](/img/fusion/captures/S292/large.png)
+
+General Radius 0.2では白い領域が重なっています。
+
+[再現用Graph](/img/fusion/captures/S292/fixture.comp) · [撮影条件と確認範囲](/img/fusion/captures/S292/capture.json)
+
+<!-- /capture:S292 -->
 
 ## 入力と出力
 
@@ -102,6 +130,6 @@ Blobs（画像出力を確認後） ─────→ Merge（FG）
 
 - **一次資料**：Blackmagic Design『DaVinci Resolve 21.1 Reference Manual』（September 2026）、Chapter 105「Krokodove Nodes」、p.2435（Image Create Tools／Blobs）。指定した点に円形の図形を生成するとの説明を確認しました。同ページにはGenerate、Lines、Pattern、Shapesも掲載されています。
 - **既存分類**：COLLECTANEAではBlobsの出力を2D Imageに分類しています。Krokodove内のImage / Shape / 3D / Regionの違いは[Family Overview](./)を参照してください。
-- **確認範囲**：実機例では二つの位置を指定し、重なる円形を表示しました。点数の上限、全端子、初期値・範囲、Alphaの数値、アニメーション可否、Edition差は未確認です。
+- **確認範囲**：実機例では二点の円形表示と、三点のGeneral Radius 0.2／0.05比較を確認しました。点数の上限、全端子、設定値の範囲、Alphaの数値、アニメーション可否、Edition差は未確認です。
 
 `verification: partial`は、Manualと既存カタログで確認できる情報と、詳細資料・実機で未確認の仕様を分ける状態です。
