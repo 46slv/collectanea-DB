@@ -38,7 +38,7 @@ Pivotは、画像を回したり大きさを変えたりするときの基準に
 - 画素のある範囲の中心、重心、端など、何を検出位置としているか。
 - 透明度が低い画素や、見えないRGB値を持つ画素をどう扱うか。
 - アニメーションで絵の範囲が変わったとき、基準点が毎フレームどう更新されるか。
-- Pivotの相対位置をInspectorでどの数値・座標系から指定するか。
+- Pivot Xの数値を変えたときの位置変化は下の実機例で確認しました。座標系の意味や他の範囲は未確認です。
 
 したがって「透明部分を自動で切り詰める」「ロゴの重心を正確に取る」など、資料にない動作までは断定しません。PivotとCenterの基本的な違いは[Center・Pivot・Size・Angle](../../learn/03-space/center-pivot-size-angle)も参照してください。
 
@@ -74,6 +74,34 @@ Frontmatterの inputs: [image] / outputs: [image] は**主なデータ領域の�
 
 位置・回転・拡大縮小を調整するだけなら、標準の[Transform](../transform/transform)を先に試す方法があります。Relative Transformを選ぶ理由は、追加の入力と、画素データに対するPivotの指定が必要かどうかです。Krokodove版の内部処理が標準Transformと同じとは限りません。
 
+<!-- capture:S294 -->
+
+## 実機例：回転中のPivot Xを変える
+
+`Text+` を `Relative Transform` のImageに接続し、Axis Angleを30に設定します。同じ文字とframeでPivot Xを0から0.5に変えると、回転した文字の位置が変わって見えます。
+
+左は入力、右は出力で、画面上の印は編集ガイドです。撮影後はPivot Xを0に戻しました。この例では自動検出の仕組みや第2入力の動作は確認していません。[接続と設定の記録](/img/fusion/captures/S294/readback.json)に条件を記載しています。
+
+[![Text+をRelative TransformとMediaOutに接続した構成](/img/fusion/captures/S294/graph.png)](/img/fusion/captures/S294/graph.png)
+
+文字画像をRelative Transformに入力します。
+
+[![Axis Angle 30、Pivot X 0の設定](/img/fusion/captures/S294/controls.png)](/img/fusion/captures/S294/controls.png)
+
+Axis Angleを30に固定しPivot Xを比較します。
+
+[![Pivot X 0の入力と回転出力](/img/fusion/captures/S294/pivot-zero.png)](/img/fusion/captures/S294/pivot-zero.png)
+
+Pivot X 0での入力と出力です。
+
+[![Pivot X 0.5の入力と回転出力](/img/fusion/captures/S294/pivot-half.png)](/img/fusion/captures/S294/pivot-half.png)
+
+Pivot X 0.5では右の文字位置が変わります。[撮影時のInspector](/img/fusion/captures/S294/half-source.png)で0.5を確認できます。
+
+[再現用Graph](/img/fusion/captures/S294/fixture.comp) · [撮影条件と確認範囲](/img/fusion/captures/S294/capture.json)
+
+<!-- /capture:S294 -->
+
 ## 制作例：透明ロゴを使ってPivotの違いを観察する
 
 以下は**役割を理解するためのテスト構成案**です。公式Manualに掲載された完成グラフや、21.1実機で検証済みの操作手順ではありません。
@@ -82,7 +110,7 @@ Frontmatterの inputs: [image] / outputs: [image] は**主なデータ領域の�
     Text+（テスト文字） ───→ Merge A（Foreground）
     MediaIn（背景映像） ──────────────────────────────→ Merge B（Background）
 
-第2入力については、使用するデータ型とポートの名称を実機で確認した後、必要な素材を別系統から接続します。上の配線図は**主な画像経路のみ**を表しています。第2入力が未接続の状態で何ができるかも、最初の確認対象です。
+第2入力については、使用するデータ型とポートの名称を実機で確認した後、必要な素材を別系統から接続します。上の配線図は**主な画像経路のみ**を表しています。下の実機例では第2入力を接続せず、画像の回転を表示しました。他の条件は未確認です。
 
 1. Backgroundで透明な画布を用意し、Text+で「TEST」のような短い文字を描きます。Merge Aで合成し、文字以外の部分が透明な1枚のImageにします。
 2. Text+を画面の中央から大きく外して配置します。背景の画像サイズを変えずに、見える画素の位置だけが偏っている状態を作るのが目的です。
@@ -109,8 +137,8 @@ Frontmatterの inputs: [image] / outputs: [image] は**主なデータ領域の�
 
 ## 注意点と未確認項目
 
-- **第2入力**：正式な名称・データ型・接続先の意味、入力なしの場合の挙動、追加のMaskやRegion入力の有無は未確認です。
-- **Inspector**：位置・回転・スケール・Pivotの正式項目名、既定値、値域、座標系、適用順、補間方式は未確認です。標準TransformのCenter / Pivot / Size / Angleと同じUIとは限りません。
+- **第2入力**：実機例では未接続で回転結果を表示しました。正式な名称・データ型・接続先の意味や、追加のMask・Region入力は未確認です。
+- **Inspector**：実機例ではAxis Angle 30とPivot X 0・0.5を確認しました。他の項目の働き、既定値、値域、座標系、適用順と補間方式は未確認です。
 - **Pivotの検出**：画素範囲をどう判断するか、Alphaや透明余白の扱い、時刻ごとの再計算、基準点の具体的な数式は未確認です。
 - **画像品質**：解像度、Domain of Definition、画面端でのサンプリング、Alphaやpremultiplicationへの影響は実機で確認していません。
 - **製品差**：DaVinci Resolve Free / Studio / Fusion Studioでの個別の可用性、内部REGID、表示上のカテゴリーやアイコンは未確認です。
@@ -122,4 +150,4 @@ Frontmatterの inputs: [image] / outputs: [image] は**主なデータ領域の�
 
 比較対象：同ManualのTransform Nodes（Chapter 120）と、本サイトの[Warped Transform](./warped-transform)、[Positioner](./positioner)。[Blackmagic Design公式サポート](https://www.blackmagicdesign.com/jp/support/)から現行資料を確認できます。
 
-透明ロゴの例と段階的な確認手順は、本記事で提案した実験です。第2入力のデータ型、Inspectorの正確な設定、Pivotの検出規則、Edition差は一次資料の短い概要から決められないため、verification: partialを維持しています。[Krokodoveの概要](./)と[Imageの基礎](../../learn/02-data/image)も併読してください。
+透明ロゴの例と段階的な確認手順は、本記事で提案した実験です。実機例は1つの文字画像と2つのPivot X値に限ります。第2入力のデータ型、他の設定、Pivotの検出規則とEdition差は未確認のため、verification: partialを維持しています。[Krokodoveの概要](./)と[Imageの基礎](../../learn/02-data/image)も併読してください。

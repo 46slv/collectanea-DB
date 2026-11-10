@@ -1,0 +1,54 @@
+{
+  "case": "S294",
+  "project": "Collectanea_Mandelbrot_Zoom_20261025",
+  "library": "Local Database",
+  "project_manager_folder": "root",
+  "timeline": "S294_capture",
+  "frame": 0,
+  "resolve": "21.1.0.14",
+  "edition": "DaVinci Resolve Studio",
+  "os": "Windows-11-10.0.26200-SP0",
+  "project_settings": {
+    "colorScienceMode": "davinciYRGB",
+    "colorSpaceInput": "Rec.709 Gamma 2.4",
+    "colorSpaceTimeline": "Rec.709 (Scene)",
+    "colorSpaceTimelineGamma": "",
+    "colorSpaceOutput": "Rec.709 (Scene)",
+    "colorSpaceOutputGamma": "ACEScc",
+    "isAutoColorManage": "0",
+    "timelineResolutionWidth": "1920",
+    "timelineResolutionHeight": "1080",
+    "timelineFrameRate": 30.0,
+    "timelinePlaybackFrameRate": "30",
+    "timelinePixelAspectRatio": "square"
+  },
+  "connections": {
+    "Relative.Image": "Source",
+    "MediaOut1.Input": "Relative"
+  },
+  "values": {
+    "CenterType": 0.0,
+    "CenterChannel": 4.0,
+    "PivotX": 0.0,
+    "PivotY": 0.0,
+    "Center": {
+      "1": 0.5,
+      "2": 0.5,
+      "3": 0.0
+    },
+    "AxisAngle": 30.0,
+    "SizeX": 1.0,
+    "SizeY": 1.0,
+    "Warp": 1.0
+  },
+  "source": "Generated offset Text+; single still frame.",
+  "save_project": true,
+  "save_completed_at": "2026-10-28T09:05:25.901135+00:00",
+  "native_export_sha256": "87c75f38d955adb84d01a7d3cc87cfca3215f52ab787077b3dc018c9a9d7c942",
+  "portable_sha256": "a444aee2c092b5b04b87b4f25262f407825dab0a6436a09fd8456e58692c68fc",
+  "portable_reimport": "NOT_RUN",
+  "limits": [
+    "Axis Angle 30 with one Text+; automatic pivot detection, second input, alpha and other settings NOT_RUN.",
+    "Viewer screenshot includes editing guides."
+  ]
+}
