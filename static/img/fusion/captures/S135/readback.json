@@ -1,0 +1,89 @@
+{
+  "case": "S135",
+  "project": "Collectanea_Mandelbrot_Zoom_20261025",
+  "library": "Local Database",
+  "project_manager_folder": "root",
+  "timeline": "S135_capture",
+  "page": "fusion",
+  "frame": 0.0,
+  "resolution": [
+    1920,
+    1080
+  ],
+  "resolve": "21.1.0.14",
+  "edition": "DaVinci Resolve Studio",
+  "os": "Windows-11-10.0.26200-SP0",
+  "project_settings": {
+    "colorScienceMode": "davinciYRGB",
+    "colorSpaceInput": "Rec.709 Gamma 2.4",
+    "colorSpaceTimeline": "Rec.709 (Scene)",
+    "colorSpaceTimelineGamma": "",
+    "colorSpaceOutput": "Rec.709 (Scene)",
+    "colorSpaceOutputGamma": "ACEScc",
+    "isAutoColorManage": "0",
+    "timelineResolutionWidth": "1920",
+    "timelineResolutionHeight": "1080",
+    "timelineFrameRate": 30.0,
+    "timelinePlaybackFrameRate": "30",
+    "timelinePixelAspectRatio": "square"
+  },
+  "source": {
+    "portable_media_path_metadata": "Comp:/../_fixtures/chart.png",
+    "media_sha256": "f166484e5900e23098b4a569876ac818f8ee3aa6ab3ee6f53aa186ca766d6d29"
+  },
+  "graph": {
+    "MediaIn1": {
+      "regid": "MediaIn"
+    },
+    "DirectionalBlur1": {
+      "regid": "DirectionalBlur",
+      "input_from": "MediaIn1"
+    },
+    "MediaOut1": {
+      "regid": "MediaOut",
+      "input_from": "DirectionalBlur1"
+    }
+  },
+  "controls": {
+    "Center": {
+      "name": "Blur Vector",
+      "type": "Point",
+      "value": {
+        "1": 0.45101394169835246,
+        "2": 0.3927927927927927,
+        "3": 0.0
+      }
+    },
+    "Length": {
+      "expression": "sqrt(((Center.X-.5)*(self.Input.XScale))^2+((Center.Y-.5)*(self.Input.YScale)*(self.Input.Height/self.Input.Width))^2)",
+      "value": 0.07769306818041549
+    },
+    "Angle": {
+      "expression": "atan2(.5-Center.Y,.5-Center.X)*180/pi",
+      "value": 65.44297505435438
+    },
+    "Centered": {
+      "type": "Number",
+      "input_control": "CheckboxControl",
+      "value": 1.0
+    },
+    "Type": {
+      "expression": "iif(Centered==1, 2, 0)",
+      "value": 2.0
+    },
+    "hidden_in_gui": [
+      "Length",
+      "Angle",
+      "Type"
+    ]
+  },
+  "save_project": true,
+  "save_completed_at": "2026-10-27T12:54:05.810160+00:00",
+  "composition_export": {
+    "portable_file": "fixture.comp",
+    "portable_sha256": "36adb1cfccc6b49b63391d65647e918d0423fdacd620a3d46b7a6ce00b498f7e",
+    "cache_lastfile_metadata_lines_removed": 2,
+    "path_rewrites": 1,
+    "reimport": "NOT_RUN"
+  }
+}

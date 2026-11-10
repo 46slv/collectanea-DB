@@ -1,0 +1,163 @@
+{
+  "manual": {
+    "version": "21.1",
+    "chapter": 69,
+    "printed_pages": "1515–1517"
+  },
+  "runtime": {
+    "version": "21.1.0.14",
+    "edition": "DaVinci Resolve Studio",
+    "os": "Windows-11-10.0.26200-SP0",
+    "ui_language": "ja-JP"
+  },
+  "captured_at": "2026-10-27T12:53:20.341951+00:00",
+  "capture_time_note": "Timestamp is the final original screenshot's filesystem last-write time; individual original capture timestamps are retained with the source files.",
+  "project": "Collectanea_Mandelbrot_Zoom_20261025",
+  "timeline": "S135_capture",
+  "frame": 0,
+  "resolution": [
+    1920,
+    1080
+  ],
+  "color_management": {
+    "project_settings": {
+      "colorScienceMode": "davinciYRGB",
+      "colorSpaceInput": "Rec.709 Gamma 2.4",
+      "colorSpaceTimeline": "Rec.709 (Scene)",
+      "colorSpaceTimelineGamma": "",
+      "colorSpaceOutput": "Rec.709 (Scene)",
+      "colorSpaceOutputGamma": "ACEScc",
+      "isAutoColorManage": "0",
+      "timelineResolutionWidth": "1920",
+      "timelineResolutionHeight": "1080",
+      "timelineFrameRate": 30.0,
+      "timelinePlaybackFrameRate": "30",
+      "timelinePixelAspectRatio": "square"
+    },
+    "note": "Current project settings were read through the SDK. Images compare control behavior, not color accuracy."
+  },
+  "viewer": {
+    "view_mode": "Fit",
+    "source": "MediaOut1",
+    "status_label": "[Main]: 1920x1080 float32",
+    "note": "Right Viewer; channel and guide settings were not independently established."
+  },
+  "acceptance": {
+    "gui": "PASS: native screenshots and guarded SDK readback show Center displayed as Blur Vector while Length and Angle are hidden; a synthetic Viewer drag changes Center, evaluated Length and Angle, and output. Centered CheckboxControl changes Type from 0 to 2 using the recorded expression, including after Type is hidden. SaveProject returned true at 2026-10-27T12:54:05.810160Z. Physical mouse/keyboard input is not claimed.",
+    "article_display": "NOT_RUN",
+    "public_display": "NOT_RUN"
+  },
+  "unverified": [
+    "Portable composition reimport and MediaIn relinking NOT_RUN",
+    "Physical mouse/keyboard provenance NOT_ESTABLISHED",
+    "Other Resolve editions and platforms NOT_RUN",
+    "The manual's Replace / Hide / Change ID selection prompt was not independently demonstrated",
+    "Article verification remains partial"
+  ],
+  "schema_version": 1,
+  "case": "S135",
+  "article": "manuals/fusion/learn/06-reuse/user-controls.md",
+  "graph": "fixture.comp",
+  "settings": "readback.json",
+  "source": {
+    "file": "screen.png",
+    "size": [
+      3336,
+      1902
+    ],
+    "sha256": "e50eea709ad720b355f218b2139761b9c0be84e4f8b628edfe9eeee78021a547"
+  },
+  "shots": [
+    {
+      "file": "center-control.png",
+      "source": "center-dialog-source.png",
+      "source_sha256": "d152df28bd6108c610754d056004a95288dce0e92fd87b6a4c822e89ab3efccb",
+      "frame": 0,
+      "crop_xyxy": [
+        0,
+        0,
+        865,
+        408
+      ],
+      "resampled": false,
+      "sha256": "83f1fd9a2a3ab0377e9dd008952a173fcff4da53090397d661f58f03973bb28e"
+    },
+    {
+      "file": "blur-vector-before.png",
+      "source": "point-before-source.png",
+      "source_sha256": "32a75ac50f0d70021a138c424e8dfc09eb85e056dea66a3c6062c139965560ec",
+      "frame": 0,
+      "crop_xyxy": [
+        2020,
+        65,
+        3336,
+        700
+      ],
+      "resampled": false,
+      "sha256": "32a7c704124f64aaeba5b725cc43db8365c436f0f37faabf5193e3f46d92840b"
+    },
+    {
+      "file": "blur-vector-after.png",
+      "source": "point-after-source.png",
+      "source_sha256": "8f35b2b5a0cb129089137f71121dc77c1668414ad2fcc4985728b7013a1e0309",
+      "frame": 0,
+      "crop_xyxy": [
+        2020,
+        65,
+        3336,
+        700
+      ],
+      "resampled": false,
+      "sha256": "06101dfa5caa6a78ecba07e1ce4108a6c600611ef2a7842ea2a11872d3a2802d"
+    },
+    {
+      "file": "centered-control.png",
+      "source": "checkbox-dialog-source.png",
+      "source_sha256": "ede23626a8db67a2dc7e7824c69cf8d6ad3c150114ecc540d10dad6a6a63e144",
+      "frame": 0,
+      "crop_xyxy": [
+        0,
+        0,
+        865,
+        408
+      ],
+      "resampled": false,
+      "sha256": "04ea6b33400b8c4356d4c2f7c2b106393283983a90af92954df34efa9437a7a2"
+    },
+    {
+      "file": "centered-expression.png",
+      "source": "checkbox-linked-source.png",
+      "source_sha256": "7b71aa8042e58d662d1b9c09b59549e7af2c647292c69277d40cb64e2bfd938e",
+      "frame": 0,
+      "crop_xyxy": [
+        2020,
+        65,
+        3336,
+        700
+      ],
+      "resampled": false,
+      "sha256": "d1e210f17f5bba0828c094a874dadfd1b464dea11bedb09baa15f375c90c3f6e"
+    },
+    {
+      "file": "centered-final.png",
+      "source": "screen.png",
+      "source_sha256": "e50eea709ad720b355f218b2139761b9c0be84e4f8b628edfe9eeee78021a547",
+      "frame": 0,
+      "crop_xyxy": [
+        2020,
+        65,
+        3336,
+        700
+      ],
+      "resampled": false,
+      "sha256": "3b7f8f6c0ec29351f5abc2ef0185ae297606fa1116d7a2cfbbc18018411c9208"
+    }
+  ],
+  "reproduction": {
+    "fixture_sha256": "36adb1cfccc6b49b63391d65647e918d0423fdacd620a3d46b7a6ce00b498f7e",
+    "readback_sha256": "3b302137f42bb4d3a587ec5d233a874bff1de947c5caf750a0824f4bc9f8f37c",
+    "reimport": "NOT_RUN",
+    "readback_source_sha256": "c50fd24b9b4cde522aa75ff84e9b72671ca4e2457962fcf15ef1a36c6945eefa",
+    "readback_transform": "Original SDK readback line endings normalized from CRLF to LF for the portable Git asset; JSON values unchanged."
+  }
+}
