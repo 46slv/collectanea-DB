@@ -62,11 +62,6 @@ jobs:
           mkdir -p artifacts/visual
           node -e 'const fs=require("fs"),cp=require("child_process");fs.writeFileSync("artifacts/visual/candidate.json",JSON.stringify({head:process.env.CC_HEAD_SHA,tested:cp.execFileSync("git",["rev-parse","HEAD"],{encoding:"utf8"}).trim(),dirty:cp.execFileSync("git",["status","--porcelain"],{encoding:"utf8"}),node:process.version,browserImage:"mcr.microsoft.com/playwright:v1.56.0-noble"},null,2))'
           git archive --format=tar.gz HEAD > artifacts/source-snapshot.tar.gz
-      - name: Prune unpublished full-size capture sources before UI verification
-        if: ${{ !cancelled() && steps.build.outcome == 'success' }}
-        run: |
-          mkdir -p artifacts/visual
-          npm run prune:pages -- artifacts/visual/pages-prune.json
       - name: Serve production and verify real UI states
         # The mandatory 266-page native-capture sweep exceeded 10 minutes on PR #420.
         # Preserve full browser coverage; allow time for the growing page set to finish.
@@ -85,6 +80,11 @@ jobs:
       - name: Ordinary Markdown integration and cleanup
         if: ${{ !cancelled() && steps.build.outcome == 'success' }}
         run: npm run test:content
+      - name: Prune publish artifact after browser validation
+        if: ${{ !cancelled() && steps.build.outcome == 'success' }}
+        run: |
+          mkdir -p artifacts/visual
+          npm run prune:pages -- artifacts/visual/pages-prune.json
       - name: Record post-test source cleanliness
         if: always()
         run: |
