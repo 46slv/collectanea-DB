@@ -1,0 +1,59 @@
+{
+  "case": "S293",
+  "project": "Collectanea_Mandelbrot_Zoom_20261025",
+  "library": "Local Database",
+  "project_manager_folder": "root",
+  "timeline": "S293_capture",
+  "frame": 50,
+  "resolve": "21.1.0.14",
+  "edition": "DaVinci Resolve Studio",
+  "os": "Windows-11-10.0.26200-SP0",
+  "project_settings": {
+    "colorScienceMode": "davinciYRGB",
+    "colorSpaceInput": "Rec.709 Gamma 2.4",
+    "colorSpaceTimeline": "Rec.709 (Scene)",
+    "colorSpaceTimelineGamma": "",
+    "colorSpaceOutput": "Rec.709 (Scene)",
+    "colorSpaceOutputGamma": "ACEScc",
+    "isAutoColorManage": "0",
+    "timelineResolutionWidth": "1920",
+    "timelineResolutionHeight": "1080",
+    "timelineFrameRate": 30.0,
+    "timelinePlaybackFrameRate": "30",
+    "timelinePixelAspectRatio": "square"
+  },
+  "connections": {
+    "Mapper.Input": "Source",
+    "Mapper.Timemap": "Map",
+    "MediaOut1.Input": "Mapper"
+  },
+  "values": {
+    "MainTime": 0.0,
+    "SourceTime": 0.0,
+    "TimeOffsetBlack": -20.0,
+    "TimeOffsetWhite": 20.0,
+    "Channel": 4.0,
+    "InterpolateBetweenFrames": 1.0
+  },
+  "map_white": {
+    "TopLeftRed": 1.0,
+    "TopLeftGreen": 1.0,
+    "TopLeftBlue": 1.0
+  },
+  "map_black_restored": {
+    "TopLeftRed": 0.0,
+    "TopLeftGreen": 0.0,
+    "TopLeftBlue": 0.0
+  },
+  "source_center_expression": "Point(0.2 + time * 0.004, 0.5)",
+  "source": "Generated moving Text+, solid black and white time maps.",
+  "save_project": true,
+  "save_completed_at": "2026-10-28T09:03:11.859115+00:00",
+  "native_export_sha256": "67773887db49daf90e21982d6c0595560630f2a9b86fcee126a2d879db594a9c",
+  "portable_sha256": "e16d041db781fd85e15379c19b1b856f3c1de7842b10958d8fdf077b0d98194c",
+  "portable_reimport": "NOT_RUN",
+  "limits": [
+    "One frame and uniform black/white maps; exact sampled source frame, gradient maps, playback and other hosts NOT_RUN.",
+    "Viewer screenshots show positions; no pixel-derived time measurement."
+  ]
+}
