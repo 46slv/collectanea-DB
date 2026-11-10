@@ -1,0 +1,47 @@
+{
+  "case": "S285",
+  "project": "Collectanea_Mandelbrot_Zoom_20261025",
+  "library": "Local Database",
+  "project_manager_folder": "root",
+  "timeline": "S285_capture",
+  "frame": 0,
+  "resolve": "21.1.0.14",
+  "edition": "DaVinci Resolve Studio",
+  "os": "Windows-11-10.0.26200-SP0",
+  "project_settings": {
+    "colorScienceMode": "davinciYRGB",
+    "colorSpaceInput": "Rec.709 Gamma 2.4",
+    "colorSpaceTimeline": "Rec.709 (Scene)",
+    "colorSpaceTimelineGamma": "",
+    "colorSpaceOutput": "Rec.709 (Scene)",
+    "colorSpaceOutputGamma": "ACEScc",
+    "isAutoColorManage": "0",
+    "timelineResolutionWidth": "1920",
+    "timelineResolutionHeight": "1080",
+    "timelineFrameRate": 30.0,
+    "timelinePlaybackFrameRate": "30",
+    "timelinePixelAspectRatio": "square"
+  },
+  "connections": {
+    "ZigZag.Input": "Rectangle",
+    "BeforeRender.Input": "Rectangle",
+    "AfterRender.Input": "ZigZag",
+    "MediaOut1.Input": "AfterRender"
+  },
+  "values": {
+    "Type": 0.0,
+    "Steps": 3.0,
+    "Distance": 0.01,
+    "Offset": 0.01
+  },
+  "source": "Generated sRectangle shape, two sRender branches; one static frame.",
+  "save_project": true,
+  "save_completed_at": "2026-10-28T08:02:30.243320+00:00",
+  "native_export_sha256": "0725c0ac9ec79dd05fc3d3da3c714981ec6e28899ebfe6dcbc71624a636c6268",
+  "portable_sha256": "78e43b22c944e609de2a04b30922c6fa309ba760c3bf2418df15e5566587e38d",
+  "portable_reimport": "NOT_RUN",
+  "limits": [
+    "Static sRectangle and Steps 3; other shapes, animation, alpha values and hosts NOT_RUN.",
+    "Viewer screenshot is display evidence."
+  ]
+}
