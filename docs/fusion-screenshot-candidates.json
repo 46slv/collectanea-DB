@@ -13086,6 +13086,53 @@
           "status": "captured"
         }
       ]
+    },
+    {
+      "priority": "P1",
+      "goal": "Show three positioned Blobs and the visual difference between General Radius 0.2 and 0.05.",
+      "suggested_graph": "KD_Blobs -> MediaOut.",
+      "scope": "Resolve Studio 21.1.0.14 on Windows, 1920x1080 static frame.",
+      "limitations": [
+        "Static three-point example, General Radius 0.2 and 0.05; other settings, animation and hosts NOT_RUN.",
+        "Viewer screenshot includes editing guides; transparency shown as checkerboard.",
+        "Portable reimport and physical input provenance NOT_RUN.",
+        "Article verification remains partial."
+      ],
+      "id": "S292",
+      "article": "manuals/fusion/nodes/krokodove/blobs.md",
+      "manual": {
+        "version": "21.1",
+        "chapter": 105,
+        "printed_pages": "2435"
+      },
+      "status": "captured-embedded-unverified",
+      "capture_manifest": "static/img/fusion/captures/S292/capture.json",
+      "shots": [
+        {
+          "slug": "graph",
+          "kind": "graph",
+          "target": "BlobsをMediaOutに接続した構成",
+          "status": "captured"
+        },
+        {
+          "slug": "controls",
+          "kind": "inspector",
+          "target": "BlobsのGeneral Radius 0.05の設定",
+          "status": "captured"
+        },
+        {
+          "slug": "small",
+          "kind": "output",
+          "target": "3点に配置された白い円状の領域",
+          "status": "captured"
+        },
+        {
+          "slug": "large",
+          "kind": "comparison",
+          "target": "General Radius 0.2で重なった白い円状の領域",
+          "status": "captured"
+        }
+      ]
     }
   ],
   "publication_batches": [
@@ -14471,25 +14518,25 @@
     }
   ],
   "coverage_inventory": {
-    "checked_at": "2026-11-10T12:28:01.000Z",
+    "checked_at": "2026-11-10T14:26:04.000Z",
     "scope": "All manuals/fusion Markdown and MDX pages; review necessity before adding images.",
     "completion_rule": "Every page has an explicit image decision; necessary images are native-observed, embedded, saved to GitHub and public-display-verified. A native example does not verify all article controls.",
     "summary": {
       "total_pages": 589,
-      "with_images": 337,
-      "with_native_examples": 290,
+      "with_images": 338,
+      "with_native_examples": 291,
       "states": {
         "reviewed-no-standalone-image": 26,
         "no-standalone-image-needed": 6,
         "illustrated-reused-example": 80,
-        "capture-planned": 271,
-        "illustrated-native-example": 205,
+        "capture-planned": 270,
+        "illustrated-native-example": 206,
         "needs-review": 1
       },
       "decisions": {
         "no-standalone-image-needed": 32,
-        "image-required": 285,
-        "capture-needed": 271,
+        "image-required": 286,
+        "capture-needed": 270,
         "needs-review": 1
       }
     },
@@ -20055,15 +20102,16 @@
         "article": "manuals/fusion/nodes/krokodove/blobs.md",
         "title": "Blobs",
         "kind": "node",
-        "image_count": 3,
+        "image_count": 7,
         "native_cases": [],
         "reused_cases": [],
         "planned_cases": [
-          "S254"
+          "S254",
+          "S292"
         ],
-        "state": "capture-planned",
-        "decision": "capture-needed",
-        "reason": "本文の対象機能: 指定した点を基準に円形の図形を生成するKrokodoveの画像ツール。。sEllipse/sGrid/Text+はKrokodove画像生成UIや出力型の証拠にならない。",
+        "state": "illustrated-native-example",
+        "decision": "image-required",
+        "reason": "Studio 21.1.0.14のBlobsを二点で表示し、三点のGeneral Radius 0.2／0.05を比較。Alpha、アニメーション、他Host、再読込は未検証。",
         "required_views": [
           "対象Node名と実際の配線が読めるGraph",
           "対象Nodeを選択した固有Inspector（本文で示すControlを含む）",
@@ -20082,7 +20130,10 @@
             "role": "入力と結果を示す箇所"
           }
         ],
-        "audit_note": "Planning prerequisite: hold-runtime-identity; not a live capability failure."
+        "audit_note": "S254の二点例とS292の三点／Radius比較を保持。いずれも条件限定のnative evidence。",
+        "remaining_views": [
+          "Alpha数値、点数上限、アニメーション、他Host・portable reimport"
+        ]
       },
       {
         "article": "manuals/fusion/nodes/krokodove/bounding-box.md",

@@ -1,0 +1,132 @@
+{
+  "manual": {
+    "version": "21.1",
+    "chapter": 105,
+    "printed_pages": "2435"
+  },
+  "runtime": {
+    "version": "21.1.0.14",
+    "edition": "DaVinci Resolve Studio",
+    "os": "Windows-11-10.0.26200-SP0",
+    "ui_language": "ja-JP"
+  },
+  "captured_at": "2026-10-28T08:57:49.155355+00:00",
+  "project": "Collectanea_Mandelbrot_Zoom_20261025",
+  "timeline": "S292_capture",
+  "frame": 0,
+  "resolution": [
+    1920,
+    1080
+  ],
+  "color_management": {
+    "project_settings": {
+      "colorScienceMode": "davinciYRGB",
+      "colorSpaceInput": "Rec.709 Gamma 2.4",
+      "colorSpaceTimeline": "Rec.709 (Scene)",
+      "colorSpaceTimelineGamma": "",
+      "colorSpaceOutput": "Rec.709 (Scene)",
+      "colorSpaceOutputGamma": "ACEScc",
+      "isAutoColorManage": "0",
+      "timelineResolutionWidth": "1920",
+      "timelineResolutionHeight": "1080",
+      "timelineFrameRate": 30.0,
+      "timelinePlaybackFrameRate": "30",
+      "timelinePixelAspectRatio": "square"
+    },
+    "note": "SDK project settings; screenshots show Viewer display."
+  },
+  "viewer": {
+    "view_mode": "Fit",
+    "source": "Right MediaOut1",
+    "note": "Blobs selected; Viewer shows editing guides and transparency checkerboard."
+  },
+  "acceptance": {
+    "gui": "PASS: native screenshots show graph, Inspector, guides and comparison; SDK connections and save read back.",
+    "article_display": "NOT_RUN",
+    "public_display": "NOT_RUN"
+  },
+  "unverified": [
+    "Static three-point example, General Radius 0.2 and 0.05; other settings, animation and hosts NOT_RUN.",
+    "Viewer screenshot includes editing guides; transparency shown as checkerboard.",
+    "Portable reimport and physical input provenance NOT_RUN.",
+    "Article verification remains partial."
+  ],
+  "schema_version": 1,
+  "case": "S292",
+  "article": "manuals/fusion/nodes/krokodove/blobs.md",
+  "graph": "fixture.comp",
+  "settings": "readback.json",
+  "source": {
+    "file": "screen.png",
+    "size": [
+      3312,
+      1890
+    ],
+    "sha256": "aeb631c0b242e0658a550a3faa05190b00b9ea802f7d8b1e1fac141e559da93d"
+  },
+  "shots": [
+    {
+      "file": "graph.png",
+      "source": "screen.png",
+      "source_sha256": "aeb631c0b242e0658a550a3faa05190b00b9ea802f7d8b1e1fac141e559da93d",
+      "frame": 0,
+      "crop_xyxy": [
+        620,
+        1080,
+        2200,
+        1570
+      ],
+      "resampled": false,
+      "sha256": "46e7f6224772ec386aec2da6716ba435458d4dec266cd1ab35dcf3bd01651b26"
+    },
+    {
+      "file": "controls.png",
+      "source": "screen.png",
+      "source_sha256": "aeb631c0b242e0658a550a3faa05190b00b9ea802f7d8b1e1fac141e559da93d",
+      "frame": 0,
+      "crop_xyxy": [
+        2780,
+        65,
+        3312,
+        660
+      ],
+      "resampled": false,
+      "sha256": "2cabeb53df33bf73590056bf19c73a2e7976a1ae775b163295b758b341934747"
+    },
+    {
+      "file": "small.png",
+      "source": "screen.png",
+      "source_sha256": "aeb631c0b242e0658a550a3faa05190b00b9ea802f7d8b1e1fac141e559da93d",
+      "frame": 0,
+      "crop_xyxy": [
+        1480,
+        65,
+        2780,
+        720
+      ],
+      "resampled": false,
+      "sha256": "f39b7d29b5b481ecfce1ed3ee3f0f1774b22662341e14af0972891b8c0222bc9"
+    },
+    {
+      "file": "large.png",
+      "source": "large-source.png",
+      "source_sha256": "a0a78dbe47b052a6ce99988ae48fef93937f7d373c5467f85d20515c39bd4bd0",
+      "frame": 0,
+      "crop_xyxy": [
+        1480,
+        65,
+        2780,
+        720
+      ],
+      "resampled": false,
+      "sha256": "a48d6efbbaf3ec409e5ecdefa940a3bb3961133868f0203437c786d4d00ccaae"
+    }
+  ],
+  "reproduction": {
+    "fixture_sha256": "50ae2efecbbc08850fe84d76924b15a3fa6a4d25c72e0663349facf830c45b81",
+    "readback_sha256": "0bdc46beba666f304d50af22c988e1f3a78e08afc556cc4595ef1dc3de1f23ac",
+    "readback_source_sha256": "5ae319720cc378c0e2797c43b93339b278a51ad61ff1d9101b70ef575018a3f7",
+    "readback_transform": "CRLF normalized to LF for the portable Git asset; JSON values unchanged",
+    "reimport": "NOT_RUN"
+  }
+}
