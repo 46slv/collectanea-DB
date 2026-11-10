@@ -1,0 +1,134 @@
+{
+  "project": "Collectanea_Mandelbrot_Zoom_20261025",
+  "timeline": "S130_capture",
+  "resolve": "21.1.0.14",
+  "edition": "DaVinci Resolve Studio",
+  "os": "Windows-11-10.0.26200-SP0",
+  "time": "2026-10-26T19:39:12.004311+00:00",
+  "case": "S130",
+  "frame": 149.0,
+  "sampled_frame": 149.0,
+  "project_settings": {
+    "colorScienceMode": "davinciYRGB",
+    "colorSpaceTimeline": "Rec.709 (Scene)",
+    "colorSpaceTimelineGamma": "",
+    "colorSpaceOutput": "Rec.709 (Scene)",
+    "colorSpaceOutputGamma": "ACEScc",
+    "separateColorSpaceAndGamma": "0",
+    "isAutoColorManage": "0",
+    "timelineResolutionWidth": "1920",
+    "timelineResolutionHeight": "1080",
+    "timelineFrameRate": 30.0,
+    "timelinePlaybackFrameRate": "30"
+  },
+  "tools": {
+    "USDInput": {
+      "regid": "uLoader",
+      "inputs": {
+        "Filename": "Comp:/../_fixtures/S130/owned-input.usda",
+        "TimeScale": 0.8,
+        "Loop": 1.0
+      }
+    },
+    "SceneSource": {
+      "regid": "uMerge",
+      "inputs": {}
+    },
+    "ImageOriginal": {
+      "regid": "uRenderer",
+      "inputs": {}
+    },
+    "USDExport": {
+      "regid": "uExport",
+      "inputs": {
+        "Format": 1.0
+      }
+    },
+    "USDReimport": {
+      "regid": "uLoader",
+      "inputs": {
+        "Filename": "Comp:/../_fixtures/S130/roundtrip-export.usda"
+      }
+    },
+    "RoundtripSource": {
+      "regid": "uMerge",
+      "inputs": {}
+    },
+    "ImageRoundtrip": {
+      "regid": "uRenderer",
+      "inputs": {}
+    },
+    "MediaOut1": {
+      "regid": "MediaOut",
+      "inputs": {}
+    }
+  },
+  "connections": {
+    "USDInput->SceneSource.SceneInput1": {
+      "connected": true,
+      "source": "USDInput",
+      "datatype": "USD"
+    },
+    "SceneSource->ImageOriginal.SceneInput": {
+      "connected": true,
+      "source": "SceneSource",
+      "datatype": "USD"
+    },
+    "SceneSource->USDExport.SceneInput": {
+      "connected": true,
+      "source": "SceneSource",
+      "datatype": "USD"
+    },
+    "ImageOriginal->MediaOut1.Input": {
+      "connected": true,
+      "source": "ImageOriginal",
+      "datatype": "Image"
+    },
+    "USDReimport->RoundtripSource.SceneInput1": {
+      "connected": true,
+      "source": "USDReimport",
+      "datatype": "USD"
+    },
+    "RoundtripSource->ImageRoundtrip.SceneInput": {
+      "connected": true,
+      "source": "RoundtripSource",
+      "datatype": "USD"
+    }
+  },
+  "format_observation": {
+    "numeric_input": 1.0,
+    "visible_inspector_label": "USD UTF-8 (*.usda)",
+    "mapping_note": "UI label observed directly; raw numeric enum mapping is unresolved."
+  },
+  "viewer_sources": {
+    "left": "ImageRoundtrip",
+    "right": "ImageOriginal",
+    "frame": 149.0
+  },
+  "usd_assets": [
+    {
+      "file": "static/img/fusion/captures/_fixtures/S130/owned-input.usda",
+      "role": "owned USD input",
+      "bytes": 165,
+      "sha256": "34912677990ffeffd564fa8ed30919d53483505456b3af872cbf24ee1a20a0cb"
+    },
+    {
+      "file": "static/img/fusion/captures/_fixtures/S130/roundtrip-export.usda",
+      "role": "USD UTF-8 export used by the second uLoader",
+      "bytes": 978,
+      "sha256": "07d6aa754dad9271d0185f0fd0b4a66aa8cba8bba55802de920a1ed38b3cb3f6"
+    },
+    {
+      "file": "static/img/fusion/captures/_fixtures/S130/roundtrip-export_assets/USDInput_owned-input/USDInput_owned-input_asset.usda",
+      "role": "export companion asset",
+      "bytes": 11,
+      "sha256": "ba1eaae89b7297bd260a682faef79e5faa0607d713f644eaa004be83b8f20d49"
+    },
+    {
+      "file": "static/img/fusion/captures/_fixtures/S130/roundtrip-export_assets/USDInput_owned-input/USDInput_owned-input_Scene_manifest.usda",
+      "role": "export scene manifest",
+      "bytes": 11,
+      "sha256": "ba1eaae89b7297bd260a682faef79e5faa0607d713f644eaa004be83b8f20d49"
+    }
+  ]
+}
