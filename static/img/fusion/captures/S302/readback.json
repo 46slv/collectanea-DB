@@ -1,0 +1,52 @@
+{
+  "case": "S302",
+  "project": "Collectanea_Mandelbrot_Zoom_20261025",
+  "library": "Local Database",
+  "project_manager_folder": "root",
+  "timeline": "S302_capture",
+  "frame": 0,
+  "resolve": "21.1.0.14",
+  "edition": "DaVinci Resolve Studio",
+  "os": "Windows-11-10.0.26200-SP0",
+  "project_settings": {
+    "colorScienceMode": "davinciYRGB",
+    "colorSpaceInput": "Rec.709 Gamma 2.4",
+    "colorSpaceTimeline": "Rec.709 (Scene)",
+    "colorSpaceTimelineGamma": "",
+    "colorSpaceOutput": "Rec.709 (Scene)",
+    "colorSpaceOutputGamma": "ACEScc",
+    "isAutoColorManage": "0",
+    "timelineResolutionWidth": "1920",
+    "timelineResolutionHeight": "1080",
+    "timelineFrameRate": 30.0,
+    "timelinePlaybackFrameRate": "30",
+    "timelinePixelAspectRatio": "square"
+  },
+  "connections": {
+    "Apply.Image": "Target",
+    "Apply.LUTCubeImage": "Cube",
+    "MediaOut1.Input": "Apply"
+  },
+  "values": {
+    "cube": {
+      "Type": 2.0,
+      "Size": 17.0
+    },
+    "target": {
+      "TopLeftRed": 0.8,
+      "TopLeftGreen": 0.2,
+      "TopLeftBlue": 0.2
+    }
+  },
+  "source": "Generated solid red Background; unmodified Rect cube, size 17.",
+  "save_project": true,
+  "save_completed_at": "2026-10-28T09:29:29.921119+00:00",
+  "native_export_sha256": "a1f449e6990d7e31f9bfa350797b48a62c11664d155d120e05e4c8d3e1574d22",
+  "portable_sha256": "b3ae38612971d06141f0fb21f42d4626e5ec986f352f266be58af2a3e44b0ef6",
+  "portable_reimport": "NOT_RUN",
+  "limits": [
+    "One unmodified cube and solid red target; colors appear similar, numeric equality not measured.",
+    "Processed-cube trial produced gray output; cause unresolved, Grade branch remains disconnected from Apply.",
+    "LUT export, other sizes, footage and other hosts NOT_RUN."
+  ]
+}
