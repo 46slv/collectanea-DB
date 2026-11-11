@@ -1,0 +1,132 @@
+{
+  "manual": {
+    "version": "21.1",
+    "chapter": 123,
+    "printed_pages": "2963–2964"
+  },
+  "runtime": {
+    "version": "21.1.0.14",
+    "edition": "DaVinci Resolve Studio",
+    "os": "Windows-11-10.0.26200-SP0",
+    "ui_language": "ja-JP"
+  },
+  "captured_at": "2026-10-28T09:15:02.652738+00:00",
+  "project": "Collectanea_Mandelbrot_Zoom_20261025",
+  "timeline": "S297_capture",
+  "frame": 0,
+  "resolution": [
+    1920,
+    1080
+  ],
+  "color_management": {
+    "project_settings": {
+      "colorScienceMode": "davinciYRGB",
+      "colorSpaceInput": "Rec.709 Gamma 2.4",
+      "colorSpaceTimeline": "Rec.709 (Scene)",
+      "colorSpaceTimelineGamma": "",
+      "colorSpaceOutput": "Rec.709 (Scene)",
+      "colorSpaceOutputGamma": "ACEScc",
+      "isAutoColorManage": "0",
+      "timelineResolutionWidth": "1920",
+      "timelineResolutionHeight": "1080",
+      "timelineFrameRate": 30.0,
+      "timelinePlaybackFrameRate": "30",
+      "timelinePixelAspectRatio": "square"
+    },
+    "note": "SDK project settings; screenshots show Viewer display."
+  },
+  "viewer": {
+    "view_mode": "Fit",
+    "source": "Left Source; right MediaOut1",
+    "note": "Corner selected; red corner guides shown."
+  },
+  "acceptance": {
+    "gui": "PASS: native screenshots show graph, Inspector, guides and comparison; SDK connections and save read back.",
+    "article_display": "NOT_RUN",
+    "public_display": "NOT_RUN"
+  },
+  "unverified": [
+    "One fixed trapezoid and synthetic text; tracking, footage, animation and other hosts NOT_RUN.",
+    "Viewer screenshots include corner guides.",
+    "Portable reimport and physical input provenance NOT_RUN.",
+    "Article verification remains partial."
+  ],
+  "schema_version": 1,
+  "case": "S297",
+  "article": "manuals/fusion/nodes/warp/corner-positioner.md",
+  "graph": "fixture.comp",
+  "settings": "readback.json",
+  "source": {
+    "file": "screen.png",
+    "size": [
+      3312,
+      1890
+    ],
+    "sha256": "bf0d44e8637d492fca72ada0e8b3b16573cbe4d52177101d346d039e7bfc4b88"
+  },
+  "shots": [
+    {
+      "file": "graph.png",
+      "source": "screen.png",
+      "source_sha256": "bf0d44e8637d492fca72ada0e8b3b16573cbe4d52177101d346d039e7bfc4b88",
+      "frame": 0,
+      "crop_xyxy": [
+        480,
+        1100,
+        2300,
+        1580
+      ],
+      "resampled": false,
+      "sha256": "6876db79f51d91aa71ad2fa73bd7f762d8c9923b59d8966f242d912e25a9c582"
+    },
+    {
+      "file": "controls.png",
+      "source": "screen.png",
+      "source_sha256": "bf0d44e8637d492fca72ada0e8b3b16573cbe4d52177101d346d039e7bfc4b88",
+      "frame": 0,
+      "crop_xyxy": [
+        2780,
+        65,
+        3312,
+        730
+      ],
+      "resampled": false,
+      "sha256": "45efe4e4b6fd93bda9eb0c476d79e038d5cc214b827d6e793ca8c7e634c0c33c"
+    },
+    {
+      "file": "bilinear.png",
+      "source": "screen.png",
+      "source_sha256": "bf0d44e8637d492fca72ada0e8b3b16573cbe4d52177101d346d039e7bfc4b88",
+      "frame": 0,
+      "crop_xyxy": [
+        0,
+        65,
+        2780,
+        720
+      ],
+      "resampled": false,
+      "sha256": "ac669d2313d4ae0cfa982307865da95179867eebd3903971dd73033811c0d897"
+    },
+    {
+      "file": "perspective.png",
+      "source": "perspective-source.png",
+      "source_sha256": "80125f507f150693bf68e7469f45df743fb0e0703c9de4d79f3e0ab2689d77cc",
+      "frame": 0,
+      "crop_xyxy": [
+        0,
+        65,
+        2780,
+        720
+      ],
+      "resampled": false,
+      "sha256": "0c4070d5e7f9657231fc18df0080abbda6c2f6ce0913d9ea0b62f4c728017d4c"
+    }
+  ],
+  "reproduction": {
+    "fixture_sha256": "ac375026635d9b579b9d16ddf1554a6c96c2d9b05995da39e4a16b6cd23b5ad7",
+    "readback_sha256": "65c6bb91432a216c92e6a3a5be3ae993a2fabde807a278c6153817d65f9ec948",
+    "readback_source_sha256": "0dc885672e5cfd67bba38cd474cc2f753219e249aa31d637347030da70f2c29b",
+    "readback_transform": "CRLF normalized to LF for the portable Git asset; JSON values unchanged",
+    "reimport": "NOT_RUN"
+  }
+}

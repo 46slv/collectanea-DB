@@ -65,6 +65,34 @@ Bi-Linearを使う理由がある場合は、過去のFusionプロジェクト�
 
 各cornerの位置を少しだけ補正します。Trackerのpattern位置と、実際にImageを合わせたい角が一致していない場合の微調整に使えます。
 
+<!-- capture:S297 -->
+
+## 実機例：同じ4点でマッピングを比べる
+
+2行の文字を `Corner Positioner` に入力し、右側が狭い四辺形に4点を固定します。Mapping Typeをバイリニアと遠近に切り替えると、四辺形内の文字の形と位置が変わります。
+
+左は入力、右は出力です。赤線はViewerの編集ガイドです。撮影後はバイリニアへ戻しました。[接続と設定の記録](/img/fusion/captures/S297/readback.json)に4点を記載しています。
+
+[![Text+をCorner PositionerとMediaOutにつないだ構成](/img/fusion/captures/S297/graph.png)](/img/fusion/captures/S297/graph.png)
+
+文字画像をCorner Positionerへ入力します。
+
+[![Corner Positionerのバイリニアと4点座標](/img/fusion/captures/S297/controls.png)](/img/fusion/captures/S297/controls.png)
+
+4点を固定しマッピングを切り替えます。
+
+[![バイリニアを選択した入力と変形出力](/img/fusion/captures/S297/bilinear.png)](/img/fusion/captures/S297/bilinear.png)
+
+バイリニアでの出力です。
+
+[![遠近を選択した入力と変形出力](/img/fusion/captures/S297/perspective.png)](/img/fusion/captures/S297/perspective.png)
+
+同じ4点で遠近に切り替えた出力です。[撮影時のInspector](/img/fusion/captures/S297/perspective-source.png)で選択を確認できます。
+
+[再現用Graph](/img/fusion/captures/S297/fixture.comp) · [撮影条件と確認範囲](/img/fusion/captures/S297/capture.json)
+
+<!-- /capture:S297 -->
+
 ## 主な用途
 
 - 看板やポスターの面へ別のgraphicをはめ込む
