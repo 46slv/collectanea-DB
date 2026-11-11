@@ -40,6 +40,14 @@ MediaOutは、Image入力に何も接続していなければ完成画像を受�
 
 **MediaOutはDaVinci Resolve専用**です。独立したFusion Studioで画像連番や動画をディスクへ出す場合は[Saver](./saver)を使います。
 
+## 接続例：Shapeを画像化して渡す
+
+下の例では、2つのShapeをsMergeでまとめ、sRenderで画像化した後、MediaOut1へ接続しています。[sMergeの実機例](../shapes/smerge)で使った同じGraphです。
+
+[![2つのShapeをsMergeでまとめ、sRenderの画像出力をMediaOut1へ接続したGraph](/img/fusion/captures/S171/graph.png)](/img/fusion/captures/S171/graph.png)
+
+`Render_`はsRenderの名前で、右隣のMediaOut1へ画像を渡します。[接続と撮影条件](/img/fusion/captures/S171/readback.json)にはframe 0の構成を記録しています。この画像はFusion内の接続例です。EditやColorページでの表示、MediaOutのColor Grade設定は示していません。
+
 ## MediaOut1と追加のMediaOut
 
 **最初のMediaOut（通常はMediaOut1）**は、合成した画像をEdit／CutページのTimelineに戻します。Fusionページの完成画像をつなぐ先は、通常このMediaOut1です。
