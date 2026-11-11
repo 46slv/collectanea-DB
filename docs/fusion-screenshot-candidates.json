@@ -13421,6 +13421,47 @@
           "status": "captured"
         }
       ]
+    },
+    {
+      "priority": "P1",
+      "goal": "Show a fixed trapezoid unpinned to a front-facing view.",
+      "suggested_graph": "TextPlus -> CornerPositioner -> PerspectivePositioner -> MediaOut.",
+      "scope": "Resolve Studio 21.1.0.14 on Windows, 1920x1080.",
+      "limitations": [
+        "One synthetic fixed text and trapezoid; visual restoration only, not pixel equality.",
+        "Footage, tracking, Steady, animation and other hosts NOT_RUN.",
+        "Viewer screenshot includes corner guides.",
+        "Portable reimport and physical input provenance NOT_RUN."
+      ],
+      "id": "S298",
+      "article": "manuals/fusion/nodes/warp/perspective-positioner.md",
+      "manual": {
+        "version": "21.1",
+        "chapter": 123,
+        "printed_pages": "2982–2983"
+      },
+      "status": "captured-embedded-unverified",
+      "capture_manifest": "static/img/fusion/captures/S298/capture.json",
+      "shots": [
+        {
+          "slug": "graph",
+          "kind": "graph",
+          "target": "Corner Positionerの後にPerspective Positionerを接続した構成",
+          "status": "captured"
+        },
+        {
+          "slug": "controls",
+          "kind": "inspector",
+          "target": "Perspective Positionerの遠近と4点座標",
+          "status": "captured"
+        },
+        {
+          "slug": "result",
+          "kind": "comparison",
+          "target": "台形に変形した文字と正面に近く戻した文字",
+          "status": "captured"
+        }
+      ]
     }
   ],
   "publication_batches": [

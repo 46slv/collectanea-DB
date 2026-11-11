@@ -64,6 +64,30 @@ InspectorではTop、Bottom、Left、Rightの各controlを使って位置を細�
 - 4点をanimationし、平面を揺らす・歪ませる表現を作る
 - Corner Positionerと組み合わせ、unpin → edit → pinの流れを作る
 
+<!-- capture:S298 -->
+
+## 実機例：変形した文字を正面に戻す
+
+`Text+` の文字を `Corner Positioner` で台形へ変形し、同じ4点を指定した `Perspective Positioner` へ入力します。左Viewerは変形後、右ViewerはPerspective Positionerの出力です。
+
+右側では文字が正面に近い形へ戻って見えます。赤と緑の線は編集ガイドです。この静止例は見た目の確認であり、画素が元画像と一致することや実映像への追従は確認していません。[接続と設定の記録](/img/fusion/captures/S298/readback.json)に条件を記載しています。
+
+[![Corner Positionerの後にPerspective Positionerを接続した構成](/img/fusion/captures/S298/graph.png)](/img/fusion/captures/S298/graph.png)
+
+台形にした文字をPerspective Positionerへ入力します。
+
+[![Perspective Positionerの遠近と4点座標](/img/fusion/captures/S298/controls.png)](/img/fusion/captures/S298/controls.png)
+
+変形側と同じ4点を指定します。
+
+[![台形に変形した文字と正面に近く戻した文字](/img/fusion/captures/S298/result.png)](/img/fusion/captures/S298/result.png)
+
+左は台形へ変形した文字、右はPerspective Positionerの出力です。
+
+[再現用Graph](/img/fusion/captures/S298/fixture.comp) · [撮影条件と確認範囲](/img/fusion/captures/S298/capture.json)
+
+<!-- /capture:S298 -->
+
 ## 運用例：斜めに写った看板を修正して戻す
 
 21.1 Manualには、Perspective Positionerで平らにした画像をPaintで編集し、Corner Positionerで元の遠近へ戻す構成が示されています。
