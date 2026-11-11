@@ -13327,6 +13327,53 @@
           "status": "captured"
         }
       ]
+    },
+    {
+      "priority": "P1",
+      "goal": "Show a four-point closed sPolygon on one static frame.",
+      "suggested_graph": "sPolygon -> sRender -> MediaOut.",
+      "scope": "Resolve Studio 21.1.0.14 on Windows, 1920x1080.",
+      "limitations": [
+        "One closed polygon created through synthetic background clicks; physical input, point editing, other controls and animation NOT_RUN.",
+        "Viewer screenshot includes editing guides.",
+        "Portable reimport NOT_RUN.",
+        "Article verification remains partial."
+      ],
+      "id": "S296",
+      "article": "manuals/fusion/nodes/shapes/spolygon.md",
+      "manual": {
+        "version": "21.1",
+        "chapter": 117,
+        "printed_pages": "2752–2756"
+      },
+      "status": "captured-embedded-unverified",
+      "capture_manifest": "static/img/fusion/captures/S296/capture.json",
+      "shots": [
+        {
+          "slug": "graph",
+          "kind": "graph",
+          "target": "sPolygonをsRenderとMediaOutに接続した構成",
+          "status": "captured"
+        },
+        {
+          "slug": "controls",
+          "kind": "inspector",
+          "target": "sPolygonのSolidが有効なInspector",
+          "status": "captured"
+        },
+        {
+          "slug": "open",
+          "kind": "output",
+          "target": "3点を置いた開いたsPolygonの編集画面",
+          "status": "captured"
+        },
+        {
+          "slug": "closed",
+          "kind": "output",
+          "target": "4つの点で閉じた白い多角形",
+          "status": "captured"
+        }
+      ]
     }
   ],
   "publication_batches": [
