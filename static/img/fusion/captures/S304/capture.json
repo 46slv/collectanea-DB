@@ -1,0 +1,117 @@
+{
+  "manual": {
+    "version": "21.1",
+    "chapter": 123,
+    "printed_pages": "2961–2962"
+  },
+  "runtime": {
+    "version": "21.1.0.14",
+    "edition": "DaVinci Resolve Studio",
+    "os": "Windows-11-10.0.26200-SP0",
+    "ui_language": "ja-JP"
+  },
+  "captured_at": "2026-10-28T09:34:39.877181+00:00",
+  "project": "Collectanea_Mandelbrot_Zoom_20261025",
+  "timeline": "S304_capture",
+  "frame": 0,
+  "resolution": [
+    1920,
+    1080
+  ],
+  "color_management": {
+    "project_settings": {
+      "colorScienceMode": "davinciYRGB",
+      "colorSpaceInput": "Rec.709 Gamma 2.4",
+      "colorSpaceTimeline": "Rec.709 (Scene)",
+      "colorSpaceTimelineGamma": "",
+      "colorSpaceOutput": "Rec.709 (Scene)",
+      "colorSpaceOutputGamma": "ACEScc",
+      "isAutoColorManage": "0",
+      "timelineResolutionWidth": "1920",
+      "timelineResolutionHeight": "1080",
+      "timelineFrameRate": 30.0,
+      "timelinePlaybackFrameRate": "30",
+      "timelinePixelAspectRatio": "square"
+    },
+    "note": "SDK project settings; screenshots show Viewer display."
+  },
+  "viewer": {
+    "view_mode": "Fit",
+    "source": "Left Source; right MediaOut1",
+    "note": "Coordinate Space selected, Rectangular to Polar."
+  },
+  "acceptance": {
+    "gui": "PASS: native screenshots show graph, Inspector, guides and comparison; SDK connections and save read back.",
+    "article_display": "NOT_RUN",
+    "public_display": "NOT_RUN"
+  },
+  "unverified": [
+    "One text fixture and one transform direction; reverse conversion, exact coordinate mapping, animation and other hosts NOT_RUN.",
+    "Viewer screenshot is display evidence.",
+    "Portable reimport NOT_RUN."
+  ],
+  "schema_version": 1,
+  "case": "S304",
+  "article": "manuals/fusion/nodes/warp/coordinate-space.md",
+  "graph": "fixture.comp",
+  "settings": "readback.json",
+  "source": {
+    "file": "screen.png",
+    "size": [
+      3304,
+      1886
+    ],
+    "sha256": "dbdca25ca3f6c2151ff6c2e79b329cfb69c6bc644a5d0d224ddce5626769108a"
+  },
+  "shots": [
+    {
+      "file": "graph.png",
+      "source": "screen.png",
+      "source_sha256": "dbdca25ca3f6c2151ff6c2e79b329cfb69c6bc644a5d0d224ddce5626769108a",
+      "frame": 0,
+      "crop_xyxy": [
+        480,
+        1100,
+        2300,
+        1580
+      ],
+      "resampled": false,
+      "sha256": "6cf10a807ffecdf3634c22570403fb3db8a52c2c5abf97308cf25ed9a638830d"
+    },
+    {
+      "file": "controls.png",
+      "source": "screen.png",
+      "source_sha256": "dbdca25ca3f6c2151ff6c2e79b329cfb69c6bc644a5d0d224ddce5626769108a",
+      "frame": 0,
+      "crop_xyxy": [
+        2780,
+        65,
+        3304,
+        350
+      ],
+      "resampled": false,
+      "sha256": "b641041b1f1353cee122d1f61b626af326849a6b78532c805dc5df8169ada6bd"
+    },
+    {
+      "file": "result.png",
+      "source": "screen.png",
+      "source_sha256": "dbdca25ca3f6c2151ff6c2e79b329cfb69c6bc644a5d0d224ddce5626769108a",
+      "frame": 0,
+      "crop_xyxy": [
+        0,
+        65,
+        2780,
+        720
+      ],
+      "resampled": false,
+      "sha256": "a3f2c889354cad21efb7a8e16d9c3f2c4599495008a349b9c3ebd35d14046c00"
+    }
+  ],
+  "reproduction": {
+    "fixture_sha256": "50eb53bd2ebf8f36734691e6d599086d7c0fb56069e654438c160841da17ae5a",
+    "readback_sha256": "85f4654d1e0408b4b283a09887b0d403c2aa19828db2beb6a34221c69d82875c",
+    "readback_source_sha256": "00e35cfdf1daf3e75fc6f82f95088d53f0fde2592ce94cc247b89c04cec5e978",
+    "readback_transform": "CRLF normalized to LF for the portable Git asset; JSON values unchanged",
+    "reimport": "NOT_RUN"
+  }
+}
