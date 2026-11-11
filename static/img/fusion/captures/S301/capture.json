@@ -1,0 +1,130 @@
+{
+  "manual": {
+    "version": "21.1",
+    "chapter": 107,
+    "printed_pages": "2458–2460"
+  },
+  "runtime": {
+    "version": "21.1.0.14",
+    "edition": "DaVinci Resolve Studio",
+    "os": "Windows-11-10.0.26200-SP0",
+    "ui_language": "ja-JP"
+  },
+  "captured_at": "2026-10-28T09:26:53.949711+00:00",
+  "project": "Collectanea_Mandelbrot_Zoom_20261025",
+  "timeline": "S301_capture",
+  "frame": 0,
+  "resolution": [
+    1920,
+    1080
+  ],
+  "color_management": {
+    "project_settings": {
+      "colorScienceMode": "davinciYRGB",
+      "colorSpaceInput": "Rec.709 Gamma 2.4",
+      "colorSpaceTimeline": "Rec.709 (Scene)",
+      "colorSpaceTimelineGamma": "",
+      "colorSpaceOutput": "Rec.709 (Scene)",
+      "colorSpaceOutputGamma": "ACEScc",
+      "isAutoColorManage": "0",
+      "timelineResolutionWidth": "1920",
+      "timelineResolutionHeight": "1080",
+      "timelineFrameRate": 30.0,
+      "timelinePlaybackFrameRate": "30",
+      "timelinePixelAspectRatio": "square"
+    },
+    "note": "SDK project settings; screenshots show Viewer display."
+  },
+  "viewer": {
+    "view_mode": "Fit",
+    "source": "Right MediaOut1",
+    "note": "Creator selected; Horizontal and Rect at Size 17."
+  },
+  "acceptance": {
+    "gui": "PASS: native screenshots show graph, Inspector, guides and comparison; SDK connections and save read back.",
+    "article_display": "NOT_RUN",
+    "public_display": "NOT_RUN"
+  },
+  "unverified": [
+    "Size 17, Horizontal and Rect only; Vertical, other sizes and other hosts NOT_RUN.",
+    "LUT analysis, export, application and portable reimport NOT_RUN."
+  ],
+  "schema_version": 1,
+  "case": "S301",
+  "article": "manuals/fusion/nodes/lut/lut-cube-creator.md",
+  "graph": "fixture.comp",
+  "settings": "readback.json",
+  "source": {
+    "file": "screen.png",
+    "size": [
+      3304,
+      1886
+    ],
+    "sha256": "912802de0cc376b33d38e485ab1a6002925e22a17fc2f09f3597e6fb4c2e8266"
+  },
+  "shots": [
+    {
+      "file": "graph.png",
+      "source": "screen.png",
+      "source_sha256": "912802de0cc376b33d38e485ab1a6002925e22a17fc2f09f3597e6fb4c2e8266",
+      "frame": 0,
+      "crop_xyxy": [
+        620,
+        1100,
+        2200,
+        1580
+      ],
+      "resampled": false,
+      "sha256": "2954164875771979e258112e0cf48b6c5cbf2b4d2ce25800f5d66a375ab80149"
+    },
+    {
+      "file": "controls.png",
+      "source": "screen.png",
+      "source_sha256": "912802de0cc376b33d38e485ab1a6002925e22a17fc2f09f3597e6fb4c2e8266",
+      "frame": 0,
+      "crop_xyxy": [
+        2780,
+        65,
+        3304,
+        350
+      ],
+      "resampled": false,
+      "sha256": "7755ef43c9c42c9134761124f284ea6909c11400d52ead63d4a2b55a2a6cbe31"
+    },
+    {
+      "file": "rect.png",
+      "source": "screen.png",
+      "source_sha256": "912802de0cc376b33d38e485ab1a6002925e22a17fc2f09f3597e6fb4c2e8266",
+      "frame": 0,
+      "crop_xyxy": [
+        1450,
+        65,
+        2780,
+        720
+      ],
+      "resampled": false,
+      "sha256": "1e736da8d921a5bfa21a1f9e116fdfb2453f4ebc06da7038be1fdd359965427d"
+    },
+    {
+      "file": "horizontal.png",
+      "source": "horizontal-source.png",
+      "source_sha256": "ddc3d19a8b771c83c1140a00505f77ccd878c95343813f541b5619f9a9d7ed3c",
+      "frame": 0,
+      "crop_xyxy": [
+        1450,
+        65,
+        2780,
+        720
+      ],
+      "resampled": false,
+      "sha256": "a10f413f86b826d6adfae61101354fac4f9eb06407651b8b2620c174198957e5"
+    }
+  ],
+  "reproduction": {
+    "fixture_sha256": "8bcbf4f581aaae7b00687a659b8d4706cd03d57b92c08b24789e33fbf38096e2",
+    "readback_sha256": "e5a9e9d574634b328f8f48d8ab2eb4608b148780dd90deaabe3218a9d18d0dd0",
+    "readback_source_sha256": "15b0e8e3b72d453f9ebf668dd47536d03375d38c9f5f7e6f8f4957088374d46b",
+    "readback_transform": "CRLF normalized to LF for the portable Git asset; JSON values unchanged",
+    "reimport": "NOT_RUN"
+  }
+}
