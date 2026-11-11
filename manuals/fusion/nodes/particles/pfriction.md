@@ -66,6 +66,30 @@ Particle setと2D Imageの区別は[Particleノード](./index.md)と[Particle�
 
 Velocity FrictionとSpin Frictionについて、内部の抵抗計算式や数値単位は21.1マニュアルの該当説明からは特定できません。値を物理的な粘性係数とみなさず、プレビューで動きを確認して調整します。
 
+<!-- capture:S305 -->
+
+## 実機例：粒子にpFrictionを接続する
+
+`pEmitter` から `pFriction` を通し、`pRender` の2D出力を `MediaOut` へ接続します。48フレームで光点が表示され、InspectorでVelocity Frictionを0.1に設定した状態を確認しました。
+
+静止画だけでは速度や回転の減衰量を測定していません。[接続と設定の記録](/img/fusion/captures/S305/readback.json)に条件を記載しています。
+
+[![pEmitter、pFriction、pRender、MediaOutの接続](/img/fusion/captures/S305/graph.png)](/img/fusion/captures/S305/graph.png)
+
+粒子をpFrictionへ送り、pRenderで画像にします。
+
+[![pFrictionの速度と回転の摩擦設定](/img/fusion/captures/S305/controls.png)](/img/fusion/captures/S305/controls.png)
+
+Velocity Frictionを0.1、Spin Frictionを0.05に設定します。
+
+[![48フレームに表示された光点の粒子](/img/fusion/captures/S305/result.png)](/img/fusion/captures/S305/result.png)
+
+pRenderの2D出力を表示しています。
+
+[再現用Graph](/img/fusion/captures/S305/fixture.comp) · [撮影条件と確認範囲](/img/fusion/captures/S305/capture.json)
+
+<!-- /capture:S305 -->
+
 ## 実際の使い方
 
 ### 1. 飛び出した光点を次第に静止させる

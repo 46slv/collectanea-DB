@@ -1,0 +1,66 @@
+{
+  "case": "S305",
+  "project": "Collectanea_Mandelbrot_Zoom_20261025",
+  "library": "Local Database",
+  "project_manager_folder": "root",
+  "timeline": "S305_capture",
+  "frame": 48,
+  "resolve": "21.1.0.14",
+  "edition": "DaVinci Resolve Studio",
+  "project_settings": {
+    "colorScienceMode": "davinciYRGB",
+    "colorSpaceInput": "Rec.709 Gamma 2.4",
+    "colorSpaceTimeline": "Rec.709 (Scene)",
+    "colorSpaceTimelineGamma": "",
+    "colorSpaceOutput": "Rec.709 (Scene)",
+    "colorSpaceOutputGamma": "ACEScc",
+    "isAutoColorManage": "0",
+    "timelineResolutionWidth": "1920",
+    "timelineResolutionHeight": "1080",
+    "timelineFrameRate": 30.0,
+    "timelinePlaybackFrameRate": "30",
+    "timelinePixelAspectRatio": "square"
+  },
+  "connections": {
+    "Friction": {
+      "Input": "Emitter"
+    },
+    "ParticleRender": {
+      "Input": "Friction"
+    },
+    "MediaOut1": {
+      "Input": "ParticleRender"
+    }
+  },
+  "values_at_0_1": {
+    "Emitter": {
+      "RandomSeed": 7.0,
+      "Number": 3.0,
+      "Lifespan": 80.0,
+      "Velocity": 0.006,
+      "Style": "ParticleStyleBlob",
+      "SphereRgn.Size": 0.55,
+      "ParticleStyle.Size": 3.0
+    },
+    "Friction": {
+      "VelocityFriction": 0.1,
+      "SpinFriction": 0.05
+    },
+    "ParticleRender": {
+      "OutputMode": "TwoD"
+    }
+  },
+  "comparison": {
+    "frame": 48.0,
+    "velocity_friction": 0.0,
+    "spin_friction": 0.05,
+    "saved": "2026-10-28T09:38:41.765059+00:00"
+  },
+  "native_export_sha256": "8456344c545e91bd355ef929763ef9fcdf19029be5faa54a671817e2bc1e2c38",
+  "portable_sha256": "dbdfc53b0061d597d6124597f30ae2ffa05fe746e970e0d78e00487cc5bc5a0a",
+  "limits": [
+    "Static frame 48 only; numerical velocity, motion over time, Spin Friction and Region behavior NOT_RUN.",
+    "The two screenshots were taken after changing Velocity Friction and revisiting frame 0; deterministic simulation equivalence is not established.",
+    "Viewer screenshots are display evidence; portable reimport NOT_RUN."
+  ]
+}
