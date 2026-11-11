@@ -1,0 +1,39 @@
+{
+  "case": "S296",
+  "project": "Collectanea_Mandelbrot_Zoom_20261025",
+  "library": "Local Database",
+  "project_manager_folder": "root",
+  "timeline": "S296_capture",
+  "frame": 0,
+  "resolve": "21.1.0.14",
+  "edition": "DaVinci Resolve Studio",
+  "os": "Windows-11-10.0.26200-SP0",
+  "project_settings": {
+    "colorScienceMode": "davinciYRGB",
+    "colorSpaceInput": "Rec.709 Gamma 2.4",
+    "colorSpaceTimeline": "Rec.709 (Scene)",
+    "colorSpaceTimelineGamma": "",
+    "colorSpaceOutput": "Rec.709 (Scene)",
+    "colorSpaceOutputGamma": "ACEScc",
+    "isAutoColorManage": "0",
+    "timelineResolutionWidth": "1920",
+    "timelineResolutionHeight": "1080",
+    "timelineFrameRate": 30.0,
+    "timelinePlaybackFrameRate": "30",
+    "timelinePixelAspectRatio": "square"
+  },
+  "connections": {
+    "AfterRender.Input": "Poly",
+    "MediaOut1.Input": "AfterRender"
+  },
+  "source": "Four GUI-placed control points closed by clicking the first; background synthetic input.",
+  "save_project": true,
+  "save_completed_at": "2026-10-28T09:12:42.279167+00:00",
+  "native_export_sha256": "10b2f536bfe87e635d18878df44fec871b0dc67b55755ba0648239956ce91076",
+  "portable_sha256": "f8c0d2421e21352763837873aa0c3e93cf466e710a9f3457f07903862b702da4",
+  "portable_reimport": "NOT_RUN",
+  "limits": [
+    "One closed sPolygon created through synthetic background clicks; physical input, point editing, other controls and animation NOT_RUN.",
+    "Viewer screenshot includes editing guides."
+  ]
+}
