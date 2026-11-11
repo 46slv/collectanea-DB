@@ -13374,6 +13374,53 @@
           "status": "captured"
         }
       ]
+    },
+    {
+      "priority": "P1",
+      "goal": "Compare Bi-Linear and Perspective mapping with the same four corners.",
+      "suggested_graph": "TextPlus -> CornerPositioner -> MediaOut.",
+      "scope": "Resolve Studio 21.1.0.14 on Windows, 1920x1080.",
+      "limitations": [
+        "One fixed trapezoid and synthetic text; tracking, footage, animation and other hosts NOT_RUN.",
+        "Viewer screenshots include corner guides.",
+        "Portable reimport and physical input provenance NOT_RUN.",
+        "Article verification remains partial."
+      ],
+      "id": "S297",
+      "article": "manuals/fusion/nodes/warp/corner-positioner.md",
+      "manual": {
+        "version": "21.1",
+        "chapter": 123,
+        "printed_pages": "2963–2964"
+      },
+      "status": "captured-embedded-unverified",
+      "capture_manifest": "static/img/fusion/captures/S297/capture.json",
+      "shots": [
+        {
+          "slug": "graph",
+          "kind": "graph",
+          "target": "Text+をCorner PositionerとMediaOutにつないだ構成",
+          "status": "captured"
+        },
+        {
+          "slug": "controls",
+          "kind": "inspector",
+          "target": "Corner Positionerのバイリニアと4点座標",
+          "status": "captured"
+        },
+        {
+          "slug": "bilinear",
+          "kind": "comparison",
+          "target": "バイリニアを選択した入力と変形出力",
+          "status": "captured"
+        },
+        {
+          "slug": "perspective",
+          "kind": "comparison",
+          "target": "遠近を選択した入力と変形出力",
+          "status": "captured"
+        }
+      ]
     }
   ],
   "publication_batches": [
