@@ -57,6 +57,34 @@ DaVinci Resolve 21.1 Reference Manualでは、代表的な設定として33と65
 
 Sizeを大きくするとsample密度が上がり、より細かなcolor mappingを記録できます。その代わり、生成するImageと後段処理で必要なmemoryと計算量も増えます。
 
+<!-- capture:S301 -->
+
+## 実機例：サンプルの並べ方を比べる
+
+`LUT Cube Creator` を `MediaOut` に接続し、Sizeを17に設定します。TypeをRectとHorizontalに切り替えると、色サンプルの並び方が変わります。
+
+Rectでは複数行の配置、Horizontalでは横長の帯が表示されました。この例はサンプル画像の表示確認で、LUTの解析・書き出し・別画像への適用は確認していません。[接続と設定の記録](/img/fusion/captures/S301/readback.json)に条件を記載しています。
+
+[![LUT Cube CreatorをMediaOutに接続した構成](/img/fusion/captures/S301/graph.png)](/img/fusion/captures/S301/graph.png)
+
+Creatorがサンプル画像を生成します。
+
+[![RectとSize 17を選択したLUT Cube Creator](/img/fusion/captures/S301/controls.png)](/img/fusion/captures/S301/controls.png)
+
+Size 17でTypeを切り替えます。
+
+[![Rectで複数行に並んだ色サンプル](/img/fusion/captures/S301/rect.png)](/img/fusion/captures/S301/rect.png)
+
+Rectの出力です。
+
+[![Horizontalで横長に並んだ色サンプル](/img/fusion/captures/S301/horizontal.png)](/img/fusion/captures/S301/horizontal.png)
+
+Horizontalの出力です。[撮影時のInspector](/img/fusion/captures/S301/horizontal-source.png)で選択を確認できます。
+
+[再現用Graph](/img/fusion/captures/S301/fixture.comp) · [撮影条件と確認範囲](/img/fusion/captures/S301/capture.json)
+
+<!-- /capture:S301 -->
+
 ## 3D LUT fileを作る
 
 Fusion内のColor処理を3D LUT fileとして保存するときは、Creatorから始めてAnalyzerで終わります。
