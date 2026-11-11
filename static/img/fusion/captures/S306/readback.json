@@ -1,0 +1,55 @@
+{
+  "case": "S306",
+  "project": "Collectanea_Mandelbrot_Zoom_20261025",
+  "library": "Local Database",
+  "project_manager_folder": "root",
+  "timeline": "S306_capture",
+  "resolve": "21.1.0.14",
+  "project_settings": {
+    "colorScienceMode": "davinciYRGB",
+    "colorSpaceInput": "Rec.709 Gamma 2.4",
+    "colorSpaceTimeline": "Rec.709 (Scene)",
+    "colorSpaceTimelineGamma": "",
+    "colorSpaceOutput": "Rec.709 (Scene)",
+    "colorSpaceOutputGamma": "ACEScc",
+    "isAutoColorManage": "0",
+    "timelineResolutionWidth": "1920",
+    "timelineResolutionHeight": "1080",
+    "timelineFrameRate": 30.0,
+    "timelinePlaybackFrameRate": "30",
+    "timelinePixelAspectRatio": "square"
+  },
+  "setup": {
+    "case": "S306",
+    "frame": 48.0,
+    "strength": 0.001,
+    "direction": 270.0,
+    "direction_z": 0.0,
+    "output_mode": "TwoD",
+    "connections": {
+      "Force": {
+        "Input": "Emitter"
+      },
+      "ParticleRender": {
+        "Input": "Force"
+      },
+      "MediaOut1": {
+        "Input": "ParticleRender"
+      }
+    },
+    "saved": "2026-10-28T09:41:05.370296+00:00"
+  },
+  "zero_comparison": {
+    "strength": 0.0,
+    "direction": 270.0,
+    "frame": 48.0,
+    "saved": "2026-10-28T09:41:31.812889+00:00"
+  },
+  "native_export_sha256": "add8fd9c06f8bbc867eb14adf5298f1ec2cfb7fbe47f21fbf19fa36a73178f71",
+  "portable_sha256": "f1c667eb6c8682490ac418c04207120b79c6b57211c6fa645f4f15503569a13f",
+  "limits": [
+    "Static frame 48 and one force setting only; matched-seed evaluation-start controlled motion comparison and acceleration NOT_RUN.",
+    "Frame jump and preroll may affect particle evaluation; images do not establish force-induced motion or direction.",
+    "Region and Conditions, numeric speed, portable reimport and other hosts NOT_RUN."
+  ]
+}
