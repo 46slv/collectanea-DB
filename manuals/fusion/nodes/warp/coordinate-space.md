@@ -62,6 +62,30 @@ Imageそのものの色を作り直すのではなく、pixelを参照する座�
 - Coordinate Spaceを2つ使い、その間にDripやTransformを挟んで、元の座標系では作りにくい歪みを作る
 - Fast Noiseやmosaic状の素材を円形patternへ変換して背景graphicsを作る
 
+<!-- capture:S304 -->
+
+## 実機例：文字を極座標へ変換する
+
+`Text+` の文字を `Coordinate Space` に接続し、形状を「直交座標から極座標」に設定します。左Viewerは入力、右Viewerは出力です。
+
+この静止例では横に並んだ文字が弧状に変形して見えます。逆方向の変換、座標の数値対応やアニメーションは確認していません。[接続と設定の記録](/img/fusion/captures/S304/readback.json)に条件を記載しています。
+
+[![Text+をCoordinate SpaceとMediaOutへ接続した構成](/img/fusion/captures/S304/graph.png)](/img/fusion/captures/S304/graph.png)
+
+文字画像をCoordinate Spaceへ入力します。
+
+[![直交座標から極座標を選択したCoordinate Space](/img/fusion/captures/S304/controls.png)](/img/fusion/captures/S304/controls.png)
+
+直交座標から極座標を選択します。
+
+[![横書き文字と弧状に変形した出力](/img/fusion/captures/S304/result.png)](/img/fusion/captures/S304/result.png)
+
+左は入力、右は変換後の出力です。
+
+[再現用Graph](/img/fusion/captures/S304/fixture.comp) · [撮影条件と確認範囲](/img/fusion/captures/S304/capture.json)
+
+<!-- /capture:S304 -->
+
 ## 運用例1：Text+でトンネル状の文字を作る
 
 21.1 Reference Manual pp.2961–2962に掲載された、文字の上下移動を遠方から手前へ迫るような動きに変える例です。

@@ -1,0 +1,47 @@
+{
+  "case": "S304",
+  "project": "Collectanea_Mandelbrot_Zoom_20261025",
+  "library": "Local Database",
+  "project_manager_folder": "root",
+  "timeline": "S304_capture",
+  "frame": 0,
+  "resolve": "21.1.0.14",
+  "edition": "DaVinci Resolve Studio",
+  "os": "Windows-11-10.0.26200-SP0",
+  "project_settings": {
+    "colorScienceMode": "davinciYRGB",
+    "colorSpaceInput": "Rec.709 Gamma 2.4",
+    "colorSpaceTimeline": "Rec.709 (Scene)",
+    "colorSpaceTimelineGamma": "",
+    "colorSpaceOutput": "Rec.709 (Scene)",
+    "colorSpaceOutputGamma": "ACEScc",
+    "isAutoColorManage": "0",
+    "timelineResolutionWidth": "1920",
+    "timelineResolutionHeight": "1080",
+    "timelineFrameRate": 30.0,
+    "timelinePlaybackFrameRate": "30",
+    "timelinePixelAspectRatio": "square"
+  },
+  "connections": {
+    "Coordinate.Input": "Source",
+    "MediaOut1.Input": "Coordinate"
+  },
+  "values": {
+    "Shape": 0.0,
+    "SourceCenter": {
+      "1": 0.5,
+      "2": 0.7,
+      "3": 0.0
+    }
+  },
+  "source": "Generated Text+, static frame, Rectangular to Polar.",
+  "save_project": true,
+  "save_completed_at": "2026-10-28T09:35:03.667094+00:00",
+  "native_export_sha256": "12c820d5bd50b3fd9fac70baf130768525fbcff18b268af6fcbfae8ecb318361",
+  "portable_sha256": "50eb53bd2ebf8f36734691e6d599086d7c0fb56069e654438c160841da17ae5a",
+  "portable_reimport": "NOT_RUN",
+  "limits": [
+    "One text fixture and one transform direction; reverse conversion, exact coordinate mapping, animation and other hosts NOT_RUN.",
+    "Viewer screenshot is display evidence."
+  ]
+}
