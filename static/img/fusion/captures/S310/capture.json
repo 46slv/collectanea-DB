@@ -1,0 +1,131 @@
+{
+  "manual": {
+    "version": "21.1",
+    "chapter": 114,
+    "printed_pages": "2672–2674"
+  },
+  "runtime": {
+    "version": "21.1.0.14",
+    "edition": "DaVinci Resolve Studio",
+    "os": "Windows-11-10.0.26200-SP0",
+    "ui_language": "ja-JP"
+  },
+  "captured_at": "2026-10-28T09:51:17.264246+00:00",
+  "project": "Collectanea_Mandelbrot_Zoom_20261025",
+  "timeline": "S310_capture",
+  "frame": 0,
+  "resolution": [
+    1920,
+    1080
+  ],
+  "color_management": {
+    "project_settings": {
+      "colorScienceMode": "davinciYRGB",
+      "colorSpaceInput": "Rec.709 Gamma 2.4",
+      "colorSpaceTimeline": "Rec.709 (Scene)",
+      "colorSpaceTimelineGamma": "",
+      "colorSpaceOutput": "Rec.709 (Scene)",
+      "colorSpaceOutputGamma": "ACEScc",
+      "isAutoColorManage": "0",
+      "timelineResolutionWidth": "1920",
+      "timelineResolutionHeight": "1080",
+      "timelineFrameRate": 30.0,
+      "timelinePlaybackFrameRate": "30",
+      "timelinePixelAspectRatio": "square"
+    },
+    "note": "SDK project settings; screenshots show Viewer display."
+  },
+  "viewer": {
+    "view_mode": "Fit",
+    "source": "right MediaOut1",
+    "note": "pImageEmitter selected; frame 0"
+  },
+  "acceptance": {
+    "gui": "PASS: graph, settings and particle output visible; SDK connections and save read back.",
+    "article_display": "NOT_RUN",
+    "public_display": "NOT_RUN"
+  },
+  "unverified": [
+    "One static 320x180 Text+ fixture, frame 0; exact image-channel/particle-position correspondence and Alpha threshold behavior NOT_RUN.",
+    "Z channel, animated inputs, exact particle counts, portable reimport and other hosts NOT_RUN.",
+    "Viewer screenshots are display evidence; simulation identity across density changes was not established."
+  ],
+  "schema_version": 1,
+  "case": "S310",
+  "article": "manuals/fusion/nodes/particles/pimageemitter.md",
+  "graph": "fixture.comp",
+  "settings": "readback.json",
+  "source": {
+    "file": "screen.png",
+    "size": [
+      3304,
+      1886
+    ],
+    "sha256": "6a69c702ea396b18f2f1d1a83750b4b0c903770f4d3b0c375ddb34adc4953645"
+  },
+  "shots": [
+    {
+      "file": "graph.png",
+      "source": "screen.png",
+      "source_sha256": "6a69c702ea396b18f2f1d1a83750b4b0c903770f4d3b0c375ddb34adc4953645",
+      "frame": 0,
+      "crop_xyxy": [
+        470,
+        1200,
+        2300,
+        1510
+      ],
+      "resampled": false,
+      "sha256": "314cb65ef0a204277d9b0aaabd4c5843134a0f94aae3050034edb5d8755ede50"
+    },
+    {
+      "file": "controls.png",
+      "source": "screen.png",
+      "source_sha256": "6a69c702ea396b18f2f1d1a83750b4b0c903770f4d3b0c375ddb34adc4953645",
+      "frame": 0,
+      "crop_xyxy": [
+        2780,
+        65,
+        3304,
+        570
+      ],
+      "resampled": false,
+      "sha256": "5fca062078c2f15e495451f4a3e7a6fe2f7465f604366d95546d9e8f8d554b6c"
+    },
+    {
+      "file": "density03.png",
+      "source": "screen.png",
+      "source_sha256": "6a69c702ea396b18f2f1d1a83750b4b0c903770f4d3b0c375ddb34adc4953645",
+      "frame": 0,
+      "crop_xyxy": [
+        1570,
+        95,
+        2680,
+        715
+      ],
+      "resampled": false,
+      "sha256": "515eb42701ade6ebe4db6902b29b61c02b900ab941325f3e4da1d8a15a32652f"
+    },
+    {
+      "file": "density01.png",
+      "source": "sparse.png",
+      "source_sha256": "7081db02fd480fa92def96029b5e313239114b1343cd9efc168e879287d6855b",
+      "frame": 0,
+      "crop_xyxy": [
+        1570,
+        95,
+        2680,
+        715
+      ],
+      "resampled": false,
+      "sha256": "6547a30d87606505f68e74d83a3c1460b8a1f6270fb2eb47416a91b189b7e610"
+    }
+  ],
+  "reproduction": {
+    "fixture_sha256": "2b02c1a47ac9ba869b6a8c5ba3490248e869995ee6a843d6d104de4dabf538e2",
+    "readback_sha256": "8004e8dbaf72725ed04aaf0106fb0a570b225872ae209770a0e18c4b63bc1647",
+    "readback_source_sha256": "dcbf76cbdb1207a0a44e865037481b9e5e4ed866b55ee30b8fa94f8cb0dbd176",
+    "readback_transform": "CRLF normalized to LF for the portable Git asset; JSON values unchanged",
+    "reimport": "NOT_RUN"
+  }
+}

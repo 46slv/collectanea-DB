@@ -1,0 +1,69 @@
+{
+  "case": "S310",
+  "project": "Collectanea_Mandelbrot_Zoom_20261025",
+  "library": "Local Database",
+  "project_manager_folder": "root",
+  "timeline": "S310_capture",
+  "resolve": "21.1.0.14",
+  "project_settings": {
+    "colorScienceMode": "davinciYRGB",
+    "colorSpaceInput": "Rec.709 Gamma 2.4",
+    "colorSpaceTimeline": "Rec.709 (Scene)",
+    "colorSpaceTimelineGamma": "",
+    "colorSpaceOutput": "Rec.709 (Scene)",
+    "colorSpaceOutputGamma": "ACEScc",
+    "isAutoColorManage": "0",
+    "timelineResolutionWidth": "1920",
+    "timelineResolutionHeight": "1080",
+    "timelineFrameRate": 30.0,
+    "timelinePlaybackFrameRate": "30",
+    "timelinePixelAspectRatio": "square"
+  },
+  "setup_density_0_1": {
+    "case": "S310",
+    "frame": 0.0,
+    "source": {
+      "UseFrameFormatSettings": 0.0,
+      "Width": 320.0,
+      "Height": 180.0,
+      "StyledText": "FUSION",
+      "Size": 0.18
+    },
+    "emitter": {
+      "XDensity": 0.1,
+      "YDensity": 0.1,
+      "AlphaThreshold": 0.1,
+      "CreateParticlesEveryFrame": 0.0,
+      "Style": "ParticleStyleBlob",
+      "ParticleStyle.Size": 3.0
+    },
+    "output_mode": "TwoD",
+    "connections": {
+      "ImageEmitter": {
+        "Input": "Source",
+        "ParticleStyle.SizeOverLife": "pImageEmitter1SizeOverLife",
+        "ParticleStyle.BlurOverLife": "pImageEmitter1BlurOverLife2D"
+      },
+      "ParticleRender": {
+        "Input": "ImageEmitter"
+      },
+      "MediaOut1": {
+        "Input": "ParticleRender"
+      }
+    },
+    "saved": "2026-10-28T09:50:32.251104+00:00"
+  },
+  "final_density_0_3": {
+    "x": 0.3,
+    "y": 0.3,
+    "frame": 0.0,
+    "saved": "2026-10-28T09:50:51.426111+00:00"
+  },
+  "native_export_sha256": "dddc0443aafc48ffd1d1ee1a79083b64016973374d9f2420909329a4f64e5943",
+  "portable_sha256": "2b02c1a47ac9ba869b6a8c5ba3490248e869995ee6a843d6d104de4dabf538e2",
+  "limits": [
+    "One static 320x180 Text+ fixture, frame 0; exact image-channel/particle-position correspondence and Alpha threshold behavior NOT_RUN.",
+    "Z channel, animated inputs, exact particle counts, portable reimport and other hosts NOT_RUN.",
+    "Viewer screenshots are display evidence; simulation identity across density changes was not established."
+  ]
+}
