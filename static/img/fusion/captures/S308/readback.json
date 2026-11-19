@@ -1,0 +1,63 @@
+{
+  "case": "S308",
+  "project": "Collectanea_Mandelbrot_Zoom_20261025",
+  "library": "Local Database",
+  "project_manager_folder": "root",
+  "timeline": "S308_capture",
+  "resolve": "21.1.0.14",
+  "project_settings": {
+    "colorScienceMode": "davinciYRGB",
+    "colorSpaceInput": "Rec.709 Gamma 2.4",
+    "colorSpaceTimeline": "Rec.709 (Scene)",
+    "colorSpaceTimelineGamma": "",
+    "colorSpaceOutput": "Rec.709 (Scene)",
+    "colorSpaceOutputGamma": "ACEScc",
+    "isAutoColorManage": "0",
+    "timelineResolutionWidth": "1920",
+    "timelineResolutionHeight": "1080",
+    "timelineFrameRate": 30.0,
+    "timelinePlaybackFrameRate": "30",
+    "timelinePixelAspectRatio": "square"
+  },
+  "setup": {
+    "case": "S308",
+    "frame": 48.0,
+    "change": {
+      "ChangeStyle": 1.0,
+      "Style": "ParticleStyleBlob",
+      "Region": "AllRgn",
+      "RegionMode": "Ignore",
+      "ParticleStyle.Red": 1.0,
+      "ParticleStyle.Green": 0.0,
+      "ParticleStyle.Blue": 0.0,
+      "ParticleStyle.Size": 3.0
+    },
+    "output_mode": "TwoD",
+    "connections": {
+      "ChangeStyle": {
+        "Input": "Emitter",
+        "ParticleStyle.SizeOverLife": "pChangeStyle1SizeOverLife",
+        "ParticleStyle.BlurOverLife": "pChangeStyle1BlurOverLife2D"
+      },
+      "ParticleRender": {
+        "Input": "ChangeStyle"
+      },
+      "MediaOut1": {
+        "Input": "ParticleRender"
+      }
+    },
+    "saved": "2026-10-28T09:47:04.845899+00:00"
+  },
+  "comparison": {
+    "off": 0,
+    "restored": 1.0,
+    "frame": 48.0,
+    "saved": "2026-10-28T09:47:30.205994+00:00"
+  },
+  "native_export_sha256": "de766c190b0484254c6fce29612549926bc12ca90c7399fca161c2c9e26bb5be",
+  "portable_sha256": "6f2d2460a50d3f5f02db20c2027a622582a8155092017e027c68577eb2b68e95",
+  "limits": [
+    "One Blob style fixture, global region ignored, frame 48; area entry, Change Sets, other styles and particle motion NOT_RUN.",
+    "Screenshots show Viewer display; precise simulation identity across toggles, portable reimport and other hosts NOT_RUN."
+  ]
+}
