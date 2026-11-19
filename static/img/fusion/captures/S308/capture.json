@@ -1,0 +1,130 @@
+{
+  "manual": {
+    "version": "21.1",
+    "chapter": 114,
+    "printed_pages": "2651–2652"
+  },
+  "runtime": {
+    "version": "21.1.0.14",
+    "edition": "DaVinci Resolve Studio",
+    "os": "Windows-11-10.0.26200-SP0",
+    "ui_language": "ja-JP"
+  },
+  "captured_at": "2026-10-28T09:47:47.811643+00:00",
+  "project": "Collectanea_Mandelbrot_Zoom_20261025",
+  "timeline": "S308_capture",
+  "frame": 48,
+  "resolution": [
+    1920,
+    1080
+  ],
+  "color_management": {
+    "project_settings": {
+      "colorScienceMode": "davinciYRGB",
+      "colorSpaceInput": "Rec.709 Gamma 2.4",
+      "colorSpaceTimeline": "Rec.709 (Scene)",
+      "colorSpaceTimelineGamma": "",
+      "colorSpaceOutput": "Rec.709 (Scene)",
+      "colorSpaceOutputGamma": "ACEScc",
+      "isAutoColorManage": "0",
+      "timelineResolutionWidth": "1920",
+      "timelineResolutionHeight": "1080",
+      "timelineFrameRate": 30.0,
+      "timelinePlaybackFrameRate": "30",
+      "timelinePixelAspectRatio": "square"
+    },
+    "note": "SDK project settings; screenshots show Viewer display."
+  },
+  "viewer": {
+    "view_mode": "Fit",
+    "source": "right MediaOut1",
+    "note": "pChangeStyle selected; frame 48"
+  },
+  "acceptance": {
+    "gui": "PASS: graph, settings and particle output visible; SDK connections and save read back.",
+    "article_display": "NOT_RUN",
+    "public_display": "NOT_RUN"
+  },
+  "unverified": [
+    "One Blob style fixture, global region ignored, frame 48; area entry, Change Sets, other styles and particle motion NOT_RUN.",
+    "Screenshots show Viewer display; precise simulation identity across toggles, portable reimport and other hosts NOT_RUN."
+  ],
+  "schema_version": 1,
+  "case": "S308",
+  "article": "manuals/fusion/nodes/particles/pchangestyle.md",
+  "graph": "fixture.comp",
+  "settings": "readback.json",
+  "source": {
+    "file": "screen.png",
+    "size": [
+      3304,
+      1886
+    ],
+    "sha256": "8d90c9599fc07ee236c08ae60a660e17975cb087c4b710b051ff17fc6179b26c"
+  },
+  "shots": [
+    {
+      "file": "graph.png",
+      "source": "screen.png",
+      "source_sha256": "8d90c9599fc07ee236c08ae60a660e17975cb087c4b710b051ff17fc6179b26c",
+      "frame": 48,
+      "crop_xyxy": [
+        470,
+        1200,
+        2300,
+        1510
+      ],
+      "resampled": false,
+      "sha256": "5d513116686f9ae6af88763b2389619da08b20eac1f4cb62ffcb100f24ab01cf"
+    },
+    {
+      "file": "controls.png",
+      "source": "screen.png",
+      "source_sha256": "8d90c9599fc07ee236c08ae60a660e17975cb087c4b710b051ff17fc6179b26c",
+      "frame": 48,
+      "crop_xyxy": [
+        2780,
+        65,
+        3304,
+        570
+      ],
+      "resampled": false,
+      "sha256": "488feaed8e63f36bd57b8815d838af92e4ff3c21526acc189ac7693787f2124b"
+    },
+    {
+      "file": "enabled.png",
+      "source": "screen.png",
+      "source_sha256": "8d90c9599fc07ee236c08ae60a660e17975cb087c4b710b051ff17fc6179b26c",
+      "frame": 48,
+      "crop_xyxy": [
+        1570,
+        95,
+        2680,
+        715
+      ],
+      "resampled": false,
+      "sha256": "79ed78bfc4fe71a75b7305dd4f7d12d2d7fa849d2409ae9a54f47e5fed491ac1"
+    },
+    {
+      "file": "disabled.png",
+      "source": "off.png",
+      "source_sha256": "64f74261fba7dd2f886ef1fde25a6bd208b886b5b44da7c6583365a6764bc913",
+      "frame": 48,
+      "crop_xyxy": [
+        1570,
+        95,
+        2680,
+        715
+      ],
+      "resampled": false,
+      "sha256": "32c0b1208cdaaabea8a35706c089a58379bc227e5af9d08876faf3500495fc96"
+    }
+  ],
+  "reproduction": {
+    "fixture_sha256": "6f2d2460a50d3f5f02db20c2027a622582a8155092017e027c68577eb2b68e95",
+    "readback_sha256": "19dec5fdb94ea5b3305e07bfc365c59654cc4c3f4b97ff2432b1e0439b092272",
+    "readback_source_sha256": "3bf54cbcd9a5cc42ccbae52ddc49bf45937bd4933a24c00ca6bad2e7be78f814",
+    "readback_transform": "CRLF normalized to LF for the portable Git asset; JSON values unchanged",
+    "reimport": "NOT_RUN"
+  }
+}
