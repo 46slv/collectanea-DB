@@ -126,6 +126,38 @@ pEmitter → pSpawn → pRender（2D）→ Merge → MediaOut
 
 pSpawnからMergeへ直接接続しても、通常の2D Imageとしては扱えません。pRenderの3D出力を使う場合は、Merge 3DやRenderer 3Dなど、後段も3Dの接続に合わせます。
 
+<!-- capture:S311 -->
+
+## 実機例：赤い親粒子から青い粒子を生成する
+
+赤い `pEmitter` を `pSpawn` に接続し、生成側のBlobを青に設定して `pRender` の2D出力を確認します。48フレームでは生成数0のとき赤い点が見え、1のとき青い点も表示されました。
+
+粒子の正確な数や速度の引き継ぎ、同一の評価開始を揃えた比較は確認していません。透明市松はViewerの表示です。[接続と設定の記録](/img/fusion/captures/S311/readback.json)に条件を記載しています。
+
+[![pEmitterからpSpawnとpRenderへ接続した構成](/img/fusion/captures/S311/graph.png)](/img/fusion/captures/S311/graph.png)
+
+親粒子をpSpawnへ入力します。
+
+[![pSpawnの生成数1と寿命10の設定](/img/fusion/captures/S311/controls.png)](/img/fusion/captures/S311/controls.png)
+
+生成数を1、寿命を10に設定します。
+
+[![生成数1で表示される赤と青の粒子](/img/fusion/captures/S311/spawn1.png)](/img/fusion/captures/S311/spawn1.png)
+
+生成数1では青い点も表示されます。
+
+[![生成数0で表示される赤い粒子](/img/fusion/captures/S311/spawn0.png)](/img/fusion/captures/S311/spawn0.png)
+
+生成数0では赤い点が表示されます。
+
+[![24フレームで表示された赤と青の粒子](/img/fusion/captures/S311/result24.png)](/img/fusion/captures/S311/result24.png)
+
+24フレームでの表示です。
+
+[再現用Graph](/img/fusion/captures/S311/fixture.comp) · [撮影条件と確認範囲](/img/fusion/captures/S311/capture.json)
+
+<!-- /capture:S311 -->
+
 ## 制作例
 
 ### 1. 移動する光点の軌跡を作る

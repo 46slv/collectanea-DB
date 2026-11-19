@@ -1,0 +1,144 @@
+{
+  "manual": {
+    "version": "21.1",
+    "chapter": 114,
+    "printed_pages": "2685–2687"
+  },
+  "runtime": {
+    "version": "21.1.0.14",
+    "edition": "DaVinci Resolve Studio",
+    "os": "Windows-11-10.0.26200-SP0",
+    "ui_language": "ja-JP"
+  },
+  "captured_at": "2026-10-28T09:53:04.691848+00:00",
+  "project": "Collectanea_Mandelbrot_Zoom_20261025",
+  "timeline": "S311_capture",
+  "frame": 48,
+  "resolution": [
+    1920,
+    1080
+  ],
+  "color_management": {
+    "project_settings": {
+      "colorScienceMode": "davinciYRGB",
+      "colorSpaceInput": "Rec.709 Gamma 2.4",
+      "colorSpaceTimeline": "Rec.709 (Scene)",
+      "colorSpaceTimelineGamma": "",
+      "colorSpaceOutput": "Rec.709 (Scene)",
+      "colorSpaceOutputGamma": "ACEScc",
+      "isAutoColorManage": "0",
+      "timelineResolutionWidth": "1920",
+      "timelineResolutionHeight": "1080",
+      "timelineFrameRate": 30.0,
+      "timelinePlaybackFrameRate": "30",
+      "timelinePixelAspectRatio": "square"
+    },
+    "note": "SDK project settings; screenshots show Viewer display."
+  },
+  "viewer": {
+    "view_mode": "Fit",
+    "source": "right MediaOut1",
+    "note": "pSpawn selected; frame 48"
+  },
+  "acceptance": {
+    "gui": "PASS: graph, settings and particle output visible; SDK connections and save read back.",
+    "article_display": "NOT_RUN",
+    "public_display": "NOT_RUN"
+  },
+  "unverified": [
+    "Frame 24 and 48 and a zero-versus-one Number comparison were captured; matched evaluation-start simulation identity and exact particle counts NOT_RUN.",
+    "Velocity Transfer, Set, Region, affect spawned particles enabled, portable reimport and other hosts NOT_RUN."
+  ],
+  "schema_version": 1,
+  "case": "S311",
+  "article": "manuals/fusion/nodes/particles/pspawn.md",
+  "graph": "fixture.comp",
+  "settings": "readback.json",
+  "source": {
+    "file": "screen.png",
+    "size": [
+      3304,
+      1886
+    ],
+    "sha256": "1a31a5ff41b96923a0e485cf1f645bd5c791aea5a5e734a9a794ff3f94550bc5"
+  },
+  "shots": [
+    {
+      "file": "graph.png",
+      "source": "screen.png",
+      "source_sha256": "1a31a5ff41b96923a0e485cf1f645bd5c791aea5a5e734a9a794ff3f94550bc5",
+      "frame": 48,
+      "crop_xyxy": [
+        470,
+        1200,
+        2300,
+        1510
+      ],
+      "resampled": false,
+      "sha256": "3a11b2a68d89eb2fd76f483d7393990322d562c23cf5ef7577fb32874aa8166f"
+    },
+    {
+      "file": "controls.png",
+      "source": "screen.png",
+      "source_sha256": "1a31a5ff41b96923a0e485cf1f645bd5c791aea5a5e734a9a794ff3f94550bc5",
+      "frame": 48,
+      "crop_xyxy": [
+        2780,
+        65,
+        3304,
+        600
+      ],
+      "resampled": false,
+      "sha256": "42c71afd1ad210744c4d61577301a13c0774a4839766d74d51b1ee5090fc9137"
+    },
+    {
+      "file": "spawn1.png",
+      "source": "screen.png",
+      "source_sha256": "1a31a5ff41b96923a0e485cf1f645bd5c791aea5a5e734a9a794ff3f94550bc5",
+      "frame": 48,
+      "crop_xyxy": [
+        1570,
+        95,
+        2680,
+        715
+      ],
+      "resampled": false,
+      "sha256": "ffe0e50927e74a4a4f0be32788035614874f8decf6a9f658a77428e8f5c9ead9"
+    },
+    {
+      "file": "spawn0.png",
+      "source": "zero.png",
+      "source_sha256": "01d232ff44797878db99bed2c6c514b6a89858d970211edfee33adbf9d2cd719",
+      "frame": 48,
+      "crop_xyxy": [
+        1570,
+        95,
+        2680,
+        715
+      ],
+      "resampled": false,
+      "sha256": "0efab3cdd1371141e155aefffb479039957fbbc818b67dcbd7334c774a6c1e80"
+    },
+    {
+      "file": "result24.png",
+      "source": "frame24.png",
+      "source_sha256": "2fb24d75ff460375a408fcf5150eefa25db903d96b43e58fb89bde2bd6e87738",
+      "frame": 48,
+      "crop_xyxy": [
+        1570,
+        95,
+        2680,
+        715
+      ],
+      "resampled": false,
+      "sha256": "c811bb73cca8616ab9555c1c47e91ca2785538cba74badf65b0223f9ca5db116"
+    }
+  ],
+  "reproduction": {
+    "fixture_sha256": "279c27cb19d423215da3baba74f2c0144951de074cc47949f53d7809611ab577",
+    "readback_sha256": "56c5ca378c99367c6457211f2f3b3333405f53c6e604a921dcef8c4f3047f622",
+    "readback_source_sha256": "cef532adc1fa4d27f2549c5825818f3ebc23a2c65b286030a6fc6fc6c5946027",
+    "readback_transform": "CRLF normalized to LF for the portable Git asset; JSON values unchanged",
+    "reimport": "NOT_RUN"
+  }
+}
