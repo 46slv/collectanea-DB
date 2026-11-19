@@ -49,6 +49,22 @@ pEmitter → pDirectionalForce → pRender（Output Mode: 2D）
 
 火花や雨を素材へ合成するときの構成です。pEmitterが粒子を作り、pDirectionalForceが移動を変え、pRenderがRGBA画像として描画します。MergeのBackgroundには合成先の画像、ForegroundにはpRenderの出力を入れます。粒子の見た目に通常のBlurやColor Correctorを使いたい場合も、pRenderの**2D出力の後**へ接続します。
 
+### 実機例：2系統の粒子を2D表示する
+
+2つのpEmitterからpMergeへ粒子を送り、pRenderのOutput Modeを2DにしてMediaOutへ接続します。これは[pMergeの実機例](./pmerge)と同じ構成です。
+
+[![2つのpEmitterをpMerge、pRender、MediaOutへ接続したGraph](/img/fusion/captures/S307/graph.png)](/img/fusion/captures/S307/graph.png)
+
+`ParticleRender`はpRenderの名前です。
+
+[![pRenderのInspectorで2D出力を選択した状態](/img/fusion/captures/S307/render-controls.png)](/img/fusion/captures/S307/render-controls.png)
+
+Output Modeは2Dです。
+
+[![frame 48で赤と青の粒子群を描いた2D画像](/img/fusion/captures/S307/result.png)](/img/fusion/captures/S307/result.png)
+
+frame 48に赤と青の粒子群が表示されました。[接続と設定の記録](/img/fusion/captures/S307/readback.json)に条件を記載しています。3D出力や時間経過、他の描画設定はこの静止例では確認していません。
+
 ### 3D：他の立体要素と一緒に描く
 
 ```text

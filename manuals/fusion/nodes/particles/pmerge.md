@@ -76,6 +76,34 @@ pEmitter B ─┘             ├→ pMerge 2 → pRender
 pEmitter C ───────────────┘
 ~~~
 
+<!-- capture:S307 -->
+
+## 実機例：2系統の粒子をまとめる
+
+赤と青の `pEmitter` を `pMerge` のParticle 1とParticle 2へ接続し、`pRender` の2D出力を `MediaOut` に送ります。48フレームでは両方の粒子群が表示されました。
+
+Setの保持や3D出力はこの例では確認していません。[接続と設定の記録](/img/fusion/captures/S307/readback.json)に条件を記載しています。
+
+[![2つのpEmitterをpMergeに接続しpRenderとMediaOutへ送る構成](/img/fusion/captures/S307/graph.png)](/img/fusion/captures/S307/graph.png)
+
+2系統の粒子をpMergeに入力します。
+
+[![pMergeのInspectorにコントロールがない画面](/img/fusion/captures/S307/controls.png)](/img/fusion/captures/S307/controls.png)
+
+このpMergeのInspectorに調整コントロールは表示されません。
+
+[![赤と青の粒子群を表示した2D出力](/img/fusion/captures/S307/result.png)](/img/fusion/captures/S307/result.png)
+
+赤と青の粒子群を同じViewerへ表示します。
+
+[![pRenderのInspectorと2D出力設定](/img/fusion/captures/S307/render-controls.png)](/img/fusion/captures/S307/render-controls.png)
+
+pRenderの2D出力を使用します。
+
+[再現用Graph](/img/fusion/captures/S307/fixture.comp) · [撮影条件と確認範囲](/img/fusion/captures/S307/capture.json)
+
+<!-- /capture:S307 -->
+
 ## 制作例1：火花と煙を一緒に表示する
 
 火花と煙を異なる見た目・速度で発生させ、1枚の2D映像として背景へ重ねる例です。

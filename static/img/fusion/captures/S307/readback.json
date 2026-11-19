@@ -1,0 +1,74 @@
+{
+  "case": "S307",
+  "project": "Collectanea_Mandelbrot_Zoom_20261025",
+  "library": "Local Database",
+  "project_manager_folder": "root",
+  "timeline": "S307_capture",
+  "resolve": "21.1.0.14",
+  "project_settings": {
+    "colorScienceMode": "davinciYRGB",
+    "colorSpaceInput": "Rec.709 Gamma 2.4",
+    "colorSpaceTimeline": "Rec.709 (Scene)",
+    "colorSpaceTimelineGamma": "",
+    "colorSpaceOutput": "Rec.709 (Scene)",
+    "colorSpaceOutputGamma": "ACEScc",
+    "isAutoColorManage": "0",
+    "timelineResolutionWidth": "1920",
+    "timelineResolutionHeight": "1080",
+    "timelineFrameRate": 30.0,
+    "timelinePlaybackFrameRate": "30",
+    "timelinePixelAspectRatio": "square"
+  },
+  "setup": {
+    "case": "S307",
+    "frame": 48.0,
+    "emitters": {
+      "EmitterA": {
+        "RandomSeed": 7.0,
+        "Number": 3.0,
+        "Lifespan": 80.0,
+        "Velocity": 0.002,
+        "Style": "ParticleStyleBlob",
+        "SphereRgn.Size": 0.25,
+        "SphereRgn.Translate.X": -0.25,
+        "ParticleStyle.Size": 3.0,
+        "ParticleStyle.Red": 1.0,
+        "ParticleStyle.Green": 0.0,
+        "ParticleStyle.Blue": 0.0
+      },
+      "EmitterB": {
+        "RandomSeed": 11.0,
+        "Number": 3.0,
+        "Lifespan": 80.0,
+        "Velocity": 0.002,
+        "Style": "ParticleStyleBlob",
+        "SphereRgn.Size": 0.25,
+        "SphereRgn.Translate.X": 0.25,
+        "ParticleStyle.Size": 3.0,
+        "ParticleStyle.Red": 0.0,
+        "ParticleStyle.Green": 0.0,
+        "ParticleStyle.Blue": 1.0
+      }
+    },
+    "output_mode": "TwoD",
+    "connections": {
+      "ParticleMerge": {
+        "Particles1": "EmitterA",
+        "Particles2": "EmitterB"
+      },
+      "ParticleRender": {
+        "Input": "ParticleMerge"
+      },
+      "MediaOut1": {
+        "Input": "ParticleRender"
+      }
+    },
+    "saved": "2026-10-28T09:45:16.916978+00:00"
+  },
+  "native_export_sha256": "ce416467759f13c8f28c0e70bd5b86071fd7e8518293acf8385bcf4992ea7cad",
+  "portable_sha256": "c2c09aa83f754d8770d94ffdd404f31956f1d30413d51d2d9023b5c3a979ac80",
+  "limits": [
+    "One 2D particle fixture and static frame 48 only; set preservation, more than two inputs, temporal behavior and 3D output NOT_RUN.",
+    "Screenshots show Viewer display; portable reimport and other hosts NOT_RUN."
+  ]
+}
