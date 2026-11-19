@@ -1,0 +1,131 @@
+{
+  "manual": {
+    "version": "21.1",
+    "chapter": 114,
+    "printed_pages": "2675–2676"
+  },
+  "runtime": {
+    "version": "21.1.0.14",
+    "edition": "DaVinci Resolve Studio",
+    "os": "Windows-11-10.0.26200-SP0",
+    "ui_language": "ja-JP"
+  },
+  "captured_at": "2026-10-28T09:49:27.068553+00:00",
+  "project": "Collectanea_Mandelbrot_Zoom_20261025",
+  "timeline": "S309_capture",
+  "frame": 48,
+  "resolution": [
+    1920,
+    1080
+  ],
+  "color_management": {
+    "project_settings": {
+      "colorScienceMode": "davinciYRGB",
+      "colorSpaceInput": "Rec.709 Gamma 2.4",
+      "colorSpaceTimeline": "Rec.709 (Scene)",
+      "colorSpaceTimelineGamma": "",
+      "colorSpaceOutput": "Rec.709 (Scene)",
+      "colorSpaceOutputGamma": "ACEScc",
+      "isAutoColorManage": "0",
+      "timelineResolutionWidth": "1920",
+      "timelineResolutionHeight": "1080",
+      "timelineFrameRate": 30.0,
+      "timelinePlaybackFrameRate": "30",
+      "timelinePixelAspectRatio": "square"
+    },
+    "note": "SDK project settings; screenshots show Viewer display."
+  },
+  "viewer": {
+    "view_mode": "Fit",
+    "source": "right MediaOut1",
+    "note": "pKill selected; frame 48"
+  },
+  "acceptance": {
+    "gui": "PASS: graph, settings and particle output visible; SDK connections and save read back.",
+    "article_display": "NOT_RUN",
+    "public_display": "NOT_RUN"
+  },
+  "unverified": [
+    "One fixture at frame 48, Probability 0 and 1 after frame jump; matched evaluation-start simulation identity NOT_RUN.",
+    "Blank Viewer alone does not distinguish particle removal from transparency; particle payload and counts were not measured.",
+    "Region-limited killing, sets, temporal behavior, portable reimport and other hosts NOT_RUN."
+  ],
+  "schema_version": 1,
+  "case": "S309",
+  "article": "manuals/fusion/nodes/particles/pkill.md",
+  "graph": "fixture.comp",
+  "settings": "readback.json",
+  "source": {
+    "file": "screen.png",
+    "size": [
+      3304,
+      1886
+    ],
+    "sha256": "c4991d5de0f104dad81ff74565ccc9769dbd9aa6adfb9690eda14178c214cba6"
+  },
+  "shots": [
+    {
+      "file": "graph.png",
+      "source": "screen.png",
+      "source_sha256": "c4991d5de0f104dad81ff74565ccc9769dbd9aa6adfb9690eda14178c214cba6",
+      "frame": 48,
+      "crop_xyxy": [
+        470,
+        1200,
+        2300,
+        1510
+      ],
+      "resampled": false,
+      "sha256": "ff60ae77fee233bffc36f83852aa9ed947cb7fd3496266760a3f530619228c6c"
+    },
+    {
+      "file": "controls.png",
+      "source": "screen.png",
+      "source_sha256": "c4991d5de0f104dad81ff74565ccc9769dbd9aa6adfb9690eda14178c214cba6",
+      "frame": 48,
+      "crop_xyxy": [
+        2780,
+        65,
+        3304,
+        420
+      ],
+      "resampled": false,
+      "sha256": "fe4baef223f4769edf5b80aa33a72c453984c8afeee957b786e71c8730127aba"
+    },
+    {
+      "file": "probability1.png",
+      "source": "screen.png",
+      "source_sha256": "c4991d5de0f104dad81ff74565ccc9769dbd9aa6adfb9690eda14178c214cba6",
+      "frame": 48,
+      "crop_xyxy": [
+        1570,
+        95,
+        2680,
+        715
+      ],
+      "resampled": false,
+      "sha256": "2566195a471dcd861bbda40507021d86ff1489718d1ff499c73cb026a4d03c4c"
+    },
+    {
+      "file": "probability0.png",
+      "source": "zero.png",
+      "source_sha256": "9f98802d91f2092ea54e3dfce39945d885f7349e897548fdc311363bde6a1ca1",
+      "frame": 48,
+      "crop_xyxy": [
+        1570,
+        95,
+        2680,
+        715
+      ],
+      "resampled": false,
+      "sha256": "32c0b1208cdaaabea8a35706c089a58379bc227e5af9d08876faf3500495fc96"
+    }
+  ],
+  "reproduction": {
+    "fixture_sha256": "a2a55845ca417b4d535c52698722f61a463725e4ee6634ca32816514a64a67d9",
+    "readback_sha256": "60c65ac45aac678b528d41568a11c0e1f4ee6522cbe4e1dc756529732d3ad4bd",
+    "readback_source_sha256": "d6fc300622efbe405bf4cba1e698e9a437491339c436dc4a6d8fc067ad926558",
+    "readback_transform": "CRLF normalized to LF for the portable Git asset; JSON values unchanged",
+    "reimport": "NOT_RUN"
+  }
+}
