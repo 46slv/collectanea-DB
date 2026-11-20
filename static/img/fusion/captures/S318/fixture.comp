@@ -1,0 +1,377 @@
+Composition {
+	CurrentTime = 48,
+	RenderRange = { 0, 149 },
+	GlobalRange = { 0, 149 },
+	CurrentID = 7,
+	HiQ = true,
+	PlaybackUpdateMode = 0,
+	StereoMode = false,
+	Version = "DaVinci Resolve Studio 21.1.0.0014",
+	SavedOutputs = 0,
+	HeldTools = 0,
+	DisabledTools = 0,
+	LockedTools = 0,
+	AudioOffset = 0,
+	Resumable = true,
+	OutputClips = {
+	},
+	CustomData = {
+		TEMPLATE_ID = "Fusion Generator",
+		CollectaneaCaptureCase = "S318"
+	},
+	Tools = {
+		Emitter = pEmitter {
+			ID = 2,
+			Inputs = {
+				RandomSeed = Input { Value = 7, },
+				Number = Input { Value = 3, },
+				Lifespan = Input { Value = 80, },
+				Velocity = Input { Value = 0.002, },
+				Style = Input { Value = FuID { "ParticleStyleBlob" }, },
+				["SphereRgn.Size"] = Input { Value = 0.55, },
+				["ParticleStyle.Size"] = Input { Value = 3, },
+				["ParticleStyle.SizeOverLife"] = Input {
+					SourceOp = "pEmitter1SizeOverLife",
+					Source = "Value",
+				},
+				["ParticleStyle.BlurOverLife"] = Input {
+					SourceOp = "pEmitter1BlurOverLife2D",
+					Source = "Value",
+				}
+			},
+			ViewInfo = OperatorInfo { Pos = { -55, 16.5 } },
+		},
+		pEmitter1SizeOverLife = LUTBezier {
+			KeyColorSplines = {
+				[0] = {
+					[0] = { 0.5, RH = { 0.3, 0.5 }, Flags = { Linear = true } },
+					[1] = { 0.5, LH = { 0.7, 0.5 }, Flags = { Linear = true } }
+				}
+			},
+			SplineColor = { Red = 0, Green = 0, Blue = 0 },
+			CtrlWZoom = false,
+			NameSet = true,
+		},
+		pEmitter1BlurOverLife2D = LUTBezier {
+			KeyColorSplines = {
+				[0] = {
+					[0] = { 0.5, RH = { 0.3, 0.5 }, Flags = { Linear = true } },
+					[1] = { 0.5, LH = { 0.7, 0.5 }, Flags = { Linear = true } }
+				}
+			},
+			SplineColor = { Red = 0, Green = 0, Blue = 0 },
+			CtrlWZoom = false,
+			NameSet = true,
+		},
+		Follow = pFollow {
+			ID = 5,
+			CtrlWZoom = false,
+			Inputs = {
+				["Position.X"] = Input { Value = 0.3, },
+				Input = Input {
+					SourceOp = "Emitter",
+					Source = "Output",
+				}
+			},
+			ViewInfo = OperatorInfo { Pos = { 55, 16.5 } },
+		},
+		ParticleRender = pRender {
+			Inputs = {
+				_MotionBlurWarning = Input { Disabled = true, },
+				GlobalOut = Input { Value = 149, },
+				Width = Input { Value = 1920, },
+				Height = Input { Value = 1080, },
+				UseFrameFormatSettings = Input { Value = 1, },
+				["Gamut.SLogVersion"] = Input { Value = FuID { "SLog2" }, },
+				OutputMode = Input {
+					Value = FuID { "TwoD" },
+					Disabled = true,
+				},
+				["MaterialID.MaterialID"] = Input { Value = 1, },
+				["ObjectID.ObjectID"] = Input { Value = 1, },
+				Input = Input {
+					SourceOp = "Follow",
+					Source = "Output",
+				}
+			},
+			ViewInfo = OperatorInfo { Pos = { 165, 16.5 } },
+		},
+		MediaOut1 = MediaOut {
+			Inputs = {
+				Index = Input { Value = "0", },
+				Input = Input {
+					SourceOp = "ParticleRender",
+					Source = "Output",
+				}
+			},
+			ViewInfo = OperatorInfo { Pos = { 440, 49.5 } },
+		}
+	},
+	Frames = {
+		{
+			FrameTypeID = "ChildFrame",
+			Mode = 3,
+			LayoutPreset = 0,
+			PresetName = "Default",
+			Left = 0,
+			Top = 0,
+			Width = 3304,
+			Height = 1765,
+			ZoneInfo = { ["!Right"] = {
+				}, ["!Left"] = {
+				}, AuxLeft = { Expanded = true }, Right = { Expanded = true, }, Left = { Expanded = false, }, AuxRight = { Expanded = true } },
+			ViewInfo = { Viewer1 = { Show = true, RatioX = 1.05172413793104, RatioY = 0.01, }, InnerLeft = { RatioY = 100, PixelX = 1146, }, MainSplit = { RatioX = 100, RatioY = 1.72137649435203, }, CenterSplit = { RatioX = 0.966978831333528, RatioY = 100, }, Viewer2 = { Show = true, RatioX = 0.94827586206897, RatioY = 0.01, }, Comments = { Show = false }, Time = { Show = true, RatioX = 100, }, InnerColumns = { RatioX = 100, RatioY = 1.27873682437579, }, Keyframes = { Show = false, }, LayoutStrip = { Show = true, }, Inspector = { Show = true, RatioX = 100, RatioY = 1, }, InnerRight = {
+				}, Clips = { Show = false, }, OuterColumns = { RatioX = 100, RatioY = 1, }, Effects = { Show = false, }, ActionStrip = { Show = true, RatioX = 100, }, Metadata = { Show = false, }, OuterLeft = {
+				}, ViewerSplit = { RatioX = 100, RatioY = 1, }, Nodes = { Show = true, RatioX = 1, RatioY = 100, }, OuterRight = { RatioY = 100, PixelX = 520, }, MediaPool = { Show = false, }, Spline = { Show = false, } },
+			Views = ordered() {
+				MediaPool = "MediaPoolView",
+				Effects = MultiView {
+					Active = "EffectView",
+					ViewList = ordered() {
+						EffectView = "EffectView"
+					},
+				},
+				Nodes = MultiView {
+					Active = "FlowView",
+					ViewList = ordered() {
+						FlowView = "FlowView"
+					},
+					FlowView = FlowView {
+						Flags = {
+							Navigator = true,
+							GridSnap = true,
+							ConnectedSnap = true,
+							AutoSnap = true,
+							RemoveRouters = true
+						},
+						NavigatorSize = { 200, 140 },
+						Direction = "Horizontal",
+						PipeStyle = "Direct",
+						RootScale = 2,
+						RootOffset = { 271, 110.939 }
+					}
+				},
+				Keyframes = MultiView {
+					Active = "TimelineView",
+					ViewList = ordered() {
+						TimelineView = "TimelineView"
+					},
+					TimelineView = TimelineView {
+						TreeControlState = {
+						},
+						DisplayMode = "All Tools",
+						ShowCurrentTimeTools = false,
+						Filter = "すべて表示",
+						ShowSelectedTools = false,
+						ShowAnimatedToolsOnly = false,
+						ShowEditBoxes = false,
+						KeyFrameView = {
+							Position = { Left = 232, Bottom = 928 },
+							ScaleX = 0.0629762912785776,
+							OffsetX = 119.717929720576,
+							OffsetY = 0,
+							AutoScaling = "scroll",
+							AutoSnapTo = "frame",
+							AutoSnapToGuidelines = false,
+							GuidelinesGrabEnabled = true,
+							GuidelinesSnapTo = "none"
+						},
+						Spreadsheet = { LeftPos = 232, Visible = false }
+					}
+				},
+				Inspector = MultiView {
+					Active = "Tools",
+					ViewList = ordered() {
+						Tools = "ControlView",
+						Modifiers = "ModifierView"
+					},
+				},
+				Viewer1 = MultiView {
+					Active = "LeftView",
+					ViewList = ordered() {
+						LeftView = "PreviewContainer"
+					},
+				},
+				Viewer2 = MultiView {
+					Active = "RightView",
+					ViewList = ordered() {
+						RightView = "PreviewContainer"
+					},
+				},
+				Time = "TimeView",
+				ActionStrip = "ActionStripView",
+				LayoutStrip = "LayoutStripView",
+				Clips = "ClipsView",
+				Metadata = "MetadataView",
+				Spline = MultiView {
+					Active = "SplineView",
+					ViewList = ordered() {
+						SplineView = "SplineEditorView"
+					},
+					SplineView = SplineEditorView {
+						LeftPos = 264,
+						ScaleX = 0.0253298153034301,
+						ScaleY = 0.134085778781038,
+						OffsetX = 35.3857519788918,
+						OffsetY = -57.9250564334084,
+						AutoScaling = "scroll",
+						AutoSnapTo = "frame",
+						AutoSnapToGuidelines = false,
+						GuidelinesSnapTo = "frame",
+						ShowKeyMarkers = false,
+						IndependentHandles = false,
+						ShowNonSplineModifiers = false,
+						GuidelinesGrabEnabled = true,
+						ShowOneToolOnly = false,
+						ShowSelectedTools = false,
+						ShowAllInputs = false,
+						Filter = "すべて表示"
+					}
+				}
+			},
+			Layout = {
+				{ ID = "LayoutStrip", FixedY = 36, Resolve = false, Flat = true },
+				{
+					{
+						{ ID = "MediaPool", Fusion = false, RatioX = 1 },
+						{ ID = "Effects", RatioX = 1 },
+						Zone = "Left",
+						Rows = 2,
+						PaneID = "OuterLeft",
+						PixelX = 420
+					},
+					{
+						{
+							{
+								{ ID = "MediaPool", Fusion = false, RatioX = 1 },
+								{ ID = "Effects", RatioX = 1 },
+								PaneID = "InnerLeft",
+								MaxViews = 1,
+								PixelX = 420,
+								Rows = 2,
+								Zone = "!Left"
+							},
+							{
+								{
+									{ ID = "Viewer1", RatioY = 0.01, RatioX = 1 },
+									{ ID = "Viewer2", RatioX = 1 },
+									RatioY = 1,
+									Columns = 2,
+									PaneID = "ViewerSplit"
+								},
+								{ ID = "Time", FixedY = 83, Photo = false, Flat = true },
+								RatioX = 1,
+								Rows = 2
+							},
+							{
+								{ ID = "Inspector", RatioY = 1 },
+								{ ID = "Metadata", RatioY = 1, Fusion = false },
+								PaneID = "InnerRight",
+								MaxViews = 1,
+								PixelX = 420,
+								Rows = 2,
+								Zone = "!Right"
+							},
+							RatioY = 2,
+							Columns = 3,
+							PaneID = "InnerColumns"
+						},
+						{ ID = "ActionStrip", FixedY = 50, Flat = true },
+						{
+							{ ID = "Nodes", RatioX = 1 },
+							{ ID = "Spline", Photo = false, RatioX = 1 },
+							{ ID = "Keyframes", Photo = false, RatioX = 1 },
+							RatioY = 1,
+							Columns = 3,
+							PaneID = "MainSplit"
+						},
+						{ Fusion = false, ID = "Clips", LARGE_FixedY = 160, MEDIUM_FixedY = 138, SMALL_FixedY = 110 },
+						RatioX = 1,
+						Rows = 4,
+						PaneID = "CenterSplit"
+					},
+					{
+						{ ID = "Inspector", RatioY = 1 },
+						{ ID = "Metadata", RatioY = 1, Fusion = false },
+						Zone = "Right",
+						Rows = 2,
+						PaneID = "OuterRight",
+						PixelX = 420
+					},
+					RatioY = 1,
+					Columns = 3,
+					PaneID = "OuterColumns"
+				},
+				RatioX = 1,
+				Rows = 2,
+				RatioY = 1
+			},
+			TopBar = {
+				Left = { "Left", "MediaPool", "Effects", "Clips", "Nodes", "Console" },
+				Right = { "Spline", "Keyframes", "Metadata", "Inspector", "Right" }
+			}
+		}
+	},
+	Prefs = {
+		Comp = {
+			Interactive = {
+				Proxy = {
+					Scale = 1,
+				},
+			},
+			Views = {
+				RightView = {
+					Viewer = {
+						Layer = ":Default",
+					},
+				},
+				LeftView = {
+				},
+				View1 = {
+				},
+				Defaults = {
+					Viewer = {
+						Layer = "",
+					},
+					Guides = {
+						SafeTitle = true,
+						SafeImage = true,
+						Center = true,
+					},
+					View3D = {
+						Options = {
+							ShowUVTangentVectors = false
+						},
+						TextureDepth = "int8"
+					},
+					MaterialViewer = {
+						Options = {
+							TextureDepth = "int8"
+						},
+					},
+				},
+			},
+			Paths = {
+				Map = {
+				},
+			},
+			FrameFormat = {
+				GuideRatio = 1.77777777777778,
+				DepthFull = 3,
+				DepthPreview = 3,
+				DepthInteractive = 3,
+			},
+			Unsorted = {
+				GlobalEnd = 149
+			},
+			SpellCheck = {
+			},
+			ActionStrip = {
+				ToolbarName = "main"
+			},
+			FlowView = {
+				FullToolIndicator = false
+			},
+		}
+	},
+}

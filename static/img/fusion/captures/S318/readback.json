@@ -1,0 +1,60 @@
+{
+  "case": "S318",
+  "project": "Collectanea_Mandelbrot_Zoom_20261025",
+  "library": "Local Database",
+  "project_manager_folder": "root",
+  "timeline": "S318_capture",
+  "resolve": "21.1.0.14",
+  "project_settings": {
+    "colorScienceMode": "davinciYRGB",
+    "colorSpaceInput": "Rec.709 Gamma 2.4",
+    "colorSpaceTimeline": "Rec.709 (Scene)",
+    "colorSpaceTimelineGamma": "",
+    "colorSpaceOutput": "Rec.709 (Scene)",
+    "colorSpaceOutputGamma": "ACEScc",
+    "isAutoColorManage": "0",
+    "timelineResolutionWidth": "1920",
+    "timelineResolutionHeight": "1080",
+    "timelineFrameRate": 30.0,
+    "timelinePlaybackFrameRate": "30",
+    "timelinePixelAspectRatio": "square"
+  },
+  "setup": {
+    "case": "S318",
+    "frame": 48.0,
+    "emitter_seed": 7.0,
+    "follow": {
+      "Position.X": 0.3,
+      "Position.Y": 0.0,
+      "Position.Z": 0.0,
+      "Spring": 1.0,
+      "Damping": 0.1,
+      "Region": "AllRgn",
+      "RegionMode": "Ignore"
+    },
+    "output_mode": "TwoD",
+    "connections": {
+      "Follow": {
+        "Input": "Emitter"
+      },
+      "ParticleRender": {
+        "Input": "Follow"
+      },
+      "MediaOut1": {
+        "Input": "ParticleRender"
+      }
+    },
+    "saved": "2026-10-28T10:05:52.955481+00:00"
+  },
+  "final": {
+    "frame": 48.0,
+    "saved": "2026-10-28T10:06:13.198475+00:00"
+  },
+  "native_export_sha256": "4b54088c5f102f11f556043045184c293aedb4242ea119105009755e6b47fbbf",
+  "portable_sha256": "4ee1353349aa3ae09b3c0f9eb13c3cf107bb12f9780148b036dcb4ab7f31258e",
+  "limits": [
+    "Frame 24 and 48 with fixed emitter seed; matched evaluation-start and initial-state comparison NOT_RUN.",
+    "Still images do not establish following motion, trajectories or Spring/Damping effects.",
+    "Animated target, Region/Set, particle data, portable reimport and other hosts NOT_RUN."
+  ]
+}
