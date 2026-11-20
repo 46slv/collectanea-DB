@@ -81,6 +81,30 @@ Particleノードに共通する乱数の設定です。マニュアルでは、
 
 **Styleタブの有無について、公式マニュアル内の記述が一致していません。** pGradientForceの節（p.2672）はStyleを共通タブに含めていますが、同じ章の「Style Tab」（p.2701）は、Styleを持つノードをpEmitter・pSpawn・pChangeStyle・pImage Emitterの4種類と記しています。このため、本記事ではpGradientForceのInspectorにStyleタブがあると断定せず、実機での確認待ちとします。粒子の見た目は、発生源の[pEmitter](./p-emitter)や[pChangeStyle](./pchangestyle)で調整できます。
 
+<!-- capture:S313 -->
+
+## 実機例：画像と粒子を別入力へ接続する
+
+`pEmitter` を `pGradientForce` のParticle入力へ、ぼかした楕円でマスクした `Background` をImage入力へ接続します。左Viewerは画像、右Viewerは `pRender` の2D出力です。
+
+この静止例ではAlpha値や勾配による粒子の運動、力の方向を確認していません。透明市松はViewerの表示です。[接続と設定の記録](/img/fusion/captures/S313/readback.json)に条件を記載しています。
+
+[![Particle入力とImage入力をpGradientForceへ接続した構成](/img/fusion/captures/S313/graph.png)](/img/fusion/captures/S313/graph.png)
+
+粒子と画像を別の入力へ接続します。
+
+[![Strengthを0.1に設定したpGradientForce](/img/fusion/captures/S313/controls.png)](/img/fusion/captures/S313/controls.png)
+
+Strengthを0.1に設定します。
+
+[![左のぼかした円形画像と右の粒子表示](/img/fusion/captures/S313/comparison.png)](/img/fusion/captures/S313/comparison.png)
+
+左は入力画像、右は粒子の表示です。
+
+[再現用Graph](/img/fusion/captures/S313/fixture.comp) · [撮影条件と確認範囲](/img/fusion/captures/S313/capture.json)
+
+<!-- /capture:S313 -->
+
 ## 運用例
 
 ### 1. 円の中心から粒子を押し出す

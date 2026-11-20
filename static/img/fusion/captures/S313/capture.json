@@ -1,0 +1,117 @@
+{
+  "manual": {
+    "version": "21.1",
+    "chapter": 114,
+    "printed_pages": "2670–2672"
+  },
+  "runtime": {
+    "version": "21.1.0.14",
+    "edition": "DaVinci Resolve Studio",
+    "os": "Windows-11-10.0.26200-SP0",
+    "ui_language": "ja-JP"
+  },
+  "captured_at": "2026-10-28T09:56:57.799387+00:00",
+  "project": "Collectanea_Mandelbrot_Zoom_20261025",
+  "timeline": "S313_capture",
+  "frame": 48,
+  "resolution": [
+    1920,
+    1080
+  ],
+  "color_management": {
+    "project_settings": {
+      "colorScienceMode": "davinciYRGB",
+      "colorSpaceInput": "Rec.709 Gamma 2.4",
+      "colorSpaceTimeline": "Rec.709 (Scene)",
+      "colorSpaceTimelineGamma": "",
+      "colorSpaceOutput": "Rec.709 (Scene)",
+      "colorSpaceOutputGamma": "ACEScc",
+      "isAutoColorManage": "0",
+      "timelineResolutionWidth": "1920",
+      "timelineResolutionHeight": "1080",
+      "timelineFrameRate": 30.0,
+      "timelinePlaybackFrameRate": "30",
+      "timelinePixelAspectRatio": "square"
+    },
+    "note": "SDK project settings; screenshots show Viewer display."
+  },
+  "viewer": {
+    "view_mode": "Fit",
+    "source": "right MediaOut1",
+    "note": "Left masked Background, right MediaOut1, pGradientForce selected, frame 48"
+  },
+  "acceptance": {
+    "gui": "PASS: graph, settings and particle output visible; SDK connections and save read back.",
+    "article_display": "NOT_RUN",
+    "public_display": "NOT_RUN"
+  },
+  "unverified": [
+    "One masked Background fixture and frame 48; Alpha numeric values, effect direction, movement and matched evaluation-start comparison NOT_RUN.",
+    "Strength sign, Region/Set, particle payload, portable reimport and other hosts NOT_RUN.",
+    "Viewer screenshots are display evidence."
+  ],
+  "schema_version": 1,
+  "case": "S313",
+  "article": "manuals/fusion/nodes/particles/pgradientforce.md",
+  "graph": "fixture.comp",
+  "settings": "readback.json",
+  "source": {
+    "file": "screen.png",
+    "size": [
+      3304,
+      1886
+    ],
+    "sha256": "1ad1c38adc509c329b4d2987e145d0f0d56a973b7aa1e582b8e65f8ceba63d01"
+  },
+  "shots": [
+    {
+      "file": "graph.png",
+      "source": "screen.png",
+      "source_sha256": "1ad1c38adc509c329b4d2987e145d0f0d56a973b7aa1e582b8e65f8ceba63d01",
+      "frame": 48,
+      "crop_xyxy": [
+        320,
+        1150,
+        2500,
+        1540
+      ],
+      "resampled": false,
+      "sha256": "f6ea7cab5d9bc68e4de7f49efe8a24bdeb3afac2adc9069da1fafcadeacec4c7"
+    },
+    {
+      "file": "controls.png",
+      "source": "screen.png",
+      "source_sha256": "1ad1c38adc509c329b4d2987e145d0f0d56a973b7aa1e582b8e65f8ceba63d01",
+      "frame": 48,
+      "crop_xyxy": [
+        2780,
+        65,
+        3304,
+        340
+      ],
+      "resampled": false,
+      "sha256": "2fa0492244bfc5c2179d6d235081dce020c7035b5a222f8de1d622da2e543583"
+    },
+    {
+      "file": "comparison.png",
+      "source": "screen.png",
+      "source_sha256": "1ad1c38adc509c329b4d2987e145d0f0d56a973b7aa1e582b8e65f8ceba63d01",
+      "frame": 48,
+      "crop_xyxy": [
+        0,
+        95,
+        2680,
+        715
+      ],
+      "resampled": false,
+      "sha256": "cc4accd19d600a4563d81bc4c92f79dc999c71a2af9154a4361b49fda61e0006"
+    }
+  ],
+  "reproduction": {
+    "fixture_sha256": "512c1993f4f8d79a54a587be0871332084d8825a52b40e0e96945b8032090e52",
+    "readback_sha256": "5a30bdc5c949e89529c83f75073a501a3ad6a922996b02a1e0ccc99a37c7ff62",
+    "readback_source_sha256": "385bdea61b88296dbf5bcd0b9afda67fbdfa6f6a8dd9b92efa5b19c8a7b5021b",
+    "readback_transform": "CRLF normalized to LF for the portable Git asset; JSON values unchanged",
+    "reimport": "NOT_RUN"
+  }
+}
