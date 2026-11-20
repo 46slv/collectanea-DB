@@ -14356,6 +14356,53 @@
           "status": "captured"
         }
       ]
+    },
+    {
+      "priority": "P1",
+      "goal": "Show pTangentForce connection and axis strength settings.",
+      "suggested_graph": "pEmitter -> pTangentForce -> pRender -> MediaOut",
+      "scope": "Resolve Studio 21.1.0.14 on Windows.",
+      "limitations": [
+        "Frame 24 and 48 with fixed emitter seed; matched evaluation-start and initial-state comparison NOT_RUN.",
+        "Still images do not establish tangential motion, direction, trajectories or strength effects.",
+        "Region/Set, particle data, portable reimport and other hosts NOT_RUN.",
+        "result24.png comes from frame24.png but capture.json shot frame=48; independent frame-24 timing NOT_VERIFIED."
+      ],
+      "id": "S322",
+      "article": "manuals/fusion/nodes/particles/ptangentforce.md",
+      "manual": {
+        "version": "21.1",
+        "chapter": 114,
+        "printed_pages": "2687–2688"
+      },
+      "status": "captured-embedded-unverified",
+      "capture_manifest": "static/img/fusion/captures/S322/capture.json",
+      "shots": [
+        {
+          "slug": "graph",
+          "kind": "graph",
+          "target": "pEmitterからpTangentForceとpRenderへ接続した構成",
+          "status": "captured"
+        },
+        {
+          "slug": "controls",
+          "kind": "inspector",
+          "target": "pTangentForceの中心位置と各軸の強度",
+          "status": "captured"
+        },
+        {
+          "slug": "result48",
+          "kind": "result",
+          "target": "48フレームの粒子表示",
+          "status": "captured"
+        },
+        {
+          "slug": "result24",
+          "kind": "result",
+          "target": "24フレームの粒子表示",
+          "status": "captured"
+        }
+      ]
     }
   ],
   "publication_batches": [
@@ -15746,20 +15793,20 @@
     "completion_rule": "Every page has an explicit image decision; necessary images are native-observed, embedded, saved to GitHub and public-display-verified. A native example does not verify all article controls.",
     "summary": {
       "total_pages": 589,
-      "with_images": 363,
-      "with_native_examples": 316,
+      "with_images": 364,
+      "with_native_examples": 317,
       "states": {
         "reviewed-no-standalone-image": 26,
         "no-standalone-image-needed": 6,
         "illustrated-reused-example": 82,
-        "capture-planned": 245,
-        "illustrated-native-example": 229,
+        "capture-planned": 244,
+        "illustrated-native-example": 230,
         "needs-review": 1
       },
       "decisions": {
         "no-standalone-image-needed": 32,
-        "image-required": 311,
-        "capture-needed": 245,
+        "image-required": 312,
+        "capture-needed": 244,
         "needs-review": 1
       }
     },
@@ -28854,13 +28901,15 @@
         "article": "manuals/fusion/nodes/particles/ptangentforce.md",
         "title": "pTangentForce",
         "kind": "node",
-        "image_count": 0,
+        "image_count": 4,
         "native_cases": [],
         "reused_cases": [],
-        "planned_cases": [],
-        "state": "capture-planned",
-        "decision": "capture-needed",
-        "reason": "本文の対象機能: pTangentForceは、粒子へ接線方向の力を加え、基準位置や領域の周囲へ進路を曲げるノード。。S09固定Emitter画像には各Force/behaviorのControlsと軌跡差がない。",
+        "planned_cases": [
+          "S322"
+        ],
+        "state": "illustrated-native-example",
+        "decision": "image-required",
+        "reason": "S322 fixed pEmitter→pTangentForce→pRender 2D, X/Y strength 0 and Z 0.1, frames 24/48 stills. Captures show connection/settings/output, not proven tangential trajectory; result24 timestamp metadata inconsistent.",
         "required_views": [
           "source→対象Particle Tool→pRenderのGraph",
           "対象自身の固有Controlsと必要なConditions/Region",
@@ -28888,6 +28937,12 @@
         "hold_conditions": [
           "Particle Regionは条件によりImage/Bitmap/Mesh等。Krokodove Region互換を推定しない。",
           "frame jump/pre-roll差を効果差と混同しない。"
+        ],
+        "remaining_views": [
+          "matched evaluation-start / initial-state control and force-off/on comparison",
+          "tangential motion, direction, trajectories, impact of Strength X/Y/Z",
+          "Region/Set, particle data, portable reimport, other hosts",
+          "result24.png from frame24.png but capture.json shot frame=48; independent frame-24 timestamp NOT_VERIFIED"
         ]
       },
       {

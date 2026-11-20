@@ -1,0 +1,61 @@
+{
+  "case": "S322",
+  "project": "Collectanea_Mandelbrot_Zoom_20261025",
+  "library": "Local Database",
+  "project_manager_folder": "root",
+  "timeline": "S322_capture",
+  "resolve": "21.1.0.14",
+  "project_settings": {
+    "colorScienceMode": "davinciYRGB",
+    "colorSpaceInput": "Rec.709 Gamma 2.4",
+    "colorSpaceTimeline": "Rec.709 (Scene)",
+    "colorSpaceTimelineGamma": "",
+    "colorSpaceOutput": "Rec.709 (Scene)",
+    "colorSpaceOutputGamma": "ACEScc",
+    "isAutoColorManage": "0",
+    "timelineResolutionWidth": "1920",
+    "timelineResolutionHeight": "1080",
+    "timelineFrameRate": 30.0,
+    "timelinePlaybackFrameRate": "30",
+    "timelinePixelAspectRatio": "square"
+  },
+  "setup": {
+    "case": "S322",
+    "frame": 48.0,
+    "emitter_seed": 7.0,
+    "force": {
+      "XStrength": 0.0,
+      "YStrength": 0.0,
+      "ZStrength": 0.1,
+      "Translate.X": 0.0,
+      "Translate.Y": 0.0,
+      "Translate.Z": 0.0,
+      "Region": "AllRgn",
+      "RegionMode": "Ignore"
+    },
+    "output_mode": "TwoD",
+    "connections": {
+      "TangentForce": {
+        "Input": "Emitter"
+      },
+      "ParticleRender": {
+        "Input": "TangentForce"
+      },
+      "MediaOut1": {
+        "Input": "ParticleRender"
+      }
+    },
+    "saved": "2026-10-28T10:14:27.061593+00:00"
+  },
+  "final": {
+    "frame": 48.0,
+    "saved": "2026-10-28T10:14:48.915137+00:00"
+  },
+  "native_export_sha256": "6cfdd68ce3fb97f6e8a43552c05aa45dc0cc85f4af94318e9aade83c78c91f8a",
+  "portable_sha256": "e5b20e123bd8f06e68c2ca4bf806c23d26b4cc127c5322db3721bb4dfa761431",
+  "limits": [
+    "Frame 24 and 48 with fixed emitter seed; matched evaluation-start and initial-state comparison NOT_RUN.",
+    "Still images do not establish tangential motion, direction, trajectories or strength effects.",
+    "Region/Set, particle data, portable reimport and other hosts NOT_RUN."
+  ]
+}
