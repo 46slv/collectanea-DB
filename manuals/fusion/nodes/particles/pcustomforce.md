@@ -76,6 +76,34 @@ pCustomForceのInspector構造はpCustomに類似するとされ、公式マニ�
 
 pCustomの資料には、位置 `px`・`py`・`pz`、速度 `vx`・`vy`・`vz`、年齢 `age`、寿命 `lifespan`、Region関連の `rgnhit`・`rgndist` なども記載されています。pCustomForceの式を設計する際の手掛かりになりますが、**すべての式欄での使用可否を実機確認したものではありません**。
 
+<!-- capture:S320 -->
+
+## 実機例：Force Xに定数を入力する
+
+`pEmitter` から `pCustomForce` を通して `pRender` の2D出力へ接続し、Force Xの式欄に `0.01` を入力しました。24フレームと48フレームの粒子表示を記録しています。
+
+評価開始条件を揃えた比較、式による加速量や軌道の因果は確認していません。Inspectorのタブはsynthetic click後に確認しました。透明市松はViewerの背景表示です。[接続と設定の記録](/img/fusion/captures/S320/readback.json)に条件を記載しています。
+
+[![pEmitterからpCustomForceとpRenderへ接続した構成](/img/fusion/captures/S320/graph.png)](/img/fusion/captures/S320/graph.png)
+
+粒子をpCustomForceへ入力します。
+
+[![pCustomForceのForce Xに0.01を入力した式欄](/img/fusion/captures/S320/controls.png)](/img/fusion/captures/S320/controls.png)
+
+Force Xに0.01を入力します。
+
+[![48フレームの粒子表示](/img/fusion/captures/S320/result48.png)](/img/fusion/captures/S320/result48.png)
+
+48フレームの表示です。
+
+[![24フレームの粒子表示](/img/fusion/captures/S320/result24.png)](/img/fusion/captures/S320/result24.png)
+
+24フレームの表示です。
+
+[再現用Graph](/img/fusion/captures/S320/fixture.comp) · [撮影条件と確認範囲](/img/fusion/captures/S320/capture.json)
+
+<!-- /capture:S320 -->
+
 ## 制作例
 
 ### 1. 動く一点へ光点を引き寄せる
