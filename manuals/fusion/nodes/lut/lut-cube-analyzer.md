@@ -99,6 +99,34 @@ LUT fileを保存するpathとfile名を指定します。
 
 NodeをGraphへ置いただけではfileを書き出す操作にはなりません。保存先を決めた後、`Write File`を実行します。
 
+<!-- capture:S324 -->
+
+## 実機例：未加工CubeからCUBEを生成する
+
+`LUT Cube Creator` の出力を `LUT Cube Analyzer` に接続し、CUBE形式を選んでファイルを生成しました。生成された33³格子の値は恒等変換と一致しました。
+
+[生成したanalyzed.cube](/img/fusion/captures/S324/analyzed.cube) を別の `File LUT` で読み込み、単色の入力と出力がViewer上で同じ色に見えることも確認しました。Viewerの左右各1画素はRGB 204・77・51でした。加工済みCube、画像全体の数値一致やComp:参照の再importは確認していません。Write Fileとパス末尾表示にはsynthetic入力を使いました。[接続と設定の記録](/img/fusion/captures/S324/readback.json)に条件を記載しています。
+
+[![LUT Cube CreatorをAnalyzerへ接続した構成](/img/fusion/captures/S324/graph.png)](/img/fusion/captures/S324/graph.png)
+
+Creatorの出力をAnalyzerに接続します。
+
+[![CUBE形式と書出し先を指定したLUT Cube Analyzer](/img/fusion/captures/S324/controls.png)](/img/fusion/captures/S324/controls.png)
+
+CUBE形式と書出し先を指定します。
+
+[![LUT Cube Creatorが生成した色の格子](/img/fusion/captures/S324/creator.png)](/img/fusion/captures/S324/creator.png)
+
+未加工のCubeを入力しています。
+
+[![生成LUTをFile LUTに読み戻した入力と出力](/img/fusion/captures/S324/reload-comparison.png)](/img/fusion/captures/S324/reload-comparison.png)
+
+左は入力、右は生成LUTの適用後です。
+
+[再現用Graph](/img/fusion/captures/S324/fixture.comp) · [撮影条件と確認範囲](/img/fusion/captures/S324/capture.json)
+
+<!-- /capture:S324 -->
+
 ## 具体的な使い方
 
 ### Fusionで作ったColor処理を別環境へ渡す

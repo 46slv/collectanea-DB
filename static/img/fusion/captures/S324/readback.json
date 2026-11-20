@@ -1,0 +1,71 @@
+{
+  "case": "S324",
+  "project": "Collectanea_Mandelbrot_Zoom_20261025",
+  "library": "Local Database",
+  "project_manager_folder": "root",
+  "timeline": "S324_capture",
+  "frame": 0,
+  "resolve": "21.1.0.14",
+  "project_settings": {
+    "colorScienceMode": "davinciYRGB",
+    "colorSpaceInput": "Rec.709 Gamma 2.4",
+    "colorSpaceTimeline": "Rec.709 (Scene)",
+    "colorSpaceTimelineGamma": "",
+    "colorSpaceOutput": "Rec.709 (Scene)",
+    "colorSpaceOutputGamma": "ACEScc",
+    "isAutoColorManage": "0",
+    "timelineResolutionWidth": "1920",
+    "timelineResolutionHeight": "1080",
+    "timelineFrameRate": 30.0,
+    "timelinePlaybackFrameRate": "30",
+    "timelinePixelAspectRatio": "square"
+  },
+  "analyzer": {
+    "type": "CUBE",
+    "input": "Creator",
+    "filename": "Comp:/analyzed.cube",
+    "write_action": "synthetic click, file verified",
+    "file": {
+      "filename": "analyzed.cube",
+      "bytes": 774297,
+      "sha256": "9ca23bc9e0e14b4714b862ff2a1a578992f0a89dd84bbf1f23358ac2c9d475e0",
+      "size": 33,
+      "rows": 35937,
+      "identity_grid_exact": true,
+      "evidence": "text grid check; color-managed image equality not measured"
+    }
+  },
+  "reload": {
+    "case": "S324",
+    "source": {
+      "TopLeftRed": 0.8,
+      "TopLeftGreen": 0.3,
+      "TopLeftBlue": 0.2,
+      "TopLeftAlpha": 1.0
+    },
+    "file_readback_matches": true,
+    "cube_sha256": "9ca23bc9e0e14b4714b862ff2a1a578992f0a89dd84bbf1f23358ac2c9d475e0",
+    "saved": "2026-10-28T10:21:16.515638+00:00"
+  },
+  "viewer_sample": {
+    "source_rgb": [
+      204,
+      77,
+      51
+    ],
+    "output_rgb": [
+      204,
+      77,
+      51
+    ],
+    "note": "one displayed pixel per Viewer, not numerical signal equality"
+  },
+  "native_export_sha256": "2f7aae7f51e48941649cb5349c5231b3f3581791597183313f656e2c9fb96715",
+  "portable_sha256": "faa82b46011d6a60abf0aae832c4ebd87a2abcaafa33263447240c626941bc2b",
+  "limits": [
+    "Unmodified Creator cube only; processed color cube and non-identity LUT export NOT_RUN.",
+    "Identity grid verified in file; one RGB Viewer sample matched, full numerical image equivalence NOT_RUN.",
+    "Portable graph paths remapped to Comp:/analyzed.cube; reimport and path resolution NOT_RUN.",
+    "Write File and filename-tail interaction used synthetic GUI input; file existence and content are confirmed, physical input is not claimed."
+  ]
+}
