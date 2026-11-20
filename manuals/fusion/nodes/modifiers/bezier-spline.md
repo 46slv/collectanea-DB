@@ -40,6 +40,34 @@ Bezier Spline
 
 そのため、一定速度の直線的な変化だけでなく、「ゆっくり動き始める」「途中で加速する」「終点へ滑らかに収束する」といった時間変化を、Keyframeごとに直接作れます。
 
+<!-- capture:S325 -->
+
+## 実機例：Text+のSizeを2つのキーで変える
+
+`Text+` のSizeにBezier Splineを接続し、0フレームを0.06、48フレームを0.18に設定しました。両フレームのViewerでは文字の大きさが変化し、SDKの読み戻しでは24フレームの値は0.12でした。
+
+この例は直線的な補間です。Spline Editorでの曲線選択・fit・ハンドル編集は確認していません。操作はaccessibilityとglobal inputを使い、物理入力は確認していません。表示には編集ガイドと透明市松が含まれます。[接続と設定の記録](/img/fusion/captures/S325/readback.json)に条件を記載しています。
+
+[![Text+をMediaOutへ接続した構成](/img/fusion/captures/S325/graph.png)](/img/fusion/captures/S325/graph.png)
+
+Text+のSizeにSplineを接続しています。
+
+[![48フレームでSizeが0.18のText+](/img/fusion/captures/S325/controls.png)](/img/fusion/captures/S325/controls.png)
+
+48フレームのSizeは0.18です。
+
+[![48フレームの大きい文字](/img/fusion/captures/S325/frame48-result.png)](/img/fusion/captures/S325/frame48-result.png)
+
+48フレームの文字です。
+
+[![0フレームの小さい文字](/img/fusion/captures/S325/frame0-result.png)](/img/fusion/captures/S325/frame0-result.png)
+
+0フレームの文字です。
+
+[再現用Graph](/img/fusion/captures/S325/fixture.comp) · [撮影条件と確認範囲](/img/fusion/captures/S325/capture.json)
+
+<!-- /capture:S325 -->
+
 ## 追加方法
 
 数値Controlを右クリックして `Animate` を選ぶと、通常はBezier Splineが作成されます。
