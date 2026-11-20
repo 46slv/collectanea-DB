@@ -92,6 +92,34 @@ pEmitter → pFlock → pRender (2D) → Merge
 
 両者を近づけると整った間隔の群れに見えやすく、離すと配置が不規則になりやすくなります。これは粒子間隔を固定する拘束ではなく、上記の力が働く距離の基準です。内部の数値単位や計算式は確認していないため断定しません。
 
+<!-- capture:S319 -->
+
+## 実機例：pFlockの設定を確認する
+
+`pEmitter` から `pFlock` を通して `pRender` の2D出力へ接続します。Flock Numberを3、Follow・Attract・Repel Strengthを各0.1に設定し、24フレームと48フレームの表示を記録しました。
+
+評価開始条件を揃えた軌道比較や、群れや間隔の挙動は確認していません。透明市松はViewerの背景表示です。[接続と設定の記録](/img/fusion/captures/S319/readback.json)に条件を記載しています。
+
+[![pEmitterからpFlockとpRenderへ接続した構成](/img/fusion/captures/S319/graph.png)](/img/fusion/captures/S319/graph.png)
+
+粒子をpFlockへ入力します。
+
+[![pFlockのFlock Numberと強度、間隔の設定](/img/fusion/captures/S319/controls.png)](/img/fusion/captures/S319/controls.png)
+
+Flock Numberを3、各Strengthを0.1に設定します。
+
+[![48フレームの粒子表示](/img/fusion/captures/S319/result48.png)](/img/fusion/captures/S319/result48.png)
+
+48フレームの表示です。
+
+[![24フレームの粒子表示](/img/fusion/captures/S319/result24.png)](/img/fusion/captures/S319/result24.png)
+
+24フレームの表示です。
+
+[再現用Graph](/img/fusion/captures/S319/fixture.comp) · [撮影条件と確認範囲](/img/fusion/captures/S319/capture.json)
+
+<!-- /capture:S319 -->
+
 ## 実際の使い方
 
 ### 1. 光点を小さな群れにまとめる
