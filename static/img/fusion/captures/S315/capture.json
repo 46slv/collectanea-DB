@@ -1,0 +1,131 @@
+{
+  "manual": {
+    "version": "21.1",
+    "chapter": 114,
+    "printed_pages": "2690–2692"
+  },
+  "runtime": {
+    "version": "21.1.0.14",
+    "edition": "DaVinci Resolve Studio",
+    "os": "Windows-11-10.0.26200-SP0",
+    "ui_language": "ja-JP"
+  },
+  "captured_at": "2026-10-28T10:00:31.039655+00:00",
+  "project": "Collectanea_Mandelbrot_Zoom_20261025",
+  "timeline": "S315_capture",
+  "frame": 48,
+  "resolution": [
+    1920,
+    1080
+  ],
+  "color_management": {
+    "project_settings": {
+      "colorScienceMode": "davinciYRGB",
+      "colorSpaceInput": "Rec.709 Gamma 2.4",
+      "colorSpaceTimeline": "Rec.709 (Scene)",
+      "colorSpaceTimelineGamma": "",
+      "colorSpaceOutput": "Rec.709 (Scene)",
+      "colorSpaceOutputGamma": "ACEScc",
+      "isAutoColorManage": "0",
+      "timelineResolutionWidth": "1920",
+      "timelineResolutionHeight": "1080",
+      "timelineFrameRate": 30.0,
+      "timelinePlaybackFrameRate": "30",
+      "timelinePixelAspectRatio": "square"
+    },
+    "note": "SDK project settings; screenshots show Viewer display."
+  },
+  "viewer": {
+    "view_mode": "Fit",
+    "source": "right MediaOut1",
+    "note": "pVortex selected; frame 48; green overlay is Viewer control"
+  },
+  "acceptance": {
+    "gui": "PASS: graph, settings and particle output visible; SDK connections and save read back.",
+    "article_display": "NOT_RUN",
+    "public_display": "NOT_RUN"
+  },
+  "unverified": [
+    "Frame 24 and 48 with fixed emitter seed; matched evaluation-start and initial-state comparison NOT_RUN.",
+    "Still images do not establish rotation, direction, trajectories, Size or Power effects.",
+    "Region/Set, particle data, portable reimport and other hosts NOT_RUN."
+  ],
+  "schema_version": 1,
+  "case": "S315",
+  "article": "manuals/fusion/nodes/particles/pvortex.md",
+  "graph": "fixture.comp",
+  "settings": "readback.json",
+  "source": {
+    "file": "screen.png",
+    "size": [
+      3304,
+      1886
+    ],
+    "sha256": "13b2e546aebe551cd9ac39c771a9fdb49d26b440c9ed36af4119d741ef20c4cb"
+  },
+  "shots": [
+    {
+      "file": "graph.png",
+      "source": "screen.png",
+      "source_sha256": "13b2e546aebe551cd9ac39c771a9fdb49d26b440c9ed36af4119d741ef20c4cb",
+      "frame": 48,
+      "crop_xyxy": [
+        470,
+        1200,
+        2300,
+        1510
+      ],
+      "resampled": false,
+      "sha256": "6589d1f7e8f669e7d18a1ecbb0af04136c2b1a8bd4cc60c5228e432eaaa48e54"
+    },
+    {
+      "file": "controls.png",
+      "source": "screen.png",
+      "source_sha256": "13b2e546aebe551cd9ac39c771a9fdb49d26b440c9ed36af4119d741ef20c4cb",
+      "frame": 48,
+      "crop_xyxy": [
+        2780,
+        65,
+        3304,
+        500
+      ],
+      "resampled": false,
+      "sha256": "f524ba61f870fc1491749d245ca7b91dbc19453ad819fc91dd787307f6e667a6"
+    },
+    {
+      "file": "result48.png",
+      "source": "screen.png",
+      "source_sha256": "13b2e546aebe551cd9ac39c771a9fdb49d26b440c9ed36af4119d741ef20c4cb",
+      "frame": 48,
+      "crop_xyxy": [
+        1570,
+        95,
+        2680,
+        715
+      ],
+      "resampled": false,
+      "sha256": "afe324662b3e51e5e752fcda685d9c20d7a5fd879cc06d7e5a0cbf1bc43b1258"
+    },
+    {
+      "file": "result24.png",
+      "source": "frame24.png",
+      "source_sha256": "bc1bc00e1b401848ab050e89eda7cdfdfb72b6933517dcf8a2813bd65c93fbb8",
+      "frame": 48,
+      "crop_xyxy": [
+        1570,
+        95,
+        2680,
+        715
+      ],
+      "resampled": false,
+      "sha256": "7d907c03b633f8c89ed0eb7c06aa0e42e67d036fbe4c0cc1b125ac68e66157c6"
+    }
+  ],
+  "reproduction": {
+    "fixture_sha256": "60cd195340ff16c3f111a73147314010959d46bcbc4a8a8b72944d497ad6097b",
+    "readback_sha256": "c335aa66202faeffd7a1d71fc124b8bf57de908290f12bf0d957564d6e9ce06b",
+    "readback_source_sha256": "6320e50f97289800c405dd9c722f69cdcd18e5076e8114b71dc5ce6c0830aa15",
+    "readback_transform": "CRLF normalized to LF for the portable Git asset; JSON values unchanged",
+    "reimport": "NOT_RUN"
+  }
+}

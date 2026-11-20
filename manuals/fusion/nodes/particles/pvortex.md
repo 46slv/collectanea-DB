@@ -84,6 +84,34 @@ pVortexは粒子の**動き**を変えるノードで、粒子の色・形・サ
 
 **Region**は「どこでこの力を作用させるか」を指定します。たとえばBitmapを選び、白い部分と黒い部分が分かれた画像をRegion入力へ接続すると、選択した画像チャンネルを使って作用範囲を制御できます。粒子の色や見た目をそのBitmapから直接作る機能ではありません。
 
+<!-- capture:S315 -->
+
+## 実機例：pVortexを粒子へ接続する
+
+`pEmitter` から `pVortex` を通して `pRender` の2D出力へ接続します。Strengthを0.1、Sizeを0.5に設定し、24フレームと48フレームの表示を記録しました。緑の円はViewer上の操作表示、透明市松は背景表示です。
+
+評価開始条件を揃えた軌道比較や回転方向は確認していません。[接続と設定の記録](/img/fusion/captures/S315/readback.json)に条件を記載しています。
+
+[![pEmitterからpVortexとpRenderへ接続した構成](/img/fusion/captures/S315/graph.png)](/img/fusion/captures/S315/graph.png)
+
+粒子をpVortexへ入力します。
+
+[![pVortexのStrength、Power、Sizeと中心位置の設定](/img/fusion/captures/S315/controls.png)](/img/fusion/captures/S315/controls.png)
+
+Strengthを0.1、Sizeを0.5に設定します。
+
+[![48フレームの粒子表示とViewerの円形操作表示](/img/fusion/captures/S315/result48.png)](/img/fusion/captures/S315/result48.png)
+
+48フレームの表示です。緑の円はViewer操作表示です。
+
+[![24フレームの粒子表示とViewerの操作表示](/img/fusion/captures/S315/result24.png)](/img/fusion/captures/S315/result24.png)
+
+24フレームの表示です。
+
+[再現用Graph](/img/fusion/captures/S315/fixture.comp) · [撮影条件と確認範囲](/img/fusion/captures/S315/capture.json)
+
+<!-- /capture:S315 -->
+
 ## 制作例
 
 ### 光点を渦へ巻き込む
