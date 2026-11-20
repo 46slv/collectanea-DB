@@ -1,0 +1,58 @@
+{
+  "case": "S320",
+  "project": "Collectanea_Mandelbrot_Zoom_20261025",
+  "library": "Local Database",
+  "project_manager_folder": "root",
+  "timeline": "S320_capture",
+  "resolve": "21.1.0.14",
+  "project_settings": {
+    "colorScienceMode": "davinciYRGB",
+    "colorSpaceInput": "Rec.709 Gamma 2.4",
+    "colorSpaceTimeline": "Rec.709 (Scene)",
+    "colorSpaceTimelineGamma": "",
+    "colorSpaceOutput": "Rec.709 (Scene)",
+    "colorSpaceOutputGamma": "ACEScc",
+    "isAutoColorManage": "0",
+    "timelineResolutionWidth": "1920",
+    "timelineResolutionHeight": "1080",
+    "timelineFrameRate": 30.0,
+    "timelinePlaybackFrameRate": "30",
+    "timelinePixelAspectRatio": "square"
+  },
+  "setup": {
+    "case": "S320",
+    "frame": 48.0,
+    "emitter_seed": 7.0,
+    "force": {
+      "ForceXExpression": "0.01",
+      "ForceYExpression": "0",
+      "ForceZExpression": "0"
+    },
+    "output_mode": "TwoD",
+    "connections": {
+      "CustomForce": {
+        "Input": "Emitter"
+      },
+      "ParticleRender": {
+        "Input": "CustomForce"
+      },
+      "MediaOut1": {
+        "Input": "ParticleRender"
+      }
+    },
+    "saved": "2026-10-28T10:09:35.890978+00:00"
+  },
+  "final": {
+    "frame": 48.0,
+    "force_x": "0.01",
+    "saved": "2026-10-28T10:11:09.456187+00:00"
+  },
+  "native_export_sha256": "26f36178f426bd4815fd08dc5db51fc2deec967d277d45757b1e7c2bb05a4633",
+  "portable_sha256": "dc9e91c5b721055ceda5faa852d10f59734d82dddcb5c8a65a08d74f916b07e4",
+  "limits": [
+    "Frame 24 and 48 with fixed emitter seed; matched evaluation-start and initial-state comparison NOT_RUN.",
+    "Force X expression entry and readback only; numerical acceleration, trajectory and expression units NOT_RUN.",
+    "Image 1/2, Torque, other expressions, Region/Set, particle data, portable reimport and other hosts NOT_RUN.",
+    "Inspector Force tab selected by synthetic GUI click, visually read back; physical input is not claimed."
+  ]
+}
