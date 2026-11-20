@@ -1,0 +1,131 @@
+{
+  "manual": {
+    "version": "21.1",
+    "chapter": 114,
+    "printed_pages": "2653–2656"
+  },
+  "runtime": {
+    "version": "21.1.0.14",
+    "edition": "DaVinci Resolve Studio",
+    "os": "Windows-11-10.0.26200-SP0",
+    "ui_language": "ja-JP"
+  },
+  "captured_at": "2026-10-28T10:13:26.133447+00:00",
+  "project": "Collectanea_Mandelbrot_Zoom_20261025",
+  "timeline": "S321_capture",
+  "frame": 48,
+  "resolution": [
+    1920,
+    1080
+  ],
+  "color_management": {
+    "project_settings": {
+      "colorScienceMode": "davinciYRGB",
+      "colorSpaceInput": "Rec.709 Gamma 2.4",
+      "colorSpaceTimeline": "Rec.709 (Scene)",
+      "colorSpaceTimelineGamma": "",
+      "colorSpaceOutput": "Rec.709 (Scene)",
+      "colorSpaceOutputGamma": "ACEScc",
+      "isAutoColorManage": "0",
+      "timelineResolutionWidth": "1920",
+      "timelineResolutionHeight": "1080",
+      "timelineFrameRate": 30.0,
+      "timelinePlaybackFrameRate": "30",
+      "timelinePixelAspectRatio": "square"
+    },
+    "note": "SDK project settings; screenshots show Viewer display."
+  },
+  "viewer": {
+    "view_mode": "Fit",
+    "source": "right MediaOut1",
+    "note": "pCustom selected, Particle tab, frame 48"
+  },
+  "acceptance": {
+    "gui": "PASS: graph, settings and particle output visible; SDK connections and save read back.",
+    "article_display": "NOT_RUN",
+    "public_display": "NOT_RUN"
+  },
+  "unverified": [
+    "One fixture, constant RGB expressions, frame 48; exact particle data values and simulation identity across toggles NOT_RUN.",
+    "Alpha, position, velocity, image inputs, Region/Set, portable reimport and other hosts NOT_RUN.",
+    "Particle tab selected by synthetic GUI click and visually read back; physical input is not claimed."
+  ],
+  "schema_version": 1,
+  "case": "S321",
+  "article": "manuals/fusion/nodes/particles/pcustom.md",
+  "graph": "fixture.comp",
+  "settings": "readback.json",
+  "source": {
+    "file": "screen.png",
+    "size": [
+      3304,
+      1886
+    ],
+    "sha256": "d2ceffd01b1a1edae9b1437b2b2c910bce98abf5622a0b115b1b1363ac7af082"
+  },
+  "shots": [
+    {
+      "file": "graph.png",
+      "source": "screen.png",
+      "source_sha256": "d2ceffd01b1a1edae9b1437b2b2c910bce98abf5622a0b115b1b1363ac7af082",
+      "frame": 48,
+      "crop_xyxy": [
+        470,
+        1200,
+        2300,
+        1510
+      ],
+      "resampled": false,
+      "sha256": "b7324bee55d3bfc04a708f9d556bd29f33ba9725ead0862de44f4e43b248e733"
+    },
+    {
+      "file": "controls.png",
+      "source": "screen.png",
+      "source_sha256": "d2ceffd01b1a1edae9b1437b2b2c910bce98abf5622a0b115b1b1363ac7af082",
+      "frame": 48,
+      "crop_xyxy": [
+        2910,
+        975,
+        3304,
+        1190
+      ],
+      "resampled": false,
+      "sha256": "b8e627a7bd151b1fef8a51a881077df4ba1ed2b00e7af08e1bf21d2f23bd7f03"
+    },
+    {
+      "file": "red.png",
+      "source": "screen.png",
+      "source_sha256": "d2ceffd01b1a1edae9b1437b2b2c910bce98abf5622a0b115b1b1363ac7af082",
+      "frame": 48,
+      "crop_xyxy": [
+        1570,
+        95,
+        2680,
+        715
+      ],
+      "resampled": false,
+      "sha256": "872547eb859b7a0961f04911638543256d3ce7e0b4fb679d7da51fef065c0fa6"
+    },
+    {
+      "file": "green-result.png",
+      "source": "green.png",
+      "source_sha256": "25e545ffdda0ffca9675bca51e692f672ee7fda217e76172c09cdf6964e72955",
+      "frame": 48,
+      "crop_xyxy": [
+        1570,
+        95,
+        2680,
+        715
+      ],
+      "resampled": false,
+      "sha256": "61b325e8e951fa23b3cbacd67c5830952716eef5c78e3f3723d873cc92c266f2"
+    }
+  ],
+  "reproduction": {
+    "fixture_sha256": "2b9d8660dab69dde3678025ed4b5fe8385bb2fb096d8ac3860ada60f8a23cb0c",
+    "readback_sha256": "42c8a63240719ab7ac150d1fd7f6a74994b71ec457fd8f8acbd4c1fdc8239c29",
+    "readback_source_sha256": "c228b3030a192b3bd10b77450577aaaf36a018e8c2420991d7e59bcf69351986",
+    "readback_transform": "CRLF normalized to LF for the portable Git asset; JSON values unchanged",
+    "reimport": "NOT_RUN"
+  }
+}
