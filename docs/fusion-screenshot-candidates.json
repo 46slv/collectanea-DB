@@ -15880,20 +15880,20 @@
     "completion_rule": "Every page has an explicit image decision; necessary images are native-observed, embedded, saved to GitHub and public-display-verified. A native example does not verify all article controls.",
     "summary": {
       "total_pages": 589,
-      "with_images": 366,
+      "with_images": 367,
       "with_native_examples": 319,
       "states": {
         "reviewed-no-standalone-image": 26,
         "no-standalone-image-needed": 6,
-        "illustrated-reused-example": 82,
-        "capture-planned": 242,
+        "illustrated-reused-example": 83,
+        "capture-planned": 241,
         "illustrated-native-example": 232,
         "needs-review": 1
       },
       "decisions": {
         "no-standalone-image-needed": 32,
-        "image-required": 314,
-        "capture-needed": 242,
+        "image-required": 315,
+        "capture-needed": 241,
         "needs-review": 1
       }
     },
@@ -24367,13 +24367,16 @@
         "article": "manuals/fusion/nodes/lut/index.md",
         "title": "LUTノード",
         "kind": "index",
-        "image_count": 0,
+        "image_count": 2,
         "native_cases": [],
-        "reused_cases": [],
+        "reused_cases": [
+          "S323",
+          "S324"
+        ],
         "planned_cases": [],
-        "state": "capture-planned",
-        "decision": "capture-needed",
-        "reason": "Color cubeの生成・加工・適用とViewer LUTの境界を示す。"
+        "state": "illustrated-reused-example",
+        "decision": "image-required",
+        "reason": "S323のFile LUT色差とS324の未加工Creator→Analyzer接続を別の固定実機例として再利用。出力数値・加工cube・再importは未検証。"
       },
       {
         "article": "manuals/fusion/nodes/lut/lut-cube-analyzer.md",
@@ -36758,6 +36761,26 @@
       ],
       "status": "captured-embedded-unverified",
       "scope": "S307 static frame 48 pRender TwoD; 3D and temporal behavior NOT_RUN."
+    },
+    {
+      "id": "R302",
+      "article": "manuals/fusion/nodes/lut/index.md",
+      "source_case": "S323",
+      "images": [
+        "comparison.png"
+      ],
+      "scope": "Fixed generated CUBE applied to one solid color; no numeric output or portable reimport.",
+      "status": "captured-embedded-unverified"
+    },
+    {
+      "id": "R303",
+      "article": "manuals/fusion/nodes/lut/index.md",
+      "source_case": "S324",
+      "images": [
+        "graph.png"
+      ],
+      "scope": "Unprocessed Creator to Analyzer identity export only; processed cube is not shown.",
+      "status": "captured-embedded-unverified"
     }
   ],
   "external_reports": [
