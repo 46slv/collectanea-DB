@@ -1,0 +1,131 @@
+{
+  "manual": {
+    "version": "21.1",
+    "chapter": 114,
+    "printed_pages": "2677–2678"
+  },
+  "runtime": {
+    "version": "21.1.0.14",
+    "edition": "DaVinci Resolve Studio",
+    "os": "Windows-11-10.0.26200-SP0",
+    "ui_language": "ja-JP"
+  },
+  "captured_at": "2026-10-28T09:58:40.029505+00:00",
+  "project": "Collectanea_Mandelbrot_Zoom_20261025",
+  "timeline": "S314_capture",
+  "frame": 48,
+  "resolution": [
+    1920,
+    1080
+  ],
+  "color_management": {
+    "project_settings": {
+      "colorScienceMode": "davinciYRGB",
+      "colorSpaceInput": "Rec.709 Gamma 2.4",
+      "colorSpaceTimeline": "Rec.709 (Scene)",
+      "colorSpaceTimelineGamma": "",
+      "colorSpaceOutput": "Rec.709 (Scene)",
+      "colorSpaceOutputGamma": "ACEScc",
+      "isAutoColorManage": "0",
+      "timelineResolutionWidth": "1920",
+      "timelineResolutionHeight": "1080",
+      "timelineFrameRate": 30.0,
+      "timelinePlaybackFrameRate": "30",
+      "timelinePixelAspectRatio": "square"
+    },
+    "note": "SDK project settings; screenshots show Viewer display."
+  },
+  "viewer": {
+    "view_mode": "Fit",
+    "source": "right MediaOut1",
+    "note": "pPointForce selected; frame 48"
+  },
+  "acceptance": {
+    "gui": "PASS: graph, settings and particle output visible; SDK connections and save read back.",
+    "article_display": "NOT_RUN",
+    "public_display": "NOT_RUN"
+  },
+  "unverified": [
+    "Frame 24 and 48, fixed emitter seed; matched evaluation-start and initial-state comparison NOT_RUN.",
+    "Still images do not establish attraction or repulsion direction, trajectories, Power or Limit Force effects.",
+    "Region/Set, particle data, portable reimport and other hosts NOT_RUN."
+  ],
+  "schema_version": 1,
+  "case": "S314",
+  "article": "manuals/fusion/nodes/particles/ppointforce.md",
+  "graph": "fixture.comp",
+  "settings": "readback.json",
+  "source": {
+    "file": "screen.png",
+    "size": [
+      3304,
+      1886
+    ],
+    "sha256": "7a2cde07a8b0df9b8a929a8835f4593186191d14d5933583e298fb6c6135e2cc"
+  },
+  "shots": [
+    {
+      "file": "graph.png",
+      "source": "screen.png",
+      "source_sha256": "7a2cde07a8b0df9b8a929a8835f4593186191d14d5933583e298fb6c6135e2cc",
+      "frame": 48,
+      "crop_xyxy": [
+        470,
+        1200,
+        2300,
+        1510
+      ],
+      "resampled": false,
+      "sha256": "00334f82a1402d436d8ad1f52e3bc3e903fff2871117d1ab30dc79cdc570c23f"
+    },
+    {
+      "file": "controls.png",
+      "source": "screen.png",
+      "source_sha256": "7a2cde07a8b0df9b8a929a8835f4593186191d14d5933583e298fb6c6135e2cc",
+      "frame": 48,
+      "crop_xyxy": [
+        2780,
+        65,
+        3304,
+        500
+      ],
+      "resampled": false,
+      "sha256": "32a4b33087b2089bc174f1c2baca7f5d38fa20d80f4ab7a713a1b55a726c8993"
+    },
+    {
+      "file": "result48.png",
+      "source": "screen.png",
+      "source_sha256": "7a2cde07a8b0df9b8a929a8835f4593186191d14d5933583e298fb6c6135e2cc",
+      "frame": 48,
+      "crop_xyxy": [
+        1570,
+        95,
+        2680,
+        715
+      ],
+      "resampled": false,
+      "sha256": "626099ec10cc5c8d5941bb9aa18060e8cb8318ffef0c2f6c7a6527c0b569e909"
+    },
+    {
+      "file": "result24.png",
+      "source": "frame24.png",
+      "source_sha256": "3278d75e561f7a7e76f6277cf758e089e947878e1fb7d1594bcb2a0a85bb28db",
+      "frame": 48,
+      "crop_xyxy": [
+        1570,
+        95,
+        2680,
+        715
+      ],
+      "resampled": false,
+      "sha256": "d41987b7c29aac9316eff7519c7b13200e71cd034952df2c346e1cea28578dd9"
+    }
+  ],
+  "reproduction": {
+    "fixture_sha256": "3e93d94a6d721e252b07cac118ee17d8307a89b035314377a7c0ee9a10227f55",
+    "readback_sha256": "8c03f6a558cdbeed8eac57ff5146b96b747e5a49a65ba2afc492a3ae910945bb",
+    "readback_source_sha256": "783ffd6e38958111862fc1846f49f22b7240f41a46a9701d0ec4377b04a5c4ef",
+    "readback_transform": "CRLF normalized to LF for the portable Git asset; JSON values unchanged",
+    "reimport": "NOT_RUN"
+  }
+}
