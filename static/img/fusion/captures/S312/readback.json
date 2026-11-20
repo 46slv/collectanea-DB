@@ -1,0 +1,63 @@
+{
+  "case": "S312",
+  "project": "Collectanea_Mandelbrot_Zoom_20261025",
+  "library": "Local Database",
+  "project_manager_folder": "root",
+  "timeline": "S312_capture",
+  "resolve": "21.1.0.14",
+  "project_settings": {
+    "colorScienceMode": "davinciYRGB",
+    "colorSpaceInput": "Rec.709 Gamma 2.4",
+    "colorSpaceTimeline": "Rec.709 (Scene)",
+    "colorSpaceTimelineGamma": "",
+    "colorSpaceOutput": "Rec.709 (Scene)",
+    "colorSpaceOutputGamma": "ACEScc",
+    "isAutoColorManage": "0",
+    "timelineResolutionWidth": "1920",
+    "timelineResolutionHeight": "1080",
+    "timelineFrameRate": 30.0,
+    "timelinePlaybackFrameRate": "30",
+    "timelinePixelAspectRatio": "square"
+  },
+  "setup": {
+    "case": "S312",
+    "frame": 48.0,
+    "emitter_seed": 7.0,
+    "turbulence": {
+      "RandomSeed": 11.0,
+      "XStrength": 0.1,
+      "YStrength": 0.1,
+      "ZStrength": 0.0,
+      "Density": 10.0,
+      "Region": "AllRgn",
+      "RegionMode": "Ignore"
+    },
+    "output_mode": "TwoD",
+    "connections": {
+      "Turbulence": {
+        "StrengthOverLifeLUT": "pTurbulence1StrengthOverLifeLUT",
+        "Input": "Emitter"
+      },
+      "ParticleRender": {
+        "Input": "Turbulence"
+      },
+      "MediaOut1": {
+        "Input": "ParticleRender"
+      }
+    },
+    "saved": "2026-10-28T09:54:12.685556+00:00"
+  },
+  "comparison": {
+    "x_restored": 0.1,
+    "y_restored": 0.1,
+    "frame": 48.0,
+    "saved": "2026-10-28T09:54:42.492017+00:00"
+  },
+  "native_export_sha256": "1fd9d280d8f89b1e33a80a8889a6bc348d8cea361bf67543e0d73a805d8ba872",
+  "portable_sha256": "4fff4ddedaba714139269e431193a2505ae99015df17fcdea8930984bcf999c8",
+  "limits": [
+    "Frame 24 and 48, fixed seeds 7 and 11; evaluation-start identity and deterministic movement comparisons NOT_RUN.",
+    "Still images do not establish trajectory, causal displacement, Strength Over Life or Density effect.",
+    "Region/Set, particle data, portable reimport and other hosts NOT_RUN."
+  ]
+}
