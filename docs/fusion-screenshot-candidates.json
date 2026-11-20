@@ -14078,6 +14078,52 @@
           "status": "captured"
         }
       ]
+    },
+    {
+      "priority": "P1",
+      "goal": "Show pVortex connection, settings and two static frames.",
+      "suggested_graph": "pEmitter -> pVortex -> pRender -> MediaOut",
+      "scope": "Resolve Studio 21.1.0.14 on Windows.",
+      "limitations": [
+        "Frame 24 and 48 with fixed emitter seed; matched evaluation-start and initial-state comparison NOT_RUN.",
+        "Still images do not establish rotation, direction, trajectories, Size or Power effects.",
+        "Region/Set, particle data, portable reimport and other hosts NOT_RUN."
+      ],
+      "id": "S315",
+      "article": "manuals/fusion/nodes/particles/pvortex.md",
+      "manual": {
+        "version": "21.1",
+        "chapter": 114,
+        "printed_pages": "2690–2692"
+      },
+      "status": "captured-embedded-unverified",
+      "capture_manifest": "static/img/fusion/captures/S315/capture.json",
+      "shots": [
+        {
+          "slug": "graph",
+          "kind": "graph",
+          "target": "pEmitterからpVortexとpRenderへ接続した構成",
+          "status": "captured"
+        },
+        {
+          "slug": "controls",
+          "kind": "inspector",
+          "target": "pVortexのStrength、Power、Sizeと中心位置の設定",
+          "status": "captured"
+        },
+        {
+          "slug": "result48",
+          "kind": "result",
+          "target": "48フレームの粒子表示とViewerの円形操作表示",
+          "status": "captured"
+        },
+        {
+          "slug": "result24",
+          "kind": "result",
+          "target": "24フレームの粒子表示とViewerの操作表示",
+          "status": "captured"
+        }
+      ]
     }
   ],
   "publication_batches": [
@@ -15468,20 +15514,20 @@
     "completion_rule": "Every page has an explicit image decision; necessary images are native-observed, embedded, saved to GitHub and public-display-verified. A native example does not verify all article controls.",
     "summary": {
       "total_pages": 589,
-      "with_images": 357,
-      "with_native_examples": 310,
+      "with_images": 358,
+      "with_native_examples": 311,
       "states": {
         "reviewed-no-standalone-image": 26,
         "no-standalone-image-needed": 6,
         "illustrated-reused-example": 82,
-        "capture-planned": 251,
-        "illustrated-native-example": 223,
+        "capture-planned": 250,
+        "illustrated-native-example": 224,
         "needs-review": 1
       },
       "decisions": {
         "no-standalone-image-needed": 32,
-        "image-required": 305,
-        "capture-needed": 251,
+        "image-required": 306,
+        "capture-needed": 250,
         "needs-review": 1
       }
     },
@@ -28628,13 +28674,20 @@
         "article": "manuals/fusion/nodes/particles/pvortex.md",
         "title": "pVortex",
         "kind": "node",
-        "image_count": 0,
+        "image_count": 4,
         "native_cases": [],
         "reused_cases": [],
-        "planned_cases": [],
-        "state": "capture-planned",
-        "decision": "capture-needed",
-        "reason": "本文の対象機能: pVortexは、Particleに回転する力を加えて渦状の動きを作るノード。。S09固定Emitter画像には各Force/behaviorのControlsと軌跡差がない。",
+        "planned_cases": [
+          "S315"
+        ],
+        "state": "illustrated-native-example",
+        "decision": "image-required",
+        "reason": "S315は固定設定の接続と2時刻の表示例。回転方向や軌道の因果比較は未確認。",
+        "remaining_views": [
+          "同じseed・初期条件・評価開始を揃えた比較と回転方向",
+          "Power・Sizeの効果、RegionとSet",
+          "portable reimportと他host"
+        ],
         "required_views": [
           "source→対象Particle Tool→pRenderのGraph",
           "対象自身の固有Controlsと必要なConditions/Region",
