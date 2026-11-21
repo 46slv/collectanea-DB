@@ -1,0 +1,30 @@
+{
+  "case": "S332",
+  "baseline": {
+    "case": "S332",
+    "camera": {
+      "ProjectionType": "Perspective",
+      "FocalLength": 50.0,
+      "USDXf.Translate.Z": 6.0
+    },
+    "renderer_camera_selector": "Default",
+    "connections": [
+      "Capsule->USDMerge.SceneInput1",
+      "Camera->USDMerge.SceneInput2",
+      "USDMerge->USDRender.SceneInput",
+      "USDRender->MediaOut1"
+    ],
+    "saved": "2026-10-28T10:43:17.868198+00:00"
+  },
+  "final": {
+    "z": 18,
+    "focal": 25,
+    "renderer_selector": "Default",
+    "saved": "2026-10-28T10:44:05.323700+00:00"
+  },
+  "comparison": "FocalLength 50 vs 25, camera Z 18, same scene, static frame 0",
+  "limits": [
+    "Single Perspective camera and fixed scene; uRenderer CameraSelector remains Default, explicit camera selection and multiple-camera routing NOT_RUN.",
+    "Film Back, Orthographic, DOF, animation, portable reimport and other hosts NOT_RUN."
+  ]
+}
