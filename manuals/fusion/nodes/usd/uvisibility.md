@@ -43,6 +43,32 @@ uDistant Light ─────────────────────�
 
 この図はカメラと照明を別ノードで加える場合の例です。USDファイル内に使用するカメラやライトがすでに入っていれば、重複して追加する必要はありません。[uLoader](./uloader)はUSDファイルを読み込み、[uMerge](./u-merge)はUSDの構成要素をまとめます。
 
+<!-- capture:S331 -->
+
+## 実機例：単一の形状の表示を切り替える
+
+`uShape`のCapsuleを`uVisibility`へ接続した例です。Selected Primsが空の状態でVisibleをオンにすると形状が表示され、オフにするとViewerから見えなくなりました。この例は単一の形状だけを使っており、Pickで特定Primを選ぶ操作や複数objectは確認していません。市松模様はViewerの透明表示で、USD payloadの削除を示すものではありません。[接続と設定の記録](/img/fusion/captures/S331/readback.json)に条件を記載しています。
+
+[![uShapeからuVisibility、uRendererへ接続した構成](/img/fusion/captures/S331/graph.png)](/img/fusion/captures/S331/graph.png)
+
+uVisibilityの後でUSD sceneを描画します。
+
+[![Selected Primsが空でVisibleがオフのuVisibility](/img/fusion/captures/S331/controls.png)](/img/fusion/captures/S331/controls.png)
+
+この例ではSelected Primsが空の状態です。
+
+[![Visibleオンで表示されたCapsule](/img/fusion/captures/S331/visible-result.png)](/img/fusion/captures/S331/visible-result.png)
+
+VisibleオンではCapsuleが見えます。
+
+[![Visibleオフで形状が見えないViewer](/img/fusion/captures/S331/hidden-result.png)](/img/fusion/captures/S331/hidden-result.png)
+
+Visibleオフでは形状が見えません。
+
+[再現用Graph](/img/fusion/captures/S331/fixture.comp) · [撮影条件と確認範囲](/img/fusion/captures/S331/capture.json)
+
+<!-- /capture:S331 -->
+
 ## どこを表示・非表示にするか
 
 Inspectorの**Controls**タブで、対象と表示状態を指定します。

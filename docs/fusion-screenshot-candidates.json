@@ -14694,6 +14694,50 @@
           "status": "captured"
         }
       ]
+    },
+    {
+      "priority": "P1",
+      "goal": "Show Visible on/off for a single uShape with empty Selected Prims.",
+      "suggested_graph": "uShape -> uVisibility -> uRenderer -> MediaOut",
+      "scope": "Resolve Studio 21.1.0.14 on Windows.",
+      "limitations": [
+        "Single uShape scene; Selected Prims is empty, so targeted selection and multi-object behavior NOT_RUN.",
+        "Scene Tree Pick action did not produce a verified selection; no physical input claim.",
+        "Animation, USD export semantics, portable reimport and other hosts NOT_RUN."
+      ],
+      "id": "S331",
+      "article": "manuals/fusion/nodes/usd/uvisibility.md",
+      "manual": {
+        "version": "21.1"
+      },
+      "status": "captured-embedded-unverified",
+      "capture_manifest": "static/img/fusion/captures/S331/capture.json",
+      "shots": [
+        {
+          "slug": "graph",
+          "kind": "graph",
+          "target": "uShapeからuVisibility、uRendererへ接続した構成",
+          "status": "captured"
+        },
+        {
+          "slug": "controls",
+          "kind": "inspector",
+          "target": "Selected Primsが空でVisibleがオフのuVisibility",
+          "status": "captured"
+        },
+        {
+          "slug": "visible-result",
+          "kind": "result",
+          "target": "Visibleオンで表示されたCapsule",
+          "status": "captured"
+        },
+        {
+          "slug": "hidden-result",
+          "kind": "result",
+          "target": "Visibleオフで形状が見えないViewer",
+          "status": "captured"
+        }
+      ]
     }
   ],
   "publication_batches": [
@@ -16084,20 +16128,20 @@
     "completion_rule": "Every page has an explicit image decision; necessary images are native-observed, embedded, saved to GitHub and public-display-verified. A native example does not verify all article controls.",
     "summary": {
       "total_pages": 589,
-      "with_images": 372,
-      "with_native_examples": 324,
+      "with_images": 373,
+      "with_native_examples": 325,
       "states": {
         "reviewed-no-standalone-image": 26,
         "no-standalone-image-needed": 6,
         "illustrated-reused-example": 83,
-        "illustrated-native-example": 237,
-        "capture-planned": 236,
+        "illustrated-native-example": 238,
+        "capture-planned": 235,
         "needs-review": 1
       },
       "decisions": {
         "no-standalone-image-needed": 32,
-        "image-required": 320,
-        "capture-needed": 236,
+        "image-required": 321,
+        "capture-needed": 235,
         "undefined": 1
       }
     },
@@ -32582,13 +32626,15 @@
         "article": "manuals/fusion/nodes/usd/uvisibility.md",
         "title": "uVisibility",
         "kind": "node",
-        "image_count": 0,
+        "image_count": 4,
         "native_cases": [],
         "reused_cases": [],
-        "planned_cases": [],
-        "state": "capture-planned",
-        "decision": "capture-needed",
-        "reason": "本文の対象機能: uVisibilityは、USDシーン内の指定したオブジェクトや階層を表示・非表示にするノード。。S12固定capsuleは各u*の階層/Control/処理を示せない。",
+        "planned_cases": [
+          "S331"
+        ],
+        "state": "illustrated-native-example",
+        "decision": "image-required",
+        "reason": "S331はSelected Prims空・単一形状のVisible切替表示例。特定Prim選択は未確認。",
         "required_views": [
           "対象名と実接続が読めるGraph",
           "対象自身を選択したInspectorの該当Control",
@@ -32611,6 +32657,11 @@
         ],
         "hold_conditions": [
           "S12のStorm Color固定例から各USD Toolの材質/光/volume/aux対応へ外挿しない。対象rendererと実入力型をreadbackする。"
+        ],
+        "remaining_views": [
+          "Pickによる特定Prim選択と複数object",
+          "USD payload/export、animation",
+          "portable reimportと他host"
         ]
       },
       {
