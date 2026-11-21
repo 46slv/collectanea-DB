@@ -1,0 +1,20 @@
+.vp-film-grain {margin:24px 0 32px;padding:clamp(14px,2.5vw,24px);border:1px solid var(--cc-line);border-radius:var(--cc-radius);background:var(--cc-surface);color:var(--cc-text);font:14px/1.65 var(--cc-body-font);}
+.vp-film-grain h3 {margin:0 0 6px;font-size:19px;}
+.vp-film-grain p {margin:0 0 14px;font-size:12px;color:var(--cc-secondary);}
+.vp-film-grain__previews {display:grid;grid-template-columns:repeat(3,minmax(0,1fr));gap:10px;}
+.vp-film-grain__preview {min-width:0;margin:0;border:1px solid var(--cc-line);border-radius:var(--cc-radius);overflow:hidden;}
+.vp-film-grain__preview figcaption {display:flex;flex-direction:column;gap:3px;min-height:60px;padding:10px;line-height:1.4;}
+.vp-film-grain__preview figcaption strong {font-size:13px;}
+.vp-film-grain__preview figcaption span {font-size:11px;color:var(--cc-secondary);}
+.vp-film-grain__preview canvas {display:block;width:100%;height:auto;background:#181818;image-rendering:auto;}
+.vp-film-grain__preview p {margin:8px 10px;}
+.vp-film-grain .vp-film-grain__hint {margin:12px 0;}
+.vp-film-grain__controls {display:grid;grid-template-columns:repeat(2,minmax(0,1fr));gap:14px;margin-top:18px;padding-top:18px;border-top:1px solid var(--cc-line);}
+.vp-film-grain__controls label {display:flex;flex-direction:column;min-width:0;gap:6px;font-size:12px;color:var(--cc-secondary);}
+.vp-film-grain__controls label > span {display:flex;justify-content:space-between;flex-wrap:wrap;gap:4px 8px;}
+.vp-film-grain__controls output {font-weight:600;color:var(--cc-text);font-variant-numeric:tabular-nums;}
+.vp-film-grain__controls select {width:100%;min-height:44px;padding:8px;border:1px solid var(--cc-control-line);border-radius:var(--cc-radius);background:var(--cc-canvas);color:var(--cc-text);}
+.vp-film-grain__controls input[type='range'] {width:100%;min-height:44px;margin:0;accent-color:var(--cc-text);}
+.vp-film-grain__actions {display:flex;justify-content:flex-end;flex-wrap:wrap;gap:10px;margin-top:14px;}
+.vp-film-grain__actions button {min-height:44px;padding:8px 12px;border:1px solid var(--cc-control-line);border-radius:var(--cc-radius);background:var(--cc-surface);color:var(--cc-text);}
+@media(max-width:700px){.vp-film-grain__previews,.vp-film-grain__controls{grid-template-columns:minmax(0,1fr)}.vp-film-grain__preview figcaption{min-height:0}.vp-film-grain__actions{justify-content:stretch}.vp-film-grain__actions button{flex:1 1 100%}}
