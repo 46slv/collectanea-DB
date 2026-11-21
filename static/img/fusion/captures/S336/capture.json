@@ -107,7 +107,7 @@
       "file": "original-result.png",
       "source": "original.png",
       "source_sha256": "6c09b4b8518cc3866840f3f86136f7c7f1f1082b5988b9f7a99040155ebd5ff9",
-      "frame": 1,
+      "frame": 0,
       "crop_xyxy": [
         1560,
         100,
