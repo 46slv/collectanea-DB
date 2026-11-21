@@ -89,6 +89,32 @@ Radiusを変えることと、実際に表示する3Dの球体を拡大するこ
 
 **Normalize**は照明寄与の正規化です。ただしManualは、正規化の式や「Radiusを変えても明るさが必ず一定になる」といった条件まで規定していません。効果を調べる際は、Radius・Intensity・Exposureを固定してON/OFFを比較してください。
 
+<!-- capture:S334 -->
+
+## 実機例：ライトの位置を変える
+
+`uShape`のCapsuleと`uSphere Light`を`uMerge`でまとめ、uRendererのLightingをSceneに設定しました。ライトのX位置を0から2へ変えると、Capsule上の明暗が変わりました。比較画像はそれぞれ0フレームと1フレームで撮影し、位置はSDKで読み戻しています。Radiusによる影の柔らかさ、Treat as Pointの比較や物理照度の測定は行っていません。市松模様はViewerの透明表示です。[接続と設定の記録](/img/fusion/captures/S334/readback.json)に条件を記載しています。
+
+[![uShapeとuSphere LightをuMergeへ接続する構成](/img/fusion/captures/S334/graph.png)](/img/fusion/captures/S334/graph.png)
+
+形状と球状ライトを同じUSD sceneにまとめています。
+
+[![Intensity 10とRadius 0.5を設定したuSphere Light](/img/fusion/captures/S334/controls.png)](/img/fusion/captures/S334/controls.png)
+
+Intensity 10、Radius 0.5の設定です。
+
+[![ライトをX 2に移動した描画](/img/fusion/captures/S334/moved-result.png)](/img/fusion/captures/S334/moved-result.png)
+
+ライトX 2、1フレームの表示です。
+
+[![ライトX 0での描画](/img/fusion/captures/S334/original-result.png)](/img/fusion/captures/S334/original-result.png)
+
+ライトX 0、0フレームの表示です。
+
+[再現用Graph](/img/fusion/captures/S334/fixture.comp) · [撮影条件と確認範囲](/img/fusion/captures/S334/capture.json)
+
+<!-- /capture:S334 -->
+
 ## 位置と方向を調整する（Transform）
 
 Transformタブでライトの位置・回転・拡大縮小を調整します。ManualはuSphere Lightに**画面上の操作ハンドル**があり、そのRotationがライトの向く方向を示すと説明しています。球状なので回転が必ず無意味とは扱いません。一方、Rotationが配光計算へ具体的にどう影響するかは実機未検証です。
