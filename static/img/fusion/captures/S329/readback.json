@@ -1,0 +1,23 @@
+{
+  "case": "S329",
+  "values": {
+    "FirstCopy": 0.0,
+    "LastCopy": 3.0,
+    "USDXf.Translate.X": 2.5
+  },
+  "shape": "USDGeomCapsule",
+  "connections": [
+    "Shape->Duplicate.SceneInput",
+    "Duplicate->USDRender.SceneInput",
+    "USDRender->MediaOut1"
+  ],
+  "saved": "2026-10-28T10:38:05.616730+00:00",
+  "renderer": {
+    "FitScene": 1.0,
+    "saved": "2026-10-28T10:38:24.589949+00:00"
+  },
+  "limits": [
+    "Copies range 0 to 3 and X offset 2.5: three shapes visible with Fit Scene; internal instance count and exact relationship to range endpoints NOT_RUN.",
+    "Other copy ranges, Instancing, Jitter, Region, Time Offset, animation and portable reimport NOT_RUN."
+  ]
+}

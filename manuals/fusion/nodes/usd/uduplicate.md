@@ -44,6 +44,28 @@ uDistant Light ─────────────────────�
 
 この例では[uShape](./ushape)が1個の立方体を作り、uDuplicateが複数に増やします。[uMerge](./u-merge)でカメラ・照明と合流させると、同じ画面の中で複製結果を確認できます。外部の建物などを使う場合は、uShapeの代わりに[uLoader](./uloader)からUSDファイルを読み込みます。
 
+<!-- capture:S329 -->
+
+## 実機例：Capsuleを横に並べる
+
+`uShape`のCapsuleを`uDuplicate`に接続し、Copiesを0から3、TranslationのX Offsetを2.5に設定しました。uRendererのFit Sceneを有効にしたViewerでは、3つの形が横に見えます。この静止画では内部のinstance数と範囲端点の対応を測定していません。市松模様はViewerの透明表示です。[接続と設定の記録](/img/fusion/captures/S329/readback.json)に条件を記載しています。
+
+[![uShapeからuDuplicate、uRendererへ接続した構成](/img/fusion/captures/S329/graph.png)](/img/fusion/captures/S329/graph.png)
+
+uDuplicateの後でUSD sceneを描画します。
+
+[![Copies 0から3とX Offset 2.5を設定したuDuplicate](/img/fusion/captures/S329/controls.png)](/img/fusion/captures/S329/controls.png)
+
+コピー範囲とX方向の間隔を設定しています。
+
+[![横に並んだ3つのCapsule](/img/fusion/captures/S329/result.png)](/img/fusion/captures/S329/result.png)
+
+Fit Sceneを有効にした描画では3つの形が見えます。
+
+[再現用Graph](/img/fusion/captures/S329/fixture.comp) · [撮影条件と確認範囲](/img/fusion/captures/S329/capture.json)
+
+<!-- /capture:S329 -->
+
 ## Controls：複製の数と変形
 
 ### Copies：範囲を決める

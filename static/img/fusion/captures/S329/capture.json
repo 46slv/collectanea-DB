@@ -1,0 +1,114 @@
+{
+  "manual": {
+    "version": "21.1"
+  },
+  "runtime": {
+    "version": "21.1.0.14",
+    "edition": "DaVinci Resolve Studio",
+    "os": "Windows-11-10.0.26200-SP0",
+    "ui_language": "ja-JP"
+  },
+  "captured_at": "2026-10-28T10:38:55.621801+00:00",
+  "project": "Collectanea_Mandelbrot_Zoom_20261025",
+  "timeline": "S329_capture",
+  "frame": 0,
+  "resolution": [
+    1920,
+    1080
+  ],
+  "color_management": {
+    "project_settings": {
+      "colorScienceMode": "davinciYRGB",
+      "colorSpaceInput": "Rec.709 Gamma 2.4",
+      "colorSpaceTimeline": "Rec.709 (Scene)",
+      "colorSpaceTimelineGamma": "",
+      "colorSpaceOutput": "Rec.709 (Scene)",
+      "colorSpaceOutputGamma": "ACEScc",
+      "isAutoColorManage": "0",
+      "timelineResolutionWidth": "1920",
+      "timelineResolutionHeight": "1080",
+      "timelineFrameRate": 30.0,
+      "timelinePlaybackFrameRate": "30",
+      "timelinePixelAspectRatio": "square"
+    },
+    "note": "SDK project settings; screenshots show Viewer display."
+  },
+  "viewer": {
+    "view_mode": "Fit",
+    "source": "uRenderer / MediaOut1",
+    "note": "uDuplicate selected, frame 0; renderer Fit Scene enabled"
+  },
+  "acceptance": {
+    "gui": "PASS: copy range, X offset, graph and three visible shapes; SDK values and save read back.",
+    "article_display": "NOT_RUN",
+    "public_display": "NOT_RUN"
+  },
+  "unverified": [
+    "Copies range 0 to 3 and X offset 2.5: three shapes visible with Fit Scene; internal instance count and exact relationship to range endpoints NOT_RUN.",
+    "Other copy ranges, Instancing, Jitter, Region, Time Offset, animation and portable reimport NOT_RUN."
+  ],
+  "schema_version": 1,
+  "case": "S329",
+  "article": "manuals/fusion/nodes/usd/uduplicate.md",
+  "graph": "fixture.comp",
+  "settings": "readback.json",
+  "source": {
+    "file": "screen.png",
+    "size": [
+      3304,
+      1886
+    ],
+    "sha256": "4c8f8240702a9cdbc1c8b262484d700eaa54df47bdae9c2d0680f1ca119ea2ed"
+  },
+  "shots": [
+    {
+      "file": "graph.png",
+      "source": "screen.png",
+      "source_sha256": "4c8f8240702a9cdbc1c8b262484d700eaa54df47bdae9c2d0680f1ca119ea2ed",
+      "frame": 0,
+      "crop_xyxy": [
+        700,
+        1250,
+        2050,
+        1450
+      ],
+      "resampled": false,
+      "sha256": "992438d27199fa76ec8ab648309f847a13d71b990aa392159c4ad3b85fdf4bdd"
+    },
+    {
+      "file": "controls.png",
+      "source": "screen.png",
+      "source_sha256": "4c8f8240702a9cdbc1c8b262484d700eaa54df47bdae9c2d0680f1ca119ea2ed",
+      "frame": 0,
+      "crop_xyxy": [
+        2780,
+        125,
+        3304,
+        535
+      ],
+      "resampled": false,
+      "sha256": "c46b9f72a59ded3a83b72970355e9be8c5ed7b812f38aedc8f6dcd699b4254c9"
+    },
+    {
+      "file": "result.png",
+      "source": "screen.png",
+      "source_sha256": "4c8f8240702a9cdbc1c8b262484d700eaa54df47bdae9c2d0680f1ca119ea2ed",
+      "frame": 0,
+      "crop_xyxy": [
+        1560,
+        100,
+        2680,
+        715
+      ],
+      "resampled": false,
+      "sha256": "4763279056b4e8d381cf06263d06d5efd1f569e8088898d9d22e6edd7e06bf20"
+    }
+  ],
+  "reproduction": {
+    "fixture_sha256": "bd88b598d7a426aaf422643ce47d9f42fabc1cb8a50e5664371390e64a8b8370",
+    "readback_sha256": "c58b76bfb928b22398544357982a2ac07b4b0ec552be2a5e922a24bd36f2ec8a",
+    "readback_source_sha256": "555f19a201682153879891a85cfcaab1158a4c258b8378d44f57b6584ca45da4",
+    "readback_transform": "CRLF normalized to LF for the portable Git asset; JSON values unchanged",
+    "reimport": "NOT_RUN"
+  }
+}
