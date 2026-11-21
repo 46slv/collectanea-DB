@@ -25,6 +25,28 @@ updated: "2026-10-14"
 
 ここでいう<Term id="usd-scene">USDシーン</Term>とは、立体の形状だけでなく、配置、カメラ、照明などの3D情報をまとめて扱うデータです。**uMergeの出力もUSDシーンのまま**で、合成済みの2D画像ではありません。最終的に映像として確認する場合は[uRenderer](./u-renderer)で描画します。
 
+<!-- capture:S327 -->
+
+## 実機例：2つの立体をまとめる
+
+CapsuleとSphereを別々の`uShape`で作り、`uMerge`の2つのscene入力へ接続しました。`uRenderer`を通したViewerには、左右に配置した両方の立体が表示されます。カメラ、ライトや外部USDの組み合わせ、階層衝突や変形はこの例では確認していません。市松模様はViewerの透明表示です。[接続と設定の記録](/img/fusion/captures/S327/readback.json)に条件を記載しています。
+
+[![2つのuShapeをuMergeに接続しuRendererへ渡す構成](/img/fusion/captures/S327/graph.png)](/img/fusion/captures/S327/graph.png)
+
+2つのUSD sceneをuMergeに接続しています。
+
+[![選択したuMergeのInspector](/img/fusion/captures/S327/controls.png)](/img/fusion/captures/S327/controls.png)
+
+uMergeを選択した状態です。
+
+[![CapsuleとSphereを左右に表示した描画結果](/img/fusion/captures/S327/result.png)](/img/fusion/captures/S327/result.png)
+
+1つの描画結果に両方の立体が表示されています。
+
+[再現用Graph](/img/fusion/captures/S327/fixture.comp) · [撮影条件と確認範囲](/img/fusion/captures/S327/capture.json)
+
+<!-- /capture:S327 -->
+
 ## 入力・出力
 
 | 接続 | データ | 役割 |
