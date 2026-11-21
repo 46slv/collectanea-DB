@@ -1,0 +1,17 @@
+{
+  "case": "S328",
+  "shape": "USDGeomCapsule",
+  "rotation_z": 60.0,
+  "connections": [
+    "Shape->Move.SceneInput",
+    "Move->USDRender.SceneInput",
+    "Shape->OriginalRender.SceneInput",
+    "USDRender->MediaOut1"
+  ],
+  "saved": "2026-10-28T10:36:44.282728+00:00",
+  "limits": [
+    "Single Capsule and Z rotation of 60 degrees only; Prim Selection, translation, scale, pivot and animation NOT_RUN.",
+    "Two separate uRenderers display the original and transformed scene; colorimetric equivalence is not asserted.",
+    "Portable reimport and other hosts NOT_RUN."
+  ]
+}
