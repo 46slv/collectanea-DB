@@ -1,0 +1,27 @@
+{
+  "case": "S339",
+  "setup": {
+    "case": "S339",
+    "values": {
+      "text": "FUSION",
+      "size": 1.0,
+      "filename": ""
+    },
+    "connections": [
+      "Text->Plane.Image",
+      "Plane->USDRender.SceneInput",
+      "USDRender->MediaOut1"
+    ],
+    "saved": "2026-10-28T10:55:47.462123+00:00"
+  },
+  "final": {
+    "size": 4,
+    "frame": 1,
+    "saved": "2026-10-28T10:56:14.731948+00:00"
+  },
+  "comparison": "Text+ image -> uImagePlane Size 1 frame 0 vs Size 4 frame 1 -> uRenderer",
+  "limits": [
+    "Single Text+ image, size 1 frame 0 vs size 4 frame 1; static scene and different frames.",
+    "Filename, image and filename precedence, animated video, exact aspect ratio and portable reimport NOT_RUN."
+  ]
+}
