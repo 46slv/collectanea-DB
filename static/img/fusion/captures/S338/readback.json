@@ -1,0 +1,36 @@
+{
+  "case": "S338",
+  "setup": {
+    "case": "S338",
+    "light": {
+      "Intensity": 1.0,
+      "Exposure": 0.0,
+      "Color.R": 1.0,
+      "Color.G": 1.0,
+      "Color.B": 1.0
+    },
+    "renderer_lighting": "Scene",
+    "saved": "2026-10-28T10:53:35.691475+00:00"
+  },
+  "final": {
+    "color": {
+      "Color.R": 1.0,
+      "Color.G": 0.2,
+      "Color.B": 0.2
+    },
+    "frame": 1,
+    "lighting": "Scene",
+    "saved": "2026-10-28T10:53:51.984607+00:00"
+  },
+  "comparison": "white RGB 1/1/1 frame 0 vs red RGB 1/0.2/0.2 frame 1; Lighting Scene",
+  "connections": [
+    "Capsule->USDMerge.SceneInput1",
+    "Light->USDMerge.SceneInput2",
+    "USDMerge->USDRender.SceneInput",
+    "USDRender->MediaOut1"
+  ],
+  "limits": [
+    "White light frame 0 and RGB (1,0.2,0.2) frame 1, static scene; different frames used to refresh evaluation.",
+    "No environment texture or HDRI used; texture mapping, rotation, image input, photometry and portable reimport NOT_RUN."
+  ]
+}

@@ -102,6 +102,32 @@ uDome Lightには**画面上の操作ハンドル**があり、21.1 Manualはハ
 
 Inspectorの共通**Transform**タブには、Translation、Rotation、Rotation Order、Pivot、Scaleが記載されています。Scaleでは**Lock X/Y/Z**による一括・軸別の調整ができます。環境の方向を合わせたいときはRotationを優先して確認し、TranslationやScaleが最終的な照明へ及ぼす影響は実際のRendererで確かめます。
 
+<!-- capture:S338 -->
+
+## 実機例：環境光の色を変える
+
+`uShape`のCapsuleと`uDome Light`を`uMerge`でまとめ、uRendererのLightingをSceneに設定しました。ライト色を白から赤系へ変えると、Capsuleの描画も赤系になりました。更新のため比較画像は0フレームと1フレームで撮影しています。環境画像やHDRIは使っておらず、Texture Format、回転や物理照度の比較は行っていません。市松模様はViewerの透明表示です。[接続と設定の記録](/img/fusion/captures/S338/readback.json)に条件を記載しています。
+
+[![uShapeとuDome LightをuMergeへ接続する構成](/img/fusion/captures/S338/graph.png)](/img/fusion/captures/S338/graph.png)
+
+形状とドームライトを同じUSD sceneにまとめています。
+
+[![赤系のColorを設定したuDome Light](/img/fusion/captures/S338/controls.png)](/img/fusion/captures/S338/controls.png)
+
+ライト色のRGBを1、0.2、0.2に設定しています。
+
+[![赤系のライトで描画したCapsule](/img/fusion/captures/S338/red-result.png)](/img/fusion/captures/S338/red-result.png)
+
+赤系のライト、1フレームの表示です。
+
+[![白いライトで描画したCapsule](/img/fusion/captures/S338/white-result.png)](/img/fusion/captures/S338/white-result.png)
+
+白いライト、0フレームの表示です。
+
+[再現用Graph](/img/fusion/captures/S338/fixture.comp) · [撮影条件と確認範囲](/img/fusion/captures/S338/capture.json)
+
+<!-- /capture:S338 -->
+
 ## Controls：明るさと材質への寄与
 
 | Inspectorの項目 | 何を変えるか |
