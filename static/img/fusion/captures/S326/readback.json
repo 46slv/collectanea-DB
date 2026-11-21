@@ -1,0 +1,26 @@
+{
+  "case": "S326",
+  "project": "Collectanea_Mandelbrot_Zoom_20261025",
+  "library": "Local Database",
+  "timeline": "S326_capture",
+  "frame": 0,
+  "resolve": "21.1.0.14",
+  "comparison": {
+    "capsule": "USDGeomCapsule",
+    "sphere": "USDGeomSphere",
+    "method": "SDK readback plus visual Viewer and Inspector"
+  },
+  "connections": [
+    "uShape -> uMerge.SceneInput1",
+    "uMerge -> uRenderer.SceneInput",
+    "uRenderer -> MediaOut1"
+  ],
+  "final": "USDGeomSphere",
+  "save_completed_at": "2026-10-28T10:32:50.307742+00:00",
+  "limits": [
+    "Only Capsule and Sphere at default settings were compared; texture, material, remaining shapes and parameters NOT_RUN.",
+    "Single USD scene input only; multi-scene uMerge behavior NOT_RUN.",
+    "Portable reimport and other hosts NOT_RUN.",
+    "Spline panel was closed through a background accessibility action and visually confirmed; physical input is not claimed."
+  ]
+}
