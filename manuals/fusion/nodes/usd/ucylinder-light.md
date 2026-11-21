@@ -85,6 +85,32 @@ uCylinder Light（照明） ───┘
 
 **Normalize**は光の寄与を正規化する項目です。Manualは内部計算式や、Length・Radiusとの厳密な依存関係までは説明していません。光源サイズの違いを比較するときはNormalizeの状態をそろえてください。
 
+<!-- capture:S337 -->
+
+## 実機例：ライトの位置を変える
+
+`uShape`のCapsuleと`uCylinder Light`を`uMerge`でまとめ、uRendererのLightingをSceneに設定しました。ライトのX位置を0から2へ変えると、Capsule上の明暗が変わりました。比較画像はそれぞれ0フレームと1フレームで撮影し、位置はSDKで読み戻しています。LengthやRadius、Treat As Lineの効果、影の比較や物理照度の測定は行っていません。市松模様はViewerの透明表示です。[接続と設定の記録](/img/fusion/captures/S337/readback.json)に条件を記載しています。
+
+[![uShapeとuCylinder LightをuMergeへ接続する構成](/img/fusion/captures/S337/graph.png)](/img/fusion/captures/S337/graph.png)
+
+形状と円柱状ライトを同じUSD sceneにまとめています。
+
+[![Intensity 10を設定したuCylinder Light](/img/fusion/captures/S337/controls.png)](/img/fusion/captures/S337/controls.png)
+
+Intensity 10の設定です。
+
+[![ライトをX 2に移動した描画](/img/fusion/captures/S337/moved-result.png)](/img/fusion/captures/S337/moved-result.png)
+
+ライトX 2、1フレームの表示です。
+
+[![ライトX 0での描画](/img/fusion/captures/S337/original-result.png)](/img/fusion/captures/S337/original-result.png)
+
+ライトX 0、0フレームの表示です。
+
+[再現用Graph](/img/fusion/captures/S337/fixture.comp) · [撮影条件と確認範囲](/img/fusion/captures/S337/capture.json)
+
+<!-- /capture:S337 -->
+
 ## 位置と方向（Transform）
 
 uCylinder LightにはFusionのUSD系ノードと共通の**Transform**タブがあります。シーン内のどこに細長い光源を置き、どちらへ向けるかを決めます。Manualは、画面上の操作ハンドルを**TranslationとRotation**で動かし、光源を配置することを説明しています。
