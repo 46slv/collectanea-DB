@@ -14582,6 +14582,43 @@
           "status": "captured"
         }
       ]
+    },
+    {
+      "priority": "P1",
+      "goal": "Show two uShape scene inputs merged and both shapes rendered.",
+      "suggested_graph": "2 x uShape -> uMerge -> uRenderer -> MediaOut",
+      "scope": "Resolve Studio 21.1.0.14 on Windows.",
+      "limitations": [
+        "Two uShape-generated scenes only; cameras, lights, imported USD, and scene hierarchy collision behavior NOT_RUN.",
+        "Transform of the combined scene, animation, portable reimport and other hosts NOT_RUN."
+      ],
+      "id": "S327",
+      "article": "manuals/fusion/nodes/usd/u-merge.md",
+      "manual": {
+        "version": "21.1"
+      },
+      "status": "captured-embedded-unverified",
+      "capture_manifest": "static/img/fusion/captures/S327/capture.json",
+      "shots": [
+        {
+          "slug": "graph",
+          "kind": "graph",
+          "target": "2つのuShapeをuMergeに接続しuRendererへ渡す構成",
+          "status": "captured"
+        },
+        {
+          "slug": "controls",
+          "kind": "inspector",
+          "target": "選択したuMergeのInspector",
+          "status": "captured"
+        },
+        {
+          "slug": "result",
+          "kind": "result",
+          "target": "CapsuleとSphereを左右に表示した描画結果",
+          "status": "captured"
+        }
+      ]
     }
   ],
   "publication_batches": [
@@ -15972,20 +16009,20 @@
     "completion_rule": "Every page has an explicit image decision; necessary images are native-observed, embedded, saved to GitHub and public-display-verified. A native example does not verify all article controls.",
     "summary": {
       "total_pages": 589,
-      "with_images": 369,
-      "with_native_examples": 321,
+      "with_images": 370,
+      "with_native_examples": 322,
       "states": {
         "reviewed-no-standalone-image": 26,
         "no-standalone-image-needed": 6,
         "illustrated-reused-example": 83,
-        "illustrated-native-example": 234,
-        "capture-planned": 239,
+        "illustrated-native-example": 235,
+        "capture-planned": 238,
         "needs-review": 1
       },
       "decisions": {
         "no-standalone-image-needed": 32,
-        "image-required": 317,
-        "capture-needed": 239,
+        "image-required": 318,
+        "capture-needed": 238,
         "undefined": 1
       }
     },
@@ -31456,13 +31493,15 @@
         "article": "manuals/fusion/nodes/usd/u-merge.md",
         "title": "uMerge",
         "kind": "node",
-        "image_count": 0,
+        "image_count": 3,
         "native_cases": [],
         "reused_cases": [],
-        "planned_cases": [],
-        "state": "capture-planned",
-        "decision": "capture-needed",
-        "reason": "本文の対象機能: uMergeは、別々のUSDシーンやカメラ、照明を一つの3D環境へまとめるノード。。S12固定capsuleは各u*の階層/Control/処理を示せない。",
+        "planned_cases": [
+          "S327"
+        ],
+        "state": "illustrated-native-example",
+        "decision": "image-required",
+        "reason": "S327は2つのuShape sceneを別入力へつなぎ同時描画した固定例。外部USDや階層衝突は未確認。",
         "required_views": [
           "対象名と実接続が読めるGraph",
           "対象自身を選択したInspectorの該当Control",
@@ -31485,6 +31524,10 @@
         ],
         "hold_conditions": [
           "S12のStorm Color固定例から各USD Toolの材質/光/volume/aux対応へ外挿しない。対象rendererと実入力型をreadbackする。"
+        ],
+        "remaining_views": [
+          "カメラ・ライト・外部USD、階層衝突と変形",
+          "portable reimportと他host"
         ]
       },
       {
