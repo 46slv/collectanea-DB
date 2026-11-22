@@ -1,0 +1,26 @@
+{
+  "case": "S348",
+  "values": {
+    "Type": 0.0,
+    "SegmentSizeX": 0.1,
+    "SegmentSizeY": 0.1,
+    "Angle": 45.0,
+    "ScaleX": 1.0,
+    "ScaleY": 1.0,
+    "Warp": 1.0
+  },
+  "frame": 2,
+  "graph": "TextPlus -> KD_SegmentTransform -> MediaOut",
+  "saved": "2026-10-28T16:08:13.820834+00:00",
+  "final": {
+    "angle": 45,
+    "segment_x": 0.1,
+    "frame": 2,
+    "saved": "2026-10-28T16:08:49.900539+00:00"
+  },
+  "limits": [
+    "Single Text+ source and fixed frame 2; source and output compared simultaneously.",
+    "Angle 45, Segment Size X 0.1 and Scale X 1 only; scale, mask, type, animation, alpha and portable reimport NOT_RUN.",
+    "Angle 0 reference captured separately at frame 1; no frame equivalence or numeric geometry claim."
+  ]
+}

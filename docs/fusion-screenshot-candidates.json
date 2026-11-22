@@ -15281,6 +15281,44 @@
           "status": "captured"
         }
       ]
+    },
+    {
+      "priority": "P1",
+      "goal": "Show segment transform on a Text+ image with Angle 45.",
+      "suggested_graph": "Text+ -> Segment Transform -> MediaOut",
+      "scope": "Resolve Studio 21.1.0.14 on Windows.",
+      "limitations": [
+        "Single Text+ source and fixed frame 2; source and output compared simultaneously.",
+        "Angle 45, Segment Size X 0.1 and Scale X 1 only; scale, mask, type, animation, alpha and portable reimport NOT_RUN.",
+        "Angle 0 reference captured separately at frame 1; no frame equivalence or numeric geometry claim."
+      ],
+      "id": "S348",
+      "article": "manuals/fusion/nodes/krokodove/segment-transform.md",
+      "manual": {
+        "version": "21.1"
+      },
+      "status": "captured-embedded-unverified",
+      "capture_manifest": "static/img/fusion/captures/S348/capture.json",
+      "shots": [
+        {
+          "slug": "graph",
+          "kind": "graph",
+          "target": "Text+からSegment Transformを経てMediaOutへ接続したノード",
+          "status": "captured"
+        },
+        {
+          "slug": "controls",
+          "kind": "inspector",
+          "target": "Segment Size X 0.1とAngle 45のInspector",
+          "status": "captured"
+        },
+        {
+          "slug": "comparison",
+          "kind": "result",
+          "target": "元の文字と区画ごとに傾いた文字の比較",
+          "status": "captured"
+        }
+      ]
     }
   ],
   "publication_batches": [
@@ -16666,25 +16704,25 @@
     }
   ],
   "coverage_inventory": {
-    "checked_at": "2026-11-23T00:30:00+09:00",
+    "checked_at": "2026-11-23T06:25:00+09:00",
     "scope": "All manuals/fusion Markdown and MDX pages; review necessity before adding images.",
     "completion_rule": "Every page has an explicit image decision; necessary images are native-observed, embedded, saved to GitHub and public-display-verified. A native example does not verify all article controls.",
     "summary": {
       "total_pages": 589,
-      "with_images": 389,
-      "with_native_examples": 338,
+      "with_images": 390,
+      "with_native_examples": 339,
       "states": {
         "reviewed-no-standalone-image": 26,
         "no-standalone-image-needed": 6,
         "illustrated-reused-example": 86,
-        "illustrated-native-example": 251,
-        "capture-planned": 219,
+        "illustrated-native-example": 252,
+        "capture-planned": 218,
         "needs-review": 1
       },
       "decisions": {
         "no-standalone-image-needed": 32,
-        "image-required": 337,
-        "capture-needed": 219,
+        "image-required": 338,
+        "capture-needed": 218,
         "undefined": 1
       }
     },
@@ -24097,13 +24135,15 @@
         "article": "manuals/fusion/nodes/krokodove/segment-transform.md",
         "title": "Segment Transform（Krokodove）",
         "kind": "node",
-        "image_count": 0,
+        "image_count": 3,
         "native_cases": [],
         "reused_cases": [],
-        "planned_cases": [],
-        "state": "capture-planned",
-        "decision": "capture-needed",
-        "reason": "本文の対象機能: 画像を正方形の区画に分け、区画ごとに角度や大きさを変えて見せるKrokodoveの画像変形ツール。。S06 Transformは全体変形で、局所warp・タイル再配置・mirror等の各機能を代用しない。",
+        "planned_cases": [
+          "S348"
+        ],
+        "state": "illustrated-native-example",
+        "decision": "image-required",
+        "reason": "S348はframe 2のText+入力とSegment Transform出力を同時表示。Segment Size X 0.1／Angle 45のInspector・Graph・比較を確認。区画数、Scale変化、Mask、Alpha、再読み込み、他ホストは未検証。",
         "required_views": [
           "対象Node名と実際の配線が読めるGraph",
           "対象Nodeを選択した固有Inspector（本文で示すControlを含む）",
@@ -24123,7 +24163,10 @@
             "role": "入力と結果を示す箇所"
           }
         ],
-        "audit_note": "Planning prerequisite: hold-runtime-identity; not a live capability failure."
+        "remaining_views": [
+          "番号付き非対称gridと透明edgeで区画境界・scale変化を検証",
+          "Mask、type、animation、alpha、portable reimport、他hostでの挙動"
+        ]
       },
       {
         "article": "manuals/fusion/nodes/krokodove/sextrude.md",
