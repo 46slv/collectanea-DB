@@ -36,10 +36,21 @@ try {
   for(const entry of articleEntries){
    const sourceCase=entry.source_case||entry.id;
    const manifest=JSON.parse(await fs.readFile(`static/img/fusion/captures/${sourceCase}/capture.json`,'utf8'));
-   for(const file of entry.images||manifest.shots.map(s=>s.file))expectedFiles.push({sourceCase,file});
+   for(const file of entry.images||manifest.shots.map(s=>s.file))expectedFiles.push(`static/img/fusion/captures/${sourceCase}/${file}`);
+   // Some reuses add a provenance-backed inspector crop alongside source-case shots.
+   if(entry.supplemental_provenance){
+    const provenancePath=entry.supplemental_provenance;
+    const provenance=JSON.parse(await fs.readFile(provenancePath,'utf8'));
+    assert.equal(provenance.source_case,sourceCase,entry.id+' provenance source case');
+    const sourcePath=`static/img/fusion/captures/${sourceCase}/${provenance.source_file}`;
+    assert.equal(digest(await fs.readFile(sourcePath)),provenance.source_sha256,entry.id+' provenance original');
+    const cropPath=path.join(path.dirname(provenancePath),provenance.crop_file);
+    assert.equal(digest(await fs.readFile(cropPath)),provenance.crop_sha256,entry.id+' provenance crop');
+    expectedFiles.push(cropPath);
+   }
   }
   assert.equal(await shots.count(),expectedFiles.length,id+' missing article shots');
-  const expectedCropHashes=new Set(await Promise.all(expectedFiles.map(async ({sourceCase,file})=>digest(await fs.readFile(`static/img/fusion/captures/${sourceCase}/${file}`)))));
+  const expectedCropHashes=new Set(await Promise.all(expectedFiles.map(async file=>digest(await fs.readFile(file)))));
   const linkedCropHashes=new Set();
   const images=[];
   for(const img of await shots.all()){
