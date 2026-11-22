@@ -1,0 +1,114 @@
+{
+  "manual": {
+    "version": "21.1"
+  },
+  "runtime": {
+    "version": "21.1.0.14",
+    "edition": "DaVinci Resolve Studio",
+    "os": "Windows-11-10.0.26200-SP0",
+    "ui_language": "ja-JP"
+  },
+  "captured_at": "2026-10-28T11:11:51.914929+00:00",
+  "project": "Collectanea_Mandelbrot_Zoom_20261025",
+  "timeline": "S344_capture",
+  "frame": 0,
+  "resolution": [
+    1920,
+    1080
+  ],
+  "color_management": {
+    "project_settings": {
+      "colorScienceMode": "davinciYRGB",
+      "colorSpaceInput": "Rec.709 Gamma 2.4",
+      "colorSpaceTimeline": "Rec.709 (Scene)",
+      "colorSpaceTimelineGamma": "",
+      "colorSpaceOutput": "Rec.709 (Scene)",
+      "colorSpaceOutputGamma": "ACEScc",
+      "isAutoColorManage": "0",
+      "timelineResolutionWidth": "1920",
+      "timelineResolutionHeight": "1080",
+      "timelineFrameRate": 30.0,
+      "timelinePlaybackFrameRate": "30",
+      "timelinePixelAspectRatio": "square"
+    },
+    "note": "SDK project settings; screenshots show Viewer display."
+  },
+  "viewer": {
+    "view_mode": "Fit",
+    "source": "left BeforeRender, right MediaOut1",
+    "note": "sExtrude selected, frame 0"
+  },
+  "acceptance": {
+    "gui": "PASS: sRectangle and sExtrude output displayed via sRender; SDK output type ShapeTree.",
+    "article_display": "NOT_RUN",
+    "public_display": "NOT_RUN"
+  },
+  "unverified": [
+    "Single closed sRectangle with Angle 45 and Length 0.2; output is ShapeTree and sRender accepts it on this host.",
+    "Other inputs, open shapes, geometry topology, angle/length general behavior, animation and portable reimport NOT_RUN."
+  ],
+  "schema_version": 1,
+  "case": "S344",
+  "article": "manuals/fusion/nodes/krokodove/sextrude.md",
+  "graph": "fixture.comp",
+  "settings": "readback.json",
+  "source": {
+    "file": "screen.png",
+    "size": [
+      3304,
+      1886
+    ],
+    "sha256": "d91c54264875f8c4a3188a7b1cc5e3b7442fab07807bad7820bdea41d405a0db"
+  },
+  "shots": [
+    {
+      "file": "graph.png",
+      "source": "screen.png",
+      "source_sha256": "d91c54264875f8c4a3188a7b1cc5e3b7442fab07807bad7820bdea41d405a0db",
+      "frame": 0,
+      "crop_xyxy": [
+        600,
+        1150,
+        2200,
+        1550
+      ],
+      "resampled": false,
+      "sha256": "daffb7906ff8100cb22a41cbe0ac38f6eaf1ad81310e1da8b0bf5e7a54a5739d"
+    },
+    {
+      "file": "controls.png",
+      "source": "screen.png",
+      "source_sha256": "d91c54264875f8c4a3188a7b1cc5e3b7442fab07807bad7820bdea41d405a0db",
+      "frame": 0,
+      "crop_xyxy": [
+        2780,
+        125,
+        3304,
+        300
+      ],
+      "resampled": false,
+      "sha256": "7b0e5966815f4fa42cbef39e70fe00d273c5bc1962d1ba764106dcb14fd62113"
+    },
+    {
+      "file": "comparison.png",
+      "source": "screen.png",
+      "source_sha256": "d91c54264875f8c4a3188a7b1cc5e3b7442fab07807bad7820bdea41d405a0db",
+      "frame": 0,
+      "crop_xyxy": [
+        180,
+        100,
+        2670,
+        715
+      ],
+      "resampled": false,
+      "sha256": "e27461d7a25d20902a363c438cba72bd1cb3e62d33db32c35bf495e0ef3d8c03"
+    }
+  ],
+  "reproduction": {
+    "fixture_sha256": "282556d514626e675b52f87d39e431ae0487e47ee0d6e454b4a4ee09397fb3f8",
+    "readback_sha256": "1f27fb9496d0d77d1cd6614a7552c732e94ce925fc66679e3385d890ef2baaa9",
+    "readback_source_sha256": "9fcfabafc9d312accd88bc4ea5be2dcfc53dcb6c2644643b800b0cf47b4ce4bd",
+    "readback_transform": "CRLF normalized to LF for the portable Git asset; JSON values unchanged",
+    "reimport": "NOT_RUN"
+  }
+}
