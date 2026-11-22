@@ -1,0 +1,21 @@
+{
+  "source_case": "S346",
+  "source_pr": 408,
+  "source_file": "shader-source.png",
+  "source_sha256": "d354143623d88e7d077dc8209501c451bdadb4946766c19cd99e5832da55e882",
+  "source_size": [
+    3304,
+    1886
+  ],
+  "crop_file": "shader-controls.png",
+  "crop_xyxy": [
+    2780,
+    65,
+    3304,
+    610
+  ],
+  "crop_sha256": "9dc33066e191b4f839b1ab37064a6833d1dd7d32dadd433d87204feb86fed94c",
+  "resampled": false,
+  "pixel_match": "PASS",
+  "scope": "Single shape, frame 0; shader Inspector. S346 graph and comparison depend on #408."
+}
