@@ -39,6 +39,32 @@ USDモデル → uLoader ────────────────→ uRe
 
 uNormalMapが扱うのは**マテリアルに供給するデータ**です。USDシーン全体を入力して立体を変形するノードでも、単独で完成画像を出力するノードでもありません。モデルに材質を割り当てるのは[uReplaceMaterial](./ureplacematerial)、USDシーンを画像に描画するのは[uRenderer](./u-renderer)です。
 
+<!-- capture:S342 -->
+
+## 実機例：単色画像を法線入力へ渡す
+
+単色の`Background`を`uTexture`と`uNormalMap`へ渡し、`uShader`のnormal入力へ接続しました。uNormalMapのScaleを1から0に変えると、描画されたCapsuleの明暗が変わりました。比較画像は0フレームと1フレームで撮影しています。法線ベクトルの数値や向きの規約、実画像の細部やgeometryの変化は確認していません。市松模様はViewerの透明表示です。[接続と設定の記録](/img/fusion/captures/S342/readback.json)に条件を記載しています。
+
+[![uTextureからuNormalMapとuShaderのnormalへ渡す構成](/img/fusion/captures/S342/graph.png)](/img/fusion/captures/S342/graph.png)
+
+画像を法線入力へ渡し、材質を形状に適用します。
+
+[![Scale 0のuNormalMap](/img/fusion/captures/S342/controls.png)](/img/fusion/captures/S342/controls.png)
+
+uNormalMapのScaleを0に設定しています。
+
+[![Scale 0で描画されたCapsule](/img/fusion/captures/S342/scale0-result.png)](/img/fusion/captures/S342/scale0-result.png)
+
+Scale 0、1フレームの表示です。
+
+[![Scale 1で描画されたCapsule](/img/fusion/captures/S342/scale1-result.png)](/img/fusion/captures/S342/scale1-result.png)
+
+Scale 1、0フレームの表示です。
+
+[再現用Graph](/img/fusion/captures/S342/fixture.comp) · [撮影条件と確認範囲](/img/fusion/captures/S342/capture.json)
+
+<!-- /capture:S342 -->
+
 ## 法線画像を接続する手順
 
 1. 法線マップ用の画像を用意し、**uTexture**で読み込みます。
