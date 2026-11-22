@@ -42,7 +42,7 @@ try {
     const provenancePath=entry.supplemental_provenance;
     const provenance=JSON.parse(await fs.readFile(provenancePath,'utf8'));
     assert.equal(provenance.source_case,sourceCase,entry.id+' provenance source case');
-    const sourcePath=`static/img/fusion/captures/${sourceCase}/${provenance.source_file}`;
+    const sourcePath=path.join(path.dirname(provenancePath),provenance.source_file);
     assert.equal(digest(await fs.readFile(sourcePath)),provenance.source_sha256,entry.id+' provenance original');
     const cropPath=path.join(path.dirname(provenancePath),provenance.crop_file);
     assert.equal(digest(await fs.readFile(cropPath)),provenance.crop_sha256,entry.id+' provenance crop');
