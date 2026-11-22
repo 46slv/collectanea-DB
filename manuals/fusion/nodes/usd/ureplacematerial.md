@@ -24,6 +24,28 @@ uReplaceMaterialは、**USDシーン内の一部または全部のオブジェ�
 
 ここでいう材質（Material）は、表面の色・粗さ・金属らしさ・透明度など、**どう描画するかを決める設定**です。形やカメラを含む<Term id="usd-scene">USD scene</Term>そのものとは異なります。uReplaceMaterialはシーンを加工して再びUSDとして出力するため、最終的な2D画像を得るには[uRenderer](./u-renderer)が必要です。
 
+<!-- capture:S346 -->
+
+## 実機例：単一形状に材質を適用する
+
+`uShape`のCapsuleを分岐し、一方はそのまま、もう一方は`uReplaceMaterial`で`uShader`の赤い材質を適用して描画しました。同じフレームの左Viewerは元の灰色、右Viewerは材質適用後の赤です。Selected Primsは空で、特定Primの選択、複数objectや2材質、UVと厳密な色は試していません。市松模様はViewerの透明表示です。左右は別々のuRendererです。[接続と設定の記録](/img/fusion/captures/S346/readback.json)に条件を記載しています。
+
+[![単一のShapeを元の描画と材質適用へ分岐した構成](/img/fusion/captures/S346/graph.png)](/img/fusion/captures/S346/graph.png)
+
+元の形状とuReplaceMaterialを通した形状を別々に描画します。
+
+[![Selected Primsが空のuReplaceMaterial](/img/fusion/captures/S346/controls.png)](/img/fusion/captures/S346/controls.png)
+
+この例ではSelected Primsを指定していません。
+
+[![左に元の灰色、右に材質適用後の赤いCapsule](/img/fusion/captures/S346/comparison.png)](/img/fusion/captures/S346/comparison.png)
+
+同じフレームで元と材質適用後を比較しています。
+
+[再現用Graph](/img/fusion/captures/S346/fixture.comp) · [撮影条件と確認範囲](/img/fusion/captures/S346/capture.json)
+
+<!-- /capture:S346 -->
+
 ## 入力・出力：シーン、材質、画像を区別する
 
 | 入力 | 受け取るもの | 用途 |

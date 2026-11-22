@@ -1,0 +1,115 @@
+{
+  "manual": {
+    "version": "21.1"
+  },
+  "runtime": {
+    "version": "21.1.0.14",
+    "edition": "DaVinci Resolve Studio",
+    "os": "Windows-11-10.0.26200-SP0",
+    "ui_language": "ja-JP"
+  },
+  "captured_at": "2026-10-28T11:15:53.558867+00:00",
+  "project": "Collectanea_Mandelbrot_Zoom_20261025",
+  "timeline": "S346_capture",
+  "frame": 0,
+  "resolution": [
+    1920,
+    1080
+  ],
+  "color_management": {
+    "project_settings": {
+      "colorScienceMode": "davinciYRGB",
+      "colorSpaceInput": "Rec.709 Gamma 2.4",
+      "colorSpaceTimeline": "Rec.709 (Scene)",
+      "colorSpaceTimelineGamma": "",
+      "colorSpaceOutput": "Rec.709 (Scene)",
+      "colorSpaceOutputGamma": "ACEScc",
+      "isAutoColorManage": "0",
+      "timelineResolutionWidth": "1920",
+      "timelineResolutionHeight": "1080",
+      "timelineFrameRate": 30.0,
+      "timelinePlaybackFrameRate": "30",
+      "timelinePixelAspectRatio": "square"
+    },
+    "note": "SDK project settings; screenshots show Viewer display."
+  },
+  "viewer": {
+    "view_mode": "Fit",
+    "source": "left BeforeRender, right MediaOut1",
+    "note": "uReplaceMaterial selected; separate renderers, frame 0"
+  },
+  "acceptance": {
+    "gui": "PASS: single-object original and material-applied comparison, graph and Inspector; SDK and save read back.",
+    "article_display": "NOT_RUN",
+    "public_display": "NOT_RUN"
+  },
+  "unverified": [
+    "Single uShape with empty Selected Prims; selective assignment to one object among multiple Prims NOT_RUN.",
+    "Separate uRenderers compare original and material-applied branches at same frame; exact color values and renderer equivalence NOT_RUN.",
+    "Two-material scene, UV detail, animation and portable reimport NOT_RUN."
+  ],
+  "schema_version": 1,
+  "case": "S346",
+  "article": "manuals/fusion/nodes/usd/ureplacematerial.md",
+  "graph": "fixture.comp",
+  "settings": "readback.json",
+  "source": {
+    "file": "screen.png",
+    "size": [
+      3304,
+      1886
+    ],
+    "sha256": "31ebe16630a3d273276469f30f852b50218f9608d17994d75931bc5173570be7"
+  },
+  "shots": [
+    {
+      "file": "graph.png",
+      "source": "screen.png",
+      "source_sha256": "31ebe16630a3d273276469f30f852b50218f9608d17994d75931bc5173570be7",
+      "frame": 0,
+      "crop_xyxy": [
+        400,
+        1100,
+        2400,
+        1580
+      ],
+      "resampled": false,
+      "sha256": "f7b622e32af22c5608f6fd33154db744c8797a11d040e78baecb3aed87a04116"
+    },
+    {
+      "file": "controls.png",
+      "source": "screen.png",
+      "source_sha256": "31ebe16630a3d273276469f30f852b50218f9608d17994d75931bc5173570be7",
+      "frame": 0,
+      "crop_xyxy": [
+        2780,
+        125,
+        3304,
+        500
+      ],
+      "resampled": false,
+      "sha256": "d1737104c3e36110cb398dee745dc2e4f2cfd704f3339dee9c36f139d29b448e"
+    },
+    {
+      "file": "comparison.png",
+      "source": "screen.png",
+      "source_sha256": "31ebe16630a3d273276469f30f852b50218f9608d17994d75931bc5173570be7",
+      "frame": 0,
+      "crop_xyxy": [
+        180,
+        100,
+        2670,
+        715
+      ],
+      "resampled": false,
+      "sha256": "47d5d03f254c5f798939c4e5af69cbebfbe3e136d3b34a3c718c11ce0719972b"
+    }
+  ],
+  "reproduction": {
+    "fixture_sha256": "3db4a94c25df23692739bb7d3f98a4776f3eafcb8764bf9db49e7c8928b5f165",
+    "readback_sha256": "d007b9c53bbf203fda35f861f0a0d0a45f33d850b9ee44dba6576719bfa19bcc",
+    "readback_source_sha256": "0489bee28026d42959dc493ec66852a1921d3d688eda94e2e25078245550408f",
+    "readback_transform": "CRLF normalized to LF for the portable Git asset; JSON values unchanged",
+    "reimport": "NOT_RUN"
+  }
+}
