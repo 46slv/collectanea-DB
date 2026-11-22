@@ -35,6 +35,28 @@ USDは、複数の立体物やその階層、各種設定を記述できる3Dシ
 
 uLoaderの出力を2DのMergeやMediaOutへ直接つないでも、映像を完成させる構成にはなりません。**USDをまとめるuMerge**と、**USDを2D画像にするuRenderer**を区別します。
 
+<!-- capture:S340 -->
+
+## 実機例：USDAを読み込む
+
+検証用に作成したCubeを含む`owned-input.usda`を`uLoader`で読み込み、uRendererに接続しました。Viewerには読み込んだ形状の正面が表示されています。これは静止した単一のUSDファイルで、外部依存、time sample、variantやreloadは試していません。Filename末尾はsynthetic入力で表示し、物理入力は確認していません。市松模様はViewerの透明表示です。[接続と設定の記録](/img/fusion/captures/S340/readback.json)に条件を記載しています。
+
+[![uLoaderからuRendererへ接続する構成](/img/fusion/captures/S340/graph.png)](/img/fusion/captures/S340/graph.png)
+
+uLoaderの出力をuRendererで描画します。
+
+[![owned-input.usdaを指定したuLoader](/img/fusion/captures/S340/controls.png)](/img/fusion/captures/S340/controls.png)
+
+FilenameにUSDAを指定しています。
+
+[![読み込んだCubeの正面描画](/img/fusion/captures/S340/result.png)](/img/fusion/captures/S340/result.png)
+
+USDAに含まれるCubeの正面が表示されています。
+
+[入力USDA](/img/fusion/captures/S340/owned-input.usda) · [再現用Graph](/img/fusion/captures/S340/fixture.comp) · [撮影条件と確認範囲](/img/fusion/captures/S340/capture.json)
+
+<!-- /capture:S340 -->
+
 ## まずシーンを映す
 
 ~~~text

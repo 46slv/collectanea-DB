@@ -1,0 +1,115 @@
+{
+  "manual": {
+    "version": "21.1"
+  },
+  "runtime": {
+    "version": "21.1.0.14",
+    "edition": "DaVinci Resolve Studio",
+    "os": "Windows-11-10.0.26200-SP0",
+    "ui_language": "ja-JP"
+  },
+  "captured_at": "2026-10-28T10:59:16.063801+00:00",
+  "project": "Collectanea_Mandelbrot_Zoom_20261025",
+  "timeline": "S340_capture",
+  "frame": 0,
+  "resolution": [
+    1920,
+    1080
+  ],
+  "color_management": {
+    "project_settings": {
+      "colorScienceMode": "davinciYRGB",
+      "colorSpaceInput": "Rec.709 Gamma 2.4",
+      "colorSpaceTimeline": "Rec.709 (Scene)",
+      "colorSpaceTimelineGamma": "",
+      "colorSpaceOutput": "Rec.709 (Scene)",
+      "colorSpaceOutputGamma": "ACEScc",
+      "isAutoColorManage": "0",
+      "timelineResolutionWidth": "1920",
+      "timelineResolutionHeight": "1080",
+      "timelineFrameRate": 30.0,
+      "timelinePlaybackFrameRate": "30",
+      "timelinePixelAspectRatio": "square"
+    },
+    "note": "SDK project settings; screenshots show Viewer display."
+  },
+  "viewer": {
+    "view_mode": "Fit",
+    "source": "uRenderer / MediaOut1",
+    "note": "uLoader selected, frame 0"
+  },
+  "acceptance": {
+    "gui": "PASS: uLoader file tail, graph, rendered shape, SDK filename and save read back.",
+    "article_display": "NOT_RUN",
+    "public_display": "NOT_RUN"
+  },
+  "unverified": [
+    "Static self-authored USDA with one Cube; external dependencies, time samples, USD variants and file reload behavior NOT_RUN.",
+    "Fixture path was changed to Comp:/owned-input.usda in portable copy; portable reimport and other hosts NOT_RUN.",
+    "Filename field scrolled to path tail with synthetic click/key; physical input is not claimed."
+  ],
+  "schema_version": 1,
+  "case": "S340",
+  "article": "manuals/fusion/nodes/usd/uloader.md",
+  "graph": "fixture.comp",
+  "settings": "readback.json",
+  "source": {
+    "file": "screen.png",
+    "size": [
+      3304,
+      1886
+    ],
+    "sha256": "1898b4cfced32b37df165b92973166c8b5bb2b4f2ee398cdd95e76c581f0518a"
+  },
+  "shots": [
+    {
+      "file": "graph.png",
+      "source": "screen.png",
+      "source_sha256": "1898b4cfced32b37df165b92973166c8b5bb2b4f2ee398cdd95e76c581f0518a",
+      "frame": 0,
+      "crop_xyxy": [
+        850,
+        1250,
+        1900,
+        1450
+      ],
+      "resampled": false,
+      "sha256": "f1fe681aaf310906bf0e141fc6c8d4f5412be4429c1cff26614cd06ca4861c7a"
+    },
+    {
+      "file": "controls.png",
+      "source": "screen.png",
+      "source_sha256": "1898b4cfced32b37df165b92973166c8b5bb2b4f2ee398cdd95e76c581f0518a",
+      "frame": 0,
+      "crop_xyxy": [
+        2780,
+        230,
+        3304,
+        540
+      ],
+      "resampled": false,
+      "sha256": "b9c9ec0a883d36dd66feba36cdfd0c16ec14db2f2ffb3898062d99ca12966181"
+    },
+    {
+      "file": "result.png",
+      "source": "screen.png",
+      "source_sha256": "1898b4cfced32b37df165b92973166c8b5bb2b4f2ee398cdd95e76c581f0518a",
+      "frame": 0,
+      "crop_xyxy": [
+        1560,
+        100,
+        2680,
+        715
+      ],
+      "resampled": false,
+      "sha256": "f685db71c9a095a2a6d22cfc49870cc2d6cf3b62657c69bf57124a11ba2b45ea"
+    }
+  ],
+  "reproduction": {
+    "fixture_sha256": "0f2f0350762953c2d4ad57563fad350a873001d6d2555e8f250bb98b7f456d82",
+    "readback_sha256": "bbb80ef05a13695dbf53af164b0a6f06d1934f6ffaab08bd5092d820d3c56e52",
+    "readback_source_sha256": "6571aad0bfbd03440ce3866ae3fd968de284830d31d9949d0ce0ef4b160adac3",
+    "readback_transform": "CRLF normalized to LF for the portable Git asset; JSON values unchanged",
+    "reimport": "NOT_RUN"
+  }
+}

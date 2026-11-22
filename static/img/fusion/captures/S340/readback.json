@@ -1,0 +1,20 @@
+{
+  "case": "S340",
+  "setup": {
+    "case": "S340",
+    "asset_name": "owned-input.usda",
+    "asset_sha256": "34912677990ffeffd564fa8ed30919d53483505456b3af872cbf24ee1a20a0cb",
+    "connections": [
+      "Loader->USDRender.SceneInput",
+      "USDRender->MediaOut1"
+    ],
+    "saved": "2026-10-28T10:58:17.192797+00:00"
+  },
+  "asset": "owned-input.usda: USDA Scene with Cube, sha256 34912677990ffeffd564fa8ed30919d53483505456b3af872cbf24ee1a20a0cb",
+  "portable_reference": "Comp:/owned-input.usda; reimport NOT_RUN",
+  "limits": [
+    "Static self-authored USDA with one Cube; external dependencies, time samples, USD variants and file reload behavior NOT_RUN.",
+    "Fixture path was changed to Comp:/owned-input.usda in portable copy; portable reimport and other hosts NOT_RUN.",
+    "Filename field scrolled to path tail with synthetic click/key; physical input is not claimed."
+  ]
+}
