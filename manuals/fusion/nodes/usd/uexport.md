@@ -45,6 +45,22 @@ USDシーン → uRenderer → 2D Image → MediaOut
 
 図の「⇒ USDファイル」は**ディスクへの保存結果**を示し、Fusion内の出力端子ではありません。複数のUSD要素は[uMerge](./u-merge)でひとつのシーンにまとめます。通常の画像用Mergeに、USDシーンのまま直接つなぐ構成とは区別します。
 
+<!-- capture-reuse:R304 -->
+
+## 実機例：USDAを書き出して読み直す
+
+S130では自作の静止Cubeを含むUSDAをuLoaderで読み込み、uMergeからuExportへ渡してUSD UTF-8形式で保存しました。別のuLoaderで生成ファイルを読み直し、各経路をuRendererで表示しています。
+
+[![uExportへの入力と別uLoaderでの読み直し構成](/img/fusion/captures/S130/usd-graph.png)](/img/fusion/captures/S130/usd-graph.png)
+
+[![uExportのUSD UTF-8形式](/img/fusion/captures/S130/usd-format.png)](/img/fusion/captures/S130/usd-format.png)
+
+[![左に読み直し、右に元sceneを描画したViewer](/img/fusion/captures/S130/roundtrip-viewers.png)](/img/fusion/captures/S130/roundtrip-viewers.png)
+
+左は読み直したscene、右は元sceneです。Viewerの表示倍率が異なるため大きさは比較できません。静止Cubeの形が見えることに限った確認で、材質・照明・animation、他アプリでの参照解決やportable再importは未確認です。[撮影条件と確認範囲](/img/fusion/captures/S130/capture.json)
+
+<!-- /capture-reuse:R304 -->
+
 ## Inspector：Export StageとFormat
 
 uExportのInspectorで、21.1 Manualに明記されている書き出し項目は**Export Stage**と**Format**です。
