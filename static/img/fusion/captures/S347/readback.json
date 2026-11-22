@@ -1,0 +1,31 @@
+{
+  "case": "S347",
+  "setup": {
+    "case": "S347",
+    "light": {
+      "Intensity": 10.0,
+      "USDXf.Translate.Z": 4.0
+    },
+    "renderer_lighting": "Scene",
+    "saved": "2026-10-28T11:19:12.946168+00:00"
+  },
+  "final": {
+    "x": 2,
+    "z": 4,
+    "intensity": 10,
+    "frame": 1,
+    "lighting": "Scene",
+    "saved": "2026-10-28T11:19:28.934259+00:00"
+  },
+  "comparison": "Light X 0 frame 0 versus X 2 frame 1; Z 4 and Intensity 10; renderer Lighting Scene",
+  "connections": [
+    "Capsule->USDMerge.SceneInput1",
+    "Light->USDMerge.SceneInput2",
+    "USDMerge->USDRender.SceneInput",
+    "USDRender->MediaOut1"
+  ],
+  "limits": [
+    "Light X 0 at frame 0 versus X 2 at frame 1; static scene, different frames used for evaluation.",
+    "Width, Height and spread effects, shadow softness, other lights, physical photometry and portable reimport NOT_RUN."
+  ]
+}
