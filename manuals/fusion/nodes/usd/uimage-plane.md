@@ -33,6 +33,32 @@ uImage Planeは、写真や動画などの**2D画像を、3D空間に置ける�
 
 **Image Input**は3Dモデルの入力ではありません。画像そのものを材質として使うための入力です。画像を線で接続しない場合も、Inspectorの**Filename**からファイルを指定して平面を作れます。
 
+<!-- capture:S339 -->
+
+## 実機例：Text+を画像付き平面にする
+
+`Text+`で作った文字画像を`uImage Plane`へ接続し、uRendererで描画しました。左Viewerは元画像、右Viewerは平面を描画した結果です。Sizeを1から4へ変えると右側の文字は大きく表示されました。比較画像は0フレームと1フレームで撮影しています。Filenameによる読み込みと入力の優先順位、動画や正確な縦横比は試していません。市松模様はViewerの透明表示です。[接続と設定の記録](/img/fusion/captures/S339/readback.json)に条件を記載しています。
+
+[![Text+からuImage PlaneとuRendererへ接続する構成](/img/fusion/captures/S339/graph.png)](/img/fusion/captures/S339/graph.png)
+
+画像を平面へ渡してからuRendererで描画します。
+
+[![Size 4を設定したuImage Plane](/img/fusion/captures/S339/controls.png)](/img/fusion/captures/S339/controls.png)
+
+Sizeを4に設定しています。
+
+[![Size 4で描画した文字](/img/fusion/captures/S339/size4-result.png)](/img/fusion/captures/S339/size4-result.png)
+
+Size 4、1フレームの描画です。
+
+[![Size 1で描画した文字](/img/fusion/captures/S339/size1-result.png)](/img/fusion/captures/S339/size1-result.png)
+
+Size 1、0フレームの描画です。
+
+[再現用Graph](/img/fusion/captures/S339/fixture.comp) · [撮影条件と確認範囲](/img/fusion/captures/S339/capture.json)
+
+<!-- /capture:S339 -->
+
 ## 最初の接続例：画像を3D空間に配置する
 
 ~~~text
