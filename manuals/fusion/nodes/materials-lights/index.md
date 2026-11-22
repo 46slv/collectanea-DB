@@ -23,6 +23,20 @@ Camera 3D ───────────────────────�
                                      └→ Merge 3D → Renderer 3D → 2D画像
 ```
 
+<!-- capture-reuse:R305 -->
+
+## 実機の参考例：ライトと文字をまとめる
+
+S180ではText 3DとDirectional LightをMerge 3Dへ接続し、Renderer 3Dで描画しました。単一の文字とライトを使った静止例で、ライトを含む3Dシーンが2D画像になる経路を示しています。
+
+[![Text 3DとDirectional LightをMerge 3Dに接続する構成](/img/fusion/captures/S180/graph.png)](/img/fusion/captures/S180/graph.png)
+
+[![描画された立体文字](/img/fusion/captures/S180/render.png)](/img/fusion/captures/S180/render.png)
+
+この例ではMaterial入力の比較やPass Through Lightsによる作用範囲は確認していません。市松模様はViewerの透明表示です。[撮影条件と確認範囲](/img/fusion/captures/S180/capture.json)
+
+<!-- /capture-reuse:R305 -->
+
 ## Materialを選ぶ
 
 「表面を何に見せたいか」から選びます。Materialは形状を増やすのではなく、3D物体が光を受けたときの見え方を調整します。
