@@ -54,6 +54,32 @@ USDシーンは、3Dの物体、カメラ、ライト、材質などの情報を
 
 この2つは**光源自体の形**に関係する設定です。照らす向きはRotation、光の広がる角度はShaping Cone Angleで調整します。幅と高さの数値が現実の長さにどう換算されるか、Transform Scaleと厳密にどう組み合わさるかは、このManual節では確定できません。
 
+<!-- capture:S347 -->
+
+## 実機例：ライトの位置を変える
+
+`uShape`のCapsuleと`uRectangle Light`を`uMerge`でまとめ、uRendererのLightingをSceneに設定しました。ライトのX位置を0から2へ変えると、Capsule上の明暗が変わりました。比較画像はそれぞれ0フレームと1フレームで撮影し、位置はSDKで読み戻しています。この環境の登録IDは `uRectLight` です。Width、Heightや広がりによる影の比較、物理照度の測定は行っていません。市松模様はViewerの透明表示です。[接続と設定の記録](/img/fusion/captures/S347/readback.json)に条件を記載しています。
+
+[![uShapeとuRectangle LightをuMergeへ接続する構成](/img/fusion/captures/S347/graph.png)](/img/fusion/captures/S347/graph.png)
+
+形状と矩形ライトを同じUSD sceneにまとめています。
+
+[![Intensity 10を設定したuRectangle Light](/img/fusion/captures/S347/controls.png)](/img/fusion/captures/S347/controls.png)
+
+Intensity 10の設定です。
+
+[![ライトをX 2に移動した描画](/img/fusion/captures/S347/moved-result.png)](/img/fusion/captures/S347/moved-result.png)
+
+ライトX 2、1フレームの表示です。
+
+[![ライトX 0での描画](/img/fusion/captures/S347/original-result.png)](/img/fusion/captures/S347/original-result.png)
+
+ライトX 0、0フレームの表示です。
+
+[再現用Graph](/img/fusion/captures/S347/fixture.comp) · [撮影条件と確認範囲](/img/fusion/captures/S347/capture.json)
+
+<!-- /capture:S347 -->
+
 ## Transform：照らす位置と向き
 
 TransformタブにはUSDノード共通の設定があります。
