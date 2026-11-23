@@ -80,6 +80,7 @@ slug: /fusion/recipes
 - [sGridで重なる半透明ドットのAllow Combiningを比較する](./recipes/shapes/compare-allow-combining-on-overlapping-dots)
 - [sGridとsJitterのFixedで不規則なドットを作る](./recipes/shapes/scatter-dots-with-sjitter-fixed)
 - [sDuplicateで右下へ小さくなる円の列を作る](./recipes/shapes/progressive-shrinking-dots-with-sduplicate)
+- [sChangeStyleで図形の配色を部分変更・一括変更する](./recipes/shapes/recolor-icon-group-with-schangestyle)
 
 ## Classic 3D
 
@@ -94,14 +95,14 @@ slug: /fusion/recipes
 
 - [Deep 合成を2Dへ戻す](./recipes/deep/deep-merge-to-image)
 
-現在 **41 Recipe** です。
+現在 **42 Recipe** です。
 
 ## 表現の収集（実機検証待ち）
 
 - [定番VFX表現73件の調査](https://46slv.github.io/collectanea-DB/research/fusion-vfx-expressions/) — 粒子化・文字・遷移・グリッチ・光学・実写合成・時間・3Dを、完成映像から探す候補集です。
 - [スクリーンスペース・シルエット粒子化](https://46slv.github.io/collectanea-DB/research/fusion-vfx-expressions/screen-space-silhouette-dissolve/) — UE5の記事の方式とFusionの近似案を区別しています。
 
-これらはまだ記事化していない調査候補です。上の41件のRecipeにも実機未検証のものがあるため、各記事の`verification`と本文に記載された検証範囲を確認してください。
+これらはまだ記事化していない調査候補です。上の42件のRecipeにも実機未検証のものがあるため、各記事の`verification`と本文に記載された検証範囲を確認してください。
 
 ## 検証待ち
 
