@@ -36,6 +36,7 @@ slug: /fusion/recipes
 ## アニメーション
 
 - [TransformをKeyframeで動かす](./recipes/animation/animate-transform-center)
+- [移動するタイトルにTransformのMotion Blurを加える](./recipes/animation/add-motion-blur-to-moving-title)
 - [OpenEXRのMotion Vectorで車の動きにブラーを加える](./recipes/animation/exr-motion-vector-blur)
 - [Optical FlowのベクトルをOpenEXRへ保存・再利用する](./recipes/animation/optical-flow-exr-roundtrip)
 
@@ -84,7 +85,7 @@ slug: /fusion/recipes
 
 - [Deep 合成を2Dへ戻す](./recipes/deep/deep-merge-to-image)
 
-現在 **31 Recipe** です。
+現在 **32 Recipe** です。
 
 ## 表現の収集（実機検証待ち）
 
