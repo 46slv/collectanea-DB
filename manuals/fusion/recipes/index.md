@@ -71,6 +71,7 @@ slug: /fusion/recipes
 ## Shapes
 
 - [Shapeを2D Imageへrenderする](./recipes/shapes/basic-shape-render)
+- [sEllipseで塗りなしの円形アウトラインを作る](./recipes/shapes/outline-circle-with-sellipse)
 
 ## Classic 3D
 
@@ -85,20 +86,19 @@ slug: /fusion/recipes
 
 - [Deep 合成を2Dへ戻す](./recipes/deep/deep-merge-to-image)
 
-現在 **32 Recipe** です。
+現在 **33 Recipe** です。
 
 ## 表現の収集（実機検証待ち）
 
 - [定番VFX表現73件の調査](https://46slv.github.io/collectanea-DB/research/fusion-vfx-expressions/) — 粒子化・文字・遷移・グリッチ・光学・実写合成・時間・3Dを、完成映像から探す候補集です。
 - [スクリーンスペース・シルエット粒子化](https://46slv.github.io/collectanea-DB/research/fusion-vfx-expressions/screen-space-silhouette-dissolve/) — UE5の記事の方式とFusionの近似案を区別しています。
 
-これらは調査中の候補であり、ここにある31件のRecipeと違って**実機再現済みの手順ではありません**。確認できた表現を順にRecipeへ追加します。
+これらはまだ記事化していない調査候補です。上の33件のRecipeにも実機未検証のものがあるため、各記事の`verification`と本文に記載された検証範囲を確認してください。
 
 ## 検証待ち
 
-Fusion 21.1 Reference Manual / 実機で操作名と挙動を確認してから個別Recipeへ昇格する候補:
+公式資料や実機で操作名と挙動を検証し、個別Recipeへの昇格を検討する候補:
 
-- 線だけの円
 - 外周を維持したまま内側を調整する構成
 - ベジェ線
 - PNGの内径を広げる
