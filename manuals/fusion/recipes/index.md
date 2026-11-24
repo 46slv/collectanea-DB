@@ -43,6 +43,7 @@ slug: /fusion/recipes
 - [sRectangleのLengthで角丸枠を描き進める](./recipes/animation/animate-rounded-rectangle-outline-with-length)
 - [sDuplicateのTime Offsetで円の輪郭を順番に描く](./recipes/animation/stagger-ring-drawing-with-sduplicate)
 - [sOutlineで複数の図形の輪郭をまとめて描く](./recipes/animation/draw-shape-group-with-soutline)
+- [sBooleanで2つの円の交差領域をアニメーションする](./recipes/animation/animate-shape-intersection-with-sboolean)
 - [sNGonのPositionで多角形の切れ目を移動させる](./recipes/animation/move-polygon-gap-with-sngon-position)
 - [sBSplineで丸い図形を伸び縮みさせる](./recipes/animation/morph-blob-with-sbspline)
 - [sJitterのRandomとPoint Jitterで円の輪郭を揺らす](./recipes/animation/wobble-outline-with-sjitter-random)
@@ -106,14 +107,14 @@ slug: /fusion/recipes
 
 - [Deep 合成を2Dへ戻す](./recipes/deep/deep-merge-to-image)
 
-現在 **53 Recipe** です。
+現在 **54 Recipe** です。
 
 ## 表現の収集（実機検証待ち）
 
 - [定番VFX表現73件の調査](https://46slv.github.io/collectanea-DB/research/fusion-vfx-expressions/) — 粒子化・文字・遷移・グリッチ・光学・実写合成・時間・3Dを、完成映像から探す候補集です。
 - [スクリーンスペース・シルエット粒子化](https://46slv.github.io/collectanea-DB/research/fusion-vfx-expressions/screen-space-silhouette-dissolve/) — UE5の記事の方式とFusionの近似案を区別しています。
 
-これらはまだ記事化していない調査候補です。上の53件のRecipeにも実機未検証のものがあるため、各記事の`verification`と本文に記載された検証範囲を確認してください。
+これらはまだ記事化していない調査候補です。上の54件のRecipeにも実機未検証のものがあるため、各記事の`verification`と本文に記載された検証範囲を確認してください。
 
 ## 検証待ち
 
