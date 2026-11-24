@@ -39,6 +39,7 @@ slug: /fusion/recipes
 - [sStarとsTransformで自転・公転する星を作る](./recipes/animation/animate-star-spin-and-orbit-with-stransform)
 - [移動するタイトルにTransformのMotion Blurを加える](./recipes/animation/add-motion-blur-to-moving-title)
 - [sRectangleのLengthで角丸枠を描き進める](./recipes/animation/animate-rounded-rectangle-outline-with-length)
+- [sNGonのPositionで多角形の切れ目を移動させる](./recipes/animation/move-polygon-gap-with-sngon-position)
 - [OpenEXRのMotion Vectorで車の動きにブラーを加える](./recipes/animation/exr-motion-vector-blur)
 - [Optical FlowのベクトルをOpenEXRへ保存・再利用する](./recipes/animation/optical-flow-exr-roundtrip)
 
@@ -96,14 +97,14 @@ slug: /fusion/recipes
 
 - [Deep 合成を2Dへ戻す](./recipes/deep/deep-merge-to-image)
 
-現在 **43 Recipe** です。
+現在 **44 Recipe** です。
 
 ## 表現の収集（実機検証待ち）
 
 - [定番VFX表現73件の調査](https://46slv.github.io/collectanea-DB/research/fusion-vfx-expressions/) — 粒子化・文字・遷移・グリッチ・光学・実写合成・時間・3Dを、完成映像から探す候補集です。
 - [スクリーンスペース・シルエット粒子化](https://46slv.github.io/collectanea-DB/research/fusion-vfx-expressions/screen-space-silhouette-dissolve/) — UE5の記事の方式とFusionの近似案を区別しています。
 
-これらはまだ記事化していない調査候補です。上の43件のRecipeにも実機未検証のものがあるため、各記事の`verification`と本文に記載された検証範囲を確認してください。
+これらはまだ記事化していない調査候補です。上の44件のRecipeにも実機未検証のものがあるため、各記事の`verification`と本文に記載された検証範囲を確認してください。
 
 ## 検証待ち
 
