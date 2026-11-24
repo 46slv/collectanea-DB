@@ -41,6 +41,7 @@ slug: /fusion/recipes
 - [sRectangleのLengthで角丸枠を描き進める](./recipes/animation/animate-rounded-rectangle-outline-with-length)
 - [sNGonのPositionで多角形の切れ目を移動させる](./recipes/animation/move-polygon-gap-with-sngon-position)
 - [sBSplineで丸い図形を伸び縮みさせる](./recipes/animation/morph-blob-with-sbspline)
+- [sJitterのRandomとPoint Jitterで円の輪郭を揺らす](./recipes/animation/wobble-outline-with-sjitter-random)
 - [OpenEXRのMotion Vectorで車の動きにブラーを加える](./recipes/animation/exr-motion-vector-blur)
 - [Optical FlowのベクトルをOpenEXRへ保存・再利用する](./recipes/animation/optical-flow-exr-roundtrip)
 
@@ -100,14 +101,14 @@ slug: /fusion/recipes
 
 - [Deep 合成を2Dへ戻す](./recipes/deep/deep-merge-to-image)
 
-現在 **47 Recipe** です。
+現在 **48 Recipe** です。
 
 ## 表現の収集（実機検証待ち）
 
 - [定番VFX表現73件の調査](https://46slv.github.io/collectanea-DB/research/fusion-vfx-expressions/) — 粒子化・文字・遷移・グリッチ・光学・実写合成・時間・3Dを、完成映像から探す候補集です。
 - [スクリーンスペース・シルエット粒子化](https://46slv.github.io/collectanea-DB/research/fusion-vfx-expressions/screen-space-silhouette-dissolve/) — UE5の記事の方式とFusionの近似案を区別しています。
 
-これらはまだ記事化していない調査候補です。上の47件のRecipeにも実機未検証のものがあるため、各記事の`verification`と本文に記載された検証範囲を確認してください。
+これらはまだ記事化していない調査候補です。上の48件のRecipeにも実機未検証のものがあるため、各記事の`verification`と本文に記載された検証範囲を確認してください。
 
 ## 検証待ち
 
