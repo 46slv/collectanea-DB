@@ -18,6 +18,7 @@ slug: /fusion/recipes
 - [Fast NoiseとDisplaceで熱気の揺らぎを作る](./recipes/compositing/heat-shimmer-with-fast-noise-displace)
 - [反転したEllipse Maskでソフトビネットを作る](./recipes/compositing/soft-vignette-with-inverted-ellipse)
 - [Soft Glowで街灯の光だけを柔らかくにじませる](./recipes/compositing/soft-glow-for-isolated-highlights)
+- [ViewerのA/B Bufferで処理前後を比較する](./recipes/compositing/compare-before-after-with-viewer-wipe)
 
 ## マスク（Masking）
 
@@ -109,14 +110,14 @@ slug: /fusion/recipes
 
 - [Deep 合成を2Dへ戻す](./recipes/deep/deep-merge-to-image)
 
-現在 **56 Recipe** です。
+現在 **57 Recipe** です。
 
 ## 表現の収集（実機検証待ち）
 
 - [定番VFX表現73件の調査](https://46slv.github.io/collectanea-DB/research/fusion-vfx-expressions/) — 粒子化・文字・遷移・グリッチ・光学・実写合成・時間・3Dを、完成映像から探す候補集です。
 - [スクリーンスペース・シルエット粒子化](https://46slv.github.io/collectanea-DB/research/fusion-vfx-expressions/screen-space-silhouette-dissolve/) — UE5の記事の方式とFusionの近似案を区別しています。
 
-これらはまだ記事化していない調査候補です。上の56件のRecipeにも実機未検証のものがあるため、各記事の`verification`と本文に記載された検証範囲を確認してください。
+これらはまだ記事化していない調査候補です。上の57件のRecipeにも実機未検証のものがあるため、各記事の`verification`と本文に記載された検証範囲を確認してください。
 
 ## 検証待ち
 
