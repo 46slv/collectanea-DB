@@ -3,6 +3,8 @@ title: Viewerの一部分だけ更新されない
 description: RoIによる描画範囲の制限と、画像自体の欠けやViewer全体の更新停止を切り分ける。
 doc_type: diagnostic
 verification: partial
+tasks: [debug, inspect-output]
+symptoms: [partial-viewer-update]
 ---
 
 # Viewerの一部分だけ更新されない
