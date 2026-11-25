@@ -15,6 +15,7 @@ slug: /fusion/troubleshooting
 ## Viewer / 出力（Output）
 
 - [Viewerに何も表示されない](./troubleshooting/viewer/nothing-visible)
+- [Inspectorで目的の設定が見つからない](./troubleshooting/viewer/inspector-controls-not-found)
 
 ## Alpha / Mask
 
@@ -56,4 +57,4 @@ slug: /fusion/troubleshooting
 4. 最後に正常だった地点と、最初に壊れた地点を特定する。
 5. 一般Conceptで説明できなければNode固有Referenceへ進む。
 
-現在 **15 Diagnostic** です。
+現在 **16 Diagnostic** です。
