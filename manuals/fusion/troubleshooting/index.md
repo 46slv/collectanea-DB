@@ -18,6 +18,7 @@ slug: /fusion/troubleshooting
 - [Inspectorで目的の設定が見つからない](./troubleshooting/viewer/inspector-controls-not-found)
 - [Viewerに操作ハンドルが表示されない](./troubleshooting/viewer/onscreen-controls-not-visible)
 - [Viewerの画像が更新されない](./troubleshooting/viewer/viewer-does-not-update)
+- [Viewerの一部分だけ更新されない](./troubleshooting/viewer/only-part-of-viewer-updates)
 
 ## Alpha / Mask
 
@@ -59,4 +60,4 @@ slug: /fusion/troubleshooting
 4. 最後に正常だった地点と、最初に壊れた地点を特定する。
 5. 一般Conceptで説明できなければNode固有Referenceへ進む。
 
-現在 **18 Diagnostic** です。
+現在 **19 Diagnostic** です。
